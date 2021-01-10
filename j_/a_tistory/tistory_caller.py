@@ -48,6 +48,8 @@ index = index.replace("■", "{{<qed>}}")
 index_md = open("index.md", 'w', encoding='utf-8')
 index_md.write(index)
 index_md.close()
+
+os.system("rm ic_footnote.gif")
 """
 
 # ----------------------------------- config -----------------------------------
@@ -72,28 +74,28 @@ if N == len(TITLE):
     print(str(N) + "개의 포스트가 발견되었습니다.")
     for t in range(N):
         ID[t] = re.sub("[^0-9]", "", ID[t]).zfill(4)
-        TITLE[t] = re.sub("<[^<]*>", "", TITLE[t])
+        TITLE[t] = re.sub("<[^<]*>", "", TITLE[t]).replace("?", "")
         publilshdate = re.sub("<[^<]*>", "", DATE[t]).replace(".", "-")
         title = re.findall("[^a-zA-Z]*[^a-zA-Z]", TITLE[t])[0].strip()
         print(ID[t] + " ─ " + title)
         try:
-            slug = re.findall("[a-zA-Z ']*[a-zA-Z']", TITLE[t])[0].strip()
+            slug = re.findall("[a-zA-Z ']*[a-zA-Z']", TITLE[t])[0].lower().strip()
         except IndexError:
-            slug = " "*40 + "no english!"
+            slug = " "*40 + "no english"
         print("     └ " + slug)
-        newfolder = ID[t] + '_' + title
+        newfolder = ID[t] + '_' + slug.strip() + "_" + title
         os.makedirs(newfolder)
         md = open(newfolder + "/index.md", 'w', encoding='utf-8')
         md.write('---')
         md.write('\ntitle: "' + title + '"  # 국문 타이틀')
-        md.write('\nslug: "' + slug + '"  # 영문 url')
+        md.write('\nslug: "' + slug + '"  # 영문 url, 소문자만 사용')
         md.write('\npublishdate: "' + publilshdate + '"')
         md.write('\nauthor: "' + author + '"')
         md.write('\ncategories: ["' + category + '", ""]')
         md.write('\ntags: ["", ""]')
-        md.write('\nhardorder: 600')
+        md.write('\nweight: 600')
         md.write('\n---')
-        md.write('\n## 이관 대기')
+        md.write('\n\n\n## 이관 대기')
         md.close()
         py = open(newfolder + "/after_paste.py", 'w', encoding='utf-8')
         py.write(after_paste)
