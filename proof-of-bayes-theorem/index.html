@@ -7,7 +7,7 @@
 
     <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
 
-    <meta name="title" content="생명정보공학에서의 원핵 생물과 진핵 생물">
+    <meta name="title" content="베이즈 정리 증명">
     <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
 
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -15,7 +15,7 @@
     
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
-    <title>생명정보공학에서의 원핵 생물과 진핵 생물</title>
+    <title>베이즈 정리 증명</title>
 
     <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
 	MathJax.Hub.Config({
@@ -52,30 +52,40 @@
             <div class = "content">
             
 
-<title>생명정보공학에서의 원핵 생물과 진핵 생물</title>
-<h1>생명정보공학에서의 원핵 생물과 진핵 생물</h1>
+<title>베이즈 정리 증명</title>
+<h1>베이즈 정리 증명</h1>
 <p style="text-align: right;">
     작성일: 2021-01-11&nbsp;<br>
     작성자: 류대식 사장 &nbsp;
 </p>
 
-<h2 id="정의">정의</h2>
+<h2 id="정리">정리</h2>
 <blockquote>
-<p><strong>1.</strong> 핵막이 없는 생물을 **원핵 생물^Prokaryotes^**이라 한다.</p>
-<p><strong>2.</strong> 핵막이 있는 핵으로 이루어진 생물을 **진핵 생물^Eukaryotes^**이라 한다.</p>
+<p><a href="https://freshrimpsushi.tistory.com/1431">표본공간</a> $S$ 와 사건 $A$ 에 대해서 ${S_1,S_2,&hellip;,S_n}$ 가 $S$ 의 <a href="https://freshrimpsushi.tistory.com/1049">분할</a>이면
+$$
+\displaystyle P(S_k|A)=\frac { P(S_k)P(A|S_k) }{ \sum _{ k=1 }^{ n }{ P(S_k)P(A|S_k) } }
+$$</p>
 </blockquote>
-<h2 id="설명">설명</h2>
-<p>진핵 생물에서는 유전 물질을 지니는 부분인 **세포핵^Nucleus^**과 각종 대사가 일어나는 **세포질^Cytoplasm^**이 **핵막^NuclearEnvelope^**에 의해 구분되지만 원핵 세포는 **핵양체^Nucleoid^**라 하여 특별히 핵막이라고 부를만한 경계를 가지지 않는다.</p>
-<p>원핵 생물의 영문 표기는 karyo가 막을 의미하며, 접두사 pro-가 붙어 핵막이 나타나기 이전의 생물을 지칭한다고 한다.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 원핵 생물은 모두 세포가 하나뿐인 단세포 생물이며, **세균^Bacteria^**과 **고균^Archaea^**이 여기에 속한다. 그 외 대부분의 생물은 진핵 생물이다.</p>
-<p>생명정보공학에서 이들의 차이는 핵막이 있느냐 없느냐보다는 <a href="https://freshrimpsushi.tistory.com/1862">DNA에서 mRNA가 만들어진 이후의</a><a href="https://freshrimpsushi.tistory.com/1862"> 과정</a>에서 두드러진다. 언뜻 보아서는 별로 중요한 것 같지 않지만, 핵막의 유무까지 깊이 들어간 분류다보니 아무래도 생명정보공학 곳곳에서 예기치 않게 언급되는 개념이기도 한다.</p>
-<section class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1" role="doc-endnote">
-<p><a href="https://namu.wiki/w/%EC%9B%90%ED%95%B5%EC%83%9D%EB%AC%BC#fn-1">https://namu.wiki/w/%EC%9B%90%ED%95%B5%EC%83%9D%EB%AC%BC#fn-1</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-</ol>
-</section>
+<p>혹은 베이즈 법칙으로도 불리는 이 정리는 두개의 법칙만 쓰면 될 정도로 쉽게 증명할 수 있으나 그 응용은 어마어마하다. 이른바 <a href="https://freshrimpsushi.tistory.com/702">베이지안 패러다임</a>은 통계학 자체를 양분하는 사고방식으로써, 그 중요도는 몇 번을 강조해도 부족함이 없다.</p>
+<p>우리가 알고 싶은 것은 위 식에서의 좌변이다. 이미 우리가 아는 것은 사건 $A$ 와 표본공간 $S$ 의 분할 $S_k$ 들이 일어나는 각각의 확률들, 그리고 그 각각이 일어났을 때 $A$ 가 일어날 확률이다. 한마디로 $S_k$와 그것들이 $A$에 미치는 영향에 대해서는 모두 알고 있는 상태에서 시작한다. 베이즈의 정리는 여기서 그 반대로, $A$가 그 각각에 어떤 영향을 미치는지 알 수 있게 해주는 정리다. 말이 어렵다면 그냥 우리가 구하고 싶은 게 좌변이라는 것만 생각해도 좋다.</p>
+<h2 id="증명">증명</h2>
+<p><a href="https://freshrimpsushi.tistory.com/521">전체확률의 법칙과 확률의 곱셈법칙</a>에 의해 아래 식을 얻는다.</p>
+<p>$$
+\begin{eqnarray*}
+P(A)&amp;=&amp;P(A\cap S_1)+P(A\cap S_2)+&hellip;+P(A\cap S_n)
+\\ &amp;=&amp;P(S_1)P(A|S_1)+P(S_2)P(A|S_2)+&hellip;+P(S_n)P(A|S_n)
+\\ &amp;=&amp;\sum _{ k=1 }^{ n }{ P(S_k)P(A|S_k) }
+\end{eqnarray*}
+$$</p>
+<p>여기서 양변에 역수를 취하면</p>
+<p>$$
+\begin{eqnarray*}
+&amp;&amp; \frac { 1 }{ \sum _{ k=1 }^{ n }{ P(S_k)P(A|S_k) } }=\frac { 1 }{ P(A) } 
+\\ &amp;\implies&amp; \frac { P(A\cap S_k) }{ \sum _{ k=1 }^{ n }{ P(S_k)P(A|S_k) } }=\frac { P(A\cap S_k) }{ P(A) } 
+\\ &amp;\implies&amp; \frac { P(S_k)P(A|S_k) }{ \sum _{ k=1 }^{ n }{ P(S_k)P(A|S_k) } }=P(S_k|A)
+\end{eqnarray*}
+$$</p>
+<p style="text-align: right;">■</p>
 
 
     

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko" class = "blog">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+
+    <meta name="title" content="베이지안 패러다임">
+    <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
+
+    <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    
+    <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
+
+    <title>베이지안 패러다임</title>
+
+    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
+	MathJax.Hub.Config({
+		messageStyle: "none",
+		jax: ["input/TeX", "output/HTML-CSS"],
+		"HTML-CSS": { availableFonts: ["TeX"] },
+		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+
+		tex2jax: {
+			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
+			displayAlign: "left"
+		},
+		
+		TeX: { equationNumbers: {autoNumber: "AMS"}, 
+					extensions: ["cancel.js","color.js"], 
+					   TagSide: "left" 
+		}
+					
+	});
+</script> 
+</head>
+
+    <body class="main">
+    <header>
+    <a href="../" rel="home">
+        <p style="text-align:right; font-size: 2rem; color: black;"><b>생새우초밥집</b></p>
+    </a>
+</header>
+    <hr>
+        
+        <div class = "wrapper">
+
+            <div class = "content">
+            
+
+<title>베이지안 패러다임</title>
+<h1>베이지안 패러다임</h1>
+<p style="text-align: right;">
+    작성일: 2021-01-11&nbsp;<br>
+    작성자: 류대식 사장 &nbsp;
+</p>
+
+<aside>
+    <b>목차</b>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#빌드업">빌드업</a></li>
+    <li><a href="#정의">정의</a></li>
+    <li><a href="#예시">예시</a></li>
+  </ul>
+</nav>
+</aside>
+
+<h2 id="빌드업">빌드업</h2>
+<p>통계학이란 &lsquo;모수를 파악하는 방법을 연구하는 학문&rsquo;이라고 할 수 있다. 어떤 물리량을 측정하는 것처럼 공식이나 법칙을 통해 정확하게 모수를 추정할 수 있다면 더할나위 없지만, 현실적으로 그게 불가능하기 때문에 가정과 표본을 이용해 &lsquo;모수로 예상되는 것&rsquo;을 찾아낼 뿐이다. 우리나라 남성의 신장 $X$ 에 대해 관심 있다면 $X \sim N ( \theta , \sigma^2 )$ 이라 가정하고 $\displaystyle \hat{\theta} = \overline{x} = {{1} \over {n}} \sum_{k = 1}^{ n } x_{k} $ 을 찾아 $\theta = \hat{\theta}$ 이라고 파악하는 식이다. 이런 식의 추정은 상당히 쉽고 간단한 개념을 바탕으로 하고 있다.</p>
+<p>우리가 가진 표본은 모집단에서 임의로 얻은 것이고, 어떤 표본을 얻었든 그 방식이 공정하다면 같은 크기의 표본들끼리는 별다른 구분을 두지 않는다. 물론 실제론 다른 표본이긴하지만, 표본이 모집단을 잘 대표하는가 하는 문제는 순전히 운에 달려있기 때문이다. 확실한것은 작은 표본보다야 큰 표본이 낫다는 것 뿐이다. 당연하지만 우리가 얻지 못한 관측값이라고 하더라도 지금의 표본과 크게 다를거라고 생각하진 않는다.</p>
+<p>그저 우리가 얻지 못했을 뿐이지, 그 관측값들 역시 현재의 표본과 비슷하지 않다면 통계적인 분석을 하는 의미가 없기 때문이다. 이러한 추론은 표본과 모집단이 크게 다르지 않다는 기대에서 출발하며 표본이 많을수록 기대는 확신에 가까워진다. 이렇듯 이제까지 얻은 데이터 뿐만이 아니라 앞으로 얻을, 혹은 아직 얻지 못한 데이터까지 생각하는 추론을 <strong>프리퀀티스트 추론Frequentist Inference</strong>이라고 한다. 표본의 크기(Frequency)가 크면 클수록 정확해진다는 관점에서 봤을 때 이러한 명명은 타당하다고 할 수 있을 것이다.</p>
+<h2 id="정의">정의</h2>
+<p>반면 <strong>베이지안 추론Bayesian Inference</strong>은 오직 현재까지 얻은 표본만을 생각한다. <a href="http://freshrimpsushi.tistory.com/29">베이즈 정리</a>를 통해 사전분포가 사후분포로 바뀔 뿐이다. 모수가 어떤 분포를 갖고 있다고는 생각하지만 딱히 그게 정확하다고 가정하지는 않는다. 분석을 시작하기 전에 전문가의 견해나 주관적인 경험을 가지고 어떤 사전분포를 상정해도 상관 없다. 새로운 표본을 얻어서 그 분포가 변하더라도 신경쓰지 않는다. 앞으로 얻을 데이터가 현재까지의 생각과 많이 달라도 그냥 그렇게 업데이트한다. 확실한 것은 분석을 마쳤을 때의 사후분포가 사전분포에 표본을 반영해서 얻은 결과라는 것밖에 없다.</p>
+<p><strong>베이지안 패러다임</strong>의 구성은 다음과 같다 :</p>
+<ol>
+<li>모수의 사전분포 결정</li>
+<li>베이즈 정리를 통한 계산</li>
+<li>사후분포를 이용한 모수 추정</li>
+</ol>
+<p><strong>모수</strong> $\theta$ 의 <strong>사전분포</strong>를 $\pi (\theta)$, <strong>관측값</strong>을 $y$ 라고 하면 <a href="https://freshrimpsushi.tistory.com/29">베이즈 정리</a>에 의해
+$$
+p ( \theta | y ) = {{ p(y | \theta ) \pi (\theta ) } \over { p(y) }}
+$$
+이다. 이 때 데이터가 반영된 모수의 확률분포 $p ( \theta | y )$ 를 <strong>사후분포</strong>라고 부른다.</p>
+<h2 id="예시">예시</h2>
+<p>하나의 간단한 예를 들어서 생각해보자.</p>
+<p>약속에 자주 늦는 친구 아담이 있다고 하자. 아담이 약속을 어기는 시간이 평균이 10분이고 표분편차가 5분인 정규분포 $N ( 10 , 5^2 ) $ 를 따른다면 같은 데이터를 가지고 프리퀀티스트와 베이지안은 아담이 약속에 늦었을 때 다음과 같이 말할 것이다 :</p>
+<ul>
+<li><strong>프리퀀티스트</strong> &ldquo;아담은 원래 10분씩 늦는 애야.&rdquo;</li>
+<li><strong>베이지안</strong> &ldquo;아담은 맨날 보면 10분 정도 늦더라.&rdquo;</li>
+</ul>
+<p>프리퀀티스트는 아담이 늦는 시간이 평균적으로 10분이라고 추론했으며, 그것이 아담의 본질이기 때문에 이제까지 10분정도 늦어왔고 앞으로도 10분정도 늦을 것으로 기대한다. 베이지안은 지금까지 봤을때 아담이 늦는 시간이 10분일 확률이 가장 높다고 생각하기 때문에 이번에 늦는 시간도 10분일 것으로 기대한다.</p>
+<p>언뜻 보면 그 말이 그 말이다. 그도 그럴게, 프리퀀티스트와 베이지안은 관점이 다를 뿐 통계적인 추론을 낸다는 것에는 차이가 없기 때문이다. 차이점이 생기는 것은 다음번 약속에서 아담이 제시간에 정확히 맞춰왔을 때다 :</p>
+<ul>
+<li><strong>프리퀀티스트</strong> &ldquo;아담이 제 시간에 오는 건 그 확률이 3% 가 안 될 정도로 드문 경우긴 해.&rdquo;</li>
+<li><strong>베이지안</strong> &ldquo;아담이 일찍 올 때도 있구나. 다음에도 이 때 올까?&rdquo;</li>
+</ul>
+<p>그리고 다음번 약속, 아담이 제 시간에 나올 수 있을지 물어본다면 두 사람의 대답은 확실히 다를 것이다 :</p>
+<ul>
+<li><strong>프리퀀티스트</strong> &ldquo;아담이 바뀐 거라고 보긴 힘들어. 이번에 일찍 나온 건 충분히 일어날 수 있는 일이었어.&rdquo;</li>
+<li><strong>베이지만</strong> &ldquo;아담이 늦게 나올 확률은 여전히 높지만 제시간에 맞춰나올 확률이 올라간 것 역시 사실이야.&rdquo;</li>
+</ul>
+<p>프리퀀티스트는 새롭게 얻은 관측값이 이미 내린 결론에 부합하는지만을 확인할 뿐이지만 베이지안은 기존에 갖고 있던 결론에 즉시 업데이트함으로써 새로운 사후분포를 구한 것으로 볼 수 있다. 이렇듯 <strong>순차적 분석Sequential Analysis</strong>이 용이하다는 것은 프리퀀티스트와 구분되는 가장 큰 특징인 동시에 베이지안 추론의 고유한 장점이다.</p>
+
+
+    
+    <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">HTML Comment Box</a> is loading comments...</div>
+    <link rel="stylesheet" type="text/css" href="https://www.htmlcommentbox.com/static/skins/bootstrap/twitter-bootstrap.css?v=0" />
+    <script type="text/javascript" id="hcb">   if(!window.hcb_user){hcb_user={};} (function(){var s=document.createElement("script"), l=hcb_user.PAGE || (""+window.location).replace(/'/g,"%27"), h="https://www.htmlcommentbox.com";s.setAttribute("type","text/javascript");s.setAttribute("src", h+"/jread?page="+encodeURIComponent(l).replace("+","%2B")+"&mod=%241%24wq1rdBcg%24WgM7r4kpER7Iu%2Fr00Ojk01"+"&opts=16862&num=10&ts=1610321965857");if (typeof s!="undefined") document.getElementsByTagName("head")[0].appendChild(s);})();   </script>
+   
+
+
+            </div>
+
+            <div class = "sidebar">
+            <aside>
+    <a href="https://form.office.naver.com/form/responseView.cmd?formkey=OGZiOTE3MzQtYmVkMy00MTI4LWIwZGQtNTZiNzBmMTUwODY1&sourceId=urlshare">
+        <img src="https://freshrimpsushi.github.io/banner/WhatIsYourMajor.png"
+             alt="혹시 문과세요?"
+             width="210">
+    </a>
+</aside>
+
+<aside>
+    <p><b>카테고리</b></p>
+    <ul><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A0%EC%9D%B4%EC%A7%80%EC%95%88/" style="color: black">베이지안 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (11)</a>
+        </li>
+    </ul>
+</aside>
+
+<aside>
+    <p><b>태그</b></p>
+    <div>
+    </div>
+</aside>
+
+<aside>
+    <h2></h2>
+    <ul>
+    </ul>
+</aside>
+            </div>
+
+        </div>
+    </body>
+
+    <hr>
+    <footer>
+    <aside>
+        <div>
+            <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io" target="_blank">Hugo</a></p>
+        </div>
+    </aside>
+</footer>
+</html>
+<!DOCTYPE html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ko" class = "blog">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+
+    <meta name="title" content="베이즈 인자를 통한 가설검정">
+    <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
+
+    <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    
+    <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
+
+    <title>베이즈 인자를 통한 가설검정</title>
+
+    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
+	MathJax.Hub.Config({
+		messageStyle: "none",
+		jax: ["input/TeX", "output/HTML-CSS"],
+		"HTML-CSS": { availableFonts: ["TeX"] },
+		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+
+		tex2jax: {
+			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
+			displayAlign: "left"
+		},
+		
+		TeX: { equationNumbers: {autoNumber: "AMS"}, 
+					extensions: ["cancel.js","color.js"], 
+					   TagSide: "left" 
+		}
+					
+	});
+</script> 
+</head>
+
+    <body class="main">
+    <header>
+    <a href="../" rel="home">
+        <p style="text-align:right; font-size: 2rem; color: black;"><b>생새우초밥집</b></p>
+    </a>
+</header>
+    <hr>
+        
+        <div class = "wrapper">
+
+            <div class = "content">
+            
+
+<title>베이즈 인자를 통한 가설검정</title>
+<h1>베이즈 인자를 통한 가설검정</h1>
+<p style="text-align: right;">
+    작성일: 2021-01-11&nbsp;<br>
+    작성자: 류대식 사장 &nbsp;
+</p>
+
+<aside>
+    <b>목차</b>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#정의">정의</a></li>
+    <li><a href="#해석">해석</a></li>
+    <li><a href="#예제">예제</a></li>
+  </ul>
+</nav>
+</aside>
+
+<h2 id="개요">개요</h2>
+<p>고전적인 가설검정을 쓸 수 있게 되려면 <a href="http://freshrimpsushi.tistory.com/509">기각역</a>, <a href="http://freshrimpsushi.tistory.com/537">유의확률</a>과 같은 개념에 대한 수학적인 이해를 포함해서 이를 직관적으로 받아들일 수 있을 정도의 통계학적 센스까지 갖추어야한다. 학부 1학년 교양 수준에서도 몇 시간이나 할애해가며 가르치고, 그래도 가설검정을 제대로 받아들이지 못하는 학생이 수두룩한 것도 당연한 일이다. 고등학교에서 배우는 통계가 문제 풀이는 쉬워도 그 진정한 의미까지 이해한 학생은 많지 않은 것과 비슷하다.</p>
+<p>반면 베이지안 통계는 <strong>베이즈 인자Bayes Factor</strong>라는 것을 통해 가설검정을 아주 쉽게 할 수 있다.</p>
+<h2 id="정의">정의</h2>
+<blockquote>
+<p>귀무가설과 대립가설이 $H_{0}$ vs $H_{1}$ 로 주어져 있다.</p>
+<p><strong>1.</strong> $\pi_{0}, \pi_{1}$ 을 각각 귀무가설, 대립가설에 대한 **사전정보**라고 한다.</p>
+<p><strong>2.</strong> $\alpha_{0}, \alpha_{1}$ 을 각각 귀무가설, 대립가설에 대한 **사후정보**라고 한다.</p>
+<p><strong>3.</strong> $\displaystyle B_{01} := {{ \alpha_{0 } / \alpha_{1} } \over { \pi_{0 } / \pi_{1} }} = {{ \alpha_{0 } / \pi_{0} } \over { \alpha_{1 } / \pi_{1} }} $ 를 **$H_{0}$ 를 지지하는 베이즈 인자**라고 한다.</p>
+</blockquote>
+<p>여기서 베이즈 인자를 잘 살펴보면 $\displaystyle B_{01} = {{ \displaystyle {{ \alpha_{0} } \over { \cdot }} } \over { \displaystyle {{ \cdot } \over { \pi_{1} }} }} $ 의 $\cdot$ 엔 $\alpha_{1}$ 와 $\pi_{0}$ 가 각 위치에 자유롭게 들어가도 상관 없다. 따라서 수식을 복잡하게 외울 필요가 없고 그냥 제일 위엔 $\alpha_{0}$ 가, 제일 아래엔 $\pi_{1}$ 가 들어가는 것만 숙지하면 된다.</p>
+<p>베이지안 분석에서의 가설검정은 $B_{01}$ 가 $1$ 보다 크면 귀무가설을 지지하고, $1$ 보다 작으면 대립가설을 지지하는 게 전부다. 특히 $\displaystyle B_{01} = {{ \alpha_{0 } / \pi_{0} } \over { \alpha_{1 } / \pi_{1} }} = {{ \text{귀무} } \over { \text{대립} }} $ 으로 생각하면 한결 이해가 간단해진다. 쉽게 말해 데이터로 실제로 계산해봐서 귀무가설일 확률이 높으면 귀무가설을 지지하는 것이다. 기각역이니 유의확률이니 하는 걸 생각할 필요가 없다.</p>
+<p>만약 $B_{01} = 3$ 이라고 한다면 그것은 사후정보가 $H_{0}$ 를 지지하는 정도가 $H_{1}$ 을 지지하는 정도의 $3$ 배라는 의미다.</p>
+<h2 id="해석">해석</h2>
+<p>이렇게 귀무가설을 지지하는 정도에 대해서 제프리는 아래와 같은 해석을 제안했다.</p>
+<blockquote>
+<p>$H_{0}$ 를 지지하는 관점에서 베이즈 인자의 값은 다음과 같이 해석된다.</p>
+<p><strong>[1]</strong> $1 \le B_{01} \le 3$ : 약한 증거</p>
+<p><strong>[2]</strong> $3 &lt; B_{01} \le 12$ : 긍정적 증거</p>
+<p><strong>[3]</strong> $12 &lt; B_{01} \le 150$ : 강한 증거</p>
+<p><strong>[4]</strong> $150 \le B_{01}$ : 아주 강한 증거</p>
+</blockquote>
+<p>이러한 해석의 장점은 프리퀀티스트 가설검정의 &lsquo;유의확률이 유의수준을 넘냐 안넘냐&rsquo;와 같은 극단적인 이분법에 비해 훨씬 유연하다는 점이다. <a href="http://freshrimpsushi.tistory.com/670">회귀분석</a>을 자주 쓰는 사람이라면 유의수준을 $\alpha = 0.05$ 으로 잡고 싶은데 유의확률이 $p = 0.069925$ 와 같이 나와서 회귀계수를 버려야했던 경험이 있을 것이다. 솔직히 분석자도 인간인 이상 이런 일을 겪으면 분할수밖에 없다. 그래서 백방으로 해결법을 찾아보지만 대부분은 무위로 그치게 된다. 그에 비해 베이지안 가설검정은 충분하면 충분한대로, 부족하면 부족한대로 자료를 있는 그대로 받아들이면 그만이다.</p>
+<h2 id="예제">예제</h2>
+<p>$Y \sim B (10, \theta )$ 일 때 $\displaystyle H_{0} : \theta = {{1} \over {2}}$ vs $\displaystyle H_{1} : \theta \ne {{1} \over {2}}$ 에 대해 베이즈 검정을 하려한다. $H_{0}$ 와 $H_{1}$ 의 사전확률이 동일하고 $H_{1}$ 하에서 $\theta \sim \text{Beta} (1,1)$ 이며 관측값이 $Y=7$ 이다. 베이즈 인자 $B_{01} $ 을 구하라.</p>
+<p>$$
+\begin{eqnarray*}
+B_{01} &amp;=&amp; {{ \alpha_{0 } / \pi_{0} } \over { \alpha_{1 } / \pi_{1} }} 
+\\ &amp;=&amp; {{ p ( y \mid \theta_{0} ) } \over { \int_{\Theta_{1}} p ( y \mid \theta ) g ( \theta ) d \theta }} 
+\\ &amp;=&amp; {{ p ( Y = 7 \mid \theta = {{1} \over {2}} ) } \over { \int_{\Theta_{1}} p ( y \mid \theta ) d \theta }}
+\\ &amp;=&amp; {{ \binom{10}{7} \left( {{1} \over {2}} \right)^{7} \left( 1- {{1} \over {2}} \right)^{3} } \over { \int_{0}^{1} \binom{10}{7} \theta^{7} \left( 1 - \theta \right)^{3} d \theta }}
+\\ &amp;=&amp; {{1} \over {2^{10}}} {{1} \over { \int_{0}^{1} \theta^{8-1} (1 - \theta)^{4-1} d \theta }} 
+\\ &amp;=&amp; {{1} \over {2^{10}}} {{ \Gamma ( 8 + 4 ) } \over { \Gamma ( 8 ) \Gamma ( 4 ) }}
+\\ &amp;=&amp; {{1} \over {2^{10}}} {{ 11! } \over { 7! \cdot 3! }} = {{1} \over {2^{10}}} {{ 8 \cdot 9 \cdot 10 \cdot 11 } \over { 2 \cdot 3 }} = {{ 2^4 \cdot 3^2 \cdot 5 \cdot 11 } \over { 2^{11} \cdot 3 }} 
+\\ &amp;=&amp; {{ 165 } \over { 2^{7} }} = 1.2890625
+\end{eqnarray*}
+$$
+따라서 $B_{01}$ 은 귀무가설을 지지하는 약한 증거가 된다.</p>
+
+
+    
+    <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">HTML Comment Box</a> is loading comments...</div>
+    <link rel="stylesheet" type="text/css" href="https://www.htmlcommentbox.com/static/skins/bootstrap/twitter-bootstrap.css?v=0" />
+    <script type="text/javascript" id="hcb">   if(!window.hcb_user){hcb_user={};} (function(){var s=document.createElement("script"), l=hcb_user.PAGE || (""+window.location).replace(/'/g,"%27"), h="https://www.htmlcommentbox.com";s.setAttribute("type","text/javascript");s.setAttribute("src", h+"/jread?page="+encodeURIComponent(l).replace("+","%2B")+"&mod=%241%24wq1rdBcg%24WgM7r4kpER7Iu%2Fr00Ojk01"+"&opts=16862&num=10&ts=1610321965857");if (typeof s!="undefined") document.getElementsByTagName("head")[0].appendChild(s);})();   </script>
+   
+
+
+            </div>
+
+            <div class = "sidebar">
+            <aside>
+    <a href="https://form.office.naver.com/form/responseView.cmd?formkey=OGZiOTE3MzQtYmVkMy00MTI4LWIwZGQtNTZiNzBmMTUwODY1&sourceId=urlshare">
+        <img src="https://freshrimpsushi.github.io/banner/WhatIsYourMajor.png"
+             alt="혹시 문과세요?"
+             width="210">
+    </a>
+</aside>
+
+<aside>
+    <p><b>카테고리</b></p>
+    <ul><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A0%EC%9D%B4%EC%A7%80%EC%95%88/" style="color: black">베이지안 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (11)</a>
+        </li>
+    </ul>
+</aside>
+
+<aside>
+    <p><b>태그</b></p>
+    <div>
+    </div>
+</aside>
+
+<aside>
+    <h2></h2>
+    <ul>
+    </ul>
+</aside>
+            </div>
+
+        </div>
+    </body>
+
+    <hr>
+    <footer>
+    <aside>
+        <div>
+            <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io" target="_blank">Hugo</a></p>
+        </div>
+    </aside>
+</footer>
+</html>
+<!DOCTYPE html>

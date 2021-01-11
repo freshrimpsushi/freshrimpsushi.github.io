@@ -36,14 +36,41 @@ for file in os.listdir():
     os.system("ren " + file + " " + file + ".png")
     index = index.replace(file , file + ".png#center")
 
-index = index.replace("\\\\\\\\", "\\\\\\\\\\\\")
-index = index.replace("\\\\left\\\\{", "\\\\left\\\\\\\\{")
-index = index.replace("\\\\right\\\\{", "\\\\right\\\\\\\\{")
-index = index.replace("$$", "\\n$$\\n")
+if os.getcwd().find("정리") > 0:
+    index = index.replace("## 이관 대기", "## 정리")
+
+index = index.replace("**증명**", "## 증명")
 index = index.replace("■", "{{<qed>}}")
 
-# while index.find("\\n\\n\\n") > 0:
-#     index = index.replace("\\n\\n\\n", "\\n\\n")
+index = index.replace("> [\\n> ", "> [")
+
+index = index.replace("\\n>\\n", "\\n")
+index = index.replace("$$\\n", "\\n$$\\n")
+index = index.replace("\\n$$", "\\n$$\\n")
+
+index = index.replace("> $$", "> $$\\n> ")
+
+index = index.replace("\\\\begin{eqnarray*}", "\\\\begin{eqnarray*}\\n")
+index = index.replace("\\\\end{eqnarray*}", "\\n\\\\end{eqnarray*}")
+
+index = index.replace("\\\\\\\\", "\\n\\\\\\\\\\\\ ")
+index = index.replace("\\left\\{", "\\left\\\\{")
+index = index.replace("\\right\\{", "\\right\\\\{")
+
+index_line = index.split("\\n")
+for t in range(len(index_line)-1):
+    if index_line[t] == "$$":
+        if index_line[t-1] == "":
+            continue
+        if index_line[t-1][0] == ">":
+            index_line[t] = "> $$"
+index = "\\n".join(index_line)
+
+while index.find("  ") > 0:
+    index = index.replace("  ", " ")
+
+while index.find("\\n\\n\\n") > 0:
+    index = index.replace("\\n\\n\\n", "\\n\\n")
 
 index_md = open("index.md", 'w', encoding='utf-8')
 index_md.write(index)
@@ -83,7 +110,7 @@ if N == len(TITLE):
         except IndexError:
             slug = " "*40 + "no english"
         print("     └ " + slug)
-        newfolder = ID[t] + '_' + slug.strip() + "_" + title
+        newfolder = ID[t] + '_' + slug + "_" + title
         os.makedirs(newfolder)
         md = open(newfolder + "/index.md", 'w', encoding='utf-8')
         md.write('---')
