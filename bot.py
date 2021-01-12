@@ -10,9 +10,11 @@ if caution != "y":
     raise
     
 for author in ["j_", "r_"]:
+    # 소유자 예외규칙
     depth1 = os.path.join(author)
     print(depth1)
     for category in os.listdir(depth1):
+        # 카테고리 예외규칙
         depth2 = os.path.join(depth1, category)
         print(depth2)
         for post in os.listdir(depth2):
@@ -22,6 +24,8 @@ for author in ["j_", "r_"]:
             index = index_md.readlines()
             index_md.close()
             index = ''.join(index)
+
+            # -------------------------------------------------------------
             if index.find("<sup>") < 0:
                 sup = ""
                 index_bold = index.split("**")
@@ -44,6 +48,7 @@ for author in ["j_", "r_"]:
             index_md = open(depth3 + "/index.md", 'w', encoding='utf-8')
             index_md.write(index)
             index_md.close()
+            # 폴더이름 맞춰줌
             # title = index[1]
             # title = title[title.find('"')+1:]
             # title = title[0:title.find('"')]
