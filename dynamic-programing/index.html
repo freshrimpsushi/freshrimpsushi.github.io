@@ -5,11 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+    
     <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+
+    
+    <link rel="stylesheet" href= https://freshrimpsushi.github.io/css/atom-one-light.css>
+    <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 
     <meta name="title" content="동적 프로그래밍">
     <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
 
+    
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
@@ -71,36 +78,37 @@
 </aside>
 
 <h2 id="빌드업">빌드업</h2>
-<p>문제를 풀 때, 큰 문제의 해답에 그보다 작은 문제의 해답이 포함되어 있으면 <strong>최적 부분 구조Optimal Substructure</strong>를 가진다고 한다. 최적 부분 구조를 갖춘 문제의 예로써 가장 쉬운 것이 바로 <a href="https://freshrimpsushi.tistory.com/680">피보나치 수</a>를 구하는 것이다. $n$ 번째 피보나치 수는 $a_{n} = a_{n-1} + a_{n-2}$ 와 같이 구해지므로, 큰 문제 $a_{n}$ 에 작은 문제 $a_{n-1}$, $a_{n-2}$ 가 포함되어 있기 때문이다.</p>
+<p>문제를 풀 때, 큰 문제의 해답에 그보다 작은 문제의 해답이 포함되어 있으면 <strong>최적 부분 구조</strong><sup>Optimal Substructure</sup>를 가진다고 한다. 최적 부분 구조를 갖춘 문제의 예로써 가장 쉬운 것이 바로 <a href="https://freshrimpsushi.tistory.com/680">피보나치 수</a>를 구하는 것이다. $n$ 번째 피보나치 수는 $a_{n} = a_{n-1} + a_{n-2}$ 와 같이 구해지므로, 큰 문제 $a_{n}$ 에 작은 문제 $a_{n-1}$, $a_{n-2}$ 가 포함되어 있기 때문이다.</p>
 <p>이를 간단하게 푸는 방법은 바로 재귀함수를 사용하는 것이다. 사실 최적 부분 구조를 갖고 있다면 어지간한 문제는 재귀함수로 풀 수 있어보이지만, 실제로 구현해보면 중복호출 때문에 <a href="https://freshrimpsushi.tistory.com/1254">몹시 비효율적</a>이다.</p>
 <h2 id="정의">정의</h2>
-<p><strong>동적 프로그래밍</strong>은 이러한 어려움을 우회하기 위한 기법으로써, 다음의 조건을 만족할 때 사용해봄직하다:
-<strong>(i)</strong> : 주어진 문제가 최적 부분 구조를 가진다.
-<strong>(ii)</strong> : 재귀함수로 구현하기에는 비효율적이다.</p>
+<p><strong>동적 프로그래밍</strong>은 이러한 어려움을 우회하기 위한 기법으로써, 다음의 조건을 만족할 때 사용해봄직하다:</p>
+<p><strong>(i)</strong>: 주어진 문제가 최적 부분 구조를 가진다.</p>
+<p><strong>(ii)</strong>: 재귀함수로 구현하기에는 비효율적이다.</p>
 <p>동적 프로그래밍의 개념은 간단하다. 작은 문제의 해답을 저장해가면서 중복 호출을 생략하는 것이다. 가령 6번째 피보나치 수 $a_{6}$ 를 구하기 위해서는</p>
 <p>$$
-a_{1} = 1</p>
-<p>\\ \ a_{2} = 1</p>
-<p>\\ \ a_{3} = 2</p>
-<p>\\ \ a_{4} = 3</p>
-<p>\\ \ a_{5} = 5
+a_{1} = 1
+\\ \ a_{2} = 1
+\\ \ a_{3} = 2
+\\ \ a_{4} = 3
+\\ \ a_{5} = 5
 $$</p>
-<p>을 매번 계산하는 것이 아니라 메모리에 저장해두고, 마지막 $a_{4}$ 와 $a_{5}$ 만을 호출해서 $a_{6} = a_{5} + a_{4} = 8$ 을 계산하는 것이다. 이를 **메모이제이션Memoization**이라고 한다.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 설명을 읽어보면 딱히 <a href="https://freshrimpsushi.tistory.com/856">동적Dynamic</a>이지는 않은데, 원래 제어 분야에서 해답을 테이블에 저장해나가면서 풀어간다는 것에서 유래된 말이라는 설이 있었다. 그러나 동적 프로그래밍의 고안자인 벨만Bellman이 직접 자신의 저서에서 밝히기로는 그냥 다이내믹이라는 말이 멋있고, 펀딩을 받기 좋은 단어라서 선택했다고 한다.</p>
+<p>을 매번 계산하는 것이 아니라 메모리에 저장해두고, 마지막 $a_{4}$ 와 $a_{5}$ 만을 호출해서 $a_{6} = a_{5} + a_{4} = 8$ 을 계산하는 것이다.</p>
+<p>이를 <strong>메모이제이션</strong><sup>Memoization</sup>이라고 한다.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 설명을 읽어보면 딱히 <a href="https://freshrimpsushi.tistory.com/856">동적Dynamic</a>이지는 않은데, 원래 제어 분야에서 해답을 테이블에 저장해나가면서 풀어간다는 것에서 유래된 말이라는 설이 있었다. 그러나 동적 프로그래밍의 고안자인 벨만Bellman이 직접 자신의 저서에서 밝히기로는 그냥 다이내믹이라는 말이 멋있고, 펀딩을 받기 좋은 단어라서 선택했다고 한다.</p>
 <p>다음은 $a_{36}=14930352$ 을 두 가지 방법으로 계산하고 그 시간을 계산한 움짤과 그 파이썬 코드다. 동적프로그래밍으로는 0.01초가 조금 넘는 시간밖에 걸리지 않았지만, 재귀함수로는 5초이상 걸렸다. 이 차이는 $n$ 이 클수록 더 커진다. 이론적으로도 주어진 $n$ 에 대해서 재귀함수는 지수적으로, 동적 프로그래밍은 선형적으로 시간을 쓴다는 것을 간단하게 <a href="https://freshrimpsushi.tistory.com/1283">증명</a>할 수 있다.</p>
 <p><img src="99F5A24F5D636EEA37FA07.png#center" alt="img"></p>
 <h2 id="코드">코드</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> time
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fibo1</span>(n) :
- <span style="color:#66d9ef">if</span> n<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">or</span> n<span style="color:#f92672">==</span><span style="color:#ae81ff">2</span> :
- <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
- <span style="color:#66d9ef">else</span> :
- <span style="color:#66d9ef">return</span> fibo1(n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> fibo1(n<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>)
+  <span style="color:#66d9ef">if</span> n<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">or</span> n<span style="color:#f92672">==</span><span style="color:#ae81ff">2</span> :
+  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+  <span style="color:#66d9ef">else</span> :
+  <span style="color:#66d9ef">return</span> fibo1(n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> fibo1(n<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>)
 
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fibo2</span>(n) :
- memoization <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>]
- <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>) :
- memoization<span style="color:#f92672">.</span>append(memoization[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">+</span>memoization[<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>])
- <span style="color:#66d9ef">return</span> memoization[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+  memoization <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>]
+  <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>) :
+  memoization<span style="color:#f92672">.</span>append(memoization[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">+</span>memoization[<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>])
+  <span style="color:#66d9ef">return</span> memoization[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
 
 start <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time() 
 <span style="color:#66d9ef">print</span>(fibo2(<span style="color:#ae81ff">36</span>))
@@ -133,6 +141,7 @@ start <span style="color:#f92672">=</span> time<span style="color:#f92672">.</sp
     </p>
 </aside>
 
+
 <aside>
     <p><b>카테고리</b></p>
     <ul><li>
@@ -143,8 +152,6 @@ start <span style="color:#f92672">=</span> time<span style="color:#f92672">.</sp
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (11)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
         </li>
     </ul>
 </aside>
