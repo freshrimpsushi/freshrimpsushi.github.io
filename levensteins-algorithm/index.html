@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko" class = "blog">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+
+    <meta name="title" content="레벤슈타인 알고리즘">
+    <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
+
+    <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    
+    <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
+
+    <title>레벤슈타인 알고리즘</title>
+
+    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
+	MathJax.Hub.Config({
+		messageStyle: "none",
+		jax: ["input/TeX", "output/HTML-CSS"],
+		"HTML-CSS": { availableFonts: ["TeX"] },
+		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+
+		tex2jax: {
+			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
+			displayAlign: "left"
+		},
+		
+		TeX: { equationNumbers: {autoNumber: "AMS"}, 
+					extensions: ["cancel.js","color.js"], 
+					   TagSide: "left" 
+		}
+					
+	});
+</script> 
+</head>
+
+    <body class="main">
+    <header>
+    <a href="../" rel="home">
+        <p style="text-align:right; font-size: 2rem; color: black;"><b>생새우초밥집</b></p>
+    </a>
+</header>
+    <hr>
+        
+        <div class = "wrapper">
+
+            <div class = "content">
+            
+
+<title>레벤슈타인 알고리즘</title>
+<h1>레벤슈타인 알고리즘</h1>
+<p style="text-align: right;">
+    작성일: 2021-01-12&nbsp;<br>
+    작성자: 류대식 사장 &nbsp;
+</p>
+
+<aside>
+    <b>목차</b>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#알고리즘">알고리즘</a></li>
+    <li><a href="#설명">설명</a></li>
+    <li><a href="#코드">코드</a></li>
+  </ul>
+</nav>
+</aside>
+
+<h2 id="알고리즘">알고리즘</h2>
+<blockquote>
+<p>문자열 $A,B$ 를 $A=[a_{i}]=(a_{1}, a_{2} , \cdots, a_{n})$ 과 $B=[b_{j}]=(b_{1}, b_{2} , \cdots, b_{m})$ 로 표현하자.
+**Step 1.** 행렬 $M_{(n+1) \times (m+1)} = [m_{x y }]$ 를 만들고 $M_{11} = 0$ 을 대입한다.
+**Step 2.** $m_{(i+1) 1} = i$ 그리고 $m_{ 1 (j+1)} = j$ 을 대입한다.
+**Step 3.** for $i = 1, 2, \cdots , n$ 그리고 $j=1,2, \cdots , m$
+if $a_{i}==b_{j}$
+$M_{i,j} = M_{(i-1)(j-1)}$ 을 대입한다.
+else
+$M_{i,j} = \min \left{ M_{(i-1)(j)}, M_{(i)(j-1)}, M_{(i-1)(j-1)}\right} + 1 $ 을 대입한다.
+**Step 4.** $A$,$B$ 의 최소 수정 거리는 $m_{nm}$ 이다.</p>
+</blockquote>
+<h2 id="설명">설명</h2>
+<p>**<a href="https://freshrimpsushi.tistory.com/1872">편집 거리</a>**란 두 문자열 간의 유사성을 보여주는 척도로써 $A$ 에서 $B$ 로 바꾸는데 몇번이나 걸리나를 나타낸다. 그 중에서 <strong>레벤슈타인 거리Levenstein Distance</strong>는 <strong>삽입Insertion, 제거Deletion, 교체Replace</strong> 세가지 편집을 허용하고, <strong>전치Transposition</strong>는 허용하지 않는다. 예를 들어 &lsquo;cats&rsquo; 와 &lsquo;facts&rsquo; 라는 문자열이 있다고 하면</p>
+<ol>
+<li>(교체) cats → fats</li>
+<li>(삽입) fats → facts</li>
+</ol>
+<p>와 같이 총 두 번 수정되어 수정 거리는 $2$ 임을 알 수 있다.</p>
+<p>다만 이러한 수정 거리는 얼마든지 길게 측정될 수 있는데, cats → ats → fats → facts 와 같이 비효율적인 방법도 있기 때문이다. <strong>레벤슈타인 알고리즘</strong>은 이러한 수정거리가 가장 작아지도록 구하는 방법이다.</p>
+<p><img src="992F613E5AC7FF5E2E2DB2.png#center" alt="img"></p>
+<h2 id="코드">코드</h2>
+<p>위 스크린샷은 아래의 R 코드로 예제를 풀어본 모습이다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">LED<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(A,B){
+ A<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">strsplit</span>(A,<span style="color:#e6db74">&#39;&#39;</span>)[[1]]
+ B<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">strsplit</span>(B,<span style="color:#e6db74">&#39;&#39;</span>)[[1]]
+ lA<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">length</span>(A)
+ lB<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">length</span>(B) 
+
+ M<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">matrix</span>(<span style="color:#66d9ef">NA</span>,ncol<span style="color:#f92672">=</span>lA<span style="color:#ae81ff">+1</span>,nrow<span style="color:#f92672">=</span>lB<span style="color:#ae81ff">+1</span>,dimnames <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#39;&#39;</span>,B),<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#39;&#39;</span>,A)))
+ M[1,]<span style="color:#f92672">&lt;-</span><span style="color:#ae81ff">0</span><span style="color:#f92672">:</span>lA
+ M[,<span style="color:#ae81ff">1</span>]<span style="color:#f92672">&lt;-</span><span style="color:#ae81ff">0</span><span style="color:#f92672">:</span>lB 
+
+ <span style="color:#a6e22e">for</span>(i <span style="color:#a6e22e">in </span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>lB)<span style="color:#ae81ff">+1</span>) {
+ <span style="color:#a6e22e">for</span>(j <span style="color:#a6e22e">in </span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>lA)<span style="color:#ae81ff">+1</span>) {
+ <span style="color:#a6e22e">if </span>(B[i<span style="color:#ae81ff">-1</span>]<span style="color:#f92672">==</span>A[j<span style="color:#ae81ff">-1</span>]) {
+​ M[i,j]<span style="color:#f92672">&lt;-</span>M[i<span style="color:#ae81ff">-1</span>,j<span style="color:#ae81ff">-1</span>]
+ }
+ else {
+​ M[i,j]<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">min</span>(M[i<span style="color:#ae81ff">-1</span>,j<span style="color:#ae81ff">-1</span>],M[i,j<span style="color:#ae81ff">-1</span>],M[i<span style="color:#ae81ff">-1</span>,j])<span style="color:#ae81ff">+1</span>
+ }
+ }
+ }
+
+ <span style="color:#a6e22e">return</span>(<span style="color:#a6e22e">list</span>(distance<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(M[lB<span style="color:#ae81ff">+1</span>,lA<span style="color:#ae81ff">+1</span>]),matrix<span style="color:#f92672">=</span>M))
+} 
+
+<span style="color:#a6e22e">LED</span>(<span style="color:#e6db74">&#34;cats&#34;</span>,<span style="color:#e6db74">&#34;facts&#34;</span>)
+</code></pre></div><p>다음은 같은 코드를 파이썬으로 작성한 것이다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">ED</span>(a,b) :
+ a <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;:&#34;</span><span style="color:#f92672">.</span>join(a)
+ A <span style="color:#f92672">=</span> a<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;:&#34;</span>)
+ a <span style="color:#f92672">=</span> len(A)
+ b <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;:&#34;</span><span style="color:#f92672">.</span>join(b)
+ B <span style="color:#f92672">=</span> b<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;:&#34;</span>)
+ b <span style="color:#f92672">=</span> len(B)
+ M <span style="color:#f92672">=</span> [[j <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(a<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)] <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(b<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)]
+ M[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> [i <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(a<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)]
+
+ <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> (range(<span style="color:#ae81ff">1</span>,b<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)) :
+<span style="color:#960050;background-color:#1e0010">​</span> <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> (range(<span style="color:#ae81ff">1</span>,a<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)) :
+<span style="color:#960050;background-color:#1e0010">​</span> <span style="color:#66d9ef">if</span> B[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">==</span>A[j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] :
+<span style="color:#960050;background-color:#1e0010">​</span> M[i][j] <span style="color:#f92672">=</span> M[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+<span style="color:#960050;background-color:#1e0010">​</span> <span style="color:#66d9ef">else</span> :
+<span style="color:#960050;background-color:#1e0010">​</span> M[i][j] <span style="color:#f92672">=</span> min(M[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>],M[i][j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>],M[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][j]) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+ <span style="color:#66d9ef">return</span> M[b][a]
+</code></pre></div>
+
+
+            </div>
+
+            <div class = "sidebar">
+            <aside>
+    <p style="text-align: center;">
+    <a href="https://form.office.naver.com/form/responseView.cmd?formkey=OGZiOTE3MzQtYmVkMy00MTI4LWIwZGQtNTZiNzBmMTUwODY1&sourceId=urlshare">
+        <img src="https://freshrimpsushi.github.io/banner/WhatIsYourMajor.png"
+             alt="혹시 문과세요?"
+             width="210">
+    </a>
+    </p>
+</aside>
+
+<aside>
+    <p><b>카테고리</b></p>
+    <ul><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A0%EC%9D%B4%EC%A7%80%EC%95%88/" style="color: black">베이지안 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (11)</a>
+        </li>
+    </ul>
+</aside>
+
+<aside>
+    <p><b>태그</b></p>
+    <div>
+    </div>
+</aside>
+
+<aside>
+    <h2></h2>
+    <ul>
+    </ul>
+</aside>
+            </div>
+
+        </div>
+    </body>
+
+    <hr>
+    <footer>
+    <aside>
+        <div>
+            <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io" target="_blank">Hugo</a></p>
+        </div>
+    </aside>
+</footer>
+</html>
+<!DOCTYPE html>

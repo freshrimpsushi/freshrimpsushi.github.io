@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko" class = "blog">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+
+    <meta name="title" content="비교 정렬 알고리즘 시간 복잡도의 하한">
+    <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
+
+    <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    
+    <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
+
+    <title>비교 정렬 알고리즘 시간 복잡도의 하한</title>
+
+    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
+	MathJax.Hub.Config({
+		messageStyle: "none",
+		jax: ["input/TeX", "output/HTML-CSS"],
+		"HTML-CSS": { availableFonts: ["TeX"] },
+		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+
+		tex2jax: {
+			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
+			displayAlign: "left"
+		},
+		
+		TeX: { equationNumbers: {autoNumber: "AMS"}, 
+					extensions: ["cancel.js","color.js"], 
+					   TagSide: "left" 
+		}
+					
+	});
+</script> 
+</head>
+
+    <body class="main">
+    <header>
+    <a href="../" rel="home">
+        <p style="text-align:right; font-size: 2rem; color: black;"><b>생새우초밥집</b></p>
+    </a>
+</header>
+    <hr>
+        
+        <div class = "wrapper">
+
+            <div class = "content">
+            
+
+<title>비교 정렬 알고리즘 시간 복잡도의 하한</title>
+<h1>비교 정렬 알고리즘 시간 복잡도의 하한</h1>
+<p style="text-align: right;">
+    작성일: 2021-01-12&nbsp;<br>
+    작성자: 류대식 사장 &nbsp;
+</p>
+
+<aside>
+    <b>목차</b>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#정리">정리</a></li>
+    <li><a href="#설명">설명</a></li>
+    <li><a href="#증명">증명</a></li>
+  </ul>
+</nav>
+</aside>
+
+<h2 id="정리">정리</h2>
+<blockquote>
+<p>비교 정렬 알고리즘의 시간복잡도는 아무리 좋아도 $\Omega ( n \log n )$ 이다.</p>
+</blockquote>
+<h2 id="설명">설명</h2>
+<p>알고리즘이 원래 신기한 것이지만, 삽입 정렬과 같은 효율적인 알고리즘도 퀵 정렬에 밀리는 것을 보면 그 이상의 알고리즘도 있지 않을까 궁금할 수밖에 없다. 다행인지 아닌지는 모르겠으나, 이 증명에 따라 그보다 효율적인 알고리즘을 생각할 필요는 없다.</p>
+<p>물론 일반적인 비교 알고리즘이 아니라 특수한 조건이 주어진다면 이보다 <a href="https://freshrimpsushi.tistory.com/1363">더 빠른 알고리즘</a>도 있다.</p>
+<h2 id="증명">증명</h2>
+<p>크기가 $n$ 인 데이터가 주어졌다고 하자. 데이터가 나열될 수 있는 모든 경우의 수는 순열로 계산했을 때 $n!$ 이 된다. 이 중 올바르게 정렬된 경우는 하나인데, $n$ 개의 데이터 중 두 개를 비교할 때마다 그와 같지 않은 나머지 경우의 수 절반을 배제할 수 있다. 다음의 예시로 이해해보자.</p>
+<p>가령 세 개의 데이터 $x_{1}$, $x_{2}$, $x_{3}$ 가 주어져 있다면 나올 수 있는 경우의 수는 $3! = 6$ 으로, 다음과 같이 여섯가지 경우의 수가 있다.</p>
+<p>$$
+( x_{1} , x_{2} , x_{3} ) 
+\\ ( x_{1} , x_{3} , x_{2} ) 
+\\ ( x_{2} , x_{1} , x_{3} ) 
+\\ ( x_{2} , x_{3} , x_{1} ) 
+\\ ( x_{3} , x_{1} , x_{2} ) 
+\\ ( x_{3} , x_{2} , x_{1} )
+$$</p>
+<p>위의 설명에 따라 $x_{2} &lt; x_{1}$ 임을 확인하는 순간 이에 위배되는 절반의 경우는 배제하고 다음의 세 가지 경우만 남는다.</p>
+<p>$$
+( x_{2} , x_{1} , x_{3} ) 
+\\ ( x_{2} , x_{3} , x_{1} ) 
+\\ ( x_{3} , x_{2} , x_{1} )
+$$</p>
+<p>만약 $x_{1} &lt; x_{3}$ 이면 비교 정렬 알고리즘은 $( x_{2} , x_{1} , x_{3} )$ 을 반환하고 끝내고, $x_{3} &lt; x_{1}$ 이면 마지막으로 $x_{2}$ 과 $x_{3}$ 를 비교해서 제대로 정렬된 경우를 반환해야한다.</p>
+<p>이렇게 비교 정렬 알고리즘은 비교를 통해 경우의 수를 절반씩 줄일 수 있는데, 경우의 수를 어느정도 줄였는데도 부족한 정보가 있어 정렬을 끝내지 못했다면 최악의 경우 $\left \lceil \log_{2} n! \right \rceil \approx \log n!$ 번을 계산해야한다.</p>
+<blockquote>
+<p><a href="https://freshrimpsushi.tistory.com/608">스털링 근사</a>
+$$
+\displaystyle \lim_{n \to \infty} {{n!} \over {e^{n \ln n - n} \sqrt{ 2 \pi n} }} = 1
+$$</p>
+</blockquote>
+<p>스털링 근사에 따라 $\displaystyle n! \approx e^{n \log n - n } \sqrt{ 2 \pi n }$ 이므로</p>
+<p>$$
+\begin{eqnarray*}
+\log n! &amp;=&amp; \log e^{n \log n - n } \sqrt{ 2 \pi n } 
+\\ &amp;=&amp; n \log n - n + \log \sqrt{ 2 \pi n } 
+\\ &amp;=&amp; n \log n - n + {{1} \over {2}} \log n + {{1} \over {2}} \log 2 \pi 
+\\ &amp;=&amp; \Omega ( n \log n ) 
+\end{eqnarray*}
+$$</p>
+<p style="text-align: right;">■</p>
+
+
+
+            </div>
+
+            <div class = "sidebar">
+            <aside>
+    <p style="text-align: center;">
+    <a href="https://form.office.naver.com/form/responseView.cmd?formkey=OGZiOTE3MzQtYmVkMy00MTI4LWIwZGQtNTZiNzBmMTUwODY1&sourceId=urlshare">
+        <img src="https://freshrimpsushi.github.io/banner/WhatIsYourMajor.png"
+             alt="혹시 문과세요?"
+             width="210">
+    </a>
+    </p>
+</aside>
+
+<aside>
+    <p><b>카테고리</b></p>
+    <ul><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A0%EC%9D%B4%EC%A7%80%EC%95%88/" style="color: black">베이지안 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (11)</a>
+        </li>
+    </ul>
+</aside>
+
+<aside>
+    <p><b>태그</b></p>
+    <div>
+    </div>
+</aside>
+
+<aside>
+    <h2></h2>
+    <ul>
+    </ul>
+</aside>
+            </div>
+
+        </div>
+    </body>
+
+    <hr>
+    <footer>
+    <aside>
+        <div>
+            <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io" target="_blank">Hugo</a></p>
+        </div>
+    </aside>
+</footer>
+</html>
+<!DOCTYPE html>

@@ -43,6 +43,7 @@ index = index.replace("**증명**", "## 증명")
 index = index.replace("■", "{{<qed>}}")
 
 index = index.replace("> [\\n> ", "> [")
+index = index.replace("> **\\n> ", "> **")
 
 index = index.replace("\\n>\\n", "\\n")
 index = index.replace("$$\\n", "\\n$$\\n")

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ko" class = "blog">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+
+    <meta name="title" content="재귀함수를 쓸 때 주의해야하는 이유">
+    <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
+
+    <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    
+    <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
+
+    <title>재귀함수를 쓸 때 주의해야하는 이유</title>
+
+    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
+	MathJax.Hub.Config({
+		messageStyle: "none",
+		jax: ["input/TeX", "output/HTML-CSS"],
+		"HTML-CSS": { availableFonts: ["TeX"] },
+		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+
+		tex2jax: {
+			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
+			displayAlign: "left"
+		},
+		
+		TeX: { equationNumbers: {autoNumber: "AMS"}, 
+					extensions: ["cancel.js","color.js"], 
+					   TagSide: "left" 
+		}
+					
+	});
+</script> 
+</head>
+
+    <body class="main">
+    <header>
+    <a href="../" rel="home">
+        <p style="text-align:right; font-size: 2rem; color: black;"><b>생새우초밥집</b></p>
+    </a>
+</header>
+    <hr>
+        
+        <div class = "wrapper">
+
+            <div class = "content">
+            
+
+<title>재귀함수를 쓸 때 주의해야하는 이유</title>
+<h1>재귀함수를 쓸 때 주의해야하는 이유</h1>
+<p style="text-align: right;">
+    작성일: 2021-01-12&nbsp;<br>
+    작성자: 류대식 사장 &nbsp;
+</p>
+
+<aside>
+    <b>목차</b>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#예시">예시</a></li>
+    <li><a href="#코드">코드</a></li>
+  </ul>
+</nav>
+</aside>
+
+<h2 id="예시">예시</h2>
+<p>프로그래밍을 처음 배우면 그것이 어떤 언어든지 &lsquo;재귀함수는 조심해서 써야한다&rsquo;는 경고가 함께한다. 사실 재귀함수라는 게 그렇게 빈번하게 사용되는 테크닉이 아니기 때문에 그 이유는 설명하지 않는 경우가 많은데, 배우는 입장에선 이 좋은 걸 왜 꺼리는지 이해가 잘 되지 않을 수 있다. 예시를 통해 알아보자.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fibo1</span>(n) :
+ <span style="color:#66d9ef">if</span> n<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">or</span> n<span style="color:#f92672">==</span><span style="color:#ae81ff">2</span> :
+ <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+ <span style="color:#66d9ef">else</span> :
+ <span style="color:#66d9ef">return</span> fibo1(n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> fibo1(n<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>)
+ 
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">11</span>) :
+ <span style="color:#66d9ef">print</span>(fibo1(i))
+</code></pre></div><p>함수의 재귀호출은 프로그래밍을 하면서 만나는 여러가지 문제들에 대해 간단하면서도 우아한 해법이 된다. 코드를 쓰기도 쉽고, 읽기도 쉽다는 것은 어마어마한 장점이며 보통 복잡해질 수 있는 코드를 간단하게 줄여준다. 가령 <a href="https://freshrimpsushi.tistory.com/680">피보나치 수열</a>을 반환하는 프로그램을 짜야한다면, 재귀함수를 통해 간단하게 구현하는 것이 가능하다. 가령 위와 같은 파이썬 코드를 실행시키면 다음과 같이 피보나치 수열의 제$10$항까지를 계산해준다 :</p>
+<p><img src="99C441475D5E104221E48E.png#center" alt="img"></p>
+<p>문제는 이러한 방법이 우리 인간에겐 편할 뿐, 컴퓨터가 받아들이기에는 상당히 불합리하다는 것이다. 컴퓨터는 매번 호출될 때마다 return fibo1(n-1) + fibo1(n-2) 이라는 계산을 수행한 것이지, 점화식 $a_{n} : = \begin{cases} 1 &amp;, n \le 2 
+\\ a_{n-2} + a_{n-1} &amp;, n \ge 3 \end{cases}$ 을 이해한 것이 아니다. 메모리 어딘가에 이전에 구한 항들이 저장되어있더라도, 재귀함수를 작성할 때 프로그래머가 요구한 것은 &lsquo;이전의 항을 참조하는 것&rsquo;이 아니라 &lsquo;이전의 항을 계산하는 것&rsquo;이었다. 다음은 위에서와 같은 함수를 호출 될때마다 그것을 알리도록 수정하고, $a_{10}$ 를 계산하는 과정을 움짤로 나타낸 것이다 :</p>
+<p><img src="99E7C3345D5E0CFC24F061.png#center" alt="img"></p>
+<p>$a_{10}$ 가 계산되기 위해서는 $a_{8}$ 과 $a_{9}$ 가 계산되어야한다. 그런데 $a_{9}$ 가 계산되기 위해서는 $a_{7}$ 과 $a_{8}$ 이 계산되어야한다. 이러한 사실만 보아도 $a_{10}$ 이 호출되기 위해 $a_{8}$ 도 최소한 두 번은 호출되어야함을 알 수 있다. 다음은 실제로 fibo(10)을 계산하기 위해서 각각의 fibo(n)들이 몇 번이나 호출되는지를 나타낸다 :</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">함수값</th>
+<th style="text-align:right">호출횟수</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">fibo(9)</td>
+<td style="text-align:right">1</td>
+</tr>
+<tr>
+<td style="text-align:right">fibo(8)</td>
+<td style="text-align:right">2</td>
+</tr>
+<tr>
+<td style="text-align:right">fibo(7)</td>
+<td style="text-align:right">3</td>
+</tr>
+<tr>
+<td style="text-align:right">fibo(6)</td>
+<td style="text-align:right">5</td>
+</tr>
+<tr>
+<td style="text-align:right">fibo(5)</td>
+<td style="text-align:right">8</td>
+</tr>
+<tr>
+<td style="text-align:right">fibo(4)</td>
+<td style="text-align:right">13</td>
+</tr>
+<tr>
+<td style="text-align:right">fibo(3)</td>
+<td style="text-align:right">21</td>
+</tr>
+</tbody>
+</table>
+<p>재미있게도, 피보나치 수열을 계산할 때의 중복호출은 피보나치 수열을 따르며 증가하다. 이러한 중복호출은 메모리에서든 시간에서든 엄청난 낭비를 야기한다. 또한 재귀함수의 본질이 &lsquo;반복&rsquo;인 이상, 이러한 문제점들이 항상 따라붙는다는 것을 명심해야한다.</p>
+<p>이러한 문제들을 회피하는 방법으로써 <a href="https://freshrimpsushi.tistory.com/1262">동적 프로그래밍</a>이라는 것이 있긴한데, 사실 이 방법은 재귀함수 자체를 쓰지 않는 것이나 마찬가지다. <a href="https://freshrimpsushi.tistory.com/1262">동적 프로그래밍</a>이 재귀호출의 문제를 해결해주는 것이 아니라, 재귀호출을 쓰지 말아야하는 문제를 정확하게 이해했을 때 재귀함수의 대안으로써 쓰이는 것이다.</p>
+<h2 id="코드">코드</h2>
+<p>다음은 예제코드 전체다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> time
+ 
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fibo1</span>(n) :
+ <span style="color:#66d9ef">if</span> n<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">or</span> n<span style="color:#f92672">==</span><span style="color:#ae81ff">2</span> :
+ <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+ <span style="color:#66d9ef">else</span> :
+ <span style="color:#66d9ef">return</span> fibo1(n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> fibo1(n<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>)
+ 
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">11</span>) :
+ <span style="color:#66d9ef">print</span>(fibo1(i))
+ 
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fibo</span>(n) :
+ <span style="color:#66d9ef">if</span> n<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">or</span> n<span style="color:#f92672">==</span><span style="color:#ae81ff">2</span> :
+ <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+ <span style="color:#66d9ef">else</span> :
+ <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;fibo(&#34;</span>,n,<span style="color:#e6db74">&#34;) 호출됨!&#34;</span>)
+ <span style="color:#66d9ef">return</span> fibo(n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> fibo(n<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>)
+ 
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">11</span>) :
+ <span style="color:#66d9ef">print</span>(fibo1(i))
+ 
+<span style="color:#66d9ef">print</span>(fibo(<span style="color:#ae81ff">10</span>))
+</code></pre></div>
+
+
+            </div>
+
+            <div class = "sidebar">
+            <aside>
+    <p style="text-align: center;">
+    <a href="https://form.office.naver.com/form/responseView.cmd?formkey=OGZiOTE3MzQtYmVkMy00MTI4LWIwZGQtNTZiNzBmMTUwODY1&sourceId=urlshare">
+        <img src="https://freshrimpsushi.github.io/banner/WhatIsYourMajor.png"
+             alt="혹시 문과세요?"
+             width="210">
+    </a>
+    </p>
+</aside>
+
+<aside>
+    <p><b>카테고리</b></p>
+    <ul><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A0%EC%9D%B4%EC%A7%80%EC%95%88/" style="color: black">베이지안 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (11)</a>
+        </li>
+    </ul>
+</aside>
+
+<aside>
+    <p><b>태그</b></p>
+    <div>
+    </div>
+</aside>
+
+<aside>
+    <h2></h2>
+    <ul>
+    </ul>
+</aside>
+            </div>
+
+        </div>
+    </body>
+
+    <hr>
+    <footer>
+    <aside>
+        <div>
+            <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io" target="_blank">Hugo</a></p>
+        </div>
+    </aside>
+</footer>
+</html>
+<!DOCTYPE html>
