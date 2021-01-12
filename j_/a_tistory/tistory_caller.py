@@ -43,6 +43,7 @@ index = index.replace("**증명**", "## 증명")
 index = index.replace("■", "{{<qed>}}")
 
 index = index.replace("> [\\n> ", "> [")
+index = index.replace("> **\\n> ", "> **")
 
 index = index.replace("\\n>\\n", "\\n")
 index = index.replace("$$\\n", "\\n$$\\n")
@@ -65,9 +66,6 @@ for t in range(len(index_line)-1):
         if index_line[t-1][0] == ">":
             index_line[t] = "> $$"
 index = "\\n".join(index_line)
-
-while index.find("  ") > 0:
-    index = index.replace("  ", " ")
 
 while index.find("\\n\\n\\n") > 0:
     index = index.replace("\\n\\n\\n", "\\n\\n")

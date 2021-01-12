@@ -67,9 +67,6 @@ for t in range(len(index_line)-1):
             index_line[t] = "> $$"
 index = "\\n".join(index_line)
 
-while index.find("  ") > 0:
-    index = index.replace("  ", " ")
-
 while index.find("\\n\\n\\n") > 0:
     index = index.replace("\\n\\n\\n", "\\n\\n")
 
