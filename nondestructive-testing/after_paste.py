@@ -17,6 +17,22 @@ index = index.replace("**증명**", "## 증명")
 index = index.replace("■", "{{<qed>}}")
 
 index = index.replace("> [\n> ", "> [")
+index = index.replace("> **\n> ", "> **")
+
+sup = ""
+index_bold = index.split("**")
+for i in range(len(index_bold)):
+    index_bold[i] = sup + index_bold[i]
+    if ((not index_bold[i][0].encode().isalpha()) and (index_bold[i][-1].encode().isalpha())):
+        print(index_bold[i])
+        for j in range(len(index_bold[i])):
+            if index_bold[i][j].encode().isalpha():
+                break
+        sup = "<sup>" + index_bold[i][j:] + "</sup>"
+        index_bold[i] = index_bold[i][0:j]
+    else:
+        sup = ""
+index = "**".join(index_bold)
 
 index = index.replace("\n>\n", "\n")
 index = index.replace("$$\n", "\n$$\n")
@@ -39,9 +55,6 @@ for t in range(len(index_line)-1):
         if index_line[t-1][0] == ">":
             index_line[t] = "> $$"
 index = "\n".join(index_line)
-
-while index.find("  ") > 0:
-    index = index.replace("  ", " ")
 
 while index.find("\n\n\n") > 0:
     index = index.replace("\n\n\n", "\n\n")

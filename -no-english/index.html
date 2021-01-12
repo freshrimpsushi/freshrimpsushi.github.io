@@ -13,7 +13,7 @@
     <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
     <script>hljs.initHighlightingOnLoad();</script>
 
-    <meta name="title" content="비교 정렬 알고리즘 시간 복잡도의 하한">
+    <meta name="title" content="평면 위의 직선을 표현하는 방법">
     <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
 
     
@@ -22,7 +22,7 @@
     
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
-    <title>비교 정렬 알고리즘 시간 복잡도의 하한</title>
+    <title>평면 위의 직선을 표현하는 방법</title>
 
     <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
 	MathJax.Hub.Config({
@@ -59,66 +59,37 @@
             <div class = "content">
             
 
-<title>비교 정렬 알고리즘 시간 복잡도의 하한</title>
-<h1>비교 정렬 알고리즘 시간 복잡도의 하한</h1>
+<title>평면 위의 직선을 표현하는 방법</title>
+<h1>평면 위의 직선을 표현하는 방법</h1>
 <p style="text-align: right;">
     작성일: 2021-01-12&nbsp;<br>
-    작성자: 류대식 사장 &nbsp;
+    작성자: 전기현 사장 &nbsp;
 </p>
 
 <aside>
     <b>목차</b>
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#정리">정리</a></li>
-    <li><a href="#설명">설명</a></li>
-    <li><a href="#증명">증명</a></li>
-  </ul>
-</nav>
+    <nav id="TableOfContents"></nav>
 </aside>
 
-<h2 id="정리">정리</h2>
-<blockquote>
-<p>비교 정렬 알고리즘의 시간복잡도는 아무리 좋아도 $\Omega ( n \log n )$ 이다.</p>
-</blockquote>
-<h2 id="설명">설명</h2>
-<p>알고리즘이 원래 신기한 것이지만, 삽입 정렬과 같은 효율적인 알고리즘도 퀵 정렬에 밀리는 것을 보면 그 이상의 알고리즘도 있지 않을까 궁금할 수밖에 없다. 다행인지 아닌지는 모르겠으나, 이 증명에 따라 그보다 효율적인 알고리즘을 생각할 필요는 없다.</p>
-<p>물론 일반적인 비교 알고리즘이 아니라 특수한 조건이 주어진다면 이보다 <a href="https://freshrimpsushi.tistory.com/1363">더 빠른 알고리즘</a>도 있다.</p>
-<h2 id="증명">증명</h2>
-<p>크기가 $n$ 인 데이터가 주어졌다고 하자. 데이터가 나열될 수 있는 모든 경우의 수는 순열로 계산했을 때 $n!$ 이 된다. 이 중 올바르게 정렬된 경우는 하나인데, $n$ 개의 데이터 중 두 개를 비교할 때마다 그와 같지 않은 나머지 경우의 수 절반을 배제할 수 있다. 다음의 예시로 이해해보자.</p>
-<p>가령 세 개의 데이터 $x_{1}$, $x_{2}$, $x_{3}$ 가 주어져 있다면 나올 수 있는 경우의 수는 $3! = 6$ 으로, 다음과 같이 여섯가지 경우의 수가 있다.</p>
-<p>$$
-( x_{1} , x_{2} , x_{3} ) 
-\\ ( x_{1} , x_{3} , x_{2} ) 
-\\ ( x_{2} , x_{1} , x_{3} ) 
-\\ ( x_{2} , x_{3} , x_{1} ) 
-\\ ( x_{3} , x_{1} , x_{2} ) 
-\\ ( x_{3} , x_{2} , x_{1} )
-$$</p>
-<p>위의 설명에 따라 $x_{2} &lt; x_{1}$ 임을 확인하는 순간 이에 위배되는 절반의 경우는 배제하고 다음의 세 가지 경우만 남는다.</p>
-<p>$$
-( x_{2} , x_{1} , x_{3} ) 
-\\ ( x_{2} , x_{3} , x_{1} ) 
-\\ ( x_{3} , x_{2} , x_{1} )
-$$</p>
-<p>만약 $x_{1} &lt; x_{3}$ 이면 비교 정렬 알고리즘은 $( x_{2} , x_{1} , x_{3} )$ 을 반환하고 끝내고, $x_{3} &lt; x_{1}$ 이면 마지막으로 $x_{2}$ 과 $x_{3}$ 를 비교해서 제대로 정렬된 경우를 반환해야한다.</p>
-<p>이렇게 비교 정렬 알고리즘은 비교를 통해 경우의 수를 절반씩 줄일 수 있는데, 경우의 수를 어느정도 줄였는데도 부족한 정보가 있어 정렬을 끝내지 못했다면 최악의 경우 $\left \lceil \log_{2} n! \right \rceil \approx \log n!$ 번을 계산해야한다.</p>
-<blockquote>
-<p><a href="https://freshrimpsushi.tistory.com/608">스털링 근사</a>
-$$
-\displaystyle \lim_{n \to \infty} {{n!} \over {e^{n \ln n - n} \sqrt{ 2 \pi n} }} = 1
-$$</p>
-</blockquote>
-<p>스털링 근사에 따라 $\displaystyle n! \approx e^{n \log n - n } \sqrt{ 2 \pi n }$ 이므로</p>
+<p><img src="99D26E4A5CEE5E6F02ACA0.png#center" alt="img"></p>
+<p>평면위의 직선을 특정 짓는 방법은 여러가지가 있을테지만 직선의 기울기와 $y$절편을 이용하는 방법이 보편적이다. 중고등학생에게도 익숙할 만큼 쉬운 방법이기도 하다. 그림$(1)$과 같은 직선이 있다고 하자. 그러면 기울기$a$와 $y$절편 $b$ 이 두 정보만 알면 평면위의 직선을 나타낼 수 있다. $y=ax+b$라고 표현하거나 그림으로 그려서 보여주지 않고 $(a,\ b)$라는 두 상수 만으로도 내가 표현하고 싶은 직선을 표현할 수 있다. 그렇지만 이 방법에는 단점이 있는데 그림$(2)$와 같이 $x$축에 수직한 직선을 표현할 수 없다는 것이다. 사람이라면 그림$(2)$의 기울기를 $\infty$라고 두고 $y$ 절편이 아닌 $x$ 절편을 써서 $(\infty,\ a)$와 같이 표현하자고 할 수도 있다. 그러면 사람은 잘 이해하겠지만 아쉽게도 컴퓨터는 그렇지 못하다. 어떤 계산을 하라고 코딩을 해줘서 제대로 수행할 수 없다. 그래서 위의 방법이 아니라 다른 방법으로 평면 위의 직선을 나타낼 필요가 있다.</p>
+<p><img src="993CC44D5CEE5E6F2DA601.png#center" alt="img"></p>
+<p>그림$(3)$에 직선이 주어져있다. 원점과 직선과의 거리를 $s$라고 하고 직선까지의 법선 벡터의 각도를 $\theta$라고 하자. 그러면 평면 위의 어떤 직선을 $(s,\ \theta)$라고 표현할 수 있다. 이렇게 하면 위에서 기울기를 사용했던 방법과 달리 그림$(4)$와 마찬가지로 $x$축에 수직한 직선도 잘 표현할 수 있다. 구제척으로 그림$(4)$의 직선은 $(s,\ \pi)$로 나타낸다. 직선을 이렇게 표현하는 것은 <strong><a href="https://freshrimpsushi.tistory.com/1118?category=695651">라돈 변환</a></strong>$(\mathrm{Radon\ transform})$ 등을 계산할 때 유용하다.</p>
+<p><img src="99FE29395CF9E004079A04.png#center" alt="img"></p>
+<p>이 표기법을 사용하면 직선 위의 한 점도 간편히 나타낼 수 있다.$\mathbf{w}(\theta)=(\cos \theta,\ \sin \theta)$, $\mathbf{w}^\perp (\theta)=(-\sin \theta,\ \cos \theta)$라고 하자. 그러면 위 그림과 같이 직선 위의 임의의 점 $P$를 아래와 같이 나타낼 수 있다.</p>
 <p>$$
 \begin{eqnarray*}
-\log n! &amp;=&amp; \log e^{n \log n - n } \sqrt{ 2 \pi n } 
-\\ &amp;=&amp; n \log n - n + \log \sqrt{ 2 \pi n } 
-\\ &amp;=&amp; n \log n - n + {{1} \over {2}} \log n + {{1} \over {2}} \log 2 \pi 
-\\ &amp;=&amp; \Omega ( n \log n ) 
+P &amp;=&amp; s\mathbf{w}+t \mathbf{w}^\perp 
+\\  &amp;=&amp; (s\cos\theta-t \sin\theta,\ s\sin\theta+ t \cos\theta) 
 \end{eqnarray*}
 $$</p>
-<p style="text-align: right;">■</p>
+<p>$s$와 $\theta$ 두 정보만 있으면 평면 위의 특정한 한 직선을 나타낼 수 있고, 하나의 정보 $t$가 더 추가되면 그 직선 위의 특정한 점을 나타낼 수 있다. 대게 직선에 이름을 붙일 때 $l$을 쓰는데 위와 같은 방법으로 직선을 나타내면 다음과 같이 표기한다.</p>
+<p>$$
+l_{s,\theta}
+$$</p>
+<p>또한 명백하게 아래의 식이 성립한다.</p>
+<p>$$
+(-s,\ \theta+\pi)=(s,\ \theta)$$</p>
 
 
 
