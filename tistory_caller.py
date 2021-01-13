@@ -6,8 +6,8 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 import shutil
 
-test = True
-# test = False
+# test = True
+test = False
 
 if not test:
     URL = input("크롤링할 카테고리 페이지의 url을 입력해주세요:")
@@ -18,11 +18,11 @@ if webpage.status_code == 404:
     print(URL + "은 존재하지 않습니다")
 soup = str(BeautifulSoup(webpage.content, "html.parser"))
 soup = soup[\
-       soup.find('<strong class="category-description"></strong>'):\
+       soup.find('<div class="area-common">'):\
        soup.find('!-- // s_list / 카테고리, 검색 리스트 -->')]
 # print(soup)
 re.findall("""<div*.>""", soup)
-
+URL = URL[0:URL.find("?")]
 
 category = re.findall("""<b class="archives">.*</b>""", soup)[0]
 category = category[(category.find('/')+1):(category.find('</b'))]
