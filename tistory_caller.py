@@ -50,7 +50,7 @@ if N == len(TITLE):
         
         TITLE[t] = re.sub("<[^<]*>", "", TITLE[t]).replace(":", "").replace("?", "")
         last_character = re.findall("[^a-zA-Z]*[^a-zA-Z]", TITLE[t])[0].strip()[-1]
-        title = TITLE[t][0:TITLE[t].find(last_character)+1]        
+        title = TITLE[t][0:TITLE[t].rfind(last_character)+1]        
         print(ID[t] + " ─ " + title)
         
         SLUG = re.findall("[a-zA-Z '\-]*[a-zA-Z'\-]", TITLE[t])
@@ -66,21 +66,24 @@ if N == len(TITLE):
         
         newfolder = author_folder + category + "/" + ID[t] + '_' + title + "_" + slug
         if not test:
-            os.makedirs(newfolder)
-            md = open(newfolder + "/index.md", 'w', encoding='utf-8')
-            md.write('---')
-            md.write('\ntitle: "' + title + '"  # 국문 타이틀')
-            md.write('\nslug: "' + slug + '"  # 영문 url, 소문자만 사용')
-            md.write('\npublishdate: "' + publilshdate + '"')
-            md.write('\nauthor: "' + author + '"')
-            md.write('\ncategories: ["' + category + '", ""]')
-            md.write('\ntags: ["", ""]')
-            md.write('\nweight: 600')
-            md.write('\nidx: ' + ID[t])
-            md.write('\n---')
-            md.write('\n\n\n## 이관 대기')
-            md.close()
-            shutil.copyfile("after_paste.py", newfolder + "/after_paste.py")
+            try:
+                os.makedirs(newfolder)
+                md = open(newfolder + "/index.md", 'w', encoding='utf-8')
+                md.write('---')
+                md.write('\ntitle: "' + title + '"  # 국문 타이틀')
+                md.write('\nslug: "' + slug + '"  # 영문 url, 소문자만 사용')
+                md.write('\npublishdate: "' + publilshdate + '"')
+                md.write('\nauthor: "' + author + '"')
+                md.write('\ncategories: ["' + category + '", ""]')
+                md.write('\ntags: ["", ""]')
+                md.write('\nweight: 600')
+                md.write('\nidx: ' + ID[t])
+                md.write('\n---')
+                md.write('\n\n\n## 이관 대기')
+                md.close()
+                shutil.copyfile("after_paste.py", newfolder + "/after_paste.py")
+            except FileExistsError:
+                print(newfolder + " 생략")
 
 else:
     print("TistoryError 01: 포스트의 아이디와 아이템의 수가 일치하지 않습니다.")
