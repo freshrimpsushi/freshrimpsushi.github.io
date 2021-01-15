@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ko" class = "blog">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    
+    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+
+    
+    <link rel="stylesheet" href= https://freshrimpsushi.github.io/css/atom-one-light.css>
+    <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <meta name="title" content="확률론의 혼성 정리 증명">
+    <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
+
+    
+    <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    
+    <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
+
+    <title>확률론의 혼성 정리 증명</title>
+
+    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
+	MathJax.Hub.Config({
+		messageStyle: "none",
+		jax: ["input/TeX", "output/HTML-CSS"],
+		"HTML-CSS": { availableFonts: ["TeX"] },
+		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+
+		tex2jax: {
+			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
+			displayAlign: "left"
+		},
+		
+		TeX: { equationNumbers: {autoNumber: "AMS"}, 
+					extensions: ["cancel.js","color.js"], 
+					   TagSide: "left" 
+		}
+					
+	});
+</script> 
+</head>
+
+    <body class="main">
+    <header>
+    <a href="../" rel="home">
+        <p style="text-align:right; font-size: 2rem; color: black;"><b>생새우초밥집</b></p>
+    </a>
+</header>
+    <hr>
+        
+        <div class = "wrapper">
+
+            <div class = "content">
+            
+
+<title>확률론의 혼성 정리 증명</title>
+
+<h1>확률론의 혼성 정리 증명</h1>
+<aside>
+    <p style="text-align: right;">
+        1430
+
+    
+    
+            <a href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론</a>&emsp;
+            
+    </span>
+    
+    작성일: 2019-12-19&nbsp;<br>
+    작성자: 류대식 사장 &nbsp;
+</p>
+</aside>
+
+
+<aside>
+    <b>목차</b>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#heading"></a></li>
+  </ul>
+</nav>
+</aside>
+
+
+<h2 id="heading"></h2>
+<p>공간 $S$ 가 <a href="https://freshrimpsushi.github.io/381">거리 공간</a> $( S , \rho)$ 이면서 <a href="https://freshrimpsushi.github.io/490">가측 공간</a> $(S,\mathcal{B}(S))$ 이라고 하자.다음은 모두 동치다.<strong>(1)</strong>  $P_{n} \overset{W}{\to} P$**(2)**  모든 바운디드, <a href="https://freshrimpsushi.github.io/384">균등연속함수</a> $f$ 에 대해 $\displaystyle \int_{S} f dP_{n} \to \int_{S}f d P$**(3)**  모든 클로즈드 셋 $F$ 에 대해 $\displaystyle \limsup_{n\to\infty} P_{n}(F) \le P(F)$**(4)**  모든 오픈 셋 $G$ 에 대해 $\displaystyle P(G) \le \liminf_{n\to\infty} P_{n}(G)$**(5)**  $P(\partial A) = 0$ 인 모든 $A$ 에 대해 $\displaystyle \lim_{n\to\infty} P_{n}(A) = P(A)$ * Portmanteau는 &lsquo;여러가지로 이루어진&rsquo; 혹은 &lsquo;혼성어&rsquo;라는 뜻을 가진 영단어다. 이것을 바로 혼성이라고 순화하는 것은 무척 매끄럽지 못한데, 관습적으로는 [폴ㅌ맨퉈] 비슷하게 읽고 그것만으로는 뜻을 짐작하기 어려워 부득이하게 혼성 정리라고 번역했다. 혼성 정리는 사실 확률 측도가 아니라도 <a href="https://freshrimpsushi.github.io/1314">유한 측도</a> $\mu$ 에 대해 일반화할 수 있으며, <a href="https://freshrimpsushi.github.io/1410">측도의 약한 수렴</a>에 대한 동치조건을 제시해주므로 굉장히 중요한 정리다.**Strategy :**  증명을 위해 다음의 노테이션을 소개한다. <a href="https://freshrimpsushi.github.io/1415">자세한 설명</a>을 읽어두는 것을 추천한다.원소 $x \in S$ 와 부분집합 $A \subset S$, 그리고 $\delta &gt;0$ 에 대해
+$$
+\rho (x, A) := \inf \left\{ \rho(x,a) : a \in A \right\}
+$$</p>
+<p>$$
+A^{\delta} := \left\{ x \in S : \rho (x, A) &lt; \delta \right\}
+$$
+어떤 픽스된 $F \subset S$ 에 대해
+$$
+\begin{eqnarray*}
+f_{\delta}(x) &amp;:=&amp; \left( 1 - \rho (x, F) / \delta \right)^{+} 
+\\ &amp;=&amp; \begin{cases} 1 &amp;, x \in F 
+\\  1 - \rho(x,F)/\delta &amp;, x \notin F \land x \in F^{\delta} 
+\\  0 &amp;, x \notin F^{\delta} \end{cases} 
+\end{eqnarray*}
+$$
+**증명** **Part 1.**  $(1) \implies (2)$<a href="https://freshrimpsushi.github.io/1410">약한 수렴</a>의 정의에 따라 자명하다.**Part 2.**  $(2) \implies (3)
+$$
+$f_{\varepsilon}(x) : = \left( 1 - \rho ( x, F) / \varepsilon \right)^{+}
+$$
+$f_{\varepsilon}$ 를 위와 같이 정의하면 <a href="https://freshrimpsushi.github.io/1415">$f_{\varepsilon}$ 는 바운디드고 균등연속</a>이다. 또한 모든 $\varepsilon &gt; 0$ 에 대해 $I_{F}(x) \le f_{\varepsilon}(x) \le I_{F}^{\varepsilon} (x)$ 이므로
+$$
+\int_{S} I_{F} dP_{n} \le \int_{S} f_{\varepsilon} dP_{n} \le \int I_{F^{\varepsilon}} dP_{n}
+$$
+여기서 $\displaystyle P_{n}(F) = \int_{F} dP_{n} = \int_{S} 1_{F} dP_{n}$ 이므로
+$$
+P_{n}(F) \le \int_{S} f_{\varepsilon} dP_{n}
+$$
+양변에 $\displaystyle \limsup_{n \to \infty}$ 를 취하면 $f_{\varepsilon}$ 가 바운디드고 균등연속이었으므로 $(2)$ 에 따라
+$$
+\begin{eqnarray*}
+\displaystyle \limsup_{n \to \infty} P_{n}(F) &amp;\le&amp; \limsup_{n \to \infty} \int_{S} f_{\varepsilon} dP_{n} 
+\\  &amp;=&amp; \int_{S} f_{\varepsilon} dP 
+\\  &amp;\le&amp; P\left( F^{\varepsilon} \right) 
+\end{eqnarray*}
+$$
+양변에 $\displaystyle \lim_{\varepsilon \to 0}$ 를 취하면 <a href="https://freshrimpsushi.github.io/1302">측도의 위로부터의 연속성</a>에 따라
+$$
+\begin{eqnarray*}
+\limsup_{n \to \infty} P_{n}(F) &amp;=&amp; \lim_{\varepsilon \to 0} \limsup_{n \to \infty} P_{n}(F) 
+\\  &amp;\le&amp; \lim_{\varepsilon \to 0} P \left( F^{\varepsilon} \right) 
+\\  &amp;=&amp; P\left( \overline{F} \right) 
+\end{eqnarray*}
+$$
+$F$ 가 닫힌 집합이면 $\overline{F} = F$ 이므로
+$$
+\displaystyle \limsup_{n\to\infty} P_{n}(F) \le P(F)
+$$
+**Part 3.**  $(3) \iff (4)
+$$
+G:= F^{c}$ 로 두면 $G$ 는 오픈 셋이고
+$$
+\begin{eqnarray*}
+&amp;&amp; \displaystyle \limsup_{n\to\infty} P_{n}(F) \le P(F) 
+\\  &amp;\iff&amp; -P(F) \le -\limsup_{n\to\infty} P_{n}(F) 
+\\  &amp;\iff&amp; 1 -P(F) \le 1 -\limsup_{n\to\infty} P_{n}(F) 
+\\  &amp;\iff&amp; P(G) \le \liminf_{n\to\infty} \left[ 1 -P_{n}(F) \right] 
+\\ &amp;\iff&amp; P(G) \le \liminf_{n\to\infty} P_{n}(G) 
+\end{eqnarray*}
+$$
+**Part 4.**  $(3),(4) \implies (5)$<a href="https://freshrimpsushi.github.io/383">인테리어, 클로져, 바운더리</a>에 대해 간략하게 리뷰해보자.$A^{\circ} \subset A \subset \overline{A}$여기서 인테리어 $A^{\circ}$ 는 $A$ 의 가장 큰 열린 부분집합이고, 클로져 $\overline{A}$ 는 $A$ 의 가장 작은 닫힌 초집합이다. 또한 $A$ 의 바운더리 $\partial A = \overline{A} \setminus A^{\circ}$ 는 당연히 $A^{\circ}$ 과는 디스조인트하다.$(3)$ 에 따라
+$$
+\limsup_{n \to \infty} P_{n}(A) \le \limsup_{n \to \infty} P_{n}\left( \overline{A} \right) \le P \left( \overline{A} \right)
+$$
+$(4)$ 에 따라
+$$
+P \left( A^{\circ} \right) \le \liminf_{n \to \infty} P_{n} \left( A^{\circ} \right) \le \liminf_{n \to \infty} P_{n}(A)
+$$
+$P \left( \partial A \right) = 0$ 이므로 $P \left( A^{\circ} \right) = P(A) = P \left( \overline{A} \right)$ 이고
+$$
+P(A) = P \left( A^{\circ} \right) \le \liminf_{n \to \infty} P_{n}(A) \le \limsup_{n \to \infty} P_{n}(A) \le P \left( \overline{A} \right) = P(A)
+$$
+따라서
+$$
+\lim_{n \to \infty} P_{n}(A) = P(A)
+$$
+**Part 5.**  $(5) \implies (1)
+$$
+g \in C_{b}(S)$, 즉 $g$ 가 $S$ 에서 정의된 바운디드고 연속인 함수라고 하자. $A \in \mathcal{B}(S)$ 에 대해 $\nu$ 를 다음과 같이 정의하자.
+$$
+\nu (A) := P \left( g^{-1} \left( A \right) \right)
+$$
+$g$ 는 바운디드이므로 모든 $x \in S$ 에 대해 $a \le g(x) \le b$ 를 만족하는 $a$, $b$ 를 잡을 수 있다. 여기서 $\nu$ 는 그 정의에 따라 유한한 함수값을 가진다. 여기서
+$$
+D := \left\{ \alpha : \nu ( \left\{ \alpha \right\} ) = 0 \right\}
+$$
+라고 두면
+$$
+D^{c} = \left\{ \alpha : \nu ( \left\{ \alpha \right\} ) &gt; 0 \right\} = \bigcup_{n=1}^{\infty} \left\{ \alpha : \nu ( \left\{ \alpha \right\} ) &gt; {{1} \over {n}} \right\}
+$$
+를 생각해보자. 자연수 $n \in \mathbb{N}$ 이 픽스되면 $ \left\{ \alpha : \nu ( \left\{ \alpha \right\} ) &gt; {{1} \over {n}} \right\}$ 는 $\nu ( \mathbb{R}) &lt; \infty$ 이므로 유한 집합이어야한다. 만약 유한 집합이 아니라면 $\displaystyle \nu ( \left\{ \alpha \right\} ) &gt; {{ 1 } \over { n }}$ 을 만족하는 $\alpha$ 가 무한히 많다는 의미이므로 $\nu ( \mathbb{R}) &lt; \infty$ 에 위배된다. 이에 따라 $D^{c}$ 는 유한 집합들의 가산 합집합이고, 따라서 $\nu \left( \left\{ \alpha \right\} \right) &gt; 0$ 을 만족시키는 $\alpha \in [a,b]$ 들은 많아도 <a href="https://freshrimpsushi.github.io/1383">카운터블</a>하게 많이 존재한다.이제 다음의 세 가지 조건을 만족하는 $t_{0} , \cdots , t_{m}$ 을 잡을 수 있다 :**(i)**  $a = t_{0} &lt; t_{1} &lt; \cdots &lt; t_{m} = b$**(ii)**  $\nu \left( \left\{ t_{i} \right\} \right) = 0$**(iii)**  $t_{i} - t_{i-1} &lt; \varepsilon$이에 대해 $A_{i} = g^{-1} \left( [ t_{i-1} , t_{i} ) \right)$ 와 같이 잡으면 $A_{i} \in \mathcal{B}(S)$ 이고 $\displaystyle \bigcup_{i=1}^{m} A_{i} = S$ 이다. 한편 <a href="https://freshrimpsushi.github.io/432">연속함수의 프리이미지는 열림과 닫힘을 보존</a>하므로 $g^{-1} \left( ( t_{i-1}, t_{i}) \right)$ 는 $S$ 에서 열린 집합, $g^{-1} \left( [ t_{i-1}, t_{i}] \right)$ 는 $S$ 에서 닫힌 집합이다. 또한 $A_{i}$ 의 인테리어 $A_{i}^{\circ}$ 는 $A_{i}$ 의 가장 큰 열린 부분집합이고, 클로져 $\overline{A_{i}}$ 는 $A_{i} $ 의 가장 작은 닫힌 초집합이므로
+$$
+g^{-1} \left( ( t_{i-1}, t_{i}) \right) \subset A_{i}^{\circ} \subset A_{i} \subset \overline{A_{i}} \subset g^{-1} \left( [ t_{i-1}, t_{i}] \right) 
+$$
+한편 조건 **(ii)** 에서 $\nu \left( \left\{ t_{i} \right\} \right) = 0$ 이었으므로 $\nu \left( [t_{i-1} , t_{i}] \right) = \nu \left( (t_{i-1}, t_{i}) \right)$ 다시 말해
+$$
+P \left( A_{i}^{\circ} \right) = P \left( A_{i} \right) = P \left( \overline{A_{i}} \right)
+$$
+이고, 이는 곧 $P \left( \partial A_{i} \right) = 0$ 이므로 가정 $(5)$ 에 따라 $\displaystyle \lim_{n\to\infty} P_{n}(A_{i}) = P(A_{i})$ 다.
+$$
+h(x) := \sum_{i=1}^{m} t_{i-1} 1_{A_{i}} (x)
+$$
+이제 새로운 함수 $h$ 를 위와 같이 정의하자. $h$ 는 $m$ 개의 유한한 함수값들을 가지는 <a href="https://freshrimpsushi.github.io/527">단순 함수</a>가 되며, 조건 **(iii)** 에서 $h(x) \le g(x) \le h(x) + \varepsilon$ 임을 알 수 있다.
+$$
+\begin{eqnarray*}
+\left| P_{n}(g) - P(g) \right| &amp;=&amp; \left| \int_{S} g dP_{n} - \int_{S} g dP \right| 
+\\  &amp;=&amp; \left| \int_{S} (g-h) dP_{n} + \int_{S} h dP_{n} - \int_{S} h dP + \int_{S} (h-g) dP \right| 
+\\  &amp;\le&amp; \left| \int_{S} (g-h) dP_{n} \right| + \left| \int_{S} h dP_{n} - \int_{S} h dP \right| + \left| \int_{S} (h-g) dP \right| 
+\\  &amp;\le&amp; \varepsilon + \left| \sum_{i=1}^{m} t_{i-1} \int_{S} 1_{A_{i}} P_{n} - \sum_{i=1}^{m} t_{i-1} \int_{S} 1_{A_{i}} P \right| + \varepsilon 
+\\  &amp;\le&amp; 2 \varepsilon + \left| \sum_{i=1}^{m} t_{i-1} \left[ P_{n}(A_{i}) - P(A_{i}) \right] \right| 
+\end{eqnarray*}
+$$
+한편 위에서 $\displaystyle \lim_{n\to\infty} P_{n}(A_{i}) = P(A_{i})$ 이므로 $n \to \infty$ 일 때 $P_{n}(g) \to P(g)$ 다. $g$ 는 바운디드고 연속이므로 약한 수렴의 정의에 따라 $P_{n} \overset{W}{\to} P$ 다.<p style="text-align: right;">■</p></p>
+
+
+            </div>
+
+            <div class = "sidebar">
+            <aside>
+    <p style="text-align: center;">
+    <a href="https://form.office.naver.com/form/responseView.cmd?formkey=OGZiOTE3MzQtYmVkMy00MTI4LWIwZGQtNTZiNzBmMTUwODY1&sourceId=urlshare">
+        <img src="https://freshrimpsushi.github.io/banner/WhatIsYourMajor.png"
+             alt="혹시 문과세요?"
+             width="210">
+    </a>
+    </p>
+</aside>
+
+
+<aside>
+    <p><b>카테고리</b></p>
+<details open>
+    <summary>가나다순</summary>
+    <ul><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/hugo_issue/" style="color: black">hugo_issue (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/r/" style="color: black">R (52)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B0%90%EB%A7%88-%ED%95%A8%EC%88%98%EC%99%80-%EC%A0%9C%ED%83%80-%ED%95%A8%EC%88%98/" style="color: black">감마 함수와 제타 함수 (23)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (19)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (23)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC-%EA%B5%90%EA%B3%BC/" style="color: black">물리 교과 (9)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">물리학미분류 (10)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">미분 방정식 (7)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AF%B8%EC%A0%81%EB%B6%84%ED%95%99/" style="color: black">미적분학 (18)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A0%EC%9D%B4%EC%A7%80%EC%95%88/" style="color: black">베이지안 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0-%ED%95%B4%EC%84%9D/" style="color: black">벡터 해석 (43)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B5%EC%86%8C%ED%95%B4%EC%84%9D/" style="color: black">복소해석 (57)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">수리물리학미분류 (20)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (32)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">수치선형대수 (16)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (54)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99-%EA%B5%90%EA%B3%BC/" style="color: black">수학 교과 (30)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">수학미분류 (30)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%9C%EA%B3%84%EC%97%B4%EB%B6%84%EC%84%9D/" style="color: black">시계열분석 (33)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%A4%EC%A0%84-%EC%88%98%EB%8A%A5-%EC%8A%A4%ED%82%AC/" style="color: black">실전 수능 스킬 (16)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EC%97%AD%ED%95%99/" style="color: black">열역학 (22)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/" style="color: black">위상수학 (59)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/" style="color: black">전자기학 (54)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (73)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (20)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (42)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (22)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/" style="color: black">추상대수 (77)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/" style="color: black">측도론 (58)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C-%ED%95%B4%EC%84%9D/" style="color: black">텐서 해석 (13)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8C%8C%EC%9D%B4%EC%8D%AC/" style="color: black">파이썬 (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90-%ED%95%B4%EC%84%9D/" style="color: black">푸리에 해석 (41)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (53)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (56)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">해석학미분류 (28)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (21)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D/" style="color: black">회귀분석 (28)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8-%EA%B3%B5%EA%B0%84%EB%A1%A0/" style="color: black">힐베르트 공간론 (35)</a>
+        </li>
+    </ul>
+</details>
+</aside>
+
+<aside>
+    <p><b>태그</b></p>
+    <div>
+    </div>
+</aside>
+
+<aside>
+    <h2></h2>
+    <ul>
+    </ul>
+</aside>
+            </div>
+
+        </div>
+    </body>
+
+    <hr>
+    <footer>
+    <aside>
+        <div>
+            <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io" target="_blank">Hugo</a></p>
+        </div>
+    </aside>
+</footer>
+</html>
+<!DOCTYPE html>

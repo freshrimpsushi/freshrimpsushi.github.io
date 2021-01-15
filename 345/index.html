@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ko" class = "blog">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    
+    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+
+    
+    <link rel="stylesheet" href= https://freshrimpsushi.github.io/css/atom-one-light.css>
+    <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <meta name="title" content="정칙행렬의 LU 분해와 R 코드 LU Decomposition">
+    <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
+
+    
+    <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    
+    <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
+
+    <title>정칙행렬의 LU 분해와 R 코드 LU Decomposition</title>
+
+    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
+	MathJax.Hub.Config({
+		messageStyle: "none",
+		jax: ["input/TeX", "output/HTML-CSS"],
+		"HTML-CSS": { availableFonts: ["TeX"] },
+		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+
+		tex2jax: {
+			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
+			displayAlign: "left"
+		},
+		
+		TeX: { equationNumbers: {autoNumber: "AMS"}, 
+					extensions: ["cancel.js","color.js"], 
+					   TagSide: "left" 
+		}
+					
+	});
+</script> 
+</head>
+
+    <body class="main">
+    <header>
+    <a href="../" rel="home">
+        <p style="text-align:right; font-size: 2rem; color: black;"><b>생새우초밥집</b></p>
+    </a>
+</header>
+    <hr>
+        
+        <div class = "wrapper">
+
+            <div class = "content">
+            
+
+<title>정칙행렬의 LU 분해와 R 코드 LU Decomposition</title>
+
+<h1>정칙행렬의 LU 분해와 R 코드 LU Decomposition</h1>
+<aside>
+    <p style="text-align: right;">
+        345
+
+    
+    
+            <a href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">수치선형대수</a>&emsp;
+            
+    </span>
+    
+    작성일: 2017-12-28&nbsp;<br>
+    작성자: 류대식 사장 &nbsp;
+</p>
+</aside>
+
+
+<aside>
+    <b>목차</b>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#heading"></a></li>
+  </ul>
+</nav>
+</aside>
+
+
+<h2 id="heading"></h2>
+<p>행렬 $A \in \mathbb{R}^{m \times m}$ 의 왼쪽에 곱해졌을 때 $(i, j)$ 성분을 $0$이 되도록 하는 행렬 $E_{ij}$ 를 **$A$ 에 대한 $ij$-소거연산자** 라고 정의해보자.구체적으로 정방행렬 $(a_{ij}) \in \mathbb{R}^{m \times m}$ 에 대한 $E_{ij}$ 는 대각성분이 $1$ 이고 $(i,j)$ 성분이 $\displaystyle -m_{ij} = -{{a_{ij}} \over {a_{jj}}}$, 나머지 성분이 $0$으로 구해진다.이는 연립 방정식의 풀이에서 같은 변수끼리 계수를 맞춰서 소거하는 연산을 행렬로 나타낸 것이다.이러한 소거는 연립 방정식의 해가 단 하나만 존재할 때 의미가 있으므로, 우리가 다룰 $A$ 는 정칙행렬로 가정한다.간단한 예시로써 $B := \begin{bmatrix}
+2 &amp; 1 &amp; 0 
+\\  1 &amp; 2 &amp; 1 
+\\  0 &amp; 1 &amp; 2 
+\end{bmatrix} $ 라고 하면 $E_{21} B = \begin{bmatrix}
+2 &amp; 1 &amp; 0 
+\\  0 &amp; 2 &amp; 1 
+\\  0 &amp; 1 &amp; 2 
+\end{bmatrix}  $ 가 된다.그리고 $B = \begin{bmatrix}
+2 &amp; 1 &amp; 0 
+\\  1 &amp; 2 &amp; 1 
+\\  0 &amp; 1 &amp; 2 
+\end{bmatrix} $ 이므로 $B$ 에 대한 $21$-소거연산자는 $\displaystyle E_{21} = \begin{bmatrix}
+1 &amp; 0 &amp; 0 
+\\  -m_{ij} &amp; 1 &amp; 0 
+\\  0 &amp; 0 &amp; 1 
+\end{bmatrix} = \begin{bmatrix}
+1 &amp; 0 &amp; 0 
+\\  -{{1} \over {2}} &amp; 1 &amp; 0 
+\\  0 &amp; 0 &amp; 1 
+\end{bmatrix} $ 으로 구할 수 있다.한편 이러한 연산을 여러번 취한 $U_{B} : = E_{32} E_{31} E_{21} B = \begin{bmatrix}
+2 &amp; 1 &amp; 0 
+\\  0 &amp; 2 &amp; 1 
+\\  0 &amp; 0 &amp; 2 
+\end{bmatrix} $ 는 상삼각행렬이고, $E_{21} , E_{31} , E_{32}$ 은 모두 하삼각행렬이다.하삼각행렬끼리의 곱은 하삼각행렬이므로 $L_{B} : = E_{21} E_{31} E_{32}$ 도 하삼각행렬이고 $L^{-1} B = U$ 으로 나타낼 수 있다.다시 $B$ 에 대해 정리하면 $B = L_{B} U_{B}$ 즉 하Lower삼각행렬과 상Upper삼각행렬의 곱으로 분해한 꼴이 된다.이러한 분해법은 너무나 단순하기 때문에 $A \in \mathbb{R}^{n \times n}$ 인 경우에 대해서도 별다른 문제 없이 일반화가 가능하다.이를 이용한 연립방정식 $A \mathbb{x} = \mathbb{b}$ 의 풀이법을 생각해보면 $A = LU$ 로 분해되므로 $LU \mathbb{x} = \mathbb{b}
+$$
+\mathbb{y} := U \mathbb{x} $ 라 하면 $U$ 가 상삼각행렬이므로 $\mathbb{y}$ 는 후진대입법을 통해 쉽게 구할 수 있다.한편 $L (U \mathbb{x} ) = L \mathbb{y} = \mathbb{b}$ 에서 $L$ 이 하삼각행렬이므로 $\mathbb{b}$ 는 전진대입법을 통해 쉽게 구할 수 있다.따라서 LU 분해를 실제로 구할 수 있다는 것은 상당히 많은 문제를 상당히 쉽고 빠르게 풀 수 있다는 뜻이 된다.직접적으로 $L$ 과 $U$ 를 찾아내기 위해, $A := L U $ 를 만족하는 하삼각행렬 $L$ 과 상삼각행렬 $U$ 를 다음과 같이 정의하자.$L : = \begin{bmatrix}
+ 1 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 
+\\  l_{21} &amp; 1 &amp; 0 &amp; \cdots &amp; 0 
+\\  l_{31} &amp; l_{32} &amp; 1 &amp; \cdots &amp; 0  
+\\  \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots 
+\\  l_{n1} &amp; l_{n2} &amp; l_{n3} &amp; \cdots &amp; 1 
+\end{bmatrix} $ , $U : = \begin{bmatrix}
+ u_{11} &amp; u_{12} &amp; u_{13} &amp; \cdots &amp; u_{1n} 
+\\  0 &amp; u_{22} &amp; u_{23} &amp; \cdots &amp; u_{2n} 
+\\  0 &amp; 0 &amp; u_{33} &amp; \cdots &amp; u_{3n}  
+\\  \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots 
+\\  0 &amp; 0 &amp; 0 &amp; \cdots &amp; u_{nn} 
+\end{bmatrix}  $여기서 $L$ 은 소거연산자들의 곱이므로 대각성분들이 모두 $1$ 임을 쉽게 확인할 수 있다.위 정의에 따라 직접 $A = (a_{ij})$ 의 성분 $a_{ij}$ 를 계산해보면 $\displaystyle a_{ij} = \sum_{s = 1}^{n} l_{is} u_{sj} = \sum_{s = 1}^{min(i , j)} l_{is} u_{sj} $ 이 된다.이제 $a_{ij}$ 를 대각선 상에 있는 경우, 대각선 윗쪽에 있는 경우, 대각성 아랫쪽에 있는 경우로 나누어서 생각해보자.$i = j = k$ 면 $\displaystyle a_{kk} = \sum_{s = 1}^{min(i, j)} l_{ks} u_{sk} = \sum_{s = 1}^{k} l_{ks} u_{sk} 
+$$
+\displaystyle = \sum_{s = 1}^{k-1} l_{ks} u_{sk} + l_{kk} u_{kk} = \sum_{s = 1}^{k-1} l_{ks} u_{sk} + u_{kk} $이를 $u_{kk}$ 에 대해서 정리하면 $\displaystyle u_{kk} = a_{kk} - \sum_{s = 1}^{k-1} l_{ks} u_{sk}$ 을 얻는다.비슷하게 $\displaystyle a_{kj} = \sum_{s = 1}^{k-1} l_{ks} u_{sj} + u_{kj}$ 그리고 $\displaystyle a_{ik} = \sum_{s = 1}^{k-1} l_{is} u_{sk} + l_{ik} u_{kk}$이를 각각 $u_{kj}$ 와 $l_{ik}$ 에 대해서 정리하면 $\displaystyle u_{kj} = a_{kj} - \sum_{s = 1}^{k-1} l_{ks} u_{sj} $ 와 $\displaystyle l_{ik} = {{ 1 } \over {u_{kk} }} \left\{ a_{ik} - \sum_{s = 1}^{k-1} l_{is} u_{sk} \right\} $ 을 얻는다.$(a_{ij}) \in \mathbb{R}^{n \times n} $ 가 정칙행렬이라고 하자. **** **Step 1.**  $k = 1
+$$
+u_{1j} = a_{1j}$ 을 대입하고 $\displaystyle l_{i1} = {{1} \over {u_{11}}} a_{i1} $ 을 계산한다.**Step 2.**  $k = 2, 3, \cdots , n-1 $**Step 2-1.** $\displaystyle u_{kk} = a_{kk} - \sum_{s = 1}^{k-1} l_{ks} u_{sk}$ 을 계산한다.**Step 2-2.**  $j = k+1 , k+2 , \cdots , n-1
+$$
+\displaystyle u_{kj} = a_{kj} - \sum_{s = 1}^{k-1} l_{ks} u_{sj} $ 을 계산한다.**Step 2-3.**  $i = k+1 , k+2 , \cdots , n-1
+$$
+\displaystyle l_{ik} = {{ 1 } \over {u_{kk} }} \left\{ a_{ik} - \sum_{s = 1}^{k-1} l_{is} u_{sk} \right\} $ 을 계산한다.**Step 3.**  $k = n
+$$
+\displaystyle u_{nn} = a_{nn} - \sum_{s = 1}^{n-1} l_{ns} u_{sn}$ 을 계산한다.알고리즘을 잘 살펴보면 $k$ 가 증가함에 따라 $L$ 은 왼쪽에서 오른쪽으로, $U$ 는 위에서 아래로 구해짐을 알 수 있다.한 단계를 거칠 때 필요한 값들은 적어도 그 전 단계에서 모두 구해졌으므로 단계마다 계산하는 단위는 한 행이나 한 열이 된다.이제 앞에서 예시로 쓰였던 행렬 $B$ 를 실제로 분해해보자.<img src="20171126_225019.png#center" alt="img">아래의 코드는 위의 알고리즘을 실제로 R 에서 구현한 것이다.</p>
+<pre><code>B &lt;- matrix(c(2,1,0,1,2,1,0,1,2), ncol= 3); B
+ 
+LU&lt;-function(A)
+{
+  n=length(A[,1])
+  L&lt;-diag(1,n)
+  U&lt;-diag(0,n)
+ 
+  k=1
+  j=1
+  i=1
+  U[1,]&lt;-A[1,]
+  L[,1]&lt;-A[,1]/A[1,1]
+  
+  for(k in 2:(n-1))
+  {
+    U[k,k] = A[k,k] - sum(L[k,1:(k-1)]*U[1:(k-1),k])
+    for(j in (k+1):n)
+    {
+      U[k,j] = A[k,j] - sum(L[k,1:(k-1)]*U[1:(k-1),j])
+    }
+    for(i in (k+1):n)
+    {
+      L[i,k] = ( A[i,k] - sum(L[i,1:(k-1)]*U[1:(k-1),k]) ) / U[k,k]
+    }
+  }
+  
+  U[n,n] = A[n,n] - sum(L[n,1:(n-1)]*U[1:(n-1),n])
+  
+  return(list(L=L,U=U))
+}
+ 
+LU(B)
+require(Matrix)
+expand(lu(B))[Colored by Color Scripter](http://colorscripter.com/info#e)
+</code></pre><p>실행 결과는 다음과 같다.<img src="20171126_225002.png#center" alt="img">R 자체에서 구현된 LU 분해와 결과가 정확히 일치함을 확인 할 수 있다.</p>
+
+
+            </div>
+
+            <div class = "sidebar">
+            <aside>
+    <p style="text-align: center;">
+    <a href="https://form.office.naver.com/form/responseView.cmd?formkey=OGZiOTE3MzQtYmVkMy00MTI4LWIwZGQtNTZiNzBmMTUwODY1&sourceId=urlshare">
+        <img src="https://freshrimpsushi.github.io/banner/WhatIsYourMajor.png"
+             alt="혹시 문과세요?"
+             width="210">
+    </a>
+    </p>
+</aside>
+
+
+<aside>
+    <p><b>카테고리</b></p>
+<details open>
+    <summary>가나다순</summary>
+    <ul><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/hugo_issue/" style="color: black">hugo_issue (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/r/" style="color: black">R (52)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B0%90%EB%A7%88-%ED%95%A8%EC%88%98%EC%99%80-%EC%A0%9C%ED%83%80-%ED%95%A8%EC%88%98/" style="color: black">감마 함수와 제타 함수 (23)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (19)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (23)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC-%EA%B5%90%EA%B3%BC/" style="color: black">물리 교과 (9)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">물리학미분류 (10)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">미분 방정식 (7)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AF%B8%EC%A0%81%EB%B6%84%ED%95%99/" style="color: black">미적분학 (18)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A0%EC%9D%B4%EC%A7%80%EC%95%88/" style="color: black">베이지안 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0-%ED%95%B4%EC%84%9D/" style="color: black">벡터 해석 (43)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B5%EC%86%8C%ED%95%B4%EC%84%9D/" style="color: black">복소해석 (57)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">수리물리학미분류 (20)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (32)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">수치선형대수 (16)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (54)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99-%EA%B5%90%EA%B3%BC/" style="color: black">수학 교과 (30)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">수학미분류 (30)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%9C%EA%B3%84%EC%97%B4%EB%B6%84%EC%84%9D/" style="color: black">시계열분석 (33)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%A4%EC%A0%84-%EC%88%98%EB%8A%A5-%EC%8A%A4%ED%82%AC/" style="color: black">실전 수능 스킬 (16)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EC%97%AD%ED%95%99/" style="color: black">열역학 (22)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/" style="color: black">위상수학 (59)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/" style="color: black">전자기학 (54)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (73)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (20)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (42)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (22)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/" style="color: black">추상대수 (77)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/" style="color: black">측도론 (58)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C-%ED%95%B4%EC%84%9D/" style="color: black">텐서 해석 (13)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8C%8C%EC%9D%B4%EC%8D%AC/" style="color: black">파이썬 (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90-%ED%95%B4%EC%84%9D/" style="color: black">푸리에 해석 (41)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (53)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (56)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">해석학미분류 (28)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (21)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D/" style="color: black">회귀분석 (28)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8-%EA%B3%B5%EA%B0%84%EB%A1%A0/" style="color: black">힐베르트 공간론 (35)</a>
+        </li>
+    </ul>
+</details>
+</aside>
+
+<aside>
+    <p><b>태그</b></p>
+    <div>
+    </div>
+</aside>
+
+<aside>
+    <h2></h2>
+    <ul>
+    </ul>
+</aside>
+            </div>
+
+        </div>
+    </body>
+
+    <hr>
+    <footer>
+    <aside>
+        <div>
+            <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io" target="_blank">Hugo</a></p>
+        </div>
+    </aside>
+</footer>
+</html>
+<!DOCTYPE html>

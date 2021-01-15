@@ -22,9 +22,9 @@ def digit_phobia(string):
 test = False
 
 # for idx in [496]:
-for idx in range(1, 2000):
+for idx in range(1700, 2000):
 # for idx in [1235, 1270, 1871, 1873, 1880]:
-    if idx == 584 or idx == 1860:
+    if idx == 584 or idx == 1860 or idx == 1704:
         print("예외처리된 파일입니다")
         continue
     ID = str(idx)
@@ -132,7 +132,8 @@ for idx in range(1, 2000):
     soup = re.sub("<!--[^<]*-->", "", soup)
     soup = re.sub("<script[^<]*</script>", "", soup)
     soup = re.sub("<ins[^<]*</ins>", "", soup)
-    
+
+    soup = soup.replace("""<p style="margin-left: 2em;"><span style="font-family: Dotum, 돋움;">""", "\n")
     soup = re.sub("""</td>""", "</td>\n", soup) #순서 지켜야함
     soup = re.sub("""<table .*colorscripter.*</td>""", "\n```", soup) #순서 지켜야함
     soup = re.sub('<div[^<]*line-height:130%">', "\n", soup) #순서 지켜야함
@@ -251,3 +252,4 @@ for idx in range(1, 2000):
         # os.system("hugo server -D")
 
     # input("press to next post")
+os.system("pause")
