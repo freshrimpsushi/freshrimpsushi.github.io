@@ -87,6 +87,7 @@ for idx in post_range:
     publishdate = publishdate[0:publishdate.rfind(".")].replace(" ", "").replace(".", "-")
     publishdate = publishdate.split('-')
     publishdate[1] = publishdate[1].zfill(2)
+    publishdate[2] = publishdate[2].zfill(2)
     publishdate = '-'.join(publishdate)
 
     AUTHOR = re.findall("""<span class="writer">.*</span>""", meta_data)[0]

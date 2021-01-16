@@ -20,6 +20,13 @@
     
     <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
+    
+    
+    
+    <script type="text/javascript" src=https://freshrimpsushi.github.io/js/jquery-1.12.4.min.js></script>
+    
+    <script type="text/javascript" src=https://freshrimpsushi.github.io/js/jquery-ui-1.11.3.min.js></script>
+    <link rel="stylesheet" href=https://freshrimpsushi.github.io/css/jquery-ui-1.11.3.min.css>
 
     <title>동적 회귀 모형</title>
 
@@ -79,12 +86,6 @@ $$
 그냥 식을 합쳐놓은 것처럼 보일 뿐만 아니라, 실제로 그렇다. <a href="https://freshrimpsushi.github.io/posts/548">회귀 분석</a>과 <a href="https://freshrimpsushi.github.io/posts/900">시계열 분석</a> 둘 다를 이해하고 있다면 동적 회귀 모형은 전혀 어렵지 않은 개념인 것이다. 명명에서 동적Dynamic이라는 말이 붙은 이유는 위와는 거꾸로, <a href="https://freshrimpsushi.github.io/posts/548">회귀 모형</a>에서 시작해 <a href="https://freshrimpsushi.github.io/posts/900">시계열 분석 모형</a>으로 가면 조금 더 이해하기 쉽다. 이공계 전반에서 동적이라는 말은 <a href="https://freshrimpsushi.github.io/posts/856">어떠한 시스템의 상태가 그 전의 상태로 표현할 수 있다</a>는 의미를 가진다. 그런 관점에서 보았을 때, 수식 $(1)$ 은 <a href="https://freshrimpsushi.github.io/posts/548">회귀 분석</a>을 하면서 그 전의 데이터도 참고하는 것이다.<img src="20190829_133557.png#center" alt="20190829\_133557.png">
 R 에서는 이러한 동적 회귀 모형이 arima() 함수의 옵션으로 구현되어있다. 동적 회귀 모형을 사용할 수 있다면 <a href="https://freshrimpsushi.github.io/posts/941">아리마 모형</a>을 기반으로 삼는 시계열 분석은 거의 다 이해했다고 보아도 좋으며, 다음과 같은 치트시트를 참고하면 좋다 :<strong>(1)</strong>  x : 분석할 시계열 데이터 $\left\{ y_{t} \right\}$ 가 들어간다.<strong>(2)</strong>  order : <a href="https://freshrimpsushi.github.io/posts/941">아리마 모형</a> $ARIMA(p,d,q)$ 이라고 하면 order=c(p,d,q)와 같이 넣는다.<strong>(3)</strong>  seasonal : <a href="https://freshrimpsushi.github.io/posts/1067">계절형 아리마 모형</a> $ARIMA(p,d,q) \times (P,D,Q)_{s}$ 이라고 하면 seasonal=list(order=c(P,D,Q), period=s)와 같이 넣는다. 리스트로 넣어줘야하는 것에 주의해야한다.<strong>(4)</strong>  xreg : 독립변수가 될 시계열 데이터 $\left\{ x_{t} \right\}$ 가 들어간다. <a href="https://freshrimpsushi.github.io/posts/1258">애디티브 아웃라이어</a>의 경우에도 이와 같은 방법으로 더미 데이터를 넣어 처리한다.<strong>(5)</strong>  io : <a href="https://freshrimpsushi.github.io/posts/1260">이노베이티브 아웃라이어</a>가 들어가며 38번, 96번 데이터가 문제라면 io=c(38,96)과 같이 넣는다.</p>
 
-
-    
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    
-    <script type="text/javascript" src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 
 
