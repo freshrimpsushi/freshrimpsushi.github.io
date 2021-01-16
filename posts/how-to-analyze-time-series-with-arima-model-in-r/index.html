@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="R 에서 아리마 모형으로 시계열 분석하는 법">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>R 에서 아리마 모형으로 시계열 분석하는 법</title>
@@ -56,22 +59,22 @@
 
 <h2 id="heading"></h2>
 <ul>
-<li>하단에 예제코드 전체가 있다.* 수학, 통계적인 기초가 부족한 비전공자인데 당장 분석을 해야하는 사람들을 위해서 쓰인 글이다. 가능하다면 <a href="https://freshrimpsushi.github.io/posts/1213">이론적인 배경</a>을 충분히 숙지한 후 <a href="https://freshrimpsushi.github.io/posts/1216">제대로 된 방법</a>으로 하는 게 좋다.R에서 <a href="https://freshrimpsushi.github.io/posts/331">내장데이터 WWWusage</a>를 불러와 그래프를 그려 확인해보자.<img src="1.png#center" alt="img">WWWusage는 먼 옛날 인터넷에 접속하는 이용자수를 나타내는 시계열 데이터로써, 그 추이를 파악하기 위해서는 <a href="https://freshrimpsushi.github.io/posts/900">시계열 분석</a>을 해야한다. 시계열 분석에서 가장 대표적인 모형은 <a href="https://freshrimpsushi.github.io/posts/941">아리마 모형</a>이나, 같은 <a href="https://freshrimpsushi.github.io/posts/941">아리마 모형</a>이라고 해도 실제로 적절한 모형을 찾아내는 방법은 여러가지가 있다.<img filemime="image/png" filename="20190716_114655.png" height="168" src="https://t1.daumcdn.net/cfile/tistory/994DA1385D2D3AB918" style="max-width:100%;height:auto" width="416"/>다행스럽게도 R 에서는 forecast 패키지의 auto.arima() 함수를 사용해 쉽고 빠르게 그럴싸한 모형을 얻을 수 있다. <a href="https://freshrimpsushi.github.io/posts/1213">옳게 된 분석</a>이라고는 할 수 없으나, 간단한 분석이라면 사실 이 함수를 사용하는 것만으로도 분석의 반 이상이 끝난다. auto.arima()는 <a href="https://freshrimpsushi.github.io/posts/826">변수 선택 기준</a>과 <a href="https://freshrimpsushi.github.io/posts/821">변수 선택 절차</a>를 따라 최적의 모형을 찾아내준다.물론 이것이 최고, 최선의 모형이라는 뜻은 아니므로, 분석자는 데이터를 정확하게 이해하고 그에 맞는 모형을 계속 찾아야한다. 숙련된 분석자에게도 대강의 결과를 얻을 수 있다는 점에서 충분히 유용한 것은 사실이나, auto.arima()에 의지하는 태도는 지양해야한다.주의해야할 점으로 <a href="https://freshrimpsushi.github.io/posts/941">아리마 모형</a>은 <a href="https://freshrimpsushi.github.io/posts/907">정상성</a>을 만족하는 데이터에 대한 결과를 내놓는데, $ARIMA ( p , d , q )$ 에서 $d$ 가 필요한 <a href="https://freshrimpsushi.github.io/posts/916">차분</a>의 횟수라는 것이다. 다시 말해, 데이터에 <a href="https://freshrimpsushi.github.io/posts/938">변환</a>이 필요하다면 <a href="https://freshrimpsushi.github.io/posts/938">변환</a>을 한 데이터를 집어넣어야하지만 <a href="https://freshrimpsushi.github.io/posts/916">차분</a>이 필요한 데이터라도 <a href="https://freshrimpsushi.github.io/posts/916">차분</a>을 해선 안 된다는 것이다. 물론 적절하게 <a href="https://freshrimpsushi.github.io/posts/916">차분</a>을 한다면 그에 맞는 <a href="https://freshrimpsushi.github.io/posts/914">아르마 모형</a> $ARMA(p,q)$ 을 얻을 수 있다.말이 복잡한데, 이해하기 어려우면 그냥 다음의 단순한 수칙 두 가지만 생각하자 :**(1)**  <a href="https://freshrimpsushi.github.io/posts/938">변환</a>이 필요하면 auto.arima()에 넣기 전에 <a href="https://freshrimpsushi.github.io/posts/938">변환</a>을 해야한다.**(2)**  <a href="https://freshrimpsushi.github.io/posts/916">차분</a>이 필요해도 auto.arima()에 넣기 전에 <a href="https://freshrimpsushi.github.io/posts/916">차분</a>을 하면 안 된다.<img filemime="image/png" filename="3.png" height="280" src="https://t1.daumcdn.net/cfile/tistory/9934DC3C5D2D3ABE1A" style="max-width:100%;height:auto" width="568"/>위에서 얻은 모형을 통해 얻은 적합치가 실제 데이터를 얼마나 잘 설명하는지 확인해보자. 검은 실선은 실제 데이터고, 빨간 실선은 적합치다. 쉬운 데이터기는 하지만 모형이 데이터를 잘 설명하는 것을 알 수 있다.</li>
+<li>하단에 예제코드 전체가 있다.* 수학, 통계적인 기초가 부족한 비전공자인데 당장 분석을 해야하는 사람들을 위해서 쓰인 글이다. 가능하다면 <a href="https://freshrimpsushi.github.io/posts/1213">이론적인 배경</a>을 충분히 숙지한 후 <a href="https://freshrimpsushi.github.io/posts/1216">제대로 된 방법</a>으로 하는 게 좋다.R에서 <a href="https://freshrimpsushi.github.io/posts/331">내장데이터 WWWusage</a>를 불러와 그래프를 그려 확인해보자.<img src="1.png#center" alt="1.png">
+WWWusage는 먼 옛날 인터넷에 접속하는 이용자수를 나타내는 시계열 데이터로써, 그 추이를 파악하기 위해서는 <a href="https://freshrimpsushi.github.io/posts/900">시계열 분석</a>을 해야한다. 시계열 분석에서 가장 대표적인 모형은 <a href="https://freshrimpsushi.github.io/posts/941">아리마 모형</a>이나, 같은 <a href="https://freshrimpsushi.github.io/posts/941">아리마 모형</a>이라고 해도 실제로 적절한 모형을 찾아내는 방법은 여러가지가 있다.<img src="20190716_114655.png#center" alt="20190716\_114655.png">
+다행스럽게도 R 에서는 forecast 패키지의 auto.arima() 함수를 사용해 쉽고 빠르게 그럴싸한 모형을 얻을 수 있다. <a href="https://freshrimpsushi.github.io/posts/1213">옳게 된 분석</a>이라고는 할 수 없으나, 간단한 분석이라면 사실 이 함수를 사용하는 것만으로도 분석의 반 이상이 끝난다. auto.arima()는 <a href="https://freshrimpsushi.github.io/posts/826">변수 선택 기준</a>과 <a href="https://freshrimpsushi.github.io/posts/821">변수 선택 절차</a>를 따라 최적의 모형을 찾아내준다.물론 이것이 최고, 최선의 모형이라는 뜻은 아니므로, 분석자는 데이터를 정확하게 이해하고 그에 맞는 모형을 계속 찾아야한다. 숙련된 분석자에게도 대강의 결과를 얻을 수 있다는 점에서 충분히 유용한 것은 사실이나, auto.arima()에 의지하는 태도는 지양해야한다.주의해야할 점으로 <a href="https://freshrimpsushi.github.io/posts/941">아리마 모형</a>은 <a href="https://freshrimpsushi.github.io/posts/907">정상성</a>을 만족하는 데이터에 대한 결과를 내놓는데, $ARIMA ( p , d , q )$ 에서 $d$ 가 필요한 <a href="https://freshrimpsushi.github.io/posts/916">차분</a>의 횟수라는 것이다. 다시 말해, 데이터에 <a href="https://freshrimpsushi.github.io/posts/938">변환</a>이 필요하다면 <a href="https://freshrimpsushi.github.io/posts/938">변환</a>을 한 데이터를 집어넣어야하지만 <a href="https://freshrimpsushi.github.io/posts/916">차분</a>이 필요한 데이터라도 <a href="https://freshrimpsushi.github.io/posts/916">차분</a>을 해선 안 된다는 것이다. 물론 적절하게 <a href="https://freshrimpsushi.github.io/posts/916">차분</a>을 한다면 그에 맞는 <a href="https://freshrimpsushi.github.io/posts/914">아르마 모형</a> $ARMA(p,q)$ 을 얻을 수 있다.말이 복잡한데, 이해하기 어려우면 그냥 다음의 단순한 수칙 두 가지만 생각하자 :**(1)**  <a href="https://freshrimpsushi.github.io/posts/938">변환</a>이 필요하면 auto.arima()에 넣기 전에 <a href="https://freshrimpsushi.github.io/posts/938">변환</a>을 해야한다.**(2)**  <a href="https://freshrimpsushi.github.io/posts/916">차분</a>이 필요해도 auto.arima()에 넣기 전에 <a href="https://freshrimpsushi.github.io/posts/916">차분</a>을 하면 안 된다.<img src="3.png#center" alt="3.png">
+위에서 얻은 모형을 통해 얻은 적합치가 실제 데이터를 얼마나 잘 설명하는지 확인해보자. 검은 실선은 실제 데이터고, 빨간 실선은 적합치다. 쉬운 데이터기는 하지만 모형이 데이터를 잘 설명하는 것을 알 수 있다.</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-<span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#34;forecast&#34;</span>)
-<span style="color:#a6e22e">library</span>(forecast)
+<pre><code>install.packages(&quot;forecast&quot;)
+library(forecast)
  
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">3</span>); WWWusage; <span style="color:#a6e22e">plot</span>(WWWusage,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;WWWusage&#39;</span>)
+win.graph(6,3); WWWusage; plot(WWWusage,main='WWWusage')
  
-out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.arima</span>(WWWusage); out
+out&lt;-auto.arima(WWWusage); out
  
-<span style="color:#a6e22e">summary</span>(out)
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">3</span>); WWWusage; <span style="color:#a6e22e">plot</span>(WWWusage,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;WWWusage&#39;</span>)
-<span style="color:#a6e22e">lines</span>(out<span style="color:#f92672">$</span>fitted,col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
-</code></pre></div>
+summary(out)
+win.graph(6,3); WWWusage; plot(WWWusage,main='WWWusage')
+lines(out$fitted,col='red')
+</code></pre>
 
             </div>
 
@@ -90,7 +93,7 @@ out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.arim
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -102,11 +105,13 @@ out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.arim
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -131,6 +136,8 @@ out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.arim
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -157,8 +164,6 @@ out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.arim
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -189,8 +194,6 @@ out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.arim
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

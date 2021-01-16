@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="수치해석에서의 경사하강법">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>수치해석에서의 경사하강법</title>
@@ -55,7 +58,11 @@
 
 
 <h2 id="heading"></h2>
-<p><a href="https://freshrimpsushi.github.io/posts/987">머신러닝에서의 경사하강법</a><a href="https://freshrimpsushi.github.io/posts/970">스칼라 함수</a> $\varphi : \mathbb{R}^{n} \to \mathbb{R}$ 을 <strong>비용 함수</strong><sup>Cost Function</sup> 이라고 한다. 비용 함수 $ \varphi ( \mathbb{x} ) $ 의 극소값을 구하기 위해 $\mathbb{x} = \mathbb{x}<em>{n}$ 에서 $\varphi ( \mathbb{x}</em>{n+1} ) &lt; \varphi ( \mathbb{x}<em>{n} ) $ 를 만족시키는 $\mathbb{x}</em>{n+1}$ 를 찾는 알고리즘을 <strong>하강법</strong><sup>Descent Method</sup> 이라고 한다.$\varphi$ 를 비용 함수라고 부를만한 예로써 집을 한 채 짓는다고 하자. 집 한 채에 들어가는 자원은 목재, 석재, 철재, 유리, 인건비, 부동산 등등이 있을텐데 이는 결국 &lsquo;얼마나 많은 돈을 써야하는가&rsquo;의 문제로 귀결된다. 이 문제에서 $\varphi$ 는 각각의 자원을 성분으로 갖는 벡터를 비용이라는 스칼라로 매핑해주는 함수가 된다. 여기서 누구나 궁금해할만한 질문은 &lsquo;그 최소비용이 얼마인가&rsquo;하는 것이다.  한편 머신러닝 등에서는 비용 함수는 손실 함수라고도 부르는데, 이 경우 &lsquo;실제 값과 예측 값의 차이가 가장 작아질 때가 언제인가&rsquo;가 된다.어떤 문제가 됐든 이를 수학적으로 추상화하면 &lsquo;스칼라 함수의 최소값을 구하는 문제&rsquo;로 요약할 수 있다. 하강법은 이 문제를 풀기 위해 $n$ 차원 <a href="https://freshrimpsushi.github.io/posts/673">매니폴드</a> 상에서 스칼라가 극소값을 찾는 메소드다. 주의해야할 것은 최소값이 아니라 극소값이라는 것이다. $\varphi$ 가 <a href="https://freshrimpsushi.github.io/posts/262">컨벡스</a>하다면 모르지만 일반적인 경우에서 하강법은 로컬 미니멈을 찾아낼 수 있을 뿐 그것이 글로벌 미니멈이라는 보장을 해줄 수 없다.경사하강법은 여러가지 하강법 중에서도 가장 인기있는 메소드로써, 비용 함수의 그래디언트를 이용해 극소값을 찾는다. 이러한 방법의 실전적인 사용례를 알고 싶다면 <a href="https://freshrimpsushi.github.io/posts/987">머신러닝에서의 경사하강법</a>에 대해 알아보는 게 좋다.적절한 $\alpha&gt;0$ 에 대해 $\mathbb{x}<em>{n+1} := \mathbb{x}</em>{n} - \alpha \nabla \varphi ( \mathbb{x}<em>{n} ) $ 를 <strong>경사하강법</strong> 이라고 한다.$- \nabla \varphi ( \mathbb{x}</em>{n} ) $ 는 $\mathbb{x} = \mathbb{x}<em>{n}$ 에서 <a href="https://freshrimpsushi.github.io/posts/1010">매니폴드가 가장 크게 감소하는 방향을 나타내므로</a> $\alpha$ 가 적절하다면 $\left\{ \mathbb{x}</em>{n} \right\} $ 는 극소점으로 수렴할 것이다.다만 이 방법은 쉽고 간편한 한편 다른 메소드에 비해 수렴하는 속도가 빠르다고 하긴 어려우며, 일단 <a href="https://freshrimpsushi.github.io/posts/1434">그리디 알고리즘</a>이다. 다시 말해, 각 단계에서는 최선을 다해 감소해서 로컬하게는 가장 크게 감소하지만 글로벌하게 보았을 땐 별로 좋은 방법이 아닐 수 있다는 것이다.다음은 경사하강법을 R 코드로 구현한 것으로, <a href="https://freshrimpsushi.github.io/posts/971">그래디언트를 구하기 위해</a> numDeriv 패키지를 사용했다.</p>
+<p><a href="https://freshrimpsushi.github.io/posts/987">머신러닝에서의 경사하강법</a></p>
+<p><a href="https://freshrimpsushi.github.io/posts/970">스칼라 함수</a> $\varphi : \mathbb{R}^{n} \to \mathbb{R}$ 을 <strong>비용 함수</strong><sup>Cost Function</sup> 이라고 한다. 비용 함수 $ \varphi ( \mathbb{x} ) $ 의 극소값을 구하기 위해 $\mathbb{x} = \mathbb{x}_{n}$ 에서 $\varphi ( \mathbb{x}_{n+1} ) &lt; \varphi ( \mathbb{x}_{n} ) $ 를 만족시키는 $\mathbb{x}_{n+1}$ 를 찾는 알고리즘을 <strong>하강법</strong><sup>Descent Method</sup> 이라고 한다.</p>
+<p>$\varphi$ 를 비용 함수라고 부를만한 예로써 집을 한 채 짓는다고 하자. 집 한 채에 들어가는 자원은 목재, 석재, 철재, 유리, 인건비, 부동산 등등이 있을텐데 이는 결국 &lsquo;얼마나 많은 돈을 써야하는가&rsquo;의 문제로 귀결된다. 이 문제에서 $\varphi$ 는 각각의 자원을 성분으로 갖는 벡터를 비용이라는 스칼라로 매핑해주는 함수가 된다. 여기서 누구나 궁금해할만한 질문은 &lsquo;그 최소비용이 얼마인가&rsquo;하는 것이다.  한편 머신러닝 등에서는 비용 함수는 손실 함수라고도 부르는데, 이 경우 &lsquo;실제 값과 예측 값의 차이가 가장 작아질 때가 언제인가&rsquo;가 된다.어떤 문제가 됐든 이를 수학적으로 추상화하면 &lsquo;스칼라 함수의 최소값을 구하는 문제&rsquo;로 요약할 수 있다. 하강법은 이 문제를 풀기 위해 $n$ 차원 <a href="https://freshrimpsushi.github.io/posts/673">매니폴드</a> 상에서 스칼라가 극소값을 찾는 메소드다. 주의해야할 것은 최소값이 아니라 극소값이라는 것이다. $\varphi$ 가 <a href="https://freshrimpsushi.github.io/posts/262">컨벡스</a>하다면 모르지만 일반적인 경우에서 하강법은 로컬 미니멈을 찾아낼 수 있을 뿐 그것이 글로벌 미니멈이라는 보장을 해줄 수 없다.경사하강법은 여러가지 하강법 중에서도 가장 인기있는 메소드로써, 비용 함수의 그래디언트를 이용해 극소값을 찾는다. 이러한 방법의 실전적인 사용례를 알고 싶다면 <a href="https://freshrimpsushi.github.io/posts/987">머신러닝에서의 경사하강법</a>에 대해 알아보는 게 좋다.</p>
+<p>적절한 $\alpha&gt;0$ 에 대해 $\mathbb{x}_{n+1} := \mathbb{x}_{n} - \alpha \nabla \varphi ( \mathbb{x}_{n} ) $ 를 <strong>경사하강법</strong> 이라고 한다.</p>
+<p>$- \nabla \varphi ( \mathbb{x}_{n} ) $ 는 $\mathbb{x} = \mathbb{x}_{n}$ 에서 <a href="https://freshrimpsushi.github.io/posts/1010">매니폴드가 가장 크게 감소하는 방향을 나타내므로</a> $\alpha$ 가 적절하다면 $\left\{ \mathbb{x}_{n} \right\} $ 는 극소점으로 수렴할 것이다.다만 이 방법은 쉽고 간편한 한편 다른 메소드에 비해 수렴하는 속도가 빠르다고 하긴 어려우며, 일단 <a href="https://freshrimpsushi.github.io/posts/1434">그리디 알고리즘</a>이다. 다시 말해, 각 단계에서는 최선을 다해 감소해서 로컬하게는 가장 크게 감소하지만 글로벌하게 보았을 땐 별로 좋은 방법이 아닐 수 있다는 것이다.다음은 경사하강법을 R 코드로 구현한 것으로, <a href="https://freshrimpsushi.github.io/posts/971">그래디언트를 구하기 위해</a> numDeriv 패키지를 사용했다.</p>
 <pre><code>library(numDeriv)
  
 optimizer&lt;-function(f,x0,alpha=0.01){
@@ -71,7 +78,8 @@ z&lt;-function(v){
  
 optimizer(z,c(0,0))
 z(c(1.999945,2.999918))
-</code></pre><p>위 코드를 실행시킨 결과는 다음과 같다.<img filemime="image/jpeg" filename="20190329_151329.png" height="63" src="https://t1.daumcdn.net/cfile/tistory/99CB1C435C9DB7A402" style="text-align: justify;" width="202"/>위 결과는 아주 간단한 예제로써 $z(x,y) = (x-2)^2 + (y-3)^2$ 이 최소값을 갖도록 하는 점을 찾아냈음을 보여준다. 다음과 같은 곡면에서 $z$ 가 최소가 되는 점은 $(2,3)$ 이다.<img filemime="image/jpeg" filename="20190329_152428.png" height="432" src="https://t1.daumcdn.net/cfile/tistory/99092E445C9DBA3807" style="max-width:100%;height:auto" width="637"/></p>
+</code></pre><p>위 코드를 실행시킨 결과는 다음과 같다.<img src="20190329_151329.png#center" alt="20190329\_151329.png">
+위 결과는 아주 간단한 예제로써 $z(x,y) = (x-2)^2 + (y-3)^2$ 이 최소값을 갖도록 하는 점을 찾아냈음을 보여준다. 다음과 같은 곡면에서 $z$ 가 최소가 되는 점은 $(2,3)$ 이다.<img src="20190329_152428.png#center" alt="20190329\_152428.png"></p>
 
 
             </div>
@@ -91,7 +99,7 @@ z(c(1.999945,2.999918))
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -103,11 +111,13 @@ z(c(1.999945,2.999918))
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -132,6 +142,8 @@ z(c(1.999945,2.999918))
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -158,8 +170,6 @@ z(c(1.999945,2.999918))
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -190,8 +200,6 @@ z(c(1.999945,2.999918))
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

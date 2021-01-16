@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="ROC 곡선을 이용해 최적의 컷오프 찾는 법">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>ROC 곡선을 이용해 최적의 컷오프 찾는 법</title>
@@ -65,113 +68,106 @@
 
 
 <h2 id="heading"></h2>
-<p>*하단에 예제코드 전체가 있다.ROC 곡선을 그리면 트레이닝 데이터로 얻은 모형이 테스트 데이터를 어느정도로 잘 설명하는지 한 눈에 보여서 유용하다. 하지만 이 곡선은 모든 컷오프에 대한 분류율을 계산하고 이은 것이므로 결국 &lsquo;어떤 컷오프로 <a href="https://freshrimpsushi.github.io/posts/832">0과 1을 분류</a>할 것인가&rsquo;는 알 수 없다. 이것을 알아내기 위해 <a href="https://freshrimpsushi.github.io/posts/866">교차검증</a>의 방법론을 응용해보자.<img src="20190208_140726.png#center" alt="img">트레이닝 데이터에서 0과 1을 가장 잘 분류해주는 최적 컷오프를 찾아내봤자 그것은 트레이닝 데이터를 잘 설명할 컷오프에 지나지 않는다. 당연히 테스트 데이터에서 <a href="https://freshrimpsushi.github.io/posts/571">분류율</a>을 계산해봐도 그 최적 컷오프는 테스트 데이터만을 잘 설명하는 컷오프일 뿐이다. 따라서 <strong>밸리데이션 데이터</strong><sup>Validation Data</sup> 라는 것을 별도로 만들어 어떤 데이터에도 편향되지 않는 컷오프를 찾는다.<img src="20190208_140734.png#center" alt="img"><strong>Step 1.</strong>  트레이닝 데이터를 학습시켜 모형을 만든다.<strong>Step 2.</strong>  밸리데이션 데이터에 적용시켜 최적의 컷오프를 찾는다.<strong>Step 3.</strong>  트레이닝 데이터로 얻은 모형을 밸리데이션 데이터로 얻은 컷오프로 분류해 테스트 데이터에서 얼마나 퍼포먼스가 높은지 확인한다. 여러가지 모형 후보가 있다면 이 퍼포먼스가 가장 높은 모형을 최종 모형으로 선택한다.이 때 <strong>Step 1.</strong> 에서 얻은 모형은 <strong>Step 2.</strong> 에서 얻은 컷오프를 포함하고서야 비로소 제대로 된 모형이 된다.<strong>(</strong> <a href="https://freshrimpsushi.github.io/posts/868"><strong>ROC 곡선 그리는 법</strong> </a><strong>에 이어서)</strong> <img src="99C508455C4FA79537.png#center" alt="img">위 그림은 <a href="https://freshrimpsushi.github.io/posts/868">전 포스트</a>에서 데이터를 트레이닝 데이터와 테스트 데이터로 나누었을 때의 ROC 곡선이다. 이제는 최적의 컷오프를 구하기 위해 데이터를 삼분할 필요가 있다. 이때의 비율은 데이터마다 다르지만 별다른 문제가 없다면 3:1:1 정도가 무난하다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-DATANUM<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">nrow</span>(DATA)
-<span style="color:#a6e22e">numeric</span>(DATANUM)
-DATANUM<span style="color:#f92672">*</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0.6</span>,<span style="color:#ae81ff">0.2</span>,<span style="color:#ae81ff">0.2</span>)
+<p>*하단에 예제코드 전체가 있다.ROC 곡선을 그리면 트레이닝 데이터로 얻은 모형이 테스트 데이터를 어느정도로 잘 설명하는지 한 눈에 보여서 유용하다. 하지만 이 곡선은 모든 컷오프에 대한 분류율을 계산하고 이은 것이므로 결국 &lsquo;어떤 컷오프로 <a href="https://freshrimpsushi.github.io/posts/832">0과 1을 분류</a>할 것인가&rsquo;는 알 수 없다. 이것을 알아내기 위해 <a href="https://freshrimpsushi.github.io/posts/866">교차검증</a>의 방법론을 응용해보자.<img src="20190208_140726.png#center" alt="20190208\_140726.png">
+트레이닝 데이터에서 0과 1을 가장 잘 분류해주는 최적 컷오프를 찾아내봤자 그것은 트레이닝 데이터를 잘 설명할 컷오프에 지나지 않는다. 당연히 테스트 데이터에서 <a href="https://freshrimpsushi.github.io/posts/571">분류율</a>을 계산해봐도 그 최적 컷오프는 테스트 데이터만을 잘 설명하는 컷오프일 뿐이다. 따라서 <strong>밸리데이션 데이터</strong><sup>Validation Data</sup> 라는 것을 별도로 만들어 어떤 데이터에도 편향되지 않는 컷오프를 찾는다.<img src="20190208_140734.png#center" alt="20190208\_140734.png"></p>
+<p><strong>Step 1.</strong>  트레이닝 데이터를 학습시켜 모형을 만든다.<strong>Step 2.</strong>  밸리데이션 데이터에 적용시켜 최적의 컷오프를 찾는다.<strong>Step 3.</strong>  트레이닝 데이터로 얻은 모형을 밸리데이션 데이터로 얻은 컷오프로 분류해 테스트 데이터에서 얼마나 퍼포먼스가 높은지 확인한다. 여러가지 모형 후보가 있다면 이 퍼포먼스가 가장 높은 모형을 최종 모형으로 선택한다.</p>
+<p>이 때 <strong>Step 1.</strong> 에서 얻은 모형은 <strong>Step 2.</strong> 에서 얻은 컷오프를 포함하고서야 비로소 제대로 된 모형이 된다.</p>
+<p>(** <a href="https://freshrimpsushi.github.io/posts/868"><strong>ROC 곡선 그리는 법</strong> </a>**에 이어서)** <img src="99C508455C4FA79537.png#center" alt="99C508455C4FA79537.png">
+위 그림은 <a href="https://freshrimpsushi.github.io/posts/868">전 포스트</a>에서 데이터를 트레이닝 데이터와 테스트 데이터로 나누었을 때의 ROC 곡선이다. 이제는 최적의 컷오프를 구하기 위해 데이터를 삼분할 필요가 있다. 이때의 비율은 데이터마다 다르지만 별다른 문제가 없다면 3:1:1 정도가 무난하다.</p>
+<pre><code>DATANUM&lt;-nrow(DATA)
+numeric(DATANUM)
+DATANUM*c(0.6,0.2,0.2)
   
-slicing<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">sample</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>DATANUM)
-slicing[slicing<span style="color:#f92672">&gt;</span>(DATANUM<span style="color:#f92672">*</span><span style="color:#ae81ff">0.8</span>)]<span style="color:#f92672">&lt;-</span>(<span style="color:#ae81ff">-1</span>)
-slicing[slicing<span style="color:#f92672">&gt;</span>(DATANUM<span style="color:#f92672">*</span><span style="color:#ae81ff">0.6</span>)]<span style="color:#f92672">&lt;-</span>(<span style="color:#ae81ff">-2</span>)
-slicing[slicing<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>]<span style="color:#f92672">&lt;-</span>(<span style="color:#ae81ff">-3</span>)
-slicing<span style="color:#f92672">&lt;-</span>slicing<span style="color:#ae81ff">+4</span>
+slicing&lt;-sample(1:DATANUM)
+slicing[slicing&gt;(DATANUM*0.8)]&lt;-(-1)
+slicing[slicing&gt;(DATANUM*0.6)]&lt;-(-2)
+slicing[slicing&gt;0]&lt;-(-3)
+slicing&lt;-slicing+4
  
-train<span style="color:#f92672">&lt;-</span>DATA[slicing<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>,]; <span style="color:#a6e22e">head</span>(train)
-valid<span style="color:#f92672">&lt;-</span>DATA[slicing<span style="color:#f92672">==</span><span style="color:#ae81ff">2</span>,]; <span style="color:#a6e22e">head</span>(valid)
-test<span style="color:#f92672">&lt;-</span>DATA[slicing<span style="color:#f92672">==</span><span style="color:#ae81ff">3</span>,]; <span style="color:#a6e22e">head</span>(test)
-</code></pre></div><p>데이터의 전처리를 끝내고 위의 코드를 실행하면 다음과 같이 트레이닝, 밸리데이션, 테스트 세 가지 데이터으로 쪼개진다.<img src="20190208_143314.png#center" alt="img"><strong>Step 1.</strong>  트레이닝 데이터를 학습시켜 모형을 만든다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-out0<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">glm</span>(vote<span style="color:#f92672">~</span>.,family<span style="color:#f92672">=</span><span style="color:#a6e22e">binomial</span>(),data<span style="color:#f92672">=</span>train); <span style="color:#a6e22e">summary</span>(out0)
-<span style="color:#a6e22e">vif</span>(out0)
+train&lt;-DATA[slicing==1,]; head(train)
+valid&lt;-DATA[slicing==2,]; head(valid)
+test&lt;-DATA[slicing==3,]; head(test)
+</code></pre><p>데이터의 전처리를 끝내고 위의 코드를 실행하면 다음과 같이 트레이닝, 밸리데이션, 테스트 세 가지 데이터으로 쪼개진다.<img src="20190208_143314.png#center" alt="20190208\_143314.png">
+<strong>Step 1.</strong>  트레이닝 데이터를 학습시켜 모형을 만든다.</p>
+<pre><code>out0&lt;-glm(vote~.,family=binomial(),data=train); summary(out0)
+vif(out0)
  
-out1<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">step</span>(out0, direction<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;both&#34;</span>); <span style="color:#a6e22e">summary</span>(out1)
-<span style="color:#a6e22e">qchisq</span>(<span style="color:#ae81ff">0.95</span>,df<span style="color:#f92672">=</span><span style="color:#ae81ff">1454</span>)
-<span style="color:#a6e22e">vif</span>(out1)[Colored by Color Scripter<span style="color:#a6e22e">]</span>(http<span style="color:#f92672">://</span>colorscripter.com<span style="color:#f92672">/</span>info<span style="color:#75715e">#e)</span>
-</code></pre></div><p>위의 코드를 실행하면 다음과 같이 <a href="https://freshrimpsushi.github.io/posts/821">변수선택절차</a>를 거쳐 모형을 만들고 <a href="https://freshrimpsushi.github.io/posts/850">적합도 검정</a>, <a href="https://freshrimpsushi.github.io/posts/810">다중공선성</a>을 체크해준다.<img src="20190208_144026.png#center" alt="img">모형을 살펴보면 특별히 문제될 곳이 없다.<strong>Step 2.</strong>  밸리데이션 데이터에 적용시켜 최적의 컷오프를 찾는다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-p <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">predict</span>(out1, newdata<span style="color:#f92672">=</span>valid, type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;response&#34;</span>)
+out1&lt;-step(out0, direction=&quot;both&quot;); summary(out1)
+qchisq(0.95,df=1454)
+vif(out1)[Colored by Color Scripter](http://colorscripter.com/info#e)
+</code></pre><p>위의 코드를 실행하면 다음과 같이 <a href="https://freshrimpsushi.github.io/posts/821">변수선택절차</a>를 거쳐 모형을 만들고 <a href="https://freshrimpsushi.github.io/posts/850">적합도 검정</a>, <a href="https://freshrimpsushi.github.io/posts/810">다중공선성</a>을 체크해준다.<img src="20190208_144026.png#center" alt="20190208\_144026.png">
+모형을 살펴보면 특별히 문제될 곳이 없다.<strong>Step 2.</strong>  밸리데이션 데이터에 적용시켜 최적의 컷오프를 찾는다.</p>
+<pre><code>p &lt;- predict(out1, newdata=valid, type=&quot;response&quot;)
  
-pr <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">prediction</span>(p, valid<span style="color:#f92672">$</span>vote)
-prf <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">performance</span>(pr, measure <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tpr&#34;</span>, x.measure <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;fpr&#34;</span>)
-<span style="color:#a6e22e">win.graph</span>(); <span style="color:#a6e22e">plot</span>(prf, main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ROC of Validation Data&#39;</span>)
-</code></pre></div><p>위의 코드를 실행하면 마치 밸리데이터 데이터를 테스트 데이터처럼 취급해서 다음과 같이 ROC 커브를 그려준다.<img filemime="image/jpeg" filename="vp.png" height="672" src="https://t1.daumcdn.net/cfile/tistory/9998614B5C5D17DA29" style="max-width:100%;height:auto" width="672"/>최적의 컷오프는 <u>데이터와 목적에 따라 다르게 결정될 수 있지만</u>, 별도의 주안점이 없다면 왼쪽 위의 $(0,1)$ 에서 가장 가까운 점을 찾아 그 점의 컷오프를 최적의 컷오프로 삼는다. 거리를 계산해야하기 때문에 코드는 다소 복잡하다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-optid<span style="color:#f92672">&lt;-</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(prf<span style="color:#f92672">@</span>y.values[[1]][<span style="color:#ae81ff">-1</span>]))<span style="color:#a6e22e">[</span>((prf<span style="color:#f92672">@</span>x.values[[1]][<span style="color:#ae81ff">-1</span>])^2 <span style="color:#f92672">+</span> (<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>prf<span style="color:#f92672">@</span>y.values[[1]][<span style="color:#ae81ff">-11</span>])^2)
-                                         <span style="color:#f92672">==</span><span style="color:#a6e22e">min</span>((prf<span style="color:#f92672">@</span>x.values[[1]][<span style="color:#ae81ff">-1</span>])^2 <span style="color:#f92672">+</span> (<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>prf<span style="color:#f92672">@</span>y.values[[1]][<span style="color:#ae81ff">-1</span>])^2)]
-<span style="color:#a6e22e">points</span>(prf<span style="color:#f92672">@</span>x.values[[1]][<span style="color:#ae81ff">-1</span>][optid],prf<span style="color:#f92672">@</span>y.values[[1]][<span style="color:#ae81ff">-1</span>][optid], col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, pch<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>)
-optcut<span style="color:#f92672">&lt;-</span>prf<span style="color:#f92672">@</span>alpha.values[[1]][<span style="color:#ae81ff">-1</span>][optid]; optcut[Colored by Color Scripter<span style="color:#a6e22e">]</span>(http<span style="color:#f92672">://</span>colorscripter.com<span style="color:#f92672">/</span>info<span style="color:#75715e">#e)</span>
-</code></pre></div><p>위의 코드를 실행하면 위의 설명대로 $(0,1)$ 에서 가장 가까운 점을 빨간색으로 표시해주고 그 지점의 컷오프를 출력해준다.<img filemime="image/jpeg" filename="20190208_144843.png" height="77" src="https://t1.daumcdn.net/cfile/tistory/9966A7465C5D184924" style="max-width:100%;height:auto" width="855"/><img filemime="image/jpeg" filename="vp2.png" height="672" src="https://t1.daumcdn.net/cfile/tistory/9987593F5C5D19F233" style="max-width:100%;height:auto" width="672"/>코드가 많이 복잡하지만 이해하려고 노력할 필요는 없다. 복잡한 것과 어려운 것은 다른 일이다. 위의 코드는 길기만하지 개념적으로는 전혀 어렵지 않다. 그냥 곡선 위의 모든 점과 $(0,1)$ 사이의 거리를 잰 후 그 거리가 가장 짧은 점을 선택한 것 뿐이다. 그 점에서의 $alpha.values를 참조하면 컷오프를 알 수 있다. 이렇게 구한 컷오프는 데이터를 가장 적절하게 잘 분류하는 컷오프로써 받아들일 수 있다. (다시 한 번 강조하지만, <u>이것은 절대적인 척도가 아니다.</u> 사용자의 목적에 따라서 &lsquo;최적의 컷오프&rsquo; 자체가 완전히 새롭게 정의될 수 있다.)이 예제에서 얻은 최적의 컷오프는 $0.4564142$ 로써, 이보다 높으면 1로 판정하고 낮으면 0으로 판정하는게 가장 좋다고 받아들여도 무방하다.(벌써 세번째 강조하는건데, <u>가장 좋다고 받아들일 수 있는 것이지 가장 좋은 것이 아니다.</u> 이에 대해 타당한 해석을 내놓는 것은 전적으로 분석자에게 달려있다.)<strong>Step 3.</strong>  테스트 데이터에서 얼마나 잘 맞는지 확인해본다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-p <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">predict</span>(out1, newdata<span style="color:#f92672">=</span>test, type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;response&#34;</span>); <span style="color:#a6e22e">head</span>(p,<span style="color:#ae81ff">48</span>)
-<span style="color:#a6e22e">table</span>(test<span style="color:#f92672">$</span>vote, p<span style="color:#f92672">&gt;</span>optcut)[Colored by Color Scripter<span style="color:#a6e22e">]</span>(http<span style="color:#f92672">://</span>colorscripter.com<span style="color:#f92672">/</span>info<span style="color:#75715e">#e)</span>
-</code></pre></div><p>위의 코드를 실행하면 테스트 데이터에서 확률을 계산해주고 최적 컷오프에 따른 <a href="https://freshrimpsushi.github.io/posts/571">오류행렬</a>을 출력해준다.<img filemime="image/jpeg" filename="20190208_150337.png" height="335" src="https://t1.daumcdn.net/cfile/tistory/99FDFB475C5D1BC736" style="max-width:100%;height:auto" width="529"/>위 오류행렬의 정분류율은 약 $81 %$ 로써 꽤 쓸만하고, 분석자가 만족할만하다면 최종모형으로 받아들여봄직하다.눈치챘겠지만 엄밀히 말해 최적 컷오프를 구하는데 있어서 꼭 ROC 곡선을 그릴 필요는 없다. 어차피 계산을 위한 데이터는 데이터 프레임으로써 다 구해놨기 때문에 코드만 잘 돌려서 값만 얻어내도 전혀 상관 없다.아래는 예제 코드다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-<span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#34;car&#34;</span>)
-<span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#34;ResourceSelection&#34;</span>)
-<span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#34;ROCR&#34;</span>)
+pr &lt;- prediction(p, valid$vote)
+prf &lt;- performance(pr, measure = &quot;tpr&quot;, x.measure = &quot;fpr&quot;)
+win.graph(); plot(prf, main='ROC of Validation Data')
+</code></pre><p>위의 코드를 실행하면 마치 밸리데이터 데이터를 테스트 데이터처럼 취급해서 다음과 같이 ROC 커브를 그려준다.<img src="vp.png#center" alt="vp.png">
+최적의 컷오프는 <u>데이터와 목적에 따라 다르게 결정될 수 있지만</u>, 별도의 주안점이 없다면 왼쪽 위의 $(0,1)$ 에서 가장 가까운 점을 찾아 그 점의 컷오프를 최적의 컷오프로 삼는다. 거리를 계산해야하기 때문에 코드는 다소 복잡하다.</p>
+<pre><code>optid&lt;-(1:length(prf@y.values[[1]][-1]))[((prf@x.values[[1]][-1])^2 + (1-prf@y.values[[1]][-11])^2)
+                                         ==min((prf@x.values[[1]][-1])^2 + (1-prf@y.values[[1]][-1])^2)]
+points(prf@x.values[[1]][-1][optid],prf@y.values[[1]][-1][optid], col='red', pch=15)
+optcut&lt;-prf@alpha.values[[1]][-1][optid]; optcut[Colored by Color Scripter](http://colorscripter.com/info#e)
+</code></pre><p>위의 코드를 실행하면 위의 설명대로 $(0,1)$ 에서 가장 가까운 점을 빨간색으로 표시해주고 그 지점의 컷오프를 출력해준다.<img src="20190208_144843.png#center" alt="20190208\_144843.png">
+<img src="vp2.png#center" alt="vp2.png">
+코드가 많이 복잡하지만 이해하려고 노력할 필요는 없다. 복잡한 것과 어려운 것은 다른 일이다. 위의 코드는 길기만하지 개념적으로는 전혀 어렵지 않다. 그냥 곡선 위의 모든 점과 $(0,1)$ 사이의 거리를 잰 후 그 거리가 가장 짧은 점을 선택한 것 뿐이다. 그 점에서의 $alpha.values를 참조하면 컷오프를 알 수 있다. 이렇게 구한 컷오프는 데이터를 가장 적절하게 잘 분류하는 컷오프로써 받아들일 수 있다. (다시 한 번 강조하지만, <u>이것은 절대적인 척도가 아니다.</u> 사용자의 목적에 따라서 &lsquo;최적의 컷오프&rsquo; 자체가 완전히 새롭게 정의될 수 있다.)이 예제에서 얻은 최적의 컷오프는 $0.4564142$ 로써, 이보다 높으면 1로 판정하고 낮으면 0으로 판정하는게 가장 좋다고 받아들여도 무방하다.(벌써 세번째 강조하는건데, <u>가장 좋다고 받아들일 수 있는 것이지 가장 좋은 것이 아니다.</u> 이에 대해 타당한 해석을 내놓는 것은 전적으로 분석자에게 달려있다.)<strong>Step 3.</strong>  테스트 데이터에서 얼마나 잘 맞는지 확인해본다.</p>
+<pre><code>p &lt;- predict(out1, newdata=test, type=&quot;response&quot;); head(p,48)
+table(test$vote, p&gt;optcut)[Colored by Color Scripter](http://colorscripter.com/info#e)
+</code></pre><p>위의 코드를 실행하면 테스트 데이터에서 확률을 계산해주고 최적 컷오프에 따른 <a href="https://freshrimpsushi.github.io/posts/571">오류행렬</a>을 출력해준다.<img src="20190208_150337.png#center" alt="20190208\_150337.png">
+위 오류행렬의 정분류율은 약 $81 %$ 로써 꽤 쓸만하고, 분석자가 만족할만하다면 최종모형으로 받아들여봄직하다.눈치챘겠지만 엄밀히 말해 최적 컷오프를 구하는데 있어서 꼭 ROC 곡선을 그릴 필요는 없다. 어차피 계산을 위한 데이터는 데이터 프레임으로써 다 구해놨기 때문에 코드만 잘 돌려서 값만 얻어내도 전혀 상관 없다.아래는 예제 코드다.</p>
+<pre><code>install.packages(&quot;car&quot;)
+install.packages(&quot;ResourceSelection&quot;)
+install.packages(&quot;ROCR&quot;)
  
-<span style="color:#a6e22e">library</span>(car)
-<span style="color:#a6e22e">library</span>(ResourceSelection)
-<span style="color:#a6e22e">library</span>(ROCR)
+library(car)
+library(ResourceSelection)
+library(ROCR)
  
-<span style="color:#a6e22e">set.seed</span>(<span style="color:#ae81ff">150421</span>)
+set.seed(150421)
  
-<span style="color:#f92672">?</span>Chile
-<span style="color:#a6e22e">str</span>(Chile)
-<span style="color:#a6e22e">nrow</span>(Chile)
+?Chile
+str(Chile)
+nrow(Chile)
  
-DATA<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">na.omit</span>(Chile)
-DATA<span style="color:#f92672">$</span>vote[DATA<span style="color:#f92672">$</span>vote<span style="color:#f92672">!=</span><span style="color:#e6db74">&#39;Y&#39;</span>]<span style="color:#f92672">&lt;-</span><span style="color:#e6db74">&#39;N&#39;</span>
-DATA<span style="color:#f92672">$</span>vote<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">factor</span>(DATA<span style="color:#f92672">$</span>vote)
+DATA&lt;-na.omit(Chile)
+DATA$vote[DATA$vote!='Y']&lt;-'N'
+DATA$vote&lt;-factor(DATA$vote)
  
-DATANUM<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">nrow</span>(DATA)
-<span style="color:#a6e22e">numeric</span>(DATANUM)
-DATANUM<span style="color:#f92672">*</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0.6</span>,<span style="color:#ae81ff">0.2</span>,<span style="color:#ae81ff">0.2</span>)
+DATANUM&lt;-nrow(DATA)
+numeric(DATANUM)
+DATANUM*c(0.6,0.2,0.2)
   
-slicing<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">sample</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>DATANUM)
-slicing[slicing<span style="color:#f92672">&gt;</span>(DATANUM<span style="color:#f92672">*</span><span style="color:#ae81ff">0.8</span>)]<span style="color:#f92672">&lt;-</span>(<span style="color:#ae81ff">-1</span>)
-slicing[slicing<span style="color:#f92672">&gt;</span>(DATANUM<span style="color:#f92672">*</span><span style="color:#ae81ff">0.6</span>)]<span style="color:#f92672">&lt;-</span>(<span style="color:#ae81ff">-2</span>)
-slicing[slicing<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>]<span style="color:#f92672">&lt;-</span>(<span style="color:#ae81ff">-3</span>)
-slicing<span style="color:#f92672">&lt;-</span>slicing<span style="color:#ae81ff">+4</span>
+slicing&lt;-sample(1:DATANUM)
+slicing[slicing&gt;(DATANUM*0.8)]&lt;-(-1)
+slicing[slicing&gt;(DATANUM*0.6)]&lt;-(-2)
+slicing[slicing&gt;0]&lt;-(-3)
+slicing&lt;-slicing+4
  
-train<span style="color:#f92672">&lt;-</span>DATA[slicing<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>,]; <span style="color:#a6e22e">head</span>(train)
-valid<span style="color:#f92672">&lt;-</span>DATA[slicing<span style="color:#f92672">==</span><span style="color:#ae81ff">2</span>,]; <span style="color:#a6e22e">head</span>(valid)
-test<span style="color:#f92672">&lt;-</span>DATA[slicing<span style="color:#f92672">==</span><span style="color:#ae81ff">3</span>,]; <span style="color:#a6e22e">head</span>(test)
+train&lt;-DATA[slicing==1,]; head(train)
+valid&lt;-DATA[slicing==2,]; head(valid)
+test&lt;-DATA[slicing==3,]; head(test)
  
-out0<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">glm</span>(vote<span style="color:#f92672">~</span>.,family<span style="color:#f92672">=</span><span style="color:#a6e22e">binomial</span>(),data<span style="color:#f92672">=</span>train); <span style="color:#a6e22e">summary</span>(out0)
-<span style="color:#a6e22e">vif</span>(out0)
+out0&lt;-glm(vote~.,family=binomial(),data=train); summary(out0)
+vif(out0)
  
-out1<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">step</span>(out0, direction<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;both&#34;</span>); <span style="color:#a6e22e">summary</span>(out1)
-<span style="color:#a6e22e">qchisq</span>(<span style="color:#ae81ff">0.95</span>,df<span style="color:#f92672">=</span><span style="color:#ae81ff">1454</span>)
-<span style="color:#a6e22e">vif</span>(out1)
+out1&lt;-step(out0, direction=&quot;both&quot;); summary(out1)
+qchisq(0.95,df=1454)
+vif(out1)
  
-p <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">predict</span>(out1, newdata<span style="color:#f92672">=</span>valid, type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;response&#34;</span>)
+p &lt;- predict(out1, newdata=valid, type=&quot;response&quot;)
  
-pr <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">prediction</span>(p, valid<span style="color:#f92672">$</span>vote)
-prf <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">performance</span>(pr, measure <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tpr&#34;</span>, x.measure <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;fpr&#34;</span>)
-<span style="color:#a6e22e">win.graph</span>(); <span style="color:#a6e22e">plot</span>(prf, main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ROC of Validation Data&#39;</span>)
+pr &lt;- prediction(p, valid$vote)
+prf &lt;- performance(pr, measure = &quot;tpr&quot;, x.measure = &quot;fpr&quot;)
+win.graph(); plot(prf, main='ROC of Validation Data')
  
-optid<span style="color:#f92672">&lt;-</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(prf<span style="color:#f92672">@</span>y.values[[1]][<span style="color:#ae81ff">-1</span>]))<span style="color:#a6e22e">[</span>((prf<span style="color:#f92672">@</span>x.values[[1]][<span style="color:#ae81ff">-1</span>])^2 <span style="color:#f92672">+</span> (<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>prf<span style="color:#f92672">@</span>y.values[[1]][<span style="color:#ae81ff">-11</span>])^2)
-                                         <span style="color:#f92672">==</span><span style="color:#a6e22e">min</span>((prf<span style="color:#f92672">@</span>x.values[[1]][<span style="color:#ae81ff">-1</span>])^2 <span style="color:#f92672">+</span> (<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>prf<span style="color:#f92672">@</span>y.values[[1]][<span style="color:#ae81ff">-1</span>])^2)]
-<span style="color:#a6e22e">points</span>(prf<span style="color:#f92672">@</span>x.values[[1]][<span style="color:#ae81ff">-1</span>][optid],prf<span style="color:#f92672">@</span>y.values[[1]][<span style="color:#ae81ff">-1</span>][optid], col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, pch<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>)
-optcut<span style="color:#f92672">&lt;-</span>prf<span style="color:#f92672">@</span>alpha.values[[1]][<span style="color:#ae81ff">-1</span>][optid]; optcut
+optid&lt;-(1:length(prf@y.values[[1]][-1]))[((prf@x.values[[1]][-1])^2 + (1-prf@y.values[[1]][-11])^2)
+                                         ==min((prf@x.values[[1]][-1])^2 + (1-prf@y.values[[1]][-1])^2)]
+points(prf@x.values[[1]][-1][optid],prf@y.values[[1]][-1][optid], col='red', pch=15)
+optcut&lt;-prf@alpha.values[[1]][-1][optid]; optcut
  
-p <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">predict</span>(out1, newdata<span style="color:#f92672">=</span>test, type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;response&#34;</span>); <span style="color:#a6e22e">head</span>(p,<span style="color:#ae81ff">48</span>)
-<span style="color:#a6e22e">table</span>(test<span style="color:#f92672">$</span>vote, p<span style="color:#f92672">&gt;</span>optcut)[Colored by Color Scripter<span style="color:#a6e22e">]</span>(http<span style="color:#f92672">://</span>colorscripter.com<span style="color:#f92672">/</span>info<span style="color:#75715e">#e)</span>
-</code></pre></div>
+p &lt;- predict(out1, newdata=test, type=&quot;response&quot;); head(p,48)
+table(test$vote, p&gt;optcut)[Colored by Color Scripter](http://colorscripter.com/info#e)
+</code></pre>
 
             </div>
 
@@ -190,7 +186,7 @@ p <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">predict
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -202,11 +198,13 @@ p <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">predict
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -231,6 +229,8 @@ p <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">predict
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -257,8 +257,6 @@ p <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">predict
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -289,8 +287,6 @@ p <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">predict
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="회귀분석에서의 교호작용">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>회귀분석에서의 교호작용</title>
@@ -88,7 +91,7 @@ $$</p>
 Y = \beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \beta_{3} S + \gamma_{1} E_{1} + \gamma_{2} E_{2} + \gamma_{3} E_{3} + \varepsilon 
 $$</p>
 <p>과 같이 나타날 것이다. 짐작하건대 수능 성적이 높을수록 똑똑하거나 성실해서, 나이가 많을수록 경력이 많아서, 고강도 육체노동을 하는 사람들이 주로 남자라서, 학력이 좋을수록 전문성을 요구하는 일을 해서 초봉도 높아질 것이다.그런데 이런 식의 가정은 $X_{1} , X_{2} , S , E$ 가 서로 독립이라는 전제가 있어야만 한다. 당장 눈에 보이는 문제점은 연령과 최종학력이다. 일부 수재들이라면 몰라도 보통은 대졸보단 석사가, 석사보단 박사의 사회진출이 늦는 것이 당연하다. 반대로 20살에 취업한 사람이 있다면 이 사람의 학력은 거의 확실히 고졸이하다. 경력직이 아닌 이상 연령은 어느정도 학력과 관계가 있을 것이고, 독립이라는 전제가 무너진다. 똑같은 사회 초년생이라도 한국에서는 군복무 때문에 남성의 사회진출이 여성에 비해 늦는 편이고, 이는 성별 역시 취업 연령에 영향을 미칠 수 있음을 의미한다.
-이렇듯 단일 변수만으로는 알 수 없는 변수들간의 작용을 **교호작용**<sup>Interaction</sup> 이라고 한다.단순하게 평균만 비교해서 성별간 임금격차가 난다거나 대뜸 대졸이 고졸보다 많이 받는다는 말들은 통계적으로 보았을 때 아주 의심스러운 주장들이다. 물론 그 주장들이 사실일 가능성도 있지만, 이를 입증하기 위해선 인포그래픽으로 잘 꾸며지고 이해하기 쉬운 지표들을 볼 게 아니라 다방면으로 데이터를 검토하고 지루하더라도 통계적인 의미가 있는 분석법으로 얻은 결과가 뒷받침되어야한다.통계를 이용해 거짓선동을 일삼는 자들이 가장 자주 쓰는 말은 &lsquo;통계적으로 수치적인 차이가 난다&rsquo;지만, 실상은 &lsquo;평균적으로 수치적인 차이가 나는 것&rsquo;들이 대부분이다. 통계와 평균은 다르다. 적어도 교호작용을 알 정도로 통계를 공부했다면 속아넘어가지 않도록 하자.
+이렇듯 단일 변수만으로는 알 수 없는 변수들간의 작용을 <strong>교호작용</strong><sup>Interaction</sup> 이라고 한다.단순하게 평균만 비교해서 성별간 임금격차가 난다거나 대뜸 대졸이 고졸보다 많이 받는다는 말들은 통계적으로 보았을 때 아주 의심스러운 주장들이다. 물론 그 주장들이 사실일 가능성도 있지만, 이를 입증하기 위해선 인포그래픽으로 잘 꾸며지고 이해하기 쉬운 지표들을 볼 게 아니라 다방면으로 데이터를 검토하고 지루하더라도 통계적인 의미가 있는 분석법으로 얻은 결과가 뒷받침되어야한다.통계를 이용해 거짓선동을 일삼는 자들이 가장 자주 쓰는 말은 &lsquo;통계적으로 수치적인 차이가 난다&rsquo;지만, 실상은 &lsquo;평균적으로 수치적인 차이가 나는 것&rsquo;들이 대부분이다. 통계와 평균은 다르다. 적어도 교호작용을 알 정도로 통계를 공부했다면 속아넘어가지 않도록 하자.
 질적변수와의 교호작용을 해결하기 위해서는 주로 두 변수를 곱하는 방법을 즐겨쓴다. 예를 들어</p>
 <p>$$
 Y = \beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \beta_{3} S + \gamma E + \varepsilon 
@@ -109,17 +112,20 @@ $$</p>
 <p>이 된다. 기하학적으로 말하자면 연령에 따른 회귀직선의 절편과 기울기 모두가 바뀌어서 성별을 고려한 비교가 가능해진다.
 R 에서는 위와 같이 회귀식을 세우면 그대로 분석이 된다. 팁을 주자면 전체 변수에 대한 제곱(^2)표현을 사용하면 변수 간의 곱이 나올 수 있는 모든 경우에 대해 알아서 계산된다.
 <strong>(<a href="http://freshrimpsushi.tistory.com/686">질적변수를 포함한 회귀분석</a>에 이어서)</strong> 
-<img src="20180927_102536.png#center" alt="img">
-<img src="20180920_094549.png#center" alt="img"><code>out1</code>은 교호작용을 고려하지 않은 회귀분석, <code>out2</code>는 교호작용을 고려한 회귀분석이다.
+<img src="20180927_102536.png#center" alt="20180927\_102536.png"></p>
+<p><img src="20180920_094549.png#center" alt="20180920\_094549.png">
+<code>out1</code>은 교호작용을 고려하지 않은 회귀분석, <code>out2</code>는 교호작용을 고려한 회귀분석이다.
 요약을 보면 <code>suppVC:dose</code>가 유의하면서 그 계수가 양수인데, 이는 기본적으로 비타민을 복용하는 그룹의 치아 길이가 짧지만 복용량이 많다면 비타민을 복용하는 그룹의 치아 길이 역시 꽤 길어질 수 있다고 해석할 수 있다. 오렌지주스를 한 단위 늘릴때마다 길어지는 치아의 길이는 $7.811 \cdots $ 이지만, 비타민을 한 단위 늘릴때마다 길어지는 치아의 길이는 $7.811 \cdots + 3.904 \cdots = 11.715 \cdots$ 이다. 소량을 투여한다면 오렌지주스가, 대량을 투여한다면 비타민이 치아의 길이에 도움이 된다는 뜻이다.
-<img src="1.png#center" alt="img"><img filemime="image/jpeg" filename="2.png" height="480" src="https://t1.daumcdn.net/cfile/tistory/99FDD73D5BAC2F240F" style="text-align: center;" width="480"/><strong>Plot 1</strong> 은 교호작용을 고려하지 않은 회귀분석, <strong>Plot 2</strong> 는 교호작용을 고려한 회귀분석에 대한 표준화 잔차그림이다. 그림을 보면 <strong>Plot 2</strong> 에도 아직 찝찝한 구석은 남아 있지만, 확실히 <strong>Plot 1</strong> 에 비하면 개선된 것이 눈에 띈다.
+<img src="1.png#center" alt="1.png">
+<img src="2.png#center" alt="2.png">
+<strong>Plot 1</strong> 은 교호작용을 고려하지 않은 회귀분석, <strong>Plot 2</strong> 는 교호작용을 고려한 회귀분석에 대한 표준화 잔차그림이다. 그림을 보면 <strong>Plot 2</strong> 에도 아직 찝찝한 구석은 남아 있지만, 확실히 <strong>Plot 1</strong> 에 비하면 개선된 것이 눈에 띈다.
 분석을 하다보면 독립변수 $A$ 와 $B$ 에 대해 $A*B$ 는 유의한데 $A$, $B$ 가 유의하지 않게 나온 경우가 있을 수 있다. 물론 이런 경우에 대해선 매우 주의 깊은 접근이 필요한 것이 사실이나, 분석이 제대로 됐다면 $A$ 와 $B$ 는 유의하지 않아도 회귀식에 포함되어야함을 유념하자. 당연하지만 $A$ 나 $B$ 중 한쪽만 유의하지 않아도 모두 포함시켜야한다.
 아래는 예제 코드다. 이 포스트에선 <code>out2</code>를 만들기 위한 <code>lm()</code> 함수의 두가지 경우가 동일하다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">head</span>(ToothGrowth); <span style="color:#a6e22e">tail</span>(ToothGrowth); <span style="color:#a6e22e">str</span>(ToothGrowth)
-out2<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span>(len<span style="color:#f92672">~</span>.^2,data<span style="color:#f92672">=</span>ToothGrowth); <span style="color:#a6e22e">summary</span>(out2)
-out2<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span>(len<span style="color:#f92672">~</span>.+supp<span style="color:#f92672">*</span>dose,data<span style="color:#f92672">=</span>ToothGrowth); <span style="color:#a6e22e">summary</span>(out2)
+<pre><code>head(ToothGrowth); tail(ToothGrowth); str(ToothGrowth)
+out2&lt;-lm(len~.^2,data=ToothGrowth); summary(out2)
+out2&lt;-lm(len~.+supp*dose,data=ToothGrowth); summary(out2)
  
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">5</span>); <span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">rstudent</span>(out2), main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Standardized Residual Plot 2&#34;</span>); <span style="color:#a6e22e">abline</span>(h<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)```</code></pre></div>
+win.graph(5,5); plot(rstudent(out2), main=&quot;Standardized Residual Plot 2&quot;); abline(h=0)```</code></pre>
 
             </div>
 
@@ -138,7 +144,7 @@ out2<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -150,11 +156,13 @@ out2<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -179,6 +187,8 @@ out2<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -205,8 +215,6 @@ out2<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -237,8 +245,6 @@ out2<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

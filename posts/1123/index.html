@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="R 에서 리스트를 참조하는 여러가지 방법">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>R 에서 리스트를 참조하는 여러가지 방법</title>
@@ -55,27 +58,27 @@
 
 
 <h2 id="heading"></h2>
-<p>R 은 데이터를 다루기 위해 정말 좋은 기능들을 많이 제공하는데, 그 중에서도 리스트는 R 을 사용하게 만드는 가장 큰 이유 중 하나다. 파이썬을 위시한 다른 언어에도 리스트 자료형 자체는 많이 구현되어 있으나 R 만큼 데이터를 다루기 편하고 직관적으로 구현되어 있지는 않다. 리스트를 잘 다룰 수 있게 되면 다른 프로그래밍 언어로는 다소 복잡하고 귀찮은 코딩도 아주 쉽게 할 수 있다.<img filemime="image/jpeg" filename="20190604_161445.png" height="180" src="https://t1.daumcdn.net/cfile/tistory/992BFF385CF61A7C2E" style="max-width:100%;height:auto" width="438"/>위와 같이 세가지 시퀀스가 하나의 리스트에 속한 상황을 생각해보자. 기본적으로 데이터를 뜯어봤을 때 $이 있으면 데이터$이름과 같이 참조하는 건 맞다. 하지만 이름이 너무 길어서 다 입력하기 귀찮은 경우, 혹은 코드가 복잡해지거나 반복 작업이 필요한 경우 이걸 일일이 쓰고 있을 수는 없다.<img filemime="image/jpeg" filename="20190604_161526.png" height="60" src="https://t1.daumcdn.net/cfile/tistory/995499395CF61AAE34" style="max-width:100%;height:auto" width="439"/>다행스럽게도 리스트는 데이터의 이름이 정해지더라도 여전히 그 순서대로 번호가 할당된다. 따라서 위와 같이 그냥 숫자로 참조해도 된다.<img filemime="image/jpeg" filename="20190604_161541.png" height="93" src="https://t1.daumcdn.net/cfile/tistory/99EBE5395CF61AAE37" style="max-width:100%;height:auto" width="239"/>숫자로 참조가 된다는 것은 곧 변수로도 참조가 된다는 것이다. 위와 같이 반복문을 작성해도 잘 돌아가는 것을 확인할 수 있다.한편 반복문은 반복문인데 숫자가 아니라 변수 이름으로 다루는 게 편할 때도 있다. 예를 들어 기상데이터를 종류가 40가지인 리스트로 만들었는데, 그 중에서 &ldquo;온도&quot;와 &ldquo;습도&quot;만 제외하는 경우를 들 수 있다. 이럴땐 문자열의 인덱스를 만들어서 처리하는 기교를 많이 사용한다. 다행스럽게도 리스트는 데이터$이름과 데이터$&ldquo;이름&rdquo; 둘 다를 똑같이 받아들이므로 이를 통해 유연한 코드 작성이 가능해진다. 사실, 그 뿐만 아니라 데이터[[이름]] 역시 가능하다. $ 기호는 리스트가 아니라도 데이터 프레임 등에서 쓰일 수 있으니 복잡한 데이터를 다룬다면 헷갈리지 않도록 리스트에만 사용하는 기호인 [[]]만을 사용하는 것을 권장한다.<img filemime="image/jpeg" filename="20190604_161733.png" height="105" src="https://t1.daumcdn.net/cfile/tistory/99C5043F5CF61B1F2C" style="max-width:100%;height:auto" width="359"/></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-sequence<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">list</span>(arithmetic<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>,
-               geometric<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span><span style="color:#a6e22e">^</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>),
-               alternative<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span><span style="color:#f92672">*</span><span style="color:#a6e22e">rep</span>(<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">-1</span>),<span style="color:#ae81ff">5</span>))
+<p>R 은 데이터를 다루기 위해 정말 좋은 기능들을 많이 제공하는데, 그 중에서도 리스트는 R 을 사용하게 만드는 가장 큰 이유 중 하나다. 파이썬을 위시한 다른 언어에도 리스트 자료형 자체는 많이 구현되어 있으나 R 만큼 데이터를 다루기 편하고 직관적으로 구현되어 있지는 않다. 리스트를 잘 다룰 수 있게 되면 다른 프로그래밍 언어로는 다소 복잡하고 귀찮은 코딩도 아주 쉽게 할 수 있다.<img src="20190604_161445.png#center" alt="20190604\_161445.png">
+위와 같이 세가지 시퀀스가 하나의 리스트에 속한 상황을 생각해보자. 기본적으로 데이터를 뜯어봤을 때 $이 있으면 데이터$이름과 같이 참조하는 건 맞다. 하지만 이름이 너무 길어서 다 입력하기 귀찮은 경우, 혹은 코드가 복잡해지거나 반복 작업이 필요한 경우 이걸 일일이 쓰고 있을 수는 없다.<img src="20190604_161526.png#center" alt="20190604\_161526.png">
+다행스럽게도 리스트는 데이터의 이름이 정해지더라도 여전히 그 순서대로 번호가 할당된다. 따라서 위와 같이 그냥 숫자로 참조해도 된다.<img src="20190604_161541.png#center" alt="20190604\_161541.png">
+숫자로 참조가 된다는 것은 곧 변수로도 참조가 된다는 것이다. 위와 같이 반복문을 작성해도 잘 돌아가는 것을 확인할 수 있다.한편 반복문은 반복문인데 숫자가 아니라 변수 이름으로 다루는 게 편할 때도 있다. 예를 들어 기상데이터를 종류가 40가지인 리스트로 만들었는데, 그 중에서 &ldquo;온도&quot;와 &ldquo;습도&quot;만 제외하는 경우를 들 수 있다. 이럴땐 문자열의 인덱스를 만들어서 처리하는 기교를 많이 사용한다. 다행스럽게도 리스트는 데이터$이름과 데이터$&ldquo;이름&rdquo; 둘 다를 똑같이 받아들이므로 이를 통해 유연한 코드 작성이 가능해진다. 사실, 그 뿐만 아니라 데이터[[이름]] 역시 가능하다. $ 기호는 리스트가 아니라도 데이터 프레임 등에서 쓰일 수 있으니 복잡한 데이터를 다룬다면 헷갈리지 않도록 리스트에만 사용하는 기호인 [[]]만을 사용하는 것을 권장한다.<img src="20190604_161733.png#center" alt="20190604\_161733.png"></p>
+<pre><code>sequence&lt;-list(arithmetic=1:10,
+               geometric=2^(1:10),
+               alternative=1:10*rep(c(1,-1),5))
 sequence
  
-sequence<span style="color:#f92672">$</span>geometric
+sequence$geometric
 seqence[[2]]
  
-<span style="color:#a6e22e">for</span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span>){
-  <span style="color:#a6e22e">print</span>(<span style="color:#a6e22e">sum</span>(sequence[[i]]))
+for(i in 1:3){
+  print(sum(sequence[[i]]))
 }
  
-sequence<span style="color:#f92672">$</span><span style="color:#e6db74">&#34;arithmetic&#34;</span>
-<span style="color:#a6e22e">for</span>(i in <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;arithmetic&#34;</span>,<span style="color:#e6db74">&#34;alternative&#34;</span>)){
-  <span style="color:#a6e22e">print</span>(sequence[[i]])
-}[Colored by Color Scripter<span style="color:#a6e22e">]</span>(http<span style="color:#f92672">://</span>colorscripter.com<span style="color:#f92672">/</span>info<span style="color:#75715e">#e)</span>
-</code></pre></div>
+sequence$&quot;arithmetic&quot;
+for(i in c(&quot;arithmetic&quot;,&quot;alternative&quot;)){
+  print(sequence[[i]])
+}[Colored by Color Scripter](http://colorscripter.com/info#e)
+</code></pre>
 
             </div>
 
@@ -94,7 +97,7 @@ sequence<span style="color:#f92672">$</span><span style="color:#e6db74">&#34;ari
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -106,11 +109,13 @@ sequence<span style="color:#f92672">$</span><span style="color:#e6db74">&#34;ari
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -135,6 +140,8 @@ sequence<span style="color:#f92672">$</span><span style="color:#e6db74">&#34;ari
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -161,8 +168,6 @@ sequence<span style="color:#f92672">$</span><span style="color:#e6db74">&#34;ari
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -193,8 +198,6 @@ sequence<span style="color:#f92672">$</span><span style="color:#e6db74">&#34;ari
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

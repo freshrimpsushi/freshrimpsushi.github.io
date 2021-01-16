@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="줄리아에서 배열을 열 방향으로 평행이동시키는 코드">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>줄리아에서 배열을 열 방향으로 평행이동시키는 코드</title>
@@ -55,39 +58,42 @@
 
 
 <h2 id="heading"></h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">
-<span style="color:#66d9ef">function</span> translation(X<span style="color:#f92672">::</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>},s<span style="color:#f92672">::</span> <span style="color:#66d9ef">Int64</span>)
-    pixels<span style="color:#f92672">=</span>length(X[<span style="color:#f92672">:</span>,<span style="color:#ae81ff">1</span>]);
-    X_translation <span style="color:#f92672">=</span> zeros(pixels, pixels);
-    <span style="color:#66d9ef">if</span> s<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>
-        <span style="color:#66d9ef">for</span> j<span style="color:#f92672">=</span>s<span style="color:#f92672">:</span>pixels<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
-        X_translation[<span style="color:#f92672">:</span>,j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">=</span>X[<span style="color:#f92672">:</span>,j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>s];
-        <span style="color:#66d9ef">end</span>
-    <span style="color:#66d9ef">elseif</span> s<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>
-        <span style="color:#66d9ef">for</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>pixels<span style="color:#f92672">+</span>s
-            X_translation[<span style="color:#f92672">:</span>,j]<span style="color:#f92672">=</span>X[<span style="color:#f92672">:</span>,j<span style="color:#f92672">-</span>s]
-        <span style="color:#66d9ef">end</span>
-    <span style="color:#66d9ef">else</span>
-        X_translation<span style="color:#f92672">=</span>X;
-    <span style="color:#66d9ef">end</span>
-    <span style="color:#66d9ef">return</span> X_translation
-<span style="color:#66d9ef">end</span>
-</code></pre></div><p>실수 성분을 갖는 $n\times n$ 배열 $X$와 평행이동시킬 칸 $s$를 입력하면 오른쪽으로 $s$만큼 평행이동한 $n\times n$배열 $X_{\mathrm{translation}}$을 반환한다. $s&gt;0$이면 오른쪽으로 $s$칸 만큼 이동하고, $s&lt;0$이면 왼쪽으로 $|s|$칸 만큼 이동한다. $s=0$이면 입력한 배열과 같은 배열을 반환한다. 아래는 예제코드와 그 결과이다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">
-X<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1.</span> <span style="color:#ae81ff">2.</span> <span style="color:#ae81ff">3.</span> <span style="color:#ae81ff">4.</span> <span style="color:#ae81ff">5.</span>]
-X<span style="color:#f92672">=</span>[X; X; X; X; X]
-X1<span style="color:#f92672">=</span>translation(X,<span style="color:#ae81ff">3</span>)
-X2<span style="color:#f92672">=</span>translation(X,<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>)
-X3<span style="color:#f92672">=</span>translation(X,<span style="color:#ae81ff">0</span>)
-</code></pre></div><p><img filemime="image/png" filename="2019-12-16 19;49;34_.png" height="531" src="https://t1.daumcdn.net/cfile/tistory/9915F23A5DF761841B" style="max-width:100%;height:auto" width="337"/><img filemime="image/png" filename="X.png" height="400" src="https://t1.daumcdn.net/cfile/tistory/9925D5415DF7657C2A" style="max-width:100%;height:auto" width="600"/>위의 이미지 $X$에 적용한 예제 코드와 결과는 아래와 같다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">
-X<span style="color:#f92672">=</span>make_phantom(x,y,r,value,pixels);
-X1<span style="color:#f92672">=</span>translation(X,<span style="color:#ae81ff">32</span>)
-X2<span style="color:#f92672">=</span>translation(X,<span style="color:#f92672">-</span><span style="color:#ae81ff">64</span>)
-savefig(heatmap(X,c<span style="color:#f92672">=:</span>Blues,title<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;X&#34;</span>),<span style="color:#e6db74">&#34;X.png&#34;</span>)
-savefig(heatmap(X1,c<span style="color:#f92672">=:</span>Blues,title<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;X1&#34;</span>),<span style="color:#e6db74">&#34;X1.png&#34;</span>)
-savefig(heatmap(X2,c<span style="color:#f92672">=:</span>Blues,title<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;X2&#34;</span>),<span style="color:#e6db74">&#34;X2.png&#34;</span>)
-</code></pre></div><p><img filemime="image/png" filename="X1.png" height="400" src="https://t1.daumcdn.net/cfile/tistory/9957304D5DF7657C11" style="max-width:100%;height:auto" width="600"/><img filemime="image/png" filename="X2.png" height="400" src="https://t1.daumcdn.net/cfile/tistory/991B0B4D5DF7657C2B" style="max-width:100%;height:auto" width="600"/></p>
+<pre><code>
+function translation(X:: Array{Float64,2},s:: Int64)
+    pixels=length(X[:,1]);
+    X\_translation = zeros(pixels, pixels);
+    if s&gt;0
+        for j=s:pixels-1
+        X\_translation[:,j+1]=X[:,j+1-s];
+        end
+    elseif s&lt;0
+        for j=1:pixels+s
+            X\_translation[:,j]=X[:,j-s]
+        end
+    else
+        X\_translation=X;
+    end
+    return X\_translation
+end
+</code></pre><p>실수 성분을 갖는 $n\times n$ 배열 $X$와 평행이동시킬 칸 $s$를 입력하면 오른쪽으로 $s$만큼 평행이동한 $n\times n$배열 $X_{\mathrm{translation}}$을 반환한다. $s&gt;0$이면 오른쪽으로 $s$칸 만큼 이동하고, $s&lt;0$이면 왼쪽으로 $|s|$칸 만큼 이동한다. $s=0$이면 입력한 배열과 같은 배열을 반환한다. 아래는 예제코드와 그 결과이다.</p>
+<pre><code>
+X=[1. 2. 3. 4. 5.]
+X=[X; X; X; X; X]
+X1=translation(X,3)
+X2=translation(X,-2)
+X3=translation(X,0)
+</code></pre><p><img src="2019-12-1619;49;34_.png#center" alt="2019-12-1619;49;34\_.png">
+<img src="X.png#center" alt="X.png">
+위의 이미지 $X$에 적용한 예제 코드와 결과는 아래와 같다.</p>
+<pre><code>
+X=make\_phantom(x,y,r,value,pixels);
+X1=translation(X,32)
+X2=translation(X,-64)
+savefig(heatmap(X,c=:Blues,title=&quot;X&quot;),&quot;X.png&quot;)
+savefig(heatmap(X1,c=:Blues,title=&quot;X1&quot;),&quot;X1.png&quot;)
+savefig(heatmap(X2,c=:Blues,title=&quot;X2&quot;),&quot;X2.png&quot;)
+</code></pre><p><img src="X1.png#center" alt="X1.png">
+<img src="X2.png#center" alt="X2.png"></p>
 
 
             </div>
@@ -107,7 +113,7 @@ savefig(heatmap(X2,c<span style="color:#f92672">=:</span>Blues,title<span style=
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -119,11 +125,13 @@ savefig(heatmap(X2,c<span style="color:#f92672">=:</span>Blues,title<span style=
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -148,6 +156,8 @@ savefig(heatmap(X2,c<span style="color:#f92672">=:</span>Blues,title<span style=
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -174,8 +184,6 @@ savefig(heatmap(X2,c<span style="color:#f92672">=:</span>Blues,title<span style=
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -206,8 +214,6 @@ savefig(heatmap(X2,c<span style="color:#f92672">=:</span>Blues,title<span style=
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

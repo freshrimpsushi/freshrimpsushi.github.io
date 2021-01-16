@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="시계열분석의 이노베이티브 아웃라이어">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>시계열분석의 이노베이티브 아웃라이어</title>
@@ -56,21 +59,24 @@
 
 <h2 id="heading"></h2>
 <ul>
-<li>하단에 예제코드 전체가 있다.<img filemime="image/jpeg" filename="2.png" height="384" src="https://t1.daumcdn.net/cfile/tistory/99B2724A5D6265910C" style="max-width:100%;height:auto" width="576"/>위의 그래프에서 2001년 9월에 굉장히 큰 아웃라이어를 찾을 수 있다. 그러나 <a href="https://freshrimpsushi.github.io/posts/1258">애디티브 아웃라이어</a>와 달리 그 후에도 계속해서 영향을 미치고 있다. 여객기의 이용자 수는 <a href="https://freshrimpsushi.github.io/posts/1067">계절성</a>을 가지고 꾸준히 증가하고 있었는데, 911테러의 공포가 이용자 수 자체를 팍 줄여버린 것으로 해석할 수 있다. 이렇게 분석의 판도 자체를 바꾸는 아웃라이어를 <strong>이노베이티브 아웃라이어</strong><sup>Innovative Outlier</sup> 라고 부른다.이러한 이노베이티브 아웃라이어는 직관적으로 찾아도 좋고, TSA 패키지의 detectIO() 함수를 사용해도 좋다. 사용하는 방법은 다음과 같다 :<strong>1.</strong>  원래의 데이터로 이노베이티브 아웃라이어가 고려되지 않은 <a href="https://freshrimpsushi.github.io/posts/941">시계열분석</a>을 한다.<strong>2.</strong>  리턴된 모형자체를 detectIO() 함수에 넣는다. 그러면 다음과 같은 결과를 얻는다.<img filemime="image/jpeg" filename="20190825_194941.png" height="61" src="https://t1.daumcdn.net/cfile/tistory/99782B4D5D6267DB0E" style="max-width:100%;height:auto" width="221"/><strong>3.</strong>  람다의 절댓값이 가장 큰 인덱스를 최우선적인 후보로 둔다. 위의 스크린샷에선 69번째다.<strong>4.</strong>  이노베이티브 아웃라이어를 반영해서 다시 분석한다. 마음에 드는 결과가 나올 때까지 반복한다.이노베이티브 아웃라이어를 반영한 분석은 <a href="https://freshrimpsushi.github.io/posts/1243">개입분석</a>을 사용하는데, <a href="https://freshrimpsushi.github.io/posts/1248">수식적으로는</a> 접근하기 어려운 부분이 많다. 다행스럽게도 <a href="https://freshrimpsushi.github.io/posts/1265">코드는 별로 어렵지 않고</a>, arima()의 io 옵션에 해당 인덱스를 직접 넣어주면 된다. 예를 들어 69번째가 의심된다면 io=c(69)와 같이 추가하면 되는 것이다.<img filemime="image/jpeg" filename="22.png" height="384" src="https://t1.daumcdn.net/cfile/tistory/9987BA4A5D6265910D" style="text-align: center;" width="576"/>실제로 IO가 반영되고나면 분석이 눈에 띄게 개선된다.다음은 R 로 작성한 예제코드다.</li>
+<li>하단에 예제코드 전체가 있다.<img src="2.png#center" alt="2.png">
+위의 그래프에서 2001년 9월에 굉장히 큰 아웃라이어를 찾을 수 있다. 그러나 <a href="https://freshrimpsushi.github.io/posts/1258">애디티브 아웃라이어</a>와 달리 그 후에도 계속해서 영향을 미치고 있다. 여객기의 이용자 수는 <a href="https://freshrimpsushi.github.io/posts/1067">계절성</a>을 가지고 꾸준히 증가하고 있었는데, 911테러의 공포가 이용자 수 자체를 팍 줄여버린 것으로 해석할 수 있다. 이렇게 분석의 판도 자체를 바꾸는 아웃라이어를 <strong>이노베이티브 아웃라이어</strong><sup>Innovative Outlier</sup> 라고 부른다.이러한 이노베이티브 아웃라이어는 직관적으로 찾아도 좋고, TSA 패키지의 detectIO() 함수를 사용해도 좋다. 사용하는 방법은 다음과 같다 :<strong>1.</strong>  원래의 데이터로 이노베이티브 아웃라이어가 고려되지 않은 <a href="https://freshrimpsushi.github.io/posts/941">시계열분석</a>을 한다.<strong>2.</strong>  리턴된 모형자체를 detectIO() 함수에 넣는다. 그러면 다음과 같은 결과를 얻는다.<img src="20190825_194941.png#center" alt="20190825\_194941.png">
+<strong>3.</strong>  람다의 절댓값이 가장 큰 인덱스를 최우선적인 후보로 둔다. 위의 스크린샷에선 69번째다.<strong>4.</strong>  이노베이티브 아웃라이어를 반영해서 다시 분석한다. 마음에 드는 결과가 나올 때까지 반복한다.이노베이티브 아웃라이어를 반영한 분석은 <a href="https://freshrimpsushi.github.io/posts/1243">개입분석</a>을 사용하는데, <a href="https://freshrimpsushi.github.io/posts/1248">수식적으로는</a> 접근하기 어려운 부분이 많다. 다행스럽게도 <a href="https://freshrimpsushi.github.io/posts/1265">코드는 별로 어렵지 않고</a>, arima()의 io 옵션에 해당 인덱스를 직접 넣어주면 된다. 예를 들어 69번째가 의심된다면 io=c(69)와 같이 추가하면 되는 것이다.<img src="22.png#center" alt="22.png">
+실제로 IO가 반영되고나면 분석이 눈에 띄게 개선된다.다음은 R 로 작성한 예제코드다.</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-<span style="color:#a6e22e">library</span>(TSA)
-<span style="color:#a6e22e">data</span>(<span style="color:#e6db74">&#34;airmiles&#34;</span>)
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>)
-<span style="color:#a6e22e">plot</span>(airmiles, main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;미국의 여객기 이용자 수&#34;</span>)
+<pre><code>
+library(TSA)
+data(&quot;airmiles&quot;)
+win.graph(6,4)
+plot(airmiles, main=&quot;미국의 여객기 이용자 수&quot;)
 
-out1<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.arima</span>(airmiles)
-<span style="color:#a6e22e">detectIO</span>(out1)
-out2<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">arima</span>(airmiles,order<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>),seasonal<span style="color:#f92672">=</span><span style="color:#a6e22e">list</span>(order<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>),period<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>),io<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">69</span>))
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>); <span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>))
-<span style="color:#a6e22e">plot</span>(airmiles,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;IO 미반영&#34;</span>,xlim<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2000</span>,<span style="color:#ae81ff">2003</span>),xaxt<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;n&#39;</span>); <span style="color:#a6e22e">lines</span>(<span style="color:#a6e22e">fitted</span>(out1),col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
-<span style="color:#a6e22e">plot</span>(airmiles,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;IO 반영&#34;</span>,xlim<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2000</span>,<span style="color:#ae81ff">2003</span>),xaxt<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;n&#39;</span>); <span style="color:#a6e22e">lines</span>(<span style="color:#a6e22e">fitted</span>(out2),col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
-</code></pre></div>
+out1&lt;-auto.arima(airmiles)
+detectIO(out1)
+out2&lt;-arima(airmiles,order=c(1,0,1),seasonal=list(order=c(0,1,1),period=12),io=c(69))
+win.graph(6,4); par(mfrow=c(1,2))
+plot(airmiles,main=&quot;IO 미반영&quot;,xlim=c(2000,2003),xaxt='n'); lines(fitted(out1),col='red')
+plot(airmiles,main=&quot;IO 반영&quot;,xlim=c(2000,2003),xaxt='n'); lines(fitted(out2),col='red')
+</code></pre>
 
             </div>
 
@@ -89,7 +95,7 @@ out2<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">arima</s
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -101,11 +107,13 @@ out2<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">arima</s
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -130,6 +138,8 @@ out2<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">arima</s
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -156,8 +166,6 @@ out2<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">arima</s
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -188,8 +196,6 @@ out2<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">arima</s
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

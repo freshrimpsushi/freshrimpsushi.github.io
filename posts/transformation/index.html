@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="시계열분석에서의 변환">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>시계열분석에서의 변환</title>
@@ -55,15 +58,16 @@
 
 
 <h2 id="heading"></h2>
-<p><a href="https://freshrimpsushi.github.io/posts/805">회귀분석에서의 변환</a>시계열에서 변환이 필요한 이유는 시간이 흐를수록 분산이 커지는 경우 그에 따른 &lsquo;패널티&rsquo;를 줘서 분산을 일정하게 하고 <a href="https://freshrimpsushi.github.io/posts/907">정상성</a>을 얻기 위함이다. 루트 $\sqrt{}$ 나 로그 $\log$ 는 값이 클수록 줄어드는 양이 많기 때문에 자주 사용된다. 당연하지만 분산이 줄어드는 경우에는 데이터의 추이가 어떤 점으로 수렴한다는 의미가 되므로 변환 이전에 시계열 분석조차 필요 없다.눈대중만으로 변환을 취하는 게 맞는지, 어떤 변환을 취하는 게 적절한지 확신이 서지 않을 땐 보통 <a href="https://freshrimpsushi.github.io/posts/1065">박스-칵스 변환의 가설검정</a>을 이용하며, 거꾸로 왜 변환을 더 이상 취할 필요가 없는지를 정당화하는데도 쓸 수 있다.<a href="http://freshrimpsushi.tistory.com/331">내장데이터</a> UKgas를 불러와보자.<img filemime="image/jpeg" filename="20190303_121926.png" height="433" src="https://t1.daumcdn.net/cfile/tistory/991E04465C7B49662C" style="max-width:100%;height:auto" width="259"/><img filemime="image/jpeg" filename="UKgas.png" height="384" src="https://t1.daumcdn.net/cfile/tistory/99BF50465C7B49672E" style="max-width:100%;height:auto" width="384"/>UKgas는 영국에서 가스의 소비량을 분기별로 기록한 데이터로써, 보다시피 해가 가면서 변동이 더욱 심해지는 것을 알 수 있다. 이렇듯 분산이 일정하지 않은 경우엔 원활한 분석이 어렵다. 따라서 로그와 같은 변환을 해줌으로써 데이터를 다루기 편하게 만들어주어야한다.<img filemime="image/jpeg" filename="20190303_121915.png" height="435" src="https://t1.daumcdn.net/cfile/tistory/99538D465C7B496630" style="text-align: center;" width="325"/><img filemime="image/jpeg" filename="logUKgas.png" height="384" src="https://t1.daumcdn.net/cfile/tistory/99964B465C7B49662F" style="text-align: center;" width="384"/>변환을 취하자 완벽하지는 않지만 눈에 띄게 분산이 일정해진 것을 알 수 있다.아래는 예제 코드다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-UKgas
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">4</span>); <span style="color:#a6e22e">plot</span>(UKgas,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;UKgas&#39;</span>)
-<span style="color:#a6e22e">log</span>(UKgas)
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">4</span>); <span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">log</span>(UKgas),main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;log(UKgas)&#39;</span>)
-</code></pre></div>
+<p><a href="https://freshrimpsushi.github.io/posts/805">회귀분석에서의 변환</a>시계열에서 변환이 필요한 이유는 시간이 흐를수록 분산이 커지는 경우 그에 따른 &lsquo;패널티&rsquo;를 줘서 분산을 일정하게 하고 <a href="https://freshrimpsushi.github.io/posts/907">정상성</a>을 얻기 위함이다. 루트 $\sqrt{}$ 나 로그 $\log$ 는 값이 클수록 줄어드는 양이 많기 때문에 자주 사용된다. 당연하지만 분산이 줄어드는 경우에는 데이터의 추이가 어떤 점으로 수렴한다는 의미가 되므로 변환 이전에 시계열 분석조차 필요 없다.눈대중만으로 변환을 취하는 게 맞는지, 어떤 변환을 취하는 게 적절한지 확신이 서지 않을 땐 보통 <a href="https://freshrimpsushi.github.io/posts/1065">박스-칵스 변환의 가설검정</a>을 이용하며, 거꾸로 왜 변환을 더 이상 취할 필요가 없는지를 정당화하는데도 쓸 수 있다.<a href="http://freshrimpsushi.tistory.com/331">내장데이터</a> UKgas를 불러와보자.<img src="20190303_121926.png#center" alt="20190303\_121926.png">
+<img src="UKgas.png#center" alt="UKgas.png">
+UKgas는 영국에서 가스의 소비량을 분기별로 기록한 데이터로써, 보다시피 해가 가면서 변동이 더욱 심해지는 것을 알 수 있다. 이렇듯 분산이 일정하지 않은 경우엔 원활한 분석이 어렵다. 따라서 로그와 같은 변환을 해줌으로써 데이터를 다루기 편하게 만들어주어야한다.<img src="20190303_121915.png#center" alt="20190303\_121915.png">
+<img src="logUKgas.png#center" alt="logUKgas.png">
+변환을 취하자 완벽하지는 않지만 눈에 띄게 분산이 일정해진 것을 알 수 있다.아래는 예제 코드다.</p>
+<pre><code>UKgas
+win.graph(4,4); plot(UKgas,main='UKgas')
+log(UKgas)
+win.graph(4,4); plot(log(UKgas),main='log(UKgas)')
+</code></pre>
 
             </div>
 
@@ -82,7 +86,7 @@ UKgas
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -94,11 +98,13 @@ UKgas
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -123,6 +129,8 @@ UKgas
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -149,8 +157,6 @@ UKgas
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -181,8 +187,6 @@ UKgas
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

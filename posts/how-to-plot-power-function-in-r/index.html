@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="R 에서 멱함수 그래프 그리는 법">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>R 에서 멱함수 그래프 그리는 법</title>
@@ -55,27 +58,26 @@
 
 
 <h2 id="heading"></h2>
-<p>귀무가설 $H_{0} : \theta \in \omega_{0}$ 과 대립가설 $H_{1} : \theta \in \omega_{1}$ 에 대해 유의수준 $\alpha$ 의 기각역을 $C_{\alpha}$ 라고 하자. 참값 $\theta$ 에 대한 함수 $\gamma_{C_{\alpha}}(\theta) : = P_{\theta} [ \mathbb{x} \in C_{\alpha} ]$ 를 **멱함수**<sup>Power Function</sup> 라고 한다.다른 표현으로는 $\gamma_{C_{\alpha}}(\theta) : = 1 - P_{\theta}[\text{Type 2 Error}]$ 이다.유의확률과 마찬가지로 정의만 읽어서 멱함수를 이해하는 것은 정말 쉽지 않으니 그림으로 된 예시부터 보자.<img filemime="image/jpeg" filename="8.png" height="288" src="https://t1.daumcdn.net/cfile/tistory/99C9AC435AD71F911E" style="max-width:100%;height:auto" width="672"/>위 그래프에서 양쪽꼬리검정은 귀무가설이 $H_{0} : \mu = 0$, 오른쪽꼬리검정은 귀무가설이 $H_{0} : \mu &lt; 0$ 인 경우의 멱함수를 나타낸다.그래프를 잘 보면 $x = \theta_{0}$ 의 함숫값 $\gamma_{C_{\alpha}} (\theta_{0})$ 은 <a href="http://freshrimpsushi.tistory.com/537">유의확률</a>임을 알 수 있을 것이다.이렇게 멱함수와 유의확률간의 관계를 이해하고 나면 멱함수에 대해서는 더 이상 알아야할 게 없다.왼쪽꼬리냐 오른쪽꼬리냐 헷갈리는 정도는 괜찮지만 양쪽꼬리검정에서도 감이 안 잡힌다면 유의확률부터 모를 가능성이 높다.아래는 예제 코드다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">3</span>)
-<span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>))
+<p>귀무가설 $H_{0} : \theta \in \omega_{0}$ 과 대립가설 $H_{1} : \theta \in \omega_{1}$ 에 대해 유의수준 $\alpha$ 의 기각역을 $C_{\alpha}$ 라고 하자. 참값 $\theta$ 에 대한 함수 $\gamma_{C_{\alpha}}(\theta) : = P_{\theta} [ \mathbb{x} \in C_{\alpha} ]$ 를 <strong>멱함수</strong><sup>Power Function</sup> 라고 한다.</p>
+<p>다른 표현으로는 $\gamma_{C_{\alpha}}(\theta) : = 1 - P_{\theta}[\text{Type 2 Error}]$ 이다.유의확률과 마찬가지로 정의만 읽어서 멱함수를 이해하는 것은 정말 쉽지 않으니 그림으로 된 예시부터 보자.<img src="8.png#center" alt="8.png">
+위 그래프에서 양쪽꼬리검정은 귀무가설이 $H_{0} : \mu = 0$, 오른쪽꼬리검정은 귀무가설이 $H_{0} : \mu &lt; 0$ 인 경우의 멱함수를 나타낸다.그래프를 잘 보면 $x = \theta_{0}$ 의 함숫값 $\gamma_{C_{\alpha}} (\theta_{0})$ 은 <a href="http://freshrimpsushi.tistory.com/537">유의확률</a>임을 알 수 있을 것이다.이렇게 멱함수와 유의확률간의 관계를 이해하고 나면 멱함수에 대해서는 더 이상 알아야할 게 없다.왼쪽꼬리냐 오른쪽꼬리냐 헷갈리는 정도는 괜찮지만 양쪽꼬리검정에서도 감이 안 잡힌다면 유의확률부터 모를 가능성이 높다.아래는 예제 코드다.</p>
+<pre><code>win.graph(7,3)
+par(mfrow=c(1,2))
  
-p2<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(mu)
+p2&lt;-function(mu)
 {
-  <span style="color:#a6e22e">return</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">+</span><span style="color:#a6e22e">pnorm</span>(mu<span style="color:#ae81ff">-1.96</span>)<span style="color:#f92672">-</span><span style="color:#a6e22e">pnorm</span>(mu<span style="color:#ae81ff">+1.96</span>))
+  return(1+pnorm(mu-1.96)-pnorm(mu+1.96))
 }
  
-<span style="color:#a6e22e">plot</span>(p2,<span style="color:#ae81ff">-4</span>,<span style="color:#ae81ff">4</span>,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;양쪽꼬리검정&#34;</span>)
+plot(p2,-4,4,main=&quot;양쪽꼬리검정&quot;)
  
-p1<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(mu)
+p1&lt;-function(mu)
 {
-  <span style="color:#a6e22e">return</span>(<span style="color:#a6e22e">pnorm</span>(mu<span style="color:#ae81ff">-1.96</span>))
+  return(pnorm(mu-1.96))
 }
  
-<span style="color:#a6e22e">plot</span>(p1,<span style="color:#ae81ff">-4</span>,<span style="color:#ae81ff">4</span>,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;오른쪽꼬리검정&#34;</span>)
-</code></pre></div>
+plot(p1,-4,4,main=&quot;오른쪽꼬리검정&quot;)
+</code></pre>
 
             </div>
 
@@ -94,7 +96,7 @@ p1<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -106,11 +108,13 @@ p1<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -135,6 +139,8 @@ p1<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -161,8 +167,6 @@ p1<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -193,8 +197,6 @@ p1<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="히든 마코프 체인">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>히든 마코프 체인</title>
@@ -65,13 +68,16 @@
 
 
 <h2 id="heading"></h2>
-<p><img filemime="image/jpeg" filename="20190218_114748.png" height="209" src="https://t1.daumcdn.net/cfile/tistory/992FC4455C6A1CE404" style="max-width:100%;height:auto" width="547"/>위의 그림과 같이 어떤 기계에서 일정한 시간마다 어떤 물건을 생산한다고 생각해보자. 녹색이 정상적인 양품 $1$ 이고 적색이 폐기해야하는 불량품 $0$ 이라면, 지금까지의 기록은 $\left( 1, 0 , 1 \right) $ 이 될 것이다. 이렇게 실제로 눈에 보이는 결과를 <strong>시그널</strong><sup>Signal</sup> 이라고 한다.<img filemime="image/jpeg" filename="20190218_111057.png" height="608" src="https://t1.daumcdn.net/cfile/tistory/9961FD3C5C6A143F1B" style="max-width:100%;height:auto" width="532"/>단, 불량품이 나올 확률은 기계가 정상인지 고장인지에 따라 다르다고 하자. 정상 $+$ 일 때는 불량률이 $1 %$ 밖에 안 되지만, 고장 $-$ 일 때는 불량률이 $4 %$ 로 치솟게 된다. 이를 조건부 확률로 표현해보면 $\begin{matrix}
+<p><img src="20190218_114748.png#center" alt="20190218\_114748.png">
+위의 그림과 같이 어떤 기계에서 일정한 시간마다 어떤 물건을 생산한다고 생각해보자. 녹색이 정상적인 양품 $1$ 이고 적색이 폐기해야하는 불량품 $0$ 이라면, 지금까지의 기록은 $\left( 1, 0 , 1 \right) $ 이 될 것이다. 이렇게 실제로 눈에 보이는 결과를 <strong>시그널</strong><sup>Signal</sup> 이라고 한다.<img src="20190218_111057.png#center" alt="20190218\_111057.png">
+단, 불량품이 나올 확률은 기계가 정상인지 고장인지에 따라 다르다고 하자. 정상 $+$ 일 때는 불량률이 $1 %$ 밖에 안 되지만, 고장 $-$ 일 때는 불량률이 $4 %$ 로 치솟게 된다. 이를 조건부 확률로 표현해보면 $\begin{matrix}
 p ( 1 \mid + ) = 0.99 &amp; p ( 0 \mid + ) = 0.01 
 \\  p ( 1 \mid - ) = 0.96 &amp; p ( 0 \mid - ) = 0.04 
-\end{matrix}$ 이 될 것이다.<img filemime="image/jpeg" filename="20190218_111611.png" height="67" src="https://t1.daumcdn.net/cfile/tistory/999FA8405C6A158830" style="max-width:100%;height:auto" width="300"/>기계가 한 번 물건을 생산할 때마다 고장날 확률은 위의 도식과 마찬가지로 $10 %$ 라 하자. 이것은 <a href="https://freshrimpsushi.github.io/posts/859">마코프 체인</a>이고, 확률과정 $\left\{ X_{j} \right\}_{j = 0}^{n} $ 의 상태공간은 $\left\{ + , - \right\}$ 이고, 우리의 관심사는 $j$ 번째 생산을 마쳤을 때 기계가 정상일 확률 $p \left( X_{j} = + \right) $ 이 된다. 물론 처음엔 기계가 정상이라고 가정할 것이고, 이는 $\begin{matrix}
+\end{matrix}$ 이 될 것이다.<img src="20190218_111611.png#center" alt="20190218\_111611.png">
+기계가 한 번 물건을 생산할 때마다 고장날 확률은 위의 도식과 마찬가지로 $10 %$ 라 하자. 이것은 <a href="https://freshrimpsushi.github.io/posts/859">마코프 체인</a>이고, 확률과정 $\left\{ X_{j} \right\}_{j = 0}^{n} $ 의 상태공간은 $\left\{ + , - \right\}$ 이고, 우리의 관심사는 $j$ 번째 생산을 마쳤을 때 기계가 정상일 확률 $p \left( X_{j} = + \right) $ 이 된다. 물론 처음엔 기계가 정상이라고 가정할 것이고, 이는 $\begin{matrix}
 p(X_{0} = +) = 1 
 \\  p(X_{0} = - ) = 0
-\end{matrix}$ 으로 표현된다.기계가 고장난 상태로 방치된다면 계속해서 많은 불량품을 만들어낼 것이다. 문제는 이것을 어떻게 알겠냐는 것이다. 물론 기계가 고장인지 아닌지는 관리자가 기계를 한 번 뜯어봐도 금방 알 수 있겠지만, 큰 공장에서 엄청나게 많은 수의 기계가 있다면 이런 점검조차도 몹시 부담스러운 일이 된다. 현실적으로는 나오는 물건을 보고야 어떤 기계에 문제가 있다는 것을 짐작하는 수밖에 없는 것이다.이렇듯 마코프 체인(원인)은 숨겨져 있고 그에 따른 시그널(결과)만 알고 있을 때 $\left\{ X_{j} \right\}_{j=0}^{n} $ 을 **히든 마코프 체인** 이라고 한다.이제 시그널 $s_{(n)} = ( s_{1} , s_{2} , \cdots , s_{n} ) $ 이 주어져 있을 때 $X_{n} = x $ 일 확률 $\displaystyle p \left( X_{n} = x \mid S_{(n)} = s_{(n)} \right)$ 을 구해보자.$\displaystyle F_{n} (x) := p \left( X_{n} = x , S_{(n)} = s_{(n)} \right)$ 이라고 하면 $\displaystyle p \left( X_{n} = x \mid S_{(n)}  = s_{(n)} \right) 
+\end{matrix}$ 으로 표현된다.기계가 고장난 상태로 방치된다면 계속해서 많은 불량품을 만들어낼 것이다. 문제는 이것을 어떻게 알겠냐는 것이다. 물론 기계가 고장인지 아닌지는 관리자가 기계를 한 번 뜯어봐도 금방 알 수 있겠지만, 큰 공장에서 엄청나게 많은 수의 기계가 있다면 이런 점검조차도 몹시 부담스러운 일이 된다. 현실적으로는 나오는 물건을 보고야 어떤 기계에 문제가 있다는 것을 짐작하는 수밖에 없는 것이다.이렇듯 마코프 체인(원인)은 숨겨져 있고 그에 따른 시그널(결과)만 알고 있을 때 $\left\{ X_{j} \right\}_{j=0}^{n} $ 을 <strong>히든 마코프 체인</strong> 이라고 한다.이제 시그널 $s_{(n)} = ( s_{1} , s_{2} , \cdots , s_{n} ) $ 이 주어져 있을 때 $X_{n} = x $ 일 확률 $\displaystyle p \left( X_{n} = x \mid S_{(n)} = s_{(n)} \right)$ 을 구해보자.$\displaystyle F_{n} (x) := p \left( X_{n} = x , S_{(n)} = s_{(n)} \right)$ 이라고 하면 $\displaystyle p \left( X_{n} = x \mid S_{(n)}  = s_{(n)} \right) 
 $$
 \displaystyle = {{ p \left( X_{n} = x , S_{(n)} = s_{(n)} \right) } \over { p \left( S_{(n)} = s_{(n)} \right) }}
 $$
@@ -91,7 +97,8 @@ $$
 $$
 \displaystyle = \sum_{y} F_{n-1} ( y ) p \left(  X_{n} = x \mid X_{n-1} = y \right) p \left( S_{n} = s_{n} \mid X_{n} = x  , X_{n-1} = y \right) 
 $$
-\displaystyle = \sum_{y} F_{n-1} ( y ) p \left(  X_{n} = x \mid X_{n-1} = y \right) p \left( S_{n} = s_{n} \mid X_{n} = x \right) $ [ $ \left\{ X_{j} \right\}_{j=1}^{n} $ 은 마코프 체인이므로 ]$\displaystyle = \sum_{y} F_{n-1} ( y ) p_{yx} p \left( s_{n} \mid x \right) $정리하면 $\displaystyle F_{n} (x) = p \left( s_{n} \mid x \right) \sum_{y} F_{n-1} ( y ) p_{yx} $ 을 얻는다.<img filemime="image/jpeg" filename="20190218_114748.png" height="209" src="https://t1.daumcdn.net/cfile/tistory/992FC4455C6A1CE404" style="text-align: center;" width="547"/>그럼 이제 예제로써 이 포스트에서 언급된 가정 하에서 $\displaystyle p \left( X_{3} = + \mid S_{(3)} = (1,0,1) \right)$ 을 계산해보자.**풀이
+\displaystyle = \sum_{y} F_{n-1} ( y ) p \left(  X_{n} = x \mid X_{n-1} = y \right) p \left( S_{n} = s_{n} \mid X_{n} = x \right) $ [ $ \left\{ X_{j} \right\}_{j=1}^{n} $ 은 마코프 체인이므로 ]$\displaystyle = \sum_{y} F_{n-1} ( y ) p_{yx} p \left( s_{n} \mid x \right) $정리하면 $\displaystyle F_{n} (x) = p \left( s_{n} \mid x \right) \sum_{y} F_{n-1} ( y ) p_{yx} $ 을 얻는다.<img src="20190218_114748.png#center" alt="20190218\_114748.png">
+그럼 이제 예제로써 이 포스트에서 언급된 가정 하에서 $\displaystyle p \left( X_{3} = + \mid S_{(3)} = (1,0,1) \right)$ 을 계산해보자.**풀이
 마코프 체인에서 상태의 전이확률은 $\begin{matrix}
 p_{++} = 0.9 &amp; p_{+-} = 0.1 
 \\  p_{-+} = 0 &amp; p_{&ndash;} = 1 
@@ -108,7 +115,7 @@ F_{2} ( - ) = p ( 0 \mid - ) \left[ F_{1} ( + ) p_{+-} + F_{1} ( - ) p_{&ndash;}
 $$
 s_{3} = 1$ 이므로$F_{3} ( + ) = p ( 1 \mid + ) \left[ F_{2} ( + ) p_{++} + F_{2} ( - ) p_{-+} \right] = 0.99 \times [ .00891 \times 0.9 + 0 ]) = 0.00793881
 $$
-F_{3} ( - ) = p ( 1 \mid - ) \left[ F_{2} ( + ) p_{+-} + F_{2} ( - ) p_{&ndash;} \right] = 0.94 \times [ .00891 \times 0.1 + .00436 \times 1 ] = 0.00493594 $따라서 $\displaystyle p \left( X_{3} = + \mid S_{(3)} = (1,0,1) \right) = {{ F_{1} ( + ) } \over { F_{3} ( + ) + F_{3} ( - ) }} = {{ 0.00793881 } \over { 0.01287475 }} = 0.6166 \cdots $ **풀이 끝** 상식적으로 생각해보아도 불량률이 그렇게 높지가 않은데 고작 세 개중에서도 하나가 불량이라면 기계가 정상일 가능성은 현저히 떨어짐을 짐작할 수 있다. 계산 결과 기계가 정상일 확률은 $60 %$ 를 간신히 넘기는 수준이다.</p>
+F_{3} ( - ) = p ( 1 \mid - ) \left[ F_{2} ( + ) p_{+-} + F_{2} ( - ) p_{&ndash;} \right] = 0.94 \times [ .00891 \times 0.1 + .00436 \times 1 ] = 0.00493594 $따라서 $\displaystyle p \left( X_{3} = + \mid S_{(3)} = (1,0,1) \right) = {{ F_{1} ( + ) } \over { F_{3} ( + ) + F_{3} ( - ) }} = {{ 0.00793881 } \over { 0.01287475 }} = 0.6166 \cdots $ <strong>풀이 끝</strong> 상식적으로 생각해보아도 불량률이 그렇게 높지가 않은데 고작 세 개중에서도 하나가 불량이라면 기계가 정상일 가능성은 현저히 떨어짐을 짐작할 수 있다. 계산 결과 기계가 정상일 확률은 $60 %$ 를 간신히 넘기는 수준이다.</p>
 
 
             </div>
@@ -128,7 +135,7 @@ F_{3} ( - ) = p ( 1 \mid - ) \left[ F_{2} ( + ) p_{+-} + F_{2} ( - ) p_{&ndash;
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -140,11 +147,13 @@ F_{3} ( - ) = p ( 1 \mid - ) \left[ F_{2} ( + ) p_{+-} + F_{2} ( - ) p_{&ndash;
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -169,6 +178,8 @@ F_{3} ( - ) = p ( 1 \mid - ) \left[ F_{2} ( + ) p_{+-} + F_{2} ( - ) p_{&ndash;
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -195,8 +206,6 @@ F_{3} ( - ) = p ( 1 \mid - ) \left[ F_{2} ( + ) p_{+-} + F_{2} ( - ) p_{&ndash;
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -227,8 +236,6 @@ F_{3} ( - ) = p ( 1 \mid - ) \left[ F_{2} ( + ) p_{+-} + F_{2} ( - ) p_{&ndash;
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

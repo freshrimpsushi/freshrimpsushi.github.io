@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="더빈-왓슨 테스트">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>더빈-왓슨 테스트</title>
@@ -69,20 +72,20 @@ $d \approx 2$ : 잔차끼리 상관관계를 가지지 않는다.
 $d \approx 4$ : 잔차끼리 음의 상관관계를 가진다.
 물론 검정을 할 땐 유의수준 $\alpha $ 가 주어져서 하한 $d_{L , \alpha}$ 과 상한 $d_{U , \alpha}$ 를 구해서 비교한다.
 더빈-왓슨 테스트는 보기보다 사용하기 까다로운 테스트인데, 주의사항은 다음과 같다 : 
-**(1)**  $e_{t}$ 와 $e_{t-1}$ 만의 상관관계를 파악할 뿐 $e_{t}$ 와 $e_{t-k}$ 에 대해서는 알 수 없다. 많은 시차 $k$ 에 대해 확인하기 위해서는 일반화된 더빈-왓슨 테스트를 사용해야한다.
-**(2)**  잔차끼리 자기상관성이 있다면 독립이 아니지만, <a href="https://freshrimpsushi.github.io/posts/536">자기상관성이 없다고 독립은 아니다.</a>
-**(3)**  거의 필요 없다. 더빈-왓슨 테스트를 신뢰하지 않는 건 아니지만, **(1)** 과 **(2)**  같은 단점들 때문에 정확해봤자 분석을 정당화하는데 별 도움이 안되기 때문이다.
-**(4)**  <a href="https://freshrimpsushi.github.io/posts/941">아리마 모델</a>의 잔차에는 적용할 수 없다. 따라서 <a href="https://freshrimpsushi.github.io/posts/1209">자기상관함수</a> 혹은 <a href="https://freshrimpsushi.github.io/posts/1219">륭-박스 테스트</a>를 사용해야한다.
+<strong>(1)</strong>  $e_{t}$ 와 $e_{t-1}$ 만의 상관관계를 파악할 뿐 $e_{t}$ 와 $e_{t-k}$ 에 대해서는 알 수 없다. 많은 시차 $k$ 에 대해 확인하기 위해서는 일반화된 더빈-왓슨 테스트를 사용해야한다.
+<strong>(2)</strong>  잔차끼리 자기상관성이 있다면 독립이 아니지만, <a href="https://freshrimpsushi.github.io/posts/536">자기상관성이 없다고 독립은 아니다.</a>
+<strong>(3)</strong>  거의 필요 없다. 더빈-왓슨 테스트를 신뢰하지 않는 건 아니지만, <strong>(1)</strong> 과 <strong>(2)</strong>  같은 단점들 때문에 정확해봤자 분석을 정당화하는데 별 도움이 안되기 때문이다.
+<strong>(4)</strong>  <a href="https://freshrimpsushi.github.io/posts/941">아리마 모델</a>의 잔차에는 적용할 수 없다. 따라서 <a href="https://freshrimpsushi.github.io/posts/1209">자기상관함수</a> 혹은 <a href="https://freshrimpsushi.github.io/posts/1219">륭-박스 테스트</a>를 사용해야한다.
 물론 이러한 단점들이 있어도 테스트 자체는 쉽고 만만해서 아직도 많은 교과서에서 소개하고 쓰이고 있다. 단점들을 요약하자면 &lsquo;써도 되는데 너무 믿지는 마라&rsquo;정도가 되겠다. 아직 통계를 잘 모르는 학습자에게는 더더욱 그렇다. 쓰는 건 좋은데, 그 용도와 한계를 정확하게 알고 써야한다. 독립성은 고작 더빈-왓슨 테스트 하나 통과했다고 쉽게 증명할 수 있는 게 아니다.
 R 에서는 <code>lmtest</code> 패키지의 <code>dwtest()</code> 함수를 사용해서 간단하게 더빈-왓슨 테스트를 해볼 수 있다.
-<img filemime="image/jpeg" filename="Rplot.png" height="280" src="https://t1.daumcdn.net/cfile/tistory/995E80505D3FAF0C14" style="max-width:100%;height:auto" width="568"/>
-언뜻 보아도 잔차는 독립적인데, 다음과 같이 검정해보면 실제로 자기상관성이 없음을 확인할 수 있다.
-<img filemime="image/jpeg" filename="20190730_111316.png" height="109" src="https://t1.daumcdn.net/cfile/tistory/99E0BC505D3FAF0C10" style="text-align: center;" width="505"/></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(lmtest)
+<img src="Rplot.png#center" alt="Rplot.png"></p>
+<p>언뜻 보아도 잔차는 독립적인데, 다음과 같이 검정해보면 실제로 자기상관성이 없음을 확인할 수 있다.
+<img src="20190730_111316.png#center" alt="20190730\_111316.png"></p>
+<pre><code>library(lmtest)
  
-out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span>(waiting<span style="color:#f92672">~</span>eruptions,data<span style="color:#f92672">=</span>faithful)
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">3</span>); <span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">rstudent</span>(out),main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;residuals&#34;</span>)
-<span style="color:#a6e22e">dwtest</span>(out)```</code></pre></div>
+out&lt;-lm(waiting~eruptions,data=faithful)
+win.graph(6,3); plot(rstudent(out),main=&quot;residuals&quot;)
+dwtest(out)```</code></pre>
 
             </div>
 
@@ -101,7 +104,7 @@ out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span>
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -113,11 +116,13 @@ out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -142,6 +147,8 @@ out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -168,8 +175,6 @@ out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -200,8 +205,6 @@ out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

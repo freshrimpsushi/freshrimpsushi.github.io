@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="에이전트 기반 시뮬레이션 첫걸음 산점도로 나타내기">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>에이전트 기반 시뮬레이션 첫걸음 산점도로 나타내기</title>
@@ -58,67 +61,65 @@
 <p>본 <a href="https://freshrimpsushi.github.io/posts/1873">시뮬레이션</a>은 속도와 시각화 양면으로 유리하고 코딩도 쉬운 <a href="https://freshrimpsushi.github.io/posts/1374">줄리아</a>로 구현되어 있다. 가장 좋은 공부는 깃허브에서 줄리아 코드를 받아 직접 실행해보는 것이지만, 줄리아가 낯설다면 그냥 시뮬레이션을 어떻게 하는건지 읽고 이해만 해도 충분할 수 있다. 구현 자체에 있어 어떤 언어를 사용하느냐는 본질적으로 중요하지 않다.</p>
 <p><a href="https://github.com/rmsmsgood/freshrimpsushi/blob/main/dynamics_simulation/01_%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8_%EA%B8%B0%EB%B0%98%20%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%EC%85%98_%EC%B2%AB%EA%B1%B8%EC%9D%8C.jl">소스 코드</a>
 <strong>Step 1.</strong>  패키지 로드, 초기값 설정</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> cd(<span style="color:#a6e22e">@__DIR__</span>) <span style="color:#75715e"># 파일 저장 경로cd(@__DIR__) # 파일 저장 경로</span>
+<pre><code>julia&gt; cd(@\_\_DIR\_\_) # 파일 저장 경로cd(@\_\_DIR\_\_) # 파일 저장 경로
 
-julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Plots
- <span style="color:#ae81ff">19.989912</span> seconds (<span style="color:#ae81ff">31.16</span> M allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">1.628</span> GiB, <span style="color:#ae81ff">4.49</span><span style="color:#f92672">%</span> gc time)
+julia&gt; @time using Plots
+ 19.989912 seconds (31.16 M allocations: 1.628 GiB, 4.49% gc time)
 
-julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Random
-  <span style="color:#ae81ff">0.034412</span> seconds (<span style="color:#ae81ff">33.81</span> k allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">1.722</span> MiB)
+julia&gt; @time using Random
+  0.034412 seconds (33.81 k allocations: 1.722 MiB)
 
-julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Distributions
-  <span style="color:#ae81ff">3.436091</span> seconds (<span style="color:#ae81ff">2.74</span> M allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">156.074</span> MiB, <span style="color:#ae81ff">0.90</span><span style="color:#f92672">%</span> gc time)
+julia&gt; @time using Distributions
+  3.436091 seconds (2.74 M allocations: 156.074 MiB, 0.90% gc time)
 
-julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> LinearAlgebra
-  <span style="color:#ae81ff">0.009646</span> seconds (<span style="color:#ae81ff">1.23</span> k allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">77.531</span> KiB)
+julia&gt; @time using LinearAlgebra
+  0.009646 seconds (1.23 k allocations: 77.531 KiB)
 
-julia<span style="color:#f92672">&gt;</span> N0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span> <span style="color:#75715e"># 초기 인구수</span>
-<span style="color:#ae81ff">10</span>
+julia&gt; N0 = 10 # 초기 인구수
+10
 
-julia<span style="color:#f92672">&gt;</span> gaussian2 <span style="color:#f92672">=</span> MvNormal([<span style="color:#ae81ff">0.0</span>; <span style="color:#ae81ff">0.0</span>], <span style="color:#ae81ff">0.02</span>I) <span style="color:#75715e"># 2차원 정규분포</span>
+julia&gt; gaussian2 = MvNormal([0.0; 0.0], 0.02I) # 2차원 정규분포
 IsoNormal(
-dim<span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>
-μ<span style="color:#f92672">:</span> [<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>]
-Σ<span style="color:#f92672">:</span> [<span style="color:#ae81ff">0.02</span> <span style="color:#ae81ff">0.0</span>; <span style="color:#ae81ff">0.0</span> <span style="color:#ae81ff">0.02</span>]
-)<span style="color:#e6db74">```
-</span><span style="color:#e6db74">위의 코드는 [패키지를 불러오고](https://freshrimpsushi.github.io/posts/1416) 초기 에이전트의 수, 한 턴마다 주변을 배회하도록 이동 규칙을 준 것이다. 이동량은 다음과 같은 $2</span><span style="color:#e6db74">$차원</span><span style="color:#e6db74"> 정규분포로 정의되었다.
-</span><span style="color:#e6db74">
-</span><span style="color:#e6db74">$$
-</span><span style="color:#e6db74">N \left( \mu , \Sigma \right) \qquad \text{where } \mu = (0,0) , \Sigma = \begin{bmatrix}
-</span><span style="color:#e6db74"> 0.02 &amp; 0 
-</span><span style="color:#e6db74">\\\  0 &amp; 0.02 
-</span><span style="color:#e6db74">\end{bmatrix} 
-</span><span style="color:#e6db74">$$
-</span><span style="color:#e6db74">
-</span><span style="color:#e6db74">**Step 2.**  에이전트 생성
-</span><span style="color:#e6db74">말은 에이전트 생성이라고 거창하게 포장했지만 사실 별 거 없다. 2차원 정규분포에서 에이전트의 수만큼 샘플을 뽑으면 그 좌표 자체가 에이전트를 표현하게 된다.
-</span><span style="color:#e6db74">```</span>julia
-julia<span style="color:#f92672">&gt;</span> Random<span style="color:#f92672">.</span>seed!(<span style="color:#ae81ff">0</span>);
+dim: 2
+μ: [0.0, 0.0]
+Σ: [0.02 0.0; 0.0 0.02]
+)```
+위의 코드는 [패키지를 불러오고](https://freshrimpsushi.github.io/posts/1416) 초기 에이전트의 수, 한 턴마다 주변을 배회하도록 이동 규칙을 준 것이다. 이동량은 다음과 같은 $2$차원 정규분포로 정의되었다.
 
-julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f92672">=</span> rand(gaussian2, N0)<span style="color:#f92672">&#39;</span>
-<span style="color:#ae81ff">10</span>×2 Adjoint{<span style="color:#66d9ef">Float64</span>,<span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}}<span style="color:#f92672">:</span>
-  <span style="color:#ae81ff">0.0960403</span>    <span style="color:#ae81ff">0.117155</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0499228</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0190712</span>
-  <span style="color:#ae81ff">0.0829602</span>    <span style="color:#ae81ff">0.0420496</span>
-  <span style="color:#ae81ff">0.00918497</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0154174</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0727203</span>    <span style="color:#ae81ff">0.222644</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0974262</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.107877</span>
-  <span style="color:#ae81ff">0.0562125</span>    <span style="color:#ae81ff">0.114782</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0489819</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0265268</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">0.2273</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">0.350837</span>
-  <span style="color:#ae81ff">0.321908</span>     <span style="color:#ae81ff">0.0310693</span><span style="color:#e6db74">```
-</span><span style="color:#e6db74">위의 좌표들이 곧 에이전트의 위치를 나타낸다. 각 행은 에이전트 하나씩을 가리키며 첫 열은 x 좌표, 두번째 열은 y 좌표다. 당장은 에이전트들이 어떤 행동 규칙을 가질 필요가 없어 이것으로 충분하다.
-</span><span style="color:#e6db74">**Step 3.**  점도표(Scatter plot) 그리기
-</span><span style="color:#e6db74">```</span>julia
-julia<span style="color:#f92672">&gt;</span> p <span style="color:#f92672">=</span> plot(coordinate[<span style="color:#f92672">:</span>,<span style="color:#ae81ff">1</span>], coordinate[<span style="color:#f92672">:</span>,<span style="color:#ae81ff">2</span>], seriestype <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>scatter,
-         markercolor <span style="color:#f92672">=</span> RGB(<span style="color:#ae81ff">1.</span>,<span style="color:#ae81ff">94</span><span style="color:#f92672">/</span><span style="color:#ae81ff">255</span>,<span style="color:#ae81ff">0.</span>), markeralpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.4</span>, markerstrokewidth<span style="color:#f92672">=</span> <span style="color:#ae81ff">0.1</span>,
-         aspect_ratio <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, size <span style="color:#f92672">=</span> [<span style="color:#ae81ff">400</span>,<span style="color:#ae81ff">400</span>],
-         xaxis<span style="color:#f92672">=</span><span style="color:#66d9ef">true</span>,yaxis<span style="color:#f92672">=</span><span style="color:#66d9ef">true</span>,axis<span style="color:#f92672">=</span>nothing, legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>)
+$$
+N \left( \mu , \Sigma \right) \qquad \text{where } \mu = (0,0) , \Sigma = \begin{bmatrix}
+ 0.02 &amp; 0 
+\\\  0 &amp; 0.02 
+\end{bmatrix} 
+$$
 
-julia<span style="color:#f92672">&gt;</span> png(p, <span style="color:#e6db74">&#34;agent_tutorial.png&#34;</span>); p<span style="color:#e6db74">```
-</span><span style="color:#e6db74">`</span>plot()<span style="color:#e6db74">` 함수에 옵션 `</span>seriestype <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>scatter<span style="color:#e6db74">`을 넣으면 위와 같이 에이전트의 좌표를 점으로 찍어준다. 그리고 첫번째 줄에서 입력한 경로에서 다음과 같이 `</span><span style="color:#e6db74">&#34;agent_tutorial.png&#34;</span><span style="color:#e6db74">`라는 파일이 생성되었을 것이다.
-</span><span style="color:#e6db74">&lt;img filemime=&#34;image/jpeg&#34; filename=&#34;agent_tutorial.png&#34; height=&#34;400&#34; src=&#34;https://t1.daumcdn.net/cfile/tistory/9971D2505FE4852410&#34; style=&#34;text-align: center;&#34; width=&#34;399&#34;/&gt;
-</span><span style="color:#e6db74">`</span><span style="color:#e6db74">&#34;agent_tutorial.png&#34;</span><span style="color:#e6db74">`의 실제 모습은 위와 같다. 이로써 에이전트를 생성하고 산점도로 시각화해본 것이다.</span></code></pre></div>
+**Step 2.**  에이전트 생성
+말은 에이전트 생성이라고 거창하게 포장했지만 사실 별 거 없다. 2차원 정규분포에서 에이전트의 수만큼 샘플을 뽑으면 그 좌표 자체가 에이전트를 표현하게 된다.
+</code></pre><p>julia&gt; Random.seed!(0);</p>
+<p>julia&gt; coordinate = rand(gaussian2, N0)'
+10×2 Adjoint{Float64,Array{Float64,2}}:
+0.0960403    0.117155
+-0.0499228   -0.0190712
+0.0829602    0.0420496
+0.00918497  -0.0154174
+-0.0727203    0.222644
+-0.0974262   -0.107877
+0.0562125    0.114782
+-0.0489819   -0.0265268
+-0.2273      -0.350837
+0.321908     0.0310693```
+위의 좌표들이 곧 에이전트의 위치를 나타낸다. 각 행은 에이전트 하나씩을 가리키며 첫 열은 x 좌표, 두번째 열은 y 좌표다. 당장은 에이전트들이 어떤 행동 규칙을 가질 필요가 없어 이것으로 충분하다.
+<strong>Step 3.</strong>  점도표(Scatter plot) 그리기</p>
+<pre><code>julia&gt; p = plot(coordinate[:,1], coordinate[:,2], seriestype = :scatter,
+         markercolor = RGB(1.,94/255,0.), markeralpha = 0.4, markerstrokewidth= 0.1,
+         aspect\_ratio = 1, size = [400,400],
+         xaxis=true,yaxis=true,axis=nothing, legend = false)
+
+julia&gt; png(p, &quot;agent\_tutorial.png&quot;); p```
+`plot()` 함수에 옵션 `seriestype = :scatter`을 넣으면 위와 같이 에이전트의 좌표를 점으로 찍어준다. 그리고 첫번째 줄에서 입력한 경로에서 다음과 같이 `&quot;agent\_tutorial.png&quot;`라는 파일이 생성되었을 것이다.
+![agent\_tutorial.png](agent\_tutorial.png#center)
+
+`&quot;agent\_tutorial.png&quot;`의 실제 모습은 위와 같다. 이로써 에이전트를 생성하고 산점도로 시각화해본 것이다.</code></pre>
 
             </div>
 
@@ -137,7 +138,7 @@ julia<span style="color:#f92672">&gt;</span> png(p, <span style="color:#e6db74">
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -149,11 +150,13 @@ julia<span style="color:#f92672">&gt;</span> png(p, <span style="color:#e6db74">
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -178,6 +181,8 @@ julia<span style="color:#f92672">&gt;</span> png(p, <span style="color:#e6db74">
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -204,8 +209,6 @@ julia<span style="color:#f92672">&gt;</span> png(p, <span style="color:#e6db74">
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -236,8 +239,6 @@ julia<span style="color:#f92672">&gt;</span> png(p, <span style="color:#e6db74">
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ko" class = "blog">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
+
+    
+    <meta name="title" content="에이전트 기반 모델 시뮬레이션에서의 사망">
+    <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
+
+    
+    <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
+    <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
+
+    <title>에이전트 기반 모델 시뮬레이션에서의 사망</title>
+
+</head>
+
+    <body class="main">
+    <header>
+    <a href="../../" rel="home">
+        <p style="text-align:right; font-size: 2rem; color: black;"><b>생새우초밥집</b></p>
+    </a>
+</header>
+    <hr>
+        
+        <div class = "wrapper">
+
+            <div class = "content">
+            
+
+<title>에이전트 기반 모델 시뮬레이션에서의 사망</title>
+
+<h1>에이전트 기반 모델 시뮬레이션에서의 사망</h1>
+<aside>
+    <p style="text-align: right;">
+        1884
+
+    
+    
+            <a href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계</a>&emsp;
+            
+    </span>
+    
+    작성일: 2021-01-16&nbsp;<br>
+    작성자: 류대식 사장 &nbsp;
+</p>
+</aside>
+
+
+<aside>
+    <b>목차</b>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#heading"></a></li>
+  </ul>
+</nav>
+</aside>
+
+
+<h2 id="heading"></h2>
+<p>본 <a href="https://freshrimpsushi.github.io/posts/1873">시뮬레이션</a>은 속도와 시각화 양면으로 유리하고 코딩도 쉬운 <a href="https://freshrimpsushi.github.io/posts/1374">줄리아</a>로 구현되어 있다. 가장 좋은 공부는 깃허브에서 줄리아 코드를 받아 직접 실행해보는 것이지만, 줄리아가 낯설다면 그냥 시뮬레이션을 어떻게 하는건지 읽고 이해만 해도 충분할 수 있다. 구현 자체에 있어 어떤 언어를 사용하느냐는 본질적으로 중요하지 않다.</p>
+<p><a href="https://github.com/rmsmsgood/freshrimpsushi/blob/main/dynamics_simulation/03_%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8_%EA%B8%B0%EB%B0%98%20%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%EC%85%98_%EC%82%AC%EB%A7%9D.jl">소스 코드</a>
+<img src="malthusian_growth_simulation2.gif#center" alt="malthusian\_growth\_simulation2.gif"></p>
+<p>이 포스트에서는 생성된 에이전트가 사망하는 액션을 주어 거시적인 관점에서 집단의 역성장을 모방하려고 한다. 이 시뮬레이션에서 공간이나 이동에 관련된 모든 것들은 단지 시각화를 위한 것이며, 실제 목적과는 아무런 관계가 없다.
+<strong>변수</strong> 
+$t$: 현재 턴을 의미한다.
+$N(t)$: $t$ 턴에서 에이전트의 수를 나타낸다.
+<strong>파라메터</strong> 
+$N_{0} \in \mathbb{N}$: 시뮬레이션이 시작할 때 에이전트의 수를 나타낸다.
+$d \in [0,1]$: 사망률(Death Rate)로써 에이전트가 번식할 확률을 나타낸다.
+$t_{\text{end}} \in \mathbb{N}$: 시뮬레이션이 끝나는 턴을 정한다.
+<strong>액션(모든 에이전트가, 매 턴마다)</strong> 
+<strong>1, 사망:</strong>  $d$ 의 확률로 시뮬레이션에서 제외된다.
+<strong>2, 이동:</strong>  이변수 정규분포 $N \left( \mathbb{0} , \Sigma \right)$ 에서 뽑은 벡터대로 이동한다.</p>
+<p><strong>Step 1.</strong>  초기화 및 에이전트 생성</p>
+<pre><code>julia&gt; N0 = 500 # 초기 인구수
+500
+
+julia&gt; d = 0.04 # 사망률
+0.04
+
+julia&gt; max\_iteration = 180 # 시뮬레이션 기간
+180
+
+julia&gt; gaussian2 = MvNormal([0.0; 0.0], 0.04I) # 2차원 정규분포
+IsoNormal(
+dim: 2
+μ: [0.0, 0.0]
+Σ: [0.04 0.0; 0.0 0.04]
+)
+
+julia&gt; Random.seed!(0);
+
+julia&gt; time\_evolution = [] # 인구수를 기록하기 위한 스택
+Any[]```
+[에이전트 기반 시뮬레이션 튜토리얼](https://freshrimpsushi.github.io/posts/1875)과 비슷하게 에이전트를 생성한다. 여기서 각 변수들은 위의 파라메터 세팅을 반영한다.
+`N0` $\leftarrow N\_{0} = 5$
+`d` $\leftarrow d = 0.04$
+`max\_iteration` $\leftarrow t\_{\text{end}} = 180$
+`Random.seed!(0)`은 결과를 재현하기 위한 시드넘버 설정,은 결과를 재현하기 위한 시드넘버 설정, `time\_evolutiond`는 개체수를 기록하기 위한 스택으로 시뮬레이션 자체에는 영향을 미치지 않으나 시뮬레이션을 반복하고 분석하기 위해 중요하게 쓰이는 테크닉이다.
+</code></pre><p>julia&gt; coordinate = rand(gaussian2, N0)'
+500×2 Adjoint{Float64,Array{Float64,2}}:
+0.135821    0.165683
+-0.0706015  -0.0269708
+0.117323    0.0594672
+0.0129895  -0.0218035
+-0.102842    0.314866
+-0.137781   -0.152561
+0.0794965   0.162326
+-0.0692709  -0.0375145
+⋮
+-0.22697     0.178074
+0.036792   -0.35028
+-0.253518    0.418463
+-0.226243   -0.111246
+0.120505   -0.0111552
+0.0882067   0.0526977
+0.398744   -0.114504
+-0.215111    0.259829</p>
+<p>julia&gt; N = N0
+500```
+$N$ 은 개체수를 나타내므로 우선 $N \leftarrow N_{0}$ 와 같이 초기 개체수를 받아 주어야한다.</p>
+<p><strong>Step 2.</strong>  에이전트의 사망</p>
+<pre><code>julia&gt; coordinate = coordinate[(rand(N) .&gt; d),:]
+481×2 Array{Float64,2}:
+  0.135821    0.165683
+ -0.0706015  -0.0269708
+  0.117323    0.0594672
+  0.0129895  -0.0218035
+ -0.102842    0.314866
+  0.0794965   0.162326
+ -0.0692709  -0.0375145
+  ⋮
+ -0.253518    0.418463
+ -0.226243   -0.111246
+  0.120505   -0.0111552
+  0.0882067   0.0526977
+  0.398744   -0.114504
+ -0.215111    0.259829```
+현재 에이전트의 수만큼 0과 1사이에서 난수를 뽑는다. 이것이 `d`보다 작다는 것은 `d`의 확률로 **액션 1, 사망** 이 일어났다는 뜻이다. 위 스크린샷에서는 19개의 에이전트가 사망해 481개의 에이전트가 남은 것을 볼 수 있다. 이는 기존 에이전트 500개 중 약 4%가 사망한 것으로, 우리의 파라메터 세팅이 거의 정확하게 반영된 것을 확인할 수 있다.
+
+**Step 3.**  기록과 에이전트 이동
+</code></pre><p>julia&gt; push!(time_evolution, N)
+1-element Array{Any,1}:
+481</p>
+<p>julia&gt; coordinate = coordinate + rand(gaussian2, N)'
+481×2 Array{Float64,2}:
+0.399141     0.492689
+-0.151015    -0.00161691
+-0.00843121   0.10119
+0.111592     0.00865223
+0.0591775    0.150437
+0.0060825    0.0383255
+-0.0652535   -0.0688566
+-0.702124    -0.485473
+⋮
+0.437486    -0.354416
+-0.149827     0.156366
+-0.0737965   -0.168831
+0.344358    -0.136392
+-0.231089    -0.0695535
+0.446688     0.143493
+0.133667     0.156873```
+위의 <strong>Step 2.</strong> 에서 에이전트가 19개 줄었으므로 $N$ 역시 업데이트 해주었고, 이 때의 개체수를 기록했다. 각 에이전트의 좌표는 행렬로 표현되고 있으므로 이변수 정규분포를 $N$ 번 뽑아 쌓은 $N \times 2$ 행렬을 더하면 에이전트가 이동한 것을 구현할 수 있다. 이를 마치고 <strong>Step 2.</strong> 로 돌아간다. 계속해서 반복하다가, $t = t_{\text{end}}$ 가 되면 멈춘다.</p>
+<p>위 과정을 반복하기만하면 포스트 상단의 움짤과 같은 현상을 볼 수 있다.</p>
+
+
+            </div>
+
+            <div class = "sidebar">
+            <aside>
+    <p style="text-align: center;">
+    <a href="https://form.office.naver.com/form/responseView.cmd?formkey=OGZiOTE3MzQtYmVkMy00MTI4LWIwZGQtNTZiNzBmMTUwODY1&sourceId=urlshare">
+        <img src="https://freshrimpsushi.github.io/banner/WhatIsYourMajor.png"
+             alt="혹시 문과세요?"
+             width="210">
+    </a>
+    </p>
+</aside>
+
+
+<aside>
+    <p><b>카테고리</b></p>
+<details open>
+    <summary>가나다순 (1759)</summary>
+    <ul><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/r/" style="color: black">R (52)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B0%90%EB%A7%88-%ED%95%A8%EC%88%98%EC%99%80-%EC%A0%9C%ED%83%80-%ED%95%A8%EC%88%98/" style="color: black">감마 함수와 제타 함수 (23)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (19)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (23)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC-%EA%B5%90%EA%B3%BC/" style="color: black">물리 교과 (9)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">물리학미분류 (10)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">미분 방정식 (7)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AF%B8%EC%A0%81%EB%B6%84%ED%95%99/" style="color: black">미적분학 (18)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A0%EC%9D%B4%EC%A7%80%EC%95%88/" style="color: black">베이지안 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0-%ED%95%B4%EC%84%9D/" style="color: black">벡터 해석 (43)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B5%EC%86%8C%ED%95%B4%EC%84%9D/" style="color: black">복소해석 (57)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">수리물리학미분류 (20)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (32)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">수치선형대수 (16)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (54)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99-%EA%B5%90%EA%B3%BC/" style="color: black">수학 교과 (30)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">수학미분류 (30)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%9C%EA%B3%84%EC%97%B4%EB%B6%84%EC%84%9D/" style="color: black">시계열분석 (33)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%A4%EC%A0%84-%EC%88%98%EB%8A%A5-%EC%8A%A4%ED%82%AC/" style="color: black">실전 수능 스킬 (16)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EC%97%AD%ED%95%99/" style="color: black">열역학 (22)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/" style="color: black">위상수학 (59)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/" style="color: black">전자기학 (54)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (73)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (20)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (42)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (22)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/" style="color: black">추상대수 (77)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/" style="color: black">측도론 (58)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C-%ED%95%B4%EC%84%9D/" style="color: black">텐서 해석 (13)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8C%8C%EC%9D%B4%EC%8D%AC/" style="color: black">파이썬 (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90-%ED%95%B4%EC%84%9D/" style="color: black">푸리에 해석 (41)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (53)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (56)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">해석학미분류 (28)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (22)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D/" style="color: black">회귀분석 (28)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8-%EA%B3%B5%EA%B0%84%EB%A1%A0/" style="color: black">힐베르트 공간론 (35)</a>
+        </li>
+    </ul>
+</details>
+</aside>
+
+<aside>
+    <p><b>태그</b></p>
+    <div>
+    </div>
+</aside>
+
+<aside>
+    <h2></h2>
+    <ul>
+    </ul>
+</aside>
+            </div>
+
+        </div>
+    </body>
+
+    <hr>
+    <footer>
+    <aside>
+        <div>
+            <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io" target="_blank">Hugo</a></p>
+        </div>
+
+    
+    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
+	MathJax.Hub.Config({
+		messageStyle: "none",
+		jax: ["input/TeX", "output/HTML-CSS"],
+		"HTML-CSS": { availableFonts: ["TeX"] },
+		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+
+		tex2jax: {
+			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
+			displayAlign: "left"
+		},
+		
+		TeX: { equationNumbers: {autoNumber: "AMS"}, 
+					extensions: ["cancel.js","color.js"], 
+					   TagSide: "left" 
+		}
+					
+	});
+</script> 
+
+    
+    
+        <link rel="stylesheet" href= https://freshrimpsushi.github.io/css/atom-one-light.css>
+        <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    
+    </aside>
+</footer>
+</html>
+<!DOCTYPE html>

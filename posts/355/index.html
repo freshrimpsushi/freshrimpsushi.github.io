@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="행렬의 QR 분해 QR Decomposition of Matrix">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>행렬의 QR 분해 QR Decomposition of Matrix</title>
@@ -56,8 +59,8 @@
 
 <h2 id="heading"></h2>
 <p>계수가 $n$ 인 행렬 $A := \begin{bmatrix}
-\mathbb{a}<em>{1} &amp; \cdots &amp; \mathbb{a}</em>{n} 
-\end{bmatrix} \in \mathbb{C}^{m \times n}<em>{n}$ 에 대해 $i$ 번째까지의 열벡터로 생성된 부분공간 $S</em>{i} (A) := \text{sp} \left\{ \mathbb{a}<em>{1}, \cdots , \mathbb{a}</em>{i} \right\}$ 을 정의하자.벡터공간을 생성할 땐 $i$ 가 클수록  많은 열벡터를 사용할 수 있으므로 $S_{1} (A) \subset S_{2} (A) \subset \cdots S_{n} (A)$ 가 성립할 것이다.물론 정규직교벡터로 이루어진 행렬 $\widehat{Q} : = \begin{bmatrix}
+\mathbb{a}_{1} &amp; \cdots &amp; \mathbb{a}_{n} 
+\end{bmatrix} \in \mathbb{C}^{m \times n}_{n}$ 에 대해 $i$ 번째까지의 열벡터로 생성된 부분공간 $S_{i} (A) := \text{sp} \left\{ \mathbb{a}_{1}, \cdots , \mathbb{a}_{i} \right\}$ 을 정의하자.벡터공간을 생성할 땐 $i$ 가 클수록  많은 열벡터를 사용할 수 있으므로 $S_{1} (A) \subset S_{2} (A) \subset \cdots S_{n} (A)$ 가 성립할 것이다.물론 정규직교벡터로 이루어진 행렬 $\widehat{Q} : = \begin{bmatrix}
 \mathbb{q}_{1} &amp; \cdots &amp; \mathbb{q}_{n} 
 \end{bmatrix} \in \mathbb{C}^{m \times n}_{n} $ 에 대해서도 $S_{1} (\widehat{Q}) \subset S_{2} (\widehat{Q}) \subset \cdots S_{n} (\widehat{Q})$ 는 성립한다.만약 $S_{i} (A) = S_{i} (\widehat{Q})$ 를 만족하는 관계식 등을 찾을 수 있다면 $\widehat{Q}$ 가 다루기 쉬우므로 행렬 $A$ 도 다루는 게 한결 쉬워질 것이다.$\mathbb{a}_{1} = r_{11} \mathbb{q}_{1}
 $$
@@ -81,18 +84,23 @@ $$
 \\  0 &amp; r_{22} &amp; \cdots &amp; r_{2n} 
 \\  \vdots &amp; \vdots &amp; \ddots &amp; \vdots 
 \\  0 &amp; 0 &amp; \cdots &amp; r_{nn} 
-\end{bmatrix} $ 을 찾는 것이 바로 QR 분해다.$\begin{bmatrix}
+\end{bmatrix} $ 을 찾는 것이 바로 QR 분해다.</p>
+<p>$\begin{bmatrix}
 \mathbb{a}_{1} &amp; \cdots &amp; \mathbb{a}_{n} 
-\end{bmatrix} \in \mathbb{C}^{m \times n}_{n}$ 이라고 하자.**Step 1.**  $j=1
+\end{bmatrix} \in \mathbb{C}^{m \times n}_{n}$ 이라고 하자.<strong>Step 1.</strong>  $j=1
 $$
-\mathbb{a}_{1} = r_{11} \mathbb{q}_{1}$ 과 $| \mathbb{q}_{1} | = 1$ 을 만족하는 $r_{11}$ 을 계산한다.**Step 2.**  $j= 2, 3, \cdots , n$**Step 2-1.**  $i = 1,2, \cdots , j-1
+\mathbb{a}_{1} = r_{11} \mathbb{q}_{1}$ 과 $| \mathbb{q}_{1} | = 1$ 을 만족하는 $r_{11}$ 을 계산한다.<strong>Step 2.</strong>  $j= 2, 3, \cdots , n$<strong>Step 2-1.</strong>  $i = 1,2, \cdots , j-1
 $$
-r_{ij} = \mathbb{q}_{i}^{ * } \mathbb{a}_{j}$ 를 계산한다.**Step 2-2.** 임시 벡터 $\displaystyle \mathbb{v}_{j} = \mathbb{a}_{j} - \sum_{i = 1}^{j-1} r_{ij} \mathbb{q}_{i} = \mathbb{a}_{j} - \sum_{i=1}^{j-1} (\mathbb{q}_{i}^{ * } \mathbb{a}_{j} ) \mathbb{q}_{i} $ 를 계산한다.**Step 2-3.** $r_{jj} = | \mathbb{v}_{j} |$ 를 계산한다.**Step 2-4.** $\displaystyle \mathbb{q}_{j} = {{ \mathbb{v}_{j} } \over {r_{jj} }} $ 를 계산한다.여기서 $R$ 은 상삼각행렬로 주어지며 $ r_{jj} = | \mathbb{v}_{j} |$ 로 계산되므로 항상 $r_{jj} &gt; 0 $ 임이 보장되고, 따라서 $R^{-1}$ 이 존재함을 알 수 있다.한편 $\widehat{Q}$ 와 $\widehat{R}$ 의 표기를 보고 눈치 챘겠지만, 더 자세하게 말하자면 위의 분해는 축소 QR 분해, 즉 rQR 분해라고 부른다.전체 QR 분해, 즉 fQR 분해는 <a href="http://freshrimpsushi.tistory.com/340">특이값 분해</a>에서 했던 것과 마찬가지로 정규직교벡터로 이루어진 $Q = \begin{bmatrix}
+r_{ij} = \mathbb{q}_{i}^{ * } \mathbb{a}_{j}$ 를 계산한다.<strong>Step 2-2.</strong> 임시 벡터 $\displaystyle \mathbb{v}_{j} = \mathbb{a}_{j} - \sum_{i = 1}^{j-1} r_{ij} \mathbb{q}_{i} = \mathbb{a}_{j} - \sum_{i=1}^{j-1} (\mathbb{q}_{i}^{ * } \mathbb{a}_{j} ) \mathbb{q}_{i} $ 를 계산한다.<strong>Step 2-3.</strong> $r_{jj} = | \mathbb{v}_{j} |$ 를 계산한다.<strong>Step 2-4.</strong> $\displaystyle \mathbb{q}_{j} = {{ \mathbb{v}_{j} } \over {r_{jj} }} $ 를 계산한다.</p>
+<p>여기서 $R$ 은 상삼각행렬로 주어지며 $ r_{jj} = | \mathbb{v}_{j} |$ 로 계산되므로 항상 $r_{jj} &gt; 0 $ 임이 보장되고, 따라서 $R^{-1}$ 이 존재함을 알 수 있다.한편 $\widehat{Q}$ 와 $\widehat{R}$ 의 표기를 보고 눈치 챘겠지만, 더 자세하게 말하자면 위의 분해는 축소 QR 분해, 즉 rQR 분해라고 부른다.전체 QR 분해, 즉 fQR 분해는 <a href="http://freshrimpsushi.tistory.com/340">특이값 분해</a>에서 했던 것과 마찬가지로 정규직교벡터로 이루어진 $Q = \begin{bmatrix}
 \widehat{Q} &amp; \mathbb{q}_{n+1} &amp; \cdots &amp; \mathbb{q}_{m} 
 \end{bmatrix} \in \mathbb{C}^{m \times m}$ 과 하단에 $0$ 을 채워넣은 $R = \begin{bmatrix}
 \widehat{R} 
 \\  O 
-\end{bmatrix} \in \mathbb{C}^{m \times n}$ 을 구성함으써 구해진다. **QR 분해의 존재성** 행렬 $A \in \mathbb{C}^{m \times n}$ 은 반드시 QR 분해를 갖는다.**QR 분해의 유일성** 정칙행렬 $A \in \mathbb{R}^{m \times m}$ 은 단 하나의 rQR 분해를 갖는다.존재성과 유일성이 보장되어 있는 것은 좋지만 사실상 증명이랄 게 별로 없다. 특히 유일성의 경우엔 유일하다는 걸 증명함에도 불구하고 부호가 반전되는 등에 대해서는 허용하는 등 자세하게 파고들수록 지저분한 팩트기 때문에 그냥 대충 알고 넘어가는 것을 추천한다.</p>
+\end{bmatrix} \in \mathbb{C}^{m \times n}$ 을 구성함으써 구해진다. </p>
+<p><strong>QR 분해의 존재성</strong> 행렬 $A \in \mathbb{C}^{m \times n}$ 은 반드시 QR 분해를 갖는다.</p>
+<p><strong>QR 분해의 유일성</strong> 정칙행렬 $A \in \mathbb{R}^{m \times m}$ 은 단 하나의 rQR 분해를 갖는다.</p>
+<p>존재성과 유일성이 보장되어 있는 것은 좋지만 사실상 증명이랄 게 별로 없다. 특히 유일성의 경우엔 유일하다는 걸 증명함에도 불구하고 부호가 반전되는 등에 대해서는 허용하는 등 자세하게 파고들수록 지저분한 팩트기 때문에 그냥 대충 알고 넘어가는 것을 추천한다.</p>
 
 
             </div>
@@ -112,7 +120,7 @@ r_{ij} = \mathbb{q}_{i}^{ * } \mathbb{a}_{j}$ 를 계산한다.**Step 2-2.** 임
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -124,11 +132,13 @@ r_{ij} = \mathbb{q}_{i}^{ * } \mathbb{a}_{j}$ 를 계산한다.**Step 2-2.** 임
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -153,6 +163,8 @@ r_{ij} = \mathbb{q}_{i}^{ * } \mathbb{a}_{j}$ 를 계산한다.**Step 2-2.** 임
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -179,8 +191,6 @@ r_{ij} = \mathbb{q}_{i}^{ * } \mathbb{a}_{j}$ 를 계산한다.**Step 2-2.** 임
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -211,8 +221,6 @@ r_{ij} = \mathbb{q}_{i}^{ * } \mathbb{a}_{j}$ 를 계산한다.**Step 2-2.** 임
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="줄리아에서 배열의 슬라이싱과 인덱싱">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>줄리아에서 배열의 슬라이싱과 인덱싱</title>
@@ -55,23 +58,27 @@
 
 
 <h2 id="heading"></h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">
-M <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1.</span> <span style="color:#ae81ff">2.</span> ; <span style="color:#ae81ff">3.</span> <span style="color:#ae81ff">4.</span>]
+<pre><code>
+M = [1. 2. ; 3. 4.]
 size(M)
 length(M)
 
-x <span style="color:#f92672">=</span> [[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>] <span style="color:#66d9ef">for</span> _ <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">4</span>]; x
+x = [[1,2,3,4] for \_ in 1:4]; x
 
-y <span style="color:#f92672">=</span> [<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">4</span>]
-y[[<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">3</span>]]
-y[<span style="color:#ae81ff">3</span><span style="color:#f92672">:</span><span style="color:#66d9ef">end</span>]
-y[<span style="color:#ae81ff">3</span><span style="color:#f92672">:</span><span style="color:#ae81ff">4</span>] <span style="color:#f92672">.=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>; y
+y = [3,2,5,1,4]
+y[[4,2,1,5,3]]
+y[3:end]
+y[3:4] .= -1; y
 
-x <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span>; <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">4</span>]
-x[<span style="color:#ae81ff">1</span>,<span style="color:#f92672">:</span>]
-x[[<span style="color:#ae81ff">1</span>],<span style="color:#f92672">:</span>]
-x[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>; x
-</code></pre></div><p>줄리아는 R, 파이썬, 매트랩의 장점이 모두 섞여있는 언어다. 배열은 프로그래밍의 근간이 되는만큼 그 활용에서 여러 언어들의 흔적을 찾아볼 수 있다.<img filemime="image/jpeg" filename="20191202_160257.png" height="171" src="https://t1.daumcdn.net/cfile/tistory/9983373A5DE4B9F22D" style="text-align: center;" width="187"/>행렬의 경우 매트랩의 문법과 거의 똑같이 정의하고 거의 똑같이 사용할 수 있다. size() 함수는 매트랩과 똑같이 쓰이고, 파이썬에서 numpy 패키지의 프로퍼티 .shape에 해당하는 기능을 한다. length()는 매트랩과 달리 성분 전체의 수를 반환한다.<img filemime="image/jpeg" filename="20191202_161341.png" height="107" src="https://t1.daumcdn.net/cfile/tistory/99B4073A5DE4B9F232" style="text-align: center;" width="272"/>반복문을 배열 안에 배치해서 쓰는 것은 파이썬에서 흔히 볼 수 있는 용법이다. 이를 통해 R에서의 rep() 함수 등을 비슷하게 재현해낼 수 있다.<img filemime="image/jpeg" filename="20191202_163100.png" height="495" src="https://t1.daumcdn.net/cfile/tistory/99BCAA4E5DE4BE0D2C" style="text-align: center;" width="184"/><a href="https://freshrimpsushi.github.io/posts/332">인덱싱</a>은 R과 비슷하게 인덱스의 배열을 주면 그 순서대로 출력해준다. 배열의 마지막 인덱스를 end로 표현하는 것을 보아 슬라이싱은 매트랩에서 영향을 받았음을 알 수 있다. 가장 마지막으로, .=를 통해 3, 4번째 원소에 -1을 직접 대입하는 것 역시 매트랩과 흡사하다.<img filemime="image/jpeg" filename="20191202_161427.png" height="306" src="https://t1.daumcdn.net/cfile/tistory/99DE263A5DE4B9F332" style="text-align: center;" width="183"/>특이한 것은 인덱싱을 어떻게 하느냐에 따라 결과가 다를 수 있다는 것이다. 개념적으로는 같은 것을 넣고 같은 결과가 나올지라도 들어갈 때 원소가 들어가면 결과도 원소로, 들어갈 때 배열이 들어가면 결과도 배열로 얻을 수 있다. 이는 줄리아를 사용하기 어렵게 만드는 동시에 고급스러운 기능을 구현하는데에 큰 도움이 되기도 한다.</p>
+x = [1 2; 3 4]
+x[1,:]
+x[[1],:]
+x[1,1] = -1; x
+</code></pre><p>줄리아는 R, 파이썬, 매트랩의 장점이 모두 섞여있는 언어다. 배열은 프로그래밍의 근간이 되는만큼 그 활용에서 여러 언어들의 흔적을 찾아볼 수 있다.<img src="20191202_160257.png#center" alt="20191202\_160257.png">
+행렬의 경우 매트랩의 문법과 거의 똑같이 정의하고 거의 똑같이 사용할 수 있다. size() 함수는 매트랩과 똑같이 쓰이고, 파이썬에서 numpy 패키지의 프로퍼티 .shape에 해당하는 기능을 한다. length()는 매트랩과 달리 성분 전체의 수를 반환한다.<img src="20191202_161341.png#center" alt="20191202\_161341.png">
+반복문을 배열 안에 배치해서 쓰는 것은 파이썬에서 흔히 볼 수 있는 용법이다. 이를 통해 R에서의 rep() 함수 등을 비슷하게 재현해낼 수 있다.<img src="20191202_163100.png#center" alt="20191202\_163100.png">
+<a href="https://freshrimpsushi.github.io/posts/332">인덱싱</a>은 R과 비슷하게 인덱스의 배열을 주면 그 순서대로 출력해준다. 배열의 마지막 인덱스를 end로 표현하는 것을 보아 슬라이싱은 매트랩에서 영향을 받았음을 알 수 있다. 가장 마지막으로, .=를 통해 3, 4번째 원소에 -1을 직접 대입하는 것 역시 매트랩과 흡사하다.<img src="20191202_161427.png#center" alt="20191202\_161427.png">
+특이한 것은 인덱싱을 어떻게 하느냐에 따라 결과가 다를 수 있다는 것이다. 개념적으로는 같은 것을 넣고 같은 결과가 나올지라도 들어갈 때 원소가 들어가면 결과도 원소로, 들어갈 때 배열이 들어가면 결과도 배열로 얻을 수 있다. 이는 줄리아를 사용하기 어렵게 만드는 동시에 고급스러운 기능을 구현하는데에 큰 도움이 되기도 한다.</p>
 
 
             </div>
@@ -91,7 +98,7 @@ x[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>] <sp
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -103,11 +110,13 @@ x[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>] <sp
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -132,6 +141,8 @@ x[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>] <sp
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -158,8 +169,6 @@ x[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>] <sp
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -190,8 +199,6 @@ x[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>] <sp
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

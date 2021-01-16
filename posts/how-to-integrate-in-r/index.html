@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="R 에서 정적분 구하는 법">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>R 에서 정적분 구하는 법</title>
@@ -61,25 +64,26 @@ R 에서 정적분을 구하기 위해선 <code>integrate()</code> 함수를 사
 \displaystyle \int_{0}^{3} \left( x^2 + 4x + 1 \right) dx$ 과 $\displaystyle \int_{0}^{\infty} e^{-x} dx 
 $$</p>
 <p>은 다음과 같이 구할 수 있다. 특히 적분구간에는 <code>inf</code>를 넣음으로써 이상적분까지 할 수 있다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">f<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(x) {x^2 <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>}
-g<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(x) {<span style="color:#a6e22e">exp</span>(<span style="color:#f92672">-</span>x)}
+<pre><code>f&lt;-function(x) {x^2 + 4*x + 1}
+g&lt;-function(x) {exp(-x)}
  
-<span style="color:#a6e22e">integrate</span>(f,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">3</span>)
-<span style="color:#a6e22e">integrate</span>(g,<span style="color:#ae81ff">0</span>,<span style="color:#66d9ef">Inf</span>)```
-<span style="color:#f92672">&lt;</span>img filemime<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;image/jpeg&#34;</span> filename<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;20190322_140807.png&#34;</span> height<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;63&#34;</span> src<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://t1.daumcdn.net/cfile/tistory/998FDB405C946DC61D&#34;</span> style<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text-align: justify;&#34;</span> width<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;260&#34;</span><span style="color:#f92672">/&gt;</span>
+integrate(f,0,3)
+integrate(g,0,Inf)```
+![20190322\_140807.png](20190322\_140807.png#center)
+
 실제로 계산해보면
 
-<span style="color:#f92672">$$</span>
-\int_{<span style="color:#ae81ff">0</span>}^{<span style="color:#ae81ff">3</span>} <span style="color:#a6e22e">\left</span>( x^2 <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span>x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> \right) dx <span style="color:#f92672">=</span> \left[ {{<span style="color:#ae81ff">1</span>} \over {<span style="color:#ae81ff">3</span>}} x^{<span style="color:#ae81ff">3</span>} <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span> x^2 <span style="color:#f92672">+</span> x \right]_{x<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>}^{<span style="color:#ae81ff">3</span>} <span style="color:#f92672">=</span> <span style="color:#ae81ff">9</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">18</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">30</span>
-<span style="color:#f92672">$$</span>
+$$
+\int\_{0}^{3} \left( x^2 + 4x + 1 \right) dx = \left[ {{1} \over {3}} x^{3} + 2 x^2 + x \right]\_{x=0}^{3} = 9 + 18 + 3 = 30
+$$
 
 이고
 
-<span style="color:#f92672">$$</span>
-\displaystyle \int_{<span style="color:#ae81ff">0</span>}^{\infty} e^{<span style="color:#f92672">-</span>x} dx <span style="color:#f92672">=</span> \left[ <span style="color:#f92672">-</span> e^{<span style="color:#f92672">-</span>x} \right]_{x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>}^{\infty} <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">-</span> (<span style="color:#ae81ff">-1</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
-<span style="color:#f92672">$$</span>
+$$
+\displaystyle \int\_{0}^{\infty} e^{-x} dx = \left[ - e^{-x} \right]\_{x = 0}^{\infty} = 0 - (-1) = 1
+$$
 
-인 것을 확인할 수 있다<span style="color:#ae81ff">.</span></code></pre></div>
+인 것을 확인할 수 있다.</code></pre>
 
             </div>
 
@@ -98,7 +102,7 @@ g<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</s
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -110,11 +114,13 @@ g<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</s
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -139,6 +145,8 @@ g<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</s
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -165,8 +173,6 @@ g<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</s
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -197,8 +203,6 @@ g<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</s
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

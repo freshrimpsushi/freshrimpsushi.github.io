@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="R 에서 부트스트랩 함수 사용하는 법">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>R 에서 부트스트랩 함수 사용하는 법</title>
@@ -65,26 +68,29 @@
 
 
 <h2 id="heading"></h2>
-<p>R 에서 부트스트랩을 시행하는 코드를 직접 짜볼 수도 있지만, 기본적으로 제공되는 함수를 이용할 수도 있다.그 과정은 아래와 같이 단순하지만 다른 함수들과 사용법에 다른 점이 많아서 처음엔 많이 낯설 것이다.<strong>Step 1.</strong>  구하고 싶은 통계량을 반환하는 함수 boot.fn()을 정의한다.당연히 여기서 함수의 이름은 어찌되든 상관 없다.이때 인수 중엔 boot.fn&lt;-function(dataset, index)와 같이 두번째 옵션 index가 있어야한다.<strong>Step 2.</strong>  boot() 함수에 옵션 data, statistic, R을 설정하고 실행한다.data는 데이터셋, statistic은 <strong>Step 1.</strong> 에서 정의한 함수, R에는 반복할 횟수를 넣어준다.예제를 보면서 차근차근 따라해보도록 하자.<img src="20180507_201348.png#center" alt="img">Default는 채무불이행 여부와 그에 대한 조건들의 데이터셋이다.당연히 default 변수가 종속변수고, 실제로 채무불이행까지 이어지는지의 예측문제이므로 <a href="https://freshrimpsushi.github.io/posts/832">로지스틱 회귀분석</a>이 적절하다.<img filemime="image/jpeg" filename="20180507_202245.png" height="383" src="https://t1.daumcdn.net/cfile/tistory/99F62F4F5AF037181D" style="max-width:100%;height:auto" width="512"/>로지스틱 회귀분석의 결과는 위와 같다.우리는 여기서 회귀계수에 대해 부트스트랩을 사용해볼 것이다.<img filemime="image/jpeg" filename="20180507_202409.png" height="63" src="https://t1.daumcdn.net/cfile/tistory/990325505AF037630F" style="max-width:100%;height:auto" width="613"/>부트스트랩에 쓰이는 함수는 위와 같이 dataset과 index라는 두 개의 인수가 필수적이다.dataset은 오리지널 데이터를 받아주고, index는 부트스트랩을 통한 재표본추출의 튜플을 받아줄 것이다.return()을 보면 알겠지만 해당 함수가 돌려주는 것은 모델이나 요약 전체가 아니라 회귀계수로 이루어진 벡터 뿐이다.이렇게 함수를 포멀하게 정의할 필요가 있다보니 R에 대한 기초가 부족하면 부트스트랩 함수를 이해하기 어려울 것이다.부트스트랩을 쓸 정도로 통계학에 숙달된 학습자라면 큰 문제는 없겠지만, 조금 어렵게 느껴져도 정상이니 자책하지 말자.<img filemime="image/jpeg" filename="20180507_202925.png" height="224" src="https://t1.daumcdn.net/cfile/tistory/99D804475AF038A011" style="text-align: center;" width="571"/>boot() 함수는 data에 데이터셋을 받고 R에 실행 횟수를 받는다.statistic 옵션이 받아주는 것은 boot.fn()이 반환하는 &lsquo;벡터&rsquo;가 아니라 &lsquo;함수 그 자체&rsquo;인 boot.fn라는 부분에서 많이 실수한다.계속해서 에러가 난다면 대부분은 여기가 문제다.실행 결과를 보면 첫번째 회귀계수부터 t1, t2, t3, t4로 나타나고 계수나 표준오차가 처음에 했던 로지스틱 회귀분석의 결과와 상당히 비슷하게 구해졌음을 확인할 수 있다. 여기서 부트스트랩을 통해 얻어내고자 하는 것은 <a href="http://freshrimpsushi.tistory.com/551">점추정값인 original이 아니라 std. error라는 점</a>에 주의하도록 하자. 잘 비교해보면 알겠지만 original이란 그냥 전체 데이터에서 얻은 회귀계수로써 부트스트랩 그 자체와는 하등 상관없고 필요없다.아래는 예제코드다.부트스트랩같은 경우엔 너무 사용법이 특이해서 이해가 잘 안가면 그냥 예제를 자기 케이스에 맞게 바꿔 쓰기만해도 된다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-<span style="color:#a6e22e">library</span>(ISLR)
-<span style="color:#a6e22e">library</span>(boot)
-<span style="color:#a6e22e">set.seed</span>(<span style="color:#ae81ff">150421</span>)
-<span style="color:#a6e22e">data</span>(<span style="color:#e6db74">&#34;Default&#34;</span>)
-<span style="color:#a6e22e">head</span>(Default)
+<p>R 에서 부트스트랩을 시행하는 코드를 직접 짜볼 수도 있지만, 기본적으로 제공되는 함수를 이용할 수도 있다.그 과정은 아래와 같이 단순하지만 다른 함수들과 사용법에 다른 점이 많아서 처음엔 많이 낯설 것이다.</p>
+<p><strong>Step 1.</strong>  구하고 싶은 통계량을 반환하는 함수 boot.fn()을 정의한다.당연히 여기서 함수의 이름은 어찌되든 상관 없다.이때 인수 중엔 boot.fn&lt;-function(dataset, index)와 같이 두번째 옵션 index가 있어야한다.<strong>Step 2.</strong>  boot() 함수에 옵션 data, statistic, R을 설정하고 실행한다.data는 데이터셋, statistic은 <strong>Step 1.</strong> 에서 정의한 함수, R에는 반복할 횟수를 넣어준다.</p>
+<p>예제를 보면서 차근차근 따라해보도록 하자.<img src="20180507_201348.png#center" alt="20180507\_201348.png">
+Default는 채무불이행 여부와 그에 대한 조건들의 데이터셋이다.당연히 default 변수가 종속변수고, 실제로 채무불이행까지 이어지는지의 예측문제이므로 <a href="https://freshrimpsushi.github.io/posts/832">로지스틱 회귀분석</a>이 적절하다.<img src="20180507_202245.png#center" alt="20180507\_202245.png">
+로지스틱 회귀분석의 결과는 위와 같다.우리는 여기서 회귀계수에 대해 부트스트랩을 사용해볼 것이다.<img src="20180507_202409.png#center" alt="20180507\_202409.png">
+부트스트랩에 쓰이는 함수는 위와 같이 dataset과 index라는 두 개의 인수가 필수적이다.dataset은 오리지널 데이터를 받아주고, index는 부트스트랩을 통한 재표본추출의 튜플을 받아줄 것이다.return()을 보면 알겠지만 해당 함수가 돌려주는 것은 모델이나 요약 전체가 아니라 회귀계수로 이루어진 벡터 뿐이다.이렇게 함수를 포멀하게 정의할 필요가 있다보니 R에 대한 기초가 부족하면 부트스트랩 함수를 이해하기 어려울 것이다.부트스트랩을 쓸 정도로 통계학에 숙달된 학습자라면 큰 문제는 없겠지만, 조금 어렵게 느껴져도 정상이니 자책하지 말자.<img src="20180507_202925.png#center" alt="20180507\_202925.png">
+boot() 함수는 data에 데이터셋을 받고 R에 실행 횟수를 받는다.statistic 옵션이 받아주는 것은 boot.fn()이 반환하는 &lsquo;벡터&rsquo;가 아니라 &lsquo;함수 그 자체&rsquo;인 boot.fn라는 부분에서 많이 실수한다.계속해서 에러가 난다면 대부분은 여기가 문제다.실행 결과를 보면 첫번째 회귀계수부터 t1, t2, t3, t4로 나타나고 계수나 표준오차가 처음에 했던 로지스틱 회귀분석의 결과와 상당히 비슷하게 구해졌음을 확인할 수 있다. 여기서 부트스트랩을 통해 얻어내고자 하는 것은 <a href="http://freshrimpsushi.tistory.com/551">점추정값인 original이 아니라 std. error라는 점</a>에 주의하도록 하자. 잘 비교해보면 알겠지만 original이란 그냥 전체 데이터에서 얻은 회귀계수로써 부트스트랩 그 자체와는 하등 상관없고 필요없다.아래는 예제코드다.부트스트랩같은 경우엔 너무 사용법이 특이해서 이해가 잘 안가면 그냥 예제를 자기 케이스에 맞게 바꿔 쓰기만해도 된다.</p>
+<pre><code>library(ISLR)
+library(boot)
+set.seed(150421)
+data(&quot;Default&quot;)
+head(Default)
  
-<span style="color:#a6e22e">summary</span>(<span style="color:#a6e22e">glm</span>(default<span style="color:#f92672">~</span>.,family<span style="color:#f92672">=</span><span style="color:#a6e22e">binomial</span>(),data<span style="color:#f92672">=</span>Default))
-<span style="color:#a6e22e">coef</span>(<span style="color:#a6e22e">glm</span>(default<span style="color:#f92672">~</span>.,family<span style="color:#f92672">=</span><span style="color:#a6e22e">binomial</span>(),data<span style="color:#f92672">=</span>dataset,subset<span style="color:#f92672">=</span>index))
+summary(glm(default~.,family=binomial(),data=Default))
+coef(glm(default~.,family=binomial(),data=dataset,subset=index))
  
-boot.fn<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(dataset,index)
+boot.fn&lt;-function(dataset,index)
 {
-  <span style="color:#a6e22e">return</span>(<span style="color:#a6e22e">coef</span>(<span style="color:#a6e22e">glm</span>(default<span style="color:#f92672">~</span>.,family<span style="color:#f92672">=</span><span style="color:#a6e22e">binomial</span>(),data<span style="color:#f92672">=</span>dataset,subset<span style="color:#f92672">=</span>index)))
+  return(coef(glm(default~.,family=binomial(),data=dataset,subset=index)))
 }
  
-boot.result<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">boot</span>(data<span style="color:#f92672">=</span>Default,statistic<span style="color:#f92672">=</span>boot.fn,R<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span>); boot.result
-</code></pre></div>
+boot.result&lt;-boot(data=Default,statistic=boot.fn,R=1000); boot.result
+</code></pre>
 
             </div>
 
@@ -103,7 +109,7 @@ boot.result<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">b
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -115,11 +121,13 @@ boot.result<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">b
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -144,6 +152,8 @@ boot.result<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">b
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -170,8 +180,6 @@ boot.result<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">b
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -202,8 +210,6 @@ boot.result<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">b
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

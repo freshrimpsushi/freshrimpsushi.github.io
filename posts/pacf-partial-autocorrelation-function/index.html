@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="편자기상관함수">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>편자기상관함수</title>
@@ -65,11 +68,12 @@
 
 
 <h2 id="heading"></h2>
-<p><a href="https://freshrimpsushi.github.io/posts/1209">ACF : 자기상관함수</a><a href="https://freshrimpsushi.github.io/posts/1213">EACF : 확장자기상관함수</a><a href="https://freshrimpsushi.github.io/posts/1227">CCF : 교차상관함수</a>$\left\{ Y_{t} \right\}_{t=1}^{n} $ 이 <a href="https://freshrimpsushi.github.io/posts/857">확률과정</a>이고 시차 $k$ 에 대해서 $Y_{t-1}, \cdots , Y_{t-(k-1)}$ 로 $Y_{t}$ 를 <a href="https://freshrimpsushi.github.io/posts/666">회귀분석</a>한 잔차를 $\widehat{e_{t}}$, $Y_{t-k}$ 를 <a href="https://freshrimpsushi.github.io/posts/666">회귀분석</a>한 잔차를 $\widehat{e_{t-k}}$ 이라고 하자.**1.**  다음과 같이 정의된 $\phi_{kk}$ 를 시차 $k$ 의 **편자기공분산함수** 라고 한다.
+<p><a href="https://freshrimpsushi.github.io/posts/1209">ACF : 자기상관함수</a><a href="https://freshrimpsushi.github.io/posts/1213">EACF : 확장자기상관함수</a><a href="https://freshrimpsushi.github.io/posts/1227">CCF : 교차상관함수</a></p>
+<p>$\left\{ Y_{t} \right\}_{t=1}^{n} $ 이 <a href="https://freshrimpsushi.github.io/posts/857">확률과정</a>이고 시차 $k$ 에 대해서 $Y_{t-1}, \cdots , Y_{t-(k-1)}$ 로 $Y_{t}$ 를 <a href="https://freshrimpsushi.github.io/posts/666">회귀분석</a>한 잔차를 $\widehat{e_{t}}$, $Y_{t-k}$ 를 <a href="https://freshrimpsushi.github.io/posts/666">회귀분석</a>한 잔차를 $\widehat{e_{t-k}}$ 이라고 하자.<strong>1.</strong>  다음과 같이 정의된 $\phi_{kk}$ 를 시차 $k$ 의 <strong>편자기공분산함수</strong> 라고 한다.
 $$
 \phi_{kk} := \text{cor} ( \widehat{e_{t}} , \widehat{e_{t-k}} )
 $$
-**2.**  다음과 같이 정의된 $\phi_{kk}$ 를 시차 $k$ 의 **표본편자기공분산함수** 라고 한다.
+<strong>2.</strong>  다음과 같이 정의된 $\phi_{kk}$ 를 시차 $k$ 의 <strong>표본편자기공분산함수</strong> 라고 한다.
 $$
 \widehat{ \phi_{kk} } := {{ r_{k} - \sum_{j=1}^{k-1} \phi_{(k-1),j} r_{k-j} } \over { 1 - \sum_{j=1}^{k-1} \phi_{(k-1),j} r_{j} }}
 $$</p>
@@ -85,20 +89,22 @@ $$
 $$
 \widehat{e_{t}} = Y_{t} - \left( \beta_{1} Y_{t-1} + \cdots \beta_{k-1} Y_{t-(k-1)} \right)
 $$
-이는 $\widehat{e_{t}}$ 이 $Y_{t-1}, \cdots , Y_{t-(k-1)}$ 으로 설명될 부분들이 제거되었다는 뜻이다. 마찬가지로 $\widehat{e_{t-k}}$ 역시 $Y_{t-1}, \cdots , Y_{t-(k-1)}$ 으로 설명할 수 있을만한 부분은 다 제거되었기 때문에, $\text{cor} ( \widehat{e_{t}} , \widehat{e_{t-k}} )$ 을 계산한다는 것은 $Y_{t-1}, \cdots , Y_{t-(k-1)}$ 이 없어진 $Y_{t}$ 와 $Y_{t-k}$ 만의 상관관계를 보려고 하는 것이다. 다른 변수는 제쳐놓고 관심 있는 변수만을 신경쓴다는 점에서 &lsquo;편&rsquo;자기상관함수라는 이름은 적절함을 알 수 있다. [ **NOTE**  : 아무리 개념이 단순하다고 해도 sPACF를 실제로 계산하는 건 꽤 어려웠는데, 레빈슨Levinson과 더빈Durbin이 제안한 메소드 덕에 그나마 $\widehat{ \phi_{kk} } $ 를 재귀적으로 계산할 수 있게 된 것이다. ]수식적으로는 $Y_{t}$ 가 $AR(p)$ 에서 나왔다고 생각해봤을 때 $\displaystyle Y_{t} = \sum_{k=1}^{p} \phi_{k} Y_{t-k} + e_{t}$ 이므로 $Y_{t-k}$ 의 계수 $\phi_{k}$ 를 계산하기 위해 나머지 변수를 배제할 수 있어 $AR(p)$ 모형을 찾는데에 유용하다.sPACF $\widehat{\phi_{kk}}$ 는 PACF $\phi_{kk}$ 의 추정치고, $Y_{t}$ 가 $AR(p)$ 모형에서 나왔다면 $k&gt;p$ 일 때 정규분포 $\displaystyle N \left( 0 , {{ 1 } \over { n }} \right)$ 을 따른다. 수식으로 나타내보면
+이는 $\widehat{e_{t}}$ 이 $Y_{t-1}, \cdots , Y_{t-(k-1)}$ 으로 설명될 부분들이 제거되었다는 뜻이다. 마찬가지로 $\widehat{e_{t-k}}$ 역시 $Y_{t-1}, \cdots , Y_{t-(k-1)}$ 으로 설명할 수 있을만한 부분은 다 제거되었기 때문에, $\text{cor} ( \widehat{e_{t}} , \widehat{e_{t-k}} )$ 을 계산한다는 것은 $Y_{t-1}, \cdots , Y_{t-(k-1)}$ 이 없어진 $Y_{t}$ 와 $Y_{t-k}$ 만의 상관관계를 보려고 하는 것이다. 다른 변수는 제쳐놓고 관심 있는 변수만을 신경쓴다는 점에서 &lsquo;편&rsquo;자기상관함수라는 이름은 적절함을 알 수 있다. [ <strong>NOTE</strong>  : 아무리 개념이 단순하다고 해도 sPACF를 실제로 계산하는 건 꽤 어려웠는데, 레빈슨Levinson과 더빈Durbin이 제안한 메소드 덕에 그나마 $\widehat{ \phi_{kk} } $ 를 재귀적으로 계산할 수 있게 된 것이다. ]수식적으로는 $Y_{t}$ 가 $AR(p)$ 에서 나왔다고 생각해봤을 때 $\displaystyle Y_{t} = \sum_{k=1}^{p} \phi_{k} Y_{t-k} + e_{t}$ 이므로 $Y_{t-k}$ 의 계수 $\phi_{k}$ 를 계산하기 위해 나머지 변수를 배제할 수 있어 $AR(p)$ 모형을 찾는데에 유용하다.sPACF $\widehat{\phi_{kk}}$ 는 PACF $\phi_{kk}$ 의 추정치고, $Y_{t}$ 가 $AR(p)$ 모형에서 나왔다면 $k&gt;p$ 일 때 정규분포 $\displaystyle N \left( 0 , {{ 1 } \over { n }} \right)$ 을 따른다. 수식으로 나타내보면
 $$
 \widehat{\phi_{kk}} \sim N \left( 0 , {{ 1 } \over { n }} \right)
 $$
-인데, 이를 이용해 가설검정을 한다.$\displaystyle Y_{t} = \sum_{k=1}^{p} \phi_{k} Y_{t-k} + e_{t}$ 이 주어져있고, $k = 1 , \cdots , p$ 이라고 하자.$H_{0}$ : $AR(0) \iff \theta_{k} = 0$, 즉, $Y_{t}$ 는 자기회귀 모형을 따르지 않는다.$H_{1}$ : $AR(k) \iff \theta_{k} \ne 0$, 즉, $Y_{t}$ 는 시차 $k$ 의 편자기상관관계를 가진다.귀무가설 하에서는 $p=0$ 과 동시에 $\widehat{\phi_{kk}} \sim N \left( 0 , {{ 1 } \over { n }} \right)$ 을 가정하고 표준오차는 $\displaystyle {{1} \over {\sqrt{n}}}$ 가 된다. 따라서 유의수준 $\alpha$ 에 대해서 가설검정을 하고 싶다면 $| \phi_{k} | $ 가 신뢰구간상한 $\displaystyle {{ z_{1 - \alpha/2} } \over { \sqrt{n} }} $ 을 넘기는지 확인하면 된다. 넘어가면 유의한 시차의 후보가 되고, 넘어가지 못하면 편자기상관관계가 없는 것으로 본다.<img filemime="image/jpeg" filename="20190724_101017.png" height="137" src="https://t1.daumcdn.net/cfile/tistory/9930B54A5D37B15E35" style="max-width:100%;height:auto" width="294"/>ar1.s 데이터는 $AR(1)$ 모델에서 나온 TSA 패키지의 샘플 데이터다. 실제 <a href="https://freshrimpsushi.github.io/posts/1200">아리마 모형</a>으로 분석할 때 역시 추정치의 절대값이 표준오차의 두 배가 넘는지를 기준으로 유의한 계수인지 파악한다.<img filemime="image/jpeg" filename="3.png" height="376" src="https://t1.daumcdn.net/cfile/tistory/993D854A5D37B15E34" style="max-width:100%;height:auto" width="568"/>한편 TSA 패키지의 acf() 함수를 사용하면 위와 같이 여러 $k$ 에 대해 **코릴로그램**<sup>Correlogram</sup> 을 그려준다. 굳이 머릿속으로 계산할 것 없이, 선을 넘어가면 유의한 것으로 보고 넘어가지 않으면 유의하지 않은 것으로 보아도 좋다. 기본적으로 유의수준 $5 %$ 에서 계산된다.<img filemime="image/jpeg" filename="4.png" height="376" src="https://t1.daumcdn.net/cfile/tistory/9930A94A5D37B15E35" style="max-width:100%;height:auto" width="568"/>편자기상관함수를 이용한 가설검정을 제대로 이해했는지 확인해보는 방법으로써 위와 같이 실제로 선을 직접 그어보는 것을 추천한다. R 에서는 고작 코드 한 줄이지만, 한 번이라도 직접 실행시켜봄으로써 $\widehat{\phi}_{kk}$ 가 정규분포를 따르며, 그 표준오차가 $\displaystyle \text{se} ( r_{k} ) =  {{1} \over {\sqrt{n}}}$ 으로 구해진다는 것을 받아들일 수 있다.</li>
+인데, 이를 이용해 가설검정을 한다.</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-<span style="color:#a6e22e">library</span>(TSA)
-<span style="color:#a6e22e">data</span>(ar1.s); <span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>); <span style="color:#a6e22e">pacf</span>(ar1.s)
-<span style="color:#a6e22e">arima</span>(ar1.s, order<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>))
-<span style="color:#a6e22e">abline</span>(h<span style="color:#f92672">=</span><span style="color:#ae81ff">1.96</span><span style="color:#f92672">*</span><span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#a6e22e">sqrt</span>(<span style="color:#a6e22e">length</span>(ar1.s)),col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
-</code></pre></div>
+<p>$\displaystyle Y_{t} = \sum_{k=1}^{p} \phi_{k} Y_{t-k} + e_{t}$ 이 주어져있고, $k = 1 , \cdots , p$ 이라고 하자.$H_{0}$ : $AR(0) \iff \theta_{k} = 0$, 즉, $Y_{t}$ 는 자기회귀 모형을 따르지 않는다.$H_{1}$ : $AR(k) \iff \theta_{k} \ne 0$, 즉, $Y_{t}$ 는 시차 $k$ 의 편자기상관관계를 가진다.</p>
+<p>귀무가설 하에서는 $p=0$ 과 동시에 $\widehat{\phi_{kk}} \sim N \left( 0 , {{ 1 } \over { n }} \right)$ 을 가정하고 표준오차는 $\displaystyle {{1} \over {\sqrt{n}}}$ 가 된다. 따라서 유의수준 $\alpha$ 에 대해서 가설검정을 하고 싶다면 $| \phi_{k} | $ 가 신뢰구간상한 $\displaystyle {{ z_{1 - \alpha/2} } \over { \sqrt{n} }} $ 을 넘기는지 확인하면 된다. 넘어가면 유의한 시차의 후보가 되고, 넘어가지 못하면 편자기상관관계가 없는 것으로 본다.<img src="20190724_101017.png#center" alt="20190724\_101017.png">
+ar1.s 데이터는 $AR(1)$ 모델에서 나온 TSA 패키지의 샘플 데이터다. 실제 <a href="https://freshrimpsushi.github.io/posts/1200">아리마 모형</a>으로 분석할 때 역시 추정치의 절대값이 표준오차의 두 배가 넘는지를 기준으로 유의한 계수인지 파악한다.<img src="3.png#center" alt="3.png">
+한편 TSA 패키지의 acf() 함수를 사용하면 위와 같이 여러 $k$ 에 대해 <strong>코릴로그램</strong><sup>Correlogram</sup> 을 그려준다. 굳이 머릿속으로 계산할 것 없이, 선을 넘어가면 유의한 것으로 보고 넘어가지 않으면 유의하지 않은 것으로 보아도 좋다. 기본적으로 유의수준 $5 %$ 에서 계산된다.<img src="4.png#center" alt="4.png">
+편자기상관함수를 이용한 가설검정을 제대로 이해했는지 확인해보는 방법으로써 위와 같이 실제로 선을 직접 그어보는 것을 추천한다. R 에서는 고작 코드 한 줄이지만, 한 번이라도 직접 실행시켜봄으로써 $\widehat{\phi}_{kk}$ 가 정규분포를 따르며, 그 표준오차가 $\displaystyle \text{se} ( r_{k} ) =  {{1} \over {\sqrt{n}}}$ 으로 구해진다는 것을 받아들일 수 있다.</p>
+<pre><code>library(TSA)
+data(ar1.s); win.graph(6,4); pacf(ar1.s)
+arima(ar1.s, order=c(1,0,0))
+abline(h=1.96*1/sqrt(length(ar1.s)),col='red')
+</code></pre>
 
             </div>
 
@@ -117,7 +123,7 @@ $$
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -129,11 +135,13 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -158,6 +166,8 @@ $$
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -184,8 +194,6 @@ $$
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -216,8 +224,6 @@ $$
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

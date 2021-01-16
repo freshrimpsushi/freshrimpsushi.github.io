@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="아리마 모형에서의 드리프트">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>아리마 모형에서의 드리프트</title>
@@ -65,7 +68,8 @@
 
 
 <h2 id="heading"></h2>
-<p>*하단에 예제코드 전체가 있다.<u>*수학, 통계적인 기초가 부족한 비전공자는 밑줄 그어진 부분만 읽어도 상관 없다.</u>시계열 분석을 하다보면 종종 다음과 같이 <strong>드리프트</strong> 라는 계수를 보게 된다.<img filemime="image/png" filename="20190716_155512.png" height="175" src="https://t1.daumcdn.net/cfile/tistory/99AF16415D2D75A90F" style="max-width:100%;height:auto" width="423"/>물론 위의 경우 표준오차에 비해서 계수의 크기가 너무 작기 때문에 무시해도 상관 없다. 그러나 실제로 유의한 계수인 동시에 수식으로도 써야할 일이 있다면 드리프트가 무엇인지 알아야한다. 아쉽게도 국내에는 드리프트가 도대체 무엇인지에 대한 좋은 설명이 없으며, <u>수식을 동원하지 않고서는 &lsquo;상수항 비슷한 것&rsquo;이라는 설명밖에 할 수 없다. 수식을 읽을 생각이 없고 분석에 마땅히 중요한 것도 아니며 그래서 궁금하지도 않다면 그냥 상수항, 평균정도로 알고 넘어가도 상관 없다. 아래에 등장할 두 번째 분석만 보면 된다.</u> 물론 전공자라면 적어도 한 번은 수식 전개를 따라가보는 것을 강력하게 권장한다.수식적인 설명은 <a href="https://freshrimpsushi.github.io/posts/941">아리마 모형</a>
+<p>*하단에 예제코드 전체가 있다.<u>*수학, 통계적인 기초가 부족한 비전공자는 밑줄 그어진 부분만 읽어도 상관 없다.</u>시계열 분석을 하다보면 종종 다음과 같이 <strong>드리프트</strong> 라는 계수를 보게 된다.<img src="20190716_155512.png#center" alt="20190716\_155512.png">
+물론 위의 경우 표준오차에 비해서 계수의 크기가 너무 작기 때문에 무시해도 상관 없다. 그러나 실제로 유의한 계수인 동시에 수식으로도 써야할 일이 있다면 드리프트가 무엇인지 알아야한다. 아쉽게도 국내에는 드리프트가 도대체 무엇인지에 대한 좋은 설명이 없으며, <u>수식을 동원하지 않고서는 &lsquo;상수항 비슷한 것&rsquo;이라는 설명밖에 할 수 없다. 수식을 읽을 생각이 없고 분석에 마땅히 중요한 것도 아니며 그래서 궁금하지도 않다면 그냥 상수항, 평균정도로 알고 넘어가도 상관 없다. 아래에 등장할 두 번째 분석만 보면 된다.</u> 물론 전공자라면 적어도 한 번은 수식 전개를 따라가보는 것을 강력하게 권장한다.수식적인 설명은 <a href="https://freshrimpsushi.github.io/posts/941">아리마 모형</a>
 $$
 \displaystyle \nabla^{d} Y_{t} := \sum_{i = 1}^{p} \phi_{i} \nabla^{d} Y_{t-i} + e_{t} - \sum_{i = 1}^{q} \theta_{i} e_{t-i}
 $$
@@ -90,13 +94,13 @@ $$
 $$
 \displaystyle \phi(B) \left( Y_{t} - c \right) = \theta(B) e_{t}
 $$
-식 $(1)$ 의 $c$ 가 다름아닌 **드리프트** 다. 수식을 보면 드리프트를 왜 &lsquo;상수항&rsquo; 혹은 &lsquo;평균&rsquo;으로 설명하는지 납득이 갈 것이다. 물론 이것은 <a href="https://freshrimpsushi.github.io/posts/914">아르마 모형</a>이고, <a href="https://freshrimpsushi.github.io/posts/916">차분</a>이 포함된 <a href="https://freshrimpsushi.github.io/posts/941">아리마 모형</a>에 대해서는 다른 모습으로 나타난다. 편의를 위해 <a href="https://freshrimpsushi.github.io/posts/916">차분</a>은 $d=1$ 번만 취하는 $ARIMA(p,1,q)$ 를 생각해보자.
+식 $(1)$ 의 $c$ 가 다름아닌 <strong>드리프트</strong> 다. 수식을 보면 드리프트를 왜 &lsquo;상수항&rsquo; 혹은 &lsquo;평균&rsquo;으로 설명하는지 납득이 갈 것이다. 물론 이것은 <a href="https://freshrimpsushi.github.io/posts/914">아르마 모형</a>이고, <a href="https://freshrimpsushi.github.io/posts/916">차분</a>이 포함된 <a href="https://freshrimpsushi.github.io/posts/941">아리마 모형</a>에 대해서는 다른 모습으로 나타난다. 편의를 위해 <a href="https://freshrimpsushi.github.io/posts/916">차분</a>은 $d=1$ 번만 취하는 $ARIMA(p,1,q)$ 를 생각해보자.
 $$
 \displaystyle \begin{eqnarray}
 \phi(B) \nabla \left( Y_{t} - a - b t \right) = \theta(B) e_{t} 
 \end{eqnarray}
 $$
-식 $(2)$ 에서 $a$ 를 **절편**<sup>Intercept</sup> , $b$ 를 **드리프트**<sup>Drift</sup> 라고 부른다. <a href="https://freshrimpsushi.github.io/posts/916">차분</a>을 풀어헤쳐보면
+식 $(2)$ 에서 $a$ 를 <strong>절편</strong><sup>Intercept</sup> , $b$ 를 <strong>드리프트</strong><sup>Drift</sup> 라고 부른다. <a href="https://freshrimpsushi.github.io/posts/916">차분</a>을 풀어헤쳐보면
 $$
 \displaystyle \phi(B) (1 - B) \left( Y_{t} - a - b t \right) = \theta(B) e_{t}
 $$</p>
@@ -109,15 +113,13 @@ $$</p>
 <p>$$
 \displaystyle \iff \phi(B) \left( \nabla Y_{t} - b \right) = \theta(B) e_{t}
 $$
-결국 $b$ 는 $(1)$ 에서의 $c$ 와 같은 역할이 되므로 드리프트라고 부르는 것이 타당함을 알 수 있다. 물론 차분이 두 번 이상 필요한 분석은 거의 없지만, 이와 같은 방법으로 자연수 $d$ 에 대해서도 일반화 할 수 있다. [ **NOTE**  : 수학적인 감각에 익숙한 사람이라면 $(2)$ 에서 상수항 $a$ 에 차분을 취하면 없어지는 현상에서 미분을 떠올릴 수 있을 것이다. ]<img filemime="image/png" filename="20190716_155837.png" height="167" src="https://t1.daumcdn.net/cfile/tistory/99A301415D2D75A906" style="max-width:100%;height:auto" width="417"/>다시 분석으로 돌아와보자. 보다시피, 아니 보나마다 그냥 데이터의 $ARIMA(1,1,2)$ 와 <a href="https://freshrimpsushi.github.io/posts/916">차분</a>을 취한 데이터의 $ARIMA(1,0,2)$ 은 당연히 똑같을 수밖에 없다. <u>단 한가지 달라진 게 있다면 $ARIMA(1,1,2)$ 에서 drift라고 적혀있던 계수의 이름이 $ARIMA(1,0,2)$ 에서는 mean으로 바뀐 것이다. 수식을 이해했으면 더 좋겠지만, 이해하지 못했더라도 드리프트가 &lsquo;상수항, 평균 비슷한 것이라는 정도&rsquo;는 짐작할 수 있을 것이다.</u></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-<span style="color:#a6e22e">library</span>(TSA)
-<span style="color:#a6e22e">data</span>(<span style="color:#e6db74">&#34;oil.price&#34;</span>)
-out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.arima</span>(oil.price); <span style="color:#a6e22e">summary</span>(out)
-out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.arima</span>(<span style="color:#a6e22e">diff</span>(oil.price)); <span style="color:#a6e22e">summary</span>(out)
-</code></pre></div>
+결국 $b$ 는 $(1)$ 에서의 $c$ 와 같은 역할이 되므로 드리프트라고 부르는 것이 타당함을 알 수 있다. 물론 차분이 두 번 이상 필요한 분석은 거의 없지만, 이와 같은 방법으로 자연수 $d$ 에 대해서도 일반화 할 수 있다. [ <strong>NOTE</strong>  : 수학적인 감각에 익숙한 사람이라면 $(2)$ 에서 상수항 $a$ 에 차분을 취하면 없어지는 현상에서 미분을 떠올릴 수 있을 것이다. ]<img src="20190716_155837.png#center" alt="20190716\_155837.png">
+다시 분석으로 돌아와보자. 보다시피, 아니 보나마다 그냥 데이터의 $ARIMA(1,1,2)$ 와 <a href="https://freshrimpsushi.github.io/posts/916">차분</a>을 취한 데이터의 $ARIMA(1,0,2)$ 은 당연히 똑같을 수밖에 없다. <u>단 한가지 달라진 게 있다면 $ARIMA(1,1,2)$ 에서 drift라고 적혀있던 계수의 이름이 $ARIMA(1,0,2)$ 에서는 mean으로 바뀐 것이다. 수식을 이해했으면 더 좋겠지만, 이해하지 못했더라도 드리프트가 &lsquo;상수항, 평균 비슷한 것이라는 정도&rsquo;는 짐작할 수 있을 것이다.</u></p>
+<pre><code>library(TSA)
+data(&quot;oil.price&quot;)
+out&lt;-auto.arima(oil.price); summary(out)
+out&lt;-auto.arima(diff(oil.price)); summary(out)
+</code></pre>
 
             </div>
 
@@ -136,7 +138,7 @@ out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.arim
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -148,11 +150,13 @@ out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.arim
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -177,6 +181,8 @@ out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.arim
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -203,8 +209,6 @@ out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.arim
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -235,8 +239,6 @@ out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.arim
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

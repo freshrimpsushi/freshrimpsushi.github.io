@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="대칭행렬의 LDU 분해와 R 코드 LDU Decomposition">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>대칭행렬의 LDU 분해와 R 코드 LDU Decomposition</title>
@@ -66,7 +69,8 @@
 
 
 <h2 id="heading"></h2>
-<p>가역대칭행렬 $A$ 에 대해 $A = LDL^{T}$ 를 만족하는 하삼각행렬 $L$ 과 대각행렬 $D$ 가 존재한다.$L^{T}$ 는 상삼각행렬이므로 $A = LU$ 에서의 $U$ 를 $U:= DL^{T}$ 으로 바꾼다고 보면 된다.일반적인 <a href="http://freshrimpsushi.tistory.com/345">LU 분해</a>보다 조건이 까다로워진만큼 계산량은 많이 줄어든다.</p>
+<p>가역대칭행렬 $A$ 에 대해 $A = LDL^{T}$ 를 만족하는 하삼각행렬 $L$ 과 대각행렬 $D$ 가 존재한다.</p>
+<p>$L^{T}$ 는 상삼각행렬이므로 $A = LU$ 에서의 $U$ 를 $U:= DL^{T}$ 으로 바꾼다고 보면 된다.일반적인 <a href="http://freshrimpsushi.tistory.com/345">LU 분해</a>보다 조건이 까다로워진만큼 계산량은 많이 줄어든다.</p>
 <h2 id="증명">증명</h2>
 <p>$A$ 는 가역행렬이므로 $A = L U$ 를 만족하는 하삼각행렬 $L$ 과 상삼각행렬 $U$ 가 존재한다.한편 $A = A^{T}$ 이므로 $L U = A = A^{T} = U^{T} L^{T}$LU 분해에서 $L$ 은 대각선 성분이 모두 $1$ 인 하삼각행렬로 구해지므로 $\det L = 1$, 즉 역행렬 $L^{-1}$ 이 존재한다.$L^{-1}$ 는 하삼각행렬이고 $L U = U^{T} L^{T}$ 을 $U$ 에 대해 정리하면 $U = L^{-1} U^{T} L^{T}$양변의 오른쪽에 $(L^{T})^{-1}$ 을 곱하면 $U (L^{T})^{-1} = L^{-1} U^{T} $ 을 얻는다.$U (L^{T})^{-1} = L^{-1} U^{T} $ 의 좌변은 상삼각행렬이고 우변은 하삼각행렬이므로, $D: = U (L^{T})^{-1} = L^{-1} U^{T} $ 는 대각행렬임을 알 수 있다.이를 $U$ 에 대해서 정리하면 $U = DL^{T} $ 이고 $A = LU = LDL^{T}$ 를 얻는다. <p style="text-align: right;">■</p>
 이제 구체적으로 $L$ 과 $D$ 를 계산하기 위해 아래와 같이 정의해보자.$L : = \begin{bmatrix}
@@ -97,16 +101,17 @@ $$
 $$
 d_{kk}$ 에 대해 정리하면 $\displaystyle d_{kk} = a_{kk} - \sum_{\nu = 1}^{k-1} d_{\nu \nu} l_{k \nu}^2 $반대로 $j = k$ 이고 $i = k+1, \cdots , n$ 이라고 하면 $\displaystyle a_{ik} = \sum_{\nu = 1}^{k-1} l_{i \nu} d_{\nu \nu} l_{k \nu} + l_{ik} d_{kk}
 $$
-l_{ik}$ 에 대해 정리하면 $\displaystyle l_{ik} = {{1} \over {d_{kk}}} \left\{ a_{ik} - \sum_{\nu = 1}^{k-1} l_{i \nu} d_{\nu \nu} l_{k \nu} \right\} 
+l_{ik}$ 에 대해 정리하면 $\displaystyle l_{ik} = {{1} \over {d_{kk}}} \left\{ a_{ik} - \sum_{\nu = 1}^{k-1} l_{i \nu} d_{\nu \nu} l_{k \nu} \right\} $</p>
+<p>$(a_{ij}) \in \mathbb{R}^{n \times n} $ 가 가역대칭행렬이라고 하자. **
+<strong>Step 1.</strong>  $k = 1
 $$
-(a_{ij}) \in \mathbb{R}^{n \times n} $ 가 가역대칭행렬이라고 하자. **
-**Step 1.**  $k = 1
+d_{11} = a_{11}$ 을 대입하고 $\displaystyle l_{i1} = {{1} \over {d_{11}}} a_{i1} $ 을 계산한다.<strong>Step 2.</strong>  $k = 2, 3, \cdots , n-1 $<strong>Step 2-1.</strong> $\displaystyle d_{kk} = a_{kk} - \sum_{\nu = 1}^{k-1} d_{\nu \nu} l_{k \nu}^2 $ 을 계산한다.<strong>Step 2-2.</strong>  $i = k+1 , k+2 , \cdots , n-1
 $$
-d_{11} = a_{11}$ 을 대입하고 $\displaystyle l_{i1} = {{1} \over {d_{11}}} a_{i1} $ 을 계산한다.**Step 2.**  $k = 2, 3, \cdots , n-1 $**Step 2-1.** $\displaystyle d_{kk} = a_{kk} - \sum_{\nu = 1}^{k-1} d_{\nu \nu} l_{k \nu}^2 $ 을 계산한다.**Step 2-2.**  $i = k+1 , k+2 , \cdots , n-1
+\displaystyle l_{ik} = {{1} \over {d_{kk}}} \left\{ a_{ik} - \sum_{\nu = 1}^{k-1} l_{i \nu} d_{\nu \nu} l_{k \nu} \right\} $ 을 계산한다.<strong>Step 3.</strong>  $k = n
 $$
-\displaystyle l_{ik} = {{1} \over {d_{kk}}} \left\{ a_{ik} - \sum_{\nu = 1}^{k-1} l_{i \nu} d_{\nu \nu} l_{k \nu} \right\} $ 을 계산한다.**Step 3.**  $k = n
-$$
-\displaystyle d_{nn} = a_{nn} - \sum_{\nu = 1}^{n-1} d_{\nu \nu} l_{n \nu}^2 $ 을 계산한다.손으로 계산할 땐 복잡해보였지만 알고리즘으로 정리해서 보면 계산량이 확 줄어들었음을 알 수 있다.언제나 $D$ 의 대각성분을 먼저 구한 후 $L$ 의 값을 한 열 단위로 구해나간다는 것을 기억하자.이제 LU 분해에서 했던 것과 같은 예제를 가져와서 LDU 분해를 실제로 해보자.<img class="txc-image" height="97" id="tx_entry_52302_" src="https://t1.daumcdn.net/cfile/tistory/99B5CC335A1AC6BB2D" width="487"/>아래의 코드는 위의 알고리즘을 실제로 R 에서 구현한 것이다.</p>
+\displaystyle d_{nn} = a_{nn} - \sum_{\nu = 1}^{n-1} d_{\nu \nu} l_{n \nu}^2 $ 을 계산한다.</p>
+<p>손으로 계산할 땐 복잡해보였지만 알고리즘으로 정리해서 보면 계산량이 확 줄어들었음을 알 수 있다.언제나 $D$ 의 대각성분을 먼저 구한 후 $L$ 의 값을 한 열 단위로 구해나간다는 것을 기억하자.이제 LU 분해에서 했던 것과 같은 예제를 가져와서 LDU 분해를 실제로 해보자.<img src="5A1AC6BB2#center" alt="5A1AC6BB2">
+아래의 코드는 위의 알고리즘을 실제로 R 에서 구현한 것이다.</p>
 <pre><code>B &lt;- matrix(c(2,1,0,1,2,1,0,1,2), ncol= 3); B
  
 LDU&lt;-function(A)
@@ -135,7 +140,8 @@ LDU&lt;-function(A)
  
 LDU(B)
 LDU(B)$L%*%LDU(B)$D%*%t(LDU(B)$L)[Colored by Color Scripter](http://colorscripter.com/info#e)
-</code></pre><p>실행 결과는 다음과 같다.<img filemime="image/jpeg" filename="20171128_143203.png" height="343" src="https://t1.daumcdn.net/cfile/tistory/992EF8335A1CFACD05" style="max-width:100%;height:auto" width="357"/>R 에는 따로 LDU 분해가 구현되어 있지 않아 검산만 해보았는데, 정확하게 분해가 되었음을 알 수 있다.$B$ 의 사이즈가 그렇게 크지 않고 계산도 그럭저럭 할만한 편이므로 정 의심된다면 직접 손계산을 해봐도 좋다.</p>
+</code></pre><p>실행 결과는 다음과 같다.<img src="20171128_143203.png#center" alt="20171128\_143203.png">
+R 에는 따로 LDU 분해가 구현되어 있지 않아 검산만 해보았는데, 정확하게 분해가 되었음을 알 수 있다.$B$ 의 사이즈가 그렇게 크지 않고 계산도 그럭저럭 할만한 편이므로 정 의심된다면 직접 손계산을 해봐도 좋다.</p>
 
 
             </div>
@@ -155,7 +161,7 @@ LDU(B)$L%*%LDU(B)$D%*%t(LDU(B)$L)[Colored by Color Scripter](http://colorscripte
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -167,11 +173,13 @@ LDU(B)$L%*%LDU(B)$D%*%t(LDU(B)$L)[Colored by Color Scripter](http://colorscripte
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -196,6 +204,8 @@ LDU(B)$L%*%LDU(B)$D%*%t(LDU(B)$L)[Colored by Color Scripter](http://colorscripte
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -222,8 +232,6 @@ LDU(B)$L%*%LDU(B)$D%*%t(LDU(B)$L)[Colored by Color Scripter](http://colorscripte
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -254,8 +262,6 @@ LDU(B)$L%*%LDU(B)$D%*%t(LDU(B)$L)[Colored by Color Scripter](http://colorscripte
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

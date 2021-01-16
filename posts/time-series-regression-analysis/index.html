@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="시계열 회귀 분석">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>시계열 회귀 분석</title>
@@ -55,23 +58,24 @@
 
 
 <h2 id="heading"></h2>
-<p><strong>시계열 회귀 분석</strong> 이란 말 그대로 <a href="https://freshrimpsushi.github.io/posts/900">시계열 데이터</a>로 <a href="https://freshrimpsushi.github.io/posts/548">회귀분석</a>하는 기법을 말한다. 원래 회귀분석 자체가 시계열 데이터를 다루는데 있어서 적합하지 않은 것은 사실이지만, 그럼에도 불구하고 복수의 시계열 데이터를 다룰 때는 회귀분석의 아이디어와 툴을 빌리는 것이 좋을 때가 있다.<img filemime="image/jpeg" filename="1.png" height="472" src="https://t1.daumcdn.net/cfile/tistory/99D78D465D41256435" style="max-width:100%;height:auto" width="568"/>가령 위와 같이 두 종류의 데이터 x와 y가 주어져있다고 하자. 물론 두 데이터의 개형이 완전히 같은 것도 아니고, 각 시점에서는 상이하지만 전체적으로 보았을 땐 x의 등락이 시차 $k=10$ 정도의 여유를 두고 y에서도 비슷하게 일어나는 것을 볼 수 있다.<img filemime="image/jpeg" filename="2.png" height="376" src="https://t1.daumcdn.net/cfile/tistory/991B13465D4125643A" style="max-width:100%;height:auto" width="568"/>실제로 y를 빨간 실선으로 한 화면에 찍어보면 위와 같은 모습을 보인다. 이에 따라 x에 10의 시차를 주고 <a href="https://freshrimpsushi.github.io/posts/648">단순회귀분석</a>을 해보면 다음과 같이 추측이 얼추 맞아떨어짐을 확인할 수 있다.<img filemime="image/jpeg" filename="20190731_143111.png" height="196" src="https://t1.daumcdn.net/cfile/tistory/9967AF445D4127C33D" style="max-width:100%;height:auto" width="475"/><img filemime="image/jpeg" filename="3.png" height="376" src="https://t1.daumcdn.net/cfile/tistory/99E1C03D5D412A7016" style="max-width:100%;height:auto" width="568"/>실제 적합치를 파란 실선으로 나타내보면 완벽하지는 않아도 x가 y를 꽤 정확하게 예측할 수 있음을 확인할 수 있다. 물론 데이터에 딱맞는 분석법은 아니지만, 필요하다면 언제든지 사용할 수 있어야한다.아래는 R 로 작성한 예제코드다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-<span style="color:#a6e22e">library</span>(TSA)
-<span style="color:#a6e22e">set.seed</span>(<span style="color:#ae81ff">150421</span>)
-<span style="color:#a6e22e">data</span>(<span style="color:#e6db74">&#34;bluebird&#34;</span>)
-x<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ts</span>(<span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">scale</span>(bluebird[<span style="color:#f92672">-</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>),<span style="color:#ae81ff">1</span>])))
-y<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ts</span>(<span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">scale</span>(<span style="color:#f92672">-</span><span style="color:#a6e22e">zlag</span>(bluebird[,<span style="color:#ae81ff">2</span>],d<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)[<span style="color:#f92672">-</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>)])))
-example<span style="color:#f92672">=</span><span style="color:#a6e22e">ts.intersect</span>(x,y)
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">5</span>); <span style="color:#a6e22e">plot</span>(example,yax.flip <span style="color:#f92672">=</span> T)
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>); <span style="color:#a6e22e">plot</span>(example[,<span style="color:#ae81ff">1</span>]); <span style="color:#a6e22e">lines</span>(example[,<span style="color:#ae81ff">2</span>],col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
-<span style="color:#a6e22e">legend</span>(<span style="color:#e6db74">&#34;topright&#34;</span>,pch<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>,col<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">2</span>,legend<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;x&#34;</span>,<span style="color:#e6db74">&#34;y&#34;</span>))
-out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span>(y<span style="color:#f92672">~</span><span style="color:#a6e22e">zlag</span>(x,d<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)); <span style="color:#a6e22e">summary</span>(out);
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>); <span style="color:#a6e22e">plot</span>(y); <span style="color:#a6e22e">lines</span>(<span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">rep</span>(<span style="color:#66d9ef">NA</span>,<span style="color:#ae81ff">10</span>),<span style="color:#a6e22e">fitted</span>(out)),col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;blue&#39;</span>)
-<span style="color:#a6e22e">legend</span>(<span style="color:#e6db74">&#34;topright&#34;</span>,pch<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>,col<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">4</span>),legend<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;x&#34;</span>,<span style="color:#e6db74">&#34;fitted&#34;</span>))
-</code></pre></div>
+<p><strong>시계열 회귀 분석</strong> 이란 말 그대로 <a href="https://freshrimpsushi.github.io/posts/900">시계열 데이터</a>로 <a href="https://freshrimpsushi.github.io/posts/548">회귀분석</a>하는 기법을 말한다. 원래 회귀분석 자체가 시계열 데이터를 다루는데 있어서 적합하지 않은 것은 사실이지만, 그럼에도 불구하고 복수의 시계열 데이터를 다룰 때는 회귀분석의 아이디어와 툴을 빌리는 것이 좋을 때가 있다.<img src="1.png#center" alt="1.png">
+가령 위와 같이 두 종류의 데이터 x와 y가 주어져있다고 하자. 물론 두 데이터의 개형이 완전히 같은 것도 아니고, 각 시점에서는 상이하지만 전체적으로 보았을 땐 x의 등락이 시차 $k=10$ 정도의 여유를 두고 y에서도 비슷하게 일어나는 것을 볼 수 있다.<img src="2.png#center" alt="2.png">
+실제로 y를 빨간 실선으로 한 화면에 찍어보면 위와 같은 모습을 보인다. 이에 따라 x에 10의 시차를 주고 <a href="https://freshrimpsushi.github.io/posts/648">단순회귀분석</a>을 해보면 다음과 같이 추측이 얼추 맞아떨어짐을 확인할 수 있다.<img src="20190731_143111.png#center" alt="20190731\_143111.png">
+<img src="3.png#center" alt="3.png">
+실제 적합치를 파란 실선으로 나타내보면 완벽하지는 않아도 x가 y를 꽤 정확하게 예측할 수 있음을 확인할 수 있다. 물론 데이터에 딱맞는 분석법은 아니지만, 필요하다면 언제든지 사용할 수 있어야한다.아래는 R 로 작성한 예제코드다.</p>
+<pre><code>library(TSA)
+set.seed(150421)
+data(&quot;bluebird&quot;)
+x&lt;-ts(c(scale(bluebird[-(1:10),1])))
+y&lt;-ts(c(scale(-zlag(bluebird[,2],d=10)[-(1:10)])))
+example=ts.intersect(x,y)
+win.graph(6,5); plot(example,yax.flip = T)
+win.graph(6,4); plot(example[,1]); lines(example[,2],col='red')
+legend(&quot;topright&quot;,pch=16,col=1:2,legend=c(&quot;x&quot;,&quot;y&quot;))
+out&lt;-lm(y~zlag(x,d=10)); summary(out);
+win.graph(6,4); plot(y); lines(c(rep(NA,10),fitted(out)),col='blue')
+legend(&quot;topright&quot;,pch=16,col=c(1,4),legend=c(&quot;x&quot;,&quot;fitted&quot;))
+</code></pre>
 
             </div>
 
@@ -90,7 +94,7 @@ out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span>
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -102,11 +106,13 @@ out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -131,6 +137,8 @@ out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -157,8 +165,6 @@ out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -189,8 +195,6 @@ out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

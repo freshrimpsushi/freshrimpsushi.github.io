@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="카오틱 트랜지션">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>카오틱 트랜지션</title>
@@ -55,38 +58,37 @@
 
 
 <h2 id="heading"></h2>
-<p>시스템이 파라매터의 변화에 따라 카오틱해지거나 카오틱해지지 않는 등의 현상을 <strong>카오틱 트랜지션</strong> 이라고 한다.예로써 <a href="https://freshrimpsushi.github.io/posts/860">로지스틱 패밀리</a>를 생각해보면 $g_{a} = ax (1-x)$ 로 만들어지는 시스템은 <a href="https://freshrimpsushi.github.io/posts/1006">파라매터 $a$ 에 따라 달라지는 모습</a>을 보이다가 <a href="https://freshrimpsushi.github.io/posts/968">$a=4$ 일 때 카오틱 오빗을 가짐</a>을 확인할 수 있다. 그러면 그 다음 질문은 바로 &lsquo;$a&gt;4$ 일 때는 어떻게 될 것인가&rsquo;다.우선 $a&gt;4$ 면 $g_{a}(x) = ax(1-x)$ 이므로 그 최댓값은 $1$ 보다 크고, $g_{a}$ 는 $x_{n} \notin [-1,1]$ 을 음수로 매핑한다. 또한 이차함수기 때문에 한 번이라도 어떤 $\tau \in \mathbb{N}$ 에 대해 $x_{ \tau } &gt; 1$ 이 되면 그 뒤로는 무서운 속도로 발산한다. <a href="https://freshrimpsushi.github.io/posts/864">카오틱 오빗은 그 이전에</a><a href="https://freshrimpsushi.github.io/posts/864"> 바운디드 오빗</a>이어야하는데 발산했다는 것은 파라매터 $a$ 이 변함에 따라 카오틱한 성질을 잃어버렸다는 의미가 되고, 카오틱 트랜지션이라고 할 수 있다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">
-
-
-ga<span style="color:#f92672">&lt;-</span><span style="color:#66d9ef">function</span>(a,x,k<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>) {
-  tmp <span style="color:#f92672">&lt;-</span> a<span style="color:#f92672">*</span>x <span style="color:#f92672">*</span>(<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> x)
-  <span style="color:#66d9ef">if</span>(k<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>) {<span style="color:#66d9ef">return</span>( tmp ) }
-  <span style="color:#66d9ef">else</span> {<span style="color:#66d9ef">return</span>(ga(a,tmp,k<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>))}
+<p>시스템이 파라매터의 변화에 따라 카오틱해지거나 카오틱해지지 않는 등의 현상을 <strong>카오틱 트랜지션</strong> 이라고 한다.</p>
+<p>예로써 <a href="https://freshrimpsushi.github.io/posts/860">로지스틱 패밀리</a>를 생각해보면 $g_{a} = ax (1-x)$ 로 만들어지는 시스템은 <a href="https://freshrimpsushi.github.io/posts/1006">파라매터 $a$ 에 따라 달라지는 모습</a>을 보이다가 <a href="https://freshrimpsushi.github.io/posts/968">$a=4$ 일 때 카오틱 오빗을 가짐</a>을 확인할 수 있다. 그러면 그 다음 질문은 바로 &lsquo;$a&gt;4$ 일 때는 어떻게 될 것인가&rsquo;다.우선 $a&gt;4$ 면 $g_{a}(x) = ax(1-x)$ 이므로 그 최댓값은 $1$ 보다 크고, $g_{a}$ 는 $x_{n} \notin [-1,1]$ 을 음수로 매핑한다. 또한 이차함수기 때문에 한 번이라도 어떤 $\tau \in \mathbb{N}$ 에 대해 $x_{ \tau } &gt; 1$ 이 되면 그 뒤로는 무서운 속도로 발산한다. <a href="https://freshrimpsushi.github.io/posts/864">카오틱 오빗은 그 이전에</a><a href="https://freshrimpsushi.github.io/posts/864"> 바운디드 오빗</a>이어야하는데 발산했다는 것은 파라매터 $a$ 이 변함에 따라 카오틱한 성질을 잃어버렸다는 의미가 되고, 카오틱 트랜지션이라고 할 수 있다.</p>
+<pre><code>ga&lt;-function(a,x,k=1) {
+  tmp &lt;- a*x *(1 - x)
+  if(k==1) {return( tmp ) }
+  else {return(ga(a,tmp,k-1))}
 }
  
-N<span style="color:#f92672">&lt;-</span><span style="color:#ae81ff">1000</span>
-y<span style="color:#f92672">&lt;-</span>numeric(<span style="color:#ae81ff">0</span>)
-A<span style="color:#f92672">&lt;-</span><span style="color:#ae81ff">4</span><span style="color:#f92672">+</span><span style="color:#ae81ff">10</span><span style="color:#f92672">^</span>(<span style="color:#f92672">-</span>(<span style="color:#ae81ff">80</span><span style="color:#f92672">:</span><span style="color:#ae81ff">120</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">20</span>)
-<span style="color:#66d9ef">for</span>(a <span style="color:#66d9ef">in</span> A){
-  taubar<span style="color:#f92672">&lt;-</span><span style="color:#ae81ff">0</span>
-  <span style="color:#66d9ef">for</span>(i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>N){
-    tau<span style="color:#f92672">&lt;-</span><span style="color:#ae81ff">0</span>
-    x<span style="color:#f92672">&lt;-</span>runif(<span style="color:#ae81ff">1</span>)
-    <span style="color:#66d9ef">while</span>(x<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>){
-      x<span style="color:#f92672">&lt;-</span>ga(a,x)
-      tau<span style="color:#f92672">=</span>tau<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>
+N&lt;-1000
+y&lt;-numeric(0)
+A&lt;-4+10^(-(80:120)/20)
+for(a in A){
+  taubar&lt;-0
+  for(i in 1:N){
+    tau&lt;-0
+    x&lt;-runif(1)
+    while(x&gt;0){
+      x&lt;-ga(a,x)
+      tau=tau+1
     }
-    taubar<span style="color:#f92672">&lt;-</span>taubar<span style="color:#f92672">+</span>tau
+    taubar&lt;-taubar+tau
   }
-  y<span style="color:#f92672">&lt;-</span>c(y,taubar<span style="color:#f92672">/</span>N)
+  y&lt;-c(y,taubar/N)
 }
  
-taubar<span style="color:#f92672">&lt;-</span>y
-a<span style="color:#f92672">&lt;-</span>A
+taubar&lt;-y
+a&lt;-A
  
-win<span style="color:#f92672">.</span>graph(); plot(log(a<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>),log(taubar),type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;l&#39;</span>,main<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">&#39;</span>a<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">4</span> 일 때 로지스틱 맵의 Chaotic Transient<span style="color:#f92672">&#39;</span>)
-</code></pre></div><p>이러한 현상은 $a&gt;4$ 의 값이 크면 클수록 빨리 일어날 것이다. 그러면 $x_{ \tau } &gt; 1$ 이 되도록 하는 $\tau$ 는 $a$ 와 어떤 관계가 있음을 짐작할 수 있다. 이것을 실제로 시뮬레이션으로 확인해보는 것은 별로 어렵지 않은데, R 언어로 작성된 위의 코드를 실행시키기만 하면 다음의 플랏이 그려진다. 위 코드에선 $a$ 의 값을 아주 조금씩 증가시켜가면서 랜덤한 초기값 $x_{0}$ 에 대해 $x_{n} &gt;1$ 을 만족하는 $n = \tau$ 를 찾고, 그것을 $N=1000$ 번 반복해서 $\tau$ 들의 평균 $\overline{\tau}$ 를 계산한다.&lt;img &ldquo;&quot;=&rdquo;&quot; filemime=&ldquo;image/jpeg&rdquo; filename=&ldquo;2321.png&rdquo; height=&ldquo;672&rdquo; src=&ldquo;<a href="https://t1.daumcdn.net/cfile/tistory/9910693D5CA1944607%22">https://t1.daumcdn.net/cfile/tistory/9910693D5CA1944607&quot;</a> style=&rdquo;&quot; width=&ldquo;672&rdquo;/&gt;실제로 그려진 그림을 보면 $a = 4 + \varepsilon $ 에 대해서 $\log \varepsilon \sim \log \left( \overline{ \tau } \right) $ 과 같은 선형관계가 나타남을 확인할 수 있다.이와 같은 카오틱 트랜지션은 로지스틱 맵의 시스템에서만 나타나는 것이 아니라 많은 시스템에서 발견되는 현상이다.</p>
+win.graph(); plot(log(a-4),log(taubar),type='l',main='a&gt;4 일 때 로지스틱 맵의 Chaotic Transient')
+</code></pre><p>이러한 현상은 $a&gt;4$ 의 값이 크면 클수록 빨리 일어날 것이다. 그러면 $x_{ \tau } &gt; 1$ 이 되도록 하는 $\tau$ 는 $a$ 와 어떤 관계가 있음을 짐작할 수 있다. 이것을 실제로 시뮬레이션으로 확인해보는 것은 별로 어렵지 않은데, R 언어로 작성된 위의 코드를 실행시키기만 하면 다음의 플랏이 그려진다. 위 코드에선 $a$ 의 값을 아주 조금씩 증가시켜가면서 랜덤한 초기값 $x_{0}$ 에 대해 $x_{n} &gt;1$ 을 만족하는 $n = \tau$ 를 찾고, 그것을 $N=1000$ 번 반복해서 $\tau$ 들의 평균 $\overline{\tau}$ 를 계산한다.<img src="2321.png#center" alt="2321.png">
+실제로 그려진 그림을 보면 $a = 4 + \varepsilon $ 에 대해서 $\log \varepsilon \sim \log \left( \overline{ \tau } \right) $ 과 같은 선형관계가 나타남을 확인할 수 있다.이와 같은 카오틱 트랜지션은 로지스틱 맵의 시스템에서만 나타나는 것이 아니라 많은 시스템에서 발견되는 현상이다.</p>
 
 
             </div>
@@ -106,7 +108,7 @@ win<span style="color:#f92672">.</span>graph(); plot(log(a<span style="color:#f
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -118,11 +120,13 @@ win<span style="color:#f92672">.</span>graph(); plot(log(a<span style="color:#f
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -147,6 +151,8 @@ win<span style="color:#f92672">.</span>graph(); plot(log(a<span style="color:#f
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -173,8 +179,6 @@ win<span style="color:#f92672">.</span>graph(); plot(log(a<span style="color:#f
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -205,8 +209,6 @@ win<span style="color:#f92672">.</span>graph(); plot(log(a<span style="color:#f
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

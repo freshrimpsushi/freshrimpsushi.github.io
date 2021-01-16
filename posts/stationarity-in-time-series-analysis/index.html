@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="시계열분석에서의 정상성">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>시계열분석에서의 정상성</title>
@@ -55,16 +58,17 @@
 
 
 <h2 id="heading"></h2>
-<p>시계열 데이터의 평균과 분산이 일정할 때 <strong>정상성</strong><sup>Stationarity</sup> 을 갖는다고 한다.* 정상正常Normal이 아니라 정상定常Stational이다.데이터가 정상성을 가진다는 것은 평균과 분산이 안정되어 있어서 분석하기 쉽다는 의미가 된다. 데이터가 정상성을 가지지 않으면 분석이 어렵기 때문에 정상성을 갖도록 만드는 전처리를 하게 된다. 보통 평균이 일정하지 않으면 <a href="https://freshrimpsushi.github.io/posts/916">차분</a>을 취하고, 분산이 일정하지 않으면 <a href="https://freshrimpsushi.github.io/posts/938">변환</a>을 취한다.다음 네가지 그래프를 보자.<img filemime="image/jpeg" filename="datas.png" height="672" src="https://t1.daumcdn.net/cfile/tistory/9927D94F5C6B6D6B27" style="max-width:100%;height:auto" width="672"/>**다루기 어려운 데이터**  : 안 그래도 복잡한 등락을 반복하는 모양을 보이는데 갈수록 값이 커지는 경향이 있을뿐만 아니라 그 정도도 심해지고 있다. 이후의 동향을 짐작하는 것은 어렵지 않지만 수식적으로 깔끔하게 나타내기엔 몹시 어려워 보인다.**일정한 평균**  : 고정된 0을 중심으로 점점 퍼져나가는 모양이기 때문에 어렵지는 않지만 그 폭이 넓어지는 것이 문제다.**일정한 분산**  : 각각의 패턴은 일정한 모양을 갖추었지만 시간에 따라 값 자체가 증가하는 경향을 설명할 수 있어야한다.**정상적 데이터**  : 평균과 분산이 일정하므로, 반복되는 등락만 잘 설명하면 된다.이렇듯 데이터가 정상성을 가진다는 것은 아주 좋은 일이며, 사실 시계열분석을 사용하기 위한 필수조건이라고 할 수 있다.한편 모든 시점 $t_{1} , t_{2} , \cdots , t_{n}$ 과 시차 $k$ 에 대해 $Y_{t_{1}} , Y_{t_{2}} , \cdots , Y_{t_{n}} $ 와 $Y_{t_{1} - k} , Y_{t_{2} - k} , \cdots , Y_{t_{n} - k} $ 가 같은 결합분포를 가지면 확률과정 $\left\{ Y_{t} \right\}$ 를 **단조 정상적**<sup>Strictly Stationary</sup> 이라 한다. 그러나 이것은 너무 좋은 조건이기 때문에 잘 언급되지는 않는다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-<span style="color:#a6e22e">win.graph</span>(); <span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>))
-<span style="color:#a6e22e">plot</span>(AirPassengers,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;다루기 어려운 데이터&#39;</span>)
-<span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">diff</span>(AirPassengers),main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;일정한 평균&#39;</span>)
-<span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">log</span>(AirPassengers),main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;일정한 분산&#39;</span>)
-<span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">diff</span>(<span style="color:#a6e22e">log</span>(AirPassengers)),main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;정상적 데이터&#39;</span>)
-</code></pre></div>
+<p>시계열 데이터의 평균과 분산이 일정할 때 <strong>정상성</strong><sup>Stationarity</sup> 을 갖는다고 한다.</p>
+<ul>
+<li>정상正常Normal이 아니라 정상定常Stational이다.데이터가 정상성을 가진다는 것은 평균과 분산이 안정되어 있어서 분석하기 쉽다는 의미가 된다. 데이터가 정상성을 가지지 않으면 분석이 어렵기 때문에 정상성을 갖도록 만드는 전처리를 하게 된다. 보통 평균이 일정하지 않으면 <a href="https://freshrimpsushi.github.io/posts/916">차분</a>을 취하고, 분산이 일정하지 않으면 <a href="https://freshrimpsushi.github.io/posts/938">변환</a>을 취한다.다음 네가지 그래프를 보자.<img src="datas.png#center" alt="datas.png">
+<strong>다루기 어려운 데이터</strong>  : 안 그래도 복잡한 등락을 반복하는 모양을 보이는데 갈수록 값이 커지는 경향이 있을뿐만 아니라 그 정도도 심해지고 있다. 이후의 동향을 짐작하는 것은 어렵지 않지만 수식적으로 깔끔하게 나타내기엔 몹시 어려워 보인다.<strong>일정한 평균</strong>  : 고정된 0을 중심으로 점점 퍼져나가는 모양이기 때문에 어렵지는 않지만 그 폭이 넓어지는 것이 문제다.<strong>일정한 분산</strong>  : 각각의 패턴은 일정한 모양을 갖추었지만 시간에 따라 값 자체가 증가하는 경향을 설명할 수 있어야한다.<strong>정상적 데이터</strong>  : 평균과 분산이 일정하므로, 반복되는 등락만 잘 설명하면 된다.이렇듯 데이터가 정상성을 가진다는 것은 아주 좋은 일이며, 사실 시계열분석을 사용하기 위한 필수조건이라고 할 수 있다.한편 모든 시점 $t_{1} , t_{2} , \cdots , t_{n}$ 과 시차 $k$ 에 대해 $Y_{t_{1}} , Y_{t_{2}} , \cdots , Y_{t_{n}} $ 와 $Y_{t_{1} - k} , Y_{t_{2} - k} , \cdots , Y_{t_{n} - k} $ 가 같은 결합분포를 가지면 확률과정 $\left\{ Y_{t} \right\}$ 를 <strong>단조 정상적</strong><sup>Strictly Stationary</sup> 이라 한다. 그러나 이것은 너무 좋은 조건이기 때문에 잘 언급되지는 않는다.</li>
+</ul>
+<pre><code>win.graph(); par(mfrow=c(2,2))
+plot(AirPassengers,main='다루기 어려운 데이터')
+plot(diff(AirPassengers),main='일정한 평균')
+plot(log(AirPassengers),main='일정한 분산')
+plot(diff(log(AirPassengers)),main='정상적 데이터')
+</code></pre>
 
             </div>
 
@@ -83,7 +87,7 @@
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -95,11 +99,13 @@
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -124,6 +130,8 @@
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -150,8 +158,6 @@
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -182,8 +188,6 @@
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

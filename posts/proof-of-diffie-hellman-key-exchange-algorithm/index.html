@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="디피-헬만 키 교환 알고리즘 증명">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>디피-헬만 키 교환 알고리즘 증명</title>
@@ -67,9 +70,17 @@
 
 
 <h2 id="heading"></h2>
-<p>이산로그 문제의 어려움을 이용한 보안 알고리즘<a href="https://freshrimpsushi.github.io/posts/912">디피-헬만 키 교환 알고리즘</a><a href="https://freshrimpsushi.github.io/posts/915">엘가말 공개 키 암호체계</a>이산로그 문제에 대한 공격 알고리즘<a href="https://freshrimpsushi.github.io/posts/917">샹크스 알고리즘</a><a href="https://freshrimpsushi.github.io/posts/940">폴리그-헬맨 알고리즘</a><a href="https://freshrimpsushi.github.io/posts/942">이산로그 문제가 쉽게 풀리는 조건</a><img src="20190220_171354.png#center" alt="img">왼쪽부터 순서대로 <strong>앨리스</strong> , <strong>밥</strong> , <strong>이브</strong> 라고 하자. 앨리스와 밥은 메세지를 주고받을 당사자고, 이브는 메세지에 관심이 있는 소극적 공격자다. 주황색 상자는 앨리스만 알고 있는 정보를, 하늘색 상자는 밥만 알고 있는 정보를, 검은색 상자는 공개된(이브도 알고 있는) 정보를 나타낸다.앨리스와 밥이 <a href="https://freshrimpsushi.github.io/posts/908">암호체계</a> $( \mathcal{K} , \mathcal{M} , \mathcal{C} , e_{k} , d_{k} )$ 하에서 메세지를 주고받으려고 한다. 안타깝게도 이브는 암호체계의 복호화 함수 $d_{k}$ 를 알고 있으며, 키 $k$ 를 이브에게 들키지 않고서는 직접 전달할 수 없는 상황이다. 단, 이런 상황에서도 앨리스와 밥 두 사람만이 공유하는 키 $K$ 를 각자 생성할 수 있다면 이브는 $d_{k}$ 를 알고 있음에도 키 $K$ 를 몰라서 비문을 해독할 수 없을 것이다. 이러한 해법이 바로 **디피-헬만 키 교환 알고리즘** 이다.**Step 1.
-아주 큰 소수 $p$ 와 $\text{ord}_{p} (g) $ 가 큰 소수인 $g \in \mathbb{F}_{p}^{ * }$ 를 선택해서 공개한다.<img filemime="image/jpeg" filename="20190221_101527.png" height="254" src="https://t1.daumcdn.net/cfile/tistory/99AA614E5C6DFBCB35" style="max-width:100%;height:auto" width="572"/>**Step 2.
-앨리스는 임의의 정수 $a$ 를 선택하고, 밥은 임의의 정수 $b$ 를 선택한다.<img filemime="image/jpeg" filename="20190221_101538.png" height="253" src="https://t1.daumcdn.net/cfile/tistory/99ADF44E5C6DFBCC36" style="text-align: center;" width="573"/>**Step 3.**  암호화$A \equiv g^{a} \pmod{p}$ 와 $B \equiv g^{b} \pmod{p}$ 를 계산해서 공개한다.<img filemime="image/jpeg" filename="20190221_102156.png" height="252" src="https://t1.daumcdn.net/cfile/tistory/995955385C6DFD520B" style="max-width:100%;height:auto" width="573"/>**Step 4.**  복호화$K \equiv B^{a} \equiv A^{b} \pmod{p}$ 를 계산해서 $K$ 를 키로 암호화한 비문 $c = e_{K} (m)$ 을 사용하면 이브는 현실적으로 $K$ 를 알 수 없기 때문에 $m = d_{K} (c) $ 를 알 수 없다.<img filemime="image/jpeg" filename="20190221_103703.png" height="255" src="https://t1.daumcdn.net/cfile/tistory/994A1B3D5C6E00CE23" style="max-width:100%;height:auto" width="573"/>* $\mathbb{F}_{p}^{ * } = \mathbb{F}_{p} \setminus \left\{ 0 \right\} = \left\{ 1, g , g^2 , \cdots , g^{p-2} \right\}$ 는 원소의 수가 $(p-1)$ 개인 <a href="https://freshrimpsushi.github.io/posts/392">시클릭 그룹</a>이다.**Step 1.** 에서 $\text{ord}_{p} (g)$ 는 <a href="https://freshrimpsushi.github.io/posts/798">위수</a>로써, 가능한 한 큰 소수여야 $g_{n}$ 이 $n$ 의 값에 따라 예측하기 어렵게 변한다. 만약 $\text{ord}_{p} (g) = 3$ 정도밖에 안된다면 $K$ 를 계산하는 게 너무 쉽다. 만약 $\text{ord}_{p} (g) = nm$ 이 합성수라면 $g^{nm} \equiv 1 \pmod{p}$ 라고 할 때 $( g^{n} ) ^{m} \equiv 1 \pmod{p}$ 이므로 사실상 위수가 작은 $G:=g^{n}$ 을 사용하는 것이나 마찬가지다.주의해야 할 사항은 디피-헬만 키 교환 알고리즘 자체가 어떤 암호체계가 되는 것이 아니라, 그냥 소극적 공격자가 있는 상태에서 비밀 키 $K$ 를 만들어내는 방법이라는 점이다. 이렇게 얻게 되는 $K$ 자체는 메세지와 관계가 없으며, 암호체계도 전혀 달라지지 않는다.</p>
+<p>이산로그 문제의 어려움을 이용한 보안 알고리즘<a href="https://freshrimpsushi.github.io/posts/912">디피-헬만 키 교환 알고리즘</a><a href="https://freshrimpsushi.github.io/posts/915">엘가말 공개 키 암호체계</a>이산로그 문제에 대한 공격 알고리즘<a href="https://freshrimpsushi.github.io/posts/917">샹크스 알고리즘</a><a href="https://freshrimpsushi.github.io/posts/940">폴리그-헬맨 알고리즘</a><a href="https://freshrimpsushi.github.io/posts/942">이산로그 문제가 쉽게 풀리는 조건</a><img src="20190220_171354.png#center" alt="20190220\_171354.png">
+왼쪽부터 순서대로 <strong>앨리스</strong> , <strong>밥</strong> , <strong>이브</strong> 라고 하자. 앨리스와 밥은 메세지를 주고받을 당사자고, 이브는 메세지에 관심이 있는 소극적 공격자다. 주황색 상자는 앨리스만 알고 있는 정보를, 하늘색 상자는 밥만 알고 있는 정보를, 검은색 상자는 공개된(이브도 알고 있는) 정보를 나타낸다.앨리스와 밥이 <a href="https://freshrimpsushi.github.io/posts/908">암호체계</a> $( \mathcal{K} , \mathcal{M} , \mathcal{C} , e_{k} , d_{k} )$ 하에서 메세지를 주고받으려고 한다. 안타깝게도 이브는 암호체계의 복호화 함수 $d_{k}$ 를 알고 있으며, 키 $k$ 를 이브에게 들키지 않고서는 직접 전달할 수 없는 상황이다. 단, 이런 상황에서도 앨리스와 밥 두 사람만이 공유하는 키 $K$ 를 각자 생성할 수 있다면 이브는 $d_{k}$ 를 알고 있음에도 키 $K$ 를 몰라서 비문을 해독할 수 없을 것이다. 이러한 해법이 바로 <strong>디피-헬만 키 교환 알고리즘</strong> 이다.</p>
+<p>**Step 1.
+아주 큰 소수 $p$ 와 $\text{ord}_{p} (g) $ 가 큰 소수인 $g \in \mathbb{F}_{p}^{ * }$ 를 선택해서 공개한다.<img src="20190221_101527.png#center" alt="20190221\_101527.png">
+**Step 2.
+앨리스는 임의의 정수 $a$ 를 선택하고, 밥은 임의의 정수 $b$ 를 선택한다.<img src="20190221_101538.png#center" alt="20190221\_101538.png">
+<strong>Step 3.</strong>  암호화$A \equiv g^{a} \pmod{p}$ 와 $B \equiv g^{b} \pmod{p}$ 를 계산해서 공개한다.<img src="20190221_102156.png#center" alt="20190221\_102156.png">
+<strong>Step 4.</strong>  복호화$K \equiv B^{a} \equiv A^{b} \pmod{p}$ 를 계산해서 $K$ 를 키로 암호화한 비문 $c = e_{K} (m)$ 을 사용하면 이브는 현실적으로 $K$ 를 알 수 없기 때문에 $m = d_{K} (c) $ 를 알 수 없다.<img src="20190221_103703.png#center" alt="20190221\_103703.png"></p>
+<ul>
+<li>$\mathbb{F}_{p}^{ * } = \mathbb{F}_{p} \setminus \left\{ 0 \right\} = \left\{ 1, g , g^2 , \cdots , g^{p-2} \right\}$ 는 원소의 수가 $(p-1)$ 개인 <a href="https://freshrimpsushi.github.io/posts/392">시클릭 그룹</a>이다.<strong>Step 1.</strong> 에서 $\text{ord}_{p} (g)$ 는 <a href="https://freshrimpsushi.github.io/posts/798">위수</a>로써, 가능한 한 큰 소수여야 $g_{n}$ 이 $n$ 의 값에 따라 예측하기 어렵게 변한다. 만약 $\text{ord}_{p} (g) = 3$ 정도밖에 안된다면 $K$ 를 계산하는 게 너무 쉽다. 만약 $\text{ord}_{p} (g) = nm$ 이 합성수라면 $g^{nm} \equiv 1 \pmod{p}$ 라고 할 때 $( g^{n} ) ^{m} \equiv 1 \pmod{p}$ 이므로 사실상 위수가 작은 $G:=g^{n}$ 을 사용하는 것이나 마찬가지다.주의해야 할 사항은 디피-헬만 키 교환 알고리즘 자체가 어떤 암호체계가 되는 것이 아니라, 그냥 소극적 공격자가 있는 상태에서 비밀 키 $K$ 를 만들어내는 방법이라는 점이다. 이렇게 얻게 되는 $K$ 자체는 메세지와 관계가 없으며, 암호체계도 전혀 달라지지 않는다.</li>
+</ul>
 <h2 id="증명복호화">증명(복호화)</h2>
 <p>$a$ 와 $b$ 를 알고 있는 앨리스와 밥은
 $$
@@ -103,7 +114,7 @@ $$
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -115,11 +126,13 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -144,6 +157,8 @@ $$
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -170,8 +185,6 @@ $$
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -202,8 +215,6 @@ $$
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="R 에서 파이프 오퍼레이터 %gt;% 사용하는 법 %gt;%">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>R 에서 파이프 오퍼레이터 %gt;% 사용하는 법 %gt;%</title>
@@ -55,17 +58,16 @@
 
 
 <h2 id="heading"></h2>
-<p>R 에서 %&gt;%은 <strong>파이프 연산자</strong><sup>Pipe Operater</sup> 로써, 다른 <a href="https://freshrimpsushi.github.io/posts/1224">연산자</a>가 모두 그러하듯 이항연산을 한다. 파이프 연산자는 이름 그대로 어떤 값들이 파이프를 통과하는 것처럼 함수와 함수들을 타고다닐 수 있게 해준다. 백마디 말보다 다음의 예시가 더 도움이 될 것이다.<img filemime="image/jpeg" filename="20190805_163044.png" height="60" src="https://t1.daumcdn.net/cfile/tistory/99C8EF405D47DB6A38" style="max-width:100%;height:auto" width="279"/>위의 예시는 $1$ 부터 $10$ 까지의 제곱근을 구하고 거기에 로그를 취한 뒤 그 중에서 중위수를 구하는 코드다. 아무 의미도 없는 계산이고 실제로 코드를 작성하는 게 어려운 건 아니지만, 이런식의 표현을 자주 사용하고 있다면 코드의 가독성은 크게 나빠져있을 가능성이 높다.R 은 데이터 핸들링에 있어서 너무나 편리한 나머지 대충 코드를 써도 상상하던 결과가 나오는데, 메모리를 낭비하는 걸 좋아하는 코더는 없기 때문에 무의식적으로 수많은 괄호가 중첩되는 코드를 쓰게 된다. 그러나 파이프를 사용하면 마치 말하는 것과 같이 자연스러운 코드라이팅이 가능하다.<img filemime="image/jpeg" filename="20190805_162550.png" height="105" src="https://t1.daumcdn.net/cfile/tistory/99D3AC405D47DB6A0D" style="text-align: center;" width="437"/>가령 <a href="https://freshrimpsushi.github.io/posts/497">팩터를 뉴메릭으로 바꾸는 기교</a>를 생각해보면, 파이프를 통해 가능한 인간의 사고와 비슷하게 코드를 짤 수 있다. 위 스크린샷은 아주 간단하지만, 실제 데이터 분석에서 x의 모양, 취급이 복잡해질수록 파이프의 가독성이 높아진다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-<span style="color:#a6e22e">median</span>(<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">sqrt</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>)))
-<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span> <span style="color:#f92672">%&gt;%</span> sqrt <span style="color:#f92672">%&gt;%</span> log <span style="color:#f92672">%&gt;%</span> median
+<p>R 에서 %&gt;%은 <strong>파이프 연산자</strong><sup>Pipe Operater</sup> 로써, 다른 <a href="https://freshrimpsushi.github.io/posts/1224">연산자</a>가 모두 그러하듯 이항연산을 한다. 파이프 연산자는 이름 그대로 어떤 값들이 파이프를 통과하는 것처럼 함수와 함수들을 타고다닐 수 있게 해준다. 백마디 말보다 다음의 예시가 더 도움이 될 것이다.<img src="20190805_163044.png#center" alt="20190805\_163044.png">
+위의 예시는 $1$ 부터 $10$ 까지의 제곱근을 구하고 거기에 로그를 취한 뒤 그 중에서 중위수를 구하는 코드다. 아무 의미도 없는 계산이고 실제로 코드를 작성하는 게 어려운 건 아니지만, 이런식의 표현을 자주 사용하고 있다면 코드의 가독성은 크게 나빠져있을 가능성이 높다.R 은 데이터 핸들링에 있어서 너무나 편리한 나머지 대충 코드를 써도 상상하던 결과가 나오는데, 메모리를 낭비하는 걸 좋아하는 코더는 없기 때문에 무의식적으로 수많은 괄호가 중첩되는 코드를 쓰게 된다. 그러나 파이프를 사용하면 마치 말하는 것과 같이 자연스러운 코드라이팅이 가능하다.<img src="20190805_162550.png#center" alt="20190805\_162550.png">
+가령 <a href="https://freshrimpsushi.github.io/posts/497">팩터를 뉴메릭으로 바꾸는 기교</a>를 생각해보면, 파이프를 통해 가능한 인간의 사고와 비슷하게 코드를 짤 수 있다. 위 스크린샷은 아주 간단하지만, 실제 데이터 분석에서 x의 모양, 취급이 복잡해질수록 파이프의 가독성이 높아진다.</p>
+<pre><code>median(log(sqrt(1:10)))
+1:10 %&gt;% sqrt %&gt;% log %&gt;% median
  
-x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">factor</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;3&#34;</span>, <span style="color:#e6db74">&#34;1&#34;</span>, <span style="color:#e6db74">&#34;2&#34;</span>, <span style="color:#e6db74">&#34;2&#34;</span>, <span style="color:#e6db74">&#34;1&#34;</span>, <span style="color:#e6db74">&#34;1&#34;</span>, <span style="color:#e6db74">&#34;5&#34;</span>)); x
-y1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as.numeric</span>(<span style="color:#a6e22e">as.character</span>(x)); y1
-y2 <span style="color:#f92672">&lt;-</span> x <span style="color:#f92672">%&gt;%</span> as.character<span style="color:#f92672">%&gt;%</span> as.numeric; y2
-</code></pre></div>
+x &lt;- factor(c(&quot;3&quot;, &quot;1&quot;, &quot;2&quot;, &quot;2&quot;, &quot;1&quot;, &quot;1&quot;, &quot;5&quot;)); x
+y1 &lt;- as.numeric(as.character(x)); y1
+y2 &lt;- x %&gt;% as.character%&gt;% as.numeric; y2
+</code></pre>
 
             </div>
 
@@ -84,7 +86,7 @@ y2 <span style="color:#f92672">&lt;-</span> x <span style="color:#f92672">%&g
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -96,11 +98,13 @@ y2 <span style="color:#f92672">&lt;-</span> x <span style="color:#f92672">%&g
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -125,6 +129,8 @@ y2 <span style="color:#f92672">&lt;-</span> x <span style="color:#f92672">%&g
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -151,8 +157,6 @@ y2 <span style="color:#f92672">&lt;-</span> x <span style="color:#f92672">%&g
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -183,8 +187,6 @@ y2 <span style="color:#f92672">&lt;-</span> x <span style="color:#f92672">%&g
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

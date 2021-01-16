@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="에이전트 기반 모델 시뮬레이션에서의 번식">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>에이전트 기반 모델 시뮬레이션에서의 번식</title>
@@ -67,8 +70,8 @@
 <h2 id="heading"></h2>
 <p>본 <a href="https://freshrimpsushi.github.io/posts/1873">시뮬레이션</a>은 속도와 시각화 양면으로 유리하고 코딩도 쉬운 <a href="https://freshrimpsushi.github.io/posts/1374">줄리아</a>로 구현되어 있다. 가장 좋은 공부는 깃허브에서 줄리아 코드를 받아 직접 실행해보는 것이지만, 줄리아가 낯설다면 그냥 시뮬레이션을 어떻게 하는건지 읽고 이해만 해도 충분할 수 있다. 구현 자체에 있어 어떤 언어를 사용하느냐는 본질적으로 중요하지 않다.</p>
 <p><a href="https://github.com/rmsmsgood/freshrimpsushi/blob/main/dynamics_simulation/02_%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8_%EA%B8%B0%EB%B0%98%20%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%EC%85%98_%EB%B2%88%EC%8B%9D.jl">소스 코드</a>
-<img filemime="image/gif" filename="malthusian_growth_simulation.gif" height="400" src="https://t1.daumcdn.net/cfile/tistory/995A04355FAD0ACF0A" style="text-align: center;" width="399"/>
-이 포스트에서는 생성된 에이전트에게 스스로 복제하는 액션을 주어 거시적인 관점에서 집단의 성장을 모방하려고 한다. 이 시뮬레이션에서 공간이나 이동에 관련된 모든 것들은 단지 시각화를 위한 것이며, 실제 목적과는 아무런 관계가 없다.
+<img src="malthusian_growth_simulation.gif#center" alt="malthusian\_growth\_simulation.gif"></p>
+<p>이 포스트에서는 생성된 에이전트에게 스스로 복제하는 액션을 주어 거시적인 관점에서 집단의 성장을 모방하려고 한다. 이 시뮬레이션에서 공간이나 이동에 관련된 모든 것들은 단지 시각화를 위한 것이며, 실제 목적과는 아무런 관계가 없다.
 <strong>변수</strong> 
 $t$: 현재 턴을 의미한다.
 $N(t)$: $t$ 턴에서 에이전트의 수를 나타낸다.
@@ -76,96 +79,89 @@ $N(t)$: $t$ 턴에서 에이전트의 수를 나타낸다.
 $N_{0} \in \mathbb{N}$: 시뮬레이션이 시작할 때 에이전트의 수를 나타낸다.
 $b \in [0,1]$: 번식률(Birth Rate)로써 에이전트가 번식할 확률을 나타낸다.
 $t_{\text{end}} \in \mathbb{N}$: 시뮬레이션이 끝나는 턴을 정한다.
-**액션(모든 에이전트가, 매 턴마다)** 
-**1, 번식:**  $b$ 의 확률로 자신의 위치에 새로운 에이전트를 만든다.
-**2, 이동:**  이변수 정규분포 $N \left( \mathbb{0} , \Sigma \right)$ 에서 뽑은 벡터대로 이동한다.</p>
+<strong>액션(모든 에이전트가, 매 턴마다)</strong> 
+<strong>1, 번식:</strong>  $b$ 의 확률로 자신의 위치에 새로운 에이전트를 만든다.
+<strong>2, 이동:</strong>  이변수 정규분포 $N \left( \mathbb{0} , \Sigma \right)$ 에서 뽑은 벡터대로 이동한다.</p>
 <p><strong>Step 1.</strong>  초기화 및 에이전트 생성</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> N0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span> <span style="color:#75715e"># 초기 인구수</span>
-<span style="color:#ae81ff">5</span>
+<pre><code>julia&gt; N0 = 5 # 초기 인구수
+5
 
-julia<span style="color:#f92672">&gt;</span> b <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.05</span> <span style="color:#75715e"># 번식률</span>
-<span style="color:#ae81ff">0.05</span>
+julia&gt; b = 0.05 # 번식률
+0.05
 
-julia<span style="color:#f92672">&gt;</span> max_iteration <span style="color:#f92672">=</span> <span style="color:#ae81ff">180</span> <span style="color:#75715e"># 시뮬레이션 기간</span>
-<span style="color:#ae81ff">180</span>
+julia&gt; max\_iteration = 180 # 시뮬레이션 기간
+180
 
-julia<span style="color:#f92672">&gt;</span> gaussian2 <span style="color:#f92672">=</span> MvNormal([<span style="color:#ae81ff">0.0</span>; <span style="color:#ae81ff">0.0</span>], <span style="color:#ae81ff">0.02</span>I) <span style="color:#75715e"># 2차원 정규분포</span>
+julia&gt; gaussian2 = MvNormal([0.0; 0.0], 0.02I) # 2차원 정규분포
 IsoNormal(
-dim<span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>
-μ<span style="color:#f92672">:</span> [<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>]
-Σ<span style="color:#f92672">:</span> [<span style="color:#ae81ff">0.02</span> <span style="color:#ae81ff">0.0</span>; <span style="color:#ae81ff">0.0</span> <span style="color:#ae81ff">0.02</span>]
+dim: 2
+μ: [0.0, 0.0]
+Σ: [0.02 0.0; 0.0 0.02]
 )
 
-julia<span style="color:#f92672">&gt;</span> Random<span style="color:#f92672">.</span>seed!(<span style="color:#ae81ff">2</span>);
+julia&gt; Random.seed!(2);
 
-julia<span style="color:#f92672">&gt;</span> time_evolution <span style="color:#f92672">=</span> [] <span style="color:#75715e"># 인구수를 기록하기 위한 스택</span>
-<span style="color:#66d9ef">Any</span>[]<span style="color:#e6db74">```
-</span><span style="color:#e6db74">[에이전트 기반 시뮬레이션 튜토리얼](https://freshrimpsushi.github.io/posts/1875)과 비슷하게 에이전트를 생성한다. 여기서 각 변수들은 위의 파라메터 세팅을 반영한다.
-</span><span style="color:#e6db74">`</span>N0<span style="color:#e6db74">` $\leftarrow N_{0} = 5$
-</span><span style="color:#e6db74">`</span>b<span style="color:#e6db74">` $\leftarrow b = 0.05$
-</span><span style="color:#e6db74">`</span>max_iteration<span style="color:#e6db74">` $\leftarrow t_{\text{end}} = 180$
-</span><span style="color:#e6db74">`</span>Random<span style="color:#f92672">.</span>seed!(<span style="color:#ae81ff">2</span>)<span style="color:#e6db74">`은 결과를 재현하기 위한 시드넘버 설정, `</span>time_evolution<span style="color:#e6db74">`은 개체수를 기록하기 위한 스택으로 시뮬레이션 자체에는 영향을 미치지 않으나 시뮬레이션을 반복하고 분석하기 위해 중요하게 쓰이는 테크닉이다.
-</span><span style="color:#e6db74">```</span>julia
-julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f92672">=</span> rand(gaussian2, N0)<span style="color:#f92672">&#39;</span>
-<span style="color:#ae81ff">5</span>×2 Adjoint{<span style="color:#66d9ef">Float64</span>,<span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}}<span style="color:#f92672">:</span>
-  <span style="color:#ae81ff">0.104598</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.105289</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">0.086056</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.243734</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0955465</span>   <span style="color:#ae81ff">0.0787217</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">0.121846</span>    <span style="color:#ae81ff">0.0732683</span>
-  <span style="color:#ae81ff">0.176526</span>    <span style="color:#ae81ff">0.165338</span>
+julia&gt; time\_evolution = [] # 인구수를 기록하기 위한 스택
+Any[]```
+[에이전트 기반 시뮬레이션 튜토리얼](https://freshrimpsushi.github.io/posts/1875)과 비슷하게 에이전트를 생성한다. 여기서 각 변수들은 위의 파라메터 세팅을 반영한다.
+`N0` $\leftarrow N\_{0} = 5$
+`b` $\leftarrow b = 0.05$
+`max\_iteration` $\leftarrow t\_{\text{end}} = 180$
+`Random.seed!(2)`은 결과를 재현하기 위한 시드넘버 설정, `time\_evolution`은 개체수를 기록하기 위한 스택으로 시뮬레이션 자체에는 영향을 미치지 않으나 시뮬레이션을 반복하고 분석하기 위해 중요하게 쓰이는 테크닉이다.
+</code></pre><p>julia&gt; coordinate = rand(gaussian2, N0)'
+5×2 Adjoint{Float64,Array{Float64,2}}:
+0.104598   -0.105289
+-0.086056   -0.243734
+-0.0955465   0.0787217
+-0.121846    0.0732683
+0.176526    0.165338</p>
+<p>julia&gt; N = N0
+5```
+$N$ 은 개체수를 나타내므로 우선 $N \leftarrow N_{0}$ 와 같이 초기 개체수를 받아 주어야한다.
+<img src="20201112_193047.png#center" alt="20201112\_193047.png"></p>
+<p>에이전트들의 위치를 산점도로 나타내보면 위와 같이 오밀조밀하게 모여있는 것을 확인할 수 있다.</p>
+<p><strong>Step 2.</strong>  에이전트의 번식</p>
+<pre><code>julia&gt; replicated = (rand(N) .&lt; b)
+5-element BitArray{1}:
+ 0
+ 0
+ 1
+ 0
+ 0
 
-julia<span style="color:#f92672">&gt;</span> N <span style="color:#f92672">=</span> N0
-<span style="color:#ae81ff">5</span><span style="color:#e6db74">```
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">$N</span><span style="color:#e6db74">$ 은 개체수를 나타내므로 우선 </span><span style="color:#e6db74">$N</span><span style="color:#e6db74"> \leftarrow N_{0}$ 와 같이 초기 개체수를 받아 주어야한다.
-</span><span style="color:#e6db74">&lt;img filemime=&#34;image/jpeg&#34; filename=&#34;20201112_193047.png&#34; height=&#34;304&#34; src=&#34;https://t1.daumcdn.net/cfile/tistory/99731F3B5FAD0EEA0A&#34; style=&#34;max-width:100%;height:auto&#34; width=&#34;301&#34;/&gt;
-</span><span style="color:#e6db74">에이전트들의 위치를 산점도로 나타내보면 위와 같이 오밀조밀하게 모여있는 것을 확인할 수 있다.
-</span><span style="color:#e6db74">
-</span><span style="color:#e6db74">**Step 2.**  에이전트의 번식
-</span><span style="color:#e6db74">```</span>julia
-julia<span style="color:#f92672">&gt;</span> replicated <span style="color:#f92672">=</span> (rand(N) <span style="color:#f92672">.&lt;</span> b)
-<span style="color:#ae81ff">5</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">BitArray</span>{<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
- <span style="color:#ae81ff">0</span>
- <span style="color:#ae81ff">0</span>
- <span style="color:#ae81ff">1</span>
- <span style="color:#ae81ff">0</span>
- <span style="color:#ae81ff">0</span>
+julia&gt; new\_coordinate = coordinate[replicated,:]
+1×2 Array{Float64,2}:
+ -0.0955465  0.0787217
 
-julia<span style="color:#f92672">&gt;</span> new_coordinate <span style="color:#f92672">=</span> coordinate[replicated,<span style="color:#f92672">:</span>]
-<span style="color:#ae81ff">1</span>×2 <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0955465</span>  <span style="color:#ae81ff">0.0787217</span>
+julia&gt; coordinate = cat(coordinate, new\_coordinate, dims = 1)
+6×2 Array{Float64,2}:
+  0.104598   -0.105289
+ -0.086056   -0.243734
+ -0.0955465   0.0787217
+ -0.121846    0.0732683
+  0.176526    0.165338
+ -0.0955465   0.0787217```
+현재 에이전트의 수만큼 0과 1사이에서 난수를 뽑는다. 이것이 `b`보다 작다는 것은 `b`의 확률로 **액션 1, 번식** 이 일어났다는 뜻이다. 위 스크린샷에서는 세번째 에이전트가 $5\%$ 의 확률로 번식한 것으로 **Step 1.** 에서 확인했던 좌표 중 세번째 행이 그대로 새로운 행으로 추가되었다.
 
-julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f92672">=</span> cat(coordinate, new_coordinate, dims <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
-<span style="color:#ae81ff">6</span>×2 <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
-  <span style="color:#ae81ff">0.104598</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.105289</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">0.086056</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.243734</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0955465</span>   <span style="color:#ae81ff">0.0787217</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">0.121846</span>    <span style="color:#ae81ff">0.0732683</span>
-  <span style="color:#ae81ff">0.176526</span>    <span style="color:#ae81ff">0.165338</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0955465</span>   <span style="color:#ae81ff">0.0787217</span><span style="color:#e6db74">```
-</span><span style="color:#e6db74">현재 에이전트의 수만큼 0과 1사이에서 난수를 뽑는다. 이것이 `</span>b<span style="color:#e6db74">`보다 작다는 것은 `</span>b<span style="color:#e6db74">`의 확률로 **액션 1, 번식** 이 일어났다는 뜻이다. 위 스크린샷에서는 세번째 에이전트가 $5\%$ 의 확률로 번식한 것으로 **Step 1.** 에서 확인했던 좌표 중 세번째 행이 그대로 새로운 행으로 추가되었다.
-</span><span style="color:#e6db74">
-</span><span style="color:#e6db74">**Step 3.**  기록과 에이전트 이동
-</span><span style="color:#e6db74">```</span>julia
-julia<span style="color:#f92672">&gt;</span> N <span style="color:#f92672">=</span> size(coordinate, <span style="color:#ae81ff">1</span>)
-<span style="color:#ae81ff">6</span>
+**Step 3.**  기록과 에이전트 이동
+</code></pre><p>julia&gt; N = size(coordinate, 1)
+6</p>
+<p>julia&gt; push!(time_evolution, N)
+1-element Array{Any,1}:
+6</p>
+<p>julia&gt; coordinate = coordinate + rand(gaussian2, N)'
+6×2 Array{Float64,2}:
+0.0678177  -0.0642068
+-0.137464   -0.0672691
+-0.0571189   0.06278
+-0.0635334   0.226498
+0.18355     0.180084
+0.0920502   0.0682156```
+위의 <strong>Step 2.</strong> 에서 에이전트가 하나 더 늘어났으므로 $N$ 역시 업데이트 해주었고, 이 때의 개체수를 기록했다. 각 에이전트의 좌표는 행렬로 표현되고 있으므로 이변수 정규분포를 $N$ 번 뽑아 쌓은 $N \times 2$ 행렬을 더하면 에이전트가 이동한 것을 구현할 수 있다. 실제로 산점도를 그려보면 다음과 같이 <strong>Step 1.</strong> 과는 달리 조금 이동한 것을 알 수 있다.
+<img src="20201112_192927.png#center" alt="20201112\_192927.png"></p>
+<p>이를 마치고 <strong>Step 2.</strong> 로 돌아간다. 계속해서 반복하다가, $t = t_{\text{end}}$ 가 되면 멈춘다.</p>
+<p>위 과정을 반복하기만하면 포스트 상단의 움짤과 같은 현상을 볼 수 있다.</p>
 
-julia<span style="color:#f92672">&gt;</span> push!(time_evolution, N)
-<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Any</span>,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
- <span style="color:#ae81ff">6</span>
-
-julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f92672">=</span> coordinate <span style="color:#f92672">+</span> rand(gaussian2, N)<span style="color:#f92672">&#39;</span>
-<span style="color:#ae81ff">6</span>×2 <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
-  <span style="color:#ae81ff">0.0678177</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0642068</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">0.137464</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0672691</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0571189</span>   <span style="color:#ae81ff">0.06278</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0635334</span>   <span style="color:#ae81ff">0.226498</span>
-  <span style="color:#ae81ff">0.18355</span>     <span style="color:#ae81ff">0.180084</span>
-  <span style="color:#ae81ff">0.0920502</span>   <span style="color:#ae81ff">0.0682156</span><span style="color:#e6db74">```
-</span><span style="color:#e6db74">위의 **Step 2.** 에서 에이전트가 하나 더 늘어났으므로 </span><span style="color:#e6db74">$N</span><span style="color:#e6db74">$ 역시 업데이트 해주었고, 이 때의 개체수를 기록했다. 각 에이전트의 좌표는 행렬로 표현되고 있으므로 이변수 정규분포를 </span><span style="color:#e6db74">$N</span><span style="color:#e6db74">$ 번 뽑아 쌓은 </span><span style="color:#e6db74">$N</span><span style="color:#e6db74"> \times 2$ 행렬을 더하면 에이전트가 이동한 것을 구현할 수 있다. 실제로 산점도를 그려보면 다음과 같이 **Step 1.** 과는 달리 조금 이동한 것을 알 수 있다.
-</span><span style="color:#e6db74">&lt;img filemime=&#34;image/jpeg&#34; filename=&#34;20201112_192927.png&#34; height=&#34;298&#34; src=&#34;https://t1.daumcdn.net/cfile/tistory/9903B9375FAD0E8D0F&#34; style=&#34;text-align: center;&#34; width=&#34;301&#34;/&gt;
-</span><span style="color:#e6db74">이를 마치고 **Step 2.** 로 돌아간다. 계속해서 반복하다가, </span><span style="color:#e6db74">$t</span><span style="color:#e6db74"> = t_{\text{end}}$ 가 되면 멈춘다.
-</span><span style="color:#e6db74">
-</span><span style="color:#e6db74">위 과정을 반복하기만하면 포스트 상단의 움짤과 같은 현상을 볼 수 있다.</span></code></pre></div>
 
             </div>
 
@@ -184,7 +180,7 @@ julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f926
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -196,11 +192,13 @@ julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f926
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -225,6 +223,8 @@ julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f926
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -251,8 +251,6 @@ julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f926
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -283,8 +281,6 @@ julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f926
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

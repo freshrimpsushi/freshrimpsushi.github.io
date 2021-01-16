@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="R 에서 NA 제거하기 How to Delete NA in R">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>R 에서 NA 제거하기 How to Delete NA in R</title>
@@ -65,23 +68,29 @@
 
 
 <h2 id="heading"></h2>
-<p>NA는 Not Available의 약자로, R 프로그래밍에선 주로 &lsquo;결측값&rsquo;을 의미한다.일반적인 프로그래밍 언어에서의 null과는 그 의미도 쓰임새도 전혀 다름에 주의하도록 하자.교과서에서 다루는 예제들은 보통 분석하기에 알맞도록 잘 정리되어 있지만, 실제로 분석에 임할 땐 전혀 그렇지가 않다.그런 데이터를 핸들링함에 있어서 가장 빈번하게 만나는 것이 바로 결측값이다.이러한 결측값은 비슷한 경향을 가진 데이터들을 모방하는 이미테이션Imitation이나 직접 제거하는 식으로 처리하게 된다.물론 통계학이 늘 그렇듯 모든 경우에 통하는 방법 따윈 없고, 이런 방법들 자체가 연구의 대상이다.이 포스트에서 그렇게 거창한 것까지 모두 다룰 수는 없고, R에서 결측치를 다루는 간단한 방법 정도만 소개하도록 하겠다.우선 예제 파일 <a href="https://freshrimpsushi.github.io/posts/attachment/cfile2.uf@997DD2475AD03682307A23.csv"><img src="c86ac617f#center" alt="img"> example526.csv</a>을 받아서 열어보자. <img src="20180413_135239.png#center" alt="img"> <img src="20180413_135244.png#center" alt="img">아무런 값이 입력되어있지 않은 칸은 별도의 설정이 없어도 결측값 NA로 나타난 것을 알 수 있다.한편 데이터의 <a href="http://freshrimpsushi.tistory.com/497">구조를 살펴보면</a> 언뜻 연속형 자료 같은 X1이 범주형으로 나타남을 알 수 있다.이는 X1에 말 그대로 &lsquo;비어있지는 않지만 결측치&rsquo;인 문자열 &ldquo;?&ldquo;가 포함되었기 때문이다.<img src="20180413_140116.png#center" alt="img"> <img src="20180413_140107.png#center" alt="img">이럴 때는 파일을 불러들일 때 na.strings 옵션을 통해 결측값으로 취급할 문자열 벡터를 주면 된다.코드에서 &ldquo;?&ldquo;를 결측치로 지정하고 나면 데이터의 구조도 정상적으로 나타남을 확인할 수 있다.한편 X2의 가장 아래를 보면 -99로 극단적으로 이상한 데이터가 있다.이는 다른 관측치와 비교해보았을 때 눈에 띄게 이질적인 수치로, 이상치라고 보기도 어렵고 결측치를 의미할 가능성이 높다.물론 앞서 한것과 같이 na.strings로 예외를 늘려 다시 불러오는 방법도 있지만, 그 수가 극히 적거나 종류가 많으면 불편하다.<img filemime="image/jpeg" filename="20180413_141017.png" height="179" src="https://t1.daumcdn.net/cfile/tistory/99A0EB405AD03C2C12" style="text-align: center;" width="341"/>따라서 위와 같이 특정 조건을 주고 거기에 직접 NA를 덮어씌우는 방법을 사용할 수 있다.-99처럼 음수이면서 극단적으로 큰 값은 없었기 때문에 0보다 작은 모든 값을 NA로 바꾼 것이다.어찌보면 그 부분만 모면하는 땜빵이지만, 또 다르게 보면 필요한 부분만 처리하는 정밀 조정이다.이런 사소하고 별 것 아닌 테크닉을 쓰고 싶을 때 자유롭게 쓰는 것이 실력이다.<img filemime="image/jpeg" filename="20180413_141747.png" height="182" src="https://t1.daumcdn.net/cfile/tistory/99FCAA485AD03D891D" style="max-width:100%;height:auto" width="191"/>이제 is.na() 함수를 통해 확인해보면 처음 데이터에서 조금 이상했던 값들이 모두 NA로 바뀌었음을 확인할 수 있다.대개의 경우엔 이런 결측치들이 포함된 관측치들은 필요가 없으므로 모두 제거할 일만 남았다.여기에는 여러가지 창의적인 방법들이 있지만, R 에는 친절하게도 이를 위한 함수가 기본적으로 제공된다.<img filemime="image/jpeg" filename="20180413_142327.png" height="181" src="https://t1.daumcdn.net/cfile/tistory/99ED9E455AD03EDD34" style="max-width:100%;height:auto" width="261"/> ▶ <img filemime="image/jpeg" filename="20180413_142040.png" height="135" src="https://t1.daumcdn.net/cfile/tistory/999987495AD03E3E2E" style="text-align: center;" width="253"/>그냥 na.omit() 함수에 넣으면 하나라도 NA가 포함된 관측치는 모두 깔끔하게 제거된다.6, 9, 10번 줄이 깔끔하게 사라졌다.별로 대단한 팁들도 아니지만 잘 모르거나 잘 못쓰면 본격적인 분석을 시작하기도 전부터 엄청난 시간을 빼앗기게 된다.반드시 자기 것으로 만들어 두고두고 유용하게 써먹도록 하자.아래는 예제 코드다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-example526<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">read.csv</span>(file <span style="color:#f92672">=</span> <span style="color:#a6e22e">file.choose</span>()); example526
-<span style="color:#a6e22e">str</span>(example526)
+<p>NA는 Not Available의 약자로, R 프로그래밍에선 주로 &lsquo;결측값&rsquo;을 의미한다.일반적인 프로그래밍 언어에서의 null과는 그 의미도 쓰임새도 전혀 다름에 주의하도록 하자.교과서에서 다루는 예제들은 보통 분석하기에 알맞도록 잘 정리되어 있지만, 실제로 분석에 임할 땐 전혀 그렇지가 않다.그런 데이터를 핸들링함에 있어서 가장 빈번하게 만나는 것이 바로 결측값이다.이러한 결측값은 비슷한 경향을 가진 데이터들을 모방하는 이미테이션Imitation이나 직접 제거하는 식으로 처리하게 된다.물론 통계학이 늘 그렇듯 모든 경우에 통하는 방법 따윈 없고, 이런 방법들 자체가 연구의 대상이다.이 포스트에서 그렇게 거창한 것까지 모두 다룰 수는 없고, R에서 결측치를 다루는 간단한 방법 정도만 소개하도록 하겠다.우선 예제 파일 <a href="https://freshrimpsushi.github.io/posts/attachment/cfile2.uf@997DD2475AD03682307A23.csv"><img src="c86ac617f#center" alt="c86ac617f">
+example526.csv</a>을 받아서 열어보자. <img src="20180413_135239.png#center" alt="20180413\_135239.png">
+ <img src="20180413_135244.png#center" alt="20180413\_135244.png">
+아무런 값이 입력되어있지 않은 칸은 별도의 설정이 없어도 결측값 NA로 나타난 것을 알 수 있다.한편 데이터의 <a href="http://freshrimpsushi.tistory.com/497">구조를 살펴보면</a> 언뜻 연속형 자료 같은 X1이 범주형으로 나타남을 알 수 있다.이는 X1에 말 그대로 &lsquo;비어있지는 않지만 결측치&rsquo;인 문자열 &ldquo;?&ldquo;가 포함되었기 때문이다.<img src="20180413_140116.png#center" alt="20180413\_140116.png">
+ <img src="20180413_140107.png#center" alt="20180413\_140107.png">
+이럴 때는 파일을 불러들일 때 na.strings 옵션을 통해 결측값으로 취급할 문자열 벡터를 주면 된다.코드에서 &ldquo;?&ldquo;를 결측치로 지정하고 나면 데이터의 구조도 정상적으로 나타남을 확인할 수 있다.한편 X2의 가장 아래를 보면 -99로 극단적으로 이상한 데이터가 있다.이는 다른 관측치와 비교해보았을 때 눈에 띄게 이질적인 수치로, 이상치라고 보기도 어렵고 결측치를 의미할 가능성이 높다.물론 앞서 한것과 같이 na.strings로 예외를 늘려 다시 불러오는 방법도 있지만, 그 수가 극히 적거나 종류가 많으면 불편하다.<img src="20180413_141017.png#center" alt="20180413\_141017.png">
+따라서 위와 같이 특정 조건을 주고 거기에 직접 NA를 덮어씌우는 방법을 사용할 수 있다.-99처럼 음수이면서 극단적으로 큰 값은 없었기 때문에 0보다 작은 모든 값을 NA로 바꾼 것이다.어찌보면 그 부분만 모면하는 땜빵이지만, 또 다르게 보면 필요한 부분만 처리하는 정밀 조정이다.이런 사소하고 별 것 아닌 테크닉을 쓰고 싶을 때 자유롭게 쓰는 것이 실력이다.<img src="20180413_141747.png#center" alt="20180413\_141747.png">
+이제 is.na() 함수를 통해 확인해보면 처음 데이터에서 조금 이상했던 값들이 모두 NA로 바뀌었음을 확인할 수 있다.대개의 경우엔 이런 결측치들이 포함된 관측치들은 필요가 없으므로 모두 제거할 일만 남았다.여기에는 여러가지 창의적인 방법들이 있지만, R 에는 친절하게도 이를 위한 함수가 기본적으로 제공된다.<img src="20180413_142327.png#center" alt="20180413\_142327.png">
+ ▶ <img src="20180413_142040.png#center" alt="20180413\_142040.png">
+그냥 na.omit() 함수에 넣으면 하나라도 NA가 포함된 관측치는 모두 깔끔하게 제거된다.6, 9, 10번 줄이 깔끔하게 사라졌다.별로 대단한 팁들도 아니지만 잘 모르거나 잘 못쓰면 본격적인 분석을 시작하기도 전부터 엄청난 시간을 빼앗기게 된다.반드시 자기 것으로 만들어 두고두고 유용하게 써먹도록 하자.아래는 예제 코드다.</p>
+<pre><code>example526&lt;-read.csv(file = file.choose()); example526
+str(example526)
  
-example526<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">read.csv</span>(file <span style="color:#f92672">=</span> <span style="color:#a6e22e">file.choose</span>(),na.strings <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;?&#34;</span>)); example526
-<span style="color:#a6e22e">str</span>(example526)
+example526&lt;-read.csv(file = file.choose(),na.strings = c(&quot;?&quot;)); example526
+str(example526)
  
-example526[example526<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>]<span style="color:#f92672">&lt;-</span><span style="color:#66d9ef">NA</span>; example526
+example526[example526&lt;0]&lt;-NA; example526
  
-<span style="color:#a6e22e">is.na</span>(example526)
+is.na(example526)
  
 example526
-<span style="color:#a6e22e">na.omit</span>(example526)[Colored by Color Scripter<span style="color:#a6e22e">]</span>(http<span style="color:#f92672">://</span>colorscripter.com<span style="color:#f92672">/</span>info<span style="color:#75715e">#e)</span>
-</code></pre></div>
+na.omit(example526)[Colored by Color Scripter](http://colorscripter.com/info#e)
+</code></pre>
 
             </div>
 
@@ -100,7 +109,7 @@ example526
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -112,11 +121,13 @@ example526
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -141,6 +152,8 @@ example526
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -167,8 +180,6 @@ example526
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -199,8 +210,6 @@ example526
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="오일러 메소드">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>오일러 메소드</title>
@@ -59,8 +62,8 @@
 \\  y( x_{0} ) = Y_{0} \end{cases}$ 가 주어져 있다. 구간 $(a,b)$ 을 $a \le x_{0} &lt; x_{1} &lt; \cdots &lt; x_{n} &lt; \cdots x_{N} \le b $ 와 같은 노드 포인트들로 쪼갰다고 하자. 특히 충분히 작은 $h &gt; 0$ 에 대해 $x_{j} = x_{0} + j h$ 이라고 하면 초기값 $y_{0} \simeq Y_{0}$ 에 대해
 $$
 y_{n+1} = y_{n} + h f ( x_{n} , y_{n} ) 
-$$
-오일러 메소드는 개념적으로 아주 간단한 방법이지만 수치해석의 핵심적인 아이디어를 보여준다. 물론 지금에 와서는 여러가지 문제가 많지만, 반대로 말해 개선의 여지 또한 많은 방법이다. 그래서 오일러 메소드 그 자체가 중요하다기 보다는 유도과정을 유심히 보아야한다.</p>
+$$</p>
+<p>오일러 메소드는 개념적으로 아주 간단한 방법이지만 수치해석의 핵심적인 아이디어를 보여준다. 물론 지금에 와서는 여러가지 문제가 많지만, 반대로 말해 개선의 여지 또한 많은 방법이다. 그래서 오일러 메소드 그 자체가 중요하다기 보다는 유도과정을 유심히 보아야한다.</p>
 <h2 id="유도테일러-전개">유도(테일러 전개)</h2>
 <p>$Y(x_{n+1} )$ 를 $x_{n}$ 에 대해 $2$ 차항까지 <a href="http://freshrimpsushi.tistory.com/41">테일러 전개</a>하면
 $$
@@ -81,15 +84,16 @@ $$
 $$
 \displaystyle \int_{x_{n}}^{x_{n+1}} f(t,Y(t)) dt = Y(x_{n+1}) -  Y(x_{n})  
 $$
-<img filemime="image/jpeg" filename="20180910_093211.png" height="198" src="https://t1.daumcdn.net/cfile/tistory/9943DE3B5B95D47E1D" style="max-width:100%;height:auto" width="270"/>약간의 오차가 있지만 수치적인 적분을 통해 $\displaystyle \int_{x_{n}}^{x_{n+1}} f(t,Y(t)) dt \simeq h f(x_{n} , Y(x_{n}) )  $ 이므로,
+<img src="20180910_093211.png#center" alt="20180910\_093211.png">
+약간의 오차가 있지만 수치적인 적분을 통해 $\displaystyle \int_{x_{n}}^{x_{n+1}} f(t,Y(t)) dt \simeq h f(x_{n} , Y(x_{n}) )  $ 이므로,
 $$
  y_{n+1} - y_{n} = h f ( x_{n} , y_{n} ) 
 $$
 <p style="text-align: right;">■</p>
 구분구적법의 아이디어를 생각해보면 이 역시 $h$ 가 작아질수록 오차가 작아짐을 짐작할 수가 있다. 그림에서 보다시피 실제 적분값과 수치적으로 구한 값의 차이가 꽤 큰데, 사다리꼴 메소드나 심슨 메소드를 쓰면 오차가 줄어들것이다.아래는 R 로 작성된 코드다.</p>
-<pre><code>Euler&lt;-function(f,Y_0,a,b,h=10^(-3))
+<pre><code>Euler&lt;-function(f,Y\_0,a,b,h=10^(-3))
 {
-  Y &lt;- t(Y_0)
+  Y &lt;- t(Y\_0)
   node &lt;- seq(a,b,by=h)
   
   for(x in node)
@@ -126,7 +130,7 @@ out[,1][Colored by Color Scripter](http://colorscripter.com/info#e)
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -138,11 +142,13 @@ out[,1][Colored by Color Scripter](http://colorscripter.com/info#e)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -167,6 +173,8 @@ out[,1][Colored by Color Scripter](http://colorscripter.com/info#e)
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -193,8 +201,6 @@ out[,1][Colored by Color Scripter](http://colorscripter.com/info#e)
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -225,8 +231,6 @@ out[,1][Colored by Color Scripter](http://colorscripter.com/info#e)
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

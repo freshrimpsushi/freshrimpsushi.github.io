@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="R 에서 단순회귀분석 결과 보는 법">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>R 에서 단순회귀분석 결과 보는 법</title>
@@ -66,59 +69,48 @@
 
 <h2 id="heading"></h2>
 <p><a href="http://freshrimpsushi.tistory.com/648">단순회귀분석 보러가기</a><a href="http://freshrimpsushi.tistory.com/654">회귀계수의 t검정 보러가기</a>*하단에 예제코드 전체가 있다.<u>*수학, 통계적인 기초가 부족한 비전공자는 밑줄 그어진 부분만 읽어도 상관 없다.</u></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-<span style="color:#a6e22e">head</span>(faithful)
-</code></pre></div><p>R에서 <a href="http://freshrimpsushi.tistory.com/331">내장데이터 faithful을 불러와</a> head() 함수를 통해 확인해보자.<img filemime="image/jpeg" filename="2.png" height="124" src="https://t1.daumcdn.net/cfile/tistory/99DEEB435B6D058213" style="max-width:100%;height:auto" width="162"/>데이터만 봐서는 두 변수 사이에 선형관계가 있는지 확인하기 어려우므로 그림을 그려 확인해보자.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">3</span>)
-<span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>))
-<span style="color:#a6e22e">plot</span>(faithful, main <span style="color:#f92672">=</span><span style="color:#e6db74">&#34;faithful&#34;</span>,asp<span style="color:#f92672">=</span>T)
-<span style="color:#a6e22e">plot</span>(faithful, main <span style="color:#f92672">=</span><span style="color:#e6db74">&#34;faithful&#34;</span>)
-<span style="color:#a6e22e">points</span>(<span style="color:#a6e22e">head</span>(faithful),col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>,pch<span style="color:#f92672">=</span><span style="color:#ae81ff">19</span>)
-</code></pre></div><p>&lt;img &ldquo;&quot;=&rdquo;&quot; filemime=&ldquo;image/png&rdquo; filename=&ldquo;12.png&rdquo; height=&ldquo;280&rdquo; src=&ldquo;<a href="https://t1.daumcdn.net/cfile/tistory/99FF4A345D2D3CC21E%22">https://t1.daumcdn.net/cfile/tistory/99FF4A345D2D3CC21E&quot;</a> style=&rdquo;&quot; width=&ldquo;568&rdquo;/&gt;왼쪽은 가로세로의 비율이 일정하도록 맞춰놓은 것인데, 정확한 그래프지만 보기가 어렵다. 오른쪽은 보기 편하도록 비율을 조정한 그래프로, 그 중에서 빨간 점들은 head() 함수로 확인한 처음 6번째까지의 데이터다.점이 찍힌 양상을 보면 두 변수가 선형관계를 가진다고 짐작할 수 있으므로 <a href="http://freshrimpsushi.tistory.com/648">단순회귀분석</a>을 통해 확인해보도록 하자. 회귀분석을 위해서는 lm() 함수에 선형모형을 입력해야하는데, 예제의 경우 eruptions로 waiting을 분석하므로 아래와 같이 입력한다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-out1<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span>(waiting<span style="color:#f92672">~</span>eruptions,data<span style="color:#f92672">=</span>faithful); <span style="color:#a6e22e">summary</span>(out1)
-</code></pre></div><p>summary() 함수를 사용하면 회귀분석 결과에 대한 요약이 출력된다.<img filemime="image/jpeg" filename="3.png" height="302" src="https://t1.daumcdn.net/cfile/tistory/994064435B6D05821E" style="text-align: center;" width="522"/>결과에서 사각형으로 강조되지 않은 부분은 상대적으로 중요하지 않고, 특히 단순회귀분석에선 더더욱 신경쓸 필요가 없다.<strong>(1) 잔차Residuals</strong>  : <u>몰라도 된다.</u> 잔차분석을 위해 회귀분석의 가정을 만족하는지 확인하기 위해 필요하지만, 단순회귀분석에선 신경써야할만큼 중요치 않다.<strong>(2) 추정치Estimate</strong>  : <u>이것이 바로 회귀계수로, (Intercept)는 회귀직선의 $y$ 절편, eruptions는 기울기를 나타낸다. </u><u>수식으로 나타내면</u><u>
+<pre><code>head(faithful)
+</code></pre><p>R에서 <a href="http://freshrimpsushi.tistory.com/331">내장데이터 faithful을 불러와</a> head() 함수를 통해 확인해보자.<img src="2.png#center" alt="2.png">
+데이터만 봐서는 두 변수 사이에 선형관계가 있는지 확인하기 어려우므로 그림을 그려 확인해보자.</p>
+<pre><code>win.graph(6,3)
+par(mfrow=c(1,2))
+plot(faithful, main =&quot;faithful&quot;,asp=T)
+plot(faithful, main =&quot;faithful&quot;)
+points(head(faithful),col='red',pch=19)
+</code></pre><p><img src="12.png#center" alt="12.png">
+왼쪽은 가로세로의 비율이 일정하도록 맞춰놓은 것인데, 정확한 그래프지만 보기가 어렵다. 오른쪽은 보기 편하도록 비율을 조정한 그래프로, 그 중에서 빨간 점들은 head() 함수로 확인한 처음 6번째까지의 데이터다.점이 찍힌 양상을 보면 두 변수가 선형관계를 가진다고 짐작할 수 있으므로 <a href="http://freshrimpsushi.tistory.com/648">단순회귀분석</a>을 통해 확인해보도록 하자. 회귀분석을 위해서는 lm() 함수에 선형모형을 입력해야하는데, 예제의 경우 eruptions로 waiting을 분석하므로 아래와 같이 입력한다.</p>
+<pre><code>out1&lt;-lm(waiting~eruptions,data=faithful); summary(out1)
+</code></pre><p>summary() 함수를 사용하면 회귀분석 결과에 대한 요약이 출력된다.<img src="3.png#center" alt="3.png">
+결과에서 사각형으로 강조되지 않은 부분은 상대적으로 중요하지 않고, 특히 단순회귀분석에선 더더욱 신경쓸 필요가 없다.<strong>(1) 잔차Residuals</strong>  : <u>몰라도 된다.</u> 잔차분석을 위해 회귀분석의 가정을 만족하는지 확인하기 위해 필요하지만, 단순회귀분석에선 신경써야할만큼 중요치 않다.<strong>(2) 추정치Estimate</strong>  : <u>이것이 바로 회귀계수로, (Intercept)는 회귀직선의 $y$ 절편, eruptions는 기울기를 나타낸다. </u><u>수식으로 나타내면</u><u>
 $$
 \text{(waiting)} = 33.4744 + 10.7296 \cdot \text{(eruptions)} + \varepsilon 
 $$
 </u><strong>(3) 표준오차Std. Error</strong>  : <u>몰라도 된다.</u> 추정치의 표준오차로써, 이를 사용해서 회귀계수의 신뢰구간을 구할 수 있다.<strong>(4) t value</strong>  : <u>몰라도 된다.</u> 추정치를 표준오차로 나눈 값으로써, 자유도 $n-2$ 의 t분포를 따르는 검정통계량이 된다.이를 통해 회귀계수가 통계적으로 유의한지 <a href="http://freshrimpsushi.tistory.com/654">가설검정</a>을 할 수 있다.<a href="http://freshrimpsushi.tistory.com/537">(5) p값pr(&gt;|t|)</a> : <u>이게 작다는 것은 회귀계수가 유의하다는 뜻이고, 상관관계가 있다는 것을 보이고 싶다면 값이 작을수록 좋다. </u><u>이 값이 얼마나 작은지에 따라 바로 아래에 있는 Signif. codes대로 점이 찍히게 된다. </u><u>보통 유의수준은 5%로 잡으므로, 점 하나만 찍혀도 상관관계는 있다고 봐도 무방하다. </u><u>만약 이 값이 커서 회귀관계가 없는 것으로 밝혀진다면 회귀계수가 어떻게 구해지든 통계적으로는 의미가 없다.</u> 이 p값은 t분포에서 나온 것이므로 pr(&gt;|t|) 라는 표현이 적절함을 알 수 있다.<a href="http://freshrimpsushi.tistory.com/650">(6) 설명력Multiple R-squared</a> : <u>이 분석이 데이터를 얼마나 잘 설명하는가를 나타내는 척도로써, 높을수록 좋다.</u><u> 이 경우 전체 데이터의 81%를 설명하고 있다고 받아들여도 무방하다.</u>그러면 이제 회귀직선을 직접 그어서 회귀분석이 정말 잘 되었는지 눈으로 확인해보도록 하자.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">3</span>)
-<span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>))
-<span style="color:#a6e22e">plot</span>(faithful, main <span style="color:#f92672">=</span><span style="color:#e6db74">&#34;faithful&#34;</span>,asp<span style="color:#f92672">=</span>T)
-<span style="color:#a6e22e">abline</span>(out1,col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;#47C83E&#39;</span>,lwd<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
-<span style="color:#a6e22e">plot</span>(faithful, main <span style="color:#f92672">=</span><span style="color:#e6db74">&#34;faithful&#34;</span>)
-<span style="color:#a6e22e">abline</span>(out1,col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;#47C83E&#39;</span>,lwd<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
-</code></pre></div><p><img filemime="image/png" filename="34.png" height="280" src="https://t1.daumcdn.net/cfile/tistory/99F2EA3E5D2D3CC21A" style="text-align: center;" width="568"/>위 그래프에서 녹색이 바로 회귀직선으로써, 데이터들을 적절하게 관통함을 확인할 수 있다.아래는 전체 예제코드다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-<span style="color:#a6e22e">head</span>(faithful)
+<pre><code>win.graph(6,3)
+par(mfrow=c(1,2))
+plot(faithful, main =&quot;faithful&quot;,asp=T)
+abline(out1,col='#47C83E',lwd=2)
+plot(faithful, main =&quot;faithful&quot;)
+abline(out1,col='#47C83E',lwd=2)
+</code></pre><p><img src="34.png#center" alt="34.png">
+위 그래프에서 녹색이 바로 회귀직선으로써, 데이터들을 적절하게 관통함을 확인할 수 있다.아래는 전체 예제코드다.</p>
+<pre><code>head(faithful)
  
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">3</span>)
-<span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>))
-<span style="color:#a6e22e">plot</span>(faithful, main <span style="color:#f92672">=</span><span style="color:#e6db74">&#34;faithful&#34;</span>,asp<span style="color:#f92672">=</span>T)
-<span style="color:#a6e22e">plot</span>(faithful, main <span style="color:#f92672">=</span><span style="color:#e6db74">&#34;faithful&#34;</span>)
-<span style="color:#a6e22e">points</span>(<span style="color:#a6e22e">head</span>(faithful),col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>,pch<span style="color:#f92672">=</span><span style="color:#ae81ff">19</span>)
+win.graph(6,3)
+par(mfrow=c(1,2))
+plot(faithful, main =&quot;faithful&quot;,asp=T)
+plot(faithful, main =&quot;faithful&quot;)
+points(head(faithful),col='red',pch=19)
  
-out1<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span>(waiting<span style="color:#f92672">~</span>eruptions,data<span style="color:#f92672">=</span>faithful); <span style="color:#a6e22e">summary</span>(out1)
+out1&lt;-lm(waiting~eruptions,data=faithful); summary(out1)
  
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">3</span>)
-<span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>))
-<span style="color:#a6e22e">plot</span>(faithful, main <span style="color:#f92672">=</span><span style="color:#e6db74">&#34;faithful&#34;</span>,asp<span style="color:#f92672">=</span>T)
-<span style="color:#a6e22e">abline</span>(out1,col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;#47C83E&#39;</span>,lwd<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
-<span style="color:#a6e22e">plot</span>(faithful, main <span style="color:#f92672">=</span><span style="color:#e6db74">&#34;faithful&#34;</span>)
-<span style="color:#a6e22e">abline</span>(out1,col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;#47C83E&#39;</span>,lwd<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
-</code></pre></div>
+win.graph(6,3)
+par(mfrow=c(1,2))
+plot(faithful, main =&quot;faithful&quot;,asp=T)
+abline(out1,col='#47C83E',lwd=2)
+plot(faithful, main =&quot;faithful&quot;)
+abline(out1,col='#47C83E',lwd=2)
+</code></pre>
 
             </div>
 
@@ -137,7 +129,7 @@ out1<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -149,11 +141,13 @@ out1<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -178,6 +172,8 @@ out1<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -204,8 +200,6 @@ out1<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -236,8 +230,6 @@ out1<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

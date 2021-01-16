@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="서열정렬 점수와 갭 페널티">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>서열정렬 점수와 갭 페널티</title>
@@ -65,12 +68,20 @@
 
 
 <h2 id="heading"></h2>
-<p>레퍼런스 서열과 쿼리 서열이 주어져 있다고 하자. <strong>서열정렬 점수</strong> 란 두 서열을 비교했을 때 얼마나 일치하는지를 수치화하는 것과 그 방법을 말한다. 점수화는 다음과 같은 사항들에 가중치를 주어 계산된다.<strong>1. Match</strong> : 두 서열이 일치하는 횟수다.<strong>2. Mismatch</strong> : 두 서열이 일치하지 않는 횟수다.<img src="20201111_191555.png#center" alt="img">예로써 위와 같은 두 <a href="https://freshrimpsushi.github.io/posts/1828">염기서열</a>이 있다고 하자. 이때 서열정렬을 하는 방법은 여러가지가 있겠지만, 어떤 정렬이 가장 좋은지에 대해서는 비교적 객관적인 근거가 있어야할 것이다. 이 예시에서의 두 서열은 길이가 같지 않기 때문에 뒷부분은 밀려쓰게 될텐데, 그것을 방지하기 위해 <strong>갭</strong><sup>Gap</sup> 을 추가할 것이다.<img filemime="image/jpeg" filename="20201111_191601.png" height="83" src="https://t1.daumcdn.net/cfile/tistory/99A0DC475FACFE330D" style="text-align: center;" width="183"/>이 둘이 얼마나 일치하는지에 대해서 수치화하고 싶다면 매치와 미스매치 수에 비례한 점수를 주는 것이 합리적일 것이다. 매치는 6회, 빨간색 미스매치는 2회다. 여기서 두 개의 점수 체계 A, B를 생각해보자. A 체계는 매치에 2점, 미스매치에 -1점을 주고, B 체계는 매치에 1점, 미스매치에 -2점을 준다면 A 체계로는 $2\cdot 6 - 1 \cdot 2= 10$점, B체계로는 $1\cdot 6 - 2 \cdot 2= 2$점이 될 것이다. 이는 얼마나 같냐와 얼마나 다르냐라는 두 관점으로 정렬을 평가한 것으로 볼 수 있다. 이하로는 매치에 1점, 미스매치에 -1점을 주도록 하자. 그러면 위의 정렬은 $6-2=4$점이 된다.매치와 미스매치에 따른 가산점과 감점은 우리가 임의로 줘도 좋지만, 이미 널리 쓰이고 있는 점수표를 사용할 수도 있다. 이른바 치환행렬이라는 것으로, 꼭 염기서열이 아니라도 단백질서열에도 쓰일 수 있으며 다른 문자라도 얼마나 비슷한지가 반영되어 세밀한 점수 부여가 가능하다.한편 밀려쓰기를 방지하기 위해 갭을 추가했다지만 엄연히 그것도 차이점이므로 감점을 주려고 하는데, 이를 <strong>갭 페널티</strong> 라고 한다.<strong>3. Gap</strong> : 길이를 맞추기 위해 빈칸이 추가되어야하는 횟수다.<strong>3-1. Constant Gap Penalty</strong> : 갭이 있으면 감점한다.<strong>3-2. Linear Gap Penalty</strong> : 갭의 수만큼 감점한다.<strong>3-3. Affine Gap Penalty</strong> : 갭이 있는 부분과 그 길이로 감점한다.<strong>3-3-1. Open (Gap Penalty)</strong> : 갭으로 이어진 부분이 시작되는 지점의 수다.<strong>3-3-1. Extension (Gap Penalty)</strong> : 오픈 뒤로 이어지는 갭의 수를 모두 더한 것이다.Constant로 갭 페널티 -10을 준다면 아래 정렬의 점수는 $4-10 = -6$점이다. Linear로 갭 페널티 -1을 주면 갭의 수에 비례해 $4-1\cdot 5 = -1$ 점이다.<img filemime="image/jpeg" filename="20201111_191606.png" height="86" src="https://t1.daumcdn.net/cfile/tistory/9991E8475FACFE3308" style="text-align: center;" width="191"/>Affine Gap Penalty는 가장 널리 쓰이는 방식이다. Open은 말 그대로 갭의 구간을 열고, Extension은 열린 구간이 얼마나 확장되는지를 나타낸다. Open의 갭 페널티를 -2, extension의 갭 페널티를 -1이라 주면 갭의 구간이 둘이므로 Open은 2, Extension은 그 둘을 뺀 $5-2=3$ 개가 되어 최종 점수는 $10-2\cdot 2 - 1 \cdot 3 = 3$점이다.<img filemime="image/jpeg" filename="20201111_191612.png" height="82" src="https://t1.daumcdn.net/cfile/tistory/99F1F3475FACFE330F" style="text-align: center;" width="180"/>갭 페널티에 붙은 명명들이 타당하다는 것은 다음 그림을 보면 쉽게 이해할 수 있다. Constant는 갭이 있는 것 자체로 페널티를 주고, Linear는 페널티의 수만큼 비례해서 준다. <strong>아핀</strong>  혹은 <strong>아파인</strong> 이 붙은 말은 수학 전반에서 &lsquo;평행이동&rsquo;을 포함하고, 갭 페널티를 나타내는 직선이 평행이동이라는 개념과 잘 맞아떨어진다.<img filemime="image/jpeg" filename="Comparison_of_Gap_Penalty_Funcitons.png" height="480" src="https://t1.daumcdn.net/cfile/tistory/99F40B475FACFE330F" style="text-align: center;" width="640"/><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<p>레퍼런스 서열과 쿼리 서열이 주어져 있다고 하자. <strong>서열정렬 점수</strong> 란 두 서열을 비교했을 때 얼마나 일치하는지를 수치화하는 것과 그 방법을 말한다. 점수화는 다음과 같은 사항들에 가중치를 주어 계산된다.<strong>1. Match</strong> : 두 서열이 일치하는 횟수다.<strong>2. Mismatch</strong> : 두 서열이 일치하지 않는 횟수다.</p>
+<p><img src="20201111_191555.png#center" alt="20201111\_191555.png">
+예로써 위와 같은 두 <a href="https://freshrimpsushi.github.io/posts/1828">염기서열</a>이 있다고 하자. 이때 서열정렬을 하는 방법은 여러가지가 있겠지만, 어떤 정렬이 가장 좋은지에 대해서는 비교적 객관적인 근거가 있어야할 것이다. 이 예시에서의 두 서열은 길이가 같지 않기 때문에 뒷부분은 밀려쓰게 될텐데, 그것을 방지하기 위해 <strong>갭</strong><sup>Gap</sup> 을 추가할 것이다.<img src="20201111_191601.png#center" alt="20201111\_191601.png">
+이 둘이 얼마나 일치하는지에 대해서 수치화하고 싶다면 매치와 미스매치 수에 비례한 점수를 주는 것이 합리적일 것이다. 매치는 6회, 빨간색 미스매치는 2회다. 여기서 두 개의 점수 체계 A, B를 생각해보자. A 체계는 매치에 2점, 미스매치에 -1점을 주고, B 체계는 매치에 1점, 미스매치에 -2점을 준다면 A 체계로는 $2\cdot 6 - 1 \cdot 2= 10$점, B체계로는 $1\cdot 6 - 2 \cdot 2= 2$점이 될 것이다. 이는 얼마나 같냐와 얼마나 다르냐라는 두 관점으로 정렬을 평가한 것으로 볼 수 있다. 이하로는 매치에 1점, 미스매치에 -1점을 주도록 하자. 그러면 위의 정렬은 $6-2=4$점이 된다.매치와 미스매치에 따른 가산점과 감점은 우리가 임의로 줘도 좋지만, 이미 널리 쓰이고 있는 점수표를 사용할 수도 있다. 이른바 치환행렬이라는 것으로, 꼭 염기서열이 아니라도 단백질서열에도 쓰일 수 있으며 다른 문자라도 얼마나 비슷한지가 반영되어 세밀한 점수 부여가 가능하다.한편 밀려쓰기를 방지하기 위해 갭을 추가했다지만 엄연히 그것도 차이점이므로 감점을 주려고 하는데, 이를 <strong>갭 페널티</strong> 라고 한다.</p>
+<p><strong>3. Gap</strong> : 길이를 맞추기 위해 빈칸이 추가되어야하는 횟수다.<strong>3-1. Constant Gap Penalty</strong> : 갭이 있으면 감점한다.<strong>3-2. Linear Gap Penalty</strong> : 갭의 수만큼 감점한다.<strong>3-3. Affine Gap Penalty</strong> : 갭이 있는 부분과 그 길이로 감점한다.<strong>3-3-1. Open (Gap Penalty)</strong> : 갭으로 이어진 부분이 시작되는 지점의 수다.<strong>3-3-1. Extension (Gap Penalty)</strong> : 오픈 뒤로 이어지는 갭의 수를 모두 더한 것이다.</p>
+<p>Constant로 갭 페널티 -10을 준다면 아래 정렬의 점수는 $4-10 = -6$점이다. Linear로 갭 페널티 -1을 주면 갭의 수에 비례해 $4-1\cdot 5 = -1$ 점이다.<img src="20201111_191606.png#center" alt="20201111\_191606.png">
+Affine Gap Penalty는 가장 널리 쓰이는 방식이다. Open은 말 그대로 갭의 구간을 열고, Extension은 열린 구간이 얼마나 확장되는지를 나타낸다. Open의 갭 페널티를 -2, extension의 갭 페널티를 -1이라 주면 갭의 구간이 둘이므로 Open은 2, Extension은 그 둘을 뺀 $5-2=3$ 개가 되어 최종 점수는 $10-2\cdot 2 - 1 \cdot 3 = 3$점이다.<img src="20201111_191612.png#center" alt="20201111\_191612.png">
+갭 페널티에 붙은 명명들이 타당하다는 것은 다음 그림을 보면 쉽게 이해할 수 있다. Constant는 갭이 있는 것 자체로 페널티를 주고, Linear는 페널티의 수만큼 비례해서 준다. <strong>아핀</strong>  혹은 <strong>아파인</strong> 이 붙은 말은 수학 전반에서 &lsquo;평행이동&rsquo;을 포함하고, 갭 페널티를 나타내는 직선이 평행이동이라는 개념과 잘 맞아떨어진다.<img src="Comparison_of_Gap_Penalty_Funcitons.png#center" alt="Comparison\_of\_Gap\_Penalty\_Funcitons.png">
+<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://en.wikipedia.org/wiki/Gap_penalty">https://en.wikipedia.org/wiki/Gap_penalty</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Gap">https://en.wikipedia.org/wiki/Gap</a>_penalty <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -93,7 +104,7 @@
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -105,11 +116,13 @@
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -134,6 +147,8 @@
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -160,8 +175,6 @@
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -192,8 +205,6 @@
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

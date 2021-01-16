@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="확장자기상관함수">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>확장자기상관함수</title>
@@ -65,7 +68,7 @@
 
 
 <h2 id="heading"></h2>
-<p><a href="https://freshrimpsushi.github.io/posts/1209">ACF : 자기상관함수</a><a href="https://freshrimpsushi.github.io/posts/1211">PACF : 편자기상관함수</a><a href="https://freshrimpsushi.github.io/posts/1227">CCF : 교차상관함수</a><a href="https://freshrimpsushi.github.io/posts/1216">R 에서 EACF로 ARMA 모형 선택법</a><a href="https://freshrimpsushi.github.io/posts/1211">PACF</a>는 <a href="https://freshrimpsushi.github.io/posts/910">$AR(p)$</a>의 차수를, <a href="https://freshrimpsushi.github.io/posts/1209">ACF</a>는 <a href="https://freshrimpsushi.github.io/posts/909">$MA(q)$</a> 의 차수를 정할 때 큰 도움이 된다. 하지만 $ARMA(p,q)$ 모형에 적용시킬 땐 <a href="https://freshrimpsushi.github.io/posts/1208">아르마 모형의 가역성</a> 때문에 $AR(p)$ 라도 $MA(\infty)$ 처럼 보일 수 있고, $MA(q)$ 라도 $AR(\infty)$ 처럼 보일 수 있다. 따라서 이러한 문제를 회피하고 <a href="https://freshrimpsushi.github.io/posts/914">아르마 모형</a>을 찾기위한 여러가지 방법이 고안되었다. <strong>확장자기상관함수</strong> 는 그 중의 한 방법으로, 다음과 같이 정의되는 $W_{t,k,j}$ 를 시차 $k$ 와 $j$ 에 대한 **EACF** 라고 한다.
+<p><a href="https://freshrimpsushi.github.io/posts/1209">ACF : 자기상관함수</a><a href="https://freshrimpsushi.github.io/posts/1211">PACF : 편자기상관함수</a><a href="https://freshrimpsushi.github.io/posts/1227">CCF : 교차상관함수</a><a href="https://freshrimpsushi.github.io/posts/1216">R 에서 EACF로 ARMA 모형 선택법</a><a href="https://freshrimpsushi.github.io/posts/1211">PACF</a>는 <a href="https://freshrimpsushi.github.io/posts/910">$AR(p)$</a>의 차수를, <a href="https://freshrimpsushi.github.io/posts/1209">ACF</a>는 <a href="https://freshrimpsushi.github.io/posts/909">$MA(q)$</a> 의 차수를 정할 때 큰 도움이 된다. 하지만 $ARMA(p,q)$ 모형에 적용시킬 땐 <a href="https://freshrimpsushi.github.io/posts/1208">아르마 모형의 가역성</a> 때문에 $AR(p)$ 라도 $MA(\infty)$ 처럼 보일 수 있고, $MA(q)$ 라도 $AR(\infty)$ 처럼 보일 수 있다. 따라서 이러한 문제를 회피하고 <a href="https://freshrimpsushi.github.io/posts/914">아르마 모형</a>을 찾기위한 여러가지 방법이 고안되었다. <strong>확장자기상관함수</strong> 는 그 중의 한 방법으로, 다음과 같이 정의되는 $W_{t,k,j}$ 를 시차 $k$ 와 $j$ 에 대한 <strong>EACF</strong> 라고 한다.
 $$
 W_{t,k,j} := Y_{t} - \tilde{\phi}_{1} Y_{t-1} - \cdots - \tilde{\phi}_{k} Y_{t-k}
 $$
@@ -81,7 +84,8 @@ $$
 $$
  \displaystyle W_{t,k,j} = e_{t} - \sum_{i = 1}^{j} \theta_{i} e_{t-i} 
 $$
-그러면 $W_{t,k,j}$ 는 <a href="https://freshrimpsushi.github.io/posts/1209">ACF</a>가 그러했듯 정규분포 $\displaystyle N \left( 0 , {{1} \over {n - k - j}}\right)$ 를 따르고, 이를 이용해 가설검정을 한다.위의 전개를 쉽게 말하자면 복잡하게 얽힌 <a href="https://freshrimpsushi.github.io/posts/914">아르마 모형</a> $ARMA(k,j)$ 에서 시차 $k$ 를 주어 $AR(k)$ 를 제거시키고, 거기서 시차 $j$ 를 주어 $MA(j)$ 만 생각해서 각개격파하는 것이다. $MA(j)$ 를 파악하기 위해서는 결국 <a href="https://freshrimpsushi.github.io/posts/1209">ACF</a>가 쓰여야하므로 **확장자기상관함수** 라는 이름이 붙은 것은 적절하다고 할 수 있다.<img filemime="image/jpeg" filename="20190724_150509.png" height="272" src="https://t1.daumcdn.net/cfile/tistory/99B3EE3D5D37F52843" style="text-align: center;" width="602"/>시차가 두 개의 축으로 나열되어 있으므로 <a href="https://freshrimpsushi.github.io/posts/1209">ACF</a>나 <a href="https://freshrimpsushi.github.io/posts/1211">PACF</a>와 달리 코릴로그램은 그릴 수 없고<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 위와 같이 O와 X로 귀무가설을 기각했냐 못했느냐만 나타내는 테이블을 사용한다. 단, 이 테이블은 실제 데이터에서 얻은 것이 아니라 분석이 잘 되는 $ARMA(1,1)$ 모형에 대해 분석을 했을 때 나와야할 이론적인 도식일 뿐이다. 실제로 저렇게까지 깔끔하게 나와주는 경우는 <a href="https://freshrimpsushi.github.io/posts/1216">거의 없다.</a>테이블을 읽는 법은 다음과 같다 : **Step 1.**  왼쪽 위에서 오른쪽 수평으로 이어지는 선이 있는  꼭짓점을 찾는다.**Step 2.**  꼭짓점에서 오른쪽 아래로 떨어져서 수평선과 예각을 이루는 선을 찾는다.**Step 3.**  두 선을 찾았다면, 꼭짓점에 해당하는 $ARMA(p,q)$ 로 분석을 해본다.위와 같은 방법에 따르면 저 그림에서는 꼭짓점 O*에 해당하는 $ARMA(1,1)$ 가 모형의 후보가 된다. 시계열을 어느정도 똑바로 공부했고 설명을 잘 읽었다면 짐작할 수 있겠지만, 실제 분석에선 상당히 주관적이고 애매한 경우가 많다. 이에 대해선 실제로 분석을 많이 해보면서 익숙해지는 방법밖에 없다.각주</p>
+그러면 $W_{t,k,j}$ 는 <a href="https://freshrimpsushi.github.io/posts/1209">ACF</a>가 그러했듯 정규분포 $\displaystyle N \left( 0 , {{1} \over {n - k - j}}\right)$ 를 따르고, 이를 이용해 가설검정을 한다.위의 전개를 쉽게 말하자면 복잡하게 얽힌 <a href="https://freshrimpsushi.github.io/posts/914">아르마 모형</a> $ARMA(k,j)$ 에서 시차 $k$ 를 주어 $AR(k)$ 를 제거시키고, 거기서 시차 $j$ 를 주어 $MA(j)$ 만 생각해서 각개격파하는 것이다. $MA(j)$ 를 파악하기 위해서는 결국 <a href="https://freshrimpsushi.github.io/posts/1209">ACF</a>가 쓰여야하므로 <strong>확장자기상관함수</strong> 라는 이름이 붙은 것은 적절하다고 할 수 있다.<img src="20190724_150509.png#center" alt="20190724\_150509.png">
+시차가 두 개의 축으로 나열되어 있으므로 <a href="https://freshrimpsushi.github.io/posts/1209">ACF</a>나 <a href="https://freshrimpsushi.github.io/posts/1211">PACF</a>와 달리 코릴로그램은 그릴 수 없고<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 위와 같이 O와 X로 귀무가설을 기각했냐 못했느냐만 나타내는 테이블을 사용한다. 단, 이 테이블은 실제 데이터에서 얻은 것이 아니라 분석이 잘 되는 $ARMA(1,1)$ 모형에 대해 분석을 했을 때 나와야할 이론적인 도식일 뿐이다. 실제로 저렇게까지 깔끔하게 나와주는 경우는 <a href="https://freshrimpsushi.github.io/posts/1216">거의 없다.</a>테이블을 읽는 법은 다음과 같다 : <strong>Step 1.</strong>  왼쪽 위에서 오른쪽 수평으로 이어지는 선이 있는  꼭짓점을 찾는다.<strong>Step 2.</strong>  꼭짓점에서 오른쪽 아래로 떨어져서 수평선과 예각을 이루는 선을 찾는다.<strong>Step 3.</strong>  두 선을 찾았다면, 꼭짓점에 해당하는 $ARMA(p,q)$ 로 분석을 해본다.위와 같은 방법에 따르면 저 그림에서는 꼭짓점 O*에 해당하는 $ARMA(1,1)$ 가 모형의 후보가 된다. 시계열을 어느정도 똑바로 공부했고 설명을 잘 읽었다면 짐작할 수 있겠지만, 실제 분석에선 상당히 주관적이고 애매한 경우가 많다. 이에 대해선 실제로 분석을 많이 해보면서 익숙해지는 방법밖에 없다.각주</p>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -109,7 +113,7 @@ $$
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -121,11 +125,13 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -150,6 +156,8 @@ $$
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -176,8 +184,6 @@ $$
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -208,8 +214,6 @@ $$
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="시계열 분석에서의 이분산성과 변동성 군집현상">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>시계열 분석에서의 이분산성과 변동성 군집현상</title>
@@ -65,22 +68,24 @@
 
 
 <h2 id="heading"></h2>
-<p><a href="https://freshrimpsushi.github.io/posts/900">시계열 데이터</a> $\left\{ p_{t} \right\}$ 가 주어져 있다고 하자.**1.**  $\left\{ p_{t} \right\}$ 의 분산이 $t$ 에 종속되어있을 때, $\left\{ p_{t} \right\}$ 는 **이분산성** 을 가진다고 한다.**2.**  이분산성을 가지는 $\left\{ p_{t} \right\}$ 의 분산이 커졌다 작아졌다를 반복하는 현상을 **변동성 군집현상** 이라고 한다.**3.**  다음과 같이 정의된 $r_{t}$ 를 $t$ 에서의 **(로그) 리턴**<sup>Return</sup> 이라고 한다.
+<p><a href="https://freshrimpsushi.github.io/posts/900">시계열 데이터</a> $\left\{ p_{t} \right\}$ 가 주어져 있다고 하자.<strong>1.</strong>  $\left\{ p_{t} \right\}$ 의 분산이 $t$ 에 종속되어있을 때, $\left\{ p_{t} \right\}$ 는 <strong>이분산성</strong> 을 가진다고 한다.<strong>2.</strong>  이분산성을 가지는 $\left\{ p_{t} \right\}$ 의 분산이 커졌다 작아졌다를 반복하는 현상을 <strong>변동성 군집현상</strong> 이라고 한다.<strong>3.</strong>  다음과 같이 정의된 $r_{t}$ 를 $t$ 에서의 <strong>(로그) 리턴</strong><sup>Return</sup> 이라고 한다.
 $$
 r_{t} := \nabla \log p_{t} = \log {{ p_{t} } \over { p_{t-1} }}
-$$
-Heteroscedasticity는 [헤테로스케다스틱시리]라고 읽고, Volatility Clustering는 [볼라터러티 클러스터링]이라고 읽는다. 두 단어 모두 한국어로 설명된 문서가 별로 없는데, 아무래도 이것을 공부한 사람들이 순화할 필요성을 못 느끼기 때문일 것이다. 실제로 이분산성이나 변동성 군집현상을 글로 적고 읽으면서는 크게 어색할 게 없지만, 말을 할 때는 헤테로스케다스틱시리, 볼라터러티 클러스터링이라는 긴 단어를 그대로 발음하는 경우가 많다.**1. 이분산성**  : <a href="https://freshrimpsushi.github.io/posts/941">아리마 모델</a>은 거의 대부분의 통계적 분석이 그러하듯 데이터의 평균에 관심을 가진다. 실제 값이 어떻게 움직이는지가 중요한 것이다. 그런데 데이터의 값 자체만 시간에 종속적인 것이 아니라 그 변동 자체도 시간의 흐름에 따라 바뀐다는 가정을 할 수도 있다. 이분산성이라는 단어 자체가 그래서 만들어졌다. <a href="https://freshrimpsushi.github.io/posts/900">시계열 데이터</a>의 분산이 시간에 무관하게 항상 일정하다면 필요 없는 말이다.시계열의 분산에 관심을 가지는 것은 보통 경제, 금융 분야다. 데이터의 변동은 가치의 변화를 나타내며, 어떤 자산의 위험성을 논할 때 곧바로 쓰일 수 있다. 위험은 이익의 다른 모습일 뿐이므로 관심의 대상이 될 수밖에 없다. <a href="https://freshrimpsushi.github.io/posts/900">시계열 데이터</a>를 표현할 때 보통은 $\left\{ y_{t} \right\}$ 이라고 쓰는데, 이분산성에 관심을 둘 때는 $\left\{ p_{t} \right\}$ 이라고 쓰는 것도 그 때문이다. $p_{t}$ 의 $p$ 는 Price에서 나온 것이다.**2. 변동성 군집현상**  : 분산이 커졌다 작아졌다를 반복하는 것을 변동성 군집현상이라고 부르고, 이러한 단어가 있는 이유는 간단하다. 시장에서 변동성이 계속 커지거나 작아지기만 하는 경우는 없고, 있다고 해도 통계적 분석을 해야할만큼 복잡한 데이터는 아닐 것이기 때문이다. 통계학적으로 좀 더 <a href="https://freshrimpsushi.github.io/posts/1280">우아하게 표현</a>할 수도 있지만, 우선은 이 정도 설명으로 넘어가자. **3. 리턴**  : 리턴은 이러한 이분산성을 <a href="https://freshrimpsushi.github.io/posts/1278">파악</a>하고 <a href="https://freshrimpsushi.github.io/posts/1282">분석</a>하는데에 유용한 표현이다. 로그를 취함으로써 $p_{t}$ 가 $p_{t-1}$ 보다 크면(가격이 오르면) 양수, 작으면(가격이 떨어지면) 음수가 되며, 백분율로 보기 편하도록 100을 곱하기도 한다. 단순히 값의 차이가 큰지 작은지가 아니라 그 전 데이터와의 비율을 사용하는 것이므로 데이터의 고유한 특징에 크게 구애받지 않는 것 역시 좋은 점이다.<img src="1.png#center" alt="img">위의 그래프는 <a href="https://freshrimpsushi.github.io/posts/331">내장데이터</a> EuStockMarkets에서 DAX만 뽑아내서 그린 것으로, 1991년부터 1999년까지 독일 DAX지수를 나타낸다. <img filemime="image/jpeg" filename="2.png" height="384" src="https://t1.daumcdn.net/cfile/tistory/995D07495D6B7C100F" style="text-align: center;" width="576"/>리턴은 위와 같이 그려지는데, 아래와 같이 변동성의 크고 작음이 번갈아가면서 나타나는 것처럼 보인다면 변동성 군집현상이 무엇인지 이해했다고 보아도 좋다. 그렇게 보이지 않아도 좋다. 이렇게 &lsquo;감에 의존한 주장&rsquo;을 견고하게 만드는 것이 통계학의 역할이고, 아직은 아무런 <a href="https://freshrimpsushi.github.io/posts/1280">통계 기법</a>도 쓰지 않았기 때문이다.<img filemime="image/jpeg" filename="20190901_170714.png" height="355" src="https://t1.daumcdn.net/cfile/tistory/991380435D6B7C4116" style="max-width:100%;height:auto" width="543"/></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-returnize <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data) {<span style="color:#a6e22e">return</span>(<span style="color:#a6e22e">diff</span>(<span style="color:#a6e22e">log</span>(data)))}
+$$</p>
+<p>Heteroscedasticity는 [헤테로스케다스틱시리]라고 읽고, Volatility Clustering는 [볼라터러티 클러스터링]이라고 읽는다. 두 단어 모두 한국어로 설명된 문서가 별로 없는데, 아무래도 이것을 공부한 사람들이 순화할 필요성을 못 느끼기 때문일 것이다. 실제로 이분산성이나 변동성 군집현상을 글로 적고 읽으면서는 크게 어색할 게 없지만, 말을 할 때는 헤테로스케다스틱시리, 볼라터러티 클러스터링이라는 긴 단어를 그대로 발음하는 경우가 많다.<strong>1. 이분산성</strong>  : <a href="https://freshrimpsushi.github.io/posts/941">아리마 모델</a>은 거의 대부분의 통계적 분석이 그러하듯 데이터의 평균에 관심을 가진다. 실제 값이 어떻게 움직이는지가 중요한 것이다. 그런데 데이터의 값 자체만 시간에 종속적인 것이 아니라 그 변동 자체도 시간의 흐름에 따라 바뀐다는 가정을 할 수도 있다. 이분산성이라는 단어 자체가 그래서 만들어졌다. <a href="https://freshrimpsushi.github.io/posts/900">시계열 데이터</a>의 분산이 시간에 무관하게 항상 일정하다면 필요 없는 말이다.시계열의 분산에 관심을 가지는 것은 보통 경제, 금융 분야다. 데이터의 변동은 가치의 변화를 나타내며, 어떤 자산의 위험성을 논할 때 곧바로 쓰일 수 있다. 위험은 이익의 다른 모습일 뿐이므로 관심의 대상이 될 수밖에 없다. <a href="https://freshrimpsushi.github.io/posts/900">시계열 데이터</a>를 표현할 때 보통은 $\left\{ y_{t} \right\}$ 이라고 쓰는데, 이분산성에 관심을 둘 때는 $\left\{ p_{t} \right\}$ 이라고 쓰는 것도 그 때문이다. $p_{t}$ 의 $p$ 는 Price에서 나온 것이다.<strong>2. 변동성 군집현상</strong>  : 분산이 커졌다 작아졌다를 반복하는 것을 변동성 군집현상이라고 부르고, 이러한 단어가 있는 이유는 간단하다. 시장에서 변동성이 계속 커지거나 작아지기만 하는 경우는 없고, 있다고 해도 통계적 분석을 해야할만큼 복잡한 데이터는 아닐 것이기 때문이다. 통계학적으로 좀 더 <a href="https://freshrimpsushi.github.io/posts/1280">우아하게 표현</a>할 수도 있지만, 우선은 이 정도 설명으로 넘어가자. <strong>3. 리턴</strong>  : 리턴은 이러한 이분산성을 <a href="https://freshrimpsushi.github.io/posts/1278">파악</a>하고 <a href="https://freshrimpsushi.github.io/posts/1282">분석</a>하는데에 유용한 표현이다. 로그를 취함으로써 $p_{t}$ 가 $p_{t-1}$ 보다 크면(가격이 오르면) 양수, 작으면(가격이 떨어지면) 음수가 되며, 백분율로 보기 편하도록 100을 곱하기도 한다. 단순히 값의 차이가 큰지 작은지가 아니라 그 전 데이터와의 비율을 사용하는 것이므로 데이터의 고유한 특징에 크게 구애받지 않는 것 역시 좋은 점이다.<img src="1.png#center" alt="1.png">
+위의 그래프는 <a href="https://freshrimpsushi.github.io/posts/331">내장데이터</a> EuStockMarkets에서 DAX만 뽑아내서 그린 것으로, 1991년부터 1999년까지 독일 DAX지수를 나타낸다. <img src="2.png#center" alt="2.png">
+리턴은 위와 같이 그려지는데, 아래와 같이 변동성의 크고 작음이 번갈아가면서 나타나는 것처럼 보인다면 변동성 군집현상이 무엇인지 이해했다고 보아도 좋다. 그렇게 보이지 않아도 좋다. 이렇게 &lsquo;감에 의존한 주장&rsquo;을 견고하게 만드는 것이 통계학의 역할이고, 아직은 아무런 <a href="https://freshrimpsushi.github.io/posts/1280">통계 기법</a>도 쓰지 않았기 때문이다.<img src="20190901_170714.png#center" alt="20190901\_170714.png"></p>
+<pre><code>
+returnize &lt;- function(data) {return(diff(log(data)))}
 
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>)
-<span style="color:#a6e22e">plot</span>(EuStockMarkets[,<span style="color:#ae81ff">1</span>],main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;EuStockMarkets&#34;</span>,ylab<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;DAX&#39;</span>)
+win.graph(6,4)
+plot(EuStockMarkets[,1],main=&quot;EuStockMarkets&quot;,ylab='DAX')
 
-DAX <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ts</span>(EuStockMarkets[,<span style="color:#ae81ff">1</span>],start<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
-r.DAX <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">returnize</span>(DAX)
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>)
-<span style="color:#a6e22e">plot</span>(r.DAX,type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;h&#39;</span>,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;DAX의 리턴&#39;</span>)
-</code></pre></div>
+DAX &lt;- ts(EuStockMarkets[,1],start=1)
+r.DAX &lt;- returnize(DAX)
+win.graph(6,4)
+plot(r.DAX,type='h',main='DAX의 리턴')
+</code></pre>
 
             </div>
 
@@ -99,7 +104,7 @@ r.DAX <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">retur
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -111,11 +116,13 @@ r.DAX <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">retur
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -140,6 +147,8 @@ r.DAX <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">retur
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -166,8 +175,6 @@ r.DAX <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">retur
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -198,8 +205,6 @@ r.DAX <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">retur
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="단순회귀분석">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>단순회귀분석</title>
@@ -55,8 +58,9 @@
 
 
 <h2 id="heading"></h2>
-<p><a href="http://freshrimpsushi.tistory.com/652">R 에서 단순회귀분석 결과 보러가기</a><a href="http://freshrimpsushi.tistory.com/654">회귀계수의 t검정 보러가기</a>*수학적인 기초가 부족한 비전공자는 수식적인 설명보다는 <u>밑줄 그어진 설명</u>만 읽고 대략 어떤 느낌인지만 알아도 충분하다.<u><a href="http://freshrimpsushi.tistory.com/548">회귀분석이란</a>
-변수 사이의 관계를 알아내는 방법으로써, 특히 <a href="http://freshrimpsushi.tistory.com/57">선형 관계</a>를 밝히는 데 유용하다.</u><u>단순회귀분석은 그 중에서도 가장 쉬운 것으로, 종속변수(반응변수) 하나와 독립변수(설명변수) 하나에 대한 회귀분석을 말한다.</u><img filemime="image/jpeg" filename="99757D375B4B0F0A14.png" height="232" src="https://t1.daumcdn.net/cfile/tistory/9990AF4A5B5F8FFD10" style="max-width:100%;height:auto" width="320"/>독립변수 $x_{i}$ 와 종속변수 $y_{i}$ 가 선형 관계를 가진다는 말은 어떤 $a,b$ 에 대해 $y_{i} = ax_{i} + b$ 로 나타낼 수 있다는 것이다. 물론 실제 데이터에 대해서는 오차가 있을수밖에 없으므로, 정확하게는 오차항을 포함해 $y_{i} = ax_{i} + b + \varepsilon_{i}$ 이 된다. 이제 표현을 회귀분석에 자주 쓰는 모양으로 고쳐보면
+<p><a href="http://freshrimpsushi.tistory.com/652">R 에서 단순회귀분석 결과 보러가기</a><a href="http://freshrimpsushi.tistory.com/654">회귀계수의 t검정 보러가기</a><em>수학적인 기초가 부족한 비전공자는 수식적인 설명보다는 <u>밑줄 그어진 설명</u>만 읽고 대략 어떤 느낌인지만 알아도 충분하다.<u><a href="http://freshrimpsushi.tistory.com/548">회귀분석이란</a>
+변수 사이의 관계를 알아내는 방법으로써, 특히 <a href="http://freshrimpsushi.tistory.com/57">선형 관계</a>를 밝히는 데 유용하다.</u><u>단순회귀분석은 그 중에서도 가장 쉬운 것으로, 종속변수(반응변수) 하나와 독립변수(설명변수) 하나에 대한 회귀분석을 말한다.</u><img src="99757D375B4B0F0A14.png#center" alt="99757D375B4B0F0A14.png">
+독립변수 $x_{i}$ 와 종속변수 $y_{i}$ 가 선형 관계를 가진다는 말은 어떤 $a,b$ 에 대해 $y_{i} = ax_{i} + b$ 로 나타낼 수 있다는 것이다. 물론 실제 데이터에 대해서는 오차가 있을수밖에 없으므로, 정확하게는 오차항을 포함해 $y_{i} = ax_{i} + b + \varepsilon_{i}$ 이 된다. 이제 표현을 회귀분석에 자주 쓰는 모양으로 고쳐보면
 $$
 y_{i} = \beta_{0} + \beta_{1} x_{i} + \varepsilon_{i} 
 $$
@@ -85,7 +89,8 @@ $$
 이고, 정리하면 $Y = X \beta + \varepsilon$ 을 얻는다.이는 <a href="http://freshrimpsushi.tistory.com/356">최소제곱법</a>을 통해 $| \varepsilon |_{2} = | Y - X \beta |_{2}$ 가 최소가 되도록 하는 $\beta = \begin{bmatrix}
 \beta_{0} 
 \\  \beta_{1} 
-\end{bmatrix}$ 을 찾는 문제로 귀결된다. $\beta$ 는 직선의 절편과 기울기를 나타내므로, $\beta$ 를 찾는 것은 데이터를 선형 관계로 설명해줄 직선 중 가장 오차가 작은 것을 찾는 것이다. 물론 우리는 두 변수가 정확히 어떤 관계를 갖고 있는지는 알 수 없으므로 우리는 회귀계수의 추정치 $\hat{ \beta_{0}}$ 과 $\hat{ \beta_{1} }$ 을 찾아야한다. <u>쉽게 말해 데이터랑 제일 비슷하게 생긴 직선을 그으면 된다.</u>&lt;img &ldquo;&quot;=&rdquo;&quot; filemime=&ldquo;image/jpeg&rdquo; filename=&ldquo;20190905_104344.png&rdquo; height=&ldquo;238&rdquo; src=&ldquo;<a href="https://t1.daumcdn.net/cfile/tistory/99DDE33D5D706ADF35%22">https://t1.daumcdn.net/cfile/tistory/99DDE33D5D706ADF35&quot;</a> style=&rdquo;&quot; width=&ldquo;678&rdquo;/&gt;보통 이런 문제는 수치선형대수의 툴을 사용해서 푸는 게 일반적이지만, <u>단순회귀분석은 간단한 미적분학으로도 풀 수 있다.</u> 행렬을 다시 헤쳐서 나타내보면
+\end{bmatrix}$ 을 찾는 문제로 귀결된다. $\beta$ 는 직선의 절편과 기울기를 나타내므로, $\beta$ 를 찾는 것은 데이터를 선형 관계로 설명해줄 직선 중 가장 오차가 작은 것을 찾는 것이다. 물론 우리는 두 변수가 정확히 어떤 관계를 갖고 있는지는 알 수 없으므로 우리는 회귀계수의 추정치 $\hat{ \beta_{0}}$ 과 $\hat{ \beta_{1} }$ 을 찾아야한다. <u>쉽게 말해 데이터랑 제일 비슷하게 생긴 직선을 그으면 된다.</u><img src="20190905_104344.png#center" alt="20190905\_104344.png">
+보통 이런 문제는 수치선형대수의 툴을 사용해서 푸는 게 일반적이지만, <u>단순회귀분석은 간단한 미적분학으로도 풀 수 있다.</u> 행렬을 다시 헤쳐서 나타내보면
 $$
 \begin{eqnarray}
  \varepsilon^2 = \sum_{i=1}^{n} ( y_{i} - \beta_{0} - \beta_{1} x_{i} )^2 
@@ -113,7 +118,7 @@ $$
 $$
 이다. 정리하면
 $$
-\begin{eqnarray*}
+\begin{eqnarray</em>}
  \beta_{1}  &amp;=&amp; {{\sum_{i=1}^{n} x_{i} y_{i} - \sum_{i=1}^{n} x_{i} \overline{y} } \over {\sum_{i=1}^{n} ( x_{i}^2  - \overline{x} x_{i} ) }} 
 \\ &amp;=&amp; {{ \sum_{i=1}^n ( x_{i} - \overline{x} ) ( y_{i} - \overline{y} )  } \over { \sum_{i=1}^{n} (x_{i}^2 - \overline{x}^2 )}} 
 \\ &amp;=&amp; {{ \text{Cov} (X,Y) } \over { \text{Var} ( X ) }} 
@@ -140,7 +145,7 @@ $$
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -152,11 +157,13 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -181,6 +188,8 @@ $$
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -207,8 +216,6 @@ $$
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -239,8 +246,6 @@ $$
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

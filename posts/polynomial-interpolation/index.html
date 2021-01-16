@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="폴리노미얼 인터폴레이션">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>폴리노미얼 인터폴레이션</title>
@@ -67,7 +70,16 @@
 
 
 <h2 id="heading"></h2>
-<p>서로 다른 $x_{0} , \cdots , x_{n}$ 의 데이터 $(x_{0}, y_{0}) , \cdots , (x_{n} , y_{n})$ 에 대해 $p (x_{i} ) = y_{i}$ 와 $\deg p \le n$ 을 만족하는 폴리노미얼 $p$ 를 **폴리노미얼 인터폴레이션** 이라고 한다.**[1] 존재성과 유일성**  : 주어진 데이터에 대해서 $p$ 는 유일하게 존재한다.**[2] <a href="https://freshrimpsushi.github.io/posts/1023">라그랑주 공식</a>**  : $\displaystyle p_{n} (x) = \sum_{i=0}^{n} y_{i} l_{i} (x) $**[3] <a href="https://freshrimpsushi.github.io/posts/1025">뉴턴 계차상 공식</a>**  : $\displaystyle p_{n} (x) = f(x_{0}) + \sum_{i=1}^{n} f [ x_{0} , \cdots , x_{i} ] \prod_{j=0}^{i-1} (x - x_{j} ) $**[4] 실제 함수와의 오차**  : $(n+1)$번 미분가능한 $f : \mathbb{R} \to \mathbb{R}$ 와 어떤 $\xi \in \mathscr{H} \left\{ x_{0} , \cdots , x_{n} \right\} $ 에 대해 $f$ 의 폴리노미얼 인터폴레이션 $p_{n}$ 은 어떤 $t \in \mathbb{R}$ 에 대해 $\displaystyle f(t) - p_{n} (t) = {{ (t - x_{0}) \cdots (t - x_{n}) } \over { (n+1)! }} f^{(n+1)} ( \xi )$ 을 만족한다.**폴리노미얼 인터폴레이션** 은 한국어로 **다항식 보간법** 이라고 순화된다.<img filemime="image/jpeg" filename="20190403_105653.png" height="170" src="https://t1.daumcdn.net/cfile/tistory/9962564C5CA4134017" style="text-align: center;" width="362"/>$\deg p \le n$ 라는 조건은 다른 게 아니라 꼭 $\deg p = n$ 을 만족하는 $p$ 가 항상 존재한다는 보장이 없기 때문이다. 간단한 예로써 $n=2$ 일 때 위와 같이 세 점이 일직선 상에 놓여있다면, $(n+1)=3$개의 점을 지나는 $p_{2} (x) = a_{2} x^{2} + a_{1} x + a_{0}$ 는 존재하지 않지만 그보다 차수가 낮은 $p_{1} (x) = a_{1} x + a_{0}$ 는 존재한다. 이것은 사실 $p_{2} (x) = a_{2} x^{2} + a_{1} x + a_{0}$ 을 찾긴 했지만 $a_{2} = 0$ 인 경우를 의미한다.**[2]** 와 **[3]** 은 생긴 모양은 달라도 사실 **[1]** 에 의해서 서로 같음을 알 수 있다. 본질적으로 두 공식은 정말 말 그대로 $p_{n}$ 을 어떻게 나타내느냐의 차이밖에 없으며, 용도 상 다른 점은 뉴턴 계차상 공식은 새로운 데이터가 추가되었을 때 업데이트가 편하다는 이점이 있다는 정도 뿐이다.**[4]** 는 어떤 함수 $f$ 를 인터폴레이션하는 $p_{n}$ 이 $f$ 와 얼마나 차이가 나느냐를 보여준다. 보통의 경우에 $(n+1)!$ 의 발산 속도는 아주 빠르기 때문에 데이터가 많이 주어질수록 인터폴레이션 $p_{n}$ 의 정확성은 올라간다. 다만 이 공식은 딱히 수렴성을 논하는 것은 아니라는 것에 주의해야한다. 쉬운 예로써 $t$ 가 $\mathscr{H} \left\{ x_{0} , \cdots , x_{n} \right\} $ 에서 정말, 정말 먼 곳에 있는 경우를 생각해볼 수 있다. 또한 $f$ 가 별로 좋지 못해서 미분할때마다 값이 커지고 그것이 심지어 $(n+1)!$ 의 발산속도보다 빠르다면 얼마든지 이상해질 수 있다.**Strategy[1]**  : $(n+1)$개의 연립방정식을 행렬로 나타낸 후 역행렬의 존재성과 유일성을 동시에 가져온다.</p>
+<p>서로 다른 $x_{0} , \cdots , x_{n}$ 의 데이터 $(x_{0}, y_{0}) , \cdots , (x_{n} , y_{n})$ 에 대해 $p (x_{i} ) = y_{i}$ 와 $\deg p \le n$ 을 만족하는 폴리노미얼 $p$ 를 <strong>폴리노미얼 인터폴레이션</strong> 이라고 한다.</p>
+<p>[1] 존재성과 유일성**  : 주어진 데이터에 대해서 $p$ 는 유일하게 존재한다.</p>
+<p>[2] <a href="https://freshrimpsushi.github.io/posts/1023">라그랑주 공식</a>**  : $\displaystyle p_{n} (x) = \sum_{i=0}^{n} y_{i} l_{i} (x) $</p>
+<p>[3] <a href="https://freshrimpsushi.github.io/posts/1025">뉴턴 계차상 공식</a>**  : $\displaystyle p_{n} (x) = f(x_{0}) + \sum_{i=1}^{n} f [ x_{0} , \cdots , x_{i} ] \prod_{j=0}^{i-1} (x - x_{j} ) $</p>
+<p>[4] 실제 함수와의 오차**  : $(n+1)$번 미분가능한 $f : \mathbb{R} \to \mathbb{R}$ 와 어떤 $\xi \in \mathscr{H} \left\{ x_{0} , \cdots , x_{n} \right\} $ 에 대해 $f$ 의 폴리노미얼 인터폴레이션 $p_{n}$ 은 어떤 $t \in \mathbb{R}$ 에 대해 $\displaystyle f(t) - p_{n} (t) = {{ (t - x_{0}) \cdots (t - x_{n}) } \over { (n+1)! }} f^{(n+1)} ( \xi )$ 을 만족한다.</p>
+<p><strong>폴리노미얼 인터폴레이션</strong> 은 한국어로 <strong>다항식 보간법</strong> 이라고 순화된다.<img src="20190403_105653.png#center" alt="20190403\_105653.png">
+$\deg p \le n$ 라는 조건은 다른 게 아니라 꼭 $\deg p = n$ 을 만족하는 $p$ 가 항상 존재한다는 보장이 없기 때문이다. 간단한 예로써 $n=2$ 일 때 위와 같이 세 점이 일직선 상에 놓여있다면, $(n+1)=3$개의 점을 지나는 $p_{2} (x) = a_{2} x^{2} + a_{1} x + a_{0}$ 는 존재하지 않지만 그보다 차수가 낮은 $p_{1} (x) = a_{1} x + a_{0}$ 는 존재한다. 이것은 사실 $p_{2} (x) = a_{2} x^{2} + a_{1} x + a_{0}$ 을 찾긴 했지만 $a_{2} = 0$ 인 경우를 의미한다.</p>
+<p>[2]** 와 **[3]** 은 생긴 모양은 달라도 사실 **[1]** 에 의해서 서로 같음을 알 수 있다. 본질적으로 두 공식은 정말 말 그대로 $p_{n}$ 을 어떻게 나타내느냐의 차이밖에 없으며, 용도 상 다른 점은 뉴턴 계차상 공식은 새로운 데이터가 추가되었을 때 업데이트가 편하다는 이점이 있다는 정도 뿐이다.</p>
+<p>[4]** 는 어떤 함수 $f$ 를 인터폴레이션하는 $p_{n}$ 이 $f$ 와 얼마나 차이가 나느냐를 보여준다. 보통의 경우에 $(n+1)!$ 의 발산 속도는 아주 빠르기 때문에 데이터가 많이 주어질수록 인터폴레이션 $p_{n}$ 의 정확성은 올라간다. 다만 이 공식은 딱히 수렴성을 논하는 것은 아니라는 것에 주의해야한다. 쉬운 예로써 $t$ 가 $\mathscr{H} \left\{ x_{0} , \cdots , x_{n} \right\} $ 에서 정말, 정말 먼 곳에 있는 경우를 생각해볼 수 있다. 또한 $f$ 가 별로 좋지 못해서 미분할때마다 값이 커지고 그것이 심지어 $(n+1)!$ 의 발산속도보다 빠르다면 얼마든지 이상해질 수 있다.
+Strategy[1]**  : $(n+1)$개의 연립방정식을 행렬로 나타낸 후 역행렬의 존재성과 유일성을 동시에 가져온다.</p>
 <h2 id="증명1">증명[1]</h2>
 <p>모든 $i = 0, \cdots , n$ 에 대해 $y_{i} = p_{n} (x_{i}) = a_{0} + a_{1} x_{i} + \cdots + a_{n} x_{i}^{n} $ 을 만족하는 $p_{n}$ 의 계수 $a_{0} , a_{1} , \cdots , a_{n}$ 가 유일함을 보이면 된다. $\mathbb{y} := \begin{bmatrix}
 y_{0} 
@@ -103,17 +115,20 @@ a_{0}
 \\  a_{n} 
 \end{bmatrix}
 $$
-이제 $\mathbb{y} = X \mathbb{a}$ 를 만족하는 해 $\mathbb{a}$ 를 찾는 문제로 바뀌었다.<a href="https://freshrimpsushi.github.io/posts/736">방데르몽드 행렬의 행렬식</a>$X$ 의 행렬식은 $\displaystyle \det X = \prod_{1 \le i &lt; j \le n } (x_{j} - x_{i})$가정에서 $x_{0} , \cdots , x_{n}$ 는 서로 다르므로 $\det X \ne 0$ 이고, $X^{-1}$ 이 존재한다. 따라서 $\mathbb{a} = X^{-1} \mathbb{y}$ 역시 존재한다. 한편 주어진 행렬에 대한 역행렬은 유일하므로, $\mathbb{a}$ 역시 유일하다. <p style="text-align: right;">■</p>
-**Strategy[4]**  : 더미 함수들을 새로이 정의하고 그들의 미분가능성을 이용해 직접적인 계산을 회피한다. 세팅이 복잡하기 때문에 사실상 뒤에서부터 거꾸로 이해하는 게 편하다.</p>
+이제 $\mathbb{y} = X \mathbb{a}$ 를 만족하는 해 $\mathbb{a}$ 를 찾는 문제로 바뀌었다.</p>
+<p><a href="https://freshrimpsushi.github.io/posts/736">방데르몽드 행렬의 행렬식</a>$X$ 의 행렬식은 $\displaystyle \det X = \prod_{1 \le i &lt; j \le n } (x_{j} - x_{i})$</p>
+<p>가정에서 $x_{0} , \cdots , x_{n}$ 는 서로 다르므로 $\det X \ne 0$ 이고, $X^{-1}$ 이 존재한다. 따라서 $\mathbb{a} = X^{-1} \mathbb{y}$ 역시 존재한다. 한편 주어진 행렬에 대한 역행렬은 유일하므로, $\mathbb{a}$ 역시 유일하다. <p style="text-align: right;">■</p></p>
+<p>Strategy[4]**  : 더미 함수들을 새로이 정의하고 그들의 미분가능성을 이용해 직접적인 계산을 회피한다. 세팅이 복잡하기 때문에 사실상 뒤에서부터 거꾸로 이해하는 게 편하다.</p>
 <h2 id="증명4">증명[4]</h2>
-<p><strong>Claim</strong>  : $E (x) := f(x) - p_{n} (x) $ 에 대해서 $\displaystyle E(t) = {{ (t - x_{0}) \cdots (t - x_{n}) } \over { (n+1)! }} f^{(n+1)} ( \xi )$**Part 1.** 우선 $t$ 가 노드포인트 $x_{0} , \cdots , x_{n} $ 와 같다면 자명하게 성립하므로 $t$ 는 이들 노드포인트와는 다르다고 가정하자.
+<p><strong>Claim</strong>  : $E (x) := f(x) - p_{n} (x) $ 에 대해서 $\displaystyle E(t) = {{ (t - x_{0}) \cdots (t - x_{n}) } \over { (n+1)! }} f^{(n+1)} ( \xi )$<strong>Part 1.</strong> 우선 $t$ 가 노드포인트 $x_{0} , \cdots , x_{n} $ 와 같다면 자명하게 성립하므로 $t$ 는 이들 노드포인트와는 다르다고 가정하자.
 $$
 \Psi (x) := (x - x_{0} ) (x - x_{1}) \cdots (x - x_{n})
 $$</p>
 <p>$$
 \displaystyle G (x) := E(x) - {{ \Psi (x) } \over { \Psi (t) }} E(t) 
 $$
-위와 같이 새로운 함수들을 정의하면 $f$, $p_{n}$, $\Psi$ 가 $(n+1)$ 번 미분가능하므로 $G$ 역시 $(n+1)$ 번 미분가능하다.**Part 2.
+위와 같이 새로운 함수들을 정의하면 $f$, $p_{n}$, $\Psi$ 가 $(n+1)$ 번 미분가능하므로 $G$ 역시 $(n+1)$ 번 미분가능하다.
+Part 2.
 $G$ 에 $x = x_{i}$ 을 대입하면 $E(x_{i}) = f(x_{i}) - p_{n} (x_{i}) = 0$ 이고 $\Psi (x_{i} ) = 0$ 이므로
 $$
 G(x_{i}) = E(x_{i} ) - {{ \Psi (x_{i}) } \over { \Psi (t) }} E(t) = 0
@@ -122,8 +137,11 @@ $G$ 에 $x = t$ 를 대입하면 $\displaystyle  {{ \Psi (t) } \over { \Psi (
 $$
 G(t) = E(t) - E(t) =0
 $$
-따라서 $G$ 는 $(n+2)$ 개의 서로 다른 영 $x_{0} , \cdots , x_{n} , t$ 을 가진다.**Part 3.
-편의상 $x_{n+1} :=t $ 이라고 하자.<a href="https://freshrimpsushi.github.io/posts/36">롤의 정리</a>함수 $f(x)$ 가 $[a,b]$ 에서 연속이고 $(a,b)$ 에서 미분가능하며 $f(a)=f(b)$ 면 $f'(c)=0$ 를 만족하는 $c$ 가 $(a,b)$ 에 적어도 하나 존재한다.모든 $i=0, \cdots , n$ 에 대해 $G(x_{i}) = 0 = G(x_{i+1})$ 이므로 롤의 정리에 의해  $G'( x'_{i}) = 0$ 을 만족하는 $x'_{i} \in \mathscr{H} \left\{ x_{i} , x_{i+1} \right\}$ 가 존재하고, 마찬가지로 모든 $i=0, \cdots , (n-1)$ 에 대해  $G'(x'_{i}) = 0 = G'(x'_{i+1})$ 이므로 롤의 정리에 의해  $G''( x''_{i}) = 0$ 을 만족하는 $x''_{i} \in \mathscr{H} \left\{ x'_{i} , x'_{i+1} \right\}$ 가 존재한다. 이와 같이 귀납적으로 롤의 정리를 $(n+1)$ 번 반복해서 사용하면 $G^{(n+1)} ( \xi ) = 0$ 를 만족하는 $\xi \in \mathscr{H} \left\{ x_{0} , \cdots , x_{n+1} \right\}$ 가 존재함을 보장할 수 있다.한편 $p_{n} $ 는 $n$차 다항함수이므로
+따라서 $G$ 는 $(n+2)$ 개의 서로 다른 영 $x_{0} , \cdots , x_{n} , t$ 을 가진다.
+Part 3.
+편의상 $x_{n+1} :=t $ 이라고 하자.</p>
+<p><a href="https://freshrimpsushi.github.io/posts/36">롤의 정리</a>함수 $f(x)$ 가 $[a,b]$ 에서 연속이고 $(a,b)$ 에서 미분가능하며 $f(a)=f(b)$ 면 $f'(c)=0$ 를 만족하는 $c$ 가 $(a,b)$ 에 적어도 하나 존재한다.</p>
+<p>모든 $i=0, \cdots , n$ 에 대해 $G(x_{i}) = 0 = G(x_{i+1})$ 이므로 롤의 정리에 의해  $G'( x'_{i}) = 0$ 을 만족하는 $x'_{i} \in \mathscr{H} \left\{ x_{i} , x_{i+1} \right\}$ 가 존재하고, 마찬가지로 모든 $i=0, \cdots , (n-1)$ 에 대해  $G'(x'_{i}) = 0 = G'(x'_{i+1})$ 이므로 롤의 정리에 의해  $G''( x''_{i}) = 0$ 을 만족하는 $x''_{i} \in \mathscr{H} \left\{ x'_{i} , x'_{i+1} \right\}$ 가 존재한다. 이와 같이 귀납적으로 롤의 정리를 $(n+1)$ 번 반복해서 사용하면 $G^{(n+1)} ( \xi ) = 0$ 를 만족하는 $\xi \in \mathscr{H} \left\{ x_{0} , \cdots , x_{n+1} \right\}$ 가 존재함을 보장할 수 있다.한편 $p_{n} $ 는 $n$차 다항함수이므로
 $$
 E^{(n+1)} (x) = f^{(n+1)} ( x) 
 $$
@@ -159,7 +177,7 @@ $E (t) = f(t) - p_{n} (t) $ 이므로 $\displaystyle f(t) - \sum_{j=0}^{n} f( x
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -171,11 +189,13 @@ $E (t) = f(t) - p_{n} (t) $ 이므로 $\displaystyle f(t) - \sum_{j=0}^{n} f( x
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -200,6 +220,8 @@ $E (t) = f(t) - p_{n} (t) $ 이므로 $\displaystyle f(t) - \sum_{j=0}^{n} f( x
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -226,8 +248,6 @@ $E (t) = f(t) - p_{n} (t) $ 이므로 $\displaystyle f(t) - \sum_{j=0}^{n} f( x
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -258,8 +278,6 @@ $E (t) = f(t) - p_{n} (t) $ 이므로 $\displaystyle f(t) - \sum_{j=0}^{n} f( x
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

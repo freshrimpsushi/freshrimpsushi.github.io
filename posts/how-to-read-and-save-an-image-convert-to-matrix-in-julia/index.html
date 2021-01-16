@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="줄리아에서 이미지 불러오고 행렬로 변환 저장하는 법">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>줄리아에서 이미지 불러오고 행렬로 변환 저장하는 법</title>
@@ -55,34 +58,40 @@
 
 
 <h2 id="heading"></h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">
-<span style="color:#66d9ef">using</span> Images
+<pre><code>
+using Images
 
-cd(<span style="color:#e6db74">&#34;C:
-</span><span style="color:#e6db74"></span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">\ Users
-</span><span style="color:#e6db74"></span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">\ rmsms
-</span><span style="color:#e6db74"></span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">\ OneDrive
-</span><span style="color:#e6db74"></span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">\ examples&#34;</span>)
+cd(&quot;C:
+\\\ Users
+\\\ rmsms
+\\\ OneDrive
+\\\ examples&quot;)
 pwd()
 
-example <span style="color:#f92672">=</span> load(<span style="color:#e6db74">&#34;example.jpg&#34;</span>)
+example = load(&quot;example.jpg&quot;)
 typeof(example)
 size(example)
 
-gray1 <span style="color:#f92672">=</span> Gray<span style="color:#f92672">.</span>(example)
+gray1 = Gray.(example)
 typeof(gray1)
 size(gray1)
 
-M <span style="color:#f92672">=</span> convert(<span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>},gray1)
+M = convert(Array{Float64},gray1)
 typeof(M)
 size(M)
-colorview(Gray, M<span style="color:#f92672">.^</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>))
+colorview(Gray, M.^(1/2))
 
-save(<span style="color:#e6db74">&#34;rgb.png&#34;</span>, colorview(RGB, example))
-save(<span style="color:#e6db74">&#34;gray1.png&#34;</span>, colorview(Gray, gray1))
-save(<span style="color:#e6db74">&#34;gray2.png&#34;</span>, colorview(Gray, transpose(gray1)))
-save(<span style="color:#e6db74">&#34;gray3.png&#34;</span>, colorview(Gray, M<span style="color:#f92672">.^</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>)))
-</code></pre></div><p>예제 코드를 위에서부터 간략하게 이해해보자 :cd() : Change Directory, 작업 경로를 원하는 곳으로 바꿔준다.<img src="example.jpg#center" alt="img">pwd() : Print Working Directory, 작업 경로를 출력해준다. 예제를 그대로 따라해보고싶다면 위의 파일을 작업 경로에 다운로드 받고 파일 이름을 example.jpg로 수정하자.<img src="20191213_185204.png#center" alt="img">load() : 작업 경로 내의 이미지 파일을 불러준다. 불러온 이미지의 타입은 Array{RGB{Normed{UInt8,8}},2}이다. 여타 언어에서 칼라 이미지를 세 개의 행렬을 하나로 묶어서 텐서로 표현하는 것과는 조금 다르다. 실제로 그러한 방식은 이미지를 수학적으로는 이해하기 편할지 모르나 색 공간과 라이브러리에 따라 통일된 규격이 없어 많은 혼선을 초래해왔다. 줄리아에서는 아예 타입 하나로 만들고 가로 세로 2차원인 배열로 이해한다. 이미지는 불러오는 순간 Plot 판넬에 프린트된다.<img filemime="image/jpeg" filename="20191213_184951.png" height="229" src="https://t1.daumcdn.net/cfile/tistory/99D9DB365DF35ECE0B" style="text-align: center;" width="562"/>Gray() : 이미지를 흑백으로 변환하는데 사용되었다. Gray()가 아니라 Gray.()임에 주목하자. 이는 이 함수 자체는 하나의 픽셀을 흑백으로 바꿔주는 것이고 점을 찍어서 모든 픽셀에 대해서 적용한 것을 의미한다.size() : 이미지의 크기를 반환한다. 언급했듯 칼라와 흑백을 모양이 다른 다른 텐서로 취급하지 않고 자료형이 다르고 크기가 같은 배열로 취급하고 있다.<img filemime="image/jpeg" filename="20191213_185608.png" height="360" src="https://t1.daumcdn.net/cfile/tistory/999BD7365DF360442E" style="text-align: center;" width="562"/>Convert() : Array{Float64}, 즉 행렬로 gray1 이미지를 변환시켰다. 그러면 0이 검은 색이고 1이 흰색인 행렬로 흑백 이미지가 표현된다.colorview() : 이 자체가 이미지나 행렬을 출력하는 함수다. 굳이 행렬을 이미지로 다시 바꿀 필요 없이 바로 Plot 판넬에서 이미지를 확인해볼 수 있다. 예제 코드에서는 행렬 $M$ 의 각 성분에 루트를 취해주었다. 행렬의 모든 성분은 $[0,1]$ 에 속하므로 이 변환은 이미지를 전체적으로 밝게 보정해준 것에 해당한다.<img filemime="image/jpeg" filename="20191213_190355.png" height="85" src="https://t1.daumcdn.net/cfile/tistory/99F0E8415DF362220B" style="text-align: center;" width="409"/><img filemime="image/jpeg" filename="20191213_190404.png" height="119" src="https://t1.daumcdn.net/cfile/tistory/994973415DF3622301" style="text-align: center;" width="437"/>save() : 작업 디렉터리에 이미지를 저장한다 :gray1.png : 흑백으로 저장되었다.gray2.png : 흑백이고 전치행렬을 취한 상태로 저장되었다.gray3.png : 흑백이고 밝게 보정된 상태로 저장되었다.rgb.png : 원본 그대로 색을 가진 채 저장되었다.</p>
+save(&quot;rgb.png&quot;, colorview(RGB, example))
+save(&quot;gray1.png&quot;, colorview(Gray, gray1))
+save(&quot;gray2.png&quot;, colorview(Gray, transpose(gray1)))
+save(&quot;gray3.png&quot;, colorview(Gray, M.^(1/2)))
+</code></pre><p>예제 코드를 위에서부터 간략하게 이해해보자 :cd() : Change Directory, 작업 경로를 원하는 곳으로 바꿔준다.<img src="example.jpg#center" alt="example.jpg">
+pwd() : Print Working Directory, 작업 경로를 출력해준다. 예제를 그대로 따라해보고싶다면 위의 파일을 작업 경로에 다운로드 받고 파일 이름을 example.jpg로 수정하자.<img src="20191213_185204.png#center" alt="20191213\_185204.png">
+load() : 작업 경로 내의 이미지 파일을 불러준다. 불러온 이미지의 타입은 Array{RGB{Normed{UInt8,8}},2}이다. 여타 언어에서 칼라 이미지를 세 개의 행렬을 하나로 묶어서 텐서로 표현하는 것과는 조금 다르다. 실제로 그러한 방식은 이미지를 수학적으로는 이해하기 편할지 모르나 색 공간과 라이브러리에 따라 통일된 규격이 없어 많은 혼선을 초래해왔다. 줄리아에서는 아예 타입 하나로 만들고 가로 세로 2차원인 배열로 이해한다. 이미지는 불러오는 순간 Plot 판넬에 프린트된다.<img src="20191213_184951.png#center" alt="20191213\_184951.png">
+Gray() : 이미지를 흑백으로 변환하는데 사용되었다. Gray()가 아니라 Gray.()임에 주목하자. 이는 이 함수 자체는 하나의 픽셀을 흑백으로 바꿔주는 것이고 점을 찍어서 모든 픽셀에 대해서 적용한 것을 의미한다.size() : 이미지의 크기를 반환한다. 언급했듯 칼라와 흑백을 모양이 다른 다른 텐서로 취급하지 않고 자료형이 다르고 크기가 같은 배열로 취급하고 있다.<img src="20191213_185608.png#center" alt="20191213\_185608.png">
+Convert() : Array{Float64}, 즉 행렬로 gray1 이미지를 변환시켰다. 그러면 0이 검은 색이고 1이 흰색인 행렬로 흑백 이미지가 표현된다.colorview() : 이 자체가 이미지나 행렬을 출력하는 함수다. 굳이 행렬을 이미지로 다시 바꿀 필요 없이 바로 Plot 판넬에서 이미지를 확인해볼 수 있다. 예제 코드에서는 행렬 $M$ 의 각 성분에 루트를 취해주었다. 행렬의 모든 성분은 $[0,1]$ 에 속하므로 이 변환은 이미지를 전체적으로 밝게 보정해준 것에 해당한다.<img src="20191213_190355.png#center" alt="20191213\_190355.png">
+<img src="20191213_190404.png#center" alt="20191213\_190404.png">
+save() : 작업 디렉터리에 이미지를 저장한다 :gray1.png : 흑백으로 저장되었다.gray2.png : 흑백이고 전치행렬을 취한 상태로 저장되었다.gray3.png : 흑백이고 밝게 보정된 상태로 저장되었다.rgb.png : 원본 그대로 색을 가진 채 저장되었다.</p>
 
 
             </div>
@@ -102,7 +111,7 @@ save(<span style="color:#e6db74">&#34;gray3.png&#34;</span>, colorview(Gray, M<s
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -114,11 +123,13 @@ save(<span style="color:#e6db74">&#34;gray3.png&#34;</span>, colorview(Gray, M<s
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -143,6 +154,8 @@ save(<span style="color:#e6db74">&#34;gray3.png&#34;</span>, colorview(Gray, M<s
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -169,8 +182,6 @@ save(<span style="color:#e6db74">&#34;gray3.png&#34;</span>, colorview(Gray, M<s
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -201,8 +212,6 @@ save(<span style="color:#e6db74">&#34;gray3.png&#34;</span>, colorview(Gray, M<s
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

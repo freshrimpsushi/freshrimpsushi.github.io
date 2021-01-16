@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="소인수분해">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>소인수분해</title>
@@ -65,7 +68,9 @@
 
 
 <h2 id="heading"></h2>
-<p>자연수 $N$ 에 대해 $N = p_{1}^{r_{1}} \cdots p_{n}^{r_{n}} $ 을 만족하는 소수 $p_{1} , \cdots , p_{n}$ 와 자연수 $r_{1} , \cdots , r_{n}$ 를 찾는 것을 **소인수분해** 라고 한다.역사적으로 소수는 늘 탐구의 대상이었으나 그럼에도 불구하고 아직 모르는 것이 많다.<a href="https://freshrimpsushi.github.io/posts/121">페르마 판정법</a>, <a href="https://freshrimpsushi.github.io/posts/802">코셀트 판정법</a>, <a href="https://freshrimpsushi.github.io/posts/804">밀러-라빈 판정법</a>과 같은 초등적 도구는 물론, 소수 정리를 비롯한 해석적 접근은 인간 지성의 위대한 산물이다. 완벽하지는 않아도 비교적 효율적으로 소수를 찾는 방법에는 유의미한 진보가 있어 왔던 것이다. 그러나 여전히 소수의 일반항을 찾아내는 방법은 알려져 있지 않다.다소의 과장을 보태서, 인류는 아직도 에라토스테네스의 체에 머물러 있다. 정확도에서 에라토스테네스의 체를 본질적으로 압도하는 방법은 없으며, 소개된지 2000년이 지났음에도 소수를 찾는 가장 확실한 방법으로 남아있다.<img filemime="image/gif" filename="Sieve_of_Eratosthenes_animation.gif" height="369" src="https://t1.daumcdn.net/cfile/tistory/9968EB4B5D22BD6F3B" style="max-width:100%;height:auto" width="445"/>한편 에라토스테네스의 체가 사실 소인수분해를 이용한 방법임에 주목해보자. $n = 120$ 이하에서 $2$ 의 배수를 모두 지운다는 것은 곧 $2$ 로 나누어 떨어지는지에 대한 판정을 $120$ 개의 수에 대해서 동시에 진행한다는 말과 진배없다. 움짤로 보기에 이 방법은 굉장히 효율적으로 보일지 모르겠으나, $n$ 이 커질수록 무척 고된 과정이 된다. 아닌 말로 소수를 판정할 때 소인수분해를 이용한다는 것은 &lsquo;노가다&rsquo;를 한다는 말이다. 직접 계산해봐서 약수가 없으면 소수라고 판정하는 것인데, 이것은 우리가 원하는 수준의 수학이라고 부르기엔 너무 저열하다.에라토스테네스의 체가 유용해보이는 이유는 소수를 찾아낼 때마다 &lsquo;후보&rsquo;를 빠른 속도로 줄여주고, $n$ 까지 판정하면서 그보다 작은 소수들도 겸사겸사 찾아주기 때문이다. 들이는 노력에 비하면 결과물도 풍성해보이지만, 결국 소인수분해하고 싶은 큰 자연수 $n=N$ 하나에 대해서는 정직하게 시간이 들어갈 수밖에 없다.컴퓨터가 발달하면서 곱셈은 아주 쉬운 일이 되어버렸지만, 그 무지막지한 계산능력으로도 소인수분해는 어려운 문제로 머물러 있다. 그러나 이러한 소인수분해 문제의 특징은 동시에 <a href="https://freshrimpsushi.github.io/posts/911">암호의 필수적인 성질</a>이 되며, <a href="https://freshrimpsushi.github.io/posts/911">이산로그 문제</a>의 약점을 극복하고 우리의 삶을 풍요롭게 만들어주었다.소인수분해를 빠르게 수행하는 방법으로는 양자 컴퓨터를 기반으로 한 **쇼어 알고리즘**<sup>Shor Algorithm</sup> 이 있으나, 양자 컴퓨터 상용화는 요원하기 때문에 소인수분해 문제의 어려움을 이용한 암호체계들은 당분간 현역에 머물러 있을 것으로 보인다.다음은 에라토스테네스의 체를 R 코드로 구현한 것이다. 자연수 $n$ 이 주어지면 에라토스테네스의 체와 같은 방법으로 소수인지 아닌지 판별해준다. $n$ 과 같은 수가 반환되면 소수, $n$ 보다 작은 수가 반환되면 $n$ 의 약수 중 가장 작은 수를 의미한다.</p>
+<p>자연수 $N$ 에 대해 $N = p_{1}^{r_{1}} \cdots p_{n}^{r_{n}} $ 을 만족하는 소수 $p_{1} , \cdots , p_{n}$ 와 자연수 $r_{1} , \cdots , r_{n}$ 를 찾는 것을 <strong>소인수분해</strong> 라고 한다.</p>
+<p>역사적으로 소수는 늘 탐구의 대상이었으나 그럼에도 불구하고 아직 모르는 것이 많다.<a href="https://freshrimpsushi.github.io/posts/121">페르마 판정법</a>, <a href="https://freshrimpsushi.github.io/posts/802">코셀트 판정법</a>, <a href="https://freshrimpsushi.github.io/posts/804">밀러-라빈 판정법</a>과 같은 초등적 도구는 물론, 소수 정리를 비롯한 해석적 접근은 인간 지성의 위대한 산물이다. 완벽하지는 않아도 비교적 효율적으로 소수를 찾는 방법에는 유의미한 진보가 있어 왔던 것이다. 그러나 여전히 소수의 일반항을 찾아내는 방법은 알려져 있지 않다.다소의 과장을 보태서, 인류는 아직도 에라토스테네스의 체에 머물러 있다. 정확도에서 에라토스테네스의 체를 본질적으로 압도하는 방법은 없으며, 소개된지 2000년이 지났음에도 소수를 찾는 가장 확실한 방법으로 남아있다.<img src="Sieve_of_Eratosthenes_animation.gif#center" alt="Sieve\_of\_Eratosthenes\_animation.gif">
+한편 에라토스테네스의 체가 사실 소인수분해를 이용한 방법임에 주목해보자. $n = 120$ 이하에서 $2$ 의 배수를 모두 지운다는 것은 곧 $2$ 로 나누어 떨어지는지에 대한 판정을 $120$ 개의 수에 대해서 동시에 진행한다는 말과 진배없다. 움짤로 보기에 이 방법은 굉장히 효율적으로 보일지 모르겠으나, $n$ 이 커질수록 무척 고된 과정이 된다. 아닌 말로 소수를 판정할 때 소인수분해를 이용한다는 것은 &lsquo;노가다&rsquo;를 한다는 말이다. 직접 계산해봐서 약수가 없으면 소수라고 판정하는 것인데, 이것은 우리가 원하는 수준의 수학이라고 부르기엔 너무 저열하다.에라토스테네스의 체가 유용해보이는 이유는 소수를 찾아낼 때마다 &lsquo;후보&rsquo;를 빠른 속도로 줄여주고, $n$ 까지 판정하면서 그보다 작은 소수들도 겸사겸사 찾아주기 때문이다. 들이는 노력에 비하면 결과물도 풍성해보이지만, 결국 소인수분해하고 싶은 큰 자연수 $n=N$ 하나에 대해서는 정직하게 시간이 들어갈 수밖에 없다.컴퓨터가 발달하면서 곱셈은 아주 쉬운 일이 되어버렸지만, 그 무지막지한 계산능력으로도 소인수분해는 어려운 문제로 머물러 있다. 그러나 이러한 소인수분해 문제의 특징은 동시에 <a href="https://freshrimpsushi.github.io/posts/911">암호의 필수적인 성질</a>이 되며, <a href="https://freshrimpsushi.github.io/posts/911">이산로그 문제</a>의 약점을 극복하고 우리의 삶을 풍요롭게 만들어주었다.소인수분해를 빠르게 수행하는 방법으로는 양자 컴퓨터를 기반으로 한 <strong>쇼어 알고리즘</strong><sup>Shor Algorithm</sup> 이 있으나, 양자 컴퓨터 상용화는 요원하기 때문에 소인수분해 문제의 어려움을 이용한 암호체계들은 당분간 현역에 머물러 있을 것으로 보인다.다음은 에라토스테네스의 체를 R 코드로 구현한 것이다. 자연수 $n$ 이 주어지면 에라토스테네스의 체와 같은 방법으로 소수인지 아닌지 판별해준다. $n$ 과 같은 수가 반환되면 소수, $n$ 보다 작은 수가 반환되면 $n$ 의 약수 중 가장 작은 수를 의미한다.</p>
 <pre><code>eratosthenes&lt;-function(n){
   residue&lt;-2:n
   while(n %in% residue){
@@ -77,7 +82,8 @@
  
 eratosthenes(101)
 eratosthenes(1517)
-</code></pre><p>&lt;img &ldquo;&quot;=&rdquo;&quot; filemime=&ldquo;image/jpeg&rdquo; filename=&ldquo;20190807_144554.png&rdquo; height=&ldquo;61&rdquo; src=&ldquo;<a href="https://t1.daumcdn.net/cfile/tistory/9922F1455D4A65AC1D%22">https://t1.daumcdn.net/cfile/tistory/9922F1455D4A65AC1D&quot;</a> style=&rdquo;&quot; width=&ldquo;165&rdquo;/&gt;예로써 $101$ 은 소수기 때문에 $101$ 이 그대로 반환되며, $1517=37 \times 41$ 이므로 $37$ 이 반환된다.</p>
+</code></pre><p><img src="20190807_144554.png#center" alt="20190807\_144554.png">
+예로써 $101$ 은 소수기 때문에 $101$ 이 그대로 반환되며, $1517=37 \times 41$ 이므로 $37$ 이 반환된다.</p>
 
 
             </div>
@@ -97,7 +103,7 @@ eratosthenes(1517)
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -109,11 +115,13 @@ eratosthenes(1517)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -138,6 +146,8 @@ eratosthenes(1517)
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -164,8 +174,6 @@ eratosthenes(1517)
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -196,8 +204,6 @@ eratosthenes(1517)
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

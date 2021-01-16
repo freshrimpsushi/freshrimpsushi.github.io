@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="뉴턴-랩슨 메소드">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>뉴턴-랩슨 메소드</title>
@@ -59,16 +62,21 @@
     <nav id="TableOfContents">
   <ul>
     <li><a href="#heading"></a></li>
-    <li><a href="#증명">증명</a></li>
+    <li><a href="#증명">증명**</a></li>
   </ul>
 </nav>
 </aside>
 
 
 <h2 id="heading"></h2>
-<p><a href="https://freshrimpsushi.github.io/posts/1005">고차원에 대해 일반화된 뉴턴-랩슨 메소드</a><img filemime="image/jpeg" filename="20180831_192324.png" height="277" src="https://t1.daumcdn.net/cfile/tistory/990747355B89172917" style="max-width:100%;height:auto" width="383"/>$f,f',f''$ 가 $\alpha$ 의 근방에서 연속이고 $f(\alpha) = 0, f'(\alpha) \ne 0$ 이라고 하자. $\alpha$ 와 충분히 가까운 초기값 $x_{0}$ 에 대해 $\displaystyle x_{n+1} := x_{n} - {{ f ( x_{n} ) } \over { f' ( x_{n} ) }}$ 과 같이 정의된 수열 $\left\{ x_{n} \right\}$ 은 $n \to \infty$ 일 때 $\alpha$ 로 쿼드러틱하게 수렴한다.뉴턴-랩슨 메소드는 그냥 뉴턴 메소드라고 불리기도 한다. 미분가능성이나 연속성과 같은 조건이 있긴 하지만 그래도 간단하고 수렴속도가 빨라 방정식 $f(x) = 0$ 의 근사해를 찾는데 유용한 방법이다.**쿼드러틱Quadratic하게 수렴한다** 는 말은 <a href="http://freshrimpsushi.tistory.com/674">수렴률</a>을 이야기할 때 $2$차적으로 수렴한다는 말인데, 적절한 번역이 없다. $1$ 차가 &lsquo;선형&rsquo;으로 번역되는 것에 비하면 그냥 $2$ 차로 수렴한다는 말은 너무 두리뭉술하고 쓰이는 용례가 적어 부득이하게 영어표현을 그대로 썼다. 그럼에도 굳이 언급한 것은 대부분의 경우 <a href="http://freshrimpsushi.tistory.com/676">바이섹션 메소드</a>에 비해 수렴하는 속도가 빠름을 수학적으로 보일 수 있기 때문이다.<img filemime="image/jpeg" filename="20180831_192719.png" height="280" src="https://t1.daumcdn.net/cfile/tistory/998E673E5B8918220A" style="max-width:100%;height:auto" width="394"/>그러나 &lsquo;$\alpha$ 의 근방&rsquo;이나 &lsquo;충분히 가까운 초기값&rsquo;이라는 표현에서 눈치챌 수 있듯, 실제로는 마냥 생각 없이 쓸 수 있는 방법이 아니다. 위와 같이 재수 없게 초기값을 잘못 줘서 $0$ 으로 나누는 문제가 일어나거나 수열 자체가 해와 먼 곳으로 갈 수도 있다. 그래서 코드를 쓸 때도 특정 횟수 안에 해를 구하지 못했다면 그냥 계산을 포기하는 등의 예외처리가 필요하다.이러한 발산 에러는 수학적으로 수렴성이 증명되었음에도 실제로 쓸 때는 충분히 일어날법한 문제가 된다. 가장 중요한 사용자가 &lsquo;$\alpha$ 의 근방&rsquo;이나 &lsquo;충분히 가까운 초기값&rsquo;을 정확하게 파악하지 못할 수 있기 때문이다. 바이섹션 메소드가 느리든 어떻든 반드시 해를 구해주는 것과 비교해보면 분명한 단점이라고 할 수 있다.**Strategy**  : 테일러 전개를 통해 $2$차 항을 끌어낸 후 재귀적인 부등식을 만들어 수렴성을 보인다.</p>
-<h2 id="증명">증명</h2>
-<p><strong>Part 1.</strong>  <a href="http://freshrimpsushi.tistory.com/41">테일러 전개</a>$f$ 를 $x_{n}$ 에 대해 테일러 전개하면 $x$ 와 $x_{n}$ 사이의 $\xi_{n}$ 에 대해
+<p><a href="https://freshrimpsushi.github.io/posts/1005">고차원에 대해 일반화된 뉴턴-랩슨 메소드</a></p>
+<p><img src="20180831_192324.png#center" alt="20180831\_192324.png">
+$f,f',f''$ 가 $\alpha$ 의 근방에서 연속이고 $f(\alpha) = 0, f'(\alpha) \ne 0$ 이라고 하자. $\alpha$ 와 충분히 가까운 초기값 $x_{0}$ 에 대해 $\displaystyle x_{n+1} := x_{n} - {{ f ( x_{n} ) } \over { f' ( x_{n} ) }}$ 과 같이 정의된 수열 $\left\{ x_{n} \right\}$ 은 $n \to \infty$ 일 때 $\alpha$ 로 쿼드러틱하게 수렴한다.</p>
+<p>뉴턴-랩슨 메소드는 그냥 뉴턴 메소드라고 불리기도 한다. 미분가능성이나 연속성과 같은 조건이 있긴 하지만 그래도 간단하고 수렴속도가 빨라 방정식 $f(x) = 0$ 의 근사해를 찾는데 유용한 방법이다.<strong>쿼드러틱Quadratic하게 수렴한다</strong> 는 말은 <a href="http://freshrimpsushi.tistory.com/674">수렴률</a>을 이야기할 때 $2$차적으로 수렴한다는 말인데, 적절한 번역이 없다. $1$ 차가 &lsquo;선형&rsquo;으로 번역되는 것에 비하면 그냥 $2$ 차로 수렴한다는 말은 너무 두리뭉술하고 쓰이는 용례가 적어 부득이하게 영어표현을 그대로 썼다. 그럼에도 굳이 언급한 것은 대부분의 경우 <a href="http://freshrimpsushi.tistory.com/676">바이섹션 메소드</a>에 비해 수렴하는 속도가 빠름을 수학적으로 보일 수 있기 때문이다.<img src="20180831_192719.png#center" alt="20180831\_192719.png">
+그러나 &lsquo;$\alpha$ 의 근방&rsquo;이나 &lsquo;충분히 가까운 초기값&rsquo;이라는 표현에서 눈치챌 수 있듯, 실제로는 마냥 생각 없이 쓸 수 있는 방법이 아니다. 위와 같이 재수 없게 초기값을 잘못 줘서 $0$ 으로 나누는 문제가 일어나거나 수열 자체가 해와 먼 곳으로 갈 수도 있다. 그래서 코드를 쓸 때도 특정 횟수 안에 해를 구하지 못했다면 그냥 계산을 포기하는 등의 예외처리가 필요하다.이러한 발산 에러는 수학적으로 수렴성이 증명되었음에도 실제로 쓸 때는 충분히 일어날법한 문제가 된다. 가장 중요한 사용자가 &lsquo;$\alpha$ 의 근방&rsquo;이나 &lsquo;충분히 가까운 초기값&rsquo;을 정확하게 파악하지 못할 수 있기 때문이다. 바이섹션 메소드가 느리든 어떻든 반드시 해를 구해주는 것과 비교해보면 분명한 단점이라고 할 수 있다.
+Strategy**  : 테일러 전개를 통해 $2$차 항을 끌어낸 후 재귀적인 부등식을 만들어 수렴성을 보인다.</p>
+<h2 id="증명">증명**</h2>
+<p>Part 1.**  <a href="http://freshrimpsushi.tistory.com/41">테일러 전개</a>$f$ 를 $x_{n}$ 에 대해 테일러 전개하면 $x$ 와 $x_{n}$ 사이의 $\xi_{n}$ 에 대해
 $$
 \displaystyle f(x) = f(x_{n} ) + (x - x_{n}) f&rsquo;(x_{n}) + {{(x - x_{n})^2 } \over {2}} f&rsquo;&rsquo; (\xi_{n})
 $$
@@ -87,8 +95,8 @@ $$
 이항해서 정리하면
 $$
 \begin{equation} \displaystyle \alpha - x_{n+1} = - {{f'' (\xi_{n})} \over { 2 f'(x_{n}) }} ( \alpha - x_{n})^2 \end{equation}
-$$
-**Part 2.**  수렴성$f'$ 는 $\alpha$ 근방에서 연속이고 $f'(\alpha) \ne 0$ 이므로 모든 $x \in I_{\delta}$ 에 대해 $f'(x) \ne 0$ 을 만족하는 $ I_{\delta} : = [ \alpha - \delta , \alpha + \delta ] $ 가 존재한다.$\displaystyle M( \delta ) := {{ \max_{x \in I_{\delta} } | f'' (x) | } \over { 2 \min_{x \in I_{\delta} } | f'(x) | }}$ 이라고 두면 $\delta$ 를 작게 잡을때마다 $\displaystyle \max_{x \in I_{\delta} } | f'' (x) |$ 은 커지지 않고 $\displaystyle \min_{x \in I_{\delta} } | f'(x) | $ 은 작아지지 않으므로 $M ( \delta )$ 전체는 커지지 않는다. 따라서 $M(\delta) | \alpha - x_{0} | &lt; 1$ 이 성립하도록 하는 $x_{0} \in I_{\delta}$ 가 존재하게끔 충분히 작은 $\delta = \delta_{0}$ 를 잡을 수 있다. 바로 이 $x_{0}$ 가 $\alpha$ 와 충분히 가까운 초기값이다.이 $\delta_{0}$ 에 대해 이제 $M:= M(\delta_{0})$ 라고 하자.$(1)$의 양변에 절대값을 취하면
+$$</p>
+<p>Part 2.**  수렴성$f'$ 는 $\alpha$ 근방에서 연속이고 $f'(\alpha) \ne 0$ 이므로 모든 $x \in I_{\delta}$ 에 대해 $f'(x) \ne 0$ 을 만족하는 $ I_{\delta} : = [ \alpha - \delta , \alpha + \delta ] $ 가 존재한다.$\displaystyle M( \delta ) := {{ \max_{x \in I_{\delta} } | f'' (x) | } \over { 2 \min_{x \in I_{\delta} } | f'(x) | }}$ 이라고 두면 $\delta$ 를 작게 잡을때마다 $\displaystyle \max_{x \in I_{\delta} } | f'' (x) |$ 은 커지지 않고 $\displaystyle \min_{x \in I_{\delta} } | f'(x) | $ 은 작아지지 않으므로 $M ( \delta )$ 전체는 커지지 않는다. 따라서 $M(\delta) | \alpha - x_{0} | &lt; 1$ 이 성립하도록 하는 $x_{0} \in I_{\delta}$ 가 존재하게끔 충분히 작은 $\delta = \delta_{0}$ 를 잡을 수 있다. 바로 이 $x_{0}$ 가 $\alpha$ 와 충분히 가까운 초기값이다.이 $\delta_{0}$ 에 대해 이제 $M:= M(\delta_{0})$ 라고 하자.$(1)$의 양변에 절대값을 취하면
 $$
 | \alpha - x_{n+1}| \le M | \alpha - x_{n} |^2
 $$
@@ -108,12 +116,16 @@ $$
 $$
 \displaystyle | \alpha - x_{n} | \le {{1 } \over {M}} ( M | \alpha - x_{0} | )^{2^{n}}
 $$
-$M | \alpha - x_{0} | &lt; 1 $ 이므로 $n \to \infty$ 일 때 $x_{n} \to \alpha$**Part 3.**  쿼드러틱하게 수렴$(1)$에 의해 $\displaystyle {{ \alpha - x_{n+1} } \over { ( \alpha - x_{n})^2 }} = - {{f'' (\xi_{n})} \over { 2 f'(x_{n}) }} $ 이고 $x_{n} \to \alpha$ 일 때 $\xi_{n} \to \alpha$ 이므로
+$M | \alpha - x_{0} | &lt; 1 $ 이므로 $n \to \infty$ 일 때 $x_{n} \to \alpha$
+Part 3.**  쿼드러틱하게 수렴$(1)$에 의해 $\displaystyle {{ \alpha - x_{n+1} } \over { ( \alpha - x_{n})^2 }} = - {{f'' (\xi_{n})} \over { 2 f'(x_{n}) }} $ 이고 $x_{n} \to \alpha$ 일 때 $\xi_{n} \to \alpha$ 이므로
 $$
 \displaystyle \lim_{n \to \infty} {{\alpha - x_{n+1} } \over { ( \alpha - x_{n} )^2 }} = - \lim_{n \to \infty} {{f''( \xi_{n} )} \over { 2 f' ( x_{n} ) }} = -{{f''(\alpha)} \over { 2 f' ( \alpha ) }}
 $$
 <p style="text-align: right;">■</p>
-위에서도 수렴성에 문제가 있다고 했는데, 실제로 증명과정에서도 충분히 작은 $I$ 를 잡는다.**뉴턴-푸리에 메소드** $f,f',f''$ 가 폐구간 $[a,b]$ 에서 연속이라고 하자. $f$ 가 $[a,b]$ 에서 해를 갖고 증가함수거나 감소함수면 $\displaystyle x_{n+1} = x_{n} - {{ f ( x_{n} ) } \over { f' ( x_{n} ) }}$ 과 같이 정의된 수열 $\left\{ x_{n} \right\}$ 은 $n \to \infty$ 일 때 $\alpha$ 로 쿼드러틱하게 수렴한다.한편 조금 더 강한 조건이 있다면 쿼드러틱하면서도 수렴성이 완전히 보장된 뉴턴-푸리에 메소드를 고려해볼 수 있다. 하지만 이 방법은 본질적으로 뉴턴-랩슨 메소드의 &lsquo;$\alpha$ 의 근방&rsquo; 속으로 폐구간 $[a,b]$ 를 집어넣은 것에 불과하기도 하다. 따라서 조건만 다 체크한다면 뉴턴-랩슨 메소드와 정확히 똑같아지고, 별도로 다른 코드를 작성할 필요가 없다.<img filemime="image/jpeg" filename="20180831_193141.png" height="166" src="https://t1.daumcdn.net/cfile/tistory/9931BE3B5B89192004" style="text-align: justify;" width="248"/>아래는 R 로 작성된 코드다. df에 도함수를 넣으면 도함수로 바로 계산을 하고, 생략하면 미분계수를 따로 구해서 쓴다. itmax 옵션은 최대로 반복할 횟수인데, 디폴트로 $1000$ 번을 반복해도 원하는만큼의 정밀한 해가 구해지지 않으면 계산을 포기한다.</p>
+위에서도 수렴성에 문제가 있다고 했는데, 실제로 증명과정에서도 충분히 작은 $I$ 를 잡는다.</p>
+<p><strong>뉴턴-푸리에 메소드</strong> $f,f',f''$ 가 폐구간 $[a,b]$ 에서 연속이라고 하자. $f$ 가 $[a,b]$ 에서 해를 갖고 증가함수거나 감소함수면 $\displaystyle x_{n+1} = x_{n} - {{ f ( x_{n} ) } \over { f' ( x_{n} ) }}$ 과 같이 정의된 수열 $\left\{ x_{n} \right\}$ 은 $n \to \infty$ 일 때 $\alpha$ 로 쿼드러틱하게 수렴한다.</p>
+<p>한편 조금 더 강한 조건이 있다면 쿼드러틱하면서도 수렴성이 완전히 보장된 뉴턴-푸리에 메소드를 고려해볼 수 있다. 하지만 이 방법은 본질적으로 뉴턴-랩슨 메소드의 &lsquo;$\alpha$ 의 근방&rsquo; 속으로 폐구간 $[a,b]$ 를 집어넣은 것에 불과하기도 하다. 따라서 조건만 다 체크한다면 뉴턴-랩슨 메소드와 정확히 똑같아지고, 별도로 다른 코드를 작성할 필요가 없다.<img src="20180831_193141.png#center" alt="20180831\_193141.png">
+아래는 R 로 작성된 코드다. df에 도함수를 넣으면 도함수로 바로 계산을 하고, 생략하면 미분계수를 따로 구해서 쓴다. itmax 옵션은 최대로 반복할 횟수인데, 디폴트로 $1000$ 번을 반복해도 원하는만큼의 정밀한 해가 구해지지 않으면 계산을 포기한다.</p>
 <pre><code>d&lt;-function(f,x,tol=10^(-8))
 {
   h&lt;-1
@@ -183,7 +195,7 @@ Newton(h,-2)[Colored by Color Scripter](http://colorscripter.com/info#e)
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -195,11 +207,13 @@ Newton(h,-2)[Colored by Color Scripter](http://colorscripter.com/info#e)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -224,6 +238,8 @@ Newton(h,-2)[Colored by Color Scripter](http://colorscripter.com/info#e)
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -250,8 +266,6 @@ Newton(h,-2)[Colored by Color Scripter](http://colorscripter.com/info#e)
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -282,8 +296,6 @@ Newton(h,-2)[Colored by Color Scripter](http://colorscripter.com/info#e)
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

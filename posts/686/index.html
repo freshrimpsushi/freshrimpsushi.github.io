@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="질적변수를 포함한 회귀분석">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>질적변수를 포함한 회귀분석</title>
@@ -65,22 +68,22 @@
 
 
 <h2 id="heading"></h2>
-<p>회귀분석을 하면서 독립변수로 언제나 양적변수가 들어온다는 보장은 없다.성별이 무엇인지, 어떤 기업 소속인지, 무슨 색상인지, 금속인지 등등 범주형 자료 역시 분석에 반영시킬 필요가 있다.올해 취업자 전체의 수능 성적 $X_{1}$, 연령 $X_{2}$, 성별 $S$, 최종학력 $E$ 로 초봉 $Y$ 를 추측한다고 상상해보자.<a href="http://freshrimpsushi.tistory.com/666">다중회귀분석</a>을 사용하면 $Y \leftarrow X_{1} + X_{2}$ 와 같이 연봉 $Y$ 에 성적 $X_{1}$ 과 연령 $ X_{2} $ 가 미치는 영향이 어떤지 알 수 있을 것이다. 우리가 얻을 회귀식은 $Y = \beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon $ 이고, <a href="http://freshrimpsushi.tistory.com/654">가설검정</a>을 통해 통계적으로 유의하지 않은 변수를 버려야한다.여기에 성별 $S$ 가 추가된다면 $Y = \beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \beta_{3} S + \varepsilon $ 와 같이 식이 수정될 것이다. 하지만 남성이나 여성은 수가 아니기 때문에 회귀계수를 곱할 수가 없다. 그래서 생각한 것이 바로 **지시 함수**<sup>Indicator Function</sup> 을 사용하는 것이다.통계학에서 지시 함수란 데이터가 해당 범주에 속하는지 속하지 않는지에 따라 $1$ 혹은 $0$ 의 값을 갖는 함수를 말한다. 지시 함수를 사용해 $S = \begin{cases} 1 &amp; ,\text{여성} 
+<p>회귀분석을 하면서 독립변수로 언제나 양적변수가 들어온다는 보장은 없다.성별이 무엇인지, 어떤 기업 소속인지, 무슨 색상인지, 금속인지 등등 범주형 자료 역시 분석에 반영시킬 필요가 있다.올해 취업자 전체의 수능 성적 $X_{1}$, 연령 $X_{2}$, 성별 $S$, 최종학력 $E$ 로 초봉 $Y$ 를 추측한다고 상상해보자.<a href="http://freshrimpsushi.tistory.com/666">다중회귀분석</a>을 사용하면 $Y \leftarrow X_{1} + X_{2}$ 와 같이 연봉 $Y$ 에 성적 $X_{1}$ 과 연령 $ X_{2} $ 가 미치는 영향이 어떤지 알 수 있을 것이다. 우리가 얻을 회귀식은 $Y = \beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon $ 이고, <a href="http://freshrimpsushi.tistory.com/654">가설검정</a>을 통해 통계적으로 유의하지 않은 변수를 버려야한다.여기에 성별 $S$ 가 추가된다면 $Y = \beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \beta_{3} S + \varepsilon $ 와 같이 식이 수정될 것이다. 하지만 남성이나 여성은 수가 아니기 때문에 회귀계수를 곱할 수가 없다. 그래서 생각한 것이 바로 <strong>지시 함수</strong><sup>Indicator Function</sup> 을 사용하는 것이다.통계학에서 지시 함수란 데이터가 해당 범주에 속하는지 속하지 않는지에 따라 $1$ 혹은 $0$ 의 값을 갖는 함수를 말한다. 지시 함수를 사용해 $S = \begin{cases} 1 &amp; ,\text{여성} 
 \\  0 &amp; ,\text{남성} \end{cases}$ 와 같은 변수를 정의하면 최종적으로 얻는 회귀식은 남성일 때 $Y = \beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \beta_{3} + \varepsilon $, 여성일 때 $Y = \beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon $ 이 되는 것이다.또 여기에 학력 $E$ 가 추가된다면 $Y = \beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \beta_{3} S + \beta_{4} E + \varepsilon $ 와 같이 식이 수정될 것이다. 학력은 성별과 달리 여러 경우가 있을 수 있는데, 단순히 $E = \begin{cases} 3 &amp; ,\text{박사} 
 \\  2 &amp; ,\text{석사} 
 \\  1 &amp; ,\text{대졸} 
 \\  0 &amp; ,\text{고졸} \end{cases}$ 과 같이 네가지 경우가 있다고 생각해보자. 여러 경우가 있기 때문에 지시 함수를 사용하기가 곤란한데, 세가지 변수 $E_{1} = \begin{cases} 1 &amp; ,\text{대졸} 
 \\  0 &amp; ,\text{고졸} \end{cases}$, $E_{2} = \begin{cases} 1 &amp; ,\text{석사} 
 \\  0 &amp; ,\text{고졸} \end{cases}$, $E_{3} = \begin{cases} 1 &amp; ,\text{박사} 
-\\  0 &amp; ,\text{고졸} \end{cases}$ 로 나눔으로써 간단하게 해결할 수 있다. 최종적으로 회귀식은 $Y = \beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \beta_{3} S + \gamma_{1} E_{1} + \gamma_{2} E_{2} + \gamma_{3} E_{3} + \varepsilon $ 와 같이 확장된다.실제로 R 에서 질적변수를 포함한 회귀분석을 할 땐 이렇게 복잡한 조작조차 필요가 없다.<a href="http://freshrimpsushi.tistory.com/331">내장데이터</a> ToothGrowth 데이터를 불러와보자.<img filemime="image/jpeg" filename="20180907_165557.png" height="284" src="https://t1.daumcdn.net/cfile/tistory/9956F73E5B922F3C01" style="text-align: justify;" width="499"/>ToothGrowth는 기니피그에게 비타민 C 혹은 오렌지 주스(supp)를 다른 양(dose)으로 먹이고 치아의 길이(len)를 기록한 데이터다.범주형 변수를 넣으면 <a href="http://freshrimpsushi.tistory.com/670">다중회귀분석과 마찬가지</a>로 알아서 분석이 된다.<img filemime="image/jpeg" filename="20180907_165610.png" height="302" src="https://t1.daumcdn.net/cfile/tistory/99F0CF3E5B922F3C1B" style="max-width:100%;height:auto" width="499"/>결과를 보면 투여량을 늘렸을 때 치아의 길이도 길어지며, 비타민 C 를 투여할 땐 오히려 길이가 줄어든다고 한다.상식적으로 봐도 오렌지 주스를 꾸준히 먹고 있는 기니피그의 영양 밸런스가 더 좋을 것이고 특히 칼슘을 비롯한 무기질은 조절이 쉽고 실험에서 아주 과다한 양을 준 것도 아니기 때문에 많으면 많을수록 좋은 것도 납득이 간다.설명력도 $R_{a} = 0.6934$ 로 나쁘지 않은 편이고, 전체적으로 큰 문제가 없어보인다.그런데 잔차 그림을 보면 쌔한 구석이 있다.<img filemime="image/jpeg" filename="1.png" height="480" src="https://t1.daumcdn.net/cfile/tistory/991C663E5B922F3C07" style="max-width:100%;height:auto" width="480"/>데이터를 보면 30번째까지는 비타민을 투여했고, 31번째부터는 오렌지 주스를 먹였다.척 봐도 소량의 비타민보다는 대량의 비타민, 대량의 오렌지 주스보다는 소량의 비타민이 이빨의 길이에 좋은 영향이 있어보인다.물론 실제 세상엔 이러한 우연이 얼마든지 일어날 수도 있는데, 이런 걸 넘어갈거면 애초에 통계학을 공부할 이유가 없다.노력한다고 이런 문제를 없앨수 있을진 모르겠지만, 학자들은 이런 현상를 <a href="http://freshrimpsushi.tistory.com/696">교호작용</a>이라 이름 붙이고 그 해결법을 연구했다.아래는 예제 코드다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-<span style="color:#a6e22e">head</span>(ToothGrowth); <span style="color:#a6e22e">tail</span>(ToothGrowth); <span style="color:#a6e22e">str</span>(ToothGrowth)
-out1<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span>(len<span style="color:#f92672">~</span>.,data<span style="color:#f92672">=</span>ToothGrowth); <span style="color:#a6e22e">summary</span>(out1)
+\\  0 &amp; ,\text{고졸} \end{cases}$ 로 나눔으로써 간단하게 해결할 수 있다. 최종적으로 회귀식은 $Y = \beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \beta_{3} S + \gamma_{1} E_{1} + \gamma_{2} E_{2} + \gamma_{3} E_{3} + \varepsilon $ 와 같이 확장된다.실제로 R 에서 질적변수를 포함한 회귀분석을 할 땐 이렇게 복잡한 조작조차 필요가 없다.<a href="http://freshrimpsushi.tistory.com/331">내장데이터</a> ToothGrowth 데이터를 불러와보자.<img src="20180907_165557.png#center" alt="20180907\_165557.png">
+ToothGrowth는 기니피그에게 비타민 C 혹은 오렌지 주스(supp)를 다른 양(dose)으로 먹이고 치아의 길이(len)를 기록한 데이터다.범주형 변수를 넣으면 <a href="http://freshrimpsushi.tistory.com/670">다중회귀분석과 마찬가지</a>로 알아서 분석이 된다.<img src="20180907_165610.png#center" alt="20180907\_165610.png">
+결과를 보면 투여량을 늘렸을 때 치아의 길이도 길어지며, 비타민 C 를 투여할 땐 오히려 길이가 줄어든다고 한다.상식적으로 봐도 오렌지 주스를 꾸준히 먹고 있는 기니피그의 영양 밸런스가 더 좋을 것이고 특히 칼슘을 비롯한 무기질은 조절이 쉽고 실험에서 아주 과다한 양을 준 것도 아니기 때문에 많으면 많을수록 좋은 것도 납득이 간다.설명력도 $R_{a} = 0.6934$ 로 나쁘지 않은 편이고, 전체적으로 큰 문제가 없어보인다.그런데 잔차 그림을 보면 쌔한 구석이 있다.<img src="1.png#center" alt="1.png">
+데이터를 보면 30번째까지는 비타민을 투여했고, 31번째부터는 오렌지 주스를 먹였다.척 봐도 소량의 비타민보다는 대량의 비타민, 대량의 오렌지 주스보다는 소량의 비타민이 이빨의 길이에 좋은 영향이 있어보인다.물론 실제 세상엔 이러한 우연이 얼마든지 일어날 수도 있는데, 이런 걸 넘어갈거면 애초에 통계학을 공부할 이유가 없다.노력한다고 이런 문제를 없앨수 있을진 모르겠지만, 학자들은 이런 현상를 <a href="http://freshrimpsushi.tistory.com/696">교호작용</a>이라 이름 붙이고 그 해결법을 연구했다.아래는 예제 코드다.</p>
+<pre><code>head(ToothGrowth); tail(ToothGrowth); str(ToothGrowth)
+out1&lt;-lm(len~.,data=ToothGrowth); summary(out1)
  
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">5</span>); <span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">rstudent</span>(out1), main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Standardized Residual Plot 1&#34;</span>); <span style="color:#a6e22e">abline</span>(h<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
-</code></pre></div>
+win.graph(5,5); plot(rstudent(out1), main=&quot;Standardized Residual Plot 1&quot;); abline(h=0)
+</code></pre>
 
             </div>
 
@@ -99,7 +102,7 @@ out1<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -111,11 +114,13 @@ out1<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -140,6 +145,8 @@ out1<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -166,8 +173,6 @@ out1<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -198,8 +203,6 @@ out1<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

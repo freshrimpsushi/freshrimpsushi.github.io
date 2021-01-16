@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="초기값이 조금 달라졌을 때 오일러 메소드의 오차">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>초기값이 조금 달라졌을 때 오일러 메소드의 오차</title>
@@ -71,8 +74,9 @@
 \\  D ( x_{0} ) = \delta_{0} \end{cases}$ 의 해 $D(x)$ 에 대해 다음을 만족한다.
 $$
 Y(x_{n} ) - y_{h} (x_{n} ) = D(x_{n} ) h  + O (h^2) 
-$$
-초기값 $y_{h} (x_{0} ) $ 가 $Y_{0} - y_{h} (x_{0} ) = \delta_{0} h + O ( h^2 ) $ 을 만족시킨다는 말은 곧 초기값이 참값과 조금 달라도 된다는 뜻이다. 그리고 그 차이에서 발생하는 오차 그 자체도 $D$ 를 계산할 수 있다면 더 줄어들 수 있다.**Strategy**  : <a href="http://freshrimpsushi.tistory.com/689">강한 립시츠 조건</a>을 가정하고 $\epsilon_{n} = O ( h^2)$ 을 보이기 위한 $g_{n}$, $k_{n}$ 을 만들어낸다. 조금은 억척스럽다고도 할 수 있을만큼 수식 조작이 많은 증명법이나, 수치해석에서는 심심치 않게 보이기도 한다. 아름다운 증명은 아닐지라도 방식 자체에는 익숙해지는게 좋다.</p>
+$$</p>
+<p>초기값 $y_{h} (x_{0} ) $ 가 $Y_{0} - y_{h} (x_{0} ) = \delta_{0} h + O ( h^2 ) $ 을 만족시킨다는 말은 곧 초기값이 참값과 조금 달라도 된다는 뜻이다. 그리고 그 차이에서 발생하는 오차 그 자체도 $D$ 를 계산할 수 있다면 더 줄어들 수 있다.
+Strategy**  : <a href="http://freshrimpsushi.tistory.com/689">강한 립시츠 조건</a>을 가정하고 $\epsilon_{n} = O ( h^2)$ 을 보이기 위한 $g_{n}$, $k_{n}$ 을 만들어낸다. 조금은 억척스럽다고도 할 수 있을만큼 수식 조작이 많은 증명법이나, 수치해석에서는 심심치 않게 보이기도 한다. 아름다운 증명은 아닐지라도 방식 자체에는 익숙해지는게 좋다.</p>
 <h2 id="증명">증명</h2>
 <p>$x_{i} : = x_{0} + ih$ 이고, 특히 $x_{n+1} - x_{n} = h$ 이다. 편의상
 $$
@@ -84,8 +88,8 @@ $$
 라 쓰고 $n$ 번째의 오차를 다음과 같이
 $$
 \epsilon_{n} : = Y(x_{n}) - y (x_{n} ) 
-$$
-**Part 1.
+$$</p>
+<p>Part 1.
 $Y(x_{n+1} )$ 를 $ x_{n}$ 에 대해 $3$ 차 <a href="http://freshrimpsushi.tistory.com/41">테일러 전개</a>하면 어떤 $x_{n} \le \xi_{n} \le x_{n+1}$ 에 대해
 $$
 \displaystyle Y_{n+1} = Y_{n} + h Y'_{n} + {{h^2} \over {2}} Y'' ( x_{n} ) + {{h^3} \over {6}} Y''' ( \xi_{n} ) 
@@ -107,11 +111,10 @@ $$
 정리하면
 $$
 \displaystyle \epsilon_{n+1} = [ 1+ f_{y} (x_{n} , Y_{n} ) ] \epsilon_{n} + {{h^2} \over {2}} Y'' ( x_{n} ) + {{h^3} \over {6}} Y''' ( \xi_{n} ) - {{1} \over {2}} h f_{yy} (x_{n} , \zeta_{n} ) \epsilon_{n}^{2} 
-$$
-**Part 2.
-<a href="http://freshrimpsushi.tistory.com/689">강한 립시츠 조건과 오일러 메소드의 오차</a>$\displaystyle \max_{ x_{0 } \le x_{n} \le b } | Y_{x_{n}} - y_{h} (x_{n})  |  \le \epsilon^{( b - x_{0} ) K} | \epsilon_{0} | + \left[ {{ \epsilon^{(b- x_{0}) K } - 1 } \over {K}} \right] \tau (h) 
-$$
-\epsilon = O (h) $ 이므로
+$$</p>
+<p>Part 2.</p>
+<p><a href="http://freshrimpsushi.tistory.com/689">강한 립시츠 조건과 오일러 메소드의 오차</a>$\displaystyle \max_{ x_{0 } \le x_{n} \le b } | Y_{x_{n}} - y_{h} (x_{n})  |  \le \epsilon^{( b - x_{0} ) K} | \epsilon_{0} | + \left[ {{ \epsilon^{(b- x_{0}) K } - 1 } \over {K}} \right] \tau (h) $</p>
+<p>$\epsilon = O (h) $ 이므로
 $$
 \displaystyle {{h^3} \over {6}} Y''' ( \xi_{n} ) - {{1} \over {2}} h f_{yy} (x_{n} , \zeta_{n} ) \epsilon_{n}^{2} = O (h^{3} ) 
 $$
@@ -131,8 +134,8 @@ $$
 \\  D ( x_{0} ) = \delta_{0} \end{cases}$ 와 닮았다. 결국 $\delta_{n}$ 은 $D(x_{n} )$ 의 오일러 근사해, 즉 $D(x_{n} )  - \delta_{n} = O (h) $ 임을 알 수 있다. 이제 $g_{n}$ 의 정의에 따라 양변에 $h$ 를 곱하면
 $$
 g_{n} = D ( x_{n} ) h + O ( h^2 )
-$$
-**Part 3.
+$$</p>
+<p>Part 3.
 $k_{n} : = e_{n} - g_{n}$ 이라고 하면
 $$
 k_{n+1} = [ 1 + h f_{h} (x_{n} , y_{n} ) ] k_{n} + O(h^3)
@@ -173,7 +176,7 @@ $$
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -185,11 +188,13 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -214,6 +219,8 @@ $$
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -240,8 +247,6 @@ $$
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -272,8 +277,6 @@ $$
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

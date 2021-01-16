@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="사전백화">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>사전백화</title>
@@ -66,7 +69,10 @@
 
 <h2 id="heading"></h2>
 <ul>
-<li>하단에 예제코드 전체가 있다.<u style="text-align: justify;">* 수학, 통계적인 기초가 부족한 비전공자는 밑줄 그어진 부분만 읽어도 상관 없다.</u>**사전백화**<sup>Prewhitening</sup> 란 <a href="https://freshrimpsushi.github.io/posts/1227">CCF</a>를 계산할 때 <a href="https://freshrimpsushi.github.io/posts/900">시계열</a>을 <a href="https://freshrimpsushi.github.io/posts/904">백색잡음</a>으로 만들어 <u>두 데이터 간의 상관관계를 더욱 정확하게 파악하는 방법</u>이다. 가능하다면 이것이 어떻게 가능한지 수식적으로도 완전히 이해하는 것을 추천하는데, <u>우선은 예로써 다음의 데이터를 살펴보자.</u><img src="1.png#center" alt="img">bluebird는 뉴질랜드에서 감자칩을 제조하는 회사인 블루버드에 대한 데이터로써, 평균 가격과 판매량에 로그를 취한 두 시계열 데이터를 포함하고 있다. 데이터만 보았을 땐 판매량과 가격은 강한 음의 상관관계를 가지는 것 같은데, 이를 <a href="https://freshrimpsushi.github.io/posts/1227">CCF</a>로 확인해보자.<img filemime="image/jpeg" filename="2.png" height="376" src="https://t1.daumcdn.net/cfile/tistory/993AE7345D47E0A504" style="max-width:100%;height:auto" width="568"/>눈으로 본 것처럼, 생각한것처럼 두 데이터는 서로 음의 상관관계를 가진다. 하지만 시차 $k = 0$ 뿐만이 아니라 그 주변 시차에도 상관관계가 있다는 것은 어떻게 받아들여야할 것인지 생각을 잘 해야한다. 기본적으로 어떤 패턴이 있든 없든 $X_{t}$ 와 $X_{t-1}$, $X_{t+1}$ 은 본질적으로 그 값에 큰 차이가 없다. 폭등과 폭락이 없는 건 아니지만, 어쨌든 바로 이전과 바로 다음이라면 어느정도 그 엇비슷한 값인 게 정상이기 때문이다.그런데 $X_{t}$ 와 $Y_{t}$ 가 상관관계를 가진다면 $X_{t}$ 와 $Y_{t-1}$, $Y_{t+1}$ 역시 어느정도 희석된 상관관계를 가지는 것이 정상이다. 이것은 정말 <u>이들의 상관관계가 있다기보단, 없다기보단, 수식적으로 너무 당연한 귀결이라서 진짜 상관관계가 있어도, 없어도, 무어라 단언할 수 없는 상황인 것이다.</u><img filemime="image/jpeg" filename="3.png" height="376" src="https://t1.daumcdn.net/cfile/tistory/993AEA345D47E0A504" style="max-width:100%;height:auto" width="568"/>한편 사전백화를 거치면 위와 같이 깔끔하게 $k=0$ 에 대해서만 상관관계가 있음이 드러난다. R 에서는 간단하게도 ccf() 대신 prewhiten() 을 사용함으로써 사전백화 데이터의 <a href="https://freshrimpsushi.github.io/posts/1227">CCF</a>를 볼 수 있다.사전백화는 이렇게 수식적으로 생겨나는 상관관계를 제거해준다. <u>사전백화된 데이터끼리의 <a href="https://freshrimpsushi.github.io/posts/1227">CCF</a>를 계산했을 때도 상관관계가 있다는 게 드러난다면 이들 변수끼리는 서로 상관관계가 있다고 본다. 반면 사전백화를 거침으로써 <a href="https://freshrimpsushi.github.io/posts/1227">CCF</a> 가 유의하지 않은 것으로 드러나면 그것은 <a href="https://freshrimpsushi.github.io/posts/1238">진짜 상관관계가 아니었다</a>고 본다.</u>수식적으로 보면 왜 이 방법이 사전백화인지 한결 납득하기 쉬울 것이다. 간단한 예로써 $X_{t}$ 가 <a href="https://freshrimpsushi.github.io/posts/941">아리마 모형</a> $ARIMA(1,1,0)$ 에서 나왔다고 생각해보자.
+<li>하단에 예제코드 전체가 있다.<u style="text-align: justify;">* 수학, 통계적인 기초가 부족한 비전공자는 밑줄 그어진 부분만 읽어도 상관 없다.</u>**사전백화**<sup>Prewhitening</sup> 란 <a href="https://freshrimpsushi.github.io/posts/1227">CCF</a>를 계산할 때 <a href="https://freshrimpsushi.github.io/posts/900">시계열</a>을 <a href="https://freshrimpsushi.github.io/posts/904">백색잡음</a>으로 만들어 <u>두 데이터 간의 상관관계를 더욱 정확하게 파악하는 방법</u>이다. 가능하다면 이것이 어떻게 가능한지 수식적으로도 완전히 이해하는 것을 추천하는데, <u>우선은 예로써 다음의 데이터를 살펴보자.</u><img src="1.png#center" alt="1.png">
+bluebird는 뉴질랜드에서 감자칩을 제조하는 회사인 블루버드에 대한 데이터로써, 평균 가격과 판매량에 로그를 취한 두 시계열 데이터를 포함하고 있다. 데이터만 보았을 땐 판매량과 가격은 강한 음의 상관관계를 가지는 것 같은데, 이를 <a href="https://freshrimpsushi.github.io/posts/1227">CCF</a>로 확인해보자.<img src="2.png#center" alt="2.png">
+눈으로 본 것처럼, 생각한것처럼 두 데이터는 서로 음의 상관관계를 가진다. 하지만 시차 $k = 0$ 뿐만이 아니라 그 주변 시차에도 상관관계가 있다는 것은 어떻게 받아들여야할 것인지 생각을 잘 해야한다. 기본적으로 어떤 패턴이 있든 없든 $X_{t}$ 와 $X_{t-1}$, $X_{t+1}$ 은 본질적으로 그 값에 큰 차이가 없다. 폭등과 폭락이 없는 건 아니지만, 어쨌든 바로 이전과 바로 다음이라면 어느정도 그 엇비슷한 값인 게 정상이기 때문이다.그런데 $X_{t}$ 와 $Y_{t}$ 가 상관관계를 가진다면 $X_{t}$ 와 $Y_{t-1}$, $Y_{t+1}$ 역시 어느정도 희석된 상관관계를 가지는 것이 정상이다. 이것은 정말 <u>이들의 상관관계가 있다기보단, 없다기보단, 수식적으로 너무 당연한 귀결이라서 진짜 상관관계가 있어도, 없어도, 무어라 단언할 수 없는 상황인 것이다.</u><img src="3.png#center" alt="3.png">
+한편 사전백화를 거치면 위와 같이 깔끔하게 $k=0$ 에 대해서만 상관관계가 있음이 드러난다. R 에서는 간단하게도 ccf() 대신 prewhiten() 을 사용함으로써 사전백화 데이터의 <a href="https://freshrimpsushi.github.io/posts/1227">CCF</a>를 볼 수 있다.사전백화는 이렇게 수식적으로 생겨나는 상관관계를 제거해준다. <u>사전백화된 데이터끼리의 <a href="https://freshrimpsushi.github.io/posts/1227">CCF</a>를 계산했을 때도 상관관계가 있다는 게 드러난다면 이들 변수끼리는 서로 상관관계가 있다고 본다. 반면 사전백화를 거침으로써 <a href="https://freshrimpsushi.github.io/posts/1227">CCF</a> 가 유의하지 않은 것으로 드러나면 그것은 <a href="https://freshrimpsushi.github.io/posts/1238">진짜 상관관계가 아니었다</a>고 본다.</u>수식적으로 보면 왜 이 방법이 사전백화인지 한결 납득하기 쉬울 것이다. 간단한 예로써 $X_{t}$ 가 <a href="https://freshrimpsushi.github.io/posts/941">아리마 모형</a> $ARIMA(1,1,0)$ 에서 나왔다고 생각해보자.
 $$
 \nabla X_{t} = \phi \nabla X_{t-1} + e_{t}
 $$
@@ -92,20 +98,17 @@ r_{k} \sim N \left( 0 , {{1} \over {n}} \right)
 $$
 쉽게 말해, 사전백화를 한 뒤에도 가설검정 자체는 바뀌지 않는다는 것이다.</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-<span style="color:#a6e22e">library</span>(TSA)
-<span style="color:#a6e22e">data</span>(<span style="color:#e6db74">&#34;bluebird&#34;</span>)
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">5</span>); <span style="color:#a6e22e">plot</span>(bluebird,yax.flip <span style="color:#f92672">=</span> T)
+<pre><code>library(TSA)
+data(&quot;bluebird&quot;)
+win.graph(6,5); plot(bluebird,yax.flip = T)
  
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>)
-<span style="color:#a6e22e">ccf</span>(bluebird[,<span style="color:#ae81ff">1</span>],bluebird[,<span style="color:#ae81ff">2</span>],main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;가격과 판매량의 CCF&#34;</span>,ylab<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;CCF&#34;</span>)
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>)
-<span style="color:#a6e22e">prewhiten</span>(bluebird[,<span style="color:#ae81ff">1</span>],bluebird[,<span style="color:#ae81ff">2</span>],main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;가격과 판매량의 사전백화 CCF&#34;</span>,ylab<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;CCF&#34;</span>)
+win.graph(6,4)
+ccf(bluebird[,1],bluebird[,2],main=&quot;가격과 판매량의 CCF&quot;,ylab=&quot;CCF&quot;)
+win.graph(6,4)
+prewhiten(bluebird[,1],bluebird[,2],main=&quot;가격과 판매량의 사전백화 CCF&quot;,ylab=&quot;CCF&quot;)
  
-out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span>(log.sales<span style="color:#f92672">~</span>price,data<span style="color:#f92672">=</span>bluebird); <span style="color:#a6e22e">summary</span>(out); <span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">rstudent</span>(out))
-</code></pre></div>
+out&lt;-lm(log.sales~price,data=bluebird); summary(out); plot(rstudent(out))
+</code></pre>
 
             </div>
 
@@ -124,7 +127,7 @@ out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span>
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -136,11 +139,13 @@ out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -165,6 +170,8 @@ out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -191,8 +198,6 @@ out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -223,8 +228,6 @@ out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

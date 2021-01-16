@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="통계학에서의 주성분분석">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>통계학에서의 주성분분석</title>
@@ -70,7 +73,7 @@
 <p><a href="http://freshrimpsushi.tistory.com/808">다중공선성 보러가기</a>
 <a href="http://freshrimpsushi.tistory.com/814">R 에서 주성분회귀분석 하는 법 보러가기</a></p>
 <h2 id="개요">개요</h2>
-<p><a href="http://freshrimpsushi.tistory.com/666">다중회귀분석</a> $Y \leftarrow X_{1} , \cdots, X_{p}$ 을 한다고 생각해보자.**주성분분석** , 영어 약어로 **PCA** 는 쉽게 말해 양적변수들이 <a href="http://freshrimpsushi.tistory.com/808">제대로 독립이 되도록</a> &lsquo;재구성&rsquo;해서 분석하는 방법이다. 다변량 데이터의 분석이라는 관점으로 보자면 보다 적은 변수로 현상을 설명하기 위한 &lsquo;차원축소&rsquo;로써의 의미가 있다.주성분분석의 이론적인 유도를 제대로 이해하기 위해선 선형대수, 가능하다면 수치선형대수에 대한 지식까지 필요하다. 도저히 눈에 들어오지 않는다면 **Step 3,4.** 라도 읽고 이해해보도록 하자.</p>
+<p><a href="http://freshrimpsushi.tistory.com/666">다중회귀분석</a> $Y \leftarrow X_{1} , \cdots, X_{p}$ 을 한다고 생각해보자.<strong>주성분분석</strong> , 영어 약어로 <strong>PCA</strong> 는 쉽게 말해 양적변수들이 <a href="http://freshrimpsushi.tistory.com/808">제대로 독립이 되도록</a> &lsquo;재구성&rsquo;해서 분석하는 방법이다. 다변량 데이터의 분석이라는 관점으로 보자면 보다 적은 변수로 현상을 설명하기 위한 &lsquo;차원축소&rsquo;로써의 의미가 있다.주성분분석의 이론적인 유도를 제대로 이해하기 위해선 선형대수, 가능하다면 수치선형대수에 대한 지식까지 필요하다. 도저히 눈에 들어오지 않는다면 <strong>Step 3,4.</strong> 라도 읽고 이해해보도록 하자.</p>
 <h2 id="유도">유도</h2>
 <p><strong>Step 1.</strong>  표준화$p$ 개의 독립변수와 $n$ 개의 표본이 있는 데이터</p>
 <p>$$
@@ -93,7 +96,7 @@ y_{1}
 $$</p>
 <p>는 <a href="http://freshrimpsushi.tistory.com/550">계획행렬</a>을 써서 $Y = X \beta + \varepsilon$ 과 같이 나타낼 수 있다. 이 $X$ 를 표준화한 행렬 $Z$ 라고 함은 $j$ 번째 독립변수 $X_{j}$ 의 표본평균 $\overline{ x_{j} }$ 와 표본표준편차 $s_{ X_{j} }$ 에 대해 $(i,j)$-성분을</p>
 <p>$$
-\displaystyle \left( Z \right)<em>{ij} : = {{ x</em>{ij} } - \overline{ x_{j} } \over { s_{ X_{j} } }} 
+\displaystyle \left( Z \right)_{ij} : = {{ x_{ij} } - \overline{ x_{j} } \over { s_{ X_{j} } }} 
 $$</p>
 <p>으로 갖는 행렬이다. 그러면 새로운 회귀계수</p>
 <p>$$
@@ -106,7 +109,7 @@ $$</p>
 $$</p>
 <p>에 대해 상수항이 없는 회귀분석의 계획행렬식 $Y = Z \Theta + \varepsilon$ 을 얻을 수 있다. 이 $Z = \begin{bmatrix}
 Z_{1} &amp; \cdots &amp; Z_{p} 
-\end{bmatrix}$ 는 벡터 $X_{1} , \cdots , X_{p}$ 를 표준화한 $Z_{1} , \cdots , Z_{p}$ 로 구성된 $( n \times p )$ 행렬이 된다.**Step 2.**  스펙트럴 분해이에 대해 $Z^{T} Z$ 는 $( p \times p ) $ <a href="http://freshrimpsushi.tistory.com/313">대칭행렬</a>인데, 그 정의를 생각해보면 $\displaystyle {{1} \over {n-1}} Z^{T} Z$ 는 $Z_{1} , \cdots , Z_{p}$ 에 대한 <a href="http://freshrimpsushi.tistory.com/425">공분산</a>행렬이 된다. 특히 $Z$ 는 표준화된 행렬이므로, 동시에 <a href="http://freshrimpsushi.tistory.com/57">상관계수</a>행렬이 되기도 한다. <a href="http://freshrimpsushi.tistory.com/346">스펙트럴 이론</a>에 따르면</p>
+\end{bmatrix}$ 는 벡터 $X_{1} , \cdots , X_{p}$ 를 표준화한 $Z_{1} , \cdots , Z_{p}$ 로 구성된 $( n \times p )$ 행렬이 된다.<strong>Step 2.</strong>  스펙트럴 분해이에 대해 $Z^{T} Z$ 는 $( p \times p ) $ <a href="http://freshrimpsushi.tistory.com/313">대칭행렬</a>인데, 그 정의를 생각해보면 $\displaystyle {{1} \over {n-1}} Z^{T} Z$ 는 $Z_{1} , \cdots , Z_{p}$ 에 대한 <a href="http://freshrimpsushi.tistory.com/425">공분산</a>행렬이 된다. 특히 $Z$ 는 표준화된 행렬이므로, 동시에 <a href="http://freshrimpsushi.tistory.com/57">상관계수</a>행렬이 되기도 한다. <a href="http://freshrimpsushi.tistory.com/346">스펙트럴 이론</a>에 따르면</p>
 <p>$$
 \begin{cases} Z^{T} Z = Q \Lambda Q^{T} 
 \\  Q^{T} Q = Q Q^{T} = I \end{cases}
@@ -129,7 +132,7 @@ $$</p>
 \\  0 &amp; 0 &amp; \cdots &amp; \lambda_{p} 
 \end{bmatrix}
 $$</p>
-<p>가 존재한다. 이제 편의상 $\lambda_{1} \ge \lambda_{2} \ge \cdots \ge \lambda_{p}$ 이 되도록 두고 $Z$ 역시 그에 대응되도록 재정렬한 행렬로 생각하자.**Step 3.**  주성분 구성$I = QQ^{T}$ 이므로</p>
+<p>가 존재한다. 이제 편의상 $\lambda_{1} \ge \lambda_{2} \ge \cdots \ge \lambda_{p}$ 이 되도록 두고 $Z$ 역시 그에 대응되도록 재정렬한 행렬로 생각하자.<strong>Step 3.</strong>  주성분 구성$I = QQ^{T}$ 이므로</p>
 <p>$$
 Y = Z \Theta + \varepsilon = Z Q Q^{T} \Theta + \varepsilon 
 $$</p>
@@ -139,7 +142,7 @@ Y = C \alpha + \varepsilon
 $$</p>
 <p>이 $C = \begin{bmatrix}
 C_{1} &amp; \cdots &amp; C_{p} 
-\end{bmatrix}$ 에 대해 $C_{1} , \cdots , C_{p}$ 를 $Z_{1}, \cdots , Z_{p}$ 의 **주성분**<sup>PCs</sup> 이라고 한다. $j$ 번째 주성분의 모양은</p>
+\end{bmatrix}$ 에 대해 $C_{1} , \cdots , C_{p}$ 를 $Z_{1}, \cdots , Z_{p}$ 의 <strong>주성분</strong><sup>PCs</sup> 이라고 한다. $j$ 번째 주성분의 모양은</p>
 <p>$$
 \displaystyle C_{j} = q_{1j} Z_{1} + \cdots + q_{pj} Z_{p} = \sum_{i=1}^{p} q_{ij} Z_{j} 
 $$</p>
@@ -158,7 +161,7 @@ C_{j}^{T} C_{j} = \begin{cases} \lambda_{j} &amp; , i=j 
 \\  0 &amp; , i \ne j \end{cases}
 $$</p>
 <p>이므로 주성분끼리는 반드시 독립이고, 고유값 $\lambda_{j}$ 가 $0$ 에 가까울 정도로 작다는 말은 $\displaystyle C_{j} = \sum_{i=1}^{p} q_{ij} Z_{j} $ 가 영벡터에 가깝다는 의미가 되므로 $Z_{1} , \cdots , Z_{p}$ 가 다중공선성을 가진다고 볼 수 있다.<p style="text-align: right;">■</p>
-한편 유도과정에서 구해지는 고유값을 통해 <a href="http://freshrimpsushi.tistory.com/808">다중공선성</a>을 진단하는 수치적인 지표인 **조건수**<sup>Condition Number</sup></p>
+한편 유도과정에서 구해지는 고유값을 통해 <a href="http://freshrimpsushi.tistory.com/808">다중공선성</a>을 진단하는 수치적인 지표인 <strong>조건수</strong><sup>Condition Number</sup></p>
 <p>$$
 \displaystyle \kappa := \sqrt{ {{ \lambda_{1} } \over { \lambda_{p} }} }
 $$</p>
@@ -183,7 +186,7 @@ $$</p>
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -195,11 +198,13 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -224,6 +229,8 @@ $$</p>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -250,8 +257,6 @@ $$</p>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -282,8 +287,6 @@ $$</p>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

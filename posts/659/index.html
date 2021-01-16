@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="R 에서 조건부로 데이터 필터링하는 법">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>R 에서 조건부로 데이터 필터링하는 법</title>
@@ -55,18 +58,18 @@
 
 
 <h2 id="heading"></h2>
-<p>R 이 주로 통계학에서 쓰이기 때문인지, 필요한 데이터를 골라내고 편집하는 기능은 타의 추종을 불허한다. 이러한 데이터의 핸들링에 익숙해지는 것은 조금 어렵지만, 완벽하게 터득하고 나면 다른 언어가 너무나 불편할 것이다.사실 이러한 팁들은 읽는 것만으로는 크게 도움이 되지 않는다. (실제로 정확성을 기하려다보니 설명도 간결할 수밖에 없다.) 많은 데이터를 다루고 여러가지 코드를 짜다보면 자연스럽게 숙달되는데, 그걸 회피하다보면 실력이 늘지 않는다. 아직 R 을 배우는 입장이라면 안 건드려도 될 데이터도 많이 다뤄보면서 직접 실습해보는 것을 추천한다.<hr align="justify" class="tx-hr-image-3" style="background: url(//i1.daumcdn.net/deco/contents/horizontalrule/line06.gif?v=2) repeat-x scroll left; height: 15px; border:0"/><img filemime="image/jpeg" filename="20180814_151151.png" height="76" src="https://t1.daumcdn.net/cfile/tistory/99BACD445B7272CA20" style="max-width:100%;height:auto" width="520"/>위와 같이 $10$ 부터 $1$ 까지 감소하는 배열이 있다고 할때, 논리 연산자를 통해서 참/거짓의 배열을 얻을 수 있다. 첫번재는 $5$ 이하의 숫자를 골라내고, 두번째는 짝수만 골라낸 것이다.이러한 논리 배열을 이용하면 아주 간단하게 데이터를 골라낼 수 있다.<strong>1. 슬라이싱</strong> <img filemime="image/jpeg" filename="20180814_151201.png" height="33" src="https://t1.daumcdn.net/cfile/tistory/997233445B7272CA05" style="text-align: center;" width="131"/>슬라이싱을 할 때 같은 길이의 논리 배열을 넣는 것만으로 참은 남기고, 거짓은 버린 배열을 반환한다. 예시에선 앞쪽에 있던 숫자들이 잘려나간 것을 확인할 수 있다.<strong>2. which() 함수</strong> <img filemime="image/jpeg" filename="20180814_151210.png" height="31" src="https://t1.daumcdn.net/cfile/tistory/99116E445B7272CA17" style="text-align: center;" width="134"/>which() 함수는 논리 배열을 받아 인덱스의 배열로 반환한다. 예시에선 짝수에 해당하는 인덱스만 남은 것을 확인할 수 있다.이것을 이용해서 다시 <strong>1. 슬라이싱</strong> 을 하면 원하는 데이터를 얻을 수가 있다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-x<span style="color:#f92672">&lt;-</span><span style="color:#ae81ff">10</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>
+<p>R 이 주로 통계학에서 쓰이기 때문인지, 필요한 데이터를 골라내고 편집하는 기능은 타의 추종을 불허한다. 이러한 데이터의 핸들링에 익숙해지는 것은 조금 어렵지만, 완벽하게 터득하고 나면 다른 언어가 너무나 불편할 것이다.사실 이러한 팁들은 읽는 것만으로는 크게 도움이 되지 않는다. (실제로 정확성을 기하려다보니 설명도 간결할 수밖에 없다.) 많은 데이터를 다루고 여러가지 코드를 짜다보면 자연스럽게 숙달되는데, 그걸 회피하다보면 실력이 늘지 않는다. 아직 R 을 배우는 입장이라면 안 건드려도 될 데이터도 많이 다뤄보면서 직접 실습해보는 것을 추천한다.<hr align="justify" class="tx-hr-image-3" style="background: url(//i1.daumcdn.net/deco/contents/horizontalrule/line06.gif?v=2) repeat-x scroll left; height: 15px; border:0"/><img src="20180814_151151.png#center" alt="20180814\_151151.png">
+위와 같이 $10$ 부터 $1$ 까지 감소하는 배열이 있다고 할때, 논리 연산자를 통해서 참/거짓의 배열을 얻을 수 있다. 첫번재는 $5$ 이하의 숫자를 골라내고, 두번째는 짝수만 골라낸 것이다.이러한 논리 배열을 이용하면 아주 간단하게 데이터를 골라낼 수 있다.<strong>1. 슬라이싱</strong> <img src="20180814_151201.png#center" alt="20180814\_151201.png">
+슬라이싱을 할 때 같은 길이의 논리 배열을 넣는 것만으로 참은 남기고, 거짓은 버린 배열을 반환한다. 예시에선 앞쪽에 있던 숫자들이 잘려나간 것을 확인할 수 있다.<strong>2. which() 함수</strong> <img src="20180814_151210.png#center" alt="20180814\_151210.png">
+which() 함수는 논리 배열을 받아 인덱스의 배열로 반환한다. 예시에선 짝수에 해당하는 인덱스만 남은 것을 확인할 수 있다.이것을 이용해서 다시 <strong>1. 슬라이싱</strong> 을 하면 원하는 데이터를 얻을 수가 있다.</p>
+<pre><code>x&lt;-10:1
  
-x<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">5</span>
-x<span style="color:#f92672">%%</span><span style="color:#ae81ff">2</span><span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>
+x&lt;=5
+x%%2==0
  
-x[x<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">5</span>]
-<span style="color:#a6e22e">which</span>(x<span style="color:#f92672">%%</span><span style="color:#ae81ff">2</span><span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>)
-</code></pre></div>
+x[x&lt;=5]
+which(x%%2==0)
+</code></pre>
 
             </div>
 
@@ -85,7 +88,7 @@ x[x<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">5</span>]
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -97,11 +100,13 @@ x[x<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">5</span>]
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -126,6 +131,8 @@ x[x<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">5</span>]
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -152,8 +159,6 @@ x[x<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">5</span>]
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -184,8 +189,6 @@ x[x<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">5</span>]
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

@@ -20,8 +20,9 @@ def digit_phobia(string):
 
 test = False
 
-# post_range = [497]
+# post_range = [44]
 post_range = range(1, 2000)
+# post_range = range(1000, 1005)
 for idx in post_range:
     if len(post_range) == 1:
         test = True
@@ -40,8 +41,16 @@ for idx in post_range:
         continue
 
     SOUP = BeautifulSoup(res,'html.parser')
-    imgUrl = SOUP.select("img")[0:-11]
-
+    allimgUrl = SOUP.select("img")
+    imgUrl = []
+    for item in allimgUrl:
+        try:
+            if item["alt"] != 'N':
+                imgUrl.append(item)
+        except KeyError:
+            imgUrl.append(item)
+    if imgUrl[-1]["src"].find("WhatIsYourMajor.png"):
+        imgUrl.pop()
     # ----------------------------------------------------------
 
     soup = str(SOUP)
@@ -59,20 +68,6 @@ for idx in post_range:
     category = re.findall("""<a class="category" href=.*</a>""", meta_data)[0]
     category = re.sub("<[^<]*>", "", category)
     category = category[(category.find("/")+1):]
-
-    coding_language = ""
-    for item in ["R", "통계적 검정", "분포이론", "수리통계학", "확률론", "확률과정론",
-                 "회귀분석", "시계열분석", "베이지안", "통계학미분류"]:
-        if category == item:
-            coding_language = "R"
-    for item in ["매트랩"]:
-        if category == item:
-            coding_language = "matlab"
-    for item in ["줄리아", "동역학", "동역학계"]:
-        if category == item:
-            coding_language = "julia"
-    
-    if test and coding_language != "": print("프로그래밍 언어는 " + coding_language + "입니다")
     
     if not os.path.isdir("categories/" + category) and not test:
         print("새로운 카테고리입니다: " + category)
@@ -123,6 +118,11 @@ for idx in post_range:
     
     soup = soup.replace("</p><p><b>증명", "</p>\n## 증명")
     soup = soup.replace("</p><p><b>유도", "</p>\n## 유도")
+    soup = soup.replace("</p><p><b>Strategy", "</p>\nStrategy")
+    soup = soup.replace("</p><p><b>Case", "</p>\nCase")
+    soup = soup.replace("</p><p><b>Part", "</p>\nPart")
+    soup = soup.replace("</p><p><b>[", "</p>\n\n[")
+    soup = soup.replace("</p><p><b>(", "</p>\n\n(")
     soup = soup.replace("</b></p><p>", "\n<p>")
 
     # ----------------------------------------------------------
@@ -143,7 +143,8 @@ for idx in post_range:
         if test: print(temp + link["href"] + ")")
         temp = temp + link["href"] + ")"
         soup = soup.replace(str(link), temp)
-    soup = soup.replace("https://freshrimpsushi.tistory.com/", "{{<Tistory>}}/") #
+    soup = soup.replace("https://freshrimpsushi.tistory.com/", "{{<Tistory>}}/")
+    soup = soup.replace("freshrimpsushi.tistory.com/", "{{<Tistory>}}/")
 
     for img in imgUrl:
         if str(img).find("BlogIcon") > 0:
@@ -154,7 +155,7 @@ for idx in post_range:
             temp = img["src"][-10:-1]
         if temp.find(".") == 0:
             temp = img["src"][-10:-1] + temp
-        soup = soup.replace(str(img), "![img](" + temp + "#center)")
+        soup = soup.replace(str(img), "![" + temp + "](" + temp + "#center)\n")
         
     soup = re.sub("<!--[^<]*-->", "", soup)
     soup = re.sub("<script[^<]*</script>", "", soup)
@@ -162,19 +163,22 @@ for idx in post_range:
 
     soup = soup.replace("""<p style="margin-left: 2em;"><span style="font-family: Dotum, 돋움;">""", "\n")
     soup = re.sub("""</td>""", "</td>\n", soup) #순서 지켜야함
-    soup = re.sub("""<table .*colorscripter.*</td>""", "\n```" + coding_language + "\n", soup) #순서 지켜야함
+    soup = re.sub("""<table .*colorscripter.*</td>""", "\n```\n", soup) #순서 지켜야함
     soup = re.sub('<div[^<]*line-height:130%">', "\n", soup) #순서 지켜야함
 
     soup = re.sub("<h3[^<]*>", "## ", soup)
-    soup = re.sub("<pre><code>", "```" + coding_language + "\n", soup)
+    soup = re.sub("<pre><code>", "```\n", soup)
     soup = re.sub("</code></pre>", "```", soup)
     
     soup = re.sub("<code>", "`", soup); soup = re.sub("</code>", "`", soup)
-    soup = re.sub("「", "\n```" + coding_language + "\n", soup); soup = re.sub("」", "\n```\n", soup)
+    soup = re.sub("「", "\n```\n", soup); soup = re.sub("」", "\n```\n", soup)
     soup = re.sub("<b>", "**", soup); soup = re.sub("</b>", "** ", soup)
 
+    soup = re.sub("<blockquote[^<]*>", "\n\n", soup)
+    soup = re.sub("</blockquote>", "\n\n", soup)
+
     for html in ["pre","p", "br", "div", "ol", "ul",
-                 "h1", "h2", "h3", "li", "blockquote", "span",
+                 "h1", "h2", "h3", "li", "span",
                  "table", "tr", "tbody", "td", "font",
                  "hr class", "b style"]:
         soup = re.sub("<" + html + "[^<]*>", "", soup)
@@ -232,6 +236,10 @@ for idx in post_range:
     # issue #4
     soup = soup.replace("^*", "^{ * }")
     soup = soup.replace("^{*}", "^{ * }")
+
+
+    # soup = soup.replace("{x}", "x")
+    soup = soup.replace("_", "\_")
 
     # ----------------------------------------------------------
 

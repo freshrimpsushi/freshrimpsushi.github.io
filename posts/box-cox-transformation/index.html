@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="박스-칵스 변환">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>박스-칵스 변환</title>
@@ -66,16 +69,20 @@
 
 <h2 id="heading"></h2>
 <p>$x &gt; 0$ 에 대해 $g(x) := \begin{cases} \displaystyle {{ x^{\lambda} - 1 } \over { \lambda }} &amp; , \lambda \ne 0 
-\\  \log x &amp; , \lambda = 0 \end{cases}$ 를 <strong>박스-칵스 변환</strong> 이라고 한다.$g$ 는 원래 <strong>멱변환</strong><sup>Power Transformation</sup> 이라고 불리나, 박스와 칵스에 의해 소개되어 박스-칵스 변환이라고 부르기도 한다. 박스-칵스 변환의 주된 용도는 데이터를 정규분포에 가깝게 만들거나 <a href="https://freshrimpsushi.github.io/posts/938">데이터의 분산을 안정화</a>하는 것으로, 정규성을 가정하는 분석법이나 <a href="https://freshrimpsushi.github.io/posts/900">정상성</a>을 요구하는 분석법을 사용하기에 앞서 데이터의 전처리에 유용하게 쓸 수 있다.멱변환을 취하기 위해서는 데이터가 모두 양수여야한다는 조건이 필요하지만, 보통은 그냥 데이터의 최소값이 양수가 되도록 어떤 값을 더해서 밀어Shift주는 식으로 해결한다. 이 방법이 적절치 못하거나 마음에 들지 않는다면 실수 전체에 대해 일반화된 <strong>여-존슨 변환</strong> <strong>Yeo-Johnson Transformation</strong> 을 고려해볼 수 있다.수식적으로는 $\displaystyle \lim_{\lambda \to 0} {{ x^{\lambda} - 1 } \over { \lambda }} = \log x$ 이므로 사실 편하게 적자면 $\displaystyle g(x) = {{ x^{\lambda} - 1 } \over { \lambda }} $ 정도만 되어도 알아보는데에는 큰 문제가 없다. 또 $g$ 는 $\lambda$ 에도 종속되어 있으므로 우리가 가진 것은 함수의 패밀리 $\left\{ g_{\lambda} : \lambda \in \mathbb{R} \right\}$ 이다. $g_{\lambda}$ 는 $\lambda$ 에 따라 유연하게 꼴을 바뀌고, 분석자는 목적에 맞게 $\lambda$ 를 제대로 결정할 수 있어야할 것이다.이때 특히 주목할만한 $\lambda$ 로 $0,1,2$ 가 있다. $g_{0} (x) = \log(x)$ 는 가장 즐겨쓰이는 변환이며, $\displaystyle g_{2} (x) = {{\sqrt{x} - 1} \over {2}}$ 또한 $\displaystyle h(x) = {{x - 1} \over {2}}$ 이 선형변환이므로 $\displaystyle g_{2} (x) \approx \sqrt{x}$ 가 발견됨을 알 수 있다. 변환에 즐겨 쓰이는 루트 $\sqrt{}$ 와 로그 $\log$ 가 박스-칵스 변환에 의해 커버된다는 사실은 이론적으로 흥미로운 동시에 실용적으로 당연해야할 일이다.$\lambda = 1$ 인 경우 $g(x) = x - 1$ 으로써, 사실상 <a href="https://freshrimpsushi.github.io/posts/728">항등 변환</a>이 된다. 보통의 경우 데이터에서 값이 $1$ 정도 빠지는 것은 변환이라고 부를수도 없기 때문이다. 주어진 데이터에 대해 적절한 $\lambda$ 가 $1$ 이라고 구해졌다면 이것은 &lsquo;변환이 필요없다&rsquo;라는 뜻으로 받아들여도 무방하다.같은 센스로 <a href="https://freshrimpsushi.github.io/posts/900">시계열 분석</a>을 생각해보면 박스-칵스 변환의 $\lambda$ 의 신뢰구간을 구하는 것은 곧 데이터의 분산이 일정한지를 검정하는 것으로 볼 수 있다. $\lambda$ 의 신뢰구간에 $1$ 이 포함되면 데이터를 변환하나 안 하나 차이가 없는 것이다. 변환을 할 필요가 없다는 것은 다시 말해 분산이 이미 일정하다는 것이다.데이터 $\left\{ x_{t} \right\}$ 가 주어져 있다고 하자.$H_{0}$ : $\lambda = 1$ 즉, 데이터 $\left\{ y_{t} \right\}$ 는 정상성을 갖는다.$H_{1}$ : $\lambda \ne 1$ 즉, 데이터 $\left\{ y_{t} \right\}$ 는 정상성을 가지지 않는다.주의해야할 것은 이러한 진단이 분산에 대해서만 일어난다는 것이다. 평균에 대해서는 신경쓰지 않기 때문에 이에 대한 <a href="https://freshrimpsushi.github.io/posts/921">별도의 테스트</a>가 필요하다.R 에서는 TSA 패키지의 BoxCox.ar() 함수를 통해 쉽게 가설 검정을 할 수 있다.<a href="http://freshrimpsushi.tistory.com/331">내장데이터</a> UKgas를 불러와보자.&lt;img &ldquo;&quot;=&rdquo;&quot; filemime=&ldquo;image/jpeg&rdquo; filename=&ldquo;ukgas.png&rdquo; height=&ldquo;328&rdquo; src=&ldquo;<a href="https://t1.daumcdn.net/cfile/tistory/991364375CC9336B1B%22">https://t1.daumcdn.net/cfile/tistory/991364375CC9336B1B&quot;</a> style=&rdquo;&quot; width=&ldquo;328&rdquo;/&gt;<img filemime="image/jpeg" filename="boxcoxukgas.png" height="328" src="https://t1.daumcdn.net/cfile/tistory/997216375CC9336B20" style="max-width:100%;height:auto" width="328"/>UKgas는 영국에서 가스의 소비량을 분기별로 기록한 데이터로써, 보다시피 해가 가면서 변동이 더욱 심해지는 것을 알 수 있다. 한편 가설검정 결과 신뢰구간에 $0$ 이 포함되어 있고, 이에 따라 박스-칵스 변환은 곧 로그변환이 된다.<img filemime="image/jpeg" filename="logukgas.png" height="328" src="https://t1.daumcdn.net/cfile/tistory/994A7E375CC9336B21" style="text-align: center;" width="328"/><img filemime="image/jpeg" filename="boxcoxlogukgas.png" height="328" src="https://t1.daumcdn.net/cfile/tistory/99FBB1375CC9336A23" style="text-align: center;" width="328"/>로그를 취하면 실제로 분산이 상당히 안정되는 것을 볼 수 있다. 확인을 위해 한번 더 가설검정을 해보면 신뢰구간에 $1$ 이 포함되어있다. 이는 신뢰수준 $95%$ 에서 더 이상 변환이 필요하지 않다는 뜻으로 받아들일 수 있다. 하지만 그래프에서 나타나듯이 완전히 분산이 안정된 것은 아니며, $2$ 역시 신뢰구간에 포함되어 있으므로 한 번 더 변환을 취하는 근거로 받아들여도 무방하다. 적어도 이러한 상황에서의 선택은 신뢰수준에 달려 있으며, 신뢰수준이 $95 %$ 라면 분석자가 선택하기 나름이다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-UKgas
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">3.5</span>,<span style="color:#ae81ff">3.5</span>); <span style="color:#a6e22e">plot</span>(UKgas,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;UKgas&#39;</span>)
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">3.5</span>,<span style="color:#ae81ff">3.5</span>); <span style="color:#a6e22e">BoxCox.ar</span>(UKgas)
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">3.5</span>,<span style="color:#ae81ff">3.5</span>); <span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">log</span>(UKgas),main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;log(UKgas)&#39;</span>)
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">3.5</span>,<span style="color:#ae81ff">3.5</span>); <span style="color:#a6e22e">BoxCox.ar</span>(<span style="color:#a6e22e">log</span>(UKgas))
-</code></pre></div>
+\\  \log x &amp; , \lambda = 0 \end{cases}$ 를 <strong>박스-칵스 변환</strong> 이라고 한다.</p>
+<p>$g$ 는 원래 <strong>멱변환</strong><sup>Power Transformation</sup> 이라고 불리나, 박스와 칵스에 의해 소개되어 박스-칵스 변환이라고 부르기도 한다. 박스-칵스 변환의 주된 용도는 데이터를 정규분포에 가깝게 만들거나 <a href="https://freshrimpsushi.github.io/posts/938">데이터의 분산을 안정화</a>하는 것으로, 정규성을 가정하는 분석법이나 <a href="https://freshrimpsushi.github.io/posts/900">정상성</a>을 요구하는 분석법을 사용하기에 앞서 데이터의 전처리에 유용하게 쓸 수 있다.멱변환을 취하기 위해서는 데이터가 모두 양수여야한다는 조건이 필요하지만, 보통은 그냥 데이터의 최소값이 양수가 되도록 어떤 값을 더해서 밀어Shift주는 식으로 해결한다. 이 방법이 적절치 못하거나 마음에 들지 않는다면 실수 전체에 대해 일반화된 <strong>여-존슨 변환</strong> <strong>Yeo-Johnson Transformation</strong> 을 고려해볼 수 있다.수식적으로는 $\displaystyle \lim_{\lambda \to 0} {{ x^{\lambda} - 1 } \over { \lambda }} = \log x$ 이므로 사실 편하게 적자면 $\displaystyle g(x) = {{ x^{\lambda} - 1 } \over { \lambda }} $ 정도만 되어도 알아보는데에는 큰 문제가 없다. 또 $g$ 는 $\lambda$ 에도 종속되어 있으므로 우리가 가진 것은 함수의 패밀리 $\left\{ g_{\lambda} : \lambda \in \mathbb{R} \right\}$ 이다. $g_{\lambda}$ 는 $\lambda$ 에 따라 유연하게 꼴을 바뀌고, 분석자는 목적에 맞게 $\lambda$ 를 제대로 결정할 수 있어야할 것이다.이때 특히 주목할만한 $\lambda$ 로 $0,1,2$ 가 있다. $g_{0} (x) = \log(x)$ 는 가장 즐겨쓰이는 변환이며, $\displaystyle g_{2} (x) = {{\sqrt{x} - 1} \over {2}}$ 또한 $\displaystyle h(x) = {{x - 1} \over {2}}$ 이 선형변환이므로 $\displaystyle g_{2} (x) \approx \sqrt{x}$ 가 발견됨을 알 수 있다. 변환에 즐겨 쓰이는 루트 $\sqrt{}$ 와 로그 $\log$ 가 박스-칵스 변환에 의해 커버된다는 사실은 이론적으로 흥미로운 동시에 실용적으로 당연해야할 일이다.$\lambda = 1$ 인 경우 $g(x) = x - 1$ 으로써, 사실상 <a href="https://freshrimpsushi.github.io/posts/728">항등 변환</a>이 된다. 보통의 경우 데이터에서 값이 $1$ 정도 빠지는 것은 변환이라고 부를수도 없기 때문이다. 주어진 데이터에 대해 적절한 $\lambda$ 가 $1$ 이라고 구해졌다면 이것은 &lsquo;변환이 필요없다&rsquo;라는 뜻으로 받아들여도 무방하다.같은 센스로 <a href="https://freshrimpsushi.github.io/posts/900">시계열 분석</a>을 생각해보면 박스-칵스 변환의 $\lambda$ 의 신뢰구간을 구하는 것은 곧 데이터의 분산이 일정한지를 검정하는 것으로 볼 수 있다. $\lambda$ 의 신뢰구간에 $1$ 이 포함되면 데이터를 변환하나 안 하나 차이가 없는 것이다. 변환을 할 필요가 없다는 것은 다시 말해 분산이 이미 일정하다는 것이다.</p>
+<p>데이터 $\left\{ x_{t} \right\}$ 가 주어져 있다고 하자.$H_{0}$ : $\lambda = 1$ 즉, 데이터 $\left\{ y_{t} \right\}$ 는 정상성을 갖는다.$H_{1}$ : $\lambda \ne 1$ 즉, 데이터 $\left\{ y_{t} \right\}$ 는 정상성을 가지지 않는다.</p>
+<p>주의해야할 것은 이러한 진단이 분산에 대해서만 일어난다는 것이다. 평균에 대해서는 신경쓰지 않기 때문에 이에 대한 <a href="https://freshrimpsushi.github.io/posts/921">별도의 테스트</a>가 필요하다.R 에서는 TSA 패키지의 BoxCox.ar() 함수를 통해 쉽게 가설 검정을 할 수 있다.<a href="http://freshrimpsushi.tistory.com/331">내장데이터</a> UKgas를 불러와보자.<img src="ukgas.png#center" alt="ukgas.png">
+<img src="boxcoxukgas.png#center" alt="boxcoxukgas.png">
+UKgas는 영국에서 가스의 소비량을 분기별로 기록한 데이터로써, 보다시피 해가 가면서 변동이 더욱 심해지는 것을 알 수 있다. 한편 가설검정 결과 신뢰구간에 $0$ 이 포함되어 있고, 이에 따라 박스-칵스 변환은 곧 로그변환이 된다.<img src="logukgas.png#center" alt="logukgas.png">
+<img src="boxcoxlogukgas.png#center" alt="boxcoxlogukgas.png">
+로그를 취하면 실제로 분산이 상당히 안정되는 것을 볼 수 있다. 확인을 위해 한번 더 가설검정을 해보면 신뢰구간에 $1$ 이 포함되어있다. 이는 신뢰수준 $95%$ 에서 더 이상 변환이 필요하지 않다는 뜻으로 받아들일 수 있다. 하지만 그래프에서 나타나듯이 완전히 분산이 안정된 것은 아니며, $2$ 역시 신뢰구간에 포함되어 있으므로 한 번 더 변환을 취하는 근거로 받아들여도 무방하다. 적어도 이러한 상황에서의 선택은 신뢰수준에 달려 있으며, 신뢰수준이 $95 %$ 라면 분석자가 선택하기 나름이다.</p>
+<pre><code>UKgas
+win.graph(3.5,3.5); plot(UKgas,main='UKgas')
+win.graph(3.5,3.5); BoxCox.ar(UKgas)
+win.graph(3.5,3.5); plot(log(UKgas),main='log(UKgas)')
+win.graph(3.5,3.5); BoxCox.ar(log(UKgas))
+</code></pre>
 
             </div>
 
@@ -94,7 +101,7 @@ UKgas
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -106,11 +113,13 @@ UKgas
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -135,6 +144,8 @@ UKgas
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -161,8 +172,6 @@ UKgas
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -193,8 +202,6 @@ UKgas
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

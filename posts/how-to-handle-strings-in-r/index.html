@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="R 에서 문자열 다루기">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>R 에서 문자열 다루기</title>
@@ -55,18 +58,16 @@
 
 
 <h2 id="heading"></h2>
-<p>개발자들이 많이 사용하는 언어들에 비교하면 그 정도가 덜하지만, R 에서도 문자열을 다룰 일이 생각보다 많다.데이터가 방대하고 제멋대로일수록 이런 사소한 테크닉들이 엄청나게 중요해진다.<img filemime="image/jpeg" filename="20180517_102158.png" height="242" src="https://t1.daumcdn.net/cfile/tistory/990F013C5AFCD98D02" style="max-width:100%;height:auto" width="204"/>nchar() 함수는 단순히 문자열의 길이를 반환한다.다른 언어를 먼저 접한 사람은 아마 십중팔구 length를 먼저 쳐봤을 것이다.substring() 함수는 그 이름에서 쉽게 짐작할 수 있듯 부분 문자열을 반환하는 함수다.예시에선 &ldquo;Oh My God&quot;의 7번째부터 10번째인 &ldquo;God&quot;를 반환했다.gsub() 함수는 문자열의 일부를 다른 문자열로 <u>모두</u> 바꿔주는 함수다.당연하지만 대소문자를 구분한다.casefold() 함수는 대문자를 모두 소문자로 바꿔주는 함수다.보통 통계나 언어학쪽에선 대소문자의 구분까진 필요 없으므로 유용하게 쓸 수 있다.strsplit() 함수는 주어진 문자열을 어떤 기준으로 쪼개고 그 벡터를 반환하는 함수다.보다시피 공백도 가능하고, 심지어는 '' 를 입력해서 한글자 단위로도 잘라줄 수 있다.paste0() 함수는 주어진 문자열들을 <u>공백 없이</u> 이어주는 함수다.물론 그냥 paste() 함수에서 옵션을 쓸수도 있지만 코드가 한결 간결하고 보기 좋아진다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-OMG<span style="color:#f92672">&lt;-</span><span style="color:#e6db74">&#34;Oh My God&#34;</span>
+<p>개발자들이 많이 사용하는 언어들에 비교하면 그 정도가 덜하지만, R 에서도 문자열을 다룰 일이 생각보다 많다.데이터가 방대하고 제멋대로일수록 이런 사소한 테크닉들이 엄청나게 중요해진다.<img src="20180517_102158.png#center" alt="20180517\_102158.png">
+nchar() 함수는 단순히 문자열의 길이를 반환한다.다른 언어를 먼저 접한 사람은 아마 십중팔구 length를 먼저 쳐봤을 것이다.substring() 함수는 그 이름에서 쉽게 짐작할 수 있듯 부분 문자열을 반환하는 함수다.예시에선 &ldquo;Oh My God&quot;의 7번째부터 10번째인 &ldquo;God&quot;를 반환했다.gsub() 함수는 문자열의 일부를 다른 문자열로 <u>모두</u> 바꿔주는 함수다.당연하지만 대소문자를 구분한다.casefold() 함수는 대문자를 모두 소문자로 바꿔주는 함수다.보통 통계나 언어학쪽에선 대소문자의 구분까진 필요 없으므로 유용하게 쓸 수 있다.strsplit() 함수는 주어진 문자열을 어떤 기준으로 쪼개고 그 벡터를 반환하는 함수다.보다시피 공백도 가능하고, 심지어는 '' 를 입력해서 한글자 단위로도 잘라줄 수 있다.paste0() 함수는 주어진 문자열들을 <u>공백 없이</u> 이어주는 함수다.물론 그냥 paste() 함수에서 옵션을 쓸수도 있지만 코드가 한결 간결하고 보기 좋아진다.</p>
+<pre><code>OMG&lt;-&quot;Oh My God&quot;
  
-<span style="color:#a6e22e">nchar</span>(OMG)
-<span style="color:#a6e22e">substring</span>(OMG,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">10</span>)
-<span style="color:#a6e22e">gsub</span>(<span style="color:#e6db74">&#39;God&#39;</span>,<span style="color:#e6db74">&#39;Girl&#39;</span>, OMG)
-<span style="color:#a6e22e">casefold</span>(OMG)
-<span style="color:#a6e22e">strsplit</span>(OMG,<span style="color:#e6db74">&#39; &#39;</span>)
-</code></pre></div>
+nchar(OMG)
+substring(OMG,7,10)
+gsub('God','Girl', OMG)
+casefold(OMG)
+strsplit(OMG,' ')
+</code></pre>
 
             </div>
 
@@ -85,7 +86,7 @@ OMG<span style="color:#f92672">&lt;-</span><span style="color:#e6db74">&#34;Oh 
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -97,11 +98,13 @@ OMG<span style="color:#f92672">&lt;-</span><span style="color:#e6db74">&#34;Oh 
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -126,6 +129,8 @@ OMG<span style="color:#f92672">&lt;-</span><span style="color:#e6db74">&#34;Oh 
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -152,8 +157,6 @@ OMG<span style="color:#f92672">&lt;-</span><span style="color:#e6db74">&#34;Oh 
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -184,8 +187,6 @@ OMG<span style="color:#f92672">&lt;-</span><span style="color:#e6db74">&#34;Oh 
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

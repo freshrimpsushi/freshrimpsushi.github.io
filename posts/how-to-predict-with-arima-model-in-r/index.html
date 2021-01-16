@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="R 에서 아리마 모형으로 예측하는 법">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>R 에서 아리마 모형으로 예측하는 법</title>
@@ -56,23 +59,24 @@
 
 <h2 id="heading"></h2>
 <ul>
-<li>하단에 예제코드 전체가 있다.<img src="1.png#center" alt="img">R <a href="http://freshrimpsushi.tistory.com/331">내장데이터</a> UKDriverDeaths는 1969년부터 1984년까지 영국 월별 운전자 사상자에 대한 데이터다. 언뜻 보아도 <a href="https://freshrimpsushi.github.io/posts/1067">계절형 아리마 모형</a>을 따르고, 실제로 모형을 찾아내는것은 별로 어렵지 않다.<img filemime="image/jpeg" filename="20190722_131357.png" height="146" src="https://t1.daumcdn.net/cfile/tistory/99854F445D35393210" style="max-width:100%;height:auto" width="534"/>그러나 최종적으로 얻은 모형으로 식을 직접 써서 계산하는 것은 무척 손이 많이 가고 복잡한 일이다. 따라서 predict() 함수를 사용한다. n.ahead 옵션을 통해 얼마나 길게 예측할지를 정할 수 있으며, 예측값 $pred와 <a href="https://freshrimpsushi.github.io/posts/541">표준오차</a> $se를 사용해 예측구간을 찾을 수도 있다.<img filemime="image/jpeg" filename="20190722_131423.png" height="244" src="https://t1.daumcdn.net/cfile/tistory/99F1AC445D35393206" style="max-width:100%;height:auto" width="485"/>가능한 것과는 별개로 예측구간을 그리는 코드를 실제로 작성하는 것 역시 무척 번거로운 일인데, 다행스럽게도 TSA 패키지를 사용하고 있다면 plot() 함수만으로 간단하게 예측구간을 그려낼 수 있다.<img filemime="image/jpeg" filename="2.png" height="376" src="https://t1.daumcdn.net/cfile/tistory/993A4F4C5D3538CA12" style="max-width:100%;height:auto" width="568"/>다음은 유용하게 쓰이는 몇가지 옵션들이다 :<strong>(1)</strong>  n.ahead : predict() 함수와 마찬가지로 얼마나 길게 예측할지를 정한다.<strong>(2)</strong>  n1 : 플랏을 어디부터 시작할지를 정한다.<strong>(3)</strong>  newxreg : 시계열 회귀분석을 할 때 필요한 데이터를 준다.참고로 plot() 자체도 예측값과 예측구간을 리턴한다. 아쉽게도 예측구간의 신뢰수준을 정하는 옵션은 없으므로 바꾸고 싶다면 번거롭더라도 predict() 함수를 통해 직접 그려내는 수밖에 없다.한편 arima()로 얻은 모델이 아니라 auto.arima()로 얻은 모형을 plot()에 바로 집어넣으면 다음과 같은 그림이 그려진다. 이 사실을 아는 것만으로도 예제를 찾아보고 패키지를 다시 까는 삽질을 하지 않을 수 있게 되므로 이러한 모양의 그림을 기억해두는 것을 강력하게 권장한다.<img filemime="image/jpeg" filename="3.png" height="376" src="https://t1.daumcdn.net/cfile/tistory/9917A94C5D3538CA34" style="max-width:100%;height:auto" width="568"/></li>
+<li>하단에 예제코드 전체가 있다.<img src="1.png#center" alt="1.png">
+R <a href="http://freshrimpsushi.tistory.com/331">내장데이터</a> UKDriverDeaths는 1969년부터 1984년까지 영국 월별 운전자 사상자에 대한 데이터다. 언뜻 보아도 <a href="https://freshrimpsushi.github.io/posts/1067">계절형 아리마 모형</a>을 따르고, 실제로 모형을 찾아내는것은 별로 어렵지 않다.<img src="20190722_131357.png#center" alt="20190722\_131357.png">
+그러나 최종적으로 얻은 모형으로 식을 직접 써서 계산하는 것은 무척 손이 많이 가고 복잡한 일이다. 따라서 predict() 함수를 사용한다. n.ahead 옵션을 통해 얼마나 길게 예측할지를 정할 수 있으며, 예측값 $pred와 <a href="https://freshrimpsushi.github.io/posts/541">표준오차</a> $se를 사용해 예측구간을 찾을 수도 있다.<img src="20190722_131423.png#center" alt="20190722\_131423.png">
+가능한 것과는 별개로 예측구간을 그리는 코드를 실제로 작성하는 것 역시 무척 번거로운 일인데, 다행스럽게도 TSA 패키지를 사용하고 있다면 plot() 함수만으로 간단하게 예측구간을 그려낼 수 있다.<img src="2.png#center" alt="2.png">
+다음은 유용하게 쓰이는 몇가지 옵션들이다 :<strong>(1)</strong>  n.ahead : predict() 함수와 마찬가지로 얼마나 길게 예측할지를 정한다.<strong>(2)</strong>  n1 : 플랏을 어디부터 시작할지를 정한다.<strong>(3)</strong>  newxreg : 시계열 회귀분석을 할 때 필요한 데이터를 준다.참고로 plot() 자체도 예측값과 예측구간을 리턴한다. 아쉽게도 예측구간의 신뢰수준을 정하는 옵션은 없으므로 바꾸고 싶다면 번거롭더라도 predict() 함수를 통해 직접 그려내는 수밖에 없다.한편 arima()로 얻은 모델이 아니라 auto.arima()로 얻은 모형을 plot()에 바로 집어넣으면 다음과 같은 그림이 그려진다. 이 사실을 아는 것만으로도 예제를 찾아보고 패키지를 다시 까는 삽질을 하지 않을 수 있게 되므로 이러한 모양의 그림을 기억해두는 것을 강력하게 권장한다.<img src="3.png#center" alt="3.png"></li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
-
-
-<span style="color:#a6e22e">library</span>(TSA)
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>); <span style="color:#a6e22e">plot</span>(UKDriverDeaths,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;UKDriverDeaths&#39;</span>)
-out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">arima</span>(UKDriverDeaths,order<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>)
-           ,seasonal <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(order<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>),period<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>)); out
-<span style="color:#a6e22e">predict</span>(out,n.ahead <span style="color:#f92672">=</span> <span style="color:#ae81ff">24</span>)
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>); <span style="color:#a6e22e">plot</span>(out,n.ahead <span style="color:#f92672">=</span> <span style="color:#ae81ff">24</span>, type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;l&#39;</span>
-                     ,n1<span style="color:#f92672">=</span><span style="color:#ae81ff">1980</span>, main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;95% 예측구간&#39;</span>)
+<pre><code>library(TSA)
+win.graph(6,4); plot(UKDriverDeaths,main='UKDriverDeaths')
+out&lt;-arima(UKDriverDeaths,order=c(1,0,1)
+           ,seasonal = list(order=c(1,0,1),period=12)); out
+predict(out,n.ahead = 24)
+win.graph(6,4); plot(out,n.ahead = 24, type='l'
+                     ,n1=1980, main='95% 예측구간')
  
-<span style="color:#a6e22e">library</span>(forecast)
-wrong<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.arima</span>(UKDriverDeaths); <span style="color:#a6e22e">summary</span>(wrong)
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>); <span style="color:#a6e22e">plot</span>(wrong)[Colored by Color Scripter<span style="color:#a6e22e">]</span>(http<span style="color:#f92672">://</span>colorscripter.com<span style="color:#f92672">/</span>info<span style="color:#75715e">#e)</span>
-</code></pre></div>
+library(forecast)
+wrong&lt;-auto.arima(UKDriverDeaths); summary(wrong)
+win.graph(6,4); plot(wrong)[Colored by Color Scripter](http://colorscripter.com/info#e)
+</code></pre>
 
             </div>
 
@@ -91,7 +95,7 @@ wrong<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.ar
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -103,11 +107,13 @@ wrong<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.ar
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -132,6 +138,8 @@ wrong<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.ar
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -158,8 +166,6 @@ wrong<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.ar
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -190,8 +196,6 @@ wrong<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.ar
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>

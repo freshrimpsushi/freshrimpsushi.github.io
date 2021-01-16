@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
 
     
     <meta name="title" content="그래프의 오리엔테이션">
@@ -16,6 +18,7 @@
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     <title>그래프의 오리엔테이션</title>
@@ -71,7 +74,15 @@ $$
 v_{0} v_{1} , v_{1} v_{2} , \cdots , v_{m-1} v_{m} 
 \\ v_{0} \rightarrow v_{1} \rightarrow v_{2} \rightarrow \cdots \rightarrow v_{m-1} \rightarrow v_{m}
 $$
-이 때 $v_{0}$ 을 **시점**<sup>Initial Vertex</sup> , $v_{m}$ 을 **종점**<sup>Final Vertex</sup> 이라 하고 $m$ 을 **길이**<sup>Length</sup> 라 부른다.**2.**  유향 워크의 아크가 모두 다르면 **유향 트레일**<sup>Directed Trail</sup> 이라고 한다.**3.**  유향 워크의 버텍스가 모두 다르면 **유향 패스**<sup>Directed Path</sup> 라고 한다.**4.**  유향 워크의 시점과 종점이 같으면 **닫혀있다**<sup>Closed</sup> 고 한다.**5.**  닫힌 패스를 **사이클**<sup>Directed Cycle</sup> 이라고 한다.**아크**<sup>Arc</sup> 란 유향 그래프에서 방향을 가진 에지를 말한다. 위의 정의는 본질적으로 <a href="https://freshrimpsushi.github.io/posts/1528">워크와 트레일, 패스, 사이클에 대한 정의</a>를 유향 그래프에 대해 다시 정의했을 뿐이다.오리엔테이션의 정의를 소개하기 이전에 일반적인 그래프의 연결성에 대해 리뷰해보자.<a href="https://freshrimpsushi.github.io/posts/1512">그래프의 집합 표현</a>두 그래프 $G_{1}$ 과 $G_{2}$ 에 대해 $V(G_{1}) \cap V(G_{2}) = \emptyset$ 이라고 하자. 그러면 두 그래프의 **유니언**<sup>Union</sup>  $G = G_{1} \cup G_{2}$ 은 버텍스 셋 $V(G_{1}) \cup V(G_{2})$ 과 에지 셋 $E (G_{1}) \cup E ( G_{2} )$ 을 가지는 그래프다. 그래프 $H$ 가 그래프들의 유니언으로 표현될 수 없으면 $H$ 를 **연결되었다**<sup>Connected</sup> 고 한다.이제 그래프의 오리엔테이션을 정의해보자.**6.**  유향 그래프 $D$ 에서 임의의 두 버텍스 $v,w \in V(D)$ 에 대해 시점이 $v$ 고 종점이 $w$ 인 유향 패스가 존재하면 $D$ 가 **강하게 연결되었다**<sup>Strongly Connected</sup> 고 한다.**7.**  그래프 $G$ 의 에지에 방향을 줘서 강하게 연결된 유향 그래프를 만들 수 있으면 $G$ 가 **오리엔터블**<sup>Orientable</sup> 하다고 하고, 그 강하게 연결된 유향 그래프를 $G$ 의 **오리엔테이션** 이라고 한다.**6.**  그래프의 집합 표현을 통해 깔끔하게 정의된 연결성과 달리 강한 연결성은 패스의 존재성을 통해 정의한다. 수학적으로 우아하지는 않지만 오히려 더 직관적으로 이해할 수 있을 것이다. 이제와서 생각해보면 사실 일반적인 그래프의 연결성도 패스의 존재성으로 정의해도 상관 없는데, 집합으로 정의하는 편이 <a href="https://freshrimpsushi.github.io/posts/457">위상수학에서의 연결성</a>을 정의하는 방식과 비슷하기 때문에 굳이 집합 표현을 쓰는 것이다.**7.**  쉽게 말해 오리엔터블 그래프란 일반적인 그래프 $G$ 를 유향 그래프로 바꿨을 때도 연결성이 유지될 수 있는 그래프다. 애초에 연결성이 없다면 당연히 강한 연결성도 가질 수 없다. 예로써 다음의 그래프를 보면 방향을 주었을 때 강한 연결성을 가짐으로써 오리엔터블 그래프가 됨을 확인할 수 있다.<img filemime="image/jpeg" filename="20200215_113812.png" height="152" src="https://t1.daumcdn.net/cfile/tistory/99A3EE4F5E4759A235" style="text-align: center;" width="402"/>한편 오리엔터블 그래프에 대해 사이클과 관련된 다음의 정리가 알려져 있다.$G$ 는 <a href="https://freshrimpsushi.github.io/posts/1512">연결 그래프</a>라고 하자.$G$ 가 오리엔터블인 것과 $G$ 의 모든 에지가 적어도 하나의 사이클에 포함되는 것은 동치다.**Strategy**  : 그래프에 사이클에 속하지 않는 버텍스인 <a href="https://freshrimpsushi.github.io/posts/1496">엔드 버텍스</a> $v_{0}$가 존재한다면 방향을 어떻게 주든 $v_{0}$ 로는 들어가거나 나갈수밖에 없으므로 오리엔터블 그래프가 될 수 없다. 이러한 사실에서 오리엔터블 그래프의 모든 버텍스와 에지는 반드시 사이클에 속해있어야 한다.</p>
+이 때 $v_{0}$ 을 <strong>시점</strong><sup>Initial Vertex</sup> , $v_{m}$ 을 <strong>종점</strong><sup>Final Vertex</sup> 이라 하고 $m$ 을 <strong>길이</strong><sup>Length</sup> 라 부른다.<strong>2.</strong>  유향 워크의 아크가 모두 다르면 <strong>유향 트레일</strong><sup>Directed Trail</sup> 이라고 한다.<strong>3.</strong>  유향 워크의 버텍스가 모두 다르면 <strong>유향 패스</strong><sup>Directed Path</sup> 라고 한다.<strong>4.</strong>  유향 워크의 시점과 종점이 같으면 <strong>닫혀있다</strong><sup>Closed</sup> 고 한다.<strong>5.</strong>  닫힌 패스를 <strong>사이클</strong><sup>Directed Cycle</sup> 이라고 한다.</p>
+<p><strong>아크</strong><sup>Arc</sup> 란 유향 그래프에서 방향을 가진 에지를 말한다. 위의 정의는 본질적으로 <a href="https://freshrimpsushi.github.io/posts/1528">워크와 트레일, 패스, 사이클에 대한 정의</a>를 유향 그래프에 대해 다시 정의했을 뿐이다.오리엔테이션의 정의를 소개하기 이전에 일반적인 그래프의 연결성에 대해 리뷰해보자.</p>
+<p><a href="https://freshrimpsushi.github.io/posts/1512">그래프의 집합 표현</a>두 그래프 $G_{1}$ 과 $G_{2}$ 에 대해 $V(G_{1}) \cap V(G_{2}) = \emptyset$ 이라고 하자. 그러면 두 그래프의 <strong>유니언</strong><sup>Union</sup>  $G = G_{1} \cup G_{2}$ 은 버텍스 셋 $V(G_{1}) \cup V(G_{2})$ 과 에지 셋 $E (G_{1}) \cup E ( G_{2} )$ 을 가지는 그래프다. 그래프 $H$ 가 그래프들의 유니언으로 표현될 수 없으면 $H$ 를 <strong>연결되었다</strong><sup>Connected</sup> 고 한다.</p>
+<p>이제 그래프의 오리엔테이션을 정의해보자.</p>
+<p><strong>6.</strong>  유향 그래프 $D$ 에서 임의의 두 버텍스 $v,w \in V(D)$ 에 대해 시점이 $v$ 고 종점이 $w$ 인 유향 패스가 존재하면 $D$ 가 <strong>강하게 연결되었다</strong><sup>Strongly Connected</sup> 고 한다.<strong>7.</strong>  그래프 $G$ 의 에지에 방향을 줘서 강하게 연결된 유향 그래프를 만들 수 있으면 $G$ 가 <strong>오리엔터블</strong><sup>Orientable</sup> 하다고 하고, 그 강하게 연결된 유향 그래프를 $G$ 의 <strong>오리엔테이션</strong> 이라고 한다.</p>
+<p><strong>6.</strong>  그래프의 집합 표현을 통해 깔끔하게 정의된 연결성과 달리 강한 연결성은 패스의 존재성을 통해 정의한다. 수학적으로 우아하지는 않지만 오히려 더 직관적으로 이해할 수 있을 것이다. 이제와서 생각해보면 사실 일반적인 그래프의 연결성도 패스의 존재성으로 정의해도 상관 없는데, 집합으로 정의하는 편이 <a href="https://freshrimpsushi.github.io/posts/457">위상수학에서의 연결성</a>을 정의하는 방식과 비슷하기 때문에 굳이 집합 표현을 쓰는 것이다.<strong>7.</strong>  쉽게 말해 오리엔터블 그래프란 일반적인 그래프 $G$ 를 유향 그래프로 바꿨을 때도 연결성이 유지될 수 있는 그래프다. 애초에 연결성이 없다면 당연히 강한 연결성도 가질 수 없다. 예로써 다음의 그래프를 보면 방향을 주었을 때 강한 연결성을 가짐으로써 오리엔터블 그래프가 됨을 확인할 수 있다.<img src="20200215_113812.png#center" alt="20200215\_113812.png">
+한편 오리엔터블 그래프에 대해 사이클과 관련된 다음의 정리가 알려져 있다.</p>
+<p>$G$ 는 <a href="https://freshrimpsushi.github.io/posts/1512">연결 그래프</a>라고 하자.$G$ 가 오리엔터블인 것과 $G$ 의 모든 에지가 적어도 하나의 사이클에 포함되는 것은 동치다.</p>
+<p>Strategy**  : 그래프에 사이클에 속하지 않는 버텍스인 <a href="https://freshrimpsushi.github.io/posts/1496">엔드 버텍스</a> $v_{0}$가 존재한다면 방향을 어떻게 주든 $v_{0}$ 로는 들어가거나 나갈수밖에 없으므로 오리엔터블 그래프가 될 수 없다. 이러한 사실에서 오리엔터블 그래프의 모든 버텍스와 에지는 반드시 사이클에 속해있어야 한다.</p>
 <h2 id="증명">증명</h2>
 <p>$(\Rightarrow)
 $$
@@ -95,7 +106,7 @@ G$ 사이클 $C$ 를 픽스하자. 만약 모든 에지가 $C$ 에 속하면 증
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1758)</summary>
+    <summary>가나다순 (1759)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -107,11 +118,13 @@ G$ 사이클 $C$ 를 픽스하자. 만약 모든 에지가 $C$ 에 속하면 증
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
         </li><li>
@@ -136,6 +149,8 @@ G$ 사이클 $C$ 를 픽스하자. 만약 모든 에지가 $C$ 에 속하면 증
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
@@ -162,8 +177,6 @@ G$ 사이클 $C$ 를 픽스하자. 만약 모든 에지가 $C$ 에 속하면 증
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
         </li><li>
@@ -194,8 +207,6 @@ G$ 사이클 $C$ 를 픽스하자. 만약 모든 에지가 $C$ 에 속하면 증
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
         </li><li>
