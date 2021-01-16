@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ko" class = "blog">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    
+    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+
+    
+    <meta name="title" content="p값 혹은 유의확률에 대한 흔한 오개념들">
+    <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
+
+    
+    <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    
+    <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
+
+    <title>p값 혹은 유의확률에 대한 흔한 오개념들</title>
+
+</head>
+
+    <body class="main">
+    <header>
+    <a href="../../" rel="home">
+        <p style="text-align:right; font-size: 2rem; color: black;"><b>생새우초밥집</b></p>
+    </a>
+</header>
+    <hr>
+        
+        <div class = "wrapper">
+
+            <div class = "content">
+            
+
+<title>p값 혹은 유의확률에 대한 흔한 오개념들</title>
+
+<h1>p값 혹은 유의확률에 대한 흔한 오개념들</h1>
+<aside>
+    <p style="text-align: right;">
+        537
+
+    
+    
+            <a href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정</a>&emsp;
+            
+    </span>
+    
+    작성일: 0001-01-01&nbsp;<br>
+    작성자: 류대식 사장 &nbsp;
+</p>
+</aside>
+
+
+<aside>
+    <b>목차</b>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#heading"></a></li>
+  </ul>
+</nav>
+</aside>
+
+
+<h2 id="heading"></h2>
+<p><u><strong>요약 :</strong>  p-value가 아주 작다는 것은 그만큼 드문 일이라는 뜻으로, 단순한 우연으론 보기 어려우며 대립가설을 기각하기 어려움을 의미한다.</u>가설검정에서 검정통계량이 귀무가설을 기각하도록 나타날 확률로써 귀무가설을 기각하게 되는 최소의 유의수준을 <strong>유의확률</strong><sup>Significance Probability</sup>  혹은 <strong>p값p-value</strong> 이라고 한다.<strong>[1]</strong>  p값은 확률, 즉 $0 \le p \le 1$ 이다.<strong>[2]</strong>  유의수준 $\alpha$ 에서 $p \le \alpha$ 이기만 하면 귀무가설은 기각된다.<strong>[3]</strong>  귀무가설이 기각되는 것에는 좋고 나쁨이 없다. 즉, p값이 높고 낮음에 좋고 나쁨은 없다.<strong>[4]</strong>  단, 회귀관계가 있다는 것을 입증하고 싶다면 p값은 작은 게 좋은 것이다.<strong>[5]</strong>  단, 모형이 적합하다는 것을 입증하고 싶다면 p값은 큰 게 좋은 것이다.*상자 안에 적힌 것은 오개념을 말하는 게 아니다.솔직히 정의는 읽을수록 헷갈리기만 하니까 개념적으로 이해하고 번호가 매겨진 노트들을 꼼꼼히 읽어 숙지하도록 하자. 열심히 공부해도 귀무냐 대립이냐로 흔들면 누구나 흔들릴 정도로 헷갈리기 때문에 개념을 제대로 받아들이는 게 답이다. 유의확률을 제대로 이해하지 못하고 기초가 안 되면 통계학을 정상적인 시간 내에 공부하는 것은 거의 불가능하다.p값은 쉽게 말해 &lsquo;검정통계량이 그렇게 나올 확률&rsquo;을 말한다. 이 확률이 크면 클수록 &lsquo;귀무가설이 사실이라면 흔히 일어나는 일&rsquo;이고, 귀무가설을 기각할 근거가 부족해 귀무가설을 채택되는 것이다. 야매로 설명하자면 p값은 귀무가설이 유지될 가능성 혹은 귀무가설이 맞다는 증거가 얼마나 믿을만한지를 나타내는 수치다.<strong>[1]</strong> 을 이해하지 못하는 경우는 십중팔구 p값의 정의를 이해하지 못하고 다른 과학계에서의 어떤 계수처럼 알고 있다. p값은 결국 가설검정이라는 것도 절대적인 것은 아니므로, 확률적으로 얼마나 믿을만한지를 말하기 위해 도입된 것이다.<strong>[2]</strong> 에 대한 가장 흔한 오개념 중 하나는 p값이 적을수록 더 강하게 귀무가설을 기각한다고 하는 믿음이다. 물론 p값이 더 작으면 더 작은 유의수준에 대해서도 귀무가설을 기각할 수 있는 것은 사실이지만, 그 &lsquo;정도&rsquo;는 관계 없다. $0.001$ 이든 $10^{-8}$ 이든 아주 작은 양수 $\varepsilon &gt;0$ 만큼이든 유의수준보다만 작으면 다 똑같은 기각이다.<strong>[3]</strong> 의 경우엔 평상시에 공부를 안 하다가 급히 벼락치기를 하는 학생들이 가장 궁금해 하지만 그 답은 없다. 무엇이 좋냐 나쁘냐는 각자가 결과로 판단할 뿐 데이터를 다루는 사람은 그런 판단을 할 필요도 없고 해서도 안 된다.<strong>[4]</strong> 와 <strong>[5]</strong> 는 적을까 말까 고민하다가 정말 급한 사람이 있을까 싶어서 적었다. 시간이 충분하다면 깊게 생각하고 통계량들이 무슨 의미일까 알고 결정하도록 하자.유의확률이라는 개념을 이해하고 나면 귀무가설과 대립가설이 왜 그렇게 제멋대로 정해져있는지 알 수 있다. 누군가 악의적으로 헷갈리라고 그렇게 한 것이 아니라, 검정통계량이 어떤 분포를 따르는가에 따라 달려 있는 것이다.예를 들어 t검정 혹은 z검정의 검정통계량은 가운데보단 양쪽꼬리로 갈수록 일어나기 힘들기 때문에 절댓값이 크면 기각된다. 적합도검정에서 검정통계량은 카이제곱분포를 따르고, $0$ 에 가까울수록 잘 적합됐다는 의미이므로 값이 크면 기각된다.위의 두 예시에서 딱히 어떤 것을 귀무가설이라고 하지도 않았는데 뭐가 기각됐는지 느낌이 왔다면 p값을 이해했다고 봐도 좋다. 적어도 가설검정에서 <a href="http://freshrimpsushi.tistory.com/852">귀무가설과 대립가설은 이렇듯 검정통계량의 분포에 따라 결정</a>된다.기각역을 정할 땐 기각역을 최대로 한다는 원칙 하에서 정해지므로 이 &lsquo;일어나기 힘든 일&rsquo;이라는 설명이 말이 된다. 기본적으로 주어진 유의수준에서 기각역을 어떻게 정하는지를 상상해 보면 납득이 될 것이다.<img src="7.png#center" alt="img">위의 기각역들은 모두 분포함수 아래의 넓이가 같지만 $x$ 축 상에서의 길이는 판이하게 다름을 알 수 있다. 양쪽꼬리검정의 기각역으로 셋 중에 하나를 상식선에서 고르라고 한다면 누구나 첫번째를 고를 것이다.아래는 위 그림을 그리기 위한 코드다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
+
+
+<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">3</span>)
+ 
+<span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>))
+<span style="color:#a6e22e">plot</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;n&#39;</span>,xlim<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-4</span>,<span style="color:#ae81ff">4</span>),ylim<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-0.08</span>,<span style="color:#ae81ff">0.4</span>),xlab<span style="color:#f92672">=</span><span style="color:#66d9ef">NA</span>,ylab<span style="color:#f92672">=</span><span style="color:#66d9ef">NA</span>)
+ 
+<span style="color:#a6e22e">polygon</span>(<span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#a6e22e">qt</span>(<span style="color:#ae81ff">0.975</span>,<span style="color:#ae81ff">14</span>),<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">0.01</span>),<span style="color:#a6e22e">qt</span>(<span style="color:#ae81ff">0.975</span>,<span style="color:#ae81ff">14</span>)),
+        <span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">dt</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#a6e22e">qt</span>(<span style="color:#ae81ff">0.975</span>,<span style="color:#ae81ff">14</span>),<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">0.01</span>),df<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>),<span style="color:#ae81ff">0</span>),
+        col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;yellow&#39;</span>,lty<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+<span style="color:#a6e22e">polygon</span>(<span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">-5</span>,<span style="color:#a6e22e">qt</span>(<span style="color:#ae81ff">0.025</span>,<span style="color:#ae81ff">14</span>),<span style="color:#ae81ff">0.01</span>),<span style="color:#a6e22e">qt</span>(<span style="color:#ae81ff">0.025</span>,<span style="color:#ae81ff">14</span>)),
+        <span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">dt</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">-5</span>,<span style="color:#a6e22e">qt</span>(<span style="color:#ae81ff">0.025</span>,<span style="color:#ae81ff">14</span>),<span style="color:#ae81ff">0.01</span>),df<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>),<span style="color:#ae81ff">0</span>),
+        col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;yellow&#39;</span>,lty<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+<span style="color:#a6e22e">abline</span>(h<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+<span style="color:#a6e22e">lines</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">-5</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">0.01</span>),<span style="color:#a6e22e">dt</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">-5</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">0.01</span>),df<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>))
+ 
+ 
+<span style="color:#a6e22e">plot</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;n&#39;</span>,xlim<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-4</span>,<span style="color:#ae81ff">4</span>),ylim<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-0.08</span>,<span style="color:#ae81ff">0.4</span>),xlab<span style="color:#f92672">=</span><span style="color:#66d9ef">NA</span>,ylab<span style="color:#f92672">=</span><span style="color:#66d9ef">NA</span>)
+ 
+<span style="color:#a6e22e">polygon</span>(<span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#a6e22e">qt</span>(<span style="color:#ae81ff">0.95</span>,<span style="color:#ae81ff">14</span>),<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">0.01</span>),<span style="color:#a6e22e">qt</span>(<span style="color:#ae81ff">0.95</span>,<span style="color:#ae81ff">14</span>)),
+        <span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">dt</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#a6e22e">qt</span>(<span style="color:#ae81ff">0.95</span>,<span style="color:#ae81ff">14</span>),<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">0.01</span>),df<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>),<span style="color:#ae81ff">0</span>),
+        col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;yellow&#39;</span>,lty<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+<span style="color:#a6e22e">abline</span>(h<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+<span style="color:#a6e22e">lines</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">-5</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">0.01</span>),<span style="color:#a6e22e">dt</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">-5</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">0.01</span>),df<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>))
+ 
+ 
+<span style="color:#a6e22e">plot</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;n&#39;</span>,xlim<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-4</span>,<span style="color:#ae81ff">4</span>),ylim<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-0.08</span>,<span style="color:#ae81ff">0.4</span>),xlab<span style="color:#f92672">=</span><span style="color:#66d9ef">NA</span>,ylab<span style="color:#f92672">=</span><span style="color:#66d9ef">NA</span>)
+ 
+x<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#a6e22e">qt</span>(<span style="color:#ae81ff">0.50</span>,<span style="color:#ae81ff">14</span>),<span style="color:#a6e22e">qt</span>(<span style="color:#ae81ff">0.55</span>,<span style="color:#ae81ff">14</span>),<span style="color:#ae81ff">0.01</span>))
+y<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">dt</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#a6e22e">qt</span>(<span style="color:#ae81ff">0.50</span>,<span style="color:#ae81ff">14</span>),<span style="color:#a6e22e">qt</span>(<span style="color:#ae81ff">0.55</span>,<span style="color:#ae81ff">14</span>),<span style="color:#ae81ff">0.01</span>),df<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>))
+x<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c</span>(x[1],x,x<span style="color:#a6e22e">[length</span>(x)])
+y<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0</span>,y,<span style="color:#ae81ff">0</span>)
+<span style="color:#a6e22e">polygon</span>(x,
+        y,
+        col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;yellow&#39;</span>,lty<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+<span style="color:#a6e22e">abline</span>(h<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+<span style="color:#a6e22e">lines</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">-5</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">0.01</span>),<span style="color:#a6e22e">dt</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">-5</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">0.01</span>),df<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>))
+</code></pre></div>
+
+            </div>
+
+            <div class = "sidebar">
+            <aside>
+    <p style="text-align: center;">
+    <a href="https://form.office.naver.com/form/responseView.cmd?formkey=OGZiOTE3MzQtYmVkMy00MTI4LWIwZGQtNTZiNzBmMTUwODY1&sourceId=urlshare">
+        <img src="https://freshrimpsushi.github.io/banner/WhatIsYourMajor.png"
+             alt="혹시 문과세요?"
+             width="210">
+    </a>
+    </p>
+</aside>
+
+
+<aside>
+    <p><b>카테고리</b></p>
+<details open>
+    <summary>가나다순 (1758)</summary>
+    <ul><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/r/" style="color: black">R (52)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B0%90%EB%A7%88-%ED%95%A8%EC%88%98%EC%99%80-%EC%A0%9C%ED%83%80-%ED%95%A8%EC%88%98/" style="color: black">감마 함수와 제타 함수 (23)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (19)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (23)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC-%EA%B5%90%EA%B3%BC/" style="color: black">물리 교과 (9)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">물리학미분류 (10)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">미분 방정식 (7)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AF%B8%EC%A0%81%EB%B6%84%ED%95%99/" style="color: black">미적분학 (18)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A0%EC%9D%B4%EC%A7%80%EC%95%88/" style="color: black">베이지안 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0-%ED%95%B4%EC%84%9D/" style="color: black">벡터 해석 (43)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B5%EC%86%8C%ED%95%B4%EC%84%9D/" style="color: black">복소해석 (57)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">수리물리학미분류 (20)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (32)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">수치선형대수 (16)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (54)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99-%EA%B5%90%EA%B3%BC/" style="color: black">수학 교과 (30)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">수학미분류 (30)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%9C%EA%B3%84%EC%97%B4%EB%B6%84%EC%84%9D/" style="color: black">시계열분석 (33)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%A4%EC%A0%84-%EC%88%98%EB%8A%A5-%EC%8A%A4%ED%82%AC/" style="color: black">실전 수능 스킬 (16)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EC%97%AD%ED%95%99/" style="color: black">열역학 (22)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/" style="color: black">위상수학 (59)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/" style="color: black">전자기학 (54)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (73)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (20)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (42)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (22)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/" style="color: black">추상대수 (77)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/" style="color: black">측도론 (58)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C-%ED%95%B4%EC%84%9D/" style="color: black">텐서 해석 (13)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8C%8C%EC%9D%B4%EC%8D%AC/" style="color: black">파이썬 (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90-%ED%95%B4%EC%84%9D/" style="color: black">푸리에 해석 (41)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (53)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (56)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">해석학미분류 (28)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (22)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D/" style="color: black">회귀분석 (28)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8-%EA%B3%B5%EA%B0%84%EB%A1%A0/" style="color: black">힐베르트 공간론 (35)</a>
+        </li>
+    </ul>
+</details>
+</aside>
+
+<aside>
+    <p><b>태그</b></p>
+    <div>
+    </div>
+</aside>
+
+<aside>
+    <h2></h2>
+    <ul>
+    </ul>
+</aside>
+            </div>
+
+        </div>
+    </body>
+
+    <hr>
+    <footer>
+    <aside>
+        <div>
+            <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io" target="_blank">Hugo</a></p>
+        </div>
+
+    
+    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
+	MathJax.Hub.Config({
+		messageStyle: "none",
+		jax: ["input/TeX", "output/HTML-CSS"],
+		"HTML-CSS": { availableFonts: ["TeX"] },
+		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+
+		tex2jax: {
+			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
+			displayAlign: "left"
+		},
+		
+		TeX: { equationNumbers: {autoNumber: "AMS"}, 
+					extensions: ["cancel.js","color.js"], 
+					   TagSide: "left" 
+		}
+					
+	});
+</script> 
+
+    
+    
+        <link rel="stylesheet" href= https://freshrimpsushi.github.io/css/atom-one-light.css>
+        <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    
+    </aside>
+</footer>
+</html>
+<!DOCTYPE html>

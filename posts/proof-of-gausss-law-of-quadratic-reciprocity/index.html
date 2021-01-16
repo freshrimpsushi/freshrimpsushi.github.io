@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ko" class = "blog">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    
+    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+
+    
+    <meta name="title" content="가우스의 이차상호 법칙 증명">
+    <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
+
+    
+    <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    
+    <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
+
+    <title>가우스의 이차상호 법칙 증명</title>
+
+</head>
+
+    <body class="main">
+    <header>
+    <a href="../../" rel="home">
+        <p style="text-align:right; font-size: 2rem; color: black;"><b>생새우초밥집</b></p>
+    </a>
+</header>
+    <hr>
+        
+        <div class = "wrapper">
+
+            <div class = "content">
+            
+
+<title>가우스의 이차상호 법칙 증명</title>
+
+<h1>가우스의 이차상호 법칙 증명</h1>
+<aside>
+    <p style="text-align: right;">
+        395
+
+    
+    
+            <a href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론</a>&emsp;
+            
+    </span>
+    
+    작성일: 2019-01-16&nbsp;<br>
+    작성자: 류대식 사장 &nbsp;
+</p>
+</aside>
+
+
+<aside>
+    <b>목차</b>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#heading"></a></li>
+    <li><a href="#증명">증명</a></li>
+  </ul>
+</nav>
+</aside>
+
+
+<h2 id="heading"></h2>
+<p>서로 다른 두 홀수 소수 $p , q $ 에 대해**(1)</p>
+<p>$$
+\displaystyle \left( {{ q } \over { p }} \right) = \begin{cases} \left( {{ p } \over { q }} \right) &amp; p \equiv 1 \pmod{4} \lor q \equiv 1 \pmod{4} 
+\\  - \left( {{ p } \over { q }} \right) &amp; p \equiv 3 \pmod{4} \land q \equiv 3 \pmod{4} \end{cases}
+$$
+**(2)</p>
+<p>$$
+\displaystyle \left( {{ p } \over { q }} \right) \left( {{ q } \over { p }} \right) = (-1)^{ { {p-1} \over {2} }{ {q-1} \over {2} } } 
+$$
+<strong>(1)</strong> 과 <strong>(2)</strong> 는 표현만 다를 뿐 같은 말이다.<a href="http://freshrimpsushi.tistory.com/137">이차잉여</a>에 대해 너무나 깔끔하게 정리되어 있어서 그 효용은 둘째치고서라도 수학적인 아름다움이 일품이다. 가우스는 처음으로 증명한 뒤로도 굉장히 이 법칙을 아껴서 평생에 걸쳐 8가지의 서로 다른 증명을 남겼다고 한다.<strong>Strategy</strong>  : 본 포스트에선 조금 길고 세련되지는 않았지만 어려운 개념을 사용하지 않은 증명을 소개할 것이다. 가우스의 놀라운 아이디어가 핵심이며, 본격적인 증명에 앞서 간단하게 알아보도록 하자.**가우스의 아이디어
+소수 $p =  2n + 1$ 와 $1 \le x, x' \le n$ 에 대해 $ax \equiv e_{x} x' \pmod{p}$ 를 만족하도록 $e_{x} = \pm 1$ 이라 두면
+$$
+\displaystyle a^{{p-1} \over {2} } = a^{n} \equiv e_{1} e_{2} \cdots e_{n} \pmod{p}
+$$
+예로써 $\pmod{11}$ 에서 이차잉여인 $a = 3$ 의 경우를 보면 $11 = 2n + 1 = 2 \cdot 5 +1 $ 이므로 $n=5$ 다. 직접 $3^{5} 5!$ 를 계산해보자.
+$$
+\begin{eqnarray*}
+3^{5} 5! &amp;\equiv&amp; (3 \cdot 1)(3 \cdot 2)(3 \cdot 3)(3 \cdot 4)(3 \cdot 1)  
+\\  &amp;=&amp; 3 \cdot 6 \cdot 9 \cdot 12 \cdot 15 
+\\  &amp;\equiv&amp; 3 \cdot (-5) \cdot (-2) \cdot 1 \cdot 4 \pmod{11} 
+\\  &amp;\equiv&amp; (1 \cdot 3)(-1 \cdot 5)(-1 \cdot 2)(1 \cdot 1)(1 \cdot 4) 
+\\  &amp;\equiv&amp; (1 \cdot 1)(-1 \cdot 2)(1 \cdot 3)(1 \cdot 4)(-1 \cdot 5) 
+\\  &amp;\equiv&amp; (-1)^{2} 5! \pmod{11} 
+\end{eqnarray*}
+$$
+양변을 $5!$ 로 나누면 $3^{5} \equiv (-1)^2 \equiv 1 \pmod{11}$ 을 얻는다.이 아이디어가 경이로운 것은 때 $a$ 를 거듭제곱하고 $p$ 로 나누는 삽질을 $(-1)$ 을 세는 문제로 바꿀 수 있기 때문이다.<a href="http://freshrimpsushi.tistory.com/188">오일러 판정법</a>소수 $p \ne 2$ 에 대해, $\displaystyle a^{p-1 \over 2} \equiv \left( {a \over p} \right) \pmod{p}$그 말인 즉슨 거듭제곱이 필요한 오일러 판정법을 더욱 편하게 쓸 수 있다는 것이다. 위 예시에서는,
+$$
+\displaystyle 3^{{11- 1 } \over {2}} = 3^5 \equiv 1 \pmod{11}
+$$
+거듭제곱하고 $p$ 로 나눠서 나머지를 구하는 삽질이 너무나도 단순한 문제가 되었다.</p>
+<h2 id="증명">증명</h2>
+<p>두 소수 $p,q$ 를 다음과 같이 두자.
+$$
+p := 2n +1  
+\\  q := 2m+1
+$$
+$1 \le x,x' \le n$ 에 대해 $q x \equiv e_{x} x' \pmod{p}$ 이고 합동의 정의에 따라 어떤 $y \in \mathbb{Z}$ 에 대해
+$$
+qx = e_{x} x' + py
+$$
+와 같이 둘 수 있다. 우리는 $(-1)$ 을 카운트하는 것에 관심이 있으므로 $e_{x } = -1$ 인 경우만 신경쓰면 된다. 만약 $e_{x } = -1$ 이면 $qx = -x' + py$ 이고, $y$ 에 대해 나타내면
+$$
+\displaystyle y = {{1} \over {p}} (qx + x' ) &gt;0
+$$
+그리고 $\le x,x' \le n$ 이고 $2n &lt; p$ 이므로
+$$
+\displaystyle y = {{1} \over {p}} (qx + x' ) \le {{(q+1)n} \over {p}} &lt; {{q+1} \over {2}} = m+1
+$$
+따라서 $1 \le y \le m$ 이다. 한편 가정에서 $1 \le x , x' \le n$ 이었으므로 $1 \le x' = py - qx \le n$ 이다. 다시 말해서, $e_{x} = -1$ 이라는 것은
+$$
+1 \le x \le n 
+\\  1 \le y \le m 
+\\  1 \le py - qx \le n
+$$
+을 만족시키는 $y$ 가 존재한다는 것이다. 이제 다음과 같은 집합
+$$
+N : = \left\{ (x,y) , | , 1 \le x \le , 1 \le y \le m , 1 \le py - qx \le n \right\} 
+$$
+을 생각해보면
+$$
+\displaystyle \left( {{q} \over {p}} \right) \equiv q^{{p-1} \over {2}} = (-1 )^{|N|} \pmod{p}
+$$
+가우스의 아이디어는 거듭제곱을 $(-1)$ 을 세는 문제로 바꿨지만 우리는 그조차도 셀 생각이 없고 일단은 $|N|$ 으로 두고 넘어갈 것이다. 위와 같은 방식으로
+$$
+M : = \left\{ (x,y) , | , 1 \le x \le , 1 \le y \le m , 1 \le qx - py \le m \right\} 
+$$
+이라고 두면
+$$
+\displaystyle \left( {{p} \over {q}} \right) \equiv p^{{q-1} \over {2}} = (-1 )^{|M|} \pmod{q}
+$$
+여기서
+$$
+|N| + |M| = | \left\{ (x,y) , | , 1 \le x \le n , 1 \le y \le m , -n \le qx - py \le m \right\} |
+$$
+이므로
+$$
+\displaystyle \left( {{ p } \over { q }} \right) \left( {{ q } \over { p }} \right) = (-1)^{|N| + |M|} 
+$$
+가 성립한다. 이제 $N$ 과 같은 원소를 공유하지 않는 집합
+$$
+S = \left\{ (x,y) , | , 1 \le x \le , 1 \le y \le m , n &lt; py - qx \right\} 
+$$
+$M$ 과 같은 원소를 공유하지 않는 집합
+$$
+T : = \left\{ (x,y) , | , 1 \le x \le , 1 \le y \le m , m &lt; qx - py \right\} 
+$$
+을 잡자. $ f : S \to T $ 를
+$$
+f(x,y) = (x', y') := (n + 1 - x , m + 1 -y)
+$$
+로 정의하면
+$$
+\begin{eqnarray*}
+qx' - py' &amp;=&amp; q(n + 1 - x) - p (m + 1 - y) 
+\\  &amp;=&amp; pn + q - qx - pm - p + py 
+\\  &amp;=&amp; (pn - pm ) + (p-q) - (qx - py) 
+\end{eqnarray*}
+$$
+여기서
+$$
+qn - pm = (2m+1)n - (2n+1)m = n - m 
+\\  q-p = 2m + 1 - (2n+1) = 2(m-n)
+$$
+이므로
+$$
+qx' - py' = n - m + 2m - 2n - (qx -py) =m-n-(qx - py)
+$$
+따라서 $qx' - py' -m = -(qx - py + n) &gt; 0$ 즉 $qx' - py' &gt; m$ 이고 $f$ 는 일대일대응이므로 $|S| = |T|$ 다. 이제까지 정의한 $N , M , S, T$ 는 서로 같은 원소를 공유하지 않으므로
+$$
+|N| + |M| + |S| + |T| = | \left\{ (x,y) | 1 \le x \le n , 1 \le y \le m \right\}| = nm
+$$
+이제 다시
+$$
+\displaystyle \left( {{ p } \over { q }} \right) \left( {{ q } \over { p }} \right) = (-1)^{|N| + |M|} 
+$$
+을 계산해보자. $|S| = |T|$ 이므로
+$$
+(-1)^{|S| + |T|} = 1 
+\\  (-1)^{ |N| + |M| } = (-1)^{ |N| + |M| + |S| + |T| } 
+$$
+여기서
+$$
+|N| + |M| + |S| + |T| = | \left\{ (x,y) | 1 \le x \le n , 1 \le y \le m \right\}| = nm
+$$
+이므로
+$$
+\displaystyle \left( {{ p } \over { q }} \right) \left( {{ q } \over { p }} \right) = (-1)^{nm} 
+$$
+$p = 2n + 1$ 이고 $q = 2m + 1$ 이므로
+$$
+\displaystyle \left( {{ p } \over { q }} \right) \left( {{ q } \over { p }} \right) = (-1)^{ { {p-1} \over {2} }{ {q-1} \over {2} } } 
+$$
+<p style="text-align: right;">■</p>
+한편 이차상호 법칙은 야코비 기호를 사용함으로써 다음과 같이 홀수에 대해 일반화될 수 있다.서로 다른 두 홀수 $a , b $ 에 대해**(1)'</p>
+<p>$$
+\displaystyle \left( {{ b } \over { a }} \right) = \begin{cases} \left( {{ a } \over { b }} \right) &amp; p \equiv 1 \pmod{4} \lor q \equiv 1 \pmod{4} 
+\\  - \left( {{ a } \over { b }} \right) &amp; p \equiv 3 \pmod{4} \land q \equiv 3 \pmod{4} \end{cases}
+$$
+**(2)'</p>
+<p>$$
+\displaystyle \left( {{ a } \over { b }} \right) \left( {{ b } \over { a }} \right) = (-1)^{ { {a-1} \over {2} }{ {b-1} \over {2} } } 
+$$</p>
+
+
+            </div>
+
+            <div class = "sidebar">
+            <aside>
+    <p style="text-align: center;">
+    <a href="https://form.office.naver.com/form/responseView.cmd?formkey=OGZiOTE3MzQtYmVkMy00MTI4LWIwZGQtNTZiNzBmMTUwODY1&sourceId=urlshare">
+        <img src="https://freshrimpsushi.github.io/banner/WhatIsYourMajor.png"
+             alt="혹시 문과세요?"
+             width="210">
+    </a>
+    </p>
+</aside>
+
+
+<aside>
+    <p><b>카테고리</b></p>
+<details open>
+    <summary>가나다순 (1758)</summary>
+    <ul><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/r/" style="color: black">R (52)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B0%90%EB%A7%88-%ED%95%A8%EC%88%98%EC%99%80-%EC%A0%9C%ED%83%80-%ED%95%A8%EC%88%98/" style="color: black">감마 함수와 제타 함수 (23)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (19)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (23)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC-%EA%B5%90%EA%B3%BC/" style="color: black">물리 교과 (9)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">물리학미분류 (10)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">미분 방정식 (7)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AF%B8%EC%A0%81%EB%B6%84%ED%95%99/" style="color: black">미적분학 (18)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A0%EC%9D%B4%EC%A7%80%EC%95%88/" style="color: black">베이지안 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0-%ED%95%B4%EC%84%9D/" style="color: black">벡터 해석 (43)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B5%EC%86%8C%ED%95%B4%EC%84%9D/" style="color: black">복소해석 (57)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">수리물리학미분류 (20)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (32)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">수치선형대수 (16)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (54)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99-%EA%B5%90%EA%B3%BC/" style="color: black">수학 교과 (30)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">수학미분류 (30)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%9C%EA%B3%84%EC%97%B4%EB%B6%84%EC%84%9D/" style="color: black">시계열분석 (33)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%A4%EC%A0%84-%EC%88%98%EB%8A%A5-%EC%8A%A4%ED%82%AC/" style="color: black">실전 수능 스킬 (16)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EC%97%AD%ED%95%99/" style="color: black">열역학 (22)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/" style="color: black">위상수학 (59)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/" style="color: black">전자기학 (54)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (73)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (20)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (42)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (22)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/" style="color: black">추상대수 (77)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/" style="color: black">측도론 (58)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C-%ED%95%B4%EC%84%9D/" style="color: black">텐서 해석 (13)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8C%8C%EC%9D%B4%EC%8D%AC/" style="color: black">파이썬 (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90-%ED%95%B4%EC%84%9D/" style="color: black">푸리에 해석 (41)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (53)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (56)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">해석학미분류 (28)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (22)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D/" style="color: black">회귀분석 (28)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8-%EA%B3%B5%EA%B0%84%EB%A1%A0/" style="color: black">힐베르트 공간론 (35)</a>
+        </li>
+    </ul>
+</details>
+</aside>
+
+<aside>
+    <p><b>태그</b></p>
+    <div>
+    </div>
+</aside>
+
+<aside>
+    <h2></h2>
+    <ul>
+    </ul>
+</aside>
+            </div>
+
+        </div>
+    </body>
+
+    <hr>
+    <footer>
+    <aside>
+        <div>
+            <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io" target="_blank">Hugo</a></p>
+        </div>
+
+    
+    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
+	MathJax.Hub.Config({
+		messageStyle: "none",
+		jax: ["input/TeX", "output/HTML-CSS"],
+		"HTML-CSS": { availableFonts: ["TeX"] },
+		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+
+		tex2jax: {
+			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
+			displayAlign: "left"
+		},
+		
+		TeX: { equationNumbers: {autoNumber: "AMS"}, 
+					extensions: ["cancel.js","color.js"], 
+					   TagSide: "left" 
+		}
+					
+	});
+</script> 
+
+    
+    
+    </aside>
+</footer>
+</html>
+<!DOCTYPE html>

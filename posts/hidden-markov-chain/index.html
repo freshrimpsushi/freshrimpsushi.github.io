@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ko" class = "blog">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    
+    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+
+    
+    <meta name="title" content="히든 마코프 체인">
+    <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
+
+    
+    <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    
+    <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
+
+    <title>히든 마코프 체인</title>
+
+</head>
+
+    <body class="main">
+    <header>
+    <a href="../../" rel="home">
+        <p style="text-align:right; font-size: 2rem; color: black;"><b>생새우초밥집</b></p>
+    </a>
+</header>
+    <hr>
+        
+        <div class = "wrapper">
+
+            <div class = "content">
+            
+
+<title>히든 마코프 체인</title>
+
+<h1>히든 마코프 체인</h1>
+<aside>
+    <p style="text-align: right;">
+        901
+
+    
+    
+            <a href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론</a>&emsp;
+            
+    </span>
+    
+    작성일: 0001-01-01&nbsp;<br>
+    작성자: 류대식 사장 &nbsp;
+</p>
+</aside>
+
+
+<aside>
+    <b>목차</b>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#heading"></a></li>
+  </ul>
+</nav>
+</aside>
+
+
+<h2 id="heading"></h2>
+<p><img filemime="image/jpeg" filename="20190218_114748.png" height="209" src="https://t1.daumcdn.net/cfile/tistory/992FC4455C6A1CE404" style="max-width:100%;height:auto" width="547"/>위의 그림과 같이 어떤 기계에서 일정한 시간마다 어떤 물건을 생산한다고 생각해보자. 녹색이 정상적인 양품 $1$ 이고 적색이 폐기해야하는 불량품 $0$ 이라면, 지금까지의 기록은 $\left( 1, 0 , 1 \right) $ 이 될 것이다. 이렇게 실제로 눈에 보이는 결과를 <strong>시그널</strong><sup>Signal</sup> 이라고 한다.<img filemime="image/jpeg" filename="20190218_111057.png" height="608" src="https://t1.daumcdn.net/cfile/tistory/9961FD3C5C6A143F1B" style="max-width:100%;height:auto" width="532"/>단, 불량품이 나올 확률은 기계가 정상인지 고장인지에 따라 다르다고 하자. 정상 $+$ 일 때는 불량률이 $1 %$ 밖에 안 되지만, 고장 $-$ 일 때는 불량률이 $4 %$ 로 치솟게 된다. 이를 조건부 확률로 표현해보면 $\begin{matrix}
+p ( 1 \mid + ) = 0.99 &amp; p ( 0 \mid + ) = 0.01 
+\\  p ( 1 \mid - ) = 0.96 &amp; p ( 0 \mid - ) = 0.04 
+\end{matrix}$ 이 될 것이다.<img filemime="image/jpeg" filename="20190218_111611.png" height="67" src="https://t1.daumcdn.net/cfile/tistory/999FA8405C6A158830" style="max-width:100%;height:auto" width="300"/>기계가 한 번 물건을 생산할 때마다 고장날 확률은 위의 도식과 마찬가지로 $10 %$ 라 하자. 이것은 <a href="https://freshrimpsushi.github.io/posts/859">마코프 체인</a>이고, 확률과정 $\left\{ X_{j} \right\}_{j = 0}^{n} $ 의 상태공간은 $\left\{ + , - \right\}$ 이고, 우리의 관심사는 $j$ 번째 생산을 마쳤을 때 기계가 정상일 확률 $p \left( X_{j} = + \right) $ 이 된다. 물론 처음엔 기계가 정상이라고 가정할 것이고, 이는 $\begin{matrix}
+p(X_{0} = +) = 1 
+\\  p(X_{0} = - ) = 0
+\end{matrix}$ 으로 표현된다.기계가 고장난 상태로 방치된다면 계속해서 많은 불량품을 만들어낼 것이다. 문제는 이것을 어떻게 알겠냐는 것이다. 물론 기계가 고장인지 아닌지는 관리자가 기계를 한 번 뜯어봐도 금방 알 수 있겠지만, 큰 공장에서 엄청나게 많은 수의 기계가 있다면 이런 점검조차도 몹시 부담스러운 일이 된다. 현실적으로는 나오는 물건을 보고야 어떤 기계에 문제가 있다는 것을 짐작하는 수밖에 없는 것이다.이렇듯 마코프 체인(원인)은 숨겨져 있고 그에 따른 시그널(결과)만 알고 있을 때 $\left\{ X_{j} \right\}_{j=0}^{n} $ 을 **히든 마코프 체인** 이라고 한다.이제 시그널 $s_{(n)} = ( s_{1} , s_{2} , \cdots , s_{n} ) $ 이 주어져 있을 때 $X_{n} = x $ 일 확률 $\displaystyle p \left( X_{n} = x \mid S_{(n)} = s_{(n)} \right)$ 을 구해보자.$\displaystyle F_{n} (x) := p \left( X_{n} = x , S_{(n)} = s_{(n)} \right)$ 이라고 하면 $\displaystyle p \left( X_{n} = x \mid S_{(n)}  = s_{(n)} \right) 
+$$
+\displaystyle = {{ p \left( X_{n} = x , S_{(n)} = s_{(n)} \right) } \over { p \left( S_{(n)} = s_{(n)} \right) }}
+$$
+\displaystyle = {{ F_{n} (x) } \over { \sum_{y} F_{n} (y) }}$즉, $F_{n} (x)$ 를 알면 조건부 확률을 생각하지 않고도 $\displaystyle p \left( X_{n} = x \mid S_{(n)} = s_{(n)} \right)$ 를 알 수 있다.$F_{n} (x) = p \left( X_{n} = x , S_{(n)} = s_{(n)} \right)
+$$
+ = p \left( X_{n} = x , S_{(n-1)} = s_{(n-1)} , S_{n} = s_{n} \right)
+$$
+\displaystyle = \sum_{y} p \left( X_{n} = x , X_{n-1} = y ,  S_{(n-1)} = s_{(n-1)} , S_{n} = s_{n} \right)
+$$
+\displaystyle = \sum_{y} p \left( X_{n-1} = y , S_{(n-1)} = s_{(n-1)} \right) {{ p \left( X_{n} = x , X_{n-1} = y ,  S_{(n-1)} = s_{(n-1)} , S_{n} = s_{n} \right)} \over { p \left( X_{n-1} = y , S_{(n-1)} = s_{(n-1)} \right) }}
+$$
+\displaystyle = \sum_{y} F_{n-1} ( y ) p \left( X_{n} = x , S_{n} = s_{n} \mid X_{n-1} = y , S_{(n-1)} = s_{(n-1)} \right)
+$$
+\displaystyle = \sum_{y} F_{n-1} ( y ) p \left( X_{n} = x , S_{n} = s_{n} \mid X_{n-1} = y \right)$ [ $ s_{n}$ 은 $s_{(n-1)}$ 과 독립이므로 ]$\displaystyle = \sum_{y} F_{n-1} ( y ) {{ p \left( S_{n} = s_{n} , X_{n} = x , X_{n-1} = y \right) } \over { p (  X_{n-1} = y ) }} 
+$$
+\displaystyle = \sum_{y} F_{n-1} ( y ) {{ p (  X_{n} = x , X_{n-1} = y ) } \over { p (  X_{n-1} = y ) }} {{ p \left( S_{n} = s_{n} , X_{n-1} = y , X_{n} = x \right) } \over { p (  X_{n} = x , X_{n-1} = y ) }} 
+$$
+\displaystyle = \sum_{y} F_{n-1} ( y ) p \left(  X_{n} = x \mid X_{n-1} = y \right) p \left( S_{n} = s_{n} \mid X_{n} = x  , X_{n-1} = y \right) 
+$$
+\displaystyle = \sum_{y} F_{n-1} ( y ) p \left(  X_{n} = x \mid X_{n-1} = y \right) p \left( S_{n} = s_{n} \mid X_{n} = x \right) $ [ $ \left\{ X_{j} \right\}_{j=1}^{n} $ 은 마코프 체인이므로 ]$\displaystyle = \sum_{y} F_{n-1} ( y ) p_{yx} p \left( s_{n} \mid x \right) $정리하면 $\displaystyle F_{n} (x) = p \left( s_{n} \mid x \right) \sum_{y} F_{n-1} ( y ) p_{yx} $ 을 얻는다.<img filemime="image/jpeg" filename="20190218_114748.png" height="209" src="https://t1.daumcdn.net/cfile/tistory/992FC4455C6A1CE404" style="text-align: center;" width="547"/>그럼 이제 예제로써 이 포스트에서 언급된 가정 하에서 $\displaystyle p \left( X_{3} = + \mid S_{(3)} = (1,0,1) \right)$ 을 계산해보자.**풀이
+마코프 체인에서 상태의 전이확률은 $\begin{matrix}
+p_{++} = 0.9 &amp; p_{+-} = 0.1 
+\\  p_{-+} = 0 &amp; p_{&ndash;} = 1 
+\end{matrix}$각 상태에서 $\begin{matrix}
+p ( 1 \mid + ) = 0.99 &amp; p ( 0 \mid + ) = 0.01 
+\\  p ( 1 \mid - ) = 0.96 &amp; p ( 0 \mid - ) = 0.04 
+\end{matrix}$처음엔 기계가 정상인 것으로 가정하므로$F_{1} (+) = p( 1 \mid + ) = 0.99
+$$
+F_{1} (-) = p (0 \mid + ) = 0.01
+$$
+s_{2} = 0$ 이므로$F_{2} ( + ) = p ( 0 \mid + ) \left[ F_{1} ( + ) p_{++} + F_{1} ( - ) p_{-+} \right] = 0.01 \times [ 0.99 \times 0.9 + 0 ] = 0.00891
+$$
+F_{2} ( - ) = p ( 0 \mid - ) \left[ F_{1} ( + ) p_{+-} + F_{1} ( - ) p_{&ndash;} \right] = 0.04 \times [ 0.99 \times 0.1 + 0.01 \times 1 ] = 0.00436 
+$$
+s_{3} = 1$ 이므로$F_{3} ( + ) = p ( 1 \mid + ) \left[ F_{2} ( + ) p_{++} + F_{2} ( - ) p_{-+} \right] = 0.99 \times [ .00891 \times 0.9 + 0 ]) = 0.00793881
+$$
+F_{3} ( - ) = p ( 1 \mid - ) \left[ F_{2} ( + ) p_{+-} + F_{2} ( - ) p_{&ndash;} \right] = 0.94 \times [ .00891 \times 0.1 + .00436 \times 1 ] = 0.00493594 $따라서 $\displaystyle p \left( X_{3} = + \mid S_{(3)} = (1,0,1) \right) = {{ F_{1} ( + ) } \over { F_{3} ( + ) + F_{3} ( - ) }} = {{ 0.00793881 } \over { 0.01287475 }} = 0.6166 \cdots $ **풀이 끝** 상식적으로 생각해보아도 불량률이 그렇게 높지가 않은데 고작 세 개중에서도 하나가 불량이라면 기계가 정상일 가능성은 현저히 떨어짐을 짐작할 수 있다. 계산 결과 기계가 정상일 확률은 $60 %$ 를 간신히 넘기는 수준이다.</p>
+
+
+            </div>
+
+            <div class = "sidebar">
+            <aside>
+    <p style="text-align: center;">
+    <a href="https://form.office.naver.com/form/responseView.cmd?formkey=OGZiOTE3MzQtYmVkMy00MTI4LWIwZGQtNTZiNzBmMTUwODY1&sourceId=urlshare">
+        <img src="https://freshrimpsushi.github.io/banner/WhatIsYourMajor.png"
+             alt="혹시 문과세요?"
+             width="210">
+    </a>
+    </p>
+</aside>
+
+
+<aside>
+    <p><b>카테고리</b></p>
+<details open>
+    <summary>가나다순 (1758)</summary>
+    <ul><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/r/" style="color: black">R (52)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B0%90%EB%A7%88-%ED%95%A8%EC%88%98%EC%99%80-%EC%A0%9C%ED%83%80-%ED%95%A8%EC%88%98/" style="color: black">감마 함수와 제타 함수 (23)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (19)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (23)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC-%EA%B5%90%EA%B3%BC/" style="color: black">물리 교과 (9)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">물리학미분류 (10)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">미분 방정식 (7)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AF%B8%EC%A0%81%EB%B6%84%ED%95%99/" style="color: black">미적분학 (18)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A0%EC%9D%B4%EC%A7%80%EC%95%88/" style="color: black">베이지안 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0-%ED%95%B4%EC%84%9D/" style="color: black">벡터 해석 (43)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B5%EC%86%8C%ED%95%B4%EC%84%9D/" style="color: black">복소해석 (57)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">수리물리학미분류 (20)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (32)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">수치선형대수 (16)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (54)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99-%EA%B5%90%EA%B3%BC/" style="color: black">수학 교과 (30)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">수학미분류 (30)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%9C%EA%B3%84%EC%97%B4%EB%B6%84%EC%84%9D/" style="color: black">시계열분석 (33)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%A4%EC%A0%84-%EC%88%98%EB%8A%A5-%EC%8A%A4%ED%82%AC/" style="color: black">실전 수능 스킬 (16)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EC%97%AD%ED%95%99/" style="color: black">열역학 (22)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/" style="color: black">위상수학 (59)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/" style="color: black">전자기학 (54)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (73)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (20)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (42)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (22)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/" style="color: black">추상대수 (77)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/" style="color: black">측도론 (58)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C-%ED%95%B4%EC%84%9D/" style="color: black">텐서 해석 (13)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8C%8C%EC%9D%B4%EC%8D%AC/" style="color: black">파이썬 (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90-%ED%95%B4%EC%84%9D/" style="color: black">푸리에 해석 (41)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (53)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (56)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">해석학미분류 (28)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (22)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D/" style="color: black">회귀분석 (28)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8-%EA%B3%B5%EA%B0%84%EB%A1%A0/" style="color: black">힐베르트 공간론 (35)</a>
+        </li>
+    </ul>
+</details>
+</aside>
+
+<aside>
+    <p><b>태그</b></p>
+    <div>
+    </div>
+</aside>
+
+<aside>
+    <h2></h2>
+    <ul>
+    </ul>
+</aside>
+            </div>
+
+        </div>
+    </body>
+
+    <hr>
+    <footer>
+    <aside>
+        <div>
+            <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io" target="_blank">Hugo</a></p>
+        </div>
+
+    
+    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
+	MathJax.Hub.Config({
+		messageStyle: "none",
+		jax: ["input/TeX", "output/HTML-CSS"],
+		"HTML-CSS": { availableFonts: ["TeX"] },
+		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+
+		tex2jax: {
+			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
+			displayAlign: "left"
+		},
+		
+		TeX: { equationNumbers: {autoNumber: "AMS"}, 
+					extensions: ["cancel.js","color.js"], 
+					   TagSide: "left" 
+		}
+					
+	});
+</script> 
+
+    
+    
+    </aside>
+</footer>
+</html>
+<!DOCTYPE html>

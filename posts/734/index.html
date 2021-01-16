@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ko" class = "blog">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    
+    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+
+    
+    <meta name="title" content="일관성을 가지는 멀티스텝 메소드의 안정성과 루트 컨디션">
+    <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
+
+    
+    <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    
+    <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
+
+    <title>일관성을 가지는 멀티스텝 메소드의 안정성과 루트 컨디션</title>
+
+</head>
+
+    <body class="main">
+    <header>
+    <a href="../../" rel="home">
+        <p style="text-align:right; font-size: 2rem; color: black;"><b>생새우초밥집</b></p>
+    </a>
+</header>
+    <hr>
+        
+        <div class = "wrapper">
+
+            <div class = "content">
+            
+
+<title>일관성을 가지는 멀티스텝 메소드의 안정성과 루트 컨디션</title>
+
+<h1>일관성을 가지는 멀티스텝 메소드의 안정성과 루트 컨디션</h1>
+<aside>
+    <p style="text-align: right;">
+        734
+
+    
+    
+            <a href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석</a>&emsp;
+            
+    </span>
+    
+    작성일: 0001-01-01&nbsp;<br>
+    작성자: 류대식 사장 &nbsp;
+</p>
+</aside>
+
+
+<aside>
+    <b>목차</b>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#heading"></a></li>
+    <li><a href="#증명">증명</a></li>
+  </ul>
+</nav>
+</aside>
+
+
+<h2 id="heading"></h2>
+<p>멀티스텝 메소드가 일관성을 가진다고 하자.메소드는 안정성을 가진다 $\iff$ 메소드는 루트 컨디션을 만족 시킨다폐구간 $[x_{0} , b]$ 에 대해 $h$ 를 단위로 잘라서 노드 포인트를 만들 때, $x_{0} \le x_{1} \le \cdots \le x_{N(h) -1} \le x_{N(h) } \le b$ 라고 하자. 여기서 $N(h)$ 는 $h$ 에 따라 변하는 마지막 노드 포인트의 인덱스를 나타낸다.원래 주어진 초기값 $y_{0} , \cdots , y_{p}$ 에 대해 아주 조금 변화를 준 $z_{0} , \cdots , z_{p}$ 를 생각해보자.메소드가 안정성을 가진다는 것은 충분히 작은 양수 $h $ 와 $\epsilon$ 에 대해 $\displaystyle \max_{0 \le n \le p} | y_{ n}  - z_{n} | \le \epsilon$ 이라고 할 때,  $\displaystyle \max_{0 \le n \le N(h) } | y_{ n}  - z_{n} | \le c \epsilon$ 를 만족시키는 어떤 상수 $C$ 가 $h$ 와 독립적으로 존재한다는 것이다. 초기의 작은 변화가 $h$ 를 조절함에 따라서 큰 변화가 될 수도 있다면 메소드가 안정성을 갖지 않았다고 한다.</p>
+<h2 id="증명">증명</h2>
+<p><a href="http://freshrimpsushi.tistory.com/694">일관성을 가지는 멀티스텝 메소드</a>초기값 문제 $\begin{cases} y' = f(x,y) 
+\\  ( y( x_{0} ) , \cdots , y(x_{p}) ) = (Y_{0}, \cdots , Y_{p} ) \end{cases}$ 에 대해 멀티스텝 메소드
+$$
+\displaystyle y_{n+1} = \sum_{j=0}^{p} a_{j} y_{n-j} + h \sum_{j = -1}^{p} b_{j} f (x_{n-j} , y_{n-j} ) 
+$$
+는 다음을 만족한다.
+$$
+\begin{cases} \displaystyle \sum_{j = 0}^{p} a_{j} = 1 
+\\  \displaystyle - \sum_{j = 0}^{p} j a_{j} + \sum_{j = -1}^{p} b_{j} = 1 \end{cases} 
+$$
+일관성을 가진 멀티스텝 메소드에 대해 $\displaystyle \rho ( r) = r^{p+1} - \sum_{j=0}^{p} a_{j} r^{p-j}$ 라고 하자. 방정식 $\rho (r ) = 0 $ 의 근 $r_{0} , \cdots , r_{p}$ 들이 다음 조건들을 만족시킬 때, 주어진 멀티스텝 메소드는 **루트 컨디션**<sup>Root Condition</sup> 을 만족시킨다고 한다.**(i)**  $ | r_{j} | \le 1 $**(ii)**  $ |r_{j}| = 1 \implies \rho &lsquo;(r_{j}) \ne 0
+$$
+(\Rightarrow)$메소드가 안정성을 가짐에도 루트 컨디션을 만족시키지 않는다고 가정해보자.이 가정에 대해 초기값 문제 $\begin{cases} y&rsquo; = 0 
+\\   y(0) = 0 \end{cases}$ 가 반례가 됨을 보일 것이다.주어진 문제의 뉴메리컬 솔루션은 자명하게도 모든 $n \ge 0$ 에 대해 $y_{n} = 0$ 이다.여기서 $y_{0} , \cdots , y_{p}$ 에 대해 아주 조금 변화를 준 $z_{0} , \cdots , z_{p}$ 를 생각해보면
+$$
+z_{n+1} = a_{0} z_{n} + a_{1} z_{n-1} + \cdots + a_{p-1} z_{n-p-1} + a_{p} z_{n -p} 
+$$
+캐릭터리스틱 솔루션을 구하기 위해 $z_{n} := r^{n}$ 라고 하면
+$$
+r^{n+1} = a_{0} r^{n} + a_{1} r^{n-1} + \cdots + a_{p-1} r^{n-p-1} + a_{p} r^{n -p} 
+$$
+양변을 $r^{n-p} $ 로 나누면
+$$
+r^{p+1} = a_{0} r^{p} + a_{1} r^{n-1} + \cdots + a_{p-1} r^{1} + a_{p} 
+$$
+이 $p+1$차 방정식은 $r_{0}=1$ 외에도 $p$ 개의 근 $r_{1}, r_{2} , \cdots , r_{p}$ 을 갖는다. 따라서 제너럴 솔루션은 어떤 $c_{0} , \cdots , c_{p}$ 에 대해
+$$
+z_{n} = c_{0} r_{0}^{n} +  c_{1} r_{1}^{n} + \cdots +  c_{p} r_{p}^{n} 
+$$
+이때 어떤 $0 \le j \le p$ 에 대해 다음의 두 가지 경우를 생각해보자.**Case 1.**  **(i)** 을 만족하지 않아 $ j$ 에 대해 $|r_{j}| &gt; 1$ 인 경우$z_{0} = 0 + \cdots + c_{j} r_{j}^{0} + \cdots + 0 = \epsilon$ 즉 $c_{i} = \begin{cases} \epsilon &amp; , i = j 
+\\  0 &amp; , i \ne j \end{cases} $ 이라고 하면
+$$
+z_{0} = c_{j} r_{j}^{0} =  \epsilon
+$$
+이다. 다시 말해 $z_{0} = c_{j} ( r_{j} ) ^{0} \implies z_{ n} = c_{j} ( r_{j} ) ^{n}$ 이므로
+$$
+z_{0} = \epsilon, z_{1} = \epsilon r_{j } , \cdots , z_{p} = \epsilon r_{j}^{p}
+$$
+이고
+$$
+\displaystyle \max_{0 \le n \le p } | y_{n} - z_{n} | = \epsilon |  r_{j} |^{p}
+$$
+메소드를 $[x_{0} , b]$ 에 적용시켜보면
+$$
+\displaystyle \max_{x_{0} \le x_{n} \le b } | y_{n} - z_{n} | = \epsilon |r_{j}|^{N(h)}
+$$
+그런데 $h \to 0$ 일 때 $N(h) \to \infty$ 이고 $|r_{j}| &gt; 1$ 이므로
+$$
+\displaystyle \max_{x_{0} \le x_{n} \le b } | y_{n} - z_{n} | =  c \cdot \epsilon |r_{j}|^{p}
+$$
+를 만족하는 $C&gt;0$ 는 존재할 수 없다. 따라서 메소드는 안정성을 가지지 못하게 된다.**Case 2.**  **(ii)** 를 만족하지 않아 $ j$ 에 대해 $|r_{j}| = 1 \implies \rho'(r_{j}) = 0$ 인 경우이는 $|r_{j}| = 1$ 이면 $r_{j}$ 이 특성방정식의 중근이라는 의미로, $r_{j}$ 의 중복도 $\nu$ 는 적어도 $2$ 여야한다. 이 경우 제너럴 솔루션은 선형독립인 파티큘러 솔루션 $r_{j}^{n} , n r_{j}^{n} , \cdots , n^{ \nu - 1} r_{j}^{n}$ 들을 포함한 선형결합으로 나타난다. 수식으로 쓰면,
+$$
+z_{n} = c_{j_{0}} r_{j}^{n} + c_{j_{1}} n r_{j}^{n} + \dots + c_{j_{\nu-1}} n^{\nu-1} r_{j}^{n} 
+$$
+여기서 $\displaystyle \epsilon :=  \max_{ 0 \le k \le \nu-1} | c_{j_{k}} |$ 라고 두면 $ | r_{j} | = 1$ 이므로
+$$
+| z_{0 } |  \le \epsilon , | z_{1 } |  \le 2 \epsilon , \cdots , \displaystyle | z_{ p} | \le \epsilon( 1 + p + \cdots + p^{\nu -1} ) = \epsilon {{ p^{\nu} -1  } \over { p - 1}} 
+$$
+멀티스텝 메소드이므로 $p \ge 2$ 에 대해
+$$
+\displaystyle \max_{0 \le n \le p } | y_{n} - z_{n} | = \epsilon {{ p^{\nu} -1  } \over { p - 1}} 
+$$
+메소드를 $[x_{0} , b]$ 에 적용시켜보면
+$$
+\displaystyle \max_{x_{0} \le x_{n} \le b } | y_{n} - z_{n} | = \epsilon {{ N(h)^{\nu} -1  } \over { N(h) - 1}} 
+$$
+그런데 $h \to 0$ 일 때 $N(h) \to \infty$ 이므로
+$$
+\displaystyle \max_{x_{0} \le x_{n} \le b } | y_{n} - z_{n} | =  c \cdot \epsilon {{ p^{\nu} -1  } \over { p - 1}} 
+$$
+를 만족하는 $C&gt;0$ 는 존재할 수 없다. 따라서 메소드는 안정성을 가지지 못하게 된다.$(\Leftarrow)$ *<a href="https://www.researchgate.net/file.PostFileLoader.html?id=56c583ac5e9d97577f8b458e&amp;assetKey=AS:330399868833792@1455784875579">원래의 증명(405~417</a><a href="https://www.researchgate.net/file.PostFileLoader.html?id=56c583ac5e9d97577f8b458e&amp;assetKey=AS:330399868833792@1455784875579">)</a>이 지나치게 어려워서 많은 비약이 있다.$e_{n} : = y_{n} - z_{n}$ 이라고 하면 비동차 선형미분방정식 $y  = z +  e$ 을 푸는 것으로 생각할 수 있다.반대로 $z = y - e$ 는 동차 선형미분방정식이 된다.
+$$
+\begin{eqnarray}
+\displaystyle y_{n+1} = \sum_{j=0}^{p} a_{j} y_{n-j} + h \sum_{j = -1}^{p} b_{j} f (x_{n-j} , y_{n-j} ) 
+\end{eqnarray}
+$$</p>
+<p>$$
+\begin{eqnarray}
+\displaystyle z_{n+1} = \sum_{j=0}^{p} a_{j} z_{n-j} + h \sum_{j = -1}^{p} b_{j} f (x_{n-j} , z_{n-j} ) 
+\end{eqnarray}
+$$
+$(1)$ 에서 $(2)$ 를 빼면
+$$
+\displaystyle e_{n+1} = \sum_{i=0}^{n} a_{j} e_{n-j} + h \sum_{j= -1}^{p} b_{j} \left[ f(x_{n-j} , y_{n- j }) - f(x_{n-j} , z_{n- j }) \right]
+$$
+을 얻는다. $y_{n} = d_{0} s_{0}^{n} + d_{1} s_{1}^{n} + \cdots + d_{p} s_{p}^{n}  $ 이라고 하면
+$$
+e_{n} = g_{0} ( r_{0} + s_{0} )^n + g_{1} ( r_{1} + s_{1} )^n + \cdots  + g_{p} ( r_{p} + s_{p} )^n 
+$$
+이에 대해 $\displaystyle \max_{0 \le n \le p} | y_{ n}  - z_{n} | =  \epsilon $ 이라고 두자.주어진 메소드는
+$$
+e_{n} = g_{0} ( r_{0} + s_{0} )^n + g_{1} ( r_{1} + s_{1} )^n + \cdots  + g_{p} ( r_{p} + s_{p} )^n 
+$$
+의 $( r_{0} + s_{0} ) , \cdots , ( r_{p} + s_{p} )$ 에 대해서도 루트 컨디션을 만족하므로, 
+$$
+\begin{eqnarray*}
+\displaystyle | e_{n} |  &amp;=&amp; | g_{0} | | r_{0} + s_{0} |^n + | g_{1} | | r_{1} + s_{1} | ^n + \cdots  + | g_{p} | | r_{p} + s_{p} |^n 
+\\ &amp;\le&amp; p \max_{1 \le i \le p} | g_{i}| \max_{1 \le i \le p} | r_{i} + s_{i} |^n 
+\\ &amp;\le&amp; p \cdot \epsilon \cdot 1 
+\end{eqnarray*}
+$$
+따라서 $\displaystyle \max_{ x_{0} \le x_{n} \le b} | e_{n} | = p \epsilon $ 이고, 메소드는 안정성을 갖는다.<p style="text-align: right;">■</p></p>
+
+
+            </div>
+
+            <div class = "sidebar">
+            <aside>
+    <p style="text-align: center;">
+    <a href="https://form.office.naver.com/form/responseView.cmd?formkey=OGZiOTE3MzQtYmVkMy00MTI4LWIwZGQtNTZiNzBmMTUwODY1&sourceId=urlshare">
+        <img src="https://freshrimpsushi.github.io/banner/WhatIsYourMajor.png"
+             alt="혹시 문과세요?"
+             width="210">
+    </a>
+    </p>
+</aside>
+
+
+<aside>
+    <p><b>카테고리</b></p>
+<details open>
+    <summary>가나다순 (1758)</summary>
+    <ul><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/r/" style="color: black">R (52)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B0%90%EB%A7%88-%ED%95%A8%EC%88%98%EC%99%80-%EC%A0%9C%ED%83%80-%ED%95%A8%EC%88%98/" style="color: black">감마 함수와 제타 함수 (23)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (19)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (23)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC-%EA%B5%90%EA%B3%BC/" style="color: black">물리 교과 (9)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">물리학미분류 (10)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">미분 방정식 (7)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AF%B8%EC%A0%81%EB%B6%84%ED%95%99/" style="color: black">미적분학 (18)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A0%EC%9D%B4%EC%A7%80%EC%95%88/" style="color: black">베이지안 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0-%ED%95%B4%EC%84%9D/" style="color: black">벡터 해석 (43)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B5%EC%86%8C%ED%95%B4%EC%84%9D/" style="color: black">복소해석 (57)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">수리물리학미분류 (20)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (32)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">수치선형대수 (16)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (54)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99-%EA%B5%90%EA%B3%BC/" style="color: black">수학 교과 (30)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">수학미분류 (30)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%9C%EA%B3%84%EC%97%B4%EB%B6%84%EC%84%9D/" style="color: black">시계열분석 (33)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%A4%EC%A0%84-%EC%88%98%EB%8A%A5-%EC%8A%A4%ED%82%AC/" style="color: black">실전 수능 스킬 (16)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EC%97%AD%ED%95%99/" style="color: black">열역학 (22)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/" style="color: black">위상수학 (59)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/" style="color: black">전자기학 (54)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (73)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (20)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (42)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (22)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/" style="color: black">추상대수 (77)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/" style="color: black">측도론 (58)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C-%ED%95%B4%EC%84%9D/" style="color: black">텐서 해석 (13)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8C%8C%EC%9D%B4%EC%8D%AC/" style="color: black">파이썬 (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90-%ED%95%B4%EC%84%9D/" style="color: black">푸리에 해석 (41)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (53)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (56)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">해석학미분류 (28)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (22)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D/" style="color: black">회귀분석 (28)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8-%EA%B3%B5%EA%B0%84%EB%A1%A0/" style="color: black">힐베르트 공간론 (35)</a>
+        </li>
+    </ul>
+</details>
+</aside>
+
+<aside>
+    <p><b>태그</b></p>
+    <div>
+    </div>
+</aside>
+
+<aside>
+    <h2></h2>
+    <ul>
+    </ul>
+</aside>
+            </div>
+
+        </div>
+    </body>
+
+    <hr>
+    <footer>
+    <aside>
+        <div>
+            <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io" target="_blank">Hugo</a></p>
+        </div>
+
+    
+    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
+	MathJax.Hub.Config({
+		messageStyle: "none",
+		jax: ["input/TeX", "output/HTML-CSS"],
+		"HTML-CSS": { availableFonts: ["TeX"] },
+		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+
+		tex2jax: {
+			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
+			displayAlign: "left"
+		},
+		
+		TeX: { equationNumbers: {autoNumber: "AMS"}, 
+					extensions: ["cancel.js","color.js"], 
+					   TagSide: "left" 
+		}
+					
+	});
+</script> 
+
+    
+    
+    </aside>
+</footer>
+</html>
+<!DOCTYPE html>

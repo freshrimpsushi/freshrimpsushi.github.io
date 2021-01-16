@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ko" class = "blog">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    
+    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+
+    
+    <meta name="title" content="R 에서 ROC 곡선 그리는 법 How to Plot ROC Curve">
+    <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
+
+    
+    <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    
+    <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
+
+    <title>R 에서 ROC 곡선 그리는 법 How to Plot ROC Curve</title>
+
+</head>
+
+    <body class="main">
+    <header>
+    <a href="../../" rel="home">
+        <p style="text-align:right; font-size: 2rem; color: black;"><b>생새우초밥집</b></p>
+    </a>
+</header>
+    <hr>
+        
+        <div class = "wrapper">
+
+            <div class = "content">
+            
+
+<title>R 에서 ROC 곡선 그리는 법 How to Plot ROC Curve</title>
+
+<h1>R 에서 ROC 곡선 그리는 법 How to Plot ROC Curve</h1>
+<aside>
+    <p style="text-align: right;">
+        868
+
+    
+    
+            <a href="https://freshrimpsushi.github.io/categories/%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D/" style="color: black">회귀분석</a>&emsp;
+            
+    </span>
+    
+    작성일: 2019-02-20&nbsp;<br>
+    작성자: 류대식 사장 &nbsp;
+</p>
+</aside>
+
+
+<aside>
+    <b>목차</b>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#heading"></a></li>
+  </ul>
+</nav>
+</aside>
+
+
+<h2 id="heading"></h2>
+<p>*하단에 예제코드 전체가 있다.<a href="https://freshrimpsushi.github.io/posts/571">오류행렬</a>의 False Positive Rate와 True Positive Rate를 각각 축으로 두고 그린 그림을 <strong>ROC 곡선Receiver Operating Characteristic Curve</strong> 이라고 한다. ROC 곡선은 모델의 퍼포먼스를 한 눈에 보여줄 뿐만 아니라 최적의 컷오프를 찾고 모델 간의 비교에도 쓰이는 등 요긴하게 쓸 데가 많다. 예제를 통해 R 에서 ROC 곡선을 그려보고 그 의미를 이해해보자. 핵심적인 패키지로 ROCR이 쓰인다.Car 패키지의 <a href="http://freshrimpsushi.tistory.com/331">내장데이터</a> Chile 데이터를 불러와보자.<img src="20190128_132747.png#center" alt="img">Chile는 칠레의 독재자 아우구스토 피노체트가 1988년 자신의 집권 연장 찬반 여부를 묻는 투표에 대한 설문조사 데이터로써, region(지역), population(응답자 커뮤니티의 인구), sex(성별), age(연령), education(교육수준), income(수입), statusquo(현재 상황에 대한 지지도)에 따른 vote(투표경향)를 파악할 수 있다.<img src="20190128_133740.png#center" alt="img">투표경향은 A(기권), U(보류), N(반대), Y(찬성) 네 가지 계급을 가지는데, <a href="https://freshrimpsushi.github.io/posts/832">로지스틱 회귀분석</a>을 사용하기 위해 Y 외엔 모두 N으로 바꾸었다. 이 포스트에서는 Y를 &lsquo;찬성&rsquo;, N을 &lsquo;반대&rsquo;라고 하겠다.<img src="20190128_152957.png#center" alt="img"><a href="https://freshrimpsushi.github.io/posts/866">모델의 퍼포먼스를 확인</a>하기 위해 트레이닝 데이터와 테스트 데이터를 나누었다.<img src="20190128_153114.png#center" alt="img">트레이닝 데이터를 통해 얻은 로지스틱 회귀모형은 위와 같다. 이제 이 모델에 테스트 데이터를 넣어서 유권자들이 찬성할 확률을 계산해보자. predict() 함수에 newdata=test 옵션을 주면 모델에 테스트 데이터를 넣어서 알아서 계산해준다. 이때 type=&ldquo;response&quot;를 넣어야 우리가 원하는 &lsquo;확률&rsquo;의 꼴로 반환하는 것에 주의하자.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
+
+
+out0<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">glm</span>(vote<span style="color:#f92672">~</span>.,family<span style="color:#f92672">=</span><span style="color:#a6e22e">binomial</span>(),data<span style="color:#f92672">=</span>train); <span style="color:#a6e22e">summary</span>(out0)
+p <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">predict</span>(out0, newdata<span style="color:#f92672">=</span>test, type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;response&#34;</span>); p
+</code></pre></div><p>출력 결과는 다음과 같다.<img filemime="image/jpeg" filename="20190128_152826.png" height="495" src="https://t1.daumcdn.net/cfile/tistory/99E903395C4EA11437" style="max-width:100%;height:auto" width="616"/>문제는 이 확률을 어떻게 해석하고 사용할 것인가다. 사실 우리가 정말로 계산하고 싶었던건 확률이 아니라, 그래서 어떤 사람이 &lsquo;찬성&rsquo;을 했는지 안 했는지를 맞추는 것이다. 해서 일정 확률보다 높은 경우를 &lsquo;찬성&rsquo;했다고 예측하고, 낮은 경우를 &lsquo;반대&rsquo;했다고 예측하고 싶다. 그 &lsquo;일정 확률&rsquo;을 <strong>컷오프</strong><sup>Cutoff</sup>  혹은 <strong>역치</strong><sup>Threshold</sup> 라고 하고, 보통은 컷오프라는 표현을 잘 쓴다.이 컷오프를 어떻게 하느냐에 따라서 <a href="https://freshrimpsushi.github.io/posts/571">정분류율</a>은 달라질 것이다. 극단적으로 0.99 이하를 전부 &lsquo;반대&rsquo;라고 예측해도 그냥 &lsquo;반대&rsquo;를 한 사람들만큼은 맞췄기 때문에 정분류율은 어느정도 나온다. 0.01 이상을 전부 &lsquo;찬성&rsquo;이라고 예측해도 마찬가지로 맞을 사람은 맞는다. 예를 들어 1년 365일 중에 120일 동안 비가 오는 나라가 있다면 1년 내내 다음날의 날씨를 &lsquo;맑음&rsquo;이라고 예측해도 정답률이 얼추 $67%$ 는 나오게 되어있다. 우리는 이 보다는 좋은 분석과 예측이 필요하기 때문에, 좋은 컷오프를 구하고 싶다. 그냥 간단하게 생각하기엔 0.5를 기준으로 높으면 &lsquo;찬성&rsquo; 낮으면 &lsquo;반대&rsquo;로 예측하면 될 것 같다. 하지만 계산해보면 그렇지 않은 경우가 훨씬 많다. (또 항상 정분류율만이 기준이 되는 것은 아니다. 사안에 따라 더 중요한 척도가 있을 수 있다.)해서 이 좋은 컷오프를 찾기 위해 하는 일이 바로 위에서 구한 p의 모든 확률을 컷오프로써 써보는 것이다. 0.89572040으로 오차행렬을 만들어서 False Positive Rate와 True Positive Rate를 계산해보고, 0.81810785로 또 계산해보고, 0.70215561로 또 계산해보고, &hellip; 이것을 반복해서 가로축을 False Positive Rate, 세로축을 True Positive Rate로 나타낸 그래프가 바로 <strong>ROC 커브</strong> 다.말은 어렵지만 코드상으로는 간단하니 걱정하지 말자.오차행렬을 만들고 필요한 수치들을 계산하기 위해서는 다음과 같은 코드를 실행시켜야한다. 확률과는 달리 실제로 출력 결과를 볼 필요는 없으므로 각 함수가 어떤 역할을 하는지만 대략적으로 설명하겠다. prediction() 함수는 위에서 계산한 확률 p와 실제 테스트 데이터의 test$vote를 비교해서 분류율을 계산해준다. performance() 함수는 위에서 계산한 오차행렬의 수치 pr에서 필요한 데이터를 뽑아 plot() 함수에 넣으면 ROC 곡선을 그릴 수 있도록 하는 데이터를 반환해준다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
+
+
+pr <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">prediction</span>(p, test<span style="color:#f92672">$</span>vote)
+prf <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">performance</span>(pr, measure <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tpr&#34;</span>, x.measure <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;fpr&#34;</span>)
+<span style="color:#a6e22e">win.graph</span>(); <span style="color:#a6e22e">plot</span>(prf, main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ROC of Test Data&#39;</span>)
+</code></pre></div><p>위의 코드를 실행하면 다음과 같이 ROC 커브를 그려준다.<img filemime="image/jpeg" filename="ROC.png" height="672" src="https://t1.daumcdn.net/cfile/tistory/99C508455C4FA79537" style="max-width:100%;height:auto" width="672"/>위 곡선은 모든 컷오프에 대해서 FPR과 TPR을 계산하고, 그것을 각각 $x$ 축의 좌표, $y$ 축의 좌표로 갖는 곡선이다. 곡선은 가능한 한 그 아래의 면적이 넓은 것이 좋다. 궤적으로 보자면 곡선과 왼쪽 위의 점 $(0,1)$ 이 가깝게 붙는 식으로 나오는 게 좋다.막상 그 컷오프는 그림에서 표현되지 않는데, <a href="https://freshrimpsushi.github.io/posts/720">자료구조를 뜯어보면</a> $alpha.values 를 통해 참조할 수 있음을 알 수 있다.<img filemime="image/jpeg" filename="20190129_101311.png" height="168" src="https://t1.daumcdn.net/cfile/tistory/995C5E435C4FA8B63A" style="text-align: justify;" width="484"/>str() 함수로 뜯어보면 컷오프가 0.939 일 때 TPR이 0, FPR이 0.00556 임을 알 수 있다. FPR이 0.00556 이라는 것은 &lsquo;반대&rsquo;를 잘못 예측한 비율이 $0.5%$ 밖에 안 된다는 뜻이다. 여기까진 좋아보이지만, TPR이 0이므로 &lsquo;찬성&rsquo;을 제대로 예측한 케이스가 단 한 건도 없다는 말이 된다. 직관적으로 생각해보면 &lsquo;찬성&rsquo;할 확률이 0.939 이하인 사람을 모두 &lsquo;반대&rsquo;로 예측했기 때문에 &lsquo;찬성&rsquo;을 &lsquo;찬성&rsquo;으로 예측하는 허들이 너무 높았던 것이다. 이러니 &lsquo;반대&rsquo;는 다 맞춰도 &lsquo;찬성&rsquo;은 맞출 수가 없는 것이다.*자기가 그린 ROC 곡선은 너무 네모나서 이상하다는 사람이 있다. 그건 단순히 테스트 데이터가 적기 때문에 일어나는 일이다. 데이터가 적은 것 자체는 걱정할 수 있지만 각진 모양으로 나오는건 전혀 걱정하지 않아도 좋다. 예를 들어 이 예제에서도 테스트 데이터의 크기를 20개로 줄이면 다음과 같은 모양이 나온다.<img filemime="image/jpeg" filename="small roc.png" height="672" src="https://t1.daumcdn.net/cfile/tistory/99B1B63B5C4FAF2305" style="max-width:100%;height:auto" width="672"/>아래는 예제 코드 전체다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
+
+
+<span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#34;car&#34;</span>)
+<span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#34;ROCR&#34;</span>)
+ 
+<span style="color:#a6e22e">library</span>(car)
+<span style="color:#a6e22e">library</span>(ROCR)
+ 
+<span style="color:#a6e22e">set.seed</span>(<span style="color:#ae81ff">150421</span>)
+ 
+<span style="color:#f92672">?</span>Chile
+<span style="color:#a6e22e">str</span>(Chile)
+<span style="color:#a6e22e">nrow</span>(Chile)
+<span style="color:#a6e22e">head</span>(Chile); <span style="color:#a6e22e">tail</span>(Chile)
+ 
+DATA<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">na.omit</span>(Chile)
+DATA<span style="color:#f92672">$</span>vote[DATA
+          <span style="color:#f92672">$</span>vote<span style="color:#f92672">!=</span><span style="color:#e6db74">&#39;Y&#39;</span>]<span style="color:#f92672">&lt;-</span><span style="color:#e6db74">&#39;N&#39;</span>
+DATA<span style="color:#f92672">$</span>vote<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">factor</span>(DATA<span style="color:#f92672">$</span>vote)
+<span style="color:#a6e22e">head</span>(DATA); <span style="color:#a6e22e">tail</span>(DATA)
+ 
+DATANUM<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">nrow</span>(DATA)
+train<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">sample</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>DATANUM)<span style="color:#f92672">&lt;</span>(DATANUM<span style="color:#f92672">*</span><span style="color:#ae81ff">0.8</span>)
+test<span style="color:#f92672">&lt;-</span>DATA[<span style="color:#f92672">!</span>train,]; <span style="color:#a6e22e">head</span>(test)
+train<span style="color:#f92672">&lt;-</span>DATA[train,]; <span style="color:#a6e22e">head</span>(train)
+ 
+out0<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">glm</span>(vote<span style="color:#f92672">~</span>.,family<span style="color:#f92672">=</span><span style="color:#a6e22e">binomial</span>(),data<span style="color:#f92672">=</span>train); <span style="color:#a6e22e">summary</span>(out0)
+p <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">predict</span>(out0, newdata<span style="color:#f92672">=</span>test, type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;response&#34;</span>); p
+ 
+pr <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">prediction</span>(p, test<span style="color:#f92672">$</span>vote)
+prf <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">performance</span>(pr, measure <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tpr&#34;</span>, x.measure <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;fpr&#34;</span>)
+<span style="color:#a6e22e">win.graph</span>(); <span style="color:#a6e22e">plot</span>(prf, main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ROC of Test Data&#39;</span>)
+<span style="color:#a6e22e">str</span>(prf)
+ 
+smalltest<span style="color:#f92672">&lt;-</span>test<span style="color:#a6e22e">[sample</span>(<span style="color:#a6e22e">nrow</span>(test),<span style="color:#ae81ff">20</span>),]
+p <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">predict</span>(out0, newdata<span style="color:#f92672">=</span>smalltest, type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;response&#34;</span>); p
+pr <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">prediction</span>(p, smalltest<span style="color:#f92672">$</span>vote)
+prf <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">performance</span>(pr, measure <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tpr&#34;</span>, x.measure <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;fpr&#34;</span>)
+<span style="color:#a6e22e">win.graph</span>(); <span style="color:#a6e22e">plot</span>(prf, main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ROC of Small Test Data&#39;</span>)
+</code></pre></div>
+
+            </div>
+
+            <div class = "sidebar">
+            <aside>
+    <p style="text-align: center;">
+    <a href="https://form.office.naver.com/form/responseView.cmd?formkey=OGZiOTE3MzQtYmVkMy00MTI4LWIwZGQtNTZiNzBmMTUwODY1&sourceId=urlshare">
+        <img src="https://freshrimpsushi.github.io/banner/WhatIsYourMajor.png"
+             alt="혹시 문과세요?"
+             width="210">
+    </a>
+    </p>
+</aside>
+
+
+<aside>
+    <p><b>카테고리</b></p>
+<details open>
+    <summary>가나다순 (1758)</summary>
+    <ul><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/r/" style="color: black">R (52)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B0%90%EB%A7%88-%ED%95%A8%EC%88%98%EC%99%80-%EC%A0%9C%ED%83%80-%ED%95%A8%EC%88%98/" style="color: black">감마 함수와 제타 함수 (23)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (19)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (23)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC-%EA%B5%90%EA%B3%BC/" style="color: black">물리 교과 (9)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">물리학미분류 (10)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">미분 방정식 (7)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AF%B8%EC%A0%81%EB%B6%84%ED%95%99/" style="color: black">미적분학 (18)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A0%EC%9D%B4%EC%A7%80%EC%95%88/" style="color: black">베이지안 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0-%ED%95%B4%EC%84%9D/" style="color: black">벡터 해석 (43)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B5%EC%86%8C%ED%95%B4%EC%84%9D/" style="color: black">복소해석 (57)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">수리물리학미분류 (20)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (32)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">수치선형대수 (16)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (54)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99-%EA%B5%90%EA%B3%BC/" style="color: black">수학 교과 (30)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">수학미분류 (30)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%9C%EA%B3%84%EC%97%B4%EB%B6%84%EC%84%9D/" style="color: black">시계열분석 (33)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%A4%EC%A0%84-%EC%88%98%EB%8A%A5-%EC%8A%A4%ED%82%AC/" style="color: black">실전 수능 스킬 (16)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EC%97%AD%ED%95%99/" style="color: black">열역학 (22)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/" style="color: black">위상수학 (59)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/" style="color: black">전자기학 (54)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (73)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (20)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (42)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (22)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/" style="color: black">추상대수 (77)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/" style="color: black">측도론 (58)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C-%ED%95%B4%EC%84%9D/" style="color: black">텐서 해석 (13)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8C%8C%EC%9D%B4%EC%8D%AC/" style="color: black">파이썬 (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90-%ED%95%B4%EC%84%9D/" style="color: black">푸리에 해석 (41)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (53)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (56)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">해석학미분류 (28)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (22)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D/" style="color: black">회귀분석 (28)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8-%EA%B3%B5%EA%B0%84%EB%A1%A0/" style="color: black">힐베르트 공간론 (35)</a>
+        </li>
+    </ul>
+</details>
+</aside>
+
+<aside>
+    <p><b>태그</b></p>
+    <div>
+    </div>
+</aside>
+
+<aside>
+    <h2></h2>
+    <ul>
+    </ul>
+</aside>
+            </div>
+
+        </div>
+    </body>
+
+    <hr>
+    <footer>
+    <aside>
+        <div>
+            <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io" target="_blank">Hugo</a></p>
+        </div>
+
+    
+    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
+	MathJax.Hub.Config({
+		messageStyle: "none",
+		jax: ["input/TeX", "output/HTML-CSS"],
+		"HTML-CSS": { availableFonts: ["TeX"] },
+		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+
+		tex2jax: {
+			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
+			displayAlign: "left"
+		},
+		
+		TeX: { equationNumbers: {autoNumber: "AMS"}, 
+					extensions: ["cancel.js","color.js"], 
+					   TagSide: "left" 
+		}
+					
+	});
+</script> 
+
+    
+    
+        <link rel="stylesheet" href= https://freshrimpsushi.github.io/css/atom-one-light.css>
+        <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    
+    </aside>
+</footer>
+</html>
+<!DOCTYPE html>

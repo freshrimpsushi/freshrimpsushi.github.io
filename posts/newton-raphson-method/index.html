@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ko" class = "blog">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    
+    <link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css>
+
+    
+    <meta name="title" content="뉴턴-랩슨 메소드">
+    <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
+
+    
+    <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    
+    <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
+
+    <title>뉴턴-랩슨 메소드</title>
+
+</head>
+
+    <body class="main">
+    <header>
+    <a href="../../" rel="home">
+        <p style="text-align:right; font-size: 2rem; color: black;"><b>생새우초밥집</b></p>
+    </a>
+</header>
+    <hr>
+        
+        <div class = "wrapper">
+
+            <div class = "content">
+            
+
+<title>뉴턴-랩슨 메소드</title>
+
+<h1>뉴턴-랩슨 메소드</h1>
+<aside>
+    <p style="text-align: right;">
+        678
+
+    
+    
+            <a href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석</a>&emsp;
+            
+    </span>
+    
+    작성일: 2019-03-23&nbsp;<br>
+    작성자: 류대식 사장 &nbsp;
+</p>
+</aside>
+
+
+<aside>
+    <b>목차</b>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#heading"></a></li>
+    <li><a href="#증명">증명</a></li>
+  </ul>
+</nav>
+</aside>
+
+
+<h2 id="heading"></h2>
+<p><a href="https://freshrimpsushi.github.io/posts/1005">고차원에 대해 일반화된 뉴턴-랩슨 메소드</a><img filemime="image/jpeg" filename="20180831_192324.png" height="277" src="https://t1.daumcdn.net/cfile/tistory/990747355B89172917" style="max-width:100%;height:auto" width="383"/>$f,f',f''$ 가 $\alpha$ 의 근방에서 연속이고 $f(\alpha) = 0, f'(\alpha) \ne 0$ 이라고 하자. $\alpha$ 와 충분히 가까운 초기값 $x_{0}$ 에 대해 $\displaystyle x_{n+1} := x_{n} - {{ f ( x_{n} ) } \over { f' ( x_{n} ) }}$ 과 같이 정의된 수열 $\left\{ x_{n} \right\}$ 은 $n \to \infty$ 일 때 $\alpha$ 로 쿼드러틱하게 수렴한다.뉴턴-랩슨 메소드는 그냥 뉴턴 메소드라고 불리기도 한다. 미분가능성이나 연속성과 같은 조건이 있긴 하지만 그래도 간단하고 수렴속도가 빨라 방정식 $f(x) = 0$ 의 근사해를 찾는데 유용한 방법이다.**쿼드러틱Quadratic하게 수렴한다** 는 말은 <a href="http://freshrimpsushi.tistory.com/674">수렴률</a>을 이야기할 때 $2$차적으로 수렴한다는 말인데, 적절한 번역이 없다. $1$ 차가 &lsquo;선형&rsquo;으로 번역되는 것에 비하면 그냥 $2$ 차로 수렴한다는 말은 너무 두리뭉술하고 쓰이는 용례가 적어 부득이하게 영어표현을 그대로 썼다. 그럼에도 굳이 언급한 것은 대부분의 경우 <a href="http://freshrimpsushi.tistory.com/676">바이섹션 메소드</a>에 비해 수렴하는 속도가 빠름을 수학적으로 보일 수 있기 때문이다.<img filemime="image/jpeg" filename="20180831_192719.png" height="280" src="https://t1.daumcdn.net/cfile/tistory/998E673E5B8918220A" style="max-width:100%;height:auto" width="394"/>그러나 &lsquo;$\alpha$ 의 근방&rsquo;이나 &lsquo;충분히 가까운 초기값&rsquo;이라는 표현에서 눈치챌 수 있듯, 실제로는 마냥 생각 없이 쓸 수 있는 방법이 아니다. 위와 같이 재수 없게 초기값을 잘못 줘서 $0$ 으로 나누는 문제가 일어나거나 수열 자체가 해와 먼 곳으로 갈 수도 있다. 그래서 코드를 쓸 때도 특정 횟수 안에 해를 구하지 못했다면 그냥 계산을 포기하는 등의 예외처리가 필요하다.이러한 발산 에러는 수학적으로 수렴성이 증명되었음에도 실제로 쓸 때는 충분히 일어날법한 문제가 된다. 가장 중요한 사용자가 &lsquo;$\alpha$ 의 근방&rsquo;이나 &lsquo;충분히 가까운 초기값&rsquo;을 정확하게 파악하지 못할 수 있기 때문이다. 바이섹션 메소드가 느리든 어떻든 반드시 해를 구해주는 것과 비교해보면 분명한 단점이라고 할 수 있다.**Strategy**  : 테일러 전개를 통해 $2$차 항을 끌어낸 후 재귀적인 부등식을 만들어 수렴성을 보인다.</p>
+<h2 id="증명">증명</h2>
+<p><strong>Part 1.</strong>  <a href="http://freshrimpsushi.tistory.com/41">테일러 전개</a>$f$ 를 $x_{n}$ 에 대해 테일러 전개하면 $x$ 와 $x_{n}$ 사이의 $\xi_{n}$ 에 대해
+$$
+\displaystyle f(x) = f(x_{n} ) + (x - x_{n}) f&rsquo;(x_{n}) + {{(x - x_{n})^2 } \over {2}} f&rsquo;&rsquo; (\xi_{n})
+$$
+$f( \alpha ) = 0$ 이므로 $x = \alpha$ 를 대입하면
+$$
+\displaystyle 0 = f(x_{n} ) + ( \alpha - x_{n}) f&rsquo;(x_{n}) + {{( \alpha - x_{n})^2 } \over {2}} f&rsquo;' (\xi_{n})
+$$
+양변을 $f'(x_{n})$ 으로 나누면
+$$
+\displaystyle 0 = {{f(x_{n} )} \over {f'(x_{n})}} + \alpha - x_{n} + {{( \alpha - x_{n})^2 } \over {2}} {{f'' (\xi_{n})} \over { f'(x_{n}) }}
+$$
+$\displaystyle {{ f ( x_{n} ) } \over { f' ( x_{n} ) }} - x_{n} = - x_{n+1} $ 이므로
+$$
+\displaystyle 0 = \alpha - x_{n+1} + {{( \alpha - x_{n})^2 } \over {2}} {{f'' (\xi_{n})} \over { f'(x_{n}) }}
+$$
+이항해서 정리하면
+$$
+\begin{equation} \displaystyle \alpha - x_{n+1} = - {{f'' (\xi_{n})} \over { 2 f'(x_{n}) }} ( \alpha - x_{n})^2 \end{equation}
+$$
+**Part 2.**  수렴성$f'$ 는 $\alpha$ 근방에서 연속이고 $f'(\alpha) \ne 0$ 이므로 모든 $x \in I_{\delta}$ 에 대해 $f'(x) \ne 0$ 을 만족하는 $ I_{\delta} : = [ \alpha - \delta , \alpha + \delta ] $ 가 존재한다.$\displaystyle M( \delta ) := {{ \max_{x \in I_{\delta} } | f'' (x) | } \over { 2 \min_{x \in I_{\delta} } | f'(x) | }}$ 이라고 두면 $\delta$ 를 작게 잡을때마다 $\displaystyle \max_{x \in I_{\delta} } | f'' (x) |$ 은 커지지 않고 $\displaystyle \min_{x \in I_{\delta} } | f'(x) | $ 은 작아지지 않으므로 $M ( \delta )$ 전체는 커지지 않는다. 따라서 $M(\delta) | \alpha - x_{0} | &lt; 1$ 이 성립하도록 하는 $x_{0} \in I_{\delta}$ 가 존재하게끔 충분히 작은 $\delta = \delta_{0}$ 를 잡을 수 있다. 바로 이 $x_{0}$ 가 $\alpha$ 와 충분히 가까운 초기값이다.이 $\delta_{0}$ 에 대해 이제 $M:= M(\delta_{0})$ 라고 하자.$(1)$의 양변에 절대값을 취하면
+$$
+| \alpha - x_{n+1}| \le M | \alpha - x_{n} |^2
+$$
+양변에 $M$ 을 곱하면
+$$
+M | \alpha - x_{n+1}| \le M^2 | \alpha - x_{n} |^2
+$$
+우변을 제곱으로 묶어내면
+$$
+M | \alpha - x_{n+1}| \le ( M | \alpha - x_{n} | )^2
+$$
+이 과정을 $x_{n+1}$ 에서 $x_{0}$ 가 나올때까지 반복하면
+$$
+M | \alpha - x_{n+1}| \le ( M | \alpha - x_{n} | )^2 \le  ( M | \alpha - x_{n-1} | )^4 \le \cdots \le ( M | \alpha - x_{0} | )^{2^{n+1}} 
+$$
+정리하면
+$$
+\displaystyle | \alpha - x_{n} | \le {{1 } \over {M}} ( M | \alpha - x_{0} | )^{2^{n}}
+$$
+$M | \alpha - x_{0} | &lt; 1 $ 이므로 $n \to \infty$ 일 때 $x_{n} \to \alpha$**Part 3.**  쿼드러틱하게 수렴$(1)$에 의해 $\displaystyle {{ \alpha - x_{n+1} } \over { ( \alpha - x_{n})^2 }} = - {{f'' (\xi_{n})} \over { 2 f'(x_{n}) }} $ 이고 $x_{n} \to \alpha$ 일 때 $\xi_{n} \to \alpha$ 이므로
+$$
+\displaystyle \lim_{n \to \infty} {{\alpha - x_{n+1} } \over { ( \alpha - x_{n} )^2 }} = - \lim_{n \to \infty} {{f''( \xi_{n} )} \over { 2 f' ( x_{n} ) }} = -{{f''(\alpha)} \over { 2 f' ( \alpha ) }}
+$$
+<p style="text-align: right;">■</p>
+위에서도 수렴성에 문제가 있다고 했는데, 실제로 증명과정에서도 충분히 작은 $I$ 를 잡는다.**뉴턴-푸리에 메소드** $f,f',f''$ 가 폐구간 $[a,b]$ 에서 연속이라고 하자. $f$ 가 $[a,b]$ 에서 해를 갖고 증가함수거나 감소함수면 $\displaystyle x_{n+1} = x_{n} - {{ f ( x_{n} ) } \over { f' ( x_{n} ) }}$ 과 같이 정의된 수열 $\left\{ x_{n} \right\}$ 은 $n \to \infty$ 일 때 $\alpha$ 로 쿼드러틱하게 수렴한다.한편 조금 더 강한 조건이 있다면 쿼드러틱하면서도 수렴성이 완전히 보장된 뉴턴-푸리에 메소드를 고려해볼 수 있다. 하지만 이 방법은 본질적으로 뉴턴-랩슨 메소드의 &lsquo;$\alpha$ 의 근방&rsquo; 속으로 폐구간 $[a,b]$ 를 집어넣은 것에 불과하기도 하다. 따라서 조건만 다 체크한다면 뉴턴-랩슨 메소드와 정확히 똑같아지고, 별도로 다른 코드를 작성할 필요가 없다.<img filemime="image/jpeg" filename="20180831_193141.png" height="166" src="https://t1.daumcdn.net/cfile/tistory/9931BE3B5B89192004" style="text-align: justify;" width="248"/>아래는 R 로 작성된 코드다. df에 도함수를 넣으면 도함수로 바로 계산을 하고, 생략하면 미분계수를 따로 구해서 쓴다. itmax 옵션은 최대로 반복할 횟수인데, 디폴트로 $1000$ 번을 반복해도 원하는만큼의 정밀한 해가 구해지지 않으면 계산을 포기한다.</p>
+<pre><code>d&lt;-function(f,x,tol=10^(-8))
+{
+  h&lt;-1
+  d1&lt;-1
+  d2&lt;-0
+  
+  while(abs(d1-d2)&gt;tol)
+  {
+    d1&lt;-d2
+    d2&lt;-(f(x+h)-f(x))/h
+    h&lt;-h/2
+  }
+  return(d2)
+}
+ 
+Newton&lt;-function(f,x0,df=FALSE,itmax=10^3,tol=10^(-8))
+{
+  if(f(x0)==0){return(x0)}
+  denom=0
+  
+  x1 = x0 - f(x0)/d(f,x0)
+  
+  for(i in 1:itmax)
+  {
+    if(is.function(df)){
+      denom=df(x1)
+    }else{
+      denom=d(f,x1)
+    }
+    if(denom==0){stop('Zero Derivative')}
+    
+    x2 = x1 - f(x1)/denom
+    if(abs(x2-x1)&lt;tol){
+      return(x2)
+    }else{
+      x1 = x2
+    }
+  }
+  
+  stop('Maybe Wrong Initial Point')
+}
+ 
+f&lt;-function(x) {x^3 + 8}
+Newton(f,7)
+ 
+g&lt;-function(x) {x^6 - x - 1}
+Newton(g,3)
+ 
+h&lt;-function(x) {exp(x)-1}
+Newton(h,-2)[Colored by Color Scripter](http://colorscripter.com/info#e)
+</code></pre>
+
+            </div>
+
+            <div class = "sidebar">
+            <aside>
+    <p style="text-align: center;">
+    <a href="https://form.office.naver.com/form/responseView.cmd?formkey=OGZiOTE3MzQtYmVkMy00MTI4LWIwZGQtNTZiNzBmMTUwODY1&sourceId=urlshare">
+        <img src="https://freshrimpsushi.github.io/banner/WhatIsYourMajor.png"
+             alt="혹시 문과세요?"
+             width="210">
+    </a>
+    </p>
+</aside>
+
+
+<aside>
+    <p><b>카테고리</b></p>
+<details open>
+    <summary>가나다순 (1758)</summary>
+    <ul><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/r/" style="color: black">R (52)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B0%90%EB%A7%88-%ED%95%A8%EC%88%98%EC%99%80-%EC%A0%9C%ED%83%80-%ED%95%A8%EC%88%98/" style="color: black">감마 함수와 제타 함수 (23)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%9D%BC%ED%94%8C%EB%9D%BC%EC%8A%A4-%EB%B3%80%ED%99%98/" style="color: black">라플라스 변환 (21)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (19)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (23)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC-%EA%B5%90%EA%B3%BC/" style="color: black">물리 교과 (9)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">물리학미분류 (10)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">미분 방정식 (7)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AF%B8%EC%A0%81%EB%B6%84%ED%95%99/" style="color: black">미적분학 (18)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A0%EC%9D%B4%EC%A7%80%EC%95%88/" style="color: black">베이지안 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0-%ED%95%B4%EC%84%9D/" style="color: black">벡터 해석 (43)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B5%EC%86%8C%ED%95%B4%EC%84%9D/" style="color: black">복소해석 (57)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (37)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B9%84%EA%B3%B5%EA%B0%9C/" style="color: black">비공개 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">수리물리학미분류 (20)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (32)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">수치선형대수 (16)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (54)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99-%EA%B5%90%EA%B3%BC/" style="color: black">수학 교과 (30)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">수학미분류 (30)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%9C%EA%B3%84%EC%97%B4%EB%B6%84%EC%84%9D/" style="color: black">시계열분석 (33)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%A4%EC%A0%84-%EC%88%98%EB%8A%A5-%EC%8A%A4%ED%82%AC/" style="color: black">실전 수능 스킬 (16)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (39)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%AD%ED%95%99/" style="color: black">역학 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B0%EC%82%B0%EC%9E%90/" style="color: black">연산자 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EC%97%AD%ED%95%99/" style="color: black">열역학 (22)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/" style="color: black">위상수학 (59)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/" style="color: black">전자기학 (54)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (73)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (20)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (42)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (22)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/" style="color: black">추상대수 (77)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/" style="color: black">측도론 (58)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C-%ED%95%B4%EC%84%9D/" style="color: black">텐서 해석 (13)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98/" style="color: black">특별한 함수 (33)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">특수상대성이론 (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EC%88%98%ED%95%9C-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">특수한 미분 방정식 (17)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8C%8C%EC%9D%B4%EC%8D%AC/" style="color: black">파이썬 (8)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90-%ED%95%B4%EC%84%9D/" style="color: black">푸리에 해석 (41)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (53)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (56)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">해석학미분류 (28)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (22)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D/" style="color: black">회귀분석 (28)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8-%EA%B3%B5%EA%B0%84%EB%A1%A0/" style="color: black">힐베르트 공간론 (35)</a>
+        </li>
+    </ul>
+</details>
+</aside>
+
+<aside>
+    <p><b>태그</b></p>
+    <div>
+    </div>
+</aside>
+
+<aside>
+    <h2></h2>
+    <ul>
+    </ul>
+</aside>
+            </div>
+
+        </div>
+    </body>
+
+    <hr>
+    <footer>
+    <aside>
+        <div>
+            <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io" target="_blank">Hugo</a></p>
+        </div>
+
+    
+    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
+	MathJax.Hub.Config({
+		messageStyle: "none",
+		jax: ["input/TeX", "output/HTML-CSS"],
+		"HTML-CSS": { availableFonts: ["TeX"] },
+		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+
+		tex2jax: {
+			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
+			displayAlign: "left"
+		},
+		
+		TeX: { equationNumbers: {autoNumber: "AMS"}, 
+					extensions: ["cancel.js","color.js"], 
+					   TagSide: "left" 
+		}
+					
+	});
+</script> 
+
+    
+    
+        <link rel="stylesheet" href= https://freshrimpsushi.github.io/css/atom-one-light.css>
+        <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    
+    </aside>
+</footer>
+</html>
+<!DOCTYPE html>
