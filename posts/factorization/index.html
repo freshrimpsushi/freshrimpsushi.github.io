@@ -68,7 +68,19 @@
 
 
 <h2 id="heading"></h2>
-<p>자연수 $N$ 에 대해 $N = p_{1}^{r_{1}} \cdots p_{n}^{r_{n}} $ 을 만족하는 소수 $p_{1} , \cdots , p_{n}$ 와 자연수 $r_{1} , \cdots , r_{n}$ 를 찾는 것을 <strong>소인수분해</strong> 라고 한다.</p>
+<p><p style="
+text-align: center;
+max-width: 80%;
+text-align:center;
+color: black;
+background: rgb(255, 196, 0);
+border-radius: 10px;
+margin-left: auto;
+margin-right: auto;">
+<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
+</p>
+
+자연수 $N$ 에 대해 $N = p_{1}^{r_{1}} \cdots p_{n}^{r_{n}} $ 을 만족하는 소수 $p_{1} , \cdots , p_{n}$ 와 자연수 $r_{1} , \cdots , r_{n}$ 를 찾는 것을 <strong>소인수분해</strong> 라고 한다.</p>
 <p>역사적으로 소수는 늘 탐구의 대상이었으나 그럼에도 불구하고 아직 모르는 것이 많다.<a href="https://freshrimpsushi.github.io/posts/121">페르마 판정법</a>, <a href="https://freshrimpsushi.github.io/posts/802">코셀트 판정법</a>, <a href="https://freshrimpsushi.github.io/posts/804">밀러-라빈 판정법</a>과 같은 초등적 도구는 물론, 소수 정리를 비롯한 해석적 접근은 인간 지성의 위대한 산물이다. 완벽하지는 않아도 비교적 효율적으로 소수를 찾는 방법에는 유의미한 진보가 있어 왔던 것이다. 그러나 여전히 소수의 일반항을 찾아내는 방법은 알려져 있지 않다.다소의 과장을 보태서, 인류는 아직도 에라토스테네스의 체에 머물러 있다. 정확도에서 에라토스테네스의 체를 본질적으로 압도하는 방법은 없으며, 소개된지 2000년이 지났음에도 소수를 찾는 가장 확실한 방법으로 남아있다.<img src="Sieve_of_Eratosthenes_animation.gif#center" alt="Sieve\_of\_Eratosthenes\_animation.gif">
 한편 에라토스테네스의 체가 사실 소인수분해를 이용한 방법임에 주목해보자. $n = 120$ 이하에서 $2$ 의 배수를 모두 지운다는 것은 곧 $2$ 로 나누어 떨어지는지에 대한 판정을 $120$ 개의 수에 대해서 동시에 진행한다는 말과 진배없다. 움짤로 보기에 이 방법은 굉장히 효율적으로 보일지 모르겠으나, $n$ 이 커질수록 무척 고된 과정이 된다. 아닌 말로 소수를 판정할 때 소인수분해를 이용한다는 것은 &lsquo;노가다&rsquo;를 한다는 말이다. 직접 계산해봐서 약수가 없으면 소수라고 판정하는 것인데, 이것은 우리가 원하는 수준의 수학이라고 부르기엔 너무 저열하다.에라토스테네스의 체가 유용해보이는 이유는 소수를 찾아낼 때마다 &lsquo;후보&rsquo;를 빠른 속도로 줄여주고, $n$ 까지 판정하면서 그보다 작은 소수들도 겸사겸사 찾아주기 때문이다. 들이는 노력에 비하면 결과물도 풍성해보이지만, 결국 소인수분해하고 싶은 큰 자연수 $n=N$ 하나에 대해서는 정직하게 시간이 들어갈 수밖에 없다.컴퓨터가 발달하면서 곱셈은 아주 쉬운 일이 되어버렸지만, 그 무지막지한 계산능력으로도 소인수분해는 어려운 문제로 머물러 있다. 그러나 이러한 소인수분해 문제의 특징은 동시에 <a href="https://freshrimpsushi.github.io/posts/911">암호의 필수적인 성질</a>이 되며, <a href="https://freshrimpsushi.github.io/posts/911">이산로그 문제</a>의 약점을 극복하고 우리의 삶을 풍요롭게 만들어주었다.소인수분해를 빠르게 수행하는 방법으로는 양자 컴퓨터를 기반으로 한 <strong>쇼어 알고리즘</strong><sup>Shor Algorithm</sup> 이 있으나, 양자 컴퓨터 상용화는 요원하기 때문에 소인수분해 문제의 어려움을 이용한 암호체계들은 당분간 현역에 머물러 있을 것으로 보인다.다음은 에라토스테네스의 체를 R 코드로 구현한 것이다. 자연수 $n$ 이 주어지면 에라토스테네스의 체와 같은 방법으로 소수인지 아닌지 판별해준다. $n$ 과 같은 수가 반환되면 소수, $n$ 보다 작은 수가 반환되면 $n$ 의 약수 중 가장 작은 수를 의미한다.</p>
 <pre><code>eratosthenes&lt;-function(n){
@@ -85,6 +97,456 @@ eratosthenes(1517)
 </code></pre><p><img src="20190807_144554.png#center" alt="20190807\_144554.png">
 예로써 $101$ 은 소수기 때문에 $101$ 이 그대로 반환되며, $1517=37 \times 41$ 이므로 $37$ 이 반환된다.</p>
 
+
+    
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+
+     <div style="margin-bottom: 10px;">댓글</div>
+     <div class="area-reply">
+         <ul class="list-reply">
+             
+         </ul>
+     </div>
+     <hr>
+     
+     
+     
+     <div class="area-write">
+         <div class="box-account">
+             <input type="text" name="name" value="" title="이름" placeholder="이름"
+                    style="display: block;
+                           width: calc(48% - 42px);
+                           padding: 11px 20px 11px 20px;
+                           border: 1px solid #e8e8e8;
+                           font-size: 13px;
+                           color: #999;
+                           box-sizing: inherit;
+                           float: left;">
+             <input type="password" name="password" value="" title="비밀번호" maxlength="12" placeholder="비밀번호"
+                    style="display: block;
+                           width: calc(48% - 42px);
+                           padding: 11px 20px 11px 20px;
+                           border: 1px solid #e8e8e8;
+                           font-size: 13px;
+                           color: #999;
+                           box-sizing: inherit;
+                           float: right;">
+             <input type="hidden" name="cmt_idx">
+         </div>
+     
+         <div class="box-textarea">
+             <textarea id="comment" name="comment"
+                       placeholder="질문은 최소한 주제가 비슷한 포스트에, 관련 포스트가 없으면 방명록에 남겨주세요. 그냥 가장 최근 글에 달아놓으시면 나중에 읽는 분들에게 도움이 되지 않습니다. 마찬가지의 이유로 비밀 댓글엔 답변하지 않으니 공개 댓글로 작성해 주세요."
+                       style="width: calc(100% - 44px);height: 122px;padding: 21px 21px 19px 19px;box-sizing: inherit;border: 1px solid #e8e8e8;font-size: 13px;color: #999;"
+                       required></textarea>
+         </div>
+     
+         <div class="box-write">
+             <input type="submit" name="submit" class="btn_register"
+                    value="등록"
+                    style="width: 68px; 
+                           height: 30px; 
+                           background: #000; 
+                           border: none; 
+                           font-size: 13px; 
+                           color: #fff; 
+                           cursor: pointer; 
+                           border-radius: 30px;">
+         </div>
+     </div>
+     
+     
+     
+     <div id="dialog" title="댓글달기">
+         <div class="modal-area-write">
+             <div class="modal-box-account">
+                 <input type="hidden" name="cmt_idx" value="">
+                 <input type="text" name="name" value="" title="이름" placeholder="이름"
+                         style="display: 
+                         block;width: 
+                         calc(48% - 42px);
+                         padding: 11px 20px 11px 20px;
+                         border: 1px solid #e8e8e8;
+                         font-size: 13px;
+                         color: #999;
+                         box-sizing: inherit;
+                         float: left;"
+                         required>
+                 <input type="password" name="password" value="" title="비밀번호" maxlength="12" placeholder="비밀번호"
+                         style="display: block;
+                                 width: calc(48% - 42px);
+                                 padding: 11px 20px 11px 20px;
+                                 border: 1px solid #e8e8e8;
+                                 font-size: 13px;
+                                 color: #999;
+                                 box-sizing: inherit;
+                                 float: right;"
+                                 required>
+             </div>
+     
+             <div class="modal-box-textarea">
+                 <textarea id="modal-comment" name="comment"
+                           placeholder="질문은 최소한 주제가 비슷한 포스트에, 관련 포스트가 없으면 방명록에 남겨주세요. 그냥 가장 최근 글에 달아놓으시면 나중에 읽는 분들에게 도움이 되지 않습니다. 마찬가지의 이유로 비밀 댓글엔 답변하지 않으니 공개 댓글로 작성해 주세요."
+                           style="width: calc(100% - 44px);height: 122px;padding: 21px 21px 19px 19px;box-sizing: inherit;border: 1px solid #e8e8e8;font-size: 13px;color: #999;"
+                           required></textarea>
+             </div>
+     
+             <div class="modal-box-write">
+                 <input type="submit" name="submit" class="modal-btn_register" value="등록"
+                        style="width: 68px; 
+                               height: 30px; 
+                               background: #000; 
+                               border: none; 
+                               font-size: 13px; 
+                               color: #fff; 
+                               cursor: pointer; 
+                               border-radius: 30px;">
+             </div>
+         </div>
+     </div>
+     
+     
+     
+     <div id="dialog2" title="댓글수정">
+         댓글을 수정하신 후 작성하실 때 입력하셨던 password를 입력하세요
+         
+         <div class="modal2-area-write">
+             <div class="modal2-box-account">
+                 <input type="hidden" name="cmt_idx" value="">
+                 <input type="text" name="name" value="" title="이름" placeholder="이름"
+                         style="display: 
+                         block;width: 
+                         calc(48% - 42px);
+                         padding: 11px 20px 11px 20px;
+                         border: 1px solid #e8e8e8;
+                         font-size: 13px;
+                         color: #999;
+                         box-sizing: inherit;
+                         float: left;"
+                         required>
+                 <input type="password" name="password" value="" title="비밀번호" maxlength="12" placeholder="비밀번호"
+                         style="display: block;
+                                 width: calc(48% - 42px);
+                                 padding: 11px 20px 11px 20px;
+                                 border: 1px solid #e8e8e8;
+                                 font-size: 13px;
+                                 color: #999;
+                                 box-sizing: inherit;
+                                 float: right;"
+                                 required>
+             </div>
+     
+             <div class="modal2-box-textarea">
+                 <textarea id="modal2-comment" name="comment"
+                     placeholder="질문은 최소한 주제가 비슷한 포스트에, 관련 포스트가 없으면 방명록에 남겨주세요. 그냥 가장 최근 글에 달아놓으시면 나중에 읽는 분들에게 도움이 되지 않습니다. 마찬가지의 이유로 비밀 댓글엔 답변하지 않으니 공개 댓글로 작성해 주세요."
+                     style="width: calc(100% - 44px);height: 122px;padding: 21px 21px 19px 19px;box-sizing: inherit;border: 1px solid #e8e8e8;font-size: 13px;color: #999;"
+                     required></textarea>
+             </div>
+     
+             <div class="modal2-box-write">
+                 <input type="submit" name="submit" class="modal2-btn_register"
+                         style="width: 68px; height: 30px; background: #000; border: none; font-size: 13px; color: #fff; cursor: pointer; border-radius: 30px;" value="수정">
+             </div>
+         </div>
+     </div>
+     
+     
+     
+     <div id="dialog3" title="댓글삭제">
+         정말 삭제하시려면 작성하실 때 입력하셨던 password를 입력하세요
+         
+         <div class="modal3-area-write">
+             <div class="modal3-box-account">
+                 <input type="hidden" name="cmt_idx" value="">
+                 <input type="password" name="password" value="" title="비밀번호" maxlength="12" placeholder="비밀번호"
+                        style="display: block;
+                               width: calc(100% - 42px);
+                               padding: 11px 20px 11px 20px;
+                               border: 1px solid #e8e8e8;
+                               font-size: 13px;
+                               color: #999;
+                               box-sizing: inherit;">
+             </div>
+     
+             <div class="modal3-box-write">
+                 <input type="submit" name="submit" class="modal3-btn_register"
+                         style="width: 68px; height: 30px; background: #000; border: none; font-size: 13px; color: #fff; cursor: pointer; border-radius: 30px;" value="삭제">
+             </div>
+         </div>
+     </div>
+     
+     
+     <script type="text/javascript">
+         
+
+         function open_modal(data) {
+             $(".modal-box-account input[name=cmt_idx]").val(data);
+             $('#dialog').dialog('open');
+         }
+         
+         
+
+         function update_comment(data) {
+             $(".modal2-box-account input[name=cmt_idx]").val(data);
+             $('#dialog2').dialog('open');
+             $(function() {
+                 $.ajax({
+                     type: "POST",
+                     url: "http://threedo29.cafe24.com/ajax/ajax.single.php?action=getSingleComment",
+                     data: {
+                         cmt_idx: data
+                     },
+                     dataType: "json",
+                     success: function(data) {
+                         var rows = data['rows'];
+                         $('.modal2-box-account input[name=name]').val(rows[0]['author']);
+                         $('textarea#modal2-comment').val(rows[0]['content']);
+                     },
+                     error: function(xhr, status, error) {
+                         console.log(error);
+                     }
+                 });
+             });
+         }
+         
+         
+
+         function delete_comment(data) {
+             $(".modal3-box-account input[name=cmt_idx]").val(data);
+             $('#dialog3').dialog('open');
+         }
+     
+         $(document).ready(function () {
+             
+             $('#dialog').dialog({
+                 autoOpen: false,
+                 resizable: false,
+                 maxWidth: 600,
+                 width: 600,
+                 modal: false
+             });
+             
+             $('#dialog2').dialog({
+                 autoOpen: false,
+                 resizable: false,
+                 maxWidth: 600,
+                 width: 600,
+                 modal: false
+             });
+             
+             $('#dialog3').dialog({
+                 autoOpen: false,
+                 resizable: false,
+                 maxWidth: 600,
+                 width: 600,
+                 modal: false
+             });
+             
+             
+
+             $(".btn_register").on('click', function() {
+                 var name = $('.box-account input[name=name]').val();
+                 var password = $('.box-account input[name=password]').val();
+                 var content = $('textarea#comment').val();
+                 if(name == "" || password == "" || content == "")
+                 {
+                     alert('빈칸을 채워주세요');
+                     return;
+                 }
+                 var idx =  775 ;
+                 var board_slug = "factorization";
+                 $.ajax({
+                     type: "POST",
+                     url: "http://threedo29.cafe24.com/ajax/ajax.single.php?action=wirteComment",
+                     data: {
+                         board_idx: idx,
+                         board_slug: board_slug,
+                         name: name,
+                         password: password,
+                         content: content
+                     },
+                     dataType: "json",
+                     success: function(data) {
+                         location.reload();
+                     },
+                     error: function(xhr, status, error) {
+                         console.log(error);
+                     }
+                 });
+             });
+             
+             
+
+             $(".modal-btn_register").on('click', function() {
+                 var cmt_idx = $('.modal-box-account input[name=cmt_idx]').val();
+                 var name = $('.modal-box-account input[name=name]').val();
+                 var password = $('.modal-box-account input[name=password]').val();
+                 var content = $('.modal-box-textarea textarea#modal-comment').val();
+                 if(name == "" || password == "" || content == "")
+                 {
+                     alert('빈칸을 채워주세요');
+                     return;
+                 }
+                 var idx =  775 ;
+                 var board_slug = "factorization";
+                 $.ajax({
+                     type: "POST",
+                     url: "http://threedo29.cafe24.com/ajax/ajax.single.php?action=wirteReComment",
+                     data: {
+                         cmt_idx: cmt_idx,
+                         board_idx: idx,
+                         board_slug: board_slug,
+                         name: name,
+                         password: password,
+                         content: content
+                     },
+                     dataType: "json",
+                     success: function(data) {
+                         location.reload();
+                     },
+                     error: function(xhr, status, error) {
+                         console.log(error);
+                     }
+                 });
+             });
+             
+             
+
+             $(".modal2-btn_register").on('click', function() {
+                 var cmt_idx = $('.modal2-box-account input[name=cmt_idx]').val();
+                 var name = $('.modal2-box-account input[name=name]').val();
+                 var password = $('.modal2-box-account input[name=password]').val();
+                 var content = $('.modal2-box-textarea textarea#modal2-comment').val();
+                 $.ajax({
+                     type: "POST",
+                     url: "http://threedo29.cafe24.com/ajax/ajax.single.php?action=updateComment",
+                     data: {
+                         cmt_idx: cmt_idx,
+                         name: name,
+                         password: password,
+                         content: content
+                     },
+                     dataType: "json",
+                     success: function(data) {
+                         var msg = data['msg'];
+                         if(msg)
+                         {
+                             location.reload();
+                         }
+                         else
+                         {
+                             alert('암호가 올바르지 않습니다.');
+                         }
+                     },
+                     error: function(xhr, status, error) {
+                         console.log(error);
+                     }
+                 });
+             });
+             
+             
+
+             $(".modal3-btn_register").on('click', function() {
+                 var cmt_idx = $('.modal3-box-account input[name=cmt_idx]').val();
+                 var password = $('.modal3-box-account input[name=password]').val();
+                 if(password == "")
+                 {
+                     alert('암호를 입력해주세요');
+                     return;
+                 }
+                 $.ajax({
+                     type: "POST",
+                     url: "http://threedo29.cafe24.com/ajax/ajax.single.php?action=deleteComment",
+                     data: {
+                         cmt_idx: cmt_idx,
+                         password: password
+                     },
+                     dataType: "json",
+                     success: function(data) {
+                         var msg = data['msg'];
+                         if(msg)
+                         {
+                             location.reload();
+                         }
+                         else
+                         {
+                             alert('암호가 올바르지 않습니다.');
+                         }
+                     },
+                     error: function(xhr, status, error) {
+                         console.log(error);
+                     }
+                 });
+             });
+             
+             
+
+             $.ajax({
+                 type: "POST",
+                 url: "http://threedo29.cafe24.com/ajax/ajax.single.php?action=getComment",
+                 data: {
+                     board_idx: '775'
+                 },
+                 dataType: "json",
+                 success: function(data) {
+                     var rows = data['rows'];
+                     var ul_list = $('.list-reply');
+                     var str = "";
+                      
+                     for(var i = 0; i < rows.length; i++) {
+                         str += "<li id='comment"+rows[i]['cmt_idx']+"' class='parents'>";
+                         str += "<div class='box-content'>";
+                         str += "<div class='box-meta'>";
+                         str += "<strong>"+rows[i]['author']+"</strong>";
+                         str += "<span class='date'>"+rows[i]['datetime']+"</span>";
+                         str += "<div>";
+                         str += "<span onclick='update_comment("+rows[i]['cmt_idx']+")'>수정</span>";
+                         str += "<span onclick='delete_comment("+rows[i]['cmt_idx']+")'>삭제</span>";
+                         str += "</div>";
+                         str += "</div>";
+                         str += "<p class='text'>"+rows[i]['content']+"</p>";
+                         str += "<p class='test11' style='cursor: pointer;' onclick='open_modal("+rows[i]['cmt_idx']+")'>답글</p>";
+                         str += "</div>";
+                         str += "</li>";
+                         str += "<hr>";
+                         ul_list.append(str);
+                         str = "";
+                          
+                         for(var j = 0; j < rows[i]['child'].length; j++)
+                         {
+                             str += "<li id='comment"+rows[i]['cmt_idx']+"' class='child' style='padding-left:50px;'>";
+                             str += "<div class='box-content'>";
+                             str += "<div class='box-meta'>";
+                             str += "<strong>"+rows[i]['child'][j]['author']+"</strong>";
+                             str += "<span class='date'>"+rows[i]['child'][j]['datetime']+"</span>";
+                             str += "<div>";
+                             str += "<span onclick='update_comment("+rows[i]['child'][j]['cmt_idx']+")'>수정</span>";
+                             str += "<span onclick='delete_comment("+rows[i]['child'][j]['cmt_idx']+")'>삭제</span>";
+                             str += "</div>";
+                             str += "</div>";
+                             str += "<p class='text'>"+rows[i]['child'][j]['content']+"</p>";
+                             str += "</div>";
+                             str += "</li>";
+                             if(j == rows[i]['child'].length - 1)
+                             {
+                                 str += "<hr>";
+                             }
+                             ul_list.append(str);
+                             str = "";
+                         }
+                     }
+                 },
+                 error: function(xhr, status, error) {
+                     console.log(error);
+                 }
+             });
+         });
+     </script>
 
             </div>
 
@@ -246,6 +708,43 @@ eratosthenes(1517)
     <ul>
     </ul>
 </aside>
+
+<aside>
+    <p><b>최근댓글</b></p>
+    <ul class="current-reply">
+        
+    </ul>
+</aside>
+
+<script>
+    $(document).ready(function() {
+        
+
+        $.ajax({
+            type: "POST",
+            url: "http://threedo29.cafe24.com/ajax/ajax.sidebar.php?action=currentComment",
+            data: {},
+            dataType: "json",
+            success: function(data) {
+                var rows = data['rows'];
+                var ul_currnet_list = $('.current-reply');
+                var str = "";
+                 
+                for(var i = 0; i < rows.length; i++) {
+                    str += "<li style='font-size: 13px;'><a href=../../posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
+                    str += "<strong>" + rows[i]['content'] + "</strong>";
+                    str += "<p>" + rows[i]['author'] + "</p>";
+                    str += "</a></li>";
+                    ul_currnet_list.append(str);
+                    str = "";
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
+    });
+</script>
             </div>
 
         </div>
@@ -286,7 +785,10 @@ eratosthenes(1517)
         <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
         <script>hljs.initHighlightingOnLoad();</script>
     
+    
     </aside>
 </footer>
+
+<script type="text/javascript" src=https://freshrimpsushi.github.io/js/visit_count.js></script>
 </html>
 <!DOCTYPE html>

@@ -68,11 +68,23 @@
 
 
 <h2 id="heading"></h2>
-<p>$x &gt; 0$ 에 대해 $g(x) := \begin{cases} \displaystyle {{ x^{\lambda} - 1 } \over { \lambda }} &amp; , \lambda \ne 0 
+<p><p style="
+text-align: center;
+max-width: 80%;
+text-align:center;
+color: black;
+background: rgb(255, 196, 0);
+border-radius: 10px;
+margin-left: auto;
+margin-right: auto;">
+<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
+</p>
+
+$x &gt; 0$ 에 대해 $g(x) := \begin{cases} \displaystyle {{ x^{\lambda} - 1 } \over { \lambda }} &amp; , \lambda \ne 0 
 \\  \log x &amp; , \lambda = 0 \end{cases}$ 를 <strong>박스-칵스 변환</strong> 이라고 한다.</p>
 <p>$g$ 는 원래 <strong>멱변환</strong><sup>Power Transformation</sup> 이라고 불리나, 박스와 칵스에 의해 소개되어 박스-칵스 변환이라고 부르기도 한다. 박스-칵스 변환의 주된 용도는 데이터를 정규분포에 가깝게 만들거나 <a href="https://freshrimpsushi.github.io/posts/938">데이터의 분산을 안정화</a>하는 것으로, 정규성을 가정하는 분석법이나 <a href="https://freshrimpsushi.github.io/posts/900">정상성</a>을 요구하는 분석법을 사용하기에 앞서 데이터의 전처리에 유용하게 쓸 수 있다.멱변환을 취하기 위해서는 데이터가 모두 양수여야한다는 조건이 필요하지만, 보통은 그냥 데이터의 최소값이 양수가 되도록 어떤 값을 더해서 밀어Shift주는 식으로 해결한다. 이 방법이 적절치 못하거나 마음에 들지 않는다면 실수 전체에 대해 일반화된 <strong>여-존슨 변환</strong> <strong>Yeo-Johnson Transformation</strong> 을 고려해볼 수 있다.수식적으로는 $\displaystyle \lim_{\lambda \to 0} {{ x^{\lambda} - 1 } \over { \lambda }} = \log x$ 이므로 사실 편하게 적자면 $\displaystyle g(x) = {{ x^{\lambda} - 1 } \over { \lambda }} $ 정도만 되어도 알아보는데에는 큰 문제가 없다. 또 $g$ 는 $\lambda$ 에도 종속되어 있으므로 우리가 가진 것은 함수의 패밀리 $\left\{ g_{\lambda} : \lambda \in \mathbb{R} \right\}$ 이다. $g_{\lambda}$ 는 $\lambda$ 에 따라 유연하게 꼴을 바뀌고, 분석자는 목적에 맞게 $\lambda$ 를 제대로 결정할 수 있어야할 것이다.이때 특히 주목할만한 $\lambda$ 로 $0,1,2$ 가 있다. $g_{0} (x) = \log(x)$ 는 가장 즐겨쓰이는 변환이며, $\displaystyle g_{2} (x) = {{\sqrt{x} - 1} \over {2}}$ 또한 $\displaystyle h(x) = {{x - 1} \over {2}}$ 이 선형변환이므로 $\displaystyle g_{2} (x) \approx \sqrt{x}$ 가 발견됨을 알 수 있다. 변환에 즐겨 쓰이는 루트 $\sqrt{}$ 와 로그 $\log$ 가 박스-칵스 변환에 의해 커버된다는 사실은 이론적으로 흥미로운 동시에 실용적으로 당연해야할 일이다.$\lambda = 1$ 인 경우 $g(x) = x - 1$ 으로써, 사실상 <a href="https://freshrimpsushi.github.io/posts/728">항등 변환</a>이 된다. 보통의 경우 데이터에서 값이 $1$ 정도 빠지는 것은 변환이라고 부를수도 없기 때문이다. 주어진 데이터에 대해 적절한 $\lambda$ 가 $1$ 이라고 구해졌다면 이것은 &lsquo;변환이 필요없다&rsquo;라는 뜻으로 받아들여도 무방하다.같은 센스로 <a href="https://freshrimpsushi.github.io/posts/900">시계열 분석</a>을 생각해보면 박스-칵스 변환의 $\lambda$ 의 신뢰구간을 구하는 것은 곧 데이터의 분산이 일정한지를 검정하는 것으로 볼 수 있다. $\lambda$ 의 신뢰구간에 $1$ 이 포함되면 데이터를 변환하나 안 하나 차이가 없는 것이다. 변환을 할 필요가 없다는 것은 다시 말해 분산이 이미 일정하다는 것이다.</p>
 <p>데이터 $\left\{ x_{t} \right\}$ 가 주어져 있다고 하자.$H_{0}$ : $\lambda = 1$ 즉, 데이터 $\left\{ y_{t} \right\}$ 는 정상성을 갖는다.$H_{1}$ : $\lambda \ne 1$ 즉, 데이터 $\left\{ y_{t} \right\}$ 는 정상성을 가지지 않는다.</p>
-<p>주의해야할 것은 이러한 진단이 분산에 대해서만 일어난다는 것이다. 평균에 대해서는 신경쓰지 않기 때문에 이에 대한 <a href="https://freshrimpsushi.github.io/posts/921">별도의 테스트</a>가 필요하다.R 에서는 TSA 패키지의 BoxCox.ar() 함수를 통해 쉽게 가설 검정을 할 수 있다.<a href="http://freshrimpsushi.tistory.com/331">내장데이터</a> UKgas를 불러와보자.<img src="ukgas.png#center" alt="ukgas.png">
+<p>주의해야할 것은 이러한 진단이 분산에 대해서만 일어난다는 것이다. 평균에 대해서는 신경쓰지 않기 때문에 이에 대한 <a href="https://freshrimpsushi.github.io/posts/921">별도의 테스트</a>가 필요하다.R 에서는 TSA 패키지의 BoxCox.ar() 함수를 통해 쉽게 가설 검정을 할 수 있다.<a href="http://https://freshrimpsushi.github.io/posts/331">내장데이터</a> UKgas를 불러와보자.<img src="ukgas.png#center" alt="ukgas.png">
 <img src="boxcoxukgas.png#center" alt="boxcoxukgas.png">
 UKgas는 영국에서 가스의 소비량을 분기별로 기록한 데이터로써, 보다시피 해가 가면서 변동이 더욱 심해지는 것을 알 수 있다. 한편 가설검정 결과 신뢰구간에 $0$ 이 포함되어 있고, 이에 따라 박스-칵스 변환은 곧 로그변환이 된다.<img src="logukgas.png#center" alt="logukgas.png">
 <img src="boxcoxlogukgas.png#center" alt="boxcoxlogukgas.png">
@@ -83,6 +95,456 @@ win.graph(3.5,3.5); BoxCox.ar(UKgas)
 win.graph(3.5,3.5); plot(log(UKgas),main='log(UKgas)')
 win.graph(3.5,3.5); BoxCox.ar(log(UKgas))
 </code></pre>
+
+    
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+
+     <div style="margin-bottom: 10px;">댓글</div>
+     <div class="area-reply">
+         <ul class="list-reply">
+             
+         </ul>
+     </div>
+     <hr>
+     
+     
+     
+     <div class="area-write">
+         <div class="box-account">
+             <input type="text" name="name" value="" title="이름" placeholder="이름"
+                    style="display: block;
+                           width: calc(48% - 42px);
+                           padding: 11px 20px 11px 20px;
+                           border: 1px solid #e8e8e8;
+                           font-size: 13px;
+                           color: #999;
+                           box-sizing: inherit;
+                           float: left;">
+             <input type="password" name="password" value="" title="비밀번호" maxlength="12" placeholder="비밀번호"
+                    style="display: block;
+                           width: calc(48% - 42px);
+                           padding: 11px 20px 11px 20px;
+                           border: 1px solid #e8e8e8;
+                           font-size: 13px;
+                           color: #999;
+                           box-sizing: inherit;
+                           float: right;">
+             <input type="hidden" name="cmt_idx">
+         </div>
+     
+         <div class="box-textarea">
+             <textarea id="comment" name="comment"
+                       placeholder="질문은 최소한 주제가 비슷한 포스트에, 관련 포스트가 없으면 방명록에 남겨주세요. 그냥 가장 최근 글에 달아놓으시면 나중에 읽는 분들에게 도움이 되지 않습니다. 마찬가지의 이유로 비밀 댓글엔 답변하지 않으니 공개 댓글로 작성해 주세요."
+                       style="width: calc(100% - 44px);height: 122px;padding: 21px 21px 19px 19px;box-sizing: inherit;border: 1px solid #e8e8e8;font-size: 13px;color: #999;"
+                       required></textarea>
+         </div>
+     
+         <div class="box-write">
+             <input type="submit" name="submit" class="btn_register"
+                    value="등록"
+                    style="width: 68px; 
+                           height: 30px; 
+                           background: #000; 
+                           border: none; 
+                           font-size: 13px; 
+                           color: #fff; 
+                           cursor: pointer; 
+                           border-radius: 30px;">
+         </div>
+     </div>
+     
+     
+     
+     <div id="dialog" title="댓글달기">
+         <div class="modal-area-write">
+             <div class="modal-box-account">
+                 <input type="hidden" name="cmt_idx" value="">
+                 <input type="text" name="name" value="" title="이름" placeholder="이름"
+                         style="display: 
+                         block;width: 
+                         calc(48% - 42px);
+                         padding: 11px 20px 11px 20px;
+                         border: 1px solid #e8e8e8;
+                         font-size: 13px;
+                         color: #999;
+                         box-sizing: inherit;
+                         float: left;"
+                         required>
+                 <input type="password" name="password" value="" title="비밀번호" maxlength="12" placeholder="비밀번호"
+                         style="display: block;
+                                 width: calc(48% - 42px);
+                                 padding: 11px 20px 11px 20px;
+                                 border: 1px solid #e8e8e8;
+                                 font-size: 13px;
+                                 color: #999;
+                                 box-sizing: inherit;
+                                 float: right;"
+                                 required>
+             </div>
+     
+             <div class="modal-box-textarea">
+                 <textarea id="modal-comment" name="comment"
+                           placeholder="질문은 최소한 주제가 비슷한 포스트에, 관련 포스트가 없으면 방명록에 남겨주세요. 그냥 가장 최근 글에 달아놓으시면 나중에 읽는 분들에게 도움이 되지 않습니다. 마찬가지의 이유로 비밀 댓글엔 답변하지 않으니 공개 댓글로 작성해 주세요."
+                           style="width: calc(100% - 44px);height: 122px;padding: 21px 21px 19px 19px;box-sizing: inherit;border: 1px solid #e8e8e8;font-size: 13px;color: #999;"
+                           required></textarea>
+             </div>
+     
+             <div class="modal-box-write">
+                 <input type="submit" name="submit" class="modal-btn_register" value="등록"
+                        style="width: 68px; 
+                               height: 30px; 
+                               background: #000; 
+                               border: none; 
+                               font-size: 13px; 
+                               color: #fff; 
+                               cursor: pointer; 
+                               border-radius: 30px;">
+             </div>
+         </div>
+     </div>
+     
+     
+     
+     <div id="dialog2" title="댓글수정">
+         댓글을 수정하신 후 작성하실 때 입력하셨던 password를 입력하세요
+         
+         <div class="modal2-area-write">
+             <div class="modal2-box-account">
+                 <input type="hidden" name="cmt_idx" value="">
+                 <input type="text" name="name" value="" title="이름" placeholder="이름"
+                         style="display: 
+                         block;width: 
+                         calc(48% - 42px);
+                         padding: 11px 20px 11px 20px;
+                         border: 1px solid #e8e8e8;
+                         font-size: 13px;
+                         color: #999;
+                         box-sizing: inherit;
+                         float: left;"
+                         required>
+                 <input type="password" name="password" value="" title="비밀번호" maxlength="12" placeholder="비밀번호"
+                         style="display: block;
+                                 width: calc(48% - 42px);
+                                 padding: 11px 20px 11px 20px;
+                                 border: 1px solid #e8e8e8;
+                                 font-size: 13px;
+                                 color: #999;
+                                 box-sizing: inherit;
+                                 float: right;"
+                                 required>
+             </div>
+     
+             <div class="modal2-box-textarea">
+                 <textarea id="modal2-comment" name="comment"
+                     placeholder="질문은 최소한 주제가 비슷한 포스트에, 관련 포스트가 없으면 방명록에 남겨주세요. 그냥 가장 최근 글에 달아놓으시면 나중에 읽는 분들에게 도움이 되지 않습니다. 마찬가지의 이유로 비밀 댓글엔 답변하지 않으니 공개 댓글로 작성해 주세요."
+                     style="width: calc(100% - 44px);height: 122px;padding: 21px 21px 19px 19px;box-sizing: inherit;border: 1px solid #e8e8e8;font-size: 13px;color: #999;"
+                     required></textarea>
+             </div>
+     
+             <div class="modal2-box-write">
+                 <input type="submit" name="submit" class="modal2-btn_register"
+                         style="width: 68px; height: 30px; background: #000; border: none; font-size: 13px; color: #fff; cursor: pointer; border-radius: 30px;" value="수정">
+             </div>
+         </div>
+     </div>
+     
+     
+     
+     <div id="dialog3" title="댓글삭제">
+         정말 삭제하시려면 작성하실 때 입력하셨던 password를 입력하세요
+         
+         <div class="modal3-area-write">
+             <div class="modal3-box-account">
+                 <input type="hidden" name="cmt_idx" value="">
+                 <input type="password" name="password" value="" title="비밀번호" maxlength="12" placeholder="비밀번호"
+                        style="display: block;
+                               width: calc(100% - 42px);
+                               padding: 11px 20px 11px 20px;
+                               border: 1px solid #e8e8e8;
+                               font-size: 13px;
+                               color: #999;
+                               box-sizing: inherit;">
+             </div>
+     
+             <div class="modal3-box-write">
+                 <input type="submit" name="submit" class="modal3-btn_register"
+                         style="width: 68px; height: 30px; background: #000; border: none; font-size: 13px; color: #fff; cursor: pointer; border-radius: 30px;" value="삭제">
+             </div>
+         </div>
+     </div>
+     
+     
+     <script type="text/javascript">
+         
+
+         function open_modal(data) {
+             $(".modal-box-account input[name=cmt_idx]").val(data);
+             $('#dialog').dialog('open');
+         }
+         
+         
+
+         function update_comment(data) {
+             $(".modal2-box-account input[name=cmt_idx]").val(data);
+             $('#dialog2').dialog('open');
+             $(function() {
+                 $.ajax({
+                     type: "POST",
+                     url: "http://threedo29.cafe24.com/ajax/ajax.single.php?action=getSingleComment",
+                     data: {
+                         cmt_idx: data
+                     },
+                     dataType: "json",
+                     success: function(data) {
+                         var rows = data['rows'];
+                         $('.modal2-box-account input[name=name]').val(rows[0]['author']);
+                         $('textarea#modal2-comment').val(rows[0]['content']);
+                     },
+                     error: function(xhr, status, error) {
+                         console.log(error);
+                     }
+                 });
+             });
+         }
+         
+         
+
+         function delete_comment(data) {
+             $(".modal3-box-account input[name=cmt_idx]").val(data);
+             $('#dialog3').dialog('open');
+         }
+     
+         $(document).ready(function () {
+             
+             $('#dialog').dialog({
+                 autoOpen: false,
+                 resizable: false,
+                 maxWidth: 600,
+                 width: 600,
+                 modal: false
+             });
+             
+             $('#dialog2').dialog({
+                 autoOpen: false,
+                 resizable: false,
+                 maxWidth: 600,
+                 width: 600,
+                 modal: false
+             });
+             
+             $('#dialog3').dialog({
+                 autoOpen: false,
+                 resizable: false,
+                 maxWidth: 600,
+                 width: 600,
+                 modal: false
+             });
+             
+             
+
+             $(".btn_register").on('click', function() {
+                 var name = $('.box-account input[name=name]').val();
+                 var password = $('.box-account input[name=password]').val();
+                 var content = $('textarea#comment').val();
+                 if(name == "" || password == "" || content == "")
+                 {
+                     alert('빈칸을 채워주세요');
+                     return;
+                 }
+                 var idx =  1065 ;
+                 var board_slug = "box-cox-transformation";
+                 $.ajax({
+                     type: "POST",
+                     url: "http://threedo29.cafe24.com/ajax/ajax.single.php?action=wirteComment",
+                     data: {
+                         board_idx: idx,
+                         board_slug: board_slug,
+                         name: name,
+                         password: password,
+                         content: content
+                     },
+                     dataType: "json",
+                     success: function(data) {
+                         location.reload();
+                     },
+                     error: function(xhr, status, error) {
+                         console.log(error);
+                     }
+                 });
+             });
+             
+             
+
+             $(".modal-btn_register").on('click', function() {
+                 var cmt_idx = $('.modal-box-account input[name=cmt_idx]').val();
+                 var name = $('.modal-box-account input[name=name]').val();
+                 var password = $('.modal-box-account input[name=password]').val();
+                 var content = $('.modal-box-textarea textarea#modal-comment').val();
+                 if(name == "" || password == "" || content == "")
+                 {
+                     alert('빈칸을 채워주세요');
+                     return;
+                 }
+                 var idx =  1065 ;
+                 var board_slug = "box-cox-transformation";
+                 $.ajax({
+                     type: "POST",
+                     url: "http://threedo29.cafe24.com/ajax/ajax.single.php?action=wirteReComment",
+                     data: {
+                         cmt_idx: cmt_idx,
+                         board_idx: idx,
+                         board_slug: board_slug,
+                         name: name,
+                         password: password,
+                         content: content
+                     },
+                     dataType: "json",
+                     success: function(data) {
+                         location.reload();
+                     },
+                     error: function(xhr, status, error) {
+                         console.log(error);
+                     }
+                 });
+             });
+             
+             
+
+             $(".modal2-btn_register").on('click', function() {
+                 var cmt_idx = $('.modal2-box-account input[name=cmt_idx]').val();
+                 var name = $('.modal2-box-account input[name=name]').val();
+                 var password = $('.modal2-box-account input[name=password]').val();
+                 var content = $('.modal2-box-textarea textarea#modal2-comment').val();
+                 $.ajax({
+                     type: "POST",
+                     url: "http://threedo29.cafe24.com/ajax/ajax.single.php?action=updateComment",
+                     data: {
+                         cmt_idx: cmt_idx,
+                         name: name,
+                         password: password,
+                         content: content
+                     },
+                     dataType: "json",
+                     success: function(data) {
+                         var msg = data['msg'];
+                         if(msg)
+                         {
+                             location.reload();
+                         }
+                         else
+                         {
+                             alert('암호가 올바르지 않습니다.');
+                         }
+                     },
+                     error: function(xhr, status, error) {
+                         console.log(error);
+                     }
+                 });
+             });
+             
+             
+
+             $(".modal3-btn_register").on('click', function() {
+                 var cmt_idx = $('.modal3-box-account input[name=cmt_idx]').val();
+                 var password = $('.modal3-box-account input[name=password]').val();
+                 if(password == "")
+                 {
+                     alert('암호를 입력해주세요');
+                     return;
+                 }
+                 $.ajax({
+                     type: "POST",
+                     url: "http://threedo29.cafe24.com/ajax/ajax.single.php?action=deleteComment",
+                     data: {
+                         cmt_idx: cmt_idx,
+                         password: password
+                     },
+                     dataType: "json",
+                     success: function(data) {
+                         var msg = data['msg'];
+                         if(msg)
+                         {
+                             location.reload();
+                         }
+                         else
+                         {
+                             alert('암호가 올바르지 않습니다.');
+                         }
+                     },
+                     error: function(xhr, status, error) {
+                         console.log(error);
+                     }
+                 });
+             });
+             
+             
+
+             $.ajax({
+                 type: "POST",
+                 url: "http://threedo29.cafe24.com/ajax/ajax.single.php?action=getComment",
+                 data: {
+                     board_idx: '1065'
+                 },
+                 dataType: "json",
+                 success: function(data) {
+                     var rows = data['rows'];
+                     var ul_list = $('.list-reply');
+                     var str = "";
+                      
+                     for(var i = 0; i < rows.length; i++) {
+                         str += "<li id='comment"+rows[i]['cmt_idx']+"' class='parents'>";
+                         str += "<div class='box-content'>";
+                         str += "<div class='box-meta'>";
+                         str += "<strong>"+rows[i]['author']+"</strong>";
+                         str += "<span class='date'>"+rows[i]['datetime']+"</span>";
+                         str += "<div>";
+                         str += "<span onclick='update_comment("+rows[i]['cmt_idx']+")'>수정</span>";
+                         str += "<span onclick='delete_comment("+rows[i]['cmt_idx']+")'>삭제</span>";
+                         str += "</div>";
+                         str += "</div>";
+                         str += "<p class='text'>"+rows[i]['content']+"</p>";
+                         str += "<p class='test11' style='cursor: pointer;' onclick='open_modal("+rows[i]['cmt_idx']+")'>답글</p>";
+                         str += "</div>";
+                         str += "</li>";
+                         str += "<hr>";
+                         ul_list.append(str);
+                         str = "";
+                          
+                         for(var j = 0; j < rows[i]['child'].length; j++)
+                         {
+                             str += "<li id='comment"+rows[i]['cmt_idx']+"' class='child' style='padding-left:50px;'>";
+                             str += "<div class='box-content'>";
+                             str += "<div class='box-meta'>";
+                             str += "<strong>"+rows[i]['child'][j]['author']+"</strong>";
+                             str += "<span class='date'>"+rows[i]['child'][j]['datetime']+"</span>";
+                             str += "<div>";
+                             str += "<span onclick='update_comment("+rows[i]['child'][j]['cmt_idx']+")'>수정</span>";
+                             str += "<span onclick='delete_comment("+rows[i]['child'][j]['cmt_idx']+")'>삭제</span>";
+                             str += "</div>";
+                             str += "</div>";
+                             str += "<p class='text'>"+rows[i]['child'][j]['content']+"</p>";
+                             str += "</div>";
+                             str += "</li>";
+                             if(j == rows[i]['child'].length - 1)
+                             {
+                                 str += "<hr>";
+                             }
+                             ul_list.append(str);
+                             str = "";
+                         }
+                     }
+                 },
+                 error: function(xhr, status, error) {
+                     console.log(error);
+                 }
+             });
+         });
+     </script>
 
             </div>
 
@@ -244,6 +706,43 @@ win.graph(3.5,3.5); BoxCox.ar(log(UKgas))
     <ul>
     </ul>
 </aside>
+
+<aside>
+    <p><b>최근댓글</b></p>
+    <ul class="current-reply">
+        
+    </ul>
+</aside>
+
+<script>
+    $(document).ready(function() {
+        
+
+        $.ajax({
+            type: "POST",
+            url: "http://threedo29.cafe24.com/ajax/ajax.sidebar.php?action=currentComment",
+            data: {},
+            dataType: "json",
+            success: function(data) {
+                var rows = data['rows'];
+                var ul_currnet_list = $('.current-reply');
+                var str = "";
+                 
+                for(var i = 0; i < rows.length; i++) {
+                    str += "<li style='font-size: 13px;'><a href=../../posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
+                    str += "<strong>" + rows[i]['content'] + "</strong>";
+                    str += "<p>" + rows[i]['author'] + "</p>";
+                    str += "</a></li>";
+                    ul_currnet_list.append(str);
+                    str = "";
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
+    });
+</script>
             </div>
 
         </div>
@@ -284,7 +783,10 @@ win.graph(3.5,3.5); BoxCox.ar(log(UKgas))
         <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
         <script>hljs.initHighlightingOnLoad();</script>
     
+    
     </aside>
 </footer>
+
+<script type="text/javascript" src=https://freshrimpsushi.github.io/js/visit_count.js></script>
 </html>
 <!DOCTYPE html>

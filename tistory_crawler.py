@@ -269,6 +269,7 @@ for idx in post_range:
             md.write('\n    - ' + ID)
             md.write('\n---')
             md.write('\n\n\n## \n')
+            md.write('\n{{<remaster>}}\n')
             md.write(soup)
             md.close()
             # shutil.copyfile("after_paste.py", newfolder + "/after_paste.py")

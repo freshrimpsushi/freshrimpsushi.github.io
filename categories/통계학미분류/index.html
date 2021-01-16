@@ -215,6 +215,43 @@
     <ul>
     </ul>
 </aside>
+
+<aside>
+    <p><b>최근댓글</b></p>
+    <ul class="current-reply">
+        
+    </ul>
+</aside>
+
+<script>
+    $(document).ready(function() {
+        
+
+        $.ajax({
+            type: "POST",
+            url: "http://threedo29.cafe24.com/ajax/ajax.sidebar.php?action=currentComment",
+            data: {},
+            dataType: "json",
+            success: function(data) {
+                var rows = data['rows'];
+                var ul_currnet_list = $('.current-reply');
+                var str = "";
+                 
+                for(var i = 0; i < rows.length; i++) {
+                    str += "<li style='font-size: 13px;'><a href=../../posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
+                    str += "<strong>" + rows[i]['content'] + "</strong>";
+                    str += "<p>" + rows[i]['author'] + "</p>";
+                    str += "</a></li>";
+                    ul_currnet_list.append(str);
+                    str = "";
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
+    });
+</script>
             </div>
 
         </div>
@@ -251,7 +288,10 @@
 
     
     
+    
     </aside>
 </footer>
+
+<script type="text/javascript" src=https://freshrimpsushi.github.io/js/visit_count.js></script>
 </html>
 <!DOCTYPE html>

@@ -68,13 +68,25 @@
 
 
 <h2 id="heading"></h2>
-<p><a href="http://freshrimpsushi.tistory.com/666">다중회귀분석 보러가기</a>
-<a href="http://freshrimpsushi.tistory.com/672">회귀계수의 F검정 보러가기</a></p>
+<p><p style="
+text-align: center;
+max-width: 80%;
+text-align:center;
+color: black;
+background: rgb(255, 196, 0);
+border-radius: 10px;
+margin-left: auto;
+margin-right: auto;">
+<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
+</p>
+
+<a href="http://https://freshrimpsushi.github.io/posts/666">다중회귀분석 보러가기</a>
+<a href="http://https://freshrimpsushi.github.io/posts/672">회귀계수의 F검정 보러가기</a></p>
 <p>하단에 예제코드 전체가 있다.
 수학, 통계적인 기초가 부족한 비전공자는 밑줄 그어진 부분만 읽어도 상관 없다.
 <a href="https://freshrimpsushi.github.io/posts/648">단순회귀분석</a>이 뭔지 잘 모르겠다면 단순회귀분석을 먼저 공부해야한다.</p>
 <pre><code>tail(attitude)```
-R에서 [내장데이터 attitude를 불러와](http://freshrimpsushi.tistory.com/331) `tail()` 함수를 통해 확인해보자.![20180825\_144319.png](20180825\_144319.png#center)
+R에서 [내장데이터 attitude를 불러와](http://https://freshrimpsushi.github.io/posts/331) `tail()` 함수를 통해 확인해보자.![20180825\_144319.png](20180825\_144319.png#center)
 우리는 `rating`을 종속변수로 두고 다른 독립변수들이 `rating`에 어떤 영향을 얼마나 미치는지에 관심이 있다. 데이터만 봐서는 `rating`과 다른 변수들 사이에 선형관계가 있는지 확인하기 어려우므로 그림을 그려 확인해보자.
 </code></pre><p>win.graph()
 plot(attitude)```
@@ -87,7 +99,7 @@ out&lt;-lm(rating~.,data=attitude)
 summary(out)```
 
 ![20180825\_150719.png](20180825\_150719.png#center)
-**(1) 잔차Residuals**  : median을 가운데로 두고 다른 분위수가 대칭적으로 나타나는지 정도만 봐도 무방하다. 분위수만으로는 제대로 된 모형진단을 할 수 없기 때문에 보나 마나 큰 의미가 없다.**(2) 추정치Estimate**  : 각 변수에 따른 회귀계수로, (Intercept)는 회귀직선의 $y$ 절편, 나머지는 변수마다의 단위변화율을 나타낸다. [단순회귀분석과 달리](http://freshrimpsushi.tistory.com/652) 여러가지 독립변수가 있기 때문에 [유의수준](http://freshrimpsushi.tistory.com/537)에 따라 결과가 달라진다. 유의수준 $5 \%$ 에서는 learning의 회귀계수가 $0$ 이라는 귀무가설이 기각되지 못하므로
+**(1) 잔차Residuals**  : median을 가운데로 두고 다른 분위수가 대칭적으로 나타나는지 정도만 봐도 무방하다. 분위수만으로는 제대로 된 모형진단을 할 수 없기 때문에 보나 마나 큰 의미가 없다.**(2) 추정치Estimate**  : 각 변수에 따른 회귀계수로, (Intercept)는 회귀직선의 $y$ 절편, 나머지는 변수마다의 단위변화율을 나타낸다. [단순회귀분석과 달리](http://https://freshrimpsushi.github.io/posts/652) 여러가지 독립변수가 있기 때문에 [유의수준](http://https://freshrimpsushi.github.io/posts/537)에 따라 결과가 달라진다. 유의수준 $5 \%$ 에서는 learning의 회귀계수가 $0$ 이라는 귀무가설이 기각되지 못하므로
 
 $$
 \text{(rating)} = 0.61319 \cdot \text{(complaints)} + \varepsilon 
@@ -98,8 +110,8 @@ $$
 $$
 \text{(rating)} = 0.61319 \cdot \text{(complaints)} + 0.32033 \cdot \text{(learning)} + \varepsilon 
 $$
-**(3) 표준오차Std. Error**  : 몰라도 된다. 추정치의 표준오차로써, 이를 사용해서 회귀계수의 신뢰구간을 구할 수 있다.**(4) t value**  : 몰라도 된다. 추정치를 표준오차로 나눈 값으로써, 자유도 $n-p-1$ 의 t분포를 따르는 검정통계량이 된다. 이를 통해 회귀계수가 통계적으로 유의한지 [가설검정](http://freshrimpsushi.tistory.com/654)을 할 수 있다.
-[(5) p값pr(&gt;|t|)](http://freshrimpsushi.tistory.com/537) : 이게 작다는 것은 회귀계수가 유의하다는 뜻이고, 상관관계가 있다는 것을 보이고 싶다면 값이 작을수록 좋다. 이 값이 얼마나 작은지에 따라 바로 아래에 있는 Signif. codes대로 점이 찍히게 된다. 보통 유의수준은 5%로 잡으므로, 점 하나만 찍혀도 상관관계는 있다고 봐도 무방하다. 만약 이 값이 커서 회귀관계가 없는 것으로 밝혀진다면 회귀계수가 어떻게 구해지든 통계적으로는 의미가 없다. 이 p값은 t분포에서 나온 것이므로 pr(&gt;|t|) 라는 표현이 적절함을 알 수 있다.**[(6) 수정설명력Adjusted R-squared](http://freshrimpsushi.tistory.com/826)**  : 이 분석이 변수의 갯수에 비해 데이터를 얼마나 잘 설명하는가를 나타내는 척도로써, 높을수록 좋다. 회귀분석에서 변수의 갯수가 늘어난다는 것은 그만큼 쓸수있는 데이터가 늘어난다는 것이고, 그 때 설명력 $R^{2}$ 는 무조건 증가한다. 수정설명력이 [설명력](http://freshrimpsushi.tistory.com/650)과 다른 점은 $\displaystyle R^2 = 1 - {{ \text{ SSE } } \over { \text{ SST} }} $ 와 달리 $\displaystyle R^{2}\_{a} = 1 - {{ \text{ SSE } / (n - p - 1) } \over { \text{ SST} / (n - 1) }} $ 로 계산되어 변수의 갯수가 반영된다는 것이다. 실제로 쓰이는 응용수학에서 변수의 갯수를 늘린다는 것은 비용의 증대를 의미하고, 당연히 이를 줄이는 방법을 강구해야한다. 수정설명력 $R^{2}\_{a}$ 는 변수의 갯수에 대해 페널티를 적용함으로써 설명력을 보정하고, 모형과 모형을 비교하는데 쓰이게 된다. 모형을 비교해 보았을 때 변수를 잔뜩 늘렸는데도 수정설명력이 별로 증가하지 않는다면 그만큼 쓸데없는 낭비를 한 것으로 본다.**(7) F-Statistic**  : 이것의 p-value가 작다는 것은 유의한 회귀계수가 있다는 뜻이고, 상관관계가 있다는 것을 보이고 싶다면 값이 작을수록 좋다. 회귀계수의 t검정이 회귀계수 하나하나에 대한 검정이라면, F검정은 회귀분석 자체에 대한 검정이다. p-값을 논외로 놓고 F통계량만 이야기해보자면 모형을 비교하는데에 요긴하게 쓰이게 된다.
+**(3) 표준오차Std. Error**  : 몰라도 된다. 추정치의 표준오차로써, 이를 사용해서 회귀계수의 신뢰구간을 구할 수 있다.**(4) t value**  : 몰라도 된다. 추정치를 표준오차로 나눈 값으로써, 자유도 $n-p-1$ 의 t분포를 따르는 검정통계량이 된다. 이를 통해 회귀계수가 통계적으로 유의한지 [가설검정](http://https://freshrimpsushi.github.io/posts/654)을 할 수 있다.
+[(5) p값pr(&gt;|t|)](http://https://freshrimpsushi.github.io/posts/537) : 이게 작다는 것은 회귀계수가 유의하다는 뜻이고, 상관관계가 있다는 것을 보이고 싶다면 값이 작을수록 좋다. 이 값이 얼마나 작은지에 따라 바로 아래에 있는 Signif. codes대로 점이 찍히게 된다. 보통 유의수준은 5%로 잡으므로, 점 하나만 찍혀도 상관관계는 있다고 봐도 무방하다. 만약 이 값이 커서 회귀관계가 없는 것으로 밝혀진다면 회귀계수가 어떻게 구해지든 통계적으로는 의미가 없다. 이 p값은 t분포에서 나온 것이므로 pr(&gt;|t|) 라는 표현이 적절함을 알 수 있다.**[(6) 수정설명력Adjusted R-squared](http://https://freshrimpsushi.github.io/posts/826)**  : 이 분석이 변수의 갯수에 비해 데이터를 얼마나 잘 설명하는가를 나타내는 척도로써, 높을수록 좋다. 회귀분석에서 변수의 갯수가 늘어난다는 것은 그만큼 쓸수있는 데이터가 늘어난다는 것이고, 그 때 설명력 $R^{2}$ 는 무조건 증가한다. 수정설명력이 [설명력](http://https://freshrimpsushi.github.io/posts/650)과 다른 점은 $\displaystyle R^2 = 1 - {{ \text{ SSE } } \over { \text{ SST} }} $ 와 달리 $\displaystyle R^{2}\_{a} = 1 - {{ \text{ SSE } / (n - p - 1) } \over { \text{ SST} / (n - 1) }} $ 로 계산되어 변수의 갯수가 반영된다는 것이다. 실제로 쓰이는 응용수학에서 변수의 갯수를 늘린다는 것은 비용의 증대를 의미하고, 당연히 이를 줄이는 방법을 강구해야한다. 수정설명력 $R^{2}\_{a}$ 는 변수의 갯수에 대해 페널티를 적용함으로써 설명력을 보정하고, 모형과 모형을 비교하는데 쓰이게 된다. 모형을 비교해 보았을 때 변수를 잔뜩 늘렸는데도 수정설명력이 별로 증가하지 않는다면 그만큼 쓸데없는 낭비를 한 것으로 본다.**(7) F-Statistic**  : 이것의 p-value가 작다는 것은 유의한 회귀계수가 있다는 뜻이고, 상관관계가 있다는 것을 보이고 싶다면 값이 작을수록 좋다. 회귀계수의 t검정이 회귀계수 하나하나에 대한 검정이라면, F검정은 회귀분석 자체에 대한 검정이다. p-값을 논외로 놓고 F통계량만 이야기해보자면 모형을 비교하는데에 요긴하게 쓰이게 된다.
 
 주의할 것은 이렇게 결과를 볼 수 있게 되었다고 끝난 게 아니라는 점이다. 다중회귀분석이 단순회귀보다 훨씬 어려운 것은 독립변수가 늘어나면서 단순회귀분석에는 [없었던](https://freshrimpsushi.github.io/posts/696) [문제](https://freshrimpsushi.github.io/posts/808)가 생기기 때문이다. 수치적인 계산만으로는 [설명하기 어려운](https://freshrimpsushi.github.io/posts/810) [여러가지 확인 절차](https://freshrimpsushi.github.io/posts/675)가 남아있으며, 사실 이것을 잘 하는 게 통계를 잘 하는 것이다.
 아래는 전체 예제코드다.
@@ -114,6 +126,456 @@ out&lt;-lm(rating~.,data=attitude)
  
 summary(out)```</p>
 
+
+    
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+
+     <div style="margin-bottom: 10px;">댓글</div>
+     <div class="area-reply">
+         <ul class="list-reply">
+             
+         </ul>
+     </div>
+     <hr>
+     
+     
+     
+     <div class="area-write">
+         <div class="box-account">
+             <input type="text" name="name" value="" title="이름" placeholder="이름"
+                    style="display: block;
+                           width: calc(48% - 42px);
+                           padding: 11px 20px 11px 20px;
+                           border: 1px solid #e8e8e8;
+                           font-size: 13px;
+                           color: #999;
+                           box-sizing: inherit;
+                           float: left;">
+             <input type="password" name="password" value="" title="비밀번호" maxlength="12" placeholder="비밀번호"
+                    style="display: block;
+                           width: calc(48% - 42px);
+                           padding: 11px 20px 11px 20px;
+                           border: 1px solid #e8e8e8;
+                           font-size: 13px;
+                           color: #999;
+                           box-sizing: inherit;
+                           float: right;">
+             <input type="hidden" name="cmt_idx">
+         </div>
+     
+         <div class="box-textarea">
+             <textarea id="comment" name="comment"
+                       placeholder="질문은 최소한 주제가 비슷한 포스트에, 관련 포스트가 없으면 방명록에 남겨주세요. 그냥 가장 최근 글에 달아놓으시면 나중에 읽는 분들에게 도움이 되지 않습니다. 마찬가지의 이유로 비밀 댓글엔 답변하지 않으니 공개 댓글로 작성해 주세요."
+                       style="width: calc(100% - 44px);height: 122px;padding: 21px 21px 19px 19px;box-sizing: inherit;border: 1px solid #e8e8e8;font-size: 13px;color: #999;"
+                       required></textarea>
+         </div>
+     
+         <div class="box-write">
+             <input type="submit" name="submit" class="btn_register"
+                    value="등록"
+                    style="width: 68px; 
+                           height: 30px; 
+                           background: #000; 
+                           border: none; 
+                           font-size: 13px; 
+                           color: #fff; 
+                           cursor: pointer; 
+                           border-radius: 30px;">
+         </div>
+     </div>
+     
+     
+     
+     <div id="dialog" title="댓글달기">
+         <div class="modal-area-write">
+             <div class="modal-box-account">
+                 <input type="hidden" name="cmt_idx" value="">
+                 <input type="text" name="name" value="" title="이름" placeholder="이름"
+                         style="display: 
+                         block;width: 
+                         calc(48% - 42px);
+                         padding: 11px 20px 11px 20px;
+                         border: 1px solid #e8e8e8;
+                         font-size: 13px;
+                         color: #999;
+                         box-sizing: inherit;
+                         float: left;"
+                         required>
+                 <input type="password" name="password" value="" title="비밀번호" maxlength="12" placeholder="비밀번호"
+                         style="display: block;
+                                 width: calc(48% - 42px);
+                                 padding: 11px 20px 11px 20px;
+                                 border: 1px solid #e8e8e8;
+                                 font-size: 13px;
+                                 color: #999;
+                                 box-sizing: inherit;
+                                 float: right;"
+                                 required>
+             </div>
+     
+             <div class="modal-box-textarea">
+                 <textarea id="modal-comment" name="comment"
+                           placeholder="질문은 최소한 주제가 비슷한 포스트에, 관련 포스트가 없으면 방명록에 남겨주세요. 그냥 가장 최근 글에 달아놓으시면 나중에 읽는 분들에게 도움이 되지 않습니다. 마찬가지의 이유로 비밀 댓글엔 답변하지 않으니 공개 댓글로 작성해 주세요."
+                           style="width: calc(100% - 44px);height: 122px;padding: 21px 21px 19px 19px;box-sizing: inherit;border: 1px solid #e8e8e8;font-size: 13px;color: #999;"
+                           required></textarea>
+             </div>
+     
+             <div class="modal-box-write">
+                 <input type="submit" name="submit" class="modal-btn_register" value="등록"
+                        style="width: 68px; 
+                               height: 30px; 
+                               background: #000; 
+                               border: none; 
+                               font-size: 13px; 
+                               color: #fff; 
+                               cursor: pointer; 
+                               border-radius: 30px;">
+             </div>
+         </div>
+     </div>
+     
+     
+     
+     <div id="dialog2" title="댓글수정">
+         댓글을 수정하신 후 작성하실 때 입력하셨던 password를 입력하세요
+         
+         <div class="modal2-area-write">
+             <div class="modal2-box-account">
+                 <input type="hidden" name="cmt_idx" value="">
+                 <input type="text" name="name" value="" title="이름" placeholder="이름"
+                         style="display: 
+                         block;width: 
+                         calc(48% - 42px);
+                         padding: 11px 20px 11px 20px;
+                         border: 1px solid #e8e8e8;
+                         font-size: 13px;
+                         color: #999;
+                         box-sizing: inherit;
+                         float: left;"
+                         required>
+                 <input type="password" name="password" value="" title="비밀번호" maxlength="12" placeholder="비밀번호"
+                         style="display: block;
+                                 width: calc(48% - 42px);
+                                 padding: 11px 20px 11px 20px;
+                                 border: 1px solid #e8e8e8;
+                                 font-size: 13px;
+                                 color: #999;
+                                 box-sizing: inherit;
+                                 float: right;"
+                                 required>
+             </div>
+     
+             <div class="modal2-box-textarea">
+                 <textarea id="modal2-comment" name="comment"
+                     placeholder="질문은 최소한 주제가 비슷한 포스트에, 관련 포스트가 없으면 방명록에 남겨주세요. 그냥 가장 최근 글에 달아놓으시면 나중에 읽는 분들에게 도움이 되지 않습니다. 마찬가지의 이유로 비밀 댓글엔 답변하지 않으니 공개 댓글로 작성해 주세요."
+                     style="width: calc(100% - 44px);height: 122px;padding: 21px 21px 19px 19px;box-sizing: inherit;border: 1px solid #e8e8e8;font-size: 13px;color: #999;"
+                     required></textarea>
+             </div>
+     
+             <div class="modal2-box-write">
+                 <input type="submit" name="submit" class="modal2-btn_register"
+                         style="width: 68px; height: 30px; background: #000; border: none; font-size: 13px; color: #fff; cursor: pointer; border-radius: 30px;" value="수정">
+             </div>
+         </div>
+     </div>
+     
+     
+     
+     <div id="dialog3" title="댓글삭제">
+         정말 삭제하시려면 작성하실 때 입력하셨던 password를 입력하세요
+         
+         <div class="modal3-area-write">
+             <div class="modal3-box-account">
+                 <input type="hidden" name="cmt_idx" value="">
+                 <input type="password" name="password" value="" title="비밀번호" maxlength="12" placeholder="비밀번호"
+                        style="display: block;
+                               width: calc(100% - 42px);
+                               padding: 11px 20px 11px 20px;
+                               border: 1px solid #e8e8e8;
+                               font-size: 13px;
+                               color: #999;
+                               box-sizing: inherit;">
+             </div>
+     
+             <div class="modal3-box-write">
+                 <input type="submit" name="submit" class="modal3-btn_register"
+                         style="width: 68px; height: 30px; background: #000; border: none; font-size: 13px; color: #fff; cursor: pointer; border-radius: 30px;" value="삭제">
+             </div>
+         </div>
+     </div>
+     
+     
+     <script type="text/javascript">
+         
+
+         function open_modal(data) {
+             $(".modal-box-account input[name=cmt_idx]").val(data);
+             $('#dialog').dialog('open');
+         }
+         
+         
+
+         function update_comment(data) {
+             $(".modal2-box-account input[name=cmt_idx]").val(data);
+             $('#dialog2').dialog('open');
+             $(function() {
+                 $.ajax({
+                     type: "POST",
+                     url: "http://threedo29.cafe24.com/ajax/ajax.single.php?action=getSingleComment",
+                     data: {
+                         cmt_idx: data
+                     },
+                     dataType: "json",
+                     success: function(data) {
+                         var rows = data['rows'];
+                         $('.modal2-box-account input[name=name]').val(rows[0]['author']);
+                         $('textarea#modal2-comment').val(rows[0]['content']);
+                     },
+                     error: function(xhr, status, error) {
+                         console.log(error);
+                     }
+                 });
+             });
+         }
+         
+         
+
+         function delete_comment(data) {
+             $(".modal3-box-account input[name=cmt_idx]").val(data);
+             $('#dialog3').dialog('open');
+         }
+     
+         $(document).ready(function () {
+             
+             $('#dialog').dialog({
+                 autoOpen: false,
+                 resizable: false,
+                 maxWidth: 600,
+                 width: 600,
+                 modal: false
+             });
+             
+             $('#dialog2').dialog({
+                 autoOpen: false,
+                 resizable: false,
+                 maxWidth: 600,
+                 width: 600,
+                 modal: false
+             });
+             
+             $('#dialog3').dialog({
+                 autoOpen: false,
+                 resizable: false,
+                 maxWidth: 600,
+                 width: 600,
+                 modal: false
+             });
+             
+             
+
+             $(".btn_register").on('click', function() {
+                 var name = $('.box-account input[name=name]').val();
+                 var password = $('.box-account input[name=password]').val();
+                 var content = $('textarea#comment').val();
+                 if(name == "" || password == "" || content == "")
+                 {
+                     alert('빈칸을 채워주세요');
+                     return;
+                 }
+                 var idx =  670 ;
+                 var board_slug = "how-to-interpret-multiple-regression-summary-in-r";
+                 $.ajax({
+                     type: "POST",
+                     url: "http://threedo29.cafe24.com/ajax/ajax.single.php?action=wirteComment",
+                     data: {
+                         board_idx: idx,
+                         board_slug: board_slug,
+                         name: name,
+                         password: password,
+                         content: content
+                     },
+                     dataType: "json",
+                     success: function(data) {
+                         location.reload();
+                     },
+                     error: function(xhr, status, error) {
+                         console.log(error);
+                     }
+                 });
+             });
+             
+             
+
+             $(".modal-btn_register").on('click', function() {
+                 var cmt_idx = $('.modal-box-account input[name=cmt_idx]').val();
+                 var name = $('.modal-box-account input[name=name]').val();
+                 var password = $('.modal-box-account input[name=password]').val();
+                 var content = $('.modal-box-textarea textarea#modal-comment').val();
+                 if(name == "" || password == "" || content == "")
+                 {
+                     alert('빈칸을 채워주세요');
+                     return;
+                 }
+                 var idx =  670 ;
+                 var board_slug = "how-to-interpret-multiple-regression-summary-in-r";
+                 $.ajax({
+                     type: "POST",
+                     url: "http://threedo29.cafe24.com/ajax/ajax.single.php?action=wirteReComment",
+                     data: {
+                         cmt_idx: cmt_idx,
+                         board_idx: idx,
+                         board_slug: board_slug,
+                         name: name,
+                         password: password,
+                         content: content
+                     },
+                     dataType: "json",
+                     success: function(data) {
+                         location.reload();
+                     },
+                     error: function(xhr, status, error) {
+                         console.log(error);
+                     }
+                 });
+             });
+             
+             
+
+             $(".modal2-btn_register").on('click', function() {
+                 var cmt_idx = $('.modal2-box-account input[name=cmt_idx]').val();
+                 var name = $('.modal2-box-account input[name=name]').val();
+                 var password = $('.modal2-box-account input[name=password]').val();
+                 var content = $('.modal2-box-textarea textarea#modal2-comment').val();
+                 $.ajax({
+                     type: "POST",
+                     url: "http://threedo29.cafe24.com/ajax/ajax.single.php?action=updateComment",
+                     data: {
+                         cmt_idx: cmt_idx,
+                         name: name,
+                         password: password,
+                         content: content
+                     },
+                     dataType: "json",
+                     success: function(data) {
+                         var msg = data['msg'];
+                         if(msg)
+                         {
+                             location.reload();
+                         }
+                         else
+                         {
+                             alert('암호가 올바르지 않습니다.');
+                         }
+                     },
+                     error: function(xhr, status, error) {
+                         console.log(error);
+                     }
+                 });
+             });
+             
+             
+
+             $(".modal3-btn_register").on('click', function() {
+                 var cmt_idx = $('.modal3-box-account input[name=cmt_idx]').val();
+                 var password = $('.modal3-box-account input[name=password]').val();
+                 if(password == "")
+                 {
+                     alert('암호를 입력해주세요');
+                     return;
+                 }
+                 $.ajax({
+                     type: "POST",
+                     url: "http://threedo29.cafe24.com/ajax/ajax.single.php?action=deleteComment",
+                     data: {
+                         cmt_idx: cmt_idx,
+                         password: password
+                     },
+                     dataType: "json",
+                     success: function(data) {
+                         var msg = data['msg'];
+                         if(msg)
+                         {
+                             location.reload();
+                         }
+                         else
+                         {
+                             alert('암호가 올바르지 않습니다.');
+                         }
+                     },
+                     error: function(xhr, status, error) {
+                         console.log(error);
+                     }
+                 });
+             });
+             
+             
+
+             $.ajax({
+                 type: "POST",
+                 url: "http://threedo29.cafe24.com/ajax/ajax.single.php?action=getComment",
+                 data: {
+                     board_idx: '670'
+                 },
+                 dataType: "json",
+                 success: function(data) {
+                     var rows = data['rows'];
+                     var ul_list = $('.list-reply');
+                     var str = "";
+                      
+                     for(var i = 0; i < rows.length; i++) {
+                         str += "<li id='comment"+rows[i]['cmt_idx']+"' class='parents'>";
+                         str += "<div class='box-content'>";
+                         str += "<div class='box-meta'>";
+                         str += "<strong>"+rows[i]['author']+"</strong>";
+                         str += "<span class='date'>"+rows[i]['datetime']+"</span>";
+                         str += "<div>";
+                         str += "<span onclick='update_comment("+rows[i]['cmt_idx']+")'>수정</span>";
+                         str += "<span onclick='delete_comment("+rows[i]['cmt_idx']+")'>삭제</span>";
+                         str += "</div>";
+                         str += "</div>";
+                         str += "<p class='text'>"+rows[i]['content']+"</p>";
+                         str += "<p class='test11' style='cursor: pointer;' onclick='open_modal("+rows[i]['cmt_idx']+")'>답글</p>";
+                         str += "</div>";
+                         str += "</li>";
+                         str += "<hr>";
+                         ul_list.append(str);
+                         str = "";
+                          
+                         for(var j = 0; j < rows[i]['child'].length; j++)
+                         {
+                             str += "<li id='comment"+rows[i]['cmt_idx']+"' class='child' style='padding-left:50px;'>";
+                             str += "<div class='box-content'>";
+                             str += "<div class='box-meta'>";
+                             str += "<strong>"+rows[i]['child'][j]['author']+"</strong>";
+                             str += "<span class='date'>"+rows[i]['child'][j]['datetime']+"</span>";
+                             str += "<div>";
+                             str += "<span onclick='update_comment("+rows[i]['child'][j]['cmt_idx']+")'>수정</span>";
+                             str += "<span onclick='delete_comment("+rows[i]['child'][j]['cmt_idx']+")'>삭제</span>";
+                             str += "</div>";
+                             str += "</div>";
+                             str += "<p class='text'>"+rows[i]['child'][j]['content']+"</p>";
+                             str += "</div>";
+                             str += "</li>";
+                             if(j == rows[i]['child'].length - 1)
+                             {
+                                 str += "<hr>";
+                             }
+                             ul_list.append(str);
+                             str = "";
+                         }
+                     }
+                 },
+                 error: function(xhr, status, error) {
+                     console.log(error);
+                 }
+             });
+         });
+     </script>
 
             </div>
 
@@ -275,6 +737,43 @@ summary(out)```</p>
     <ul>
     </ul>
 </aside>
+
+<aside>
+    <p><b>최근댓글</b></p>
+    <ul class="current-reply">
+        
+    </ul>
+</aside>
+
+<script>
+    $(document).ready(function() {
+        
+
+        $.ajax({
+            type: "POST",
+            url: "http://threedo29.cafe24.com/ajax/ajax.sidebar.php?action=currentComment",
+            data: {},
+            dataType: "json",
+            success: function(data) {
+                var rows = data['rows'];
+                var ul_currnet_list = $('.current-reply');
+                var str = "";
+                 
+                for(var i = 0; i < rows.length; i++) {
+                    str += "<li style='font-size: 13px;'><a href=../../posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
+                    str += "<strong>" + rows[i]['content'] + "</strong>";
+                    str += "<p>" + rows[i]['author'] + "</p>";
+                    str += "</a></li>";
+                    ul_currnet_list.append(str);
+                    str = "";
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
+    });
+</script>
             </div>
 
         </div>
@@ -315,7 +814,10 @@ summary(out)```</p>
         <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
         <script>hljs.initHighlightingOnLoad();</script>
     
+    
     </aside>
 </footer>
+
+<script type="text/javascript" src=https://freshrimpsushi.github.io/js/visit_count.js></script>
 </html>
 <!DOCTYPE html>
