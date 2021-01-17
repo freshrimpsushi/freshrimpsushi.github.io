@@ -13,8 +13,11 @@
 
     
     <meta name="title" content="R 에서 단순회귀분석 결과 보는 법">
+    <meta property="og:title" content="R 에서 단순회귀분석 결과 보는 법">
     <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-
+    <meta property="og:description" content="국내 최대의 수학, 물리학, 통계학 블로그">
+    <meta property="og:image" content="https://img1.daumcdn.net/thumb/C428x428/?scode=mtistory2&fname=https%3A%2F%2Ftistory1.daumcdn.net%2Ftistory%2F2727491%2Fattach%2Fb9b162014be04dfdb517c893fd13cb98" />
+    
     
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
@@ -87,9 +90,9 @@ margin-right: auto;">
 <br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
 </p>
 
-<a href="http://https://freshrimpsushi.github.io/posts/648">단순회귀분석 보러가기</a><a href="http://https://freshrimpsushi.github.io/posts/654">회귀계수의 t검정 보러가기</a>*하단에 예제코드 전체가 있다.<u>*수학, 통계적인 기초가 부족한 비전공자는 밑줄 그어진 부분만 읽어도 상관 없다.</u></p>
+<a href="https://freshrimpsushi.github.io/posts/648">단순회귀분석 보러가기</a><a href="https://freshrimpsushi.github.io/posts/654">회귀계수의 t검정 보러가기</a>*하단에 예제코드 전체가 있다.<u>*수학, 통계적인 기초가 부족한 비전공자는 밑줄 그어진 부분만 읽어도 상관 없다.</u></p>
 <pre><code>head(faithful)
-</code></pre><p>R에서 <a href="http://https://freshrimpsushi.github.io/posts/331">내장데이터 faithful을 불러와</a> head() 함수를 통해 확인해보자.<img src="2.png#center" alt="2.png">
+</code></pre><p>R에서 <a href="https://freshrimpsushi.github.io/posts/331">내장데이터 faithful을 불러와</a> head() 함수를 통해 확인해보자.<img src="2.png#center" alt="2.png">
 데이터만 봐서는 두 변수 사이에 선형관계가 있는지 확인하기 어려우므로 그림을 그려 확인해보자.</p>
 <pre><code>win.graph(6,3)
 par(mfrow=c(1,2))
@@ -97,14 +100,14 @@ plot(faithful, main =&quot;faithful&quot;,asp=T)
 plot(faithful, main =&quot;faithful&quot;)
 points(head(faithful),col='red',pch=19)
 </code></pre><p><img src="12.png#center" alt="12.png">
-왼쪽은 가로세로의 비율이 일정하도록 맞춰놓은 것인데, 정확한 그래프지만 보기가 어렵다. 오른쪽은 보기 편하도록 비율을 조정한 그래프로, 그 중에서 빨간 점들은 head() 함수로 확인한 처음 6번째까지의 데이터다.점이 찍힌 양상을 보면 두 변수가 선형관계를 가진다고 짐작할 수 있으므로 <a href="http://https://freshrimpsushi.github.io/posts/648">단순회귀분석</a>을 통해 확인해보도록 하자. 회귀분석을 위해서는 lm() 함수에 선형모형을 입력해야하는데, 예제의 경우 eruptions로 waiting을 분석하므로 아래와 같이 입력한다.</p>
+왼쪽은 가로세로의 비율이 일정하도록 맞춰놓은 것인데, 정확한 그래프지만 보기가 어렵다. 오른쪽은 보기 편하도록 비율을 조정한 그래프로, 그 중에서 빨간 점들은 head() 함수로 확인한 처음 6번째까지의 데이터다.점이 찍힌 양상을 보면 두 변수가 선형관계를 가진다고 짐작할 수 있으므로 <a href="https://freshrimpsushi.github.io/posts/648">단순회귀분석</a>을 통해 확인해보도록 하자. 회귀분석을 위해서는 lm() 함수에 선형모형을 입력해야하는데, 예제의 경우 eruptions로 waiting을 분석하므로 아래와 같이 입력한다.</p>
 <pre><code>out1&lt;-lm(waiting~eruptions,data=faithful); summary(out1)
 </code></pre><p>summary() 함수를 사용하면 회귀분석 결과에 대한 요약이 출력된다.<img src="3.png#center" alt="3.png">
 결과에서 사각형으로 강조되지 않은 부분은 상대적으로 중요하지 않고, 특히 단순회귀분석에선 더더욱 신경쓸 필요가 없다.<strong>(1) 잔차Residuals</strong>  : <u>몰라도 된다.</u> 잔차분석을 위해 회귀분석의 가정을 만족하는지 확인하기 위해 필요하지만, 단순회귀분석에선 신경써야할만큼 중요치 않다.<strong>(2) 추정치Estimate</strong>  : <u>이것이 바로 회귀계수로, (Intercept)는 회귀직선의 $y$ 절편, eruptions는 기울기를 나타낸다. </u><u>수식으로 나타내면</u><u>
 $$
 \text{(waiting)} = 33.4744 + 10.7296 \cdot \text{(eruptions)} + \varepsilon 
 $$
-</u><strong>(3) 표준오차Std. Error</strong>  : <u>몰라도 된다.</u> 추정치의 표준오차로써, 이를 사용해서 회귀계수의 신뢰구간을 구할 수 있다.<strong>(4) t value</strong>  : <u>몰라도 된다.</u> 추정치를 표준오차로 나눈 값으로써, 자유도 $n-2$ 의 t분포를 따르는 검정통계량이 된다.이를 통해 회귀계수가 통계적으로 유의한지 <a href="http://https://freshrimpsushi.github.io/posts/654">가설검정</a>을 할 수 있다.<a href="http://https://freshrimpsushi.github.io/posts/537">(5) p값pr(&gt;|t|)</a> : <u>이게 작다는 것은 회귀계수가 유의하다는 뜻이고, 상관관계가 있다는 것을 보이고 싶다면 값이 작을수록 좋다. </u><u>이 값이 얼마나 작은지에 따라 바로 아래에 있는 Signif. codes대로 점이 찍히게 된다. </u><u>보통 유의수준은 5%로 잡으므로, 점 하나만 찍혀도 상관관계는 있다고 봐도 무방하다. </u><u>만약 이 값이 커서 회귀관계가 없는 것으로 밝혀진다면 회귀계수가 어떻게 구해지든 통계적으로는 의미가 없다.</u> 이 p값은 t분포에서 나온 것이므로 pr(&gt;|t|) 라는 표현이 적절함을 알 수 있다.<a href="http://https://freshrimpsushi.github.io/posts/650">(6) 설명력Multiple R-squared</a> : <u>이 분석이 데이터를 얼마나 잘 설명하는가를 나타내는 척도로써, 높을수록 좋다.</u><u> 이 경우 전체 데이터의 81%를 설명하고 있다고 받아들여도 무방하다.</u>그러면 이제 회귀직선을 직접 그어서 회귀분석이 정말 잘 되었는지 눈으로 확인해보도록 하자.</p>
+</u><strong>(3) 표준오차Std. Error</strong>  : <u>몰라도 된다.</u> 추정치의 표준오차로써, 이를 사용해서 회귀계수의 신뢰구간을 구할 수 있다.<strong>(4) t value</strong>  : <u>몰라도 된다.</u> 추정치를 표준오차로 나눈 값으로써, 자유도 $n-2$ 의 t분포를 따르는 검정통계량이 된다.이를 통해 회귀계수가 통계적으로 유의한지 <a href="https://freshrimpsushi.github.io/posts/654">가설검정</a>을 할 수 있다.<a href="https://freshrimpsushi.github.io/posts/537">(5) p값pr(&gt;|t|)</a> : <u>이게 작다는 것은 회귀계수가 유의하다는 뜻이고, 상관관계가 있다는 것을 보이고 싶다면 값이 작을수록 좋다. </u><u>이 값이 얼마나 작은지에 따라 바로 아래에 있는 Signif. codes대로 점이 찍히게 된다. </u><u>보통 유의수준은 5%로 잡으므로, 점 하나만 찍혀도 상관관계는 있다고 봐도 무방하다. </u><u>만약 이 값이 커서 회귀관계가 없는 것으로 밝혀진다면 회귀계수가 어떻게 구해지든 통계적으로는 의미가 없다.</u> 이 p값은 t분포에서 나온 것이므로 pr(&gt;|t|) 라는 표현이 적절함을 알 수 있다.<a href="https://freshrimpsushi.github.io/posts/650">(6) 설명력Multiple R-squared</a> : <u>이 분석이 데이터를 얼마나 잘 설명하는가를 나타내는 척도로써, 높을수록 좋다.</u><u> 이 경우 전체 데이터의 81%를 설명하고 있다고 받아들여도 무방하다.</u>그러면 이제 회귀직선을 직접 그어서 회귀분석이 정말 잘 되었는지 눈으로 확인해보도록 하자.</p>
 <pre><code>win.graph(6,3)
 par(mfrow=c(1,2))
 plot(faithful, main =&quot;faithful&quot;,asp=T)
@@ -592,7 +595,7 @@ abline(out1,col='#47C83E',lwd=2)
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1759)</summary>
+    <summary>가나다순 (1757)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -650,7 +653,7 @@ abline(out1,col='#47C83E',lwd=2)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (54)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99-%EA%B5%90%EA%B3%BC/" style="color: black">수학 교과 (30)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99-%EA%B5%90%EA%B3%BC/" style="color: black">수학 교과 (29)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">수학미분류 (30)</a>
         </li><li>
@@ -672,7 +675,7 @@ abline(out1,col='#47C83E',lwd=2)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/" style="color: black">전자기학 (54)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (73)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (20)</a>
         </li><li>

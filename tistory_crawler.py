@@ -20,7 +20,7 @@ def digit_phobia(string):
 
 test = False
 
-# post_range = [44]
+# post_range = [1731]
 post_range = range(1, 2000)
 # post_range = range(1000, 1005)
 for idx in post_range:
@@ -119,13 +119,11 @@ for idx in post_range:
     
     soup = soup.replace("</p><p><b>증명", "</p>\n## 증명")
     soup = soup.replace("</p><p><b>유도", "</p>\n## 유도")
-    soup = soup.replace("</p><p><b>Strategy", "</p>\nStrategy")
-    soup = soup.replace("</p><p><b>Case", "</p>\nCase")
-    soup = soup.replace("</p><p><b>Part", "</p>\nPart")
-    soup = soup.replace("</p><p><b>[", "</p>\n\n[")
-    soup = soup.replace("</p><p><b>(", "</p>\n\n(")
     soup = soup.replace("</b></p><p>", "\n<p>")
-
+    for keyword in ["Strategy", "Case", "Part", "[", "(",
+                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]:
+        soup = soup.replace("</p><p><b>" + keyword, "</p>\n\n"  + keyword)
+        soup = soup.replace('</p><p style="margin-left: 2em;"><b>' + keyword, "</p>\n\n<b>"  + keyword)
     # ----------------------------------------------------------
     
     footnote = BeautifulSoup(soup, 'html.parser').select("sup")
@@ -145,6 +143,7 @@ for idx in post_range:
         temp = temp + link["href"] + ")"
         soup = soup.replace(str(link), temp)
     soup = soup.replace("https://freshrimpsushi.tistory.com/", "{{<Tistory>}}/")
+    soup = soup.replace("http://freshrimpsushi.tistory.com/", "{{<Tistory>}}/")
     soup = soup.replace("freshrimpsushi.tistory.com/", "{{<Tistory>}}/")
 
     for img in imgUrl:
@@ -261,11 +260,12 @@ for idx in post_range:
             md.write('\nslug: "' + slug + '"  # 영문 url, 소문자만 사용')
             md.write('\npublishdate: "' + publishdate + '"')
             md.write('\nauthor: "' + author + '"')
-            md.write('\ncategories: ["' + category + '", ""]')
-            md.write('\ntags: ["", ""]')
+            md.write('\ncategories: "' + category + '"')
+            md.write('\ntags: ')
             md.write('\nweight: 600')
             md.write('\nidx: ' + ID)
             md.write('\ncodeblock: ' + codeblock)
+            md.write('\nplaceholder: ')
             md.write('\naliases: ')
             md.write('\n    - ' + ID)
             md.write('\n---')

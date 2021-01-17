@@ -13,8 +13,11 @@
 
     
     <meta name="title" content="R 에서 다중회귀분석 결과 보는 법">
+    <meta property="og:title" content="R 에서 다중회귀분석 결과 보는 법">
     <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-
+    <meta property="og:description" content="국내 최대의 수학, 물리학, 통계학 블로그">
+    <meta property="og:image" content="https://img1.daumcdn.net/thumb/C428x428/?scode=mtistory2&fname=https%3A%2F%2Ftistory1.daumcdn.net%2Ftistory%2F2727491%2Fattach%2Fb9b162014be04dfdb517c893fd13cb98" />
+    
     
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
@@ -58,7 +61,7 @@
             
     </span>
     
-    작성일: 0001-01-01&nbsp;<br>
+    작성일: 2018-09-05&nbsp;<br>
     작성자: 류대식 사장 &nbsp;
 </p>
 </aside>
@@ -87,13 +90,13 @@ margin-right: auto;">
 <br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
 </p>
 
-<a href="http://https://freshrimpsushi.github.io/posts/666">다중회귀분석 보러가기</a>
-<a href="http://https://freshrimpsushi.github.io/posts/672">회귀계수의 F검정 보러가기</a></p>
+<a href="https://freshrimpsushi.github.io/posts/666">다중회귀분석 보러가기</a>
+<a href="https://freshrimpsushi.github.io/posts/672">회귀계수의 F검정 보러가기</a></p>
 <p>하단에 예제코드 전체가 있다.
 수학, 통계적인 기초가 부족한 비전공자는 밑줄 그어진 부분만 읽어도 상관 없다.
 <a href="https://freshrimpsushi.github.io/posts/648">단순회귀분석</a>이 뭔지 잘 모르겠다면 단순회귀분석을 먼저 공부해야한다.</p>
 <pre><code>tail(attitude)```
-R에서 [내장데이터 attitude를 불러와](http://https://freshrimpsushi.github.io/posts/331) `tail()` 함수를 통해 확인해보자.![20180825\_144319.png](20180825\_144319.png#center)
+R에서 [내장데이터 attitude를 불러와](https://freshrimpsushi.github.io/posts/331) `tail()` 함수를 통해 확인해보자.![20180825\_144319.png](20180825\_144319.png#center)
 우리는 `rating`을 종속변수로 두고 다른 독립변수들이 `rating`에 어떤 영향을 얼마나 미치는지에 관심이 있다. 데이터만 봐서는 `rating`과 다른 변수들 사이에 선형관계가 있는지 확인하기 어려우므로 그림을 그려 확인해보자.
 </code></pre><p>win.graph()
 plot(attitude)```
@@ -106,7 +109,11 @@ out&lt;-lm(rating~.,data=attitude)
 summary(out)```
 
 ![20180825\_150719.png](20180825\_150719.png#center)
-**(1) 잔차Residuals**  : median을 가운데로 두고 다른 분위수가 대칭적으로 나타나는지 정도만 봐도 무방하다. 분위수만으로는 제대로 된 모형진단을 할 수 없기 때문에 보나 마나 큰 의미가 없다.**(2) 추정치Estimate**  : 각 변수에 따른 회귀계수로, (Intercept)는 회귀직선의 $y$ 절편, 나머지는 변수마다의 단위변화율을 나타낸다. [단순회귀분석과 달리](http://https://freshrimpsushi.github.io/posts/652) 여러가지 독립변수가 있기 때문에 [유의수준](http://https://freshrimpsushi.github.io/posts/537)에 따라 결과가 달라진다. 유의수준 $5 \%$ 에서는 learning의 회귀계수가 $0$ 이라는 귀무가설이 기각되지 못하므로
+
+
+**(1) 잔차Residuals**  : median을 가운데로 두고 다른 분위수가 대칭적으로 나타나는지 정도만 봐도 무방하다. 분위수만으로는 제대로 된 모형진단을 할 수 없기 때문에 보나 마나 큰 의미가 없다.
+
+**(2) 추정치Estimate**  : 각 변수에 따른 회귀계수로, (Intercept)는 회귀직선의 $y$ 절편, 나머지는 변수마다의 단위변화율을 나타낸다. [단순회귀분석과 달리](https://freshrimpsushi.github.io/posts/652) 여러가지 독립변수가 있기 때문에 [유의수준](https://freshrimpsushi.github.io/posts/537)에 따라 결과가 달라진다. 유의수준 $5 \%$ 에서는 learning의 회귀계수가 $0$ 이라는 귀무가설이 기각되지 못하므로
 
 $$
 \text{(rating)} = 0.61319 \cdot \text{(complaints)} + \varepsilon 
@@ -117,8 +124,14 @@ $$
 $$
 \text{(rating)} = 0.61319 \cdot \text{(complaints)} + 0.32033 \cdot \text{(learning)} + \varepsilon 
 $$
-**(3) 표준오차Std. Error**  : 몰라도 된다. 추정치의 표준오차로써, 이를 사용해서 회귀계수의 신뢰구간을 구할 수 있다.**(4) t value**  : 몰라도 된다. 추정치를 표준오차로 나눈 값으로써, 자유도 $n-p-1$ 의 t분포를 따르는 검정통계량이 된다. 이를 통해 회귀계수가 통계적으로 유의한지 [가설검정](http://https://freshrimpsushi.github.io/posts/654)을 할 수 있다.
-[(5) p값pr(&gt;|t|)](http://https://freshrimpsushi.github.io/posts/537) : 이게 작다는 것은 회귀계수가 유의하다는 뜻이고, 상관관계가 있다는 것을 보이고 싶다면 값이 작을수록 좋다. 이 값이 얼마나 작은지에 따라 바로 아래에 있는 Signif. codes대로 점이 찍히게 된다. 보통 유의수준은 5%로 잡으므로, 점 하나만 찍혀도 상관관계는 있다고 봐도 무방하다. 만약 이 값이 커서 회귀관계가 없는 것으로 밝혀진다면 회귀계수가 어떻게 구해지든 통계적으로는 의미가 없다. 이 p값은 t분포에서 나온 것이므로 pr(&gt;|t|) 라는 표현이 적절함을 알 수 있다.**[(6) 수정설명력Adjusted R-squared](http://https://freshrimpsushi.github.io/posts/826)**  : 이 분석이 변수의 갯수에 비해 데이터를 얼마나 잘 설명하는가를 나타내는 척도로써, 높을수록 좋다. 회귀분석에서 변수의 갯수가 늘어난다는 것은 그만큼 쓸수있는 데이터가 늘어난다는 것이고, 그 때 설명력 $R^{2}$ 는 무조건 증가한다. 수정설명력이 [설명력](http://https://freshrimpsushi.github.io/posts/650)과 다른 점은 $\displaystyle R^2 = 1 - {{ \text{ SSE } } \over { \text{ SST} }} $ 와 달리 $\displaystyle R^{2}\_{a} = 1 - {{ \text{ SSE } / (n - p - 1) } \over { \text{ SST} / (n - 1) }} $ 로 계산되어 변수의 갯수가 반영된다는 것이다. 실제로 쓰이는 응용수학에서 변수의 갯수를 늘린다는 것은 비용의 증대를 의미하고, 당연히 이를 줄이는 방법을 강구해야한다. 수정설명력 $R^{2}\_{a}$ 는 변수의 갯수에 대해 페널티를 적용함으로써 설명력을 보정하고, 모형과 모형을 비교하는데 쓰이게 된다. 모형을 비교해 보았을 때 변수를 잔뜩 늘렸는데도 수정설명력이 별로 증가하지 않는다면 그만큼 쓸데없는 낭비를 한 것으로 본다.**(7) F-Statistic**  : 이것의 p-value가 작다는 것은 유의한 회귀계수가 있다는 뜻이고, 상관관계가 있다는 것을 보이고 싶다면 값이 작을수록 좋다. 회귀계수의 t검정이 회귀계수 하나하나에 대한 검정이라면, F검정은 회귀분석 자체에 대한 검정이다. p-값을 논외로 놓고 F통계량만 이야기해보자면 모형을 비교하는데에 요긴하게 쓰이게 된다.
+
+
+**(3) 표준오차Std. Error**  : 몰라도 된다. 추정치의 표준오차로써, 이를 사용해서 회귀계수의 신뢰구간을 구할 수 있다.
+
+**(4) t value**  : 몰라도 된다. 추정치를 표준오차로 나눈 값으로써, 자유도 $n-p-1$ 의 t분포를 따르는 검정통계량이 된다. 이를 통해 회귀계수가 통계적으로 유의한지 [가설검정](https://freshrimpsushi.github.io/posts/654)을 할 수 있다.
+[(5) p값pr(&gt;|t|)](https://freshrimpsushi.github.io/posts/537) : 이게 작다는 것은 회귀계수가 유의하다는 뜻이고, 상관관계가 있다는 것을 보이고 싶다면 값이 작을수록 좋다. 이 값이 얼마나 작은지에 따라 바로 아래에 있는 Signif. codes대로 점이 찍히게 된다. 보통 유의수준은 5%로 잡으므로, 점 하나만 찍혀도 상관관계는 있다고 봐도 무방하다. 만약 이 값이 커서 회귀관계가 없는 것으로 밝혀진다면 회귀계수가 어떻게 구해지든 통계적으로는 의미가 없다. 이 p값은 t분포에서 나온 것이므로 pr(&gt;|t|) 라는 표현이 적절함을 알 수 있다.**[(6) 수정설명력Adjusted R-squared](https://freshrimpsushi.github.io/posts/826)**  : 이 분석이 변수의 갯수에 비해 데이터를 얼마나 잘 설명하는가를 나타내는 척도로써, 높을수록 좋다. 회귀분석에서 변수의 갯수가 늘어난다는 것은 그만큼 쓸수있는 데이터가 늘어난다는 것이고, 그 때 설명력 $R^{2}$ 는 무조건 증가한다. 수정설명력이 [설명력](https://freshrimpsushi.github.io/posts/650)과 다른 점은 $\displaystyle R^2 = 1 - {{ \text{ SSE } } \over { \text{ SST} }} $ 와 달리 $\displaystyle R^{2}\_{a} = 1 - {{ \text{ SSE } / (n - p - 1) } \over { \text{ SST} / (n - 1) }} $ 로 계산되어 변수의 갯수가 반영된다는 것이다. 실제로 쓰이는 응용수학에서 변수의 갯수를 늘린다는 것은 비용의 증대를 의미하고, 당연히 이를 줄이는 방법을 강구해야한다. 수정설명력 $R^{2}\_{a}$ 는 변수의 갯수에 대해 페널티를 적용함으로써 설명력을 보정하고, 모형과 모형을 비교하는데 쓰이게 된다. 모형을 비교해 보았을 때 변수를 잔뜩 늘렸는데도 수정설명력이 별로 증가하지 않는다면 그만큼 쓸데없는 낭비를 한 것으로 본다.
+
+**(7) F-Statistic**  : 이것의 p-value가 작다는 것은 유의한 회귀계수가 있다는 뜻이고, 상관관계가 있다는 것을 보이고 싶다면 값이 작을수록 좋다. 회귀계수의 t검정이 회귀계수 하나하나에 대한 검정이라면, F검정은 회귀분석 자체에 대한 검정이다. p-값을 논외로 놓고 F통계량만 이야기해보자면 모형을 비교하는데에 요긴하게 쓰이게 된다.
 
 주의할 것은 이렇게 결과를 볼 수 있게 되었다고 끝난 게 아니라는 점이다. 다중회귀분석이 단순회귀보다 훨씬 어려운 것은 독립변수가 늘어나면서 단순회귀분석에는 [없었던](https://freshrimpsushi.github.io/posts/696) [문제](https://freshrimpsushi.github.io/posts/808)가 생기기 때문이다. 수치적인 계산만으로는 [설명하기 어려운](https://freshrimpsushi.github.io/posts/810) [여러가지 확인 절차](https://freshrimpsushi.github.io/posts/675)가 남아있으며, 사실 이것을 잘 하는 게 통계를 잘 하는 것이다.
 아래는 전체 예제코드다.
@@ -595,7 +608,7 @@ summary(out)```</p>
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1759)</summary>
+    <summary>가나다순 (1757)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -653,7 +666,7 @@ summary(out)```</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (54)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99-%EA%B5%90%EA%B3%BC/" style="color: black">수학 교과 (30)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99-%EA%B5%90%EA%B3%BC/" style="color: black">수학 교과 (29)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">수학미분류 (30)</a>
         </li><li>
@@ -675,7 +688,7 @@ summary(out)```</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/" style="color: black">전자기학 (54)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (73)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (20)</a>
         </li><li>

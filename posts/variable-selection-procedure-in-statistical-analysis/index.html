@@ -13,8 +13,11 @@
 
     
     <meta name="title" content="통계적 분석에서의 변수 선택 절차">
+    <meta property="og:title" content="통계적 분석에서의 변수 선택 절차">
     <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-
+    <meta property="og:description" content="국내 최대의 수학, 물리학, 통계학 블로그">
+    <meta property="og:image" content="https://img1.daumcdn.net/thumb/C428x428/?scode=mtistory2&fname=https%3A%2F%2Ftistory1.daumcdn.net%2Ftistory%2F2727491%2Fattach%2Fb9b162014be04dfdb517c893fd13cb98" />
+    
     
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
@@ -87,14 +90,22 @@ margin-right: auto;">
 <br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
 </p>
 
-*하단에 예제코드 전체가 있다.<a href="http://https://freshrimpsushi.github.io/posts/666">다중회귀분석</a> $Y \leftarrow X_{1} , \cdots, X_{p}$ 을 한다고 생각해보자.여기서 독립변수는 $p$ 개로, 회귀분석의 <a href="http://https://freshrimpsushi.github.io/posts/675">여러가지 가정</a>들을 잘 만족하고 <a href="http://https://freshrimpsushi.github.io/posts/808">다중공선성</a>이 없으며 <a href="http://https://freshrimpsushi.github.io/posts/650">설명력</a>이 높다면 좋을 것이다.물론 정보라는 것은 많으면 많을수록 좋지만, 지나치게 많은 데이터로 얻은 회귀모형은 사용하는데에도 많은 데이터를 요구한다. 그래서 가능하다면 사용하는 독립변수를 줄여서 모형을 간단하게 만드는 것이 좋다. &lsquo;비용&rsquo;을 생각해가며 모형을 이해하고 활용하기 위해서는 &lsquo;극대화&rsquo;보다는 &lsquo;최적화&rsquo;가 더 중요하다. 이를 위해서 필요한 작업은 필요 없는 독립변수를 제거하는 것이다.가령 변수 $p=7$ 개를 모두 사용해서 분석을 한 결과 설명력이 $R_{p}^{2} = 89 %$ 라고 한다면 일단 그 자체는 좋은 일이다. 그런데 만약 $q=2$ 개의 독립변수만으로도 설명력이 $R_{q}^{2} = 87 %$ 정도로 나와 준다면 그냥 두 개만 쓰는 게 훨씬 나을 수도 있다.이 때 원래대로 모든 독립변수 $p$ 개로 얻은 모형을 <strong>전체모형 FM(Full Model)</strong> 이라 하고 독립변수를 $q$ 개만큼 줄여서 얻은 모형을 <strong>축소모형 RM(Reduced Model)</strong> 이라 한다. 독립변수가 하나도 없는 모형을 <strong>영모형 NM(Null Model)</strong> 이라고 하며, 영모형과 전체모형 사이에 있는 축소모형들 중 가장 적절한 것을 찾아내는 것이 문제다. 다행스럽게도, 이 과정을 이해하는 것 자체는 수학적인 지식이 없어도 상관 없다. 쉽게 말하면 그냥 &lsquo;가능한 경우를 모두 검토&rsquo;해보는 것이다.독립변수의 갯수가 $p$ 면 경우의 수는 $p^p$ 이 된다. 사실 요즘은 컴퓨터도 좋아졌기 때문에 소위 빅데이터라고 불리는 정도가 아니면 정말 말 그대로 모든 경우를 살펴봐도 되지만, 옛날엔 그 계산을 조금이라도 줄이기 위해 다음의 방법들이 고안되었다.**1. 전진 선택법Forward Selection Procedure
-영모형 $Y \leftarrow 1 $ 에서 하나씩 변수를 추가해가면서 모형을 선택한다.가장 작은 t검정 통계량이 $1$ 보다 작으면 변수 추가를 멈추는 식으로 사용하면 간단하면서도 꽤 효과적이다.**2. 후진 제거법Backward Elimination Procedure
+*하단에 예제코드 전체가 있다.<a href="https://freshrimpsushi.github.io/posts/666">다중회귀분석</a> $Y \leftarrow X_{1} , \cdots, X_{p}$ 을 한다고 생각해보자.여기서 독립변수는 $p$ 개로, 회귀분석의 <a href="https://freshrimpsushi.github.io/posts/675">여러가지 가정</a>들을 잘 만족하고 <a href="https://freshrimpsushi.github.io/posts/808">다중공선성</a>이 없으며 <a href="https://freshrimpsushi.github.io/posts/650">설명력</a>이 높다면 좋을 것이다.물론 정보라는 것은 많으면 많을수록 좋지만, 지나치게 많은 데이터로 얻은 회귀모형은 사용하는데에도 많은 데이터를 요구한다. 그래서 가능하다면 사용하는 독립변수를 줄여서 모형을 간단하게 만드는 것이 좋다. &lsquo;비용&rsquo;을 생각해가며 모형을 이해하고 활용하기 위해서는 &lsquo;극대화&rsquo;보다는 &lsquo;최적화&rsquo;가 더 중요하다. 이를 위해서 필요한 작업은 필요 없는 독립변수를 제거하는 것이다.가령 변수 $p=7$ 개를 모두 사용해서 분석을 한 결과 설명력이 $R_{p}^{2} = 89 %$ 라고 한다면 일단 그 자체는 좋은 일이다. 그런데 만약 $q=2$ 개의 독립변수만으로도 설명력이 $R_{q}^{2} = 87 %$ 정도로 나와 준다면 그냥 두 개만 쓰는 게 훨씬 나을 수도 있다.이 때 원래대로 모든 독립변수 $p$ 개로 얻은 모형을 <strong>전체모형 FM(Full Model)</strong> 이라 하고 독립변수를 $q$ 개만큼 줄여서 얻은 모형을 <strong>축소모형 RM(Reduced Model)</strong> 이라 한다. 독립변수가 하나도 없는 모형을 <strong>영모형 NM(Null Model)</strong> 이라고 하며, 영모형과 전체모형 사이에 있는 축소모형들 중 가장 적절한 것을 찾아내는 것이 문제다. 다행스럽게도, 이 과정을 이해하는 것 자체는 수학적인 지식이 없어도 상관 없다. 쉽게 말하면 그냥 &lsquo;가능한 경우를 모두 검토&rsquo;해보는 것이다.독립변수의 갯수가 $p$ 면 경우의 수는 $p^p$ 이 된다. 사실 요즘은 컴퓨터도 좋아졌기 때문에 소위 빅데이터라고 불리는 정도가 아니면 정말 말 그대로 모든 경우를 살펴봐도 되지만, 옛날엔 그 계산을 조금이라도 줄이기 위해 다음의 방법들이 고안되었다.</p>
+<ol>
+<li>
+<p>전진 선택법Forward Selection Procedure
+영모형 $Y \leftarrow 1 $ 에서 하나씩 변수를 추가해가면서 모형을 선택한다.가장 작은 t검정 통계량이 $1$ 보다 작으면 변수 추가를 멈추는 식으로 사용하면 간단하면서도 꽤 효과적이다.</p>
+</li>
+<li>
+<p>후진 제거법Backward Elimination Procedure
 전체모형 $Y \leftarrow X_{1} , \cdots, X_{p}$ 에서 하나씩 변수를 제거해가면서 모형을 선택한다.가장 작은 t검정 통계량이 $1$ 보다 작으면 변수 추가를 멈추는 식으로 사용하면 간단하면서도 꽤 효과적이다.**3. 단계적 선택법Stepwise Method
 분석자가 제안한 첫번째 축소모형 RM1에서 이미 있는 변수는 제거하고, 이미 제거된 변수는 추가하면서 그 중에서 가장 좋은 모형을 다음 모형으로 선택한다. 전진 선택법과 후진 제거법의 장점을 더한만큼 꼼꼼하게 계산하며, 속도면에서 단점이 있다고 볼 수도 있다. 계산 소요가 적고 속도면에서 부담되지 않는다면 가장 좋은 방법이라서 널리 쓰이고 있다.위에서 소개한 변수 선택 절차들은 다중공선성만 없다면 상당히 좋은 방법들이다. 대부분의 회귀분석은 이 과정을 마지막으로 끝나며, 어지간히 이상하거나 어려운 분석이 아닌 이상 아래의 메뉴얼에서 크게 벗어나지 않는다.</p>
-<p><strong>Step 1.</strong>  데이터 핸들링직접 데이터를 보면서 <a href="http://https://freshrimpsushi.github.io/posts/526">결측치</a>, 이상치와 <a href="http://https://freshrimpsushi.github.io/posts/805">변환</a>이 필요한 부분을 찾아낸다.<strong>Step 2.</strong>  변수간의 관계 파악모든 변수를 사용해 얻은 전체모형의 <a href="http://https://freshrimpsushi.github.io/posts/675">모형진단</a>, <a href="http://https://freshrimpsushi.github.io/posts/810">VIF</a> 를 보고 <a href="http://https://freshrimpsushi.github.io/posts/696">교호작용</a>이나 <a href="http://https://freshrimpsushi.github.io/posts/808">다중공선성</a>을 찾아낸다.<strong>Step 3.</strong>  전체모형 결정다중공선성 문제가 해결된 회귀모형에 대해 모형진단을 하고 새로운 전체모형으로 결정한다.<strong>Step 4.</strong>  변수 선택단계적 선택법을 적용하고 변수 선택 기준에 따라 가장 좋은 축소모형을 선택한다.<strong>Step 5.</strong>  최적모형 결정선택된 축소모형이 모형진단을 문제 없이 통과하면 이를 최적모형으로 결정한다.</p>
-<p>(<a href="http://https://freshrimpsushi.github.io/posts/808">다중공선성을 찾아내는 법</a>에 이어서)** <img src="20181230_164705.png#center" alt="20181230\_164705.png">
+</li>
+</ol>
+<p><strong>Step 1.</strong>  데이터 핸들링직접 데이터를 보면서 <a href="https://freshrimpsushi.github.io/posts/526">결측치</a>, 이상치와 <a href="https://freshrimpsushi.github.io/posts/805">변환</a>이 필요한 부분을 찾아낸다.<strong>Step 2.</strong>  변수간의 관계 파악모든 변수를 사용해 얻은 전체모형의 <a href="https://freshrimpsushi.github.io/posts/675">모형진단</a>, <a href="https://freshrimpsushi.github.io/posts/810">VIF</a> 를 보고 <a href="https://freshrimpsushi.github.io/posts/696">교호작용</a>이나 <a href="https://freshrimpsushi.github.io/posts/808">다중공선성</a>을 찾아낸다.<strong>Step 3.</strong>  전체모형 결정다중공선성 문제가 해결된 회귀모형에 대해 모형진단을 하고 새로운 전체모형으로 결정한다.<strong>Step 4.</strong>  변수 선택단계적 선택법을 적용하고 변수 선택 기준에 따라 가장 좋은 축소모형을 선택한다.<strong>Step 5.</strong>  최적모형 결정선택된 축소모형이 모형진단을 문제 없이 통과하면 이를 최적모형으로 결정한다.</p>
+<p>(<a href="https://freshrimpsushi.github.io/posts/808">다중공선성을 찾아내는 법</a>에 이어서)** <img src="20181230_164705.png#center" alt="20181230\_164705.png">
 <img src="20181230_164959.png#center" alt="20181230\_164959.png">
-<a href="http://https://freshrimpsushi.github.io/posts/808">이전 포스트</a>에서 white 변수가 다중공선성 문제를 야기하는 것으로 보여서 제거해주자 제대로 회귀분석이 되으로 보였다. 실제로 <a href="http://https://freshrimpsushi.github.io/posts/810">VIF</a>를 계산해보면 다중공선성은 사라졌으며, 잔차그림을 보면 큰 문제도 없어보인다. 여기까지가 위의 메뉴얼에서 **Step 3.** 을 끝낸 것이다.이제 필요없는 변수를 제거하기 위해서 단계적 선택법을 사용해보자. 다행스럽게도 R 에서는 이를 위한 함수 step()이 있다. 여기에 들어가는 모형은 **Step 3.** 에서 언급된 &lsquo;새로운 전체모형&rsquo;으로, 위 예제에선 out1에 해당한다. direction 옵션은 선택법의 종류를 결정한다. &ldquo;forward&quot;는 전진 선택법, &ldquo;backward&quot;는 후진 선택법, &ldquo;both&quot;는 단계적 선택법이다.<img src="20181230_165832.png#center" alt="20181230\_165832.png">
+<a href="https://freshrimpsushi.github.io/posts/808">이전 포스트</a>에서 white 변수가 다중공선성 문제를 야기하는 것으로 보여서 제거해주자 제대로 회귀분석이 되으로 보였다. 실제로 <a href="https://freshrimpsushi.github.io/posts/810">VIF</a>를 계산해보면 다중공선성은 사라졌으며, 잔차그림을 보면 큰 문제도 없어보인다. 여기까지가 위의 메뉴얼에서 **Step 3.** 을 끝낸 것이다.이제 필요없는 변수를 제거하기 위해서 단계적 선택법을 사용해보자. 다행스럽게도 R 에서는 이를 위한 함수 step()이 있다. 여기에 들어가는 모형은 **Step 3.** 에서 언급된 &lsquo;새로운 전체모형&rsquo;으로, 위 예제에선 out1에 해당한다. direction 옵션은 선택법의 종류를 결정한다. &ldquo;forward&quot;는 전진 선택법, &ldquo;backward&quot;는 후진 선택법, &ldquo;both&quot;는 단계적 선택법이다.<img src="20181230_165832.png#center" alt="20181230\_165832.png">
 함수를 실행하면 위와 같이 어떤 변수를 넣고 어떤 변수를 뺐을 때 변수 선택 기준 AIC가 어떻게 계산되었는지를 모두 보여준다. 단계적 선택법에 대한 기준으로 AIC를 사용한 결과, 필요한 변수는 black, hhIncome, poverty 세가지 뿐임을 알 수 있다. 이로써 **Step 4.** 가 끝났고, 마지막으로 **Step 5.** 를 거쳐 최적모형을 결정한다.<img src="20181230_165943.png#center" alt="20181230\_165943.png">
 <img src="20181230_165950.png#center" alt="20181230\_165950.png">
 아래는 예제 코드다.</p>
@@ -574,7 +585,7 @@ win.graph(4,4); plot(scale(out2$residuals), main=&quot;잔차&quot;)
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1759)</summary>
+    <summary>가나다순 (1757)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -632,7 +643,7 @@ win.graph(4,4); plot(scale(out2$residuals), main=&quot;잔차&quot;)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (54)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99-%EA%B5%90%EA%B3%BC/" style="color: black">수학 교과 (30)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99-%EA%B5%90%EA%B3%BC/" style="color: black">수학 교과 (29)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">수학미분류 (30)</a>
         </li><li>
@@ -654,7 +665,7 @@ win.graph(4,4); plot(scale(out2$residuals), main=&quot;잔차&quot;)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/" style="color: black">전자기학 (54)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (73)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (20)</a>
         </li><li>

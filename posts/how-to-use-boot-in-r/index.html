@@ -13,8 +13,11 @@
 
     
     <meta name="title" content="R 에서 부트스트랩 함수 사용하는 법">
+    <meta property="og:title" content="R 에서 부트스트랩 함수 사용하는 법">
     <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-
+    <meta property="og:description" content="국내 최대의 수학, 물리학, 통계학 블로그">
+    <meta property="og:image" content="https://img1.daumcdn.net/thumb/C428x428/?scode=mtistory2&fname=https%3A%2F%2Ftistory1.daumcdn.net%2Ftistory%2F2727491%2Fattach%2Fb9b162014be04dfdb517c893fd13cb98" />
+    
     
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
@@ -93,7 +96,7 @@ R 에서 부트스트랩을 시행하는 코드를 직접 짜볼 수도 있지�
 Default는 채무불이행 여부와 그에 대한 조건들의 데이터셋이다.당연히 default 변수가 종속변수고, 실제로 채무불이행까지 이어지는지의 예측문제이므로 <a href="https://freshrimpsushi.github.io/posts/832">로지스틱 회귀분석</a>이 적절하다.<img src="20180507_202245.png#center" alt="20180507\_202245.png">
 로지스틱 회귀분석의 결과는 위와 같다.우리는 여기서 회귀계수에 대해 부트스트랩을 사용해볼 것이다.<img src="20180507_202409.png#center" alt="20180507\_202409.png">
 부트스트랩에 쓰이는 함수는 위와 같이 dataset과 index라는 두 개의 인수가 필수적이다.dataset은 오리지널 데이터를 받아주고, index는 부트스트랩을 통한 재표본추출의 튜플을 받아줄 것이다.return()을 보면 알겠지만 해당 함수가 돌려주는 것은 모델이나 요약 전체가 아니라 회귀계수로 이루어진 벡터 뿐이다.이렇게 함수를 포멀하게 정의할 필요가 있다보니 R에 대한 기초가 부족하면 부트스트랩 함수를 이해하기 어려울 것이다.부트스트랩을 쓸 정도로 통계학에 숙달된 학습자라면 큰 문제는 없겠지만, 조금 어렵게 느껴져도 정상이니 자책하지 말자.<img src="20180507_202925.png#center" alt="20180507\_202925.png">
-boot() 함수는 data에 데이터셋을 받고 R에 실행 횟수를 받는다.statistic 옵션이 받아주는 것은 boot.fn()이 반환하는 &lsquo;벡터&rsquo;가 아니라 &lsquo;함수 그 자체&rsquo;인 boot.fn라는 부분에서 많이 실수한다.계속해서 에러가 난다면 대부분은 여기가 문제다.실행 결과를 보면 첫번째 회귀계수부터 t1, t2, t3, t4로 나타나고 계수나 표준오차가 처음에 했던 로지스틱 회귀분석의 결과와 상당히 비슷하게 구해졌음을 확인할 수 있다. 여기서 부트스트랩을 통해 얻어내고자 하는 것은 <a href="http://https://freshrimpsushi.github.io/posts/551">점추정값인 original이 아니라 std. error라는 점</a>에 주의하도록 하자. 잘 비교해보면 알겠지만 original이란 그냥 전체 데이터에서 얻은 회귀계수로써 부트스트랩 그 자체와는 하등 상관없고 필요없다.아래는 예제코드다.부트스트랩같은 경우엔 너무 사용법이 특이해서 이해가 잘 안가면 그냥 예제를 자기 케이스에 맞게 바꿔 쓰기만해도 된다.</p>
+boot() 함수는 data에 데이터셋을 받고 R에 실행 횟수를 받는다.statistic 옵션이 받아주는 것은 boot.fn()이 반환하는 &lsquo;벡터&rsquo;가 아니라 &lsquo;함수 그 자체&rsquo;인 boot.fn라는 부분에서 많이 실수한다.계속해서 에러가 난다면 대부분은 여기가 문제다.실행 결과를 보면 첫번째 회귀계수부터 t1, t2, t3, t4로 나타나고 계수나 표준오차가 처음에 했던 로지스틱 회귀분석의 결과와 상당히 비슷하게 구해졌음을 확인할 수 있다. 여기서 부트스트랩을 통해 얻어내고자 하는 것은 <a href="https://freshrimpsushi.github.io/posts/551">점추정값인 original이 아니라 std. error라는 점</a>에 주의하도록 하자. 잘 비교해보면 알겠지만 original이란 그냥 전체 데이터에서 얻은 회귀계수로써 부트스트랩 그 자체와는 하등 상관없고 필요없다.아래는 예제코드다.부트스트랩같은 경우엔 너무 사용법이 특이해서 이해가 잘 안가면 그냥 예제를 자기 케이스에 맞게 바꿔 쓰기만해도 된다.</p>
 <pre><code>library(ISLR)
 library(boot)
 set.seed(150421)
@@ -572,7 +575,7 @@ boot.result&lt;-boot(data=Default,statistic=boot.fn,R=1000); boot.result
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1759)</summary>
+    <summary>가나다순 (1757)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -630,7 +633,7 @@ boot.result&lt;-boot(data=Default,statistic=boot.fn,R=1000); boot.result
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (54)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99-%EA%B5%90%EA%B3%BC/" style="color: black">수학 교과 (30)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99-%EA%B5%90%EA%B3%BC/" style="color: black">수학 교과 (29)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">수학미분류 (30)</a>
         </li><li>
@@ -652,7 +655,7 @@ boot.result&lt;-boot(data=Default,statistic=boot.fn,R=1000); boot.result
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/" style="color: black">전자기학 (54)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (73)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (20)</a>
         </li><li>

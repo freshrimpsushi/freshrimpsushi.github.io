@@ -13,8 +13,11 @@
 
     
     <meta name="title" content="일관성을 가지는 멀티스텝 메소드의 안정성과 루트 컨디션">
+    <meta property="og:title" content="일관성을 가지는 멀티스텝 메소드의 안정성과 루트 컨디션">
     <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-
+    <meta property="og:description" content="국내 최대의 수학, 물리학, 통계학 블로그">
+    <meta property="og:image" content="https://img1.daumcdn.net/thumb/C428x428/?scode=mtistory2&fname=https%3A%2F%2Ftistory1.daumcdn.net%2Ftistory%2F2727491%2Fattach%2Fb9b162014be04dfdb517c893fd13cb98" />
+    
     
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
@@ -58,7 +61,7 @@
             
     </span>
     
-    작성일: 0001-01-01&nbsp;<br>
+    작성일: 2019-08-08&nbsp;<br>
     작성자: 류대식 사장 &nbsp;
 </p>
 </aside>
@@ -91,7 +94,7 @@ margin-right: auto;">
 멀티스텝 메소드가 일관성을 가진다고 하자.메소드는 안정성을 가진다 $\iff$ 메소드는 루트 컨디션을 만족 시킨다</p>
 <p>폐구간 $[x_{0} , b]$ 에 대해 $h$ 를 단위로 잘라서 노드 포인트를 만들 때, $x_{0} \le x_{1} \le \cdots \le x_{N(h) -1} \le x_{N(h) } \le b$ 라고 하자. 여기서 $N(h)$ 는 $h$ 에 따라 변하는 마지막 노드 포인트의 인덱스를 나타낸다.원래 주어진 초기값 $y_{0} , \cdots , y_{p}$ 에 대해 아주 조금 변화를 준 $z_{0} , \cdots , z_{p}$ 를 생각해보자.메소드가 안정성을 가진다는 것은 충분히 작은 양수 $h $ 와 $\epsilon$ 에 대해 $\displaystyle \max_{0 \le n \le p} | y_{ n}  - z_{n} | \le \epsilon$ 이라고 할 때,  $\displaystyle \max_{0 \le n \le N(h) } | y_{ n}  - z_{n} | \le c \epsilon$ 를 만족시키는 어떤 상수 $C$ 가 $h$ 와 독립적으로 존재한다는 것이다. 초기의 작은 변화가 $h$ 를 조절함에 따라서 큰 변화가 될 수도 있다면 메소드가 안정성을 갖지 않았다고 한다.</p>
 <h2 id="증명">증명</h2>
-<p><a href="http://https://freshrimpsushi.github.io/posts/694">일관성을 가지는 멀티스텝 메소드</a>초기값 문제 $\begin{cases} y' = f(x,y) 
+<p><a href="https://freshrimpsushi.github.io/posts/694">일관성을 가지는 멀티스텝 메소드</a>초기값 문제 $\begin{cases} y' = f(x,y) 
 \\  ( y( x_{0} ) , \cdots , y(x_{p}) ) = (Y_{0}, \cdots , Y_{p} ) \end{cases}$ 에 대해 멀티스텝 메소드
 $$
 \displaystyle y_{n+1} = \sum_{j=0}^{p} a_{j} y_{n-j} + h \sum_{j = -1}^{p} b_{j} f (x_{n-j} , y_{n-j} ) 
@@ -121,8 +124,8 @@ $$
 $$
 z_{n} = c_{0} r_{0}^{n} +  c_{1} r_{1}^{n} + \cdots +  c_{p} r_{p}^{n} 
 $$
-이때 어떤 $0 \le j \le p$ 에 대해 다음의 두 가지 경우를 생각해보자.
-Case 1.**  **(i)** 을 만족하지 않아 $ j$ 에 대해 $|r_{j}| &gt; 1$ 인 경우$z_{0} = 0 + \cdots + c_{j} r_{j}^{0} + \cdots + 0 = \epsilon$ 즉 $c_{i} = \begin{cases} \epsilon &amp; , i = j 
+이때 어떤 $0 \le j \le p$ 에 대해 다음의 두 가지 경우를 생각해보자.</p>
+<p>Case 1.**  **(i)** 을 만족하지 않아 $ j$ 에 대해 $|r_{j}| &gt; 1$ 인 경우$z_{0} = 0 + \cdots + c_{j} r_{j}^{0} + \cdots + 0 = \epsilon$ 즉 $c_{i} = \begin{cases} \epsilon &amp; , i = j 
 \\  0 &amp; , i \ne j \end{cases} $ 이라고 하면
 $$
 z_{0} = c_{j} r_{j}^{0} =  \epsilon
@@ -143,8 +146,8 @@ $$
 $$
 \displaystyle \max_{x_{0} \le x_{n} \le b } | y_{n} - z_{n} | =  c \cdot \epsilon |r_{j}|^{p}
 $$
-를 만족하는 $C&gt;0$ 는 존재할 수 없다. 따라서 메소드는 안정성을 가지지 못하게 된다.
-Case 2.**  **(ii)** 를 만족하지 않아 $ j$ 에 대해 $|r_{j}| = 1 \implies \rho'(r_{j}) = 0$ 인 경우이는 $|r_{j}| = 1$ 이면 $r_{j}$ 이 특성방정식의 중근이라는 의미로, $r_{j}$ 의 중복도 $\nu$ 는 적어도 $2$ 여야한다. 이 경우 제너럴 솔루션은 선형독립인 파티큘러 솔루션 $r_{j}^{n} , n r_{j}^{n} , \cdots , n^{ \nu - 1} r_{j}^{n}$ 들을 포함한 선형결합으로 나타난다. 수식으로 쓰면,
+를 만족하는 $C&gt;0$ 는 존재할 수 없다. 따라서 메소드는 안정성을 가지지 못하게 된다.</p>
+<p>Case 2.**  **(ii)** 를 만족하지 않아 $ j$ 에 대해 $|r_{j}| = 1 \implies \rho'(r_{j}) = 0$ 인 경우이는 $|r_{j}| = 1$ 이면 $r_{j}$ 이 특성방정식의 중근이라는 의미로, $r_{j}$ 의 중복도 $\nu$ 는 적어도 $2$ 여야한다. 이 경우 제너럴 솔루션은 선형독립인 파티큘러 솔루션 $r_{j}^{n} , n r_{j}^{n} , \cdots , n^{ \nu - 1} r_{j}^{n}$ 들을 포함한 선형결합으로 나타난다. 수식으로 쓰면,
 $$
 z_{n} = c_{j_{0}} r_{j}^{n} + c_{j_{1}} n r_{j}^{n} + \dots + c_{j_{\nu-1}} n^{\nu-1} r_{j}^{n} 
 $$
@@ -659,7 +662,7 @@ $$
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1759)</summary>
+    <summary>가나다순 (1757)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -717,7 +720,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (54)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99-%EA%B5%90%EA%B3%BC/" style="color: black">수학 교과 (30)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99-%EA%B5%90%EA%B3%BC/" style="color: black">수학 교과 (29)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">수학미분류 (30)</a>
         </li><li>
@@ -739,7 +742,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/" style="color: black">전자기학 (54)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (73)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (20)</a>
         </li><li>

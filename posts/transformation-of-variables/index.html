@@ -13,8 +13,11 @@
 
     
     <meta name="title" content="회귀분석에서의 변수 변환">
+    <meta property="og:title" content="회귀분석에서의 변수 변환">
     <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-
+    <meta property="og:description" content="국내 최대의 수학, 물리학, 통계학 블로그">
+    <meta property="og:image" content="https://img1.daumcdn.net/thumb/C428x428/?scode=mtistory2&fname=https%3A%2F%2Ftistory1.daumcdn.net%2Ftistory%2F2727491%2Fattach%2Fb9b162014be04dfdb517c893fd13cb98" />
+    
     
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
@@ -77,10 +80,10 @@ margin-right: auto;">
 <br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
 </p>
 
-<a href="https://freshrimpsushi.github.io/posts/938">시계열에서의 변환</a>회귀분석은 기본적으로 변수들간의 <a href="http://https://freshrimpsushi.github.io/posts/666">선형관계</a>를 밝히는 방법이지만, 필요하다면 데이터를 선형으로 &lsquo;펴서&rsquo; 분석할 수 있다.<a href="http://https://freshrimpsushi.github.io/posts/331">내장데이터</a> Pressure 데이터를 불러와보자.<img src="20181214_110640.png#center" alt="20181214\_110640.png">
+<a href="https://freshrimpsushi.github.io/posts/938">시계열에서의 변환</a>회귀분석은 기본적으로 변수들간의 <a href="https://freshrimpsushi.github.io/posts/666">선형관계</a>를 밝히는 방법이지만, 필요하다면 데이터를 선형으로 &lsquo;펴서&rsquo; 분석할 수 있다.<a href="https://freshrimpsushi.github.io/posts/331">내장데이터</a> Pressure 데이터를 불러와보자.<img src="20181214_110640.png#center" alt="20181214\_110640.png">
 <img src="0.png#center" alt="0.png">
 Pressure 데이터는 사실 통계적으로 분석할 필요는 없다.이는 어디까지나 자연현상이기 때문에 실험만큼이나 수학적인 증명이 필요하고, &lsquo;인과관계&rsquo;에 관심이 더 많기 때문이다.그러나 이것을 굳이 회귀분석으로 분석하고 싶을 땐 할 수 있어야 할 것이다.다만 위 데이터에 대한 회귀식 $(\text{pressure}) = \beta_{0 } + \beta_{1 } ( \text{temperature} ) + \varepsilon$ 은 아마 의미가 없을 것이다.해서, 독립변수에 로그를 취한 $\log ( \text{temperature} )$ 와 종속변수에 로그를 취한 $\log (\text{pressure})$ 를 새로운 변수로 사용해보자.이렇게 새로이 만들어지는 회귀식을 $\log (\text{pressure}) = \log {b_{0 }} + {b_{1 }} \log ( \text{temperature} )+ \varepsilon$ 이라고 하자.만약 이 분석이 제대로 됐다면, $\log (\text{pressure}) = \log {b_{0 }} ( \text{temperature} )^{{b_{1 }}}+ \varepsilon$ 이므로 양변의 로그를 풀면 $ (\text{pressure}) = b_{0 } ( \text{temperature} )^{{b_{1 }}} + \varepsilon $ 과 같은 관계식을 유도할 수 있을 것이다. 당연하게도 이러한 식은 <a href="https://freshrimpsushi.github.io/posts/618">실제 물리학에서도 비슷한 모양으로 등장</a>한다.각각의 회귀분석을 실시하고 회귀직선을 그어보면 아래와 같다.<img src="1.png#center" alt="1.png">
-로그를 취했다 푸는 수식적인 조작은 사람의 몫이다.왼쪽은 아무런 핸들링 없이 자료를 분석하려고 했으나 회귀분석이 필요로 하는 조건을 전혀 만족시키지 못해 의미가 없다.오른쪽은 로그스케일을 취한 것인데, 매우 높은 설명력으로 데이터의 추이를 놀랍도록 정확히 나타내주는 것을 확인할 수 있다.물론 엄밀히 말하자면 <a href="http://https://freshrimpsushi.github.io/posts/679">잔차분석</a>에 문제가 있어 완벽한 분석이라곤 할 수 없지만, 이러한 분석으로 충분한 경우도 종종 있다.아래는 예제 코드다.</p>
+로그를 취했다 푸는 수식적인 조작은 사람의 몫이다.왼쪽은 아무런 핸들링 없이 자료를 분석하려고 했으나 회귀분석이 필요로 하는 조건을 전혀 만족시키지 못해 의미가 없다.오른쪽은 로그스케일을 취한 것인데, 매우 높은 설명력으로 데이터의 추이를 놀랍도록 정확히 나타내주는 것을 확인할 수 있다.물론 엄밀히 말하자면 <a href="https://freshrimpsushi.github.io/posts/679">잔차분석</a>에 문제가 있어 완벽한 분석이라곤 할 수 없지만, 이러한 분석으로 충분한 경우도 종종 있다.아래는 예제 코드다.</p>
 <pre><code>pressure; ?pressure
 win.graph(4,4)
 plot(pressure,main='Pressure')
@@ -557,7 +560,7 @@ plot(logpress,logtemp,main='log scale'); abline(out2,col='red')
 <aside>
     <p><b>카테고리</b></p>
 <details open>
-    <summary>가나다순 (1759)</summary>
+    <summary>가나다순 (1757)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/1%EA%B3%842%EA%B3%84-%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">1계·2계 미분 방정식 (14)</a>
         </li><li>
@@ -615,7 +618,7 @@ plot(logpress,logtemp,main='log scale'); abline(out2,col='red')
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (54)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99-%EA%B5%90%EA%B3%BC/" style="color: black">수학 교과 (30)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99-%EA%B5%90%EA%B3%BC/" style="color: black">수학 교과 (29)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">수학미분류 (30)</a>
         </li><li>
@@ -637,7 +640,7 @@ plot(logpress,logtemp,main='log scale'); abline(out2,col='red')
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/" style="color: black">전자기학 (54)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (73)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (20)</a>
         </li><li>
