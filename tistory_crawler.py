@@ -75,9 +75,12 @@ for idx in post_range:
         md = open("categories/" + category + "/_index.md", 'w', encoding='utf-8')
         md.write("---")
         md.write('\ntitle: "' + category + '"')
+        md.write('\ncategories: "' + category + '"')
         md.write('\ncategory_stable: false')
+        md.write('\nidx: 0')
         md.write("\n---\n\n")
-        md.write(category + "에 대해 소개한다.")
+        md.write('\n{{<remaster>}}\n')
+        md.write(category + "에 대한 자동 페이지입니다.")
         md.close()
     else:
         if test: print("카테고리: " + category)
