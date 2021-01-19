@@ -16,7 +16,7 @@ $(document).ready(function () {
         sessionStorage.setItem("last_visit", today);
         $.ajax({
             type: "POST",
-            url: "http://threedo29.cafe24.com/ajax/ajax.visit_count.php",
+            url: "https://huilabean.kr/blog/ajax/ajax.visit_count.php",
             data: {
                 today: today
             },
