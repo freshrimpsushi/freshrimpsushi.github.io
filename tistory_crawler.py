@@ -261,6 +261,7 @@ for idx in post_range:
             md.write('---')
             md.write('\ntitle: "' + title + '"  # 국문 타이틀')
             md.write('\nslug: "' + slug + '"  # 영문 url, 소문자만 사용')
+            md.write('\ndescription: "' + slug.replace("-"," ") + '"')
             md.write('\npublishdate: "' + publishdate + '"')
             md.write('\nauthor: "' + author + '"')
             md.write('\ncategories: "' + category + '"')
