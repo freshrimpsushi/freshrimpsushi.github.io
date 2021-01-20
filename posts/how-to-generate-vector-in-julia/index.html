@@ -93,7 +93,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-generate-vector-in-julia\/",
-    "wordCount" : "857",
+    "wordCount" : "822",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -143,42 +143,81 @@
 </aside>
 
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
+<h2 id="코드">코드</h2>
+<pre><code>julia&gt; x1=[1 2 3]
+1×3 Array{Int64,2}:
+ 1  2  3
 
-<a href="https://freshrimpsushi.github.io/posts/1376">매트랩에서 등간격의 행벡터를 생성하는 방법</a></p>
-<pre><code>
-x1=[1 2 3]
-x2=[1, 2, 3]
-x3=[i for i in 1:3]
-x4=[i for i in 1:3:10]
-x5=[i for i in 1:3:11]
-</code></pre><p>$\mathsf{x1}$은 2차원 배열이다. 생겨먹은건 행벡터와 같기 때문에 성분 좌표를 1개만 입력하면 행벡터인 것 처럼 인식한다.<img src="2019-12-16183711.png#center" alt="2019-12-16183711.png">
-$\mathsf{x2}$, $\mathsf{x3}$, $\mathsf{x4}$, $\mathsf{x5}$는 1차원 배열이다. x=[i for i in n:m]과 같이 입력하면 $n$부터 $m$까지 간격이 $1$인 배열을 반환한다. x=[i for i in n:k:m]과 같이 입력하면 $n$부터 $m$까지 간격이 $k$인 배열을 반환한다. 마지막 성분은 $n+ik$가 $m$보다 작거나 같은 수 중에서 제일 큰 수이다.<img src="2019-12-16184228.png#center" alt="2019-12-16184228.png"></p>
-<pre><code>
-x6=1:3
-x7=1:3:10
-x9=1:3:11
-</code></pre><p>위와 같이 작성하면 실제로 그렇지는 않지만, 사실상 $\mathsf{x3}$, $\mathsf{x4}$, $\mathsf{x5}$와 같은 배열이 생성됐다고 생각하면 된다. 아래 사진에 나타난바와 같이 자료형은 다르지만 위에서 만든 것과 같이 사용할 수 있다.<img src="2019-12-1618;53;03_.png#center" alt="2019-12-1618;53;03\_.png">
- <img src="2019-12-1618;53;24_.png#center" alt="2019-12-1618;53;24\_.png">
-range(n,stop=m,length=k) : 이는 <a href="https://freshrimpsushi.github.io/posts/1376">매트랩</a>에서 lispace(n,m,k)와 정확하게 같다. 구체적인 차이점은 아래의 예제코드와 결과를 통해 알아보자.</p>
-<pre><code>
-x9=range(1,stop=10)
-x10=range(1,length=15)
-x11=range(1,stop=10,length=15)
-x12=range(1,length=15,stop=10)
-</code></pre><p>위 코드도 마찬가지로 실제 자료형은 다르지만 사실상 같은 벡터를 생성한다고 생각하면 된다. 매트랩과는 다르게 두번째, 세번째 변수 중 하나만 입력할 수도 있고 입력하는 순서를 바꿔도 상관없다.<strong>첫번째 줄</strong> 은 첫번째 성분이 $1$, 마지막 성분이 $10$인 벡터를 반환한다. 그 외에는 입력한게 없으므로 성분 사이의 간격은 $1$이다. <strong>두번째 줄</strong> 은 첫 성분이 $1$이고 총 $15$개의 성분을 갖는 벡터를 반환한다. 간격은 자동으로 $1$이고 x=range(1,stop=15)나 x=1:15로 만든 벡터와 같다. <strong>세번째 줄</strong> 은 첫번째 성분이 $1$, 마지막 성분이 $10$이고 총 $15$개의 성분을 가지는 벡터를 반환한다. 따라서 간격은 자동으로 $9/14=0.6428571428571429$이다. 이는 정수가 아니므로 자연스럽게 실수 성분을 가지는 벡터를 반환한다. 또한 x=1.0:0.6428571428571429:10.0로 생성한 것과 같다. <strong>네번째 줄</strong> 은 세번째 줄에서 반환한 벡터와 정확히 같은 벡터를 반환한다.<img src="2019-12-1619;32;15_.png#center" alt="2019-12-1619;32;15\_.png">
-<img src="2019-12-1619;33;19_.png#center" alt="2019-12-1619;33;19\_.png"></p>
+julia&gt; x2=[1, 2, 3]
+3-element Array{Int64,1}:
+ 1
+ 2
+ 3
+
+julia&gt; x3=[i for i in 1:3]
+3-element Array{Int64,1}:
+ 1
+ 2
+ 3
+
+julia&gt; x4=[i for i in 1:3:10]
+4-element Array{Int64,1}:
+  1
+  4
+  7
+ 10
+
+julia&gt; x5=[i for i in 1:3:11]
+4-element Array{Int64,1}:
+  1
+  4
+  7
+ 10
+</code></pre><p><code>x1</code>은 2차원 배열이다. 생겨먹은건 행벡터와 같기 때문에 성분 좌표를 1개만 입력하면 행벡터인 것 처럼 인식한다. <code>x2</code>, <code>x3</code>, <code>x4</code>, <code>x5</code> 는 1차원 배열이다.</p>
+<ul>
+<li><code>x=[i for i in n:m]</code>과 같이 입력하면 $n$부터 $m$까지 간격이 $1$인 배열을 반환한다.</li>
+<li><code>x=[i for i in n:k:m]</code>과 같이 입력하면 $n$부터 $m$까지 간격이 $k$인 배열을 반환한다.</li>
+</ul>
+<p>마지막 성분은 $n+ik$가 $m$보다 작거나 같은 수 중에서 제일 큰 수이다.</p>
+<pre><code>julia&gt; x6=1:3
+1:3
+
+julia&gt; x7=1:3:10
+1:3:10
+
+julia&gt; x9=1:3:11
+1:3:10
+</code></pre><p>위와 같이 작성하면 실제로 그렇지는 않지만, 사실상 <code>x3</code>, <code>x4</code>, <code>x5</code>와 같은 배열이 생성됐다고 생각하면 된다. 아래 사진에 나타난바와 같이 자료형은 다르지만 위에서 만든 것과 같이 사용할 수 있다.</p>
+<ul>
+<li><code>range(n,stop=m,length=k)</code>: 이는 <a href="https://freshrimpsushi.github.io/posts/1376">매트랩</a>에서 lispace(n,m,k)와 정확하게 같다. 구체적인 차이점은 아래의 예제코드와 결과를 통해 알아보자.</li>
+</ul>
+<pre><code>julia&gt; x9=range(1,stop=10)
+1:10
+
+julia&gt; x10=range(1,length=15)
+1:15
+
+julia&gt; x11=range(1,stop=10,length=15)
+1.0:0.6428571428571429:10.0
+
+julia&gt; x12=range(1,length=15,stop=10)
+1.0:0.6428571428571429:10.0
+</code></pre><p>위 코드도 마찬가지로 실제 자료형은 다르지만 사실상 같은 벡터를 생성한다고 생각하면 된다. 매트랩과는 다르게 두번째, 세번째 변수 중 하나만 입력할 수도 있고 입력하는 순서를 바꿔도 상관없다.</p>
+<ol>
+<li><strong>첫번째 줄</strong> 은 첫번째 성분이 $1$, 마지막 성분이 $10$인 벡터를 반환한다. 그 외에는 입력한게 없으므로 성분 사이의 간격은 $1$이다.</li>
+<li><strong>두번째 줄</strong> 은 첫 성분이 $1$이고 총 $15$개의 성분을 갖는 벡터를 반환한다. 간격은 자동으로 $1$이고 <code>x=range(1,stop=15)</code>나 <code>x=1:15</code>로 만든 벡터와 같다.</li>
+<li><strong>세번째 줄</strong> 은 첫번째 성분이 $1$, 마지막 성분이 $10$이고 총 $15$개의 성분을 가지는 벡터를 반환한다. 따라서 간격은 자동으로 $9/14=0.6428571428571429$이다. 이는 정수가 아니므로 자연스럽게 실수 성분을 가지는 벡터를 반환한다. 또한 <code>x=1.0:0.6428571428571429:10.0</code>로 생성한 것과 같다.</li>
+<li><strong>네번째 줄</strong> 은 세번째 줄에서 반환한 벡터와 정확히 같은 벡터를 반환한다.</li>
+</ol>
+<h2 id="타언어">타언어</h2>
+<ul>
+<li><a href="https://freshrimpsushi.github.io/posts/1376">매트랩에서 등간격의 행벡터를 생성하는 방법</a></li>
+</ul>
+<h2 id="환경">환경</h2>
+<ul>
+<li>OS: Windows</li>
+<li>Version: 1.5.0</li>
+</ul>
 
 
 
@@ -253,7 +292,7 @@ x12=range(1,length=15,stop=10)
 
             $.ajax({
                 type: "POST",
-                url: "https:\/\/huilabean.kr\/blog\/ajax/ajax.comment.php?action=wirteComment",
+                url: "https:\/\/huilabean.kr\/blog\/ajax/ajax.comment.php?action=writeComment",
                 data: {
                     board_idx: idx,
                     board_slug: board_slug,
@@ -352,7 +391,7 @@ x12=range(1,length=15,stop=10)
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/>줄리아</a>
     <br><hr>
 <details>
-    <summary>가나다순 (1756)</summary>
+    <summary>가나다순 (1754)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
         </li><li>
@@ -464,7 +503,7 @@ x12=range(1,length=15,stop=10)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">해석학미분류 (28)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (24)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (21)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
         </li><li>

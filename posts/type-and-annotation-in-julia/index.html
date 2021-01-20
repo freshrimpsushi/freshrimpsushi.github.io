@@ -93,7 +93,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/type-and-annotation-in-julia\/",
-    "wordCount" : "461",
+    "wordCount" : "627",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -143,24 +143,121 @@
 </aside>
 
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
+<h2 id="코드">코드</h2>
+<pre><code>julia&gt; typeof(0)
+Int64
 
-<img src="20191012_151742.png#center" alt="20191012\_151742.png">
-줄리아에는 온갖 타입들이 구현되어있다. $0$ 과 $0.0$ 은 같은 $0$ 이지만 다른 타입을 가지며, 보다시피 타입인 Bool조차 DataType이라는 타입을 갖는다. C 언어처럼 String은 Char의 배열이며, 위와 같이 큰 따옴표인가 작은 따옴표인가로 구분된다.<img src="20191012_151757.png#center" alt="20191012\_151757.png">
-위와 같이 supertype() 함수를 사용하면 타입의 상위 타입을 확인할 수 있다. 모든 타입은 Any 타입의 하위 타입이다. Any는 말그대로 모든 것을 포괄하기 때문에 편리하고 생산성이 높다.<img src="20191012_152157.png#center" alt="20191012\_152157.png">
-Any로 만들어진 배열은 값이 대입이나 조작이 간단하게 이루어지지만, 정수의 배열로 정해진 경우엔 불가능하다. 줄리아는 <a href="https://freshrimpsushi.github.io/posts/1364">강한 타입</a> 언어로써, 이렇게 추론할 타입을 줌으로써 성능을 향상시키고 버그의 발생을 원천봉쇄 할 수 있다. 타입을 제한하는 것을 <strong>애노테이션</strong> 이라고 하며, 우선 프로그램이 구현되는지 확인한 뒤에는 반드시 최적화를 해주는 게 좋다. 보통 <a href="https://freshrimpsushi.github.io/posts/1374">줄리아를 사용하는 가장 큰 이유</a>는 속도기 때문이다.<img src="20191012_152215.png#center" alt="20191012\_152215.png">
-위와 같이 ::를 써서 변수가 구체적으로 무엇인지 알려주면 타입이 맞지 않을 때 에러를 내준다. 이렇게 애노테이션이 되어 있어서 타입을 체크하지 않아도 된다면 당연히 성능이 개선된다.</p>
+julia&gt; typeof(0.0)
+Float64
+
+julia&gt; typeof(0 == 0.0)
+Bool
+
+julia&gt; typeof(Bool)
+DataType
+
+julia&gt; typeof(NaN)
+Float64
+
+julia&gt; typeof(Inf)
+Float64
+
+julia&gt; typeof('O')
+Char
+
+julia&gt; typeof(&quot;Ohmygirl&quot;)
+String
+
+julia&gt; typeof(&quot;O&quot;)
+String
+</code></pre><p>줄리아에는 온갖 타입들이 구현되어있다. $0$ 과 $0.0$ 은 같은 $0$ 이지만 다른 타입을 가지며, 보다시피 타입인 <code>Bool</code>조차 <code>DataType</code>이라는 타입을 갖는다. C 언어처럼 <code>String</code>은 <code>Char</code>의 배열이며, 위와 같이 큰 따옴표인가 작은 따옴표인가로 구분된다.</p>
+<pre><code>julia&gt; supertype(Int64)
+Signed
+
+julia&gt; supertype(Signed)
+Integer
+
+julia&gt; supertype(Integer)
+Real
+
+julia&gt; supertype(Real)
+Number
+
+julia&gt; supertype(Number)
+Any
+
+julia&gt; supertype(Any)
+Any
+</code></pre><p>위와 같이 <code>supertype()</code> 함수를 사용하면 타입의 상위 타입을 확인할 수 있다. 모든 타입은 <code>Any</code> 타입의 하위 타입이다. <code>Any</code>는 말그대로 모든 것을 포괄하기 때문에 편리하고 생산성이 높다.</p>
+<pre><code>julia&gt; x = [&quot;o&quot;, -1, [7,'m'],3.0]
+4-element Array{Any,1}:
+   &quot;o&quot;
+ -1
+   Any[7, 'm']
+  3.0
+
+julia&gt; typeof(x)
+Array{Any,1}
+
+julia&gt; x[2] = 1.2
+1.2
+
+julia&gt; typeof(x)
+Array{Any,1}
+
+julia&gt; y = [0,1,1]
+3-element Array{Int64,1}:
+ 0
+ 1
+ 1
+
+julia&gt; typeof(y)
+Array{Int64,1}
+
+julia&gt; y[2] = 1.2
+ERROR: InexactError: Int64(1.2)
+Stacktrace:
+ [1] Int64 at .\float.jl:710 [inlined]
+ [2] convert at .\number.jl:7 [inlined]
+ [3] setindex!(::Array{Int64,1}, ::Float64, ::Int64) at .\array.jl:847
+ [4] top-level scope at REPL[39]:1
+
+julia&gt; typeof(y)
+Array{Int64,1}
+</code></pre><p><code>Any</code>로 만들어진 배열은 값이 대입이나 조작이 간단하게 이루어지지만, 정수의 배열로 정해진 경우엔 불가능하다. 줄리아는 <a href="https://freshrimpsushi.github.io/posts/1364">강한 타입</a> 언어로써, 이렇게 추론할 타입을 줌으로써 성능을 향상시키고 버그의 발생을 원천봉쇄 할 수 있다. 타입을 제한하는 것을 <strong>애노테이션</strong> 이라고 하며, 우선 프로그램이 구현되는지 확인한 뒤에는 반드시 최적화를 해주는 게 좋다. 보통 <a href="https://freshrimpsushi.github.io/posts/1374">줄리아를 사용하는 가장 큰 이유</a>는 속도기 때문이다.</p>
+<pre><code>julia&gt; function add1(a,b)
+           return a+b
+       end
+add1 (generic function with 1 method)
+
+julia&gt; add1(1,2)
+3
+
+julia&gt; add(1,2.0)
+ERROR: UndefVarError: add not defined
+Stacktrace:
+ [1] top-level scope at REPL[43]:1
+
+julia&gt; function add2(a::Int64, b::Float64)
+           return a+b
+       end
+add2 (generic function with 1 method)
+
+julia&gt; add2(1,2)
+ERROR: MethodError: no method matching add2(::Int64, ::Int64)
+Closest candidates are:
+  add2(::Int64, ::Float64) at REPL[44]:1
+Stacktrace:
+ [1] top-level scope at REPL[45]:1
+
+julia&gt; add2(1,2.0)
+3.0
+</code></pre><p>위와 같이 <code>::</code>를 써서 변수가 구체적으로 무엇인지 알려주면 타입이 맞지 않을 때 에러를 내준다. 이렇게 애노테이션이 되어 있어서 타입을 체크하지 않아도 된다면 당연히 성능이 개선된다.</p>
+<h2 id="환경">환경</h2>
+<ul>
+<li>OS: Windows</li>
+<li>Version: 1.5.0</li>
+</ul>
 
 
 
@@ -235,7 +332,7 @@ Any로 만들어진 배열은 값이 대입이나 조작이 간단하게 이루�
 
             $.ajax({
                 type: "POST",
-                url: "https:\/\/huilabean.kr\/blog\/ajax/ajax.comment.php?action=wirteComment",
+                url: "https:\/\/huilabean.kr\/blog\/ajax/ajax.comment.php?action=writeComment",
                 data: {
                     board_idx: idx,
                     board_slug: board_slug,
@@ -334,7 +431,7 @@ Any로 만들어진 배열은 값이 대입이나 조작이 간단하게 이루�
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/>줄리아</a>
     <br><hr>
 <details>
-    <summary>가나다순 (1756)</summary>
+    <summary>가나다순 (1754)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
         </li><li>
@@ -446,7 +543,7 @@ Any로 만들어진 배열은 값이 대입이나 조작이 간단하게 이루�
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">해석학미분류 (28)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (24)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (21)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
         </li><li>
@@ -543,6 +640,10 @@ Any로 만들어진 배열은 값이 대입이나 조작이 간단하게 이루�
 </script> 
 
     
+    
+        <link rel="stylesheet" href= https://freshrimpsushi.github.io/css/atom-one-light.css>
+        <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
+        <script>hljs.initHighlightingOnLoad();</script>
     
     
     </aside>
