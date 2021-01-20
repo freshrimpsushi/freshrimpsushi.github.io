@@ -29,6 +29,15 @@
     <script type="text/javascript" src=https://freshrimpsushi.github.io/js/jquery-3.5.1.min.js></script>
 
     
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LL3N8K0VGR"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-LL3N8K0VGR');
+    </script>
+
+    
 <meta name="title" content="열역학 제1법칙">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
 <meta property="og:title" content="열역학 제1법칙"/>
@@ -160,328 +169,155 @@ margin-right: auto;">
 
 
             
+<div style="margin-bottom: 10px;">댓글</div>
+<div class="area-reply">
+    <ul class="list-reply">
 
-     <div style="margin-bottom: 10px;">댓글</div>
-     <div class="area-reply">
-         <ul class="list-reply">
-             
-         </ul>
-     </div>
-     <hr>
-     
-     
-     
-     <div class="area-write">
-         <div class="box-account">
-             <input type="text" name="name" value="" title="이름" placeholder="이름"
-                    style="display: block;
-                           width: calc(48% - 42px);
-                           padding: 11px 20px 11px 20px;
-                           border: 1px solid #e8e8e8;
-                           font-size: 13px;
-                           color: #999;
-                           box-sizing: inherit;
-                           float: left;">
-             <input type="password" name="password" value="" title="비밀번호" maxlength="12" placeholder="비밀번호"
-                    style="display: block;
-                           width: calc(48% - 42px);
-                           padding: 11px 20px 11px 20px;
-                           border: 1px solid #e8e8e8;
-                           font-size: 13px;
-                           color: #999;
-                           box-sizing: inherit;
-                           float: right;">
-             <input type="hidden" name="cmt_idx">
-         </div>
-     
-         <div class="box-textarea">
-             <textarea id="comment" name="comment"
-                       placeholder="현재 댓글 기능에 문제가 있습니다. 잠시 기다려주세요."
-                       style="width: calc(100% - 44px);height: 122px;padding: 21px 21px 19px 19px;box-sizing: inherit;border: 1px solid #e8e8e8;font-size: 13px;color: #999;"
-                       required></textarea>
-         </div>
-     
-         <div class="box-write">
-             <input type="submit" name="submit" class="btn_register"
-                    value="등록"
-                    style="width: 68px; 
-                           height: 30px; 
-                           background: #000; 
-                           border: none; 
-                           font-size: 13px; 
-                           color: #fff; 
-                           cursor: pointer; 
-                           border-radius: 30px;">
-         </div>
-     </div>
-     
-     
-     <script type="text/javascript">
-         
+    </ul>
+</div>
+<hr>
 
-         function open_modal(data) {
-             $(".modal-box-account input[name=cmt_idx]").val(data);
-             $('#dialog').dialog('open');
-         }
-         
-         
 
-         function update_comment(data) {
-             $(".modal2-box-account input[name=cmt_idx]").val(data);
-             $('#dialog2').dialog('open');
-             $(function() {
-                 $.ajax({
-                     type: "POST",
-                     url: "https:\/\/huilabean.kr\/blog\/ajax/ajax.comment.php?action=getSingleComment",
-                     data: {
-                         cmt_idx: data
-                     },
-                     dataType: "json",
-                     success: function(data) {
-                         var rows = data['rows'];
-                         $('.modal2-box-account input[name=name]').val(rows[0]['author']);
-                         $('textarea#modal2-comment').val(rows[0]['content']);
-                     },
-                     error: function(xhr, status, error) {
-                         console.log(error);
-                     }
-                 });
-             });
-         }
-         
-         
 
-         function delete_comment(data) {
-             $(".modal3-box-account input[name=cmt_idx]").val(data);
-             $('#dialog3').dialog('open');
-         }
-     
-         $(document).ready(function () {
-             
-             $('#dialog').dialog({
-                 autoOpen: false,
-                 resizable: false,
-                 maxWidth: 600,
-                 width: 600,
-                 modal: false
-             });
-             
-             $('#dialog2').dialog({
-                 autoOpen: false,
-                 resizable: false,
-                 maxWidth: 600,
-                 width: 600,
-                 modal: false
-             });
-             
-             $('#dialog3').dialog({
-                 autoOpen: false,
-                 resizable: false,
-                 maxWidth: 600,
-                 width: 600,
-                 modal: false
-             });
-             
-             
+<div class="area-write">
+    <div class="box-account">
+        <input type="text" name="name" value="" title="이름" placeholder="이름"
+            style="display: block;
+                    width: calc(48% - 42px);
+                    padding: 11px 20px 11px 20px;
+                    border: 1px solid #e8e8e8;
+                    font-size: 13px;
+                    color: #999;
+                    box-sizing: inherit;
+                    float: left;">
+        <input type="password" name="password" value="" title="비밀번호" maxlength="12" placeholder="비밀번호"
+            style="display: block;
+                    width: calc(48% - 42px);
+                    padding: 11px 20px 11px 20px;
+                    border: 1px solid #e8e8e8;
+                    font-size: 13px;
+                    color: #999;
+                    box-sizing: inherit;
+                    float: right;">
+        <input type="hidden" name="cmt_idx">
+    </div>
 
-             $(".btn_register").on('click', function() {
-                 var name = $('.box-account input[name=name]').val();
-                 var password = $('.box-account input[name=password]').val();
-                 var content = $('textarea#comment').val();
-                 if(name == "" || password == "" || content == "")
-                 {
-                     alert('빈칸을 채워주세요');
-                     return;
-                 }
-                 var idx =  629 ;
-                 var board_slug = "the-first-law-of-thermodynamics";
-                 $.ajax({
-                     type: "POST",
-                     url: "https:\/\/huilabean.kr\/blog\/ajax/ajax.comment.php?action=wirteComment",
-                     data: {
-                         board_idx: idx,
-                         board_slug: board_slug,
-                         name: name,
-                         password: password,
-                         content: content
-                     },
-                     dataType: "json",
-                     success: function(data) {
-                         location.reload();
-                     },
-                     error: function(xhr, status, error) {
-                         console.log(error);
-                     }
-                 });
-             });
-             
-             
+    <div class="box-textarea">
+        <textarea id="comment" name="comment" placeholder="현재 댓글 기능에 문제가 있습니다. 잠시 기다려주세요."
+            style="width: calc(100% - 44px);height: 122px;padding: 21px 21px 19px 19px;box-sizing: inherit;border: 1px solid #e8e8e8;font-size: 13px;color: #999;"
+            required></textarea>
+    </div>
 
-             $(".modal-btn_register").on('click', function() {
-                 var cmt_idx = $('.modal-box-account input[name=cmt_idx]').val();
-                 var name = $('.modal-box-account input[name=name]').val();
-                 var password = $('.modal-box-account input[name=password]').val();
-                 var content = $('.modal-box-textarea textarea#modal-comment').val();
-                 if(name == "" || password == "" || content == "")
-                 {
-                     alert('빈칸을 채워주세요');
-                     return;
-                 }
-                 var idx =  629 ;
-                 var board_slug = "the-first-law-of-thermodynamics";
-                 $.ajax({
-                     type: "POST",
-                     url: "https:\/\/huilabean.kr\/blog\/ajax/ajax.comment.php?action=wirteReComment",
-                     data: {
-                         cmt_idx: cmt_idx,
-                         board_idx: idx,
-                         board_slug: board_slug,
-                         name: name,
-                         password: password,
-                         content: content
-                     },
-                     dataType: "json",
-                     success: function(data) {
-                         location.reload();
-                     },
-                     error: function(xhr, status, error) {
-                         console.log(error);
-                     }
-                 });
-             });
-             
-             
+    <div class="box-write">
+        <input type="submit" name="submit" class="btn_register" value="등록"
+            style="width: 68px; 
+                    height: 30px; 
+                    background: #000; 
+                    border: none; 
+                    font-size: 13px; 
+                    color: #fff; 
+                    cursor: pointer; 
+                    border-radius: 30px;">
+    </div>
+</div>
 
-             $(".modal2-btn_register").on('click', function() {
-                 var cmt_idx = $('.modal2-box-account input[name=cmt_idx]').val();
-                 var name = $('.modal2-box-account input[name=name]').val();
-                 var password = $('.modal2-box-account input[name=password]').val();
-                 var content = $('.modal2-box-textarea textarea#modal2-comment').val();
-                 $.ajax({
-                     type: "POST",
-                     url: "https:\/\/huilabean.kr\/blog\/ajax/ajax.comment.php?action=updateComment",
-                     data: {
-                         cmt_idx: cmt_idx,
-                         name: name,
-                         password: password,
-                         content: content
-                     },
-                     dataType: "json",
-                     success: function(data) {
-                         var msg = data['msg'];
-                         if(msg)
-                         {
-                             location.reload();
-                         }
-                         else
-                         {
-                             alert('암호가 올바르지 않습니다.');
-                         }
-                     },
-                     error: function(xhr, status, error) {
-                         console.log(error);
-                     }
-                 });
-             });
-             
-             
 
-             $(".modal3-btn_register").on('click', function() {
-                 var cmt_idx = $('.modal3-box-account input[name=cmt_idx]').val();
-                 var password = $('.modal3-box-account input[name=password]').val();
-                 if(password == "")
-                 {
-                     alert('암호를 입력해주세요');
-                     return;
-                 }
-                 $.ajax({
-                     type: "POST",
-                     url: "https:\/\/huilabean.kr\/blog\/ajax/ajax.comment.php?action=deleteComment",
-                     data: {
-                         cmt_idx: cmt_idx,
-                         password: password
-                     },
-                     dataType: "json",
-                     success: function(data) {
-                         var msg = data['msg'];
-                         if(msg)
-                         {
-                             location.reload();
-                         }
-                         else
-                         {
-                             alert('암호가 올바르지 않습니다.');
-                         }
-                     },
-                     error: function(xhr, status, error) {
-                         console.log(error);
-                     }
-                 });
-             });
-             
-             
+<script type="text/javascript">
+    $(document).ready(function() {
+        
 
-             $.ajax({
-                 type: "POST",
-                 url: "https:\/\/huilabean.kr\/blog\/ajax/ajax.comment.php?action=getComment",
-                 data: {
-                     board_idx: '629'
-                 },
-                 dataType: "json",
-                 success: function(data) {
-                     var rows = data['rows'];
-                     var ul_list = $('.list-reply');
-                     var str = "";
-                      
-                     for(var i = 0; i < rows.length; i++) {
-                         str += "<li id='comment"+rows[i]['cmt_idx']+"' class='parents'>";
-                         str += "<div class='box-content'>";
-                         str += "<div class='box-meta'>";
-                         str += "<strong>"+rows[i]['author']+"</strong>";
-                         str += "<span class='date'>"+rows[i]['datetime']+"</span>";
-                         str += "<div>";
-                         str += "<span onclick='update_comment("+rows[i]['cmt_idx']+")'>수정</span>";
-                         str += "<span onclick='delete_comment("+rows[i]['cmt_idx']+")'>삭제</span>";
-                         str += "</div>";
-                         str += "</div>";
-                         str += "<p class='text'>"+rows[i]['content']+"</p>";
-                         str += "<p class='test11' style='cursor: pointer;' onclick='open_modal("+rows[i]['cmt_idx']+")'>답글</p>";
-                         str += "</div>";
-                         str += "</li>";
-                         str += "<hr>";
-                         ul_list.append(str);
-                         str = "";
-                          
-                         for(var j = 0; j < rows[i]['child'].length; j++)
-                         {
-                             str += "<li id='comment"+rows[i]['cmt_idx']+"' class='child' style='padding-left:50px;'>";
-                             str += "<div class='box-content'>";
-                             str += "<div class='box-meta'>";
-                             str += "<strong>"+rows[i]['child'][j]['author']+"</strong>";
-                             str += "<span class='date'>"+rows[i]['child'][j]['datetime']+"</span>";
-                             str += "<div>";
-                             str += "<span onclick='update_comment("+rows[i]['child'][j]['cmt_idx']+")'>수정</span>";
-                             str += "<span onclick='delete_comment("+rows[i]['child'][j]['cmt_idx']+")'>삭제</span>";
-                             str += "</div>";
-                             str += "</div>";
-                             str += "<p class='text'>"+rows[i]['child'][j]['content']+"</p>";
-                             str += "</div>";
-                             str += "</li>";
-                             if(j == rows[i]['child'].length - 1)
-                             {
-                                 str += "<hr>";
-                             }
-                             ul_list.append(str);
-                             str = "";
-                         }
-                     }
-                 },
-                 error: function(xhr, status, error) {
-                     console.log(error);
-                 }
-             });
-         });
-     </script>
+        $(".btn_register").on("click", function() {
+            let name = $('.box-account input[name=name]').val();
+            let password = $('.box-account input[name=password]').val();
+            let content = $('textarea#comment').val();
+            if (name == "" || password == "" || content == "") {
+                alert('빈칸을 채워주세요');
+                return;
+            }
+            let idx = '629';
+            let board_slug = 'the-first-law-of-thermodynamics';
+
+            $.ajax({
+                type: "POST",
+                url: "https:\/\/huilabean.kr\/blog\/ajax/ajax.comment.php?action=wirteComment",
+                data: {
+                    board_idx: idx,
+                    board_slug: board_slug,
+                    name: name,
+                    password: password,
+                    content: content
+                },
+                dataType: "json",
+                success: function (data) {
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        });
+
+        
+
+        $.ajax({
+            type: "POST",
+            url: "https:\/\/huilabean.kr\/blog\/ajax/ajax.comment.php?action=getComment",
+            data: {
+                board_idx: '629'
+            },
+            dataType: "json",
+            success: function (data) {
+                var rows = data['rows'];
+                var ul_list = $('.list-reply');
+                var str = "";
+                 
+                for (var i = 0; i < rows.length; i++) {
+                    str += "<li id='comment" + rows[i]['cmt_idx'] + "' class='parents'>";
+                    str += "<div class='box-content'>";
+                    str += "<div class='box-meta'>";
+                    str += "<strong>" + rows[i]['author'] + "</strong>";
+                    str += "<span class='date'>" + rows[i]['datetime'] + "</span>";
+                    
+                    
+                    
+                    
+                    str += "</div>";
+                    str += "<p class='text'>" + rows[i]['content'] + "</p>";
+                    
+                    str += "</div>";
+                    str += "</li>";
+                    str += "<hr>";
+                    ul_list.append(str);
+                    str = "";
+                     
+                    for (var j = 0; j < rows[i]['child'].length; j++) {
+                        str += "<li id='comment" + rows[i]['cmt_idx'] + "' class='child' style='padding-left:50px;'>";
+                        str += "<div class='box-content'>";
+                        str += "<div class='box-meta'>";
+                        str += "<strong>" + rows[i]['child'][j]['author'] + "</strong>";
+                        str += "<span class='date'>" + rows[i]['child'][j]['datetime'] + "</span>";
+                        
+                        
+                        
+                        
+                        str += "</div>";
+                        str += "<p class='text'>" + rows[i]['child'][j]['content'] + "</p>";
+                        str += "</div>";
+                        str += "</li>";
+                        if (j == rows[i]['child'].length - 1) {
+                            str += "<hr>";
+                        }
+                        ul_list.append(str);
+                        str = "";
+                    }
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+    });
+</script>
             </div>
 
             <div class = "sidebar">
@@ -713,7 +549,5 @@ margin-right: auto;">
     
     </aside>
 </footer>
-
-<script type="text/javascript" src=https://freshrimpsushi.github.io/js/visit_count.js></script>
 </html>
 <!DOCTYPE html>
