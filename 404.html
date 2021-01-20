@@ -83,148 +83,51 @@
          </ul>
      </div>
      <hr>
-     
-     
+    
+    <div class="area-write">
+        <div class="box-account">
+            <input type="text" name="name" value="" title="이름" placeholder="이름"
+                style="display: block;
+                        width: calc(48% - 42px);
+                        padding: 11px 20px 11px 20px;
+                        border: 1px solid #e8e8e8;
+                        font-size: 13px;
+                        color: #999;
+                        box-sizing: inherit;
+                        float: left;">
+            <input type="password" name="password" value="" title="비밀번호" maxlength="12" placeholder="비밀번호"
+                style="display: block;
+                        width: calc(48% - 42px);
+                        padding: 11px 20px 11px 20px;
+                        border: 1px solid #e8e8e8;
+                        font-size: 13px;
+                        color: #999;
+                        box-sizing: inherit;
+                        float: right;">
+            <input type="hidden" name="cmt_idx">
+        </div>
 
-<div class="area-write">
-    <div class="box-account">
-        <input type="text" name="name" value="" title="이름" placeholder="이름"
-            style="display: block;
-                    width: calc(48% - 42px);
-                    padding: 11px 20px 11px 20px;
-                    border: 1px solid #e8e8e8;
-                    font-size: 13px;
-                    color: #999;
-                    box-sizing: inherit;
-                    float: left;">
-        <input type="password" name="password" value="" title="비밀번호" maxlength="12" placeholder="비밀번호"
-            style="display: block;
-                    width: calc(48% - 42px);
-                    padding: 11px 20px 11px 20px;
-                    border: 1px solid #e8e8e8;
-                    font-size: 13px;
-                    color: #999;
-                    box-sizing: inherit;
-                    float: right;">
-        <input type="hidden" name="cmt_idx">
+        <div class="box-textarea">
+            <textarea id="comment" name="comment" placeholder="문제가 있었던 링크를 알려주세요."
+                style="width: calc(100% - 44px);height: 122px;padding: 21px 21px 19px 19px;box-sizing: inherit;border: 1px solid #e8e8e8;font-size: 13px;color: #999; resize: none;"
+                required></textarea>
+        </div>
+
+        <div class="box-write">
+            <input type="submit" name="submit" class="btn_register" value="등록"
+                style="width: 68px; 
+                        height: 30px; 
+                        background: #000; 
+                        border: none; 
+                        font-size: 13px; 
+                        color: #fff; 
+                        cursor: pointer; 
+                        border-radius: 30px;">
+        </div>
     </div>
 
-    <div class="box-textarea">
-        <textarea id="comment" name="comment" placeholder="현재 댓글 기능에 문제가 있습니다. 잠시 기다려주세요."
-            style="width: calc(100% - 44px);height: 122px;padding: 21px 21px 19px 19px;box-sizing: inherit;border: 1px solid #e8e8e8;font-size: 13px;color: #999; resize: none;"
-            required></textarea>
-    </div>
-
-    <div class="box-write">
-        <input type="submit" name="submit" class="btn_register" value="등록"
-            style="width: 68px; 
-                    height: 30px; 
-                    background: #000; 
-                    border: none; 
-                    font-size: 13px; 
-                    color: #fff; 
-                    cursor: pointer; 
-                    border-radius: 30px;">
-    </div>
-</div>
 
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        
-
-        $(".btn_register").on("click", function() {
-            let name = $('.box-account input[name=name]').val();
-            let password = $('.box-account input[name=password]').val();
-            let content = $('textarea#comment').val();
-            if (name == "" || password == "" || content == "") {
-                alert('빈칸을 채워주세요');
-                return;
-            }
-            let idx = '-404';
-            let board_slug = '';
-
-            $.ajax({
-                type: "POST",
-                url: "https:\/\/huilabean.kr\/blog\/ajax/ajax.comment.php?action=writeComment",
-                data: {
-                    board_idx: idx,
-                    board_slug: board_slug,
-                    name: name,
-                    password: password,
-                    content: content
-                },
-                dataType: "json",
-                success: function (data) {
-                    location.reload();
-                },
-                error: function (xhr, status, error) {
-                    console.log(error);
-                }
-            });
-        });
-
-        
-
-        $.ajax({
-            type: "POST",
-            url: "https:\/\/huilabean.kr\/blog\/ajax/ajax.comment.php?action=getComment",
-            data: {
-                board_idx: '-404'
-            },
-            dataType: "json",
-            success: function (data) {
-                var rows = data['rows'];
-                var ul_list = $('.list-reply');
-                var str = "";
-                 
-                for (var i = 0; i < rows.length; i++) {
-                    str += "<li id='comment" + rows[i]['cmt_idx'] + "' class='parents'>";
-                    str += "<div class='box-content'>";
-                    str += "<div class='box-meta'>";
-                    str += "<strong>" + rows[i]['author'] + "</strong>";
-                    str += "<span class='date'>" + rows[i]['datetime'] + "</span>";
-                    
-                    
-                    
-                    
-                    str += "</div>";
-                    str += "<p class='text'>" + rows[i]['content'] + "</p>";
-                    
-                    str += "</div>";
-                    str += "</li>";
-                    str += "<hr>";
-                    ul_list.append(str);
-                    str = "";
-                     
-                    for (var j = 0; j < rows[i]['child'].length; j++) {
-                        str += "<li id='comment" + rows[i]['cmt_idx'] + "' class='child' style='padding-left:50px;'>";
-                        str += "<div class='box-content'>";
-                        str += "<div class='box-meta'>";
-                        str += "<strong>" + rows[i]['child'][j]['author'] + "</strong>";
-                        str += "<span class='date'>" + rows[i]['child'][j]['datetime'] + "</span>";
-                        
-                        
-                        
-                        
-                        str += "</div>";
-                        str += "<p class='text'>" + rows[i]['child'][j]['content'] + "</p>";
-                        str += "</div>";
-                        str += "</li>";
-                        if (j == rows[i]['child'].length - 1) {
-                            str += "<hr>";
-                        }
-                        ul_list.append(str);
-                        str = "";
-                    }
-                }
-            },
-            error: function (xhr, status, error) {
-                console.log(error);
-            }
-        });
-    });
-</script>
     </main>
 
             
