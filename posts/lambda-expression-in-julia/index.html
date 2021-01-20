@@ -38,9 +38,9 @@
     </script>
 
     
-<meta name="title" content="줄리아의 람다식">
+<meta name="title" content="줄리아에서의 람다식">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="줄리아의 람다식"/>
+<meta property="og:title" content="줄리아에서의 람다식"/>
 <meta property="og:description" content="lambda expression in julia"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
@@ -53,8 +53,8 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "r_",
-    "name": "줄리아의 람다식",
-    "headline": "줄리아의 람다식",
+    "name": "줄리아에서의 람다식",
+    "headline": "줄리아에서의 람다식",
     "alternativeHeadline": "",
     "description": "lambda expression in julia",
     "inLanguage": "ko",
@@ -93,14 +93,14 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/lambda-expression-in-julia\/",
-    "wordCount" : "857",
+    "wordCount" : "872",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>줄리아의 람다식</title>
+    <title>줄리아에서의 람다식</title>
 
 </head>
 
@@ -124,9 +124,9 @@
             <div class = "content">
             
 
-<title>줄리아의 람다식</title>
+<title>줄리아에서의 람다식</title>
 
-<h1>줄리아의 람다식</h1>
+<h1>줄리아에서의 람다식</h1>
 <aside>
     <p style="text-align: right;">
         1448
@@ -143,42 +143,74 @@
 </aside>
 
 
-<h2 id="heading"></h2>
-<p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-<pre><code>
-(x -&gt; 3x^2 - 2x + 3)(1)
-
-# Example 1
-example = rand(-20:20,10)
-sort(example, by=(x -&gt; abs(x)))
-
-# Example 2
-example = rand(1:3,10); println(example)
-uexample = sort(unique(example))
-counts = map(x-&gt;count(y-&gt;x==y,example),uexample)
-</code></pre><p><img src="20191214_181153.png#center" alt="20191214\_181153.png">
-줄리아에서 람다식은 위와 같이 정의된다. 이는 익명함수 $\lambda : \mathbb{Z} \to \mathbb{Z}$ 를 다음과 같이 정의하고, 거기에 $1$ 을 대입해서 $4$ 라는 함수값을 얻은 것에 해당한다.
+<h2 id="개요">개요</h2>
+<p>줄리아에서 람다식은 다음과 같이 정의된다.</p>
+<pre><code>(x -&gt; 3x^2 - 2x + 3)(1)
+</code></pre><p>이는 익명함수 $\lambda : \mathbb{Z} \to \mathbb{Z}$ 를 다음과 같이 정의하고, 거기에 $1$ 을 대입해서 $4$ 라는 함수값을 얻은 것에 해당한다.
 $$
  \lambda : x \mapsto ( 3 x^{2} - 2 x + 3 ) 
 \\  \lambda(1) = 4
 $$
-사실 람다식 자체는 줄리아의 특징이 아니라 매트랩과 파이썬을 비롯해 <a href="https://freshrimpsushi.github.io/posts/1361">함수형 언어</a>에 영향을 받았다면 거의 당연하게 지원하고, 줄리아에 관심을 가지는 학습자의 수준이라면 이미 람다식을 써본 경험이 많을지도 모른다. 그러나 이제까지 써왔던 &lsquo;그것&rsquo;이 람다식인지 모르거나, 진정한 활용가치를 아직 모르는 독자를 위해 특히 바로 적용할 수 있을법한 예제 두개를 소개해본다 :</p>
-<p><strong>(1) 리스트를 다른 척도로 정렬</strong>  : 리스트를 정렬하는거야 내장 함수로 아주 간단하게 할 수 있으나, 2차원 이상의 배열에서 카테고리별로 우선도를 정해서 소팅하거나 원래의 데이터를 다른 기준으로 정렬하고 싶을 수 있다. 그럴 땐 sort() 함수의 by 옵션에다 해당 함수를 람다식으로 넣음으로써 간단하게 코드를 작성할 수 있다.<img src="20191214_181221.png#center" alt="20191214\_181221.png">
-위의 작업은 무작위로 뽑힌 정수들을 절대값이 작은 것부터 큰 것을 기준으로 정렬하는 것을 나타낸다. 람다식이 없어도 불가능하지는 않지만, 생각보다 간단하지는 않다. 여기서 주어진 람다식 (x -&gt; abs(x))을 잘 바꾸면 코더가 원하는 코드를 쉽게 작성할 수 있을 것이다.<strong>(1-1)</strong>  value라는 딕셔너리가 다음과 같이 만들어져있다고 하자.<img src="20191230_121624.png#center" alt="20191230\_121624.png">
-이 때 딕셔너리의 밸류 크기 순으로 정렬하는 코드는 람다식을 이용해sort(value,by=(x -&gt; value[x]))와 같이 간단하게 짤 수 있고, 그 실행 결과는 다음과 같다.<img src="20191230_121638.png#center" alt="20191230\_121638.png"></p>
-<p><strong>(2) 리스트의 빈도 계산</strong>  : R처럼 데이터를 최우선으로 여기는 언어에서는 아예 내장함수로 만들어놓지만, 이 빈도 계산이라는 게 생각만큼 간단하지는 않다. 알고리즘이라고 부를만큼 복잡한 일은 아니지만 막상 짜보면 꽤 손이 많이 간다. 이 역시 람다 함수를 이용해 쉽게 해결할 수 있다.<img src="20191214_181252.png#center" alt="20191214\_181252.png">
-위의 작업은 무작위로 뽑힌 정수들의 빈도를 센 것이다. unique()로 데이터의 계급을 파악한 후 각 계급에 해당하는 원소를 카운트하는 식으로 간단히 문제를 해결했다.</p>
+사실 람다식 자체는 줄리아의 특징이 아니라 매트랩과 파이썬을 비롯해 <a href="https://freshrimpsushi.github.io/posts/1361">함수형 언어</a>에 영향을 받았다면 거의 당연하게 지원하고, 줄리아에 관심을 가지는 학습자의 수준이라면 이미 람다식을 써본 경험이 많을지도 모른다. 그러나 이제까지 써왔던 &lsquo;그것&rsquo;이 람다식인지 모르거나, 진정한 활용가치를 아직 모르는 독자를 위해 특히 바로 적용할 수 있을법한 예제 두개를 소개해본다.</p>
+<h3 id="예제-1-리스트를-다른-척도로-정렬">예제 1: 리스트를 다른 척도로 정렬</h3>
+<p>리스트를 정렬하는거야 내장 함수로 아주 간단하게 할 수 있으나, 2차원 이상의 배열에서 카테고리별로 우선도를 정해서 소팅하거나 원래의 데이터를 다른 기준으로 정렬하고 싶을 수 있다. 그럴 땐 sort() 함수의 by 옵션에다 해당 함수를 람다식으로 넣음으로써 간단하게 코드를 작성할 수 있다.</p>
+<pre><code>julia&gt; # Example 1
+
+julia&gt; example = rand(-20:20,10)
+10-element Array{Int64,1}:
+   3
+   8
+  19
+ -12
+ -20
+   9
+ -13
+  19
+  13
+   2
+
+julia&gt; sort(example, by=(x -&gt; abs(x)))
+10-element Array{Int64,1}:
+   2
+   3
+   8
+   9
+ -12
+ -13
+  13
+  19
+  19
+ -20
+</code></pre><p>위의 작업은 무작위로 뽑힌 정수들을 절대값이 작은 것부터 큰 것을 기준으로 정렬하는 것을 나타낸다. 람다식이 없어도 불가능하지는 않지만, 생각보다 간단하지는 않다. 여기서 주어진 람다식 (x -&gt; abs(x))을 잘 바꾸면 코더가 원하는 코드를 쉽게 작성할 수 있을 것이다.</p>
+<h4 id="예제-1의-응용">예제 1의 응용</h4>
+<p>value라는 딕셔너리가 다음과 같이 만들어져있다고 하자.
+<img src="20191230_121624.png#center" alt="20191230\_121624.png">
+이 때 딕셔너리의 밸류 크기 순으로 정렬하는 코드는 람다식을 이용해 <code>sort(value,by=(x -&gt; value[x]))</code> 와 같이 간단하게 짤 수 있고, 그 실행 결과는 다음과 같다.
+<img src="20191230_121638.png#center" alt="20191230\_121638.png"></p>
+<h3 id="예제-2-리스트의-빈도-계산">예제 2: 리스트의 빈도 계산</h3>
+<p>R처럼 데이터를 최우선으로 여기는 언어에서는 아예 내장함수로 만들어놓지만, 이 빈도 계산이라는 게 생각만큼 간단하지는 않다. 알고리즘이라고 부를만큼 복잡한 일은 아니지만 막상 짜보면 꽤 손이 많이 간다. 이 역시 람다 함수를 이용해 쉽게 해결할 수 있다.!</p>
+<pre><code>julia&gt; # Example 2
+
+julia&gt; example = rand(1:3,10); println(example)
+[3, 1, 2, 2, 3, 2, 3, 1, 3, 3]
+
+julia&gt; uexample = sort(unique(example))
+3-element Array{Int64,1}:
+ 1
+ 2
+ 3
+
+julia&gt; counts = map(x-&gt;count(y-&gt;x==y,example),uexample)
+3-element Array{Int64,1}:
+ 2
+ 3
+ 5
+</code></pre><p>위의 작업은 무작위로 뽑힌 정수들의 빈도를 센 것이다. unique()로 데이터의 계급을 파악한 후 각 계급에 해당하는 원소를 카운트하는 식으로 간단히 문제를 해결했다.</p>
+<h2 id="환경">환경</h2>
+<ul>
+<li>OS: Windows</li>
+<li>Version: 1.5.0</li>
+</ul>
 
 
 

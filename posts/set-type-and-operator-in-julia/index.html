@@ -93,7 +93,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/set-type-and-operator-in-julia\/",
-    "wordCount" : "857",
+    "wordCount" : "915",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -143,41 +143,70 @@
 </aside>
 
 
-<h2 id="heading"></h2>
-<p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
+<h2 id="개요">개요</h2>
+<p>줄리아에서는 파이썬과 마찬가지로 집합 자료형을 지원한다. 원래 집합 자료형이 그렇듯 쓰는 사람은 요긴하게 쓰고 안 쓰는 사람은 일절 사용하지 않는데, 줄리아는 언어 설계 자체가 수학과 가까운만큼 집합의 개념과 연산이 잘 구현되어 있어 반드시 알아두는 게 좋다.
+<img src="Honeycam2019-12-1113-12-52.gif#center" alt="Honeycam2019-12-1113-12-52.gif">
+기존의 언어, 특히 파이썬과 가장 다른 점은 유니코드 기호들도 코드의 일부로 사용할 수 있다는 점일 것이다. Atom 에디터에서 Juno를 사용하고 있다면 위와 같이 텍 코드를 자동완성 할 수 있다. 저러한 코드에서 $\in$ 은 단지 기호가 아니라 실제로 <a href="https://freshrimpsushi.github.io/posts/1316">원소가 집합에 속하는지</a>를 묘사한다.</p>
+<h2 id="코드">코드</h2>
+<pre><code>julia&gt; X = Set([1,2,3,1]); print(X)
+Set([2, 3, 1])
+julia&gt; X[1]
+ERROR: MethodError: no method matching getindex(::Set{Int64}, ::Int64)
+Stacktrace:
+ [1] top-level scope at REPL[23]:1
 
-<pre><code>
-X = Set([1,2,3,1]); print(X)
-X[1]
-for i in X print(i) end
+julia&gt; for i in X print(i) end
+231
+</code></pre><p>위의 코드는 집합 $X$ 를 $X := \left\{ 1, 2, 3, 1 \right\} = \left\{ 2,3,1 \right\}$ 과 같이 정의한 것을 의미한다. 수학에서의 집합이 그러하듯 중복과 순서의 개념이 없다. 따라서 첫번째 인덱스를 참조하면 에러가 뜬다. 그러나 자료형 자체는 파이썬과 비슷하게 이터러블<sup>Iterable</sup>하기 때문에 반복문에서는 사용할 수 있다.</p>
+<pre><code>julia&gt; if 1∈X print(&quot;!&quot;) else print(&quot;?&quot;) end
+!
+julia&gt; if 0∈X print(&quot;!&quot;) else print(&quot;?&quot;) end
+?
+julia&gt; if 0∉X print(&quot;!&quot;) else print(&quot;?&quot;) end
+!
+julia&gt; if [1,2] ⊆ X print(&quot;!&quot;) else print(&quot;?&quot;) end
+!
+julia&gt; if [0,1,2] ⊆ X print(&quot;!&quot;) else print(&quot;?&quot;) end
+?
+</code></pre><p>마치 수식을 읽는 듯한 친숙함이 든다면 집합 자료형을 유용하게 쓸 준비도 되어 있는 것이다. 주목할 것은 딱히 위와 같은 계산들이 집합 자료형에 대해서만 돌아가는 게 아니라는 것이다. 다시 말해, 리스트에 대해서도 같은 연산들을 편하게 사용할 수 있다. 집합 자료형은 어색해도 집합에만 친숙하다면 줄리아의 집합 연산자를 활용하는 데에는 전혀 문제가 없다. 참고로 포함관계는 \susbet $\subset$ 이 아니라 \subseteq $\subseteq$ 을 써야한다.</p>
+<pre><code>julia&gt; Y = [&quot;1&quot;,&quot;2&quot;,3]
+3-element Array{Any,1}:
+  &quot;1&quot;
+  &quot;2&quot;
+ 3
 
-if 1∈X print(&quot;!&quot;) else print(&quot;?&quot;) end
-if 0∈X print(&quot;!&quot;) else print(&quot;?&quot;) end
-if 0∉X print(&quot;!&quot;) else print(&quot;?&quot;) end
-if [1,2] ⊆ X print(&quot;!&quot;) else print(&quot;?&quot;) end
-if [0,1,2] ⊆ X print(&quot;!&quot;) else print(&quot;?&quot;) end
+julia&gt; ∪(X,Y)
+Set{Any} with 5 elements:
+  &quot;1&quot;
+  2
+  3
+  &quot;2&quot;
+  1
 
-Y = [&quot;1&quot;,&quot;2&quot;,3]
-∪(X,Y)
-∩(X,Y)
-∩(Y,X)
-setdiff(X,Y); X
-setdiff!(X,Y); X
-</code></pre><p>줄리아에서는 파이썬과 마찬가지로 집합 자료형을 지원한다. 원래 집합 자료형이 그렇듯 쓰는 사람은 요긴하게 쓰고 안 쓰는 사람은 일절 사용하지 않는데, 줄리아는 언어 설계 자체가 수학과 가까운만큼 집합의 개념과 연산이 잘 구현되어 있어 반드시 알아두는 게 좋다.<img src="Honeycam2019-12-1113-12-52.gif#center" alt="Honeycam2019-12-1113-12-52.gif">
-기존의 언어, 특히 파이썬과 가장 다른 점은 유니코드 기호들도 코드의 일부로 사용할 수 있다는 점일 것이다. Atom 에디터에서 Juno를 사용하고 있다면 위와 같이 텍 코드를 자동완성 할 수 있다. 저러한 코드에서 $\in$ 은 단지 기호가 아니라 실제로 <a href="https://freshrimpsushi.github.io/posts/1316">원소가 집합에 속하는지</a>를 묘사한다.<img src="20191211_130128.png#center" alt="20191211\_130128.png">
-위의 코드는 집합 $X$ 를 $X := \left\{ 1, 2, 3, 1 \right\} = \left\{ 2,3,1 \right\}$ 과 같이 정의한 것을 의미한다. 수학에서의 집합이 그러하듯 중복과 순서의 개념이 없다. 따라서 첫번째 인덱스를 참조하면 에러가 뜬다. 그러나 자료형 자체는 파이썬과 비슷하게 이터러블Iterable하기 때문에 반복문에서는 사용할 수 있다.<img src="20191211_130613.png#center" alt="20191211\_130613.png">
-마치 수식을 읽는 듯한 친숙함이 든다면 집합 자료형을 유용하게 쓸 준비도 되어 있는 것이다. 주목할 것은 딱히 위와 같은 계산들이 집합 자료형에 대해서만 돌아가는 게 아니라는 것이다. 다시 말해, 리스트에 대해서도 같은 연산들을 편하게 사용할 수 있다. 집합 자료형은 어색해도 집합에만 친숙하다면 줄리아의 집합 연산자를 활용하는 데에는 전혀 문제가 없다. 참고로 포함관계는 \susbet $\subset$ 이 아니라 \subseteq $\subseteq$ 을 써야한다.<img src="20191211_130713.png#center" alt="20191211\_130713.png">
-기본적으로 집합을 다루기 때문에 당연히 <a href="https://freshrimpsushi.github.io/posts/1344">합집합</a>과 <a href="https://freshrimpsushi.github.io/posts/134">교집합</a> 역시 수식과 비슷하게 표현할 수 있다. 두번째 줄과 세번째 줄의 차이점은 연산의 순서다. $X$ 는 줄리아에서 집합 자료형, $Y$ 는 그냥 배열로 정의되어있고, 리턴되는 값은 첫번째 인자로 들어오는 데이터의 자료형을 따른다. 이러한 차이점은 줄리아와 같은 <a href="https://freshrimpsushi.github.io/posts/1364">강한 타입 언어</a>에서는 아주 중요하므로, 반드시 숙지해두어야한다.차집합은 함수와 모듈 두 가지로 정의되어 있는데, setdiff()는 그냥 차집합을 반환하고 setdiff!()는 그 자체만으로 집합을 업데이트 하는 차이점을 확인할 수 있다.</p>
+julia&gt; ∩(X,Y)
+Set{Int64} with 1 element:
+  3
+
+julia&gt; ∩(Y,X)
+1-element Array{Any,1}:
+ 3
+
+julia&gt; setdiff(X,Y); X
+Set{Int64} with 3 elements:
+  2
+  3
+  1
+
+julia&gt; setdiff!(X,Y); X
+Set{Int64} with 2 elements:
+  2
+  1
+</code></pre><p>기본적으로 집합을 다루기 때문에 당연히 <a href="https://freshrimpsushi.github.io/posts/1344">합집합</a>과 <a href="https://freshrimpsushi.github.io/posts/134">교집합</a> 역시 수식과 비슷하게 표현할 수 있다. 두번째 줄과 세번째 줄의 차이점은 연산의 순서다. $X$ 는 줄리아에서 집합 자료형, $Y$ 는 그냥 배열로 정의되어있고, 리턴되는 값은 첫번째 인자로 들어오는 데이터의 자료형을 따른다. 이러한 차이점은 줄리아와 같은 <a href="https://freshrimpsushi.github.io/posts/1364">강한 타입 언어</a>에서는 아주 중요하므로, 반드시 숙지해두어야한다.차집합은 함수와 모듈 두 가지로 정의되어 있는데, <code>setdiff()</code>는 그냥 차집합을 반환하고 <code>setdiff!()</code>는 그 자체만으로 집합을 업데이트 하는 차이점을 확인할 수 있다.</p>
+<h2 id="환경">환경</h2>
+<ul>
+<li>OS: Windows</li>
+<li>Version: 1.5.0</li>
+</ul>
 
 
 
