@@ -94,7 +94,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/conjugate-of-maps-in-chaos-theory\/",
-    "wordCount" : "1227",
+    "wordCount" : "1283",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -148,59 +148,115 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
-    <li><a href="#증명1">증명(1)</a></li>
-    <li><a href="#증명2">증명(2)</a></li>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#정의1">정의</a></li>
+    <li><a href="#정리2">정리</a></li>
+    <li><a href="#설명">설명</a></li>
+    <li><a href="#예시3">예시</a></li>
+    <li><a href="#증명">증명</a>
+      <ul>
+        <li><a href="#정리-1의-증명">정리 [1]의 증명</a></li>
+        <li><a href="#정리-2의-증명">정리 [2]의 증명</a></li>
+      </ul>
+    </li>
+    <li><a href="#코드">코드</a></li>
   </ul>
 </nav>
 </aside>
 
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-$X$ 에서 정의된 두 맵 $f, g : X \to X$ 에 대해 $C \circ f = g \circ C$ 를 만족하는 연속 단사 $C$ 가 존재하면 $f$ 와 $g$ 가 <strong>컨쥬게이트</strong> 라고 한다.</p>
+<h2 id="개요">개요</h2>
 <p>카오스 이론에서 맵의 컨쥬게이트는 일종의 <a href="https://freshrimpsushi.github.io/posts/756">아이소메트리</a>, <a href="https://freshrimpsushi.github.io/posts/403">아이소멀피즘</a>, <a href="ps://https://freshrimpsushi.github.io/posts/438">호메오몰피즘</a>과 비슷한 개념이며, 완전히 같지는 않더라도 용도는 정확히 같다. 수학에서 하는 일이 다 그렇듯, 계산이 쉬운 곳에서 어떤 성질이 있음을 확인한 후 실제로 증명이 필요한 곳으로 그 성질을 보존 시키는 것이다.</p>
+<h2 id="정의1">정의<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>$X$ 에서 정의된 두 맵 $f, g : X \to X$ 에 대해 $C \circ f = g \circ C$ 를 만족하는 연속 단사 $C$ 가 존재하면 $f$ 와 $g$ 가 <strong>컨쥬게이트</strong><sup>Conjugate</sup>라고 한다.</p>
+<h2 id="정리2">정리<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h2>
 <p>모든 $x$ 에 대해 $g \left( C(x) \right) = C \left( f(x) \right)$ 라고 하자.</p>
-<p>(1)**  $x$ 가 $f$ 의 피리어딕-$k$ 포인트면 $C(x)$ 는 $g$ 의 피리어딕-$k$ 포인트다.</p>
-<p>(2)**  $f$ 의 <a href="https://freshrimpsushi.github.io/posts/858">피리어딕-$k$ 오빗</a>에서 $C' \ne 0$ 면 $\left( g^{k} \right) ' \left( C (x) \right) = \left( f^{k} \right) ' (x)$</p>
-<p>위의 두 가지 정리는 컨쥬게이트는 맵을 거듭해서 취하는 것과 미분에 관계없이 유지됨을 의미한다. 이는 곧 하나의 시스템에서 <a href="https://freshrimpsushi.github.io/posts/862">랴푸노프 지수</a>를 구하기 쉽다면 이와 컨쥬게이트인 시스템에서도 랴푸노프 지수를 구하기 쉽다는 말이다.이에 대해 좋은 예시가 바로 로지스틱 맵이 카오틱한 오빗을 가짐을 보이는 것이다.<img src="map.png#center" alt="map.png">
-예로써 텐트 맵 $T : [0,1] \to [0,1]$ 은 $T(x) = 1 - | 1 - 2x|$ 과 같이 정의되고 로지스틱 맵 $G$ 는 <a href="https://freshrimpsushi.github.io/posts/860">$a=4$ 인 로지스틱 패밀리</a>로써 $G (x) := g_{4} (x) = 4x(1-x)$ 와 같이 정의된다. 이에 대해 $\displaystyle C(x) : = {{ 1- \cos \pi x} \over { 2 }}$ 는 $T$ 와 $G$ 가 컨쥬게이트가 되게끔 존재하는 연속 단사다. 실제로 계산해보면 $G(C(x)) = \sin^2 \pi x = C ( T(x) )$ 이 됨을 쉽게 확인할 수 있다.<img src="Tk.png#center" alt="Tk.png">
-위의 그림들은 텐트 맵을 반복적으로 취했을 때의 그래프와 $y=x$ 의 교점을 찾음으로써 $T$ 의 피리어딕-$k$ 포인트를 찾아내는 과정을 나타낸다. 이를 통해 $T$ 는 모든 $k \in \mathbb{N}$ 에 대해 피리어딕-$k$ 오빗이 존재함을 알 수 있고, $C$ 의 존재성과 <strong>(1)</strong> 에 의해 $G$ 역시 모든 $k \in \mathbb{N}$ 에 대해 피리어딕-$k$ 오빗이 존재함을 알 수 있다.한편 $[0,1]$ 의 <a href="https://freshrimpsushi.github.io/posts/524">거의 어디서나</a> $\ln \left| \left( T^{k} (x) \right)' \right| = \ln 2 &gt; 0$ 이므로 $T$ 의 피리어딕 포인트 $x$ 는 <a href="https://freshrimpsushi.github.io/posts/858">소스</a>고, $G$ 의 피리어딕 포인트 $C(x) $ 역시 소스다. 따라서 $T$ 의 피리어딕 오빗 $\left\{ x , \cdots , \right\} $ 에 대응하는 $G$ 의 피리어딕 오빗 $\left\{ C(x) , \cdots \right\}$ 는 어심토티컬리 피리어딕일 수 없고, <strong>(2)</strong> 에 따라 랴푸노프 지수가 양수임을 보장할 수 있다.이는 결국 로지스틱 맵이 <a href="https://freshrimpsushi.github.io/posts/864">카오틱 오빗</a>을 가짐을 의미한다. 이렇게 간접적인 증명도 어렵다고 느낄 수는 있지만, 그냥 로지스틱 맵이 카오틱 오빗을 가지는 걸 직접 증명하는 것보다는 훨씬 쉬울 것이다.</p>
-<h2 id="증명1">증명(1)</h2>
-<p>$C \left( f^{k-1} (x) \right) = g^{k-1} \left( C (x) \right) $ 이 성립한다고 가정하면 $C \left( f^{k} (x)  \right) = g \left[ C \left( f^{k-1} (x) \right) \right] 
-$$
-= g \left[ g^{k-1} \left( C (x) \right)  \right] = g^{k} \left( C (x) \right) $&lsquo;한편 $k=1$ 일 때 $f^{1} (x) = x$ 이므로 $g \left( C(x) \right) = C \left( f(x) \right) = C (x)$수학적 귀납법에 따라 모든 $k \in \mathbb{N}$ 에 대해 $C \left( f^{k} (x)  \right) = g^{k} \left( C (x) \right) 
-$$
-x$ 가 $f$ 의 피리어딕-$k$ 포인트이면 $f^{k} (x) = x$ 이므로 $g^{k} \left( C (x) \right) = C(x)$따라서 $C(x)$ 는 $g$ 의 피리어딕-$k$ 포인트가 된다. <p style="text-align: right;">■</p></p>
-<h2 id="증명2">증명(2)</h2>
+<ul>
+<li>[1] $x$ 가 $f$ 의 피리어딕-$k$ 포인트면 $C(x)$ 는 $g$ 의 피리어딕-$k$ 포인트다.</li>
+<li>[2] $f$ 의 <a href="https://freshrimpsushi.github.io/posts/858">피리어딕-$k$ 오빗</a>에서 $C' \ne 0$ 면
+$$\left( g^{k} \right) ' \left( C (x) \right) = \left( f^{k} \right) ' (x)$$</li>
+</ul>
+<h2 id="설명">설명</h2>
+<p>위의 두 가지 정리는 <strong>컨쥬게이시</strong><sup>Conjugacy</sup>가 맵을 거듭해서 취하는 것과 미분에 관계없이 유지됨을 의미한다. 이는 곧 하나의 시스템에서 <a href="https://freshrimpsushi.github.io/posts/862">랴푸노프 지수</a>를 구하기 쉽다면 이와 컨쥬게이트인 시스템에서도 랴푸노프 지수를 구하기 쉽다는 말이다.</p>
+<h2 id="예시3">예시<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></h2>
+<p>이에 대해 좋은 예시가 바로 로지스틱 맵이 캐어릭한 오빗을 가짐을 보이는 것이다.</p>
+<p><img src="map.png#center" alt="map.png"></p>
+<p>예로써 텐트 맵 $T : [0,1] \to [0,1]$ 은 $T(x) = 1 - | 1 - 2x|$ 과 같이 정의되고 로지스틱 맵 $G$ 는 <a href="https://freshrimpsushi.github.io/posts/860">$a=4$ 인 로지스틱 패밀리</a>로써 $G (x) := g_{4} (x) = 4x(1-x)$ 와 같이 정의된다. 이에 대해</p>
+<p>$$C(x) : = {{ 1- \cos \pi x} \over { 2 }}$$</p>
+<p>는 $T$ 와 $G$ 가 컨쥬게이트가 되게끔 존재하는 연속 단사다. 실제로 계산해보면</p>
+<p>$$G(C(x)) = \sin^2 \pi x = C ( T(x) )$$</p>
+<p>이 됨을 쉽게 확인할 수 있다.</p>
+<p><img src="Tk.png#center" alt="Tk.png"></p>
+<p>위의 그림들은 텐트 맵을 반복적으로 취했을 때의 그래프와 $y=x$ 의 교점을 찾음으로써 $T$ 의 피리어딕-$k$ 포인트를 찾아내는 과정을 나타낸다. 이를 통해 $T$ 는 모든 $k \in \mathbb{N}$ 에 대해 피리어딕-$k$ 오빗이 존재함을 알 수 있고, $C$ 의 존재성과 정리 [1]에 의해 $G$ 역시 모든 $k \in \mathbb{N}$ 에 대해 피리어딕-$k$ 오빗이 존재함을 알 수 있다.</p>
+<p>한편 $[0,1]$ 의 <a href="https://freshrimpsushi.github.io/posts/524">거의 어디서나</a> $\ln \left| \left( T^{k} (x) \right)' \right| = \ln 2 &gt; 0$ 이므로 $T$ 의 피리어딕 포인트 $x$ 는 <a href="https://freshrimpsushi.github.io/posts/858">소스</a>고, $G$ 의 피리어딕 포인트 $C(x) $ 역시 소스다. 따라서 $T$ 의 피리어딕 오빗 $\left\{ x , \cdots , \right\} $ 에 대응하는 $G$ 의 피리어딕 오빗 $\left\{ C(x) , \cdots \right\}$ 는 어심토티컬리 피리어딕일 수 없고, 정리 [2]에 따라 랴푸노프 지수가 양수임을 보장할 수 있다.</p>
+<p>이는 결국 로지스틱 맵이 <a href="https://freshrimpsushi.github.io/posts/864">캐어릭 오빗</a>을 가짐을 의미한다. 이렇게 간접적인 증명도 어렵다고 느낄 수는 있지만, 그냥 로지스틱 맵이 캐어릭 오빗을 가지는 걸 직접 증명하는 것보다는 훨씬 쉬울 것이다.</p>
+<h2 id="증명">증명</h2>
+<h3 id="정리-1의-증명">정리 [1]의 증명</h3>
+<p>$C \left( f^{k-1} (x) \right) = g^{k-1} \left( C (x) \right) $ 이 성립한다고 가정하면</p>
+<p>$$
+\begin{eqnarray*}
+C \left( f^{k} (x)  \right) &amp;=&amp; g \left[ C \left( f^{k-1} (x) \right) \right] 
+\\ &amp;=&amp; g \left[ g^{k-1} \left( C (x) \right)  \right]
+\\ &amp;=&amp; g^{k} \left( C (x) \right)
+\end{eqnarray*}
+$$</p>
+<p>한편 $k=1$ 일 때 $f^{1} (x) = x$ 이므로</p>
+<p>$$
+g \left( C(x) \right) = C \left( f(x) \right) = C (x)
+$$</p>
+<p>수학적 귀납법에 따라 모든 $k \in \mathbb{N}$ 에 대해</p>
+<p>$$
+C \left( f^{k} (x)  \right) = g^{k} \left( C (x) \right) 
+$$</p>
+<p>$x$ 가 $f$ 의 피리어딕-$k$ 포인트이면 $f^{k} (x) = x$ 이므로</p>
+<p>$$
+g^{k} \left( C (x) \right) = C(x)
+$$</p>
+<p>따라서 $C(x)$ 는 $g$ 의 피리어딕-$k$ 포인트가 된다.</p>
+<p style="text-align: right;">■</p>
+<h3 id="정리-2의-증명">정리 [2]의 증명</h3>
 <p>$x$ 가 $f$ 의 피리어딕-$k$ 포인트라고 하자.</p>
-<p>(1)** 의 증명과정에서 $g^{k} \left( C (x) \right) = C \left( f^{k} (x)  \right) $체인 룰에 의해 $\left( g^{k} \right)&rsquo; \left( C(x) \right) C' (x) = C'(x) \left( f^{k} \right)' (x)
-$$
-C'(x) \ne 0$ 이므로 양변에서 소거하면 $\left( g^{k} \right)' \left( C(x) \right) = \left( f^{k} \right)' (x)$ <p style="text-align: right;">■</p>
-다음은 텐트 맵 $T$ 와 로지스틱 맵 $G$, $T^{k}$ 의 그래프를 그려주는 코드를 R 로 작성한 것이다.</p>
-<pre><code>tent&lt;-function(x) {1 - abs(1-2*x)}
-logistic&lt;-function(x) {4*x*(1-x)}
-win.graph(8,4); par(mfrow=c(1,2))
-plot(tent,main='Tent Map T')
-plot(logistic,main='Logistic Map G')
+<p>정리 [1]의 증명에서</p>
+<p>$$
+g^{k} \left( C (x) \right) = C \left( f^{k} (x)  \right)
+$$</p>
+<p>체인 룰에 의해</p>
+<p>$$
+\left( g^{k} \right)' \left( C(x) \right) C' (x) = C'(x) \left( f^{k} \right)' (x)
+$$</p>
+<p>$C'(x) \ne 0$ 이므로 양변에서 소거하면</p>
+<p>$$
+\left( g^{k} \right)' \left( C(x) \right) = \left( f^{k} \right)' (x)
+$$</p>
+<p style="text-align: right;">■</p>
+<h2 id="코드">코드</h2>
+<p>다음은 텐트 맵 $T$ 와 로지스틱 맵 $G$, $T^{k}$ 의 그래프를 그려주는 코드를 R 로 작성한 것이다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">tent<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(x) {<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">abs</span>(<span style="color:#ae81ff">1-2</span><span style="color:#f92672">*</span>x)}
+logistic<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(x) {<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>x<span style="color:#f92672">*</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>x)}
+<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">4</span>); <span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>))
+<span style="color:#a6e22e">plot</span>(tent,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Tent Map T&#39;</span>)
+<span style="color:#a6e22e">plot</span>(logistic,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Logistic Map G&#39;</span>)
  
-win.graph(9,3.5); par(mfrow=c(1,3))
-plot(tent,main='T',xlab='x',ylab='y'); abline(0,1)
-plot(seq(0,1,len=1000),tent(tent(seq(0,1,len=1000))),main='T^2',type='l',xlab='x',ylab='y');abline(0,1)
-plot(seq(0,1,len=1000),tent(tent(tent(tent(tent(seq(0,1,len=1000))))))
-     ,main='T^k',type='l',xlab='x',ylab='y');abline(0,1)[Colored by Color Scripter](http://colorscripter.com/info#e)
-</code></pre>
+<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">3.5</span>); <span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>))
+<span style="color:#a6e22e">plot</span>(tent,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;T&#39;</span>,xlab<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;x&#39;</span>,ylab<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;y&#39;</span>); <span style="color:#a6e22e">abline</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>)
+<span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,len<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span>),<span style="color:#a6e22e">tent</span>(<span style="color:#a6e22e">tent</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,len<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span>))),main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;T^2&#39;</span>,type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;l&#39;</span>,xlab<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;x&#39;</span>,ylab<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;y&#39;</span>);<span style="color:#a6e22e">abline</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>)
+<span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,len<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span>),<span style="color:#a6e22e">tent</span>(<span style="color:#a6e22e">tent</span>(<span style="color:#a6e22e">tent</span>(<span style="color:#a6e22e">tent</span>(<span style="color:#a6e22e">tent</span>(<span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,len<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span>))))))
+     ,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;T^k&#39;</span>,type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;l&#39;</span>,xlab<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;x&#39;</span>,ylab<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;y&#39;</span>);<span style="color:#a6e22e">abline</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>)[Colored by Color Scripter<span style="color:#a6e22e">]</span>(http<span style="color:#f92672">://</span>colorscripter.com<span style="color:#f92672">/</span>info<span style="color:#75715e">#e)</span>
+</code></pre></div><section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Yorke. (1996). CHAOS: An Introduction to Dynamical Systems: p115. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>Yorke. (1996). CHAOS: An Introduction to Dynamical Systems: p117~119. <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>Yorke. (1996). CHAOS: An Introduction to Dynamical Systems: p116~121. <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
 
 
             
