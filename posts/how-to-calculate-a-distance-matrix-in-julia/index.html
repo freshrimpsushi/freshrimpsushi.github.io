@@ -93,7 +93,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-calculate-a-distance-matrix-in-julia\/",
-    "wordCount" : "274",
+    "wordCount" : "362",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -143,27 +143,38 @@
 </aside>
 
 
-<h2 id="heading"></h2>
-<p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-<pre><code>
-using Distances
+<h2 id="개요">개요</h2>
+<p><strong>거리 행렬</strong><sup>Distance Matrix</sup> 은 <strong>파티클 다이나믹스</strong><sup>Particle Dynamics</sup>  및 <strong>무빙 에이전트</strong><sup>Moving Agent</sup>  기반 시뮬레이션 등에 흔히 사용되나, 막상 찾아보면 딱 정리된 함수로는 없고 직접 계산하는 코드를 짜려면 막막한 게 보통이다. 줄리아에서는 <code>pairwise()</code> 와 <code>Distances</code> 패키지의 <code>Euclidean()</code> 함수를 사용해서 위와 같이 손쉽게 거리 행렬을 계산할 수 있다.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> <code>dims</code> 옵션을 통해 행과 열의 방향을 정할 수 있는데, 보다시피 $\mathbb{R}^{5 \times 3}$ 행렬이 주어져있을 때 $3$차원 벡터 $5$개의 거리를 계산하거나 $5$차원 벡터 $3$개의 거리를 계산하는 식으로 사용할 수 있다.</p>
+<h2 id="코드">코드</h2>
+<pre><code>using Distances
 coordinate = [2 3 4; 5 1 3; 1 7 5; 1 7 6; 2 4 3]
 pairwise(Euclidean(), coordinate; dims=1)
 pairwise(Euclidean(), coordinate; dims=2)
-</code></pre><p><img src="5F6B0A461.png#center" alt="5F6B0A461.png">
-<strong>거리 행렬</strong><sup>Distance Matrix</sup> 은 <strong>파티클 다이나믹스</strong><sup>Particle Dynamics</sup>  및 <strong>무빙 에이전트</strong><sup>Moving Agent</sup>  기반 시뮬레이션 등에 흔히 사용되나, 막상 찾아보면 딱 정리된 함수로는 없고 직접 계산하는 코드를 짜려면 막막한 게 보통이다.줄리아에서는 pairwise() 와 Distances 패키지의 Euclidean() 함수를 사용해서 위와 같이 손쉽게 거리 행렬을 계산할 수 있다.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> dims 옵션을 통해 행과 열의 방향을 정할 수 있는데, 보다시피 $\mathbb{R}^{5 \times 3}$ 행렬이 주어져있을 때 $3$차원 벡터 $5$개의 거리를 계산하거나 $5$차원 벡터 $3$개의 거리를 계산하는 식으로 사용할 수 있다.</p>
-<section class="footnotes" role="doc-endnotes">
+</code></pre><p>위 코드를 실행시킨 결과는 다음과 같다.</p>
+<pre><code>julia&gt; using Distances
+
+julia&gt; coordinate = [2 3 4; 5 1 3; 1 7 5; 1 7 6; 2 4 3]
+5×3 Array{Int64,2}:
+ 2  3  4
+ 5  1  3
+ 1  7  5
+ 1  7  6
+ 2  4  3
+
+julia&gt; pairwise(Euclidean(), coordinate; dims=1)
+5×5 Array{Float64,2}:
+ 0.0      3.74166  4.24264  4.58258  1.41421
+ 3.74166  0.0      7.48331  7.81025  4.24264
+ 4.24264  7.48331  0.0      1.0      3.74166
+ 4.58258  7.81025  1.0      0.0      4.3589
+ 1.41421  4.24264  3.74166  4.3589   0.0
+
+julia&gt; pairwise(Euclidean(), coordinate; dims=2)
+3×3 Array{Float64,2}:
+ 0.0      9.64365  7.07107
+ 9.64365  0.0      3.31662
+ 7.07107  3.31662  0.0
+</code></pre><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">

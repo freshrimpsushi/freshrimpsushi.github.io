@@ -93,7 +93,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-make-gif-animation-in-julia\/",
-    "wordCount" : "361",
+    "wordCount" : "340",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -143,30 +143,18 @@
 </aside>
 
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-원래 생새우초밥집에서는 이보다는 훨씬 자세한 설명을 추가하는 편이지만, 줄리아에서 움짤을 찌는 게 얼마나 쉬운지를 강조하기 위해 가능한한 짧게 설명하도록 하겠다.<img src="example.gif#center" alt="example.gif">
-위와 같은 <a href="https://freshrimpsushi.github.io/posts/870">랜덤 워크</a>를 시뮬레이션하는 건 둘째치더라도, 위와 같이 움짤로 만드는 것은 언어에 따라 아주 어렵고 힘들 수 있다. 
-그러나 줄리아에서는 @animate 매크로와 gif() 함수를 통해 어마어마하게 쉽게 움짤을 찔 수 있다. 원리는 간단하다. 반복문의 앞에 매크로를 붙이고 반복문을 돌면서 그때그때 프레임을 직접 그리면 된다. 이렇게 프레임들을 모은 것을 변수로 받아준 후 gif() 함수에 넣으면그게 전부다. fps 옵션에는 초당 프레임을 넣어서 움짤의 속도를 정할 수 있다.</p>
-<pre><code>
-using Plots
+<h2 id="코드">코드</h2>
+<p>원래 생새우초밥집에서는 이보다는 훨씬 자세한 설명을 추가하는 편이지만, 줄리아에서 움짤을 찌는 게 얼마나 쉬운지를 강조하기 위해 가능한한 짧게 설명하도록 하겠다.</p>
+<p><img src="example.gif#center" alt="example.gif"></p>
+<p>위와 같은 <a href="https://freshrimpsushi.github.io/posts/870">랜덤 워크</a>를 시뮬레이션하는 건 둘째치더라도, 위와 같이 움짤로 만드는 것은 언어에 따라 아주 어렵고 힘들 수 있다. 그러나 줄리아에서는 <code>@animate</code> 매크로와 <code>gif()</code> 함수를 통해 어마어마하게 쉽게 움짤을 찔 수 있다. 원리는 간단하다. 반복문의 앞에 매크로를 붙이고 반복문을 돌면서 그때그때 프레임을 직접 그리면 된다. 이렇게 프레임들을 모은 것을 변수로 받아준 후 <code>gif()</code> 함수에 넣으면그게 전부다. <code>fps</code> 옵션에는 초당 프레임을 넣어서 움짤의 속도를 정할 수 있다.</p>
+<pre><code>using Plots
 
 random\_walk = cumsum(rand(100).-.5)
 anim = @animate for t in 1:100
     plot(random\_walk[1:t], legend = :none)
 end; gif(anim, &quot;example.gif&quot;, fps = 10)
-</code></pre><p>별도로 경로를 지정하지 않으면 내 문서에 저장되는 것에 주의하도록 하자.이를 잘 응용하면 다음과 같이 멋진 움짤을 만들 수도 있다.<img src="01_malthusian_growth_integration.gif#center" alt="01\_malthusian\_growth\_integration.gif"></p>
+</code></pre><p>별도로 경로를 지정하지 않으면 내 문서에 저장되는 것에 주의하도록 하자.이를 잘 응용하면 다음과 같이 멋진 움짤을 만들 수도 있다.</p>
+<p><img src="01_malthusian_growth_integration.gif#center" alt="01\_malthusian\_growth\_integration.gif"></p>
 
 
 
