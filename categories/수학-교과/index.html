@@ -105,7 +105,7 @@
 
     <li><a href="https://freshrimpsushi.github.io/posts/table-of-product-formula/">곱셈공식 표</a></li>
 
-    <li><a href="https://freshrimpsushi.github.io/posts/finding-the-equation-of-tangent-of-a-circle-with-a-slope-of-m/">기울기가 엠인 원의 접선의 방정식 구하기</a></li>
+    <li><a href="https://freshrimpsushi.github.io/posts/finding-the-equation-of-tangent-of-a-circle-with-a-slope-of-m/">기울기가 m인 원의 접선의 방정식</a></li>
 
     <li><a href="https://freshrimpsushi.github.io/posts/finding-the-equation-of-a-tangent-line-at-point-on-a-circle/">원 위의 한 점에서의 접선의 방정식 구하기</a></li>
 
@@ -135,7 +135,7 @@
 
     <li><a href="https://freshrimpsushi.github.io/posts/derivation-of-an-elliptical-equation/">타원의 방정식 유도</a></li>
 
-    <li><a href="https://freshrimpsushi.github.io/posts/the-relationship-between-root-and-coefficient/">2차3차엔차 방정식의 근과 계수의 관계</a></li>
+    <li><a href="https://freshrimpsushi.github.io/posts/the-relationship-between-root-and-coefficient/">2차/3차/n차 방정식의 근과 계수의 관계</a></li>
 
 </ul>
 </details>
@@ -169,9 +169,9 @@
 
 <script type="text/javascript">
     function update_comment_click(cmt_idx) {
-        let author = $('.update-author').val();
-        let password = $('.update-password').val();
-        let content = $('.update-content').val();
+        let author = $('#comment'+ cmt_idx + ' .update-author').val();
+        let password = $('#comment'+ cmt_idx + ' .update-password').val();
+        let content = $('#comment'+ cmt_idx + ' .update-content').val();
         
         $.ajax({
             type: "POST",
@@ -198,7 +198,7 @@
     }
 
     function delete_comment_click(cmt_idx) {
-        let password = $('.delete-password').val();
+        let password = $('#comment'+ cmt_idx + ' .delete-password').val();
 
         $.ajax({
             type: "POST",
@@ -258,21 +258,52 @@
         });
     }
 
+    function cancel_click(cmt_idx) {
+        let address = window.location.href;
+        console.log(address);
+        if(address.indexOf("#comment") != -1)
+        {
+            while(address.charAt(address.length-1) != 't') {
+                address = address.slice(0, -1);
+            }
+            address = address.slice(0, -8);
+            address = (address + '#comment' + cmt_idx);
+        }
+        location.replace(address);
+        location.reload();
+    }
+
     function update_comment(cmt_idx) {
         let li = $('#comment' + cmt_idx);
-        let author = $('#comment' + cmt_idx + ' .list-author').html();
-        let content = $('#comment' + cmt_idx + ' .content-text').html();
-        let str = "";
-        
-        str += "<div class='update-author-info'>";
-        str += "<input class='update-author' type='text' name='name' value='" + author + "' title='이름' placeholder='이름'>";
-        str += "<input class='update-password' type='password' name='password' value='' title='비밀번호' placeholder='비밀번호'>";
-        str += "</div>";
-        str += "<textarea class='update-content' name='comment' placeholder='' value=''>" + content + "</textarea>";
-        str += "<input class='update_comment-button' type='submit' name='submit' value='수정' onclick='update_comment_click(" + cmt_idx + ")'>";
-        
-        li.html(str);
-        str = "";
+        $.ajax({
+            type: "POST",
+            url: "https:\/\/huilabean.kr\/blog\/ajax/ajax.comment.php?action=getSingleComment",
+            data: {
+                cmt_idx: cmt_idx
+            },
+            dataType: "json",
+            success: function (data) {
+                let rows = data['rows'];
+                let msg = data['msg'];
+                if (msg) {
+                    let author = rows[0]['author'];
+                    let content = rows[0]['content'];
+                    let str = "";
+                    str += "<div class='update-author-info'>";
+                    str += "<input class='update-author' type='text' name='name' value='" + author + "' title='이름' placeholder='이름'>";
+                    str += "<input class='update-password' type='password' name='password' value='' title='비밀번호' placeholder='비밀번호'>";
+                    str += "</div>";
+                    str += "<textarea class='update-content' name='comment' placeholder='' value=''>" + content + "</textarea>";
+                    str += "<input class='update_comment-button' type='submit' name='submit' value='수정' onclick='update_comment_click(" + cmt_idx + ")'>";
+                    str += "<input class='update_comment-button' type='submit' name='submit' value='취소' onclick='cancel_click(" + cmt_idx + ")'>";
+                    li.html(str);
+                    str = "";
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
     }
 
     function delete_comment(cmt_idx) {
@@ -282,6 +313,7 @@
         str += "<input class='delete-password' type='password' name='password' value='' title='비밀번호' placeholder='비밀번호'>";
         str += "</div>";
         str += "<input class='delete_comment-botton' type='submit' name='submit' value='삭제' onclick='delete_comment_click(" + cmt_idx + ")'>";
+        str += "<input class='delete_comment-botton' type='submit' name='submit' value='취소' onclick='cancel_click(" + cmt_idx + ")'>";
         li.html(str);
         str = "";
     }

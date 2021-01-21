@@ -39,9 +39,9 @@
     </script>
 
     
-<meta name="title" content="비-스플라인의 익스플리시트 공식">
+<meta name="title" content="B-스플라인의 익스플리시트 공식">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="비-스플라인의 익스플리시트 공식"/>
+<meta property="og:title" content="B-스플라인의 익스플리시트 공식"/>
 <meta property="og:description" content="explicit formula for the b splines"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
@@ -54,8 +54,8 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "j_",
-    "name": "비-스플라인의 익스플리시트 공식",
-    "headline": "비-스플라인의 익스플리시트 공식",
+    "name": "B-스플라인의 익스플리시트 공식",
+    "headline": "B-스플라인의 익스플리시트 공식",
     "alternativeHeadline": "",
     "description": "explicit formula for the b splines",
     "inLanguage": "ko",
@@ -94,14 +94,14 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/explicit-formula-for-the-b-splines\/",
-    "wordCount" : "177",
+    "wordCount" : "154",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>비-스플라인의 익스플리시트 공식</title>
+    <title>B-스플라인의 익스플리시트 공식</title>
 
 </head>
 
@@ -125,9 +125,9 @@
             <div class = "content">
             
 
-<title>비-스플라인의 익스플리시트 공식</title>
+<title>B-스플라인의 익스플리시트 공식</title>
 
-<h1>비-스플라인의 익스플리시트 공식</h1>
+<h1>B-스플라인의 익스플리시트 공식</h1>
 <aside>
     <p style="text-align: right;">
         1907
@@ -144,34 +144,21 @@
 </aside>
 
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-함수 $f: \mathbb{R}\to \mathbb{R}$에 대해서
-$$
+<h2 id="공식">공식</h2>
+<p>함수 $f: \mathbb{R}\to \mathbb{R}$에 대해서</p>
+<p>$$
 f(x)_{+}:=\max \left( 0,f(x) \right)
-$$
-이라고 하자. 즉, $f_{+}$는 $f$의 함숫값이 $0$보다 작은 부분을 모두 $0$으로 바꾼 함수이다. 또한
-$$
+$$</p>
+<p>이라고 하자. 즉, $f_{+}$는 $f$의 함숫값이 $0$보다 작은 부분을 모두 $0$으로 바꾼 함수이다. 또한</p>
+<p>$$
 f(x)_{+}^{n}:=\left( f(x)_{+} \right)^{n}
-$$
-라고 정의하자. 그러면 각각의 $m=2,3,\dots$에 대해서 <a href="https://freshrimpsushi.github.io/posts/1815">B-스플라인</a> $N_{m}$은 다음과 같이 표현될 수 있다.
-$$
+$$</p>
+<p>라고 정의하자. 그러면 각각의 $m=2,3,\dots$에 대해서 <a href="https://freshrimpsushi.github.io/posts/1815">B-스플라인</a> $N_{m}$은 다음과 같이 표현될 수 있다.</p>
+<p>$$
 N_{m}(x) = \frac{1}{(m-1)!}\sum \limits_{j=0}^{m} \left( -1 \right)^{j}\binom{m}{j}\left( x-j \right)_{+}^{m-1},\quad x\in \mathbb{R}
 $$</p>
 <h2 id="증명">증명</h2>
-<p>**
-**** <p style="text-align: right;">■</p></p>
+<p style="text-align: right;">■</p>
 
 
 
@@ -204,9 +191,9 @@ $$</p>
 
 <script type="text/javascript">
     function update_comment_click(cmt_idx) {
-        let author = $('.update-author').val();
-        let password = $('.update-password').val();
-        let content = $('.update-content').val();
+        let author = $('#comment'+ cmt_idx + ' .update-author').val();
+        let password = $('#comment'+ cmt_idx + ' .update-password').val();
+        let content = $('#comment'+ cmt_idx + ' .update-content').val();
         
         $.ajax({
             type: "POST",
@@ -233,7 +220,7 @@ $$</p>
     }
 
     function delete_comment_click(cmt_idx) {
-        let password = $('.delete-password').val();
+        let password = $('#comment'+ cmt_idx + ' .delete-password').val();
 
         $.ajax({
             type: "POST",
@@ -293,21 +280,52 @@ $$</p>
         });
     }
 
+    function cancel_click(cmt_idx) {
+        let address = window.location.href;
+        console.log(address);
+        if(address.indexOf("#comment") != -1)
+        {
+            while(address.charAt(address.length-1) != 't') {
+                address = address.slice(0, -1);
+            }
+            address = address.slice(0, -8);
+            address = (address + '#comment' + cmt_idx);
+        }
+        location.replace(address);
+        location.reload();
+    }
+
     function update_comment(cmt_idx) {
         let li = $('#comment' + cmt_idx);
-        let author = $('#comment' + cmt_idx + ' .list-author').html();
-        let content = $('#comment' + cmt_idx + ' .content-text').html();
-        let str = "";
-        
-        str += "<div class='update-author-info'>";
-        str += "<input class='update-author' type='text' name='name' value='" + author + "' title='이름' placeholder='이름'>";
-        str += "<input class='update-password' type='password' name='password' value='' title='비밀번호' placeholder='비밀번호'>";
-        str += "</div>";
-        str += "<textarea class='update-content' name='comment' placeholder='' value=''>" + content + "</textarea>";
-        str += "<input class='update_comment-button' type='submit' name='submit' value='수정' onclick='update_comment_click(" + cmt_idx + ")'>";
-        
-        li.html(str);
-        str = "";
+        $.ajax({
+            type: "POST",
+            url: "https:\/\/huilabean.kr\/blog\/ajax/ajax.comment.php?action=getSingleComment",
+            data: {
+                cmt_idx: cmt_idx
+            },
+            dataType: "json",
+            success: function (data) {
+                let rows = data['rows'];
+                let msg = data['msg'];
+                if (msg) {
+                    let author = rows[0]['author'];
+                    let content = rows[0]['content'];
+                    let str = "";
+                    str += "<div class='update-author-info'>";
+                    str += "<input class='update-author' type='text' name='name' value='" + author + "' title='이름' placeholder='이름'>";
+                    str += "<input class='update-password' type='password' name='password' value='' title='비밀번호' placeholder='비밀번호'>";
+                    str += "</div>";
+                    str += "<textarea class='update-content' name='comment' placeholder='' value=''>" + content + "</textarea>";
+                    str += "<input class='update_comment-button' type='submit' name='submit' value='수정' onclick='update_comment_click(" + cmt_idx + ")'>";
+                    str += "<input class='update_comment-button' type='submit' name='submit' value='취소' onclick='cancel_click(" + cmt_idx + ")'>";
+                    li.html(str);
+                    str = "";
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
     }
 
     function delete_comment(cmt_idx) {
@@ -317,6 +335,7 @@ $$</p>
         str += "<input class='delete-password' type='password' name='password' value='' title='비밀번호' placeholder='비밀번호'>";
         str += "</div>";
         str += "<input class='delete_comment-botton' type='submit' name='submit' value='삭제' onclick='delete_comment_click(" + cmt_idx + ")'>";
+        str += "<input class='delete_comment-botton' type='submit' name='submit' value='취소' onclick='cancel_click(" + cmt_idx + ")'>";
         li.html(str);
         str = "";
     }
