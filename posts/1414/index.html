@@ -181,6 +181,29 @@ library 속성의 보안 탭에서 편집을 눌러 사용 권한 창을 띄운�
 
 
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        var title = 'R 패키지 설치 시 Warning in installpackages  lib = CProgram FilesRR-361library is not writable 해결';
+        var link = 'https:\/\/freshrimpsushi.github.io\/posts\/1414\/';
+        var arr = new Array();
+        var obj = {
+            "title": title,
+            "link": link
+        };
+        var postList = JSON.parse(getLocalStorage('latelyViewPostList'));
+        var listSize = postList.length;
+        for (var i = 0; i < listSize; i++) {
+            if (title == postList[i].title) {
+                postList.splice(i, 1);
+                break;
+            }
+        }
+        arr = postList;
+        arr.push(obj);
+        setLocalStorage('latelyViewPostList', JSON.stringify(arr));
+    });
+</script>
+
             
 <div style="margin-bottom: 10px;">댓글</div>
 <div class="area-reply">
@@ -672,6 +695,45 @@ library 속성의 보안 탭에서 편집을 눌러 사용 권한 창을 띄운�
             </div>
 
         </div>
+        <style>
+    #myview {
+        width: 250px;
+        height: 400px;
+        position: fixed;
+        top: 50%;
+        right: 50px;
+         
+        background-color: #FFFFFF;
+        border: 1px solid #808080;
+        z-index: 99999;
+    }
+</style>
+
+<section id="myview">
+    <div class="lately-viewed-post">최근 본 포스트</div>
+    <div class="lately-viewed-list">
+        <ul>
+            
+        </ul>
+    </div>
+</section>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        let postList = JSON.parse(getLocalStorage('latelyViewPostList'));
+        let list = $('.lately-viewed-list ul');
+        let str = "";
+        for (let i = (postList.length - 1); i >= 0; i--) {
+            str += "<li><a href='";
+            str += postList[i].link;
+            str += "'>";
+            str += postList[i].title;
+            str += "</a></li>";
+            list.append(str);
+            str = "";
+        }
+    });
+</script>
     </body>
 
     <hr>
@@ -708,5 +770,6 @@ library 속성의 보안 탭에서 편집을 눌러 사용 권한 창을 띄운�
     
     </aside>
 </footer>
+    <script type="text/javascript" src=https://freshrimpsushi.github.io/js/recent_post.js></script>
 </html>
 <!DOCTYPE html>
