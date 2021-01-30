@@ -244,6 +244,9 @@ order(6,7)[Colored by Color Scripter](http://colorscripter.com/info#e)
             }
             arr = postList;
             arr.push(obj);
+            if(arr.length > 5) {
+                arr.shift();
+            }
             localStorage.setItem('latelyViewPostList', JSON.stringify(arr));
         }
     });
@@ -566,7 +569,7 @@ order(6,7)[Colored by Color Scripter](http://colorscripter.com/info#e)
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/> - 줄리아</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1753)</summary>
+    <summary>전체 포스트 (1755)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
         </li><li>
@@ -608,7 +611,7 @@ order(6,7)[Colored by Color Scripter](http://colorscripter.com/info#e)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (22)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (23)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (52)</a>
         </li><li>
@@ -683,6 +686,39 @@ order(6,7)[Colored by Color Scripter](http://colorscripter.com/info#e)
 </aside>
 
 <aside>
+    <p><b>최근 본 포스트</b></p>
+    <ul class="lately-viewed-list">
+        
+    </ul>
+</aside>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        let postList = JSON.parse(localStorage.getItem('latelyViewPostList'));
+        let list = $('.lately-viewed-list');
+        let str = "";
+        if(postList == '' || postList == null || postList == undefined || postList == 0 || postList == NaN) {
+            localStorage.setItem('latelyViewPostList', null);
+            str += "열람한 포스트가 없습니다.";
+            list.append(str);
+            str = "";
+        } else {
+            for (let i = (postList.length - 1); i >= 0; i--) {
+                str += "<li><a href='";
+                str += postList[i].link;
+                str += "'>";
+                str += postList[i].title;
+                str += "</a></li>";
+                list.append(str);
+                str = "";
+            }
+        }
+    });
+</script>
+
+
+
+<aside>
     <p><b>태그</b></p>
     <div>
     </div>
@@ -734,39 +770,6 @@ order(6,7)[Colored by Color Scripter](http://colorscripter.com/info#e)
         });
     });
 </script>
-
-<aside>
-    <p><b>최근 본 포스트</b></p>
-    <ul class="lately-viewed-list">
-        
-    </ul>
-</aside>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        let postList = JSON.parse(localStorage.getItem('latelyViewPostList'));
-        let list = $('.lately-viewed-list');
-        let str = "";
-        if(postList == '' || postList == null || postList == undefined || postList == 0 || postList == NaN) {
-            localStorage.setItem('latelyViewPostList', null);
-            str += "열람한 포스트가 없습니다.";
-            list.append(str);
-            str = "";
-        } else {
-            for (let i = (postList.length - 1); i >= 0; i--) {
-                str += "<li><a href='";
-                str += postList[i].link;
-                str += "'>";
-                str += postList[i].title;
-                str += "</a></li>";
-                list.append(str);
-                str = "";
-            }
-        }
-    });
-</script>
-
-
             <div id="fastSearch">
     <input id="searchInput" tabindex="0">
     <ul id="searchResults">
