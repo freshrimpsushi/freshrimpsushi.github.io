@@ -298,17 +298,22 @@ gcd &lt;- function(a, b) {
             "title": title,
             "link": link
         };
-        var postList = JSON.parse(getLocalStorage('latelyViewPostList'));
-        var listSize = postList.length;
-        for (var i = 0; i < listSize; i++) {
-            if (title == postList[i].title) {
-                postList.splice(i, 1);
-                break;
+        var postList = JSON.parse(localStorage.getItem('latelyViewPostList'));
+        if(postList == '' || postList == null || postList == undefined || postList == 0 || postList == NaN) {
+            arr.push(obj);
+            localStorage.setItem('latelyViewPostList', JSON.stringify(arr));
+        } else {
+            var listSize = postList.length;
+            for (var i = 0; i < listSize; i++) {
+                if (title == postList[i].title) {
+                    postList.splice(i, 1);
+                    break;
+                }
             }
+            arr = postList;
+            arr.push(obj);
+            localStorage.setItem('latelyViewPostList', JSON.stringify(arr));
         }
-        arr = postList;
-        arr.push(obj);
-        setLocalStorage('latelyViewPostList', JSON.stringify(arr));
     });
 </script>
 
@@ -779,7 +784,11 @@ gcd &lt;- function(a, b) {
                 var str = "";
                  
                 for(var i = 0; i < rows.length; i++) {
-                    str += "<li style='font-size: 13px;'><a href=../../posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
+                    if(rows[i]['board_idx'] == 0) {
+                        str += "<li style='font-size: 13px;'><a href=../../categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
+                    } else {
+                        str += "<li style='font-size: 13px;'><a href=../../posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
+                    }
                     str += "<strong>" + rows[i]['content'] + "</strong>";
                     str += "<p>" + rows[i]['author'] + "</p>";
                     str += "</a></li>";
@@ -793,6 +802,39 @@ gcd &lt;- function(a, b) {
         });
     });
 </script>
+
+<aside>
+    <p><b>최근 본 포스트</b></p>
+    <ul class="lately-viewed-list">
+        
+    </ul>
+</aside>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        let postList = JSON.parse(localStorage.getItem('latelyViewPostList'));
+        let list = $('.lately-viewed-list');
+        let str = "";
+        if(postList == '' || postList == null || postList == undefined || postList == 0 || postList == NaN) {
+            localStorage.setItem('latelyViewPostList', null);
+            str += "열람한 포스트가 없습니다.";
+            list.append(str);
+            str = "";
+        } else {
+            for (let i = (postList.length - 1); i >= 0; i--) {
+                str += "<li><a href='";
+                str += postList[i].link;
+                str += "'>";
+                str += postList[i].title;
+                str += "</a></li>";
+                list.append(str);
+                str = "";
+            }
+        }
+    });
+</script>
+
+
             <div id="fastSearch">
     <input id="searchInput" tabindex="0">
     <ul id="searchResults">
@@ -803,7 +845,6 @@ gcd &lt;- function(a, b) {
             </div>
 
         </div>
-        
     </body>
 
     <hr>
@@ -844,6 +885,5 @@ gcd &lt;- function(a, b) {
     
     </aside>
 </footer>
-    
 </html>
 <!DOCTYPE html>

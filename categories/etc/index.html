@@ -589,7 +589,11 @@ ETC에 대한 자동 페이지입니다.</p>
                 var str = "";
                  
                 for(var i = 0; i < rows.length; i++) {
-                    str += "<li style='font-size: 13px;'><a href=../../posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
+                    if(rows[i]['board_idx'] == 0) {
+                        str += "<li style='font-size: 13px;'><a href=../../categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
+                    } else {
+                        str += "<li style='font-size: 13px;'><a href=../../posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
+                    }
                     str += "<strong>" + rows[i]['content'] + "</strong>";
                     str += "<p>" + rows[i]['author'] + "</p>";
                     str += "</a></li>";
@@ -603,6 +607,39 @@ ETC에 대한 자동 페이지입니다.</p>
         });
     });
 </script>
+
+<aside>
+    <p><b>최근 본 포스트</b></p>
+    <ul class="lately-viewed-list">
+        
+    </ul>
+</aside>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        let postList = JSON.parse(localStorage.getItem('latelyViewPostList'));
+        let list = $('.lately-viewed-list');
+        let str = "";
+        if(postList == '' || postList == null || postList == undefined || postList == 0 || postList == NaN) {
+            localStorage.setItem('latelyViewPostList', null);
+            str += "열람한 포스트가 없습니다.";
+            list.append(str);
+            str = "";
+        } else {
+            for (let i = (postList.length - 1); i >= 0; i--) {
+                str += "<li><a href='";
+                str += postList[i].link;
+                str += "'>";
+                str += postList[i].title;
+                str += "</a></li>";
+                list.append(str);
+                str = "";
+            }
+        }
+    });
+</script>
+
+
             <div id="fastSearch">
     <input id="searchInput" tabindex="0">
     <ul id="searchResults">
@@ -613,7 +650,6 @@ ETC에 대한 자동 페이지입니다.</p>
             </div>
 
         </div>
-        
     </body>
 
     <hr>
@@ -650,6 +686,5 @@ ETC에 대한 자동 페이지입니다.</p>
     
     </aside>
 </footer>
-    
 </html>
 <!DOCTYPE html>
