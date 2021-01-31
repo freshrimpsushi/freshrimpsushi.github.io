@@ -97,7 +97,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/least-squares-using-cholesky-decomposition\/",
-    "wordCount" : "779",
+    "wordCount" : "691",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -150,14 +150,13 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#정리">정리</a></li>
     <li><a href="#증명">증명</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
+<p style="
 text-align: center;
 max-width: 80%;
 text-align:center;
@@ -169,13 +168,38 @@ margin-right: auto;">
 <br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
 </p>
 
-$A \in \mathbb{C}^{m \times n}$ 과 벡터 $\mathbb{b} \in \mathbb{C}^{m}$ 에 대해 $\text{rank} A = n$ 이고 $A \mathbb{x} = \mathbb{b}$ 의 최소제곱해를 $\mathbb{x}_{*}$ 이라고 하자.<strong>Step 1.</strong> 주어진 방정식의 양변에 $A^{ * }$ 을 곱해 표준방정식 $A^{ * } A \mathbb{x} = A^{ * } \mathbb{b}$ 을 세운다.<a href="https://freshrimpsushi.github.io/posts/356">표준방정식의 해는 원래 방정식의 최소제곱해</a>가 되므로, 표준방정식의 해 $\mathbb{x}$ 를 구하면 된다.<strong>Step 2.</strong> $\mathbb{y} := A^{ * } \mathbb{b}$ 을 계산해 $A^{ * } A \mathbb{x} = \mathbb{y}$ 을 얻는다.<strong>Step 3.</strong>  <a href="https://freshrimpsushi.github.io/posts/350">콜레스키 분해</a>$A^{ * } A = L L^{ * } $ 을 만족하는 하삼각행렬 $L$ 을 구해 $L L^{ * } \mathbb{x} = \mathbb{y}$ 을 얻는다.<strong>Step 4.</strong>  전진대입법$L L^{ * } \mathbb{x} = \mathbb{y}$ 에서 $L^{ * } \mathbb{x} : = \mathbb{w}$ 이라고 하면 $ L \mathbb{w} = \mathbb{y} 
-$$
-L$ 은 하삼각행렬이므로 전진대입법을 통해 $\mathbb{w}$ 에 대한 방정식의 해를 구한다.<strong>Step 5.</strong>  후진대입법$\mathbb{w}$ 을 구했고 $L^{ * }$ 는 상삼각행렬이므로 후진대입법을 통해 $\mathbb{x}$ 에 대한 방정식 $L^{ * } \mathbb{x} = \mathbb{w}$ 의 해를 구한다.</p>
-<p>콜레스키 분해는 본래 분해할 행렬이 양의 정부호 행렬이어야 한다는 강력한 조건이 있었다.이 방법에서 핵심은 표준방정식을 세우는 트릭을 통해 그 까다로운 조건을 강제로 만족시켜버리는 것에 있다.물론 그 트릭에는 $A^{ * } A$ 가 양의 정부호라는 보장이 있어야하고, 그 증명은 그리 어렵지 않게 할 수 있다.</p>
-<p>행렬 $A \in \mathbb{C}^{m \times n} (m \ge n)$ 에 대해 $A^{ * } A &gt; 0 \iff \text{rank} A = n$</p>
+<!---전기현이수정--->
+<p>$A \in \mathbb{C}^{m \times n}$ 과 벡터 $\mathbb{b} \in \mathbb{C}^{m}$ 에 대해 $\text{rank} A = n$ 이고 $A \mathbb{x} = \mathbb{b}$ 의 최소제곱해를 $\mathbb{x}_{\ast}$ 이라고 하자.</p>
+<p><strong>Step 1.</strong></p>
+<p>주어진 방정식의 양변에 $A^{\ast}$ 을 곱해 표준방정식 $A^{\ast} A \mathbb{x} = A^{\ast} \mathbb{b}$ 을 세운다.<a href="../356">표준방정식의 해는 원래 방정식의 최소제곱해</a>가 되므로, 표준방정식의 해 $\mathbb{x}$ 를 구하면 된다.</p>
+<p><strong>Step 2.</strong></p>
+<p>$\mathbb{y} := A^{\ast} \mathbb{b}$ 을 계산해 $A^{\ast} A \mathbb{x} = \mathbb{y}$ 을 얻는다.</p>
+<p><strong>Step 3.</strong>  <a href="../350">콜레스키 분해</a></p>
+<p>$A^{\ast} A = L L^{\ast}$ 을 만족하는 하삼각행렬 $L$ 을 구해 $L L^{\ast} \mathbb{x} = \mathbb{y}$ 을 얻는다.</p>
+<p><strong>Step 4.</strong>  전진대입법</p>
+<p>$L L^{\ast} \mathbb{x} = \mathbb{y}$ 에서 $L^{\ast} \mathbb{x} : = \mathbb{w}$ 이라고 하면 $L \mathbb{w} = \mathbb{y}$</p>
+<p>$L$ 은 하삼각행렬이므로 전진대입법을 통해 $\mathbb{w}$ 에 대한 방정식의 해를 구한다</p>
+<p><strong>Step 5.</strong> 후진대입법</p>
+<p>$\mathbb{w}$ 을 구했고 $L^{\ast}$ 는 상삼각행렬이므로 후진대입법을 통해 $\mathbb{x}$ 에 대한 방정식 $L^{\ast} \mathbb{x} = \mathbb{w}$ 의 해를 구한다.</p>
+<hr>
+<p>콜레스키 분해는 본래 분해할 행렬이 양의 정부호 행렬이어야 한다는 강력한 조건이 있었다.이 방법에서 핵심은 표준방정식을 세우는 트릭을 통해 그 까다로운 조건을 강제로 만족시켜버리는 것에 있다.물론 그 트릭에는 $A^{\ast} A$ 가 양의 정부호라는 보장이 있어야하고, 그 증명은 그리 어렵지 않게 할 수 있다.</p>
+<h2 id="정리">정리</h2>
+<p>행렬 $A \in \mathbb{C}^{m \times n} (m \ge n)$ 에 대해 $A^{\ast} A &gt; 0 \iff \text{rank} A = n$</p>
 <h2 id="증명">증명</h2>
-<p>임의의 벡터 $\mathbb{v} \ne \mathbb{0} $ 에 대해 $ \mathbb{v}^{ * } A^{ * } A \mathbb{v} = (A \mathbb{v})^{ * } A \mathbb{v} = | A \mathbb{v} |^{2} \ge 0$ 이므로 $A^{ * } A \ge 0$ 이다.$A^{ * } A $ 의 역행렬이 존재하지 않는다고 가정하면 $A^{ * } A \mathbb{v} = \mathbb{0}$ 를 만족하는 $\mathbb{v} \ne \mathbb{0}$ 이 존재한다.위 식에서 양변의 왼쪽에 $\mathbb{v}^{ * }$ 을 곱하면 $| A \mathbb{v} |^2 = 0$ 이고 <a href="https://freshrimpsushi.github.io/posts/255">놈의 정의</a>에서 $A \mathbb{v} = 0$ 이다.이는 $A$ 의 열벡터들이 일차종속이라는 뜻이므로 $\text{rank} A &lt; n$ 이 된다.역으로 $\text{rank} A &lt; n$ 이라고 가정하면 $A \mathbb{v} = \mathbb{0}$ 을 만족하는 $\mathbb{v} \ne \mathbb{0}$ 가 존재한다.위 식에서 양변의 왼쪽에 $A^{ * }$ 을 곱하면 $A^{ * } A \mathbb{v} = \mathbb{0}$  이고, $A^{ * } A$ 은 역행렬이 존재하지 않는다.$A^{ * }A \ge 0$ 이고 $A^{ * } A \ne 0 \iff \text{rank} A = n$ 이므로, $A^{ * } A &gt; 0 \iff \text{rank} A = n$ <p style="text-align: right;">■</p></p>
+<p>임의의 벡터 $\mathbb{v} \ne \mathbb{0}$ 에 대해</p>
+<p>$$
+\mathbb{v}^{\ast} A^{\ast} A \mathbb{v} = (A \mathbb{v})^{\ast} A \mathbb{v} = | A \mathbb{v} |^{2} \ge 0
+$$</p>
+<p>이므로 $A^{\ast} A \ge 0$ 이다. $A^{\ast} A $ 의 역행렬이 존재하지 않는다고 가정하면 $A^{\ast} A \mathbb{v} = \mathbb{0}$ 를 만족하는 $\mathbb{v} \ne \mathbb{0}$ 이 존재한다. 위 식에서 양변의 왼쪽에 $\mathbb{v}^{\ast}$ 을 곱하면 $| A \mathbb{v} |^2 = 0$ 이고 <a href="../255">놈의 정의</a>에서 $A \mathbb{v} = 0$ 이다. 이는 $A$ 의 열벡터들이 일차종속이라는 뜻이므로 $\text{rank} A &lt; n$ 이 된다.</p>
+<p>역으로 $\text{rank} A &lt; n$ 이라고 가정하면 $A \mathbb{v} = \mathbb{0}$ 을 만족하는 $\mathbb{v} \ne \mathbb{0}$ 가 존재한다.위 식에서 양변의 왼쪽에 $A^{\ast}$ 을 곱하면 $A^{\ast} A \mathbb{v} = \mathbb{0}$  이고, $A^{\ast} A$ 은 역행렬이 존재하지 않는다. $A^{\ast}A \ge 0$ 이고</p>
+<p>$$
+A^{\ast} A \ne 0 \iff \text{rank} A = n
+$$</p>
+<p>이므로,</p>
+<p>$$
+A^{\ast} A &gt; 0 \iff \text{rank} A = n
+$$</p>
+<p style="text-align: right;">■</p>
 
 
 
@@ -527,7 +551,7 @@ L$ 은 하삼각행렬이므로 전진대입법을 통해 $\mathbb{w}$ 에 대�
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/> - 줄리아</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1756)</summary>
+    <summary>전체 포스트 (1754)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
         </li><li>
@@ -569,7 +593,7 @@ L$ 은 하삼각행렬이므로 전진대입법을 통해 $\mathbb{w}$ 에 대�
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (24)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (22)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (52)</a>
         </li><li>

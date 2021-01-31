@@ -97,7 +97,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/cholesky-decomposition\/",
-    "wordCount" : "1300",
+    "wordCount" : "1277",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -148,15 +148,10 @@
 
 <aside>
     <b>목차</b>
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#heading"></a></li>
-  </ul>
-</nav>
+    <nav id="TableOfContents"></nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
+<p style="
 text-align: center;
 max-width: 80%;
 text-align:center;
@@ -168,10 +163,10 @@ margin-right: auto;">
 <br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
 </p>
 
-$m \times m$ 양의 정부호 행렬 $A : = \begin{bmatrix}
-a_{11} &amp; \mathbb{w}^{T} 
-\\  \mathbb{w} &amp; K 
-\end{bmatrix} &gt; 0$ 을 생각해보면 $a_{11}$ 은 양수, $\mathbb{w} \in \mathbb{R}^{m-1}$ 이고 $ K \in \mathbb{R}^{(m-1) \times (m-1)}$ 이다.만약 $a_{11} \le 0$ 이면 $\mathbb{e}_{1} = (1, 0, \cdots , 0)$ 에 대해 $\mathbb{e}_{1}^{T} A \mathbb{e}_{1} = a_{11} \le 0$ 이므로 $A$ 는 양의 정부호가 될 수 없다.한편 임의의 벡터 $ \mathbb{0 } \ne \mathbb{x} \in \mathbb{R}^{m-1} $ 에 대해서 $ \mathbb{x}^{T} K \mathbb{x} = \begin{bmatrix}
+<!--- 전기현이 수정, R 코드 확인 바람--->
+<p>$m \times m$ 양의 정부호 행렬 $A : = \begin{bmatrix} a_{11} &amp; \mathbb{w}^{T} \\  \mathbb{w} &amp; K \end{bmatrix} &gt; 0$을 생각해보면 $a_{11}$ 은 양수, $\mathbb{w} \in \mathbb{R}^{m-1}$ 이고 $ K \in \mathbb{R}^{(m-1) \times (m-1)}$ 이다. 만약 $a_{11} \le 0$ 이면 $\mathbb{e}_{1} = (1, 0, \cdots , 0)$ 에 대해 $\mathbb{e}_{1}^{T} A \mathbb{e}_{1} = a_{11} \le 0$ 이므로 $A$ 는 양의 정부호가 될 수 없다. 한편 임의의 벡터 $\mathbb{0 } \ne \mathbb{x} \in \mathbb{R}^{m-1}$ 에 대해서</p>
+<p>$$
+\mathbb{x}^{T} K \mathbb{x} = \begin{bmatrix}
 0 &amp; \mathbb{x}^{T} 
 \end{bmatrix} \begin{bmatrix}
 a_{11} &amp; \mathbb{w}^{T} 
@@ -179,7 +174,11 @@ a_{11} &amp; \mathbb{w}^{T}
 \end{bmatrix} \begin{bmatrix}
 0 
 \\  \mathbb{x} 
-\end{bmatrix} &gt; 0$ 이므로 $K &gt; 0$ 다.편의상 $a_{11} = 1$ 이라 두면 $A_{0} : = \begin{bmatrix}
+\end{bmatrix} &gt; 0
+$$</p>
+<p>이므로 $K &gt; 0$ 다. 편의상 $a_{11} = 1$ 이라 두면</p>
+<p>$$
+A_{0} : = \begin{bmatrix}
 1 &amp; \mathbb{w}^{T} 
 \\  \mathbb{w} &amp; K 
 \end{bmatrix} = \begin{bmatrix}
@@ -191,18 +190,21 @@ a_{11} &amp; \mathbb{w}^{T}
 \end{bmatrix} \begin{bmatrix}
 1 &amp; \mathbb{w}^{T}  
 \\  \mathbb{0} &amp; I 
-\end{bmatrix} $ 으로 나타낼 수 있다.여기서 $L_{1} := \begin{bmatrix}
-1 &amp; \mathbb{w}^{T} 
-\\  \mathbb{w} &amp; K 
-\end{bmatrix}$ 은 상삼각행렬, $A_{1} := \begin{bmatrix}
-1 &amp; \mathbb{0} 
-\\  \mathbb{0} &amp; K - \mathbb{w} \mathbb{w}^{T} 
-\end{bmatrix} $ 은 양의 정부호이므로 $K - \mathbb{w} \mathbb{w}^T &gt; 0$ 다.따라서 이러한 프로세스 $A_{n-1} = L_{n} A_{n} L_{n}^{T} $ 를 $n=m$ 까지 반복하면 $A_{0} = L_{1} \cdots L_{m} I_{m} L_{m}^{T} \cdots L_{1}^{T} $ 와 같이 나타낼 수 있다.이제 $a_{11}&gt;0$ 인 경우에 대해서 일반화해보자.$A := A_{0}$ 라 하면 $A_{0} = \begin{bmatrix}
+\end{bmatrix}
+$$</p>
+<p>으로 나타낼 수 있다. 여기서 $L_{1} := \begin{bmatrix} 1 &amp; \mathbb{w}^{T}  \\  \mathbb{w} &amp; K  \end{bmatrix}$ 은 상삼각행렬, $A_{1} := \begin{bmatrix} 1 &amp; \mathbb{0} \\  \mathbb{0} &amp; K - \mathbb{w} \mathbb{w}^{T} \end{bmatrix}$ 은 양의 정부호이므로 $K - \mathbb{w} \mathbb{w}^T &gt; 0$ 다. 따라서 이러한 프로세스 $A_{n-1} = L_{n} A_{n} L_{n}^{T}$ 를 $n=m$ 까지 반복하면</p>
+<p>$$
+A_{0} = L_{1} \cdots L_{m} I_{m} L_{m}^{T} \cdots L_{1}^{T}
+$$</p>
+<p>와 같이 나타낼 수 있다.</p>
+<p>이제 $a_{11}&gt;0$ 인 경우에 대해서 일반화해보자. $A := A_{0}$ 라 하면</p>
+<p>$$
+\begin{align*}
+A_{0} &amp;= \begin{bmatrix}
 a_{11} &amp; \mathbb{w}^{T} 
 \\  \mathbb{w} &amp; K 
 \end{bmatrix} 
-$$
-= \begin{bmatrix}
+\\ &amp;= \begin{bmatrix}
 \sqrt{a_{11}} &amp; \mathbb{0} 
 \\  \mathbb{0} &amp; I 
 \end{bmatrix} \begin{bmatrix}
@@ -211,12 +213,12 @@ $$
 \end{bmatrix} \begin{bmatrix}
 \sqrt{a_{11}} &amp; \mathbb{0} 
 \\  \mathbb{0} &amp; I 
-\end{bmatrix}  
-$$
+\end{bmatrix}
+\end{align*}
+$$</p>
+<p>$\begin{bmatrix} 1 &amp; {{1} \over {\sqrt{a_{11}}}} \mathbb{w}^{T}   \\  {{1} \over {\sqrt{a_{11}}}} \mathbb{w} &amp; K \end{bmatrix}$은 $a_{11}=1$ 인 경우에서 다룬 꼴이므로</p>
+<p>$$
 \begin{bmatrix}
-1 &amp; {{1} \over {\sqrt{a_{11}}}} \mathbb{w}^{T}  
-\\  {{1} \over {\sqrt{a_{11}}}} \mathbb{w} &amp; K 
-\end{bmatrix} $ 은 $a_{11}=1$ 인 경우에서 다룬 꼴이므로 $\begin{bmatrix}
 1 &amp; {{1} \over {\sqrt{a_{11}}}} \mathbb{w}^{T}  
 \\  {{1} \over {\sqrt{a_{11}}}} \mathbb{w} &amp; K 
 \end{bmatrix} = \begin{bmatrix}
@@ -229,17 +231,27 @@ $$
 1 &amp; {{1} \over {\sqrt{a_{11}}}} \mathbb{w}^{T} 
 \\  \mathbb{0} &amp; I 
 \end{bmatrix} 
-$$
+$$</p>
+<p>$$
 L_{1} := \begin{bmatrix}
 \sqrt{a_{11}} &amp; \mathbb{0} 
 \\  \mathbb{0} &amp; I 
 \end{bmatrix} \begin{bmatrix}
 1 &amp; \mathbb{0} 
 \\  {{1} \over {\sqrt{a_{11}}}} \mathbb{w} &amp; I 
-\end{bmatrix} $ 그리고 $ A_{1} := \begin{bmatrix}
+\end{bmatrix}
+$$</p>
+<p>그리고</p>
+<p>$$
+A_{1} := \begin{bmatrix}
 1 &amp; \mathbb{0} 
 \\  \mathbb{0} &amp; K-{{ \mathbb{w} \mathbb{w}^{T} } \over {a_{11}}} 
-\end{bmatrix} $ 으로 두면$A_{0} = \begin{bmatrix}
+\end{bmatrix}
+$$</p>
+<p>으로 두면</p>
+<p>$$
+\begin{align*}
+A_{0} &amp;= \begin{bmatrix}
 \sqrt{a_{11}} &amp; \mathbb{0} 
 \\  \mathbb{0} &amp; I 
 \end{bmatrix} \begin{bmatrix}
@@ -254,30 +266,46 @@ L_{1} := \begin{bmatrix}
 \end{bmatrix} \begin{bmatrix}
 \sqrt{a_{11}} &amp; \mathbb{0} 
 \\  \mathbb{0} &amp; I 
-\end{bmatrix} = L_{1} A_{1} L_{1}^{T}$마찬가지로 프로세스 $A_{n-1} = L_{n} A_{n} L_{n}^{T} $ 를 $n=m$ 까지 반복하면 $A_{0} =  L_{1} \cdots L_{m} I_{m} L_{m}^{T} \cdots L_{1}^{T} $ 를 얻는다.$L_{1} , L_{2} , \cdots L_{m} $ 은 하삼각행렬이므로 이들의 곱 $L : = L_{m} L_{m-1} \cdots L_{1} $ 역시 하삼각행렬이고, $A_{0} = A = L L^{T}$ 로 표현된다.이렇듯 하삼각행렬 $L$ 만으로 $A = L L^{T}$ 를 표현하는 것을 <strong>콜레스키 분해</strong> 라고 한다.양의 정부호라는 조건이 상당히 강력하지만 그 분해는 놀랍도록 단순하면서 굉장히 적은 계산으로 구해낼 수 있게 된다.이제 구체적으로 $L : = \begin{bmatrix}
+\end{bmatrix}
+\\ &amp;= L_{1} A_{1} L_{1}^{T}
+\end{align*}
+$$</p>
+<p>마찬가지로 프로세스 $A_{n-1} = L_{n} A_{n} L_{n}^{T}$ 를 $n=m$ 까지 반복하면</p>
+<p>$$
+A_{0} =  L_{1} \cdots L_{m} I_{m} L_{m}^{T} \cdots L_{1}^{T}
+$$</p>
+<p>를 얻는다. $L_{1} , L_{2} , \cdots L_{m}$ 은 하삼각행렬이므로 이들의 곱 $L : = L_{m} L_{m-1} \cdots L_{1}$ 역시 하삼각행렬이고, $A_{0} = A = L L^{T}$ 로 표현된다.이렇듯 하삼각행렬 $L$ 만으로 $A = L L^{T}$ 를 표현하는 것을 <strong>콜레스키 분해</strong> 라고 한다. 양의 정부호라는 조건이 상당히 강력하지만 그 분해는 놀랍도록 단순하면서 굉장히 적은 계산으로 구해낼 수 있게 된다. 이제 구체적으로</p>
+<p>$$
+L : = \begin{bmatrix}
 l_{11} &amp; 0 &amp; 0 &amp; \cdots &amp; 0 
 \\  l_{21} &amp; l_{22} &amp; 0 &amp; \cdots &amp; 0 
 \\  l_{31} &amp; l_{32} &amp; l_{33} &amp; \cdots &amp; 0  
 \\  \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots 
 \\  l_{n1} &amp; l_{n2} &amp; l_{n3} &amp; \cdots &amp; l_{nn} 
-\end{bmatrix} $ 을 찾기 위해 $A = (a_{ij}) = LL^{T}$ 를 직접 계산해보자.대각성분 뒤로는 계산할 필요가 없으므로 $\displaystyle a_{ij} = \sum_{s=1}^{n} l_{is} l_{sj}^{T} = \sum_{s=1}^{\min (i,j)} l_{is} l_{js}
-$$
-i=j=k$ 면 $\displaystyle a_{kk} = \sum_{s=1}^{k-1} l_{ks}^{2} + l_{kk}^2$ 이고 $\displaystyle l_{kk} = \sqrt{ a_{kk} - \sum_{s=1}^{k-1} l_{ks}^{2}  } 
-$$
-j=k$ 면 $i = k+1, \cdots , n$ 에 대해 $\displaystyle a_{ik} = \sum_{s=1}^{k-1} l_{is} l_{ks} + l_{ik} l_{kk}$ 이고 $\displaystyle l_{ik} = {{1} \over {l_{kk}}} \left( a_{ik} - \sum_{s=1}^{k-1} l_{is} l_{ks} \right) $</p>
-<p>$(a_{ij}) \in \mathbb{R}^{n \times n} $ 가 양의 정부호 행렬이라고 하자.<strong>Step 1.</strong>  $k = 1
-$$
-d_{11} = \sqrt{a_{11}}$ 을 대입하고 $\displaystyle l_{i1} = {{1} \over {d_{11}}} a_{i1} $ 을 계산한다.<strong>Step 2.</strong>  $k = 2, 3, \cdots , n-1 $<strong>Step 2-1.</strong> $\displaystyle l_{kk} = \sqrt{ a_{kk} - \sum_{s=1}^{k-1} l_{ks}^{2}  } $ 을 계산한다.<strong>Step 2-2.</strong>  $i = k+1 , k+2 , \cdots , n-1
-$$
-\displaystyle l_{ik} = {{1} \over {l_{kk}}} \left( a_{ik} - \sum_{s=1}^{k-1} l_{is} l_{ks} \right) $ 을 계산한다.<strong>Step 3.</strong>  $k = n
-$$
-\displaystyle l_{nn} = \sqrt{ a_{nn} - \sum_{s=1}^{n-1} l_{ns}^{2}  } $ 을 계산한다.</p>
-<p><a href="https://freshrimpsushi.github.io/posts/345">LU 분해</a>나 <a href="https://freshrimpsushi.github.io/posts/349">LDU 분해</a>에 비해 계산량이 눈에 띄게 줄어들었음을 확인할 수 있다.그나마 하는 계산도 복잡하지 않고 내적과 놈을 구하는 것과 흡사해졌다는 것에 주목하자.이제 콜레스키 분해를 실제로 해보자.<img src="5A1D52273#center" alt="5A1D52273">
-아래의 코드는 위의 알고리즘을 실제로 R 에서 구현한 것이다.</p>
-<pre><code>
-B &lt;- matrix(c(2,1,0,1,2,1,0,1,2), ncol= 3); B Cholesky&lt;-function(A){  n=length(A[,1])  L&lt;-diag(0,n)    k=1  L[1,1] = sqrt(A[1,1])  L[,1] = A[,1]/L[1,1]   for(k in 2:(n-1))  {    L[k,k] = sqrt(A[k,k] - sum(L[k,1:(k-1)])^2 )    for(i in (k+1):n)    {      L[i,k] = ( A[i,k] - sum( L[i,1:(k-1)] * L[k,1:(k-1)] ) )/L[k,k]    }  }    L[n,n] = sqrt( A[n,n] - sum(L[n,1:(n-1)]^2) )    return(list(L=L))} Cholesky(B)t(chol(B))[Colored by Color Scripter](http://colorscripter.com/info#e)
-</code></pre><p>실행결과는 다음과 같다.<img src="5A1D52280#center" alt="5A1D52280">
-R 에 내장된 콜레스키 분해의 결과와 비교해보면 정확하게 일치함을 확인할 수 있다.</p>
+\end{bmatrix}
+$$</p>
+<p>을 찾기 위해 $A = (a_{ij}) = LL^{T}$ 를 직접 계산해보자. 대각성분 뒤로는 계산할 필요가 없으므로</p>
+<p>$$
+a_{ij} = \sum_{s=1}^{n} l_{is} l_{sj}^{T} = \sum_{s=1}^{\min (i,j)} l_{is} l_{js}
+$$</p>
+<p>$i=j=k$ 면 $\displaystyle a_{kk} = \sum_{s=1}^{k-1} l_{ks}^{2} + l_{kk}^2$ 이고 $\displaystyle l_{kk} = \sqrt{ a_{kk} - \sum_{s=1}^{k-1} l_{ks}^{2}  }$</p>
+<p>$j=k$ 면 $i = k+1, \cdots , n$ 에 대해 $\displaystyle a_{ik} = \sum_{s=1}^{k-1} l_{is} l_{ks} + l_{ik} l_{kk}$ 이고 $\displaystyle l_{ik} = {{1} \over {l_{kk}}} \left( a_{ik} - \sum_{s=1}^{k-1} l_{is} l_{ks} \right)$</p>
+<p>$(a_{ij}) \in \mathbb{R}^{n \times n}$ 가 양의 정부호 행렬이라고 하자.</p>
+<p><strong>Step 1.</strong>  $k = 1$</p>
+<p>$d_{11} = \sqrt{a_{11}}$ 을 대입하고 $\displaystyle l_{i1} = {{1} \over {d_{11}}} a_{i1}$ 을 계산한다.</p>
+<p><strong>Step 2.</strong>  $k = 2, 3, \cdots , n-1 $</p>
+<p><strong>Step 2-1.</strong> $\displaystyle l_{kk} = \sqrt{ a_{kk} - \sum_{s=1}^{k-1} l_{ks}^{2}  }$ 을 계산한다.</p>
+<p><strong>Step 2-2.</strong>  $i = k+1 , k+2 , \cdots , n-1$</p>
+<p>$\displaystyle l_{ik} = {{1} \over {l_{kk}}} \left( a_{ik} - \sum_{s=1}^{k-1} l_{is} l_{ks} \right)$ 을 계산한다.</p>
+<p><strong>Step 3.</strong>  $k = n$</p>
+<p>$\displaystyle l_{nn} = \sqrt{ a_{nn} - \sum_{s=1}^{n-1} l_{ns}^{2}  }$ 을 계산한다.</p>
+<p><a href="../345">LU 분해</a>나 <a href="../349">LDU 분해</a>에 비해 계산량이 눈에 띄게 줄어들었음을 확인할 수 있다. 그나마 하는 계산도 복잡하지 않고 내적과 놈을 구하는 것과 흡사해졌다는 것에 주목하자. 이제 콜레스키 분해를 실제로 해보자.</p>
+<p><img src="5A1D52273#center" alt="5A1D52273"></p>
+<p>아래의 코드는 위의 알고리즘을 실제로 R 에서 구현한 것이다.</p>
+<pre><code>B &lt;- matrix(c(2,1,0,1,2,1,0,1,2), ncol= 3); B Cholesky&lt;-function(A){  n=length(A[,1])  L&lt;-diag(0,n)    k=1  L[1,1] = sqrt(A[1,1])  L[,1] = A[,1]/L[1,1]   for(k in 2:(n-1))  {    L[k,k] = sqrt(A[k,k] - sum(L[k,1:(k-1)])^2 )    for(i in (k+1):n)    {      L[i,k] = ( A[i,k] - sum( L[i,1:(k-1)] * L[k,1:(k-1)] ) )/L[k,k]    }  }    L[n,n] = sqrt( A[n,n] - sum(L[n,1:(n-1)]^2) )    return(list(L=L))} Cholesky(B)t(chol(B))
+</code></pre><p>실행결과는 다음과 같다.
+<img src="5A1D52280#center" alt="5A1D52280"></p>
+<p>R 에 내장된 콜레스키 분해의 결과와 비교해보면 정확하게 일치함을 확인할 수 있다.</p>
 
 
 
@@ -629,7 +657,7 @@ R 에 내장된 콜레스키 분해의 결과와 비교해보면 정확하게 �
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/> - 줄리아</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1756)</summary>
+    <summary>전체 포스트 (1754)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
         </li><li>
@@ -671,7 +699,7 @@ R 에 내장된 콜레스키 분해의 결과와 비교해보면 정확하게 �
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (24)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (22)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (52)</a>
         </li><li>

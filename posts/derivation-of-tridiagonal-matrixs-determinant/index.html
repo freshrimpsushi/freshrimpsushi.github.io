@@ -97,7 +97,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/derivation-of-tridiagonal-matrixs-determinant\/",
-    "wordCount" : "820",
+    "wordCount" : "804",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -150,14 +150,12 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
     <li><a href="#증명">증명</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
+<p style="
 text-align: center;
 max-width: 80%;
 text-align:center;
@@ -169,7 +167,8 @@ margin-right: auto;">
 <br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
 </p>
 
-삼중대각행렬 $X_{n} := \begin{bmatrix}
+<!---전기현이수정--->
+<p>삼중대각행렬 $X_{n} := \begin{bmatrix}
 x &amp; 1 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 
 \\ 1 &amp; x &amp; 1 &amp; \cdots &amp; 0 &amp; 0 
 \\  0 &amp; 1 &amp; x &amp; \cdots &amp; 0 &amp; 0 
@@ -177,10 +176,13 @@ x &amp; 1 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 
 \\  0 &amp; 0 &amp; 0 &amp; \cdots &amp; x &amp; 1 
 \\  0 &amp; 0 &amp; 0 &amp; \cdots &amp; 1 &amp; x 
 \end{bmatrix}$ 에 대해 $\displaystyle | x_{n}| = U_{n} \left( {{x} \over {2}} \right)$</p>
-<p>$U_{n}$ 은 <a href="https://freshrimpsushi.github.io/posts/779">$n$ 차 제2종 체비셰프 다항함수</a>를 의미한다.물론 $X_{n}$ 은 일반적인 삼중대각행렬이 아니고 <strong>삼중대각 퇴플리츠Toeplitz 행렬</strong>  중에서도 특수한 형태다. 그 중에서 특히 <a href="https://freshrimpsushi.github.io/posts/790">편미분방정식의 수치해석적인 풀이</a>에 유용하게 쓰이는 형태로써, 보통은 그 고유값에 관심이 많다.</p>
+<p>$U_{n}$ 은 <a href="../779">$n$ 차 제2종 체비셰프 다항함수</a>를 의미한다.물론 $X_{n}$ 은 일반적인 삼중대각행렬이 아니고 <strong>삼중대각 퇴플리츠Toeplitz 행렬</strong>  중에서도 특수한 형태다. 그 중에서 특히 <a href="../790">편미분방정식의 수치해석적인 풀이</a>에 유용하게 쓰이는 형태로써, 보통은 그 고유값에 관심이 많다.</p>
 <h2 id="증명">증명</h2>
-<p><strong>Part 1.</strong>  $| X_{n+1} | = x | X_{n} | - | X_{n-1} | $</p>
-<p><a href="https://freshrimpsushi.github.io/posts/781">라플라스 전개</a>선택된 $i$행 에 대해, $\displaystyle \det A = \sum_{i=1}^{n} a_{ij} C_{ij} $</p>
+<p><strong>Part 1.</strong>  $| X_{n+1} | = x | X_{n} | - | X_{n-1} |$</p>
+<blockquote>
+<p>[라플라스 전개]</p>
+<p>(../781)선택된 $i$행 에 대해, $\displaystyle \det A = \sum_{i=1}^{n} a_{ij} C_{ij} $</p>
+</blockquote>
 <p>$n \times n$ 행렬 $Y_{n} : = \begin{bmatrix}
 1 &amp; 1 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 
 \\  0 &amp; x &amp; 1 &amp; \cdots &amp; 0 &amp; 0 
@@ -188,12 +190,41 @@ x &amp; 1 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 
 \\  \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots 
 \\  0 &amp; 0 &amp; 0 &amp; \cdots &amp; x &amp; 1 
 \\  0 &amp; 0 &amp; 0 &amp; \cdots &amp; 1 &amp; x 
-\end{bmatrix}$ 을 정의하자.$Y_{n}$ 의 첫번째 열은 $(1, 0 , \cdots , 0)$ 으로써, 첫번째 성분을 제외하면 영벡터가 되므로 첫번째 열을 포함한 여인자는 $0$ 이 된다.따라서 $| Y_{n} | = 1 \cdot | X_{n-1} | - 1 \cdot 0 + 0 \cdot 0 - \cdots \pm 0 \cdot 0 = | X_{n-1} |$마찬가지로 라플라스 전개에 의해 $| X_{n+1} | =  x \cdot | X_{n} | - 1 \cdot | Y_{n} | + 0 \cdot 0 - \cdots \pm 0 \cdots 0 = x | X_{n} | - | X_{n-1} | $</p>
-<p>Part 2.**  $\displaystyle | x_{n}| = U_{n} \left( {{x} \over {2}} \right)$명제 $\displaystyle P(n) : | x_{n}| = U_{n} \left( {{x} \over {2}} \right)$ 을 정의하고 수학적 귀납법을 사용하자.$n=1$ 일 때, $| X_{1} | = x$ 그리고 $\displaystyle U_{1} \left( {{x} \over {2}} \right) = 2 {{x} \over {2}} = x
-$$
-n=2$ 일 때, $| X_{2} | = x^2 - 1$ 그리고 $\displaystyle U_{2} \left( {{x} \over {2}} \right) = 4 \left( {{x} \over {2}} \right)^2 - 1 = x^2 - 1$명제 $P(n)$ 이 $n=k-1$, $n=k$ 일 때 성립한다고 가정해보자.</p>
-<p><a href="https://freshrimpsushi.github.io/posts/779">제2종 체비셰프 다항함수의 재귀식</a>$U_{n+1} (x) = 2x U_{n} (x) - U_{n-1} (x) $</p>
-<p>Part 1.** 에서 $| X_{k+1} | = x | X_{k} | - | X_{k-1} | $ 이고, $\displaystyle U_{k+1} \left( {{x} \over {2}} \right) = x U_{k} \left( {{x} \over {2}} \right) - U_{k-1} \left( {{x} \over {2}} \right) $따라서 $\displaystyle | X_{k+1} | - U_{k+1} \left( {{x} \over {2}} \right) = x \left[  | X_{k} | -  U_{k} \left( {{x} \over {2}} \right) \right] - \left[ | X_{k-1} | -  U_{k-1} \left( {{x} \over {2}} \right) \right] $가정에서 $\displaystyle | X_{k} | =  U_{k} \left( {{x} \over {2}} \right) $ 이고 $\displaystyle | X_{k-1} | =  U_{k-1} \left( {{x} \over {2}} \right) $ 이므로 $\displaystyle | X_{k+1} | - U_{k+1} \left( {{x} \over {2}} \right) = 0$수학적 귀납법에 의해 $P(n)$ 은 $n \in \mathbb{N}$ 에 대해 참이다. <p style="text-align: right;">■</p></p>
+\end{bmatrix}$ 을 정의하자. $Y_{n}$ 의 첫번째 열은 $(1, 0 , \cdots , 0)$ 으로써, 첫번째 성분을 제외하면 영벡터가 되므로 첫번째 열을 포함한 여인자는 $0$ 이 된다. 따라서</p>
+<p>$$
+| Y_{n} | = 1 \cdot | X_{n-1} | - 1 \cdot 0 + 0 \cdot 0 - \cdots \pm 0 \cdot 0 = | X_{n-1} |
+$$</p>
+<p>마찬가지로 라플라스 전개에 의해</p>
+<p>$$
+| X_{n+1} | =  x \cdot | X_{n} | - 1 \cdot | Y_{n} | + 0 \cdot 0 - \cdots \pm 0 \cdots 0 = x | X_{n} | - | X_{n-1} |
+$$</p>
+<p><strong>Part 2.</strong>  $\displaystyle | x_{n}| = U_{n} \left( {{x} \over {2}} \right)$</p>
+<p>명제 $\displaystyle P(n) : | x_{n}| = U_{n} \left( {{x} \over {2}} \right)$ 을 정의하고 수학적 귀납법을 사용하자.</p>
+<p>$n=1$ 일 때, $| X_{1} | = x$ 그리고 $\displaystyle U_{1} \left( {{x} \over {2}} \right) = 2 {{x} \over {2}} = x$</p>
+<p>$n=2$ 일 때, $| X_{2} | = x^2 - 1$ 그리고 $\displaystyle U_{2} \left( {{x} \over {2}} \right) = 4 \left( {{x} \over {2}} \right)^2 - 1 = x^2 - 1$</p>
+<p>명제 $P(n)$ 이 $n=k-1$, $n=k$ 일 때 성립한다고 가정해보자.</p>
+<blockquote>
+<p><a href="../779">제2종 체비셰프 다항함수의 재귀식</a></p>
+<p>$U_{n+1} (x) = 2x U_{n} (x) - U_{n-1} (x) $</p>
+</blockquote>
+<p><strong>Part 1.</strong> 에서</p>
+<p>$$
+| X_{k+1} | = x | X_{k} | - | X_{k-1} |
+$$</p>
+<p>이고,</p>
+<p>$$
+U_{k+1} \left( {{x} \over {2}} \right) = x U_{k} \left( {{x} \over {2}} \right) - U_{k-1} \left( {{x} \over {2}} \right)
+$$</p>
+<p>따라서</p>
+<p>$$
+| X_{k+1} | - U_{k+1} \left( {{x} \over {2}} \right) = x \left[  | X_{k} | -  U_{k} \left( {{x} \over {2}} \right) \right] - \left[ | X_{k-1} | -  U_{k-1} \left( {{x} \over {2}} \right) \right]
+$$</p>
+<p>가정에서 $\displaystyle | X_{k} | =  U_{k} \left( {{x} \over {2}} \right)$ 이고 $\displaystyle | X_{k-1} | =  U_{k-1} \left( {{x} \over {2}} \right)$ 이므로</p>
+<p>$$
+| X_{k+1} | - U_{k+1} \left( {{x} \over {2}} \right) = 0
+$$</p>
+<p>수학적 귀납법에 의해 $P(n)$ 은 $n \in \mathbb{N}$ 에 대해 참이다.</p>
+<p style="text-align: right;">■</p>
 
 
 
@@ -545,7 +576,7 @@ n=2$ 일 때, $| X_{2} | = x^2 - 1$ 그리고 $\displaystyle U_{2} \left( {{x} 
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/> - 줄리아</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1756)</summary>
+    <summary>전체 포스트 (1754)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
         </li><li>
@@ -587,7 +618,7 @@ n=2$ 일 때, $| X_{2} | = x^2 - 1$ 그리고 $\displaystyle U_{2} \left( {{x} 
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (24)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (22)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (52)</a>
         </li><li>

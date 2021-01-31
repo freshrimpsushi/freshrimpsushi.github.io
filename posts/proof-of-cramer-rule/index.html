@@ -97,7 +97,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/proof-of-cramer-rule\/",
-    "wordCount" : "752",
+    "wordCount" : "738",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -150,14 +150,12 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
     <li><a href="#증명">증명</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
+<p style="
 text-align: center;
 max-width: 80%;
 text-align:center;
@@ -169,7 +167,8 @@ margin-right: auto;">
 <br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
 </p>
 
-연립방정식 $A \mathbb{x} = \mathbb{b} $ 은 가역행렬 $A = \begin{bmatrix}
+<!---전기현이수정--->
+<p>연립방정식 $A \mathbb{x} = \mathbb{b} $ 은 가역행렬 $A = \begin{bmatrix}
 a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} 
 \\  a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} 
 \\  \vdots &amp; \vdots &amp; \ddots &amp; \vdots 
@@ -188,18 +187,53 @@ b_{1}
 <p>크레이머 공식은 연립방정식을 제대로 풀어내는데에 효율적이라곤 할 수 없지만 $A_{j}$ 가 비가역행렬이라거나 $A$ 자체가 행렬식을 구하기 편리하도록 특정한 조건이 주어져있다면 필요한 답만 바로바로 구해내는데 충분히 유용하게 쓰일 수 있다.</p>
 <h2 id="증명">증명</h2>
 <p>$A$ 의 $i,j$-여인자를 $C_{ij}$ 라고 하자.</p>
-<p><a href="https://freshrimpsushi.github.io/posts/781">라플라스 전개</a>선택된 $j$열 에 대해, $\displaystyle \det A = \sum_{j=1}^{n} a_{ij} C_{ij} $</p>
-<p>$A$ 의 $j$열은 $a_{1j} , a_{2j} , \cdots , a_{nj}$ 이므로 $\det A = a_{1j} C_{1j} + a_{2j} C_{2j} +  \cdots + a_{nj} C_{nj}$한편 $A$ 의 $k \ne j$열은 $a_{1k} , a_{2k} , \cdots , a_{nk}$ 인데, $a_{1k} C_{1j} + a_{2k} C_{2j} +  \cdots + a_{nk} C_{nj}$ 은 적어도 두 개의 같은 열 $a_{1k} , a_{2k} , \cdots , a_{nk}$ 을 가진 행렬의 행렬식과 같으므로 $a_{1k} C_{1j} + a_{2k} C_{2j} +  \cdots + a_{nk} C_{nj} = 0$연립방정식 $A \mathbb{x} = \mathbb{b}$ 를 풀어헤쳐보면 $\begin{matrix}
-a_{11} x_{1} + a_{12} x_{2} + \cdots + a_{1j} x_{j} + \cdots + a_{1n} x_{n} = b_{1} 
-\\  a_{21} x_{1} + a_{22} x_{2} + \cdots + a_{2j} x_{j} + \cdots + a_{2n} x_{n} = b_{2} 
-\\  \vdots 
-\\  a_{n1} x_{1} + a_{n2} x_{2} + \cdots + a_{nj} x_{j} + \cdots + a_{nn} x_{n} = b_{n} 
-\end{matrix} $각 $i$번째 식의 양변에 $C_{ij}$ 를 곱해주면 $\begin{matrix}
-a_{11} x_{1} C_{1j} + a_{12} x_{2} C_{1j} + \cdots + a_{1j} x_{j} C_{1j} + \cdots + a_{1n} x_{n} C_{1j} = b_{1} C_{1j} 
-\\  a_{21} x_{1} C_{2j} + a_{22} x_{2} C_{2j} + \cdots + a_{2j} x_{j} C_{2j}+ \cdots + a_{2n} x_{n} C_{2j} = b_{2} C_{2j} 
-\\  \vdots 
-\\  a_{n1} x_{1} C_{nj} + a_{n2} x_{2} C_{nj} + \cdots + a_{nj} x_{j} C_{nj} + \cdots + a_{nn} x_{n} C_{nj} = b_{n} C_{nj} 
-\end{matrix} $좌변을 모두 더하면 가운데의 $\displaystyle \sum_{i=1}^{n} a_{ij} x_{j} C_{ij} = \det A$ 를 제외하고는 $\displaystyle \sum_{i=1}^{n} a_{ik} x_{j} C_{ik} = 0$ 으로 모두 사라져서$\displaystyle \sum_{i=1}^{n} a_{ij} x_{j} C_{ij} =  b_{1} C_{1j} + b_{2} C_{2j} +  \cdots + b_{n} C_{nj}$ 을 얻는다.그런데 $A_{j}$ 은 $j$열이 $b_{1} , b_{2} , \cdots , b_{n}$ 으로 대체된 행렬이므로 $\det A_{j} = b_{1} C_{1j} + b_{2} C_{2j} +  \cdots + b_{n} C_{nj}$여기서 $x_{j}$ 를 $\displaystyle \sum_{i=1}^{n}$ 밖으로 빼내면 $\displaystyle x_{j} \sum_{i=1}^{n} a_{ij} C_{ij} =  \det A_{j}$정리하면 $\displaystyle x_{j} \det A =  \det A_{j}$ 이고, $A$ 는 가역행렬으로 가정했으므로 $\det A \ne 0$ 이다.따라서 $\displaystyle x_{j} = {{ \det A_{j} } \over {\det A}}$ <p style="text-align: right;">■</p></p>
+<blockquote>
+<p><a href="../781">라플라스 전개</a></p>
+<p>선택된 $j$열 에 대해, $\displaystyle \det A = \sum_{j=1}^{n} a_{ij} C_{ij} $</p>
+</blockquote>
+<p>$A$ 의 $j$열은 $a_{1j} , a_{2j} , \cdots , a_{nj}$ 이므로</p>
+<p>$$
+\det A = a_{1j} C_{1j} + a_{2j} C_{2j} +  \cdots + a_{nj} C_{nj}
+$$</p>
+<p>한편 $A$ 의 $k \ne j$열은 $a_{1k} , a_{2k} , \cdots , a_{nk}$ 인데, $a_{1k} C_{1j} + a_{2k} C_{2j} +  \cdots + a_{nk} C_{nj}$ 은 적어도 두 개의 같은 열 $a_{1k} , a_{2k} , \cdots , a_{nk}$ 을 가진 행렬의 행렬식과 같으므로</p>
+<p>$
+a_{1k} C_{1j} + a_{2k} C_{2j} +  \cdots + a_{nk} C_{nj} = 0
+$</p>
+<p>연립방정식 $A \mathbb{x} = \mathbb{b}$ 를 풀어헤쳐보면</p>
+<p>$$
+\begin{align*}
+a_{11} x_{1} + a_{12} x_{2} + \cdots + a_{1j} x_{j} + \cdots + a_{1n} x_{n} &amp;= b_{1} 
+\\  a_{21} x_{1} + a_{22} x_{2} + \cdots + a_{2j} x_{j} + \cdots + a_{2n} x_{n} &amp;= b_{2} 
+\\  &amp;\vdots 
+\\  a_{n1} x_{1} + a_{n2} x_{2} + \cdots + a_{nj} x_{j} + \cdots + a_{nn} x_{n} &amp;= b_{n}
+\end{align*}
+$$</p>
+<p>각 $i$번째 식의 양변에 $C_{ij}$ 를 곱해주면</p>
+<p>$$
+\begin{align*}
+a_{11} x_{1} C_{1j} + a_{12} x_{2} C_{1j} + \cdots + a_{1j} x_{j} C_{1j} + \cdots + a_{1n} x_{n} C_{1j} &amp;= b_{1} C_{1j} 
+\\  a_{21} x_{1} C_{2j} + a_{22} x_{2} C_{2j} + \cdots + a_{2j} x_{j} C_{2j}+ \cdots + a_{2n} x_{n} C_{2j} &amp;= b_{2} C_{2j} 
+\\  &amp;\vdots 
+\\  a_{n1} x_{1} C_{nj} + a_{n2} x_{2} C_{nj} + \cdots + a_{nj} x_{j} C_{nj} + \cdots + a_{nn} x_{n} C_{nj} &amp;= b_{n} C_{nj} 
+\end{align*}
+$$</p>
+<p>좌변을 모두 더하면 가운데의 $\displaystyle \sum_{i=1}^{n} a_{ij} x_{j} C_{ij} = \det A$ 를 제외하고는 $\displaystyle \sum_{i=1}^{n} a_{ik} x_{j} C_{ik} = 0$ 으로 모두 사라져서</p>
+<p>$$
+\sum_{i=1}^{n} a_{ij} x_{j} C_{ij} =  b_{1} C_{1j} + b_{2} C_{2j} +  \cdots + b_{n} C_{nj}
+$$
+을 얻는다. 그런데 $A_{j}$ 은 $j$열이 $b_{1} , b_{2} , \cdots , b_{n}$ 으로 대체된 행렬이므로</p>
+<p>$$
+\det A_{j} = b_{1} C_{1j} + b_{2} C_{2j} +  \cdots + b_{n} C_{nj}
+$$</p>
+<p>여기서 $x_{j}$를 $\displaystyle \sum_{i=1}^{n}$ 밖으로 빼내면</p>
+<p>$$
+x_{j} \sum_{i=1}^{n} a_{ij} C_{ij} =  \det A_{j}
+$$</p>
+<p>정리하면 $\displaystyle x_{j} \det A =  \det A_{j}$ 이고, $A$ 는 가역행렬으로 가정했으므로 $\det A \ne 0$ 이다. 따라서</p>
+<p>$$
+x_{j} = {{ \det A_{j} } \over {\det A}}
+$$</p>
+<p style="text-align: right;">■</p>
 
 
 
@@ -551,7 +585,7 @@ a_{11} x_{1} C_{1j} + a_{12} x_{2} C_{1j} + \cdots + a_{1j} x_{j} C_{1j} + \cdo
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/> - 줄리아</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1756)</summary>
+    <summary>전체 포스트 (1754)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
         </li><li>
@@ -593,7 +627,7 @@ a_{11} x_{1} C_{1j} + a_{12} x_{2} C_{1j} + \cdots + a_{1j} x_{j} C_{1j} + \cdo
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (24)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (22)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (52)</a>
         </li><li>

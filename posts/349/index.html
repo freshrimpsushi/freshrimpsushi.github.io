@@ -97,7 +97,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/349\/",
-    "wordCount" : "1224",
+    "wordCount" : "1176",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -150,14 +150,14 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#정의">정의</a></li>
+    <li><a href="#설명">설명</a></li>
     <li><a href="#증명">증명</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
+<p style="
 text-align: center;
 max-width: 80%;
 text-align:center;
@@ -169,49 +169,78 @@ margin-right: auto;">
 <br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
 </p>
 
-가역대칭행렬 $A$ 에 대해 $A = LDL^{T}$ 를 만족하는 하삼각행렬 $L$ 과 대각행렬 $D$ 가 존재한다.</p>
+<!--- 전기현이 수정; R코드 확인 바람--->
+<h2 id="정의">정의</h2>
+<p>가역대칭행렬 $A$ 에 대해 $A = LDL^{T}$ 를 만족하는 하삼각행렬 $L$ 과 대각행렬 $D$ 가 존재한다.</p>
+<h2 id="설명">설명</h2>
 <p>$L^{T}$ 는 상삼각행렬이므로 $A = LU$ 에서의 $U$ 를 $U:= DL^{T}$ 으로 바꾼다고 보면 된다.일반적인 <a href="https://freshrimpsushi.github.io/posts/345">LU 분해</a>보다 조건이 까다로워진만큼 계산량은 많이 줄어든다.</p>
 <h2 id="증명">증명</h2>
-<p>$A$ 는 가역행렬이므로 $A = L U$ 를 만족하는 하삼각행렬 $L$ 과 상삼각행렬 $U$ 가 존재한다.한편 $A = A^{T}$ 이므로 $L U = A = A^{T} = U^{T} L^{T}$LU 분해에서 $L$ 은 대각선 성분이 모두 $1$ 인 하삼각행렬로 구해지므로 $\det L = 1$, 즉 역행렬 $L^{-1}$ 이 존재한다.$L^{-1}$ 는 하삼각행렬이고 $L U = U^{T} L^{T}$ 을 $U$ 에 대해 정리하면 $U = L^{-1} U^{T} L^{T}$양변의 오른쪽에 $(L^{T})^{-1}$ 을 곱하면 $U (L^{T})^{-1} = L^{-1} U^{T} $ 을 얻는다.$U (L^{T})^{-1} = L^{-1} U^{T} $ 의 좌변은 상삼각행렬이고 우변은 하삼각행렬이므로, $D: = U (L^{T})^{-1} = L^{-1} U^{T} $ 는 대각행렬임을 알 수 있다.이를 $U$ 에 대해서 정리하면 $U = DL^{T} $ 이고 $A = LU = LDL^{T}$ 를 얻는다. <p style="text-align: right;">■</p>
-이제 구체적으로 $L$ 과 $D$ 를 계산하기 위해 아래와 같이 정의해보자.$L : = \begin{bmatrix}
+<p>$A$ 는 가역행렬이므로 $A = L U$ 를 만족하는 하삼각행렬 $L$ 과 상삼각행렬 $U$ 가 존재한다. 한편 $A = A^{T}$ 이므로</p>
+<p>$$
+L U = A = A^{T} = U^{T} L^{T}
+$$</p>
+<p>LU 분해에서 $L$ 은 대각선 성분이 모두 $1$ 인 하삼각행렬로 구해지므로 $\det L = 1$, 즉 역행렬 $L^{-1}$ 이 존재한다. $L^{-1}$ 는 하삼각행렬이고 $L U = U^{T} L^{T}$ 을 $U$ 에 대해 정리하면 $U = L^{-1} U^{T} L^{T}$양변의 오른쪽에 $(L^{T})^{-1}$ 을 곱하면 $U (L^{T})^{-1} = L^{-1} U^{T}$ 을 얻는다. $U (L^{T})^{-1} = L^{-1} U^{T}$ 의 좌변은 상삼각행렬이고 우변은 하삼각행렬이므로, $D: = U (L^{T})^{-1} = L^{-1} U^{T}$ 는 대각행렬임을 알 수 있다. 이를 $U$ 에 대해서 정리하면 $U = DL^{T} $ 이고 $A = LU = LDL^{T}$ 를 얻는다.</p>
+<p style="text-align: right;">■</p>
+<p>이제 구체적으로 $L$ 과 $D$ 를 계산하기 위해 아래와 같이 정의해보자.</p>
+<p>$$
+L : = \begin{bmatrix}
  1 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 
 \\  l_{21} &amp; 1 &amp; 0 &amp; \cdots &amp; 0 
 \\  l_{31} &amp; l_{32} &amp; 1 &amp; \cdots &amp; 0  
 \\  \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots 
 \\  l_{n1} &amp; l_{n2} &amp; l_{n3} &amp; \cdots &amp; 1 
-\end{bmatrix} $, $D : = \begin{bmatrix}
+\end{bmatrix},\quad
+D : = \begin{bmatrix}
  d_{11} &amp; 0 &amp; 0 &amp; \cdots &amp; 0 
 \\  0 &amp; d_{22} &amp; 0 &amp; \cdots &amp; 0 
 \\  0 &amp; 0 &amp; d_{33} &amp; \cdots &amp; 0  
 \\  \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots 
 \\  0 &amp; 0 &amp; 0 &amp; \cdots &amp; d_{nn} 
 \end{bmatrix} 
-$$
-A = (a_{ij}) = LDL^{T}$ 를 직접 계산해보자.$l_{ij} &gt; 0$ 이고 $l_{ii} = 1$ 이므로$\displaystyle a_{ij} = \sum_{\nu = 1}^{n} l_{i \nu} \sum_{\mu = 1}^{n} d_{\nu \mu} l_{\mu j}^{T} 
-$$
-\displaystyle = \sum_{\nu = 1}^{n} l_{i \nu}  \sum_{\mu = 1}^{n} \delta_{\nu \mu} d_{\nu \mu} l_{ j \mu} 
-$$
-\displaystyle =\sum_{\nu = 1}^{n} l_{i \nu} d_{\nu \nu} l_{ j \nu} 
-$$
-\displaystyle =\sum_{\nu = 1}^{ \min (i,j) } l_{i \nu} d_{\nu \nu} l_{ j \nu} $우선 $j \le i$ 인 경우로 가정해보자.$\displaystyle a_{ij} = \sum_{\nu = 1}^{j} l_{i \nu} d_{\nu \nu} l_{j \nu} 
-$$
-\displaystyle = \sum_{\nu = 1}^{j-1} l_{i \nu} d_{\nu \nu} l_{j \nu} + l_{ij} d_{jj} l_{jj} 
-$$
-\displaystyle = \sum_{\nu = 1}^{j-1} l_{i \nu} d_{\nu \nu} l_{j \nu} + l_{ij} d_{jj} $여기서 $i = j = k$ 인 경우 $\displaystyle a_{kk} = \sum_{\nu = 1}^{k-1} l_{k \nu} d_{\nu \nu} l_{k \nu} + d_{kk} 
-$$
-d_{kk}$ 에 대해 정리하면 $\displaystyle d_{kk} = a_{kk} - \sum_{\nu = 1}^{k-1} d_{\nu \nu} l_{k \nu}^2 $반대로 $j = k$ 이고 $i = k+1, \cdots , n$ 이라고 하면 $\displaystyle a_{ik} = \sum_{\nu = 1}^{k-1} l_{i \nu} d_{\nu \nu} l_{k \nu} + l_{ik} d_{kk}
-$$
-l_{ik}$ 에 대해 정리하면 $\displaystyle l_{ik} = {{1} \over {d_{kk}}} \left\{ a_{ik} - \sum_{\nu = 1}^{k-1} l_{i \nu} d_{\nu \nu} l_{k \nu} \right\} $</p>
-<p>$(a_{ij}) \in \mathbb{R}^{n \times n} $ 가 가역대칭행렬이라고 하자. **
-<strong>Step 1.</strong>  $k = 1
-$$
-d_{11} = a_{11}$ 을 대입하고 $\displaystyle l_{i1} = {{1} \over {d_{11}}} a_{i1} $ 을 계산한다.<strong>Step 2.</strong>  $k = 2, 3, \cdots , n-1 $<strong>Step 2-1.</strong> $\displaystyle d_{kk} = a_{kk} - \sum_{\nu = 1}^{k-1} d_{\nu \nu} l_{k \nu}^2 $ 을 계산한다.<strong>Step 2-2.</strong>  $i = k+1 , k+2 , \cdots , n-1
-$$
-\displaystyle l_{ik} = {{1} \over {d_{kk}}} \left\{ a_{ik} - \sum_{\nu = 1}^{k-1} l_{i \nu} d_{\nu \nu} l_{k \nu} \right\} $ 을 계산한다.<strong>Step 3.</strong>  $k = n
-$$
-\displaystyle d_{nn} = a_{nn} - \sum_{\nu = 1}^{n-1} d_{\nu \nu} l_{n \nu}^2 $ 을 계산한다.</p>
-<p>손으로 계산할 땐 복잡해보였지만 알고리즘으로 정리해서 보면 계산량이 확 줄어들었음을 알 수 있다.언제나 $D$ 의 대각성분을 먼저 구한 후 $L$ 의 값을 한 열 단위로 구해나간다는 것을 기억하자.이제 LU 분해에서 했던 것과 같은 예제를 가져와서 LDU 분해를 실제로 해보자.<img src="5A1AC6BB2#center" alt="5A1AC6BB2">
-아래의 코드는 위의 알고리즘을 실제로 R 에서 구현한 것이다.</p>
+$$</p>
+<p>$A = (a_{ij}) = LDL^{T}$ 를 직접 계산해보자.$l_{ij} &gt; 0$ 이고 $l_{ii} = 1$ 이므로</p>
+<p>$$
+\begin{align*}
+a_{ij} &amp;= \sum_{\nu = 1}^{n} l_{i \nu} \sum_{\mu = 1}^{n} d_{\nu \mu} l_{\mu j}^{T}
+\\ &amp;= \sum_{\nu = 1}^{n} l_{i \nu}  \sum_{\mu = 1}^{n} \delta_{\nu \mu} d_{\nu \mu} l_{ j \mu} 
+\\ &amp;= \sum_{\nu = 1}^{n} l_{i \nu} d_{\nu \nu} l_{ j \nu} 
+\\ &amp;= \sum_{\nu = 1}^{ \min (i,j) } l_{i \nu} d_{\nu \nu} l_{ j \nu}
+\end{align*}
+$$</p>
+<p>우선 $j \le i$ 인 경우로 가정해보자.</p>
+<p>$$
+a_{ij} = \sum_{\nu = 1}^{j} l_{i \nu} d_{\nu \nu} l_{j \nu} = \sum_{\nu = 1}^{j-1} l_{i \nu} d_{\nu \nu} l_{j \nu} + l_{ij} d_{jj} l_{jj} = \sum_{\nu = 1}^{j-1} l_{i \nu} d_{\nu \nu} l_{j \nu} + l_{ij} d_{jj}
+$$</p>
+<p>여기서 $i = j = k$ 인 경우</p>
+<p>$$
+a_{kk} = \sum_{\nu = 1}^{k-1} l_{k \nu} d_{\nu \nu} l_{k \nu} + d_{kk} 
+d_{kk}
+$$</p>
+<p>에 대해 정리하면</p>
+<p>$$
+d_{kk} = a_{kk} - \sum_{\nu = 1}^{k-1} d_{\nu \nu} l_{k \nu}^2
+$$</p>
+<p>반대로 $j = k$ 이고 $i = k+1, \cdots , n$ 이라고 하면</p>
+<p>$$
+a_{ik} = \sum_{\nu = 1}^{k-1} l_{i \nu} d_{\nu \nu} l_{k \nu} + l_{ik} d_{kk}
+$$</p>
+<p>$l_{ik}$에 대해 정리하면</p>
+<p>$$
+l_{ik} = {{1} \over {d_{kk}}} \left\{ a_{ik} - \sum_{\nu = 1}^{k-1} l_{i \nu} d_{\nu \nu} l_{k \nu} \right\}
+$$</p>
+<p>$(a_{ij}) \in \mathbb{R}^{n \times n}$ 가 가역대칭행렬이라고 하자.</p>
+<p><strong>Step 1.</strong>  $k = 1$</p>
+<p>$d_{11} = a_{11}$ 을 대입하고 $\displaystyle l_{i1} = {{1} \over {d_{11}}} a_{i1}$ 을 계산한다.</p>
+<p><strong>Step 2.</strong>  $k = 2, 3, \cdots , n-1$</p>
+<p><strong>Step 2-1.</strong></p>
+<p>$\displaystyle d_{kk} = a_{kk} - \sum_{\nu = 1}^{k-1} d_{\nu \nu} l_{k \nu}^2$ 을 계산한다.</p>
+<p><strong>Step 2-2.</strong>  $i = k+1 , k+2 , \cdots , n-1$</p>
+<p>$\displaystyle l_{ik} = {{1} \over {d_{kk}}} \left\{ a_{ik} - \sum_{\nu = 1}^{k-1} l_{i \nu} d_{\nu \nu} l_{k \nu} \right\}$ 을 계산한다.</p>
+<p><strong>Step 3.</strong>  $k = n$</p>
+<p>$\displaystyle d_{nn} = a_{nn} - \sum_{\nu = 1}^{n-1} d_{\nu \nu} l_{n \nu}^2$ 을 계산한다.</p>
+<p>손으로 계산할 땐 복잡해보였지만 알고리즘으로 정리해서 보면 계산량이 확 줄어들었음을 알 수 있다.언제나 $D$ 의 대각성분을 먼저 구한 후 $L$ 의 값을 한 열 단위로 구해나간다는 것을 기억하자.이제 LU 분해에서 했던 것과 같은 예제를 가져와서 LDU 분해를 실제로 해보자.</p>
+<p><img src="5A1AC6BB2#center" alt="5A1AC6BB2"></p>
+<p>아래의 코드는 위의 알고리즘을 실제로 R 에서 구현한 것이다.</p>
 <pre><code>B &lt;- matrix(c(2,1,0,1,2,1,0,1,2), ncol= 3); B
  
 LDU&lt;-function(A)
@@ -239,9 +268,10 @@ LDU&lt;-function(A)
 }
  
 LDU(B)
-LDU(B)$L%*%LDU(B)$D%*%t(LDU(B)$L)[Colored by Color Scripter](http://colorscripter.com/info#e)
-</code></pre><p>실행 결과는 다음과 같다.<img src="20171128_143203.png#center" alt="20171128\_143203.png">
-R 에는 따로 LDU 분해가 구현되어 있지 않아 검산만 해보았는데, 정확하게 분해가 되었음을 알 수 있다.$B$ 의 사이즈가 그렇게 크지 않고 계산도 그럭저럭 할만한 편이므로 정 의심된다면 직접 손계산을 해봐도 좋다.</p>
+LDU(B)$L%*%LDU(B)$D%*%t(LDU(B)$L)
+</code></pre><p>실행 결과는 다음과 같다.
+<img src="20171128_143203.png#center" alt="20171128\_143203.png"></p>
+<p>R 에는 따로 LDU 분해가 구현되어 있지 않아 검산만 해보았는데, 정확하게 분해가 되었음을 알 수 있다.$B$ 의 사이즈가 그렇게 크지 않고 계산도 그럭저럭 할만한 편이므로 정 의심된다면 직접 손계산을 해봐도 좋다.</p>
 
 
 
@@ -593,7 +623,7 @@ R 에는 따로 LDU 분해가 구현되어 있지 않아 검산만 해보았는�
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/> - 줄리아</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1756)</summary>
+    <summary>전체 포스트 (1754)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
         </li><li>
@@ -635,7 +665,7 @@ R 에는 따로 LDU 분해가 구현되어 있지 않아 검산만 해보았는�
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (24)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (22)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (52)</a>
         </li><li>

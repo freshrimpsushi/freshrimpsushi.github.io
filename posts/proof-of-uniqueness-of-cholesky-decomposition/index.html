@@ -97,7 +97,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/proof-of-uniqueness-of-cholesky-decomposition\/",
-    "wordCount" : "468",
+    "wordCount" : "442",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -150,14 +150,14 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#정리">정리</a></li>
+    <li><a href="#설명">설명</a></li>
     <li><a href="#증명">증명</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
+<p style="
 text-align: center;
 max-width: 80%;
 text-align:center;
@@ -169,10 +169,30 @@ margin-right: auto;">
 <br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
 </p>
 
-$A&gt;0$ 은 오직 하나의 콜레스키 분해를 가진다.</p>
-<p><a href="https://freshrimpsushi.github.io/posts/339">고유값 대각화</a>, <a href="https://freshrimpsushi.github.io/posts/340">특이값 분해</a>, <a href="https://freshrimpsushi.github.io/posts/342">슈어 분해</a>, <a href="https://freshrimpsushi.github.io/posts/345">LU 분해</a>, <a href="https://freshrimpsushi.github.io/posts/349">LDU 분해</a> 모두 유일성을 가지지 않는다는 공통점이 있다.이 방법들은 모두 고유값과 고유벡터의 관계를 이용하거나 $\displaystyle 1 = a {{1} \over {a}} $ 이므로 $L$ 이나 $U$ 에 나눠줄 수 있기 때문이다.하지만 <a href="https://freshrimpsushi.github.io/posts/350">콜레스키 분해</a>는 고유값의 개념을 사용하지 않고 $A=LL^{T}$ 로 나타나므로 $1$을 둘로 쪼개서 나눠줄 수가 없다.이렇게 상식적인 이야기를 조금 꼼꼼하게 어렵게 쓰면 증명이 바로 완성된다.</p>
+<!---전기현이 수정--->
+<h2 id="정리">정리</h2>
+<p>$A&gt;0$ 은 오직 하나의 콜레스키 분해를 가진다.</p>
+<h2 id="설명">설명</h2>
+<p><a href="../339">고유값 대각화</a>, <a href="../340">특이값 분해</a>, <a href="../342">슈어 분해</a>, <a href="../345">LU 분해</a>, <a href="../349">LDU 분해</a> 모두 유일성을 가지지 않는다는 공통점이 있다. 이 방법들은 모두 고유값과 고유벡터의 관계를 이용하거나 $1 = a \dfrac{1}{a}$ 이므로 $L$ 이나 $U$ 에 나눠줄 수 있기 때문이다.하지만 <a href="../350">콜레스키 분해</a>는 고유값의 개념을 사용하지 않고 $A=LL^{T}$ 로 나타나므로 $1$을 둘로 쪼개서 나눠줄 수가 없다. 이렇게 상식적인 이야기를 조금 꼼꼼하게 어렵게 쓰면 증명이 바로 완성된다.</p>
 <h2 id="증명">증명</h2>
-<p><a href="https://freshrimpsushi.github.io/posts/336">$A$ 는 양의 정부호이므로 정칙행렬</a>이고, $A:=LDL^{T}$ 를 만족하는 하삼각행렬 $L$ 과 대각행렬 $D$ 가 존재한다.$A=LDL^{T}$ 의 양변의 왼쪽에 $\mathbb{x}^{T} \ne \mathbb{0}$ 를, 오른쪽에 $\mathbb{x}$ 를 곱하면 $\mathbb{x}^{T} A \mathbb{x} = \mathbb{x}^{T} LDL^{T} \mathbb{x} = (L^{T} \mathbb{x})^{T} D (L^{T} \mathbb{x}) &gt;0 $따라서 $D$ 는 양의 정부호 행렬이고, 고유값이 모두 양수이므로 대각성분은 모두 양수다.그러면 $\displaystyle D^{ 1/2 } := \text{diag} (\sqrt{d_{11}} , \sqrt{d_{22}} , \cdots , \sqrt{d_{nn}} )$ 을 정의할 수 있고, $\displaystyle D = D^{ 1/2 } D^{ 1/2 }$ 이 될 것이다.$\displaystyle A = L D L^{T} = L D^{ 1/2 } D^{ 1/2 } L^{T}$ 에서 $\displaystyle \overline{L} := LD^{ 1/2 }$ 로 정의하면 $A = \overline{L} \overline{L}^{T}$이러한 $\overline{L}$ 은 유일하므로, 콜레스키 분해도 유일하다. <p style="text-align: right;">■</p></p>
+<p><a href="../336">$A$ 는 양의 정부호이므로 정칙행렬</a>이고, $A:=LDL^{T}$ 를 만족하는 하삼각행렬 $L$ 과 대각행렬 $D$ 가 존재한다.$A=LDL^{T}$ 의 양변의 왼쪽에 $\mathbb{x}^{T} \ne \mathbb{0}$ 를, 오른쪽에 $\mathbb{x}$ 를 곱하면</p>
+<p>$$
+\mathbb{x}^{T} A \mathbb{x} = \mathbb{x}^{T} LDL^{T} \mathbb{x} = (L^{T} \mathbb{x})^{T} D (L^{T} \mathbb{x}) &gt;0
+$$</p>
+<p>따라서 $D$ 는 양의 정부호 행렬이고, 고유값이 모두 양수이므로 대각성분은 모두 양수다.그러면</p>
+<p>$$
+D^{ 1/2 } := \text{diag} (\sqrt{d_{11}} , \sqrt{d_{22}} , \cdots , \sqrt{d_{nn}} )
+$$</p>
+<p>을 정의할 수 있고, $D = D^{ 1/2 } D^{ 1/2 }$ 이 될 것이다.</p>
+<p>$$
+A = L D L^{T} = L D^{ 1/2 } D^{ 1/2 } L^{T}
+$$</p>
+<p>에서 $\overline{L} := LD^{ 1/2 }$ 로 정의하면</p>
+<p>$$
+A = \overline{L} \overline{L}^{T}
+$$</p>
+<p>이러한 $\overline{L}$ 은 유일하므로, 콜레스키 분해도 유일하다.</p>
+<p style="text-align: right;">■</p>
 
 
 
@@ -524,7 +544,7 @@ $A&gt;0$ 은 오직 하나의 콜레스키 분해를 가진다.</p>
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/> - 줄리아</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1756)</summary>
+    <summary>전체 포스트 (1754)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
         </li><li>
@@ -566,7 +586,7 @@ $A&gt;0$ 은 오직 하나의 콜레스키 분해를 가진다.</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (24)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (22)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (52)</a>
         </li><li>
