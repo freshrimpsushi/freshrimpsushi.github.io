@@ -42,10 +42,10 @@
     </script>
 
     
-<meta name="title" content="방데르몽드 행렬의 행렬식 유도">
+<meta name="title" content="대칭행렬의 LDU 분해">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="방데르몽드 행렬의 행렬식 유도"/>
-<meta property="og:description" content="derivation of vandermonde matrixs determinant"/>
+<meta property="og:title" content="대칭행렬의 LDU 분해"/>
+<meta property="og:description" content="LDU decomposition of symmetric matrix"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -57,15 +57,15 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "r_",
-    "name": "방데르몽드 행렬의 행렬식 유도",
-    "headline": "방데르몽드 행렬의 행렬식 유도",
+    "name": "대칭행렬의 LDU 분해",
+    "headline": "대칭행렬의 LDU 분해",
     "alternativeHeadline": "",
-    "description": "derivation of vandermonde matrixs determinant",
+    "description": "LDU decomposition of symmetric matrix",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/derivation-of-vandermonde-matrixs-determinant\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/ldu-decomposition-of-symmetric-matrix\/"
     },
     "author" : {
         "@type": "Person",
@@ -80,10 +80,10 @@
         "name": "류대식"
     },
     "copyrightHolder" : "생새우초밥집",
-    "copyrightYear" : "2018",
-    "dateCreated": "2018-12-20T00:00:00.00Z",
-    "datePublished": "2018-12-20T00:00:00.00Z",
-    "dateModified": "2018-12-20T00:00:00.00Z",
+    "copyrightYear" : "2017",
+    "dateCreated": "2017-12-29T00:00:00.00Z",
+    "datePublished": "2017-12-29T00:00:00.00Z",
+    "dateModified": "2017-12-29T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -96,15 +96,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/derivation-of-vandermonde-matrixs-determinant\/",
-    "wordCount" : "1041",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/ldu-decomposition-of-symmetric-matrix\/",
+    "wordCount" : "1181",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>방데르몽드 행렬의 행렬식 유도</title>
+    <title>대칭행렬의 LDU 분해</title>
 
 </head>
 
@@ -128,12 +128,12 @@
             <div class = "content">
             
 
-<title>방데르몽드 행렬의 행렬식 유도</title>
+<title>대칭행렬의 LDU 분해</title>
 
-<h1>방데르몽드 행렬의 행렬식 유도</h1>
+<h1>대칭행렬의 LDU 분해</h1>
 <aside>
     <p style="text-align: right;">
-        736
+        349
 
     
     
@@ -141,7 +141,7 @@
             
     </span>
     
-    작성일: 2018-12-20&nbsp;<br>
+    작성일: 2017-12-29&nbsp;<br>
     작성자: 류대식 사장 &nbsp;
 </p>
 </aside>
@@ -150,106 +150,164 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#정의">정의</a></li>
-    <li><a href="#설명">설명</a></li>
-    <li><a href="#유도">유도</a></li>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#정리">정리</a></li>
+    <li><a href="#증명">증명</a></li>
+    <li><a href="#계산">계산</a></li>
+    <li><a href="#알고리즘">알고리즘</a></li>
+    <li><a href="#코드">코드</a></li>
   </ul>
 </nav>
 </aside>
 
-<p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-<!---전기현이수정--->
-<h2 id="정의">정의</h2>
-<p>서로 다른 $1, x_{1} , x_{2 } , \cdots , x_{n}$ 에 대해 $V_{n} := \begin{bmatrix}
-1 &amp; x_{1} &amp; x_{1}^{2} &amp; \cdots &amp; x_{1}^{n-1} 
-\\   1 &amp; x_{2} &amp; x_{2}^{2} &amp; \cdots &amp; x_{2}^{n-1} 
-\\   \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots 
-\\   1 &amp; x_{n} &amp; x_{n}^{2} &amp; \cdots &amp; x_{n}^{n-1} 
-\end{bmatrix}$ 를 <strong>방데르몽드 행렬</strong> 이라고 한다. $V_{n}$ 의 행렬식은</p>
+<h2 id="개요">개요</h2>
+<p>$L^{T}$ 는 상삼각행렬이므로 $A = LU$ 에서의 $U$ 를 $U:= DL^{T}$ 으로 바꾼다고 보면 된다. 일반적인 <a href="https://freshrimpsushi.github.io/posts/345">LU 분해</a>보다 조건이 까다로워진만큼 계산량은 많이 줄어든다.</p>
+<h2 id="정리">정리</h2>
+<p>가역대칭행렬 $A$ 에 대해 $A = LDL^{T}$ 를 만족하는 하삼각행렬 $L$ 과 대각행렬 $D$ 가 존재한다.</p>
+<h2 id="증명">증명</h2>
+<p>$A$ 는 가역행렬이므로 $A = L U$ 를 만족하는 하삼각행렬 $L$ 과 상삼각행렬 $U$ 가 존재한다. 한편 $A = A^{T}$ 이므로</p>
 <p>$$
-\det V_{n} = \prod_{1 \le i &lt; j \le n } (x_{j} - x_{i})
+L U = A = A^{T} = U^{T} L^{T}
 $$</p>
-<h2 id="설명">설명</h2>
-<p>방데르몽드 행렬은 특이하게 생겼지만 미분방정식의 수치적 풀이에서 등장하는 등 의외로 볼 일이 많다.$1, x_{1} , x_{2 } , \cdots , x_{n}$ 가 서로 다르다는 가정에서 $\displaystyle \prod_{ 1 \le i &lt; j \le n } (x_{j} - x_{i}) \ne 0$ 이며, $V_{n}$ 의 가역성이 보장된다. 이러한 팩트는 주로 연립방정식 $\mathbb{w} = V_{n} \mathbb{u} $ 의 유일해가 존재함을 보이는데 쓰인다.</p>
-<p><strong>전략:</strong> 여러가지 방법으로 보일 수 있는데, 특히 수학적 귀납법을 사용하는 증명을 소개한다. 이 증명은 행연산 같은 걸 하지 않기 때문에 어느정도 수학을 알아야 이해할 수 있는 대신 계산이 적고 깔끔해서 좋다. 중간에 등장하는 <a href="../733">인수 정리</a>와 <a href="../223">대수학의 기본정리</a>는 중요한 팩트지만 증명의 맥락에선 중요하지 않으므로 몰라도 상관 없다.</p>
-<h2 id="유도">유도</h2>
-<p>명제 $\displaystyle P(n) : \det V_{n} = \prod_{ 1 \le i &lt; j \le n } (x_{j} - x_{i})$ 를 정의하자.</p>
-<p><strong>Part 1.</strong>  $n=1,2$</p>
-<p>$$
-$P(1) : \det V_{1} = | 1 | = 1
+<p>LU 분해에서 $L$ 은 대각선 성분이 모두 $1$ 인 하삼각행렬로 구해지므로 $\det L = 1$, 즉 역행렬 $L^{-1}$ 이 존재한다. $L^{-1}$ 는 하삼각행렬이고
+$$
+L U = U^{T} L^{T}
+$$
+을 $U$ 에 대해 정리하면
+$$
+U = L^{-1} U^{T} L^{T}
+$$
+양변의 오른쪽에 $(L^{T})^{-1}$ 을 곱하면
+$$
+U (L^{T})^{-1} = L^{-1} U^{T}$$
+을 얻는다. $U (L^{T})^{-1} = L^{-1} U^{T}$ 의 좌변은 상삼각행렬이고 우변은 하삼각행렬이므로
+$$
+D: = U (L^{T})^{-1} = L^{-1} U^{T}
+$$
+는 대각행렬임을 알 수 있다. 이를 $U$ 에 대해서 정리하면 $U = DL^{T} $ 이고 다음을 얻는다.
+$$
+A = LU = LDL^{T}
 $$</p>
-<p>$$
-P(2) : \det V_{2} = \left| \begin{matrix}
-1 &amp; x_{1} 
-\\  1 &amp; x_{2} 
-\end{matrix} \right| = x_{2} - x_{1}
-$$</p>
-<p>따라서 $P(n)$ 은 $n=1,2$ 일 때 성립한다.</p>
-<p><strong>Part 2.</strong>  $n=k$</p>
-<p>$\displaystyle P(k) :  \det V_{k} = \prod_{1 \le i &lt; j \le k } (x_{j} - x_{i})$ 이 성립한다고 가정하자.</p>
-<p><strong>Part 3.</strong>  $n=k+1$</p>
-<p>$k+1$ 번째 변수로써 $x$ 를 추가한 다음의 방데르몽드 행렬을 다음과 같이 새로이 정의해보자.</p>
-<p>$$
-V_{k}' := \begin{bmatrix}
-1 &amp; x_{1} &amp; x_{1}^{2} &amp; \cdots &amp; x_{1}^{k} 
-\\  \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots 
-\\   1 &amp; x_{k} &amp; x_{k}^{2} &amp; \cdots &amp; x_{k}^{k} 
-\\  1 &amp; x &amp; x^{2} &amp; \cdots &amp; x^{k} 
-\end{bmatrix}
-$$</p>
-<blockquote>
-<p><a href="../781">라플라스 전개</a></p>
-<p>정사각행렬 $A_{n \times n} = (a_{ij})$ 의 $i$ 번째 행과 $j$ 번째 행을 제거한 행렬의 행렬식 $M_{ij}$ 과 여인자 $C_{ij} := (-1)^{i + j} M_{ij} $ 을 정의하자. 선택된 $i$행에 대해, $\displaystyle \det A = \sum_{j=1}^{n} a_{ij} C_{ij} $</p>
-</blockquote>
-<p>$(k+1)$행을 선택하면 <a href="../781">라플라스 전개</a>에 따라 $V_{k}'$ 의 <a href="../252">행렬식</a>은</p>
-<p>$$
-\det V_{k}' = 1 C_{(k+1)1} + x C_{(k+1)2} + x^2 C_{(k+1)3} + \cdots + x^{k} C_{(k+1)(k+1)} 
-$$</p>
-<p>와 같이 $x$ 에 대한 $k$ 차 다항함수 $f(x)$ 로 나타난다. 여기서 $x$ 에 $x_{1} , \cdots , x_{k}$ 를 대입해보면 행렬 $V_{k}'$ 에 완전히 같은 두 행이 생기므로 <a href="../252">행렬식</a>은 $0$ 이 된다. 다항함수 $f(x)$ 를 이용해 다시 말하면</p>
-<p>$$
-f(x_{1}) = \cdots = f(x_{k}) = 0
-$$</p>
-<p><a href="../733">인수 정리</a>와 <a href="../223">대수학의 기본정리</a>에 의해, $f(x)$ 는 어떤 상수 $C$ 에 대해 정확히</p>
-<p>$$
-f(x) := C(x-x_{1})(x-x_{2}) \cdots (x-x_{k})
-$$</p>
-<p>로 나타낼 수 있다. 한편 $x^{k}$ 의 계수 $C_{(k+1)(k+1)}$ 는 $(k+1)$행과 $(k+1)$열에 대한 여인자이므로</p>
-<p>$$
-\displaystyle C_{(k+1)(k+1)} = (-1)^{(k+1)+(k+1)} \det \begin{bmatrix}
-1 &amp; x_{1} &amp; x_{1}^{2} &amp; \cdots &amp; x_{1}^{k-1} 
-\\   1 &amp; x_{2} &amp; x_{2}^{2} &amp; \cdots &amp; x_{2}^{k-1} 
-\\   \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots 
-\\   1 &amp; x_{k} &amp; x_{k}^{2} &amp; \cdots &amp; x_{k}^{k-1} 
-\end{bmatrix} =1 \cdot \prod_{1 \le i &lt; j \le k } (x_{j} - x_{i})
-$$</p>
-<p>다시 말해 $\displaystyle C = C_{(k+1)(k+1)}$ 이므로</p>
-<p>$$
-\displaystyle \det V_{k}' = f(x) =  \left[ \prod_{1 \le i &lt; j \le k } (x_{j} - x_{i}) \right] \left[  (x-x_{1})(x-x_{2}) \cdots (x-x_{k}) \right] 
-$$</p>
-<p>보기 편하게 $x_{k+1} := x$ 라고 다시 정의하면 $V_{k}' = V_{k+1}$ 이고,</p>
-<p>$$
-P(k+1) : \det V_{k+1} =  \prod_{1 \le i &lt; j \le k+1 } (x_{j} - x_{i})
-$$</p>
-<p>이 성립함을 알 수 있다. $P(k)$ 이 참일 때 $ P(k+1)$ 이 참이므로 수학적 귀납법에 의해 증명이 끝난다.</p>
 <p style="text-align: right;">■</p>
+<h2 id="계산">계산</h2>
+<p>이제 구체적으로 $L$ 과 $D$ 를 계산하기 위해 아래와 같이 정의해보자.</p>
+<p>$$
+L : = \begin{bmatrix}
+ 1 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 
+\\  l_{21} &amp; 1 &amp; 0 &amp; \cdots &amp; 0 
+\\  l_{31} &amp; l_{32} &amp; 1 &amp; \cdots &amp; 0  
+\\  \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots 
+\\  l_{n1} &amp; l_{n2} &amp; l_{n3} &amp; \cdots &amp; 1 
+\end{bmatrix},\quad
+D : = \begin{bmatrix}
+ d_{11} &amp; 0 &amp; 0 &amp; \cdots &amp; 0 
+\\  0 &amp; d_{22} &amp; 0 &amp; \cdots &amp; 0 
+\\  0 &amp; 0 &amp; d_{33} &amp; \cdots &amp; 0  
+\\  \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots 
+\\  0 &amp; 0 &amp; 0 &amp; \cdots &amp; d_{nn} 
+\end{bmatrix} 
+$$</p>
+<p>$A = (a_{ij}) = LDL^{T}$ 를 직접 계산해보자.$l_{ij} &gt; 0$ 이고 $l_{ii} = 1$ 이므로</p>
+<p>$$
+\begin{align*}
+a_{ij} &amp;= \sum_{\nu = 1}^{n} l_{i \nu} \sum_{\mu = 1}^{n} d_{\nu \mu} l_{\mu j}^{T}
+\\ &amp;= \sum_{\nu = 1}^{n} l_{i \nu}  \sum_{\mu = 1}^{n} \delta_{\nu \mu} d_{\nu \mu} l_{ j \mu} 
+\\ &amp;= \sum_{\nu = 1}^{n} l_{i \nu} d_{\nu \nu} l_{ j \nu} 
+\\ &amp;= \sum_{\nu = 1}^{ \min (i,j) } l_{i \nu} d_{\nu \nu} l_{ j \nu}
+\end{align*}
+$$</p>
+<p>우선 $j \le i$ 인 경우로 가정해보자.</p>
+<p>$$
+a_{ij} = \sum_{\nu = 1}^{j} l_{i \nu} d_{\nu \nu} l_{j \nu} = \sum_{\nu = 1}^{j-1} l_{i \nu} d_{\nu \nu} l_{j \nu} + l_{ij} d_{jj} l_{jj} = \sum_{\nu = 1}^{j-1} l_{i \nu} d_{\nu \nu} l_{j \nu} + l_{ij} d_{jj}
+$$</p>
+<p>여기서 $i = j = k$ 인 경우</p>
+<p>$$
+a_{kk} = \sum_{\nu = 1}^{k-1} l_{k \nu} d_{\nu \nu} l_{k \nu} + d_{kk} 
+d_{kk}
+$$</p>
+<p>에 대해 정리하면</p>
+<p>$$
+d_{kk} = a_{kk} - \sum_{\nu = 1}^{k-1} d_{\nu \nu} l_{k \nu}^2
+$$</p>
+<p>반대로 $j = k$ 이고 $i = k+1, \cdots , n$ 이라고 하면</p>
+<p>$$
+a_{ik} = \sum_{\nu = 1}^{k-1} l_{i \nu} d_{\nu \nu} l_{k \nu} + l_{ik} d_{kk}
+$$</p>
+<p>$l_{ik}$에 대해 정리하면</p>
+<p>$$
+l_{ik} = {{1} \over {d_{kk}}} \left\{ a_{ik} - \sum_{\nu = 1}^{k-1} l_{i \nu} d_{\nu \nu} l_{k \nu} \right\}
+$$</p>
+<h2 id="알고리즘">알고리즘</h2>
+<p>$(a_{ij}) \in \mathbb{R}^{n \times n}$ 가 가역대칭행렬이라고 하자.</p>
+<p><strong>Step 1.</strong>  $k = 1$</p>
+<p>$d_{11} = a_{11}$ 을 대입하고 $\displaystyle l_{i1} = {{1} \over {d_{11}}} a_{i1}$ 을 계산한다.</p>
+<hr>
+<p><strong>Step 2.</strong>  $k = 2, 3, \cdots , n-1$</p>
+<ul>
+<li>
+<p><strong>Step 2-1.</strong> 다음을 계산한다.
+$$
+d_{kk} = a_{kk} - \sum_{\nu = 1}^{k-1} d_{\nu \nu} l_{k \nu}^2
+$$</p>
+</li>
+<li>
+<p><strong>Step 2-2.</strong>  $i = k+1 , k+2 , \cdots , n-1$ 에 대해 다음을 계산한다.
+$$
+l_{ik} = {{1} \over {d_{kk}}} \left\{ a_{ik} - \sum_{\nu = 1}^{k-1} l_{i \nu} d_{\nu \nu} l_{k \nu} \right\}
+$$</p>
+</li>
+</ul>
+<hr>
+<p><strong>Step 3.</strong>  $k = n$ 에 대해 다음을 계산한다.
+$$
+d_{nn} = a_{nn} - \sum_{\nu = 1}^{n-1} d_{\nu \nu} l_{n \nu}^2
+$$</p>
+<hr>
+<ul>
+<li>손으로 계산할 땐 복잡해보였지만 알고리즘으로 정리해서 보면 계산량이 확 줄어들었음을 알 수 있다.언제나 $D$ 의 대각성분을 먼저 구한 후 $L$ 의 값을 한 열 단위로 구해나간다는 것을 기억하자.</li>
+</ul>
+<h2 id="코드">코드</h2>
+<p>이제 LU 분해에서 했던 것과 같은 예제를 가져와서 LDU 분해를 실제로 해보자.</p>
+<p><img src="5A1AC6BB2.png#center" alt="5A1AC6BB2.png"></p>
+<p>아래의 코드는 위의 알고리즘을 실제로 R 에서 구현한 것이다.</p>
+<pre><code>B &lt;- matrix(c(2,1,0,1,2,1,0,1,2), ncol= 3); B
+ 
+LDU&lt;-function(A)
+{
+  n=length(A[,1])
+  L&lt;-diag(1,n)
+  D&lt;-diag(0,n)
+  
+  k=1
+  D[1,1] = A[1,1]
+  L[,1] = A[,1]/D[1,1]
+ 
+  for(k in 2:(n-1))
+  {
+    D[k,k] = A[k,k] - sum(diag(D)[1:(k-1)]*L[k,1:(k-1)]^2)
+    for(i in (k+1):n)
+    {
+      L[i,k] = ( A[i,k] - sum(L[i,1:(k-1)]*diag(D)[1:(k-1)]*L[k,1:(k-1)]) )/D[k,k]
+    }
+  }
+  
+  D[n,n] = A[n,n] - sum(diag(D)[1:(n-1)]*L[n,1:(n-1)]^2)
+ 
+  return(list(L=L, D=D))
+}
+ 
+LDU(B)
+LDU(B)$L%*%LDU(B)$D%*%t(LDU(B)$L)
+</code></pre><p>실행 결과는 다음과 같다.
+<img src="20171128_143203.png#center" alt="20171128\_143203.png"></p>
+<p>R 에는 따로 LDU 분해가 구현되어 있지 않아 검산만 해보았는데, 정확하게 분해가 되었음을 알 수 있다.$B$ 의 사이즈가 그렇게 크지 않고 계산도 그럭저럭 할만한 편이므로 정 의심된다면 직접 손계산을 해봐도 좋다.</p>
 
 
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var title = '방데르몽드 행렬의 행렬식 유도';
-        var link = 'https:\/\/freshrimpsushi.github.io\/posts\/derivation-of-vandermonde-matrixs-determinant\/';
+        var title = '대칭행렬의 LDU 분해';
+        var link = 'https:\/\/freshrimpsushi.github.io\/posts\/ldu-decomposition-of-symmetric-matrix\/';
         var arr = new Array();
         var obj = {
             "title": title,
@@ -367,9 +425,9 @@ $$</p>
             alert('빈칸을 채워주세요');
             return;
         }
-        let board_idx = '736';
-        let board_slug = 'derivation-of-vandermonde-matrixs-determinant';
-        let board_title = '방데르몽드 행렬의 행렬식 유도';
+        let board_idx = '349';
+        let board_slug = 'LDU decomposition of symmetric matrix';
+        let board_title = '대칭행렬의 LDU 분해';
 
         $.ajax({
             type: "POST",
@@ -483,7 +541,7 @@ $$</p>
             type: "POST",
             url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.comment.php?action=getComment",
             data: {
-                board_idx: '736'
+                board_idx: '349'
             },
             dataType: "json",
             success: function (data) {
@@ -541,9 +599,9 @@ $$</p>
                 alert('빈칸을 채워주세요');
                 return;
             }
-            let idx = '736';
-            let board_slug = 'derivation-of-vandermonde-matrixs-determinant';
-            let board_title = '방데르몽드 행렬의 행렬식 유도';
+            let idx = '349';
+            let board_slug = 'LDU decomposition of symmetric matrix';
+            let board_title = '대칭행렬의 LDU 분해';
 
             $.ajax({
                 type: "POST",
@@ -595,7 +653,7 @@ $$</p>
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/> - 줄리아</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1754)</summary>
+    <summary>전체 포스트 (1753)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
         </li><li>
@@ -637,7 +695,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (22)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (21)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (52)</a>
         </li><li>
@@ -713,7 +771,7 @@ $$</p>
 
 <aside>
     <p><b>최근 본 포스트</b></p>
-    <ul class="lately-viewed-list">
+    <ul class="lately-viewed-list" style="list-style-type: none; padding-left:4px;">
         
     </ul>
 </aside>
@@ -730,9 +788,9 @@ $$</p>
             str = "";
         } else {
             for (let i = (postList.length - 1); i >= 0; i--) {
-                str += "<li><a href='";
+                str += "<li style='font-size:0.8rem;'><a href='";
                 str += postList[i].link;
-                str += "'>";
+                str += "'> · ";
                 str += postList[i].title;
                 str += "</a></li>";
                 list.append(str);
@@ -813,6 +871,8 @@ $$</p>
     <aside>
         <div>
             <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io" target="_blank">Hugo</a></p>
+            <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact: freshrimpsushi@gmail.com<br>
+                <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi</p>
         </div>
 
     
@@ -838,6 +898,10 @@ $$</p>
 </script> 
 
     
+    
+        <link rel="stylesheet" href= https://freshrimpsushi.github.io/css/atom-one-light.css>
+        <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
+        <script>hljs.initHighlightingOnLoad();</script>
     
     
     </aside>

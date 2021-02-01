@@ -169,7 +169,7 @@ margin-right: auto;">
 <br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
 </p>
 
-스무스 맵 $\mathbb{f} : \mathbb{R}^{m} \to \mathbb{R}^{m}$ 과 초기값 $\mathbb{v}_{0} \in \mathbb{R}^{m}$ 에 대해 $J_{n} := D \mathbb{f}^{n} ( \mathbb{v}_{0}) \in \mathbb{R}^{m \times m}$ 이라고 하자. $k = 1 , \cdots , m$ 에 대해 $m$차원 단위구 $N := \left\{ \mathbb{x} \in \mathbb{R}^{m} : \left| \mathbb{x} \right|_{2} = 1 \right\}$ 의 <a href="https://freshrimpsushi.github.io/posts/1471">일립소이드</a> $J_{n} N$ 의 축의 길이 중 $k$  번째로 긴 축의 길이를 $r_{k}^{(n)}$ 이라고 두자. 이제 $\mathbb{v}_{0}$ 의 $k$ 번째 <strong>랴푸노프 수</strong>  $L_{k}$ 를 다음과 같이 정의한다.
+스무스 맵 $\mathbb{f} : \mathbb{R}^{m} \to \mathbb{R}^{m}$ 과 초기값 $\mathbb{v}_{0} \in \mathbb{R}^{m}$ 에 대해 $J_{n} := D \mathbb{f}^{n} ( \mathbb{v}_{0}) \in \mathbb{R}^{m \times m}$ 이라고 하자. $k = 1 , \cdots , m$ 에 대해 $m$차원 단위구 $N := \left\{ \mathbb{x} \in \mathbb{R}^{m} : \left\| \mathbb{x} \right\|_{2} = 1 \right\}$ 의 <a href="https://freshrimpsushi.github.io/posts/1471">일립소이드</a> $J_{n} N$ 의 축의 길이 중 $k$  번째로 긴 축의 길이를 $r_{k}^{(n)}$ 이라고 두자. 이제 $\mathbb{v}_{0}$ 의 $k$ 번째 <strong>랴푸노프 수</strong>  $L_{k}$ 를 다음과 같이 정의한다.
 $$
 L_{k} := \lim_{n\to\infty} \left( r_{k}^{(n)} \right)^{1/n}
 $$
@@ -178,7 +178,7 @@ $\mathbb{v}_{0}$ 의 $k$ 번째 <strong>랴푸노프 지수</strong> 는 $h_{k} 
 <li>$r_{k}^{(n)}$ 에서 윗첨자 $(n)$ 은 거듭제곱이나 미분 횟수가 아니라 맵 $\mathbb{f}$ 를 $n$ 번 취했다는 의미다.당연하지만 정의에서 $L_{1} \ge L_{2} \ge \cdots \ge L_{m}$ 이고, $h_{1} \ge h_{2} \ge \cdots \ge h_{m}$ 이며, 보통은 가장 크면서 $0$ 과의 비교가 의미 있는 $h_{1}$ 만을 신경쓴다. 이는 $L_{1}$ 을 $1$ 과 비교하는 것과 같지만, 음과 양만을 따지면 되는 <strong>랴푸노프 지수</strong><sup>Lyapunov Exponent</sup> 에 비해 지저분한 점이 많아 별로 쓰이지 않는다. 물론 개념을 공부할 때는 <strong>랴푸노프 수</strong> 가 더 직관적이기 때문에 도움이 된다.다차원 맵의 랴푸노프 수는 말 그대로 <a href="https://freshrimpsushi.github.io/posts/862">$1$차원  맵의 랴푸노프 수</a>를 확장한 것으로, <a href="https://freshrimpsushi.github.io/posts/1471">일립소이드</a>의 축을 사용해서 정의한다. 맵 $\mathbb{f}^{n}$ 의 <a href="https://freshrimpsushi.github.io/posts/989">자코비안</a>으로 만들어지는 일립소이드의 축이라는 것은 쉽게 말해 $\mathbb{f}^{n}$ 이 그 축의 방향으로 점을 옮기고 있다는 것이다. 이 축의 크기가 $1$ 보다 크다는 것은 그 축의 방향으로 팽창, 작다는 것은 그 축의 방향으로 수축하고 있다는 것이다. $1$차원 맵의 랴푸노프 수가 도함수의 크기가 $1$ 보다 큰지 작은지, 즉 증감으로 정의되었다는 것을 생각해보면 이렇게 <a href="https://freshrimpsushi.github.io/posts/1052">비선형 맵</a>까지 포함하는 일반화는 충분히 타당하다고 할 수 있을 것이다.한편 $J_{n} = D \mathbb{f}^{n} ( \mathbb{v}_{0} )$ 을 수치적으로 계산하는 측면에서 랴푸노프 수를 다시 생각해보자. 일립소이드를 생각한다는 시점에서 <a href="https://freshrimpsushi.github.io/posts/340">행렬의 특이값 분해</a>를 생각할 수밖에 없는데, $n$ 이 커질수록 $J_{n}^{T} J_{n}$  은 굉장히 큰 특이값 $\sigma_{1}$ 과  굉장히 작은 특이값 $\sigma_{m}$ 을 둘 다 가지게 된다. 인간과 달리 컴퓨터는 이러한 수들을 저장하는데에 한계가 있으며, 꼭 그게 아니라도 $J_{n} = D \mathbb{f}^{n} ( \mathbb{v}_{0})$ 를 계산하는 것부터가 난관이기도 하다. 그래서 어지간하면 $J_{n}N$ 를 직접 계산하는 짓은 안 하는게 좋으며, 수치적으로 좀 더 현명한 방법을 사용한다.</li>
 </ul>
 <p>$$
-h_{k} \approx {{ 1 } \over { n }} \sum_{i=1}^{n} \ln \left| \mathbb{y}_{k}^{(i)} \right|_{2}
+h_{k} \approx {{ 1 } \over { n }} \sum_{i=1}^{n} \ln \left\| \mathbb{y}_{k}^{(i)} \right\|_{2}
 $$</p>
 <ul>
 <li>$| \cdot |_{2}$ 은 <a href="https://freshrimpsushi.github.io/posts/257">유클리드 놈</a>을 의미한다.</li>
@@ -198,7 +198,7 @@ $$
 $$
 J_{n} U^{(0)} = D \mathbb{f}(\mathbb{v}_{n-1}) \cdots D \mathbb{f}(\mathbb{v}_{1}) \left[ \mathbb{z}_{1} \cdots \mathbb{z}_{m} \right]
 $$
-이다. 이렇게 얻은 $\left[ \mathbb{z}_{1} \cdots \mathbb{z}_{m} \right]$ 에 <a href="https://freshrimpsushi.github.io/posts/394">그램-슈미트 직교화</a>를 적용하면 직교 기저 $\left[ \mathbb{y}_{1}^{(1)} \cdots \mathbb{y}_{m}^{(1)} \right]$ 을 얻는다. 너무 큰 값을 가지지 않도록 정규화한다는 의미에서 $\left[ \mathbb{w}_{1}^{(1)} \cdots \mathbb{w}_{m}^{(1)} \right] := \left[ {{ \mathbb{y}_{1}^{(1)} } \over { \left| \mathbb{y}_{1}^{(1)} \right|_{2}  }} \cdots {{ \mathbb{y}_{m}^{(1)} } \over { \left| \mathbb{y}_{m}^{(1)} \right|_{2}  }} \right]$ 이라고 두면 어떤 $U^{(1)}$ 에 대해
+이다. 이렇게 얻은 $\left[ \mathbb{z}_{1} \cdots \mathbb{z}_{m} \right]$ 에 <a href="https://freshrimpsushi.github.io/posts/394">그램-슈미트 직교화</a>를 적용하면 직교 기저 $\left[ \mathbb{y}_{1}^{(1)} \cdots \mathbb{y}_{m}^{(1)} \right]$ 을 얻는다. 너무 큰 값을 가지지 않도록 정규화한다는 의미에서 $\left[ \mathbb{w}_{1}^{(1)} \cdots \mathbb{w}_{m}^{(1)} \right] := \left[ {{ \mathbb{y}_{1}^{(1)} } \over { \left\| \mathbb{y}_{1}^{(1)} \right\|_{2}  }} \cdots {{ \mathbb{y}_{m}^{(1)} } \over { \left\| \mathbb{y}_{m}^{(1)} \right\|_{2}  }} \right]$ 이라고 두면 어떤 $U^{(1)}$ 에 대해
 $$
 J_{n} U^{(1)} = D \mathbb{f}(\mathbb{v}_{n-1}) \cdots D \mathbb{f}(\mathbb{v}_{1}) \left[ \mathbb{w}_{1}^{(1)} \cdots \mathbb{w}_{m}^{(1)} \right]
 $$
@@ -206,13 +206,13 @@ $$
 $$
 J_{n} U^{(n)} = \left[ \mathbb{w}_{1}^{(n)} \cdots \mathbb{w}_{m}^{(n)} \right]
 $$
-따라서 일립소이드 $J_{n} N$ 의 $k$ 번째 축의 길이는 $\left| \mathbb{w}_{k}^{(n)} \right|_{2}^{1/n} $ 와 비슷한 값이 된다. 한편 $\left| \mathbb{y}_{k}^{(i)} \right|_{2} $ 는 매 반복마다 $k$ 번째 방향으로의 증감을 나타내므로 축의 길이는 $r_{k}^{(n)} \approx \left| \mathbb{y}_{k}^{(1)} \right|_{2} \cdots \left| \mathbb{y}_{k}^{(n)} \right|_{2}$ 이다. 따라서 충분히 큰 $n$ 에 대해
+따라서 일립소이드 $J_{n} N$ 의 $k$ 번째 축의 길이는 $\left\| \mathbb{w}_{k}^{(n)} \right\|_{2}^{1/n} $ 와 비슷한 값이 된다. 한편 $\left\| \mathbb{y}_{k}^{(i)} \right\|_{2} $ 는 매 반복마다 $k$ 번째 방향으로의 증감을 나타내므로 축의 길이는 $r_{k}^{(n)} \approx \left\| \mathbb{y}_{k}^{(1)} \right\|_{2} \cdots \left\| \mathbb{y}_{k}^{(n)} \right\|_{2}$ 이다. 따라서 충분히 큰 $n$ 에 대해
 $$
 \begin{eqnarray*}
 h_{k} &amp;=&amp; \ln \lim_{n\to\infty} \left( r_{k}^{(n)} \right)^{1/n} 
 \\  &amp;\approx&amp; \ln\left( r_{k}^{(n)} \right)^{1/n} 
-\\  &amp;\approx&amp; \ln\left( \left| \mathbb{y}_{k}^{(1)} \right|_{2} \cdots \left| \mathbb{y}_{k}^{(n)} \right|_{2} \right)^{1/n} 
-\\  &amp;=&amp; {{ 1 } \over { n }} \sum_{i=1}^{n} \ln \left| \mathbb{y}_{k}^{(i)} \right|_{2} 
+\\  &amp;\approx&amp; \ln\left( \left\| \mathbb{y}_{k}^{(1)} \right\|_{2} \cdots \left\| \mathbb{y}_{k}^{(n)} \right\|_{2} \right)^{1/n} 
+\\  &amp;=&amp; {{ 1 } \over { n }} \sum_{i=1}^{n} \ln \left\| \mathbb{y}_{k}^{(i)} \right\|_{2} 
 \end{eqnarray*}
 $$
 <p style="text-align: right;">■</p></p>
@@ -568,7 +568,7 @@ $$
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/> - 줄리아</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1754)</summary>
+    <summary>전체 포스트 (1753)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
         </li><li>
@@ -610,7 +610,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (22)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (21)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (52)</a>
         </li><li>
@@ -686,7 +686,7 @@ $$
 
 <aside>
     <p><b>최근 본 포스트</b></p>
-    <ul class="lately-viewed-list">
+    <ul class="lately-viewed-list" style="list-style-type: none; padding-left:4px;">
         
     </ul>
 </aside>
@@ -703,9 +703,9 @@ $$
             str = "";
         } else {
             for (let i = (postList.length - 1); i >= 0; i--) {
-                str += "<li><a href='";
+                str += "<li style='font-size:0.8rem;'><a href='";
                 str += postList[i].link;
-                str += "'>";
+                str += "'> · ";
                 str += postList[i].title;
                 str += "</a></li>";
                 list.append(str);
@@ -786,6 +786,8 @@ $$
     <aside>
         <div>
             <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io" target="_blank">Hugo</a></p>
+            <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact: freshrimpsushi@gmail.com<br>
+                <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi</p>
         </div>
 
     
