@@ -9,6 +9,12 @@
     <script src="https://www.googleoptimize.com/optimize.js?id=OPT-NWJZ3RR"></script>
 
     
+    <meta name="NaverBot" content="All"/>
+    <meta name="NaverBot" content="index,follow"/>
+    <meta name="Yeti" content="All"/>
+    <meta name="Yeti" content="index,follow"/>
+
+    
     
     <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
     <link href=https://freshrimpsushi.github.io/css/comment.css rel="preload" as="style" onload="this.rel='stylesheet'">
@@ -42,10 +48,10 @@
     </script>
 
     
-<meta name="title" content="행공간 열공간 영공간 계수 퇴화차수">
+<meta name="title" content="직교 행렬">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="행공간 열공간 영공간 계수 퇴화차수"/>
-<meta property="og:description" content="row space column space null space rank nullity"/>
+<meta property="og:title" content="직교 행렬"/>
+<meta property="og:description" content="orthogonal matrix"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -56,34 +62,34 @@
 {
     "@context": "http://schema.org",
     "@type": "BlogPosting",
-    "articleSection": "r_",
-    "name": "행공간 열공간 영공간 계수 퇴화차수",
-    "headline": "행공간 열공간 영공간 계수 퇴화차수",
+    "articleSection": "j_",
+    "name": "직교 행렬",
+    "headline": "직교 행렬",
     "alternativeHeadline": "",
-    "description": "row space column space null space rank nullity",
+    "description": "orthogonal matrix",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/row-space-column-space-null-space-rank-nullity\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/orthogonal-matrix\/"
     },
     "author" : {
         "@type": "Person",
-        "name": "류대식"
+        "name": "전기현"
     },
     "creator" : {
         "@type": "Person",
-        "name": "류대식"
+        "name": "전기현"
     },
     "accountablePerson" : {
         "@type": "Person",
-        "name": "류대식"
+        "name": "전기현"
     },
     "copyrightHolder" : "생새우초밥집",
-    "copyrightYear" : "2017",
-    "dateCreated": "2017-10-03T00:00:00.00Z",
-    "datePublished": "2017-10-03T00:00:00.00Z",
-    "dateModified": "2017-10-03T00:00:00.00Z",
+    "copyrightYear" : "2021",
+    "dateCreated": "2021-02-02T00:00:00.00Z",
+    "datePublished": "2021-02-02T00:00:00.00Z",
+    "dateModified": "2021-02-02T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -96,15 +102,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/row-space-column-space-null-space-rank-nullity\/",
-    "wordCount" : "898",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/orthogonal-matrix\/",
+    "wordCount" : "616",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>행공간 열공간 영공간 계수 퇴화차수</title>
+    <title>직교 행렬</title>
 
 </head>
 
@@ -128,12 +134,12 @@
             <div class = "content">
             
 
-<title>행공간 열공간 영공간 계수 퇴화차수</title>
+<title>직교 행렬</title>
 
-<h1>행공간 열공간 영공간 계수 퇴화차수</h1>
+<h1>직교 행렬</h1>
 <aside>
     <p style="text-align: right;">
-        254
+        3009
 
     
     
@@ -141,8 +147,8 @@
             
     </span>
     
-    작성일: 2017-10-03&nbsp;<br>
-    작성자: 류대식 사장 &nbsp;
+    작성일: 2021-02-02&nbsp;<br>
+    작성자: 전기현 사장 &nbsp;
 </p>
 </aside>
 
@@ -152,70 +158,86 @@
   <ul>
     <li><a href="#정의">정의</a></li>
     <li><a href="#설명">설명</a></li>
-    <li><a href="#계수-퇴화차수-정리">계수-퇴화차수 정리</a></li>
-    <li><a href="#같이보기">같이보기</a>
-      <ul>
-        <li><a href="#추상대수학에서의-핵622"><a href="../622">추상대수학에서의 핵</a></a></li>
-      </ul>
-    </li>
+    <li><a href="#성질3010"><a href="../3010">성질</a></a></li>
+    <li><a href="#직교-행렬일-동치-조건3012"><a href="../3012">직교 행렬일 동치 조건</a></a></li>
   </ul>
 </nav>
 </aside>
 
 <h2 id="정의">정의</h2>
-<p>행렬 $A \in \mathbb{R}^{m \times n}$이 아래와 같이 나타난다고 하자.</p>
+<p>$A$를 <a href="../1956">정사각</a> 실수 행렬이라고 하자. $A$가 아래의 식을 만족하면 <strong>직교 행렬</strong><sup>orthogonal matrix</sup>이라 한다.</p>
 <p>$$
-\begin{eqnarray*}
-A &amp;=&amp; \begin{bmatrix}
-  a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} 
-\\  a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} 
-\\  \vdots &amp; \vdots &amp; &amp;  \vdots 
-\\  a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn} 
-\end{bmatrix} = \begin{bmatrix}
-\mathbb{r_{1}} 
-\\  \mathbb{r_{2}} 
-\\  \vdots 
-\\  \mathbb{r_{m}} 
-\end{bmatrix} 
-\\  &amp;=&amp; \begin{bmatrix}
-\mathbb{c_{1}} &amp; \mathbb{c_{2}} &amp; \cdots \mathbb{c_{n}} 
-\end{bmatrix} 
-\end{eqnarray*}
+A^{-1} = A^{T}
 $$</p>
-<ol>
-<li>$\left\{ \mathbb{r_{1}} , \mathbb{r_{2}} , \cdots , \mathbb{r_{m}} \right\}$ 에 의해 생성되는 $\mathbb{R}^n$ 의 부분벡터공간을 $A$의 <strong>행공간 $\mathcal{R}(A)$</strong> 라고 정의한다.</li>
-<li>$\left\{ \mathbb{c_{1}} , \mathbb{c_{2}} , \cdots , \mathbb{c_{n}} \right\}$ 에 의해 생성되는 $\mathbb{R}^m$ 의 부분벡터공간을 $A$의 <strong>열공간 $\mathcal{C}(A)$</strong> 라고 정의한다.</li>
-<li>$A \mathbb{x} = \mathbb{0}$ 를 만족하는 해들의 집합을 $A$의 <strong>영공간 $\mathcal{N}(A)$</strong> 라고 정의한다.</li>
-<li>행공간의 차원을 $A$의 <strong>계수 $\text{rank} A = \dim \mathcal{R} (A)$</strong>  라고 정의한다.</li>
-<li>영공간의 차원을 $A$의 <strong>퇴화차수 $\text{nullity}A = \dim{ \mathcal{ N } (A)  } $</strong>  라고 정의한다.</li>
-</ol>
+<p>위 조건을 다르게 표현다음 아래와 같다.</p>
+<p>$$
+AA^{T} = A^{T}A =I
+$$</p>
 <h2 id="설명">설명</h2>
-<p>행공간과 열공간의 차원에 대해서도 궁금한 사람을 위해 보태자면 $\dim \mathcal{R} (A) = \dim \mathcal{C}(A)$다.즉, 열공간이든 행공간이든 그 차원을 계수로 불러도 전혀 상관 없다.한편 $\text{rank}$는 $A$ 를 $\mathrm {rEF}$ 꼴로 만들었을 때 <strong>피벗</strong><sup>pivot</sup> 의 갯수로 정의할 수도 있다.</p>
-<p>직관적으로 이해가 잘 되지 않는다면 <a href="../279">연립방정식의 미지수를 세는 데에서 도출된 개념</a>이라고 생각해보면 도움이 될 것이다.정의 자체는 전혀 어렵지 않지만 $ m \ne n$ 인 경우 책을 보기 아주 어렵게 만드는 개념들이다.</p>
-<p>특히 영공간이나 계수, 퇴화차수는 순화가 몹시 난해하게 되어있어 원서로 공부한 사람은 뜻을 짐작하기도 힘든 수준이다. 이러한 개념을 공부하는 이유는 후에 이어지는 선형대수학의 응용들을 수학의 언어로써 쉽게 표현하기 위해서다. 복잡한 이론이 전개될 때 열공간이나 영공간 등에 대한 정의는 지면을 상당히 아껴주고 보다 복잡한 현상들을 커버해준다.</p>
-<p>참고로 열공간은 $\text{Im} (A)$, 즉 <strong>상</strong><sup>Image</sup> 로도 불린다.<a href="../728">행렬 $A$를 함수의 개념으로 생각</a>한다면 $A \in \mathbb{R}^{m \times n}$에 대응되는 함수 $T_{A}$는 $T_{A} : \mathbb{R}^n \to \mathbb{R}^m$ 으로도 볼 수 있기 때문이다.</p>
-<p>다음의 계수-퇴화차수 정리도 마찬가지로 함수의 개념으로 생각하면 이해가 쉽다. $\text{rank} A = \text{rank} A^{T}$ 임을 잊지 말자.</p>
-<h2 id="계수-퇴화차수-정리">계수-퇴화차수 정리</h2>
+<p>정의를 말로 풀어서 쓰면, 직교 행렬이란 각각의 행벡터 혹은 열벡터들이 서로 <a href="../3011">직교</a>하는 <a href="../3011">단위 벡터</a>인 행렬이다. 복소수 행렬으로 확장한 경우에는 <a href="../3008">유니타리 행렬</a>이라 부른다. 직교 행렬의 구체적인 예로 회전 행렬이 있다. 2차원 평면상의 벡터를 반시계 방향으로 $\theta$만큼 회전시키는 변환은 다음과 같다.</p>
+<p>$$
+A = \begin{bmatrix} \cos \theta &amp; -\sin \theta
+\\ \sin \theta &amp; \cos \theta \end{bmatrix}
+$$</p>
+<p>아래의 식에 의해 회전 변환은 임의의 $\theta$에 대해서 직교 행렬임을 알 수 있다.</p>
+<p>$$ 
+A^{T} A =
+\begin{bmatrix} \cos \theta &amp; -\sin \theta
+\\ \sin \theta &amp; \cos \theta \end{bmatrix}
+\begin{bmatrix} \cos \theta &amp; \sin \theta
+\\ -\sin \theta &amp; \cos \theta \end{bmatrix}
+= \begin{bmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{bmatrix} = I
+$$</p>
+<h2 id="성질3010"><a href="../3010">성질</a></h2>
 <ul>
-<li>벡터 공간 $V, W$ 와 선형변환 $T : V \to W$ 에 대해
-$$
-\text{rank} T + \text{nullity} T = \dim V
-$$</li>
-<li>$A \in \mathbb{R}^{ m \times n }$ 에 대해
-$$
-\begin{cases} \text{rank} A + \text{nullity} A = \dim \mathbb{R}^n = n \\  \text{rank} A^{T} + \text{nullity} A^{T} = \dim \mathbb{R}^m = m \end{cases}
-$$</li>
+<li>
+<p>직교 행렬의 전치도 직교 행렬이다.</p>
+</li>
+<li>
+<p>직교 행렬의 역행렬은 직교 행렬이다.</p>
+</li>
+<li>
+<p>두 직교 행렬의 곱은 직교 행렬이다.</p>
+</li>
+<li>
+<p>직교 행렬의 행렬식은 $1$이거나 $-1$이다.</p>
+</li>
 </ul>
-<h2 id="같이보기">같이보기</h2>
-<h3 id="추상대수학에서의-핵622"><a href="../622">추상대수학에서의 핵</a></h3>
-<p>영공간은 $\ker A$ 이라 쓰고 <strong>핵</strong><sup>Kernel</sup> 으로도 불린다. 이는 <a href="../622">추상대수학에서 다루는 일반적인 핵의 개념</a>을 선형대수에서 특수화한 표현인데, 이 역시 $A$ 를 함수로 본 것이다.</p>
+<p>$$
+\det(A)=\pm 1
+$$</p>
+<h2 id="직교-행렬일-동치-조건3012"><a href="../3012">직교 행렬일 동치 조건</a></h2>
+<p>$n \times n$ 실수 행렬 $A$에 대해서 아래의 명제는 모두 동치이다.</p>
+<ul>
+<li>
+<p>$A$가 직교 행렬이다.</p>
+</li>
+<li>
+<p>$A$의 행 벡터들의 집합은 $\mathbb{R}^n$의 <a href="../1912">정규직교집합</a>이다.</p>
+</li>
+<li>
+<p>$A$의 열 벡터들의 집합은 $\mathbb{R}^n$의 정규직교집합이다.</p>
+</li>
+<li>
+<p>$A$가 <a href="../3011">내적</a>을 보존한다. 즉 모든 $\mathbf{x},\mathbf{y}\in \mathbb{R}^{n}$에 대해서 다음이 성립한다.</p>
+</li>
+</ul>
+<p>$$
+(A \mathbf{x}) \cdot (A\mathbf{y}) = \mathbf{x} \cdot \mathbf{y}
+$$</p>
+<ul>
+<li>$A$가 <a href="../3011">길이</a>를 보존한다. 즉 모든 $\mathbf{x}\in \mathbb{R}^{n}$에 대해서 다음이 성립한다.</li>
+</ul>
+<p>$$
+\left\| A \mathbf{x} \right\| = \left\| \mathbf{x} \right\|
+$$</p>
 
 
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var title = '행공간 열공간 영공간 계수 퇴화차수';
-        var link = 'https:\/\/freshrimpsushi.github.io\/posts\/row-space-column-space-null-space-rank-nullity\/';
+        var title = '직교 행렬';
+        var link = 'https:\/\/freshrimpsushi.github.io\/posts\/orthogonal-matrix\/';
         var arr = new Array();
         var obj = {
             "title": title,
@@ -333,9 +355,9 @@ $$</li>
             alert('빈칸을 채워주세요');
             return;
         }
-        let board_idx = '254';
-        let board_slug = 'row-space-column-space-null-space-rank-nullity';
-        let board_title = '행공간 열공간 영공간 계수 퇴화차수';
+        let board_idx = '3009';
+        let board_slug = 'orthogonal-matrix';
+        let board_title = '직교 행렬';
 
         $.ajax({
             type: "POST",
@@ -449,7 +471,7 @@ $$</li>
             type: "POST",
             url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.comment.php?action=getComment",
             data: {
-                board_idx: '254'
+                board_idx: '3009'
             },
             dataType: "json",
             success: function (data) {
@@ -507,9 +529,9 @@ $$</li>
                 alert('빈칸을 채워주세요');
                 return;
             }
-            let idx = '254';
-            let board_slug = 'row-space-column-space-null-space-rank-nullity';
-            let board_title = '행공간 열공간 영공간 계수 퇴화차수';
+            let idx = '3009';
+            let board_slug = 'orthogonal-matrix';
+            let board_title = '직교 행렬';
 
             $.ajax({
                 type: "POST",
@@ -561,7 +583,7 @@ $$</li>
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/> - 줄리아</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1753)</summary>
+    <summary>전체 포스트 (1755)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
         </li><li>
@@ -588,6 +610,8 @@ $$</li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">물리학미분류 (10)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">미분 방정식 (98)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">미분방정식 (1)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AF%B8%EC%A0%81%EB%B6%84%ED%95%99/" style="color: black">미적분학 (18)</a>
         </li><li>
@@ -663,7 +687,7 @@ $$</li>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">해석학미분류 (28)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (40)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (41)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
         </li><li>
@@ -745,9 +769,11 @@ $$</li>
                  
                 for(var i = 0; i < rows.length; i++) {
                     if(rows[i]['board_idx'] == 0) {
-                        str += "<li style='font-size: 0.8rem;'><a href=../../categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
+                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
+                    } else if(rows[i]['board_idx'] == -1) {
+                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
                     } else {
-                        str += "<li style='font-size: 0.8rem;'><a href=../../posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
+                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
                     }
                     str += "<b> - " + rows[i]['author'] + "</b>: ";
                     str += "" + rows[i]['content'] + "";
