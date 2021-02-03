@@ -174,15 +174,15 @@ margin-right: auto;">
 <br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
 </p>
 
-<a href="https://freshrimpsushi.github.io/posts/1209">ACF : 자기상관함수</a><a href="https://freshrimpsushi.github.io/posts/1211">PACF : 편자기상관함수</a><a href="https://freshrimpsushi.github.io/posts/1227">CCF : 교차상관함수</a><a href="https://freshrimpsushi.github.io/posts/1216">R 에서 EACF로 ARMA 모형 선택법</a><a href="https://freshrimpsushi.github.io/posts/1211">PACF</a>는 <a href="https://freshrimpsushi.github.io/posts/910">$AR(p)$</a>의 차수를, <a href="https://freshrimpsushi.github.io/posts/1209">ACF</a>는 <a href="https://freshrimpsushi.github.io/posts/909">$MA(q)$</a> 의 차수를 정할 때 큰 도움이 된다. 하지만 $ARMA(p,q)$ 모형에 적용시킬 땐 <a href="https://freshrimpsushi.github.io/posts/1208">아르마 모형의 가역성</a> 때문에 $AR(p)$ 라도 $MA(\infty)$ 처럼 보일 수 있고, $MA(q)$ 라도 $AR(\infty)$ 처럼 보일 수 있다. 따라서 이러한 문제를 회피하고 <a href="https://freshrimpsushi.github.io/posts/914">아르마 모형</a>을 찾기위한 여러가지 방법이 고안되었다. <strong>확장자기상관함수</strong> 는 그 중의 한 방법으로, 다음과 같이 정의되는 $W_{t,k,j}$ 를 시차 $k$ 와 $j$ 에 대한 <strong>EACF</strong> 라고 한다.
+<a href="../1209">ACF : 자기상관함수</a><a href="../1211">PACF : 편자기상관함수</a><a href="../1227">CCF : 교차상관함수</a><a href="../1216">R 에서 EACF로 ARMA 모형 선택법</a><a href="../1211">PACF</a>는 <a href="../910">$AR(p)$</a>의 차수를, <a href="../1209">ACF</a>는 <a href="../909">$MA(q)$</a> 의 차수를 정할 때 큰 도움이 된다. 하지만 $ARMA(p,q)$ 모형에 적용시킬 땐 <a href="../1208">아르마 모형의 가역성</a> 때문에 $AR(p)$ 라도 $MA(\infty)$ 처럼 보일 수 있고, $MA(q)$ 라도 $AR(\infty)$ 처럼 보일 수 있다. 따라서 이러한 문제를 회피하고 <a href="../914">아르마 모형</a>을 찾기위한 여러가지 방법이 고안되었다. <strong>확장자기상관함수</strong> 는 그 중의 한 방법으로, 다음과 같이 정의되는 $W_{t,k,j}$ 를 시차 $k$ 와 $j$ 에 대한 <strong>EACF</strong> 라고 한다.
 $$
 W_{t,k,j} := Y_{t} - \tilde{\phi}_{1} Y_{t-1} - \cdots - \tilde{\phi}_{k} Y_{t-k}
 $$
-위의 정의만 가지고 EACF를 이해하는 것은 불가능하기 때문에 수식으로 이해해보자.주어진 $k$, $j$ 에 대해서 <a href="https://freshrimpsushi.github.io/posts/914">아르마 모형</a> $ARMA(k,j)$ 는 다음과 같이 표현할 수 있다.
+위의 정의만 가지고 EACF를 이해하는 것은 불가능하기 때문에 수식으로 이해해보자.주어진 $k$, $j$ 에 대해서 <a href="../914">아르마 모형</a> $ARMA(k,j)$ 는 다음과 같이 표현할 수 있다.
 $$
  \displaystyle Y_{t} =  \sum_{i = 1}^{k} \phi_{i} Y_{t-i} + e_{t} - \sum_{i = 1}^{j} \theta_{i} e_{t-i} 
 $$
-여기서 $Y_{t}$ 를 $Y_{t-1} , \cdots , Y_{t-k}$ 로 <a href="https://freshrimpsushi.github.io/posts/666">다중회귀분석</a>하면 $\phi_{1} , \cdots , \phi_{k}$ 의 추정치인 회귀계수 $\tilde{\phi}_{1} , \cdots , \tilde{\phi}_{k}$ 를 얻을 수 있다. 그리고 그 잔차는 다음과 같이 엉망진창으로 나타날 것이다.
+여기서 $Y_{t}$ 를 $Y_{t-1} , \cdots , Y_{t-k}$ 로 <a href="../666">다중회귀분석</a>하면 $\phi_{1} , \cdots , \phi_{k}$ 의 추정치인 회귀계수 $\tilde{\phi}_{1} , \cdots , \tilde{\phi}_{k}$ 를 얻을 수 있다. 그리고 그 잔차는 다음과 같이 엉망진창으로 나타날 것이다.
 $$
  \displaystyle Y_{t} - \sum_{i = 1}^{k} \tilde{\phi}_{i} Y_{t-i} = e_{t} - \sum_{i = 1}^{j} \theta_{i} e_{t-i} 
 $$
@@ -190,8 +190,8 @@ $$
 $$
  \displaystyle W_{t,k,j} = e_{t} - \sum_{i = 1}^{j} \theta_{i} e_{t-i} 
 $$
-그러면 $W_{t,k,j}$ 는 <a href="https://freshrimpsushi.github.io/posts/1209">ACF</a>가 그러했듯 정규분포 $\displaystyle N \left( 0 , {{1} \over {n - k - j}}\right)$ 를 따르고, 이를 이용해 가설검정을 한다.위의 전개를 쉽게 말하자면 복잡하게 얽힌 <a href="https://freshrimpsushi.github.io/posts/914">아르마 모형</a> $ARMA(k,j)$ 에서 시차 $k$ 를 주어 $AR(k)$ 를 제거시키고, 거기서 시차 $j$ 를 주어 $MA(j)$ 만 생각해서 각개격파하는 것이다. $MA(j)$ 를 파악하기 위해서는 결국 <a href="https://freshrimpsushi.github.io/posts/1209">ACF</a>가 쓰여야하므로 <strong>확장자기상관함수</strong> 라는 이름이 붙은 것은 적절하다고 할 수 있다.<img src="20190724_150509.png#center" alt="20190724\_150509.png">
-시차가 두 개의 축으로 나열되어 있으므로 <a href="https://freshrimpsushi.github.io/posts/1209">ACF</a>나 <a href="https://freshrimpsushi.github.io/posts/1211">PACF</a>와 달리 코릴로그램은 그릴 수 없고<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 위와 같이 O와 X로 귀무가설을 기각했냐 못했느냐만 나타내는 테이블을 사용한다. 단, 이 테이블은 실제 데이터에서 얻은 것이 아니라 분석이 잘 되는 $ARMA(1,1)$ 모형에 대해 분석을 했을 때 나와야할 이론적인 도식일 뿐이다. 실제로 저렇게까지 깔끔하게 나와주는 경우는 <a href="https://freshrimpsushi.github.io/posts/1216">거의 없다.</a>테이블을 읽는 법은 다음과 같다 : <strong>Step 1.</strong>  왼쪽 위에서 오른쪽 수평으로 이어지는 선이 있는  꼭짓점을 찾는다.<strong>Step 2.</strong>  꼭짓점에서 오른쪽 아래로 떨어져서 수평선과 예각을 이루는 선을 찾는다.<strong>Step 3.</strong>  두 선을 찾았다면, 꼭짓점에 해당하는 $ARMA(p,q)$ 로 분석을 해본다.위와 같은 방법에 따르면 저 그림에서는 꼭짓점 O*에 해당하는 $ARMA(1,1)$ 가 모형의 후보가 된다. 시계열을 어느정도 똑바로 공부했고 설명을 잘 읽었다면 짐작할 수 있겠지만, 실제 분석에선 상당히 주관적이고 애매한 경우가 많다. 이에 대해선 실제로 분석을 많이 해보면서 익숙해지는 방법밖에 없다.</p>
+그러면 $W_{t,k,j}$ 는 <a href="../1209">ACF</a>가 그러했듯 정규분포 $\displaystyle N \left( 0 , {{1} \over {n - k - j}}\right)$ 를 따르고, 이를 이용해 가설검정을 한다.위의 전개를 쉽게 말하자면 복잡하게 얽힌 <a href="../914">아르마 모형</a> $ARMA(k,j)$ 에서 시차 $k$ 를 주어 $AR(k)$ 를 제거시키고, 거기서 시차 $j$ 를 주어 $MA(j)$ 만 생각해서 각개격파하는 것이다. $MA(j)$ 를 파악하기 위해서는 결국 <a href="../1209">ACF</a>가 쓰여야하므로 <strong>확장자기상관함수</strong> 라는 이름이 붙은 것은 적절하다고 할 수 있다.<img src="20190724_150509.png#center" alt="20190724\_150509.png">
+시차가 두 개의 축으로 나열되어 있으므로 <a href="../1209">ACF</a>나 <a href="../1211">PACF</a>와 달리 코릴로그램은 그릴 수 없고<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 위와 같이 O와 X로 귀무가설을 기각했냐 못했느냐만 나타내는 테이블을 사용한다. 단, 이 테이블은 실제 데이터에서 얻은 것이 아니라 분석이 잘 되는 $ARMA(1,1)$ 모형에 대해 분석을 했을 때 나와야할 이론적인 도식일 뿐이다. 실제로 저렇게까지 깔끔하게 나와주는 경우는 <a href="../1216">거의 없다.</a>테이블을 읽는 법은 다음과 같다 : <strong>Step 1.</strong>  왼쪽 위에서 오른쪽 수평으로 이어지는 선이 있는  꼭짓점을 찾는다.<strong>Step 2.</strong>  꼭짓점에서 오른쪽 아래로 떨어져서 수평선과 예각을 이루는 선을 찾는다.<strong>Step 3.</strong>  두 선을 찾았다면, 꼭짓점에 해당하는 $ARMA(p,q)$ 로 분석을 해본다.위와 같은 방법에 따르면 저 그림에서는 꼭짓점 O*에 해당하는 $ARMA(1,1)$ 가 모형의 후보가 된다. 시계열을 어느정도 똑바로 공부했고 설명을 잘 읽었다면 짐작할 수 있겠지만, 실제 분석에선 상당히 주관적이고 애매한 경우가 많다. 이에 대해선 실제로 분석을 많이 해보면서 익숙해지는 방법밖에 없다.</p>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -552,7 +552,7 @@ $$
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/> - 줄리아</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1755)</summary>
+    <summary>전체 포스트 (1758)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
         </li><li>
@@ -566,7 +566,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (38)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (9)</a>
         </li><li>

@@ -174,13 +174,13 @@ margin-right: auto;">
 <br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
 </p>
 
-<a href="https://freshrimpsushi.github.io/posts/1280">가치 모형 보러가기</a> * 하단에 예제코드 전체가 있다.<a href="https://freshrimpsushi.github.io/posts/1280">가치 모델</a>은 <a href="https://freshrimpsushi.github.io/posts/1278">아치 이펙트</a>를 설명하는 유용한 수단으로써 분석 절차 자체는 <a href="https://freshrimpsushi.github.io/posts/1216">아르마 모델</a>과 흡사하다.<img src="1.png#center" alt="1.png">
-위의 그래프는 <a href="https://freshrimpsushi.github.io/posts/331">내장데이터</a> EuStockMarkets에서 DAX만 뽑아내서 그린 것으로, 1991년부터 1999년까지 독일 DAX지수를 나타낸다.<img src="2.png#center" alt="2.png">
-<a href="https://freshrimpsushi.github.io/posts/1278">리턴의 제곱을 보면</a> 거의 확실하게 아치 이펙트가 있는 것으로 보인다. 리턴의 제곱이 <a href="https://freshrimpsushi.github.io/posts/1216">아르마 모델을 따르는지</a><a href="https://freshrimpsushi.github.io/posts/1216"> 확인</a>하기 위해서 <a href="https://freshrimpsushi.github.io/posts/1213">EACF</a>를 사용해보자.<img src="20190904_133855.png#center" alt="20190904\_133855.png">
+<a href="../1280">가치 모형 보러가기</a> * 하단에 예제코드 전체가 있다.<a href="../1280">가치 모델</a>은 <a href="../1278">아치 이펙트</a>를 설명하는 유용한 수단으로써 분석 절차 자체는 <a href="../1216">아르마 모델</a>과 흡사하다.<img src="1.png#center" alt="1.png">
+위의 그래프는 <a href="../331">내장데이터</a> EuStockMarkets에서 DAX만 뽑아내서 그린 것으로, 1991년부터 1999년까지 독일 DAX지수를 나타낸다.<img src="2.png#center" alt="2.png">
+<a href="../1278">리턴의 제곱을 보면</a> 거의 확실하게 아치 이펙트가 있는 것으로 보인다. 리턴의 제곱이 <a href="../1216">아르마 모델을 따르는지</a><a href="../1216"> 확인</a>하기 위해서 <a href="../1213">EACF</a>를 사용해보자.<img src="20190904_133855.png#center" alt="20190904\_133855.png">
 리턴의 제곱이 아르마 모델 $ARMA(1,3)$ 을 따른다고 추측되므로 리턴이 $GARCH(1,3)$ 을 따른다는 가정을 세워볼 수 있다. tseries 패키지의 garch() 함수를 사용하면 가치 모델로 분석을 할 수 있다.<img src="20190904_113946.png#center" alt="20190904\_113946.png">
-분석 결과를 읽는 방법은 <a href="https://freshrimpsushi.github.io/posts/670">회귀분석</a>과 똑같은데, 차이점이 있다면 그 밑에 알아서 <a href="https://freshrimpsushi.github.io/posts/949">하르케-베라 테스트Jarque Bera Test</a>와 <a href="https://freshrimpsushi.github.io/posts/1219">륭-박스 테스트Box-Ljung Test</a>도 해준다는 것이다. 륭-박스 테스트의 p밸류가 크게 나왔기 때문에 모델 피팅 자체는 잘 된 것으로 보이는데, 하르케-베라 테스트의 p밸류가 낮다는 것은 좋은 징조가 아니다. <a href="https://freshrimpsushi.github.io/posts/1218">잔차의 정규성</a>에 문제가 있다는 것인데, 히스토그램을 그려 체크해보자.<img src="3.png#center" alt="3.png">
-가만보면 어마어마하게 큰 이상치 때문에 정규성이 결여되었음을 알 수 있다. <a href="https://freshrimpsushi.github.io/posts/1268">왜도</a>는 이상치에 영향을 크게 받는데, 아무래도 그 때문에 검정이 왜곡된 것으로 보인다. 이상치를 제거하고 다시 검정해보자.<img src="20190904_135117.png#center" alt="20190904\_135117.png">
-이상치를 뺐을 때 <a href="https://freshrimpsushi.github.io/posts/949">하르케-베라 테스트</a>는 잔차가 정규성을 가진다는 것을 지지한다. 그러나 여전히 <a href="https://freshrimpsushi.github.io/posts/939">샤피로-윌크 테스트</a>는 정규성이 결여되었다고 판단했는데, 같은 정규성 검정이지만 이렇게 다른 경우도 충분히 있을 수 있다. <a href="https://freshrimpsushi.github.io/posts/900">시계열 분석</a>의 특성상 너무 큰 이상치가 있는 경우가 아주 흔한데, 하르케-베라 테스트는 샤피로-윌크 테스트와 달리 이상치를 제거했을 때 정규분포임이 드러나는 경우가 더 많다.적어도 이 경우엔 샤피로-윌크 테스트를 통과하지 못했지만 하르케-베라 테스트를 통과했으므로 잔차가 정규성을 가진다고 보아도 무방하다. 결론적으로, 리턴이 $GARCH(1,3)$ 을 따른다고 말해도 좋다.다음은 예제 코드다.</p>
+분석 결과를 읽는 방법은 <a href="../670">회귀분석</a>과 똑같은데, 차이점이 있다면 그 밑에 알아서 <a href="../949">하르케-베라 테스트Jarque Bera Test</a>와 <a href="../1219">륭-박스 테스트Box-Ljung Test</a>도 해준다는 것이다. 륭-박스 테스트의 p밸류가 크게 나왔기 때문에 모델 피팅 자체는 잘 된 것으로 보이는데, 하르케-베라 테스트의 p밸류가 낮다는 것은 좋은 징조가 아니다. <a href="../1218">잔차의 정규성</a>에 문제가 있다는 것인데, 히스토그램을 그려 체크해보자.<img src="3.png#center" alt="3.png">
+가만보면 어마어마하게 큰 이상치 때문에 정규성이 결여되었음을 알 수 있다. <a href="../1268">왜도</a>는 이상치에 영향을 크게 받는데, 아무래도 그 때문에 검정이 왜곡된 것으로 보인다. 이상치를 제거하고 다시 검정해보자.<img src="20190904_135117.png#center" alt="20190904\_135117.png">
+이상치를 뺐을 때 <a href="../949">하르케-베라 테스트</a>는 잔차가 정규성을 가진다는 것을 지지한다. 그러나 여전히 <a href="../939">샤피로-윌크 테스트</a>는 정규성이 결여되었다고 판단했는데, 같은 정규성 검정이지만 이렇게 다른 경우도 충분히 있을 수 있다. <a href="../900">시계열 분석</a>의 특성상 너무 큰 이상치가 있는 경우가 아주 흔한데, 하르케-베라 테스트는 샤피로-윌크 테스트와 달리 이상치를 제거했을 때 정규분포임이 드러나는 경우가 더 많다.적어도 이 경우엔 샤피로-윌크 테스트를 통과하지 못했지만 하르케-베라 테스트를 통과했으므로 잔차가 정규성을 가진다고 보아도 무방하다. 결론적으로, 리턴이 $GARCH(1,3)$ 을 따른다고 말해도 좋다.다음은 예제 코드다.</p>
 <pre><code>
 library(TSA)
 library(tseries)
@@ -548,7 +548,7 @@ shapiro.test(resi2)
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/> - 줄리아</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1755)</summary>
+    <summary>전체 포스트 (1758)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
         </li><li>
@@ -562,7 +562,7 @@ shapiro.test(resi2)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (38)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (9)</a>
         </li><li>

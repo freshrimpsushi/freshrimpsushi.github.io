@@ -177,10 +177,10 @@ margin-right: auto;">
 R 에서 부트스트랩을 시행하는 코드를 직접 짜볼 수도 있지만, 기본적으로 제공되는 함수를 이용할 수도 있다.그 과정은 아래와 같이 단순하지만 다른 함수들과 사용법에 다른 점이 많아서 처음엔 많이 낯설 것이다.</p>
 <p><strong>Step 1.</strong>  구하고 싶은 통계량을 반환하는 함수 boot.fn()을 정의한다.당연히 여기서 함수의 이름은 어찌되든 상관 없다.이때 인수 중엔 boot.fn&lt;-function(dataset, index)와 같이 두번째 옵션 index가 있어야한다.<strong>Step 2.</strong>  boot() 함수에 옵션 data, statistic, R을 설정하고 실행한다.data는 데이터셋, statistic은 <strong>Step 1.</strong> 에서 정의한 함수, R에는 반복할 횟수를 넣어준다.</p>
 <p>예제를 보면서 차근차근 따라해보도록 하자.<img src="20180507_201348.png#center" alt="20180507\_201348.png">
-Default는 채무불이행 여부와 그에 대한 조건들의 데이터셋이다.당연히 default 변수가 종속변수고, 실제로 채무불이행까지 이어지는지의 예측문제이므로 <a href="https://freshrimpsushi.github.io/posts/832">로지스틱 회귀분석</a>이 적절하다.<img src="20180507_202245.png#center" alt="20180507\_202245.png">
+Default는 채무불이행 여부와 그에 대한 조건들의 데이터셋이다.당연히 default 변수가 종속변수고, 실제로 채무불이행까지 이어지는지의 예측문제이므로 <a href="../832">로지스틱 회귀분석</a>이 적절하다.<img src="20180507_202245.png#center" alt="20180507\_202245.png">
 로지스틱 회귀분석의 결과는 위와 같다.우리는 여기서 회귀계수에 대해 부트스트랩을 사용해볼 것이다.<img src="20180507_202409.png#center" alt="20180507\_202409.png">
 부트스트랩에 쓰이는 함수는 위와 같이 dataset과 index라는 두 개의 인수가 필수적이다.dataset은 오리지널 데이터를 받아주고, index는 부트스트랩을 통한 재표본추출의 튜플을 받아줄 것이다.return()을 보면 알겠지만 해당 함수가 돌려주는 것은 모델이나 요약 전체가 아니라 회귀계수로 이루어진 벡터 뿐이다.이렇게 함수를 포멀하게 정의할 필요가 있다보니 R에 대한 기초가 부족하면 부트스트랩 함수를 이해하기 어려울 것이다.부트스트랩을 쓸 정도로 통계학에 숙달된 학습자라면 큰 문제는 없겠지만, 조금 어렵게 느껴져도 정상이니 자책하지 말자.<img src="20180507_202925.png#center" alt="20180507\_202925.png">
-boot() 함수는 data에 데이터셋을 받고 R에 실행 횟수를 받는다.statistic 옵션이 받아주는 것은 boot.fn()이 반환하는 &lsquo;벡터&rsquo;가 아니라 &lsquo;함수 그 자체&rsquo;인 boot.fn라는 부분에서 많이 실수한다.계속해서 에러가 난다면 대부분은 여기가 문제다.실행 결과를 보면 첫번째 회귀계수부터 t1, t2, t3, t4로 나타나고 계수나 표준오차가 처음에 했던 로지스틱 회귀분석의 결과와 상당히 비슷하게 구해졌음을 확인할 수 있다. 여기서 부트스트랩을 통해 얻어내고자 하는 것은 <a href="https://freshrimpsushi.github.io/posts/551">점추정값인 original이 아니라 std. error라는 점</a>에 주의하도록 하자. 잘 비교해보면 알겠지만 original이란 그냥 전체 데이터에서 얻은 회귀계수로써 부트스트랩 그 자체와는 하등 상관없고 필요없다.아래는 예제코드다.부트스트랩같은 경우엔 너무 사용법이 특이해서 이해가 잘 안가면 그냥 예제를 자기 케이스에 맞게 바꿔 쓰기만해도 된다.</p>
+boot() 함수는 data에 데이터셋을 받고 R에 실행 횟수를 받는다.statistic 옵션이 받아주는 것은 boot.fn()이 반환하는 &lsquo;벡터&rsquo;가 아니라 &lsquo;함수 그 자체&rsquo;인 boot.fn라는 부분에서 많이 실수한다.계속해서 에러가 난다면 대부분은 여기가 문제다.실행 결과를 보면 첫번째 회귀계수부터 t1, t2, t3, t4로 나타나고 계수나 표준오차가 처음에 했던 로지스틱 회귀분석의 결과와 상당히 비슷하게 구해졌음을 확인할 수 있다. 여기서 부트스트랩을 통해 얻어내고자 하는 것은 <a href="../551">점추정값인 original이 아니라 std. error라는 점</a>에 주의하도록 하자. 잘 비교해보면 알겠지만 original이란 그냥 전체 데이터에서 얻은 회귀계수로써 부트스트랩 그 자체와는 하등 상관없고 필요없다.아래는 예제코드다.부트스트랩같은 경우엔 너무 사용법이 특이해서 이해가 잘 안가면 그냥 예제를 자기 케이스에 맞게 바꿔 쓰기만해도 된다.</p>
 <pre><code>library(ISLR)
 library(boot)
 set.seed(150421)
@@ -548,7 +548,7 @@ boot.result&lt;-boot(data=Default,statistic=boot.fn,R=1000); boot.result
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/> - 줄리아</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1755)</summary>
+    <summary>전체 포스트 (1758)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
         </li><li>
@@ -562,7 +562,7 @@ boot.result&lt;-boot(data=Default,statistic=boot.fn,R=1000); boot.result
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (38)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (9)</a>
         </li><li>

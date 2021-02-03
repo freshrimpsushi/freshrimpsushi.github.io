@@ -174,13 +174,13 @@ margin-right: auto;">
 <br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
 </p>
 
-<a href="https://freshrimpsushi.github.io/posts/850">R 에서 로티스틱 회귀분석 결과 보러가기</a><a href="https://freshrimpsushi.github.io/posts/852">호스머-렘소 적합도 검정 보러가기</a><a href="https://freshrimpsushi.github.io/posts/666">다중회귀분석</a> $Y \leftarrow X_{1} , \cdots, X_{p}$ 을 한다고 생각해보자.여기서 $Y$ 가 질적변수, 그 중에서도 계급이 두개뿐인 경우가 있을 수 있다. 예를 들어 남자와 여자, 성공과 실패, 양성과 음성, $0$ 과 $1$ 등이 있고, 편의상 그냥 $Y=0$ 혹은 $Y=1$ 이라고 하자. 이렇게 종속변수가 이항적인 경우 관심사는 &lsquo;독립변수 $ X_{1} , \cdots X_{p}$ 들을 보았을 때 $Y$ 가 무엇인지&rsquo;일 것이다. 그런데 $Y$ 는 질적변수이므로, 일반적인 회귀분석과 달리 회귀계수들과 변수들의 선형결합 $y = \beta_{0} + \beta_{1} x_{1} + \cdots \beta_{p} x_{p} $ 으로 표현될 수 없다. 그래서 $Y=1$ 일 확률을 구하는 방향으로 접근해보려 한다.주어진 $X=x$ 에 대해 $Y=1$ 일 확률을 $\displaystyle \pi := P ( Y = 1 | X = x ) = {{ e^{ \beta_{0} + \beta_{1} x_{1} + \cdots \beta_{p} x_{p}}  } \over { 1+ e^{ \beta_{0} + \beta_{1} x_{1} + \cdots \beta_{p} x_{p}} }}$ 과 같이 두자.</p>
+<a href="../850">R 에서 로티스틱 회귀분석 결과 보러가기</a><a href="../852">호스머-렘소 적합도 검정 보러가기</a><a href="../666">다중회귀분석</a> $Y \leftarrow X_{1} , \cdots, X_{p}$ 을 한다고 생각해보자.여기서 $Y$ 가 질적변수, 그 중에서도 계급이 두개뿐인 경우가 있을 수 있다. 예를 들어 남자와 여자, 성공과 실패, 양성과 음성, $0$ 과 $1$ 등이 있고, 편의상 그냥 $Y=0$ 혹은 $Y=1$ 이라고 하자. 이렇게 종속변수가 이항적인 경우 관심사는 &lsquo;독립변수 $ X_{1} , \cdots X_{p}$ 들을 보았을 때 $Y$ 가 무엇인지&rsquo;일 것이다. 그런데 $Y$ 는 질적변수이므로, 일반적인 회귀분석과 달리 회귀계수들과 변수들의 선형결합 $y = \beta_{0} + \beta_{1} x_{1} + \cdots \beta_{p} x_{p} $ 으로 표현될 수 없다. 그래서 $Y=1$ 일 확률을 구하는 방향으로 접근해보려 한다.주어진 $X=x$ 에 대해 $Y=1$ 일 확률을 $\displaystyle \pi := P ( Y = 1 | X = x ) = {{ e^{ \beta_{0} + \beta_{1} x_{1} + \cdots \beta_{p} x_{p}}  } \over { 1+ e^{ \beta_{0} + \beta_{1} x_{1} + \cdots \beta_{p} x_{p}} }}$ 과 같이 두자.</p>
 <p>(i)**  지수함수는 항상 $0$ 보다 크고, $\pi$ 의 분모가 분자보다 크므로 $ 0 &lt; \pi &lt; 1$ 이다.</p>
 <p>(ii)**  자연스럽게 $Y = 0$ 일 확률은 $\displaystyle 1 - \pi =  P ( Y = 0 | X = x ) 
 $$
 \displaystyle = 1 - {{ e^{ \beta_{0} + \beta_{1} x_{1} + \cdots \beta_{p} x_{p}}  } \over { 1+ e^{ \beta_{0} + \beta_{1} x_{1} + \cdots \beta_{p} x_{p}} }} = {{ 1  } \over { 1+ e^{ \beta_{0} + \beta_{1} x_{1} + \cdots \beta_{p} x_{p}} }}
 $$
-\displaystyle { { \pi } \over { 1 - \pi } } = { { \displaystyle {{ e^{ \beta_{0} + \beta_{1} x_{1} + \cdots \beta_{p} x_{p}}  } \over { 1+ e^{ \beta_{0} + \beta_{1} x_{1} + \cdots \beta_{p} x_{p}} }} } \over { \displaystyle   {{ 1  } \over { 1+ e^{ \beta_{0} + \beta_{1} x_{1} + \cdots \beta_{p} x_{p}} }} } } = e^{ \beta_{0} + \beta_{1} x_{1} + \cdots \beta_{p} x_{p}}  $ 의 양변에 자연로그를 취하면 $\displaystyle \ln \left( { { \pi } \over { 1 - \pi } } \right) = \beta_{0} + \beta_{1} x_{1} + \cdots \beta_{p} x_{p}$이렇게 로그를 취하는 것을 **로짓 변환**<sup>Logit Transformation</sup> 이라 하고, $\displaystyle \ln \left( { { \pi } \over { 1 - \pi } } \right)$ 를 **로짓**<sup>Logit</sup> 이라고 부른다.로짓을 종속변수로 둔 다중회귀분석 $ \displaystyle \ln \left( { { \pi } \over { 1 - \pi } } \right) \leftarrow X_{1} , \cdots, X_{p}$ 을 **로지스틱 회귀분석**<sup>Logistic Regression</sup> 이라고 한다.<a href="https://freshrimpsushi.github.io/posts/1775">로지스틱 모형</a>으로 얻은 값들에 로짓 변환의 역변환을 취함으로써 원래 알고 싶었던 확률 $\pi$ 을 얻을 수 있다. 이 때 $X_{i}$ 의 계수 $\beta_{i}$ 양수라는 것은 $X_{i}$ 가 커질수록 $Y=1$ 일 확률도 커짐을 의미하고, 음수라는 것은 $X_{i}$ 가 커질수록 $Y=0$ 일 확률도 커짐을 의미한다.한편 로지스틱 회귀분석은 주어진 조건에 대해 결과가 일어날 확률을 알려주므로 예측 기법이기도 하지만, 확률에 대한 적절한 **역치**<sup>Threshold</sup> 을 제안함으로써 분류 기법이 될 수 있기도 하다.</p>
+\displaystyle { { \pi } \over { 1 - \pi } } = { { \displaystyle {{ e^{ \beta_{0} + \beta_{1} x_{1} + \cdots \beta_{p} x_{p}}  } \over { 1+ e^{ \beta_{0} + \beta_{1} x_{1} + \cdots \beta_{p} x_{p}} }} } \over { \displaystyle   {{ 1  } \over { 1+ e^{ \beta_{0} + \beta_{1} x_{1} + \cdots \beta_{p} x_{p}} }} } } = e^{ \beta_{0} + \beta_{1} x_{1} + \cdots \beta_{p} x_{p}}  $ 의 양변에 자연로그를 취하면 $\displaystyle \ln \left( { { \pi } \over { 1 - \pi } } \right) = \beta_{0} + \beta_{1} x_{1} + \cdots \beta_{p} x_{p}$이렇게 로그를 취하는 것을 **로짓 변환**<sup>Logit Transformation</sup> 이라 하고, $\displaystyle \ln \left( { { \pi } \over { 1 - \pi } } \right)$ 를 **로짓**<sup>Logit</sup> 이라고 부른다.로짓을 종속변수로 둔 다중회귀분석 $ \displaystyle \ln \left( { { \pi } \over { 1 - \pi } } \right) \leftarrow X_{1} , \cdots, X_{p}$ 을 **로지스틱 회귀분석**<sup>Logistic Regression</sup> 이라고 한다.<a href="../1775">로지스틱 모형</a>으로 얻은 값들에 로짓 변환의 역변환을 취함으로써 원래 알고 싶었던 확률 $\pi$ 을 얻을 수 있다. 이 때 $X_{i}$ 의 계수 $\beta_{i}$ 양수라는 것은 $X_{i}$ 가 커질수록 $Y=1$ 일 확률도 커짐을 의미하고, 음수라는 것은 $X_{i}$ 가 커질수록 $Y=0$ 일 확률도 커짐을 의미한다.한편 로지스틱 회귀분석은 주어진 조건에 대해 결과가 일어날 확률을 알려주므로 예측 기법이기도 하지만, 확률에 대한 적절한 **역치**<sup>Threshold</sup> 을 제안함으로써 분류 기법이 될 수 있기도 하다.</p>
 
 
 
@@ -533,7 +533,7 @@ $$
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/> - 줄리아</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1755)</summary>
+    <summary>전체 포스트 (1758)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
         </li><li>
@@ -547,7 +547,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (38)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (9)</a>
         </li><li>

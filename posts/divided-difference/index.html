@@ -193,7 +193,7 @@ $$
 <p>[2]** 는 실제 계산에 있어서 특히 유용한데, $\displaystyle f [ x_{0} , x_{1} , x_{2} ] = {{ f( x_{0} ) } \over { ( x_{0} - x_{1} ) ( x_{0} - x_{2} )  }}
 $$
 \displaystyle + {{ f( x_{1} ) } \over { ( x_{1} - x_{2} ) ( x_{1} - x_{0} )  }} + {{ f( x_{2} ) } \over { ( x_{2} - x_{0} ) ( x_{2} - x_{1} )  }}$ 와 같이 나타나기 때문에 실제 정의와 같이 재귀적으로 반복계산을 할 수고를 덜어준다.</p>
-<p>[3]** 은 사실 <a href="https://freshrimpsushi.github.io/posts/37">평균값 정리</a>로써, 미분을 한 때 &lsquo;순간 변화율&rsquo;과 같은 개념으로 생각한 적이 있다면 왜 계차상이 미분을 대신하고 Divided Difference이라는 이름을 갖는지 이해할 수 있을 것이다. **[4]** 와 같은 형태로 일반화가 가능하다. 증명은 거꾸로 계차상의 인수들이 한없이 가까워지는, 즉 극한을 취하는 느낌을 생각해보면 **[3]'** , **[4]'** 와 같이 $n$계 미분계수로 볼 수 있다. 이러한 개념적 접근은 <a href="https://freshrimpsushi.github.io/posts/1031">계차상의 정의에서 오는 한계를 극복</a>하고 수치해석의 이론을 더욱 풍부하게 만들어준다.간단히 $f(x) := x^2 + 1$ 에 대해 몇몇 계차상을 구해보자.$f[3] = f(3) = 10
+<p>[3]** 은 사실 <a href="../37">평균값 정리</a>로써, 미분을 한 때 &lsquo;순간 변화율&rsquo;과 같은 개념으로 생각한 적이 있다면 왜 계차상이 미분을 대신하고 Divided Difference이라는 이름을 갖는지 이해할 수 있을 것이다. **[4]** 와 같은 형태로 일반화가 가능하다. 증명은 거꾸로 계차상의 인수들이 한없이 가까워지는, 즉 극한을 취하는 느낌을 생각해보면 **[3]'** , **[4]'** 와 같이 $n$계 미분계수로 볼 수 있다. 이러한 개념적 접근은 <a href="../1031">계차상의 정의에서 오는 한계를 극복</a>하고 수치해석의 이론을 더욱 풍부하게 만들어준다.간단히 $f(x) := x^2 + 1$ 에 대해 몇몇 계차상을 구해보자.$f[3] = f(3) = 10
 $$
 \displaystyle f[0,5] = {{ f(0) - f(5) } \over { 0 - 5}} = {{1 - 26 } \over { -5 }} = 5
 $$
@@ -211,7 +211,7 @@ dd(f,c(3))
 dd(f,c(0,5))
 dd(f,c(2,3,-1))[Colored by Color Scripter](http://colorscripter.com/info#e)
 </code></pre><p>위 코드를 실행시킨 결과는 다음과 같으며, $f(x) = x^2 +1$ 에 대한 손계산과 정확히 일치함을 확인할 수 있다.<img src="20190319_161740.png#center" alt="20190319\_161740.png">
-<strong>Strategy[2]</strong>  : <a href="https://freshrimpsushi.github.io/posts/1023">라그랑주 공식</a>과 <a href="https://freshrimpsushi.github.io/posts/1025">뉴턴 계차상 공식</a>의 차수를 비교한다.<strong>증명[2]</strong> 
+<strong>Strategy[2]</strong>  : <a href="../1023">라그랑주 공식</a>과 <a href="../1025">뉴턴 계차상 공식</a>의 차수를 비교한다.<strong>증명[2]</strong> 
 $$
 \Psi_{n} (x) := (x-x_{0}) \cdots (x - x_{n})
 $$
@@ -222,17 +222,17 @@ $$</p>
 <p>$$
 \displaystyle \implies {{ \Psi(x)_{n} } \over { (x - x_{j}) \Psi'_{n}(x_{j}) }} \equiv {{ (x - x_{0} ) \cdots  (x - x_{j-1} ) (x - x_{j+1} ) \cdots (x - x_{n} ) } \over { (x_{j} - x_{0} ) \cdots  (x_{j} - x_{j-1} ) (x_{j} - x_{j+1} ) \cdots (x_{j} - x_{n} )  }} = l_{j} (x) 
 $$
-<a href="https://freshrimpsushi.github.io/posts/1023">라그랑주 공식</a>에 따르면 $f$ 의 <a href="https://freshrimpsushi.github.io/posts/1021">폴리노미얼 인터폴레이션</a>은
+<a href="../1023">라그랑주 공식</a>에 따르면 $f$ 의 <a href="../1021">폴리노미얼 인터폴레이션</a>은
 $$
 \displaystyle p_{n} (x) = \sum_{j=0}^{n} {{ \Psi_{n} (x) } \over { (x - x_{j}) \Psi'_{n} (x_{j}) }} \cdot f( x_{j}) 
 $$
-따라서 $p_{n}$ 의 최고차항의 계수는 $\displaystyle \sum_{j=0}^{n} {{ f( x_{j}) } \over { \Psi'_{n} (x_{j}) }} $ 인데, <a href="https://freshrimpsushi.github.io/posts/1025">뉴턴 계차상 공식</a>에서 $p_{n}$ 의 최고차항의 계수는 $f [x_{0} , \cdots , x_{n} ]$ 이므로
+따라서 $p_{n}$ 의 최고차항의 계수는 $\displaystyle \sum_{j=0}^{n} {{ f( x_{j}) } \over { \Psi'_{n} (x_{j}) }} $ 인데, <a href="../1025">뉴턴 계차상 공식</a>에서 $p_{n}$ 의 최고차항의 계수는 $f [x_{0} , \cdots , x_{n} ]$ 이므로
 $$
 \displaystyle f [ x_{0} , \cdots , x_{n} ] = \sum_{i=0}^{n} {{ f( x_{i} ) } \over { \displaystyle \prod_{j \in \left\{ 0 , \cdots , n \right\} \setminus \left\{ i \right\} } ( x_{i} - x_{j} )  }}  
 $$
 <p style="text-align: right;">■</p>
-<strong>증명[1]</strong> <strong>[2]</strong> 에 의해 $[x_{0} , \cdots , x_{n}]$ 내부의 순서를 바꾸는 것은 $\displaystyle \sum_{i=0}^{n} {{ f( x_{i} ) } \over { \displaystyle \prod_{j \in \left\{ 0 , \cdots , n \right\} \setminus \left\{ i \right\} } ( x_{i} - x_{j} )  }}$ 을 계산할 때 <a href="https://freshrimpsushi.github.io/posts/178">덧셈의 순서를 바꾸는 것에 불과</a>하므로 항상 같다.<p style="text-align: right;">■</p>
-<strong>Strategy[4]</strong>  : <a href="https://freshrimpsushi.github.io/posts/1023">라그랑주 공식</a>과 <a href="https://freshrimpsushi.github.io/posts/1025">뉴턴 계차상 공식</a>의 차수를 비교한다.<strong>증명[4]</strong> $p_{n}(x) = p_{n-1}(x) + C(x)$ 이라고 하면 $\deg C = n$ 이고 $i= 0, \cdots, (n-1)$ 에 대해서 $p_{n}(x_{i}) = f(x_{i}) = p_{n-1}(x_{i})$ 이므로 어떤 상수 $a_{n} \ne 0$ 에 대해 $C (x) = a_{n} (x - x_{0}) \cdots (x - x_{n-1})$ 와 같이 나타난다. $C(x)$ 에 $x=x_{n}$ 을 대입해보면
+<strong>증명[1]</strong> <strong>[2]</strong> 에 의해 $[x_{0} , \cdots , x_{n}]$ 내부의 순서를 바꾸는 것은 $\displaystyle \sum_{i=0}^{n} {{ f( x_{i} ) } \over { \displaystyle \prod_{j \in \left\{ 0 , \cdots , n \right\} \setminus \left\{ i \right\} } ( x_{i} - x_{j} )  }}$ 을 계산할 때 <a href="../178">덧셈의 순서를 바꾸는 것에 불과</a>하므로 항상 같다.<p style="text-align: right;">■</p>
+<strong>Strategy[4]</strong>  : <a href="../1023">라그랑주 공식</a>과 <a href="../1025">뉴턴 계차상 공식</a>의 차수를 비교한다.<strong>증명[4]</strong> $p_{n}(x) = p_{n-1}(x) + C(x)$ 이라고 하면 $\deg C = n$ 이고 $i= 0, \cdots, (n-1)$ 에 대해서 $p_{n}(x_{i}) = f(x_{i}) = p_{n-1}(x_{i})$ 이므로 어떤 상수 $a_{n} \ne 0$ 에 대해 $C (x) = a_{n} (x - x_{0}) \cdots (x - x_{n-1})$ 와 같이 나타난다. $C(x)$ 에 $x=x_{n}$ 을 대입해보면
 $$
 C(x_{n} ) = p_{n} (x_{n}) - p_{n-1}(x_{n})
 $$</p>
@@ -246,11 +246,11 @@ $$</p>
 <p>$$
 \displaystyle a_{n} = {{ f (x_{n}) - p_{n-1}(x_{n-1}) } \over { (x_{n} - x_{0}) \cdots (x_{n} - x_{n-1})  }}
 $$</p>
-<p><a href="https://freshrimpsushi.github.io/posts/1021">폴리노미얼 인터폴레이션과 실제 함수와의 오차</a>$n$번 미분가능한 $f : \mathbb{R} \to \mathbb{R}$ 와 어떤 $\xi \in \mathscr{H} \left\{ x_{0} , \cdots , x_{n-1} \right\} $ 에 대해 $f$ 의 폴리노미얼 인터폴레이션 $p_{n-1}$ 은 어떤 $x_{n} \in \mathbb{R}$ 에 대해 $\displaystyle f(x_{n}) - p_{n-1} (x_{n}) = {{ (x_{n} - x_{0}) \cdots (x_{n} - x_{n-1}) } \over { n! }} f^{(n)} ( \xi )$ 을 만족한다.</p>
+<p><a href="../1021">폴리노미얼 인터폴레이션과 실제 함수와의 오차</a>$n$번 미분가능한 $f : \mathbb{R} \to \mathbb{R}$ 와 어떤 $\xi \in \mathscr{H} \left\{ x_{0} , \cdots , x_{n-1} \right\} $ 에 대해 $f$ 의 폴리노미얼 인터폴레이션 $p_{n-1}$ 은 어떤 $x_{n} \in \mathbb{R}$ 에 대해 $\displaystyle f(x_{n}) - p_{n-1} (x_{n}) = {{ (x_{n} - x_{0}) \cdots (x_{n} - x_{n-1}) } \over { n! }} f^{(n)} ( \xi )$ 을 만족한다.</p>
 <p>$$
 \displaystyle a_{n} = {{ f^{(n)} ( \xi ) } \over { n! }} 
 $$
-한편 <a href="https://freshrimpsushi.github.io/posts/1025">뉴턴 계차상 공식</a>에서 $p_{n}$ 의 최고차항의 계수는 $a_{n} = f [x_{0} , \cdots , x_{n} ]$ 이므로
+한편 <a href="../1025">뉴턴 계차상 공식</a>에서 $p_{n}$ 의 최고차항의 계수는 $a_{n} = f [x_{0} , \cdots , x_{n} ]$ 이므로
 $$
 \displaystyle {{1} \over {n!}} f^{(n)} ( \xi ) =f [ x_{0} , \cdots , x_{n} ] 
 $$
@@ -608,7 +608,7 @@ $$
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/> - 줄리아</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1755)</summary>
+    <summary>전체 포스트 (1758)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
         </li><li>
@@ -622,7 +622,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (38)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (9)</a>
         </li><li>

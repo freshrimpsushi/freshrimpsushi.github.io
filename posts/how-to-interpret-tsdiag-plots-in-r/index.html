@@ -174,12 +174,12 @@ margin-right: auto;">
 <br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
 </p>
 
-<a href="https://freshrimpsushi.github.io/posts/548">회귀분석</a>과 마찬가지로 <a href="https://freshrimpsushi.github.io/posts/900">시계열 분석</a> 역시 <a href="https://freshrimpsushi.github.io/posts/675">잔차분석</a>을 한다. <a href="https://freshrimpsushi.github.io/posts/941">아리마 모형</a>의 가정에 따르면 잔차는 모두 <a href="https://freshrimpsushi.github.io/posts/904">백색잡음</a>이므로 <a href="https://freshrimpsushi.github.io/posts/677">선형성</a>, <a href="https://freshrimpsushi.github.io/posts/681">등분산성</a>, <a href="https://freshrimpsushi.github.io/posts/679">독립성</a>, <a href="https://freshrimpsushi.github.io/posts/683">정규성</a>을 따르는지 확인은 할 것이다. <a href="https://freshrimpsushi.github.io/posts/548">회귀분석</a>과 비교하자면 전반적으로 그렇게까지 엄격하지는 않으나, 독립성 하나만큼은 철저하게 체크한다. 애초에 시계열분석 자체가 <a href="https://freshrimpsushi.github.io/posts/1209">자기상관성</a>을 파악하기 위한 것인데, 잔차에 아직 독립성이 결여되어있다면 분석이 덜 된 것이기 때문이다.R 에서는 tsdiag() 함수로 간단하게 잔차분석을 할 수 있다.<img src="6.png#center" alt="6.png">
-예로써 <a href="https://freshrimpsushi.github.io/posts/331">내장데이터</a> WWWusage를 살펴보자. WWWusage는 먼 옛날 인터넷에 접속하는 이용자수를 나타내는 시계열 데이터다. 이에 대한 아리마 모형은 $ARIMA(1,1,1)$ 이고, 빨간색 실선은 그 적합치다. 모형을 그대로 tsdiag() 함수에 집어넣으면 다음과 같은 세 개의 플랏을 출력해준다.<img src="7.png#center" alt="7.png"></p>
-<p>(1) Standardized Residuals**  : 스캐터 플랏으로 표현되지 않았을 뿐 늘 보는 표준화잔차그림이다. 눈대중으로 <a href="https://freshrimpsushi.github.io/posts/677">선형성</a>과 <a href="https://freshrimpsushi.github.io/posts/681">등분산성</a>을 체크하면 된다.</p>
-<p>(2) ACF of Residuals**  : 잔차로 <a href="https://freshrimpsushi.github.io/posts/1209">ACF</a>를 계산했을 때 어떤 관계가 나타나서는 곤란하다. 물론 자기자신과의 상관계수는 반드시 $\rho = 1$ 이므로 위의 그림엔 아무 이상이 없다고 단언할 수 있다.</p>
-<p>(3) p values for Ljung-Box statistics**  : <a href="https://freshrimpsushi.github.io/posts/1219">륭-박스 테스트</a>를 시차 $k = 1, 2, \cdots$ 에 대해서 반복하고 그 p값을 점으로 찍어놓은 것이다. 아래에 있는 파란 실선 밑으로 내려가면 유의수준 $\alpha = 5 %$ 에서 현재 사용한 <a href="https://freshrimpsushi.github.io/posts/914">아르마 모형</a> $ARMA(p,q)$ 가 적합하지 않다고 본다. 위의 그림으로 보아서는 분석이 잘 되었다고 말할 수 있다.</p>
-<p>(4) 정규성 검정**  : 그림에도 없고 굉장히 중요한 것도 아니지만 여유가 있다면, 그리고 분석을 더 정확하게 하고싶다면 <a href="https://freshrimpsushi.github.io/posts/939">샤피로-윌크 테스트</a> 혹은 <a href="https://freshrimpsushi.github.io/posts/949">하르케-베라 테스트</a>를 사용해봄직하다. 사실 원래는 무조건 하는 게 맞지만, 실제 데이터 분석에선 이상치가 많아 정규성이 결여되는 경우가 잦아 생략도 많이 한다. 다행스럽게도 이 예제에선 다음과 같이 정규성도 만족하고 있다.<img src="20190730_133508.png#center" alt="20190730\_133508.png"></p>
+<a href="../548">회귀분석</a>과 마찬가지로 <a href="../900">시계열 분석</a> 역시 <a href="../675">잔차분석</a>을 한다. <a href="../941">아리마 모형</a>의 가정에 따르면 잔차는 모두 <a href="../904">백색잡음</a>이므로 <a href="../677">선형성</a>, <a href="../681">등분산성</a>, <a href="../679">독립성</a>, <a href="../683">정규성</a>을 따르는지 확인은 할 것이다. <a href="../548">회귀분석</a>과 비교하자면 전반적으로 그렇게까지 엄격하지는 않으나, 독립성 하나만큼은 철저하게 체크한다. 애초에 시계열분석 자체가 <a href="../1209">자기상관성</a>을 파악하기 위한 것인데, 잔차에 아직 독립성이 결여되어있다면 분석이 덜 된 것이기 때문이다.R 에서는 tsdiag() 함수로 간단하게 잔차분석을 할 수 있다.<img src="6.png#center" alt="6.png">
+예로써 <a href="../331">내장데이터</a> WWWusage를 살펴보자. WWWusage는 먼 옛날 인터넷에 접속하는 이용자수를 나타내는 시계열 데이터다. 이에 대한 아리마 모형은 $ARIMA(1,1,1)$ 이고, 빨간색 실선은 그 적합치다. 모형을 그대로 tsdiag() 함수에 집어넣으면 다음과 같은 세 개의 플랏을 출력해준다.<img src="7.png#center" alt="7.png"></p>
+<p>(1) Standardized Residuals**  : 스캐터 플랏으로 표현되지 않았을 뿐 늘 보는 표준화잔차그림이다. 눈대중으로 <a href="../677">선형성</a>과 <a href="../681">등분산성</a>을 체크하면 된다.</p>
+<p>(2) ACF of Residuals**  : 잔차로 <a href="../1209">ACF</a>를 계산했을 때 어떤 관계가 나타나서는 곤란하다. 물론 자기자신과의 상관계수는 반드시 $\rho = 1$ 이므로 위의 그림엔 아무 이상이 없다고 단언할 수 있다.</p>
+<p>(3) p values for Ljung-Box statistics**  : <a href="../1219">륭-박스 테스트</a>를 시차 $k = 1, 2, \cdots$ 에 대해서 반복하고 그 p값을 점으로 찍어놓은 것이다. 아래에 있는 파란 실선 밑으로 내려가면 유의수준 $\alpha = 5 %$ 에서 현재 사용한 <a href="../914">아르마 모형</a> $ARMA(p,q)$ 가 적합하지 않다고 본다. 위의 그림으로 보아서는 분석이 잘 되었다고 말할 수 있다.</p>
+<p>(4) 정규성 검정**  : 그림에도 없고 굉장히 중요한 것도 아니지만 여유가 있다면, 그리고 분석을 더 정확하게 하고싶다면 <a href="../939">샤피로-윌크 테스트</a> 혹은 <a href="../949">하르케-베라 테스트</a>를 사용해봄직하다. 사실 원래는 무조건 하는 게 맞지만, 실제 데이터 분석에선 이상치가 많아 정규성이 결여되는 경우가 잦아 생략도 많이 한다. 다행스럽게도 이 예제에선 다음과 같이 정규성도 만족하고 있다.<img src="20190730_133508.png#center" alt="20190730\_133508.png"></p>
 <pre><code>
 library(TSA)
 out&lt;-arima(WWWusage,order=c(1,1,1)); out
@@ -538,7 +538,7 @@ shapiro.test(out$residuals)
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/> - 줄리아</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1755)</summary>
+    <summary>전체 포스트 (1758)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
         </li><li>
@@ -552,7 +552,7 @@ shapiro.test(out$residuals)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (38)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (9)</a>
         </li><li>

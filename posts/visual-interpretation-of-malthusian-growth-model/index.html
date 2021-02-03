@@ -103,7 +103,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/visual-interpretation-of-malthusian-growth-model\/",
-    "wordCount" : "1027",
+    "wordCount" : "955",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -176,8 +176,8 @@ margin-right: auto;">
 <br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
 </p>
 
-<a href="https://freshrimpsushi.github.io/posts/1871">멜서스 성장 모델의 이론적 이해</a></p>
-<p>본 <a href="https://freshrimpsushi.github.io/posts/1873">시뮬레이션</a>은 속도와 시각화 양면으로 유리하고 코딩도 쉬운 <a href="https://freshrimpsushi.github.io/posts/1374">줄리아</a>로 구현되어 있다. 가장 좋은 공부는 깃허브에서 줄리아 코드를 받아 직접 실행해보는 것이지만, 줄리아가 낯설다면 그냥 시뮬레이션을 어떻게 하는건지 읽고 이해만 해도 충분할 수 있다. 구현 자체에 있어 어떤 언어를 사용하느냐는 본질적으로 중요하지 않다.</p>
+<a href="../1871">멜서스 성장 모델의 이론적 이해</a></p>
+<p>본 <a href="../1873">시뮬레이션</a>은 속도와 시각화 양면으로 유리하고 코딩도 쉬운 <a href="../1374">줄리아</a>로 구현되어 있다. 가장 좋은 공부는 깃허브에서 줄리아 코드를 받아 직접 실행해보는 것이지만, 줄리아가 낯설다면 그냥 시뮬레이션을 어떻게 하는건지 읽고 이해만 해도 충분할 수 있다. 구현 자체에 있어 어떤 언어를 사용하느냐는 본질적으로 중요하지 않다.</p>
 <p><strong>멜서스 성장 모델</strong></p>
 <p>$$
 N ' = rN
@@ -196,8 +196,8 @@ replicated = (rand(N) .&lt; b) # 번식 판정
 new\_coordinate = coordinate[replicated,:]
 coordinate = coordinate[rand(N) .&gt; d,:] # 사망 판정
 coordinate = cat(coordinate, new\_coordinate, dims = 1);
-</code></pre><p>멜서스 성장 모델을 <a href="https://freshrimpsushi.github.io/posts/1875">에이전트 기반</a> <a href="https://freshrimpsushi.github.io/posts/1873">시뮬레이션</a>으로 구현해 시각적으로 이해해보자. 에이전트의 <a href="https://freshrimpsushi.github.io/posts/1880">번식</a>과 <a href="https://freshrimpsushi.github.io/posts/1884">사망</a>이라는 간단한 액션만을 사용했고 시스템에서 고유성장률 $r$ 에 해당하는 파라메터가 바뀜에 따라 시스템이 어떻게 변하는지 체크하면 충분하다.
-주의해야할 것은 시뮬레이션에 사용되는 번식확률 <code>b</code> 와 시스템의 번식률 $b$, 사망확률 <code>d</code> 와 시스템의 사망률 $d$ 는 대개 같지 않다는 것이다. 미분방정식으로 표현되는 <a href="https://freshrimpsushi.github.io/posts/1505">자율 시스템</a>과는 정확히 일치하지 않아 시뮬레이션에 대한 피팅은 그럭저럭 적절한 파라메터를 직관적으로 찾는 식으로 이루어졌다.</p>
+</code></pre><p>멜서스 성장 모델을 <a href="../1875">에이전트 기반</a> <a href="../1873">시뮬레이션</a>으로 구현해 시각적으로 이해해보자. 에이전트의 <a href="../1880">번식</a>과 <a href="../1884">사망</a>이라는 간단한 액션만을 사용했고 시스템에서 고유성장률 $r$ 에 해당하는 파라메터가 바뀜에 따라 시스템이 어떻게 변하는지 체크하면 충분하다.
+주의해야할 것은 시뮬레이션에 사용되는 번식확률 <code>b</code> 와 시스템의 번식률 $b$, 사망확률 <code>d</code> 와 시스템의 사망률 $d$ 는 대개 같지 않다는 것이다. 미분방정식으로 표현되는 <a href="../1505">자율 시스템</a>과는 정확히 일치하지 않아 시뮬레이션에 대한 피팅은 그럭저럭 적절한 파라메터를 직관적으로 찾는 식으로 이루어졌다.</p>
 <p><strong>1. $r&gt;0$ 인 경우</strong></p>
 <pre><code>N0 = 50 # 초기 인구수
 b = 0.05 # 번식률
@@ -218,7 +218,7 @@ b = 0.05 # 번식률
 d = 0.05 # 사망률```
 ![malthusian\_growth\_integration3.gif](malthusian\_growth\_integration3.gif#center)
 
-미분방정식으로 표현했을 땐 초기값이 [고정점](https://freshrimpsushi.github.io/posts/1505)이 되어 변동이 없어야하지만 시뮬레이션에선 그 순간순간의 운 때문에 절멸 직전까지도 갔다가 다시 회복하기도 한다. 이 움직임은 일종의 [브라우니안 모션](https://freshrimpsushi.github.io/posts/857)으로 보이기도 하는데, 실제로 인구수를 늘리거나 번식률과 사망률을 내리면 조금 더 안정적인 평형상태를 유지할 것이다.</code></pre>
+미분방정식으로 표현했을 땐 초기값이 [고정점](../1505)이 되어 변동이 없어야하지만 시뮬레이션에선 그 순간순간의 운 때문에 절멸 직전까지도 갔다가 다시 회복하기도 한다. 이 움직임은 일종의 [브라우니안 모션](../857)으로 보이기도 하는데, 실제로 인구수를 늘리거나 번식률과 사망률을 내리면 조금 더 안정적인 평형상태를 유지할 것이다.</code></pre>
 
 
 <script type="text/javascript">
@@ -570,7 +570,7 @@ d = 0.05 # 사망률```
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/> - 줄리아</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1755)</summary>
+    <summary>전체 포스트 (1758)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
         </li><li>
@@ -584,7 +584,7 @@ d = 0.05 # 사망률```
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (36)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (38)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (9)</a>
         </li><li>
