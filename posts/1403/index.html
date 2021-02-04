@@ -103,7 +103,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/1403\/",
-    "wordCount" : "648",
+    "wordCount" : "592",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -143,7 +143,7 @@
 
     
     
-            <a href="https://freshrimpsushi.github.io/categories/%ED%8C%8C%EC%9D%B4%EC%8D%AC/" style="color: black">파이썬</a>&emsp;
+            <a href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍</a>&emsp;
             
     </span>
     
@@ -156,33 +156,45 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#코드">코드</a></li>
+    <li><a href="#pandas-패키지">pandas 패키지</a>
+      <ul>
+        <li><a href="#함수">함수</a></li>
+        <li><a href="#메소드">메소드</a></li>
+        <li><a href="#프로퍼티">프로퍼티</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-<img src="20191030_164739.png#center" alt="20191030\_164739.png"></p>
-<pre><code>
-y\_test=[]
-y\_csv = open('y\_test.csv', 'r', encoding='utf-8')
-rdr = csv.reader(y\_csv)
+<h2 id="코드">코드</h2>
+<p><img src="20191030_164739.png#center" alt="20191030_164739.png"></p>
+<pre><code>y_test=[]
+y_csv = open('y_test.csv', 'r', encoding='utf-8')
+rdr = csv.reader(y_csv)
 for line in rdr:
-  y\_test.append(line[0])
-y\_csv.close()
-</code></pre><p>보통 csv 파일을 읽어들일 때는 위와 같이 파이썬 내장함수 open으로 열어서 한줄한줄 처리하지만, 반복문을 사용하는 시점에서 빅데이터의 처리에는 적합하지 않음을 짐작할 수 있다. 가령 700MB가 넘는 파일이라면 사실 별로 크지도 않은 편이지만 한줄한줄 읽어서는 끝이 없다.이런 데이터를 다룰 때는 pandas 패키지를 사용하면 편리하다.<strong>함수</strong> pandas.read_csv(filepath_or_buffer) : filepath_or_buffer에 경로가 주어진 .csv파일을 읽어서 데이터프레임으로 반환한다. [ <strong>NOTE</strong>  : header=None을 입력함으로써 헤더가 없는 파일을 읽어들일 수 있는데, 이렇게 따로 옵션을 주지 않으면 첫행을 헤더로 두기때문에 데이터 하나가 그냥 사라져버릴 수 있다. 분석을 하면서 사이즈가 안 맞는데 딱 하나 차이로 안 맞는다면 이 경우를 의심해볼 수 있다. ]pandas.read_excel : 이 함수를 통해 .xlsx파일도 읽을 수 있다. 기본적인 사용법은 pandas.read_csv(filepath_or_buffer)와 흡사하며, 엑셀 파일에는 시트가 있는만큼 sheetname 옵션을 주어 어떤 시트를 읽을 것인지도 정해줄 수 있다.<strong>메소드</strong> X.to_csv(path_or_buf) : 데이터프레임 X를 path_or_buf에 .csv파일로 출력한다.X.to_excel(path_or_buf) : 데이터프레임 X를 path_or_buf에 .xlsx파일로 출력한다..head() : 첫 데이터 몇 개를 반환한다. 데이터를 잘 읽었는지 확인하는데에 필수적이다..tail() : 마지막 데이터 몇 개를 반환한다.<strong>프로퍼티</strong> .shape : 데이터의 모양을 나타낸다. 행이 $n$, 열이 $p$ 개면 (n, p)를 반환한다.</p>
+  y_test.append(line[0])
+y_csv.close()
+</code></pre><p>보통 csv 파일을 읽어들일 때는 위와 같이 파이썬 내장함수 <code>open</code>으로 열어서 한줄한줄 처리하지만, 반복문을 사용하는 시점에서 빅데이터의 처리에는 적합하지 않음을 짐작할 수 있다. 가령 700MB가 넘는 파일이라면 사실 별로 크지도 않은 편이지만 한줄한줄 읽어서는 끝이 없다.</p>
+<h2 id="pandas-패키지">pandas 패키지</h2>
+<p>이런 데이터를 다룰 때는 pandas 패키지를 사용하면 편리하다.</p>
+<h3 id="함수">함수</h3>
+<ul>
+<li><strong>pandas.read_csv(filepath_or_buffer)</strong>: filepath_or_buffer에 경로가 주어진 .csv파일을 읽어서 데이터프레임으로 반환한다. [ <strong>NOTE</strong>  : header=None을 입력함으로써 헤더가 없는 파일을 읽어들일 수 있는데, 이렇게 따로 옵션을 주지 않으면 첫행을 헤더로 두기때문에 데이터 하나가 그냥 사라져버릴 수 있다. 분석을 하면서 사이즈가 안 맞는데 딱 하나 차이로 안 맞는다면 이 경우를 의심해볼 수 있다. ]</li>
+<li><strong>pandas.read_excel</strong>: 이 함수를 통해 *.xlsx파일도 읽을 수 있다. 기본적인 사용법은 pandas.read_csv(filepath_or_buffer)와 흡사하며, 엑셀 파일에는 시트가 있는만큼 sheetname 옵션을 주어 어떤 시트를 읽을 것인지도 정해줄 수 있다.</li>
+</ul>
+<h3 id="메소드">메소드</h3>
+<ul>
+<li><strong>X.to_csv(path_or_buf)</strong>: 데이터프레임 X를 path_or_buf에 .csv파일로 출력한다.</li>
+<li><strong>X.to_excel(path_or_buf)</strong>: 데이터프레임 X를 path_or_buf에 .xlsx파일로 출력한다.</li>
+<li><strong>.head()</strong>: 첫 데이터 몇 개를 반환한다. 데이터를 잘 읽었는지 확인하는데에 필수적이다.</li>
+<li><strong>.tail()</strong>: 마지막 데이터 몇 개를 반환한다.</li>
+</ul>
+<h3 id="프로퍼티">프로퍼티</h3>
+<ul>
+<li><strong>.shape</strong>: 데이터의 모양을 나타낸다. 행이 $n$, 열이 $p$ 개면 (n, p)를 반환한다.</li>
+</ul>
 
 
 
@@ -535,7 +547,7 @@ y\_csv.close()
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/> - 줄리아</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1758)</summary>
+    <summary>전체 포스트 (1757)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
         </li><li>
@@ -549,9 +561,7 @@ y\_csv.close()
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (38)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (9)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (47)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
@@ -627,11 +637,11 @@ y\_csv.close()
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98%EC%99%80-%EA%B3%B5%EC%8B%9D%EB%93%A4/" style="color: black">특별한 함수와 공식들 (21)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8C%8C%EC%9D%B4%EC%8D%AC/" style="color: black">파이썬 (8)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8C%8C%EC%9D%B4%EC%8D%AC/" style="color: black">파이썬 (2)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90-%ED%95%B4%EC%84%9D/" style="color: black">푸리에 해석 (41)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (12)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (17)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (54)</a>
         </li><li>
