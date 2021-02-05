@@ -48,9 +48,9 @@
     </script>
 
     
-<meta name="title" content="줄리아에서 이미지배열을 회전하는 방법">
+<meta name="title" content="줄리아에서 이미지 배열을 회전하는 방법">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="줄리아에서 이미지배열을 회전하는 방법"/>
+<meta property="og:title" content="줄리아에서 이미지 배열을 회전하는 방법"/>
 <meta property="og:description" content="how to rotate imagearraymatrix in julia"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
@@ -63,8 +63,8 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "j_",
-    "name": "줄리아에서 이미지배열을 회전하는 방법",
-    "headline": "줄리아에서 이미지배열을 회전하는 방법",
+    "name": "줄리아에서 이미지 배열을 회전하는 방법",
+    "headline": "줄리아에서 이미지 배열을 회전하는 방법",
     "alternativeHeadline": "",
     "description": "how to rotate imagearraymatrix in julia",
     "inLanguage": "ko",
@@ -103,14 +103,14 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-rotate-imagearraymatrix-in-julia\/",
-    "wordCount" : "640",
+    "wordCount" : "610",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>줄리아에서 이미지배열을 회전하는 방법</title>
+    <title>줄리아에서 이미지 배열을 회전하는 방법</title>
 
 </head>
 
@@ -134,9 +134,9 @@
             <div class = "content">
             
 
-<title>줄리아에서 이미지배열을 회전하는 방법</title>
+<title>줄리아에서 이미지 배열을 회전하는 방법</title>
 
-<h1>줄리아에서 이미지배열을 회전하는 방법</h1>
+<h1>줄리아에서 이미지 배열을 회전하는 방법</h1>
 <aside>
     <p style="text-align: right;">
         1462
@@ -156,51 +156,43 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#이미지-회전">이미지 회전</a></li>
+    <li><a href="#같이보기">같이보기</a></li>
+    <li><a href="#환경">환경</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-<a href="../1328">매트랩에서 이미지 회전시키는 방법</a>imrotate(X,$\theta$) : 배열 X를 $\theta$<strong>라디안</strong> 만큼 회전시킨다. 여기서 주의해야할 점은 각도의 단위가 도($^{\circ})$인 매트랩과 달리 <strong>각도의 단위가 라디안</strong> 이라는 것이다. 또한 <strong>매트랩과는 다르게 시계방향으로 회전</strong> 한다. 다른 변수를 입력하지 않을 경우 보간법은 bilinear이고 회전된 이미지는 자르지 않는다. 원본 이미지 $X$와 이를 $90^\circ=\pi/2$, $180^\circ=\pi$, $270^\circ=\frac{3}{2}\pi$만큼 회전시키는 예제 코드와 그 결과는 아래와 같다.</p>
-<pre><code>
-using Images
+<h2 id="이미지-회전">이미지 회전</h2>
+<p><code>imrotate(X, theta)</code> : 배열 X를 theta<strong>라디안</strong>만큼 회전시킨다. 여기서 주의해야할 점은 각도의 단위가 도($^{\circ})$인 매트랩과 달리 <strong>각도의 단위가 라디안</strong>이라는 것이다. 또한 <strong>매트랩과는 다르게 시계방향으로 회전</strong>한다. 다른 변수를 입력하지 않을 경우 보간법은 bilinear이고 회전된 이미지는 자르지 않는다. 원본 이미지 X와 이를 $90^\circ=\pi/2$, $180^\circ=\pi$, $270^\circ=\frac{3}{2}\pi$만큼 회전시키는 예제 코드와 그 결과는 아래와 같다.</p>
+<pre><code>using Images
 using Interpolations
 
 X=load(&quot;example\_image.png&quot;)
 Y1=imrotate(X,pi/2)
 Y2=imrotate(X,pi)
 Y3=imrotate(X,pi*3/2)
-</code></pre><p><img src="1.PNG#center" alt="1.PNG">
-<img src="2.PNG#center" alt="2.PNG">
-<img src="4.PNG#center" alt="4.PNG">
-<img src="3.PNG#center" alt="3.PNG">
-<img src="1.png#center" alt="1.png">
-위와 같이 회전시킬 경우 원본의 배열과 모양이 딱 들어맞으므로 이미지의 크기에 변함이 없다. 그런데 $90$도의 배수가 아닌 각도로 회전시키면 원래의 모양과 들어맞지않다. 그래서 원래 이미지의 모든 점을 표현하기위해 아래와 같이 이미지가 커진다. 이 때 이미지의 원래 크기를 유지하고 싶다면 변수 axes()를 추가해주면 된다. </p>
-<pre><code>
-Y4=imrotate(X,pi/6)
+</code></pre><p><img src="1.PNG#center" alt="1.PNG"></p>
+<p><img src="2.PNG#center" alt="2.PNG"></p>
+<p>위와 같이 회전시킬 경우 원본의 배열과 모양이 딱 들어맞으므로 이미지의 크기에 변함이 없다. 그런데 $90$도의 배수가 아닌 각도로 회전시키면 원래의 모양과 들어맞지않다. 그래서 원래 이미지의 모든 점을 표현하기위해 아래와 같이 이미지가 커진다. 이 때 이미지의 원래 크기를 유지하고 싶다면 변수 <code>axes()</code>를 추가해주면 된다. </p>
+<pre><code>Y4=imrotate(X,pi/6)
 Y5=imrotate(X,pi/6,axes(X))
-</code></pre><p><img src="5.PNG#center" alt="5.PNG">
-<img src="6.PNG#center" alt="6.PNG">
-<img src="2.png#center" alt="2.png">
-또한 Interpolations 패키지의 Constant()를 사용하면 보간법을 nearest<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>로 적용할 수 있다. 최단거리의 점만 계산에 사용하므로 정확도는 떨어지지만 계산은 빠르다. 반대로 bilinear<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>의 경우 주위의 네 점을 모두 계산에 사용하므로 속도는 상대적으로 느리지만 더 정확하다. 여기서 정확하다는 말은 회전했을 때 이미지가 손상되는 정도가 낮다는 뜻이다. 아래 그림을 보자. 이미지가 커서 언뜻 보면 차이가 느껴지지 않지만 확대하면 두 보간법의 차이가 확실하게 보인다.</p>
+</code></pre><p><img src="3.PNG#center" alt="3.PNG"></p>
+<p><img src="4.PNG#center" alt="4.PNG"></p>
+<p>또한 <code>Interpolations</code> 패키지의 <code>Constant()</code>를 사용하면 보간법을 <code>nearest</code><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>로 적용할 수 있다. 최단거리의 점만 계산에 사용하므로 정확도는 떨어지지만 계산은 빠르다. 반대로 <code>bilinear</code><sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>의 경우 주위의 네 점을 모두 계산에 사용하므로 속도는 상대적으로 느리지만 더 정확하다. 여기서 정확하다는 말은 회전했을 때 이미지가 손상되는 정도가 낮다는 뜻이다. 아래 그림을 보자. 이미지가 커서 언뜻 보면 차이가 느껴지지 않지만 확대하면 두 보간법의 차이가 확실하게 보인다.</p>
 <pre><code>Y6=imrotate(X,pi/6,Constant())
-</code></pre><p><img src="5.PNG#center" alt="5.PNG">
-<img src="7.PNG#center" alt="7.PNG">
-<img src="8.PNG#center" alt="8.PNG">
-<img src="9.PNG#center" alt="9.PNG"></p>
+</code></pre><p><img src="5.PNG#center" alt="5.PNG"></p>
+<p><img src="6.PNG#center" alt="6.PNG"></p>
+<p><img src="7.PNG#center" alt="7.PNG"></p>
+<h2 id="같이보기">같이보기</h2>
+<ul>
+<li><a href="../1328">매트랩에서 이미지 회전시키는 방법</a></li>
+</ul>
+<h2 id="환경">환경</h2>
+<ul>
+<li>OS: Windows</li>
+<li>Version: 1.5.3 (2020-11-09)</li>
+</ul>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -217,7 +209,7 @@ Y5=imrotate(X,pi/6,axes(X))
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var title = '줄리아에서 이미지배열을 회전하는 방법';
+        var title = '줄리아에서 이미지 배열을 회전하는 방법';
         var link = 'https:\/\/freshrimpsushi.github.io\/posts\/how-to-rotate-imagearraymatrix-in-julia\/';
         var arr = new Array();
         var obj = {
@@ -338,7 +330,7 @@ Y5=imrotate(X,pi/6,axes(X))
         }
         let board_idx = '1462';
         let board_slug = 'how-to-rotate-imagearraymatrix-in-julia';
-        let board_title = '줄리아에서 이미지배열을 회전하는 방법';
+        let board_title = '줄리아에서 이미지 배열을 회전하는 방법';
 
         $.ajax({
             type: "POST",
@@ -512,7 +504,7 @@ Y5=imrotate(X,pi/6,axes(X))
             }
             let idx = '1462';
             let board_slug = 'how-to-rotate-imagearraymatrix-in-julia';
-            let board_title = '줄리아에서 이미지배열을 회전하는 방법';
+            let board_title = '줄리아에서 이미지 배열을 회전하는 방법';
 
             $.ajax({
                 type: "POST",
@@ -565,7 +557,7 @@ Y5=imrotate(X,pi/6,axes(X))
     <a href=https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/> - 프로그래밍</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1755)</summary>
+    <summary>전체 포스트 (1754)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
         </li><li>
@@ -635,7 +627,7 @@ Y5=imrotate(X,pi/6,axes(X))
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (22)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (21)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (42)</a>
         </li><li>
