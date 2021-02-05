@@ -103,7 +103,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/type-in-programming\/",
-    "wordCount" : "1536",
+    "wordCount" : "1489",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -156,27 +156,24 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#타입의-탄생">타입의 탄생</a></li>
+    <li><a href="#강한-타입과-약한-타입">강한 타입과 약한 타입</a></li>
+    <li><a href="#정적-타입과-동적-타입">정적 타입과 동적 타입</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-(1) 타입의 탄생**  :  변수를 선언할 때 타입을 지정해야하는 언어를 써본 적이 있다면 거의 확실히 띠꺼움도 함께 느껴봤을 것이다. 어떤 언어들은 굳이 타입이 뭔지 정해주지 않더라도 알아서 계산을 해주는데, 굳이 지저분하고 의미 없어 보이는 코드를 쓰는 것이 시간과 에너지의 낭비처럼 느껴지는 것이다.타입이 없던 시기의 프로그래밍 환경을 상상해보자. 컴퓨터가 이해하는 데이터는 수로 이루어져있고, 인간 입장에서 그 수만 보아서는 실제로 정수를 의미하는지 문자열을 의미하는지 등은 알 수가 없었다. 물론 짠 사람이 잘 기억하면 괜찮겠지만, 프로그램이 고도화되고 여러 사람의 손을 거치기 시작하면 뭐가 뭐였는지 헷갈려서 버그가 생길 수밖에 없다. 문자열을 제곱해도 어떤 수는 나오는데, 이렇게 무의미한 문자열이 생기는 정도는 애교다. 이런 버그는 금방 잡을 수 있다. 그런데 수백, 수천줄의 코드 사이에서 어떤 정수가 어떤 포인터와 곱해졌음에도 여전히 정수의 모양을 취하고 있다면, 도대체 이 버그를 어떻게 잡을 것인가? 프로그램은 문제 없어보이지만 그 결과는 엉망진창일 것이다. 상식적으로 당장 해봄직한 대처는 &lsquo;주석을 꼼꼼히 써서 알아보기 편하게 하는 것&rsquo;이다. 가령 A 는 정수다, B 는 문자열이다 하는 식으로 꼼꼼하게 적어두는 것이다.그 다음 문제는 &lsquo;이 주석이 확실한가?&lsquo;다. 버그를 줄이고 생산성을 올리기 위해 변수 하나하나에 주석을 달아놓은 것까진 좋다. 개발 중에 변수의 용도가 바뀌면 그 주석도 잘 고치는 꼼꼼함이 있다면 다행이다. 그러나 주석 역시 사람이 다는데, 실수 때문에 주석조차 틀릴 수 있기에 마냥 믿을 수가 없다. 이럴 바에는 아예 변수가 정확히 무엇이라고 정확하게 명시할 수 있는 문법이 있는게 낫겠다. 그런데 이 발상은 어딘가 낯이 익다. 그렇다. 이것이 바로 **타입 지정** 이다.이렇듯 타입은 어떤 변수가 무엇인지 나타내는 주석 정도의 의미였으나, 타입의 역할이 대두되고 이에 대한 연구가 이어졌다.</p>
-<p>(2) 강한 타입과 약한 타입**  : **약한 타입** 은 **강한 타입** 에 대비되는 용어로써, **(1)** 에서 언급된 타입의 개념에서 크게 달라지지 않았다. 약한 타입 언어는 타입 검사에 문제가 없다면 비록 프로그래머의 의도와 다를지라도 일단 코드를 실행<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 시킨다. 물론 이렇게 &lsquo;프로그래머를 의심하지 않는 태도&rsquo;는 빠른 속도를 내지만, 이로 인해 생기는 버그를 사전에 잡고 생산성을 올리기 위해 강한 타입의 개념을 고안하게 된다.강한 타입 언어는 타입 검사에 문제가 없다면 프로그램 역시 제대로 돌아가는 것을 보장한다. 검사가 엄격해지면서 시도 때도 없이 버그가 난다고 불평해선 안 된다. 미리 파악해주지 않았다면 언젠간 더 위험하고 커다란 버그가 되어서 돌아올 것이다. 타입 검사가 엄격하다는 것은 제약인데, 프로그래밍에서 제약은 &lsquo;제한&rsquo;보다는 &lsquo;편의&rsquo;를 의미하는 경우가 많다. 타입 시스템이 강하면 &lsquo;귀찮게 타입을 다 지정해줘야하는 것&rsquo;이 아니라 &lsquo;프로그래머의 사정에 맞춰서 세밀한 조정이 가능해지는 것&rsquo;으로 받아들일 수 있다.약한 타입에도 장단점은 있겠지만 그게 딱히 의도된 것은 아니며, 강한 타입이 왜 강한 타입인지를 설명하기 위해 원시적인 타입의 개념에 이름을 붙인 것이라고 보아도 무방하다.</p>
-<p>(3) 정적 타입과 동적 타입**  : 정적 언어는 컴파일 할 때 타입 검사를 실시하고, 동적 언어는 실제로 코드가 실행될 때, 즉 런타임에 타입 검사를 실시한다. 쉽게 말하자면 정적 언어는 자료형이 정해지면 변하지 않는 컴파일러 언어, 동적 타입은 자료형이 그때그때 변하는 인터프리터 언어다. 아무래도 컴파일러 언어는 사소한 걸 수정할 때마다 통째로 컴파일을 해야하기 때문에 인터프리터 언어의 생산성이 높으나, 컴파일이 무사히 끝났다면 속도 면에서 컴파일러 언어가 아주 유리하다.</p>
+<h2 id="타입의-탄생">타입의 탄생</h2>
+<p>변수를 선언할 때 타입을 지정해야하는 언어를 써본 적이 있다면 거의 확실히 띠꺼움도 함께 느껴봤을 것이다. 어떤 언어들은 굳이 타입이 뭔지 정해주지 않더라도 알아서 계산을 해주는데, 굳이 지저분하고 의미 없어 보이는 코드를 쓰는 것이 시간과 에너지의 낭비처럼 느껴지는 것이다.타입이 없던 시기의 프로그래밍 환경을 상상해보자.</p>
+<p>컴퓨터가 이해하는 데이터는 수로 이루어져있고, 인간 입장에서 그 수만 보아서는 실제로 정수를 의미하는지 문자열을 의미하는지 등은 알 수가 없었다. 물론 짠 사람이 잘 기억하면 괜찮겠지만, 프로그램이 고도화되고 여러 사람의 손을 거치기 시작하면 뭐가 뭐였는지 헷갈려서 버그가 생길 수밖에 없다. 문자열을 제곱해도 어떤 수는 나오는데, 이렇게 무의미한 문자열이 생기는 정도는 애교다. 이런 버그는 금방 잡을 수 있다. 그런데 수백, 수천줄의 코드 사이에서 어떤 정수가 어떤 포인터와 곱해졌음에도 여전히 정수의 모양을 취하고 있다면, 도대체 이 버그를 어떻게 잡을 것인가? 프로그램은 문제 없어보이지만 그 결과는 엉망진창일 것이다.</p>
+<p>상식적으로 당장 해봄직한 대처는 &lsquo;주석을 꼼꼼히 써서 알아보기 편하게 하는 것&rsquo;이다. 가령 A 는 정수다, B 는 문자열이다 하는 식으로 꼼꼼하게 적어두는 것이다. 그 다음 문제는 &lsquo;이 주석이 확실한가?&lsquo;다. 버그를 줄이고 생산성을 올리기 위해 변수 하나하나에 주석을 달아놓은 것까진 좋다. 개발 중에 변수의 용도가 바뀌면 그 주석도 잘 고치는 꼼꼼함이 있다면 다행이다. 그러나 주석 역시 사람이 다는데, 실수 때문에 주석조차 틀릴 수 있기에 마냥 믿을 수가 없다. 이럴 바에는 아예 변수가 정확히 무엇이라고 정확하게 명시할 수 있는 문법이 있는게 낫겠다.</p>
+<p>그런데 이 발상은 어딘가 낯이 익다. 그렇다. 이것이 바로 <strong>타입 지정</strong> 이다.이렇듯 타입은 어떤 변수가 무엇인지 나타내는 주석 정도의 의미였으나, 타입의 역할이 대두되고 이에 대한 연구가 이어졌다.</p>
+<h2 id="강한-타입과-약한-타입">강한 타입과 약한 타입</h2>
+<p><strong>약한 타입</strong> 은 <strong>강한 타입</strong> 에 대비되는 용어로써, 앞에서 언급된 타입의 개념에서 크게 달라지지 않았다. 약한 타입 언어는 타입 검사에 문제가 없다면 비록 프로그래머의 의도와 다를지라도 일단 코드를 실행<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 시킨다. 물론 이렇게 &lsquo;프로그래머를 의심하지 않는 태도&rsquo;는 빠른 속도를 내지만, 이로 인해 생기는 버그를 사전에 잡고 생산성을 올리기 위해 강한 타입의 개념을 고안하게 된다.</p>
+<p>강한 타입 언어는 타입 검사에 문제가 없다면 프로그램 역시 제대로 돌아가는 것을 보장한다. 검사가 엄격해지면서 시도 때도 없이 버그가 난다고 불평해선 안 된다. 미리 파악해주지 않았다면 언젠간 더 위험하고 커다란 버그가 되어서 돌아올 것이다. 타입 검사가 엄격하다는 것은 제약인데, 프로그래밍에서 제약은 &lsquo;제한&rsquo;보다는 &lsquo;편의&rsquo;를 의미하는 경우가 많다. 타입 시스템이 강하면 &lsquo;귀찮게 타입을 다 지정해줘야하는 것&rsquo;이 아니라 &lsquo;프로그래머의 사정에 맞춰서 세밀한 조정이 가능해지는 것&rsquo;으로 받아들일 수 있다.</p>
+<p>약한 타입에도 장단점은 있겠지만 그게 딱히 의도된 것은 아니며, 강한 타입이 왜 강한 타입인지를 설명하기 위해 원시적인 타입의 개념에 이름을 붙인 것이라고 보아도 무방하다.</p>
+<h2 id="정적-타입과-동적-타입">정적 타입과 동적 타입</h2>
+<p>정적 언어는 컴파일 할 때 타입 검사를 실시하고, 동적 언어는 실제로 코드가 실행될 때, 즉 런타임에 타입 검사를 실시한다. 쉽게 말하자면 정적 언어는 자료형이 정해지면 변하지 않는 컴파일러 언어, 동적 타입은 자료형이 그때그때 변하는 인터프리터 언어다. 아무래도 컴파일러 언어는 사소한 걸 수정할 때마다 통째로 컴파일을 해야하기 때문에 인터프리터 언어의 생산성이 높으나, 컴파일이 무사히 끝났다면 속도 면에서 컴파일러 언어가 아주 유리하다.</p>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -535,9 +532,10 @@ margin-right: auto;">
     <a href=https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/> - 행렬대수</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/> - 선형대수</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/> - 줄리아</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/> - 프로그래밍</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1757)</summary>
+    <summary>전체 포스트 (1755)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
         </li><li>
@@ -579,7 +577,7 @@ margin-right: auto;">
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EB%AA%85%EC%A0%95%EB%B3%B4%EA%B3%B5%ED%95%99/" style="color: black">생명정보공학 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (21)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (17)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (52)</a>
         </li><li>
@@ -593,7 +591,7 @@ margin-right: auto;">
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%A4%EC%A0%84-%EC%88%98%EB%8A%A5-%EC%8A%A4%ED%82%AC/" style="color: black">실전 수능 스킬 (16)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (11)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (14)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
@@ -625,13 +623,11 @@ margin-right: auto;">
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">통계학미분류 (4)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98%EC%99%80-%EA%B3%B5%EC%8B%9D%EB%93%A4/" style="color: black">특별한 함수와 공식들 (21)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8C%8C%EC%9D%B4%EC%8D%AC/" style="color: black">파이썬 (2)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8A%B9%EB%B3%84%ED%95%9C-%ED%95%A8%EC%88%98%EC%99%80-%EA%B3%B5%EC%8B%9D%EB%93%A4/" style="color: black">특별한 함수와 공식들 (23)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90-%ED%95%B4%EC%84%9D/" style="color: black">푸리에 해석 (41)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (17)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (16)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (54)</a>
         </li><li>
