@@ -20,8 +20,8 @@ def digit_phobia(string):
 
 test = False
 
-post_range = [1942, 1911, 1937, 198]
-# post_range = range(1, 2000)
+# post_range = [1935, 196, 1933, 1915, 1923, 1920, 1930, 197]
+post_range = range(1900, 2000)
 # post_range = range(1000, 1005)
 for idx in post_range:
     if len(post_range) == 1:

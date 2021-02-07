@@ -103,7 +103,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/lorenz-attractor\/",
-    "wordCount" : "1226",
+    "wordCount" : "1326",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -156,35 +156,56 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#시스템">시스템</a>
+      <ul>
+        <li><a href="#변수">변수</a></li>
+        <li><a href="#파라메터">파라메터</a></li>
+      </ul>
+    </li>
+    <li><a href="#바이퍼케이션">바이퍼케이션</a></li>
+    <li><a href="#코드">코드</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-<img src="A_Trajectory_Through_Phase_Space_in_a_Lorenz_Attractor.gif#center" alt="A\_Trajectory\_Through\_Phase\_Space\_in\_a\_Lorenz\_Attractor.gif">
-$\begin{cases} \displaystyle {{dx} \over {dt}} = - \sigma x + \sigma y 
-\\  \displaystyle {{dy} \over {dt}} = - xz + \rho x - y 
-\\  \displaystyle {{dz} \over {dt}} = xy - \beta z \end{cases}$</p>
-<p><strong>로렌츠 어트랙터</strong> 란 대기의 대류를 위와 같은 연립 <a href="../483">상미분</a><a href="../483">방정식</a>으로써 표현할 수 있는 수학적 모델을 말한다.$\sigma$ 는 점성과 열전도율에 관한 파라매터인 <strong>프란틀 수</strong><sup>Prandtl Number</sup> , $\rho$ 는 유체의 열 전달방법에 관한 파라매터인 레일리수<strong>Rayleigh Number</strong> 다. 시뮬레이션을 할 때 이 파라매터들은 로렌츠가 했던대로 $\sigma = 10$, $\rho = 28$, $\displaystyle \beta = {{8} \over {3}}$ 와 같이 두는 경우가 많다.레일리 수가 $\rho \approx 24.74$ 을 넘어가면 로렌츠 어트랙터가 묘사하는 입자의 움직임은 <a href="../864">카오틱</a>해진다. 아주 사소한 초기조건의 변화에도 민감하게 반응하며 이를 예측하는 것은 아주 어렵다. 나비 한 마리의 날개짓이 폭풍이 될지도 모르는 것이다.<img src="20190207_143724.png#center" alt="20190207\_143724.png">
-위 그림은 로렌츠 어트랙터의 <a href="../860">바이퍼케이션 다이어그램</a>이다. 가로축은 $25$ 부터 $325$ 까지 조금씩 변하는 $\rho$ 의 값, 세로축은 충분히 긴 시간 후의 궤도에서 $z$ 방향의 극댓값을 찍어놓았다. $r= \rho$ 가 작을 땐 매우 불안한 움직임을 보이지만, 일정 수준 이상으로 커지자 안정된 궤도를 가짐을 알 수 있다. 다음의 설명을 읽길 권장한다 :<img src="20190207_142108.png#center" alt="20190207\_142108.png">
-위 그래프는 $\gamma=100$ 일 때의 궤적을 그린 것이다. 보통 $\gamma$ 가 어느정도 이상 크다면 초기에는 카오틱한 움직임을 보이는 듯 하지만 갈수록 <a href="../858">피리어딕</a>해질 수 있다.<img src="20190207_142944.png#center" alt="20190207\_142944.png">
-위 그래프는 초기의 궤적을 제거하고 긴 시간이 지난 뒤 입자의 궤적만을 나타내는 것이다. 완전히 피리어딕하지는 않지만, 거의 행동을 예측할 수 있는 수준이 되었다.<img src="20190207_160923.png#center" alt="20190207\_160923.png">
-궤적을 보기 좋게 $xz$ 그래프를 그려보면 위과 같은 모양을 한다. 분명 처음엔 카오틱해보였으나 시간이 갈수록 궤도가 안정되어가고, 극댓값은 세 개 정도로 뚜렷하게 나타난다. 실제로 바이퍼케이션 다이어그램을 보아도 똑같은 해석을 내놓을 수 있다.한편 $\gamma = 28$ 일 때는 충분히 긴 시간이 지나도 다음과 같이 카오틱한 움직임을 보인다. 바이퍼케이션 다이어그램에서는 여러 점이 흩어져서 두꺼워진 모양새를 이룬다.<img src="20190207_160633.png#center" alt="20190207\_160633.png">
-반면 $\gamma = 300$ 일 때는 다음과 같이 뚜렷하게 나타나는 두 개의 극댓값만을 가진다. 바이퍼케이션 다이어그램에서는 단 한 $\gamma$ 값에 대해 두 점이 대응됨으로써 두 개의 선이 나타나게 된다.<img src="20190207_161132.png#center" alt="20190207\_161132.png">
-다음은 매트랩을 통해 로렌츠 어트랙터의 궤적을 그려주는 코드다.</p>
+<h2 id="개요">개요</h2>
+<p><strong>로렌츠 방정식</strong><sup>Lorenz Equation</sup>이란 대기의 대류를 <a href="../483">연립 상미분 방정식</a>으로써 표현하는 수학적 모델이다.</p>
+<h2 id="시스템">시스템</h2>
+<p><img src="A_Trajectory_Through_Phase_Space_in_a_Lorenz_Attractor.gif#center" alt="A\_Trajectory\_Through\_Phase\_Space\_in\_a\_Lorenz\_Attractor.gif"></p>
+<p>$$
+\begin{align*} {{dx} \over {dt}} &amp;= - \sigma x + \sigma y 
+\\  {{dy} \over {dt}} &amp;= - xz + \rho x - y 
+\\  {{dz} \over {dt}} &amp;= xy - \beta z \end{align*}
+$$</p>
+<h3 id="변수">변수</h3>
+<ul>
+<li>$x(t)$: $t$ 시점에서 입자의 $x$ 좌표를 나타낸다.</li>
+<li>$y(t)$: $t$ 시점에서 입자의 $y$ 좌표를 나타낸다.</li>
+<li>$z(t)$: $t$ 시점에서 입자의 $z$ 좌표를 나타낸다.</li>
+</ul>
+<h3 id="파라메터">파라메터</h3>
+<ul>
+<li>$\sigma$: 점성과 열전도율에 관한 파라매터인 <strong>프란틀 수</strong><sup>Prandtl Number</sup>다.</li>
+<li>$\rho$: 유체의 열 전달방법에 관한 파라매터인 <strong>레일리 수</strong><sup>Rayleigh Number</sup>다.</li>
+<li>$\beta$: 위키피디아<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>에 따르면 차원에 관련된 파라메터인 것 같다. 교재에서도 이것이 무엇인지 정확하게 설명하지 않는 경우가 많다.</li>
+</ul>
+<hr>
+<p>처음 시뮬레이션을 할 때 이 파라매터들은 관례적으로 로렌츠가 했던대로 $\sigma = 10$, $\rho = 28$, $\displaystyle \beta = {{8} \over {3}}$ 와 같이 두는 경우가 많다. 레일리 수가 $\rho \approx 24.74$ 을 넘어가면 로렌츠 어트랙터가 묘사하는 입자의 움직임은 <a href="../864">캐어릭</a><sup>Chaotic</sup>해진다. 아주 사소한 초기조건의 변화에도 민감하게 반응하며 이를 예측하는 것은 아주 어렵다. 나비 한 마리의 날개짓이 폭풍이 될지도 모르는 것이다.</p>
+<h2 id="바이퍼케이션">바이퍼케이션</h2>
+<p><img src="20190207_143724.png#center" alt="20190207\_143724.png"></p>
+<p>위 그림은 로렌츠 어트랙터의 <a href="../860">바이퍼케이션 다이어그램</a>이다. 가로축은 $25$ 부터 $325$ 까지 조금씩 변하는 $\rho$ 의 값, 세로축은 충분히 긴 시간 후의 궤도에서 $z$ 방향의 극댓값을 찍어놓았다. $r= \rho$ 가 작을 땐 매우 불안한 움직임을 보이지만, 일정 수준 이상으로 커지자 안정된 궤도를 가짐을 알 수 있다. 다음의 설명을 읽길 권장한다 :</p>
+<p><img src="20190207_142108.png#center" alt="20190207\_142108.png"></p>
+<p>위 그래프는 $\gamma=100$ 일 때의 궤적을 그린 것이다. 보통 $\gamma$ 가 어느정도 이상 크다면 초기에는 카오틱한 움직임을 보이는 듯 하지만 갈수록 <a href="../858">피리어딕</a>해질 수 있다.</p>
+<p><img src="20190207_142944.png#center" alt="20190207\_142944.png"></p>
+<p>위 그래프는 초기의 궤적을 제거하고 긴 시간이 지난 뒤 입자의 궤적만을 나타내는 것이다. 완전히 피리어딕하지는 않지만, 거의 행동을 예측할 수 있는 수준이 되었다.</p>
+<p><img src="20190207_160923.png#center" alt="20190207\_160923.png"></p>
+<p>궤적을 보기 좋게 $xz$ 그래프를 그려보면 위과 같은 모양을 한다. 분명 처음엔 카오틱해보였으나 시간이 갈수록 궤도가 안정되어가고, 극댓값은 세 개 정도로 뚜렷하게 나타난다. 실제로 바이퍼케이션 다이어그램을 보아도 똑같은 해석을 내놓을 수 있다.한편 $\gamma = 28$ 일 때는 충분히 긴 시간이 지나도 다음과 같이 카오틱한 움직임을 보인다. 바이퍼케이션 다이어그램에서는 여러 점이 흩어져서 두꺼워진 모양새를 이룬다.</p>
+<p><img src="20190207_160633.png#center" alt="20190207\_160633.png"></p>
+<p>반면 $\gamma = 300$ 일 때는 다음과 같이 뚜렷하게 나타나는 두 개의 극댓값만을 가진다. 바이퍼케이션 다이어그램에서는 단 한 $\gamma$ 값에 대해 두 점이 대응됨으로써 두 개의 선이 나타나게 된다.</p>
+<p><img src="20190207_161132.png#center" alt="20190207\_161132.png"></p>
+<h2 id="코드">코드</h2>
+<p>다음은 매트랩을 통해 로렌츠 어트랙터의 궤적을 그려주는 코드다.</p>
 <pre><code>sigma = 10;
 beta = 8/3;
 rho = 28;
@@ -194,8 +215,8 @@ x=v(:,1); x=x(50000:end);
 y=v(:,2); y=y(50000:end);
 z=v(:,3); z=z(50000:end);
 plot3(x,y,z)
-%plot(x,z)[Colored by Color Scripter](http://colorscripter.com/info#e)
-</code></pre><p>다음은 포트란을 통해 바이퍼케이션 다이어그램의 소스를 만들고 .csv 파일로 돌려주는 코드다.ODE를 풀기위해 사용된 메소드는 <a href="../796">RK4</a>다.</p>
+%plot(x,z)
+</code></pre><p>다음은 포트란을 통해 바이퍼케이션 다이어그램의 소스를 만들고 <code>OUTPUT.csv</code> 파일로 돌려주는 코드다. ODE를 풀기위해 사용된 메소드는 <a href="../796">RK4</a>다.</p>
 <pre><code>program LorenzBifurcation
   implicit none
   double precision :: sigma=10.d0, rho=28.d0, beta=8.d0/3.d0
@@ -249,14 +270,22 @@ contains
     f(2) = v(1)*(rho-v(3))-v(2)
     f(3) = v(1)*v(2) - beta*v(3)
   end function f
-end program LorenzBifurcation[Colored by Color Scripter](http://colorscripter.com/info#e)
-</code></pre><p>&lt;z2 .and.=&quot;&quot; z2=&quot;&quot;&gt;다음은 매트랩을 통해 위에서 얻은 .csv 파일을 이용해 바이퍼케이션 다이어그램을 그려주는 코드다.</p>
+end program LorenzBifurcation
+</code></pre><p>다음은 매트랩을 통해 위에서 얻은 <code>OUTPUT.csv</code> 파일을 이용해 바이퍼케이션 다이어그램을 그려주는 코드다.</p>
 <pre><code>[file,path] = uigetfile('*.csv');
 data = csvread([path,file]);
  
 sz = 0.6;
 scatter(data(:,1),data(:,2),sz,'.');
-</code></pre></z2>
+</code></pre><section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://en.wikipedia.org/wiki/Lorenz_system#Overview">https://en.wikipedia.org/wiki/Lorenz_system#Overview</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
 
 
 <script type="text/javascript">
@@ -609,21 +638,23 @@ scatter(data(:,1),data(:,2),sz,'.');
     <a href=https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/> - 프로그래밍</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1754)</summary>
+    <summary>전체 포스트 (1784)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/r/" style="color: black">R (52)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/r/" style="color: black">R (53)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B0%90%EB%A7%88-%ED%95%A8%EC%88%98%EC%99%80-%EC%A0%9C%ED%83%80-%ED%95%A8%EC%88%98/" style="color: black">감마 함수와 제타 함수 (23)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B0%90%EB%A7%88-%ED%95%A8%EC%88%98%EC%99%80-%EC%A0%9C%ED%83%80-%ED%95%A8%EC%88%98/" style="color: black">감마 함수와 제타 함수 (27)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC-%EA%B3%B5%EA%B0%84/" style="color: black">거리 공간 (34)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC%EA%B3%B5%EA%B0%84/" style="color: black">거리공간 (33)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (39)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (47)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
@@ -641,9 +672,9 @@ scatter(data(:,1),data(:,2),sz,'.');
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0-%ED%95%B4%EC%84%9D/" style="color: black">벡터 해석 (43)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B5%EC%86%8C%ED%95%B4%EC%84%9D/" style="color: black">복소해석 (57)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B5%EC%86%8C%ED%95%B4%EC%84%9D/" style="color: black">복소해석 (59)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (38)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (42)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
         </li><li>
@@ -653,7 +684,7 @@ scatter(data(:,1),data(:,2),sz,'.');
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (52)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (33)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (54)</a>
         </li><li>
@@ -677,7 +708,7 @@ scatter(data(:,1),data(:,2),sz,'.');
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (21)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (26)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (42)</a>
         </li><li>
@@ -707,7 +738,7 @@ scatter(data(:,1),data(:,2),sz,'.');
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">해석학미분류 (28)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (41)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (42)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
         </li><li>
