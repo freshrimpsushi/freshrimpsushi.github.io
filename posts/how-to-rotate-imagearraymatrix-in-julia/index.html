@@ -127,6 +127,123 @@
     </a>
 </header>
 
+    <div id="fastSearch">
+    <input id="searchInput" tabindex="0">
+    <ul id="searchResults">
+    </ul>
+  </div>
+  <script src="../../js/fuse.js"></script> 
+  <script src="../../js/fastsearch.js"></script>
+    <div class="mobile_search">
+    <div class="search_box">
+        <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용">
+    </div>
+    <ul id="searchResultsMobile"></ul>
+</div>
+
+<script>
+    var firstRun = true;
+    var mobile_search = $('.mobile_search');
+    var fuse_mobile;
+    var list_mobile = document.getElementById('searchResultsMobile');
+    var first_mobile = list_mobile.firstChild;
+    var last_mobile = list_mobile.lastChild;
+    var resultsAvailable_mobile = false;
+
+    function fetchJSONFileMobile(path, callback) {
+        var httpRequest = new XMLHttpRequest();
+        httpRequest.onreadystatechange = function () {
+            if (httpRequest.readyState === 4) {
+                if (httpRequest.status === 200) {
+                    var data = JSON.parse(httpRequest.responseText);
+                    if (callback) callback(data);
+                }
+            }
+        };
+        httpRequest.open('GET', path);
+        httpRequest.send();
+    }
+
+    function loadSearchMobile() {
+        fetchJSONFileMobile('/index.json', function (data) {
+            var options = {
+                shouldSort: true,
+                location: 0,
+                distance: 100,
+                threshold: 0.4,
+                minMatchCharLength: 2,
+                keys: [
+                    'title',
+                    'permalink',
+                    'summary'
+                ]
+            };
+            fuse_mobile = new Fuse(data, options);
+        });
+    }
+    
+    function executeSearchMobile(term) {
+        let results = fuse_mobile.search(term);
+        let searchitems = '';
+
+        if (results.length === 0) {
+            mobile_search.css({
+                'height': '30px',
+                'overflow': 'hidden'
+            });
+            resultsAvailable_mobile = false;
+            searchitems = '';
+        } else {
+            mobile_search.css({
+                'height': '200px',
+                'overflow': 'auto'
+            });
+            for (let item in results.slice(0, 100)) {
+                searchitems = searchitems + '<li><a href="' + results[item].item.permalink + '" tabindex="0">' + '<span class="title">' + results[item].item.title + '</span></a></li>';
+            }
+            resultsAvailable_mobile = true;
+        }
+
+        document.getElementById("searchResultsMobile").innerHTML = searchitems;
+        if (results.length > 0) {
+            first_mobile = list_mobile.firstChild.firstElementChild;
+            last_mobile = list_mobile.lastChild.firstElementChild;
+        }
+    }
+    $(document).ready(function() {
+        
+        var isMobile = false;
+        
+        var filter = "win16|win32|win64|mac";
+        
+        if (navigator.platform) {
+            isMobile = filter.indexOf(navigator.platform.toLowerCase()) < 0;
+        }
+        console.log(isMobile);
+
+        if (isMobile) {
+        
+        } else { 
+            $('.mobile_search').css('display', 'none');
+        }
+
+        $('.search_box input').focus(function() {
+            if (firstRun) {
+                loadSearchMobile();
+                firstRun = false;
+            }
+        });
+
+        $('.search_box input').blur(function() {
+            
+        });
+
+        $('.search_box input').keyup(function() {
+            let term = $('.search_box input').val();
+            executeSearchMobile(term);
+        });
+    });
+</script>
     <hr>
         
         <div class = "wrapper">
@@ -766,13 +883,6 @@ Y5=imrotate(X,pi/6,axes(X))
         });
     });
 </script>
-            <div id="fastSearch">
-    <input id="searchInput" tabindex="0">
-    <ul id="searchResults">
-    </ul>
-  </div>
-  <script src="../../js/fuse.js"></script> 
-  <script src="../../js/fastsearch.js"></script>
             </div>
 
         </div>
