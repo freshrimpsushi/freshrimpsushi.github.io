@@ -103,7 +103,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-fix-error-used-without-hex-digits-in-character-string-starting\/",
-    "wordCount" : "1182",
+    "wordCount" : "1181",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -160,6 +160,7 @@
       <ul>
         <li><a href="#진단">진단</a></li>
         <li><a href="#원인">원인</a></li>
+        <li><a href="#해결법">해결법</a></li>
         <li><a href="#왜--이-아니라-인가">왜 <code>\</code> 이 아니라 <code>/</code>인가</a></li>
       </ul>
     </li>
@@ -176,9 +177,10 @@
 </code></pre><p><img src="9950B03B5FA0E59D28876E.png#center" alt="img"></p>
 <p>아무리 봐도 모든 경로에 문제가 없기 때문에 이런 저런 시도를 하다가 &lsquo;바탕 화면&rsquo;이라는 한글이 문제인 것 같아 경로를 바꿔보기도 했을 것이다. 그러나 <code>C:</code>나 <code>D:</code> 드라이브 바로 밑으로 가지 않는 이상 이와 비슷한 문제는 계속해서 일어난다.</p>
 <h3 id="원인">원인</h3>
-<p>문제의 간접적인 원인은 바탕화면에 파일을 두면서 Users(사용자) 폴더로 들어간 것이다. 아마 탐색기에서 주소창을 바로 긁어서 붙여넣었을텐데, 그때 <code>\U</code>가 16진법으로 읽히면서 에러가 났다. 꼭 사용자 폴더가 아니라도 <code>\</code> 뒤에 뭔가 붙게 되면 **<a href="https://ko.wikipedia.org/wiki/%EC%9D%B4%EC%8A%A4%EC%BC%80%EC%9D%B4%ED%94%84_%EB%AC%B8%EC%9E%90">이스케이프 문자</a>**라는 걸로 인식하기 때문에 문제가 생긴다. 이 포스트 제목에서 하필 <code>\U</code>를 저격한 이유는 정말 많은 R 초보자들이 별 생각 없이 바탕화면에서 작업을 시작해서 이런 메세지를 보게될 확률이 높기 때문이다.</p>
+<p>문제의 간접적인 원인은 바탕화면에 파일을 두면서 Users(사용자) 폴더로 들어간 것이다. 아마 탐색기에서 주소창을 바로 긁어서 붙여넣었을텐데, 그때 <code>\U</code>가 16진법으로 읽히면서 에러가 났다. 꼭 사용자 폴더가 아니라도 <code>\</code> 뒤에 뭔가 붙게 되면 <a href="https://ko.wikipedia.org/wiki/%EC%9D%B4%EC%8A%A4%EC%BC%80%EC%9D%B4%ED%94%84_%EB%AC%B8%EC%9E%90">이스케이프 문자</a>라는 걸로 인식하기 때문에 문제가 생긴다. 이 포스트 제목에서 하필 <code>\U</code>를 저격한 이유는 정말 많은 R 초보자들이 별 생각 없이 바탕화면에서 작업을 시작해서 이런 메세지를 보게될 확률이 높기 때문이다.</p>
 <p>이스케이프 문자는 엔터키라든가 현재 시각, 백스페이스와 같이 우리가 키보드로는 입력하더라도 문자열 자체에 남기기가 곤란한 것들을 표현하기 위해 있는 것이다. 따라서 보통 글로는 잘 쓸 일이 없는 백슬래쉬, 통화기호인 <code>\</code> 뒤에 특정한 알파뱃을 입력함으로써 실수로 사용하는 것을 방지한다.(컴퓨터는 <code>\</code>와 백슬래시를 똑같이 인식한다. 잘 이해가 안되면 그냥 외워도 된다.)</p>
 <p>아이러니하게도 백슬래쉬가 그런 용도로 많이 쓰이다보니 실제 백슬래시로 쓰는 것인지 이스케이프문자로 쓰고 싶은지가 헷갈릴 수 있게 되었고, 현재 백슬래시를 쓰고 싶다면 <code>\\</code> 와 같이 <code>\</code> 앞에 <code>\</code>를 써서 이스케이프 문자가 아니라 백슬래시 자체를 원한다고 입력해주어야한다.</p>
+<h3 id="해결법">해결법</h3>
 <p>따라서, 만약 내가 읽고 싶은 파일의 경로가</p>
 <pre><code>&quot;C:\Users\rmsms\OneDrive\바탕 화면\example.csv&quot;
 </code></pre><p>라면, 이스케이프 문자를 피하기 위해 \를 \로 다음과 같이 바꿔줘야한다.</p>
@@ -539,11 +541,21 @@
 
 <aside>
     <p><b>카테고리</b></p>
-    <a href=https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/> - 동역학</a><br>
-    <a href=https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/> - 행렬대수</a><br>
-    <a href=https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/> - 선형대수</a><br>
-    <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/> - 줄리아</a><br>
-    <a href=https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/> - 프로그래밍</a><br>
+    
+    <a href=https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/>
+        <span style="color:rgb(255,204,000);">●</span> 행렬대수</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/>
+        <span style="color:rgb(051,204,051);">●</span> 선형대수</a><br>
+    <hr>
+    <a href=https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC%EA%B3%B5%EA%B0%84/>
+        <span style="color:rgb(051,204,051);">●</span> 거리공간</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/>
+        <span style="color:rgb(255,051,051);">●</span> 동역학</a><br>
+    <hr>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/>
+        <span style="color:rgb(255,051,051);">●</span> 줄리아</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/>
+        <span style="color:rgb(255,204,000);">●</span> 프로그래밍</a><br>
     <hr>
 <details>
     <summary>전체 포스트 (1784)</summary>
@@ -560,9 +572,7 @@
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (47)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99%EA%B3%84/" style="color: black">동역학계 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (54)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
