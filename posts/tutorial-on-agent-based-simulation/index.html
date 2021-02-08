@@ -48,9 +48,9 @@
     </script>
 
     
-<meta name="title" content="에이전트 기반 시뮬레이션 첫걸음 산점도로 나타내기">
+<meta name="title" content="에이전트 기반 시뮬레이션 첫걸음: 산점도로 나타내기">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="에이전트 기반 시뮬레이션 첫걸음 산점도로 나타내기"/>
+<meta property="og:title" content="에이전트 기반 시뮬레이션 첫걸음: 산점도로 나타내기"/>
 <meta property="og:description" content="tutorial on agent based simulation"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
@@ -63,8 +63,8 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "r_",
-    "name": "에이전트 기반 시뮬레이션 첫걸음 산점도로 나타내기",
-    "headline": "에이전트 기반 시뮬레이션 첫걸음 산점도로 나타내기",
+    "name": "에이전트 기반 시뮬레이션 첫걸음: 산점도로 나타내기",
+    "headline": "에이전트 기반 시뮬레이션 첫걸음: 산점도로 나타내기",
     "alternativeHeadline": "",
     "description": "tutorial on agent based simulation",
     "inLanguage": "ko",
@@ -103,14 +103,14 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/tutorial-on-agent-based-simulation\/",
-    "wordCount" : "821",
-    "genre" : [ ],
-    "keywords" : [ ]
+    "wordCount" : "747",
+    "genre" : [ "줄리아" ],
+    "keywords" : [ "줄리아" ]
 }
 </script>
 
 
-    <title>에이전트 기반 시뮬레이션 첫걸음 산점도로 나타내기</title>
+    <title>에이전트 기반 시뮬레이션 첫걸음: 산점도로 나타내기</title>
 
 </head>
 
@@ -251,9 +251,9 @@
             <div class = "content">
             
 
-<title>에이전트 기반 시뮬레이션 첫걸음 산점도로 나타내기</title>
+<title>에이전트 기반 시뮬레이션 첫걸음: 산점도로 나타내기</title>
 
-<h1>에이전트 기반 시뮬레이션 첫걸음 산점도로 나타내기</h1>
+<h1>에이전트 기반 시뮬레이션 첫걸음: 산점도로 나타내기</h1>
 <aside>
     <p style="text-align: right;">
         1875
@@ -273,27 +273,19 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#시뮬레이션">시뮬레이션</a>
+      <ul>
+        <li><a href="#코드-리뷰">코드 리뷰</a></li>
+        <li><a href="#전체-코드">전체 코드</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-본 <a href="../1873">시뮬레이션</a>은 속도와 시각화 양면으로 유리하고 코딩도 쉬운 <a href="../1374">줄리아</a>로 구현되어 있다. 가장 좋은 공부는 깃허브에서 줄리아 코드를 받아 직접 실행해보는 것이지만, 줄리아가 낯설다면 그냥 시뮬레이션을 어떻게 하는건지 읽고 이해만 해도 충분할 수 있다. 구현 자체에 있어 어떤 언어를 사용하느냐는 본질적으로 중요하지 않다.</p>
-<p><a href="https://github.com/rmsmsgood/freshrimpsushi/blob/main/dynamics_simulation/01_%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8_%EA%B8%B0%EB%B0%98%20%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%EC%85%98_%EC%B2%AB%EA%B1%B8%EC%9D%8C.jl">소스 코드</a>
-<strong>Step 1.</strong>  패키지 로드, 초기값 설정</p>
+<h2 id="시뮬레이션">시뮬레이션</h2>
+<h3 id="코드-리뷰">코드 리뷰</h3>
+<p><strong>Step 1. 패키지 로드, 초기값 설정</strong></p>
 <pre><code>julia&gt; cd(@\_\_DIR\_\_) # 파일 저장 경로cd(@\_\_DIR\_\_) # 파일 저장 경로
 
 julia&gt; @time using Plots
@@ -316,48 +308,69 @@ IsoNormal(
 dim: 2
 μ: [0.0, 0.0]
 Σ: [0.02 0.0; 0.0 0.02]
-)```
-위의 코드는 [패키지를 불러오고](../1416) 초기 에이전트의 수, 한 턴마다 주변을 배회하도록 이동 규칙을 준 것이다. 이동량은 다음과 같은 $2$차원 정규분포로 정의되었다.
-
-$$
+)
+</code></pre><p>위의 코드는 <a href="../1416">패키지를 불러오고</a> 초기 에이전트의 수, 한 턴마다 주변을 배회하도록 이동 규칙을 준 것이다. 이동량은 다음과 같은 $2$차원 정규분포로 정의되었다.</p>
+<p>$$
 N \left( \mu , \Sigma \right) \qquad \text{where } \mu = (0,0) , \Sigma = \begin{bmatrix}
- 0.02 &amp; 0 
-\\\  0 &amp; 0.02 
+0.02 &amp; 0 
+\\  0 &amp; 0.02 
 \end{bmatrix} 
-$$
+$$</p>
+<hr>
+<p><strong>Step 2. 에이전트 생성</strong></p>
+<p>말은 에이전트 생성이라고 거창하게 포장했지만 사실 별 거 없다. 2차원 정규분포에서 에이전트의 수만큼 샘플을 뽑으면 그 좌표 자체가 에이전트를 표현하게 된다.</p>
+<pre><code>julia&gt; Random.seed!(0);
 
-**Step 2.**  에이전트 생성
-말은 에이전트 생성이라고 거창하게 포장했지만 사실 별 거 없다. 2차원 정규분포에서 에이전트의 수만큼 샘플을 뽑으면 그 좌표 자체가 에이전트를 표현하게 된다.
-</code></pre><p>julia&gt; Random.seed!(0);</p>
-<p>julia&gt; coordinate = rand(gaussian2, N0)'
+julia&gt; coordinate = rand(gaussian2, N0)'
 10×2 Adjoint{Float64,Array{Float64,2}}:
-0.0960403    0.117155
--0.0499228   -0.0190712
-0.0829602    0.0420496
-0.00918497  -0.0154174
--0.0727203    0.222644
--0.0974262   -0.107877
-0.0562125    0.114782
--0.0489819   -0.0265268
--0.2273      -0.350837
-0.321908     0.0310693```
-위의 좌표들이 곧 에이전트의 위치를 나타낸다. 각 행은 에이전트 하나씩을 가리키며 첫 열은 x 좌표, 두번째 열은 y 좌표다. 당장은 에이전트들이 어떤 행동 규칙을 가질 필요가 없어 이것으로 충분하다.
-<strong>Step 3.</strong>  점도표(Scatter plot) 그리기</p>
+  0.0960403    0.117155
+ -0.0499228   -0.0190712
+  0.0829602    0.0420496
+  0.00918497  -0.0154174
+ -0.0727203    0.222644
+ -0.0974262   -0.107877
+  0.0562125    0.114782
+ -0.0489819   -0.0265268
+ -0.2273      -0.350837
+  0.321908     0.0310693
+</code></pre><p>위의 좌표들이 곧 에이전트의 위치를 나타낸다. 각 행은 에이전트 하나씩을 가리키며 첫 열은 x 좌표, 두번째 열은 y 좌표다. 당장은 에이전트들이 어떤 행동 규칙을 가질 필요가 없어 이것으로 충분하다.</p>
+<hr>
+<p><strong>Step 3.  점도표(Scatter plot) 그리기</strong></p>
 <pre><code>julia&gt; p = plot(coordinate[:,1], coordinate[:,2], seriestype = :scatter,
          markercolor = RGB(1.,94/255,0.), markeralpha = 0.4, markerstrokewidth= 0.1,
          aspect\_ratio = 1, size = [400,400],
          xaxis=true,yaxis=true,axis=nothing, legend = false)
 
-julia&gt; png(p, &quot;agent\_tutorial.png&quot;); p```
-`plot()` 함수에 옵션 `seriestype = :scatter`을 넣으면 위와 같이 에이전트의 좌표를 점으로 찍어준다. 그리고 첫번째 줄에서 입력한 경로에서 다음과 같이 `&quot;agent\_tutorial.png&quot;`라는 파일이 생성되었을 것이다.
-![agent\_tutorial.png](agent\_tutorial.png#center)
+julia&gt; png(p, &quot;agent\_tutorial.png&quot;); p
+</code></pre><p><code>plot()</code> 함수에 옵션 <code>seriestype = :scatter</code>을 넣으면 위와 같이 에이전트의 좌표를 점으로 찍어준다. 그리고 첫번째 줄에서 입력한 경로에서 다음과 같이 <code>&quot;agent\_tutorial.png&quot;</code>라는 파일이 생성되었을 것이다.</p>
+<p><img src="agent_tutorial.png#center" alt="agent\_tutorial.png"></p>
+<p><code>&quot;agent\_tutorial.png&quot;</code>의 실제 모습은 위와 같다. 이로써 에이전트를 생성하고 산점도로 시각화해본 것이다.</p>
+<h3 id="전체-코드">전체 코드</h3>
+<p>다음은 이 포스트에 쓰인 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다.</p>
+<pre><code>cd(@__DIR__) # 파일 저장 경로
 
-`&quot;agent\_tutorial.png&quot;`의 실제 모습은 위와 같다. 이로써 에이전트를 생성하고 산점도로 시각화해본 것이다.</code></pre>
+@time using Plots
+@time using Random
+@time using Distributions
+@time using LinearAlgebra
+
+N0 = 10 # 초기 인구수
+gaussian2 = MvNormal([0.0; 0.0], 0.02I) # 2차원 정규분포
+
+Random.seed!(0);
+coordinate = rand(gaussian2, N0)'
+
+p = plot(coordinate[:,1], coordinate[:,2], seriestype = :scatter,
+  markercolor = RGB(1.,94/255,0.), markeralpha = 0.4, markerstrokewidth	= 0.1,
+  aspect_ratio = 1, size = [400,400],
+  xaxis=true,yaxis=true,axis=nothing, legend = false)
+png(p, &quot;agent_tutorial.png&quot;); p
+</code></pre>
 
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var title = '에이전트 기반 시뮬레이션 첫걸음 산점도로 나타내기';
+        var title = '에이전트 기반 시뮬레이션 첫걸음: 산점도로 나타내기';
         var link = 'https:\/\/freshrimpsushi.github.io\/posts\/tutorial-on-agent-based-simulation\/';
         var arr = new Array();
         var obj = {
@@ -478,7 +491,7 @@ julia&gt; png(p, &quot;agent\_tutorial.png&quot;); p```
         }
         let board_idx = '1875';
         let board_slug = 'tutorial-on-agent-based-simulation';
-        let board_title = '에이전트 기반 시뮬레이션 첫걸음 산점도로 나타내기';
+        let board_title = '에이전트 기반 시뮬레이션 첫걸음: 산점도로 나타내기';
 
         $.ajax({
             type: "POST",
@@ -652,7 +665,7 @@ julia&gt; png(p, &quot;agent\_tutorial.png&quot;); p```
             }
             let idx = '1875';
             let board_slug = 'tutorial-on-agent-based-simulation';
-            let board_title = '에이전트 기반 시뮬레이션 첫걸음 산점도로 나타내기';
+            let board_title = '에이전트 기반 시뮬레이션 첫걸음: 산점도로 나타내기';
 
             $.ajax({
                 type: "POST",
@@ -715,7 +728,7 @@ julia&gt; png(p, &quot;agent\_tutorial.png&quot;); p```
         <span style="color:rgb(255,204,000);">●</span> 프로그래밍</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1784)</summary>
+    <summary>전체 포스트 (1782)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
         </li><li>
@@ -729,7 +742,7 @@ julia&gt; png(p, &quot;agent\_tutorial.png&quot;); p```
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (54)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (52)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
@@ -862,7 +875,7 @@ julia&gt; png(p, &quot;agent\_tutorial.png&quot;); p```
 
 <aside>
     <p><b>태그</b></p>
-    <div>
+    <div><a class = "in_sidebar" href="https://freshrimpsushi.github.io/tags/%EC%A4%84%EB%A6%AC%EC%95%84/" title="줄리아" style="color: black">줄리아</a>&emsp;
     </div>
 </aside>
 

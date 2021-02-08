@@ -103,9 +103,9 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/death-in-agent-based-simulation-model\/",
-    "wordCount" : "1251",
-    "genre" : [ ],
-    "keywords" : [ ]
+    "wordCount" : "1235",
+    "genre" : [ "줄리아" ],
+    "keywords" : [ "줄리아" ]
 }
 </script>
 
@@ -273,39 +273,41 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#시뮬레이션">시뮬레이션</a>
+      <ul>
+        <li><a href="#변수">변수</a></li>
+        <li><a href="#파라메터">파라메터</a></li>
+        <li><a href="#액션">액션</a></li>
+        <li><a href="#코드-리뷰">코드 리뷰</a></li>
+        <li><a href="#전체-코드">전체 코드</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-본 <a href="../1873">시뮬레이션</a>은 속도와 시각화 양면으로 유리하고 코딩도 쉬운 <a href="../1374">줄리아</a>로 구현되어 있다. 가장 좋은 공부는 깃허브에서 줄리아 코드를 받아 직접 실행해보는 것이지만, 줄리아가 낯설다면 그냥 시뮬레이션을 어떻게 하는건지 읽고 이해만 해도 충분할 수 있다. 구현 자체에 있어 어떤 언어를 사용하느냐는 본질적으로 중요하지 않다.</p>
-<p><a href="https://github.com/rmsmsgood/freshrimpsushi/blob/main/dynamics_simulation/03_%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8_%EA%B8%B0%EB%B0%98%20%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%EC%85%98_%EC%82%AC%EB%A7%9D.jl">소스 코드</a>
-<img src="malthusian_growth_simulation2.gif#center" alt="malthusian\_growth\_simulation2.gif"></p>
-<p>이 포스트에서는 생성된 에이전트가 사망하는 액션을 주어 거시적인 관점에서 집단의 역성장을 모방하려고 한다. 이 시뮬레이션에서 공간이나 이동에 관련된 모든 것들은 단지 시각화를 위한 것이며, 실제 목적과는 아무런 관계가 없다.
-<strong>변수</strong> 
-$t$: 현재 턴을 의미한다.
-$N(t)$: $t$ 턴에서 에이전트의 수를 나타낸다.
-<strong>파라메터</strong> 
-$N_{0} \in \mathbb{N}$: 시뮬레이션이 시작할 때 에이전트의 수를 나타낸다.
-$d \in [0,1]$: 사망률(Death Rate)로써 에이전트가 번식할 확률을 나타낸다.
-$t_{\text{end}} \in \mathbb{N}$: 시뮬레이션이 끝나는 턴을 정한다.
-<strong>액션(모든 에이전트가, 매 턴마다)</strong> 
-<strong>1, 사망:</strong>  $d$ 의 확률로 시뮬레이션에서 제외된다.
-<strong>2, 이동:</strong>  이변수 정규분포 $N \left( \mathbb{0} , \Sigma \right)$ 에서 뽑은 벡터대로 이동한다.</p>
-<p><strong>Step 1.</strong>  초기화 및 에이전트 생성</p>
+<h2 id="시뮬레이션">시뮬레이션</h2>
+<p><img src="malthusian_growth_simulation2.gif#center" alt="malthusian\_growth\_simulation2.gif"></p>
+<p>이 포스트에서는 생성된 에이전트가 사망하는 액션을 주어 거시적인 관점에서 집단의 역성장을 모방하려고 한다. 이 시뮬레이션에서 공간이나 이동에 관련된 모든 것들은 단지 시각화를 위한 것이며, 실제 목적과는 아무런 관계가 없다.</p>
+<h3 id="변수">변수</h3>
+<ul>
+<li>$t$: 현재 턴을 의미한다.</li>
+<li>$N(t)$: $t$ 턴에서 에이전트의 수를 나타낸다.</li>
+</ul>
+<h3 id="파라메터">파라메터</h3>
+<ul>
+<li>$N_{0} \in \mathbb{N}$: 시뮬레이션이 시작할 때 에이전트의 수를 나타낸다.</li>
+<li>$d \in [0,1]$: 사망률<sup>Death Rate</sup>로써 에이전트가 번식할 확률을 나타낸다.</li>
+<li>$t_{\text{end}} \in \mathbb{N}$: 시뮬레이션이 끝나는 턴을 정한다.</li>
+</ul>
+<h3 id="액션">액션</h3>
+<p>(모든 에이전트가, 매 턴마다)</p>
+<ul>
+<li>사망: <code>d</code>의 확률로 시뮬레이션에서 제외된다.</li>
+<li>이동: 이변수 정규분포 $N \left( \mathbb{0} , \Sigma \right)$ 에서 뽑은 벡터대로 이동한다.</li>
+</ul>
+<h3 id="코드-리뷰">코드 리뷰</h3>
+<p><strong>Step 1. 초기화 및 에이전트 생성</strong></p>
 <pre><code>julia&gt; N0 = 500 # 초기 인구수
 500
 
@@ -325,35 +327,39 @@ dim: 2
 julia&gt; Random.seed!(0);
 
 julia&gt; time\_evolution = [] # 인구수를 기록하기 위한 스택
-Any[]```
-[에이전트 기반 시뮬레이션 튜토리얼](../1875)과 비슷하게 에이전트를 생성한다. 여기서 각 변수들은 위의 파라메터 세팅을 반영한다.
-`N0` $\leftarrow N\_{0} = 5$
-`d` $\leftarrow d = 0.04$
-`max\_iteration` $\leftarrow t\_{\text{end}} = 180$
-`Random.seed!(0)`은 결과를 재현하기 위한 시드넘버 설정,은 결과를 재현하기 위한 시드넘버 설정, `time\_evolutiond`는 개체수를 기록하기 위한 스택으로 시뮬레이션 자체에는 영향을 미치지 않으나 시뮬레이션을 반복하고 분석하기 위해 중요하게 쓰이는 테크닉이다.
-</code></pre><p>julia&gt; coordinate = rand(gaussian2, N0)'
+Any[]
+</code></pre><p><a href="../1875">에이전트 기반 시뮬레이션 튜토리얼</a>과 비슷하게 에이전트를 생성한다. 여기서 각 변수들은 위의 파라메터 세팅을 반영한다.</p>
+<ul>
+<li><code>N0</code> $\leftarrow N_{0} = 5$</li>
+<li><code>d</code> $\leftarrow d = 0.04$</li>
+<li><code>max\_iteration</code> $\leftarrow t_{\text{end}} = 180$</li>
+</ul>
+<p><code>Random.seed!(0)</code>은 결과를 재현하기 위한 시드넘버 설정,은 결과를 재현하기 위한 시드넘버 설정, <code>time\_evolutiond</code>는 개체수를 기록하기 위한 스택으로 시뮬레이션 자체에는 영향을 미치지 않으나 시뮬레이션을 반복하고 분석하기 위해 중요하게 쓰이는 테크닉이다.</p>
+<pre><code>julia&gt; coordinate = rand(gaussian2, N0)'
 500×2 Adjoint{Float64,Array{Float64,2}}:
-0.135821    0.165683
--0.0706015  -0.0269708
-0.117323    0.0594672
-0.0129895  -0.0218035
--0.102842    0.314866
--0.137781   -0.152561
-0.0794965   0.162326
--0.0692709  -0.0375145
-⋮
--0.22697     0.178074
-0.036792   -0.35028
--0.253518    0.418463
--0.226243   -0.111246
-0.120505   -0.0111552
-0.0882067   0.0526977
-0.398744   -0.114504
--0.215111    0.259829</p>
-<p>julia&gt; N = N0
-500```
-$N$ 은 개체수를 나타내므로 우선 $N \leftarrow N_{0}$ 와 같이 초기 개체수를 받아 주어야한다.</p>
-<p><strong>Step 2.</strong>  에이전트의 사망</p>
+  0.135821    0.165683
+ -0.0706015  -0.0269708
+  0.117323    0.0594672
+  0.0129895  -0.0218035
+ -0.102842    0.314866
+ -0.137781   -0.152561
+  0.0794965   0.162326
+ -0.0692709  -0.0375145
+  ⋮
+ -0.22697     0.178074
+  0.036792   -0.35028
+ -0.253518    0.418463
+ -0.226243   -0.111246
+  0.120505   -0.0111552
+  0.0882067   0.0526977
+  0.398744   -0.114504
+ -0.215111    0.259829
+
+julia&gt; N = N0
+500
+</code></pre><p>$N$ 은 개체수를 나타내므로 우선 $N \leftarrow N_{0}$ 와 같이 초기 개체수를 받아 주어야한다.</p>
+<hr>
+<p><strong>Step 2. 에이전트의 사망</strong></p>
 <pre><code>julia&gt; coordinate = coordinate[(rand(N) .&gt; d),:]
 481×2 Array{Float64,2}:
   0.135821    0.165683
@@ -369,34 +375,71 @@ $N$ 은 개체수를 나타내므로 우선 $N \leftarrow N_{0}$ 와 같이 초�
   0.120505   -0.0111552
   0.0882067   0.0526977
   0.398744   -0.114504
- -0.215111    0.259829```
-현재 에이전트의 수만큼 0과 1사이에서 난수를 뽑는다. 이것이 `d`보다 작다는 것은 `d`의 확률로 **액션 1, 사망** 이 일어났다는 뜻이다. 위 스크린샷에서는 19개의 에이전트가 사망해 481개의 에이전트가 남은 것을 볼 수 있다. 이는 기존 에이전트 500개 중 약 4%가 사망한 것으로, 우리의 파라메터 세팅이 거의 정확하게 반영된 것을 확인할 수 있다.
-
-**Step 3.**  기록과 에이전트 이동
-</code></pre><p>julia&gt; push!(time_evolution, N)
+ -0.215111    0.259829
+</code></pre><p>현재 에이전트의 수만큼 0과 1사이에서 난수를 뽑는다. 이것이 <code>d</code>보다 작다는 것은 <code>d</code>의 확률로 <strong>사망</strong> 이 일어났다는 뜻이다. 위 스크린샷에서는 19개의 에이전트가 사망해 481개의 에이전트가 남은 것을 볼 수 있다. 이는 기존 에이전트 500개 중 약 4%가 사망한 것으로, 우리의 파라메터 세팅이 거의 정확하게 반영된 것을 확인할 수 있다.</p>
+<hr>
+<p><strong>Step 3. 기록과 에이전트 이동</strong></p>
+<pre><code>julia&gt; push!(time\_evolution, N)
 1-element Array{Any,1}:
-481</p>
-<p>julia&gt; coordinate = coordinate + rand(gaussian2, N)'
-481×2 Array{Float64,2}:
-0.399141     0.492689
--0.151015    -0.00161691
--0.00843121   0.10119
-0.111592     0.00865223
-0.0591775    0.150437
-0.0060825    0.0383255
--0.0652535   -0.0688566
--0.702124    -0.485473
-⋮
-0.437486    -0.354416
--0.149827     0.156366
--0.0737965   -0.168831
-0.344358    -0.136392
--0.231089    -0.0695535
-0.446688     0.143493
-0.133667     0.156873```
-위의 <strong>Step 2.</strong> 에서 에이전트가 19개 줄었으므로 $N$ 역시 업데이트 해주었고, 이 때의 개체수를 기록했다. 각 에이전트의 좌표는 행렬로 표현되고 있으므로 이변수 정규분포를 $N$ 번 뽑아 쌓은 $N \times 2$ 행렬을 더하면 에이전트가 이동한 것을 구현할 수 있다. 이를 마치고 <strong>Step 2.</strong> 로 돌아간다. 계속해서 반복하다가, $t = t_{\text{end}}$ 가 되면 멈춘다.</p>
-<p>위 과정을 반복하기만하면 포스트 상단의 움짤과 같은 현상을 볼 수 있다.</p>
+ 481
 
+julia&gt; coordinate = coordinate + rand(gaussian2, N)'
+481×2 Array{Float64,2}:
+  0.399141     0.492689
+ -0.151015    -0.00161691
+ -0.00843121   0.10119
+  0.111592     0.00865223
+  0.0591775    0.150437
+  0.0060825    0.0383255
+ -0.0652535   -0.0688566
+ -0.702124    -0.485473
+  ⋮
+  0.437486    -0.354416
+ -0.149827     0.156366
+ -0.0737965   -0.168831
+  0.344358    -0.136392
+ -0.231089    -0.0695535
+  0.446688     0.143493
+  0.133667     0.156873
+</code></pre><p>위의 <strong>Step 2.</strong> 에서 에이전트가 19개 줄었으므로 $N$ 역시 업데이트 해주었고, 이 때의 개체수를 기록했다. 각 에이전트의 좌표는 행렬로 표현되고 있으므로 이변수 정규분포를 $N$ 번 뽑아 쌓은 $N \times 2$ 행렬을 더하면 에이전트가 이동한 것을 구현할 수 있다. 이를 마치고 <strong>Step 2.</strong> 로 돌아간다. 계속해서 반복하다가, $t = t_{\text{end}}$ 가 되면 멈춘다.</p>
+<p>위 과정을 반복하기만하면 포스트 상단의 움짤과 같은 현상을 볼 수 있다.</p>
+<h3 id="전체-코드">전체 코드</h3>
+<p>다음은 이 포스트에 쓰인 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다.</p>
+<pre><code>cd(@__DIR__) # 파일 저장 경로
+
+@time using Plots
+@time using Random
+@time using Distributions
+@time using LinearAlgebra
+
+N0 = 500 # 초기 인구수
+d = 0.04 # 사망률
+max_iteration = 180 # 시뮬레이션 기간
+gaussian2 = MvNormal([0.0; 0.0], 0.04I) # 2차원 정규분포
+
+Random.seed!(0);
+time_evolution = [] # 인구수를 기록하기 위한 스택
+let
+  coordinate = rand(gaussian2, N0)'
+  N = N0
+
+  anim = @animate for t = (0:max_iteration)/100
+    plot(coordinate[:,1], coordinate[:,2], seriestype = :scatter,
+      markercolor = RGB(1.,94/255,0.), markeralpha = 0.4, markerstrokewidth	= 0.1,
+      title = &quot;t = $t&quot;, aspect_ratio = 1, size = [400,400],
+      xaxis=true,yaxis=true,axis=nothing, legend = false)
+      xlims!(-10.,10.)
+      ylims!(-10.,10.)
+
+    coordinate = coordinate[(rand(N) .&gt; d),:]
+
+    N = size(coordinate, 1)
+    push!(time_evolution, N)
+    coordinate = coordinate + rand(gaussian2, N)'
+  end
+  gif(anim, &quot;malthusian_growth_simulation2.gif&quot;, fps = 18)
+end
+</code></pre>
 
 
 <script type="text/javascript">
@@ -759,7 +802,7 @@ $N$ 은 개체수를 나타내므로 우선 $N \leftarrow N_{0}$ 와 같이 초�
         <span style="color:rgb(255,204,000);">●</span> 프로그래밍</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1784)</summary>
+    <summary>전체 포스트 (1782)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
         </li><li>
@@ -773,7 +816,7 @@ $N$ 은 개체수를 나타내므로 우선 $N \leftarrow N_{0}$ 와 같이 초�
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0/" style="color: black">그래프 이론 (40)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (54)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (52)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
@@ -906,7 +949,7 @@ $N$ 은 개체수를 나타내므로 우선 $N \leftarrow N_{0}$ 와 같이 초�
 
 <aside>
     <p><b>태그</b></p>
-    <div>
+    <div><a class = "in_sidebar" href="https://freshrimpsushi.github.io/tags/%EC%A4%84%EB%A6%AC%EC%95%84/" title="줄리아" style="color: black">줄리아</a>&emsp;
     </div>
 </aside>
 
