@@ -48,10 +48,10 @@
     </script>
 
     
-<meta name="title" content="물리학에서 구배 물매란">
+<meta name="title" content="머신러닝에서 강화학습이란">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="물리학에서 구배 물매란"/>
-<meta property="og:description" content="292"/>
+<meta property="og:title" content="머신러닝에서 강화학습이란"/>
+<meta property="og:description" content="reinforcement learning in machine learning"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -63,15 +63,15 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "j_",
-    "name": "물리학에서 구배 물매란",
-    "headline": "물리학에서 구배 물매란",
+    "name": "머신러닝에서 강화학습이란",
+    "headline": "머신러닝에서 강화학습이란",
     "alternativeHeadline": "",
-    "description": "292",
+    "description": "reinforcement learning in machine learning",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/292\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/reinforcement-learning-in-machine-learning\/"
     },
     "author" : {
         "@type": "Person",
@@ -86,10 +86,10 @@
         "name": "전기현"
     },
     "copyrightHolder" : "생새우초밥집",
-    "copyrightYear" : "2017",
-    "dateCreated": "2017-11-02T00:00:00.00Z",
-    "datePublished": "2017-11-02T00:00:00.00Z",
-    "dateModified": "2017-11-02T00:00:00.00Z",
+    "copyrightYear" : "2021",
+    "dateCreated": "2021-02-04T00:00:00.00Z",
+    "datePublished": "2021-02-04T00:00:00.00Z",
+    "dateModified": "2021-02-04T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -102,15 +102,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/292\/",
-    "wordCount" : "186",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/reinforcement-learning-in-machine-learning\/",
+    "wordCount" : "2964",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>물리학에서 구배 물매란</title>
+    <title>머신러닝에서 강화학습이란</title>
 
 </head>
 
@@ -250,20 +250,16 @@
             <div class = "content">
             
 
-<title>물리학에서 구배 물매란</title>
+<title>머신러닝에서 강화학습이란</title>
 
-<h1>물리학에서 구배 물매란</h1>
+<h1>머신러닝에서 강화학습이란</h1>
 <aside>
     <p style="text-align: right;">
-        292
+        3029
 
     
     
-            <a href="https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0-%ED%95%B4%EC%84%9D/" style="color: black">벡터 해석</a>&emsp;
-            
-    </span>
-    
-    작성일: 2017-11-02&nbsp;<br>
+    작성일: 2021-02-04&nbsp;<br>
     작성자: 전기현 사장 &nbsp;
 </p>
 </aside>
@@ -272,32 +268,182 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#정의">정의</a></li>
+    <li><a href="#설명1">설명</a>
+      <ul>
+        <li><a href="#상태">상태</a></li>
+        <li><a href="#행동">행동</a></li>
+        <li><a href="#정책">정책</a></li>
+        <li><a href="#보상">보상</a></li>
+        <li><a href="#환경">환경</a></li>
+        <li><a href="#에피소드">에피소드</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-물리학 교재에서 구배, 물매라는 단어를 본 적이 있을 것이다. 바로 그래디언트$\mathrm {Gradient}$이다.구배, 물매는 $\mathrm {Gradient}$의 옛날식 번역이다.  요즘은 gradient는 기울기로 번역한다. 혹은 경사라고도 하지만 대부분 기울기라고 쓰는 것 같다.그러니 $f$의 구배를 구하라는 문제를 봤다면 당황하지 말고 $\nabla f$를 구하면 된다.</p>
+<h2 id="정의">정의</h2>
+<p>강화학습이란, <strong>에이전트</strong>가 <strong>환경</strong>과 상호작용하여 <strong>누적 보상</strong>을 최대화하는 <strong>정책</strong>을 찾을 수 있도록 하는 것이다.</p>
+<h2 id="설명1">설명<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>강화학습을 이루고 있는 요소들은 다음과 같다.</p>
+<ul>
+<li><strong>에이전트<sup>agent</sup></strong>: 주어진 상태에 대해서, 정책에 따라 행동을 결정한다.</li>
+<li><strong>상태<sup>state</sup></strong>: 에이전트가 처한 상황을 말한다.</li>
+<li><strong>행동<sup>action</sup></strong>: 에이전트가 주어진 상태에서 취할 수 있는 선택지를 말한다.</li>
+<li><strong>정책<sup>policy</sup></strong>: 에이전트가 주어진 상태에서 행동을 결정하는 전략을 말한다.</li>
+<li><strong>보상<sup>reward</sup></strong>: 에이전트가 주어진 상태에서 선택한 행동에 따라서 받는 점수를 말한다.</li>
+<li><strong>환경<sup>environment</sup></strong>: 에이전트가 주어진 상태에서 어떠한 행동을 결정하면, MDP에 따라 다음 상태와 그에 따른 보상을 결정한다.</li>
+<li><strong>에피소드<sup>episode</sup></strong>: 에이전트와 환경의 상호작용이 시작된 때부터 끝날 때까지를 말한다.</li>
+</ul>
+<p>이를 여러 상황에 비유하면 다음과 같다.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">강화학습</th>
+<th style="text-align:center">시험공부</th>
+<th style="text-align:center">바둑</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">에이전트</td>
+<td style="text-align:center">학생</td>
+<td style="text-align:center">바둑기사</td>
+</tr>
+<tr>
+<td style="text-align:center">상태</td>
+<td style="text-align:center">시험까지남은날짜</td>
+<td style="text-align:center">바둑판</td>
+</tr>
+<tr>
+<td style="text-align:center">행동</td>
+<td style="text-align:center">공부, 음주, 게임 등</td>
+<td style="text-align:center">수 놓기</td>
+</tr>
+<tr>
+<td style="text-align:center">정책</td>
+<td style="text-align:center">벼락치기 등 여러가지 공부법</td>
+<td style="text-align:center">상보다 집을 많이 만들기</td>
+</tr>
+<tr>
+<td style="text-align:center">보상</td>
+<td style="text-align:center">시험점수</td>
+<td style="text-align:center">승패</td>
+</tr>
+<tr>
+<td style="text-align:center">에피소드</td>
+<td style="text-align:center">시험기간</td>
+<td style="text-align:center">한 판</td>
+</tr>
+</tbody>
+</table>
+<p>이제 다음의 격자 모델을 예시로 들어 각 요소들을 구체적으로 설명하겠다. 한 번에 상하좌우 네 방향 중 하나로 한 칸씩 움직일 수 있는 로봇이 아래와 같은 격자칸에 서있는 경우를 생각해보자. 시작칸은 $\bbox[3px, border:1px solid black]{2}$부터 $\bbox[3px, border:1px solid black]{15}$까지 임의로 정해지고, 로봇이 $\bbox[darkgray, 3px, border:1px solid black]{1}$ 혹은 $\bbox[darkgray, 3px, border:1px solid black]{16}$으로 이동하면 에피소드가 끝난다고 하자.</p>
+<p><img src="1.PNG#center" alt="1.PNG"></p>
+<h3 id="상태">상태</h3>
+<p><strong>상태</strong>는 <a href="../1433">확률변수</a>이며 state의 앞글자를 따서 $S$라고 표기한다. 에피소드는 시간에 따라 순차적으로 진행되기 때문에 인덱스로 $t$를 쓴다. 따라서 타임스텝이 $t$일 때의 상태함수를 $S_{t}$라고 표기한다. 처음 상태는 보통 $t=0$으로 나타낸다. 정리하면 $S_{t}$는 시간이 $t$일 때 각각의 격자들에 대해서 다음과 같이 함숫값을 주는 함수이다.</p>
+<p>$$
+S_{t} \left( \bbox[3px, border:1px solid black]{n} \right) = n,\quad 1\le n \le 16
+$$</p>
+<p>이때 가능한 모든 상태값(상태함수의 함숫값)들의 집합을 $\mathcal{S}\subset \mathbb{R}$라고 표기하고, 이의 원소를 $s$로 표기한다.</p>
+<p>$$
+\mathcal{S} = \left\{ s_{1}, s_{2},\dots \right\}
+$$</p>
+<p>그러면 위 격자모델에 대한 상태함수는 다음과 같다.</p>
+<p>$$
+S_{t} : \left\{\bbox[darkgray, 3px, border:1px solid black]{1}, \bbox[3px, border:1px solid black]{2}, \dots, \bbox[3px, border:1px solid black]{15}, \bbox[darkgray, 3px, border:1px solid black]{16} \right\} \to \mathcal{S}
+\\ S_{t} \left( \bbox[3px, border:1px solid black]{n} \right) = s_{n}=n,\quad 1\le n \le 16
+$$</p>
+<p>그러면 시간이 $t$일 때 상태값이 $s_{6}$였다가 다음 타임스텝에서 상태값이 $s_{10}$으로 바뀔 <a href="../1431">확률</a>은 다음과 같다.</p>
+<p>$$
+P \left( S_{t+1} = s_{10} | S_{t} = s_{6}  \right)
+$$</p>
+<p>도달한 순간 에피소드가 끝나게 되는 상태를 <strong>터미널 스테이트</strong><sup>terminal state</sup>라고 한다. 위 격자 모델에서 터미널 스테이트는 $\bbox[darkgray, 3px, border:1px solid black]{1}$, $\bbox[darkgray, 3px, border:1px solid black]{16}$이다.</p>
+<h3 id="행동">행동</h3>
+<p><strong>행동</strong>이란 에이전트가 현재 상태에서 취할 수 있는 선택지를 말하며 이 또한 확률변수이다. action의 앞글자를 따와서 $A_{t}$로 표기한다. 위의 격자모델 예시에서는 $\bbox[3px, border:1px solid black]{2}$~$\bbox[3px, border:1px solid black]{15}$에서 각각 상하좌우를 선택할 수 있다. 가능한 모든 행동값(행동함수의 함숫값)들의 집합을 $\mathcal{A}\subset \mathbb{R}$라고 표기하고, 이의 원소를 $a$라고 표기한다.</p>
+<p>$$
+\mathcal{A} = \left\{ a_{1}, a_{2}, \dots \right\}
+$$</p>
+<p>그러면 타임스텝 $t$에서의 행동함수는 다음과 같다.</p>
+<p>$$
+A_{t} : \left\{ \uparrow, \rightarrow, \downarrow, \leftarrow \right\} \to \mathcal{A}
+\\  \begin{cases}
+A_{t}(\uparrow) = a_{1}
+\\ A_{t}(\rightarrow) = a_{2}
+\\ A_{t}(\downarrow) = a_{3}
+\\ A_{t}(\leftarrow) = a_{4}
+\end{cases}
+$$</p>
+<p>에이전트는 주어진 상태에서 확률에 따라 행동을 결정한다. 예를들어 타임스텝이 $t$일 때 상태값이 $s_{6}$인 상황에서 행동 $a_{1}$을 선택한 확률은 다음과 같다.</p>
+<p>$$
+P(A_{t} = a_{1} | S_{t} = s_{6})
+$$</p>
+<h3 id="정책">정책</h3>
+<p>정책은 상태 $s$에서 행동 $a$를 결정할 확률을 모든 $s$와 $a$에 대해서 명시한 것을 말하며 $\pi$로 표기한다. 격자모델 예시에서 행동을 결정할 확률이 $\dfrac{1}{4}$로 모두 같다고 하면 정책 $\pi$는 다음과 같다.</p>
+<p>$$
+\pi 
+\begin{cases}
+P(a_{1} | s_{2}) = \dfrac{1}{4}
+\\ P(a_{2} | s_{2}) = \dfrac{1}{4}
+\\ P(a_{3} | s_{2}) = \dfrac{1}{4}
+\\ \vdots
+\\ P(a_{2} | s_{15}) = \dfrac{1}{4}
+\\ P(a_{3} | s_{15}) = \dfrac{1}{4}
+\\ P(a_{4} | s_{15}) = \dfrac{1}{4}
+\end{cases} \quad \text{or} \quad
+\pi : \mathcal{S} \times \mathcal{A} \to [0,1]
+$$</p>
+<p>물론 이는 최적화된 정책은 아니다. 간단히 $\bbox[3px, border:1px solid black]{2}$의 경우만 생각해봐도 위쪽으로 가면 격자 밖으로 벗어난 것이므로 위쪽으로 갈 확률 자체가 아예 없는 것이 더 나은 정책이다. 따라서 아래의 그림에서 $\pi_{1}$보다 $\pi_{2}$가 더 좋은 정책이라고 말할 수 있다.</p>
+<p><img src="2.PNG#center" alt="2.PNG"></p>
+<p>강화학습 알고리즘의 목표는 최적의 정책을 찾는 것이다. 그러면 최적의 정책은 어떻게 찾느냐 하는건데, 정책의 좋은 정도를 평가하는 <strong>가치함수</strong><sup>value function</sup>를 통해서 찾을 수 있다.</p>
+<h3 id="보상">보상</h3>
+<p>보상이란 주어진 상태에서 에이전트가 선택한 행동에 따라 실수를 매핑하는 확률변수이며 reward의 앞글자를 따서 $R_{t}$라 표기한다. 모든 보상값(보상함수의 함숫값)들의 집합을 $\mathcal{R} \subset \mathbb{R}$이라 표기하며, 이의 원소를 $r$으로 표기한다.</p>
+<p>$$
+\mathcal{R} = \left\{ r_{1}, r_{2}, \dots \right\}
+\\ R_{t} = \mathcal{S} \times \mathcal{A} \to \mathcal{R}
+$$</p>
+<p>보상은 한 번의 타임스텝마다 한 번씩 받게 되며 한 번의 에피소드에서 받은 총 보상, 그러니까 누적된 보상이 가장 크게 끔 하는 정책을 찾는 것이 강화학습의 궁극적인 목표이다. 그렇다면 왜 각각의 타임스텝에서의 보상보다 누적 보상이 커지도록 하는 것인지 궁금할 수 있다. 이는 시험공부로 비유하면 쉽게 이해가 갈 것이다. 시험기간동안 매일 저녁에 공부 대신 술 마시고 놀거나 게임을 하면 당장은 공부를 하는 것보다 더 즐거울 것이다. 하지만 누적보상, 그러니까 시험 성적은 개판일 것이다. 따라서 당장은 공부를 하는 것이 지치고 힘들지라도 미래의 큰 보상을 위해서 공부를 하는 것이 낫다고 판단하여 시험공부를 하는 것이다.</p>
+<p>보상은 사람이 정하는 하이퍼 파라매터이다. 따라서 에이전트가 수행해야할 일에 따라서 적절하게 정해야한다. 가령 격자모델 예시에서 격자가 미로이고 에이전트가 미로를 탈출하는 로봇이라면 한 칸을 이동할 때마다 $-1$의 보상, 터미널 스테이트에 도착하면 $+10$의 보상을 주는 식으로 정할 수 있다. 격자가 공원이고 에이전트가 애완동물을 산책시키는 로봇이라면 한 칸을 이동할 때 마다 $0$의 보상, 터미널 스테이트에 도착하면 $+10$의 보상을 주는 식으로 정할 수 있다.</p>
+<h3 id="환경">환경</h3>
+<p><strong>환경</strong>은 에이전트가 주어진 상태에서 선택한 행동에 따라 다음 상태와 보상을 결정하는 함수, 즉 $f : (s,a) \mapsto (s',r)$이다. 따라서 항상 현실에 딱 들어맞는 비유를 찾기는 어렵다.</p>
+<p>타임스텝이 $t$일 때의 상태를 $s_{t}$, $s_{t}$에서 선택한 행동을 $a_{t}$라고 하자. 이에 따라 환경이 결정한 다음 상태를 $s_{t+1}$, 보상을 $r_{t+1}$라고 하면 다음과 같이 나타낸다.</p>
+<p>$$
+f(s_{t}, a_{t}) = (s_{t+1}, r_{t+1})
+$$</p>
+<p>격자모델 예시에 대해서 구체적으로 설명하면 다음과 같다. 에이전트가 $\bbox[3px, border:1px solid black]{7}$에서 $\uparrow$를 선택하여 환경이 다음 상태 $\bbox[3px, border:1px solid black]{3}$와 보상 $-1$를 결정했다면 다음과 같은 수식으로 나타낸다.</p>
+<p>$$
+f(s_{7}, a_{1}) = (s_{3}, -1)
+$$</p>
+<p>에이전트가 행동을 결정하는 전략을 <strong>정책</strong>이라고 부른다면, 환경이 다음 상태와 보상을 결정하는 것을 <strong>MDP</strong><sup>markov decision process, 마코프 결정 과정</sup>라 한다. 에이전트와 환경의 상호작용을 그림으로 나타내면 다음과 같다.</p>
+<p><img src="3.PNG#center" alt="3.PNG"></p>
+<h3 id="에피소드">에피소드</h3>
+<p>에이전트와 환경이 상호작용하면서 결정된 상태, 행동, 보상의 수열을 <strong>경로</strong><sup>trajectory, 궤적</sup> 혹은 <strong>히스토리</strong><sup>history</sup> 이라고 한다. 경로가 유한한 경우를 <strong>episode task</strong>라고 한다. 위에서 예로든 시험기간, 바둑, 격자모델 모두 이에 해당한다.</p>
+<p>$$
+s_{0}, a_{0}, s_{1}, r_{1}, a_{1}, s_{2}, r_{2}, \dots, a_{T-1}, s_{T}, r_{T}
+\\ \text{or}
+\\ (s_{0},) \overset{a_{0}}{\to} (s_{1}, r_{1}) \overset{a_{1}}{\to} (s_{2}, r_{2}) \overset{a_{2}}{\to} \cdots \overset{a_{T-1}}{\to} (s_{T}, r_{T})
+$$</p>
+<p>경로기 무한한 경우를 <strong>continuing task</strong>라고 한다. 다만 아주 긴 시간동안 지속되는 에피소드는 무한한 경우라고 간주 한다.</p>
+<p>$$
+s_{0}, a_{0}, s_{1}, r_{1}, a_{1}, s_{2}, r_{2}, \dots, a_{t-1}, s_{t}, r_{t}, a_{t}, s_{t+1}, r_{t+1},\dots
+\\ \text{or}
+\\ (s_{0},) \overset{a_{0}}{\to} (s_{1}, r_{1}) \overset{a_{1}}{\to} (s_{2}, r_{2}) \overset{a_{2}}{\to} \cdots \overset{a_{t-1}}{\to} (s_{t}, r_{t}) \overset{a_{t}}{\to} (s_{t+1}, r_{t+1}) \overset{a_{t+1}}{\to} \cdots
+$$</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>오일석, 기계 학습(MACHINE LEARNING). 2017, p466-480 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var title = '물리학에서 구배 물매란';
-        var link = 'https:\/\/freshrimpsushi.github.io\/posts\/292\/';
+        var title = '머신러닝에서 강화학습이란';
+        var link = 'https:\/\/freshrimpsushi.github.io\/posts\/reinforcement-learning-in-machine-learning\/';
         var arr = new Array();
         var obj = {
             "title": title,
@@ -415,9 +561,9 @@ margin-right: auto;">
             alert('빈칸을 채워주세요');
             return;
         }
-        let board_idx = '292';
-        let board_slug = '292';
-        let board_title = '물리학에서 구배 물매란';
+        let board_idx = '3029';
+        let board_slug = 'reinforcement-learning-in-machine-learning';
+        let board_title = '머신러닝에서 강화학습이란';
 
         $.ajax({
             type: "POST",
@@ -531,7 +677,7 @@ margin-right: auto;">
             type: "POST",
             url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.comment.php?action=getComment",
             data: {
-                board_idx: '292'
+                board_idx: '3029'
             },
             dataType: "json",
             success: function (data) {
@@ -589,9 +735,9 @@ margin-right: auto;">
                 alert('빈칸을 채워주세요');
                 return;
             }
-            let idx = '292';
-            let board_slug = '292';
-            let board_title = '물리학에서 구배 물매란';
+            let idx = '3029';
+            let board_slug = 'reinforcement-learning-in-machine-learning';
+            let board_title = '머신러닝에서 강화학습이란';
 
             $.ajax({
                 type: "POST",
@@ -662,7 +808,7 @@ margin-right: auto;">
         <span style="color:rgb(255,051,051);">●</span> 알고리즘 (30-)</a><br>    
     <hr>
 <details>
-    <summary>전체 포스트 (1782)</summary>
+    <summary>전체 포스트 (1781)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
         </li><li>
@@ -692,7 +838,7 @@ margin-right: auto;">
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A0%EC%9D%B4%EC%A7%80%EC%95%88/" style="color: black">베이지안 (11)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0-%ED%95%B4%EC%84%9D/" style="color: black">벡터 해석 (43)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0-%ED%95%B4%EC%84%9D/" style="color: black">벡터 해석 (40)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B5%EC%86%8C%ED%95%B4%EC%84%9D/" style="color: black">복소해석 (59)</a>
         </li><li>
@@ -726,7 +872,7 @@ margin-right: auto;">
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/" style="color: black">위상수학 (59)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/" style="color: black">전자기학 (54)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/" style="color: black">전자기학 (53)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
@@ -760,7 +906,7 @@ margin-right: auto;">
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">해석학미분류 (28)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (44)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (45)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
         </li><li>
@@ -821,7 +967,7 @@ margin-right: auto;">
 
 <aside>
     <p><b>최근 댓글</b></p>
-    <ul class="current-reply", style="list-style-type: none; padding-left:4px;">
+    <ul class="current-reply">
         
     </ul>
 </aside>
