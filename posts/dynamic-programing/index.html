@@ -103,7 +103,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/dynamic-programing\/",
-    "wordCount" : "929",
+    "wordCount" : "934",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -272,43 +272,35 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#빌드업">빌드업</a></li>
+    <li><a href="#정의">정의</a></li>
+    <li><a href="#예시">예시</a></li>
+    <li><a href="#코드">코드</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-문제를 풀 때, 큰 문제의 해답에 그보다 작은 문제의 해답이 포함되어 있으면 <strong>최적 부분 구조</strong><sup>Optimal Substructure</sup> 를 가진다고 한다. 최적 부분 구조를 갖춘 문제의 예로써 가장 쉬운 것이 바로 <a href="../680">피보나치 수</a>를 구하는 것이다. $n$ 번째 피보나치 수는 $a_{n} = a_{n-1} + a_{n-2}$ 와 같이 구해지므로, 큰 문제 $a_{n}$ 에 작은 문제 $a_{n-1}$, $a_{n-2}$ 가 포함되어 있기 때문이다.이를 간단하게 푸는 방법은 바로 재귀함수를 사용하는 것이다. 사실 최적 부분 구조를 갖고 있다면 어지간한 문제는 재귀함수로 풀 수 있어보이지만, 실제로 구현해보면 중복호출 때문에 <a href="../1254">몹시 비효율적</a>이다. <strong>동적 프로그래밍</strong> 은 이러한 어려움을 우회하기 위한 기법으로써, 다음의 조건을 만족할 때 사용해봄직하다 :</p>
-<p><strong>(i)</strong>  : 주어진 문제가 최적 부분 구조를 가진다.</p>
-<p><strong>(ii)</strong>  : 재귀함수로 구현하기에는 비효율적이다.동적 프로그래밍의 개념은 간단하다. 작은 문제의 해답을 저장해가면서 중복 호출을 생략하는 것이다. 가령 6번째 피보나치 수 $a_{6}$ 를 구하기 위해서는
+<h2 id="빌드업">빌드업</h2>
+<p>문제를 풀 때, 큰 문제의 해답에 그보다 작은 문제의 해답이 포함되어 있으면 <strong>최적 부분 구조</strong><sup>Optimal Substructure</sup>를 가진다고 한다. 최적 부분 구조를 갖춘 문제의 예로써 가장 쉬운 것이 바로 <a href="../680">피보나치 수</a>를 구하는 것이다. $n$ 번째 피보나치 수는 $a_{n} = a_{n-1} + a_{n-2}$ 와 같이 구해지므로, 큰 문제 $a_{n}$ 에 작은 문제 $a_{n-1}$, $a_{n-2}$ 가 포함되어 있기 때문이다.이를 간단하게 푸는 방법은 바로 재귀함수를 사용하는 것이다. 사실 최적 부분 구조를 갖고 있다면 어지간한 문제는 재귀함수로 풀 수 있어보이지만, 실제로 구현해보면 중복호출 때문에 <a href="../1254">몹시 비효율적</a>이다.</p>
+<h2 id="정의">정의</h2>
+<p><strong>동적 프로그래밍</strong><sup>Dynamic Programing</sup>은 이러한 어려움을 우회하기 위한 기법으로써, 다음의 조건을 만족할 때 사용해봄직하다:</p>
+<ul>
+<li>(i): 주어진 문제가 최적 부분 구조를 가진다.</li>
+<li>(ii): 재귀함수로 구현하기에는 비효율적이다.</li>
+</ul>
+<h2 id="예시">예시</h2>
+<p>동적 프로그래밍의 개념은 간단하다. 작은 문제의 해답을 저장해가면서 중복 호출을 생략하는 것이다. 가령 6번째 피보나치 수 $a_{6}$ 를 구하기 위해서는
 $$
 a_{1} = 1
-$$</p>
-<p>$$
-a_{2} = 1
-$$</p>
-<p>$$
-a_{3} = 2
-$$</p>
-<p>$$
-a_{4} = 3
-$$</p>
-<p>$$
-a_{5} = 5
+\\ a_{2} = 1
+\\ a_{3} = 2
+\\ a_{4} = 3
+\\ a_{5} = 5
 $$
-을 매번 계산하는 것이 아니라 메모리에 저장해두고, 마지막 $a_{4}$ 와 $a_{5}$ 만을 호출해서 $a_{6} = a_{5} + a_{4} = 8$ 을 계산하는 것이다. 이를 <strong>메모이제이션</strong><sup>Memoization</sup> 이라고 한다.[^1] 설명을 읽어보면 딱히 <a href="../856">동적Dynamic</a>이지는 않은데, 원래 제어 분야에서 해답을 테이블에 저장해나가면서 풀어간다는 것에서 유래된 말이라는 설이 있었다. 그러나 동적 프로그래밍의 고안자인 벨만Bellman이 직접 자신의 저서에서 밝히기로는 그냥 다이내믹이라는 말이 멋있고, 펀딩을 받기 좋은 단어라서 선택했다고 한다.다음은 $a_{36}=14930352$ 을 두 가지 방법으로 계산하고 그 시간을 계산한 움짤과 그 파이썬 코드다. 동적프로그래밍으로는 0.01초가 조금 넘는 시간밖에 걸리지 않았지만, 재귀함수로는 5초이상 걸렸다. 이 차이는 $n$ 이 클수록 더 커진다. 이론적으로도 주어진 $n$ 에 대해서 재귀함수는 지수적으로, 동적 프로그래밍은 선형적으로 시간을 쓴다는 것을 간단하게 <a href="../1283">증명</a>할 수 있다.<img src="Honeycam2019-08-2614-03-10.gif#center" alt="Honeycam2019-08-2614-03-10.gif"></p>
+을 매번 계산하는 것이 아니라 메모리에 저장해두고, 마지막 $a_{4}$ 와 $a_{5}$ 만을 호출해서 $a_{6} = a_{5} + a_{4} = 8$ 을 계산하는 것이다. 이를 <strong>메모이제이션</strong><sup>Memoization</sup>이라고 한다.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 설명을 읽어보면 딱히 <a href="../856">동적Dynamic</a>이지는 않은데, 원래 제어 분야에서 해답을 테이블에 저장해나가면서 풀어간다는 것에서 유래된 말이라는 설이 있었다. 그러나 동적 프로그래밍의 고안자인 벨만<sup>Bellman</sup>이 직접 자신의 저서에서 밝히기로는 그냥 다이내믹이라는 말이 멋있고, 펀딩을 받기 좋은 단어라서 선택했다고 한다.</p>
+<p>다음은 $a_{36}=14930352$ 을 두 가지 방법으로 계산하고 그 시간을 계산한 움짤과 그 파이썬 코드다. 동적프로그래밍으로는 0.01초가 조금 넘는 시간밖에 걸리지 않았지만, 재귀함수로는 5초이상 걸렸다. 이 차이는 $n$ 이 클수록 더 커진다. 이론적으로도 주어진 $n$ 에 대해서 재귀함수는 지수적으로, 동적 프로그래밍은 선형적으로 시간을 쓴다는 것을 간단하게 <a href="../1283">증명</a>할 수 있다.</p>
+<p><img src="Honeycam2019-08-2614-03-10.gif#center" alt="Honeycam2019-08-2614-03-10.gif"></p>
+<h2 id="코드">코드</h2>
 <pre><code>
 import time
 
@@ -331,7 +323,15 @@ print(&quot;동적 프로그래밍으로 계산할 때 걸린 시간 : %5.3f&quo
 start = time.time() 
 print(fibo1(36))
 print(&quot;재귀함수로 계산할 때 걸린 시간 : %5.3f&quot; % (time.time() - start))
-```[^1]: 메모Memo에서 나온 말로써, 메모라이제이션Memoriztion이 아니다.</code></pre>
+</code></pre><section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>메모Memo에서 나온 말로써, 메모라이제이션Memoriztion이 아니다. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
 
 
 <script type="text/javascript">
@@ -702,7 +702,7 @@ print(&quot;재귀함수로 계산할 때 걸린 시간 : %5.3f&quot; % (time.ti
         <span style="color:rgb(255,051,051);">●</span> 알고리즘 (30-)</a><br>    
     <hr>
 <details>
-    <summary>전체 포스트 (1780)</summary>
+    <summary>전체 포스트 (1782)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (8)</a>
         </li><li>
@@ -756,7 +756,7 @@ print(&quot;재귀함수로 계산할 때 걸린 시간 : %5.3f&quot; % (time.ti
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%A4%EC%A0%84-%EC%88%98%EB%8A%A5-%EC%8A%A4%ED%82%AC/" style="color: black">실전 수능 스킬 (16)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (14)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (13)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
@@ -792,7 +792,7 @@ print(&quot;재귀함수로 계산할 때 걸린 시간 : %5.3f&quot; % (time.ti
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90-%ED%95%B4%EC%84%9D/" style="color: black">푸리에 해석 (41)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (16)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (17)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (54)</a>
         </li><li>
@@ -800,7 +800,7 @@ print(&quot;재귀함수로 계산할 때 걸린 시간 : %5.3f&quot; % (time.ti
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">해석학미분류 (28)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (45)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (47)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
         </li><li>
