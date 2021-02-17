@@ -12,8 +12,8 @@ if caution != "y":
 for author in ["r_"]:
     depth1 = os.path.join(author)
     print(depth1)
-    for category in os.listdir(depth1):
-    # for category in ["0_recent"]:
+    # for category in os.listdir(depth1):
+    for category in ["알고리즘"]:
         if category == "main":
             print("mian")
             continue
