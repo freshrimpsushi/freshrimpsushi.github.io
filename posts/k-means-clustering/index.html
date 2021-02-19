@@ -48,9 +48,9 @@
     </script>
 
     
-<meta name="title" content="케이-평균 군집화">
+<meta name="title" content="k-평균 군집화">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="케이-평균 군집화"/>
+<meta property="og:title" content="k-평균 군집화"/>
 <meta property="og:description" content="k means clustering"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
@@ -63,8 +63,8 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "r_",
-    "name": "케이-평균 군집화",
-    "headline": "케이-평균 군집화",
+    "name": "k-평균 군집화",
+    "headline": "k-평균 군집화",
     "alternativeHeadline": "",
     "description": "k means clustering",
     "inLanguage": "ko",
@@ -103,14 +103,14 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/k-means-clustering\/",
-    "wordCount" : "579",
+    "wordCount" : "753",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>케이-평균 군집화</title>
+    <title>k-평균 군집화</title>
 
 </head>
 
@@ -250,9 +250,9 @@
             <div class = "content">
             
 
-<title>케이-평균 군집화</title>
+<title>k-평균 군집화</title>
 
-<h1>케이-평균 군집화</h1>
+<h1>k-평균 군집화</h1>
 <aside>
     <p style="text-align: right;">
         1365
@@ -272,43 +272,51 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#알고리즘">알고리즘</a></li>
+    <li><a href="#설명">설명</a>
+      <ul>
+        <li><a href="#장단점">장단점</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-$p$ 차원의 데이터 $N$ 개와 자연수 $k$ 가 주어져있다고 하자.**Step 1.
-$k$ 개의 점 $\mu_{1} , \cdots , \mu_{k} $ 을 랜덤하게 정한다. 각각의 $\mu_{j}$ 는 군집 $M_{j}$ 의 평균이 될 것이다.</p>
+<h2 id="알고리즘">알고리즘</h2>
+<p><strong>Input</strong></p>
+<p>$p$ 차원의 데이터 $N$ 개와 자연수 $k$ 가 주어져있다고 하자.</p>
+<hr>
+<p><strong>Step 1. 초기화</strong></p>
+<p>$k$ 개의 점 $\mu_{1} , \cdots , \mu_{k} $ 을 랜덤하게 정한다. 각각의 $\mu_{j}$ 는 군집 $M_{j}$ 의 평균이 될 것이다.</p>
 <p><img src="20191001_085422.png#center" alt="20191001\_085422.png"></p>
-<p><strong>Step 2.</strong>  $i$ 번째 데이터 $x_{i}$ 와 $j = 1 , \cdots , k$ 에 대해서 $| x_{i} - \mu_{j} | $ 를 계산한다. 그 중 가장 작은 것을 골라 $x_{i} \in M_{j}$ 이 되도록 한다. 이를 각각의 $i = 1 , \cdots , N $ 에 대해 반복한다.</p>
+<hr>
+<p><strong>Step 2. 거리 계산</strong></p>
+<p>$i$ 번째 데이터 $x_{i}$ 와 $j = 1 , \cdots , k$ 에 대해서 $\| x_{i} - \mu_{j} \| $ 를 계산한다. 그 중 가장 작은 것을 골라 $x_{i} \in M_{j}$ 이 되도록 한다. 이를 각각의 $i = 1 , \cdots , N $ 에 대해 반복한다.</p>
 <p><img src="20191001_085734.png#center" alt="20191001\_085734.png"></p>
-<p><strong>Step 3.</strong>  $\mu_{j}$ 업데이트다음의 업데이트를 $j = 1 , \cdots , k$ 에 대해 반복한다.
+<hr>
+<p><strong>Step 3.  $\mu_{j}$ 업데이트</strong></p>
+<p>다음의 업데이트를 $j = 1 , \cdots , k$ 에 대해 반복한다.
 $$
 \displaystyle \mu_{j} \leftarrow \sum_{x \in M_{j}} {{ x } \over {| M_{j} |}}
 $$
 업데이트를 해도 $\mu_{j}$ 들이 더 이상 변하지 않으면 알고리즘을 끝내고, 제대로 업데이트가 되었다면 <strong>Step 2.</strong> 로 돌아간다.</p>
 <p><img src="20191001_091309.png#center" alt="20191001\_091309.png"></p>
-<p> * 여기서 $| \cdot | := \sqrt{ | \cdot^2 | } $ 는 $l_{2}$-놈 혹은 유클리드 놈, 유쥬얼 놈 등으로 불리는 <a href="../381">거리 개념</a>이다.</p>
-<p>$k$-평균 군집화는 주어진 데이터를 $k$ 개의 부류로 군집화하는 <a href="../1013">비지도학습법</a>이다. 위의 삽화들은 특히 $p=2$ 차원에서 주어진 $N=20$ 개의 데이터를 $k=2$ 개의 부류로 구분하는 것을 나타내고 있다.평균은 제곱 에러를 최소화하는 <a href="../740">대표값</a>이며, $k$-평균 클러스터링은 이러한 수학적 사실을 기반으로 데이터를 잘 분류한다. 더욱 쉽게 설명하자면, 좌표를 더해서 평균을 낸다는 것은 기하학적인 센스에서 무게중심을 의미하므로 $\mu_{j}$ 들이 어떤 데이터의 중심으로 빨려들어가는 것이다. 물론 이를 보장하려면 더 강한 조건과 수식적인 설명이 필요하지만, 애초에 $k$-평균 클러스터링은 단순함이 매력인 알고리즘이므로 이에 대해서 굳이 깊게 파고들지 않겠다.</p>
+<hr>
+<p><strong>Output</strong></p>
+<p>각 군집의 무게중심인 $\mu_{j}$ 과 각 데이터들이 어떤 군집에 속하는지 반환한다.</p>
+<hr>
+<p> - 여기서 $\| \cdot \|$ 는 $l_{2}$-놈 혹은 유클리드 놈, 유쥬얼 놈 등으로 불리는 <a href="../381">거리 개념</a>이다.</p>
+<h2 id="설명">설명</h2>
+<p>$k$-평균 군집화는 주어진 데이터를 $k$ 개의 부류로 군집화하는 <a href="../1013">비지도학습법</a>이다. 위의 삽화들은 특히 $p=2$ 차원에서 주어진 $N=20$ 개의 데이터를 $k=2$ 개의 부류로 구분하는 것을 나타내고 있다.</p>
+<p>평균은 제곱 에러를 최소화하는 <a href="../740">대표값</a>이며, $k$-평균 클러스터링은 이러한 수학적 사실을 기반으로 데이터를 잘 분류한다. 더욱 쉽게 설명하자면, 좌표를 더해서 평균을 낸다는 것은 기하학적인 센스에서 무게중심을 의미하므로 $\mu_{j}$ 들이 어떤 데이터의 중심으로 빨려들어가는 것이다. 물론 이를 보장하려면 더 강한 조건과 수식적인 설명이 필요하지만, 애초에 $k$-평균 클러스터링은 단순함이 매력인 알고리즘이므로 이에 대해서 굳이 깊게 파고들지 않겠다.</p>
+<h3 id="장단점">장단점</h3>
+<p>가장 큰 문제는 이러한 분류가 별로 정확하지가 않다는 것인데, 이를 보완하기 위한 수많은 알고리즘이 나왔음에도 단순함으로 이 알고리즘을 압도할 알고리즘은 없다. 데이터 사이언티스트의 입장에서 데이터를 받자마자 가장 먼저 시도하는 것은 바로 이 $k$-평균 군집화다. 군집화 한번으로 분석을 끝내려는 게 아니라, 분석을 시작하면서 감을 잡기 위해서 쓰는 알고리즘인 것이다.</p>
 
 
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var title = '케이-평균 군집화';
+        var title = 'k-평균 군집화';
         var link = 'https:\/\/freshrimpsushi.github.io\/posts\/k-means-clustering\/';
         var arr = new Array();
         var obj = {
@@ -429,7 +437,7 @@ $$
         }
         let board_idx = '1365';
         let board_slug = 'k-means-clustering';
-        let board_title = '케이-평균 군집화';
+        let board_title = 'k-평균 군집화';
 
         $.ajax({
             type: "POST",
@@ -603,7 +611,7 @@ $$
             }
             let idx = '1365';
             let board_slug = 'k-means-clustering';
-            let board_title = '케이-평균 군집화';
+            let board_title = 'k-평균 군집화';
 
             $.ajax({
                 type: "POST",
@@ -663,9 +671,11 @@ $$
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 수리통계학 (40+)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
+        <span style="color:rgb(255,051,051);">●</span> 분포이론 (40+)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/>
-        <span style="color:rgb(255,204,000);">●</span> 줄리아 (20+)</a><br>
+        <span style="color:rgb(255,204,000);">●</span> 줄리아 (30+)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/>
         <span style="color:rgb(255,204,000);">●</span> 프로그래밍 (20+)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/>
