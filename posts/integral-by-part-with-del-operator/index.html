@@ -103,7 +103,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/integral-by-part-with-del-operator\/",
-    "wordCount" : "318",
+    "wordCount" : "320",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -272,49 +272,79 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#공식">공식</a></li>
+    <li><a href="#설명">설명</a></li>
+    <li><a href="#증명">증명</a>
+      <ul>
+        <li><a href="#a">(a)</a></li>
+        <li><a href="#b">(b)</a></li>
+        <li><a href="#c">(c)</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-부분적분의 원리를 그대로 사용해서 델 연산자가 포함된 식의 모습을 유용하게 바꿀 수 있다.</p>
-<p>**부분적분
-$\dfrac{d}{dx}\left( fg \right) = f\dfrac{dg}{dx}+g\dfrac{df}{dx}$양 변을 정적분하면$\displaystyle \int_a^b \dfrac{d}{dx} \left(fg\right) = (fg)\Big|_a^b=\int_a^b f\left(\dfrac{dg}{dx}\right)dx+\int_a^bg\left(\dfrac{df}{dx}\right)dx
-$$
-\implies \int_a^b f\left(\dfrac{dg}{dx}\right)dx = (fg)\Big|_a^b-\int_a^bg\left(\dfrac{df}{dx}\right)dx$</p>
-<p>부분적분은 어떤 함수$(f\ or\ \mathbf{A}$)와 어떤 함수의 도함수$(\nabla f\ or\ \nabla \cdot \mathbf{A})$의 곱의 적분을 쉽게 해주는 방법이다.**예제 <a href="../99">곱셈 규칙 3</a></p>
+<h2 id="공식">공식</h2>
+<p>델 연산자가 포함된 벡터 적분에 대해서 다음의 식이 성립한다.</p>
+<p><strong>(a)</strong></p>
 <p>$$
-\nabla \cdot (f\mathbf{A}) = \mathbf{A} \cdot (\nabla f) + f(\nabla \cdot \mathbf{A})
-$$
-양 변을 부피적분하면
-$$
-\int_{\mathcal{V}} \nabla \cdot (f\mathbf{A})d\tau = \int_{\mathcal{V}}\mathbf{A} \cdot (\nabla f)d\tau + \int_{\mathcal{V}}f(\nabla \cdot \mathbf{A})d\tau
-$$
-좌변에 <strong><a href="../565">발산정리</a></strong> 를 적용하면
-$$
-\oint_{\mathcal{S}}f\mathbf{A} \cdot d \mathbf{a} = \int_{\mathcal{V}}\mathbf{A} \cdot (\nabla f)d\tau + \int_{\mathcal{V}}f(\nabla \cdot \mathbf{A})d\tau
-$$
-정리하면
-$$
-\int_{\mathcal{V}}f(\nabla \cdot \mathbf{A})d\tau = \oint_{\mathcal{S}}f\mathbf{A} \cdot d \mathbf{a}-\int_{\mathcal{V}}\mathbf{A} \cdot (\nabla f)d\tau 
-$$
-혹은
-$$
 \int_{\mathcal{V}}\mathbf{A} \cdot (\nabla f)d\tau  = \oint_{\mathcal{S}}f\mathbf{A} \cdot d \mathbf{a}-\int_{\mathcal{V}}f(\nabla \cdot \mathbf{A})d\tau 
 $$</p>
+<p><strong>(b)</strong></p>
+<p>$$
+\int_{\mathcal{S}} f \left( \nabla \times \mathbf{A} \right)\mathbf{A} \cdot d \mathbf{a}  = \int_{\mathcal{S}} \left[ \mathbf{A} \times \left( \nabla f \right) \right] \cdot d\mathbf{a} + \oint_{\mathcal{P}} f\mathbf{A} \cdot d\mathbf{l}
+$$</p>
+<p><strong>(c)</strong></p>
+<p>$$
+\int_{\mathcal{V}} \mathbf{B} \cdot \left( \nabla \times \mathbf{A} \right) d\tau = \int_{\mathcal{V}} \mathbf{A} \cdot \left( \nabla \times \mathbf{B} \right) d\tau + \oint_{\mathcal{S}} \left( \mathbf{A} \times \mathbf{B} \right) \cdot d \mathbf{a}
+$$</p>
+<!--
+##  공식
+
+델 연산자가 포함된 벡터 적분에 대해서 다음의 식이 성립한다.
+
+**(b)** $\displaystyle \int\_{\mathcal{V}}\mathbf{A} \cdot (\nabla f)d\tau  = \oint\_{\mathcal{S}}f\mathbf{A} \cdot d \mathbf{a}-\int\_{\mathcal{V}}f(\nabla \cdot \mathbf{A})d\tau$ 
+
+**(b)** $\displaystyle \int\_{\mathcal{S}} f \left( \nabla \times \mathbf{A} \right)\mathbf{A} \cdot \cdot d \mathbf{a}  = \int\_{\mathcal{S}} \left[ \mathbf{A} \times \left( \nabla f \right) \right] \cdot d\mathbf{a} + \oint\_{\mathcal{P}} f\mathbf{A} \cdot d\mathbf{l}$ 
+
+**(c)** $\displaystyle \int\_{\mathcal{V}} \mathbf{B} \cdot \left( \nabla \times \mathbf{A} \right) d\tau = \int\_{\mathcal{V}} \mathbf{A} \cdot \left( \nabla \times \mathbf{B} \right) d\tau + \oint\_{\mathcal{S}} \left( \mathbf{A} \times \mathbf{B} \right) \cdot d \mathbf{a}$ 
+-->
+<h2 id="설명">설명</h2>
+<p>부분적분은 어떤 함수$(f\ or\ \mathbf{A}$)와 어떤 함수의 도함수$(\nabla f\ or\ \nabla \cdot \mathbf{A})$의 곱의 적분을 쉽게 해주는 방법이다.</p>
+<blockquote>
+<p>부분적분 $\dfrac{d}{dx}\left( fg \right) = f\dfrac{dg}{dx}+g\dfrac{df}{dx}$
+양 변을 정적분하면</p>
+<p>$$
+\int_a^b \dfrac{d}{dx} \left(fg\right) = (fg)\Big|_a^b=\int_a^b f\left(\dfrac{dg}{dx}\right)dx+\int_a^bg\left(\dfrac{df}{dx}\right)dx
+\\ \implies \int_a^b f\left(\dfrac{dg}{dx}\right)dx = (fg)\Big|_a^b-\int_a^bg\left(\dfrac{df}{dx}\right)dx
+$$</p>
+</blockquote>
+<h2 id="증명">증명</h2>
+<h3 id="a">(a)</h3>
+<p><a href="../99">곱셈 규칙 3</a></p>
+<p>$$
+\nabla \cdot (f\mathbf{A}) = \mathbf{A} \cdot (\nabla f) + f(\nabla \cdot \mathbf{A})
+$$</p>
+<p>양 변을 부피적분하면</p>
+<p>$$
+\int_{\mathcal{V}} \nabla \cdot (f\mathbf{A})d\tau = \int_{\mathcal{V}}\mathbf{A} \cdot (\nabla f)d\tau + \int_{\mathcal{V}}f(\nabla \cdot \mathbf{A})d\tau
+$$</p>
+<p>좌변에 <strong><a href="../565">발산정리</a></strong> 를 적용하면</p>
+<p>$$
+\oint_{\mathcal{S}}f\mathbf{A} \cdot d \mathbf{a} = \int_{\mathcal{V}}\mathbf{A} \cdot (\nabla f)d\tau + \int_{\mathcal{V}}f(\nabla \cdot \mathbf{A})d\tau
+$$</p>
+<p>정리하면</p>
+<p>$$
+\int_{\mathcal{V}}f(\nabla \cdot \mathbf{A})d\tau = \oint_{\mathcal{S}}f\mathbf{A} \cdot d \mathbf{a}-\int_{\mathcal{V}}\mathbf{A} \cdot (\nabla f)d\tau 
+$$</p>
+<p>혹은</p>
+<p>$$
+\int_{\mathcal{V}}\mathbf{A} \cdot (\nabla f)d\tau  = \oint_{\mathcal{S}}f\mathbf{A} \cdot d \mathbf{a}-\int_{\mathcal{V}}f(\nabla \cdot \mathbf{A})d\tau 
+$$</p>
+<p style="text-align: right;">■</p>
+<h3 id="b">(b)</h3>
+<h3 id="c">(c)</h3>
 
 
 
@@ -668,6 +698,8 @@ $$</p>
     <a href=https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 동역학 (50+)</a><br>
     <hr>
+    <a href=https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/>
+        <span style="color:rgb(051,204,051);">●</span> 벡터해석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/>
         <span style="color:rgb(051,204,051);">●</span> 고전역학 (38)</a><br>
     <hr>
