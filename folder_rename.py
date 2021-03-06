@@ -6,7 +6,7 @@ import shutil
 
 caution = input("정말로 사용하려면 y를 입력해주세요")
 if caution != "y":
-    raise
+    raise EOFError
     
 # for author in ["j_", "r_"]:
 for author in ["r_"]:

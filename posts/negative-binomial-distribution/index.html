@@ -103,7 +103,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/negative-binomial-distribution\/",
-    "wordCount" : "733",
+    "wordCount" : "745",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -272,46 +272,52 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
-    <li><a href="#증명1">증명[1]</a></li>
-    <li><a href="#증명b">증명[b]</a></li>
+    <li><a href="#정의-1">정의 </a></li>
+    <li><a href="#기초-성질">기초 성질</a></li>
+    <li><a href="#설명">설명</a></li>
+    <li><a href="#정리">정리</a></li>
+    <li><a href="#증명">증명</a>
+      <ul>
+        <li><a href="#1">[1]</a></li>
+        <li><a href="#2">[2]</a></li>
+        <li><a href="#b">[b]</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-$r \in \mathbb{N}$ 와 $p \in (0,1]$ 에 대해 다음과 같은 확률 질량 함수를 가지는 <a href="../1433">이산 확률 분포</a> $\text{NB}(r,p)$ 를 <strong>음이항 분포</strong> 라고 한다.
+<h2 id="정의-1">정의 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>$r \in \mathbb{N}$ 와 $p \in (0,1]$ 에 대해 다음과 같은 확률 질량 함수를 가지는 <a href="../1433">이산 확률 분포</a> $\text{NB}(r,p)$ 를 <strong>음이항 분포</strong><sup>Negative Binomial Distribution</sup>라고 한다.
 $$
 p(x) = \binom{r+x-1}{x-1} p^{r}(1-p)^{x} \qquad, x = 0,1,2,\cdots
 $$</p>
-<p><strong>[1] 적률 생성 함수</strong>  :
+<h2 id="기초-성질">기초 성질</h2>
+<ul>
+<li>[1] 적률 생성 함수:
 $$
 m(t) = \left[ {{ p } \over { 1 - (1-p) e^{t} }} \right]^{r} \qquad , t &lt; -\log (1-P)
-$$
-<a href="../94">[2] 평균과 분산</a> : $X \sim \text{NB}(r, p)$ 면
+$$</li>
+<li>[2] 평균과 분산: $X \sim \text{NB}(r, p)$ 면
 $$
 E(X) = {{ r (1-p) } \over { p }} 
 \\  \text{Var}(X) = {{ r (1-p) } \over { p^{2} }}
-$$</p>
+$$</li>
+</ul>
+<h2 id="설명">설명</h2>
 <p>음이항 분포는 일어날 확률이 $p$ 인 어떤 사건이 $r$ 번 일어날 때까지의 횟수에 관심이 있다. 예를 들어 동전을 던져서 앞면이 두 번 나오려면 몇 번 정도 던져야할지를 생각해보자. 앞면이 나올 확률이 $50%$이므로 앞면이 한 번 나오려면 두 번 정도 던지면 되겠고, 그게 한 번 더 반복되어야 하므로 그 기댓값은 $4$ 라고 짐작할 수 있을 것이다.직관적으로 봤을 때, 음이항분포는 <a href="../1486">기하 분포</a>에서 횟수 $r$ 을 일반화시킨 분포다. 실제로 사건이 일어나는 횟수가 한 번이면, 즉 $r = 1$ 이면 정확히 기하분포와 같아진다. 그런데 음이항 분포라고 부르는 이유는 확률질량함수의 모양이 <a href="../1143">음이항 계수</a>와 관계가 있기 때문이다.</p>
-<p><a href="../1486">[b] 기하분포의 일반화</a> : $Y = X_{1} + \cdots + X_{r}$ 이고 $X_{i} \overset{\text{iid}}{\sim} \text{Geo}(p)$ 면 $Y \sim \text{NB}(r,p)$</p>
-<h2 id="증명1">증명[1]</h2>
-<p><a href="../1143">음이항 계수</a>
+<h2 id="정리">정리</h2>
+<ul>
+<li>[b] <a href="../1486">기하분포의 일반화</a>: $Y = X_{1} + \cdots + X_{r}$ 이고 $X_{i} \overset{\text{iid}}{\sim} \text{Geo}(p)$ 면 $Y \sim \text{NB}(r,p)$</li>
+</ul>
+<h2 id="증명">증명</h2>
+<h3 id="1">[1]</h3>
+<blockquote>
+<p><a href="../1143">음이항 계수</a>:
 $$
 (-1)^{k} \binom{-r}{k} = \binom{r + k - 1}{ k }
 $$</p>
+</blockquote>
 <p>$$
 \begin{eqnarray*}
 m(t) &amp;=&amp; \sum_{x=0}^{\infty} e^{tx} p(x) 
@@ -320,14 +326,18 @@ m(t) &amp;=&amp; \sum_{x=0}^{\infty} e^{tx} p(x)
 \\  &amp;=&amp; p^{r}\sum_{x=0}^{\infty} \binom{-r}{x} \left[ - (1-p) e^{t} \right]^{x}
 \end{eqnarray*}
 $$</p>
-<p><a href="../1103">이항 급수</a>$|x| &lt; 1$ 이면 $\alpha \in \mathbb{C}$ 에 대해 $\displaystyle (1 + x )^{\alpha} = \sum_{k=0}^{\infty} \binom{\alpha}{k} x^{k}$</p>
+<blockquote>
+<p><a href="../1103">이항 급수</a>: $|x| &lt; 1$ 이면 $\alpha \in \mathbb{C}$ 에 대해 $\displaystyle (1 + x )^{\alpha} = \sum_{k=0}^{\infty} \binom{\alpha}{k} x^{k}$</p>
+</blockquote>
 <p>이항 급수에 따라 $\displaystyle \sum_{x=0}^{\infty} \binom{-r}{x} \left[ - (1-p) e^{t} \right]^{x} = \left[ 1 -  (1-p) e^{t} \right]^{-r}$ 이므로
 $$
 m(t) = \left[ {{ p } \over { 1 - (1-p) e^{t} }} \right]^{r} \qquad , t &lt; -\log (1-P)
-$$
+$$</p>
 <p style="text-align: right;">■</p>
-<a href="../94">증명[2]</a><p style="text-align: right;">■</p></p>
-<h2 id="증명b">증명[b]</h2>
+<h3 id="2">[2]</h3>
+<p><a href="../94">기하분포의 일반화라는 점을 이용한다.</a></p>
+<p style="text-align: right;">■</p>
+<h3 id="b">[b]</h3>
 <p>기하 분포의 확률 질량 함수가 $p(x) = p (1-p)^{x} \qquad,x=0,1,2,\cdots$ 로 정의 될 때 그 적률 생성 함수는 다음과 같다.
 $$
 m(t) = p \left( 1 - (1-p) e^{t} \right)^{-1} 
@@ -342,8 +352,17 @@ M_Y(t) &amp;=&amp; E(e^{Yt})
 \\ &amp;=&amp; p^r \left\{ (1 - (1-p) e^t ) \right\}^{-r} 
 \end{eqnarray*} 
 $$
-이는 음이항 분포 $\text{NB}(r,p)$의 적률 생성 함수와 같으므로 $Y \sim \text{NB}(r,p)$<p style="text-align: right;">■</p>
+이는 음이항 분포 $\text{NB}(r,p)$의 적률 생성 함수와 같으므로 $Y \sim \text{NB}(r,p)$</p>
+<p><p style="text-align: right;">■</p>
  </p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Hogg et al. (2013). Introduction to Mathematical Statistcs(7th Edition): p145. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
@@ -698,6 +717,8 @@ $$
     <a href=https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 선형대수 (19)</a><br>
     <hr>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/>
+        <span style="color:rgb(255,051,051);">●</span> 해석개론 (56)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC%EA%B3%B5%EA%B0%84/>
         <span style="color:rgb(051,204,051);">●</span> 거리공간 (33)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/>
@@ -715,7 +736,7 @@ $$
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 수리통계학 (40+)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
-        <span style="color:rgb(255,051,051);">●</span> 분포이론 (40+)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 분포이론 (44)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
         <span style="color:rgb(255,204,000);">●</span> 확률론 (30++)</a><br>
     <hr>
@@ -729,7 +750,7 @@ $$
         <span style="color:rgb(255,051,051);">●</span> 머신러닝 (20+)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1786)</summary>
+    <summary>전체 포스트 (1787)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (6)</a>
         </li><li>
@@ -831,7 +852,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">해석학미분류 (28)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (52)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (53)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
         </li><li>

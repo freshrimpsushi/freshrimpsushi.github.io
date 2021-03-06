@@ -103,7 +103,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/mean-and-variance-of-geometric-distribution\/",
-    "wordCount" : "1246",
+    "wordCount" : "1215",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -272,44 +272,45 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
-    <li><a href="#증명1평균">증명1(평균)</a></li>
-    <li><a href="#증명1분산">증명1(분산)</a></li>
-    <li><a href="#증명2평균">증명2(평균)</a></li>
-    <li><a href="#증명2분산">증명2(분산)</a></li>
+    <li><a href="#공식">공식</a></li>
+    <li><a href="#유도">유도</a></li>
+    <li><a href="#첫번째-방법">첫번째 방법</a>
+      <ul>
+        <li><a href="#평균">평균</a></li>
+        <li><a href="#분산">분산</a></li>
+      </ul>
+    </li>
+    <li><a href="#두번째-방법">두번째 방법</a>
+      <ul>
+        <li><a href="#평균-1">평균</a></li>
+        <li><a href="#분산-1">분산</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-$X \sim \text{Geo} (p)$ 면
+<h2 id="공식">공식</h2>
+<p>$X \sim \text{Geo} (p)$ 면
 $$
 E(X) = {{ 1 } \over { p }} 
 \\  \text{Var}(X) = {{ 1-p } \over { p^{2} }}
 $$</p>
+<h2 id="유도">유도</h2>
 <p><a href="../1486">기하 분포</a>의 평균과 분산은 생각보다 쉽게 구해지지 않는다. 본 포스트에서는 유익하면서도 재미있는 두가지 증명을 소개한다.</p>
-<p>Strategy1**  : 등비 급수의 공식과 미분을 사용한다.</p>
-<p><a href="../1486">기하 분포의 정의</a>$p \in (0,1]$ 에 대해 다음과 같은 확률 질량 함수를 가지는 이산 확률 분포 $\text{Geo}(p)$ 를 <strong>기하 분포</strong> 라고 한다.
+<blockquote>
+<p><a href="../1486">기하 분포의 정의</a>$p \in (0,1]$ 에 대해 다음과 같은 확률 질량 함수를 가지는 이산 확률 분포 $\text{Geo}(p)$ 를 <strong>기하 분포</strong>라고 한다.
 $$
 p(x) = p (1 - p)^{x-1} \qquad , x = 1 , 2, 3, \cdots 
 $$</p>
-<h2 id="증명1평균">증명1(평균)</h2>
+</blockquote>
+<h2 id="첫번째-방법">첫번째 방법</h2>
+<p>전략: 등비 급수의 공식과 미분을 사용한다.</p>
+<h3 id="평균">평균</h3>
 <p>$$
 \displaystyle E(X)=\sum _{ x=1 }^{ \infty }{ xp { (1-p) }^{ x-1 } }
 $$
-$\displaystyle  f(p) : =\sum _{ x=0 }^{ \infty }{ { (1-p) }^{ x } }$ 라 하면
+$\displaystyle  f(p): =\sum _{ x=0 }^{ \infty }{ { (1-p) }^{ x } }$ 라 하면
 $$
 \displaystyle  f(p)=\frac { 1 }{ 1-(1-p) }=\frac { 1 }{ p }
 $$
@@ -329,8 +330,9 @@ $$
 \\  &amp;\implies&amp; \frac { 1 }{ p }=\sum _{ x=1 }^{ \infty }{ xp { (1-p) }^{ x-1 } }=E(X) 
 \end{eqnarray*}
 $$
-따라서 $\displaystyle E(X)=\frac { 1 }{ p } $<p style="text-align: right;">■</p></p>
-<h2 id="증명1분산">증명1(분산)</h2>
+따라서 $\displaystyle E(X)=\frac { 1 }{ p }$</p>
+<p style="text-align: right;">■</p>
+<h3 id="분산">분산</h3>
 <p>$$
 \displaystyle V(X)=E({ X }^{ 2 })-{ {E(X)} }^{ 2 }=\sum _{ x=1 }^{ \infty }{ { x^ 2} { p { (1-p) }^{ x-1 } }-\frac { 1 }{ { p }^{ 2 } } }
 $$
@@ -352,9 +354,11 @@ $$
 \\  &amp;\implies&amp; E({ X }^{ 2 })=\frac { 2-p }{ { p }^{ 2 } } 
 \end{eqnarray*}
 $$
-따라서 $\displaystyle V(X)=\frac { 1-p }{ { p }^{ 2 } } $<p style="text-align: right;">■</p></p>
-<p>Strategy2**  : <a href="../217">기하 분포의 무기억성</a>을 쓴다. 어떻게 보면 복잡한 수식을 피하고 말로 때우는 느낌이지만, 사람에 따라서는 오히려 어렵게 느낄 수도 있다.</p>
-<h2 id="증명2평균">증명2(평균)</h2>
+따라서 $\displaystyle V(X)=\frac { 1-p }{ { p }^{ 2 } }$</p>
+<p style="text-align: right;">■</p>
+<h2 id="두번째-방법">두번째 방법</h2>
+<p>전략: <a href="../217">기하 분포의 무기억성</a>을 쓴다. 어떻게 보면 복잡한 수식을 피하고 말로 때우는 느낌이지만, 사람에 따라서는 오히려 어렵게 느낄 수도 있다.</p>
+<h3 id="평균-1">평균</h3>
 <p>$$
 \displaystyle E(X)=1 \cdot P(\text{ 첫번째 시행에서 성공 })+E(Y+1)\cdot P( \text{첫번째 시행에서 실패})
 $$
@@ -369,9 +373,9 @@ $$
 $\displaystyle E(X)=p+{E(X)+1}(1-p) $ 를 $E(X)$ 에 대해서 정리하면
 $$
 \displaystyle E(X)=\frac { 1 }{ p } 
-$$
-<p style="text-align: right;">■</p></p>
-<h2 id="증명2분산">증명2(분산)</h2>
+$$</p>
+<p style="text-align: right;">■</p>
+<h3 id="분산-1">분산</h3>
 <p>$$
 \displaystyle  \begin{eqnarray*}
 E({ X }^{ 2 }) &amp;=&amp; 1\cdot p+E({ (Y+1) }^{ 2 })\cdot (1-p) 
@@ -395,7 +399,8 @@ $$
 $$
 \displaystyle E({ X }^{ 2 })=\frac { 2-p }{ { p }^{ 2 } }
 $$
-따라서 $\displaystyle V(X)=\frac { 1-p }{ { p }^{ 2 } } $<p style="text-align: right;">■</p></p>
+따라서 $\displaystyle V(X)=\frac { 1-p }{ { p }^{ 2 } }$</p>
+<p style="text-align: right;">■</p>
 
 
 
@@ -750,6 +755,8 @@ $$
     <a href=https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 선형대수 (19)</a><br>
     <hr>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/>
+        <span style="color:rgb(255,051,051);">●</span> 해석개론 (56)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC%EA%B3%B5%EA%B0%84/>
         <span style="color:rgb(051,204,051);">●</span> 거리공간 (33)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/>
@@ -767,7 +774,7 @@ $$
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 수리통계학 (40+)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
-        <span style="color:rgb(255,051,051);">●</span> 분포이론 (40+)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 분포이론 (44)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
         <span style="color:rgb(255,204,000);">●</span> 확률론 (30++)</a><br>
     <hr>
@@ -781,7 +788,7 @@ $$
         <span style="color:rgb(255,051,051);">●</span> 머신러닝 (20+)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1786)</summary>
+    <summary>전체 포스트 (1787)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (6)</a>
         </li><li>
@@ -883,7 +890,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">해석학미분류 (28)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (52)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (53)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
         </li><li>
