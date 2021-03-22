@@ -48,9 +48,9 @@
     </script>
 
     
-<meta name="title" content="스털링 근사 증명">
+<meta name="title" content="스털링 근사 공식의 엄밀한 증명">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="스털링 근사 증명"/>
+<meta property="og:title" content="스털링 근사 공식의 엄밀한 증명"/>
 <meta property="og:description" content="proof of stirling approximation"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
@@ -63,8 +63,8 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "r_",
-    "name": "스털링 근사 증명",
-    "headline": "스털링 근사 증명",
+    "name": "스털링 근사 공식의 엄밀한 증명",
+    "headline": "스털링 근사 공식의 엄밀한 증명",
     "alternativeHeadline": "",
     "description": "proof of stirling approximation",
     "inLanguage": "ko",
@@ -87,9 +87,9 @@
     },
     "copyrightHolder" : "생새우초밥집",
     "copyrightYear" : "2018",
-    "dateCreated": "2018-07-11T00:00:00.00Z",
-    "datePublished": "2018-07-11T00:00:00.00Z",
-    "dateModified": "2018-07-11T00:00:00.00Z",
+    "dateCreated": "2018-07-18T00:00:00.00Z",
+    "datePublished": "2018-07-18T00:00:00.00Z",
+    "dateModified": "2018-07-18T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -103,14 +103,14 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/proof-of-stirling-approximation\/",
-    "wordCount" : "597",
+    "wordCount" : "1868",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>스털링 근사 증명</title>
+    <title>스털링 근사 공식의 엄밀한 증명</title>
 
 </head>
 
@@ -119,7 +119,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/basic.png style="max-height: 80px; width: auto;">
             
             
             
@@ -250,20 +250,22 @@
             <div class = "content">
             
 
-<title>스털링 근사 증명</title>
+<title>스털링 근사 공식의 엄밀한 증명</title>
 
-<h1>스털링 근사 증명</h1>
+<h1>스털링 근사 공식의 엄밀한 증명</h1>
 <aside>
     <p style="text-align: right;">
-        608
+        616
 
     
     
-            <a href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">열물리학</a>&emsp;
+            <a href="https://freshrimpsushi.github.io/categories/%EA%B0%90%EB%A7%88-%ED%95%A8%EC%88%98%EC%99%80-%EC%A0%9C%ED%83%80-%ED%95%A8%EC%88%98/" style="color: black">감마 함수와 제타 함수</a>&emsp;
+            
+            <a href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수</a>&emsp;
             
     </span>
     
-    작성일: 2018-07-11&nbsp;<br>
+    작성일: 2018-07-18&nbsp;<br>
     작성자: 류대식 사장 &nbsp;
 </p>
 </aside>
@@ -273,13 +275,13 @@
     <nav id="TableOfContents">
   <ul>
     <li><a href="#heading"></a></li>
-    <li><a href="#증명">증명</a></li>
+    <li><a href="#같이보기">같이보기</a></li>
   </ul>
 </nav>
 </aside>
 
 <h2 id="heading"></h2>
-<p><p style="
+<p style="
 text-align: center;
 max-width: 80%;
 text-align:center;
@@ -291,36 +293,148 @@ margin-right: auto;">
 <br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
 </p>
 
-<a href="../616">더 엄밀한 증명 보러가기</a></p>
 <p>$$
 \displaystyle \lim_{n \to \infty} {{n!} \over {e^{n \ln n - n} \sqrt{ 2 \pi n} }} = 1
 $$</p>
-<p>흔히 <strong>스털링 공식</strong><sup>Stirling&rsquo;s Formula</sup> 으로 많이 불리는 이 근사는 큰 수에 대한 팩토리얼의 계산이라는 측면에서 유용하다. 열열학, 통계역학과 같은 분야에선 많은 수의 분자를 가정하기 때문에 필수적이며, $\ln n! \approx n \ln n - n$ 와 같이 더 간략화된 표현도 사용된다.아래의 증명은 해석학적으로 다소 엄밀성이 떨어지지만, 응용을 위해 팩트만을 중시한다면 충분하다.</p>
-<h2 id="증명">증명</h2>
-<p><a href="../95">감마함수</a> $\displaystyle n! = \int_{0}^{\infty} x^{n} e^{-x} dx $ 에서 시작하도록 하자. $f(x) := n \ln x - x$ 이라고 하면 $e^{f(x)} = x^{n} e^{-x}$ 이 될 것이다.$\displaystyle {{df(x)} \over {dx}} = {{n } \over {x }} - 1 $ 이고 $\displaystyle {{d^2 f(x)} \over {dx^2 }} = - {{n } \over {x^2 }} $, 그리고 $\displaystyle {{d^3 f(x)} \over {dx^3 }} = {{ 2n } \over {x^3 }} $ 이므로 $f$ 의 <a href="../41">테일러 전개</a>는
+<p>스털링 근사 혹은 <strong>스털링 공식</strong><sup>Stirling Formula</sup> 은 통계학이나 물리학 등 여러 곳에서 유용하게 쓰인다. 또 다른 표현으로는 <a href="../95">감마 함수</a>를 사용해 다음과 같이 적을 수 있다.
 $$
+\Gamma ( n ) \approx  {e^{n \ln n - n} \sqrt{ 2 \pi n}}
+$$</p>
+<p>본 증명은 &lsquo;제타함수의 비밀&rsquo;이라는 책의 부록에 실려있는 것으로, 저자인 <strong>쿠로카와 노부시게黑川信繁</strong> 라는 일본의 수학자가 고등학교 때 발견하고 몇 년 뒤 <a href="https://www.jstage.jst.go.jp/article/sugaku1947/31/3/31_3_262/_pdf/-char/ja">수학세미나數學セミナ- 1972년 6월호</a>에 게재했다고 밝혔다. 그러나 직접 찾아본 결과 생략이 많아서 그닥 참고할 것은 못 되며, 사실 그 논지도 증명이 아니었다. 마찬가지로 &lsquo;제타함수의 비밀&rsquo;을 직접 찾아보는 것도 별로 도움이 되지 않을 것이다. 자신있게 단언하건대 국내에서 쿠로카와의 증명을 가장 쉽고 친절하게 설명한 것은 이 포스트다.</p>
+<p>다른 해석학 교재에 나오는 증명도 있지만 굳이 이 증명을 선택한 이유는 엄밀성을 포기하지 않는 선에서 지금까지 본 어떤 증명보다 쉬웠기 때문이다. 물론 보조정리를 증명하는 과정을 다 포함하면 더 길어지겠지만, 적어도 스털링 근사만을 위한 보조정리를 증명하는 삽질은 피할 수 있었다. 그나마 이 증명법에서 등장하는 보조정리는 상당히 짜임새 있는 맥락에서 나온 것으로, 그 과정을 따라가는 것 또한 공부하는 입장에서 상당히 즐거운 일이다.</p>
+<p><strong>증명</strong> 
+함수 $f( x ) := \ln (1 + x)$ 를 정의하자.</p>
+<p><strong>Part 1.</strong>  $\displaystyle \lim_{n \to \infty} \left[ \sum_{k=1}^{n} f \left( {{k} \over {n}} \right) - n \int_{0}^{1} f(x) dx \right] = {{f(1) - f(0) } \over {2}}$
+$\displaystyle f&rsquo;(x) = {{1} \over {1 + x}}$ 이므로 $\displaystyle x \in \left[ {{k-1} \over {n}} , {{k} \over {n}} \right]$ 에 대해 $f&rsquo;(x) $ 의 최솟값은 $\displaystyle {{1} \over {1 + {{k} \over {n}} }} $ 이고 최댓값은 $\displaystyle {{1} \over {1 + {{k-1} \over {n}} }}$ 이다. 따라서</p>
+<p>$$
+\displaystyle {{1} \over {1 + {{k} \over {n}} }} \le {{ f \left( {{k} \over {n}} \right) - f(x) } \over { {{k} \over {n}} - x }} \le  {{1} \over {1 + {{k-1} \over {n}} }}
+$$</p>
+<p>각 변에 $\displaystyle \left( {{k} \over {n}} - x \right)$ 를 곱하면</p>
+<p>$$
+\displaystyle {{1} \over {1 + {{k} \over {n}} }} \left( {{k} \over {n}} - x \right) \le f \left( {{k} \over {n}} \right) - f(x) \le  {{1} \over {1 + {{k-1} \over {n}} }} \left( {{k} \over {n}} - x \right)
+$$</p>
+<p>각 변을 $\displaystyle {{k-1} \over {n}}$ 부터 $\displaystyle {{k} \over {n}} $ 까지 적분하면</p>
+<p>$$
 \begin{eqnarray*}
- f(x) &amp;=&amp; f(n) + f'(n) (x-n) + {{1} \over {2!}} f''(n) (x-n)^2 + {{1} \over {3!}} f^{(3)} (n) (x-n)^3 + \cdots 
-\\   &amp;=&amp; n \ln n - n + 0 \cdot (x-n) - {{1} \over {2}} {{n} \over{ n^2}} (x-n)^2 + {{1} \over {6}} {{2n} \over{ n^3}} (x-n)^3 + \cdots
-\\   &amp;=&amp; n \ln n - n - {{ (x-n)^2 } \over{ 2n }} + {{ (x-n)^3 } \over{ 3 n^2 }} + \cdots
+ \int_{ {{k-1} \over {n}} }^{ {{k} \over {n}} } \left( {{k} \over {n}} - x \right) dx &amp;=&amp; {{k} \over {n}} {{1} \over {n}} - \left[ {{1} \over {2}} x^2 \right]_{ {{k-1} \over {n}} }^{ {{k} \over {n}} } 
+\\ &amp;=&amp; {{2k} \over {2n^2}} - {{k^2 - k^2 + 2k - 1} \over {2n^2}} 
+\\ &amp;=&amp; {{1} \over {2n^2}} 
 \end{eqnarray*}
-$$
-$n$ 이 충분히 클 때, $\displaystyle {{ (x-n)^2 } \over{ 2 n }} $ 이후의 항들은 분모가 커지는 속도가 너무 빨라서 무시해도 된다. 따라서 $\displaystyle f(x) \approx n \ln n - n - {{ (x-n)^2 } \over{ 2n }} $ 이다.<img src="20181022_163326.png#center" alt="20181022\_163326.png">
-또한 $n$ 이 충분히 크다면 가우스 곡선의 적분은 $0$ 부터 $\infty$ 까지 하나 $-\infty$ 부터 $\infty$ 까지 하나 큰 차이가 없다. 결과적으로, 충분히 큰 $n$ 에 대해
-$$
-\displaystyle n! = e^{n \ln n - n} \int_{0}^{\infty} e^{-(x-n)^2 / 2n + \cdots } dx \approx  e^{n \ln n - n} \int_{-\infty}^{\infty} e^{-(x-n)^2 / 2n } dx
-$$
-<a href="../219">가우스 적분</a>에 의해 $\displaystyle \int_{-\infty}^{\infty} e^{-(x-n)^2 / 2n } dx = \sqrt{ 2 \pi n}$ 이므로
-$$
-n! \approx e^{n \ln n - n} \sqrt{ 2 \pi n}
-$$
-<p style="text-align: right;">■</p></p>
+$$</p>
+<p>이므로</p>
+<p>$$
+\displaystyle {{1} \over {2n^2}} {{1} \over {1 + {{k} \over {n}} }} \le \int_{ {{k-1} \over {n}} }^{ {{k} \over {n}} } \left[ f \left( {{k} \over {n}} \right) - f(x) \right] dx \le {{1} \over {2n^2}} {{1} \over {1 + {{k-1} \over {n}} }} 
+$$</p>
+<p>각 변에 $n$ 을 곱하면</p>
+<p>$$
+\displaystyle {{1} \over {2n}} {{1} \over {1 + {{k} \over {n}} }} \le n \int_{ {{k-1} \over {n}} }^{ {{k} \over {n}} } \left[ f \left( {{k} \over {n}} \right) - f(x) \right] dx \le {{1} \over {2n}} {{1} \over {1 + {{k-1} \over {n}} }} 
+$$</p>
+<p>각 변을 $k=1$ 부터 $n$ 까지 더하면</p>
+<p>$$
+\displaystyle  {{1} \over {2}} \sum_{k=1}^{n} {{1} \over {n}} {{1} \over {1 + {{k} \over {n}} }} \le n \sum_{k=1}^{n} \int_{ {{k-1} \over {n}} }^{ {{k} \over {n}} } \left[ f \left( {{k} \over {n}} \right) - f(x) \right] dx \le {{1} \over {2}} \sum_{k=1}^{n} {{1} \over {n}} {{1} \over {1 + {{k-1} \over {n}} }} 
+$$</p>
+<p>가운데 변은</p>
+<p>$$
+\begin{eqnarray*}
+n \sum_{k=1}^{n} \int_{ {{k-1} \over {n}} }^{ {{k} \over {n}} } \left[ f \left( {{k} \over {n}} \right) - f(x) \right] dx &amp;=&amp; n \left[ {{k} \over {n}} - {{k-1} \over {n}} \right] \sum_{k=1}^{n} f \left( {{k} \over {n}} \right) - n \int_{0}^{1} f(x) dx 
+\\ &amp;=&amp;  \sum_{k=1}^{n} f \left( {{k} \over {n}} \right) - n \int_{0}^{1} f(x) dx 
+\end{eqnarray*}
+$$</p>
+<p><a href="../12">구분구적법과 정적분</a>
+$\displaystyle \lim _{ n\to \infty  }{ \sum _{ k=1 }^{ n }{ f\left( a+\frac { p }{ n }k \right) \frac { p }{ n } } } =\int _{ 0 }^{ 1 }{ pf(a+px)dx } $</p>
+<p>좌변과 우변은 $n \to \infty$ 일 때</p>
+<p>$$
+\begin{eqnarray*}
+  {{1} \over {2}} \sum_{k=1}^{\infty} {{1} \over {n}} {{1} \over {1 + {{k} \over {n}} }} &amp;=&amp; {{1} \over {2}} \sum_{k=1}^{\infty} {{1} \over {n}} {{1} \over {1 + {{k-1} \over {n}} }} 
+\\ &amp;=&amp; {{1} \over {2}} \int_{0}^{1} {{1} \over {1 + x}} dx 
+\\ &amp;=&amp; {{1} \over {2}}\left[ \ln | 1 + x | \right]_{0}^{1} 
+\\ &amp;=&amp; {{f(1) - f(0) } \over {2}} 
+\end{eqnarray*} 
+$$</p>
+<p><a href="../1233">샌드위치 정리</a>에 따라</p>
+<p>$$
+\displaystyle \lim_{n \to \infty} \left[ \sum_{k=1}^{n} f \left( {{k} \over {n}} \right) - n \int_{0}^{1} f(x) dx \right] = {{f(1) - f(0) } \over {2}}
+$$</p>
+<p><strong>Part 2.</strong>  $\displaystyle \lim_{n \to \infty} \left[ {{(2n)!} \over {n! n^n}} \left( {{e} \over {4}} \right)^{n} \right]  = \sqrt{2} $
+위의 <strong>Part 1.</strong> 에서 얻은 결과의 각 항을 살펴보자.
+첫 항 $\displaystyle \sum_{k=1}^{n} f \left( {{k} \over {n}} \right)$ 은</p>
+<p>$$
+\begin{eqnarray*}
+\sum_{k=1}^{n} f \left( {{k} \over {n}} \right) &amp;=&amp; \sum_{k=1}^{n} \ln \left( {{n+k} \over {n}} \right) 
+\\ &amp;=&amp; \ln \left( {{n+1} \over {n}} {{n+2} \over {n}} \cdots {{n+n} \over {n}} \right) 
+\\ &amp;=&amp; \ln \left( {{ (2n)! } \over { n! n^n }} \right) 
+\end{eqnarray*}
+$$</p>
+<p>두번째 항 $\displaystyle n \int_{0}^{1} f(x) dx$ 은</p>
+<p>$$
+\begin{eqnarray*}
+ n \int_{0}^{1} f(x) dx &amp;=&amp; n \left[ (1+x) \ln (1+x) -x \right]_{0}^{1} 
+\\ &amp;=&amp; 2n \ln 2 - n 
+\\  &amp;=&amp; \ln \left( {{2^{2n}} \over {e^{n}}} \right) 
+\\ &amp;=&amp; \ln \left( {{4} \over {e}} \right)^{n} 
+\end{eqnarray*}
+$$</p>
+<p>따라서</p>
+<p>$$
+\begin{eqnarray*}
+ \lim_{n \to \infty} \left[ \sum_{k=1}^{n} f \left( {{k} \over {n}} \right) - n \int_{0}^{1} f(x) dx \right] &amp;=&amp; \lim_{n \to \infty} \ln \left[ {{(2n)!} \over {n! n^n}} \left( {{e} \over {4}} \right)^{n} \right]  
+\\ &amp;=&amp;  {{ \ln 2 } \over {2}} 
+\\ &amp;=&amp; \ln \sqrt{2} 
+\end{eqnarray*}
+$$</p>
+<p>이고, 정리하면</p>
+<p>$$
+\displaystyle \lim_{n \to \infty} \left[ {{(2n)!} \over {n! n^n}} \left( {{e} \over {4}} \right)^{n} \right]  = \sqrt{2} 
+$$</p>
+<p><strong>Part 3.</strong>  $\displaystyle \lim_{n \to \infty} {{4^n (n!)^2 } \over {\sqrt{n} (2n)! } } = \sqrt{ \pi }$</p>
+<p><a href="../601">월리스 곱</a></p>
+<p>$$
+\displaystyle \prod_{n=1}^{\infty} {{4n^2} \over {4n^2 - 1}} = \lim_{n \to \infty} {{2 \cdot 2 } \over { 1 \cdot 3 } } \cdot {{4 \cdot 4 } \over { 3 \cdot 5 } } \cdot \cdots \cdot {{2n \cdot 2n } \over { (2n-1) \cdot (2n+1) } } = {{ \pi } \over {2}}
+$$</p>
+<p>$$
+\begin{eqnarray*}
+ {{\pi} \over {2}} &amp;=&amp; \lim_{n \to \infty} {{2^2 \cdot 4^2 \cdot \cdots \cdot (2n)^2} \over {1 \cdot 3^2 \cdot \cdots \cdot (2n-1)^2 \cdot (2n+1)}} 
+\\ &amp;=&amp; \lim_{n \to \infty} {{2^2 \cdot 4^2 \cdot \cdots \cdot (2n)^2} \over {1 \cdot 3^2 \cdot \cdots \cdot (2n-1)^2 \cdot 2n }} 
+\end{eqnarray*}
+$$</p>
+<p>양변에 $2$ 를 곱하면</p>
+<p>$$
+\displaystyle \pi = \lim_{n \to \infty} {{2^2 \cdot 4^2 \cdot \cdots \cdot (2n)^2} \over {1 \cdot 3^2 \cdot \cdots \cdot (2n-1)^2 \cdot n }}  
+$$</p>
+<p>양변에 루트를 취하면</p>
+<p>$$
+\begin{eqnarray*}
+\sqrt{ \pi } &amp;=&amp; \lim_{n \to \infty} {{1} \over {\sqrt{n}}} {{2 \cdot 4 \cdot \cdots \cdot (2n)} \over {1 \cdot 3 \cdot \cdots \cdot (2n-1) }}  
+\\ &amp;=&amp; \lim_{ n \to \infty} {{1} \over {\sqrt{n}}} {{2 \cdot 4 \cdot \cdots \cdot (2n) \cdot 2 \cdot 4 \cdot \cdots \cdot (2n)} \over {1 \cdot 2 \cdot 3 \cdot \cdots \cdot (2n-1) \cdot 2n }} 
+\\ &amp;=&amp; \lim_{n \to \infty} {{4^n (n!)^2 } \over {\sqrt{n} (2n)! }} 
+\end{eqnarray*}
+$$</p>
+<p>정리하면</p>
+<p>$$
+\displaystyle \lim_{n \to \infty} {{4^n (n!)^2 } \over {\sqrt{n} (2n)! } } = \sqrt{ \pi }
+$$</p>
+<p><strong>Part 4.</strong></p>
+<p>$$
+\begin{eqnarray*}
+\lim_{n \to \infty} {{n!} \over {e^{n \ln n - n  }\sqrt{n}} } &amp;=&amp; \lim_{n \to \infty} {{n!} \over {n^{n} e^{-n} \sqrt{n} }} 
+\\ &amp;=&amp; \lim_{n \to \infty} { { (2n)!} \over { 4^{n} n! } } \left( {{e} \over {n}} \right)^{n} {{4^n (n!)^2} \over {\sqrt{ n} (2n)! }} 
+\end{eqnarray*}
+$$</p>
+<p>위의 <strong>Part 2.</strong> 와 <strong>Part 3.</strong> 에서 $\displaystyle \lim_{n \to \infty} { { (2n)!} \over { 4^{n} n! } } \left( {{e} \over {n}} \right)^{n} {{4^n (n!)^2} \over {\sqrt{ n} (2n)! }} = \sqrt{2} \sqrt{\pi} = \sqrt{2 \pi}$ 이었으므로</p>
+<p>$$
+\displaystyle \lim_{n \to \infty} {{n!} \over {e^{n \ln n - n} \sqrt{ 2 \pi n} }} = 1
+$$</p>
+<p style="text-align: right;">■</p>
+<h2 id="같이보기">같이보기</h2>
+<ul>
+<li><a href="../608">덜 엄밀한 증명</a></li>
+</ul>
 
 
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var title = '스털링 근사 증명';
+        var title = '스털링 근사 공식의 엄밀한 증명';
         var link = 'https:\/\/freshrimpsushi.github.io\/posts\/proof-of-stirling-approximation\/';
         var arr = new Array();
         var obj = {
@@ -439,9 +553,9 @@ $$
             alert('빈칸을 채워주세요');
             return;
         }
-        let board_idx = '608';
+        let board_idx = '616';
         let board_slug = 'proof-of-stirling-approximation';
-        let board_title = '스털링 근사 증명';
+        let board_title = '스털링 근사 공식의 엄밀한 증명';
 
         $.ajax({
             type: "POST",
@@ -555,7 +669,7 @@ $$
             type: "POST",
             url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.comment.php?action=getComment",
             data: {
-                board_idx: '608'
+                board_idx: '616'
             },
             dataType: "json",
             success: function (data) {
@@ -613,9 +727,9 @@ $$
                 alert('빈칸을 채워주세요');
                 return;
             }
-            let idx = '608';
+            let idx = '616';
             let board_slug = 'proof-of-stirling-approximation';
-            let board_title = '스털링 근사 증명';
+            let board_title = '스털링 근사 공식의 엄밀한 증명';
 
             $.ajax({
                 type: "POST",
@@ -704,7 +818,7 @@ $$
         <span style="color:rgb(255,051,051);">●</span> 머신러닝 (20+)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1791)</summary>
+    <summary>전체 포스트 (1792)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -800,7 +914,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (74)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (56)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (57)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
         </li><li>
