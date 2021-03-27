@@ -103,7 +103,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/gradient-for-vector-and-matrix-in-machine-learning\/",
-    "wordCount" : "643",
+    "wordCount" : "570",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -272,34 +272,26 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#스칼라-함수970의-그래디언트1778"><a href="../970">스칼라 함수</a>의 <a href="../1778">그래디언트</a>:</a>
+      <ul>
+        <li><a href="#내적의-그래디언트">내적의 그래디언트</a></li>
+        <li><a href="#이차형식의-그래디언트">이차형식의 그래디언트</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-**<a href="../970">스칼라 함수</a>의 <a href="../1778">그래디언트</a>:</p>
+<h2 id="스칼라-함수970의-그래디언트1778"><a href="../970">스칼라 함수</a>의 <a href="../1778">그래디언트</a>:</h2>
 <p>$$
 \frac{ \partial f(\mathbf{w})}{ \partial \mathbf{w} } :=\nabla_{\mathbf{w}}f(\mathbf{w})=\begin{bmatrix}
 \frac{ \partial f(\mathbf{w})}{ \partial w_{1} },\frac{ \partial f(\mathbf{w})}{ \partial w_{2} },\cdots,\frac{ \partial f(\mathbf{w})}{ \partial w_{n} } 
 \end{bmatrix}^{T}
-$$
-<em><em>내적의 그래디언트Gradient of the inner product:
-$f(\mathbf{w})=\mathbf{w}^{T}\mathbf{x}$라고 하면
-$$
-\begin{align</em>}
+$$</p>
+<h3 id="내적의-그래디언트">내적의 그래디언트</h3>
+<p>$f(\mathbf{w})=\mathbf{w}^{T}\mathbf{x}$라고 하면</p>
+<p>$$
+\begin{align*}
 \frac{ \partial f(\mathbf{w})}{ \partial \mathbf{w} } =\frac{ \partial (\mathbf{w}^{T}\mathbf{x})}{ \partial \mathbf{w} } &amp;=\begin{bmatrix}
 \frac{ \partial \left( \sum _{i=1} ^{n} w_{i}x_{i}\right)}{ \partial w_{1} },\frac{ \partial \left( \sum _{i=1} ^{n} w_{i}x_{i}\right)}{ \partial w_{2} },\cdots,\frac{ \partial \left( \sum _{i=1} ^{n} w_{i}x_{i}\right)}{ \partial w_{n} } 
 \end{bmatrix}^{T}  
@@ -307,24 +299,28 @@ $$
 x_{1} &amp; x_{2} &amp; \cdots &amp; x_{n} 
 \end{bmatrix}^{T} 
 \\  &amp;= \mathbf{x}
-\end{align</em>}
-$$
-<em><em>이차형식의 그래디언트Gradient of the quadratic form:
-미분 계산이 쉽도록 먼저 계산을 다음과 같이 해준다. 임의의 $k\in\left\{1,\dots,n\right\}$에 대해서 다음의 식을 얻는다.
-$$
-\begin{align</em>}
+\end{align*}
+$$</p>
+<h3 id="이차형식의-그래디언트">이차형식의 그래디언트</h3>
+<p>미분 계산이 쉽도록 먼저 계산을 다음과 같이 해준다. 임의의 $k\in\left\{1,\dots,n\right\}$에 대해서 다음의 식을 얻는다.</p>
+<p>$$
+\begin{align*}
 f(\mathbf{w}) &amp;= \mathbf{w}^{T}\mathbf{R}\mathbf{w} =\sum \limits _{j=1} ^{n} w_{j} \sum \limits _{i=1} ^{n}r_{ji}w_{i}
 \\  &amp; = w_{k} \sum \limits _{i=1} ^{n}r_{ki}w_{i} +\sum \limits _{j\ne k}w_{j} \sum \limits _{i=1} ^{n}r_{ji}w_{i} 
 \\  &amp;= w_{k}\left(r_{kk}w_{k} + \sum \limits _{i\ne k} r_{ki}w_{i}\right) +\sum \limits _{j\ne k}w_{j} \left(r_{jk}w_{k}+ \sum \limits _{i \ne k} r_{ji}w_{i} \right) 
 \\  &amp;= w_{k}^{2}r_{kk} + w_{k}\sum \limits _{i\ne k} r_{ki}w_{i} + \sum \limits _{j\ne k}w_{j}r_{jk}w_{k}+ \sum \limits _{j\ne k}\sum \limits _{i \ne k}w_{j} r_{ji}w_{i} 
-\end{align</em>}
-$$
-따라서 $\frac{ \partial f(\mathbf{w})}{ \partial  w_{k}}$를 계산하면 다음과 같다.$\begin{align*}
+\end{align*}
+$$</p>
+<p>따라서 $\frac{ \partial f(\mathbf{w})}{ \partial  w_{k}}$를 계산하면 다음과 같다.</p>
+<p>$$
+\begin{align*}
 \frac{ \partial f(\mathbf{w})}{ \partial w_{k} }&amp;=\frac{ \partial  }{ \partial w_{k} } \left( w_{k}^{2}r_{kk} + w_{k}\sum \limits _{i\ne k} r_{ki}w_{i} + \sum \limits _{j\ne k}w_{j}r_{jk}w_{k}+ \sum \limits _{j\ne k}\sum \limits _{i \ne k}w_{j} r_{ji}w_{i} \right) 
 \\ &amp;=2w_{k}r_{kk} + \sum \limits _{i\ne k} r_{ki}w_{i} + \sum \limits _{j\ne k}w_{j}r_{jk} 
 \\ &amp;=\sum \limits _{i=1}^{n} r_{ki}w_{i} + \sum \limits _{j=1}^{n}r_{jk}w_{j} 
-\end{align*}$따라서 $f$의 그래디언트를 계산하면 다음과 같다.
-$$
+\end{align*}
+$$</p>
+<p>따라서 $f$의 그래디언트를 계산하면 다음과 같다.</p>
+<p>$$
 \begin{align*}
 \frac{ \partial f(\mathbf{w})}{ \partial \mathbf{w} } = \mathbf{w}^{T}\mathbf{R}\mathbf{w} &amp;= \left[ \frac{ \partial f (\mathbf{w})}{ \partial w_{1} },\frac{ \partial f (\mathbf{w})}{ \partial w_{2} },\dots,\frac{ \partial f (\mathbf{w})}{ \partial w_{n} } \right]^{T} 
 \\  &amp;= \begin{bmatrix}
@@ -339,16 +335,16 @@ $$
 \\  \vdots 
 \\  \sum _{i=1} ^{n} r_{ni}w_{i}  
 \end{bmatrix} +  \begin{bmatrix}
-  \sum _{j=1}^{n} r_{j1}w_{j}
+\sum _{j=1}^{n} r_{j1}w_{j}
 \\  \sum _{j=1}^{n} r_{j2}w_{j}  
 \\  \vdots 
 \\   \sum _{j=1}^{n} r_{jn}w_{j} 
 \end{bmatrix} 
 \\  &amp;=\mathbf{R} \mathbf{w} + \mathbf{R}^{T}\mathbf{w}=\left( \mathbf{R}+\mathbf{R}^{T} \right)\mathbf{w}
 \end{align*}
-$$
-마지막 줄은 $(1)$에 의해 성립한다. 만약 $\mathbf{R}$이 대칭행렬이면
-$$
+$$</p>
+<p>마지막 줄은 $(1)$에 의해 성립한다. 만약 $\mathbf{R}$이 대칭행렬이면</p>
+<p>$$
 \frac{ \partial }{ \partial \mathbf{w} }\left( \mathbf{w}^{T}\mathbf{R}\mathbf{w} \right)=2\mathbf{R}\mathbf{w}
 $$</p>
 
@@ -739,10 +735,10 @@ $$</p>
     <a href=https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/>
         <span style="color:rgb(051,204,051);">●</span> 알고리즘 (39)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/>
-        <span style="color:rgb(255,051,051);">●</span> 머신러닝 (20+)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 머신러닝 (25)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1793)</summary>
+    <summary>전체 포스트 (1794)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -846,7 +842,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D/" style="color: black">회귀분석 (28)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8-%EA%B3%B5%EA%B0%84%EB%A1%A0/" style="color: black">힐베르트 공간론 (44)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (45)</a>
         </li>
     </ul>
 </details>
