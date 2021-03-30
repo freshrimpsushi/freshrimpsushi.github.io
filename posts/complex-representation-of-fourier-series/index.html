@@ -103,7 +103,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/complex-representation-of-fourier-series\/",
-    "wordCount" : "518",
+    "wordCount" : "464",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -272,89 +272,81 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#공식">공식</a></li>
     <li><a href="#증명">증명</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-구간 $[-L,\ L)$에서 정의된 함수 $f$를 <a href="../929">푸리에 급수</a> 꼴로 나타내면 다음과 같다.
-$$
-\begin{align*}
-f(t)&amp;=\dfrac{a_0}{2}+\sum \limits_{n=1}^{\infty} \left( a_n \cos \dfrac{n\pi t}{L} + b_n\sin\dfrac{n\pi t }{L} \right) \tag{1}
-\\  \text{where}\quad a_0 &amp;=\dfrac{1}{L}\int_{-L}^{L}f(t)dt 
-\\  a_n &amp;=  \dfrac{1}{L}\int_{-L}^{L} f(t)\cos\dfrac{n\pi t}{L} dt 
-\\  b_n&amp;=\dfrac{1}{L}\int_{-L}^{L}f(t)\sin\dfrac{n\pi t}{L}dt
-\end{align*} 
-$$
-위 식은 삼각함수로 표현된 푸리에 급수이다. 이를 복소 지수 함수로 표현하면 다음과 같다.
-$$
-  \begin{align*}
-f(t) &amp;=\sum \limits_{n=-\infty}^{\infty} c_n e^{i\frac{n\pi t}{L}} 
-\\  \text{where} \quad  c_n &amp;= \dfrac{1}{2L}\int_{-L}^{L}f(t)e^{-i\frac{n \pi t}{L} }dt  
-\end{align*}
-$$
-위와 같은 꼴의 푸리에 급수를 **복소 푸리에 급수$(\mathrm{complex\ Fourier\ series})$** 라고 한다. 또한 푸리에 계수 $a_{0}$, $a_{n}$, $b_{n}$과 복소 푸리에 계수와의 관계는 다음과 같다.
-$$
-\begin{align*}
-\frac{1}{2}a_0 &amp;=c_0  
-\\  a_n&amp;=c_n+c_{-n} 
-\\  b_n&amp;=i(c_n-c_{-n})
-\\  c_n&amp;=\frac{1}{2} (a_n-ib_n) 
-\\  c_{-n}&amp;=\frac{1}{2} (a_n+ib_n) 
-\end{align*}
-$$</p>
-<p>보면 딱 알겠지만 삼각함수로 표현하는 것보다 훨씬 간단하다.</p>
-<h2 id="증명">증명</h2>
-<p><a href="../112">오일러 공식</a>을 이용해서 코사인 함수와 사인 함수를 복소지수함수로 표현하면
-$$
-\cos \dfrac{n\pi t}{L} = \dfrac{e^{i\frac{n\pi t}{L}}  + e^{-i\frac{n\pi t}{L}}    }{2} 
-$$</p>
+<h2 id="공식">공식</h2>
+<p>구간 $[-L,\ L)$에서 정의된 함수 $f$의 **복소 <a href="../929">푸리에 급수</a><sup>complex Fourier series</sup>는 다음과 같다.</p>
 <p>$$
-\sin \dfrac{n \pi t}{L} = \dfrac{e^{i\frac{n\pi t}{L}} - e^{-i\frac{n\pi t}{L}} } {2i} 
-$$
-이를 $(1)$에 대입하면
-$$
-f(t)=\dfrac{a_0}{2}+\sum \limits_{n=1}^{\infty} \left( a_n  \dfrac{e^{i\frac{n\pi t}{L}}  + e^{-i\frac{n\pi t}{L}}    }{2} + b_n\dfrac{e^{i\frac{n\pi t}{L}} - e^{-i\frac{n\pi t}{L}} } {2i}  \right)
-$$
-지수 함수를 기준으로 항을 묶어주면
-$$
-f(t) = \dfrac{a_0}{2}+\sum \limits_{n=1}^{\infty} \left( \dfrac{1}{2}\left(a_n-ib_n  \right)e^{i\frac{n\pi t}{L}}  +\dfrac{1}{2}\left(a_n + ib_n \right) e^{-i\frac{n\pi t}{L} }  \right)
-$$
-이제 $c_0=\dfrac{a_0}{2}$, $c_n=\dfrac{1}{2}\left(a_n-ib_n  \right)$,  $c_{-n}=\dfrac{1}{2}\left(a_n + ib_n \right)$이라고 두면
-$$
-f(t) =c_0+\sum \limits_{n=1}^{\infty} \left( c_ne^{i\frac{n\pi t}{L}}  +c_{-n} e^{-i\frac{n\pi t}{L} }  \right)
-$$
-인덱스를 하나로 묶어 정리하면
-$$
-f(t) = \sum \limits_{n=-\infty}^{\infty} c_n e^{i\frac{n \pi t}{L} }
-$$
-또한 $c_{0}$, $c_{n}$, $c_{-n}$을 계산해보면
-$$
+f(t) = \sum \limits_{n=-\infty}^{\infty} c_{n} e^{i\frac{n\pi t}{L}} 
+$$</p>
+<p>이때 복소 푸리에 계수는 다음과 같다.</p>
+<p>$$
+c_{n} = \dfrac{1}{2L}\int_{-L}^{L}f(t)e^{-i\frac{n \pi t}{L} }dt 
+$$</p>
+<p>푸리에 계수에 대해 다음의 식을 만족한다.</p>
+<p>$$
 \begin{align*}
-  c_0 &amp;=\dfrac{a_0}{2}=\dfrac{1}{2L}\int_{-L}^{L}f(t)dt 
-\\  c_n&amp;=\dfrac{1}{2}\left(a_n-ib_n  \right)=\dfrac{1}{2L}\int_{-L}^{L}f(t)e^{-i\frac{n \pi t}{L} }dt \quad (n=1,\ 2,\ \cdots ) 
-\\  c_{-n}&amp;=\dfrac{1}{2}\left(a_n + ib_n \right)=\dfrac{1}{2L}\int_{-L}^{L}f(t)e^{i\frac{n \pi t}{L} }dt \quad (n=-1,\ -2,\ \cdots)  
+a_{0} &amp; = 2 c_{0} 
+\\ a_{n} &amp;= c_{n}+c_{-n} 
+\\ b_{n} &amp;= i(c_{n}-c_{-n})
+\\ c_{n} &amp;= \frac{1}{2} (a_{n}-ib_{n}) 
+\\ c_{-n} &amp;= \frac{1}{2} (a_{n}+ib_{n}) 
 \end{align*}
-$$
-이므로
-$$
-c_n = \dfrac{1}{2L}\int_{-L}^{L}f(t)e^{-i\frac{n \pi t}{L} }dt \quad (n=0,\ \pm 1,\ \pm 2,\ \cdots) 
-$$
-<p style="text-align: right;">■</p></p>
+$$</p>
+<hr>
+<p>삼각함수 꼴보다 간단하여 더 자주 쓰이는 폼이다.</p>
+<h2 id="증명">증명</h2>
+<blockquote>
+<p><a href="../929">푸리에 급수</a></p>
+<p>$$
+\begin{align}
+f(t) &amp;=\dfrac{a_{0}}{2}+\sum \limits_{n=1}^{\infty} \left( a_{n} \cos \dfrac{n\pi t}{L} + b_{n}\sin\dfrac{n\pi t }{L} \right) \label{eq1}
+\\ \text{where}\quad a_{0} &amp;=\dfrac{1}{L}\int_{-L}^{L}f(t)dt \nonumber
+\\ a_{n} &amp;= \dfrac{1}{L}\int_{-L}^{L} f(t)\cos\dfrac{n\pi t}{L} dt \nonumber
+\\ b_{n}&amp;=\dfrac{1}{L}\int_{-L}^{L}f(t)\sin\dfrac{n\pi t}{L}dt \nonumber
+\end{align} 
+$$</p>
+</blockquote>
+<p><a href="../112">오일러 공식</a>을 이용해서 코사인 함수와 사인 함수를 복소지수함수로 표현하면 다음과 같다.</p>
+<p>$$
+\begin{align*}
+\cos \dfrac{n\pi t}{L} &amp;= \dfrac{e^{i\frac{n\pi t}{L}} + e^{-i\frac{n\pi t}{L}} }{2} 
+\\ \sin \dfrac{n \pi t}{L} &amp;= \dfrac{e^{i\frac{n\pi t}{L}} - e^{-i\frac{n\pi t}{L}} }{2i} 
+\end{align*}
+$$</p>
+<p>이를 $\eqref{eq1}$에 대입하면 다음과 같다.</p>
+<p>$$
+f(t)=\dfrac{a_{0}}{2}+\sum \limits_{n=1}^{\infty} \left( a_{n}  \dfrac{e^{i\frac{n\pi t}{L}} + e^{-i\frac{n\pi t}{L}}   }{2} + b_{n}\dfrac{e^{i\frac{n\pi t}{L}} - e^{-i\frac{n\pi t}{L}} } {2i}  \right)
+$$</p>
+<p>지수 함수를 기준으로 항을 묶어주면</p>
+<p>$$
+f(t) = \dfrac{a_{0}}{2}+\sum \limits_{n=1}^{\infty} \left( \dfrac{1}{2}\left(a_{n}-ib_{n} \right)e^{i\frac{n\pi t}{L}}  +\dfrac{1}{2}\left(a_{n} + ib_{n} \right) e^{-i\frac{n\pi t}{L} }  \right)
+$$</p>
+<p>이제 $c_{0}=\dfrac{a_{0}}{2}$, $c_{n}=\dfrac{1}{2}\left(a_{n}-ib_{n} \right)$, $c_{-n}=\dfrac{1}{2}\left(a_{n} + ib_{n} \right)$이라고 두면 아래와 같다.</p>
+<p>$$
+f(t) =c_{0}+\sum \limits_{n=1}^{\infty} \left( c_{n}e^{i\frac{n\pi t}{L}}  +c_{-n} e^{-i\frac{n\pi t}{L} }  \right)
+$$</p>
+<p>인덱스를 하나로 묶어 정리하면</p>
+<p>$$
+f(t) = \sum \limits_{n=-\infty}^{\infty} c_{n} e^{i\frac{n \pi t}{L} }
+$$</p>
+<p>또한 $c_{0}$, $c_{n}$, $c_{-n}$을 계산해보면</p>
+<p>$$
+\begin{align*}
+c_{0} &amp;=\dfrac{a_{0}}{2}=\dfrac{1}{2L}\int_{-L}^{L}f(t)dt 
+\\ c_{n}&amp;=\dfrac{1}{2}\left(a_{n}-ib_{n} \right)=\dfrac{1}{2L}\int_{-L}^{L}f(t)e^{-i\frac{n \pi t}{L} }dt \quad (n=1,\ 2,\ \cdots ) 
+\\ c_{-n}&amp;=\dfrac{1}{2}\left(a_{n} + ib_{n} \right)=\dfrac{1}{2L}\int_{-L}^{L}f(t)e^{i\frac{n \pi t}{L} }dt \quad (n=-1,\ -2,\ \cdots) 
+\end{align*}
+$$</p>
+<p>이므로</p>
+<p>$$
+c_{n} = \dfrac{1}{2L}\int_{-L}^{L}f(t)e^{-i\frac{n \pi t}{L} }dt \quad (n=0,\ \pm 1,\ \pm 2,\ \cdots) 
+$$</p>
+<p style="text-align: right;">■</p>
 
 
 
@@ -746,7 +738,7 @@ $$
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (25)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1796)</summary>
+    <summary>전체 포스트 (1797)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -808,7 +800,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (51)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">열물리학 (22)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">열물리학 (23)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/" style="color: black">위상수학 (59)</a>
         </li><li>
