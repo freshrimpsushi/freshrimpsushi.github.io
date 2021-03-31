@@ -103,7 +103,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/fourier-inversion-theorem-for-smooth-function\/",
-    "wordCount" : "1141",
+    "wordCount" : "1176",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -272,117 +272,110 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#정리">정리</a></li>
+    <li><a href="#설명">설명</a></li>
     <li><a href="#증명">증명</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-$f$가 $\mathbb{R} $위에서  <a href="../828">적분 가능</a>하고 <a href="../972">조각마다 스무스</a>하다고 하자. 그러면 아래의 식이 성립한다.
-$$
+<h2 id="정리">정리</h2>
+<p>$f$가 $\mathbb{R} $위에서  <a href="../828">적분 가능</a>하고 <a href="../972">조각마다 스무스</a>하다고 하자. 그러면 아래의 식이 성립한다.</p>
+<p>$$
 \lim \limits_{r\to \infty} \frac{1}{2\pi} \int_{-r}^{r}e^{i\xi x} \hat{f}(\xi)d\xi= \frac{1}{2}\big[f(x-)+f(x+)  \big],\quad \forall x\in \mathbb{R}
-$$
-이때 $f(x+)$, $f(x-)$는 각각 $f$의 $x$에서의 <a href="../1830">우극한</a>, <a href="../1830">좌극한</a>이다.</p>
-<p><a href="../1112">푸리에 역변환 정리</a>는 컷오프 펑션을 사용하는 대신에 $f$에 대한 조건이 비교적 약했다. 위 정리는 푸리에 역변환 정리의 또 다른 형태이다. 결과로 얻는 식이 강력한 만큼이나 조건도 강력하다. 푸리에 역변환 정리에서는 기껏해야 $f$가 <a href="../384">연속</a>임을 요구했다면 여기서는 스무스까지 요구한다. 아래와 같은 컷오프 펑션을 사용했다고 생각할 수도 있다.
-$$
+$$</p>
+<p>이때 $f(x+)$, $f(x-)$는 각각 $f$의 $x$에서의 <a href="../1830">우극한</a>, <a href="../1830">좌극한</a>이다.</p>
+<h2 id="설명">설명</h2>
+<p><a href="../1112">푸리에 역변환 정리</a>는 컷오프 펑션을 사용하는 대신에 $f$에 대한 조건이 비교적 약했다. 위 정리는 푸리에 역변환 정리의 또 다른 형태이다. 결과로 얻는 식이 강력한 만큼이나 조건도 강력하다. 푸리에 역변환 정리에서는 기껏해야 $f$가 <a href="../384">연속</a>임을 요구했다면 여기서는 스무스까지 요구한다. 아래와 같은 컷오프 함수를 사용했다고 생각할 수도 있다.</p>
+<p>$$
 \eta(x)=\begin{cases} 1&amp;-r \le x \le r 
 \\  0 &amp; \text{otherwise} \end{cases}
 $$</p>
 <h2 id="증명">증명</h2>
-<p>먼저 아래의 식을 계산하자.
-$$
+<p>먼저 아래의 식을 계산하자.</p>
+<p>$$
 \begin{align*}
 \int_{-r}^{r}e^{i\xi(x-y)}d\xi &amp;= \left. \frac{e^{i\xi(x-y)}}{i(x-y)}\right]_{\xi=-r}^{r}
 \\  &amp;= \frac{e^{ir(x-y)}-e^{-ir(x-y)}}{i(x-y)}
 \\  &amp;=\frac{2i \sin r(x-y)}{i(x-y)}=\frac{2\sin r(x-y)}{(x-y)} 
 \end{align*}
-$$
-이를 이용하면 다음과 같은 식을 얻는다.
-$$
+$$</p>
+<p>이를 이용하면 다음과 같은 식을 얻는다.</p>
+<p>$$
 \begin{align*}
 \frac{1}{2\pi}\int_{-r}^{r}e^{i\xi x}\hat{f}(\xi)d\xi &amp;= \frac{1}{2\pi}\int_{-r}^{r} e^{i\xi x}\int _{-\infty} ^{\infty}f(y)e^{-i\xi y}dyd\xi 
 \\  &amp;= \frac{1}{2\pi}\int _{-\infty} ^{\infty}\int_{-r}^{r} e^{i\xi (x-y)}d\xi f(y)dy 
 \\  &amp;= \frac{1}{\pi}\int _{-\infty} ^{\infty}\frac{\sin r(x-y)}{(x-y)}f(y)dy  
 \end{align*}
-$$
-여기서 $x-y=y$로 치환하면
-$$
-\begin{align*}
-\frac{1}{\pi}\int _{-\infty} ^{\infty}\frac{\sin r(x-y)}{(x-y)}f(y)dy  &amp;= -\frac{1}{\pi}\int _{\infty} ^{-\infty}\frac{\sin (ry)}{y}f(x-y)dy 
-\\  &amp;= \frac{1}{\pi}\int _{-\infty} ^{\infty}\frac{\sin (ry)}{y}f(x-y)dy  
-\end{align*} \tag{1}
-$$
-한편 <a href="../373">싱크함수의 이상적분</a>이 아래와 같음이 잘 알려져있다.
-$$
-\int_{-\infty}^{0} \frac{\sin x}{x}dx=\int_{-\infty}^{0} \frac{\sin (ax)}{x}dx=\frac{\pi}{2}=\int_{0}^{\infty} \frac{\sin x}{x}dx=\int_{0}^{\infty} \frac{\sin (ax)}{x}dx \tag{2}
-$$
-위의 두 식 $(1)$, $(2)$를 이용하여 아래의 식을 얻을 수 있다.
-$$
-\begin{align*}
-  &amp;\frac{1}{2\pi}\int_{-r}^{r}e^{i\xi x}\hat{f}(\xi)d\xi-\frac{1}{2}\big[ f(x+)+f(x-)\big] 
-\\  =&amp;\frac{1}{\pi}\int _{-\infty} ^{\infty}\frac{\sin (ry)}{y}f(x-y)dy -\frac{1}{\pi}\int_{-\infty}^{0}\frac{\sin (ry)}{y}dyf(x+)-\frac{1}{\pi}\int_{0}^{\infty}\frac{\sin (ry)}{y}dyf(x-) 
-\\  =&amp;\frac{1}{\pi}\int _{-\infty} ^{0}\frac{\sin (ry)}{y}\big[f(x-y)-f(x+) \big]dy +\frac{1}{\pi}\int _{0} ^{\infty}\frac{\sin (ry)}{y}\big[f(x-y)-f(x-) \big]dy \tag{3} 
-\end{align*}
-$$
-이때 풀이 방식이 같으므로 위 식의 마지막 줄의 두번째 항에 대해서만 풀어보면 된다. $K\ge 1$에 대해서 다음과 같이 적분 구간은 나누자.
-$$
-\begin{align*}
-&amp;\frac{1}{\pi}\int _{0} ^{\infty}\frac{\sin (ry)}{y}\big[f(x-y)-f(x-) \big]dy
-\\  = &amp;\frac{1}{\pi}\int _{0} ^{K}\frac{\sin (ry)}{y}\big[f(x-y)-f(x-) \big]dy+\frac{1}{\pi}\int _{K} ^{\infty}\frac{\sin (ry)}{y}\big[f(x-y)-f(x-) \big]dy \tag{4} 
-\end{align*}
-$$
- $(4)$의 두번째 항을 두 부분으로 나누어서 보자. $x \ge 1$에 대해서 $\left| \frac{\sin x}{x} \right| \le 1$이므로 다음의 식을 얻는다.
-$$
+$$</p>
+<p>여기서 $x-y=y$로 치환하면</p>
+<p>$$
+\begin{align}
+\frac{1}{\pi}\int _{-\infty} ^{\infty}\frac{\sin r(x-y)}{(x-y)}f(y)dy  &amp;= -\frac{1}{\pi}\int _{\infty} ^{-\infty}\frac{\sin (ry)}{y}f(x-y)dy \nonumber
+\\  &amp;= \frac{1}{\pi}\int _{-\infty} ^{\infty}\frac{\sin (ry)}{y}f(x-y)dy \label{eq1}
+\end{align}
+$$</p>
+<p>한편 <a href="../373">싱크함수의 이상적분</a>이 아래와 같음이 잘 알려져있다.</p>
+<p>$$
+\begin{equation}
+\int_{-\infty}^{0} \frac{\sin x}{x}dx=\int_{-\infty}^{0} \frac{\sin (ax)}{x}dx=\frac{\pi}{2}=\int_{0}^{\infty} \frac{\sin x}{x}dx=\int_{0}^{\infty} \frac{\sin (ax)}{x}dx
+\label{eq2}
+\end{equation}
+$$</p>
+<p>위의 두 식 $\eqref{eq1}$, $\eqref{eq2}$를 이용하여 아래의 식을 얻을 수 있다.</p>
+<p>$$
+\begin{align}
+&amp;\frac{1}{2\pi}\int_{-r}^{r}e^{i\xi x}\hat{f}(\xi)d\xi-\frac{1}{2}\big[ f(x+)+f(x-)\big] \nonumber
+\\  =&amp;\frac{1}{\pi}\int _{-\infty} ^{\infty}\frac{\sin (ry)}{y}f(x-y)dy -\frac{1}{\pi}\int_{-\infty}^{0}\frac{\sin (ry)}{y}dyf(x+)-\frac{1}{\pi}\int_{0}^{\infty}\frac{\sin (ry)}{y}dyf(x-) \nonumber
+\\  =&amp;\frac{1}{\pi}\int _{-\infty} ^{0}\frac{\sin (ry)}{y}\big[f(x-y)-f(x+) \big]dy +\frac{1}{\pi}\int _{0} ^{\infty}\frac{\sin (ry)}{y}\big[f(x-y)-f(x-) \big]dy \label{eq3}
+\end{align}
+$$</p>
+<p>이때 풀이 방식이 같으므로 위 식의 마지막 줄의 두번째 항에 대해서만 풀어보면 된다. $K\ge 1$에 대해서 다음과 같이 적분 구간은 나누자.</p>
+<p>$$
+\begin{align}
+&amp;\frac{1}{\pi}\int _{0} ^{\infty}\frac{\sin (ry)}{y}\big[f(x-y)-f(x-) \big]dy \nonumber
+\\  = &amp;\frac{1}{\pi}\int _{0} ^{K}\frac{\sin (ry)}{y}\big[f(x-y)-f(x-) \big]dy+\frac{1}{\pi}\int _{K} ^{\infty}\frac{\sin (ry)}{y}\big[f(x-y)-f(x-) \big]dy \label{eq4} 
+\end{align}
+$$</p>
+<p>$\eqref{eq4}$의 두번째 항을 두 부분으로 나누어서 보자. $x \ge 1$에 대해서 $\left| \frac{\sin x}{x} \right| \le 1$이므로 다음의 식을 얻는다.</p>
+<p>$$
 \begin{align*}
 \left|    \frac{1}{\pi}\int _{K} ^{\infty}\frac{\sin (ry)}{y}f(x-y)dy\right| &amp;\le    \frac{1}{\pi}\int _{K} ^{\infty}\left|\frac{\sin (ry)}{y}f(x-y)\right|dy 
 \\  &amp;\le    \frac{1}{\pi}\int _{K} ^{\infty}\left|f(x-y)\right|dy 
 \end{align*}
-$$
-이때 가정에 의해 $f$는 적분 가능하므로 $\lim \limits_{x \to \infty}f(x)$가 발산하지 않는다. 따라서 위의 적분은 $K \to \infty$일 때 $0$으로 가까워진다. 남은 부분은 다음과 같이 계산할 수 있다.
-$$
+$$</p>
+<p>이때 가정에 의해 $f$는 적분 가능하므로 $\lim \limits_{x \to \infty}f(x)$가 발산하지 않는다. 따라서 위의 적분은 $K \to \infty$일 때 $0$으로 가까워진다. 남은 부분은 다음과 같이 계산할 수 있다.</p>
+<p>$$
 \begin{align*}
-     \frac{1}{\pi}\int _{K} ^{\infty}\frac{\sin (ry)}{y}f(x-)dy &amp;=    \frac{f(x-)}{\pi}\int _{K} ^{\infty}\frac{\sin (ry)}{y}dy 
+\frac{1}{\pi}\int _{K} ^{\infty}\frac{\sin (ry)}{y}f(x-)dy &amp;=    \frac{f(x-)}{\pi}\int _{K} ^{\infty}\frac{\sin (ry)}{y}dy 
 \\  &amp;=    \frac{f(x-)}{\pi}\int _{rK} ^{\infty}\frac{\sin (y)}{y}dy 
 \end{align*}
-$$
-이때 $\frac{\sin x}{x}$도 적분 가능하므로 위에서와 마찬가지로, $r\ge 1$일 때 $r$의 값에 무관하게, $K \to \infty$일 때 적분 값이 $0$으로 다가간다. 따라서 $K$를 충분히 크다고 둬서 $(4)$의 두번째 항을 우리가 원하는 만큼 작게 만들 수 있다. 이제 $(3)$의 첫번째 항을 계산할 차례인데, 우선 함수 $g$를 다음과 같다고 하자.
-$$
+$$</p>
+<p>이때 $\frac{\sin x}{x}$도 적분 가능하므로 위에서와 마찬가지로, $r\ge 1$일 때 $r$의 값에 무관하게, $K \to \infty$일 때 적분 값이 $0$으로 다가간다. 따라서 $K$를 충분히 크다고 둬서 $\eqref{eq4}$의 두번째 항을 우리가 원하는 만큼 작게 만들 수 있다. 이제 $\eqref{eq3}$의 첫번째 항을 계산할 차례인데, 우선 함수 $g$를 다음과 같다고 하자.</p>
+<p>$$
 g(y) =\begin{cases} \frac{f(x-y)-f(x-)}{y}, &amp;0&lt;y&lt;K 
 \\  0, &amp; \text{otherwise}\end{cases}
-$$
-그러면 아래의 식을 얻는다.
-$$
+$$</p>
+<p>그러면 아래의 식을 얻는다.</p>
+<p>$$
 \begin{align*}
 \int \frac{e^{iry}-e^{-iry}}{2i}g(y)dy &amp;=\frac{1}{2i}\left[\int g(y)e^{iry}dy-\int g(y)e^{-iry}dy \right] 
 \\  &amp;= \frac{1}{2i}\big[ \hat{g}(r)-\hat{g}(-r) \big]
 \end{align*}
-$$
-이때 $f$가 스무스 함수라고 가정했으므로 $g$도 $y=0$을 제외한 모든 곳에서 스무스 함수이다. 그리고 함숫값 $g(y)$는 $y$가 $0$으로 가까워지며 감소할 때 $f'(x-)$로 가까이 가므로 $g$는 $[0,K]$에서 <a href="../180">유계</a>이고 적분 가능하다. 따라서 <a href="../1106">리만-르벡 보조정리</a>에 의해 $\lim \limits_{r\to\infty}\hat{g}(\pm r)=0$이다. 이를 종합하면 $(3)$의 두번째 항에 대해서 다음의 식을 얻는다.
-$$
+$$</p>
+<p>이때 $f$가 스무스 함수라고 가정했으므로 $g$도 $y=0$을 제외한 모든 곳에서 스무스 함수이다. 그리고 함숫값 $g(y)$는 $y$가 $0$으로 가까워지며 감소할 때 $f'(x-)$로 가까이 가므로 $g$는 $[0,K]$에서 <a href="../180">유계</a>이고 적분 가능하다. 따라서 <a href="../1106">리만-르벡 보조정리</a>에 의해 $\lim \limits_{r\to\infty}\hat{g}(\pm r)=0$이다. 이를 종합하면 $\eqref{eq3}$의 두번째 항에 대해서 다음의 식을 얻는다.</p>
+<p>$$
 \lim \limits_{r\to \infty}\frac{1}{\pi}\int _{0} ^{\infty}\frac{\sin (ry)}{y}\big[f(x-y)-f(x-) \big]dy =0
-$$
-같은 방식으로 $(3)$의 첫번째 항에 대해서도 다음의 식을 얻는다.
-$$
+$$</p>
+<p>같은 방식으로 $\eqref{eq3}$의 첫번째 항에 대해서도 다음의 식을 얻는다.</p>
+<p>$$
 \lim \limits_{r\to \infty}\frac{1}{\pi}\int _{-\infty} ^{0}\frac{\sin (ry)}{y}\big[f(x-y)-f(x-) \big]dy =0
-$$
-따라서
-$$
+$$</p>
+<p>따라서</p>
+<p>$$
 \lim \limits_{r \to \infty} \frac{1}{2\pi}\int_{-r}^{r}e^{i\xi x}\hat{f}(\xi)d\xi-\frac{1}{2}\big[ f(x+)+f(x-)\big]=0
-$$
-<p style="text-align: right;">■</p></p>
+$$</p>
+<p style="text-align: right;">■</p>
 
 
 
@@ -746,7 +739,7 @@ $$
     <a href=https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 동역학 (60++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/>
-        <span style="color:rgb(255,051,051);">●</span> 푸리에해석 (44)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 푸리에해석 (40)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 벡터해석 (59)</a><br>
@@ -774,7 +767,7 @@ $$
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (25)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1798)</summary>
+    <summary>전체 포스트 (1797)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -856,19 +849,19 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C-%ED%95%B4%EC%84%9D/" style="color: black">텐서 해석 (13)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (10)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (42)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (38)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (19)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (20)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (54)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (55)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (73)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (74)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (58)</a>
         </li><li>
@@ -878,7 +871,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D/" style="color: black">회귀분석 (28)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (45)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (47)</a>
         </li>
     </ul>
 </details>

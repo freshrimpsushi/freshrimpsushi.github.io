@@ -48,9 +48,9 @@
     </script>
 
     
-<meta name="title" content="곱셈적 합성곱">
+<meta name="title" content="멜린변환의 컨볼루션">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="곱셈적 합성곱"/>
+<meta property="og:title" content="멜린변환의 컨볼루션"/>
 <meta property="og:description" content="multiplicative convolution"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
@@ -63,8 +63,8 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "j_",
-    "name": "곱셈적 합성곱",
-    "headline": "곱셈적 합성곱",
+    "name": "멜린변환의 컨볼루션",
+    "headline": "멜린변환의 컨볼루션",
     "alternativeHeadline": "",
     "description": "multiplicative convolution",
     "inLanguage": "ko",
@@ -103,14 +103,14 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/multiplicative-convolution\/",
-    "wordCount" : "219",
+    "wordCount" : "172",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>곱셈적 합성곱</title>
+    <title>멜린변환의 컨볼루션</title>
 
 </head>
 
@@ -250,9 +250,9 @@
             <div class = "content">
             
 
-<title>곱셈적 합성곱</title>
+<title>멜린변환의 컨볼루션</title>
 
-<h1>곱셈적 합성곱</h1>
+<h1>멜린변환의 컨볼루션</h1>
 <aside>
     <p style="text-align: right;">
         1835
@@ -272,42 +272,51 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#정의">정의</a></li>
+    <li><a href="#설명">설명</a></li>
+    <li><a href="#증명">증명</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-$\mathbb{R}$에서 정의된 두 함수 $f$, $g$에 대해서 $f \times g$를 아래와 같이 정의하고 이를 곱셈적 합성곱이라 부른다.
-$$
-(f \times g) (y) := \int _{0}^{\infty} f(x)g \left(\frac{y}{x}  \right)\frac{dx}{x}
+<h2 id="정의">정의</h2>
+<p><a href="../1176">멜린변환</a>의 <a href="../1848">컨볼루션</a>은 다음과 같다.</p>
+<p>$$
+(f \times g) (y) = \int _{0}^{\infty} f(x)g \left(\frac{y}{x}  \right)\frac{dx}{x}
 $$</p>
-<p><a href="../1000">컨볼루션</a>에 비하면 메이저한 정의는 아니다. 이를 컨볼루션이라 이름 붙인 까닭은 컨볼루션과 <a href="../1086">푸리에 변환</a>의 관계와 연관이 있을 것이라 예상할 수 있다. 아래의 식은 <a href="../1101">푸리에 변환의 성질</a> 중 하나이다.
-$$
-\mathcal{F}(f * g)=(\mathcal{F}f) (\mathcal{F}g)
-$$
-이 같은 꼴의 성질이 <a href="../1176">멜린 변환</a>과 멀티플리케이티브 컨볼루션에 대해서도 성립한다.
-$$
+<h2 id="설명">설명</h2>
+<p>곱셈적 합성곱<sup>multiplicative convolution</sup><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>이라 부르기도 한다.</p>
+<h2 id="증명">증명</h2>
+<p>$$
 \mathcal{M}(f \times g)=(\mathcal{M}f)(\mathcal{M}g)
 $$</p>
+<p>위 등식이 성립함을 보이면 된다.</p>
+<p>$$
+\begin{align*}
+\mathcal{M}(f\times g)(s) &amp;= \int _{0} ^{\infty} x^{s-1} (f\times g)(x)dx 
+\\  &amp;= \int _{0} ^{\infty} x^{s-1} (f\times g)(x)dx 
+\\  &amp;= \int _{0} ^{\infty} x^{s-1} \left( \int _{0}^{\infty}f(y)g \left( \frac{x}{y} \right)\frac{dy}{y} \right)dx 
+\\   &amp;= \int _{0} ^{\infty}  \int _{0}^{\infty}x^{s-1}f(y)g \left( \frac{x}{y} \right)\frac{dy}{y} dx  
+\\   &amp;= \int _{0} ^{\infty}  \int _{0}^{\infty}y^{s-1}z^{s-1}f(y)g (z)dydz  
+\\   &amp;= \int _{0} ^{\infty} y^{s-1}f(y)dy  \int_{0}^{\infty} z^{s-1}g (z)dz 
+\\  &amp;= \mathcal{M}f(s) \mathcal{M}g(s) 
+\end{align*}
+$$</p>
+<p style="text-align: right;">■</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Gerald B. Folland, <em>Fourier Analysis and Its Applications</em> (1992), p254 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var title = '곱셈적 합성곱';
+        var title = '멜린변환의 컨볼루션';
         var link = 'https:\/\/freshrimpsushi.github.io\/posts\/multiplicative-convolution\/';
         var arr = new Array();
         var obj = {
@@ -428,7 +437,7 @@ $$</p>
         }
         let board_idx = '1835';
         let board_slug = 'multiplicative-convolution';
-        let board_title = '곱셈적 합성곱';
+        let board_title = '멜린변환의 컨볼루션';
 
         $.ajax({
             type: "POST",
@@ -602,7 +611,7 @@ $$</p>
             }
             let idx = '1835';
             let board_slug = 'multiplicative-convolution';
-            let board_title = '곱셈적 합성곱';
+            let board_title = '멜린변환의 컨볼루션';
 
             $.ajax({
                 type: "POST",
@@ -665,7 +674,7 @@ $$</p>
     <a href=https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 동역학 (60++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/>
-        <span style="color:rgb(255,051,051);">●</span> 푸리에해석 (44)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 푸리에해석 (40)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 벡터해석 (59)</a><br>
@@ -693,7 +702,7 @@ $$</p>
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (25)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1798)</summary>
+    <summary>전체 포스트 (1797)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -775,19 +784,19 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C-%ED%95%B4%EC%84%9D/" style="color: black">텐서 해석 (13)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (10)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (42)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (38)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (19)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (20)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (54)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (55)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (73)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (74)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (58)</a>
         </li><li>
@@ -797,7 +806,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D/" style="color: black">회귀분석 (28)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (45)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (47)</a>
         </li>
     </ul>
 </details>

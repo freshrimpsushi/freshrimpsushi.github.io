@@ -103,7 +103,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-solve-heat-equation-using-fourier-analysis\/",
-    "wordCount" : "1214",
+    "wordCount" : "1132",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -272,83 +272,77 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#설명">설명</a></li>
+    <li><a href="#풀이">풀이</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-<a href="../929">푸리에 급수</a>$(\mathrm{Fourier\ series})$** 와 <a href="../1101">푸리에 변환</a>$(\mathrm{Fourier\ transform})$** 은 <a href="../1001">열 방정식</a>$(\mathrm{heat\ equation})$** 을 풀기 위해 등장한 개념이다. 물론 열 방정식 뿐만 아니라 조건을 만족한다면 다른 미분 방정식을 풀 때도 사용할 수 있다. 특히 푸리에 급수는 양자 물리학에서 입자의 에너지를 슈뢰딩거 방정식을 통해서 계산할 때 사용된다. 많은 물리학과 학생들은 그것이 푸리에 급수라는 것인지는 모르고 사용하긴 하지만 말해주면 뭔지는 안다.주어진 미분 방정식의 조건에 따라서 푸리에 변환과 푸리에 급수 둘 중에 어느 것을 사용해야하는지가 정해진다. 문제에서 주어진 범위가 유한할 때는 푸리에 급수를, 문제에서 주어진 범위가 무한할 때는 푸리에 변환을 사용한다.**푸리에 변환을 이용한 미분 방정식의 풀이.
-다음과 같은 열 방정식이 주어졌다고 하자
-$$
-u_t=k u_{xx}   (-\infty &lt; x&lt; \infty) 
+<h2 id="설명">설명</h2>
+<p><a href="../929">푸리에 급수</a>와 <a href="../1101">푸리에 변환</a>은 <a href="../1001">열 방정식</a>을 풀기 위해 등장한 개념이다. 물론 열 방정식 뿐만 아니라 조건을 만족한다면 다른 미분 방정식을 풀 때도 사용할 수 있다. 특히 푸리에 급수는 양자 물리학에서 입자의 에너지를 슈뢰딩거 방정식을 통해서 계산할 때 사용된다. 많은 물리학과 학생들은 그것이 푸리에 급수라는 것인지는 모르고 사용하긴 하지만 말해주면 뭔지는 안다.주어진 미분 방정식의 조건에 따라서 푸리에 변환과 푸리에 급수 둘 중에 어느 것을 사용해야하는지가 정해진다. 문제에서 주어진 범위가 유한할 때는 푸리에 급수를, 문제에서 주어진 범위가 무한할 때는 푸리에 변환을 사용한다.</p>
+<h2 id="풀이">풀이</h2>
+<p>다음과 같은 열 방정식이 주어졌다고 하자</p>
+<p>$$
+u_{t}=k u_{xx}   (-\infty &lt; x&lt; \infty) 
 $$</p>
 <p>$$
 u(x,0)=f(x) ( -\infty &lt; x&lt; \infty)  
-$$
-양수인 시간 $t$에 대해서 경계조건이 없다. $u$와 $f$가 급격히 감소하여 $x \rightarrow \pm \infty$일 때 $0$으로 수렴한다고, 즉 <a href="../1114">$L^1$ 함수</a> 라고 가정하자. 그러면 푸리에 변환이 존재한다. $x$에 대한 푸리에 변환을 주어진 미분 방정식에 적용하면
-$$
-\mathcal{F} [u_t](\xi,\ t) = k \mathcal{F}[u_{xx}](\xi,\ t)
-$$
-<a href="../1101">푸리에 변환의 성질 $(c)$</a> ** $\hat{[f']}=i\xi \hat{f}$을 우변에 적용하면
-$$
-\mathcal{F} [u_t](\xi,\ t) = -k\xi^2 \hat{u}(\xi,\ t)
-$$
-이때 좌변을 풀어서 적으면 $\int u_te^{-i\xi x}dx$인데 조건이 좋아서 적분과 미분의 순서를 바꿀 수 있다고 가정하자. 보통의 경우 마음대로 미분과 적분 순서를 바꾸는 것이 불가능하지만 이런 유형의 문제를 풀 때는 거의 다 성립하므로 크게 신경쓰지 않아도 괜찮다. 그러면 $u$의 미분의 푸리에 변환이 $u$의 푸리에 변환의 미분과 같다. 따라서 주어진 미분 방정식은 아래와 같은 <a href="../503">간단한 상미분 방정식</a> 이 된다.
-$$
-\dfrac{\partial \hat{u}}{\partial t}(\xi,\ t)  = -k\xi^2 \hat{u}(\xi,\ t)
-$$
-고정된 $\xi$에 대해서 위의 미분 방정식을 풀면
-$$
-\hat{u}(\xi,\ t) = \hat{f} (\xi) e^{-k\xi^2t} 
-$$
-양변에 <a href="../1112">푸리에 역변환</a> 을 취하면
-$$
-u(x,\ t) =\dfrac{1}{2\pi}\int \hat{f}(\xi) e^{-k\xi^2 t}e^{i\xi x} d\xi \quad \cdots (1)
-$$
-이를 $u$에 대한 푸리에 적분 공식$(\mathrm{Fourier\ integral\ formula})$이라 부른다. 위 식을 푸리에 변환과 합성곱의 성질을 이용하여 간단하게 나타낼 것이다. <a href="../1112">푸리에 변환의 성질 $(d)$</a>  $\mathcal{F} [f * g]=\hat{f}\hat{g}$의 양변에 역변환을 취해주면
-$$
-f<em>g=\mathcal{F}^{-1}[\hat{f} \hat{g}] 
-$$
-$(1)$의 $e^{-k\xi ^2t}$를 어떤 함수의 푸리에 변환이라고 두면 위의 식을 이용할 수 있다. 구체적으로 $\mathcal{F}<a href="%5Cxi">K_t</a>=e^{-k\xi^2 t}$라고 하자. 그러면 식 $(1)$은
-$$
-\begin{align</em>}
-u(x,\ t) &amp;= \dfrac{1}{2\pi} \int \hat{f}(\xi) \hat{K_t}(\xi) e^{i\xi x} d\xi 
-\\  &amp;= \mathcal{F}^{-1}[\hat{f}\hat{K_t}] (x)
-\\  &amp;= f<em>K_t(x) 
-\end{align</em>} 
-$$
-이제 $K_t$를 구할 차례이다. 처음 정의했던 식의 양 변에 역변환을 취하면
-$$
+$$</p>
+<p>양수인 시간 $t$에 대해서 경계조건이 없다. $u$와 $f$가 급격히 감소하여 $x \rightarrow \pm \infty$일 때 $0$으로 수렴한다고, 즉 <a href="../1114">$L^1$ 함수</a> 라고 가정하자. 그러면 푸리에 변환이 존재한다. $x$에 대한 푸리에 변환을 주어진 미분 방정식에 적용하면</p>
+<p>$$
+\mathcal{F} [u_{t}] (\xi,\ t) = k \mathcal{F}[u_{xx}] (\xi,\ t)
+$$</p>
+<p><a href="../1101">푸리에 변환의 성질</a> $\hat{[f']}=i\xi \hat{f}$을 우변에 적용하면</p>
+<p>$$
+\mathcal{F} [u_{t}] (\xi,\ t) = -k\xi^{2} \hat{u}(\xi,\ t)
+$$</p>
+<p>이때 좌변을 풀어서 적으면 $\int u_{t}e^{-i\xi x}dx$인데 조건이 좋아서 적분과 미분의 순서를 바꿀 수 있다고 가정하자. 보통의 경우 마음대로 미분과 적분 순서를 바꾸는 것이 불가능하지만 이런 유형의 문제를 풀 때는 거의 다 성립하므로 크게 신경쓰지 않아도 괜찮다. 그러면 $u$의 미분의 푸리에 변환이 $u$의 푸리에 변환의 미분과 같다. 따라서 주어진 미분 방정식은 아래와 같은 <a href="../503">간단한 상미분 방정식</a>이 된다.</p>
+<p>$$
+\dfrac{\partial \hat{u}}{\partial t}(\xi,\ t)  = -k\xi^{2} \hat{u}(\xi,\ t)
+$$</p>
+<p>고정된 $\xi$에 대해서 위의 미분 방정식을 풀면</p>
+<p>$$
+\hat{u}(\xi,\ t) = \hat{f} (\xi) e^{-k\xi^{2}t} 
+$$</p>
+<p>양변에 <a href="../1112">푸리에 역변환</a> 을 취하면</p>
+<p>$$
+\begin{equation}
+u(x,\ t) =\dfrac{1}{2\pi}\int \hat{f}(\xi) e^{-k\xi^{2} t}e^{i\xi x} d\xi
+\label{eq1}
+\end{equation}
+$$</p>
+<p>이를 $u$에 대한 <strong>푸리에 적분 공식</strong><sup>Fourier integral formula</sup>이라 부른다. 위 식을 푸리에 변환과 합성곱의 성질을 이용하여 간단하게 나타낼 것이다. <a href="../1112">푸리에 변환의 성질 $(d)$</a>  $\mathcal{F} [f \ast g]=\hat{f}\hat{g}$의 양변에 역변환을 취해주면</p>
+<p>$$
+f \ast g=\mathcal{F}^{-1}[\hat{f} \hat{g}] 
+$$</p>
+<p>$\eqref{eq1}$의 $e^{-k\xi ^{2}t}$를 어떤 함수의 푸리에 변환이라고 두면 위의 식을 이용할 수 있다. 구체적으로 $\mathcal{F}[K_{t}] (\xi)=e^{-k\xi^{2} t}$라고 하자. 그러면 식 $\eqref{eq1}$은</p>
+<p>$$
 \begin{align*}
-K_t(x)= \mathcal{F}^{-1} \mathcal{F}<a href="x">K_t</a> &amp;= \mathcal{F}^{-1} \left[ e^{-k\xi ^2 t} \right] 
-\\  &amp;= \dfrac{1}{2\pi} \int e^{-k\xi^2 t}e^{i\xi x} d\xi 
-\\  &amp;= \dfrac{1}{2\pi} \int e^{-k\xi^2 t}e^{-i\xi (-x)}d\xi 
-\\  &amp;= \dfrac{1}{2\pi} \mathcal{F} \left<a href="-x">e^{-k\xi^2t} \right</a> 
-\\  &amp;= \dfrac{1}{\sqrt{4\pi kt}}e^{-x^2/4kt}dx 
-\end{align*}
-$$
-마지막 수식은 <a href="../1104">가우스 함수의 푸리에 변환 공식</a> 으로 간단히 얻을 수 있다. 따라서 이를 $u$에 대입하면
-$$
-\begin{align*}
-u(x,\ t) &amp;= f*K_t(x) 
-\\  &amp;= \int f(y) K_t(x-y) dy 
-\\  &amp;= \dfrac{1}{\sqrt{4 \pi kt}} \int f(y) e^{-(x-y)^2/4kt}dy 
+u(x,\ t) &amp;= \dfrac{1}{2\pi} \int \hat{f}(\xi) \hat{K_{t}}(\xi) e^{i\xi x} d\xi 
+\\  &amp;= \mathcal{F}^{-1}[\hat{f}\hat{K_{t}}] (x)
+\\  &amp;= f \ast K_{t}(x) 
 \end{align*} 
-$$
-처음 주어진 미분 방정식의 조건에 $u(x,\ 0)=f(x)$가 있었으므로 $\lim \limits_{ t\rightarrow 0} u(x,\ t)=\lim \limits_{ t\rightarrow 0} f*K_t(x)=f(x)$라면 $f$가 적절하고 위 문제에 잘 들어맞는 해라고 할 수 있다. 물론 실제로 성립하고 그 <a href="../1109">증명</a> 은 여기에서 확인할 수 있다.</p>
+$$</p>
+<p>이제 $K_{t}$를 구할 차례이다. 처음 정의했던 식의 양 변에 역변환을 취하면</p>
+<p>$$
+\begin{align*}
+K_{t}(x)= \mathcal{F}^{-1} \mathcal{F}[K_{t}] (x) &amp;= \mathcal{F}^{-1} \left[ e^{-k\xi ^{2} t} \right] 
+\\  &amp;= \dfrac{1}{2\pi} \int e^{-k\xi^{2} t}e^{i\xi x} d\xi 
+\\  &amp;= \dfrac{1}{2\pi} \int e^{-k\xi^{2} t}e^{-i\xi (-x)}d\xi 
+\\  &amp;= \dfrac{1}{2\pi} \mathcal{F} \left[e^{-k\xi^{2}t} \right] (-x) 
+\\  &amp;= \dfrac{1}{\sqrt{4\pi kt}}e^{-x^{2}/4kt}dx 
+\end{align*}
+$$</p>
+<p>마지막 수식은 <a href="../1104">가우스 함수의 푸리에 변환 공식</a> 으로 간단히 얻을 수 있다. 따라서 이를 $u$에 대입하면</p>
+<p>$$
+\begin{align*}
+u(x,\ t) &amp;= f \ast K_{t}(x) 
+\\  &amp;= \int f(y) K_{t}(x-y) dy 
+\\  &amp;= \dfrac{1}{\sqrt{4 \pi kt}} \int f(y) e^{-(x-y)^{2}/4kt}dy 
+\end{align*} 
+$$</p>
+<p>처음 주어진 미분 방정식의 조건에 $u(x,\ 0)=f(x)$가 있었으므로 $\lim \limits_{ t\rightarrow 0} u(x,\ t)=\lim \limits_{ t\rightarrow 0} f \ast K_{t}(x)=f(x)$라면 $f$가 적절하고 위 문제에 잘 들어맞는 해라고 할 수 있다. 물론 실제로 성립하고 <a href="../1109">증명</a>할 수 있다.</p>
+<p style="text-align: right;">■</p>
 
 
 
@@ -712,7 +706,7 @@ $$
     <a href=https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 동역학 (60++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/>
-        <span style="color:rgb(255,051,051);">●</span> 푸리에해석 (44)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 푸리에해석 (40)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 벡터해석 (59)</a><br>
@@ -740,7 +734,7 @@ $$
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (25)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1798)</summary>
+    <summary>전체 포스트 (1797)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -822,19 +816,19 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C-%ED%95%B4%EC%84%9D/" style="color: black">텐서 해석 (13)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (10)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (42)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (38)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (19)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (20)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (54)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (55)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (73)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (74)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (58)</a>
         </li><li>
@@ -844,7 +838,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D/" style="color: black">회귀분석 (28)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (45)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (47)</a>
         </li>
     </ul>
 </details>
