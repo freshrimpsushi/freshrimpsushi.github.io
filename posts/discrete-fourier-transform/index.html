@@ -42,16 +42,69 @@
     
 
     
-<meta name="title" content="감마함수">
+<meta name="title" content="이산 푸리에 변환">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="감마함수"/>
-<meta property="og:description" content=""/>
+<meta property="og:title" content="이산 푸리에 변환"/>
+<meta property="og:description" content="discrete fourier transform"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
 
 
-    <title>감마함수</title>
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "articleSection": "j_",
+    "name": "이산 푸리에 변환",
+    "headline": "이산 푸리에 변환",
+    "alternativeHeadline": "",
+    "description": "discrete fourier transform",
+    "inLanguage": "ko",
+    "isFamilyFriendly": "true",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/discrete-fourier-transform\/"
+    },
+    "author" : {
+        "@type": "Person",
+        "name": "전기현"
+    },
+    "creator" : {
+        "@type": "Person",
+        "name": "전기현"
+    },
+    "accountablePerson" : {
+        "@type": "Person",
+        "name": "전기현"
+    },
+    "copyrightHolder" : "생새우초밥집",
+    "copyrightYear" : "2019",
+    "dateCreated": "2019-06-04T00:00:00.00Z",
+    "datePublished": "2019-06-04T00:00:00.00Z",
+    "dateModified": "2019-06-04T00:00:00.00Z",
+    "publisher":{
+        "@type":"Organization",
+        "name": "생새우초밥집",
+        "url": "https://freshrimpsushi.github.io/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https:\/\/freshrimpsushi.github.io\/logo\/basic.png",
+            "width":"32",
+            "height":"32"
+        }
+    },
+    "image": "https://freshrimpsushi.github.io/logo/basic.png",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/discrete-fourier-transform\/",
+    "wordCount" : "1553",
+    "genre" : [ ],
+    "keywords" : [ ]
+}
+</script>
+
+
+    <title>이산 푸리에 변환</title>
 
 </head>
 
@@ -190,78 +243,157 @@
 
             <div class = "content">
             
-<h1>감마함수</h1>
+
+<title>이산 푸리에 변환</title>
+
+<h1>이산 푸리에 변환</h1>
+<aside>
+    discrete fourier transform
+    <p style="text-align: right;">
+        1121
+
+    
+    
+            <a href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석</a>&emsp;
+            
+    </span>
+    
+    작성일: 2019-06-04&nbsp;<br>
+    작성자: 전기현 사장 &nbsp;
+</p>
+</aside>
 
 <aside>
     <b>목차</b>
-    
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#빌드업1">빌드업</a></li>
+    <li><a href="#정의">정의</a></li>
+    <li><a href="#같이보기">같이보기</a></li>
+  </ul>
+</nav>
 </aside>
 
-
-
-
-<details open>
-
-    <summary>전체 포스트</summary>
+<h2 id="빌드업1">빌드업<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>$f$가 특정한 간격마다 측정되는 어떤 물리적인 신호라고 하자. 그러면 현실적인 조건을 생각해봤을 때, 신호가 측정되기 시작하는 순간 $t=0$와 측정이 끝나는 순간 $t=\Omega$가 존재할테니 $f$의 함숫값은 $[0, \Omega]$를 제외한 곳에서 모두 $0$이라 가정할 수 있다.</p>
+<blockquote>
+<p><a href="../3054">샘플링 정리</a></p>
+<p>$f\in L^{2}$이고 $\hat{f}$의 값이 길이가 $2\Omega$인 구간 에서만 존재한다고 가정하자. 다시말해 $\hat{f} (\omega) = 0\ for\ | \omega | \ge \Omega$라고 가정하자. 그러면 $t_{n}=n\pi / \Omega(n=0, \pm 1, \pm 2, \dots)$에 대해서 다음이 성립한다.</p>
+<p>$$
+f(t) = \sum \limits_{-\infty}^{\infty} f \left( \dfrac{n\pi}{\Omega}\right) \dfrac{\sin (\Omega t -n\pi )}{\Omega t - n\pi} 
+$$</p>
+</blockquote>
+<p>그러면 $f$의 값이 길이가 $\Omega$인 구간 $[0,\Omega]$에만 존재하므로, 샘플링 정리에 의해서 $\hat{f}$의 값은 이산 간격의 $\hat{f} \left( \dfrac{\pi m}{\Omega/2} \right) = \hat{f} \left( \dfrac{2\pi m}{\Omega} \right)$들에 의해 결정된다는 것을 알 수 있다. 따라서 이를 계산해보면, <a href="../1898">푸리에 변환</a>의 정의에 의해서 다음과 같다.</p>
+<p>$$
+\hat{f} \left( \dfrac{2\pi m}{\Omega} \right) = \int_{-\infty}^{\infty} f(x)e^{-i(2\pi m/ \Omega)x}dx = \int_{0}^{\Omega} f(x)e^{-i(2\pi m/ \Omega)x}dx
+$$</p>
+<p>여기서 $[0, \Omega]$를 $N$개의 구간들로 쪼갠다고 생각해보자. 그러면 쪼갠 구간의 왼쪽 끝점들은 다음과 같다.</p>
+<p>$$
+0, \dfrac{1\Omega}{N}, \dfrac{2\Omega}{N}, \dots, \dfrac{n\Omega}{N}, \dots, \dfrac{(N-1)\Omega}{N} 
+$$</p>
+<p>구분구적법을 생각해보면 위의 점들에서의 함숫값과 각 구간의 길이 $\dfrac{\Omega}{N}$를 곱해서 모두 더하면 적분값과 비슷할거라는 것을 알 수 있다.</p>
+<p>$$
+\hat{f} \left( \dfrac{2\pi m}{\Omega} \right) = \int_{0}^{\Omega} f(x)e^{-i(2\pi m/ \Omega)x}dx \approx \sum_{n=0}^{N-1}e^{-i2\pi mn /N}f \left( \dfrac{n\Omega}{N} \right)\dfrac{\Omega}{N}
+$$</p>
+<p>여기서 $a_{n} = f(n\Omega/N)$이라고 하면 위 식은 다음과 같다.</p>
+<p>$$
+\dfrac{N}{\Omega}\hat{f} \left( \dfrac{2\pi m}{\Omega} \right) \approx \sum_{n=0}^{N-1}e^{-i2\pi mn /N} a_{n}
+$$</p>
+<p>이제 $\hat{a}_{m}=\sum_{n=0}^{N-1}e^{-i2\pi mn /N} a_{n}$라고 하면 위 식은 다음과 같다.</p>
+<p>$$
+\dfrac{N}{\Omega}\hat{f} \left( \dfrac{2\pi m}{\Omega} \right) \approx \hat{a}_{m}
+$$</p>
+<p>여기서 $e^{-2\pi i n}=1$이므로,</p>
+<p>$$
+e^{-2\pi i (m+N)n / N}=e^{-2\pi imn / N}e^{-2\pi in}=e^{-2\pi imn / N}
+$$</p>
+<p>가 성립하고 $\hat{a}_{m}$은 $N$의 주기를 갖는다.</p>
+<p>$$
+\hat{a}_{m+N}=\hat{a}_{m}
+$$</p>
+<p>따라서 $N$차원 벡터 $\mathbf{a} = (a_{0}, a_{1}, \dots, a_{N-1}) \in \mathbb{C}^{N}$으로부터 $N$차원 벡터 $\hat{\mathbf{a}} = (\hat{a}_{0}, \hat{a}_{1}, \dots, \hat{a}_{N-1}) \in \mathbb{C}^{N}$가 매핑된다는 것을 알 수 있다. 이를 바탕으로 $N$-point <strong>이산 푸리에 변환</strong><sup>discrete Fourier transform, DFT</sup>을 다음과 같이 정의하자.</p>
+<h2 id="정의">정의</h2>
+<p>다음과 같이 정의되는 <a href="../3026">선형변환</a> $\mathcal{F}_{N} : \mathbb{C}^{N} \to \mathbb{C}^{N}$을 <strong>이산 푸리에 변환</strong>이라 한다.</p>
+<p>$$
+\mathcal{F}_{N}(\mathbf{a}) = \hat{\mathbf{a}},\quad \hat{a}_{m}=\sum_{n=0}^{N-1}e^{-i2\pi mn /N} a_{n}\quad (0\le m &lt; N)
+$$</p>
+<p>이때 $\mathbf{a} = (a_{0}, a_{1}, \dots, a_{N-1})$, $\hat{\mathbf{a}} = (\hat{a}_{0}, \hat{a}_{1}, \dots, \hat{a}_{N-1})$이다.</p>
+<h2 id="같이보기">같이보기</h2>
 <ul>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/gamma-function/">감마함수</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/derivation-of-eulers-limit-formula-for-gamma/">감마함수에 대한 오일러의 극한 공식 유도</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/proof-of-convergence-of-euler-mascheroni-constant/">오일러-마스케로니 상수의 수렴성 증명</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/weierstrasss-infinite-product-for-gamma/">감마함수에 대한 바이어슈트라스의 무한곱</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/derivation-of-eulers-reflection-formula/">오일러의 반사 공식 유도</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/beta-function/">이항계수의 일반화 베타함수</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/trigonometric-function-representation-of-beta-function/">베타함수의 삼각함수 표현</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/derivation-of-legendres-duplication-formula/">르장드르의 배 공식 유도</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/wallis-product/">월리스 곱</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/proof-of-stirling-approximation/">스털링 근사 공식의 엄밀한 증명</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/derivation-of-gamma-function/">감마함수 유도</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/factorial-double-factorial-multifactorial/">팩토리얼 더블 팩토리얼 멀티 팩토리얼</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/some-important-formula-including-gamma-function-and-factorial/">감마함수와 팩토리얼이 포함된 여러가지 중요한 공식</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/relation-between-beta-function-and-gamma-function/">베타함수와 감마함수의 관계</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/improper-integral-representation-of-beta-function/">베타 함수의 이상적분꼴 표현</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/euler-integral-beta-function-and-gamma-function/">오일러 적분  베타 함수와 감마 함수</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/riemann-zeta-function/">리만 제타 함수</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/dirichlet-eta-function/">디리클레 에타 함수</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/relation-among-gamma-riemann-zeta-dirichlet-eta-functions/">감마함수와 리만 제타 함수 디리클레 에타 함수와의 관계</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/derivation-of-poisson-summation-formula/">푸아송 합 공식 유도</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/jacobi-theta-function/">야코비 세타 함수</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/riemann-xi-function/">리만 자이 함수</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/trivial-root-of-riemann-zeta-function/">리만 함수 방정식과 리만 제타 함수의 자명근</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/riemman-hypothesis/">리만 가설</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/derivation-of-laurent-expansion-of-riemann-zeta-function/">리만 제타 함수의 로랑 전개 유도</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/ramanujan-summation/">라마누잔 합</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/analytic-proof-of-zeta-zero/">1&#43;1&#43;1&#43;1&#43;1&#43;⋯=-12 의 해석적 증명</a></li>
-
+<li><a href="../3058">이산 푸리에 변환의 컨볼루션</a></li>
+<li><a href="../3059">이산 푸리에 역변환</a></li>
 </ul>
-</details>
+<!--
+[푸리에 변환](../1101) 은 물리학, 의학, 공학, 전자공학 등에서 매우 유용하게 쓰인다. 허나 이는 적분 변환이기 때문에 컴퓨터로 다룰 때 그대로 사용할 수 없다. 사람이야 적분을 손으로 계산할 수 있지만 컴퓨터는 그런거 못 한다. 컴퓨터가 다루는 모든 신호는 0과 1의 조합으로 표현되는 이산 신호이다. 그래서 **이산 푸리에 변환**<sup>discrete Fourier transform, DFT</sup>을 사용한다. 정의는 다음과 같다.
 
+
+## 정의
+
+$x=0,\cdots, M-1$, $y=0,\cdots,N-1$에 대한 2차원 함수 $f(x, y)$의 이산 푸리에 변환 $F(u, v)$를 아래와 같이 정의한다.
+
+$$
+F(u, v)=\sum \limits\_{x=0}^{M-1} \sum \limits\_{y=0}^{N-1} f(x, y)e^{-i 2\pi (ux/M + vy/N)}  
+$$
+
+**역 이산 푸리에 변환**<sup>IDFT</sup>은 다음과 같이 정의한다.
+
+$$
+f(x, y)=\dfrac{1}{MN}\sum \limits\_{x=0}^{M-1} \sum \limits\_{y=0}^{N-1} F(u,v)e^{i 2\pi (ux/M + vy/N)}  
+$$
+
+## 설명
+
+정의에 따라 $\frac{1}{MN}$가 변환에 붙을수도 있고 역변환에 붙을수도 있지만 본질적으로 달라지는 것은 없다.위에서 컴퓨터로 푸리에 해석을 다룰 때 DFT를 사용한다고 했지만 실제로는 **고속 푸리에 변환**<sup>fast Fourier transform, FFT</sup>을 사용한다. 만약 $N^2$의 정보에 대해서 푸리에 변환을 하면 $F(u,v)$를 구하기 위해 $O(N^2)$만큼의 연산이 필요하다. 그런데 모든 $F(u,v)$의 개수는 $N^2$이므로 필요한 총 연산 횟수는 $O(N^4)$이다. 따라서 DFT를 계산하기 위해서 큰 비용이 드는 것이다. 다행히도 길이가 $N$인 DFT는 길이가 $N/2$인 두 변환의 합으로 나타낼 수 있음이 밝혀지면서 총 계산의 비용이 $O(N \log\_2N)$만큼 줄어들었다. $O(N^4)$과 비교했을 때 엄청나게 큰 차이다. 그러므로 푸리에 변환을 다룰 때에는 DFT가 아니라 FFT를 사용한다.
+
+매트랩에서 2차원 고속 푸리에 변환을 사용하려면 **fft2** 를 사용하면 된다.
+<center> F=fft2(f)
+
+F=fft2(f, m, n)</center>
+
+f 가 $M\times N$의 정보를 가지고 있으면 fft2(f)는 $M\times N$의 푸리에 변환을 반환한다. fft2(f, m, n) 라고 사용하면 f 를 자르거나 채워서 푸리에 변환의 크기가 $m\times n$이 되도록 한다. 이 때 채우는 값은 $0$이다.
+--><blockquote>
+</blockquote>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Gerald B. Folland, <em>Fourier Analysis and Its Applications</em> (1992), p249-251 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var title = '이산 푸리에 변환';
+        var link = 'https:\/\/freshrimpsushi.github.io\/posts\/discrete-fourier-transform\/';
+        var arr = new Array();
+        var obj = {
+            "title": title,
+            "link": link
+        };
+        var postList = JSON.parse(localStorage.getItem('latelyViewPostList'));
+        if(postList == '' || postList == null || postList == undefined || postList == 0 || postList == NaN) {
+            arr.push(obj);
+            localStorage.setItem('latelyViewPostList', JSON.stringify(arr));
+        } else {
+            var listSize = postList.length;
+            for (var i = 0; i < listSize; i++) {
+                if (title == postList[i].title) {
+                    postList.splice(i, 1);
+                    break;
+                }
+            }
+            arr = postList;
+            arr.push(obj);
+            if(arr.length > 5) {
+                arr.shift();
+            }
+            localStorage.setItem('latelyViewPostList', JSON.stringify(arr));
+        }
+    });
+</script>
 
             
 <div style="margin-bottom: 10px;">댓글</div>
@@ -353,9 +485,9 @@
             alert('빈칸을 채워주세요');
             return;
         }
-        let board_idx = '';
-        let board_slug = '';
-        let board_title = '감마함수';
+        let board_idx = '1121';
+        let board_slug = 'discrete-fourier-transform';
+        let board_title = '이산 푸리에 변환';
 
         $.ajax({
             type: "POST",
@@ -469,7 +601,7 @@
             type: "POST",
             url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.comment.php?action=getComment",
             data: {
-                board_idx: ''
+                board_idx: '1121'
             },
             dataType: "json",
             success: function (data) {
@@ -527,9 +659,9 @@
                 alert('빈칸을 채워주세요');
                 return;
             }
-            let idx = '';
-            let board_slug = '';
-            let board_title = '감마함수';
+            let idx = '1121';
+            let board_slug = 'discrete-fourier-transform';
+            let board_title = '이산 푸리에 변환';
 
             $.ajax({
                 type: "POST",
@@ -573,7 +705,7 @@
     <p><b>카테고리</b></p>
     
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
-        <span style="color:rgb(255,204,000);">●</span> 함수 (30++)</a><br>
+        <span style="color:rgb(255,204,000);">●</span> 함수 (66)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%80%EB%93%B1%EC%8B%9D/>
         <span style="color:rgb(051,204,051);">●</span> 부등식 (3)</a><br>    
     <a href=https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/>
@@ -603,6 +735,8 @@
     <a href=https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/>
         <span style="color:rgb(255,051,051);">●</span> 열물리학 (22)</a><br>
     <hr>
+    <a href=https://freshrimpsushi.github.io/categories/r/>
+        <span style="color:rgb(255,051,051);">●</span> R (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 수리통계학 (50+)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
@@ -620,13 +754,11 @@
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (25)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1803)</summary>
+    <summary>전체 포스트 (1804)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/r/" style="color: black">R (53)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B0%90%EB%A7%88%ED%95%A8%EC%88%98/" style="color: black">감마함수 (27)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC%EA%B3%B5%EA%B0%84/" style="color: black">거리공간 (33)</a>
         </li><li>
@@ -694,7 +826,7 @@
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (22)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (23)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/" style="color: black">추상대수 (78)</a>
         </li><li>
@@ -712,13 +844,13 @@
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (20)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (46)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (55)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (74)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (59)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (60)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
         </li><li>

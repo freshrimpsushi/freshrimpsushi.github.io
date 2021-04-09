@@ -97,7 +97,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-load-built-in-dataset-in-r\/",
-    "wordCount" : "1003",
+    "wordCount" : "454",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -267,31 +267,133 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#가이드">가이드</a></li>
+    <li><a href="#대략적인-분류">대략적인 분류</a>
+      <ul>
+        <li><a href="#회귀분석">회귀분석</a></li>
+        <li><a href="#시계열">시계열</a></li>
+        <li><a href="#다변량">다변량</a></li>
+        <li><a href="#범주">범주</a></li>
+        <li><a href="#실험">실험</a></li>
+        <li><a href="#소표본">소표본</a></li>
+        <li><a href="#기타">기타</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-R 은 대표적인 통계 프로그래밍 언어로써 유용한 메소드 뿐만 아니라 예제로 쓰기 좋은 데이터셋도 제공한다. 만약 이런 데이터셋이 없다면 강의를 할 때마다 새로운 데이터를 다운로드하고 불러들어들이는 짓을 해야할 것이다.데이터셋을 불러오는 방법은 아주 간단하다. 불러올 데이터셋의 이름을 우리가 사용할 변수에 할당하기만 하면 된다. 통계학을 공부하다보면 예제로써 닳고 닳도록 볼 아이리스(붓꽃) 데이터를 한번 살펴보자.<img src="20171120_124856.png#center" alt="20171120\_124856.png">
-각 열은은 순서대로 꽃받침의 길이, 너비, 꽃잎의 길이, 너비, 종을 의미한다. 열마다 이름이 적혀있긴 하지만 이것만으로 데이터를 파악하기 힘들다면 ?iris를 입력해서 도움말을 읽어보자.<img src="20171120_125434.png#center" alt="20171120\_125434.png">
-물론 데이터셋은 아이리스만 있는 건 아니다. 콘솔창에 library(help=datasets)를 입력하면 아래와 같이 불러올 수 있는 데이터셋의 목록과 간략한 설명을 볼 수 있다.<img src="20171120_124643.png#center" alt="20171120\_124643.png">
-<button class="btn\_more" data-id="331\_0" id="more331\_0" type="button">대략적인 분류</button></p>
-<p><button class="btn\_less" data-id="331\_0" id="less331\_0" type="button">접기</button>
-#회귀분석attitudeLifeCycleSavingsLoblollyattenufaithfulirisquakesswisstrees#시계열AirPassengersBJsalesEuStockMarketsWorldPhonesJohnsonJohnsonLakeHuronNileUKDriverDeathsUKgasUSAccDeathsUSPersonalExpenditureWWWusageairmilesairqualityaustresco2discoveriesfreenylhlongleylynxnhtempnottempresidentssunspot.monthsunspot.yearsunspotstreeringuspop#다변량Harman23.corHarman74.corUSJudgeRatings#범주HairEyeColorTitanicUCBAdmissionsability.cov#실험CO2ChickWeightDNaseIndomethInsectSpraysOrangeOrchardSpraysPlantGrowthPuromycinTheophcarschickwtsmorley mtcarsnpkpressurewarpbreaks#소표본BODFormaldehydeVADeathsanscombeeurosleepstacklosswomen#기타crimtabesoph eurodistislandsoccupationalStatusprecipranduriversrockvolcano
-<button class="btn\_less" data-id="331\_0" id="less331\_0" type="button">접기</button></p>
+<h2 id="개요">개요</h2>
+<p>R 은 대표적인 통계 프로그래밍 언어로써 유용한 메소드 뿐만 아니라 예제로 쓰기 좋은 데이터셋도 제공한다. 만약 이런 데이터셋이 없다면 강의를 할 때마다 새로운 데이터를 다운로드하고 불러들어들이는 짓을 해야할 것이다.</p>
+<h2 id="가이드">가이드</h2>
+<p>데이터셋을 불러오는 방법은 아주 간단하다. 불러올 데이터셋의 이름을 우리가 사용할 변수에 할당하기만 하면 된다. 통계학을 공부하다보면 예제로써 닳고 닳도록 볼 아이리스(붓꽃) 데이터를 한번 살펴보자.<img src="20171120_124856.png#center" alt="20171120\_124856.png">
+각 열은은 순서대로 꽃받침의 길이, 너비, 꽃잎의 길이, 너비, 종을 의미한다. 열마다 이름이 적혀있긴 하지만 이것만으로 데이터를 파악하기 힘들다면 ?iris를 입력해서 도움말을 읽어보자.</p>
+<p><img src="20171120_125434.png#center" alt="20171120\_125434.png">
+물론 데이터셋은 아이리스만 있는 건 아니다. 콘솔창에 library(help=datasets)를 입력하면 아래와 같이 불러올 수 있는 데이터셋의 목록과 간략한 설명을 볼 수 있다.</p>
+<p><img src="20171120_124643.png#center" alt="20171120\_124643.png"></p>
+<h2 id="대략적인-분류">대략적인 분류</h2>
+<h3 id="회귀분석">회귀분석</h3>
+<ul>
+<li>attitude</li>
+<li>LifeCycleSavings</li>
+<li>Loblolly</li>
+<li>attenu</li>
+<li>faithful</li>
+<li>iris</li>
+<li>quakes</li>
+<li>wiss</li>
+<li>trees</li>
+</ul>
+<h3 id="시계열">시계열</h3>
+<ul>
+<li>AirPassengers</li>
+<li>BJsales</li>
+<li>EuStockMarkets</li>
+<li>WorldPhones</li>
+<li>JohnsonJohnson</li>
+<li>LakeHuron</li>
+<li>Nile</li>
+<li>UKDriverDeaths</li>
+<li>UKgas</li>
+<li>USAccDeaths</li>
+<li>USPersonalExpenditure</li>
+<li>WWWusage</li>
+<li>airmiles</li>
+<li>airquality</li>
+<li>austres</li>
+<li>co2</li>
+<li>discoveries</li>
+<li>freeny</li>
+<li>lh</li>
+<li>longley</li>
+<li>lynx</li>
+<li>nhtemp</li>
+<li>nottem</li>
+<li>presidents</li>
+<li>sunspot.month</li>
+<li>sunspot.year</li>
+<li>sunspots</li>
+<li>treering</li>
+<li>uspop</li>
+</ul>
+<h3 id="다변량">다변량</h3>
+<ul>
+<li>Harman23.cor</li>
+<li>Harman74.cor</li>
+<li>USJudgeRatings</li>
+</ul>
+<h3 id="범주">범주</h3>
+<ul>
+<li>HairEyeColor</li>
+<li>Titanic</li>
+<li>UCBAdmissions</li>
+<li>ability.cov</li>
+</ul>
+<h3 id="실험">실험</h3>
+<ul>
+<li>CO2</li>
+<li>ChickWeight</li>
+<li>DNase</li>
+<li>Indometh</li>
+<li>InsectSprays</li>
+<li>Orange</li>
+<li>OrchardSprays</li>
+<li>PlantGrowth</li>
+<li>Puromycin</li>
+<li>Theoph</li>
+<li>cars</li>
+<li>chickwts</li>
+<li>morley</li>
+<li>mtcars</li>
+<li>npk</li>
+<li>pressure</li>
+<li>warpbreaks</li>
+</ul>
+<h3 id="소표본">소표본</h3>
+<ul>
+<li>BOD</li>
+<li>Formaldehyde</li>
+<li>VADeaths</li>
+<li>anscombe</li>
+<li>euro</li>
+<li>sleep</li>
+<li>stackloss</li>
+<li>women</li>
+</ul>
+<h3 id="기타">기타</h3>
+<ul>
+<li>crimtab</li>
+<li>esoph</li>
+<li>eurodist</li>
+<li>islands</li>
+<li>occupationalStatus</li>
+<li>precip</li>
+<li>randu</li>
+<li>rivers</li>
+<li>rock</li>
+<li>volcano</li>
+</ul>
 
 
 
@@ -636,7 +738,7 @@ R 은 대표적인 통계 프로그래밍 언어로써 유용한 메소드 뿐�
     <p><b>카테고리</b></p>
     
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
-        <span style="color:rgb(255,204,000);">●</span> 함수 (30++)</a><br>
+        <span style="color:rgb(255,204,000);">●</span> 함수 (66)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%80%EB%93%B1%EC%8B%9D/>
         <span style="color:rgb(051,204,051);">●</span> 부등식 (3)</a><br>    
     <a href=https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/>
@@ -666,6 +768,8 @@ R 은 대표적인 통계 프로그래밍 언어로써 유용한 메소드 뿐�
     <a href=https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/>
         <span style="color:rgb(255,051,051);">●</span> 열물리학 (22)</a><br>
     <hr>
+    <a href=https://freshrimpsushi.github.io/categories/r/>
+        <span style="color:rgb(255,051,051);">●</span> R (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 수리통계학 (50+)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
@@ -683,13 +787,11 @@ R 은 대표적인 통계 프로그래밍 언어로써 유용한 메소드 뿐�
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (25)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1803)</summary>
+    <summary>전체 포스트 (1804)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/r/" style="color: black">R (53)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B0%90%EB%A7%88%ED%95%A8%EC%88%98/" style="color: black">감마함수 (27)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC%EA%B3%B5%EA%B0%84/" style="color: black">거리공간 (33)</a>
         </li><li>
@@ -757,7 +859,7 @@ R 은 대표적인 통계 프로그래밍 언어로써 유용한 메소드 뿐�
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (22)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (23)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/" style="color: black">추상대수 (78)</a>
         </li><li>
@@ -775,13 +877,13 @@ R 은 대표적인 통계 프로그래밍 언어로써 유용한 메소드 뿐�
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (20)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (46)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (55)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (74)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (59)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (60)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
         </li><li>

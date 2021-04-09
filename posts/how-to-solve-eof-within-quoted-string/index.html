@@ -97,7 +97,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-solve-eof-within-quoted-string\/",
-    "wordCount" : "1094",
+    "wordCount" : "1054",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -267,33 +267,27 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#함수-소개">함수 소개</a></li>
+    <li><a href="#에러-eof-within-quoted-string">에러: EOF within quoted string</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-R 은 기본적으로 통계학을 위해 태어난 언어기 때문에 데이터의 입력 역시 편리하게 되어있다.</p>
-<pre><code>
-read.table(file, header = FALSE, sep = &quot;&quot;, na.strings = &quot;NA&quot;, fileEncoding = &quot;&quot;)
-</code></pre><p>read.table()은 데이터 테이블을 불러들이는 함수로써 위와 같이 여러가지 유용한 옵션을 제공한다. 옵션자체는 더 많이 있지만, 자주 쓰이고 반드시 알아두어야할 것을 추린 것이다. 다음의 설명들을 참고하자 :</p>
-<p><strong>(1)</strong>  header : 첫줄의 취급에 대한 옵션이다. header=T로 두면 별도의 조작 없이 첫번째 줄을 데이터에서 제외하고 열의 이름으로 지정해준다. 디폴트는 header=F인데, 어지간한 데이터는 디폴트 그대로 쓸 일이 없다.</p>
-<p><strong>(2)</strong>  sep : 구분자에 대한 옵션이다. 많은 데이터가 주로 csv(콤마로 구분된 데이터, Comma Separated Value format)로 저장되므로 보통은 read.csv()를 쓰게 된다. read.csv()는 기본적으로 sep = &lsquo;,&lsquo;이 디폴트기 때문에 별도로 건드릴 필요가 없어서 조금이나마 코드가 깔끔해진다. 그런데 간혹 read.table()을 그대로 쓰거나 그 외에도 탭이나 슬래쉬로 구분된 경우 등 종종 쓸 일이 있다. 데이터를 불러들였는데 한 열에 지저분하게 \t(탭)이 덕지덕지 붙어 불러들여졌다면 백퍼센트 이 문제다.</p>
-<p><strong>(3)</strong>  na.strings : 결측치에 대한 옵션이다. 교과서에 나오는 예제가 아니라 어디선가 가져온 데이터라면 워낙 정리를 엉망으로 해놔서 결측치가 넘쳐난다. 연속형 변수에 문자가 있다는 건 십중팔구 결측치를 나타내고, 이들을 핸들링하지 못하면 데이터 처리에 애를 먹게 된다. 불러들일 때부터 결측치로 분류하고나면 그 뒤로는 NA로 나타나 깔끔하게 정리할 수 있으므로 자주 사용한다. 참고로 na.strings=c(&ldquo;a&rdquo;,&ldquo;b&rdquo;,&ldquo;c&rdquo;)와 같이 복수의 문자를 벡터로 넘겨줌으로써 여러 종류의 결측치 표현에도 대응할 수 있다.</p>
-<p><strong>(4)</strong>  **<sup>fileEncoding : 불러들인 파일의 인코딩에 대한 옵션이다. 컴퓨터 전공자들은 C 나 파이썬에서 보다 일반적인 &lsquo;데이터&rsquo;를 다루지만 통계를 먼저 배운 사람들은 이런 부분을 경시하는 게 사실이다. 까놓고 말해 자주 쓰는 건 아니지만, 그래서 몰라도 된다고 하기엔 의외로 뒷통수 맞을 일이 많으므로 꼭 알아두는 게 좋다. 문제가 발생해도 당황하지 않고 데이터 파일의 인코딩을 확인한 후 입력하면 깔끔하게 해결된다.EOF within quoted string</sup> <img src="20180422_213714.png#center" alt="20180422\_213714.png">
-한편 빅데이터를 불러들이다보면 용량이 너무 크다보니 위와 같은 경고 메세지가 뜰 수 있다. 이럴 땐 옵션에서 quote=&ldquo;&ldquo;만 추가해주면 간단하게 해결된다. 그러나 좋은 해결법은 아예 <a href="../1270">더 좋은 함수</a>를 사용하는 것이다.문제의 원인이 잘못된 데이터인 경우보다는 잘못된 사용자인 경우가 훨씬 더 많고, 솔직히 당신은 후자임을 명심하자.</p>
+<h2 id="개요">개요</h2>
+<p>R 은 기본적으로 통계학을 위해 태어난 언어기 때문에 데이터의 입력 역시 편리하게 되어있다.</p>
+<pre><code>read.table(file, header = FALSE, sep = &quot;&quot;, na.strings = &quot;NA&quot;, fileEncoding = &quot;&quot;)
+</code></pre><h2 id="함수-소개">함수 소개</h2>
+<p><code>read.table()</code>은 데이터 테이블을 불러들이는 함수로써 위와 같이 여러가지 유용한 옵션을 제공한다. 옵션자체는 더 많이 있지만, 자주 쓰이고 반드시 알아두어야할 것을 추린 것이다. 다음의 설명들을 참고하자 :</p>
+<ul>
+<li>(1) <code>header</code>: 첫줄의 취급에 대한 옵션이다. <code>header=T</code>로 두면 별도의 조작 없이 첫번째 줄을 데이터에서 제외하고 열의 이름으로 지정해준다. 디폴트는 <code>header=F</code>인데, 어지간한 데이터는 디폴트 그대로 쓸 일이 없다.</li>
+<li>(2) <code>sep</code>: 구분자에 대한 옵션이다. 많은 데이터가 주로 csv(콤마로 구분된 데이터, Comma Separated Value format)로 저장되므로 보통은 <code>read.csv()</code>를 쓰게 된다. <code>read.csv()</code>는 기본적으로 <code>sep = ','</code>이 디폴트기 때문에 별도로 건드릴 필요가 없어서 조금이나마 코드가 깔끔해진다. 그런데 간혹 <code>read.table()</code>을 그대로 쓰거나 그 외에도 탭이나 슬래쉬로 구분된 경우 등 종종 쓸 일이 있다. 데이터를 불러들였는데 한 열에 지저분하게 <code>\t</code>(탭)이 덕지덕지 붙어 불러들여졌다면 백퍼센트 이 문제다.</li>
+<li>(3) <code>na.strings</code>: 결측치에 대한 옵션이다. 교과서에 나오는 예제가 아니라 어디선가 가져온 데이터라면 워낙 정리를 엉망으로 해놔서 결측치가 넘쳐난다. 연속형 변수에 문자가 있다는 건 십중팔구 결측치를 나타내고, 이들을 핸들링하지 못하면 데이터 처리에 애를 먹게 된다. 불러들일 때부터 결측치로 분류하고나면 그 뒤로는 NA로 나타나 깔끔하게 정리할 수 있으므로 자주 사용한다. 참고로 <code>na.strings=c(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;)</code>와 같이 복수의 문자를 벡터로 넘겨줌으로써 여러 종류의 결측치 표현에도 대응할 수 있다.</li>
+<li>(4) <code>fileEncoding</code>: 불러들인 파일의 인코딩에 대한 옵션이다. 컴퓨터 전공자들은 C 나 파이썬에서 보다 일반적인 &lsquo;데이터&rsquo;를 다루지만 통계를 먼저 배운 사람들은 이런 부분을 경시하는 게 사실이다. 까놓고 말해 자주 쓰는 건 아니지만, 그래서 몰라도 된다고 하기엔 의외로 뒷통수 맞을 일이 많으므로 꼭 알아두는 게 좋다. 문제가 발생해도 당황하지 않고 데이터 파일의 인코딩을 확인한 후 입력하면 깔끔하게 해결된다.</li>
+</ul>
+<h2 id="에러-eof-within-quoted-string">에러: EOF within quoted string</h2>
+<p><img src="20180422_213714.png#center" alt="20180422\_213714.png"></p>
+<p>한편 빅데이터를 불러들이다보면 용량이 너무 크다보니 위와 같은 경고 메세지가 뜰 수 있다. 이럴 땐 옵션에서 <code>quote=&quot;&quot;</code>만 추가해주면 간단하게 해결된다. 그러나 좋은 해결법은 아예 <a href="../1270">더 좋은 함수</a>를 사용하는 것이다. 문제의 원인이 잘못된 데이터인 경우보다는 잘못된 사용자인 경우가 훨씬 더 많고, 솔직히 당신은 후자임을 명심하자.</p>
 
 
 
@@ -638,7 +632,7 @@ read.table(file, header = FALSE, sep = &quot;&quot;, na.strings = &quot;NA&quo
     <p><b>카테고리</b></p>
     
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
-        <span style="color:rgb(255,204,000);">●</span> 함수 (30++)</a><br>
+        <span style="color:rgb(255,204,000);">●</span> 함수 (66)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%80%EB%93%B1%EC%8B%9D/>
         <span style="color:rgb(051,204,051);">●</span> 부등식 (3)</a><br>    
     <a href=https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/>
@@ -668,6 +662,8 @@ read.table(file, header = FALSE, sep = &quot;&quot;, na.strings = &quot;NA&quo
     <a href=https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/>
         <span style="color:rgb(255,051,051);">●</span> 열물리학 (22)</a><br>
     <hr>
+    <a href=https://freshrimpsushi.github.io/categories/r/>
+        <span style="color:rgb(255,051,051);">●</span> R (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 수리통계학 (50+)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
@@ -685,13 +681,11 @@ read.table(file, header = FALSE, sep = &quot;&quot;, na.strings = &quot;NA&quo
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (25)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1803)</summary>
+    <summary>전체 포스트 (1804)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/r/" style="color: black">R (53)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B0%90%EB%A7%88%ED%95%A8%EC%88%98/" style="color: black">감마함수 (27)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC%EA%B3%B5%EA%B0%84/" style="color: black">거리공간 (33)</a>
         </li><li>
@@ -759,7 +753,7 @@ read.table(file, header = FALSE, sep = &quot;&quot;, na.strings = &quot;NA&quo
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (22)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (23)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/" style="color: black">추상대수 (78)</a>
         </li><li>
@@ -777,13 +771,13 @@ read.table(file, header = FALSE, sep = &quot;&quot;, na.strings = &quot;NA&quo
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (20)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (46)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (55)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (74)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (59)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (60)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
         </li><li>

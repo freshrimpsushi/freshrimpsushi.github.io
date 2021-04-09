@@ -97,7 +97,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/factor-to-numeric-in-r\/",
-    "wordCount" : "978",
+    "wordCount" : "973",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -267,42 +267,35 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#원리">원리</a></li>
+    <li><a href="#실전-예시">실전 예시</a></li>
+    <li><a href="#코드">코드</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-숫자임에도 불구하고 범주형 자료로 읽혀서 연속형 데이터로 바꾸고 싶은데 생각대로 되지 않는 이들을 위한 팁이다. 이 포스트는 지면 대부분을 그 원리를 설명하기 위해 할애하고 있으므로 결론만 필요하면 밑에서부터 읽기를 추천한다.
-보통 자료형을 바꿀 때는 Cast라는 표현을 사용한다.</p>
-<p>R 을 이용해서 통계분석을 할 때 가장 중요한것은 테크닉 이전에 데이터 자체를 이해하는 것이다.
-<img src="20180327_122310.png#center" alt="20180327\_122310.png"></p>
+<h2 id="개요">개요</h2>
+<p>숫자임에도 불구하고 범주형 자료로 읽혀서 연속형 데이터로 바꾸고 싶은데 생각대로 되지 않는 이들을 위한 팁이다. 이 포스트는 지면 대부분을 그 원리를 설명하기 위해 할애하고 있으므로 결론만 필요하면 아래의 <a href="#%EC%8B%A4%EC%A0%84-%EC%98%88%EC%8B%9C">실전 예시</a>부터 읽기를 추천한다.</p>
+<p>참고로, 보통 자료형을 바꿀 때는 Cast라는 표현을 사용한다.</p>
+<h2 id="원리">원리</h2>
+<p>R 을 이용해서 통계분석을 할 때 가장 중요한것은 테크닉 이전에 데이터 자체를 이해하는 것이다.</p>
+<p><img src="20180327_122310.png#center" alt="20180327\_122310.png"></p>
 <p>아이리스 데이터를 불러온 후 데이터를 확인하고 그 구조<strong>str</strong> ucture를 확인한 모습이다. 이렇듯 <code>str()</code> 함수를 사용하면 데이터의 칼럼들이 각자 어떤 형태고 그 예시가 무엇인지 간략하게 설명해준다.
-<code>head()</code>처럼 보기 좋은 모양은 아니지만 변수가 많아질수록 한 눈에 들어오고 자료형도 파악할 수 있어 쓸 일이 많다. 그래서 <code>str()</code> 하나면 만능일 것 같지만 데이터가 방대하고 복잡할수록 특이한 예는 많아지고, 하나하나 확인할 일이 생긴다.
-<img src="20180327_124419.png#center" alt="20180327\_124419.png"></p>
-<p>그래서 필요한 것이 <code>is.X()</code> 함수들과 <code>class()</code> 함수다. <code>is.X()</code>는 주어진 인자가 <code>X</code>인지 아닌지를 불리언으로 반환해주고, 인자가 여러개라면 모두 <code>X</code>인지를 판정한다. <code>class()</code>는 구체적으로 어떤 자료형인지 문자열로 반환해준다.
-<img src="20180327_124802.png#center" alt="20180327\_124802.png"></p>
+<code>head()</code>처럼 보기 좋은 모양은 아니지만 변수가 많아질수록 한 눈에 들어오고 자료형도 파악할 수 있어 쓸 일이 많다. 그래서 <code>str()</code> 하나면 만능일 것 같지만 데이터가 방대하고 복잡할수록 특이한 예는 많아지고, 하나하나 확인할 일이 생긴다.</p>
+<p><img src="20180327_124419.png#center" alt="20180327\_124419.png"></p>
+<p>그래서 필요한 것이 <code>is.X()</code> 함수들과 <code>class()</code> 함수다. <code>is.X()</code>는 주어진 인자가 <code>X</code>인지 아닌지를 불리언으로 반환해주고, 인자가 여러개라면 모두 <code>X</code>인지를 판정한다. <code>class()</code>는 구체적으로 어떤 자료형인지 문자열로 반환해준다.</p>
+<p><img src="20180327_124802.png#center" alt="20180327\_124802.png"></p>
 <p>한편 <code>as.X()</code> 함수는 주어진 인자를 가능한 한 <code>X</code>로 변환해준다.
-비슷하게 숫자로 적힌 범주형 데이터 역시 <code>as.numeric()</code>으로 변환하면 끝날 것 같지만, 그 이전에 범주형 데이터를 이해해야한다.
-다음의 예시를 보자 :</p>
+비슷하게 숫자로 적힌 범주형 데이터 역시 <code>as.numeric()</code>으로 변환하면 끝날 것 같지만, 그 이전에 범주형 데이터를 이해해야한다.</p>
+<h2 id="실전-예시">실전 예시</h2>
+<p>다음의 예시를 보자 :</p>
 <p><img src="20180327_130132.png#center" alt="20180327\_130132.png"></p>
-<p><code>x1</code>은 제대로 변환되지 않았지만 <code>x2</code>는 의도하던 그대로 변화되었음에 주목하자.
-그 원리는 다음과 같다.
-보시다시피 범주화된 데이터는 수로써 어떤 의미도 없고 나눠진 계급 중 하나에 속할 뿐이다. 그러므로 <code>as.numeric()</code>으로 바꾸더라도 범주라는 점에 입각해 자연수에 일대일 대응이 이루어지게 된다. 생각해보면 $\left\{ a, 2, c , \cdots , z_{2} \right\}$ 같은 범주에도 대응하기 위해선 이러한 방식이 가장 합당하다.
-따라서 주어진 수를 그대로 유지하기 위해선 우선 문자열로 변환한 뒤에 수로 변환할 필요가 있다. 수로 이루어진 범주가 문자열로 변환될 땐 딱히 자연수에 대응하지 않고 그대로를 받아오므로 정보의 손실이 없고, 수로 이루어진 문자열이 수로 변환될 땐 딱히 새로운 수를 만들어낼 필요가 없기 때문에 정보의 손실이 없다.
-함수들과 자료형을 잘 이해하고 있으면 데이터 핸들링에 있어서 유용한 여러가지 트릭을 사용할 수 있게 된다. 당장 직접적으로 통계랑 상관없다고 경시해선 안될 소중한 무기인 것이다.</p>
+<p><code>x1</code>은 제대로 변환되지 않았지만 <code>x2</code>는 의도하던 그대로 변화되었음에 주목하자. 그 원리는 다음과 같다.</p>
+<p>보시다시피 범주화된 데이터는 수로써 어떤 의미도 없고 나눠진 계급 중 하나에 속할 뿐이다. 그러므로 <code>as.numeric()</code>으로 바꾸더라도 범주라는 점에 입각해 자연수에 일대일 대응이 이루어지게 된다. 생각해보면 $\left\{ a, 2, c , \cdots , z_{2} \right\}$ 같은 범주에도 대응하기 위해선 이러한 방식이 가장 합당하다.</p>
+<p>따라서 주어진 수를 그대로 유지하기 위해선 우선 문자열로 변환한 뒤에 수로 변환할 필요가 있다. 수로 이루어진 범주가 문자열로 변환될 땐 딱히 자연수에 대응하지 않고 그대로를 받아오므로 정보의 손실이 없고, 수로 이루어진 문자열이 수로 변환될 땐 딱히 새로운 수를 만들어낼 필요가 없기 때문에 정보의 손실이 없다.</p>
+<p>함수들과 자료형을 잘 이해하고 있으면 데이터 핸들링에 있어서 유용한 여러가지 트릭을 사용할 수 있게 된다. 당장 직접적으로 통계랑 상관없다고 경시해선 안될 소중한 무기인 것이다.</p>
+<h2 id="코드">코드</h2>
 <p>아래는 예제 코드다.</p>
 <pre><code>example&lt;-iris
 head(example)
@@ -335,7 +328,8 @@ x&lt;-as.factor(c(1,2,3,128,67915)); x
 x1&lt;-as.numeric(x); x1
 is.numeric(x1)
 x2&lt;-as.numeric(as.character(x)); x2
-is.numeric(x2)```</code></pre>
+is.numeric(x2)
+</code></pre>
 
 
 <script type="text/javascript">
@@ -679,7 +673,7 @@ is.numeric(x2)```</code></pre>
     <p><b>카테고리</b></p>
     
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
-        <span style="color:rgb(255,204,000);">●</span> 함수 (30++)</a><br>
+        <span style="color:rgb(255,204,000);">●</span> 함수 (66)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%80%EB%93%B1%EC%8B%9D/>
         <span style="color:rgb(051,204,051);">●</span> 부등식 (3)</a><br>    
     <a href=https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/>
@@ -709,6 +703,8 @@ is.numeric(x2)```</code></pre>
     <a href=https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/>
         <span style="color:rgb(255,051,051);">●</span> 열물리학 (22)</a><br>
     <hr>
+    <a href=https://freshrimpsushi.github.io/categories/r/>
+        <span style="color:rgb(255,051,051);">●</span> R (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 수리통계학 (50+)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
@@ -726,13 +722,11 @@ is.numeric(x2)```</code></pre>
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (25)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1803)</summary>
+    <summary>전체 포스트 (1804)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/r/" style="color: black">R (53)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B0%90%EB%A7%88%ED%95%A8%EC%88%98/" style="color: black">감마함수 (27)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC%EA%B3%B5%EA%B0%84/" style="color: black">거리공간 (33)</a>
         </li><li>
@@ -800,7 +794,7 @@ is.numeric(x2)```</code></pre>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (22)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (23)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/" style="color: black">추상대수 (78)</a>
         </li><li>
@@ -818,13 +812,13 @@ is.numeric(x2)```</code></pre>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (20)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (46)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (55)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (74)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (59)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (60)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
         </li><li>

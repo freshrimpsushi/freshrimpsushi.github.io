@@ -42,16 +42,69 @@
     
 
     
-<meta name="title" content="감마 함수와 제타 함수">
+<meta name="title" content="R 에서 else if문 사용하기 Error: unexpected else in else 해결">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="감마 함수와 제타 함수"/>
-<meta property="og:description" content=""/>
+<meta property="og:title" content="R 에서 else if문 사용하기 Error: unexpected else in else 해결"/>
+<meta property="og:description" content="How to fix Error unexpected else in else in R"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
 
 
-    <title>감마 함수와 제타 함수</title>
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "articleSection": "r_",
+    "name": "R 에서 else if문 사용하기 Error: unexpected else in else 해결",
+    "headline": "R 에서 else if문 사용하기 Error: unexpected else in else 해결",
+    "alternativeHeadline": "",
+    "description": "How to fix Error unexpected else in else in R",
+    "inLanguage": "ko",
+    "isFamilyFriendly": "true",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/how-to-fix-error-unexpected-else-in-else-in-r\/"
+    },
+    "author" : {
+        "@type": "Person",
+        "name": "류대식"
+    },
+    "creator" : {
+        "@type": "Person",
+        "name": "류대식"
+    },
+    "accountablePerson" : {
+        "@type": "Person",
+        "name": "류대식"
+    },
+    "copyrightHolder" : "생새우초밥집",
+    "copyrightYear" : "2017",
+    "dateCreated": "2017-11-12T00:00:00.00Z",
+    "datePublished": "2017-11-12T00:00:00.00Z",
+    "dateModified": "2017-11-12T00:00:00.00Z",
+    "publisher":{
+        "@type":"Organization",
+        "name": "생새우초밥집",
+        "url": "https://freshrimpsushi.github.io/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https:\/\/freshrimpsushi.github.io\/logo\/basic.png",
+            "width":"32",
+            "height":"32"
+        }
+    },
+    "image": "https://freshrimpsushi.github.io/logo/basic.png",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-fix-error-unexpected-else-in-else-in-r\/",
+    "wordCount" : "554",
+    "genre" : [ ],
+    "keywords" : [ ]
+}
+</script>
+
+
+    <title>R 에서 else if문 사용하기 Error: unexpected else in else 해결</title>
 
 </head>
 
@@ -190,37 +243,94 @@
 
             <div class = "content">
             
-<h1>감마 함수와 제타 함수</h1>
+
+<title>R 에서 else if문 사용하기 Error: unexpected else in else 해결</title>
+
+<h1>R 에서 else if문 사용하기 Error: unexpected else in else 해결</h1>
+<aside>
+    How to fix Error unexpected else in else in R
+    <p style="text-align: right;">
+        314
+
+    
+    
+            <a href="https://freshrimpsushi.github.io/categories/r/" style="color: black">R</a>&emsp;
+            
+    </span>
+    
+    작성일: 2017-11-12&nbsp;<br>
+    작성자: 류대식 사장 &nbsp;
+</p>
+</aside>
 
 <aside>
     <b>목차</b>
-    <nav id="TableOfContents"></nav>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#문제">문제</a>
+      <ul>
+        <li><a href="#원인">원인</a></li>
+        <li><a href="#해결">해결</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 </aside>
 
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
+<h2 id="개요">개요</h2>
+<p>R 에는 switch문과 같은 분기문이 없기 때문에 if문을 여러개 이어서 분기를 나누어야만 한다. 여기서 이 조건문이라는 게 프로그래밍 언어마다 if 와 else는 다 똑같은데 유독 else if 만 다를 수가 있다. elseif로 붙여쓰거나 아예 elif 처럼 줄여쓰는 경우가 그 예고, R은 제대로 띄어쓰기가 들어간 else if 를 사용한다. 여러가지 프로그래밍 언어를 다룰 수 있게 되고 프로그래밍 실력이 늘어도 이런 사소한 차이는 늘 헷갈리기 마련이다.</p>
+<pre><code>for(i in 1:3)
+{
+  if(i==1) {print('하나')}
+  else if(i==2) {print('둘')}
+  else {print('셋')}
+}
+</code></pre><p>분기문의 실행 결과는 다음과 같다.</p>
+<p><img src="20171111_144344.png#center" alt="20171111\_144344.png"></p>
+<h2 id="문제">문제</h2>
+<p>당연한 말이지만 else if 를 늘리면 여러가지 분기를 더 만들어낼 수가 있다. 한편 분명 맞게 한 것 같은데 조건문에서 else가 에러를 일으키는 경우가 있다.보통 콘솔에서 간단한 확인작업만 하고 싶을 때 아래와 같은 문제가 많이 발생한다.</p>
+<pre><code>Error: unexpected 'else' in &quot;else&quot;
+</code></pre><h3 id="원인">원인</h3>
+<p><img src="20171111_144353.png#center" alt="20171111\_144353.png"></p>
+<p>이러한 에러는 if 문이 성립하기 위해서 else를 꼭 필요로 하지는 않기 때문에 발생하는것이다. if는 그 자체만으로는 조건을 만족 시키는지 판단한 후 참이면 주어진 코드를 실행시키는 게 전부다. 해서 윗줄의 if는 모든 기능을 다 했고, 새롭게 시작되는 다음 줄을 else가 이끌게 되어버린 것이다.</p>
+<h3 id="해결">해결</h3>
+<p>문제는 두 줄을 블럭 { } 사이에 넣는 것만으로 쉽게 해결할 수 있다.</p>
+<p><img src="20171111_144557.png#center" alt="20171111\_144557.png"></p>
+<p>한 블럭 안에 있기 때문에 if 문이 else 아래가 있을 것이라는 것을 짐작하고, 정상적으로 코드가 실행된다.</p>
 
-감마 함수와 제타 함수에 대한 자동 페이지입니다.</p>
 
 
-
-<details open>
-
-    <summary>전체 포스트</summary>
-<ul>
-
-</ul>
-</details>
-
+<script type="text/javascript">
+    $(document).ready(function () {
+        var title = 'R 에서 else if문 사용하기 Error: unexpected else in else 해결';
+        var link = 'https:\/\/freshrimpsushi.github.io\/posts\/how-to-fix-error-unexpected-else-in-else-in-r\/';
+        var arr = new Array();
+        var obj = {
+            "title": title,
+            "link": link
+        };
+        var postList = JSON.parse(localStorage.getItem('latelyViewPostList'));
+        if(postList == '' || postList == null || postList == undefined || postList == 0 || postList == NaN) {
+            arr.push(obj);
+            localStorage.setItem('latelyViewPostList', JSON.stringify(arr));
+        } else {
+            var listSize = postList.length;
+            for (var i = 0; i < listSize; i++) {
+                if (title == postList[i].title) {
+                    postList.splice(i, 1);
+                    break;
+                }
+            }
+            arr = postList;
+            arr.push(obj);
+            if(arr.length > 5) {
+                arr.shift();
+            }
+            localStorage.setItem('latelyViewPostList', JSON.stringify(arr));
+        }
+    });
+</script>
 
             
 <div style="margin-bottom: 10px;">댓글</div>
@@ -312,9 +422,9 @@ margin-right: auto;">
             alert('빈칸을 채워주세요');
             return;
         }
-        let board_idx = '0';
-        let board_slug = '';
-        let board_title = '감마 함수와 제타 함수';
+        let board_idx = '314';
+        let board_slug = 'How to fix Error unexpected else in else in R';
+        let board_title = 'R 에서 else if문 사용하기 Error: unexpected else in else 해결';
 
         $.ajax({
             type: "POST",
@@ -428,7 +538,7 @@ margin-right: auto;">
             type: "POST",
             url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.comment.php?action=getComment",
             data: {
-                board_idx: '0'
+                board_idx: '314'
             },
             dataType: "json",
             success: function (data) {
@@ -486,9 +596,9 @@ margin-right: auto;">
                 alert('빈칸을 채워주세요');
                 return;
             }
-            let idx = '0';
-            let board_slug = '';
-            let board_title = '감마 함수와 제타 함수';
+            let idx = '314';
+            let board_slug = 'How to fix Error unexpected else in else in R';
+            let board_title = 'R 에서 else if문 사용하기 Error: unexpected else in else 해결';
 
             $.ajax({
                 type: "POST",
@@ -532,7 +642,7 @@ margin-right: auto;">
     <p><b>카테고리</b></p>
     
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
-        <span style="color:rgb(255,204,000);">●</span> 함수 (30++)</a><br>
+        <span style="color:rgb(255,204,000);">●</span> 함수 (66)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%80%EB%93%B1%EC%8B%9D/>
         <span style="color:rgb(051,204,051);">●</span> 부등식 (3)</a><br>    
     <a href=https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/>
@@ -562,6 +672,8 @@ margin-right: auto;">
     <a href=https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/>
         <span style="color:rgb(255,051,051);">●</span> 열물리학 (22)</a><br>
     <hr>
+    <a href=https://freshrimpsushi.github.io/categories/r/>
+        <span style="color:rgb(255,051,051);">●</span> R (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 수리통계학 (50+)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
@@ -579,13 +691,11 @@ margin-right: auto;">
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (25)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1803)</summary>
+    <summary>전체 포스트 (1804)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/r/" style="color: black">R (53)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B0%90%EB%A7%88%ED%95%A8%EC%88%98/" style="color: black">감마함수 (27)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC%EA%B3%B5%EA%B0%84/" style="color: black">거리공간 (33)</a>
         </li><li>
@@ -653,7 +763,7 @@ margin-right: auto;">
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (22)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (23)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/" style="color: black">추상대수 (78)</a>
         </li><li>
@@ -671,13 +781,13 @@ margin-right: auto;">
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (20)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (46)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (55)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (74)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (59)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (60)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
         </li><li>
@@ -815,6 +925,10 @@ margin-right: auto;">
 </script> 
 
     
+    
+        <link rel="stylesheet" href= https://freshrimpsushi.github.io/css/atom-one-light.css>
+        <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
+        <script>hljs.initHighlightingOnLoad();</script>
     
     
     </aside>
