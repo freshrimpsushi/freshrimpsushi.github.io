@@ -97,7 +97,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/random-number-generate-in-r\/",
-    "wordCount" : "473",
+    "wordCount" : "410",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -267,31 +267,41 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#설명">설명</a>
+      <ul>
+        <li><a href="#접두">접두</a></li>
+        <li><a href="#접미">접미</a></li>
+      </ul>
+    </li>
+    <li><a href="#코드">코드</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-R 에서 특정 분포에 대한 함수들은 다음과 같은 접두어와 접미어의 조합으로 만들어진다.<strong>접두
-확률분포 $X$ 의 확률분포함수를 $f(x)$ 라고 하자.<strong>r-</strong>  : 랜덤 추출, 확률분포 $X$ 에서 나온 $x_{1}, \cdots , x_{n}$ 을 생각하면 좋다.<strong>d-</strong>  : 분포함수, $f(x)$<strong>p-</strong>  : 누적분포함수,\ $F(x) = \displaystyle \int_{\infty}^{x} f(t) dt$<strong>q-</strong>  : 분위수함수 $F^{-1}(\alpha)$<strong>접미
-이름이 알려진 분포는 거의 다 있지만 특히 자주 쓰는 분포는 아래와 같다.</strong>-</strong><sup>norm</sup>  : 정규분포**-**<sup>t</sup>  : t-분포**-**<sup>f</sup>  : F-분포**-**<sup>chisq</sup>  : 카이제곱분포더 다양한 분포에 대해 알고싶다면 콘솔창에 ?distribution을 입력하면 된다.</p>
-<p><img src="20180604_131932.png#center" alt="20180604\_131932.png">
-랜덤추출 함수의 첫번째 인수는 무조건 몇개를 뽑을까에 대한 것이고 구체적인 파라메터의 조정은 분포마다 다르다.분포함수는 주어진 $x$ 에 대해서 그냥 함숫값을 반환하므로 아래와 같이 plot()을 쓰면 확률밀도함수의 그래프가 그려진다.누적분포함수는 주어진 $x$ 까지 적분한 값을 반환하므로 잘 알다시피 $x=1.96$ 에 대해 $0.975$ 을 반환했다.분위수함수는 주어진 $\alpha$ 에 대해 분위수를 반환하므로 잘 알다시피 $\alpha = 95%$ 에 대해 $1.65$ 를 반환했다.</p>
-<p><img src="1232.png#center" alt="1232.png">
-아래는 예제 코드다.</p>
+<h2 id="설명">설명</h2>
+<p>R 에서 특정 분포에 대한 함수들은 다음과 같은 접두어와 접미어의 조합으로 만들어진다.</p>
+<h3 id="접두">접두</h3>
+<p>확률분포 $X$ 의 확률분포함수를 $f(x)$ 라고 하자.</p>
+<ul>
+<li>r-:랜덤 추출, 확률분포 $X$ 에서 나온 $x_{1}, \cdots , x_{n}$ 을 생각하면 좋다.</li>
+<li>d-: 분포함수, $f(x)$</li>
+<li>p-: 누적분포함수, $F(x) = \displaystyle \int_{\infty}^{x} f(t) dt$</li>
+<li>q-: 분위수함수, $F^{-1}(\alpha)$</li>
+</ul>
+<h3 id="접미">접미</h3>
+<p>이름이 알려진 분포는 거의 다 있지만 특히 자주 쓰는 분포는 아래와 같다.</p>
+<ul>
+<li>-norm: 정규분포</li>
+<li>-t: t-분포</li>
+<li>-f: F-분포</li>
+<li>-chisq: 카이제곱분포더
+다양한 분포에 대해 알고싶다면 콘솔창에 <code>?distribution</code>을 입력하면 된다.</li>
+</ul>
+<p><img src="20180604_131932.png#center" alt="20180604\_131932.png"></p>
+<p>랜덤추출 함수의 첫번째 인수는 무조건 몇개를 뽑을까에 대한 것이고 구체적인 파라메터의 조정은 분포마다 다르다. 분포함수는 주어진 $x$ 에 대해서 그냥 함숫값을 반환하므로 아래와 같이 <code>plot()</code>을 쓰면 확률밀도함수의 그래프가 그려진다.누적분포함수는 주어진 $x$ 까지 적분한 값을 반환하므로 잘 알다시피 $x=1.96$ 에 대해 $0.975$ 을 반환했다. 분위수함수는 주어진 $\alpha$ 에 대해 분위수를 반환하므로 잘 알다시피 $\alpha = 95%$ 에 대해 $1.65$ 를 반환했다.</p>
+<p><img src="1232.png#center" alt="1232.png"></p>
+<h2 id="코드">코드</h2>
+<p>아래는 예제 코드다.</p>
 <pre><code>set.seed(150421)
 rnorm(4)
 pnorm(1.96)
@@ -641,11 +651,13 @@ plot(dnorm,xlim=c(-3,3))
 
 <aside>
     <p><b>카테고리</b></p>
-    
+
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(255,204,000);">●</span> 함수 (66)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%80%EB%93%B1%EC%8B%9D/>
         <span style="color:rgb(051,204,051);">●</span> 부등식 (3)</a><br>    
+    <a href=https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/>
+        <span style="color:rgb(051,204,051);">●</span> 집합론 (46)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 기하학 (10++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/>
@@ -672,11 +684,13 @@ plot(dnorm,xlim=c(-3,3))
         <span style="color:rgb(255,051,051);">●</span> 전자기학 (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/>
         <span style="color:rgb(255,051,051);">●</span> 열물리학 (22)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/>
+        <span style="color:rgb(051,204,051);">●</span> 상대성이론 (6)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/r/>
         <span style="color:rgb(255,051,051);">●</span> R (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(255,204,000);">●</span> 수리통계학 (50+)</a><br>
+        <span style="color:rgb(255,204,000);">●</span> 수리통계학 (60+)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (44)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -692,7 +706,7 @@ plot(dnorm,xlim=c(-3,3))
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (25)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1804)</summary>
+    <summary>전체 포스트 (1803)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -718,8 +732,6 @@ plot(dnorm,xlim=c(-3,3))
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AF%B8%EC%A0%81%EB%B6%84%ED%95%99/" style="color: black">미적분학 (18)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A0%EC%9D%B4%EC%A7%80%EC%95%88/" style="color: black">베이지안 (11)</a>
-        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">벡터해석 (41)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B5%EC%86%8C%ED%95%B4%EC%84%9D/" style="color: black">복소해석 (60)</a>
@@ -728,7 +740,7 @@ plot(dnorm,xlim=c(-3,3))
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (42)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (6)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">상미분방정식 (57)</a>
         </li><li>
@@ -736,7 +748,7 @@ plot(dnorm,xlim=c(-3,3))
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (52)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (43)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (54)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (54)</a>
         </li><li>
@@ -782,7 +794,7 @@ plot(dnorm,xlim=c(-3,3))
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (46)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (47)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (55)</a>
         </li><li>

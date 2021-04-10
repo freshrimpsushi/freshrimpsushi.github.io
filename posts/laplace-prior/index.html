@@ -97,7 +97,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/laplace-prior\/",
-    "wordCount" : "946",
+    "wordCount" : "990",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -113,7 +113,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/basic.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99.png style="max-height: 80px; width: auto;">
             
             
             
@@ -254,7 +254,7 @@
 
     
     
-            <a href="https://freshrimpsushi.github.io/categories/%EB%B2%A0%EC%9D%B4%EC%A7%80%EC%95%88/" style="color: black">베이지안</a>&emsp;
+            <a href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학</a>&emsp;
             
     </span>
     
@@ -267,25 +267,54 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#빌드업">빌드업</a></li>
+    <li><a href="#정의-1">정의 </a></li>
+    <li><a href="#설명">설명</a>
+      <ul>
+        <li><a href="#부적절-사전분포">부적절 사전분포</a></li>
+        <li><a href="#부적절-사전분포의-문제점">부적절 사전분포의 문제점</a></li>
+        <li><a href="#언제나-부적절-사전분포가-문제가-되지는-않는다">언제나 부적절 사전분포가 문제가 되지는 않는다</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-모수에 대한 정보가 거의 없다면 구태여 복잡한 사전분포를 생각할 이유는 없다. 내년 모 대학의 통계학과 신입생의 성비를 추측해보라고 했을 때, 통계학과를 어느정도 아는 사람이라면 예년의 성비를 보고 어느정도 짐작을 하겠지만 전혀 관계도 없고 관심도 없는 사람이 이 질문을 들었을 땐 특별한 이유가 없는 한 50:50이라고 추측할 것이다. 어떤 주머니 안에 빨강, 파랑, 초록, 노랑색 구슬이 있다고만 할 때, 그 외에 아무 정보가 없다면 구슬 하나를 뽑았을 때 각 색깔의 구슬이 나올 확률은 그냥 25:25:25:25이라고 추측할 것이다.이렇듯 극도로 정보가 부족한 상황에서 사용하는 사전분포를 <strong>무정보적 사전분포</strong><sup>Noniniformative Prior</sup> 이라고 한다. 그 중에서도 특히 어떤 분포를 따른다고 상정하지 않고 일단은 공평하게 모든 가능성을 열어둔 사전분포를 <strong>라플라스 사전분포</strong><sup>Laplace Prior</sup> 라고 한다. 만약 모수 $\theta$ 가 어떤 구간 $(a,b)$ 에 속한다면 그 사전분포는 $\displaystyle \pi (\theta) = {{1} \over {b-a}} , a &lt; \theta &lt; b$ 과 같이 균일분포로 나타날 것이다.문제는 $ -\infty \le \theta \le \infty $ 와 같이 모수가 바운드 되어있지 않은 경우다. 이 경우 $\pi (\theta) $ 를 균일분포로 두면 $\displaystyle \int_{-\infty}^{\infty} \pi ( \theta ) d \theta  = \infty$ 과 같이 계산되므로 분포함수로써 쓸 게 못 된다. 이런 경우의 사전분포를 <strong>부적절 사전분포</strong><sup>Improper Prior</sup> 라고 부른다. 이러한 부적절 사전분포는 부적절 사후분포를 초래할 수 있으므로 라플라스 사전분포를 사용할 땐 세심한 주의가 필요하다.예를 들어 자료가 지수분포 $\displaystyle \exp \left( {{1} \over {\theta}} \right) $ 를 따른다고 할 때, 라플라스 사전분포로써 $\displaystyle \pi ( \theta ) \propto c $ 를 생각해볼 수 있다.이 경우 $\theta$ 의 사후분포는 $\displaystyle p ( \theta | y ) \propto {{1} \over {\theta }} \exp \left( - {{y} \over {\theta }} \right)$이 사후분포가 적절한지 확인하기 위해 $\displaystyle \theta = {{1} \over {z}}$ 라 두고 정적분을 구해보면 $\displaystyle \int_{0 }^{\infty} p ( \theta | y ) d \theta \propto \int_{0}^{\infty} z \exp ( - y z ) {{1} \over {z^2}} dx = \infty $따라서 사후분포는 확률분포함수로써 적절치 않으므로, <a href="../716">다른 사전분포</a>를 고려해봐야한다.그렇지만 부적절 사후분포가 반드시 부적절 사후분포를 이끄는 것은 아니다.예를 들어 자료가 정규분포 $N ( \theta , \sigma^2 )$ 를 따른다고 하면, 라플라스 사전분포로써 $\displaystyle \pi ( \theta ) \propto c $ 를 생각해볼 수 있다.이 경우 $\theta$ 의 사후분포는 $\displaystyle p ( \theta | y_{1} , \cdots y_{n} ) \propto \exp \left( - {{1} \over {2 \sigma^2}}  \sum_{i=1}^{n} (y_{i} - \theta )^2 \right)$약간 더 계산하면 $\displaystyle p ( \theta | y_{1} , \cdots y_{n} ) \propto \exp \left( - {{n} \over {2 \sigma^2}} (\theta - \overline{y} )^2 \right)$ 이므로, 적절한 사후분포 $N ( \overline{y} , \sigma^2 / n ) $ 을 얻을 수 있다.</p>
+<h2 id="빌드업">빌드업</h2>
+<p>모수에 대한 정보가 거의 없다면 구태여 복잡한 사전분포를 생각할 이유는 없다. 내년 모 대학의 통계학과 신입생의 성비를 추측해보라고 했을 때, 통계학과를 어느정도 아는 사람이라면 예년의 성비를 보고 어느정도 짐작을 하겠지만 전혀 관계도 없고 관심도 없는 사람이 이 질문을 들었을 땐 특별한 이유가 없는 한 50:50이라고 추측할 것이다. 어떤 주머니 안에 빨강, 파랑, 초록, 노랑색 구슬이 있다고만 할 때, 그 외에 아무 정보가 없다면 구슬 하나를 뽑았을 때 각 색깔의 구슬이 나올 확률은 그냥 25:25:25:25이라고 추측할 것이다.</p>
+<h2 id="정의-1">정의 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>이렇듯 극도로 정보가 부족한 상황에서 사용하는 사전분포를 <strong>무정보적 사전분포</strong><sup>Noniniformative Prior</sup>라고 한다. 그 중에서도 특히 어떤 분포를 따른다고 상정하지 않고 일단은 공평하게 모든 가능성을 열어둔 사전분포를 <strong>라플라스 사전분포</strong><sup>Laplace Prior</sup>라고 한다.</p>
+<h2 id="설명">설명</h2>
+<h3 id="부적절-사전분포">부적절 사전분포</h3>
+<p>만약 모수 $\theta$ 가 어떤 구간 $(a,b)$ 에 속한다면 그 사전분포는 $\displaystyle \pi (\theta) = {{1} \over {b-a}} , a &lt; \theta &lt; b$ 과 같이 <a href="../443">일양 분포</a>로 나타날 것이다. 문제는 $ -\infty \le \theta \le \infty$ 와 같이 모수가 바운드 되어있지 않은 경우다. 이 경우 $\pi (\theta) $ 를 <a href="../443">일양 분포</a>로 두면 $\displaystyle \int_{-\infty}^{\infty} \pi ( \theta ) d \theta  = \infty$ 과 같이 계산되므로 분포함수로써 쓸 게 못 된다. 이런 경우의 사전분포를 <strong>부적절 사전분포</strong><sup>Improper Prior</sup> 라고 부른다. 이러한 부적절 사전분포는 부적절 사후분포를 초래할 수 있으므로 라플라스 사전분포를 사용할 땐 세심한 주의가 필요하다.</p>
+<h3 id="부적절-사전분포의-문제점">부적절 사전분포의 문제점</h3>
+<p>예를 들어 자료가 지수분포 $\displaystyle \exp \left( {{1} \over {\theta}} \right)$ 를 따른다고 할 때, 라플라스 사전분포로써 $\displaystyle \pi ( \theta ) \propto c$ 를 생각해볼 수 있다.이 경우 $\theta$ 의 사후분포는
+$$
+p ( \theta | y ) \propto {{1} \over {\theta }} \exp \left( - {{y} \over {\theta }} \right)
+$$
+다. 이 사후분포가 적절한지 확인하기 위해 $\displaystyle \theta = {{1} \over {z}}$ 라 두고 정적분을 구해보면
+$$
+\int_{0 }^{\infty} p ( \theta | y ) d \theta \propto \int_{0}^{\infty} z \exp ( - y z ) {{1} \over {z^2}} dx = \infty
+$$
+따라서 사후분포는 확률분포함수로써 적절치 않으므로, <a href="../716">다른 사전분포</a>를 고려해봐야한다.</p>
+<h3 id="언제나-부적절-사전분포가-문제가-되지는-않는다">언제나 부적절 사전분포가 문제가 되지는 않는다</h3>
+<p>그렇지만 부적절 사후분포가 반드시 부적절 사후분포를 이끄는 것은 아니다. 예를 들어 자료가 정규분포 $N ( \theta , \sigma^2 )$ 를 따른다고 하면, 라플라스 사전분포로써 $\displaystyle \pi ( \theta ) \propto c$ 를 생각해볼 수 있다. 이 경우 $\theta$ 의 사후분포는
+$$
+p ( \theta | y_{1} , \cdots y_{n} ) \propto \exp \left( - {{1} \over {2 \sigma^2}}  \sum_{i=1}^{n} (y_{i} - \theta )^2 \right)
+$$
+약간 더 계산하면
+$$
+p ( \theta | y_{1} , \cdots y_{n} ) \propto \exp \left( - {{n} \over {2 \sigma^2}} (\theta - \overline{y} )^2 \right)
+$$
+이므로, 적절한 사후분포 $N ( \overline{y} , \sigma^2 / n )$ 을 얻을 수 있다.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>김달호. (2013). R과 WinBUGS를 이용한 베이지안 통계학: p114. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
@@ -628,11 +657,13 @@ margin-right: auto;">
 
 <aside>
     <p><b>카테고리</b></p>
-    
+
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(255,204,000);">●</span> 함수 (66)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%80%EB%93%B1%EC%8B%9D/>
         <span style="color:rgb(051,204,051);">●</span> 부등식 (3)</a><br>    
+    <a href=https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/>
+        <span style="color:rgb(051,204,051);">●</span> 집합론 (46)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 기하학 (10++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/>
@@ -659,11 +690,13 @@ margin-right: auto;">
         <span style="color:rgb(255,051,051);">●</span> 전자기학 (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/>
         <span style="color:rgb(255,051,051);">●</span> 열물리학 (22)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/>
+        <span style="color:rgb(051,204,051);">●</span> 상대성이론 (6)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/r/>
         <span style="color:rgb(255,051,051);">●</span> R (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(255,204,000);">●</span> 수리통계학 (50+)</a><br>
+        <span style="color:rgb(255,204,000);">●</span> 수리통계학 (60+)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (44)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -679,7 +712,7 @@ margin-right: auto;">
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (25)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1804)</summary>
+    <summary>전체 포스트 (1803)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -705,8 +738,6 @@ margin-right: auto;">
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AF%B8%EC%A0%81%EB%B6%84%ED%95%99/" style="color: black">미적분학 (18)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A0%EC%9D%B4%EC%A7%80%EC%95%88/" style="color: black">베이지안 (11)</a>
-        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">벡터해석 (41)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B5%EC%86%8C%ED%95%B4%EC%84%9D/" style="color: black">복소해석 (60)</a>
@@ -715,7 +746,7 @@ margin-right: auto;">
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (42)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (8)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (6)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">상미분방정식 (57)</a>
         </li><li>
@@ -723,7 +754,7 @@ margin-right: auto;">
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (52)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (43)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (54)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (54)</a>
         </li><li>
@@ -769,7 +800,7 @@ margin-right: auto;">
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (46)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (47)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (55)</a>
         </li><li>
