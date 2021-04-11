@@ -42,9 +42,9 @@
     
 
     
-<meta name="title" content="회귀분석에서의 변수 변환">
+<meta name="title" content="비선형회귀분석: 회귀분석에서의 변수 변환">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="회귀분석에서의 변수 변환"/>
+<meta property="og:title" content="비선형회귀분석: 회귀분석에서의 변수 변환"/>
 <meta property="og:description" content="transformation of variables"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
@@ -57,8 +57,8 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "r_",
-    "name": "회귀분석에서의 변수 변환",
-    "headline": "회귀분석에서의 변수 변환",
+    "name": "비선형회귀분석: 회귀분석에서의 변수 변환",
+    "headline": "비선형회귀분석: 회귀분석에서의 변수 변환",
     "alternativeHeadline": "",
     "description": "transformation of variables",
     "inLanguage": "ko",
@@ -97,14 +97,14 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/transformation-of-variables\/",
-    "wordCount" : "674",
-    "genre" : [ ],
-    "keywords" : [ ]
+    "wordCount" : "696",
+    "genre" : [ "R" ],
+    "keywords" : [ "R" ]
 }
 </script>
 
 
-    <title>회귀분석에서의 변수 변환</title>
+    <title>비선형회귀분석: 회귀분석에서의 변수 변환</title>
 
 </head>
 
@@ -244,9 +244,9 @@
             <div class = "content">
             
 
-<title>회귀분석에서의 변수 변환</title>
+<title>비선형회귀분석: 회귀분석에서의 변수 변환</title>
 
-<h1>회귀분석에서의 변수 변환</h1>
+<h1>비선형회귀분석: 회귀분석에서의 변수 변환</h1>
 <aside>
     transformation of variables
     <p style="text-align: right;">
@@ -254,7 +254,7 @@
 
     
     
-            <a href="https://freshrimpsushi.github.io/categories/%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D/" style="color: black">회귀분석</a>&emsp;
+            <a href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/" style="color: black">통계적분석</a>&emsp;
             
     </span>
     
@@ -267,28 +267,36 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#개요-1">개요 </a></li>
+    <li><a href="#실습">실습</a></li>
+    <li><a href="#코드">코드</a></li>
+    <li><a href="#같이보기">같이보기</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-<a href="../938">시계열에서의 변환</a>회귀분석은 기본적으로 변수들간의 <a href="../666">선형관계</a>를 밝히는 방법이지만, 필요하다면 데이터를 선형으로 &lsquo;펴서&rsquo; 분석할 수 있다.<a href="../331">내장데이터</a> Pressure 데이터를 불러와보자.<img src="20181214_110640.png#center" alt="20181214\_110640.png">
+<h2 id="개요-1">개요 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>회귀분석은 기본적으로 변수들간의 <a href="../666">선형관계</a>를 밝히는 방법이지만, 필요하다면 데이터를 선형으로 &lsquo;펴서&rsquo; 분석할 수 있다. 이는 본질적으로 종속변수를 독립변수의 비선형결합으로 설명하는 것이다.</p>
+<h2 id="실습">실습</h2>
+<p><a href="../331">내장데이터</a> <code>Pressure</code> 데이터를 불러와보자.</p>
+<p><img src="20181214_110640.png#center" alt="20181214\_110640.png">
 <img src="0.png#center" alt="0.png">
-Pressure 데이터는 사실 통계적으로 분석할 필요는 없다.이는 어디까지나 자연현상이기 때문에 실험만큼이나 수학적인 증명이 필요하고, &lsquo;인과관계&rsquo;에 관심이 더 많기 때문이다.그러나 이것을 굳이 회귀분석으로 분석하고 싶을 땐 할 수 있어야 할 것이다.다만 위 데이터에 대한 회귀식 $(\text{pressure}) = \beta_{0 } + \beta_{1 } ( \text{temperature} ) + \varepsilon$ 은 아마 의미가 없을 것이다.해서, 독립변수에 로그를 취한 $\log ( \text{temperature} )$ 와 종속변수에 로그를 취한 $\log (\text{pressure})$ 를 새로운 변수로 사용해보자.이렇게 새로이 만들어지는 회귀식을 $\log (\text{pressure}) = \log {b_{0 }} + {b_{1 }} \log ( \text{temperature} )+ \varepsilon$ 이라고 하자.만약 이 분석이 제대로 됐다면, $\log (\text{pressure}) = \log {b_{0 }} ( \text{temperature} )^{{b_{1 }}}+ \varepsilon$ 이므로 양변의 로그를 풀면 $ (\text{pressure}) = b_{0 } ( \text{temperature} )^{{b_{1 }}} + \varepsilon $ 과 같은 관계식을 유도할 수 있을 것이다. 당연하게도 이러한 식은 <a href="../618">실제 물리학에서도 비슷한 모양으로 등장</a>한다.각각의 회귀분석을 실시하고 회귀직선을 그어보면 아래와 같다.<img src="1.png#center" alt="1.png">
-로그를 취했다 푸는 수식적인 조작은 사람의 몫이다.왼쪽은 아무런 핸들링 없이 자료를 분석하려고 했으나 회귀분석이 필요로 하는 조건을 전혀 만족시키지 못해 의미가 없다.오른쪽은 로그스케일을 취한 것인데, 매우 높은 설명력으로 데이터의 추이를 놀랍도록 정확히 나타내주는 것을 확인할 수 있다.물론 엄밀히 말하자면 <a href="../679">잔차분석</a>에 문제가 있어 완벽한 분석이라곤 할 수 없지만, 이러한 분석으로 충분한 경우도 종종 있다.아래는 예제 코드다.</p>
+<code>Pressure</code> 데이터는 사실 통계적으로 분석할 필요는 없다.</p>
+<p>이는 어디까지나 자연현상이기 때문에 실험만큼이나 수학적인 증명이 필요하고, &lsquo;인과관계&rsquo;에 관심이 더 많기 때문이다. 그러나 이것을 굳이 회귀분석으로 분석하고 싶을 땐 할 수 있어야 할 것이다. 다만 위 데이터에 대한 회귀식
+$$(\text{pressure}) = \beta_{0 } + \beta_{1 } ( \text{temperature} ) + \varepsilon$$
+은 아마 의미가 없을 것이다. 해서, 독립변수에 로그를 취한 $\log ( \text{temperature} )$ 와 종속변수에 로그를 취한 $\log (\text{pressure})$ 를 새로운 변수로 사용해보자. 이렇게 새로이 만들어지는 회귀식을
+$$\log (\text{pressure}) = \log {b_{0 }} + {b_{1 }} \log ( \text{temperature} )+ \varepsilon$$ 이라고 하자. 만약 이 분석이 제대로 됐다면,
+$$\log (\text{pressure}) = \log {b_{0 }} ( \text{temperature} )^{{b_{1 }}}+ \varepsilon$$ 이므로 양변의 로그를 풀면
+$$ (\text{pressure}) = b_{0 } ( \text{temperature} )^{{b_{1 }}} + \varepsilon $$
+과 같은 관계식을 유도할 수 있을 것이다. 당연하게도 이러한 식은 <a href="../618">실제 물리학에서도 비슷한 모양으로 등장</a>한다. 각각의 회귀분석을 실시하고 회귀직선을 그어보면 아래와 같다.</p>
+<p><img src="1.png#center" alt="1.png"></p>
+<p>로그를 취했다 푸는 수식적인 조작은 사람의 몫이다.</p>
+<ul>
+<li>왼쪽은 아무런 핸들링 없이 자료를 분석하려고 했으나 회귀분석이 필요로 하는 조건을 전혀 만족시키지 못해 의미가 없다.</li>
+<li>오른쪽은 로그스케일을 취한 것인데, 매우 높은 설명력으로 데이터의 추이를 놀랍도록 정확히 나타내주는 것을 확인할 수 있다. 물론 엄밀히 말하자면 <a href="../679">잔차분석</a>에 문제가 있어 완벽한 분석이라곤 할 수 없지만, 이러한 분석으로 충분한 경우도 종종 있다.</li>
+</ul>
+<h2 id="코드">코드</h2>
+<p>아래는 예제 코드다.</p>
 <pre><code>pressure; ?pressure
 win.graph(4,4)
 plot(pressure,main='Pressure')
@@ -302,12 +310,24 @@ y&lt;-pressure[-1,]$pressure; logtemp&lt;-log(y)
 x&lt;-pressure[-1,]$temperature; logpress&lt;-log(x)
 out2&lt;-lm(logtemp~logpress); summary(out2)
 plot(logpress,logtemp,main='log scale'); abline(out2,col='red')
-</code></pre>
+</code></pre><h2 id="같이보기">같이보기</h2>
+<ul>
+<li><a href="../938">시계열에서의 변환</a></li>
+</ul>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Hadi. (2006). Regression Analysis by Example(4th Edition): p152. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
 
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var title = '회귀분석에서의 변수 변환';
+        var title = '비선형회귀분석: 회귀분석에서의 변수 변환';
         var link = 'https:\/\/freshrimpsushi.github.io\/posts\/transformation-of-variables\/';
         var arr = new Array();
         var obj = {
@@ -428,7 +448,7 @@ plot(logpress,logtemp,main='log scale'); abline(out2,col='red')
         }
         let board_idx = '805';
         let board_slug = 'transformation-of-variables';
-        let board_title = '회귀분석에서의 변수 변환';
+        let board_title = '비선형회귀분석: 회귀분석에서의 변수 변환';
 
         $.ajax({
             type: "POST",
@@ -602,7 +622,7 @@ plot(logpress,logtemp,main='log scale'); abline(out2,col='red')
             }
             let idx = '805';
             let board_slug = 'transformation-of-variables';
-            let board_title = '회귀분석에서의 변수 변환';
+            let board_title = '비선형회귀분석: 회귀분석에서의 변수 변환';
 
             $.ajax({
                 type: "POST",
@@ -682,6 +702,8 @@ plot(logpress,logtemp,main='log scale'); abline(out2,col='red')
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/r/>
         <span style="color:rgb(255,051,051);">●</span> R (53)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
+        <span style="color:rgb(255,051,051);">●</span> 통계적분석 (50++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 수리통계학 (60+)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
@@ -696,7 +718,7 @@ plot(logpress,logtemp,main='log scale'); abline(out2,col='red')
     <a href=https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/>
         <span style="color:rgb(051,204,051);">●</span> 알고리즘 (39)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/>
-        <span style="color:rgb(051,204,051);">●</span> 머신러닝 (25)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 머신러닝 (29)</a><br>
     <hr>
 <details>
     <summary>전체 포스트 (1804)</summary>
@@ -717,7 +739,7 @@ plot(logpress,logtemp,main='log scale'); abline(out2,col='red')
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (24)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (28)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC-%EA%B5%90%EA%B3%BC/" style="color: black">물리 교과 (9)</a>
         </li><li>
@@ -781,6 +803,8 @@ plot(logpress,logtemp,main='log scale'); abline(out2,col='red')
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/" style="color: black">통계적분석 (24)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (42)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (39)</a>
@@ -798,8 +822,6 @@ plot(logpress,logtemp,main='log scale'); abline(out2,col='red')
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (27)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D/" style="color: black">회귀분석 (28)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (47)</a>
         </li>

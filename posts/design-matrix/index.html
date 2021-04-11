@@ -97,7 +97,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/design-matrix\/",
-    "wordCount" : "841",
+    "wordCount" : "778",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -254,7 +254,7 @@
 
     
     
-            <a href="https://freshrimpsushi.github.io/categories/%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D/" style="color: black">회귀분석</a>&emsp;
+            <a href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/" style="color: black">통계적분석</a>&emsp;
             
     </span>
     
@@ -267,34 +267,35 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#빌드업">빌드업</a></li>
+    <li><a href="#정의">정의</a></li>
+    <li><a href="#선수과목">선수과목</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-R에서 <a href="../331">내장데이터 faithful을 불러와</a> head() 함수를 통해 확인해보자.<img src="20180426_214849.png#center" alt="20180426\_214849.png">
-고작 여섯개지만, 척 봐도 eruptions와 waiting은 양의 상관관계를 가지고 있는 것으로 보인다.만약 이들의 관계를 어떤 두 상수 $\beta_{0}, \beta_{1}$ 에 대해 $\text{(eruptions)} = \beta_{0} + \beta_{1} \cdot \text{( waiting) }$ 으로 나타낼 수 있다면 좋을 것이다.위 식은 두 변수의 선형관계를 직선의 방정식으로써 나타낸 것으로 $\beta_{0}$ 은 상수항, $\beta_{1}$ 은 기울기를 뜻한다.하지만 실제 데이터에선 이론과 달리 오차가 발생하므로 어떤 오차항 $\varepsilon$ 이 필요하다.식을 간략하게 하기 위해 $y:=\text{(eruptions)}$ 그리고 $x:=\text{( waiting) }$ 이라고 하면 $y = \beta_{0} + \beta_{1} x + \varepsilon$ 을 얻는다.위 스크린샷에선 총 $6$개의 순서쌍이 나타나있는데, 이들을 연립방정식으로 나타내면 다음과 같다.$\begin{cases} 3.600 = \beta_{0} + \beta_{1} 79 + \varepsilon_{1} 
+<h2 id="빌드업">빌드업</h2>
+<p>R에서 <a href="../331">내장데이터 <code>faithful</code>을 불러와</a> <code>head()</code> 함수를 통해 확인해보자.</p>
+<p><img src="20180426_214849.png#center" alt="20180426\_214849.png"></p>
+<p>고작 여섯개지만, 척 봐도 <code>eruptions</code>와 <code>waiting</code>은 양의 상관관계를 가지고 있는 것으로 보인다. 만약 이들의 관계를 어떤 두 상수 $\beta_{0}, \beta_{1}$ 에 대해
+$$\text{(eruptions)} = \beta_{0} + \beta_{1} \cdot \text{( waiting) }$$
+으로 나타낼 수 있다면 좋을 것이다. 위 식은 두 변수의 선형관계를 직선의 방정식으로써 나타낸 것으로 $\beta_{0}$ 은 상수항, $\beta_{1}$ 은 기울기를 뜻한다.</p>
+<p>하지만 실제 데이터에선 이론과 달리 오차가 발생하므로 어떤 오차항 $\varepsilon$ 이 필요하다.식을 간략하게 하기 위해 $y:=\text{(eruptions)}$ 그리고 $x:=\text{( waiting) }$ 이라고 하면 다음을 얻는다.
+$$y = \beta_{0} + \beta_{1} x + \varepsilon$$</p>
+<p>위 스크린샷에선 총 $6$개의 순서쌍이 나타나있는데, 이들을 연립방정식으로 나타내면 다음과 같다.
+$$\begin{cases} 3.600 = \beta_{0} + \beta_{1} 79 + \varepsilon_{1} 
 \\  1.800 = \beta_{0} + \beta_{1} 54 + \varepsilon_{2} 
 \\  3.333 = \beta_{0} + \beta_{1} 74 + \varepsilon_{3} 
 \\  2.283 = \beta_{0} + \beta_{1} 62 + \varepsilon_{4} 
 \\  4.533 = \beta_{0} + \beta_{1} 85 + \varepsilon_{5} 
-\\  2.883 = \beta_{0} + \beta_{1} 55 + \varepsilon_{6} \end{cases} $실제 faithful은 무려 272개의 순서쌍을 포함한 데이터라 이런 식으로 모두를 포현하는 것은 무리고 다시 기호를 통해 표현해보자.$\begin{cases} y_{1} &amp;=&amp; \beta_{0} + \beta_{1} x_{1} + \varepsilon_{1} 
+\\  2.883 = \beta_{0} + \beta_{1} 55 + \varepsilon_{6} \end{cases} $$
+실제 <code>faithful</code>은 무려 272개의 순서쌍을 포함한 데이터라 이런 식으로 모두를 포현하는 것은 무리고 다시 기호를 통해 표현해보자.
+$$\begin{cases} y_{1} &amp;=&amp; \beta_{0} + \beta_{1} x_{1} + \varepsilon_{1} 
 \\  y_{2} &amp;=&amp; \beta_{0} + \beta_{1} x_{2} + \varepsilon_{2} 
 \\  &amp;\vdots&amp; 
-\\  y_{272} &amp;=&amp; \beta_{0} + \beta_{1} x_{272} + \varepsilon_{272} \end{cases} $한편 위와 같은 연립방정식은 행렬방정식으로 더 간단하게 표현할 수 있다.$\begin{bmatrix}
+\\  y_{272} &amp;=&amp; \beta_{0} + \beta_{1} x_{272} + \varepsilon_{272} \end{cases} $$</p>
+<p>한편 위와 같은 연립방정식은 행렬방정식으로 더 간단하게 표현할 수 있다.
+$$\begin{bmatrix}
 y_{1} 
 \\  y_{2} 
 \\  \vdots 
@@ -312,7 +313,13 @@ y_{1}
 \\  \varepsilon_{2} 
 \\  \vdots 
 \\  \varepsilon_{272}  
-\end{bmatrix}$흔히 쓰듯 행렬마저 대문자로 나타내면 마침내 $Y = X \beta + \varepsilon$ 을 얻을 수 있다.여기서 $X$ 와 같이 독립변수를 묶어둔 행렬을 <strong>계획행렬</strong><sup>Design Matrix</sup> 이라고 부른다.이렇듯 데이터를 행렬로 표현할 수 있다는 것은 선형대수학의 여러가지 툴을 통계학에 적용시킬 수 있다는 의미가 된다.여기서 $\beta$ 를 찾아내는 것이 바로 <a href="../548">회귀분석</a>이고, 이를 정확하게 이해하기 위해선 선형대수에 대한 지식이 필수적이다.통계학을 접하는 수많은 학습자들이 선형대수의 필요성을 느끼지 못하고 등한시하다가 막상 행렬이 나오면 어려움을 느낀다.선배들의 전철을 밟지 않기 위해서는 해석학이나 선형대수와 같은 저학년 과목을 철저히 갈고닦아야함을 명심하자.</p>
+\end{bmatrix}$$
+흔히 쓰듯 행렬마저 대문자로 나타내면 마침내 $Y = X \beta + \varepsilon$ 을 얻을 수 있다.</p>
+<h2 id="정의">정의</h2>
+<p>여기서 $X$ 와 같이 독립변수를 묶어둔 행렬을 <strong>계획행렬</strong><sup>Design Matrix</sup>이라 부른다.</p>
+<h2 id="선수과목">선수과목</h2>
+<p>이렇듯 데이터를 행렬로 표현할 수 있다는 것은 <a href="../../../categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98">선형대수</a>의 여러가지 툴을 통계학에 적용시킬 수 있다는 의미가 된다. 여기서 $\beta$ 를 찾아내는 것이 바로 <a href="../548">회귀분석</a>이고, 이를 정확하게 이해하기 위해선 선형대수에 대한 지식이 필수적이다.</p>
+<p>통계학을 접하는 수많은 학습자들이 선형대수의 필요성을 느끼지 못하고 등한시하다가 막상 행렬이 나오면 어려움을 느낀다. 선배들의 전철을 밟지 않기 위해서는 해석학이나 선형대수와 같은 저학년 과목을 철저히 갈고닦아야함을 명심하자.</p>
 
 
 
@@ -693,6 +700,8 @@ y_{1}
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/r/>
         <span style="color:rgb(255,051,051);">●</span> R (53)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
+        <span style="color:rgb(255,051,051);">●</span> 통계적분석 (50++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 수리통계학 (60+)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
@@ -707,7 +716,7 @@ y_{1}
     <a href=https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/>
         <span style="color:rgb(051,204,051);">●</span> 알고리즘 (39)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/>
-        <span style="color:rgb(051,204,051);">●</span> 머신러닝 (25)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 머신러닝 (29)</a><br>
     <hr>
 <details>
     <summary>전체 포스트 (1804)</summary>
@@ -728,7 +737,7 @@ y_{1}
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (24)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (28)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC-%EA%B5%90%EA%B3%BC/" style="color: black">물리 교과 (9)</a>
         </li><li>
@@ -792,6 +801,8 @@ y_{1}
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/" style="color: black">통계적분석 (24)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (42)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (39)</a>
@@ -809,8 +820,6 @@ y_{1}
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (27)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D/" style="color: black">회귀분석 (28)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (47)</a>
         </li>

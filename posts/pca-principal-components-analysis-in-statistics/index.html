@@ -97,7 +97,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/pca-principal-components-analysis-in-statistics\/",
-    "wordCount" : "1872",
+    "wordCount" : "1836",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -254,7 +254,7 @@
 
     
     
-            <a href="https://freshrimpsushi.github.io/categories/%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D/" style="color: black">회귀분석</a>&emsp;
+            <a href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/" style="color: black">통계적분석</a>&emsp;
             
     </span>
     
@@ -267,32 +267,20 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
     <li><a href="#개요">개요</a></li>
-    <li><a href="#유도">유도</a></li>
+    <li><a href="#유도-1">유도 </a></li>
+    <li><a href="#한계">한계</a></li>
+    <li><a href="#조건수-1">조건수 </a></li>
+    <li><a href="#같이보기">같이보기</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-<a href="../808">다중공선성 보러가기</a>
-<a href="../814">R 에서 주성분회귀분석 하는 법 보러가기</a></p>
 <h2 id="개요">개요</h2>
-<p><a href="../666">다중회귀분석</a> $Y \leftarrow X_{1} , \cdots, X_{p}$ 을 한다고 생각해보자.<strong>주성분분석</strong> , 영어 약어로 <strong>PCA</strong> 는 쉽게 말해 양적변수들이 <a href="../808">제대로 독립이 되도록</a> &lsquo;재구성&rsquo;해서 분석하는 방법이다. 다변량 데이터의 분석이라는 관점으로 보자면 보다 적은 변수로 현상을 설명하기 위한 &lsquo;차원축소&rsquo;로써의 의미가 있다.주성분분석의 이론적인 유도를 제대로 이해하기 위해선 선형대수, 가능하다면 수치선형대수에 대한 지식까지 필요하다. 도저히 눈에 들어오지 않는다면 <strong>Step 3,4.</strong> 라도 읽고 이해해보도록 하자.</p>
-<h2 id="유도">유도</h2>
-<p><strong>Step 1.</strong>  표준화$p$ 개의 독립변수와 $n$ 개의 표본이 있는 데이터</p>
+<p><a href="../666">다중회귀분석</a> $Y \leftarrow X_{1} , \cdots, X_{p}$ 을 한다고 생각해보자. <strong>주성분분석</strong>, 영어 약어로 <strong>PCA</strong>는 쉽게 말해 양적변수들이 <a href="../808">제대로 독립이 되도록</a> &lsquo;재구성&rsquo;해서 분석하는 방법이다. 다변량 데이터의 분석이라는 관점으로 보자면 보다 적은 변수로 현상을 설명하기 위한 &lsquo;차원축소&rsquo;로써의 의미가 있다.</p>
+<p>주성분분석의 이론적인 유도를 제대로 이해하기 위해선 <a href="../../categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98">선형대수</a>, 가능하다면 <a href="../../categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98">수치선형대수</a>에 대한 지식까지 필요하다. 도저히 눈에 들어오지 않는다면 Step 3,4도 읽고 이해해보도록 하자.</p>
+<h2 id="유도-1">유도 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p><strong>Step 1. 표준화$p$ 개의 독립변수와 $n$ 개의 표본이 있는 데이터</strong></p>
 <p>$$
 \begin{bmatrix}
 y_{1} 
@@ -313,7 +301,7 @@ y_{1}
 $$</p>
 <p>는 <a href="../550">계획행렬</a>을 써서 $Y = X \beta + \varepsilon$ 과 같이 나타낼 수 있다. 이 $X$ 를 표준화한 행렬 $Z$ 라고 함은 $j$ 번째 독립변수 $X_{j}$ 의 표본평균 $\overline{ x_{j} }$ 와 표본표준편차 $s_{ X_{j} }$ 에 대해 $(i,j)$-성분을</p>
 <p>$$
-\displaystyle \left( Z \right)_{ij} : = {{ x_{ij} } - \overline{ x_{j} } \over { s_{ X_{j} } }} 
+\displaystyle \left( Z \right)_{ij}: = {{ x_{ij} } - \overline{ x_{j} } \over { s_{ X_{j} } }} 
 $$</p>
 <p>으로 갖는 행렬이다. 그러면 새로운 회귀계수</p>
 <p>$$
@@ -326,7 +314,10 @@ $$</p>
 $$</p>
 <p>에 대해 상수항이 없는 회귀분석의 계획행렬식 $Y = Z \Theta + \varepsilon$ 을 얻을 수 있다. 이 $Z = \begin{bmatrix}
 Z_{1} &amp; \cdots &amp; Z_{p} 
-\end{bmatrix}$ 는 벡터 $X_{1} , \cdots , X_{p}$ 를 표준화한 $Z_{1} , \cdots , Z_{p}$ 로 구성된 $( n \times p )$ 행렬이 된다.<strong>Step 2.</strong>  스펙트럴 분해이에 대해 $Z^{T} Z$ 는 $( p \times p ) $ <a href="../313">대칭행렬</a>인데, 그 정의를 생각해보면 $\displaystyle {{1} \over {n-1}} Z^{T} Z$ 는 $Z_{1} , \cdots , Z_{p}$ 에 대한 <a href="../425">공분산</a>행렬이 된다. 특히 $Z$ 는 표준화된 행렬이므로, 동시에 <a href="../57">상관계수</a>행렬이 되기도 한다. <a href="../346">스펙트럴 이론</a>에 따르면</p>
+\end{bmatrix}$ 는 벡터 $X_{1} , \cdots , X_{p}$ 를 표준화한 $Z_{1} , \cdots , Z_{p}$ 로 구성된 $( n \times p )$ 행렬이 된다.</p>
+<hr>
+<p><strong>Step 2.</strong></p>
+<p>스펙트럴 분해에 대해 $Z^{T} Z$ 는 $( p \times p )$ <a href="../313">대칭행렬</a>인데, 그 정의를 생각해보면 $\displaystyle {{1} \over {n-1}} Z^{T} Z$ 는 $Z_{1} , \cdots , Z_{p}$ 에 대한 <a href="../425">공분산</a>행렬이 된다. 특히 $Z$ 는 표준화된 행렬이므로, 동시에 <a href="../57">상관계수</a>행렬이 되기도 한다. <a href="../346">스펙트럴 이론</a>에 따르면</p>
 <p>$$
 \begin{cases} Z^{T} Z = Q \Lambda Q^{T} 
 \\  Q^{T} Q = Q Q^{T} = I \end{cases}
@@ -349,41 +340,66 @@ $$</p>
 \\  0 &amp; 0 &amp; \cdots &amp; \lambda_{p} 
 \end{bmatrix}
 $$</p>
-<p>가 존재한다. 이제 편의상 $\lambda_{1} \ge \lambda_{2} \ge \cdots \ge \lambda_{p}$ 이 되도록 두고 $Z$ 역시 그에 대응되도록 재정렬한 행렬로 생각하자.<strong>Step 3.</strong>  주성분 구성$I = QQ^{T}$ 이므로</p>
-<p>$$
+<p>가 존재한다. 이제 편의상 $\lambda_{1} \ge \lambda_{2} \ge \cdots \ge \lambda_{p}$ 이 되도록 두고 $Z$ 역시 그에 대응되도록 재정렬한 행렬로 생각하자.</p>
+<hr>
+<p><strong>Step 3.</strong>  주성분 구성</p>
+<p>$I = QQ^{T}$ 이므로
+$$
 Y = Z \Theta + \varepsilon = Z Q Q^{T} \Theta + \varepsilon 
-$$</p>
-<p>여기서 $C := ZQ $, $\alpha := Q^{T} \Theta$ 라고 두면</p>
-<p>$$
+$$
+여기서 $C := ZQ $, $\alpha := Q^{T} \Theta$ 라고 두면
+$$
 Y = C \alpha + \varepsilon
-$$</p>
-<p>이 $C = \begin{bmatrix}
+$$
+이 $C = \begin{bmatrix}
 C_{1} &amp; \cdots &amp; C_{p} 
-\end{bmatrix}$ 에 대해 $C_{1} , \cdots , C_{p}$ 를 $Z_{1}, \cdots , Z_{p}$ 의 <strong>주성분</strong><sup>PCs</sup> 이라고 한다. $j$ 번째 주성분의 모양은</p>
+\end{bmatrix}$ 에 대해 $C_{1} , \cdots , C_{p}$ 를 $Z_{1}, \cdots , Z_{p}$ 의 <strong>주성분</strong><sup>PCs</sup>이라 한다. $j$ 번째 주성분의 모양은</p>
 <p>$$
 \displaystyle C_{j} = q_{1j} Z_{1} + \cdots + q_{pj} Z_{p} = \sum_{i=1}^{p} q_{ij} Z_{j} 
 $$</p>
-<p>와 같이 기존의 독립변수들을 선형결합으로 재구성한 것이다.<strong>Step 4.</strong>  주성분의 독립성또한 다음의 계산으로 이 주성분끼리의 독립성을 확인할 수 있다.</p>
-<p>$$
+<p>와 같이 기존의 독립변수들을 선형결합으로 재구성한 것이다.</p>
+<hr>
+<p><strong>Step 4.</strong></p>
+<p>주성분의 독립성또한 다음의 계산으로 이 주성분끼리의 독립성을 확인할 수 있다.
+$$
 \begin{eqnarray*}
 &amp;&amp; Z^{T} Z = Q \Lambda Q^{T} 
 \\  &amp;\implies&amp; Q^{T} Z^{T} Z Q = \Lambda 
 \\  &amp;\implies&amp; \left( Z Q \right) ^{T} \left( Z Q \right) = \Lambda 
 \\  &amp;\implies&amp; C^{T} C = \Lambda 
 \end{eqnarray*}
-$$</p>
-<p>다시 말해</p>
-<p>$$
+$$
+다시 말해
+$$
 C_{j}^{T} C_{j} = \begin{cases} \lambda_{j} &amp; , i=j 
 \\  0 &amp; , i \ne j \end{cases}
-$$</p>
-<p>이므로 주성분끼리는 반드시 독립이고, 고유값 $\lambda_{j}$ 가 $0$ 에 가까울 정도로 작다는 말은 $\displaystyle C_{j} = \sum_{i=1}^{p} q_{ij} Z_{j} $ 가 영벡터에 가깝다는 의미가 되므로 $Z_{1} , \cdots , Z_{p}$ 가 다중공선성을 가진다고 볼 수 있다.<p style="text-align: right;">■</p>
-한편 유도과정에서 구해지는 고유값을 통해 <a href="../808">다중공선성</a>을 진단하는 수치적인 지표인 <strong>조건수</strong><sup>Condition Number</sup></p>
+$$
+이므로 주성분끼리는 반드시 독립이고, 고유값 $\lambda_{j}$ 가 $0$ 에 가까울 정도로 작다는 말은 $\displaystyle C_{j} = \sum_{i=1}^{p} q_{ij} Z_{j} $ 가 영벡터에 가깝다는 의미가 되므로 $Z_{1} , \cdots , Z_{p}$ 가 다중공선성을 가진다고 볼 수 있다.</p>
+<p style="text-align: right;">■</p>
+<h2 id="한계">한계</h2>
+<p><a href="../814">주성분회귀분석</a> $Y \leftarrow C_{1} , \cdots , C_{p}$ 은 고유값에 문제가 있는 변수들을 제거함으로써 다중공선성의 문제를 회피한다. 또한 원래 회귀분석과 비교했을 때 훨씬 적은 수의 변수를 사용하는 것이므로 차원이 축소되었다고 말할 수 있다.</p>
+<p>언뜻 주성분분석은 만능처럼 보이지만 꼭 그런것만은 아니다. 우선 $Z$ 를 만들기 위해서 표준화를 한다는 것은 <a href="../686">질적변수</a>나 <a href="../805">변환</a>에 대해 손을 쓰기 어려운 점이 많다는 뜻이며, 이렇게 &lsquo;재구성&rsquo;을 하는 과정에서 분석 자체가 이해하기 어려워진다.</p>
+<p>통계가 통계학을 이해하지 못하는 사람에게도 필요하다는 점을 생각해보면 이 점은 꽤 치명적이다. 예를들어 한국 경제에 대한 분석에 주성분분석을 쓴다면 구체적으로 실업률 $X_{2}$ 나 평균 초봉 $X_{7}$ 과 같이 이해하기 쉬운 수치가 아니라 &lsquo;종합고용지수&rsquo; $C_{4}$ 와 같은 이상한 단어로 표현하게 되는 식이다. 분석자조차도 쓸만한 회귀식은 만들어냈을지언정 그 진정한 의미는 파악하지 못하는 대참사가 일어날 수도 있다. (컴퓨터 공학쪽에서는 데이터의 이해보단 예측과 분류가 중요하기 때문에 이런 단점을 크게 신경쓰지 않는다.)</p>
+<p>또한 어떤 주성분도 탈락시키지 않고 $Y \leftarrow C_{1} , \cdots , C_{p}$ 를 그대로 사용한다면 원래의 $Y \leftarrow X_{1} , \cdots , X_{p}$ 와 다를 바가 없는데, 여기서 몇몇 주성분을 탈락시킨다는 것 자체가 원래 있던 데이터를 포기한다는 뜻이 된다. 그래도 필요하다면 써야겠지만, 필요 없으면 굳이 쓸 이유가 없다. 쓸 땐 쓰더라도 어떤 단점과 한계가 있는지는 명확히 알고 써야한다.</p>
+<h2 id="조건수-1">조건수 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>한편 유도과정에서 구해지는 고유값을 통해 <a href="../808">다중공선성</a>을 진단하는 수치적인 지표인 <strong>조건수</strong><sup>Condition Number</sup></p>
 <p>$$
 \displaystyle \kappa := \sqrt{ {{ \lambda_{1} } \over { \lambda_{p} }} }
 $$</p>
-<p>를 계산할 수 있다. 경험적으로 $\kappa &gt; 15$ 면 원래 데이터에 다중공선성이 있다고 짐작할 수 있으나, 그다지 많이 사용되지는 않는다.다시 $Y = C \alpha + \varepsilon$ 으로 돌아가보자면, 회귀분석 $Y \leftarrow C_{1} , \cdots , C_{p}$ 은 고유값에 문제가 있는 변수들을 제거함으로써 다중공선성의 문제를 회피한다. 또한 원래 회귀분석과 비교했을 때 훨씬 적은 수의 변수를 사용하는 것이므로 차원이 축소되었다고 말할 수 있다.언뜻 주성분분석은 만능처럼 보이지만 꼭 그런것만은 아니다. 우선 $Z$ 를 만들기 위해서 표준화를 한다는 것은 <a href="../686">질적변수</a>나 <a href="../805">변환</a>에 대해 손을 쓰기 어려운 점이 많다는 뜻이며, 이렇게 &lsquo;재구성&rsquo;을 하는 과정에서 분석 자체가 이해하기 어려워진다.
-통계가 통계학을 이해하지 못하는 사람에게도 필요하다는 점을 생각해보면 이 점은 꽤 치명적이다. 예를들어 한국 경제에 대한 분석에 주성분분석을 쓴다면 구체적으로 실업률 $X_{2}$ 나 평균 초봉 $X_{7}$ 과 같이 이해하기 쉬운 수치가 아니라 &lsquo;종합고용지수&rsquo; $C_{4}$ 와 같은 이상한 단어로 표현하게 되는 식이다. 분석자조차도 쓸만한 회귀식은 만들어냈을지언정 그 진정한 의미는 파악하지 못하는 대참사가 일어날 수도 있다. (컴퓨터 공학쪽에서는 데이터의 이해보단 예측과 분류가 중요하기 때문에 이런 단점을 크게 신경쓰지 않는다.)또한 어떤 주성분도 탈락시키지 않고 $Y \leftarrow C_{1} , \cdots , C_{p}$ 를 그대로 사용한다면 원래의 $Y \leftarrow X_{1} , \cdots , X_{p}$ 와 다를 바가 없는데, 여기서 몇몇 주성분을 탈락시킨다는 것 자체가 원래 있던 데이터를 포기한다는 뜻이 된다. 그래도 필요하다면 써야겠지만, 필요 없으면 굳이 쓸 이유가 없다. 쓸 땐 쓰더라도 어떤 단점과 한계가 있는지는 명확히 알고 써야한다.</p>
+<p>를 계산할 수 있다. 경험적으로 $\kappa &gt; 15$ 면 원래 데이터에 다중공선성이 있다고 짐작할 수 있으나, 그다지 많이 사용되지는 않는다.</p>
+<h2 id="같이보기">같이보기</h2>
+<ul>
+<li><a href="../808">다중공선성</a></li>
+<li><a href="../814">R 에서 주성분회귀분석 하는 법</a></li>
+</ul>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Hadi. (2006). Regression Analysis by Example(4th Edition): p255~257. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
@@ -764,6 +780,8 @@ $$</p>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/r/>
         <span style="color:rgb(255,051,051);">●</span> R (53)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
+        <span style="color:rgb(255,051,051);">●</span> 통계적분석 (50++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 수리통계학 (60+)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
@@ -778,7 +796,7 @@ $$</p>
     <a href=https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/>
         <span style="color:rgb(051,204,051);">●</span> 알고리즘 (39)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/>
-        <span style="color:rgb(051,204,051);">●</span> 머신러닝 (25)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 머신러닝 (29)</a><br>
     <hr>
 <details>
     <summary>전체 포스트 (1804)</summary>
@@ -799,7 +817,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (24)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (28)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC-%EA%B5%90%EA%B3%BC/" style="color: black">물리 교과 (9)</a>
         </li><li>
@@ -863,6 +881,8 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/" style="color: black">통계적분석 (24)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (42)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (39)</a>
@@ -880,8 +900,6 @@ $$</p>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (27)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D/" style="color: black">회귀분석 (28)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (47)</a>
         </li>

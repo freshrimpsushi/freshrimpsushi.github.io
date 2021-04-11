@@ -97,7 +97,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/cross-validation\/",
-    "wordCount" : "1330",
+    "wordCount" : "1331",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -113,7 +113,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/basic.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D.png style="max-height: 80px; width: auto;">
             
             
             
@@ -254,7 +254,7 @@
 
     
     
-            <a href="https://freshrimpsushi.github.io/categories/%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D/" style="color: black">회귀분석</a>&emsp;
+            <a href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝</a>&emsp;
             
     </span>
     
@@ -267,29 +267,24 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#모델-검증">모델 검증</a></li>
+    <li><a href="#k-폴드">k-폴드</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-데이터 분석을 해서 얻은 모델은 그 퍼포먼스가 적절한지 확인하는 과정이 필요하다. 주어진 데이터만 잘 설명하고 실전에서 전혀 힘을 쓰지 못하면 분석을 하는 의미가 없기 때문이다. 이를 위해서 전체 데이터를 모델을 얻는데 사용할 데이터셋과 그 모형의 퍼포먼스를 평가할 데이터셋으로 쪼갠다.<img src="20190128_103954.png#center" alt="20190128\_103954.png">
-모델을 얻겠다는 것은 주어진 데이터를 이용해 다른 데이터도 설명해보겠다는 의미다. 이러한 의미에서 &lsquo;주어진 데이터&rsquo;를 <strong>트레이닝 데이터</strong><sup>Training Data</sup> 라고 한다. 머신러닝 등의 분야에서 &lsquo;학습&rsquo;한다는 말과 맥락을 같이 한다. 그리고 &lsquo;다른 데이터&rsquo;를 <strong>테스트 데이터</strong><sup>Test Data</sup> 라고 한다. 엄밀히 말해 테스트 데이터는 &lsquo;실제 테스트&rsquo;를 하기 위해서 만들어진 것은 아니지만, 모델 입장에서 보면 새로운 데이터기 때문에 퍼포먼스를 확인하는데 쓰일 수 있는 것이다.여기까지가 &lsquo;모델을 검증한다&rsquo;는 아이디어다. 분석이 제대로 된 것인지 확인하기 위해 다양한 검정이 있듯 그렇게 얻은 모델이 실제로 쓸모가 있는지 확인하는 것이다. 이러한 관점에서 보았을 때 무슨 <a href="../672">회귀계수가 유의하냐</a>, <a href="../821">변수가 너무 많은 것은 아니냐</a>, <a href="../852">적합도 검정을 통과 했느냐</a> 하는 것은 검증의 관심사가 아니다. <img src="20190128_104359.png#center" alt="20190128\_104359.png">
-트레이닝 데이터로 얻은 모델이 테스트 데이터에 대해서도 괜찮은 퍼포먼스를 보인다면 다른 데이터에 대해서도 좋은 퍼포먼스를 낼 수 있을 것으로 생각할 수 있다. 우리가 수능 공부를 하는 과정이 트레이닝이라면, 모의고사가 바로 테스트다. 이러한 모의고사를 반복함으로써 우리가 수능에서 적절한 퍼포먼스를 낼 수 있을지 계속해서 확인하는 것이다.그런데 어떤 학생이 수능을 앞두고 친 9모평 수학영역만 반복해서 공부했다고 생각해보자. 처음에 15점을 맞았다고 할지라도 같은 문제를 반복해서 풀고 답을 외울 수준으로 공부한다면 당연히 100점을 맞을 수밖에 없을 것이다. 하지만 이 학생이 수능에서 성적이 오르기를 기대하기는 힘들다. 이러한 현상을 <strong>과적합</strong><sup>Overfitting</sup> 이라고 한다. 너무 한정된 문제에만 최적화되었기 때문에 어떤 문제가 나올지 모르는 수능에는 대응할 수 없는 것이다.하지만 이 학생이 재수를 해서 과거 10개년 수능과 6모평, 9모평을 반복해서 공부했다고 생각해보자. 이 모든 시험에서 100점을 받는 것은 어려울테지만 수능 성적은 분명히 올라갈 것이다. &lsquo;많은&rsquo; &lsquo;노력&rsquo;을 &lsquo;반복&rsquo;했기 때문에 당연한 일이다. 이것이 우리가 알고 있는 <strong>공부</strong> 의 정체다.<img src="20190128_114441.png#center" alt="20190128\_114441.png">
-과적합을 발견하거나 회피할 때 쓸 수 있는 방법이 바로 교차검증Cross Validation** 이다. 데이터를 딱 두 개로만 쪼갤 것이 아니라 다양한 상황을 만들어내서 가장 유연하게 데이터를 학습한 모델을 선택하는 것이다. 데이터를 쪼갤 땐 랜덤이기 때문에 어쩌다 정말 운이 좋아서 굉장히 퍼포먼스가 좋은 모델이 있을 수 있다. 이때 교차검증을 해보고 그 모델만 너무 압도적으로 퍼포먼스가 좋다면 과적합을 의심해볼 수 있다.<img src="20190128_114751.png#center" alt="20190128\_114751.png">
-데이터B는 분명 데이터E를 테스트 데이터로 두었을 때 트레이닝 데이터로 쓰였지만, 반대로 데이터B가 테스트 데이터로써 쓰이지 못할 이유는 전혀 없다. 테스트 데이터를 돌려가면서 퍼포먼스를 확인하는 게 가능한 것이다. 특히 이렇게 쪼개는 갯수를 $k$ 개로 두고 하는 교차검증을 **$**<sup>k$-fold Cross Validation</sup> 이라고 한다.</p>
+<h2 id="모델-검증">모델 검증</h2>
+<p>데이터 분석을 해서 얻은 모델은 그 퍼포먼스가 적절한지 확인하는 과정이 필요하다. 주어진 데이터만 잘 설명하고 실전에서 전혀 힘을 쓰지 못하면 분석을 하는 의미가 없기 때문이다. 이를 위해서 전체 데이터를 모델을 얻는데 사용할 데이터셋과 그 모형의 퍼포먼스를 평가할 데이터셋으로 쪼갠다.</p>
+<p><img src="20190128_103954.png#center" alt="20190128\_103954.png"></p>
+<p>모델을 얻겠다는 것은 주어진 데이터를 이용해 다른 데이터도 설명해보겠다는 의미다. 이러한 의미에서 &lsquo;주어진 데이터&rsquo;를 <strong>트레이닝 데이터</strong><sup>Training Data</sup> 라고 한다. 머신러닝 등의 분야에서 &lsquo;학습&rsquo;한다는 말과 맥락을 같이 한다. 그리고 &lsquo;다른 데이터&rsquo;를 <strong>테스트 데이터</strong><sup>Test Data</sup> 라고 한다. 엄밀히 말해 테스트 데이터는 &lsquo;실제 테스트&rsquo;를 하기 위해서 만들어진 것은 아니지만, 모델 입장에서 보면 새로운 데이터기 때문에 퍼포먼스를 확인하는데 쓰일 수 있는 것이다.여기까지가 &lsquo;모델을 검증한다&rsquo;는 아이디어다. 분석이 제대로 된 것인지 확인하기 위해 다양한 검정이 있듯 그렇게 얻은 모델이 실제로 쓸모가 있는지 확인하는 것이다. 이러한 관점에서 보았을 때 무슨 <a href="../672">회귀계수가 유의하냐</a>, <a href="../821">변수가 너무 많은 것은 아니냐</a>, <a href="../852">적합도 검정을 통과 했느냐</a> 하는 것은 검증의 관심사가 아니다.</p>
+<p><img src="20190128_104359.png#center" alt="20190128\_104359.png"></p>
+<p>트레이닝 데이터로 얻은 모델이 테스트 데이터에 대해서도 괜찮은 퍼포먼스를 보인다면 다른 데이터에 대해서도 좋은 퍼포먼스를 낼 수 있을 것으로 생각할 수 있다. 우리가 수능 공부를 하는 과정이 트레이닝이라면, 모의고사가 바로 테스트다. 이러한 모의고사를 반복함으로써 우리가 수능에서 적절한 퍼포먼스를 낼 수 있을지 계속해서 확인하는 것이다.그런데 어떤 학생이 수능을 앞두고 친 9모평 수학영역만 반복해서 공부했다고 생각해보자. 처음에 15점을 맞았다고 할지라도 같은 문제를 반복해서 풀고 답을 외울 수준으로 공부한다면 당연히 100점을 맞을 수밖에 없을 것이다. 하지만 이 학생이 수능에서 성적이 오르기를 기대하기는 힘들다. 이러한 현상을 <strong>과적합</strong><sup>Overfitting</sup>이라 한다. 너무 한정된 문제에만 최적화되었기 때문에 어떤 문제가 나올지 모르는 수능에는 대응할 수 없는 것이다.</p>
+<p>하지만 이 학생이 재수를 해서 과거 10개년 수능과 6모평, 9모평을 반복해서 공부했다고 생각해보자. 이 모든 시험에서 100점을 받는 것은 어려울테지만 수능 성적은 분명히 올라갈 것이다. &lsquo;많은&rsquo; &lsquo;노력&rsquo;을 &lsquo;반복&rsquo;했기 때문에 당연한 일이다. 이것이 우리가 알고 있는 <strong>공부</strong>의 정체다.</p>
+<h2 id="k-폴드">k-폴드</h2>
+<p><img src="20190128_114441.png#center" alt="20190128\_114441.png">
+과적합을 발견하거나 회피할 때 쓸 수 있는 방법이 바로 <strong>교차검증</strong><sup>Cross Validation</sup>이다. 데이터를 딱 두 개로만 쪼갤 것이 아니라 다양한 상황을 만들어내서 가장 유연하게 데이터를 학습한 모델을 선택하는 것이다. 데이터를 쪼갤 땐 랜덤이기 때문에 어쩌다 정말 운이 좋아서 굉장히 퍼포먼스가 좋은 모델이 있을 수 있다. 이때 교차검증을 해보고 그 모델만 너무 압도적으로 퍼포먼스가 좋다면 과적합을 의심해볼 수 있다.</p>
+<p><img src="20190128_114751.png#center" alt="20190128\_114751.png">
+데이터B는 분명 데이터E를 테스트 데이터로 두었을 때 트레이닝 데이터로 쓰였지만, 반대로 데이터B가 테스트 데이터로써 쓰이지 못할 이유는 전혀 없다. 테스트 데이터를 돌려가면서 퍼포먼스를 확인하는 게 가능한 것이다. 특히 이렇게 쪼개는 갯수를 $k$ 개로 두고 하는 교차검증을 <strong>$</strong><sup>k$-fold Cross Validation</sup>이라 한다.</p>
 
 
 
@@ -670,6 +665,8 @@ margin-right: auto;">
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/r/>
         <span style="color:rgb(255,051,051);">●</span> R (53)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
+        <span style="color:rgb(255,051,051);">●</span> 통계적분석 (50++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 수리통계학 (60+)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
@@ -684,7 +681,7 @@ margin-right: auto;">
     <a href=https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/>
         <span style="color:rgb(051,204,051);">●</span> 알고리즘 (39)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/>
-        <span style="color:rgb(051,204,051);">●</span> 머신러닝 (25)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 머신러닝 (29)</a><br>
     <hr>
 <details>
     <summary>전체 포스트 (1804)</summary>
@@ -705,7 +702,7 @@ margin-right: auto;">
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (24)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (28)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC-%EA%B5%90%EA%B3%BC/" style="color: black">물리 교과 (9)</a>
         </li><li>
@@ -769,6 +766,8 @@ margin-right: auto;">
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/" style="color: black">통계적분석 (24)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (42)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (39)</a>
@@ -786,8 +785,6 @@ margin-right: auto;">
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (27)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9A%8C%EA%B7%80%EB%B6%84%EC%84%9D/" style="color: black">회귀분석 (28)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (47)</a>
         </li>
