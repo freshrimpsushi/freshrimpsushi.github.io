@@ -97,7 +97,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/constant-volume-heat-capacity-and-constant-pressure-heat-capacity\/",
-    "wordCount" : "787",
+    "wordCount" : "818",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -294,7 +294,7 @@ $$</p>
 <p>열역학 제1법칙에 의해 $dU(T,V)$는 <a href="../516">완전미분</a>이고 다음이 성립한다.</p>
 <p>$$
 \begin{equation}
-dU = {{\partial U} \over {\partial T}} dT + {{\partial U} \over {\partial V}} dV
+dU = \dfrac{\partial U}{\partial T} dT + \dfrac{\partial U}{\partial V} dV
 \label{eq1}
 \end{equation}
 $$</p>
@@ -307,21 +307,21 @@ $$</p>
 <p>$$
 \begin{align*}
 \delta Q &amp;=  d U + p d V
-\\ &amp;= \left( {{\partial U} \over {\partial T}} dT + {{\partial U} \over {\partial V}} dV \right) + p d V
-\\ &amp;= {{\partial U} \over {\partial T }} dT + \left( {{\partial U} \over {\partial V}} +p \right) dV
+\\ &amp;= \left( \dfrac{\partial U}{\partial T} dT + \dfrac{\partial U}{\partial V} dV \right) + p d V
+\\ &amp;= \dfrac{\partial U}{\partial T} dT + \left( \dfrac{\partial U}{\partial V} +p \right) dV
 \end{align*}
 $$</p>
 <p>양변을 $dT$ 로 나누면 다음과 같다.</p>
 <p>$$
 \begin{equation}
-{{\delta Q} \over {dT}} =  {{\partial U} \over {\partial T }} + \left( {{\partial U} \over {\partial V}} +p \right) {{dV} \over {dT}} 
+\dfrac{\delta Q}{dT} =  \dfrac{\partial U}{\partial T} + \left( \dfrac{\partial U}{\partial V} +p \right) \dfrac{dV}{dT}
 \label{eq2}
 \end{equation}
 $$</p>
 <p>이때 부피가 일정하면 $\displaystyle {{dV} \over {dT} } = 0$ 이므로 다음을 얻는다.</p>
 <p>$$
 \begin{equation}
-C_{V} = {{\partial Q} \over {\partial T}} = {{\delta Q} \over { d T}} = {{\partial U} \over {\partial T }}
+C_{V} = {{\partial Q} \over {\partial T}} = \dfrac{\delta Q}{dT} = \dfrac{\partial U}{\partial T}
 \label{eq3}
 \end{equation}
 $$</p>
@@ -330,28 +330,39 @@ $$</p>
 <p><strong>Part 2. $C_{p}$를 구한다</strong></p>
 <p>$\eqref{eq2}$에 $\eqref{eq3}$를 대입하면 다음의 식을 얻는다.</p>
 <p>$$
-C_{p} = {{\partial Q} \over {\partial T}} =  {{\partial U} \over {\partial T}} + \left( {{\partial U} \over {\partial V}} +p \right) {{dV} \over {dT}} = C_{V} + \left( {{\partial U} \over {\partial V}} +p \right) {{dV} \over {dT}}
+C_{p} = {{\partial Q} \over {\partial T}} =  \dfrac{\partial U}{\partial T} + \left( \dfrac{\partial U}{\partial V} +p \right) \dfrac{dV}{dT} = C_{V} + \left( \dfrac{\partial U}{\partial V} +p \right) \dfrac{dV}{dT}
 $$</p>
 </li>
 <li>
 <p><strong>Part 3. 내부에너지 $U$에 대해 전개한다</strong></p>
+<blockquote>
+<p><a href="../625">기체분자들의 평균 운동에너지</a></p>
+<p>$$
+\left&lt; E_{K} \right&gt; = {{3} \over {2}} k_{B} \text{Tr}
+$$</p>
+</blockquote>
+<p>내부 에너지 $U$는 평균 에너지에 분자의 수 $N$을 곱하면 얻는다. 또한 <a href="../602">$Nk_{B} = nR$</a>이 성립하므로 다음과 같다.</p>
+<p>$$
+U = \dfrac{3}{2} N k_{B} T = \dfrac{3}{2} nRT
+$$</p>
+<p>그런데 $1$몰에 대해서만 생각하므로 $U = \dfrac{3}{2}RT$이다. 따라서 다음을 얻는다.</p>
+<p>$$
+\begin{align*}
+\dfrac{\partial U}{\partial T} &amp;= C_{V} = {{3} \over {2}} R 
+\\ \dfrac{\partial U}{\partial V} &amp;= 0
+\end{align*}
+$$</p>
+<p>한편 <a href="../602">이상기체 방정식</a>에서 $pV = RT \iff V = \dfrac{RT}{p}$이므로 다음을 얻는다.</p>
+<p>$$
+\dfrac{\partial V}{\partial T} = \dfrac{R}{p}
+$$</p>
+<p>이 결과들을 $\eqref{eq3}$에 대입하면 다음을 얻는다.</p>
+<p>$$
+C_{p} = C_{V} + \left( \dfrac{\partial U}{\partial V} +p \right) \dfrac{dV}{dT} = C_{V} + ( 0 + p ) {{R} \over {p}} = C_{V} + R = {  {5} \over {2}} R
+$$</p>
 </li>
 </ul>
-<p><a href="../625">기체분자들의 평균 운동에너지</a>$\displaystyle \left&lt; E_{K} \right&gt; = {{3} \over {2}} k_{B} T $</p>
-<p>$\displaystyle U = {{3} \over {2} } N K_{B} T = {{3} \over {2} } nRT$ 인데 $1$ 몰에 대해서만 생각하므로 $n=1$, 즉 $\displaystyle U = {{3} \over {2}} RT $ 이므로
-$$
-\displaystyle {{\partial U} \over {\partial T}} = C_{V} = {{3} \over {2}} R 
-\\  \displaystyle {{\partial U} \over {\partial V}} = 0
-$$
-한편 <a href="../602">이상기체 방정식</a>에서 $\displaystyle pV = RT \iff V = {{RT} \over {p}} $ 이므로
-$$
-\displaystyle {{\partial V } \over {\partial T}} = {{R} \over {p}}
-$$
-위 <strong>Part 2.</strong> 에서 얻은 식에 대입하면
-$$
-\displaystyle C_{p} = C_{V} + \left( {{\partial U} \over {\partial V}} +p \right) {{dV} \over {dT}} = C_{V} + ( 0 + p ) {{R} \over {p}} = C_{V} + R = {{5} \over {2}} R
-$$
-<p style="text-align: right;">■</p></p>
+<p style="text-align: right;">■</p>
 
 
 
@@ -726,7 +737,7 @@ $$
     <a href=https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/>
         <span style="color:rgb(255,051,051);">●</span> 전자기학 (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/>
-        <span style="color:rgb(255,051,051);">●</span> 열물리학 (22)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 열물리학 (22)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 상대성이론 (6)</a><br>
     <hr>
@@ -749,7 +760,7 @@ $$
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (25)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1803)</summary>
+    <summary>전체 포스트 (1804)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -787,7 +798,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">상미분방정식 (57)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (20)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (21)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (52)</a>
         </li><li>

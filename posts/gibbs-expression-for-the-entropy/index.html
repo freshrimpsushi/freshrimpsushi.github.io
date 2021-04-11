@@ -97,7 +97,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/gibbs-expression-for-the-entropy\/",
-    "wordCount" : "683",
+    "wordCount" : "744",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -267,39 +267,85 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#공식">공식</a></li>
+    <li><a href="#설명">설명</a></li>
     <li><a href="#유도">유도</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-거시상태가 $i$ 번째 상태일 확률을 $P_{i}$ 라고 하면 $\displaystyle S = - k_{B} \sum_{i} P_{i} \ln P_{i}$</p>
-<p>이젠 열에 대한 공부라고 말하기도 어려울 정도까지 왔다.하지만 반대로 생각해보면, 엔트로피 자체가 열역학을 뛰어넘어 이런 것까지 생각하기 위해 도입되었다고 볼 수도 있다.</p>
+<h2 id="공식">공식</h2>
+<p>거시상태가 $i$번째 상태일 확률을 $P_{i}$라고 하면 다음이 성립한다.</p>
+<p>$$
+S = - k_{B} \sum_{i} P_{i} \ln P_{i}
+$$</p>
+<h2 id="설명">설명</h2>
+<p>이젠 열에 대한 공부라고 말하기도 어려울 정도까지 왔다. 하지만 반대로 생각해보면, 엔트로피 자체가 열역학을 뛰어넘어 이런 것까지 생각하기 위해 도입되었다고 볼 수도 있다.</p>
 <h2 id="유도">유도</h2>
-<p>**Part 1.</p>
-<p><a href="../629">열역학 제1법칙</a>$d U = \delta Q + \delta W$</p>
-<p><a href="../651">엔트로피의 정의</a>에서 $\delta Q = T dS$ 이고, $\delta w= - p dV$ 이므로 열역학 제1법칙의 다른 모양인 $dU = T dS - p dV$ 를 얻는다.한편 전미분을 생각해보면 $\displaystyle dU = {{ \partial U } \over { \partial S }} dS + {{ \partial U } \over { \partial S }} dV $ 이므로 $\displaystyle T = {{ \partial U } \over { \partial S }} $ 임을 알 수 있다.</p>
-<p><a href="../613">온도의 정의</a>$\displaystyle {{1 } \over {k_{B} T}} : = {{ d \ln ( \Omega ) } \over {d E }}$</p>
-<p>온도의 정의에 따라 $\displaystyle {{1 } \over {k_{B} }} {{ \partial S } \over { \partial U }} = {{ d \ln ( \Omega ) } \over {d E }} $ 이고, 에너지는 $U = E$ 이므로 미분방정식을 풀면 $S = k_{B} \ln \Omega $</p>
-<p>Part 2.
-계에서 일어날 수 있는 모든 미시상태의 수를 $N$ 이라고 하고, $i$ 번째 거시상태의 수를 $n_{i}$ 라고 하면 $\displaystyle \sum_{i} n_{i} = N$그러면 거시상태가 $i$ 번째 상태일 확률은 $\displaystyle P_{i} := {{n_{i}} \over {N}}$</p>
-<p>Part 3.
-위의 <strong>Part 1.</strong> 에서 $S = k_{B} \ln \Omega $ 인데 거시상태의 엔트로피를 $S_{\text{ macro } }$, 미시상태의 엔트로피를 $S_{\text{ micro } }$ 라고 하자.우리가 관심있는 계의 엔트로피 $S$ 는 $S_{\text{ macro } } = S + S_{\text{ micro } }$ 와 같이 나타난다.그러나 미시상태의 엔트로피는 우리가 쉽게 계산할 수 없으므로, 확률적인 기댓값을 구해보면 $\displaystyle S_{\text{ micro } } = \left&lt; S_{i} \right&gt; = \sum_{i} P_{i} S_{i} = \sum_{i} P_{i} k_{B} \ln n_{i} $반면 거시상태의 엔트로피는 간단하게도 $S_{\text{ macro } } = k_{B} \ln N$ 으로 나타낼 수 있다.따라서 $\displaystyle S = S_{\text{ macro } } - S_{\text{ micro } } = k_{B} \left( \ln N - \sum_{i} P_{i} \ln n_{i} \right) 
-$$
-\displaystyle \ln N = \sum_{i} P_{i} \ln N$ 이므로 $\displaystyle \ln N - \sum_{i} P_{i} \ln n_{i} = \sum_{i} P_{i} ( \ln N - \ln n_{i} ) = - \sum_{i} P_{i} \ln P_{i} $정리하면 $S = - k_{B} \sum_{i} P_{i} \ln P_{i} $ 을 얻는다. <p style="text-align: right;">■</p></p>
+<ul>
+<li>
+<p><strong>Part 1.</strong></p>
+<blockquote>
+<p><a href="../629">열역학 제1법칙</a></p>
+<p>$$
+d U = \delta Q + \delta W
+$$</p>
+</blockquote>
+<p><a href="../651">엔트로피의 정의</a>에서 $\delta Q = T dS$ 이고, $\delta W= - p dV$이므로 열역학 제1법칙의 다른 모양인 아래의 식을 얻는다.</p>
+<p>$$
+dU = T dS - p dV
+$$</p>
+<p>한편 전미분을 생각해보면 다음과 같다.</p>
+<p>$$
+dU = {{ \partial U } \over { \partial S }} dS + {{ \partial U } \over { \partial S }} dV
+$$</p>
+<p>따라서 다음이 성립함을 알 수 있다.</p>
+<p>$$
+T = {{ \partial U } \over { \partial S }}
+$$</p>
+<blockquote>
+<p><a href="../613">온도의 정의</a></p>
+<p>$$
+{{1 } \over {k_{B} T}} : = {{ d \ln ( \Omega ) } \over {d E }}
+$$</p>
+</blockquote>
+<p>온도의 정의에 따라 $\dfrac{1}{k_{B}} \dfrac{ \partial S }{ \partial U } = \dfrac{ d \ln ( \Omega ) }{ d E }$이고, 에너지는 $U = E$이므로 미분방정식을 풀면 다음을 얻는다.</p>
+<p>$$
+S = k_{B} \ln \Omega
+$$</p>
+</li>
+<li>
+<p><strong>Part 2.</strong></p>
+<p>계에서 일어날 수 있는 모든 미시상태의 수를 $N$이라고 하고, $i$번째 거시상태의 수를 $n_{i}$라고 하면 $\sum \limits_{i} n_{i} = N$이다. 그러면 거시상태가 $i$ 번째 상태일 확률은 다음과 같다.</p>
+<p>$$
+P_{i} := {{n_{i}} \over {N}}
+$$</p>
+</li>
+<li>
+<p><strong>Part 3.</strong></p>
+<p>위의 <strong>Part 1.</strong> 에서 $S = k_{B} \ln \Omega$인데 거시상태의 엔트로피를 $S_{\text{ macro } }$, 미시상태의 엔트로피를 $S_{\text{ micro } }$라고 하자. 우리가 관심있는 계의 엔트로피 $S$는 다음과 같다.</p>
+<p>$$
+S_{\text{ macro } } = S + S_{\text{ micro } }
+$$</p>
+<p>그러나 미시상태의 엔트로피는 우리가 쉽게 계산할 수 없으므로, 확률적인 기댓값을 구해보면 다음과 같다.</p>
+<p>$$
+S_{\text{ micro } } = \left&lt; S_{i} \right&gt; = \sum_{i} P_{i} S_{i} = \sum_{i} P_{i} k_{B} \ln n_{i}
+$$</p>
+<p>반면 거시상태의 엔트로피는 간단하게도 $S_{\text{ macro } } = k_{B} \ln N$으로 나타낼 수 있다. 따라서 다음과 같다.</p>
+<p>$$
+S = S_{\text{ macro } } - S_{\text{ micro } } = k_{B} \left( \ln N - \sum_{i} P_{i} \ln n_{i} \right)
+$$</p>
+<p>이때 $\ln N = \sum_{i} P_{i} \ln N$이므로 다음이 성립한다.</p>
+<p>$$
+\ln N - \sum_{i} P_{i} \ln n_{i} = \sum_{i} P_{i} ( \ln N - \ln n_{i} ) = - \sum_{i} P_{i} \ln P_{i}
+$$</p>
+<p>정리하면 다음을 얻는다.</p>
+<p>$$
+S = - k_{B} \sum_{i} P_{i} \ln P_{i}
+$$</p>
+<p style="text-align: right;">■</p>
+</li>
+</ul>
 
 
 
@@ -674,7 +720,7 @@ $$
     <a href=https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/>
         <span style="color:rgb(255,051,051);">●</span> 전자기학 (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/>
-        <span style="color:rgb(255,051,051);">●</span> 열물리학 (22)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 열물리학 (22)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 상대성이론 (6)</a><br>
     <hr>
@@ -697,7 +743,7 @@ $$
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (25)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1803)</summary>
+    <summary>전체 포스트 (1804)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -735,7 +781,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">상미분방정식 (57)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (20)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (21)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (52)</a>
         </li><li>
