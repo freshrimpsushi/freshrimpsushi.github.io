@@ -97,7 +97,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/hilbert-transform\/",
-    "wordCount" : "561",
+    "wordCount" : "479",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -267,64 +267,56 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#빌드업">빌드업</a></li>
+    <li><a href="#정의">정의</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-<hr>
-<p>**역 라돈 변환 <a href="../1166">The </a><a href="../1166">filterd back projection formular</a>
-2차원 평면에서 정의된 적절한 함수 $f$에 대해서 다음의 식이 성립한다.
-$$
-f(x,y)=\dfrac{1}{2} \mathcal{B} \left\{ \mathcal{F}^{-1} \Big[ |S|\mathcal{F} (\mathcal{R}f) (S,\ \theta) \Big]\right\} (x,y)
+<h2 id="빌드업">빌드업</h2>
+<blockquote>
+<p><a href="../1166">라돈 역변환</a></p>
+<p>$$
+f(x,y)=\dfrac{1}{2} \mathcal{B} \left\{ \mathcal{F}^{-1} \Big[ |S|\mathcal{F} (\mathcal{R}f) (S,\ \theta) \Big]&gt; \right\} (x,y)
 $$</p>
-<p>The filtered back-projection formula로 주어진 $\mathcal{R}f$로부터 $f$를 구한 것까지는 좋으나 공식이 너무 길고 알아보기도 힘들다. 여기서 힐베르트 변환을 사용하면 좀 더 간결하게 나타낼 수 있다.우선 다음과 같은 <strong><a href="../1101">푸리에 변환의 성질</a></strong> 을 떠올려보자.
-$$
+</blockquote>
+<p>위 공식은 $f$의 라돈 변환 $\mathcal{R}f$로부터 $f$를 구하는 공식이다 우선 다음과 같은 <a href="../1101">푸리에 변환의 성질</a>을 떠올려보자.</p>
+<p>$$
 \mathcal{F} [f' ] (\xi) = i\xi \mathcal{F}(\xi)
-$$
-$f$ 자리에 $f$의 라돈 변환 $\mathcal{R}f$를 대입하면
-$$
-\mathcal{F} \left( \dfrac{\partial (\mathcal{R}f)(t,\ \theta) } {\partial t} \right) (S,\ \theta) = i S \mathcal{F}(\mathcal{R}f)(S,\ \theta) \quad \cdots (1)
-$$
-그리고 $|S|=S\cdot \mathrm{ sgn}(S)$와 같이 나타내자. 이 때
-$$
+$$</p>
+<p>여기서 $f$ 대신 $\mathcal{R}f$를 대입하면 다음을 얻는다.</p>
+<p>$$
+\begin{equation}
+\mathcal{F} \left( \dfrac{\partial (\mathcal{R}f)(t,\ \theta) } {\partial t} \right) (S,\ \theta) = i S \mathcal{F}(\mathcal{R}f)(S,\ \theta)
+\label{eq1}
+\end{equation}
+$$</p>
+<p>그리고 $|S|=S\cdot \mathrm{sgn}(S)$와 같이 나타내자. $\mathrm{sgn}$는 부호함수이다.</p>
+<p>$$
 \mathrm{sgn}(S):=\begin{cases} 1 &amp; S&gt;0 
 \\  0 &amp; S=0 
 \\  -1 &amp; S&lt;0 \end{cases}
-$$
-그러면 $(1)$은
-$$
+$$</p>
+<p>그러면 $\eqref{eq1}$은 다음과 같다.</p>
+<p>$$
 \mathcal{F} \left( \dfrac{\partial (\mathcal{R}f)(t,\ \theta) } {\partial t} \right) (S,\ \theta) = i \dfrac{|S|}{\mathrm{sgn}(S)} \mathcal{F}(\mathcal{R}f)(S,\ \theta) 
-$$
-양변에 $i\mathrm{sgn}(S)$를 곱해주면
-$$
+$$</p>
+<p>양변에 $i \cdot \mathrm{sgn}(S)$를 곱해주면 다음을 얻는다.</p>
+<p>$$
 i \cdot \mathrm{sgn}(S)\mathcal{F} \left( \dfrac{\partial (\mathcal{R}f)(t,\ \theta) } {\partial t} \right) (S,\ \theta) =-  |S|\mathcal{F}(\mathcal{R}f)(S,\ \theta) 
-$$
-위 식의 우변은 The filtered back-projection formula에서 나타난다. 공식에 대입해주면
-$$
+$$</p>
+<p>위 식의 우변은 라돈 역변환에서 나타난다. 따라서 그 자리에 대입해주면 다음을 얻는다.</p>
+<p>$$
 f(x,y)=-\dfrac{1}{2} \mathcal{B} \left\{ \mathcal{F}^{-1} \Big[ i \cdot \mathrm{sgn}(S)\mathcal{F} \left( \dfrac{\partial (\mathcal{R}f)(t,\ \theta) } {\partial t} \right) (S,\ \theta) \Big]\right\} (x,y)
-$$
-이제 힐베르트 변환을 다음과 같이 정의하자.</p>
-<p>**힐베르트 변환$(\mathrm{Hilbert\ transform})$
-실수 위에서 정의된 적절한 함수 $g$에 대해서 $g$의 힐베르트 변환 $\mathcal{H}g$를 다음과 같이 정의한다.
-$$
+$$</p>
+<h2 id="정의">정의</h2>
+<p>$g: \mathbb{R} \to \mathbb{R}$에 대해서 $g$의 <strong>힐베르트 변환</strong><sup>Hilbert transform</sup> $\mathcal{H}g$를 다음과 같이 정의한다.</p>
+<p>$$
 \mathcal{H} g(t) :=\mathcal{F}^{-1} \big[i \cdot \mathrm{sgn} (S) \cdot \mathcal{F}g(\xi) \big] (t)
 $$</p>
-<p>힐베르트 변환을 이용해서 공식을 표현하면
-$$
+<hr>
+<p>힐베르트 변환으로 라돈 역변환을 나타내면 다음과 같다.</p>
+<p>$$
 f(x,y)=-\dfrac{1}{2} \mathcal{B} \left[ \mathcal{H} \left( \dfrac{\partial (\mathcal{R}f) (t,\ \theta)}{\partial t} \right) (S,\ \theta) \right] (x,y)
 $$</p>
 
@@ -693,6 +685,8 @@ $$</p>
         <span style="color:rgb(255,204,000);">●</span> 동역학 (60++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 푸리에해석 (39)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/>
+        <span style="color:rgb(051,204,051);">●</span> 토모그래피(10)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 벡터해석 (59)</a><br>
@@ -714,7 +708,7 @@ $$</p>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (44)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
-        <span style="color:rgb(255,204,000);">●</span> 확률론 (34)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 확률론 (61)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/>
         <span style="color:rgb(255,204,000);">●</span> 줄리아 (40++)</a><br>
@@ -726,7 +720,7 @@ $$</p>
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (29)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1804)</summary>
+    <summary>전체 포스트 (1806)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -740,11 +734,11 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (3)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (52)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (53)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (28)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (29)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC-%EA%B5%90%EA%B3%BC/" style="color: black">물리 교과 (9)</a>
         </li><li>
@@ -816,7 +810,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (47)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (48)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (55)</a>
         </li><li>
@@ -824,9 +818,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (60)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (27)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (54)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (47)</a>
         </li>

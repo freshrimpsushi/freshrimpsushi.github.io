@@ -97,7 +97,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/derivation-and-properties-of-radon-transform\/",
-    "wordCount" : "1241",
+    "wordCount" : "1218",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -267,8 +267,7 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
-    <li><a href="#개요">개요</a></li>
+    <li><a href="#설명">설명</a></li>
     <li><a href="#유도2">유도</a></li>
     <li><a href="#정의3">정의</a></li>
     <li><a href="#성질">성질</a></li>
@@ -277,53 +276,44 @@
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-<a href="../1118">라돈변환의 시각적 이해</a></p>
-<h2 id="개요">개요</h2>
+<h2 id="설명">설명</h2>
 <p><strong>라돈 변환</strong> 은 <a href="../1847">적분 변환</a>의 일종으로 오스트리아의 수학자 라돈(Johann Radon, 1887-1956)에서 이름을 따왔다. 방사성 원소 라돈은 수학자 라돈의 이름에서 따온 것이 아니라 방사성(radiactive)이라는 단어에 비활성기체접미사(-on)를 붙여 이름 지어졌다. <a href="../1579">CT 촬영</a>의 핵심 원리중 하나이며 베르-람베르트 법칙이라는 물리 법칙을 기반으로 한다. 이는 X-선<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>의 세기가 통과하는 매질의 종류에 따라 다르게 감소한다는 내용을 담고 있다. X-선의 세기가 줄어들었다는 말은 곧 매질이 X-선을 흡수했다는 말과 같다. 매질이 빛을 흡수하는 정도를 <strong>감쇠 계수</strong><sup>attenuated coefficient</sup> , <strong>흡수 계수</strong><sup>absorption coefficient</sup>  혹은 <strong>흡광도</strong><sup>absorbance</sup> 라고 한다. 매질마다 감쇠 계수가 다르다는 점을 이용하여 X-선으로 <a href="../1741">비파괴 검사</a>를 실시하는 것이 CT 촬영이다.</p>
 <h2 id="유도2">유도<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h2>
-<p>$x$를 위치, $I(x)$를 X-선의 세기, $A(x)$를 매질의 감쇠 계수라고 하자. 베르-람베르트 법칙은 다음과 같이 매질 안에서의 이동거리에 따른 X-선의 세기의 변화율을 나타낸다.
-$$
-\begin{equation} \frac{ dI }{ dx }=A(x)I(x)  \label{Beer-Lambert}\end{equation}
-$$
-위 그림에서와 같이 $x_{0}$, $x_{1}$, $I_{0}$, $I_{1}$를 각각 X-선이 출발한 위치, 도착한 위치, 그리고 각 지점에서의 X-선의 세기라고 하자. $\eqref{Beer-Lambert}$을 <a href="../503">변수분리</a>해주고 양변을 적분하여 정리하면 다음과 같다.
-$$
+<p>$x$를 위치, $I(x)$를 X-선의 세기, $A(x)$를 매질의 감쇠 계수라고 하자. 베르-람베르트 법칙은 다음과 같이 매질 안에서의 이동거리에 따른 X-선의 세기의 변화율을 나타낸다.</p>
+<p>$$
+\begin{equation}
+\frac{ dI }{ dx }=A(x)I(x)
+\label{Beer-Lambert}
+\end{equation}
+$$</p>
+<p>위 그림에서와 같이 $x_{0}$, $x_{1}$, $I_{0}$, $I_{1}$를 각각 X-선이 출발한 위치, 도착한 위치, 그리고 각 지점에서의 X-선의 세기라고 하자. $\eqref{Beer-Lambert}$을 <a href="../503">변수분리</a>해주고 양변을 적분하여 정리하면 다음과 같다.</p>
+<p>$$
 \begin{align*}
 &amp;&amp; \int_{x_{0}}^{x_{1}} \frac{1}{I(x)}dI &amp;= - \int_{x_{0}}^{x_{1}}A(x)dx 
 \\  \implies  &amp;&amp; \ln \left( I_{1} \right) - \ln \left( I_{0} \right)&amp;= -\int_{x_{0}}^{x_{1}}A(x)dx 
 \\  \implies &amp;&amp; \ln \left( \frac{I_{1}}{I_{0}}\right) &amp;= -\int_{x_{0}}^{x_{1}}A(x)dx 
 \\  \implies &amp;&amp; \ln \left( \frac{I_{0}}{I_{1}}\right) &amp;= \int_{x_{0}}^{x_{1}}A(x)dx 
 \end{align*}
-$$
-위 식을 살펴보자. $I_{0}$는 X-선을 쐈을 때의 세기이므로 우리가 알고 있다고 하자. $I_{1}$은 오브젝트를 뚫고 나온 뒤의 세기인데 반대쪽에 디텍터를 두어 이를 측정한다고 하자. 따라서 좌변은 우리가 알고 있는 값이다. 우변의 적분 범위는 우리가 쏜 X-선의 진행 경로이므로 알 고 있다. 따라서 X-선이 진행한 경로 $L$과 그 양 끝에서의 세기 $I_{0}$, $I_{1}$를 알면 $A(x)$의 해당 경로에 대한 정적분 값을 알 수 있다. 이를 $A(x)$에 대한 라돈 변환이라고 한다.</p>
+$$</p>
+<p>위 식을 살펴보자. $I_{0}$는 X-선을 쐈을 때의 세기이므로 우리가 알고 있다고 하자. $I_{1}$은 오브젝트를 뚫고 나온 뒤의 세기인데 반대쪽에 디텍터를 두어 이를 측정한다고 하자. 따라서 좌변은 우리가 알고 있는 값이다. 우변의 적분 범위는 우리가 쏜 X-선의 진행 경로이므로 알 고 있다. 따라서 X-선이 진행한 경로 $L$과 그 양 끝에서의 세기 $I_{0}$, $I_{1}$를 알면 $A(x)$의 해당 경로에 대한 정적분 값을 알 수 있다. 이를 $A(x)$에 대한 라돈 변환이라고 한다.</p>
 <h2 id="정의3">정의<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></h2>
-<p>어떤 2차원 도메인 $D\subset \mathbb{R}^{2}$에서 정의된 함수 $f :D \to \mathbb{R}$가 주어졌다고 하자. 각각의 $(t,\theta)$에 대한 $f$의 라돈 변환을 다음과 같이 정의한다.</p>
+<p>어떤 2차원 도메인 $D\subset \mathbb{R}^{2}$에서 정의된 함수 $f :D \to \mathbb{R}$가 주어졌다고 하자. 각각의 극좌표 $(s,\theta)$에 대한 $f$의 라돈 변환 $\mathcal{R}f$를 다음과 같이 정의한다.</p>
 <p>$$
 \begin{align*}
-\mathcal{R} f(t,\theta):= &amp;\int_{L_{t,\theta}} fds 
-\\  = &amp; \int _{s=-\infty} ^{\infty} f \left( t\cos\theta-s\sin\theta, t\sin\theta+s\cos\theta \right)ds<br>
+\mathcal{R} f(s,\theta):= &amp;\int_{l_{s,\theta}} fdt 
+\\  = &amp; \int _{t=-\infty} ^{\infty} f \left( s\cos\theta-t\sin\theta, s\sin\theta + t\cos\theta \right)dt<br>
 \end{align*}
-$$
-여기서 $t$는 원점에서부터 직선 $L$사이의 거리, $\theta$는 원점과 $L$을 잇는 직선과 $x$축 사이의 각도이다.</p>
-<p>$f$는 직교 좌표 $x$, $y$에 대한 함수인 반면에 $\mathcal{R}f$는 극 좌표 $t$, $\theta$에 대한 함수이다.</p>
+$$</p>
+<p>여기서 $l_{s,\theta}$는 <a href="../1110">극좌표 $(s,\theta)$로 결정되는 직선</a>이다.</p>
+<hr>
+<p>$f$는 직교 좌표 $(x, y)$에 대한 함수인 반면에, 라돈 변환 $\mathcal{R}f$는 극 좌표 $(s, \theta)에 대한 함수이다.</p>
 <h2 id="성질">성질</h2>
 <p>라돈 변환은 선형 변환이다.</p>
 <p>$$
 \mathcal{R} \left( \alpha f + \beta g \right)=\alpha \mathcal{R}f+ + \beta \mathcal{R}g
 $$</p>
-<p><a href="../1666">적분이 선형</a>이므로 당연한 결과이다.</p>
+<hr>
+<p>적분변환은 <a href="../3026">선형변환</a>이니 당연하다.</p>
 <h2 id="증명">증명</h2>
 <p>$$
 \begin{align*}
@@ -336,8 +326,8 @@ $$</p>
 \\  &amp;\quad+ \beta \int _{s=-\infty}^{\infty} g ( t\cos\theta-s\sin\theta, t\sin\theta + s\cos\theta )    ds 
 \\  &amp;= \alpha \mathcal{R}f(t,\theta) + \beta \mathcal{R} g( t,\theta) 
 \end{align*}
-$$
-<p style="text-align: right;">■</p></p>
+$$</p>
+<p style="text-align: right;">■</p>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -718,6 +708,8 @@ $$
         <span style="color:rgb(255,204,000);">●</span> 동역학 (60++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 푸리에해석 (39)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/>
+        <span style="color:rgb(051,204,051);">●</span> 토모그래피(10)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 벡터해석 (59)</a><br>
@@ -739,7 +731,7 @@ $$
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (44)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
-        <span style="color:rgb(255,204,000);">●</span> 확률론 (34)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 확률론 (61)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/>
         <span style="color:rgb(255,204,000);">●</span> 줄리아 (40++)</a><br>
@@ -751,7 +743,7 @@ $$
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (29)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1804)</summary>
+    <summary>전체 포스트 (1806)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -765,11 +757,11 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (3)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (52)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (53)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (28)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (29)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC-%EA%B5%90%EA%B3%BC/" style="color: black">물리 교과 (9)</a>
         </li><li>
@@ -841,7 +833,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (47)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (48)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (55)</a>
         </li><li>
@@ -849,9 +841,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (60)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (27)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (54)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (47)</a>
         </li>

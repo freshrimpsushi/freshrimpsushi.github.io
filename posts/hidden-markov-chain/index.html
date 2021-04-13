@@ -97,7 +97,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/hidden-markov-chain\/",
-    "wordCount" : "1664",
+    "wordCount" : "1623",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -113,7 +113,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/basic.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/%ED%99%95%EB%A5%A0%EB%A1%A0.png style="max-height: 80px; width: auto;">
             
             
             
@@ -254,7 +254,7 @@
 
     
     
-            <a href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론</a>&emsp;
+            <a href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론</a>&emsp;
             
     </span>
     
@@ -267,72 +267,97 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#빌드업">빌드업</a></li>
+    <li><a href="#정의">정의</a></li>
+    <li><a href="#문제-1">문제 1</a></li>
+    <li><a href="#풀이-1">풀이 1</a></li>
+    <li><a href="#문제-2">문제 2</a></li>
+    <li><a href="#풀이-2">풀이 2</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-<img src="20190218_114748.png#center" alt="20190218\_114748.png">
-위의 그림과 같이 어떤 기계에서 일정한 시간마다 어떤 물건을 생산한다고 생각해보자. 녹색이 정상적인 양품 $1$ 이고 적색이 폐기해야하는 불량품 $0$ 이라면, 지금까지의 기록은 $\left( 1, 0 , 1 \right) $ 이 될 것이다. 이렇게 실제로 눈에 보이는 결과를 <strong>시그널</strong><sup>Signal</sup> 이라고 한다.<img src="20190218_111057.png#center" alt="20190218\_111057.png">
-단, 불량품이 나올 확률은 기계가 정상인지 고장인지에 따라 다르다고 하자. 정상 $+$ 일 때는 불량률이 $1 %$ 밖에 안 되지만, 고장 $-$ 일 때는 불량률이 $4 %$ 로 치솟게 된다. 이를 조건부 확률로 표현해보면 $\begin{matrix}
+<h2 id="빌드업">빌드업</h2>
+<p><img src="20190218_114748.png#center" alt="20190218\_114748.png">
+위의 그림과 같이 어떤 기계에서 일정한 시간마다 어떤 물건을 생산한다고 생각해보자. 녹색이 정상적인 양품 $1$ 이고 적색이 폐기해야하는 불량품 $0$ 이라면, 지금까지의 기록은 $\left( 1, 0 , 1 \right) $ 이 될 것이다. 이렇게 실제로 눈에 보이는 결과를 <strong>시그널</strong><sup>Signal</sup>이라고 한다.</p>
+<p><img src="20190218_111057.png#center" alt="20190218\_111057.png">
+단, 불량품이 나올 확률은 기계가 정상인지 고장인지에 따라 다르다고 하자. 정상 $+$ 일 때는 불량률이 $1 %$ 밖에 안 되지만, 고장 $-$ 일 때는 불량률이 $4 %$ 로 치솟게 된다. 이를 조건부 확률로 표현해보면
+$$\begin{matrix}
 p ( 1 \mid + ) = 0.99 &amp; p ( 0 \mid + ) = 0.01 
 \\  p ( 1 \mid - ) = 0.96 &amp; p ( 0 \mid - ) = 0.04 
-\end{matrix}$ 이 될 것이다.<img src="20190218_111611.png#center" alt="20190218\_111611.png">
-기계가 한 번 물건을 생산할 때마다 고장날 확률은 위의 도식과 마찬가지로 $10 %$ 라 하자. 이것은 <a href="../859">마코프 체인</a>이고, 확률과정 $\left\{ X_{j} \right\}_{j = 0}^{n} $ 의 상태공간은 $\left\{ + , - \right\}$ 이고, 우리의 관심사는 $j$ 번째 생산을 마쳤을 때 기계가 정상일 확률 $p \left( X_{j} = + \right) $ 이 된다. 물론 처음엔 기계가 정상이라고 가정할 것이고, 이는 $\begin{matrix}
+\end{matrix}$$</p>
+<p>이 될 것이다. 도식으로는 다음과 같다.</p>
+<p><img src="20190218_111611.png#center" alt="20190218\_111611.png"></p>
+<p>기계가 한 번 물건을 생산할 때마다 고장날 확률은 위의 도식과 마찬가지로 $10 \%$ 라 하자. 이것은 <a href="../859">마코프 체인</a>이고, <a href="../857">확률과정</a> $\left\{ X_{j} \right\}_{j = 0}^{n} $ 의 상태공간은 $\left\{ + , - \right\}$ 이고, 우리의 관심사는 $j$ 번째 생산을 마쳤을 때 기계가 정상일 확률 $p \left( X_{j} = + \right) $ 이 된다. 물론 처음엔 기계가 정상이라고 가정할 것이고, 이는 $\begin{matrix}
 p(X_{0} = +) = 1 
 \\  p(X_{0} = - ) = 0
-\end{matrix}$ 으로 표현된다.기계가 고장난 상태로 방치된다면 계속해서 많은 불량품을 만들어낼 것이다. 문제는 이것을 어떻게 알겠냐는 것이다. 물론 기계가 고장인지 아닌지는 관리자가 기계를 한 번 뜯어봐도 금방 알 수 있겠지만, 큰 공장에서 엄청나게 많은 수의 기계가 있다면 이런 점검조차도 몹시 부담스러운 일이 된다. 현실적으로는 나오는 물건을 보고야 어떤 기계에 문제가 있다는 것을 짐작하는 수밖에 없는 것이다.이렇듯 마코프 체인(원인)은 숨겨져 있고 그에 따른 시그널(결과)만 알고 있을 때 $\left\{ X_{j} \right\}_{j=0}^{n} $ 을 <strong>히든 마코프 체인</strong> 이라고 한다.이제 시그널 $s_{(n)} = ( s_{1} , s_{2} , \cdots , s_{n} ) $ 이 주어져 있을 때 $X_{n} = x $ 일 확률 $\displaystyle p \left( X_{n} = x \mid S_{(n)} = s_{(n)} \right)$ 을 구해보자.$\displaystyle F_{n} (x) := p \left( X_{n} = x , S_{(n)} = s_{(n)} \right)$ 이라고 하면 $\displaystyle p \left( X_{n} = x \mid S_{(n)}  = s_{(n)} \right) 
+\end{matrix}$ 으로 표현된다.</p>
+<p>기계가 고장난 상태로 방치된다면 계속해서 많은 불량품을 만들어낼 것이다. 문제는 이것을 어떻게 알겠냐는 것이다. 물론 기계가 고장인지 아닌지는 관리자가 기계를 한 번 뜯어봐도 금방 알 수 있겠지만, 큰 공장에서 엄청나게 많은 수의 기계가 있다면 이런 점검조차도 몹시 부담스러운 일이 된다. 현실적으로는 나오는 물건을 보고야 어떤 기계에 문제가 있다는 것을 짐작하는 수밖에 없는 것이다.</p>
+<h2 id="정의">정의</h2>
+<p>이렇듯 마코프 체인(원인)은 숨겨져 있고 그에 따른 시그널(결과)만 알고 있을 때 $\left\{ X_{j} \right\}_{j=0}^{n} $ 을 <strong>히든 마코프 체인</strong>이라 한다.</p>
+<h2 id="문제-1">문제 1</h2>
+<p>이제 시그널 $s_{(n)} = ( s_{1} , s_{2} , \cdots , s_{n} ) $ 이 주어져 있을 때 $X_{n} = x $ 일 확률 $\displaystyle p \left( X_{n} = x \mid S_{(n)} = s_{(n)} \right)$ 을 구해보자.</p>
+<h2 id="풀이-1">풀이 1</h2>
+<p>$\displaystyle F_{n} (x):= p \left( X_{n} = x , S_{(n)} = s_{(n)} \right)$ 이라고 하면
 $$
-\displaystyle = {{ p \left( X_{n} = x , S_{(n)} = s_{(n)} \right) } \over { p \left( S_{(n)} = s_{(n)} \right) }}
+\begin{eqnarray*}
+&amp;&amp; p \left( X_{n} = x \mid S_{(n)}  = s_{(n)} \right)
+\\ &amp;=&amp; {{ p \left( X_{n} = x , S_{(n)} = s_{(n)} \right) } \over { p \left( S_{(n)} = s_{(n)} \right) }}
+\\ &amp;=&amp; {{ F_{n} (x) } \over { \sum_{y} F_{n} (y) }}
+\end{eqnarray*}
 $$
-\displaystyle = {{ F_{n} (x) } \over { \sum_{y} F_{n} (y) }}$즉, $F_{n} (x)$ 를 알면 조건부 확률을 생각하지 않고도 $\displaystyle p \left( X_{n} = x \mid S_{(n)} = s_{(n)} \right)$ 를 알 수 있다.$F_{n} (x) = p \left( X_{n} = x , S_{(n)} = s_{(n)} \right)
+즉, $F_{n} (x)$ 를 알면 조건부 확률을 생각하지 않고도 $\displaystyle p \left( X_{n} = x \mid S_{(n)} = s_{(n)} \right)$ 를 알 수 있다. $(1)$ $s_{n}$ 은 $s_{(n-1)}$ 과 독립이고, $(2)$ $\left\{ X_{j} \right\}_{j=1}^{n}$ 은 마코프 체인이므로
 $$
- = p \left( X_{n} = x , S_{(n-1)} = s_{(n-1)} , S_{n} = s_{n} \right)
+\begin{eqnarray*}
+F_{n} (x) &amp;=&amp; p \left( X_{n} = x , S_{(n)} = s_{(n)} \right)
+\\ &amp;=&amp; p \left( X_{n} = x , S_{(n-1)} = s_{(n-1)} , S_{n} = s_{n} \right)
+\\ &amp;=&amp; \sum_{y} p \left( X_{n} = x , X_{n-1} = y ,  S_{(n-1)} = s_{(n-1)} , S_{n} = s_{n} \right)
+\\ &amp;=&amp; \sum_{y} p \left( X_{n-1} = y , S_{(n-1)} = s_{(n-1)} \right) {{ p \left( X_{n} = x , X_{n-1} = y ,  S_{(n-1)} = s_{(n-1)} , S_{n} = s_{n} \right)} \over { p \left( X_{n-1} = y , S_{(n-1)} = s_{(n-1)} \right) }}
+\\ &amp;=&amp; \sum_{y} F_{n-1} ( y ) p \left( X_{n} = x , S_{n} = s_{n} \mid X_{n-1} = y , S_{(n-1)} = s_{(n-1)} \right)
+\\ &amp;\overset{(1)}{=}&amp; \sum_{y} F_{n-1} ( y ) p \left( X_{n} = x , S_{n} = s_{n} \mid X_{n-1} = y \right)
+\\ &amp;=&amp; \sum_{y} F_{n-1} ( y ) {{ p \left( S_{n} = s_{n} , X_{n} = x , X_{n-1} = y \right) } \over { p (  X_{n-1} = y ) }} 
+\\ &amp;=&amp; \sum_{y} F_{n-1} ( y ) {{ p (  X_{n} = x , X_{n-1} = y ) } \over { p (  X_{n-1} = y ) }} {{ p \left( S_{n} = s_{n} , X_{n-1} = y , X_{n} = x \right) } \over { p (  X_{n} = x , X_{n-1} = y ) }} 
+\\ &amp;=&amp; \sum_{y} F_{n-1} ( y ) p \left(  X_{n} = x \mid X_{n-1} = y \right) p \left( S_{n} = s_{n} \mid X_{n} = x  , X_{n-1} = y \right)
+\\ &amp;\overset{(2)}{=}&amp; \sum_{y} F_{n-1} ( y ) p \left(  X_{n} = x \mid X_{n-1} = y \right) p \left( S_{n} = s_{n} \mid X_{n} = x \right)
+\\ &amp;=&amp; \sum_{y} F_{n-1} ( y ) p_{yx} p \left( s_{n} \mid x \right)
+\end{eqnarray*}
 $$
-\displaystyle = \sum_{y} p \left( X_{n} = x , X_{n-1} = y ,  S_{(n-1)} = s_{(n-1)} , S_{n} = s_{n} \right)
+정리하면 다음을 얻는다.
 $$
-\displaystyle = \sum_{y} p \left( X_{n-1} = y , S_{(n-1)} = s_{(n-1)} \right) {{ p \left( X_{n} = x , X_{n-1} = y ,  S_{(n-1)} = s_{(n-1)} , S_{n} = s_{n} \right)} \over { p \left( X_{n-1} = y , S_{(n-1)} = s_{(n-1)} \right) }}
-$$
-\displaystyle = \sum_{y} F_{n-1} ( y ) p \left( X_{n} = x , S_{n} = s_{n} \mid X_{n-1} = y , S_{(n-1)} = s_{(n-1)} \right)
-$$
-\displaystyle = \sum_{y} F_{n-1} ( y ) p \left( X_{n} = x , S_{n} = s_{n} \mid X_{n-1} = y \right)$ [ $ s_{n}$ 은 $s_{(n-1)}$ 과 독립이므로 ]$\displaystyle = \sum_{y} F_{n-1} ( y ) {{ p \left( S_{n} = s_{n} , X_{n} = x , X_{n-1} = y \right) } \over { p (  X_{n-1} = y ) }} 
-$$
-\displaystyle = \sum_{y} F_{n-1} ( y ) {{ p (  X_{n} = x , X_{n-1} = y ) } \over { p (  X_{n-1} = y ) }} {{ p \left( S_{n} = s_{n} , X_{n-1} = y , X_{n} = x \right) } \over { p (  X_{n} = x , X_{n-1} = y ) }} 
-$$
-\displaystyle = \sum_{y} F_{n-1} ( y ) p \left(  X_{n} = x \mid X_{n-1} = y \right) p \left( S_{n} = s_{n} \mid X_{n} = x  , X_{n-1} = y \right) 
-$$
-\displaystyle = \sum_{y} F_{n-1} ( y ) p \left(  X_{n} = x \mid X_{n-1} = y \right) p \left( S_{n} = s_{n} \mid X_{n} = x \right) $ [ $ \left\{ X_{j} \right\}_{j=1}^{n} $ 은 마코프 체인이므로 ]$\displaystyle = \sum_{y} F_{n-1} ( y ) p_{yx} p \left( s_{n} \mid x \right) $정리하면 $\displaystyle F_{n} (x) = p \left( s_{n} \mid x \right) \sum_{y} F_{n-1} ( y ) p_{yx} $ 을 얻는다.<img src="20190218_114748.png#center" alt="20190218\_114748.png">
-그럼 이제 예제로써 이 포스트에서 언급된 가정 하에서 $\displaystyle p \left( X_{3} = + \mid S_{(3)} = (1,0,1) \right)$ 을 계산해보자.**풀이
-마코프 체인에서 상태의 전이확률은 $\begin{matrix}
+F_{n} (x) = p \left( s_{n} \mid x \right) \sum_{y} F_{n-1} ( y ) p_{yx}
+$$</p>
+<h2 id="문제-2">문제 2</h2>
+<p><img src="20190218_114748.png#center" alt="20190218\_114748.png">
+그럼 이제 예제로써 이 포스트에서 언급된 가정 하에서 $\displaystyle p \left( X_{3} = + \mid S_{(3)} = (1,0,1) \right)$ 을 계산해보자. 다시 말해, 저 상황에서 기계가 정상일 확률을 계산하자.</p>
+<h2 id="풀이-2">풀이 2</h2>
+<p>마코프 체인에서 상태의 전이확률은
+$$\begin{matrix}
 p_{++} = 0.9 &amp; p_{+-} = 0.1 
 \\  p_{-+} = 0 &amp; p_{&ndash;} = 1 
-\end{matrix}$각 상태에서 $\begin{matrix}
+\end{matrix}$$
+각 상태에서
+$$\begin{matrix}
 p ( 1 \mid + ) = 0.99 &amp; p ( 0 \mid + ) = 0.01 
 \\  p ( 1 \mid - ) = 0.96 &amp; p ( 0 \mid - ) = 0.04 
-\end{matrix}$처음엔 기계가 정상인 것으로 가정하므로$F_{1} (+) = p( 1 \mid + ) = 0.99
+\end{matrix}$$
+처음엔 기계가 정상인 것으로 가정하므로
 $$
-F_{1} (-) = p (0 \mid + ) = 0.01
+F_{1} (+) = p( 1 \mid + ) = 0.99
+\\ F_{1} (-) = p (0 \mid + ) = 0.01
 $$
-s_{2} = 0$ 이므로$F_{2} ( + ) = p ( 0 \mid + ) \left[ F_{1} ( + ) p_{++} + F_{1} ( - ) p_{-+} \right] = 0.01 \times [ 0.99 \times 0.9 + 0 ] = 0.00891
+$s_{2} = 0$ 이므로
 $$
-F_{2} ( - ) = p ( 0 \mid - ) \left[ F_{1} ( + ) p_{+-} + F_{1} ( - ) p_{&ndash;} \right] = 0.04 \times [ 0.99 \times 0.1 + 0.01 \times 1 ] = 0.00436 
+F_{2} ( + ) = p ( 0 \mid + ) \left[ F_{1} ( + ) p_{++} + F_{1} ( - ) p_{-+} \right] = 0.01 \times [ 0.99 \times 0.9 + 0 ] = 0.00891
+\\ F_{2} ( - ) = p ( 0 \mid - ) \left[ F_{1} ( + ) p_{+-} + F_{1} ( - ) p_{&ndash;} \right] = 0.04 \times [ 0.99 \times 0.1 + 0.01 \times 1 ] = 0.00436 
 $$
-s_{3} = 1$ 이므로$F_{3} ( + ) = p ( 1 \mid + ) \left[ F_{2} ( + ) p_{++} + F_{2} ( - ) p_{-+} \right] = 0.99 \times [ .00891 \times 0.9 + 0 ]) = 0.00793881
+$s_{3} = 1$ 이므로
 $$
-F_{3} ( - ) = p ( 1 \mid - ) \left[ F_{2} ( + ) p_{+-} + F_{2} ( - ) p_{&ndash;} \right] = 0.94 \times [ .00891 \times 0.1 + .00436 \times 1 ] = 0.00493594 $따라서 $\displaystyle p \left( X_{3} = + \mid S_{(3)} = (1,0,1) \right) = {{ F_{1} ( + ) } \over { F_{3} ( + ) + F_{3} ( - ) }} = {{ 0.00793881 } \over { 0.01287475 }} = 0.6166 \cdots $ <strong>풀이 끝</strong> 상식적으로 생각해보아도 불량률이 그렇게 높지가 않은데 고작 세 개중에서도 하나가 불량이라면 기계가 정상일 가능성은 현저히 떨어짐을 짐작할 수 있다. 계산 결과 기계가 정상일 확률은 $60 %$ 를 간신히 넘기는 수준이다.</p>
+F_{3} ( + ) = p ( 1 \mid + ) \left[ F_{2} ( + ) p_{++} + F_{2} ( - ) p_{-+} \right] = 0.99 \times [ .00891 \times 0.9 + 0 ]) = 0.00793881
+\\ F_{3} ( - ) = p ( 1 \mid - ) \left[ F_{2} ( + ) p_{+-} + F_{2} ( - ) p_{&ndash;} \right] = 0.94 \times [ .00891 \times 0.1 + .00436 \times 1 ] = 0.00493594
+$$
+따라서
+$$\displaystyle p \left( X_{3} = + \mid S_{(3)} = (1,0,1) \right) = {{ F_{1} ( + ) } \over { F_{3} ( + ) + F_{3} ( - ) }} = {{ 0.00793881 } \over { 0.01287475 }} = 0.6166 \cdots$$</p>
+<p>상식적으로 생각해보아도 불량률이 그렇게 높지가 않은데 고작 세 개중에서도 하나가 불량이라면 기계가 정상일 가능성은 현저히 떨어짐을 짐작할 수 있다. 계산 결과 기계가 정상일 확률은 $60 \%$ 를 간신히 넘기는 수준이다.</p>
 
 
 
@@ -699,6 +724,8 @@ F_{3} ( - ) = p ( 1 \mid - ) \left[ F_{2} ( + ) p_{+-} + F_{2} ( - ) p_{&ndash;
         <span style="color:rgb(255,204,000);">●</span> 동역학 (60++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 푸리에해석 (39)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/>
+        <span style="color:rgb(051,204,051);">●</span> 토모그래피(10)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 벡터해석 (59)</a><br>
@@ -720,7 +747,7 @@ F_{3} ( - ) = p ( 1 \mid - ) \left[ F_{2} ( + ) p_{+-} + F_{2} ( - ) p_{&ndash;
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (44)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
-        <span style="color:rgb(255,204,000);">●</span> 확률론 (34)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 확률론 (61)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/>
         <span style="color:rgb(255,204,000);">●</span> 줄리아 (40++)</a><br>
@@ -732,7 +759,7 @@ F_{3} ( - ) = p ( 1 \mid - ) \left[ F_{2} ( + ) p_{+-} + F_{2} ( - ) p_{&ndash;
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (29)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1804)</summary>
+    <summary>전체 포스트 (1806)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -746,11 +773,11 @@ F_{3} ( - ) = p ( 1 \mid - ) \left[ F_{2} ( + ) p_{+-} + F_{2} ( - ) p_{&ndash;
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (3)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (52)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (53)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (28)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (29)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC-%EA%B5%90%EA%B3%BC/" style="color: black">물리 교과 (9)</a>
         </li><li>
@@ -822,7 +849,7 @@ F_{3} ( - ) = p ( 1 \mid - ) \left[ F_{2} ( + ) p_{+-} + F_{2} ( - ) p_{&ndash;
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (47)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (48)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (55)</a>
         </li><li>
@@ -830,9 +857,7 @@ F_{3} ( - ) = p ( 1 \mid - ) \left[ F_{2} ( + ) p_{+-} + F_{2} ( - ) p_{&ndash;
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (60)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EA%B3%BC%EC%A0%95%EB%A1%A0/" style="color: black">확률과정론 (27)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (27)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (54)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (47)</a>
         </li>
