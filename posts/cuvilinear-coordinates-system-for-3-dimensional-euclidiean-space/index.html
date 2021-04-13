@@ -97,7 +97,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/cuvilinear-coordinates-system-for-3-dimensional-euclidiean-space\/",
-    "wordCount" : "1604",
+    "wordCount" : "1625",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -254,7 +254,7 @@
 
     
     
-            <a href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C-%ED%95%B4%EC%84%9D/" style="color: black">텐서 해석</a>&emsp;
+            <a href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/" style="color: black">텐서해석</a>&emsp;
             
     </span>
     
@@ -267,103 +267,111 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#빌드업">빌드업</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-3차원 공간에서 위치를 표현하는 가장 일반적인 방법은 데카르트 좌표계이다. 데카르트에 의해서 고안되었기 때문에 붙은 이름이며 직교 좌표계라고도 많이 부른다. 하지만 특정한 상황에서는 데카르트 좌표계로 위치를 표현하기 어려울 수 있다. 예를 들어 2차원 평면에서 회전운동 하는 물체가 있다고 하자. 그러면 이 물체의 위치는 $(x,y)$로 표현하는 것보다 $(r,\theta)$로 표현하는 것이 훨씬 간단하다. 앞서 특정한 상황이라고 말하긴 했지만 사실 물리적인 문제를 해결할 때 이러한 상황은 생각보다 많이 나타난다. 따라서 그러한 문제를 풀기 위해 데카르트 좌표계가 아닌 다른 좌표계를 도입할 필요성이 있고, 이에 대해 수학적으로 잘 정리한 것이 곡선 좌표계이다. 3차원 공간의 어떤 좌표계가 사용하기에 적절한 좌표계가 되려면 아래와 같은 조건을 만족시켜야 한다.$(a)$ 데카르트 좌표계와 변환이 가능해야한다.$(b)$ 각 좌표의 방향은 서로 수직해야한다.기존의 좌표계와 서로 변환이 되지 않으면 새로운 좌표계를 만드는 이유가 없으므로 $(a)$는 필수이다. 또한 내적이 수학적으로 얼마나 유용한 연산인지를 생각해보면 $(b)$가 성립하지 않는 좌표계 또한 좋은 좌표계가 될 수 없을 것이다. 이제 새로운 곡선 좌표계의 좌표를 $q_{1}$, $q_{2}$, $q_{3}$으로 나타내자. 그러면 조건 $(a)$에 의해 아래와 같이 표현되어야 한다.
-$$
-\begin{align*}
-x = x(q_{1},q_{2},q_{3})&amp;&amp;&amp;&amp; q_{1} = q_{1}(x,y,z)
-\\  y = y(q_{1},q_{2},q_{3})&amp;&amp;&amp;&amp;&amp; q_{2} = q_{2}(x,y,z) 
-\\  z=z(q_{1},q_{2},q_{3})&amp;&amp;&amp;&amp; q_{3} = q_{3}(x,y,z)
-\end{align*}   
-$$
-또한 각 좌표의 단위 벡터를 $\hat{\mathbf{q}}_{1}$, $\hat{\mathbf{q}}_{2}$, $\hat{\mathbf{q}}_{3}$라고 나타내자. 또한 각 좌표계의 부호는 오른손 법칙을 만족한다고 가정하자. 이를 $(b)$와 같이 나타내면 아래와 같다.
-$$
+<h2 id="빌드업">빌드업</h2>
+<p>3차원 공간에서 위치를 표현하는 가장 일반적인 방법은 데카르트 좌표계이다. 데카르트에 의해서 고안되었기 때문에 붙은 이름이며 직교 좌표계라고도 많이 부른다. 하지만 특정한 상황에서는 데카르트 좌표계로 위치를 표현하기 어려울 수 있다. 예를 들어 2차원 평면에서 회전운동 하는 물체가 있다고 하자. 그러면 이 물체의 위치는 $(x,y)$로 표현하는 것보다 $(r,\theta)$로 표현하는 것이 훨씬 간단하다. 앞서 특정한 상황이라고 말하긴 했지만 사실 물리적인 문제를 해결할 때 이러한 상황은 생각보다 많이 나타난다. 따라서 그러한 문제를 풀기 위해 데카르트 좌표계가 아닌 다른 좌표계를 도입할 필요성이 있고, 이에 대해 수학적으로 잘 정리한 것이 곡선 좌표계이다. 3차원 공간의 어떤 좌표계가 사용하기에 적절한 좌표계가 되려면 아래와 같은 조건을 만족시켜야 한다.</p>
+<ul>
+<li><strong>(a)</strong> 데카르트 좌표계와 변환이 가능해야한다.</li>
+<li><strong>(b)</strong> 각 좌표의 방향은 서로 수직해야한다.</li>
+</ul>
+<p>기존의 좌표계와 서로 변환이 되지 않으면 새로운 좌표계를 만드는 이유가 없으므로 <strong>(a)</strong> 는 필수이다. 또한 내적이 수학적으로 얼마나 유용한 연산인지를 생각해보면 <strong>(b)</strong> 가 성립하지 않는 좌표계 또한 좋은 좌표계가 될 수 없을 것이다. 이제 새로운 곡선 좌표계의 좌표를 $q_{1}$, $q_{2}$, $q_{3}$으로 나타내자. 그러면 조건 <strong>(a)</strong> 에 의해 아래와 같이 표현되어야 한다.</p>
+<p>$$
+\begin{equation*}
+\begin{aligned}
+x &amp;= x(q_{1},q_{2},q_{3})
+\\  y &amp;= y(q_{1},q_{2},q_{3})
+\\  z &amp;= z(q_{1},q_{2},q_{3})
+\end{aligned}
+\quad \text{and} \quad
+\begin{aligned}
+q_{1} &amp;= q_{1}(x,y,z)
+\\ q_{2} &amp;= q_{2}(x,y,z) 
+\\ q_{3} &amp;= q_{3}(x,y,z)
+\end{aligned}
+\end{equation*}
+$$</p>
+<p>또한 각 좌표의 단위 벡터를 $\hat{\mathbf{q}}_{1}$, $\hat{\mathbf{q}}_{2}$, $\hat{\mathbf{q}}_{3}$라고 나타내자. 또한 각 좌표의 순서는 <a href="../2040">오른손 법칙</a>을 만족한다고 가정하자. 이를 <strong>(b)</strong> 와 같이 나타내면 아래와 같다.</p>
+<p>$$
 \hat{\mathbf{q}}_{i}\cdot \hat{\mathbf{q}}_{j}=\delta_{ij}
 $$</p>
 <p>$$
 (\hat{\mathbf{q}}_{1}\times \hat{\mathbf{q}}_{2})\cdot \hat{\mathbf{q}}_{3}&gt;0
-$$
-면적=길이$^{2}$, 부피=길이$^{3}$이므로 곡선 좌표계에서 길이가 어떻게 표현되는지 보자. 곡선 좌표계에서 어떤 위치 벡터 $\mathbf{r}$의 좌표가 살짝 바뀌었다고 하자. 그런데 여러 좌표계들을 생각해보면 변수가 꼭 길이 단위일 필요는 없다. 예를 들어 극 좌표계에서 각도인 $\theta$가 변할 때 마다 위치가 변하는 거리는 호의 길이 $l=r\theta$로 표현된다. 따라서 $d\mathbf{r}$의 성분이 길이의 차원을 갖도록 보정해주는 무언가를 $h_{i}$라고 두면 $d\mathbf{r}$은 아래와 같이 표현될 수 있다.
-$$
+$$</p>
+<p>면적=길이$^{2}$, 부피=길이$^{3}$이므로 곡선 좌표계에서 길이가 어떻게 표현되는지 보자. 곡선 좌표계에서 어떤 위치 벡터 $\mathbf{r}$의 좌표가 살짝 바뀌었다고 하자. 그런데 여러 좌표계들을 생각해보면 변수가 꼭 길이 단위일 필요는 없다. 예를 들어 극 좌표계에서 각도인 $\theta$가 변할 때 마다 위치가 변하는 거리는 호의 길이 $l=r\theta$로 표현된다. 따라서 $d\mathbf{r}$의 성분이 길이의 차원을 갖도록 보정해주는 무언가를 $h_{i}$라고 두면 $d\mathbf{r}$은 아래와 같이 표현될 수 있다.</p>
+<p>$$
 d\mathbf{r}=h_{1}dq_{1}\hat{\mathbf{q}_{1}}+h_{2}dq_{2}\hat{\mathbf{q}_{2}}+h_{3}dq_{3}\hat{\mathbf{q}_{3}}
-$$
-따라서 미소 길이의 제곱은 아래와 같다.
-$$
-ds^{2}=d\mathbf{r}\cdot d\mathbf{r}=(h_{1}dq_{1})^{2}+(h_{2}dq_{2})^{2}+(h_{3}dq_{3})^{2} \tag{1}
-$$
- 또한 미소 부피는 아래와 같다.
-$$
+$$</p>
+<p>따라서 미소 길이의 제곱은 아래와 같다.</p>
+<p>$$
+\begin{equation}
+ds^{2}=d\mathbf{r}\cdot d\mathbf{r}=(h_{1}dq_{1})^{2}+(h_{2}dq_{2})^{2}+(h_{3}dq_{3})^{2}
+\label{eq1}
+\end{equation}
+$$</p>
+<p>또한 미소 부피는 아래와 같다.</p>
+<p>$$
 dV=h_{1}h_{2}h_{3}dq_{1}dq_{2}dq_{3}
-$$
-이제부터 각 성분에 대해서 길이 차원을 갖도록 보정해주는 그 무언가인 $h_{i}$가 어떻게 표현되는지 알아보자. 한편 $\mathbf{r}=\mathbf{r}(q_{1},q_{2},q_{3})$의 변화량인 <a href="../1773">전미분</a>은 아래와 같다.
-$$
+$$</p>
+<p>이제부터 각 성분에 대해서 길이 차원을 갖도록 보정해주는 그 무언가인 $h_{i}$가 어떻게 표현되는지 알아보자. 한편 $\mathbf{r}=\mathbf{r}(q_{1},q_{2},q_{3})$의 변화량인 <a href="../1773">전미분</a>은 아래와 같다.</p>
+<p>$$
 d\mathbf{r}= \frac{ \partial \mathbf{r}}{ \partial  q_{1}}dq_{1}+\frac{ \partial \mathbf{r}}{ \partial  q_{2}}dq_{2}+\frac{ \partial \mathbf{r}}{ \partial  q_{3}}dq_{3} 
-$$
-그러면 $\mathbf{r}$의 변화한 만큼의 길이 제곱은 아래와 같다.
-$$
-\begin{align*}
-  ds^{2}=&amp;d \mathbf{r}^{2}=d\mathbf{r}\cdot d\mathbf{r} 
-\\  =&amp; \left(  \frac{ \partial \mathbf{r}}{ \partial  q_{1}}dq_{1}+\frac{ \partial \mathbf{r}}{ \partial  q_{2}}dq_{2}+\frac{ \partial \mathbf{r}}{ \partial  q_{3}}dq_{3} \right) \cdot \left(  \frac{ \partial \mathbf{r}}{ \partial  q_{1}}dq_{1}+\frac{ \partial \mathbf{r}}{ \partial  q_{2}}dq_{2}+\frac{ \partial \mathbf{r}}{ \partial  q_{3}}dq_{3} \right) 
-\\  =&amp; \frac{ \partial \mathbf{r}}{ \partial q_{1} }\cdot\frac{ \partial \mathbf{r}}{ \partial  q_{1}}dq_{1}dq_{1} + \frac{ \partial \mathbf{r}}{ \partial q_{1} }\cdot\frac{ \partial \mathbf{r}}{ \partial  q_{2}}dq_{1}dq_{2}+\frac{ \partial \mathbf{r}}{ \partial q_{1} }\cdot\frac{ \partial \mathbf{r}}{ \partial  q_{3}}dq_{1}dq_{3} 
-\\  &amp;+\frac{ \partial \mathbf{r}}{ \partial q_{2} }\cdot\frac{ \partial \mathbf{r}}{ \partial  q_{1}}dq_{2}dq_{1} + \frac{ \partial \mathbf{r}}{ \partial q_{2} }\cdot\frac{ \partial \mathbf{r}}{ \partial  q_{2}}dq_{2}dq_{2}+\frac{ \partial \mathbf{r}}{ \partial q_{2} }\cdot\frac{ \partial \mathbf{r}}{ \partial  q_{3}}dq_{2}dq_{3} 
-\\  &amp;+\frac{ \partial \mathbf{r}}{ \partial q_{3} }\cdot\frac{ \partial \mathbf{r}}{ \partial  q_{1}}dq_{3}dq_{1} + \frac{ \partial \mathbf{r}}{ \partial q_{3} }\cdot\frac{ \partial \mathbf{r}}{ \partial  q_{2}}dq_{3}dq_{2}+\frac{ \partial \mathbf{r}}{ \partial q_{3} }\cdot\frac{ \partial \mathbf{r}}{ \partial  q_{3}}dq_{3}dq_{3} 
-\end{align*} \tag{2}
-$$
-이때
-$$
+$$</p>
+<p>그러면 $\mathbf{r}$의 변화한 만큼의 길이 제곱은 아래와 같다.</p>
+<p>$$
+\begin{align}
+ds^{2}=&amp;d \mathbf{r}^{2}=d\mathbf{r}\cdot d\mathbf{r} \nonumber
+\\  =&amp; \left(  \frac{ \partial \mathbf{r}}{ \partial  q_{1}}dq_{1}+\frac{ \partial \mathbf{r}}{ \partial  q_{2}}dq_{2}+\frac{ \partial \mathbf{r}}{ \partial  q_{3}}dq_{3} \right) \cdot \left(  \frac{ \partial \mathbf{r}}{ \partial  q_{1}}dq_{1}+\frac{ \partial \mathbf{r}}{ \partial  q_{2}}dq_{2}+\frac{ \partial \mathbf{r}}{ \partial  q_{3}}dq_{3} \right) \nonumber
+\\  =&amp; \frac{ \partial \mathbf{r}}{ \partial q_{1} }\cdot\frac{ \partial \mathbf{r}}{ \partial  q_{1}}dq_{1}dq_{1} + \frac{ \partial \mathbf{r}}{ \partial q_{1} }\cdot\frac{ \partial \mathbf{r}}{ \partial  q_{2}}dq_{1}dq_{2}+\frac{ \partial \mathbf{r}}{ \partial q_{1} }\cdot\frac{ \partial \mathbf{r}}{ \partial  q_{3}}dq_{1}dq_{3} \nonumber
+\\  &amp;+\frac{ \partial \mathbf{r}}{ \partial q_{2} }\cdot\frac{ \partial \mathbf{r}}{ \partial  q_{1}}dq_{2}dq_{1} + \frac{ \partial \mathbf{r}}{ \partial q_{2} }\cdot\frac{ \partial \mathbf{r}}{ \partial  q_{2}}dq_{2}dq_{2}+\frac{ \partial \mathbf{r}}{ \partial q_{2} }\cdot\frac{ \partial \mathbf{r}}{ \partial  q_{3}}dq_{2}dq_{3}  \label{eq2}
+\\  &amp;+\frac{ \partial \mathbf{r}}{ \partial q_{3} }\cdot\frac{ \partial \mathbf{r}}{ \partial  q_{1}}dq_{3}dq_{1} + \frac{ \partial \mathbf{r}}{ \partial q_{3} }\cdot\frac{ \partial \mathbf{r}}{ \partial  q_{2}}dq_{3}dq_{2}+\frac{ \partial \mathbf{r}}{ \partial q_{3} }\cdot\frac{ \partial \mathbf{r}}{ \partial  q_{3}}dq_{3}dq_{3} \nonumber
+\end{align}
+$$</p>
+<p>이때 다음이 성립한다.</p>
+<p>$$
 \begin{align*}
 \frac{ \partial \mathbf{r}}{ \partial q_{i} }&amp;=\frac{ \partial (x\hat{\mathbf{x}}+y\hat{\mathbf{y}}+\hat{z\mathbf{z}})}{ \partial q_{i}  } 
 \\  &amp;= \frac{ \partial x}{ \partial  q_{i}}\hat{\mathbf{x}}+\frac{ \partial y}{ \partial  q_{i}}\hat{\mathbf{y}}+\frac{ \partial z}{ \partial  q_{i}}\hat{\mathbf{z}}
 \end{align*}
-$$
-이므로
-$$
+$$</p>
+<p>따라서 다음을 얻는다.</p>
+<p>$$
 \frac{ \partial \mathbf{r}}{ \partial  q_{i}}\cdot \frac{ \partial \mathbf{r}}{ \partial  q_{j}} = \frac{ \partial x}{ \partial  q_{i}}\frac{ \partial x}{ \partial  q_{j}}+ \frac{ \partial y}{ \partial  q_{i}}\frac{ \partial y}{ \partial  q_{j}}+\frac{ \partial z}{ \partial  q_{i}}\frac{ \partial z}{ \partial  q_{j}}
-$$
-이다. 위 식을 간단하게 $g_{ij}=\frac{ \partial \mathbf{r}}{ \partial  q_{i}}\cdot \frac{ \partial \mathbf{r}}{ \partial  q_{j}}$로 나타내면 $(2)$는 아래와 같다.
-$$
-\begin{align*}
-  ds^{2}=&amp; g_{11}dq_{1}^{2}+g_{12}dq_{1}dq_{2}+g_{13}dq_{1}dq_{3} 
-\\  &amp;+g_{21}dq_{2}dq_{1}+g_{22}dq_{2}^{2}+g_{23}dq_{2}dq_{3} 
-\\  &amp;+g_{31}dq_{3}dq_{1}+g_{32}dq_{3}dq_{2}+g_{33}dq_{3}^{2} 
-\\  =&amp; \sum \limits _{i,j=1}^{3}g_{ij}dq_{i}dq_{j}
-\end{align*} \tag{3}  
-$$
-이제 $(1)$과 $(3)$을 비교해보면 아래와 같은 결과를 얻는다.
-$$
+$$</p>
+<p>위 식을 간단하게 $g_{ij}=\frac{ \partial \mathbf{r}}{ \partial  q_{i}}\cdot \frac{ \partial \mathbf{r}}{ \partial  q_{j}}$로 나타내면 $\eqref{eq2}$는 아래와 같다.</p>
+<p>$$
+\begin{align}
+ds^{2}=&amp; g_{11}dq_{1}^{2}+g_{12}dq_{1}dq_{2}+g_{13}dq_{1}dq_{3} \nonumber
+\\  &amp;+g_{21}dq_{2}dq_{1}+g_{22}dq_{2}^{2}+g_{23}dq_{2}dq_{3} \nonumber
+\\  &amp;+g_{31}dq_{3}dq_{1}+g_{32}dq_{3}dq_{2}+g_{33}dq_{3}^{2} \nonumber 
+\\  =&amp; \sum \limits _{i,j=1}^{3}g_{ij}dq_{i}dq_{j}  \label{eq3} 
+\end{align} 
+$$</p>
+<p>이제 $\eqref{eq1}$과 $\eqref{eq3}$을 비교해보면 아래와 같은 결과를 얻는다.</p>
+<p>$$
 g_{ij}=\begin{cases} h_{i}^{2}, &amp;i=j
 \\  0, &amp;i\ne j \end{cases}
-$$
-이때 $h_{i}=\sqrt{g_{ii}}=\sqrt{\frac{ \partial  \mathbf{r}}{ \partial q_{i} }\cdot \frac{ \partial \mathbf{r}}{ \partial q_{i} }}$를 **스케일 팩터$(\mathrm{scale\ factor})$** 라고 부른다. 이렇게 좌표공간의 좌표계를 곡선 좌표계로 일반화하면 데카르트 좌표계는 $h_{1}=h_{2}=h_{3}=1$인 곡선 좌표계로 생각할 수 있다. 주로 사용하는 각 곡선 좌표계의 스케일 팩터는 다음과 같다.</p>
-<p><a href="../1776">증</a><a href="../1776">명</a>**극 좌표계</p>
+$$</p>
+<p>이때 $h_{i}=\sqrt{g_{ii}}=\sqrt{\frac{ \partial  \mathbf{r}}{ \partial q_{i} }\cdot \frac{ \partial \mathbf{r}}{ \partial q_{i} }}$를 <strong>스케일 팩터</strong><sup>scale factor</sup> 라고 한다. 길이가 아닌 변수에 곱해져 길이 단위로 만들어주는 역할을 한다.</p>
+<p>이렇게 좌표공간의 좌표계를 곡선 좌표계로 일반화하면 데카르트 좌표계는 $h_{1}=h_{2}=h_{3}=1$인 곡선 좌표계로 생각할 수 있다. 주로 사용하는 각 곡선 좌표계의 스케일 팩터는 다음과 같다.</p>
+<blockquote>
+<p><a href="../1776">증명</a></p>
+<p><strong>극 좌표계:</strong></p>
 <p>$$
 h_{1}=1,\quad h_{2}=r
-$$
-**원통 좌표계</p>
+$$</p>
+<p><strong>원통 좌표계:</strong></p>
 <p>$$
 h_{1}=1, \quad h_{2}=\rho,\quad h_{3}=1
-$$
-**구 좌표계</p>
+$$</p>
+<p><strong>구 좌표계:</strong></p>
 <p>$$
 h_{1}=1,\quad h_{2}=r,\quad h_{3}=r\sin\theta
 $$</p>
+</blockquote>
 
 
 
@@ -734,13 +742,15 @@ $$</p>
         <span style="color:rgb(051,204,051);">●</span> 토모그래피(10)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/>
-        <span style="color:rgb(051,204,051);">●</span> 벡터해석 (59)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 벡터해석 (41)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/>
+        <span style="color:rgb(051,204,051);">●</span> 텐서해석 (13)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/>
         <span style="color:rgb(051,204,051);">●</span> 고전역학 (38)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/>
-        <span style="color:rgb(255,051,051);">●</span> 전자기학 (53)</a><br>
+        <span style="color:rgb(255,051,051);">●</span> 전자기학 (52)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 열물리학 (22)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 열물리학 (24)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 상대성이론 (6)</a><br>
     <hr>
@@ -765,7 +775,7 @@ $$</p>
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (29)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1806)</summary>
+    <summary>전체 포스트 (1805)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -841,7 +851,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/" style="color: black">측도론 (59)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C-%ED%95%B4%EC%84%9D/" style="color: black">텐서 해석 (13)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/" style="color: black">텐서해석 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (10)</a>
         </li><li>
