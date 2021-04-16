@@ -42,9 +42,9 @@
     
 
     
-<meta name="title" content="약한 도함수">
+<meta name="title" content="약 도함수">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="약한 도함수"/>
+<meta property="og:title" content="약 도함수"/>
 <meta property="og:description" content="weak derivatives"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
@@ -57,8 +57,8 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "j_",
-    "name": "약한 도함수",
-    "headline": "약한 도함수",
+    "name": "약 도함수",
+    "headline": "약 도함수",
     "alternativeHeadline": "",
     "description": "weak derivatives",
     "inLanguage": "ko",
@@ -97,14 +97,14 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/weak-derivatives\/",
-    "wordCount" : "748",
+    "wordCount" : "853",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>약한 도함수</title>
+    <title>약 도함수</title>
 
 </head>
 
@@ -113,7 +113,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/basic.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0.png style="max-height: 80px; width: auto;">
             
             
             
@@ -244,9 +244,9 @@
             <div class = "content">
             
 
-<title>약한 도함수</title>
+<title>약 도함수</title>
 
-<h1>약한 도함수</h1>
+<h1>약 도함수</h1>
 <aside>
     weak derivatives
     <p style="text-align: right;">
@@ -269,60 +269,68 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#빌드업">빌드업</a></li>
+    <li><a href="#정의">정의</a></li>
+    <li><a href="#예시">예시</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-**약한 도함수$(\mathrm{weak\ derivatives})$, ** **초함수적 도함수$(\mathrm{distributional\ derivatives})$
-$u \in {L}_{\mathrm{loc}}^1(\Omega)$라고 가정하자. 그러면 다음과 같은 식을 만족하는 $v_{\alpha} \in {L}_{\mathrm{loc}}^1(\Omega)$가 존재할 수도, 존재하지 않을 수도 있다.
-$$
-T_{{v}_{\alpha}} = {D}^{\alpha}T_{u}\quad \mathrm{in}\ \mathcal{D}^{ * }(\Omega) 
-$$
-**만약 이러한 $v_{\alpha}$가 존재한다면 ** 이를 $u$의 **약한 편도함수 ** 혹은 $u$의 <strong>초함수적 편도함수</strong> 라 한다. 다시 말해서 아래의 식을 만족시키는 $v_{\alpha}$를 $u$의 약한 도함수라 한다.
-$$
-\int_{\Omega} u(x){D}^{\alpha}\phi(x)dx = (-1)^{|\alpha|}\int_{\Omega}v_{\alpha}\phi(x)dx \quad \forall\ \phi \in \mathcal{D}(\Omega) 
-$$
-$u$의 약한 미분은 다음과 같이 표기한다.
-$$
-D^{\alpha}u
-$$
-이는 기존에 쓰던 미분 표기법과 같다. 그럼에도 이렇게 표기하는 이유는 실제로 $u$의 약한 도함수는 $u$의 도함수가 가져야할 좋은 성질이나 정리 등을 만족하기 때문이다. 그리고 $D^\alpha u$가 일반적인 미분이 아니라 weak sense에서의 미분을 의미하는 것이라면 항상 설명이 돼있을거라서 헷갈릴 일은 없다고 보면 된다.<em><em>예
-구간 $[-1, 1]$에서 $u$, $v$가 아래와 같이 정의돼있다고 하자.
-$$
-u= |x| , \quad \quad v=\begin{cases} 1 &amp; 0&lt;x\le1 
+<h2 id="빌드업">빌드업</h2>
+<p><a href="../1084">초함수의 미분</a>을 정의하는 아이디어를 떠올려보자. <a href="../1783">$u \in {L}_{\mathrm{loc}}^1(\Omega)$</a>에 대해서 정칙 초함수 $T_{u}$가 존재한다. $u$가 미분 가능하다면 부분적분법에 의해 다음의 식이 성립하여, $T_{u}$의 도함수를 $u$의 도함수인 $u'$에 대응되는 $T_{u'}$으로 정의했다.</p>
+<p>$$
+\begin{align}
+T_{u}'(\phi) &amp;:= T_{u^{\prime}}(\phi)
+\\ &amp;= \int u^{\prime}(x)\phi(x)dx 
+\\ &amp;=  \left[ u(x) \phi(x) \right]_{-\infty}^{\infty} -\int u(x)\phi ^{\prime} (x) dx
+\\ &amp;= -\int u(x)\phi ^{\prime} (x) dx
+\\ &amp;= -T_{u}(\phi^{\prime})
+\end{align}
+$$</p>
+<p>그런데 만약 $u(x)$가 $\Omega$에서 미분가능하지 않다고 해보자. 그럼에도 불구하고 $u$에 대응하는 초함수 $T_{u}$는 정의에 의해 다음과 같은 도함수를 갖는다.</p>
+<p>$$
+T_{u}^{\prime}(\phi) = T_{u}(\phi^{\prime})
+$$</p>
+<p>따라서 만약 다음의 식을 만족하는 $v(x)$가 존재하면 이를 $u(x)$의 도함수로 취급할 수 있을 것이다.</p>
+<p>$$
+-T_{u}(\phi^{\prime}) = -\int u(x)\phi ^{\prime} (x) dx = \int v(x)\phi(x)dx = T_{v}(\phi)
+$$</p>
+<p>이를 <a href="../1062">멀티인덱스</a> $\alpha$에 대해서 확장하면 다음과 같다.</p>
+<p>$$
+(-1)^{|\alpha|} \int_{\Omega} u(x){D}^{\alpha}\phi(x)dx = \int_{\Omega}v_{\alpha}(x)\phi(x)dx, \quad \forall\ \phi \in \mathcal{D}(\Omega) 
+$$</p>
+<h2 id="정의">정의</h2>
+<p>$u \in {L}_{\mathrm{loc}}^1(\Omega)$라고 하자. 만약 다음과 같은 식을 만족하는 $v_{\alpha}$가 존재하면, 이를 $u$의 <strong>약 도함수</strong><sup>weak derivative</sup>, 혹은 <strong>초함수적 도함수</strong><sup>distributional derivative</sup>라고 한다.</p>
+<p>$$
+\begin{align*}
+T_{{v}_{\alpha}} &amp;= {D}^{\alpha}T_{u} &amp; \text{in } \mathcal{D}^{ * }(\Omega) 
+\\  \int_{\Omega}v_{\alpha}(x)\phi(x)dx &amp;= (-1)^{|\alpha|} \int_{\Omega} u(x){D}^{\alpha}\phi(x)dx &amp; \forall\ \phi \in \mathcal{D}(\Omega)
+\end{align*}
+$$</p>
+<h2 id="예시">예시</h2>
+<p>구간 $[-1, 1]$에서 $u$, $v$가 아래와 같이 정의돼있다고 하자.</p>
+<p>$$
+u= |x| \quad \text{and} \quad v=\begin{cases} 1 &amp; 0&lt;x\le1 
 \\  0 &amp; x=0 
 \\  -1 &amp; -1\le x &lt;0 \end{cases} 
 $$
-그러면 $u$는 $x=0$에서 미분이 불가능하므로 $[-1,1]$에서 도함수를 정의할 수 없지만 $v$가 $u$의 약한 도함수가 된다. $v$가 $u$의 약한 도함수가 됨은 아래의 과정으로 확인할 수 있다. $\phi \in \mathcal{D}(\Omega)$라고 하자. 그러면
-$$
-\begin{align</em>}
-\int_{-1}^1 u(x) D^1\phi(x)dx &amp;=  -\int_{-1}^0 x D^1\phi(x)dx + \int_0^1 xD^{1}\phi(x) dx 
-\\  &amp;=- \left( [x\phi(x)]_{-1}^0 -\int_{-1}^0\phi(x)dx \right) + \left( [x\phi(x)]_0^1-\int_0^1 \phi(x)dx \right) 
-\\  &amp;= -\int_{-1}^0\phi(x)dx+\int_0^1\phi(x) dx 
+그러면 $u$는 $x=0$에서 미분이 불가능하므로 $[-1,1]$에서 도함수를 정의할 수 없지만 $v$가 $u$의 약 도함수가 된다. $v$가 $u$의 약 도함수가 됨은 아래의 과정으로 확인할 수 있다. $\phi \in \mathcal{D}(\Omega)$라고 하자. 그러면 다음의 식이 성립한다.</p>
+<p>$$
+\begin{align*}
+-\int_{-1}^1 u(x) \phi^{\prime}(x)dx &amp;= -\int_{-1}^{0} |x| \phi^{\prime}(x) dx -\int_{0}^{1} |x| \phi^{\prime}(x) dx 
+\\ &amp;= -\int_{-1}^{0} -x \phi^{\prime}(x) dx -\int_{0}^{1} x \phi^{\prime}(x) dx 
+\\ &amp;= -\left( [-x\phi(x)]_{-1}^{0} +\int_{-1}^{0}\phi(x)dx \right) - \left( [x\phi(x)]_0^1-\int_0^1 \phi(x)dx \right) 
+\\  &amp;= \int_{-1}^{0} -1 \cdot \phi(x) dx + \int_{0}^{1}\ 1 \cdot \phi(x) dx 
 \\  &amp;= \int_{-1}^1v(x)\phi(x) dx 
-\end{align</em>}
-$$
-두번째 등식에서 정적분항이 모두 $0$이다. 그 이유는 가정에 의해 $\phi$가 컴팩트 서포트를 가지고 따라서 경계에서의 값이 $0$이므로 $\phi(1)=0$, $\phi(-1)=0$이기 때문이다.<p style="text-align: right;">■</p></p>
+\end{align*}
+$$</p>
+<p>실제로 $v(x)$의 값은 $x \ne 0$인 곳에서는 모두 $u'(x)$와 같고, $x=0$에서는 $u(x)$의 [좌우미분계수]의 중간값을 가진다. 따라서 $v(x)$를 $u(x)$의 도함수로 취급해도 무리가 없음을 알 수 있다.</p>
 
 
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var title = '약한 도함수';
+        var title = '약 도함수';
         var link = 'https:\/\/freshrimpsushi.github.io\/posts\/weak-derivatives\/';
         var arr = new Array();
         var obj = {
@@ -443,7 +451,7 @@ $$
         }
         let board_idx = '1085';
         let board_slug = 'weak-derivatives';
-        let board_title = '약한 도함수';
+        let board_title = '약 도함수';
 
         $.ajax({
             type: "POST",
@@ -617,7 +625,7 @@ $$
             }
             let idx = '1085';
             let board_slug = 'weak-derivatives';
-            let board_title = '약한 도함수';
+            let board_title = '약 도함수';
 
             $.ajax({
                 type: "POST",
@@ -685,6 +693,8 @@ $$
         <span style="color:rgb(255,204,000);">●</span> 동역학 (60++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 푸리에해석 (39)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/>
+        <span style="color:rgb(255,051,051);">●</span> 초함수론 (23)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/>
         <span style="color:rgb(051,204,051);">●</span> 토모그래피 (10)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/>
@@ -724,7 +734,7 @@ $$
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (29)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1806)</summary>
+    <summary>전체 포스트 (1807)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -812,7 +822,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (39)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (19)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (20)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (48)</a>
         </li><li>
