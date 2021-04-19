@@ -130,8 +130,9 @@ function executeSearch(term) {
     resultsAvailable = false;
     searchitems = '';
   } else { // build our html 
-    for (let item in results.slice(0,100)) { // only show first 100 results
-		searchitems = searchitems + '<li><a href="' + results[item].item.permalink + '" tabindex="0">' + '<span class="title">' + results[item].item.title + '</span></a></li>';
+    for (let item in results.slice(0,30)) { // only show first 30 results
+		searchitems = searchitems + '<li><a href="' + results[item].item.permalink + '" tabindex="0">' +
+     '<span class="title">' + results[item].item.title + '</span></a></li>';
     }
     resultsAvailable = true;
   }
