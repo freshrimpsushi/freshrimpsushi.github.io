@@ -97,7 +97,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/acf-autocorrelation-function\/",
-    "wordCount" : "1311",
+    "wordCount" : "1305",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -308,10 +308,13 @@ $$
 $$
 인데, 이를 이용해 가설검정을 한다.</p>
 <p>$\displaystyle Y_{t} = e_{t} - \sum_{k=1}^{q} \theta_{k} e_{t-k}$ 이 주어져있고, $k = 1 , \cdots , q$ 이라고 하자.$H_{0}$ : $MA(0) \iff \theta_{k} = 0$, 즉, $Y_{t}$ 는 <a href="../909">이동평균 모형</a>을 따르지 않는다.$H_{1}$ : $MA(k) \iff \theta_{k} \ne 0$, 즉, $Y_{t}$ 는 시차 $k$ 의 자기상관관계를 가진다.</p>
-<p>귀무가설 하에서는 모든 $k$ 에 대해 $ \rho_{k} = \theta_{k} = 0$ 이므로 $q = 0$ 과 $\displaystyle r_{k} \sim N \left( 0 , {{1} \over {N }} \right)$ 을 가정하고 표준오차는 $\displaystyle {{1} \over {\sqrt{n} }} $ 가 된다. 따라서 유의수준 $\alpha$ 에 대해서 가설검정을 하고 싶다면 $| \theta_{k} | $ 가 신뢰구간상한 $\displaystyle {{ z_{1 - \alpha/2} } \over { \sqrt{n} }} $ 을 넘기는지 확인하면 된다. 넘어가면 유의한 시차의 후보가 되고, 넘어가지 못하면 자기상관관계가 없는 것으로 본다.<img src="20190723_125305.png#center" alt="20190723\_125305.png">
-ma1.2.s 데이터는 $MA(1)$ 모델에서 나온 TSA 패키지의 샘플 데이터다. 실제 <a href="../1200">아리마 모형</a>으로 분석할 때 역시 추정치의 절대값이 표준오차의 두 배가 넘는지를 기준으로 유의한 계수인지 파악한다.<img src="1.png#center" alt="1.png">
-한편 TSA 패키지의 acf() 함수를 사용하면 위와 같이 여러 $k$ 에 대해 <strong>코릴로그램</strong><sup>Correlogram</sup> 을 그려준다. 굳이 머릿속으로 계산할 것 없이, 선을 넘어가면 유의한 것으로 보고 넘어가지 않으면 유의하지 않은 것으로 보아도 좋다. 기본적으로 유의수준 $5 %$ 에서 계산된다.여기서 주의해야할 것으로 $k=6$ 에서 살짝 삐져나온 것 역시 통계적으로 유의한 것은 맞지만, 실제로 자기상관관계가 있는것으로 보지는 않는다는 것이다. 시계열 분석에서 이 정도 삐져나오는 경우는 아주 빈번하며, 정신건강을 위해서는 융통성을 발휘하여 그냥 받아들이는 것을 추천한다.<img src="2.png#center" alt="2.png">
-자기상관함수를 이용한 가설검정을 제대로 이해했는지 확인해보는 방법으로써 위와 같이 실제로 선을 직접 그어보는 것을 추천한다. R 에서는 고작 코드 한 줄이지만, 한 번이라도 직접 실행시켜봄으로써 $r_{k}$ 가 정규분포를 따르며, 그 표준오차가 복잡한 수식 없이 $\displaystyle \text{se} ( r_{k} ) =  {{1} \over {\sqrt{n}}}$ 으로 구해진다는 것을 받아들일 수 있다.</p>
+<p>귀무가설 하에서는 모든 $k$ 에 대해 $ \rho_{k} = \theta_{k} = 0$ 이므로 $q = 0$ 과 $\displaystyle r_{k} \sim N \left( 0 , {{1} \over {N }} \right)$ 을 가정하고 표준오차는 $\displaystyle {{1} \over {\sqrt{n} }} $ 가 된다. 따라서 유의수준 $\alpha$ 에 대해서 가설검정을 하고 싶다면 $| \theta_{k} | $ 가 신뢰구간상한 $\displaystyle {{ z_{1 - \alpha/2} } \over { \sqrt{n} }} $ 을 넘기는지 확인하면 된다. 넘어가면 유의한 시차의 후보가 되고, 넘어가지 못하면 자기상관관계가 없는 것으로 본다.</p>
+<p><img src="20190723_125305.png#center" alt="20190723\_125305.png"></p>
+<p>ma1.2.s 데이터는 $MA(1)$ 모델에서 나온 TSA 패키지의 샘플 데이터다. 실제 <a href="../1200">아리마 모형</a>으로 분석할 때 역시 추정치의 절대값이 표준오차의 두 배가 넘는지를 기준으로 유의한 계수인지 파악한다.</p>
+<p><img src="1.png#center" alt="1.png"></p>
+<p>한편 TSA 패키지의 acf() 함수를 사용하면 위와 같이 여러 $k$ 에 대해 <strong>코릴로그램</strong><sup>Correlogram</sup>을 그려준다. 굳이 머릿속으로 계산할 것 없이, 선을 넘어가면 유의한 것으로 보고 넘어가지 않으면 유의하지 않은 것으로 보아도 좋다. 기본적으로 유의수준 $5 %$ 에서 계산된다.여기서 주의해야할 것으로 $k=6$ 에서 살짝 삐져나온 것 역시 통계적으로 유의한 것은 맞지만, 실제로 자기상관관계가 있는것으로 보지는 않는다는 것이다. 시계열 분석에서 이 정도 삐져나오는 경우는 아주 빈번하며, 정신건강을 위해서는 융통성을 발휘하여 그냥 받아들이는 것을 추천한다.</p>
+<p><img src="2.png#center" alt="2.png"></p>
+<p>자기상관함수를 이용한 가설검정을 제대로 이해했는지 확인해보는 방법으로써 위와 같이 실제로 선을 직접 그어보는 것을 추천한다. R 에서는 고작 코드 한 줄이지만, 한 번이라도 직접 실행시켜봄으로써 $r_{k}$ 가 정규분포를 따르며, 그 표준오차가 복잡한 수식 없이 $\displaystyle \text{se} ( r_{k} ) =  {{1} \over {\sqrt{n}}}$ 으로 구해진다는 것을 받아들일 수 있다.</p>
 <pre><code>library(TSA)
 data(ma1.2.s); win.graph(6,4); acf(ma1.2.s)
 arima(ma1.2.s, order=c(0,0,1))
@@ -662,11 +665,11 @@ abline(h=1.96*1/sqrt(length(ma1.2.s)),col='red')
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(255,204,000);">●</span> 함수 (66)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%80%EB%93%B1%EC%8B%9D/>
-        <span style="color:rgb(051,204,051);">●</span> 부등식 (3)</a><br>    
+        <span style="color:rgb(051,204,051);">●</span> 부등식 (5)</a><br>    
     <a href=https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 집합론 (46)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/>
-        <span style="color:rgb(255,204,000);">●</span> 기하학 (10++)</a><br>
+        <span style="color:rgb(255,204,000);">●</span> 기하학 (20++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 행렬대수 (62)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/>
@@ -679,7 +682,7 @@ abline(h=1.96*1/sqrt(length(ma1.2.s)),col='red')
     <a href=https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC%EA%B3%B5%EA%B0%84/>
         <span style="color:rgb(051,204,051);">●</span> 거리공간 (33)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/>
-        <span style="color:rgb(255,051,051);">●</span> 측도론 (59)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 측도론 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 동역학 (60++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/>
@@ -720,12 +723,12 @@ abline(h=1.96*1/sqrt(length(ma1.2.s)),col='red')
     <a href=https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/>
         <span style="color:rgb(051,204,051);">●</span> 프로그래밍 (20+)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/>
-        <span style="color:rgb(051,204,051);">●</span> 알고리즘 (39)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 알고리즘 (27)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/>
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (29)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1810)</summary>
+    <summary>전체 포스트 (1811)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -767,7 +770,7 @@ abline(h=1.96*1/sqrt(length(ma1.2.s)),col='red')
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (52)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (54)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (55)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (54)</a>
         </li><li>

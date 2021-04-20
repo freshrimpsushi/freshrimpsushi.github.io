@@ -97,7 +97,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-interpret-arima-model-summary-in-r\/",
-    "wordCount" : "854",
+    "wordCount" : "847",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -286,12 +286,14 @@ margin-right: auto;">
 </p>
 
 <ul>
-<li>하단에 예제코드 전체가 있다.<u>* 수학, 통계적인 기초가 부족한 비전공자는 밑줄 그어진 부분만 읽어도 상관 없다.</u><img src="ap.png#center" alt="ap.png">
-R <a href="../331">내장데이터</a> AirPassenger는 1949년부터 1960년까지 월별 항공기의 승객 수에 대한 데이터다.<img src="20190716_172754.png#center" alt="20190716\_172754.png"></li>
+<li>하단에 예제코드 전체가 있다.<u>* 수학, 통계적인 기초가 부족한 비전공자는 밑줄 그어진 부분만 읽어도 상관 없다.</u><img src="ap.png#center" alt="ap.png"></li>
 </ul>
-<p>(1) 모형**  : <u>사실 계수만 제대로 파악할 수 있다면 중요한 것은 아니다.</u> <a href="../1067">계절형 아리마 모형</a> $ARIMA(p,d,q)\times(P,D,Q)_{s}$ 을 나타낸다. 예로써 위 분석의 결과인 ARIMA(0,1,1)(0,1,1)[12]는 $ARIMA(0,1,1)\times(0,1,1)_{12}$ 를 의미한다.</p>
-<p>(2) 계수**  : <u>모형에 맞는 계수를 나타낸다. ma1은 <a href="../909">이동평균과정</a>의 계수 $\theta_{1}$ 이고, sma1은 계절성이 적용된 계수다. 앞부분은 모형의 종류, 뒷부분은 시차를 나타낸다. 보다시피 s-가 붙으면 계절성이 적용되는 것이다.</u><u>위 분석 결과에는 없지만 ar은 <a href="../910">자기회귀과정</a>의 계수 $\phi$ 를 의미한다.</u> drift는 <a href="../1115">드리프트</a>라고 하는 것으로, 자주 보이지 않고 나타나도 대개는 유의하지 않으나 대략적으로는 알아둘 필요가 있다.<img src="20190717_140622.png#center" alt="20190717\_140622.png">
-**(3) 표준오차**  : 이것을 통해 가설검정을 한다. <u>대강 계수의 절대값이 표준오차의 2배 이상이면 유의한 계수로 본다.</u> 여기서 하필 2배인 이유는 보통 유의수준이 $ \alpha = 0.05$ 기 때문이다. 더 정확하게 하고싶다면 1.96배를 사용하면 되고, 자연스럽게 유의수준 $\alpha = 0.01$ 이라면 2.58배, $\alpha = 0.1$ 이라면 1.65배를 사용하면 된다는 것을 알 수 있을 것이다. [ **NOTE**  : 이론적으로는 <a href="../1209">표본자기상관함수</a>와 <a href="../1211">표본편자기상관함수</a>가 정규분포를 따른다는 사실을 이해해야한다. 적어도 통계 전공자라면 한 번은 제대로 공부하는 것을 추천한다. ]가령 바로 위의 oil.price에 대한 분석을 보자.ar1 : $| \phi_{1} | = 0.4574 &lt; 0.2722 \times 2 = 0.5444$ 이므로 유의하지 않다. ma1 : $| \theta_{1} | = 0.2400 &lt; 0.2722 \times 2 = 0.5508$ 이므로 유의하지 않다. ma2 : $| \theta_{2} | = 0.2563 &gt; 0.0736 \times 2 = 0.1472$ 이므로 유의하다. drift : $ | b | = 0.1812 &lt; 0.1246 \times 2 = 0.2492$ 이므로 유의하지 않다. 다시 말해 $ARIMA(0,1,2)$ 모형에 $\theta_{1} = 0$ 이나 마찬가지고, 식으로 써보자면
+<p>R <a href="../331">내장데이터</a> AirPassenger는 1949년부터 1960년까지 월별 항공기의 승객 수에 대한 데이터다.</p>
+<p><img src="20190716_172754.png#center" alt="20190716\_172754.png"></p>
+<p>(1) 모형**: <u>사실 계수만 제대로 파악할 수 있다면 중요한 것은 아니다.</u> <a href="../1067">계절형 아리마 모형</a> $ARIMA(p,d,q)\times(P,D,Q)_{s}$ 을 나타낸다. 예로써 위 분석의 결과인 ARIMA(0,1,1)(0,1,1)[12]는 $ARIMA(0,1,1)\times(0,1,1)_{12}$ 를 의미한다.</p>
+<p>(2) 계수**: <u>모형에 맞는 계수를 나타낸다. ma1은 <a href="../909">이동평균과정</a>의 계수 $\theta_{1}$ 이고, sma1은 계절성이 적용된 계수다. 앞부분은 모형의 종류, 뒷부분은 시차를 나타낸다. 보다시피 s-가 붙으면 계절성이 적용되는 것이다.</u><u>위 분석 결과에는 없지만 ar은 <a href="../910">자기회귀과정</a>의 계수 $\phi$ 를 의미한다.</u> drift는 <a href="../1115">드리프트</a>라고 하는 것으로, 자주 보이지 않고 나타나도 대개는 유의하지 않으나 대략적으로는 알아둘 필요가 있다.</p>
+<p><img src="20190717_140622.png#center" alt="20190717\_140622.png"></p>
+<p><strong>(3) 표준오차</strong>: 이것을 통해 가설검정을 한다. <u>대강 계수의 절대값이 표준오차의 2배 이상이면 유의한 계수로 본다.</u> 여기서 하필 2배인 이유는 보통 유의수준이 $ \alpha = 0.05$ 기 때문이다. 더 정확하게 하고싶다면 1.96배를 사용하면 되고, 자연스럽게 유의수준 $\alpha = 0.01$ 이라면 2.58배, $\alpha = 0.1$ 이라면 1.65배를 사용하면 된다는 것을 알 수 있을 것이다. [ <strong>NOTE</strong>: 이론적으로는 <a href="../1209">표본자기상관함수</a>와 <a href="../1211">표본편자기상관함수</a>가 정규분포를 따른다는 사실을 이해해야한다. 적어도 통계 전공자라면 한 번은 제대로 공부하는 것을 추천한다. ]가령 바로 위의 oil.price에 대한 분석을 보자.ar1 : $| \phi_{1} | = 0.4574 &lt; 0.2722 \times 2 = 0.5444$ 이므로 유의하지 않다. ma1 : $| \theta_{1} | = 0.2400 &lt; 0.2722 \times 2 = 0.5508$ 이므로 유의하지 않다. ma2 : $| \theta_{2} | = 0.2563 &gt; 0.0736 \times 2 = 0.1472$ 이므로 유의하다. drift : $ | b | = 0.1812 &lt; 0.1246 \times 2 = 0.2492$ 이므로 유의하지 않다. 다시 말해 $ARIMA(0,1,2)$ 모형에 $\theta_{1} = 0$ 이나 마찬가지고, 식으로 써보자면
 $$
 \nabla y_{t} = e_{t} + 0.2563 e_{t-2}
 $$
@@ -642,11 +644,11 @@ $$
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(255,204,000);">●</span> 함수 (66)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%80%EB%93%B1%EC%8B%9D/>
-        <span style="color:rgb(051,204,051);">●</span> 부등식 (3)</a><br>    
+        <span style="color:rgb(051,204,051);">●</span> 부등식 (5)</a><br>    
     <a href=https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 집합론 (46)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/>
-        <span style="color:rgb(255,204,000);">●</span> 기하학 (10++)</a><br>
+        <span style="color:rgb(255,204,000);">●</span> 기하학 (20++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 행렬대수 (62)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/>
@@ -659,7 +661,7 @@ $$
     <a href=https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC%EA%B3%B5%EA%B0%84/>
         <span style="color:rgb(051,204,051);">●</span> 거리공간 (33)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/>
-        <span style="color:rgb(255,051,051);">●</span> 측도론 (59)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 측도론 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 동역학 (60++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/>
@@ -700,12 +702,12 @@ $$
     <a href=https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/>
         <span style="color:rgb(051,204,051);">●</span> 프로그래밍 (20+)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/>
-        <span style="color:rgb(051,204,051);">●</span> 알고리즘 (39)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 알고리즘 (27)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/>
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (29)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1810)</summary>
+    <summary>전체 포스트 (1811)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -747,7 +749,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (52)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (54)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (55)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (54)</a>
         </li><li>
