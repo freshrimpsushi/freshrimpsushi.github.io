@@ -56,7 +56,7 @@
 {
     "@context": "http://schema.org",
     "@type": "BlogPosting",
-    "articleSection": "j_",
+    "articleSection": "r_",
     "name": "아리마 모형에서의 드리프트",
     "headline": "아리마 모형에서의 드리프트",
     "alternativeHeadline": "",
@@ -69,15 +69,15 @@
     },
     "author" : {
         "@type": "Person",
-        "name": "전기현"
+        "name": "류대식"
     },
     "creator" : {
         "@type": "Person",
-        "name": "전기현"
+        "name": "류대식"
     },
     "accountablePerson" : {
         "@type": "Person",
-        "name": "전기현"
+        "name": "류대식"
     },
     "copyrightHolder" : "생새우초밥집",
     "copyrightYear" : "2019",
@@ -97,9 +97,9 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/drift-in-arima-model\/",
-    "wordCount" : "1165",
-    "genre" : [ ],
-    "keywords" : [ ]
+    "wordCount" : "1097",
+    "genre" : [ "R" ],
+    "keywords" : [ "R" ]
 }
 </script>
 
@@ -259,7 +259,7 @@
     </span>
     
     작성일: 2019-05-30&nbsp;<br>
-    작성자: 전기현 사장 &nbsp;
+    작성자: 류대식 사장 &nbsp;
 </p>
 </aside>
 
@@ -267,26 +267,24 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#설명">설명</a>
+      <ul>
+        <li><a href="#수식적인-설명">수식적인 설명</a></li>
+      </ul>
+    </li>
+    <li><a href="#실습">실습</a></li>
+    <li><a href="#코드">코드</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-*하단에 예제코드 전체가 있다.<u>*수학, 통계적인 기초가 부족한 비전공자는 밑줄 그어진 부분만 읽어도 상관 없다.</u>시계열 분석을 하다보면 종종 다음과 같이 <strong>드리프트</strong> 라는 계수를 보게 된다.<img src="20190716_155512.png#center" alt="20190716\_155512.png">
-물론 위의 경우 표준오차에 비해서 계수의 크기가 너무 작기 때문에 무시해도 상관 없다. 그러나 실제로 유의한 계수인 동시에 수식으로도 써야할 일이 있다면 드리프트가 무엇인지 알아야한다. 아쉽게도 국내에는 드리프트가 도대체 무엇인지에 대한 좋은 설명이 없으며, <u>수식을 동원하지 않고서는 &lsquo;상수항 비슷한 것&rsquo;이라는 설명밖에 할 수 없다. 수식을 읽을 생각이 없고 분석에 마땅히 중요한 것도 아니며 그래서 궁금하지도 않다면 그냥 상수항, 평균정도로 알고 넘어가도 상관 없다. 아래에 등장할 두 번째 분석만 보면 된다.</u> 물론 전공자라면 적어도 한 번은 수식 전개를 따라가보는 것을 강력하게 권장한다.수식적인 설명은 <a href="../941">아리마 모형</a>
+<h2 id="설명">설명</h2>
+<p>계열 분석을 하다보면 종종 다음과 같이 <strong>드리프트</strong> 라는 계수를 보게 된다.</p>
+<p><img src="20190716_155512.png#center" alt="20190716\_155512.png"></p>
+<p>물론 위의 경우 표준오차에 비해서 계수의 크기가 너무 작기 때문에 무시해도 상관 없다. 그러나 실제로 유의한 계수인 동시에 수식으로도 써야할 일이 있다면 드리프트가 무엇인지 알아야한다. 아쉽게도 국내에는 드리프트가 도대체 무엇인지에 대한 좋은 설명이 없으며, 수식을 동원하지 않고서는 &lsquo;상수항 비슷한 것&rsquo;이라는 설명밖에 할 수 없다.</p>
+<p>수식을 읽을 생각이 없고 분석에 마땅히 중요한 것도 아니며 그래서 궁금하지도 않다면 그냥 상수항, 평균정도로 알고 넘어가도 상관 없다. 아래에 등장할 두 번째 분석만 보면 된다. 물론 전공자라면 적어도 한 번은 수식 전개를 따라가보는 것을 강력하게 권장한다.</p>
+<h3 id="수식적인-설명">수식적인 설명</h3>
+<p><a href="../941">아리마 모형</a>
 $$
 \nabla^{d} Y_{t} := \sum_{i = 1}^{p} \phi_{i} \nabla^{d} Y_{t-i} + e_{t} - \sum_{i = 1}^{q} \theta_{i} e_{t-i}
 $$
@@ -319,19 +317,18 @@ $$
 $$
 식 $(2)$ 에서 $a$ 를 <strong>절편</strong><sup>Intercept</sup> , $b$ 를 <strong>드리프트</strong><sup>Drift</sup> 라고 부른다. <a href="../916">차분</a>을 풀어헤쳐보면
 $$
-\phi(B) (1 - B) \left( Y_{t} - a - b t \right) = \theta(B) e_{t}
+\begin{eqnarray*}
+&amp;&amp; \phi(B) (1 - B) \left( Y_{t} - a - b t \right) = \theta(B) e_{t}
+\\ &amp;\iff&amp; \phi(B) \left[ \left( Y_{t} - a - b t \right) - \left( Y_{t-1} - a - b (t-1) \right) \right] = \theta(B) e_{t}
+\\ &amp;\iff&amp; \phi(B) \left[ Y_{t} - Y_{t-1} - a + a - bt - b(t-1) \right] = \theta(B) e_{t}
+\\ &amp;\iff&amp; \phi(B) \left( \nabla Y_{t} - b \right) = \theta(B) e_{t}
+\end{eqnarray*}
 $$</p>
-<p>$$
-\iff \phi(B) \left[ \left( Y_{t} - a - b t \right) - \left( Y_{t-1} - a - b (t-1) \right) \right] = \theta(B) e_{t}
-$$</p>
-<p>$$
-\iff \phi(B) \left[ Y_{t} - Y_{t-1} - a + a - bt - b(t-1) \right] = \theta(B) e_{t}
-$$</p>
-<p>$$
-\iff \phi(B) \left( \nabla Y_{t} - b \right) = \theta(B) e_{t}
-$$
-결국 $b$ 는 $(1)$ 에서의 $c$ 와 같은 역할이 되므로 드리프트라고 부르는 것이 타당함을 알 수 있다. 물론 차분이 두 번 이상 필요한 분석은 거의 없지만, 이와 같은 방법으로 자연수 $d$ 에 대해서도 일반화 할 수 있다. [ <strong>NOTE</strong>  : 수학적인 감각에 익숙한 사람이라면 $(2)$ 에서 상수항 $a$ 에 차분을 취하면 없어지는 현상에서 미분을 떠올릴 수 있을 것이다. ]<img src="20190716_155837.png#center" alt="20190716\_155837.png">
-다시 분석으로 돌아와보자. 보다시피, 아니 보나마다 그냥 데이터의 $ARIMA(1,1,2)$ 와 <a href="../916">차분</a>을 취한 데이터의 $ARIMA(1,0,2)$ 은 당연히 똑같을 수밖에 없다. <u>단 한가지 달라진 게 있다면 $ARIMA(1,1,2)$ 에서 drift라고 적혀있던 계수의 이름이 $ARIMA(1,0,2)$ 에서는 mean으로 바뀐 것이다. 수식을 이해했으면 더 좋겠지만, 이해하지 못했더라도 드리프트가 &lsquo;상수항, 평균 비슷한 것이라는 정도&rsquo;는 짐작할 수 있을 것이다.</u></p>
+<p>결국 $b$ 는 $(1)$ 에서의 $c$ 와 같은 역할이 되므로 드리프트라고 부르는 것이 타당함을 알 수 있다. 물론 차분이 두 번 이상 필요한 분석은 거의 없지만, 이와 같은 방법으로 자연수 $d$ 에 대해서도 일반화 할 수 있다. [ <strong>NOTE</strong>  : 수학적인 감각에 익숙한 사람이라면 $(2)$ 에서 상수항 $a$ 에 차분을 취하면 없어지는 현상에서 미분을 떠올릴 수 있을 것이다. ]</p>
+<h2 id="실습">실습</h2>
+<p><img src="20190716_155837.png#center" alt="20190716\_155837.png">
+다시 분석으로 돌아와보자. 보다시피, 아니 보나마나 그냥 데이터의 $ARIMA(1,1,2)$ 와 <a href="../916">차분</a>을 취한 데이터의 $ARIMA(1,0,2)$ 은 당연히 똑같을 수밖에 없다. 단 한가지 달라진 게 있다면 $ARIMA(1,1,2)$ 에서 <code>drift</code>라고 적혀있던 계수의 이름이 $ARIMA(1,0,2)$ 에서는 <code>mean</code>으로 바뀐 것이다. 수식을 이해했으면 더 좋겠지만, 이해하지 못했더라도 드리프트가 &lsquo;상수항, 평균 비슷한 것&rsquo;이라는 정도는 짐작할 수 있을 것이다.</p>
+<h2 id="코드">코드</h2>
 <pre><code>library(TSA)
 data(&quot;oil.price&quot;)
 out&lt;-auto.arima(oil.price); summary(out)
@@ -745,7 +742,7 @@ out&lt;-auto.arima(diff(oil.price)); summary(out)
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (29)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1811)</summary>
+    <summary>전체 포스트 (1812)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -841,7 +838,7 @@ out&lt;-auto.arima(diff(oil.price)); summary(out)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (74)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (60)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (61)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (54)</a>
         </li><li>

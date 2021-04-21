@@ -97,9 +97,9 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-analyze-time-series-with-arima-model-in-r\/",
-    "wordCount" : "862",
-    "genre" : [ ],
-    "keywords" : [ ]
+    "wordCount" : "754",
+    "genre" : [ "R" ],
+    "keywords" : [ "R" ]
 }
 </script>
 
@@ -267,33 +267,29 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#실습">실습</a>
+      <ul>
+        <li><a href="#주의사항">주의사항</a></li>
+        <li><a href="#확인">확인</a></li>
+      </ul>
+    </li>
+    <li><a href="#코드">코드</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-<ul>
-<li>하단에 예제코드 전체가 있다.* 수학, 통계적인 기초가 부족한 비전공자인데 당장 분석을 해야하는 사람들을 위해서 쓰인 글이다. 가능하다면 <a href="../1213">이론적인 배경</a>을 충분히 숙지한 후 <a href="../1216">제대로 된 방법</a>으로 하는 게 좋다.R에서 <a href="../331">내장데이터 WWWusage</a>를 불러와 그래프를 그려 확인해보자.</li>
-</ul>
+<h2 id="실습">실습</h2>
+<p>R에서 <a href="../331">내장데이터</a> <code>WWWusage</code> 를 불러와 그래프를 그려 확인해보자.</p>
 <p><img src="1.png#center" alt="1.png"></p>
-<p>WWWusage는 먼 옛날 인터넷에 접속하는 이용자수를 나타내는 시계열 데이터로써, 그 추이를 파악하기 위해서는 <a href="../900">시계열 분석</a>을 해야한다. 시계열 분석에서 가장 대표적인 모형은 <a href="../941">아리마 모형</a>이나, 같은 <a href="../941">아리마 모형</a>이라고 해도 실제로 적절한 모형을 찾아내는 방법은 여러가지가 있다.</p>
+<p><code>WWWusage</code>는 먼 옛날 인터넷에 접속하는 이용자수를 나타내는 시계열 데이터로써, 그 추이를 파악하기 위해서는 <a href="../900">시계열 분석</a>을 해야한다. 시계열 분석에서 가장 대표적인 모형은 <a href="../941">아리마 모형</a>이나, 같은 <a href="../941">아리마 모형</a>이라고 해도 실제로 적절한 모형을 찾아내는 방법은 여러가지가 있다.</p>
 <p><img src="20190716_114655.png#center" alt="20190716\_114655.png"></p>
-<p>다행스럽게도 R 에서는 forecast 패키지의 auto.arima() 함수를 사용해 쉽고 빠르게 그럴싸한 모형을 얻을 수 있다. <a href="../1213">옳게 된 분석</a>이라고는 할 수 없으나, 간단한 분석이라면 사실 이 함수를 사용하는 것만으로도 분석의 반 이상이 끝난다. auto.arima()는 <a href="../826">변수 선택 기준</a>과 <a href="../821">변수 선택 절차</a>를 따라 최적의 모형을 찾아내준다.물론 이것이 최고, 최선의 모형이라는 뜻은 아니므로, 분석자는 데이터를 정확하게 이해하고 그에 맞는 모형을 계속 찾아야한다. 숙련된 분석자에게도 대강의 결과를 얻을 수 있다는 점에서 충분히 유용한 것은 사실이나, auto.arima()에 의지하는 태도는 지양해야한다.주의해야할 점으로 <a href="../941">아리마 모형</a>은 <a href="../907">정상성</a>을 만족하는 데이터에 대한 결과를 내놓는데, $ARIMA ( p , d , q )$ 에서 $d$ 가 필요한 <a href="../916">차분</a>의 횟수라는 것이다. 다시 말해, 데이터에 <a href="../938">변환</a>이 필요하다면 <a href="../938">변환</a>을 한 데이터를 집어넣어야하지만 <a href="../916">차분</a>이 필요한 데이터라도 <a href="../916">차분</a>을 해선 안 된다는 것이다. 물론 적절하게 <a href="../916">차분</a>을 한다면 그에 맞는 <a href="../914">아르마 모형</a> $ARMA(p,q)$ 을 얻을 수 있다.말이 복잡한데, 이해하기 어려우면 그냥 다음의 단순한 수칙 두 가지만 생각하자 :<strong>(1)</strong>  <a href="../938">변환</a>이 필요하면 auto.arima()에 넣기 전에 <a href="../938">변환</a>을 해야한다.<strong>(2)</strong>  <a href="../916">차분</a>이 필요해도 auto.arima()에 넣기 전에 <a href="../916">차분</a>을 하면 안 된다.</p>
+<p>다행스럽게도 R 에서는 <code>forecast</code> 패키지의 <code>auto.arima()</code> 함수를 사용해 쉽고 빠르게 그럴싸한 모형을 얻을 수 있다. <a href="../1213">옳게 된 분석</a>이라고는 할 수 없으나, 간단한 분석이라면 사실 이 함수를 사용하는 것만으로도 분석의 반 이상이 끝난다. <code>auto.arima()</code>는 <a href="../826">변수 선택 기준</a>과 <a href="../821">변수 선택 절차</a>를 따라 최적의 모형을 찾아내준다.물론 이것이 최고, 최선의 모형이라는 뜻은 아니므로, 분석자는 데이터를 정확하게 이해하고 그에 맞는 모형을 계속 찾아야한다. 숙련된 분석자에게도 대강의 결과를 얻을 수 있다는 점에서 충분히 유용한 것은 사실이나, <code>auto.arima()</code>에 의지하는 태도는 지양해야한다.</p>
+<h3 id="주의사항">주의사항</h3>
+<p>주의해야할 점으로 <a href="../941">아리마 모형</a>은 <a href="../907">정상성</a>을 만족하는 데이터에 대한 결과를 내놓는데, $ARIMA ( p , d , q )$ 에서 $d$ 가 필요한 <a href="../916">차분</a>의 횟수라는 것이다. 다시 말해, 데이터에 <a href="../938">변환</a>이 필요하다면 <a href="../938">변환</a>을 한 데이터를 집어넣어야하지만 <a href="../916">차분</a>이 필요한 데이터라도 <a href="../916">차분</a>을 해선 안 된다는 것이다. 물론 적절하게 <a href="../916">차분</a>을 한다면 그에 맞는 <a href="../914">아르마 모형</a> $ARMA(p,q)$ 을 얻을 수 있다.말이 복잡한데, 이해하기 어려우면 그냥 다음의 단순한 수칙 두 가지만 생각하자 :<strong>(1)</strong>  <a href="../938">변환</a>이 필요하면 <code>auto.arima()</code>에 넣기 전에 <a href="../938">변환</a>을 해야한다.<strong>(2)</strong>  <a href="../916">차분</a>이 필요해도 <code>auto.arima()</code>에 넣기 전에 <a href="../916">차분</a>을 하면 안 된다.</p>
+<h3 id="확인">확인</h3>
 <p><img src="3.png#center" alt="3.png"></p>
 <p>위에서 얻은 모형을 통해 얻은 적합치가 실제 데이터를 얼마나 잘 설명하는지 확인해보자. 검은 실선은 실제 데이터고, 빨간 실선은 적합치다. 쉬운 데이터기는 하지만 모형이 데이터를 잘 설명하는 것을 알 수 있다.</p>
+<h2 id="코드">코드</h2>
 <pre><code>install.packages(&quot;forecast&quot;)
 library(forecast)
  
@@ -713,7 +709,7 @@ lines(out$fitted,col='red')
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (29)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1811)</summary>
+    <summary>전체 포스트 (1812)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -809,7 +805,7 @@ lines(out$fitted,col='red')
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (74)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (60)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (61)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (54)</a>
         </li><li>

@@ -97,9 +97,9 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/transformation\/",
-    "wordCount" : "460",
-    "genre" : [ ],
-    "keywords" : [ ]
+    "wordCount" : "499",
+    "genre" : [ "R" ],
+    "keywords" : [ "R" ]
 }
 </script>
 
@@ -267,36 +267,51 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#빌드업">빌드업</a></li>
+    <li><a href="#테스트-1">테스트 </a></li>
+    <li><a href="#실습">실습</a></li>
+    <li><a href="#코드">코드</a></li>
+    <li><a href="#같이보기">같이보기</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-<a href="../805">회귀분석에서의 변환</a>시계열에서 변환이 필요한 이유는 시간이 흐를수록 분산이 커지는 경우 그에 따른 &lsquo;패널티&rsquo;를 줘서 분산을 일정하게 하고 <a href="../907">정상성</a>을 얻기 위함이다. 루트 $\sqrt{}$ 나 로그 $\log$ 는 값이 클수록 줄어드는 양이 많기 때문에 자주 사용된다. 당연하지만 분산이 줄어드는 경우에는 데이터의 추이가 어떤 점으로 수렴한다는 의미가 되므로 변환 이전에 시계열 분석조차 필요 없다.눈대중만으로 변환을 취하는 게 맞는지, 어떤 변환을 취하는 게 적절한지 확신이 서지 않을 땐 보통 <a href="../1065">박스-칵스 변환의 가설검정</a>을 이용하며, 거꾸로 왜 변환을 더 이상 취할 필요가 없는지를 정당화하는데도 쓸 수 있다.<a href="../331">내장데이터</a> UKgas를 불러와보자.</p>
+<h2 id="빌드업">빌드업</h2>
+<p>시계열에서 변환이 필요한 이유는 시간이 흐를수록 분산이 커지는 경우 그에 따른 &lsquo;패널티&rsquo;를 줘서 분산을 일정하게 하고 <a href="../907">정상성</a>을 얻기 위함이다. 루트 $\sqrt{}$ 나 로그 $\log$ 는 값이 클수록 줄어드는 양이 많기 때문에 자주 사용된다. 당연하지만 분산이 줄어드는 경우에는 데이터의 추이가 어떤 점으로 수렴한다는 의미가 되므로 변환 이전에 시계열 분석조차 필요 없다.</p>
+<h2 id="테스트-1">테스트 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<blockquote>
+<p><a href="../1065">박스-칵스 변환</a>:
+$$g(x) := \begin{cases} \displaystyle {{ x^{\lambda} - 1 } \over { \lambda }} &amp; , \lambda \ne 0 
+\\  \log x &amp; , \lambda = 0 \end{cases}$$</p>
+</blockquote>
+<p>눈대중만으로 변환을 취하는 게 맞는지, 어떤 변환을 취하는 게 적절한지 확신이 서지 않을 땐 보통 <a href="../1065">박스-칵스 변환의 가설검정</a>을 이용하며, 거꾸로 왜 변환을 더 이상 취할 필요가 없는지를 정당화하는데도 쓸 수 있다.</p>
+<h2 id="실습">실습</h2>
+<p><a href="../331">내장데이터</a> <code>UKgas</code>를 불러와보자.</p>
 <p><img src="20190303_121926.png#center" alt="20190303\_121926.png"></p>
 <p><img src="UKgas.png#center" alt="UKgas.png"></p>
-<p>UKgas는 영국에서 가스의 소비량을 분기별로 기록한 데이터로써, 보다시피 해가 가면서 변동이 더욱 심해지는 것을 알 수 있다. 이렇듯 분산이 일정하지 않은 경우엔 원활한 분석이 어렵다. 따라서 로그와 같은 변환을 해줌으로써 데이터를 다루기 편하게 만들어주어야한다.</p>
+<p><code>UKgas</code>는 영국에서 가스의 소비량을 분기별로 기록한 데이터로써, 보다시피 해가 가면서 변동이 더욱 심해지는 것을 알 수 있다. 이렇듯 분산이 일정하지 않은 경우엔 원활한 분석이 어렵다. 따라서 로그와 같은 변환을 해줌으로써 데이터를 다루기 편하게 만들어주어야한다.</p>
 <p><img src="20190303_121915.png#center" alt="20190303\_121915.png"></p>
 <p><img src="logUKgas.png#center" alt="logUKgas.png"></p>
-<p>변환을 취하자 완벽하지는 않지만 눈에 띄게 분산이 일정해진 것을 알 수 있다.아래는 예제 코드다.</p>
+<p>변환을 취하자 완벽하지는 않지만 눈에 띄게 분산이 일정해진 것을 알 수 있다.</p>
+<h2 id="코드">코드</h2>
+<p>아래는 예제 코드다.</p>
 <pre><code>UKgas
 win.graph(4,4); plot(UKgas,main='UKgas')
 log(UKgas)
 win.graph(4,4); plot(log(UKgas),main='log(UKgas)')
-</code></pre>
+</code></pre><h2 id="같이보기">같이보기</h2>
+<ul>
+<li><a href="../805">회귀분석에서의 변환</a></li>
+</ul>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Cryer. (2008). Time Series Analysis: With Applications in R(2nd Edition): p101. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
 
 
 <script type="text/javascript">
@@ -705,7 +720,7 @@ win.graph(4,4); plot(log(UKgas),main='log(UKgas)')
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (29)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1811)</summary>
+    <summary>전체 포스트 (1812)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -801,7 +816,7 @@ win.graph(4,4); plot(log(UKgas),main='log(UKgas)')
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (74)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (60)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (61)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (54)</a>
         </li><li>

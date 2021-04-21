@@ -97,7 +97,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/trapezoidal-method\/",
-    "wordCount" : "1395",
+    "wordCount" : "1392",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -318,9 +318,11 @@ $$
 $$
 \displaystyle Y_{n+1} = Y_{n-1} + {{h} \over {2}} [ f ( x_{n} , Y_{n} ) + f ( x_{n+1} , Y_{n+1} ) ] - {{h^3 } \over {12}} Y^{(3)} ( \xi_{n}) 
 $$
-에서 유도되어 $O( h^3 )$ 에 의존하는 절삭 오차를 가지므로, $|y_{n+1} - y_{n+1}^{(j)} |$ 는 못해도 $O(h^4 )$ 보다는 작아줘야 한다.설명을 읽어보면 알겠지만 위와 같은 설명대로 코드를 짠다면 본질적으로는 오일러 메소드와 다르지 않고, 실제로도 오일러 메소드를 포함하고 있다. 다만 그것을 사다리꼴 메소드를 통해서 보정한다고 보는 것이 적절하다. 그래서 이런 알고리즘을 <strong>프레딕터-커렉터 알고리즘</strong><sup>Predictor-Corrector Algorithm</sup> 이라고 부른다. 여기서 예측자Predictor의 역할은 오일러 메소드가, 수정자Corrector의 역할은 사다리꼴 메소드가 맡고 있다. 적절한 값을 예측하고 그것을 수정하는 식으로 수치적인 해를 찾는 것이다.<img src="20181009_141134.png#center" alt="20181009\_141134.png">
+에서 유도되어 $O( h^3 )$ 에 의존하는 절삭 오차를 가지므로, $|y_{n+1} - y_{n+1}^{(j)} |$ 는 못해도 $O(h^4 )$ 보다는 작아줘야 한다.설명을 읽어보면 알겠지만 위와 같은 설명대로 코드를 짠다면 본질적으로는 오일러 메소드와 다르지 않고, 실제로도 오일러 메소드를 포함하고 있다. 다만 그것을 사다리꼴 메소드를 통해서 보정한다고 보는 것이 적절하다. 그래서 이런 알고리즘을 <strong>프레딕터-커렉터 알고리즘</strong><sup>Predictor-Corrector Algorithm</sup> 이라고 부른다. 여기서 예측자Predictor의 역할은 오일러 메소드가, 수정자Corrector의 역할은 사다리꼴 메소드가 맡고 있다. 적절한 값을 예측하고 그것을 수정하는 식으로 수치적인 해를 찾는 것이다.</p>
+<p><img src="20181009_141134.png#center" alt="20181009\_141134.png">
 위 스크린샷은 초기값 문제 $\begin{cases} \displaystyle y&rsquo; = {{1} \over {1 + x^2 }} - 2y^2 
-\\  y(0) = 0  \end{cases}$ 를 사다리꼴 메소드와 오일러 메소드로 풀고 트루 솔루션 $\displaystyle Y = {{x } \over {1 + x^2}}$ 으로 오차를 비교한 결과다. 당연하지만 사다리꼴 메소드의 오차가 훨씬 작다.<img src="20181009_141144.png#center" alt="20181009\_141144.png">
+\\  y(0) = 0  \end{cases}$ 를 사다리꼴 메소드와 오일러 메소드로 풀고 트루 솔루션 $\displaystyle Y = {{x } \over {1 + x^2}}$ 으로 오차를 비교한 결과다. 당연하지만 사다리꼴 메소드의 오차가 훨씬 작다.</p>
+<p><img src="20181009_141144.png#center" alt="20181009\_141144.png">
 위 스크린샷은 초기값 문제 $\begin{cases} \displaystyle y' = x - y^2 
 \\  y(0) = 0  \end{cases}$ 사다리꼴 메소드와 미드포인트 메소드로 풀고 그 수치해를 비교한 결과다. 미드포인트 메소드는 뒤로 가면서 값이 요동치는 걸 보아 <a href="../701">패러사이틱 솔루션</a>이 있는데, 사다리꼴 메소드는 안정적으로 문제를 잘 풀어주고 있다.아래는 R 로 작성한 코드다.j는 이터레이션을 반복할 횟수로써, 따로 입력하지 않으면 오일러 메소드로 한번 찍기만 하고 넘어간다.</p>
 <pre><code>Euler&lt;-function(f,Y\_0,a,b,h=10^(-3))
@@ -384,7 +386,7 @@ g&lt;-function(x,y) {x-y^2}
 out&lt;-Trapezoidal(g,seq(0,0,len=1),0,3.25,h=0.25)
 out[,1]
 out&lt;-Midpoint(g,seq(0,0,len=1),0,3.25,h=0.25)
-out[,1][Colored by Color Scripter](http://colorscripter.com/info#e)
+out[,1]
 </code></pre>
 
 
@@ -794,7 +796,7 @@ out[,1][Colored by Color Scripter](http://colorscripter.com/info#e)
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (29)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1811)</summary>
+    <summary>전체 포스트 (1812)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -890,7 +892,7 @@ out[,1][Colored by Color Scripter](http://colorscripter.com/info#e)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (74)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (60)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (61)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (54)</a>
         </li><li>
