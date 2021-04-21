@@ -97,9 +97,9 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/additive-outlier\/",
-    "wordCount" : "764",
-    "genre" : [ ],
-    "keywords" : [ ]
+    "wordCount" : "759",
+    "genre" : [ "R" ],
+    "keywords" : [ "R" ]
 }
 </script>
 
@@ -113,7 +113,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/basic.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D.png style="max-height: 80px; width: auto;">
             
             
             
@@ -254,7 +254,7 @@
 
     
     
-            <a href="https://freshrimpsushi.github.io/categories/%EC%8B%9C%EA%B3%84%EC%97%B4%EB%B6%84%EC%84%9D/" style="color: black">시계열분석</a>&emsp;
+            <a href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/" style="color: black">통계적분석</a>&emsp;
             
     </span>
     
@@ -267,38 +267,36 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#빌드업">빌드업</a></li>
+    <li><a href="#정의-1">정의 </a></li>
+    <li><a href="#실습">실습</a></li>
+    <li><a href="#코드">코드</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-<ul>
-<li>하단에 예제코드 전체가 있다.</li>
-</ul>
+<h2 id="빌드업">빌드업</h2>
 <p><img src="1.png#center" alt="1.png"></p>
-<p>위의 그래프에서 가장 먼저 눈에 띄는 지점은 바로 <a href="../1243">2015년 2월</a> 근처에 있는 엄청난 아웃라이어다. 이렇듯 극심하게 다른 값을 가지면 분석에 악영향이 있을 수밖에 없다. 다행스러운 건 아주 잠깐, 말 그대로 한 순간의 아웃라이어로 그쳤다는 것이다. 이렇듯 데이터의 등락 자체를 바꾸지는 않는 아웃라이어를 <strong>애디티브 아웃라이어</strong> 라고 부른다.이러한 애디티브 아웃라이어는 직관적으로 찾아도 좋고, <code>TSA</code> 패키지의 detectAO() 함수를 사용해도 좋다. 사용하는 방법은 다음과 같다 :<strong>1.</strong>  원래의 데이터로 애디티브 아웃라이어가 고려되지 않은 <a href="../941">시계열분석</a>을 한다.<strong>2.</strong>  리턴된 모형자체를 detectAO() 함수에 넣는다. 그러면 다음과 같은 결과를 얻는다.</p>
-<p><img src="20190825_194758.png#center" alt="20190825\_194758.png"></p>
-<p><strong>3.</strong>  람다의 절댓값이 가장 큰 인덱스를 최우선적인 후보로 둔다. 위의 스크린샷에선 55번째다.<strong>4.</strong>  애디티브 아웃라이어를 반영해서 다시 분석한다. 마음에 드는 결과가 나올 때까지 반복한다.애디티브 아웃라이어를 반영한 분석은 <a href="../1265">동적 회귀 모형</a>을 필요로 한다. 아이디어는 간단하다. 69번째 데이터가 AO라고 생각한다면, 69번째 값만 1이고 나머지는 모두 0인 더미데이터를 만들어서 회귀분석을 하는 것이다. 수식적으로는 순수한 <a href="../1248">펄스 함수</a>에 해당하며, 코드 역시 별로 어렵지 않다.</p>
+<p>위의 그래프에서 가장 먼저 눈에 띄는 지점은 바로 <a href="../1243">2015년 2월</a> 근처에 있는 엄청난 아웃라이어다. 이렇듯 극심하게 다른 값을 가지면 분석에 악영향이 있을 수밖에 없다. 다행스러운 건 아주 잠깐, 말 그대로 한 순간의 아웃라이어로 그쳤다는 것이다.</p>
+<h2 id="정의-1">정의 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>이렇듯 데이터의 등락 자체를 바꾸지는 않는 아웃라이어를 <strong>애디티브 아웃라이어</strong><sup>Additive Outlier</sup>라고 부른다.</p>
+<h2 id="실습">실습</h2>
+<p>이러한 애디티브 아웃라이어는 직관적으로 찾아도 좋고, <code>TSA</code> 패키지의 <code>detectAO()</code> 함수를 사용해도 좋다. 사용하는 방법은 다음과 같다:</p>
+<ol>
+<li>원래의 데이터로 애디티브 아웃라이어가 고려되지 않은 <a href="../941">시계열분석</a>을 한다.</li>
+<li>리턴된 모형자체를 <code>detectAO()</code> 함수에 넣는다. 그러면 다음과 같은 결과를 얻는다.
+<img src="20190825_194758.png#center" alt="20190825\_194758.png"></li>
+<li>람다의 절댓값이 가장 큰 인덱스를 최우선적인 후보로 둔다. 위의 스크린샷에선 55번째다.</li>
+<li>애디티브 아웃라이어를 반영해서 다시 분석한다. 마음에 드는 결과가 나올 때까지 반복한다.</li>
+</ol>
+<p>애디티브 아웃라이어를 반영한 분석은 <a href="../1265">동적 회귀 모형</a>을 필요로 한다. 아이디어는 간단하다. 69번째 데이터가 AO라고 생각한다면, 69번째 값만 1이고 나머지는 모두 0인 더미데이터를 만들어서 회귀분석을 하는 것이다. 수식적으로는 순수한 <a href="../1248">펄스 함수</a>에 해당하며, 코드 역시 별로 어렵지 않다.</p>
 <p><img src="12.png#center" alt="12.png"></p>
-<p>실제로 AO가 반영되고나면 AO 그 지점은 물론, 다른 곳에서의 피팅도 더욱 개선되는 것을 알 수 있다.다음은 R 로 작성된 예제코드다. 적절한 예시가 없어서 데이터 [<img src="61f91d438#center" alt="61f91d438"></p>
-<p>example.csv](../attachment/cfile23.uf@997CC4445D62599A03A6E4.csv) 를 첨부했는데, 코드에 링크를 그대로 걸어두었으니 귀찮게 직접 다운 받을 필요는 없을 것이다.</p>
-<pre><code>
-library(TSA)
+<p>실제로 AO가 반영되고나면 AO 그 지점은 물론, 다른 곳에서의 피팅도 더욱 개선되는 것을 알 수 있다.</p>
+<h2 id="코드">코드</h2>
+<p>다음은 R 로 작성된 예제코드다. 적절한 예시가 없어서 <a href="example.csv">데이터</a>를 첨부했는데, 코드에 링크를 그대로 걸어두었으니 귀찮게 직접 다운 받을 필요는 없을 것이다.</p>
+<pre><code>library(TSA)
 library(forecast)
-PM10&lt;-read.csv(&quot;../attachment/cfile23.uf@997CC4445D62599A03A6E4.csv&quot;)
+PM10&lt;-read.csv(&quot;https://freshrimpsushi.github.io/posts/additive-outlier/example.csv&quot;)
 PM10 = ts(PM10[1:365,],start=2015,frequency = 365)
 win.graph(6,4); plot(PM10,main=&quot;한국의 미세먼지 농도&quot;,xaxt='n'); axis(side=1,at=c(2015,2016))
 out1&lt;-auto.arima(PM10)
@@ -308,7 +306,15 @@ out2&lt;-auto.arima(PM10,xreg=ao)
 win.graph(6,4); par(mfrow=c(1,2))
 plot(PM10,main=&quot;AO 미반영&quot;,xlim=c(2015.1,2015.3),xaxt='n'); lines(fitted(out1),col='red')
 plot(PM10,main=&quot;AO 반영&quot;,xlim=c(2015.1,2015.3),xaxt='n'); lines(fitted(out2),col='red')
-</code></pre>
+</code></pre><section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Cryer. (2008). Time Series Analysis: With Applications in R(2nd Edition): p257. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
 
 
 <script type="text/javascript">
@@ -699,7 +705,7 @@ plot(PM10,main=&quot;AO 반영&quot;,xlim=c(2015.1,2015.3),xaxt='n'); lines(fitt
     <a href=https://freshrimpsushi.github.io/categories/r/>
         <span style="color:rgb(255,051,051);">●</span> R (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
-        <span style="color:rgb(255,051,051);">●</span> 통계적분석 (50++)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 통계적분석 (58)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 수리통계학 (60+)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
@@ -765,8 +771,6 @@ plot(PM10,main=&quot;AO 반영&quot;,xlim=c(2015.1,2015.3),xaxt='n'); lines(fitt
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99-%EA%B5%90%EA%B3%BC/" style="color: black">수학 교과 (30)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%9C%EA%B3%84%EC%97%B4%EB%B6%84%EC%84%9D/" style="color: black">시계열분석 (33)</a>
-        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%A4%EC%A0%84-%EC%88%98%EB%8A%A5-%EC%8A%A4%ED%82%AC/" style="color: black">실전 수능 스킬 (15)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (25)</a>
@@ -799,7 +803,7 @@ plot(PM10,main=&quot;AO 반영&quot;,xlim=c(2015.1,2015.3),xaxt='n'); lines(fitt
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/" style="color: black">통계적분석 (24)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/" style="color: black">통계적분석 (57)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (42)</a>
         </li><li>

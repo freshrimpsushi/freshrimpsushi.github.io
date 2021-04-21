@@ -42,16 +42,69 @@
     
 
     
-<meta name="title" content="시계열분석">
+<meta name="title" content="R 에서 EACF를 사용한 ARMA 모형 선택법">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="시계열분석"/>
-<meta property="og:description" content=""/>
+<meta property="og:title" content="R 에서 EACF를 사용한 ARMA 모형 선택법"/>
+<meta property="og:description" content="How to Determine ARMA Model using EACF in R"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
 
 
-    <title>시계열분석</title>
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "articleSection": "r_",
+    "name": "R 에서 EACF를 사용한 ARMA 모형 선택법",
+    "headline": "R 에서 EACF를 사용한 ARMA 모형 선택법",
+    "alternativeHeadline": "",
+    "description": "How to Determine ARMA Model using EACF in R",
+    "inLanguage": "ko",
+    "isFamilyFriendly": "true",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/how-to-determine-arma-model-using-eacf-in-r\/"
+    },
+    "author" : {
+        "@type": "Person",
+        "name": "류대식"
+    },
+    "creator" : {
+        "@type": "Person",
+        "name": "류대식"
+    },
+    "accountablePerson" : {
+        "@type": "Person",
+        "name": "류대식"
+    },
+    "copyrightHolder" : "생새우초밥집",
+    "copyrightYear" : "2019",
+    "dateCreated": "2019-08-09T00:00:00.00Z",
+    "datePublished": "2019-08-09T00:00:00.00Z",
+    "dateModified": "2019-08-09T00:00:00.00Z",
+    "publisher":{
+        "@type":"Organization",
+        "name": "생새우초밥집",
+        "url": "https://freshrimpsushi.github.io/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https:\/\/freshrimpsushi.github.io\/logo\/basic.png",
+            "width":"32",
+            "height":"32"
+        }
+    },
+    "image": "https://freshrimpsushi.github.io/logo/basic.png",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-determine-arma-model-using-eacf-in-r\/",
+    "wordCount" : "1095",
+    "genre" : [ "R" ],
+    "keywords" : [ "R" ]
+}
+</script>
+
+
+    <title>R 에서 EACF를 사용한 ARMA 모형 선택법</title>
 
 </head>
 
@@ -60,7 +113,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/basic.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D.png style="max-height: 80px; width: auto;">
             
             
             
@@ -190,103 +243,121 @@
 
             <div class = "content">
             
-<h1>시계열분석</h1>
+
+<title>R 에서 EACF를 사용한 ARMA 모형 선택법</title>
+
+<h1>R 에서 EACF를 사용한 ARMA 모형 선택법</h1>
+<aside>
+    How to Determine ARMA Model using EACF in R
+    <p style="text-align: right;">
+        1216
+
+    
+    
+            <a href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/" style="color: black">통계적분석</a>&emsp;
+            
+    </span>
+    
+    작성일: 2019-08-09&nbsp;<br>
+    작성자: 류대식 사장 &nbsp;
+</p>
+</aside>
 
 <aside>
     <b>목차</b>
-    <nav id="TableOfContents"></nav>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#실습-1">실습 </a></li>
+    <li><a href="#코드">코드</a></li>
+    <li><a href="#같이보기">같이보기</a></li>
+  </ul>
+</nav>
 </aside>
 
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-시계열분석에 대한 자동 페이지입니다.</p>
-
-
-
-<details open>
-
-    <summary>전체 포스트</summary>
+<h2 id="실습-1">실습 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p><a href="../1211">PACF</a>는 <a href="../910">$AR(p)$</a>의 차수를, <a href="../1209">ACF</a>는 <a href="../909">$MA(q)$</a> 의 차수를 정할 때 큰 도움이 된다.직접 그 예를 살펴보자. <code>ma1.2.s</code> 데이터는 $MA(1)$ 모델에서, <code>ar1.s</code> 데이터는 $AR(1)$ 모델에서 나온 <code>TSA</code> 패키지의 샘플 데이터다.  <code>TSA</code> 패키지의 <code>acf()</code> 함수와 <code>pacf()</code> 함수를 사용하면 다음과 같이 여러 시차 $k$ 에 대해 <strong>코릴로그램</strong><sup>Correlogram</sup>을 그려준다.</p>
+<p><img src="1.png#center" alt="1.png"></p>
+<p>그림만 봤을 때 파란 선을 넘어가는 $k$ 가 많다고 해서 <a href="../914">아르마 모형</a>이라고 판단하는 것은 위험하다. <a href="../1208">아르마 모형의 가역성</a> 때문에 $AR(p)$ 라도 $MA(\infty)$ 처럼 보일 수 있고, $MA(q)$ 라도 $AR(\infty)$ 처럼 보일 수 있기 때문이다. 실제로 왼쪽 위 $AR(1)$ 의 ACF와 오른쪽 아래 $MA(1)$ 의 PACF는 그 크기가 점점 감소하는 식의 이상한 추이를 보인다. 반면 $AR(1)$ 의 PACF와 $MA(1)$ 의 ACF는 $k=1$ 이후로 칼같이 떨어진다.</p>
+<p>문제는 실제 데이터는 이렇게 $AR(p)$ 인지 $MA(q)$ 인지 미리 알 방법이 없다는 것이다.
+$$
+\begin{eqnarray}
+Y_{t} := 0.6 Y_{t-1} + e_{t} + 0.3 e_{t-1} 
+\end{eqnarray}
+$$
+가령 <code>arma11.s</code>는 수식 $(1)$ 과 같이 정의된 $ARMA(1,1)$ 모델에서 나온 샘플 데이터인데, 그 ACF와 PACF를 그려보면 다음과 같이 나타난다.</p>
+<p><img src="2.png#center" alt="2.png"></p>
+<p><code>arma11.s</code>는 분명히 $ARMA(1,1)$ 를 따라야하지만 위의 그림만 보아서는 영락없는 $AR(1)$ 모형이다. 이는 반대로 말해서 ACF와 PACF만으로 모형을 찾고 있었다면 $ARMA(p,q)$ 모형이었는데도 $AR(p)$ 모형으로 판단했을 가능성이 있다는 것이다.</p>
+<p><img src="20190729_161724.png#center" alt="20190729\_161724.png"></p>
+<p>보통 ACF와 PACF로 $ARMA(p,q)$ 모형을 검사해보면 보통 위의 표와 같은 추이가 나타난다고 한다. $ARMA(p,q)$ 의 PACF에 &lsquo;점점 감소?&lsquo;라고 물음표가 붙은 이유는 바로 위의 <code>arma11.s</code>처럼 바로 급감하는 경우도 왕왕 있기 때문이다. 시계열에 대해 설명하는 그 어떤 문서든 저 표를 참고하지만, 반드시 필요충분인 것은 아니다. ACF와 PACF가 점점 감소한다면 $ARMA(p,q)$ 를 의심해볼 수 있지만 $ARMA(p,q)$ 라고 ACF와 PACF가 둘 다 점점 감소하는 것은 아니다.</p>
+<p><img src="20190729_162733.png#center" alt="20190729\_162733.png"></p>
+<p>그에 비해 <a href="../1213">EACF</a>는 $ARMA(1,1)$ 에서 샘플링되었음을 디텍트해낸다.</p>
+<p>다른 예제로써 <a href="../331">내장데이터</a> <code>lynx</code>를 살펴보자. <code>lynx</code>는 1821년부터 1934년까지 캐나다에서 스라소니가 덫에 잡힌 수에 대한 연간 데이터다.</p>
+<p><img src="3.png#center" alt="3.png"></p>
+<p>ACF와 PACF만 보았을 때 <code>lynx</code>는 영락없는 $AR(2)$ 모형을 따라야하지만, 실제로는 다음과 같이 $ARMA(2,2)$ 모형을 따를 수 있다.</p>
+<p><img src="20190729_164314.png#center" alt="20190729\_164314.png"></p>
+<p><img src="20190729_163610.png#center" alt="20190729\_163610.png"></p>
+<p>실제로 <code>auto.arima()</code> 함수를 통해 <a href="../1197">간단하게 확인</a>해봐도 일단 $AR(2)$ 가 아닌 것은 확실하게 장담할 수 있다. 이렇듯 전공자와 비전공자의 차이, 제대로 공부한 사람과 대충 공부한 사람의 차이는 분석 자체를 내놓을 수 있느냐 없느냐가 아니라 <a href="../1209">ACF</a>, <a href="../1211">PACF</a>, <a href="../1213">EACF</a>를 볼 수 있어서 분석을 한 눈에 보았을 때 위화감, 문제점을 빠르게 눈치채느냐 못채느냐의 차이가 있다. 그림만 볼 줄 알아도 큰 도움이 되고, 이론적으로도 이해하고 있다면 더할나위 없다.</p>
+<h2 id="코드">코드</h2>
+<p>아래는 예제코드다.</p>
+<pre><code>library(TSA)
+win.graph(6,6); par(mfrow=c(2,2))
+data(ar1.s); acf(ar1.s, main=&quot;ACF of AR(1)&quot;); pacf(ar1.s, main=&quot;PACF of AR(1)&quot;)
+data(ma1.2.s); acf(ma1.2.s, main=&quot;ACF of MA(1)&quot;); pacf(ma1.2.s, main=&quot;PACF of MA(1)&quot;)
+ 
+win.graph(6,3); par(mfrow=c(1,2))
+data(arma11.s); acf(arma11.s, main=&quot;ACF of ARMA(1,1)&quot;); pacf(arma11.s, main=&quot;PACF of ARMA(1,1)&quot;)
+eacf(arma11.s)
+ 
+win.graph(6,3); par(mfrow=c(1,2))
+data(lynx); acf(lynx, main=&quot;ACF of lynx&quot;); pacf(lynx, main=&quot;PACF of lynx&quot;)
+eacf(lynx)
+library(forecast)
+out&lt;-auto.arima(lynx); summary(out)
+</code></pre><h2 id="같이보기">같이보기</h2>
 <ul>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/time-series-analysis/">시계열분석이란</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/white-noise-in-time-series-analysis/">시계열분석에서의 백색잡음</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/stationarity-in-time-series-analysis/">시계열분석에서의 정상성</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/ma-moving-average-process/">이동평균과정</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/ar-autoregressive-process/">자기회귀과정</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/arma-model/">아르마 모형</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/difference/">시계열분석에서의 차분</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/transformation/">시계열분석에서의 변환</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/arima-model-intergrated-autoregressive-moving-average-model/">아리마 모형</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/seasonal-arima-model/">계절형 아리마 모형</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/drift-in-arima-model/">아리마 모형에서의 드리프트</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/how-to-analyze-time-series-with-arima-model-in-r/">R 에서 아리마 모형으로 시계열 분석하는 법</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/how-to-interpret-arima-model-summary-in-r/">R 에서 아리마 모형으로 얻은 시계열 분석 결과 보는 법</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/how-to-predict-with-arima-model-in-r/">R 에서 아리마 모형으로 예측하는 법</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/invertivility-of-arma-model/">아르마 모형의 가역성</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/acf-autocorrelation-function/">자기상관함수</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/pacf-partial-autocorrelation-function/">편자기상관함수</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/eacf-extended-autocorrelation-function/">확장자기상관함수</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/1216/">R 에서 EACF를 사용한 ARMA 모형 선택법 How to Determine ARMA Model using EACF in R</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/how-to-interpret-tsdiag-plots-in-r/">아리마 모형에 대한 잔차분석</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/time-series-regression-analysis/">시계열 회귀 분석</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/ccf-cross-correlation-functon/">교차상관함수</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/prewhitening/">사전백화</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/spurious-correlation/">시계열에서의 허위 상관관계</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/intervention-analysis/">개입 분석</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/step-function-and-pulse-function/">스텝 함수와 펄스 함수</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/additive-outlier/">시계열분석의 애디티브 아웃라이어</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/innovative-outlier/">시계열분석의 이노베이티브 아웃라이어</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/dynamic-regression-model/">동적 회귀 모형</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/heteroscedasticity-and-volatility-clustering/">시계열 분석에서의 이분산성과 변동성 군집현상</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/arch-effect-autoregressive-conditional-heteroscedasticity-effect/">아치 이펙트</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/garch-model/">시계열 분석에서의 가치 모형</a></li>
-
-    <li><a href="https://freshrimpsushi.github.io/posts/how-to-analyze-time-series-with-garch-model-in-r/">R 에서 가치 모형으로 시계열 분석 하는 법</a></li>
-
+<li><a href="../1213">확장자기상관함수에 대한 이론적 설명</a></li>
 </ul>
-</details>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Cryer. (2008). Time Series Analysis: With Applications in R(2nd Edition): p117. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var title = 'R 에서 EACF를 사용한 ARMA 모형 선택법';
+        var link = 'https:\/\/freshrimpsushi.github.io\/posts\/how-to-determine-arma-model-using-eacf-in-r\/';
+        var arr = new Array();
+        var obj = {
+            "title": title,
+            "link": link
+        };
+        var postList = JSON.parse(localStorage.getItem('latelyViewPostList'));
+        if(postList == '' || postList == null || postList == undefined || postList == 0 || postList == NaN) {
+            arr.push(obj);
+            localStorage.setItem('latelyViewPostList', JSON.stringify(arr));
+        } else {
+            var listSize = postList.length;
+            for (var i = 0; i < listSize; i++) {
+                if (title == postList[i].title) {
+                    postList.splice(i, 1);
+                    break;
+                }
+            }
+            arr = postList;
+            arr.push(obj);
+            if(arr.length > 5) {
+                arr.shift();
+            }
+            localStorage.setItem('latelyViewPostList', JSON.stringify(arr));
+        }
+    });
+</script>
 
             
 <div style="margin-bottom: 10px;">댓글</div>
@@ -378,9 +449,9 @@ margin-right: auto;">
             alert('빈칸을 채워주세요');
             return;
         }
-        let board_idx = '0';
-        let board_slug = '';
-        let board_title = '시계열분석';
+        let board_idx = '1216';
+        let board_slug = 'How to Determine ARMA Model using EACF in R';
+        let board_title = 'R 에서 EACF를 사용한 ARMA 모형 선택법';
 
         $.ajax({
             type: "POST",
@@ -494,7 +565,7 @@ margin-right: auto;">
             type: "POST",
             url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.comment.php?action=getComment",
             data: {
-                board_idx: '0'
+                board_idx: '1216'
             },
             dataType: "json",
             success: function (data) {
@@ -552,9 +623,9 @@ margin-right: auto;">
                 alert('빈칸을 채워주세요');
                 return;
             }
-            let idx = '0';
-            let board_slug = '';
-            let board_title = '시계열분석';
+            let idx = '1216';
+            let board_slug = 'How to Determine ARMA Model using EACF in R';
+            let board_title = 'R 에서 EACF를 사용한 ARMA 모형 선택법';
 
             $.ajax({
                 type: "POST",
@@ -645,7 +716,7 @@ margin-right: auto;">
     <a href=https://freshrimpsushi.github.io/categories/r/>
         <span style="color:rgb(255,051,051);">●</span> R (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
-        <span style="color:rgb(255,051,051);">●</span> 통계적분석 (50++)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 통계적분석 (58)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 수리통계학 (60+)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
@@ -711,8 +782,6 @@ margin-right: auto;">
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99-%EA%B5%90%EA%B3%BC/" style="color: black">수학 교과 (30)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%9C%EA%B3%84%EC%97%B4%EB%B6%84%EC%84%9D/" style="color: black">시계열분석 (33)</a>
-        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%A4%EC%A0%84-%EC%88%98%EB%8A%A5-%EC%8A%A4%ED%82%AC/" style="color: black">실전 수능 스킬 (15)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (25)</a>
@@ -745,7 +814,7 @@ margin-right: auto;">
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/" style="color: black">통계적분석 (24)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/" style="color: black">통계적분석 (57)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (42)</a>
         </li><li>
@@ -893,6 +962,10 @@ margin-right: auto;">
 </script> 
 
     
+    
+        <link rel="stylesheet" href= https://freshrimpsushi.github.io/css/atom-one-light.css>
+        <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
+        <script>hljs.initHighlightingOnLoad();</script>
     
     
     </aside>

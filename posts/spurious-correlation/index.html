@@ -42,9 +42,9 @@
     
 
     
-<meta name="title" content="시계열에서의 허위 상관관계">
+<meta name="title" content="시계열회귀분석에서의 허위 상관관계">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="시계열에서의 허위 상관관계"/>
+<meta property="og:title" content="시계열회귀분석에서의 허위 상관관계"/>
 <meta property="og:description" content="spurious correlation"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
@@ -57,8 +57,8 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "r_",
-    "name": "시계열에서의 허위 상관관계",
-    "headline": "시계열에서의 허위 상관관계",
+    "name": "시계열회귀분석에서의 허위 상관관계",
+    "headline": "시계열회귀분석에서의 허위 상관관계",
     "alternativeHeadline": "",
     "description": "spurious correlation",
     "inLanguage": "ko",
@@ -97,14 +97,14 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/spurious-correlation\/",
-    "wordCount" : "579",
+    "wordCount" : "589",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>시계열에서의 허위 상관관계</title>
+    <title>시계열회귀분석에서의 허위 상관관계</title>
 
 </head>
 
@@ -113,7 +113,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/basic.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D.png style="max-height: 80px; width: auto;">
             
             
             
@@ -244,9 +244,9 @@
             <div class = "content">
             
 
-<title>시계열에서의 허위 상관관계</title>
+<title>시계열회귀분석에서의 허위 상관관계</title>
 
-<h1>시계열에서의 허위 상관관계</h1>
+<h1>시계열회귀분석에서의 허위 상관관계</h1>
 <aside>
     spurious correlation
     <p style="text-align: right;">
@@ -254,7 +254,7 @@
 
     
     
-            <a href="https://freshrimpsushi.github.io/categories/%EC%8B%9C%EA%B3%84%EC%97%B4%EB%B6%84%EC%84%9D/" style="color: black">시계열분석</a>&emsp;
+            <a href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/" style="color: black">통계적분석</a>&emsp;
             
     </span>
     
@@ -267,39 +267,46 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#정의-1">정의 </a></li>
+    <li><a href="#실습-1">실습 </a>
+      <ul>
+        <li><a href="#반전">반전</a></li>
+      </ul>
+    </li>
+    <li><a href="#해법">해법</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-<strong>허위 상관관계</strong> 는 두 데이터가 그럴싸한 상관관계를 가지는 것 같아 보이지만 실제로는 그렇지 않은 관계를 말한다. 다음의 예시를 통해 알아보자.</p>
+<h2 id="정의-1">정의 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p><strong>허위 상관관계</strong>는 두 데이터가 그럴싸한 상관관계를 가지는 것 같아 보이지만 실제로는 그렇지 않은 관계를 말한다.</p>
+<h2 id="실습-1">실습 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>다음의 예시를 통해 알아보자.</p>
 <p><img src="20190806_121420.png#center" alt="20190806\_121420.png"></p>
+<p>위와 같이 두 가지 시계열 데이터가 주어져 있다고 하자. 언뜻 보기에 두 시계열은 강력한 상관관계를 가질 것만 같이 보인다. 시간에 따라 조금씩 증가하는 <a href="../916">트렌드</a>을 포함해서 <a href="../1067">계절성</a>을 포함한 등락 패턴이 매우 흡사하기 때문이다.</p>
 <p><img src="20190806_121428.png#center" alt="20190806\_121428.png"></p>
-<p>위와 같이 두 가지 시계열 데이터가 주어져 있다고 하자. 언뜻 보기에 두 시계열은 강력한 상관관계를 가질 것만 같이 보인다. 시간에 따라 조금씩 증가하는 <a href="../916">트렌드</a>을 포함해서 <a href="../1067">계절성</a>을 포함한 등락 패턴이 매우 흡사하기 때문이다. 실제로 <a href="../1227">CCF</a>를 계산해보면 예상대로 높은 상관관계를 가진다.</p>
+<p>실제로 <a href="../1227">CCF</a>를 계산해보면 위와 같이 예상대로 높은 상관관계를 가지는 것으로 나타난다.</p>
+<h3 id="반전">반전</h3>
 <p><img src="6.png#center" alt="6.png"></p>
 <p>그런데 이 데이터들은 사실 1994년부터 2005년까지의 우유 생산량과 전기 생산량에 로그를 취한 <a href="../900">시계열 데이터</a>다. 상식적으로 생각했을 때 우유와 전기 생산량은 단순히 여름에 젖이 잘 나와서, 여름에 전력을 많이 써서 늘어났을 뿐 서로가 어떤 관계를 가진다고 보기는 어렵다. 물론 어쩌면 정말로 상관관계가 있을지도 모르지만, 이런 식이라면 세상의 아주 많은 현상이 우유만으로 설명될 수 있을 것이다.</p>
-<p>이렇게 수상한 관계를 제대로 파악하는 방법으로써 <a href="../1236">사전백화</a>를 사용할 수 있다. <a href="../1236">사전백화</a>란 쉽게 말해 수식적이거나 데이터의 생긴 모양 때문에 어쩔 수 없이 생기는 상관관계를 제거해주는 방법이다. 이를 이용해 데이터를 <a href="../904">백색잡음</a>으로 바꾸고, 그 <a href="../1227">CCF</a>를 계산한 결과는 다음과 같다.
-<img src="7.png#center" alt="7.png"></p>
-<p>이는 원래 데이터간의 <a href="../1227">CCF</a>가 단순히 수식을 통해 계산되었을 뿐, 실제로는 상관관계를 가지지 않는다는 뜻이다. 이렇듯 수치적으로만 그럴싸해서 가설검정을 통과하는 상관관계를 <strong>허위 상관관계</strong> 라고 한다.</p>
+<h2 id="해법">해법</h2>
+<p>이렇게 수상한 관계를 제대로 파악하는 방법으로써 <a href="../1236">사전백화</a>를 사용할 수 있다. <a href="../1236">사전백화</a>란 쉽게 말해 수식적이거나 데이터의 생긴 모양 때문에 어쩔 수 없이 생기는 상관관계를 제거해주는 방법이다. 이를 이용해 데이터를 <a href="../904">백색잡음</a>으로 바꾸고, 그 <a href="../1227">CCF</a>를 계산한 결과는 다음과 같다.</p>
+<p><img src="7.png#center" alt="7.png"></p>
+<p>이는 원래 데이터간의 <a href="../1227">CCF</a>가 단순히 수식을 통해 계산되었을 뿐, 실제로는 상관관계를 가지지 않는다는 뜻이다. 이렇듯 수치적으로만 그럴싸해서 가설검정을 통과하는 상관관계를 <strong>허위 상관관계</strong>라고 한다.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Cryer. (2008). Time Series Analysis: With Applications in R(2nd Edition): p260. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var title = '시계열에서의 허위 상관관계';
+        var title = '시계열회귀분석에서의 허위 상관관계';
         var link = 'https:\/\/freshrimpsushi.github.io\/posts\/spurious-correlation\/';
         var arr = new Array();
         var obj = {
@@ -420,7 +427,7 @@ margin-right: auto;">
         }
         let board_idx = '1238';
         let board_slug = 'spurious-correlation';
-        let board_title = '시계열에서의 허위 상관관계';
+        let board_title = '시계열회귀분석에서의 허위 상관관계';
 
         $.ajax({
             type: "POST",
@@ -594,7 +601,7 @@ margin-right: auto;">
             }
             let idx = '1238';
             let board_slug = 'spurious-correlation';
-            let board_title = '시계열에서의 허위 상관관계';
+            let board_title = '시계열회귀분석에서의 허위 상관관계';
 
             $.ajax({
                 type: "POST",
@@ -685,7 +692,7 @@ margin-right: auto;">
     <a href=https://freshrimpsushi.github.io/categories/r/>
         <span style="color:rgb(255,051,051);">●</span> R (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
-        <span style="color:rgb(255,051,051);">●</span> 통계적분석 (50++)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 통계적분석 (58)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 수리통계학 (60+)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
@@ -751,8 +758,6 @@ margin-right: auto;">
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99-%EA%B5%90%EA%B3%BC/" style="color: black">수학 교과 (30)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%9C%EA%B3%84%EC%97%B4%EB%B6%84%EC%84%9D/" style="color: black">시계열분석 (33)</a>
-        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%A4%EC%A0%84-%EC%88%98%EB%8A%A5-%EC%8A%A4%ED%82%AC/" style="color: black">실전 수능 스킬 (15)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (25)</a>
@@ -785,7 +790,7 @@ margin-right: auto;">
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/" style="color: black">통계적분석 (24)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/" style="color: black">통계적분석 (57)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (42)</a>
         </li><li>
