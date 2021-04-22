@@ -97,7 +97,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/integration-by-parts\/",
-    "wordCount" : "251",
+    "wordCount" : "425",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -267,39 +267,52 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#정리-1">정리 </a></li>
+    <li><a href="#설명">설명</a></li>
     <li><a href="#증명">증명</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-$F$, $G$가 구간 $[a,b]$에서 <a href="../1210">미분가능</a>하고, $F'=f$, $G'=g$가 <a href="../829">적분가능</a>하다고 하자. 그러면 다음의 식이 성립한다.
-$$
-\int _{a} ^{b} F(x)g(x)dx= F(b)G(b)-F(a)G(a)-\int _{a} ^{b}f(x)G(x)dx
+<h2 id="정리-1">정리 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>$F$, $G$가 구간 $[a,b]$에서 <a href="../1210">미분가능</a>하고, $F'=f$, $G'=g$가 <a href="../829">적분가능</a>하다고 하자. 그러면 다음의 식이 성립한다.</p>
+<p>$$
+\begin{align*}
+\int _{a} ^{b} F(x)g(x)dx &amp;= F(b)G(b)-F(a)G(a)-\int _{a} ^{b}f(x)G(x)dx
+\\ &amp;= \left[ F(x)G(x) \right]_{a}^{b} -\int _{a} ^{b}f(x)G(x)dx
+\end{align*}
+$$</p>
+<h2 id="설명">설명</h2>
+<p>이 결과를 부분적분법이라 부른다. <strong>그적미적</strong><sup>[<strong>그</strong>냥 <strong>적</strong>분]- $\int$ <strong>미</strong>분 <strong>적</strong>분</sup>으로 외우면 쉽다. 적분할 것은 양쪽에 그대로 적고, 미분할 것은 앞쪽에는 그냥 적고 뒷쪽에는 미분해서 적는다.</p>
+<p>$$
+\begin{align*}
+\int Fg &amp;= \left[ FG \right] - \int fG
+\\ &amp;= \left[ \text{그냥}\cdot\text{적분} \right] - \int \text{미분}\cdot\text{적분}
+\end{align*}
 $$</p>
 <h2 id="증명">증명</h2>
-<p><a href="../1820">미분가능하면 연속</a>이고 <a href="../847">연속이면 적분가능</a>하므로 $F$, $G$도 적분 가능하다. 이제 $H(x)=F(x)G(x)$라고 하자. 그러면 $H'(x)=F(x)g(x)+f(x)G(x)$이고 적분 가능한 함수들의 <a href="../1666">합</a>과 <a href="../854">곱</a>도 적분 가능하므로 $H'$는 적분가능하다. 그러면 <a href="../1866">미분적분학의 기본 정리 2</a>에 의해서
-$$
+<p><a href="../1820">미분가능하면 연속</a>이고, <a href="../847">연속이면 적분가능</a>하므로 $F, G$도 적분 가능하다. 이제 $H(x)=F(x)G(x)$라고 하자. 그러면 <a href="../1821">곱의 미분법</a>에 의해 다음이 성립한다.</p>
+<p>$$
+H'(x)=F(x)g(x)+f(x)G(x)
+$$</p>
+<p><a href="../1666">적분은 선형</a>이고, <a href="../854">함수의 곱은 적분가능성을 보존</a>하므로, $H'$는 적분가능하다. 그러면 <a href="../1866">미분적분학의 기본정리2</a>에 의해서 $H'$의 정적분은 다음과 같이 계산된다.</p>
+<p>$$
 \begin{align*}
-&amp;&amp; \int _{a} ^{b}H'(x)dx&amp;=H(b)-H(a) 
-\\  \implies &amp;&amp; \int _{a} ^{b}F(x)g(x)dx + \int _{a} ^{b}f(x)G(x)&amp;=F(b)G(b)-F(a)G(a) 
-\\  \implies &amp;&amp; \int _{a} ^{b}F(x)g(x)dx &amp;=F(b)G(b)-F(a)G(a)-\int _{a} ^{b}f(x)G(x)
+&amp;&amp; \int _{a} ^{b}H'(x)dx &amp;= H(b)-H(a) 
+\\ \implies &amp;&amp; \int _{a} ^{b}H'(x)dx &amp;= F(b)G(b)-F(a)G(a) 
+\\ \implies &amp;&amp; \int _{a} ^{b}F(x)g(x) + f(x)G(x) dx &amp;= F(b)G(b)-F(a)G(a) 
+\\ \implies &amp;&amp; \int _{a} ^{b}F(x)g(x)dx &amp;=F(b)G(b)-F(a)G(a)-\int _{a} ^{b}f(x)G(x)
 \end{align*}
-$$
-<p style="text-align: right;">■</p></p>
+$$</p>
+<p style="text-align: right;">■</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Walter Rudin, <em>Principles of Mathmatical Analysis</em> (3rd Edition, 1976), p134 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
@@ -655,6 +668,8 @@ $$
         <span style="color:rgb(051,204,051);">●</span> 행렬대수 (62)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 선형대수 (19)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/>
+        <span style="color:rgb(255,051,051);">●</span> 그래프이론 (41)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/>
         <span style="color:rgb(255,051,051);">●</span> 해석개론 (93+18)</a><br>
@@ -709,7 +724,7 @@ $$
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (29)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1812)</summary>
+    <summary>전체 포스트 (1811)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -723,7 +738,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (3)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (54)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (55)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
@@ -801,7 +816,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (55)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (74)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (72)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (61)</a>
         </li><li>
