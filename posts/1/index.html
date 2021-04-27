@@ -97,7 +97,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/1\/",
-    "wordCount" : "1478",
+    "wordCount" : "2344",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -272,6 +272,11 @@
     <li><a href="#정의">정의</a></li>
     <li><a href="#같이보기">같이보기</a></li>
   </ul>
+
+  <ul>
+    <li><a href="#가이드">가이드</a></li>
+    <li><a href="#환경">환경</a></li>
+  </ul>
 </nav>
 </aside>
 
@@ -360,6 +365,69 @@ $$</p>
 <ul>
 <li><a href="../904">시계열분석에서의 백색소음</a></li>
 <li><a href="../907">시계열분석에서의 정상성</a></li>
+</ul>
+<h1 id="윈도에서-텐서플로-gpu-설치법">윈도에서 텐서플로 GPU 설치법</h1>
+<h2 id="가이드">가이드</h2>
+<p>텐서플로 GPU는 보통 프로그램처럼 그냥 설치파일 하나로 쉽게 설치하기 어렵다. 이런 저런 문제가 있다면 컴퓨터 자체를 밀고 처음부터 설치하는 게 편하고, 처음 시도한다면 10번은 밀 각오를 하는 편이 좋다.</p>
+<hr>
+<p><strong>Step 1. NVIDIA GPU 드라이버 설치</strong></p>
+<p><img src="2.png#center" alt="1"></p>
+<p>NVIDIA 제어판에서 그래픽사양을 확인하고 알맞는 드라이버를 선택한다. 언어 설정은 한국어로 해도 상관 없을테지만, 이런 설치 작업에서는 가능한 영어를 고르는 편이 낫다.</p>
+<p><img src="2.png#center" alt="2"></p>
+<p>설치 프로그램을 실행하자. 잘 모르겠으면 무조건 기본설정대로 가자.</p>
+<p><img src="3.png#center" alt="3"></p>
+<hr>
+<p><strong>Step 2. pip를 통한 tensorflow 패키지 설치</strong></p>
+<pre><code>pip3 install tensorflow-GPU
+</code></pre><p>powershell 콘솔에서 위와 같이 명령을 내려 <code>tensorflow</code>를 설치한다.</p>
+<p>설치가 끝나면 파이썬을 실행하고 다음과 같은 명령을 내려보자.</p>
+<pre><code>import tensorflow as tf
+</code></pre><p><img src="4.png#center" alt="4"></p>
+<p>에러 자체는 아니지만 아래와 같은 에러가 뜰 수 있다. 텐서플로 자체는 문제가 없지만 GPU에 문제가 있는 것이다. 일단 넘어가자.</p>
+<pre><code>2021-04-27 13:47:26.034931: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'cudart64_110.dll'; dlerror: cudart64_110.dll not found
+2021-04-27 13:47:26.035108: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+INFO:tensorflow:Enabling eager execution
+INFO:tensorflow:Enabling v2 tensorshape
+INFO:tensorflow:Enabling resource variables
+INFO:tensorflow:Enabling tensor equality
+INFO:tensorflow:Enabling control flow v2
+</code></pre><hr>
+<p><strong>Step 3. CUDA Toolkit 설치</strong></p>
+<p>다시 powersehll로 돌아와 <code>nvidia-smi</code>를 입력해보자. 다음과 같이 우측 상단에 어떤 CUDA version을 사용해야하는지 출력될 것이다.</p>
+<p><img src="5.png#center" alt="5"></p>
+<p><a href="https://developer.nvidia.com/cuda-toolkit-archive">https://developer.nvidia.com/cuda-toolkit-archive</a></p>
+<p><img src="6.png#center" alt="6"></p>
+<p>위 페이지에서 자신의 운영체제에 맞는 CUDA Toolkit을 설치하자. 이 경우엔 2021년 4월에 릴리즈된 11.3버전을 받았다.</p>
+<p><img src="7.png#center" alt="7"></p>
+<hr>
+<p><strong>Step 4. cuDNN 설치</strong></p>
+<p><a href="https://developer.nvidia.com/cudnn">https://developer.nvidia.com/cudnn</a></p>
+<p>위 사이트에서 받은 cuDNN SDK의 압축을 풀고 <strong>수동으로 직접 폴더에 붙여넣어줘야한다.</strong> 참고로 이 단계에서는 NVIDIA 계정을 요구한다.</p>
+<p><img src="8.png#center" alt="8"></p>
+<p>다운로드 받은 압축파일 <code>cudnn-11.3-windows-x64-v8.2.0.53.zip</code>을 풀면 다음과 같은 <code>cuda</code> 폴더가 생긴다.</p>
+<p><img src="9.png#center" alt="9"></p>
+<pre><code>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA
+</code></pre><p>위 경로에는 위에서 설치한 CUDA가 버전별로 분리되어있다. 이 포스트의 경우에는 계속 CUDA의 버전이 11.3 이었으므로 11.3 폴더로 들어가보도록하자.</p>
+<p><img src="10.png#center" alt="10"></p>
+<p>cuDNN SDK를 풀었을 때 있었던 <code>cuda</code> 아래의 <code>bin</code>, <code>include</code>, <code>lib</code> 이 보인다. 이들 폴더를 덮어씌워지도록 복사→붙여넣기를 하자.</p>
+<p><img src="11.png#center" alt="11"></p>
+<hr>
+<p><strong>Step 5. 확인</strong></p>
+<pre><code>import tensorflow as tf
+</code></pre><p>다시 파이썬을 실행하고 위의 커맨드로 파이썬을 불러보자. 그러면 Step 2에서와 달리 다음과 같이 잘 실행되는 것을 확인할 수 있다.</p>
+<p><img src="12.png#center" alt="12"></p>
+<pre><code>2021-04-27 14:18:51.570857: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library cudart64_110.dll
+INFO:tensorflow:Enabling eager execution
+INFO:tensorflow:Enabling v2 tensorshape
+INFO:tensorflow:Enabling resource variables
+INFO:tensorflow:Enabling tensor equality
+INFO:tensorflow:Enabling control flow v2
+</code></pre><h2 id="환경">환경</h2>
+<ul>
+<li>OS: Windows</li>
+<li>Python: 3.9.4</li>
+<li>tensorflow-gpu: 2.5.0rc1</li>
+<li>CUDA Toolkit: 11.3</li>
 </ul>
 
 
