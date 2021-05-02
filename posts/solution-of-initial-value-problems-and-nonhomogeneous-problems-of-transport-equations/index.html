@@ -97,7 +97,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/solution-of-initial-value-problems-and-nonhomogeneous-problems-of-transport-equations\/",
-    "wordCount" : "940",
+    "wordCount" : "531",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -267,86 +267,90 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#풀이">풀이</a>
+      <ul>
+        <li><a href="#초기값-문제">초기값 문제</a></li>
+        <li><a href="#비동차-문제">비동차 문제</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-아래의 편미분 방정식을 수송방정식$(\mathrm{transport\ equation})$이라 한다.
-$$
-u_t + b\cdot Du=0\ \ \ \mathrm{in}\ \mathbb{R}^n \times (0,\ \infty) \ \ \cdots (1)
-$$
-이때, $b=(b_1, b_2, \cdot, b_n) \in \mathbb{R}^n$은 고정된 벡터, $u=u(x,t)$는 $u:\mathbb{R}^n \times [0,\infty) \rightarrow \mathbb{R}$, $x=(x_1, \cdots , x_n)\in \mathbb{R}^n$는 공간의 한 점, $t \ge 0$는 시간을 나타낸다.$Du$는 $Du=D_{x}u=(u_{x_1}, \cdots ,u_{x_n})$로 공간 변수 $x$에 대한 $u$의 기울기$(\mathrm{gradient})$를 나타낸다.</p>
-<p>예를 들어 3차원 직교좌표계라면$x=(x,y,z)$, $Du=(u_{x},u_{y},u_{z})
-$$
-u \in C^1$가  $(1)$의 해라고 가정하자. 그러면 고정된 점 $(x,t)$을 지나는 $(b,1)$방향의 선, $(x+sb,\ t+s)=(x,\ t)+s(b,\ 1)$ 위에서 $u$는 상수이다. 즉, $u(x+sb,\ t+s)$는 $s$의 값에 무관하다. 이는 다음과 같은 과정으로 확인할 수 있다.
-$$
-z(s):=u(x+sb,\ t+s) (s \in \mathbb{R})
-$$
-$z$를 위와 같이 정의했을 때 $\dfrac{dz(s)}{ds}=0$임을 보이면 된다.
-$$
-\begin{align*}
- \dot{z}(s) &amp;= \dfrac{\partial u(x+sb,\ t+s)}{\partial x}\cdot\dfrac{d(x+sb)}{ds}+u_t(x+sb,\ t+s) 
-\\  &amp;= Du(x+sb,\ t+s) \cdot b +u_t(x+sb,\ t+s) 
-\\  &amp;= 0
-\end{align*}
-$$
-$u$는 $(1)$을 만족하므로 위 식은 $0$ 문자 위의 점은 미분을 뜻한다. $\left( \dot{} := \dfrac{d}{ds}\right)$**
-**초기값 문제$(\mathrm{initial\ value\ problem})$
-아래와 같은 조건으로 초기값 문제가 주어졌다고 하자.
-$$
-\begin{cases} u_t+b \cdot Du = 0&amp;  \ \ \mathrm{in} \ \mathbb{R}^n \times [0,\ \infty) 
-\\  u=g&amp; \ \ \mathrm{on} \ \mathbb{R}^n\times \left\{ t=0 \right\} \end{cases} \ \ \cdots(2)
-$$
-$b \in \mathbb{R}^n$와 $g:\mathbb{R}^n \rightarrow \mathbb{R}$는 알고있고 이를 통해 $u$를 얻는 것이 문제이다. 위에서 정의한 $z$에 의해
-$$
+<blockquote>
+<p><a href="../3080">수송방정식</a></p>
+<p>$$
+u_{t} + b \cdot Du=0\quad \text{in }\mathbb{R}^n \times (0,\ \infty)
+$$</p>
+</blockquote>
+<h2 id="풀이">풀이</h2>
+<h3 id="초기값-문제">초기값 문제</h3>
+<p>수송방정식의 초기값 문제가 아래와 같이 주어졌다고 하자.</p>
+<p>$$
+\begin{equation}
+\left\{
+\begin{aligned}
+u_t+b \cdot Du &amp;= 0 &amp;&amp; \text{in }\mathbb{R}^n \times [0,\ \infty)
+\\  u &amp;= g &amp;&amp; \mathrm{on }\mathbb{R}^n\times \left\{ t=0 \right\}
+\end{aligned}
+\right.
+\label{IVP}
+\end{equation}
+$$</p>
+<p>$b \in \mathbb{R}^n$는 수송방정식에서 주어진 상수이고, $g:\mathbb{R}^n \rightarrow \mathbb{R}$는 초기값으로 주어져있다. 이를 통해 $u$를 얻는 것이 문제이다. $z$를 다음과 같이 정의하자.</p>
+<p>$$
+z(s):=u(x+sb,\ t+s)\quad (s \in \mathbb{R})
+$$</p>
+<p>그러면 다음을 얻는다.</p>
+<p>$$
 z(-t)=u(x-tb,\ 0)=g(x-tb)
-$$
-또한 $z(s)$의 값은 $s$무관하므로
-$$
+$$</p>
+<p>또한 <a href="../3080">$z(s)$의 값은 $s$와 무관</a>하므로 다음이 성립한다.</p>
+<p>$$
 z(-t)=z(0)=u(x,\ t)
-$$
-따라서 우리가 원하는 해는
-$$
+$$</p>
+<p>따라서 솔루션은 다음과 같다.</p>
+<p>$$
 u(x,\ t)=g(x-tb) \ \ (x\in \mathbb{R}^n,\ t \ge 0)
-$$
-역으로 $u(x,\ t)=g(x-tb)$를 만족하는 $g \in C^1(\mathbb{R}^n)$가 있다면, $u \in C^1$은 $(2)$의 해가 된다.<p style="text-align: right;">■</p>
-**비동차 문제$(\mathrm{nonhomogeneous\ problem})$
-초기값 문제에서 $\mathrm{transport\ equation}$의 우변이 $0$이 아닌 경우이다.
-$$
-\begin{cases} u_t+b \cdot Du = f&amp;  \ \ \mathrm{in} \ \mathbb{R}^n \times [0,\ \infty) 
-\\  u=g&amp; \ \ \mathrm{on} \ \mathbb{R}^n\times \left\{ t=0 \right\} \end{cases} \ \ \cdots(3)
-$$
-위에서 정의한 $z$에 대해서 $\dot{z}$를 구하면
-$$
-\dot{z}(s)=Du(x+sb,\ t+s)\cdot b +u_t(x+sb,\ t+s)=f(x+sb,\ t+s)
-$$
-따라서
-$$
+$$</p>
+<p>역으로 $u(x,\ t)=g(x-tb)$를 만족하는 $g \in C^1(\mathbb{R}^n)$가 있다면, $u \in C^1$은 $\eqref{IVP}$의 솔루션이 된다.</p>
+<p style="text-align: right;">■</p>
+<h3 id="비동차-문제">비동차 문제</h3>
+<p>초기값문제에서 우변의 항이 $0$이 아닌 경우이다.</p>
+<p>$$
+\begin{equation}
+\left\{
+\begin{aligned}
+u_t+b \cdot Du &amp;= f &amp;&amp; \text{in }\mathbb{R}^n \times [0,\ \infty)
+\\  u &amp;= g &amp;&amp; \mathrm{on }\mathbb{R}^n\times \left\{ t=0 \right\}
+\end{aligned}
+\right.
+\label{NHIVP}
+\end{equation}
+$$</p>
+<p>위에서 정의한 $z$에 대해서 <a href="../3080">$\dot{z}$를 구하면</a> 다음과 같다.</p>
+<p>$$
 \begin{align*}
-u(x,\ t)-g(x-tb)&amp;=z(0)-z(-t)=\int_{-t}^0 \dot{z}(s) ds 
-\\  &amp;= \int_{-t}^0 f(x+sb,\ t+s)ds 
-\\  &amp;= \int_0^t f(x+(s-t)b,\ s)ds 
+\dot{z}(s) &amp;= \dfrac{dz}{ds}
+\\ &amp;= \dfrac{\partial u}{\partial x}\dfrac{d x}{d s} + \dfrac{\partial u}{\partial t}\dfrac{d t}{d s}
+\\ &amp;= Du(x+sb,\ t+s)\cdot b +u_t(x+sb,\ t+s)
+\\ &amp;= f(x+sb,\ t+s)
 \end{align*}
-$$
-네번째 등호는 $s \equiv s'+t$로 치환하면 성립한다. 그러면 우리가 찾고자 하는 $(3)$의 해 $u(x,\ t)$는
-$$
-u(x,\ t)=g(x-tb)+\int_0^t f(x+(s-t)b,\ s)ds \ \ (x\in\mathbb{R}^n,\ t \ge 0)
-$$
-<p style="text-align: right;">■</p></p>
+$$</p>
+<p>따라서 다음이 성립한다.</p>
+<p>$$
+\begin{align*}
+u(x,\ t)-g(x-tb)&amp;=z(0)-z(-t)
+\\ &amp;= \int_{-t}^0 \dot{z}(s) ds 
+\\ &amp;= \int_{-t}^0 f(x+sb,\ t+s)ds 
+\\ &amp;= \int_0^t f(x+(s-t)b,\ s)ds 
+\end{align*}
+$$</p>
+<p>네번째 등호는 $s \equiv s'+t$로 치환하면 성립한다. 그러면 $\eqref{NHIVP}$의 해는 다음과 같다.</p>
+<p>$$
+u(x,\ t)=g(x-tb)+\int_0^t f(x+(s-t)b,\ s)ds\quad  (x\in\mathbb{R}^n,\ t \ge 0)
+$$</p>
+<p style="text-align: right;">■</p>
 
 
 
@@ -713,6 +717,8 @@ $$
         <span style="color:rgb(051,204,051);">●</span> 거리공간 (33)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 측도론 (59)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/>
+        <span style="color:rgb(255,051,051);">●</span> 편미분방정식 (42)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 동역학 (60++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/>
@@ -747,6 +753,8 @@ $$
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (44)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 확률론 (61)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/>
+        <span style="color:rgb(255,204,000);">●</span> 확률미분방정식 (1++)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/>
         <span style="color:rgb(255,204,000);">●</span> 줄리아 (40++)</a><br>
@@ -758,7 +766,7 @@ $$
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (29)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1827)</summary>
+    <summary>전체 포스트 (1824)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -790,13 +798,13 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%80%EB%93%B1%EC%8B%9D/" style="color: black">부등식 (5)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (42)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (43)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (6)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">상미분방정식 (57)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (25)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (26)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (52)</a>
         </li><li>
@@ -844,17 +852,17 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (39)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (21)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (22)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (49)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (50)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (55)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (72)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (73)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (62)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (61)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (54)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (47)</a>
         </li>
