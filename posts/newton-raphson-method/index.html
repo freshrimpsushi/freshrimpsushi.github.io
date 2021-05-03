@@ -27,7 +27,17 @@
     <link rel="icon" href="https://freshrimpsushi.github.io/logo/favicon.ico">
     <meta name="msapplication-TileColor" content="#FFFFFF">
     <meta name="msapplication-TileImage" content="logo/basic.png">
+
     
+    <style type="text/css">
+        .thmbox{
+            background: rgb(245,245,245) ;
+             
+            border-radius : 20px ;
+            padding : 20px ;
+        }
+    </style>
+
     
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
@@ -291,7 +301,8 @@ margin-right: auto;">
 $f,f',f''$ 가 $\alpha$ 의 근방에서 연속이고 $f(\alpha) = 0, f'(\alpha) \ne 0$ 이라고 하자. $\alpha$ 와 충분히 가까운 초기값 $x_{0}$ 에 대해 $\displaystyle x_{n+1} := x_{n} - {{ f ( x_{n} ) } \over { f' ( x_{n} ) }}$ 과 같이 정의된 수열 $\left\{ x_{n} \right\}$ 은 $n \to \infty$ 일 때 $\alpha$ 로 쿼드러틱하게 수렴한다.</p>
 <p>뉴턴-랩슨 메소드는 그냥 뉴턴 메소드라고 불리기도 한다. 미분가능성이나 연속성과 같은 조건이 있긴 하지만 그래도 간단하고 수렴속도가 빨라 방정식 $f(x) = 0$ 의 근사해를 찾는데 유용한 방법이다.<strong>쿼드러틱Quadratic하게 수렴한다</strong> 는 말은 <a href="../674">수렴률</a>을 이야기할 때 $2$차적으로 수렴한다는 말인데, 적절한 번역이 없다. $1$ 차가 &lsquo;선형&rsquo;으로 번역되는 것에 비하면 그냥 $2$ 차로 수렴한다는 말은 너무 두리뭉술하고 쓰이는 용례가 적어 부득이하게 영어표현을 그대로 썼다. 그럼에도 굳이 언급한 것은 대부분의 경우 <a href="../676">바이섹션 메소드</a>에 비해 수렴하는 속도가 빠름을 수학적으로 보일 수 있기 때문이다.</p>
 <p><img src="20180831_192719.png#center" alt="20180831\_192719.png">
-그러나 &lsquo;$\alpha$ 의 근방&rsquo;이나 &lsquo;충분히 가까운 초기값&rsquo;이라는 표현에서 눈치챌 수 있듯, 실제로는 마냥 생각 없이 쓸 수 있는 방법이 아니다. 위와 같이 재수 없게 초기값을 잘못 줘서 $0$ 으로 나누는 문제가 일어나거나 수열 자체가 해와 먼 곳으로 갈 수도 있다. 그래서 코드를 쓸 때도 특정 횟수 안에 해를 구하지 못했다면 그냥 계산을 포기하는 등의 예외처리가 필요하다.이러한 발산 에러는 수학적으로 수렴성이 증명되었음에도 실제로 쓸 때는 충분히 일어날법한 문제가 된다. 가장 중요한 사용자가 &lsquo;$\alpha$ 의 근방&rsquo;이나 &lsquo;충분히 가까운 초기값&rsquo;을 정확하게 파악하지 못할 수 있기 때문이다. 바이섹션 메소드가 느리든 어떻든 반드시 해를 구해주는 것과 비교해보면 분명한 단점이라고 할 수 있다.</p>
+그러나 &lsquo;$\alpha$ 의 근방&rsquo;이나 &lsquo;충분히 가까운 초기값&rsquo;이라는 표현에서 눈치챌 수 있듯, 실제로는 마냥 생각 없이 쓸 수 있는 방법이 아니다. 위와 같이 재수 없게 초기값을 잘못 줘서 $0$ 으로 나누는 문제가 일어나거나 수열 자체가 해와 먼 곳으로 갈 수도 있다. 그래서 코드를 쓸 때도 특정 횟수 안에 해를 구하지 못했다면 그냥 계산을 포기하는 등의 예외처리가 필요하다.</p>
+<p>이러한 발산 에러는 수학적으로 수렴성이 증명되었음에도 실제로 쓸 때는 충분히 일어날법한 문제가 된다. 가장 중요한 사용자가 &lsquo;$\alpha$ 의 근방&rsquo;이나 &lsquo;충분히 가까운 초기값&rsquo;을 정확하게 파악하지 못할 수 있기 때문이다. 바이섹션 메소드가 느리든 어떻든 반드시 해를 구해주는 것과 비교해보면 분명한 단점이라고 할 수 있다.</p>
 <p>Strategy**  : 테일러 전개를 통해 $2$차 항을 끌어낸 후 재귀적인 부등식을 만들어 수렴성을 보인다.</p>
 <h2 id="증명">증명</h2>
 <p><strong>Part 1.</strong>  <a href="../41">테일러 전개</a>$f$ 를 $x_{n}$ 에 대해 테일러 전개하면 $x$ 와 $x_{n}$ 사이의 $\xi_{n}$ 에 대해
@@ -314,7 +325,8 @@ $$
 $$
 \begin{equation} \displaystyle \alpha - x_{n+1} = - {{f'' (\xi_{n})} \over { 2 f'(x_{n}) }} ( \alpha - x_{n})^2 \end{equation}
 $$</p>
-<p>Part 2.**  수렴성$f'$ 는 $\alpha$ 근방에서 연속이고 $f'(\alpha) \ne 0$ 이므로 모든 $x \in I_{\delta}$ 에 대해 $f'(x) \ne 0$ 을 만족하는 $ I_{\delta} : = [ \alpha - \delta , \alpha + \delta ] $ 가 존재한다.$\displaystyle M( \delta ) := {{ \max_{x \in I_{\delta} } | f'' (x) | } \over { 2 \min_{x \in I_{\delta} } | f'(x) | }}$ 이라고 두면 $\delta$ 를 작게 잡을때마다 $\displaystyle \max_{x \in I_{\delta} } | f'' (x) |$ 은 커지지 않고 $\displaystyle \min_{x \in I_{\delta} } | f'(x) | $ 은 작아지지 않으므로 $M ( \delta )$ 전체는 커지지 않는다. 따라서 $M(\delta) | \alpha - x_{0} | &lt; 1$ 이 성립하도록 하는 $x_{0} \in I_{\delta}$ 가 존재하게끔 충분히 작은 $\delta = \delta_{0}$ 를 잡을 수 있다. 바로 이 $x_{0}$ 가 $\alpha$ 와 충분히 가까운 초기값이다.이 $\delta_{0}$ 에 대해 이제 $M:= M(\delta_{0})$ 라고 하자.$(1)$의 양변에 절대값을 취하면
+<p>Part 2.**  수렴성$f'$ 는 $\alpha$ 근방에서 연속이고 $f'(\alpha) \ne 0$ 이므로 모든 $x \in I_{\delta}$ 에 대해 $f'(x) \ne 0$ 을 만족하는 $ I_{\delta} : = [ \alpha - \delta , \alpha + \delta ] $ 가 존재한다.$\displaystyle M( \delta ) := {{ \max_{x \in I_{\delta} } | f'' (x) | } \over { 2 \min_{x \in I_{\delta} } | f'(x) | }}$ 이라고 두면 $\delta$ 를 작게 잡을때마다 $\displaystyle \max_{x \in I_{\delta} } | f'' (x) |$ 은 커지지 않고 $\displaystyle \min_{x \in I_{\delta} } | f'(x) | $ 은 작아지지 않으므로 $M ( \delta )$ 전체는 커지지 않는다. 따라서 $M(\delta) | \alpha - x_{0} | &lt; 1$ 이 성립하도록 하는 $x_{0} \in I_{\delta}$ 가 존재하게끔 충분히 작은 $\delta = \delta_{0}$ 를 잡을 수 있다. 바로 이 $x_{0}$ 가 $\alpha$ 와 충분히 가까운 초기값이다.</p>
+<p>이 $\delta_{0}$ 에 대해 이제 $M:= M(\delta_{0})$ 라고 하자.$(1)$의 양변에 절대값을 취하면
 $$
 | \alpha - x_{n+1}| \le M | \alpha - x_{n} |^2
 $$
@@ -751,7 +763,7 @@ Newton(h,-2)
     <a href=https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 선형대수 (19)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/>
-        <span style="color:rgb(255,051,051);">●</span> 그래프이론 (41)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 그래프이론 (40)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 해석개론 (93+18)</a><br>
@@ -792,7 +804,7 @@ Newton(h,-2)
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (58)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(255,204,000);">●</span> 수리통계학 (60+)</a><br>
+        <span style="color:rgb(255,204,000);">●</span> 수리통계학 (65)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (44)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>

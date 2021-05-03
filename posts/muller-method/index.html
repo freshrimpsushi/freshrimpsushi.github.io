@@ -27,7 +27,17 @@
     <link rel="icon" href="https://freshrimpsushi.github.io/logo/favicon.ico">
     <meta name="msapplication-TileColor" content="#FFFFFF">
     <meta name="msapplication-TileImage" content="logo/basic.png">
+
     
+    <style type="text/css">
+        .thmbox{
+            background: rgb(245,245,245) ;
+             
+            border-radius : 20px ;
+            padding : 20px ;
+        }
+    </style>
+
     
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
@@ -301,8 +311,9 @@ $$
 $$
 = f(x_{n+1} ) + w_{n} (x - x_{n+1} ) + ( x - x_{n+1} )^2 f [ x_{n+1} , x_{n} , x_{n-1} ] 
 $$
-x = x_{n+1}$ 을 대입하면 $p_{2} (x_{n+1}) = f(x_{n+1}) + 0 + 0 $ 이 되므로, $p_{2} (x) = 0$ 이 되도록 하는 $(x - x_{n+1})$ 을 찾으면 결국 $f(x_{n+1} ) = 0$ 을 찾는 것이나 마찬가지다. 원래 구하고 싶은 것이 $\displaystyle \lim_{n \to \infty} f ( x_{n} ) = 0$ 를 만족하는 $x_{n} $ 이었으므로 $p_{2} (x) = f(x_{n+1} ) + w_{n} (x - x_{n+1} ) + ( x - x_{n+1} )^2 f [ x_{n+1} , x_{n} , x_{n-1} ] $ 의 $(x - x_{2})$ 에 대해 근의 공식을 사용하면 된다.근의 공식으로 $\displaystyle x_{n+1} - x_{n} = {{ - w_{n} \pm \sqrt{ w_{n}^{2} - 4 f (x_{n} ) f [ x_{n} , x_{n-1} , x_{n-2} ] } } \over  { 2 f [ x_{2} , x_{1} , x_{0} ] }}$ 를 얻는데, 실제 계산을 컴퓨터가 하기 때문에 유효숫자 등의 문제 때문에 유리화를 거꾸로 해줘서 $\displaystyle x_{n+1} = x_{n} - {{ 2 f ( x_{n} ) } \over { w_{n} \pm \sqrt{ w_{n}^{2} - 4 f (x_{n} ) f [ x_{n} , x_{n-1} , x_{n-2} ] } }}$ 을 공식으로 사용한다.한편 $f'$ 가 꼭 존재할 필요는 없으나, $f' ( \alpha ) \ne 0 $ 이라면 $n \to \infty$ 일 때 $w_{n} \to f' ( \alpha )$ 이기 때문에 미분계수를 찾는 용도로도 쓸 수 있기는 하다.다음은 뮬러 메소드를 R 로 구현한 것이다. 실제 정리에선 세 점 $(x_{0} , x_{1} , x_{2})$ 을 가지고 시작하지만 실제론 $x_{0} , x_{1}$ 만 있어도 $\displaystyle x_{2} := {{x_{0} + x_{1}} \over {2}} $ 을 결정할 수 있어서 두 개의 초기값만 받아서 사용한다. 이 때 $(x_{0} , x_{1})$ 이 실제로 실수일지라도 <a href="../981">자료형은 복소수</a>여야한다.</li>
+x = x_{n+1}$ 을 대입하면 $p_{2} (x_{n+1}) = f(x_{n+1}) + 0 + 0 $ 이 되므로, $p_{2} (x) = 0$ 이 되도록 하는 $(x - x_{n+1})$ 을 찾으면 결국 $f(x_{n+1} ) = 0$ 을 찾는 것이나 마찬가지다. 원래 구하고 싶은 것이 $\displaystyle \lim_{n \to \infty} f ( x_{n} ) = 0$ 를 만족하는 $x_{n} $ 이었으므로 $p_{2} (x) = f(x_{n+1} ) + w_{n} (x - x_{n+1} ) + ( x - x_{n+1} )^2 f [ x_{n+1} , x_{n} , x_{n-1} ] $ 의 $(x - x_{2})$ 에 대해 근의 공식을 사용하면 된다.근의 공식으로 $\displaystyle x_{n+1} - x_{n} = {{ - w_{n} \pm \sqrt{ w_{n}^{2} - 4 f (x_{n} ) f [ x_{n} , x_{n-1} , x_{n-2} ] } } \over  { 2 f [ x_{2} , x_{1} , x_{0} ] }}$ 를 얻는데, 실제 계산을 컴퓨터가 하기 때문에 유효숫자 등의 문제 때문에 유리화를 거꾸로 해줘서 $\displaystyle x_{n+1} = x_{n} - {{ 2 f ( x_{n} ) } \over { w_{n} \pm \sqrt{ w_{n}^{2} - 4 f (x_{n} ) f [ x_{n} , x_{n-1} , x_{n-2} ] } }}$ 을 공식으로 사용한다.한편 $f'$ 가 꼭 존재할 필요는 없으나, $f' ( \alpha ) \ne 0 $ 이라면 $n \to \infty$ 일 때 $w_{n} \to f' ( \alpha )$ 이기 때문에 미분계수를 찾는 용도로도 쓸 수 있기는 하다.</li>
 </ul>
+<p>다음은 뮬러 메소드를 R 로 구현한 것이다. 실제 정리에선 세 점 $(x_{0} , x_{1} , x_{2})$ 을 가지고 시작하지만 실제론 $x_{0} , x_{1}$ 만 있어도 $\displaystyle x_{2} := {{x_{0} + x_{1}} \over {2}} $ 을 결정할 수 있어서 두 개의 초기값만 받아서 사용한다. 이 때 $(x_{0} , x_{1})$ 이 실제로 실수일지라도 <a href="../981">자료형은 복소수</a>여야한다.</p>
 <pre><code>dd&lt;-function(f,X){
   if(length(X)==1) {return(f(X))}
   temp&lt;-numeric(0)
@@ -691,7 +702,7 @@ Muller(g,-1i,-2+0i)
     <a href=https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 선형대수 (19)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/>
-        <span style="color:rgb(255,051,051);">●</span> 그래프이론 (41)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 그래프이론 (40)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 해석개론 (93+18)</a><br>
@@ -732,7 +743,7 @@ Muller(g,-1i,-2+0i)
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (58)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(255,204,000);">●</span> 수리통계학 (60+)</a><br>
+        <span style="color:rgb(255,204,000);">●</span> 수리통계학 (65)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (44)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>

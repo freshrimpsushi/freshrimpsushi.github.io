@@ -27,7 +27,17 @@
     <link rel="icon" href="https://freshrimpsushi.github.io/logo/favicon.ico">
     <meta name="msapplication-TileColor" content="#FFFFFF">
     <meta name="msapplication-TileImage" content="logo/basic.png">
+
     
+    <style type="text/css">
+        .thmbox{
+            background: rgb(245,245,245) ;
+             
+            border-radius : 20px ;
+            padding : 20px ;
+        }
+    </style>
+
     
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
@@ -97,7 +107,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/proof-of-fleurys-algorithm\/",
-    "wordCount" : "670",
+    "wordCount" : "662",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -267,34 +277,40 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#정의-1">정의 </a></li>
+    <li><a href="#설명">설명</a></li>
     <li><a href="#증명">증명</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-$G$ 가 <a href="../1541">오일러 그래프</a>라고 하자. 그러면 다음과 같은 방법으로 오일러 트레일을 만들 수 있다.임의의 버텍스 $u$ 에서 시작해서 다음의 두 규칙을 따라 트레일을 만든다 :</p>
-<p><strong>(i)</strong>  이미 지나온 에지는 지운다. 만약 에지가 지워지면서 <a href="../1496">고립 버텍스</a>가 되면 그 버텍스도 지운다.</p>
-<p><strong>(ii)</strong>  각 단계에서 <a href="../1512">브릿지</a>는 다른 대안이 없을때만 지나간다.</p>
+<h2 id="정의-1">정의 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>$G$ 가 <a href="../1541">오일러 그래프</a>라고 하자. 그러면 다음과 같은 방법으로 오일러 트레일을 만들 수 있다.</p>
+<p>임의의 버텍스 $u$ 에서 시작해서 다음의 두 규칙을 따라 트레일을 만든다:</p>
 <ul>
-<li>에지 $b \in G$ 가 <a href="../1513">지워짐</a>으로써 그래프가 단절되면 $b$ 를 브릿지라고 부른다.오일러 그래프의 오일러 트레일은 정의에서 그 존재성이 보장되지만 구체적으로 오일러 트레일이 어떻게 생겼는지까지는 알 수 없다. 플뢰리 알고리즘은 주어진 오일러 그래프에서 오일러 트레일을 만들어준다.</li>
+<li>(i): 이미 지나온 에지는 지운다. 만약 에지가 지워지면서 <a href="../1496">고립 버텍스</a>가 되면 그 버텍스도 지운다.</li>
+<li>(ii): 각 단계에서 <a href="../1512">브릿지</a>는 다른 대안이 없을때만 지나간다.</li>
 </ul>
+<hr>
+<ul>
+<li>에지 $b \in G$ 가 <a href="../1513">지워짐</a>으로써 그래프가 단절되면 $b$ 를 브릿지라고 부른다.</li>
+</ul>
+<h2 id="설명">설명</h2>
+<p>오일러 그래프의 오일러 트레일은 정의에서 그 존재성이 보장되지만 구체적으로 오일러 트레일이 어떻게 생겼는지까지는 알 수 없다. 플뢰리 알고리즘은 주어진 오일러 그래프에서 오일러 트레일을 만들어준다.</p>
 <h2 id="증명">증명</h2>
-<p><a href="../1541">오일러 그래프의 동치 조건</a>$G$ 가 <a href="../1512">연결 그래프</a>라고 하자.$G$ 가 오일러 그래프인 것과 $G$ 의 모든 버텍스의 <a href="../1496">차수</a>가 짝수인 것은 동치다.</p>
-<p>트레일이 $u$ 에서 나와서 버텍스 $v$ 에 들어가면 그 에지를 지운다. 만약 $v = u$ 면 $v \ne u$ 일 때까지 루프를 돌면 된다. 만약 $v \ne u$ 면 그 에지가 지워진 <a href="../1513">서브 그래프</a> $H$ 는 여전히 연결 그래프고 $u$ 와 $v$ 두 버텍스의 차수만이 홀수다. 따라서 이러한 제거를 한 번 더 했을 때 $H$ 는 여전히 연결 그래프임을 보여야한다. 만약 어떤 버텍스 $w$ 에 대해 $H - vw$ 가 연결 그래프가 아니라고 가정하면, 그것은 $H - vw$ 에 $w$ 를 포함하면서 $u$ 는 포함하지 않는 어떤 컴포넌트 $K$ 가 존재한다는 것이다. $K$ 의 버텍스 $w$ 는 차수가 홀수이므로, $K$ 는 차수가 홀수인 또 다른 버텍스 하나를 가져야만한다. 그러나 이는 모순이므로, $H - vw$ 는 연결 그래프임을 보장할 수 있다. 다시 말해, 이러한 제거는 몇 번을 반복해도 여전히 연결 그래프인데 <strong>규칙 (ii)</strong> 에 따르면 어떤 단계에서든 브릿지는 마지막에만 지울 수 있으므로 트레일의 종점은 $u$ 여야만한다.<p style="text-align: right;">■</p></p>
+<blockquote>
+<p><a href="../1541">오일러 그래프의 동치 조건</a>: $G$ 가 <a href="../1512">연결 그래프</a>라고 하자.$G$ 가 오일러 그래프인 것과 $G$ 의 모든 버텍스의 <a href="../1496">차수</a>가 짝수인 것은 동치다.</p>
+</blockquote>
+<p>트레일이 $u$ 에서 나와서 버텍스 $v$ 에 들어가면 그 에지를 지운다. 만약 $v = u$ 면 $v \ne u$ 일 때까지 루프를 돌면 된다. 만약 $v \ne u$ 면 그 에지가 지워진 <a href="../1513">서브 그래프</a> $H$ 는 여전히 연결 그래프고 $u$ 와 $v$ 두 버텍스의 차수만이 홀수다. 따라서 이러한 제거를 한 번 더 했을 때 $H$ 는 여전히 연결 그래프임을 보여야한다. 만약 어떤 버텍스 $w$ 에 대해 $H - vw$ 가 연결 그래프가 아니라고 가정하면, 그것은 $H - vw$ 에 $w$ 를 포함하면서 $u$ 는 포함하지 않는 어떤 컴포넌트 $K$ 가 존재한다는 것이다. $K$ 의 버텍스 $w$ 는 차수가 홀수이므로, $K$ 는 차수가 홀수인 또 다른 버텍스 하나를 가져야만한다. 그러나 이는 모순이므로, $H - vw$ 는 연결 그래프임을 보장할 수 있다. 다시 말해, 이러한 제거는 몇 번을 반복해도 여전히 연결 그래프인데 규칙 (ii)에 따르면 어떤 단계에서든 브릿지는 마지막에만 지울 수 있으므로 트레일의 종점은 $u$ 여야만한다.</p>
+<p style="text-align: right;">■</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Wilson. (1970). Introduction to Graph Theory: p33. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
@@ -651,7 +667,7 @@ $G$ 가 <a href="../1541">오일러 그래프</a>라고 하자. 그러면 다음
     <a href=https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 선형대수 (19)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/>
-        <span style="color:rgb(255,051,051);">●</span> 그래프이론 (41)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 그래프이론 (40)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 해석개론 (93+18)</a><br>
@@ -692,7 +708,7 @@ $G$ 가 <a href="../1541">오일러 그래프</a>라고 하자. 그러면 다음
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (58)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(255,204,000);">●</span> 수리통계학 (60+)</a><br>
+        <span style="color:rgb(255,204,000);">●</span> 수리통계학 (65)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (44)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>

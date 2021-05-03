@@ -27,7 +27,17 @@
     <link rel="icon" href="https://freshrimpsushi.github.io/logo/favicon.ico">
     <meta name="msapplication-TileColor" content="#FFFFFF">
     <meta name="msapplication-TileImage" content="logo/basic.png">
+
     
+    <style type="text/css">
+        .thmbox{
+            background: rgb(245,245,245) ;
+             
+            border-radius : 20px ;
+            padding : 20px ;
+        }
+    </style>
+
     
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
@@ -97,7 +107,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/runge-kutta-method\/",
-    "wordCount" : "1168",
+    "wordCount" : "1169",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -290,7 +300,7 @@ $D \subset \mathbb{R}^2$ 에서 정의된 연속함수 $f$ 에 대해 초기값 
 $$
 \displaystyle y_{n+1} = y_{n-1} + h \sum_{j=1}^{p} \gamma_{j} V_{j} 
 $$</p>
-<p><strong>룽게-쿠타 메소드</strong> 는 <a href="../724">아담스 메소드</a>처럼 여러가지 형태를 가지며 복잡한 대수적 조작을 통해 $\gamma_{j}$ 와 $V_{j}$ 를 결정한다. 그 중에서도 가장 인기 있게 쓰이는 것이 <strong>4차 룽게-쿠타 메소드</strong> 로써, 흔히 <strong>RK4</strong> 라고 줄여서 부른다.</p>
+<p><strong>룽게-쿠타 메소드</strong> 는 <a href="../724">아담스 메소드</a>처럼 여러가지 형태를 가지며 복잡한 대수적 조작을 통해 $\gamma_{j}$ 와 $V_{j}$ 를 결정한다. 그 중에서도 가장 인기 있게 쓰이는 것이 <strong>4차 룽게-쿠타 메소드</strong> 로써, 흔히 <strong>RK4</strong>라 줄여서 부른다.</p>
 <p>**4차 룽게-쿠타 메소드</p>
 <p>$$
 \begin{eqnarray*}
@@ -301,7 +311,8 @@ $$</p>
 \\  V_{4} &amp;=&amp; f \left( x_{n} + h , y_{n} + h V_{3} \right) 
 \end{eqnarray*}
 $$</p>
-<p>수식을 보면 한 스텝 $h$ 만큼을 진행하기 위해 $\displaystyle {{h} \over {2}}$ 지점의 데이터까지 사용한 것을 알 수 있다.위의 항들을 하나씩 풀어서 가장 간단한 <a href="../687">오일러 메소드</a> $y_{n+1} = y_{n} + h f ( x_{n} , y_{n} ) $ 를 통해 생각해보자. (편의상 $\displaystyle x_{n+ {{1} \over {2}} } : = x_{n} + {{h} \over {2}}$, $y_{n+ {{1} \over {2}} } \approx Y(x_{n + {{h} \over {2}} } )$ 이라고 하자.)
+<p>수식을 보면 한 스텝 $h$ 만큼을 진행하기 위해 $\displaystyle {{h} \over {2}}$ 지점의 데이터까지 사용한 것을 알 수 있다.</p>
+<p>위의 항들을 하나씩 풀어서 가장 간단한 <a href="../687">오일러 메소드</a> $y_{n+1} = y_{n} + h f ( x_{n} , y_{n} ) $ 를 통해 생각해보자. (편의상 $\displaystyle x_{n+ {{1} \over {2}} } : = x_{n} + {{h} \over {2}}$, $y_{n+ {{1} \over {2}} } \approx Y(x_{n + {{h} \over {2}} } )$ 이라고 하자.)
 $$
 V_{1} = f(x_{n} , y_{n} ) 
 $$
@@ -328,7 +339,8 @@ $$
 $$
 \displaystyle {{h} \over {6}} \left[ V_{1} + 2 V_{2} + 2 V_{3} + V_{4} \right]
 $$
-은 한 스텝 $h$ 를 진행시키기 위해 $x_{n+{{1} \over {2}} }$ 지점의 데이터까지 사용하면서 특히 $x_{n+{{1} \over {2}} }$ 지점에 가중치를 준 가중평균으로 볼 수 있다.여기서 더 많은 계산을 추가할 순 있지만 RK4부터는 수렴차수가 계산량만큼 올라가주지 않는다. 꼭 더 올려주지 않더라도 스티프한 문제가 아니라면 RK4만으로 충분한 편이고, 코딩 또한 비교적 쉬워서 널리 쓰이고 있다.다음은 R 로 RK4를 구현하고 <a href="../867">로렌츠 어트랙터</a>를 3D로 그리는 코드다.</p>
+은 한 스텝 $h$ 를 진행시키기 위해 $x_{n+{{1} \over {2}} }$ 지점의 데이터까지 사용하면서 특히 $x_{n+{{1} \over {2}} }$ 지점에 가중치를 준 가중평균으로 볼 수 있다.여기서 더 많은 계산을 추가할 순 있지만 RK4부터는 수렴차수가 계산량만큼 올라가주지 않는다. 꼭 더 올려주지 않더라도 스티프한 문제가 아니라면 RK4만으로 충분한 편이고, 코딩 또한 비교적 쉬워서 널리 쓰이고 있다.</p>
+<p>다음은 R 로 RK4를 구현하고 <a href="../867">로렌츠 어트랙터</a>를 3D로 그리는 코드다.</p>
 <pre><code>
 library(rgl)
  
@@ -741,7 +753,7 @@ end
     <a href=https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 선형대수 (19)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/>
-        <span style="color:rgb(255,051,051);">●</span> 그래프이론 (41)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 그래프이론 (40)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 해석개론 (93+18)</a><br>
@@ -782,7 +794,7 @@ end
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (58)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(255,204,000);">●</span> 수리통계학 (60+)</a><br>
+        <span style="color:rgb(255,204,000);">●</span> 수리통계학 (65)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (44)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>

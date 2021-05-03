@@ -27,7 +27,17 @@
     <link rel="icon" href="https://freshrimpsushi.github.io/logo/favicon.ico">
     <meta name="msapplication-TileColor" content="#FFFFFF">
     <meta name="msapplication-TileImage" content="logo/basic.png">
+
     
+    <style type="text/css">
+        .thmbox{
+            background: rgb(245,245,245) ;
+             
+            border-radius : 20px ;
+            padding : 20px ;
+        }
+    </style>
+
     
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
@@ -97,7 +107,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/cross-validation\/",
-    "wordCount" : "1331",
+    "wordCount" : "1335",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -276,9 +286,10 @@
 <h2 id="모델-검증">모델 검증</h2>
 <p>데이터 분석을 해서 얻은 모델은 그 퍼포먼스가 적절한지 확인하는 과정이 필요하다. 주어진 데이터만 잘 설명하고 실전에서 전혀 힘을 쓰지 못하면 분석을 하는 의미가 없기 때문이다. 이를 위해서 전체 데이터를 모델을 얻는데 사용할 데이터셋과 그 모형의 퍼포먼스를 평가할 데이터셋으로 쪼갠다.</p>
 <p><img src="20190128_103954.png#center" alt="20190128\_103954.png"></p>
-<p>모델을 얻겠다는 것은 주어진 데이터를 이용해 다른 데이터도 설명해보겠다는 의미다. 이러한 의미에서 &lsquo;주어진 데이터&rsquo;를 <strong>트레이닝 데이터</strong><sup>Training Data</sup> 라고 한다. 머신러닝 등의 분야에서 &lsquo;학습&rsquo;한다는 말과 맥락을 같이 한다. 그리고 &lsquo;다른 데이터&rsquo;를 <strong>테스트 데이터</strong><sup>Test Data</sup> 라고 한다. 엄밀히 말해 테스트 데이터는 &lsquo;실제 테스트&rsquo;를 하기 위해서 만들어진 것은 아니지만, 모델 입장에서 보면 새로운 데이터기 때문에 퍼포먼스를 확인하는데 쓰일 수 있는 것이다.여기까지가 &lsquo;모델을 검증한다&rsquo;는 아이디어다. 분석이 제대로 된 것인지 확인하기 위해 다양한 검정이 있듯 그렇게 얻은 모델이 실제로 쓸모가 있는지 확인하는 것이다. 이러한 관점에서 보았을 때 무슨 <a href="../672">회귀계수가 유의하냐</a>, <a href="../821">변수가 너무 많은 것은 아니냐</a>, <a href="../852">적합도 검정을 통과 했느냐</a> 하는 것은 검증의 관심사가 아니다.</p>
+<p>모델을 얻겠다는 것은 주어진 데이터를 이용해 다른 데이터도 설명해보겠다는 의미다. 이러한 의미에서 &lsquo;주어진 데이터&rsquo;를 <strong>트레이닝 데이터</strong><sup>Training Data</sup>라 한다. 머신러닝 등의 분야에서 &lsquo;학습&rsquo;한다는 말과 맥락을 같이 한다. 그리고 &lsquo;다른 데이터&rsquo;를 <strong>테스트 데이터</strong><sup>Test Data</sup>라 한다. 엄밀히 말해 테스트 데이터는 &lsquo;실제 테스트&rsquo;를 하기 위해서 만들어진 것은 아니지만, 모델 입장에서 보면 새로운 데이터기 때문에 퍼포먼스를 확인하는데 쓰일 수 있는 것이다.여기까지가 &lsquo;모델을 검증한다&rsquo;는 아이디어다. 분석이 제대로 된 것인지 확인하기 위해 다양한 검정이 있듯 그렇게 얻은 모델이 실제로 쓸모가 있는지 확인하는 것이다. 이러한 관점에서 보았을 때 무슨 <a href="../672">회귀계수가 유의하냐</a>, <a href="../821">변수가 너무 많은 것은 아니냐</a>, <a href="../852">적합도 검정을 통과 했느냐</a> 하는 것은 검증의 관심사가 아니다.</p>
 <p><img src="20190128_104359.png#center" alt="20190128\_104359.png"></p>
-<p>트레이닝 데이터로 얻은 모델이 테스트 데이터에 대해서도 괜찮은 퍼포먼스를 보인다면 다른 데이터에 대해서도 좋은 퍼포먼스를 낼 수 있을 것으로 생각할 수 있다. 우리가 수능 공부를 하는 과정이 트레이닝이라면, 모의고사가 바로 테스트다. 이러한 모의고사를 반복함으로써 우리가 수능에서 적절한 퍼포먼스를 낼 수 있을지 계속해서 확인하는 것이다.그런데 어떤 학생이 수능을 앞두고 친 9모평 수학영역만 반복해서 공부했다고 생각해보자. 처음에 15점을 맞았다고 할지라도 같은 문제를 반복해서 풀고 답을 외울 수준으로 공부한다면 당연히 100점을 맞을 수밖에 없을 것이다. 하지만 이 학생이 수능에서 성적이 오르기를 기대하기는 힘들다. 이러한 현상을 <strong>과적합</strong><sup>Overfitting</sup>이라 한다. 너무 한정된 문제에만 최적화되었기 때문에 어떤 문제가 나올지 모르는 수능에는 대응할 수 없는 것이다.</p>
+<p>트레이닝 데이터로 얻은 모델이 테스트 데이터에 대해서도 괜찮은 퍼포먼스를 보인다면 다른 데이터에 대해서도 좋은 퍼포먼스를 낼 수 있을 것으로 생각할 수 있다. 우리가 수능 공부를 하는 과정이 트레이닝이라면, 모의고사가 바로 테스트다. 이러한 모의고사를 반복함으로써 우리가 수능에서 적절한 퍼포먼스를 낼 수 있을지 계속해서 확인하는 것이다.</p>
+<p>그런데 어떤 학생이 수능을 앞두고 친 9모평 수학영역만 반복해서 공부했다고 생각해보자. 처음에 15점을 맞았다고 할지라도 같은 문제를 반복해서 풀고 답을 외울 수준으로 공부한다면 당연히 100점을 맞을 수밖에 없을 것이다. 하지만 이 학생이 수능에서 성적이 오르기를 기대하기는 힘들다. 이러한 현상을 <strong>과적합</strong><sup>Overfitting</sup>이라 한다. 너무 한정된 문제에만 최적화되었기 때문에 어떤 문제가 나올지 모르는 수능에는 대응할 수 없는 것이다.</p>
 <p>하지만 이 학생이 재수를 해서 과거 10개년 수능과 6모평, 9모평을 반복해서 공부했다고 생각해보자. 이 모든 시험에서 100점을 받는 것은 어려울테지만 수능 성적은 분명히 올라갈 것이다. &lsquo;많은&rsquo; &lsquo;노력&rsquo;을 &lsquo;반복&rsquo;했기 때문에 당연한 일이다. 이것이 우리가 알고 있는 <strong>공부</strong>의 정체다.</p>
 <h2 id="k-폴드">k-폴드</h2>
 <p><img src="20190128_114441.png#center" alt="20190128\_114441.png">
@@ -641,7 +652,7 @@
     <a href=https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 선형대수 (19)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/>
-        <span style="color:rgb(255,051,051);">●</span> 그래프이론 (41)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 그래프이론 (40)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 해석개론 (93+18)</a><br>
@@ -682,7 +693,7 @@
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (58)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(255,204,000);">●</span> 수리통계학 (60+)</a><br>
+        <span style="color:rgb(255,204,000);">●</span> 수리통계학 (65)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (44)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>

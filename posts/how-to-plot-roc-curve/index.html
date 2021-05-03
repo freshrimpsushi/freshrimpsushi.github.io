@@ -27,7 +27,17 @@
     <link rel="icon" href="https://freshrimpsushi.github.io/logo/favicon.ico">
     <meta name="msapplication-TileColor" content="#FFFFFF">
     <meta name="msapplication-TileImage" content="logo/basic.png">
+
     
+    <style type="text/css">
+        .thmbox{
+            background: rgb(245,245,245) ;
+             
+            border-radius : 20px ;
+            padding : 20px ;
+        }
+    </style>
+
     
     <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
@@ -97,7 +107,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-plot-roc-curve\/",
-    "wordCount" : "2380",
+    "wordCount" : "2379",
     "genre" : [ "R" ],
     "keywords" : [ "R" ]
 }
@@ -295,7 +305,7 @@
 p &lt;- predict(out0, newdata=test, type=&quot;response&quot;); p
 </code></pre><p>출력 결과는 다음과 같다.</p>
 <p><img src="20190128_152826.png#center" alt="20190128\_152826.png">
-문제는 이 확률을 어떻게 해석하고 사용할 것인가다. 사실 우리가 정말로 계산하고 싶었던건 확률이 아니라, 그래서 어떤 사람이 &lsquo;찬성&rsquo;을 했는지 안 했는지를 맞추는 것이다. 해서 일정 확률보다 높은 경우를 &lsquo;찬성&rsquo;했다고 예측하고, 낮은 경우를 &lsquo;반대&rsquo;했다고 예측하고 싶다. 그 &lsquo;일정 확률&rsquo;을 <strong>컷오프</strong><sup>Cutoff</sup>  혹은 <strong>역치</strong><sup>Threshold</sup> 라고 하고, 보통은 컷오프라는 표현을 잘 쓴다.</p>
+문제는 이 확률을 어떻게 해석하고 사용할 것인가다. 사실 우리가 정말로 계산하고 싶었던건 확률이 아니라, 그래서 어떤 사람이 &lsquo;찬성&rsquo;을 했는지 안 했는지를 맞추는 것이다. 해서 일정 확률보다 높은 경우를 &lsquo;찬성&rsquo;했다고 예측하고, 낮은 경우를 &lsquo;반대&rsquo;했다고 예측하고 싶다. 그 &lsquo;일정 확률&rsquo;을 <strong>컷오프</strong><sup>Cutoff</sup>  혹은 <strong>역치</strong><sup>Threshold</sup>라 하고, 보통은 컷오프라는 표현을 잘 쓴다.</p>
 <h2 id="최적-컷오프">최적 컷오프</h2>
 <p>이 컷오프를 어떻게 하느냐에 따라서 <a href="../571">정분류율</a>은 달라질 것이다. 극단적으로 0.99 이하를 전부 &lsquo;반대&rsquo;라고 예측해도 그냥 &lsquo;반대&rsquo;를 한 사람들만큼은 맞췄기 때문에 정분류율은 어느정도 나온다. 0.01 이상을 전부 &lsquo;찬성&rsquo;이라고 예측해도 마찬가지로 맞을 사람은 맞는다. 예를 들어 1년 365일 중에 120일 동안 비가 오는 나라가 있다면 1년 내내 다음날의 날씨를 &lsquo;맑음&rsquo;이라고 예측해도 정답률이 얼추 $67\%$ 는 나오게 되어있다.</p>
 <p>우리는 이 보다는 좋은 분석과 예측이 필요하기 때문에, 좋은 컷오프를 구하고 싶다. 그냥 간단하게 생각하기엔 0.5를 기준으로 높으면 &lsquo;찬성&rsquo; 낮으면 &lsquo;반대&rsquo;로 예측하면 될 것 같다. 하지만 계산해보면 그렇지 않은 경우가 훨씬 많다. (또 항상 정분류율만이 기준이 되는 것은 아니다. 사안에 따라 더 중요한 척도가 있을 수 있다.)해서 이 좋은 컷오프를 찾기 위해 하는 일이 바로 위에서 구한 p의 모든 확률을 컷오프로써 써보는 것이다. 0.89572040으로 오차행렬을 만들어서 False Positive Rate와 True Positive Rate를 계산해보고, 0.81810785로 또 계산해보고, 0.70215561로 또 계산해보고, &hellip; 이것을 반복해서 가로축을 False Positive Rate, 세로축을 True Positive Rate로 나타낸 그래프가 바로 <strong>ROC 커브</strong> 다.</p>
@@ -706,7 +716,7 @@ win.graph(); plot(prf, main='ROC of Small Test Data')
     <a href=https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 선형대수 (19)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/>
-        <span style="color:rgb(255,051,051);">●</span> 그래프이론 (41)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 그래프이론 (40)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 해석개론 (93+18)</a><br>
@@ -747,7 +757,7 @@ win.graph(); plot(prf, main='ROC of Small Test Data')
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (58)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(255,204,000);">●</span> 수리통계학 (60+)</a><br>
+        <span style="color:rgb(255,204,000);">●</span> 수리통계학 (65)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (44)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
