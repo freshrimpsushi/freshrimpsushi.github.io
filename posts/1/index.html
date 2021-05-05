@@ -107,7 +107,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/1\/",
-    "wordCount" : "0",
+    "wordCount" : "1016",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -271,9 +271,96 @@
 
 <aside>
     <b>목차</b>
-    <nav id="TableOfContents"></nav>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#빌드업">빌드업</a></li>
+    <li><a href="#정의-1">정의 </a></li>
+    <li><a href="#설명">설명</a></li>
+    <li><a href="#기초-성질-2">기초 성질 </a></li>
+  </ul>
+</nav>
 </aside>
 
+<h1 id="이토-적분">이토 적분</h1>
+<p>Itô Integral</p>
+<h2 id="빌드업">빌드업</h2>
+<p>확률적 적분을 생각하기 이전에 아주 중요한 확률과정인 <strong>초등 과정</strong><sup>Elementary Process</sup>을 정의하려고 한다. 초등 과정이란 측도론에서 <a href="../527">르벡 적분을 정의</a>하기 위해 필요했던 <strong>단순 함수</strong>와 비슷한 역할을 한다.</p>
+<p>$$
+a = t_{0} \le t_{1} &lt; \cdots &lt; t_{k} = b
+$$
+네츄럴 도메인 $[a,b]$ 에서 위와 같은 <a href="../828">분할</a>을 생각해보자. <a href="../1790">지시함수</a> $\chi$ 와 $\mathcal{F}_{t_{j}}$-가측 함수(확률 변수)인 $e_{j}$ 에 대해 다음과 같이 나타나는 <a href="../2109">$\phi \in m^{2}[a,b]$</a> 를 <strong>초등 과정</strong>이라 한다.
+$$
+\phi (t,\omega) := \sum_{j=0}^{k-1} e_{j} (\omega) \chi_{ \left[ t_{j} , t_{j+1} \right] } (t)
+$$
+이 함수를 <a href="../957">위너 프로세스</a> $W(t)$ 로 적분한다는 것은 구분구적법의 아이디어 그대로 다음과 같이 생각해볼 수 있다.
+$$
+\int_{a}^{b} \phi (t,\omega) d W_{t} (\omega) = \sum_{j=0}^{k-1} e_{j} (\omega) \left[ W_{t_{j+1}} - W_{t_{j}} \right] ( \omega )
+$$
+이에 따라 다음과 같은 <strong>확률적 적분</strong><sup>Stochastic Integral</sup>을 정의한다.</p>
+<h2 id="정의-1">정의 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>$f \in m^{2} [a,b]$ 의 <strong>이토 적분</strong><sup>Itô Integral</sup>을 다음과 같이 정의한다.
+$$
+\int_{a}^{b} f (t,\omega) d W_{t} (\omega) := \lim_{n \to \infty} \int_{a}^{b} \phi_{n} (t,\omega) d W_{t} (\omega)
+$$
+여기서 <a href="../470">시퀀스</a> $\left\{ \phi_{n} \right\}_{n \in \mathbb{N}}$ 는 다음을 만족시키는 초등 과정의 시퀀스다.
+$$
+\lim_{n \to \infty} E \left[ \int_{a}^{b} \left( f (t,\omega) - \phi_{n} (t,\omega) \right)^{2} dt \right] = 0
+$$</p>
+<h2 id="설명">설명</h2>
+<p>정의에서 $\left\{ \phi_{n} \right\}_{n \in \mathbb{N}}$ 는 조건 $E \int [f-\phi_{n}]^{2} dt \to 0$ 를 만족하는 한 구체적으로 어떻게 선택되든 상관 없다.</p>
+<h2 id="기초-성질-2">기초 성질 <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h2>
+<p>$f, g \in m^{2} [a,b]$ 이고 <a href="../2109">필트레이션</a> $\left\{ \mathcal{F}_{t} \right\}_{t \ge 0}$ 이 주어져 있다고 하자.</p>
+<ul>
+<li>[1] 가측성: $\displaystyle \int_{a}^{b} f d W_{t} = \left( \int_{a}^{b} f d W_{t} \right) (\omega)$ 는 $\mathcal{F}_{b}$-가측이다.</li>
+<li>[2] 선형성: 상수 $c$ 에 대해
+$$
+\int_{a}^{b} \left( c f + g \right) d W_{t} = \int_{a}^{b} c f d W_{t} + \int_{a}^{b} g d W_{t}
+$$</li>
+<li>[3] 가법성: $a &lt; c &lt; b$ 에 대해
+$$
+\int_{a}^{b} f d W_{t} = \int_{a}^{c} f d W_{t} + \int_{c}^{b} f d W_{t}
+$$</li>
+<li>[4] 정규성: $f$ 가 $\omega \in \Omega$ 와 독립<sup>Independent</sup>이면, 다시 말해 $f$ 가 결정론적<sup>Deterministic</sup>이면
+$$
+\int_{a}^{b} f d W_{t} \sim N \left( 0, \int_{a}^{b} \left( f \right)^{2} dt \right) 
+$$</li>
+<li>[5]: 유계 <a href="../1433">확률변수</a> $Z$ 가 $\mathcal{F}_{b}$-가측이면 $Z f \in m^{2}[a,b]$ 고 다음이 성립한다.
+$$
+\int_{a}^{b} Z f (t) d W_{t} = Z \int_{a}^{b} f (t) d W_{t}
+$$</li>
+<li>[6] 기대값: 서브 시그마 필드 $\mathcal{F}_{a}$ 에 대해
+$$
+E \left[ \int_{a}^{b} f d W_{t} \right] = E \left[ \int_{a}^{b} f d W_{t} | \mathcal{F}_{a} \right] = 0
+$$
+이고, $f,g$ 에 대해 다음이 성립한다.
+$$
+E \left( \int_{a}^{b} f(t) d W_{t} \int_{a}^{b} g(t) d W_{t} \right) = E \left( \int_{a}^{b} f(t) g(t) d W_{t} \right)
+$$</li>
+<li>[7] 이토 등거리 등식:
+$$
+E \left( \left| \int_{a}^{b} f W_{t} \right|^{2} \right) = E \left( \int_{a}^{b} \left| f \right|^{2} W_{t} \right)
+$$
+이는 조건부 기대값에도 마찬가지로 적용되어 다음이 성립한다.
+$$
+E \left( \left| \int_{a}^{b} f d  W_{t} \right|^{2} | \mathcal{F}_{a} \right) = E \left( \int_{a}^{b} \left| f \right|^{2} d W_{t} | \mathcal{F}_{a} \right) = \int_{a}^{b} E \left( \left| f \right|^{2} | \mathcal{F}_{a} \right) d W_{t}
+$$</li>
+</ul>
+<hr>
+<ul>
+<li>$\mathcal{F}_{t}$ 가 $\mathcal{F}$ 의 서브 시그마 필드라는 것은 둘 다 $\Omega$ 의 <a href="../490">시그마 필드</a>이되, $\mathcal{F}_{t} \subset \mathcal{F}$ 임을 의미한다.</li>
+<li>$f$ 가 $\mathcal{F}_{t}$-가측 함수라는 것은 모든 <a href="../495">보렐 셋</a> $B \in \mathcal{B}([0,\infty))$ 에 대해 $f^{-1} (B) \in \mathcal{F}_{t}$ 라는 의미다.</li>
+</ul>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Øksendal. (2003). Stochastic Differential Equations: An Introduction with Applications: p29. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>Panik. (2017). Stochastic Differential Equations: An Introduction with Applications in Population Dynamics Modeling: p118. <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
@@ -689,7 +776,7 @@
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (29)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1824)</summary>
+    <summary>전체 포스트 (1826)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -721,7 +808,7 @@
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%80%EB%93%B1%EC%8B%9D/" style="color: black">부등식 (5)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (43)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (44)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (6)</a>
         </li><li>
@@ -771,7 +858,7 @@
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/" style="color: black">통계적분석 (57)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (42)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (44)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (39)</a>
         </li><li>
