@@ -107,7 +107,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/1\/",
-    "wordCount" : "1016",
+    "wordCount" : "2007",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -275,89 +275,79 @@
   <ul>
     <li><a href="#빌드업">빌드업</a></li>
     <li><a href="#정의-1">정의 </a></li>
+    <li><a href="#랜덤-그래프">랜덤 그래프</a>
+      <ul>
+        <li><a href="#쉬운-정의">쉬운 정의</a></li>
+        <li><a href="#어려운-정의">어려운 정의</a></li>
+      </ul>
+    </li>
     <li><a href="#설명">설명</a></li>
-    <li><a href="#기초-성질-2">기초 성질 </a></li>
+    <li><a href="#예시">예시</a></li>
   </ul>
 </nav>
 </aside>
 
-<h1 id="이토-적분">이토 적분</h1>
-<p>Itô Integral</p>
+<h1 id="그래프의-패밀리와-프로퍼티-2binomn2-mathscrg_nm">그래프의 패밀리와 프로퍼티 $2^{\binom{n}{2}}$, $\mathscr{G}_{n,m}$</h1>
+<p>Family and Property of Graph</p>
 <h2 id="빌드업">빌드업</h2>
-<p>확률적 적분을 생각하기 이전에 아주 중요한 확률과정인 <strong>초등 과정</strong><sup>Elementary Process</sup>을 정의하려고 한다. 초등 과정이란 측도론에서 <a href="../527">르벡 적분을 정의</a>하기 위해 필요했던 <strong>단순 함수</strong>와 비슷한 역할을 한다.</p>
-<p>$$
-a = t_{0} \le t_{1} &lt; \cdots &lt; t_{k} = b
+<p>$n$ 개의 라벨링 된<sup>Labeled</sup> 버텍스의 집합 $V = [n] = \left\{ 1 ,\cdots , n \right\}$ 를 가진 <a href="../966">심플 그래프</a>를 생각해보자. 이 그래프의 에지는 서로 다른 두 버텍스를 고르는 경우의 수만큼 존재할 수 있고, 따라서 그 종류는 정확히 $\binom{n}{2}$ 다. 이것을 각각의 에지가 아닌 그래프 전체로 생각해보자면 $n$ 개의 버텍스가 픽스된 상황에서 $\binom{n}{2}$ 가지 각각의 에지가 존재하느냐(1) 존재하지 않느냐(0) 둘 중 하나로 구분할 수 있다. 따라서 버텍스가 $n$ 개인 모든 그래프의 집합은 다음과 같이 나타낼 수 있을 것이다.
 $$
-네츄럴 도메인 $[a,b]$ 에서 위와 같은 <a href="../828">분할</a>을 생각해보자. <a href="../1790">지시함수</a> $\chi$ 와 $\mathcal{F}_{t_{j}}$-가측 함수(확률 변수)인 $e_{j}$ 에 대해 다음과 같이 나타나는 <a href="../2109">$\phi \in m^{2}[a,b]$</a> 를 <strong>초등 과정</strong>이라 한다.
+2^{\binom{n}{2}}
 $$
-\phi (t,\omega) := \sum_{j=0}^{k-1} e_{j} (\omega) \chi_{ \left[ t_{j} , t_{j+1} \right] } (t)
-$$
-이 함수를 <a href="../957">위너 프로세스</a> $W(t)$ 로 적분한다는 것은 구분구적법의 아이디어 그대로 다음과 같이 생각해볼 수 있다.
-$$
-\int_{a}^{b} \phi (t,\omega) d W_{t} (\omega) = \sum_{j=0}^{k-1} e_{j} (\omega) \left[ W_{t_{j+1}} - W_{t_{j}} \right] ( \omega )
-$$
-이에 따라 다음과 같은 <strong>확률적 적분</strong><sup>Stochastic Integral</sup>을 정의한다.</p>
+물론 우리는 이 모든 그래프에 관심을 가지지 않기 때문에, 그 중에서 우리가 필요한 성질들을 가지는 그래프들을 따로 모아보고 싶다. 이를테면 버텍스 $n$ 개인 <a href="../1565">평면 그래프</a>들만 모아놓은 집합 $P$ 와 <a href="../1541">오일러 그래프</a>들만 모아놓은 집합 $O$ 가 있다고 한다면, 이들은 $2^{\binom{n}{2}}$ 의 부분집합으로써 정의되는 동시에, 그래프가 해당 부분집합에 속하면 그 성질을 가진다고 말할 수 있으므로 그들 자체를 성질<sup>Property</sup>이라 부르기에 충분하다. 가령 $G \in \left( P \cap O \right)$ 라면 그래프 $G$ 는 평면 그래프면서 오일러 그래프다. 달리 말하자면, 그래프 $G$ 는 평면이라는 성질과 오일러 그래프라는 성질을 가지는 것이다.</p>
 <h2 id="정의-1">정의 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p>$f \in m^{2} [a,b]$ 의 <strong>이토 적분</strong><sup>Itô Integral</sup>을 다음과 같이 정의한다.
+<ol>
+<li>$n$ 개의 라벨링 된 버텍스를 가진 그래프의 <strong>패밀리</strong><sup>Family</sup>는 <a href="../1346">멱집합 표현</a>을 써서 다음과 같이 나타낸다.
 $$
-\int_{a}^{b} f (t,\omega) d W_{t} (\omega) := \lim_{n \to \infty} \int_{a}^{b} \phi_{n} (t,\omega) d W_{t} (\omega)
+2^{\binom{n}{2}}
+$$</li>
+<li>그래프 패밀리 $2^{\binom{n}{2}}$ 의 부분집합 $\mathscr{P} \subset 2^{\binom{n}{2}}$ 을 <strong>프로퍼티</strong><sup>Property</sup>라 한다.</li>
+<li>$n$ 개의 라벨링 된<sup>Labeled</sup> 버텍스와 $m$ 개의 에지를 가진 심플 그래프라는 프로퍼티 $\mathscr{G}_{n,m} \subset 2^{\binom{n}{2}}$ 를 다음과 같이 정의한다.
 $$
-여기서 <a href="../470">시퀀스</a> $\left\{ \phi_{n} \right\}_{n \in \mathbb{N}}$ 는 다음을 만족시키는 초등 과정의 시퀀스다.
+\mathscr{G}_{n,m} = \left\{ G \in 2^{\binom{n}{2}} : V(G) = [n] , \left| E(G) \right| = m \right\}
+$$</li>
+<li>$G$ 에 하나의 에지 $e \notin E(G)$ 가 추가되어도 여전히 유지되는 프로퍼티를 <strong>단조 증가 프로퍼티</strong>라 한다. 다시 말해, 다음을 만족하는 $\mathscr{P}$ 를 단조 증가 프로퍼티라 한다.
 $$
-\lim_{n \to \infty} E \left[ \int_{a}^{b} \left( f (t,\omega) - \phi_{n} (t,\omega) \right)^{2} dt \right] = 0
-$$</p>
+G \in \mathscr{P} \implies (G + e) \in \mathscr{P}
+$$
+반대로 하나의 에지 $e \in E(G)$ 가 빠져도 다음과 같이 여전히 유지되는 프로퍼티를 <strong>단조 감소 프로퍼티</strong>라 한다.
+$$
+G \in \mathscr{P} \implies (G - e) \in \mathscr{P}
+$$
+이들을 아울러 <strong>모노톤</strong><sup>Monotone</sup> 프로퍼티라 한다.</li>
+</ol>
+<h2 id="랜덤-그래프">랜덤 그래프</h2>
+<h3 id="쉬운-정의">쉬운 정의</h3>
+<p>확률적인 절차로 만들어지거나 어떤 확률 분포에 따라 표현되는 그래프를 <strong>랜덤 그래프</strong><sup>Random Graph</sup>라 한다.</p>
+<h3 id="어려운-정의">어려운 정의</h3>
+<p><a href="../498">확률 공간</a> $( \Omega , \mathcal{F} , P)$ 이 주어져 있고, $2^{\binom{n}{2}}$ 는 버텍스가 $n$ 개인 라벨링 된 그래프를 모두 모은 그래프 패밀리를 나타낸다고 하자.</p>
+<p>$\mathcal{F}$-가측인 함수 $\mathbb{G} : \Omega \to 2^{\binom{n}{2}}$ 를 <strong>랜덤 그래프</strong><sup>Random Graph</sup>라 한다. 다시 말해, $\mathbb{G}$ 는 모든 그래프 $G \in 2^{\binom{n}{2}}$ 에 대해 $\mathbb{G}^{-1} \left( G \right) \in \mathcal{F}$ 를 만족시키는 함수다.</p>
 <h2 id="설명">설명</h2>
-<p>정의에서 $\left\{ \phi_{n} \right\}_{n \in \mathbb{N}}$ 는 조건 $E \int [f-\phi_{n}]^{2} dt \to 0$ 를 만족하는 한 구체적으로 어떻게 선택되든 상관 없다.</p>
-<h2 id="기초-성질-2">기초 성질 <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h2>
-<p>$f, g \in m^{2} [a,b]$ 이고 <a href="../2109">필트레이션</a> $\left\{ \mathcal{F}_{t} \right\}_{t \ge 0}$ 이 주어져 있다고 하자.</p>
-<ul>
-<li>[1] 가측성: $\displaystyle \int_{a}^{b} f d W_{t} = \left( \int_{a}^{b} f d W_{t} \right) (\omega)$ 는 $\mathcal{F}_{b}$-가측이다.</li>
-<li>[2] 선형성: 상수 $c$ 에 대해
+<p>21세기 들어 네트워크 이론이 점점 더 많은 분야에 응용되는만큼 <strong>랜덤 네트워크</strong><sup>Random Network</sup>에 대한 논의 역시 활발해지고 있다. 통계학에서 <a href="../1433">확률변수</a>가 데이터를 의미하듯, 응용수학에서 랜덤 네트워크는 우리가 원하든 원치않든 지금 손에 떨어져있는 어떤 데이터의 구조를 의미하게 될것이다.</p>
+<p>가령 어떤 학과에서 각 학생을 노드, SNS 팔로잉 상태로써 링크로 보고 네트워크를 만들면 그야말로 랜덤 네트워크의 좋은 예가 된다. 노드를 잇는 규칙은 명확하지만 실제로 조사(샘플링)를 하기 전엔 이 네트워크의 형태를 정확히 알 수는 없다. 전형적인 구조는 있겠지만 학과를 바꿔서 조사할 때마다 우연에 따라 다른 네트워크를 얻을 것이다.</p>
+<p>다만 이런 설명은 수리적으로 사고하기엔 너무 나이브<sup>Naive</sup>하다. 어려운 정의에서 랜덤 그래프는 측도론을 사용하는 확률론에서 확률 변수<sup>Random Variable</sup>를 정의하는 것과 <a href="../1288">정확히 같은 방식</a>으로 정의됐다. Random Variable란 결국 현실 속의 실험이나 시행 같은 $\omega \in \Omega$ 를 Variable로 매핑 시켜주는 함수고, Random Graph는 Graph로 매핑 시켜주는 함수다.</p>
+<p>손으로 직접 적어보면 더 이해하기 쉽다. 특정 그래프 $G_{0}$ 가 있다고 할 때, 랜덤하게 그래프를 만들어서 그 둘 중 하나일 확률이 $3/4$ 이라면 다음과 같이 적으면 된다.
 $$
-\int_{a}^{b} \left( c f + g \right) d W_{t} = \int_{a}^{b} c f d W_{t} + \int_{a}^{b} g d W_{t}
-$$</li>
-<li>[3] 가법성: $a &lt; c &lt; b$ 에 대해
+P \left( \mathbb{G} = G_{0} \right) = {{ 3 } \over { 4 }}
 $$
-\int_{a}^{b} f d W_{t} = \int_{a}^{c} f d W_{t} + \int_{c}^{b} f d W_{t}
-$$</li>
-<li>[4] 정규성: $f$ 가 $\omega \in \Omega$ 와 독립<sup>Independent</sup>이면, 다시 말해 $f$ 가 결정론적<sup>Deterministic</sup>이면
+위 수식은 <a href="../498">사건</a>은 $\left\{ \mathbb{G} = G_{0} \right\} \in \mathcal{F}$ 이다. 확률이라는 함수 안에 들어가는 것은 언제나 사건이라는 점을 명심하자. 랜덤 그래프는 일반적인 확률론에서 단지 공역이 그래프 패밀리인 <strong>랜덤 엘러먼트</strong><sup>Random Element</sup>에 불과하다.</p>
+<h2 id="예시">예시</h2>
+<p>예로써 $n$ 개의 라벨링 된<sup>Labeled</sup> 버텍스와 $m$ 개의 에지를 가진 심플 그래프라는 [프로퍼티] $\mathscr{G}_{n,m} \subset 2^{\binom{n}{2}}$ 를 생각해보자.</p>
+<p>정확히 $m$ 개의 링크를 가진 랜덤 그래프는 $\mathbb{G}_{n, m} : \Omega \to \mathscr{G}_{n,m}$ 과 같이 나타낼 수 있다. 이렇게 만들어지는 그래프는 $n$ 개의 노드와 $m$ 개의 링크만 가지면 누가 어떤 확률로 만들어지든 아무래도 상관 없다. 다시 말해, 아직까지는 <a href="../1288">확률 분포</a>가 주어지지 않았다. 여기서 우리가 가장 쉽게 생각할 수 있는 확률 분포는 다음과 같이 모두가 같은 확률인 일양 분포다.</p>
+<p>심플 그래프는 서로 다른 노드를 이어야하므로 $n$ 개의 노드 중 $2$ 개를 골라 $\binom{n}{2}$ 가지의 링크를 가질 수 있으며, 그 중에서 특히 $m$ 개의 링크를 골라서 가지므로 $\displaystyle \left| \mathscr{G}_{n,m} \right| = \binom{\binom{n}{2}}{m}$ 이다. 이에 모든 $G \in \mathscr{G}_{n,m}$ 에 대해
 $$
-\int_{a}^{b} f d W_{t} \sim N \left( 0, \int_{a}^{b} \left( f \right)^{2} dt \right) 
-$$</li>
-<li>[5]: 유계 <a href="../1433">확률변수</a> $Z$ 가 $\mathcal{F}_{b}$-가측이면 $Z f \in m^{2}[a,b]$ 고 다음이 성립한다.
+P \left( \mathbb{G}_{n,m} = G \right) = \binom{\binom{n}{2}}{m}^{-1}
 $$
-\int_{a}^{b} Z f (t) d W_{t} = Z \int_{a}^{b} f (t) d W_{t}
-$$</li>
-<li>[6] 기대값: 서브 시그마 필드 $\mathcal{F}_{a}$ 에 대해
-$$
-E \left[ \int_{a}^{b} f d W_{t} \right] = E \left[ \int_{a}^{b} f d W_{t} | \mathcal{F}_{a} \right] = 0
-$$
-이고, $f,g$ 에 대해 다음이 성립한다.
-$$
-E \left( \int_{a}^{b} f(t) d W_{t} \int_{a}^{b} g(t) d W_{t} \right) = E \left( \int_{a}^{b} f(t) g(t) d W_{t} \right)
-$$</li>
-<li>[7] 이토 등거리 등식:
-$$
-E \left( \left| \int_{a}^{b} f W_{t} \right|^{2} \right) = E \left( \int_{a}^{b} \left| f \right|^{2} W_{t} \right)
-$$
-이는 조건부 기대값에도 마찬가지로 적용되어 다음이 성립한다.
-$$
-E \left( \left| \int_{a}^{b} f d  W_{t} \right|^{2} | \mathcal{F}_{a} \right) = E \left( \int_{a}^{b} \left| f \right|^{2} d W_{t} | \mathcal{F}_{a} \right) = \int_{a}^{b} E \left( \left| f \right|^{2} | \mathcal{F}_{a} \right) d W_{t}
-$$</li>
-</ul>
-<hr>
-<ul>
-<li>$\mathcal{F}_{t}$ 가 $\mathcal{F}$ 의 서브 시그마 필드라는 것은 둘 다 $\Omega$ 의 <a href="../490">시그마 필드</a>이되, $\mathcal{F}_{t} \subset \mathcal{F}$ 임을 의미한다.</li>
-<li>$f$ 가 $\mathcal{F}_{t}$-가측 함수라는 것은 모든 <a href="../495">보렐 셋</a> $B \in \mathcal{B}([0,\infty))$ 에 대해 $f^{-1} (B) \in \mathcal{F}_{t}$ 라는 의미다.</li>
-</ul>
+라고 하면 $n$ 개의 노드와 $m$ 개의 링크를 가지는 모든 그래프의 뽑힐 확률이 동등한 것이 된다. 이런 확률 분포를 가지는 랜덤 그래프 $\mathbb{G}_{n, m}$ 가 그 이름도 유명한 에르되시-레니 모델이다.</p>
+<h1 id="에르되시-레니-모델-mathbbg_nm">에르되시-레니 모델 $\mathbb{G}_{n,m}$</h1>
+<h1 id="길버트-모델-mathbbg_np">길버트 모델 $\mathbb{G}_{n,p}$</h1>
+<h1 id="에르되시-레니-모델과-길버트-모델의-비교">에르되시-레니 모델과 길버트 모델의 비교</h1>
+<p>page 4</p>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Øksendal. (2003). Stochastic Differential Equations: An Introduction with Applications: p29. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-<li id="fn:2" role="doc-endnote">
-<p>Panik. (2017). Stochastic Differential Equations: An Introduction with Applications in Population Dynamics Modeling: p118. <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Frieze. (2015). Introduction to Random Graphs: p5~7. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -727,8 +717,6 @@ $$</li>
         <span style="color:rgb(051,204,051);">●</span> 거리공간 (33)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 측도론 (59)</a><br>
-    <a href=https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/>
-        <span style="color:rgb(255,051,051);">●</span> 편미분방정식 (42)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 동역학 (60++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/>
@@ -739,6 +727,13 @@ $$</li>
         <span style="color:rgb(051,204,051);">●</span> 토모그래피 (10)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/>
         <span style="color:rgb(051,204,051);">●</span> 매트랩 (16)</a><br>
+    <hr>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%83%81%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/>
+        <span style="color:rgb(255,051,051);">●</span> 상미분방정식 (58)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/>
+        <span style="color:rgb(255,051,051);">●</span> 편미분방정식 (42)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/>
+        <span style="color:rgb(255,204,000);">●</span> 확률미분방정식 (1++)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 벡터해석 (41)</a><br>
@@ -763,8 +758,6 @@ $$</li>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (44)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 확률론 (61)</a><br>
-    <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/>
-        <span style="color:rgb(255,204,000);">●</span> 확률미분방정식 (1++)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/>
         <span style="color:rgb(255,204,000);">●</span> 줄리아 (40++)</a><br>
@@ -776,7 +769,7 @@ $$</li>
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (29)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1826)</summary>
+    <summary>전체 포스트 (1827)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -840,7 +833,7 @@ $$</li>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (28)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (29)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
