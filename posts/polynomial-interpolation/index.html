@@ -107,7 +107,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/polynomial-interpolation\/",
-    "wordCount" : "1870",
+    "wordCount" : "1868",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -299,7 +299,7 @@ margin-right: auto;">
 
 서로 다른 $x_{0} , \cdots , x_{n}$ 의 데이터 $(x_{0}, y_{0}) , \cdots , (x_{n} , y_{n})$ 에 대해 $p (x_{i} ) = y_{i}$ 와 $\deg p \le n$ 을 만족하는 폴리노미얼 $p$ 를 <strong>폴리노미얼 인터폴레이션</strong> 이라고 한다.</p>
 <p>[1] 존재성과 유일성**  : 주어진 데이터에 대해서 $p$ 는 유일하게 존재한다.</p>
-<p>[2] <a href="../1023">라그랑주 공식</a>**  : $\displaystyle p_{n} (x) = \sum_{i=0}^{n} y_{i} l_{i} (x) $</p>
+<p>[2] <a href="../1023">라그랑주 공식</a>**  : $\displaystyle p_{n} (x) = \sum_{i=0}^{n} y_{i} l_{i} (X)$</p>
 <p>[3] <a href="../1025">뉴턴 계차상 공식</a>**  : $\displaystyle p_{n} (x) = f(x_{0}) + \sum_{i=1}^{n} f [ x_{0} , \cdots , x_{i} ] \prod_{j=0}^{i-1} (x - x_{j} )$</p>
 <p>[4] 실제 함수와의 오차**  : $(n+1)$번 미분가능한 $f : \mathbb{R} \to \mathbb{R}$ 와 어떤 $\xi \in \mathscr{H} \left\{ x_{0} , \cdots , x_{n} \right\} $ 에 대해 $f$ 의 폴리노미얼 인터폴레이션 $p_{n}$ 은 어떤 $t \in \mathbb{R}$ 에 대해 $\displaystyle f(t) - p_{n} (t) = {{ (t - x_{0}) \cdots (t - x_{n}) } \over { (n+1)! }} f^{(n+1)} ( \xi )$ 을 만족한다.</p>
 <p><strong>폴리노미얼 인터폴레이션</strong>은 한국어로 <strong>다항식 보간법</strong> 이라고 순화된다.</p>
@@ -348,7 +348,7 @@ $$
 <p>가정에서 $x_{0} , \cdots , x_{n}$ 는 서로 다르므로 $\det X \ne 0$ 이고, $X^{-1}$ 이 존재한다. 따라서 $\mathbb{a} = X^{-1} \mathbb{y}$ 역시 존재한다. 한편 주어진 행렬에 대한 역행렬은 유일하므로, $\mathbb{a}$ 역시 유일하다. <p style="text-align: right;">■</p></p>
 <p>Strategy[4]**  : 더미 함수들을 새로이 정의하고 그들의 미분가능성을 이용해 직접적인 계산을 회피한다. 세팅이 복잡하기 때문에 사실상 뒤에서부터 거꾸로 이해하는 게 편하다.</p>
 <h2 id="증명4">증명[4]</h2>
-<p><strong>Claim</strong>  : $E (x) := f(x) - p_{n} (x) $ 에 대해서 $\displaystyle E(t) = {{ (t - x_{0}) \cdots (t - x_{n}) } \over { (n+1)! }} f^{(n+1)} ( \xi )$<strong>Part 1.</strong> 우선 $t$ 가 노드포인트 $x_{0} , \cdots , x_{n} $ 와 같다면 자명하게 성립하므로 $t$ 는 이들 노드포인트와는 다르다고 가정하자.
+<p><strong>Claim</strong>  : $E (x) := f(x) - p_{n} (X)$ 에 대해서 $\displaystyle E(t) = {{ (t - x_{0}) \cdots (t - x_{n}) } \over { (n+1)! }} f^{(n+1)} ( \xi )$<strong>Part 1.</strong> 우선 $t$ 가 노드포인트 $x_{0} , \cdots , x_{n} $ 와 같다면 자명하게 성립하므로 $t$ 는 이들 노드포인트와는 다르다고 가정하자.
 $$
 \Psi (x) := (x - x_{0} ) (x - x_{1}) \cdots (x - x_{n})
 $$</p>
@@ -369,7 +369,8 @@ $$
 <p>Part 3.
 편의상 $x_{n+1} :=t $ 이라고 하자.</p>
 <p><a href="../36">롤의 정리</a>함수 $f(x)$ 가 $[a,b]$ 에서 연속이고 $(a,b)$ 에서 미분가능하며 $f(a)=f(b)$ 면 $f'(c)=0$ 를 만족하는 $c$ 가 $(a,b)$ 에 적어도 하나 존재한다.</p>
-<p>모든 $i=0, \cdots , n$ 에 대해 $G(x_{i}) = 0 = G(x_{i+1})$ 이므로 롤의 정리에 의해  $G'( x'_{i}) = 0$ 을 만족하는 $x'_{i} \in \mathscr{H} \left\{ x_{i} , x_{i+1} \right\}$ 가 존재하고, 마찬가지로 모든 $i=0, \cdots , (n-1)$ 에 대해  $G'(x'_{i}) = 0 = G'(x'_{i+1})$ 이므로 롤의 정리에 의해  $G''( x''_{i}) = 0$ 을 만족하는 $x''_{i} \in \mathscr{H} \left\{ x'_{i} , x'_{i+1} \right\}$ 가 존재한다. 이와 같이 귀납적으로 롤의 정리를 $(n+1)$ 번 반복해서 사용하면 $G^{(n+1)} ( \xi ) = 0$ 를 만족하는 $\xi \in \mathscr{H} \left\{ x_{0} , \cdots , x_{n+1} \right\}$ 가 존재함을 보장할 수 있다.한편 $p_{n} $ 는 $n$차 다항함수이므로
+<p>모든 $i=0, \cdots , n$ 에 대해 $G(x_{i}) = 0 = G(x_{i+1})$ 이므로 롤의 정리에 의해  $G'( x'_{i}) = 0$ 을 만족하는 $x'_{i} \in \mathscr{H} \left\{ x_{i} , x_{i+1} \right\}$ 가 존재하고, 마찬가지로 모든 $i=0, \cdots , (n-1)$ 에 대해  $G'(x'_{i}) = 0 = G'(x'_{i+1})$ 이므로 롤의 정리에 의해  $G''( x''_{i}) = 0$ 을 만족하는 $x''_{i} \in \mathscr{H} \left\{ x'_{i} , x'_{i+1} \right\}$ 가 존재한다. 이와 같이 귀납적으로 롤의 정리를 $(n+1)$ 번 반복해서 사용하면 $G^{(n+1)} ( \xi ) = 0$ 를 만족하는 $\xi \in \mathscr{H} \left\{ x_{0} , \cdots , x_{n+1} \right\}$ 가 존재함을 보장할 수 있다.</p>
+<p>한편 $p_{n} $ 는 $n$차 다항함수이므로
 $$
 E^{(n+1)} (x) = f^{(n+1)} ( x) 
 $$
@@ -741,6 +742,8 @@ $E (t) = f(t) - p_{n} (t) $ 이므로 $\displaystyle f(t) - \sum_{j=0}^{n} f( x
         <span style="color:rgb(051,204,051);">●</span> 행렬대수 (62)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 선형대수 (19)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/>
+        <span style="color:rgb(255,051,051);">●</span> 추상대수 (78)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 그래프이론 (40)</a><br>
     <hr>
