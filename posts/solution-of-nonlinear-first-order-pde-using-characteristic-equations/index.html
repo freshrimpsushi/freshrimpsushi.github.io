@@ -107,7 +107,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/solution-of-nonlinear-first-order-pde-using-characteristic-equations\/",
-    "wordCount" : "1957",
+    "wordCount" : "2227",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -277,10 +277,11 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
+    <li><a href="#설명1">설명</a></li>
     <li><a href="#풀이">풀이</a>
       <ul>
         <li><a href="#동차-선형">동차 선형</a></li>
-        <li><a href="#준선형-pde">준선형 PDE</a></li>
+        <li><a href="#준선형">준선형</a></li>
         <li><a href="#완전-비선형">완전 비선형</a></li>
       </ul>
     </li>
@@ -288,206 +289,259 @@
 </nav>
 </aside>
 
+<ul>
+<li>x와 p에 대해서, 편미분방정식의 변수임을 강조할 때는 일반 글씨체 $x,p \in \mathbb{R}^{n}$으로 표기하고, $s$에 대한 함수임을 강조할 때는 굵은 글씨체 $\mathbf{x}, \mathbf{p} \in \mathbb{R}^{n}$으로 표기한다.</li>
+</ul>
+<h2 id="설명1">설명<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<blockquote>
+<p><a href="../1073">특성 방정식</a></p>
+<p>$$
+\begin{cases}
+\dot{\mathbf{p}} (s) = -D_{x}F\big(\mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big)-D_{z}F\big(\mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big)\mathbf{p}(s) 
+\\ \dot{z}(s) = D_pF\big(\mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big) \cdot \mathbf{p}(s) 
+\\ \dot{\mathbf{x}}(s) = D_pF\big(\mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big) \end{cases}
+$$</p>
+</blockquote>
+<p>특성 방정식을 이용한 <a href="../1071">비선형 1계 편미분 방정식</a>의 풀이는 미분 방정식이 어떻게 주어지느냐에 따라서 조금씩 다르다. 이는 주어진 미분방정식의 선형성으로 구분하며 <a href="../1818">선형, 준선형, 완전 비선형</a>인 경우에 따라 풀이가 다르다. 비선형인 정도가 셀 수록 어렵다. </p>
 <h2 id="풀이">풀이</h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-<strong><a href="../1073">특성 방정식</a></strong> 을 이용한 <strong><a href="../1071">비선형 1계 편미분 방정식</a></strong> 의 풀이는 미분 방정식이 어떻게 주어지느냐에 따라서 조금씩 다르다. 이는 문제에 선형성이 어느정도로 있는지에 따라 구분한다. 완전히 <strong>선형</strong> 인경우, <strong>가장 높은 미분항이 선형</strong> 인경우, 아예 <strong>비선형</strong> 인 경우로 구분한다. 당연히 언급한 순서대로 어렵다. </p>
-<p>**특성 방정식</p>
-<p>$$
-\begin{cases}(a)\ \  \dot{\mathbf{p}} (s) = -D_{x}F\big(\mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big)-D_{z}F\big(\mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big)\mathbf{p}(s) 
-\\  (b)\ \  \dot{z}(s) = D_pF\big(\mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big) \cdot \mathbf{p}(s) 
-\\  (c)\ \ \dot{\mathbf{x}}(s) = D_pF\big(\mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big) \end{cases} \quad \cdots (1)
-$$</p>
 <h3 id="동차-선형">동차 선형</h3>
-<p>문제가 <a href="../1818/#%EC%84%A0%ED%98%95">완전히 선형</a>인 미분 방정식으로 주어진 경우다. 이 때 문제가 가장 쉽게 풀린다. 특성 방정식의 $\mathbf{p}(s)$에 대한 조건이 필요하지 않을 정도로 간단하다. 다음과 같이 선형이고 동차인 미분방정식을 생각해보자.
-$$
-F(Du,\ u,\ x)=\mathbf{b}(x)\cdot Du(x)+c(x)u(x)=0 \quad (x\in \Omega) \quad \cdots (2)
-$$
-그러면 <strong><a href="../1071">비선형 1계 편미분 방정식의 표기법</a></strong> 에 의해 아래와 같다.
-$$
-F(p,\ z,\ x)=\mathbf{b}(x)\cdot p +c(x)z=b_1p_1+\cdots +b_np_n+cz=0 \quad \cdots (2)
-$$
-위 식으로부터 바로 다음의 식을 얻는다.
-$$
-D_pF=(F_{p_1},\ \cdots,\ F_{p_n})=(b_1,\ \cdots,\ b_n)=\mathbf{b}(x) 
-$$
-그러면 $(1)(c)$, $(1)(b)$는 아래와 같다.
-$$
-\dot{\mathbf{x}}(s)=\mathbf{b}(x) 
-$$</p>
+<p>주어진 편미분방정식이 완전히 <a href="../1818">선형</a>이라면 가장 쉽게 풀 수 있다. 특성 방정식의 $\mathbf{p}(s)$에 대한 조건이 필요하지 않을 정도로 간단하다. 다음과 같은 선형이고 <a href="../483">동차</a>인 미분방정식을 생각해보자.</p>
 <p>$$
-\dot{z}(s)=\mathbf{b}(\mathbf{x}(s))\cdot \mathbf{p}(s) 
-$$
-그리고 $(2)$의 조건에 따라 $\dot{z}(s)$에 대한 아래의 식을 얻는다.
-$$
-\dot{z}(s) = -c(\mathbf{x}(s))z 
-$$
-따라서 동차 선형 1계 편미분 방정식의 특성 방정식은 아래와 같다.
-$$
-\left\{ \begin{align*}
-\dot{\mathbf{x}}(s)=\mathbf{b}(x) 
-\\   \dot{z}(s) = -c(\mathbf{x}(s))z 
-\end{align*} \right. 
-$$
-실제로 문제를 풀어보면 알겠지만 이 경우에 $\mathbf{p}(s)$에 대한 조건은 문제를 푸는데 필요하지 않다.**예** 주어진 미분 방정식이 다음과 같다고 하자.
-$$
-\bigg{ \begin{array}{rl} x_1u_{x_2}-x_2u_{x_1}=u &amp; \mathrm{in}\ \Omega 
-\\  u=g &amp; \mathrm{on}\ \Gamma \end{array} 
-$$
-이때, $\Omega=\left\{ x_1&gt;0,\ x_2&gt;0 \right\}$, $\Gamma=\left\{ x_1&gt;0,\ x_2=0 \right\}$. 그러면 $(2)$에서 $\mathbf{b}=(-x_2,\ x_1)$, $c=-1$인 경우이다. 따라서 특성 방정식은
-$$
-\left\{ \begin{align*}
-\dot{x}^1=-x^2,\ \dot{x}^2=x^1 
-\\  \dot{z}=z 
-\end{align*}  \right. 
-$$
-간단한 상미분 방정식이므로 이를 풀면
-$$
-\left\{ \begin{align*}
-x^1(s)=x^0\cos s,\ x^2(s)=x^0 \sin s  
-\\  z(s)=z^0e^s=g(x^0)e^s 
-\end{align*} \right. 
-$$
-이때 $x^0$는 $s=0$일 때 $x_1-$축$(\Gamma)$를 지나도록 정한 상수이다. 그러면 경계 조건 $z=u=g\ \mathrm{on}\ \Gamma$에 의해 $s=0$일 때 $z(0)=z^0=g(x^0)$이다. 이제 점 $(x_1,\ x_2) \in \Omega$를 고정하자. 그러면 $s&gt;0$, $x^0&gt;0$에 대해서
-$$
-\begin{array}{lc} &amp;(x^1,\ x^2)=(x^1(s),\ x^2(s))=(x^0 \cos s,\ x^0 \sin s) 
-\\  \implies &amp; x^0=({x_1}^2+{x_2}^2)^{1/2},\ \  s=\arctan \left( \frac{x_1}{x_2} \right)  \end{array} 
-$$
-따라서 방정식의 해는
-$$
+\begin{equation}
+F(Du, u, x) = \mathbf{b}(x)\cdot Du(x)+c(x)u(x)=0 \quad (x\in \Omega \subset \mathbb{R}^{n})
+\label{eq1}
+\end{equation}
+$$</p>
+<p>여기서 $F$의 각 변수를 <a href="../1071">$p, z, x$</a>라고 두면 다음과 같다.</p>
+<p>$$
+\begin{equation}
+F(p,\ z,\ x)=\mathbf{b}(x)\cdot p +c(x)z=b_{1}p_{1}+\cdots +b_{n}p_{n}+cz = 0 
+\label{eq2}
+\end{equation}
+$$</p>
+<p>$D_{p}F$를 구해보면 다음과 같다.</p>
+<p>$$
+D_{p}F=(F_{p_{1}}, \dots, F_{p_{n}})=(b_{1}, \dots, b_{n})=\mathbf{b}(x) 
+$$</p>
+<p>그러면 특성 방정식은 다음과 같다.</p>
+<p>$$
 \begin{align*}
-u(x)&amp;=u(x^1(s),\ x^2(s))
-\\  &amp;= z(s) 
-\\  &amp;=g(x^0)e^s 
-\\  &amp;= g(({x_1}^2+{x_2}^2)^{1/2})e^{\arctan \left(\frac{x_1}{x_2}\right)} 
+\dot{\mathbf{x}}(s) &amp;= \mathbf{b}(x) 
+\\ \dot{z}(s) &amp;= \mathbf{b}(\mathbf{x}(s))\cdot \mathbf{p}(s) 
 \end{align*}
-$$
-<p style="text-align: right;">■</p></p>
-<h3 id="준선형-pde">준선형 PDE</h3>
+$$</p>
+<p>이때 $\eqref{eq2}$에 의해서 $\dot{z}(s)$는 다음과 같다.</p>
+<p>$$
+\dot{z}(s) = -c(\mathbf{x}(s))z 
+$$</p>
+<p>따라서 동차 선형 1계 편미분 방정식의 특성 방정식은 아래와 같다.</p>
+<p>$$
+\left\{ \begin{align*}
+\dot{\mathbf{x}}(s)&amp;=\mathbf{b}(x) 
+\\ \dot{z}(s) &amp;= -c(\mathbf{x}(s))z 
+\end{align*} \right. 
+$$</p>
+<p>이때 $\mathbf{p}(s)$에 대한 특성방정식은 문제를 푸는데 필요하지 않음을 예를 통해서 확인할 수 있다.</p>
+<h4 id="예">예</h4>
+<p>다음과 같은 미분방정식이 주어졌다고 하자.</p>
+<p>$$
+\left\{
+\begin{align*}
+x_{1} u_{x_{2}} - x_{2} u_{x_{1}} &amp;= u &amp;&amp; \text{in } \Omega
+\\  u&amp;=g &amp;&amp; \text{on } \Gamma
+\end{align*}
+\right.
+$$</p>
+<ul>
+<li>$\Omega=\left\{ x_{1}&gt;0,\ x_{2}&gt;0 \right\}$</li>
+<li>$\Gamma=\left\{ x_{1}&gt;0,\ x_{2}=0 \right\}$</li>
+</ul>
+<p>그러면 $\eqref{eq1}$에서 $\mathbf{b}=(-x_{2},\ x_{1}), c=-1$인 경우이다. 따라서 특성 방정식은 다음과 같다.</p>
+<p>$$
+\left\{ \begin{align*}
+\dot{x}^{1} &amp;= -x^{2}
+\\ \dot{x}^{2} &amp;=x^{1} 
+\\ \dot{z}&amp;=z 
+\end{align*}  \right. 
+$$</p>
+<p>이는 간단한 상미분 방정식이므로 다음과 같이 쉽게 풀 수 있다.</p>
+<p>$$
+\left\{ \begin{align*}
+x^{1}(s) &amp;=x^{0}\cos s
+\\ x^{2}(s)&amp;=x^{0} \sin s  
+\\ z(s)&amp;=z^{0}e^s=g(x^{0})e^s 
+\end{align*} \right. 
+$$</p>
+<p>여기서 $x^{0}$는 $s=0$일 때 $x_{1}-$축$(\Gamma)$을 지나도록 정한 상수이다. 그러면 경계 조건 $z=u=g\ \mathrm{on}\ \Gamma$에 의해 $s=0$일 때 $z(0)=z^{0}=g(x^{0})$이다. 이제 점 $(x_{1},\ x_{2}) \in \Omega$를 고정하자.</p>
+<p>$$
+(x_{1},\ x_{2})=(x^{1}(s),\ x^{2}(s)) = (x^{0} \cos (s),\ x^{0} \sin (s)) 
+$$</p>
+<p>그러면 $s&gt;0, x^{0}&gt;0$에 대해서 다음을 얻는다.</p>
+<p>$$
+x_{1}^{2} + x_{2}^{2} = (x^{0})^{2}\cos^{2}(s) + (x^{0})^{2}\sin^{2}(s) = (x^{0})^{2} \implies x^{0}=({x_{1}}^{2}+{x_{2}}^{2})^{1/2}
+\\ \dfrac{x_{2}}{x_{1}} = \dfrac{x^{0}\sin (s)}{x^{0} \cos (s)} = \tan (s) \implies s=\arctan \left( \frac{x_{2}}{x_{1}} \right)
+$$</p>
+<p>따라서 방정식의 해는 다음과 같다.</p>
+<p>$$
+\begin{align*}
+u(x)&amp;=u(x^{1}(s),\ x^{2}(s))
+\\  &amp;= z(s) 
+\\  &amp;=g(x^{0})e^s 
+\\  &amp;= g(({x_{1}}^{2}+{x_{2}}^{2})^{1/2})e^{\arctan \left(\frac{x_{2}}{x_{1}}\right)} 
+\end{align*}
+$$</p>
+<p style="text-align: right;">■</p>
+<h3 id="준선형">준선형</h3>
 <p>아래와 같이 주어진 미분 방정식이 최고 미분항에 대해 선형인 경우를 말한다. 지금 다루는 것은 1계 미분 방정식이므로 1계 미분항에 대해서 선형인 경우이다.</p>
 <p>$$
 F(Du,\ u,\ x)=\mathbf{b}(x,\ u(x))\cdot Du(x)+c(x,\ u(x))=0 
-$$
-비선형 1계 편미분 방정식의 표기법에 의해 아래와 같다.
-$$
-F(p,\ z,\ x)=\mathbf{b}(x,\ z)\cdot p + c(x,\ z)=b_1p_1+\cdots+b_np_n+c=0 \quad \cdots (3) 
-$$
-위의 식으로부터 바로 아래의 식을 얻을 수 있다.
-$$
-D_pF=(F_{p_1},\ \cdots,\ F_{p_n})=(b_1,\ \cdots,\ b_n)=\mathbf{b}(x,\ z)
-$$
-그러면 $(1)(c)$와 $(1)(b)$는 각각
-$$
-\dot{\mathbf{x}}(s)=\mathbf{b}(\mathbf{x}(s),\ z(s)) 
-\\  \dot{z}(s)=\mathbf{b}(\mathbf{x}(s),\ z(s))\mathbf{p}(s)=-c(\mathbf{x}(s),\ z(s))
-$$
-두번째 줄의 두번째 등호는 $(3)$에 의해 성립한다. 따라서 준선형 1계 편미분 방정식의 특성 방정식은 아래와 같다.
-$$
-\left\{ \begin{align*}
-\dot{\mathbf{x}}(s)=\mathbf{b}(\mathbf{x}(s),\ z(s)) 
-\\   \dot{z}(s) = -c(\mathbf{x}(s),\ z(s)) 
-\end{align*} \right. 
-$$
-이 경우에도 역시 $\mathbf{p}(s)$에 대한 조건은 문제를 푸는데 필요하지 않다.**예** 주어진 미분 방정식이 다음과 같다고 하자.
-$$
-\bigg{ \begin{array}{rl} u_{x_1}+u_{x_2}= u^2 &amp; \mathrm{in}\ \Omega 
-\\  u=g &amp; \mathrm{on}\ \Gamma \end{array} 
-$$
-이때, $\Omega=\left\{ x_2&gt;0 \right\}$, $\Gamma=\left\{x_2=0 \right\}$. 그러면 $(3)$에서 $\mathbf{b}=(1,\ 1)$, $c=-z^2$인 경우이다. 따라서 특성 방정식은
-$$
+$$</p>
+<p>여기서 $F$의 각 변수를 <a href="../1071">$p, z, x$</a>라고 두면 다음과 같다.</p>
+<p>$$
+\begin{equation}
+F(p, z, x)=\mathbf{b}(x, z)\cdot p + c(x, z)=b_{1}p_{1} + \cdots + b_{n} p_{n} +c=0
+\label{eq3}
+\end{equation}
+$$</p>
+<p>$D_{p}F$를 구해보면 다음과 같다.</p>
+<p>$$
+D_pF=(F_{p_{1}},\ \cdots,\ F_{p_{n}})=(b_{1},\ \cdots,\ b_{n})=\mathbf{b}(x,\ z)
+$$</p>
+<p>그러면 특성방정식은 다음과 같다.</p>
+<p>$$
+\begin{align*}
+\dot{\mathbf{x}}(s) &amp;= \mathbf{b}(\mathbf{x}(s),\ z(s)) 
+\\  \dot{z}(s) &amp;= \mathbf{b}(\mathbf{x}(s),\ z(s))\mathbf{p}(s)=-c(\mathbf{x}(s),\ z(s))
+\end{align*}
+$$</p>
+<p>$\dot{z}$의 두번째 등호는 $\eqref{eq3}$에 의해 성립한다. 이 경우에도 역시 $\mathbf{p}(s)$에 대한 조건은 문제를 푸는데 필요하지 않다.</p>
+<h4 id="예-1">예</h4>
+<p>다음과 같은 미분방정식이 주어졌다고 하자.</p>
+<p>$$
+\left\{
+\begin{align*}
+u_{x_{1}} + u_{x_{2}} &amp;= u^{2} &amp;&amp; \text{in } \Omega 
+\\  u&amp;=g &amp;&amp; \text{on } \Gamma
+\end{align*}
+\right.
+$$</p>
+<ul>
+<li>$\Omega=\left\{ x_{2}&gt;0 \right\}$</li>
+<li>$\Gamma=\left\{x_{2}=0 \right\}$</li>
+</ul>
+<p>그러면 $\eqref{eq3}$에서 $\mathbf{b}=(1,\ 1)$, $c=-z^{2}$인 경우이다. 따라서 특성 방정식은 다음과 같다.</p>
+<p>$$
 \left\{ \begin{align*}
-\dot{x}^1=1,\ \dot{x}^2=1 
-\\  \dot{z}=z^2 
+\dot{x}^{1} &amp;=1, \dot{x}^{2}=1 
+\\  \dot{z} &amp;= z^{2} 
 \end{align*} \right. 
-$$
-이는 각각 간단한 상미분 방정식이므로 풀어주면
-$$
+$$</p>
+<p>이는 각각 간단한 상미분 방정식이므로 풀어주면 다음과 같다.</p>
+<p>$$
 \left\{ \begin{align*}
-x^1(s) &amp;= x^0+s, x^2(s)=s  
-\\  z(s)&amp;=\frac{z^0}{1-sz^0}=\frac{g(x^0)}{1-sg(x^0)} 
+x^{1}(s) &amp;= x^{0}+s, x^{2}(s)=s  
+\\  z(s)&amp;=\frac{z^{0}}{1-sz^{0}}=\frac{g(x^{0})}{1-sg(x^{0})} 
 \end{align*} \right.
 $$
-$x^0$는 $s=0$일 때 $x_2-$축$(\Gamma)$을 지나도록 정한 상수이다. $z(s)$는 1.의 예에서와 같이 경계조건을 사용하면 이끌어낼 수 있다. 이제 점 $(x_1,\ x_2) \in \Omega$를 고정하자. 그러면 $s&gt;0$, $x^0 \in \mathbb{R}$에 대해서
+$x^{0}$는 $s=0$일 때 $x_{2}-$축$(\Gamma)$을 지나도록 정한 상수이다. 이제 점 $(x_{1},\ x_{2}) \in \Omega$를 고정하자.</p>
+<p>$$
+(x_{1}, x_{2})=(x^{1}(s), x^{2}(s))=(x^{0}+s, s) 
+$$</p>
+<p>그러면 $s&gt;0, x^{0} \in \mathbb{R}$에 대해서 다음을 얻는다.
 $$
-\begin{array}{lc} &amp;(x_1,\ x_2)=(x^1(s),\ x^2(s))=(x^0+s,\ s) 
-\\  \implies &amp; x^0=x_1-x_2,\ \  s=x_2  \end{array} 
-$$
-따라서 방정식의 해는
-$$
+s=x_{2}, \quad x^{0}=x_{1}-x_{2}
+$$</p>
+<p>따라서 방정식의 해는 다음과 같다.</p>
+<p>$$
 \begin{align*}
-u(x)&amp;=u(x^1(s),\ x^2(s))
-\\  &amp;= z(s) 
-\\  &amp;= \frac{g(x^0)}{1-sg(x^0)}
-\\  &amp;= \frac{g(x_1-x_2)}{1-x_2g(x_1-x_2)} 
+u(x) &amp;= u(x^{1}(s),\ x^{2}(s))
+\\ &amp;= z(s) 
+\\ &amp;= \frac{g(x^{0})}{1-sg(x^{0})}
+\\ &amp;= \frac{g(x_{1}-x_{2})}{1-x_{2}g(x_{1}-x_{2})} 
 \end{align*}
-$$
-물론 $1-x^2g(x_1-x_2)\ne 0$일 때만 성립한다.<p style="text-align: right;">■</p></p>
+$$</p>
+<p>물론 $1-x^{2}g(x_{1}-x_{2})\ne 0$일 때만 성립한다.</p>
+<p style="text-align: right;">■</p>
 <h3 id="완전-비선형">완전 비선형</h3>
-<p>제일 일반적인 경우이다. 주어진 미분 방정식이 아래와 같다고 하자.
-$$
-\bigg{ \begin{array}{rl} u_{x_1}u_{x_2}= u &amp; \mathrm{in}\ \Omega 
-\\  u=x_2^2 &amp; \mathrm{on}\ \Gamma \end{array} 
-$$
-이때, $\Omega=\left\{ x_1&gt;0 \right\}$, $\Gamma=\left\{x_1=0 \right\}$. 그러면 다음과 같이 나타낼 수 있다.
-$$
-F(p,\ z,\ x)=p_1p_2-z 
-$$
-따라서 특성 방정식은
-$$
-\Bigg{ \begin{align*}
-\dot{p}^1 &amp;= p^1,\ \ \dot{p}^2=p^2 
-\\  \dot{z} &amp;= 2p^1p^2 
-\\  \dot{x}^1 &amp;= p^2,\ \ \dot{x}^2=p^1 
+<p>다음과 같은 미분방정식이 주어졌다고 하자.</p>
+<p>$$
+\begin{align*}
+u_{x_{1}}u_{x_{2}} &amp;= u &amp;&amp; \text{in } \Omega 
+\\  u &amp;= x_{2}^{2} &amp;&amp; \text{on } \Gamma
+\end{align*}
+$$</p>
+<ul>
+<li>$\Omega=\left\{ x_{1}&gt;0 \right\}$</li>
+<li>$\Gamma=\left\{x_{1}=0 \right\}$</li>
+</ul>
+<p>$F$의 변수를 $P, z, x$로 쓰면 다음과 같다.</p>
+<p>$$
+F(p, z, x)=p_{1}p_{2}-z 
+$$</p>
+<p>따라서 특성 방정식은 다음과 같다.</p>
+<p>$$
+\begin{align*}
+\dot{p}^{1} &amp;= p^{1},\quad \dot{p}^{2}=p^{2} 
+\\ \dot{z} &amp;= 2p^{1}p^{2} 
+\\ \dot{x}^{1} &amp;= p^{2},\quad \dot{x}^{2}=p^{1} 
 \end{align*} 
-$$
-위의 상미분 방정식을 하나씩 풀면 우선
-$$
-p^1(s)=p_1^0e^s,\ \ p^2(s)=p_2^0e^s 
-$$
-이때, $p_1^0=p(0)$, $p_2^0=p(0)$. 그러면 $\dot{z}(s)=2p_1^0p_2^0e^{2s}$이므로
-$$
-z(s)=p_1^0p_2^0e^{2s}+C 
-$$
-$z(0)=z^0=p_1^0p_2^0+C$이므로 $C=z^0-p_1^0p_2^0$이다. 따라서
-$$
-z(s)=z^0+p_1^0p_2^0(e^{2s}-1) 
-$$
-비슷한 방법으로 $x^1$과 $x^2$까지 구해 묶어서 나타내면
-$$
+$$</p>
+<p>우선 $p$에 대한 미분방정식을 풀면 다음과 같다.</p>
+<p>$$
+p^{1}(s)=p_{1}^{0}e^s,\ \ p^{2}(s)=p_{2}^{0}e^s 
+$$</p>
+<p>이때 $p_{1}^{0}=p(0)$, $p_{2}^{0}=p(0)$이다. 그러면 $\dot{z}(s)=2p_{1}^{0}p_{2}^{0}e^{2s}$이므로 $z$는 다음과 같다.</p>
+<p>$$
+z(s)=p_{1}^{0}p_{2}^{0}e^{2s}+C 
+$$</p>
+<p>$z(0)=z^{0}=p_{1}^{0}p_{2}^{0}+C$이므로 $C=z^{0}-p_{1}^{0}p_{2}^{0}$이다. 따라서 다음과 같다.</p>
+<p>$$
+z(s)=z^{0}+p_{1}^{0}p_{2}^{0}(e^{2s}-1) 
+$$</p>
+<p>비슷한 방법으로 $x^{1}$과 $x^{2}$까지 구해보면 다음과 같다.</p>
+<p>$$
+\begin{equation}
+\left\{ \begin{aligned}
+p^{1}(s) &amp;= p_{1}^{0}e^s
+\\ p^{2}(s) &amp;= p_{2}^{0}e^s   
+\\ z(s) &amp;= z^{0}+p_{1}^{0}p_{2}^{0}(e^{2s}-1) 
+\\ x^{1}(s) &amp;= p_{2}^{0}(e^s-1)
+\\ x^{2}(s) &amp;= x^{0}+p_{1}^{0}(e^s-1) 
+\end{aligned} \right.
+\label{eq4}
+\end{equation}
+$$</p>
+<p>이때 $x^{0}$는 $s=0$일 때 $x_{1}-$축$(\Gamma)$를 지나도록 정한 상수이다. $u_{x_{2}}=p^{2}$이고 경계조건에 의해 $x_{1}=0$일 때($s=0$일 때) $u=x_{2}^{2}$이므로, $p_{2}^{0}=u(0,\ x^{0})=2x^{0}$이다. 또한 주어진 미분 방정식이 $u_{x_{1}}u_{x_{2}}=u$이므로 $p_{1}^{0}p_{2}^{0}=z^{0}=(x^{0})^{2}$이고 $p_{1}^{0}=\frac{x^{0}}{2}$이다. 이를 모두 $\eqref{eq4}$에 대입하면 다음을 얻는다.</p>
+<p>$$
 \left\{ \begin{align*}
-p^1(s) &amp;= p_1^0e^s,\ \ p^2(s)=p_2^0e^s   
-\\  z(s) &amp;= z^0+p_1^0p_2^0(e^{2s}-1) 
-\\  x^1(s)&amp;=p_2^0(e^s-1),\ \ x^2(s)=x^0+p_1^0(e^s-1) 
-\end{align*} \right. \quad \cdots (4)
-$$
-이때, $x^0$는 $s=0$일 때 $x_1-$축$(\Gamma)$를 지나도록 정한 상수이다. $u_{x_2}=p^2$이고 경계조건에 의해 $x_1=0$일 때($s=0$일 때) $u=x_2^2$이므로, $p_2^0=u(0,\ x^0)=2x^0$이다. 또한 주어진 미분 방정식이 $u_{x_1}u_{x_2}=u$이므로 $p_1^0p_2^0=z^0=(x^0)^2$이고 $p_1^0=\frac{x^0}{2}$이다. 이를 모두 $(4)$에 대입하면
-$$
-\left\{ \begin{align*}
-p^1(s) &amp;= \frac{x^0}{2}e^s,\ \ p^2(s)=2x^0e^s   
-\\  z(s) &amp;= (x^0)^2e^{2s} 
-\\  x^1(s)&amp;=2x^0(e^s-1),\ \ x^2(s)=x^0+\frac{x^0}{2}(e^s-1) 
+p^{1}(s) &amp;= \frac{x^{0}}{2}e^s
+\\ p^{2}(s) &amp;= 2x^{0}e^s   
+\\ z(s) &amp;= (x^{0})^{2}e^{2s} 
+\\ x^{1}(s) &amp;= 2x^{0}(e^s-1)
+\\ x^{2}(s) &amp;= x^{0}+\frac{x^{0}}{2}(e^s-1) 
 \end{align*} \right. 
-$$
-이제 점 $(x_1,\ x_2)\in \Omega$를 고정하자. 그러면 $s,\ x^0$에 대해서
-$$
-\begin{array}{lc} &amp;(x_1,\ x_2)=(x^1(s),\ x^2(s))=(2x^0(e^s -1),\ \frac{x^0}{2}(e^s+1)) 
-\\  \implies &amp; x^0=\frac{4x_2-x_1}{4},\ \  e^s=\frac{x_1+4x_2}{4x_2-x_1}  \end{array} 
-$$
-따라서 방정식의 해는
-$$
-u(x)=u(x^1(s),\ x^2(s))=z(s)=(x^0)^2e^{2s}=\dfrac{(x_1+4x_2)^2}{16}
-$$
-<p style="text-align: right;">■</p></p>
+$$</p>
+<p>이제 점 $(x_{1}, x_{2})\in \Omega$를 고정하자.</p>
+<p>$$
+(x_{1}, x_{2})=(x^{1}(s), x^{2}(s))=\left( 2x^{0}(e^s -1), \frac{x^{0}}{2}(e^s+1) \right)
+$$</p>
+<p>그러면 $s,\ x^{0}$에 대해서 다음을 얻는다.</p>
+<p>$$
+x^{0}=\frac{4x_{2}-x_{1}}{4},\ \  e^s=\frac{x_{1}+4x_{2}}{4x_{2}-x_{1}}
+$$</p>
+<p>따라서 방정식의 해는 다음과 같다.</p>
+<p>$$
+u(x)=u(x^{1}(s),\ x^{2}(s))=z(s)=(x^{0})^{2}e^{2s}=\dfrac{(x_{1}+4x_{2})^{2}}{16}
+$$</p>
+<p style="text-align: right;">■</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Lawrence C. Evans, <em>Partial Differential Equations</em> (2nd Edition, 2010), p99-102 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
@@ -908,7 +962,7 @@ $$
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (29)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1827)</summary>
+    <summary>전체 포스트 (1831)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -958,7 +1012,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%A4%EC%A0%84-%EC%88%98%EB%8A%A5-%EC%8A%A4%ED%82%AC/" style="color: black">실전 수능 스킬 (15)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (26)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (27)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
@@ -972,7 +1026,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (29)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (30)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -996,11 +1050,11 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (22)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (50)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (51)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (55)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (73)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (74)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (62)</a>
         </li><li>

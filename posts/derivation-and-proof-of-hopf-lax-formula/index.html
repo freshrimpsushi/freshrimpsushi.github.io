@@ -107,7 +107,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/derivation-and-proof-of-hopf-lax-formula\/",
-    "wordCount" : "2601",
+    "wordCount" : "2713",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -277,64 +277,66 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#빌드업1">빌드업</a></li>
+    <li><a href="#정리">정리</a></li>
     <li><a href="#증명">증명</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-해밀토니안 $H$가 $Du$에만 의존하는 <strong><a href="../1162">해밀턴-야코비 방정식</a></strong> 의 초기값 문제를 보자.
-$$
-(1) \cdots \quad \begin{cases} u_t + H(Du)=0 &amp; \mathrm{in}\ \mathbb{R}^n \times (0,\infty) 
-\\  u=g &amp; \mathrm{on}\ \mathbb{R}^n \times \left\{ t=0 \right\} \end{cases}
-$$
-일반적으로는 공간 변수까지 더해 $H(Du,\ x)$이나 $x$에 대해서는 영향을 받지 않는다고 하자. 그리고 해밀토니안 $H\in C^\infty$에  대해서 다음과 같은 가정을 하자.
-$$
-\begin{cases} H \mathrm{\ is\ convex} 
-\\  \lim \limits_{|p|\rightarrow \infty} \dfrac{H(p)}{|p|}=\infty \end{cases} 
-$$
-그리고 $L=H^{\ast}$이라 하면 <strong><a href="../1172">라그랑지안 $L$도 위와 같은 특성을 만족</a></strong> 한다. 마지막으로 초기값 $g\ :\ \mathbb{R}^n \rightarrow \mathbb{R}$가 립시츠 연속이라고 하자. 즉,
-$$
- \mathrm{Lip}(g):=\sup \limits_{x,y\in \mathbb{R}^n
-\\  x \ne y} \dfrac{ |g(x)-g(y)| }{|x-y|} &lt; \infty 
-$$
-또한 주어진 해밀턴-야코비 방정식 $(1)$의 <strong><a href="../1162">특성 방정식</a></strong> 은 다음과 같다.
-$$
-\begin{cases}(a)\ \  \dot{\mathbf{p}}(s) = -D_{x}H \big( \mathbf{p}(s),\ \mathbf{x}(s) \big) 
-\\  (b)\ \  \dot{z}(s) = D_p H\big( \mathbf{p}(s),\ \mathbf{x}(s)\big)\cdot \mathbf{p}(s) -H\big( \mathbf{p}(s),\ \mathbf{x}(s)\big) 
-\\  (c)\ \ \dot{\mathbf{x}}(s) = D_pH\big( \mathbf{p}(s),\ \mathbf{x}(s) \big) \end{cases} 
-$$
-여기서 $H$는 $x$에 무관하다고 가정했으므로 다시 적으면
-$$
-\begin{cases}(a')\ \  \dot{\mathbf{p}} = 0 
-\\  (b')\ \  \dot{z} = D H( \mathbf{p} )\cdot \mathbf{p} -H ( \mathbf{p} ) 
-\\  (c')\ \ \dot{\mathbf{x}} = DH ( \mathbf{p}) \end{cases} 
-$$
-이 때 $t(s)=s,\ p(s)=Du(x(s), s),\ z(s)=u(x(s), s)$이다.  $p$에 대한 미분과 $x$에 대한 미분을 구별할 필요가 없으므로 $D$의 아래첨자를 생략했다. <strong><a href="../1157">오일러-라그랑주 방정식</a></strong> 은 고정된 시점과 종점에 대해서 성립하므로 주어진 해밀턴-야코비 방정식 $(1)$의 해가 존재한다면 아래와 같은 local in time solution이다.
-$$
-u= u(x,t) \in C^2\big( \mathbb{R}^n \times [0,T]\big) 
-$$
-위 특성 방정식에서 첫번째, 세번째 식은 라그랑지안 $L=H*$으로 정의된 **<a href="../1168">작용의 최소화 문제</a>** 에서 나온 오일러-라그랑주 방정식을 만족하는 해밀턴 방정식이다. 이 때 $p=D_vL(v)$로 정의 되므로 아래의 보조 정리를 쓰면</p>
-<p>**보조정리
- $H$와 $L$이 $p$, $v\in \mathbb{R}^n$에서 미분 가능하다면 아래의 내용들은 전부 동치이다.
-$$
-\begin{cases} p\cdot v=L(v) + H(p) 
-\\   p=DL(v) 
-\\  v=DH(p) \end{cases} 
+<h2 id="빌드업1">빌드업<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>해밀토니안 $H$가 $Du$에만 의존하는 <a href="../1162">해밀턴-야코비 방정식</a> 의 초기값 문제를 보자.</p>
+<p>$$
+\begin{equation}
+\left\{
+\begin{aligned}
+u_{t} + H(Du)&amp;=0 &amp;&amp; \text{in } \mathbb{R}^n \times (0,\infty) 
+\\  u&amp;=g &amp;&amp; \text{on } \mathbb{R}^n \times \left\{ t=0 \right\}
+\end{aligned}
+\right.
+\label{eq1}
+\end{equation}
 $$</p>
+<p>일반적으로 해밀토니안은 공간 변수에 의존하여 $H(Du, x)$와 같은 꼴이나, 여기에서는 $x$에 대해서 영향을 받지 않는다고 하자. 그리고 해밀토니안 $H\in C^\infty$에 대해서 다음과 같은 가정을 하자.</p>
+<p>$$
+\begin{cases} H \mathrm{\ is\ convex} 
+\\  \lim \limits_{|p|\to \infty} \dfrac{H(p)}{|p|}=\infty \end{cases} 
+$$</p>
+<p>그리고 $L=H^{\ast}$이라 하면 <a href="../1172">라그랑지안 $L$도 위와 같은 특성을 만족</a>한다. 마지막으로 초기값 $g : \mathbb{R}^n \to \mathbb{R}$가 립시츠 연속이라고 하자. 즉,</p>
+<p>$$
+\mathrm{Lip}(g):=\sup \limits_{x,y\in \mathbb{R}^n
+\\  x \ne y} \dfrac{ |g(x)-g(y)| }{|x-y|} &lt; \infty 
+$$</p>
+<p>또한 주어진 해밀턴-야코비 방정식 $\eqref{eq1}$의 <a href="../1162">특성 방정식</a>은 다음과 같다.</p>
+<p>$$
+\begin{align*}
+\dot{\mathbf{p}}(s) &amp;= -D_{x}H \big( \mathbf{p}(s), \mathbf{x}(s) \big) 
+\\ \dot{z}(s) &amp;= D_p H\big( \mathbf{p}(s),\ \mathbf{x}(s)\big)\cdot \mathbf{p}(s) -H\big( \mathbf{p}(s), \mathbf{x}(s)\big) 
+\\ \dot{\mathbf{x}}(s) &amp;= D_pH\big( \mathbf{p}(s), \mathbf{x}(s) \big)
+\end{align*}
+$$</p>
+<p>여기서 $H$는 $x$에 무관하다고 가정했으므로 다시 적으면 다음과 같다.</p>
+<p>$$
+\begin{align*}
+\dot{\mathbf{p}} &amp;= 0 
+\\ \dot{z} &amp;= D H( \mathbf{p} )\cdot \mathbf{p} -H ( \mathbf{p} ) 
+\\ \dot{\mathbf{x}} &amp;= DH ( \mathbf{p})
+\end{align*}
+$$</p>
+<p>이 때 $t(s)=s, p(s)=Du(x(s), s), z(s)=u(x(s), s)$이다.  $p$에 대한 미분과 $x$에 대한 미분을 구별할 필요가 없으므로 $D$의 아래첨자를 생략했다. <a href="../1157">오일러-라그랑주 방정식</a>은 고정된 시점과 종점에 대해서 성립하므로 주어진 해밀턴-야코비 방정식 $\eqref{eq1}$의 해가 존재한다면 아래와 같은 local in time solution이다.</p>
+<p>$$
+u= u(x,t) \in C^2\big( \mathbb{R}^n \times [0,T]\big) 
+$$</p>
+<p>위 특성 방정식에서 첫번째, 세번째 식은 라그랑지안 $L=H*$으로 정의된 <a href="../1168">작용의 최소화 문제</a>에서 나온 오일러-라그랑주 방정식을 만족하는 해밀턴 방정식이다.</p>
+<blockquote>
+<p>$H$와 $L$이 $p$, $v\in \mathbb{R}^n$에서 미분 가능하다면 아래의 내용들은 전부 동치이다.</p>
+<p>$$
+\begin{cases} p\cdot v=L(v) + H(p) 
+\\ p=DL(v) 
+\\ v=DH(p) \end{cases} 
+$$</p>
+</blockquote>
+<p>이 때 $p=D_vL(v)$로 정의 되므로 위의 보조 정리를 쓰면 다음을 얻는다.</p>
 <p>$$
 \begin{align*}
 \dot{z}(s) &amp;= DH(\mathbf{p})\cdot \mathbf{p}-H(\mathbf{p})
@@ -342,132 +344,182 @@ $$</p>
 \\  &amp;= L(\mathbf{v})+H(\mathbf{p})-H(\mathbf{p}) 
 \\  &amp;= L(\mathbf{v}) = L\big(\dot{\mathbf{x}}(s)\big) 
 \end{align*}
-$$
-따라서 $z(t)$를 구해보면
-$$
+$$</p>
+<p>따라서 $z(t)$를 구해보면 다음과 같다.</p>
+<p>$$
 \begin{align*}
 z(t) &amp;= \int_0^t \dot{z}(s)dx +z(0) 
 \\  &amp;= \int_0^tL \big( \dot{\mathbf{x}}(s) \big) + u\big( \mathbf{x}(0),\ 0\big) 
 \\  &amp;= \int_0^t L\big( \dot{\mathbf{x}}(s)\big) ds +g\big(\mathbf{x}(0) \big) 
 \end{align*}
-$$
-그런데 이 때 위의 위의 조건에서 $z(t)=u(x(t),\ t)$였으므로
-$$
+$$</p>
+<p>그런데 이 때 위의 위의 조건에서 $z(t)=u(x(t), t)$였으므로 다음을 얻는다.</p>
+<p>$$
 u(x,t)=\int_0^t L\big( \dot{\mathbf{x}}(s)\big) ds +g\big(\mathbf{x}(0) \big) \quad (0 \le t &lt;T)
-$$
-이는 local in time smooth solution이므로 global in time weak solution을 구할 수 있느냐 하는 문제가 남았다. 다시 작용의 최소화 문제로 돌아가는데 오일러-라그랑주 방정식을 이끌어 냈던 때와 다른 점은 **종점만 고정한다** 는 것이다.고정된 $x \in \mathbb{R}^n$, $t&gt;0$이 있다고 하자. 그리고 **<a href="../1157">어드미서블 클래스</a>**  $\mathcal{A}$를 다음과 같다고 하자.
-$$
+$$</p>
+<p>이는 local in time smooth solution이므로 global in time weak solution을 구할 수 있느냐 하는 문제가 남았다. 다시 작용의 최소화 문제로 돌아가는데 오일러-라그랑주 방정식을 이끌어 냈던 때와 다른 점은 <strong>종점만 고정한다</strong> 는 것이다.</p>
+<p>고정된 $x \in \mathbb{R}^n, t&gt;0$이 주어졌다고 하자. 그리고 <a href="../1157">어드미서블 클래스</a> $\mathcal{A}$를 다음과 같다고 하자.</p>
+<p>$$
 \mathcal{A}=\left\{ \mathbf{w}\in C^1\big( [0,t];\mathbb{R}^n \big)\ :\ \mathbf{w}(t)=x \right\}
-$$
-그러면 아래와 같은 작용에 대한 최소화 문제를 생각해 보자.
-$$
+$$</p>
+<p>그리고 아래와 같은 작용에 대한 최소화 문제를 생각해 보자.</p>
+<p>$$
 \mathbf{w}(\cdot) \in \mathcal{A} \mapsto \int_0^t L\big( \dot{\mathbf{w}}(s)\big) ds + g(\mathbf{w}(0))
-$$
-**만약 위 작용의 미니마이저 $\mathbf{x}(\cdot)$가 존재한다면** , $\mathbf{p}(s):=DL(\dot{\mathbf{x}}(s))$이고오일러-라그랑주 방정식을 만족하고 따라서 해밀턴 방정식도 만족한다. 그러므로 위의 local in time solution의 경우에서 얻었던 것 처럼 해는 아래와 같이 주어질 것이다.
-$$
+$$</p>
+<p><strong>만약 위 작용의 미니마이저 $\mathbf{x}(\cdot)$가 존재한다면</strong> , $\mathbf{p}(s):=DL(\dot{\mathbf{x}}(s))$이고, 오일러-라그랑주 방정식을 만족하고 따라서 해밀턴 방정식도 만족한다. 그러므로 위의 local in time solution의 경우에서 얻었던 것 처럼 해는 아래와 같이 주어질 것이다.</p>
+<p>$$
 u(x,t)=\int_0^tL\big( \dot{\mathbf{x}}(s)\big)ds +g \big( \mathbf{x}(0) \big)
-$$
-위에 대한 내용을 모티브로 global in time weak solution이 존재한다면 다음과 같이 정의할 수 있다.
-$$
-u(x,t):=\inf \limits_{\mathbf{w} \in \mathcal{A}} \left( \int_0^t L\big( \dot{\mathbf{w}}(s) \big)ds + g\big(( \mathbf{w}(0) \big) \right) \quad \cdots (2) 
 $$</p>
-<p>**호프-락스 공식(Hopf-Lax formula)
-$x \in \mathbb{R}^n$이고 $t&gt;0$라고 하자. 그러면 $(2)$의 최소화 문제의 해는 다음과 같이 주어진다.
-$$
-u(x,t) = \min \limits_{y  \in \mathbb{R}^n} \left( tL\left( \dfrac{x-y}{t} \right) +g(y) \right)
+<p>위에 대한 내용을 모티브로 global in time weak solution이 <strong>존재한다면</strong> 다음과 같이 정의할 수 있다.</p>
+<p>$$
+\begin{equation}
+u(x,t):=\inf \limits_{\mathbf{w} \in \mathcal{A}} \left\{ \int_0^t L\big( \dot{\mathbf{w}}(s) \big)ds + g\big( \mathbf{w}(0) \big) \right\}
+\label{eq2}
+\end{equation}
 $$</p>
-<p>우선 $\inf$에 대해 성립함을 보이고 그 다음 실제로 $\min$이 됨을 보이는 순서로 증명한다.</p>
+<h2 id="정리">정리</h2>
+<p>$x \in \mathbb{R}^n$이고 $t&gt;0$라고 하자. 그러면 $\eqref{eq2}$의 최소화 문제의 해는 다음과 같이 주어진다.</p>
+<p>$$
+u(x,t) = \min \limits_{y  \in \mathbb{R}^n} \left\{ tL\left( \dfrac{x-y}{t} \right) +g(y) \right\}
+$$</p>
+<p>이를 <strong>호프-락스 공식</strong><sup>Hopf-Lax formula</sup>이라고 한다.</p>
 <h2 id="증명">증명</h2>
-<p>Step 1 고정된 임의의 $y \in \mathbb{R}^n$, $t\in \mathbb{R}$이 있다. 그리고 $\mathbf{w}$를 $\mathbf{w}(s) :=y+\frac{s}{t}(x-y) \quad (0 \le s \le t)$라고 정의하자. 그러면 $\mathbf{w}(0)=y$이고 $\mathbf{w}(t)=x$이다. 그러면 $\mathbf{w}$는 어드미서블 클래스 $\mathcal{A}= \left\{ \mathbf{w}(\cdot) \ \big| \ \mathbf{w}(0)=y,\ \mathbf{w}(t)=x\right\}$의 원소이다. 그러면 ~의 정의에 의해 다음의 부등식이 성립한다.
-$$
+<p>우선 $\inf$에 대해 성립함을 보이고 그 다음 실제로 $\min$이 됨을 보이는 순서로 증명한다.</p>
+<hr>
+<ul>
+<li>
+<p><strong>Step 1.</strong></p>
+<p>고정된 임의의 $y \in \mathbb{R}^n, t\in \mathbb{R}$이 있다. 그리고 $\mathbf{w}$를 다음과 같이 정의하자.</p>
+<p>$$
+\mathbf{w}(s) :=y+\frac{s}{t}(x-y) \quad (0 \le s \le t)
+$$</p>
+<p>그러면 $\mathbf{w}(0)=y$이고 $\mathbf{w}(t)=x$이다. 그러면 $\mathbf{w}$는 어드미서블 클래스 $\mathcal{A}$의 원소이다.</p>
+<p>$$
+\mathcal{A}= \left\{ \mathbf{w}(\cdot) \ \big| \ \mathbf{w}(0)=y,\ \mathbf{w}(t)=x\right\}
+$$</p>
+<p>그러면 ~의 정의에 의해 다음의 부등식이 성립한다.</p>
+<p>$$
 \begin{align*}
 u(x,t) &amp; \le&amp;  \int_0^t L \left( \frac{x-y}{t}\right)ds + g(y) 
 \\   &amp;= tL\left( \frac{x-y}{t}\right)+g(y) 
 \end{align*} 
-$$
-위 부등식은 모든 $y \in \mathbb{R}^n$에 대해서 성립하므로
-$$
+$$</p>
+<p>위 부등식은 모든 $y \in \mathbb{R}^n$에 대해서 성립하므로 다음을 얻는다.</p>
+<p>$$
 u(x,t) \le \inf \limits_{y \in \mathbb{R}^n} \left(t L\left(\frac{x-y}{t} \right) +g(y)\right)
-$$
-Step 2 $\mathbf{w}(\cdot) \in \mathcal{A}$라고 하자. 그러면 $\mathbf{w}(\cdot) \in C^1([0;t];\mathbb{R}^n)$이고 $\mathbf{w}(t)=x$이다. 그러면 아래의 보조정리에 의해서</p>
-<p><strong>보조정리 ** <a href="../265"><strong>옌센 부등식</strong> </a></strong>$( \mathrm{ Jensen'\ inequality})$
-함수 $f$가 볼록하다고 가정하자. 그러면 아래의 식이 성립한다.
+$$</p>
+</li>
+<li>
+<p><strong>Step 2.</strong></p>
+<p>$\mathbf{w}(\cdot) \in \mathcal{A}$라고 하자. 그러면 $\mathbf{w}(\cdot) \in C^1([0;t];\mathbb{R}^n)$이고 $\mathbf{w}(t)=x$이다.</p>
+<blockquote>
+<p><a href="../265">옌센 부등식</a></p>
+<p>함수 $f$가 볼록하다고 가정하자. 그러면 아래의 식이 성립한다.
 $$
 f \left( -\!\!\!\!\!\! \int_U u dx \right) \le  -\!\!\!\!\!\! \int_U f(u) dx
 $$</p>
+</blockquote>
+<p>그러면 위의 보조정리에 의해 다음이 성립한다.</p>
 <p>$$
 L \left( \frac{1}{t}\int_0^t \dot{\mathbf{w}}(s) dx\right) \le \dfrac{1}{t}\int_0^t L \big( \dot{\mathbf{w}(s)} \big)ds
-$$
-그리고 시점을 $y$라 하자 $\mathbf{w}(0)=y$. 그러면 위의 부등식은
-$$
-L\left( \dfrac{1}{t} \big( \mathbf{w}(t)-\mathbf{w}(0) \big)  \right) \le \dfrac{1}{t}\int_0^tL \big( \dot{\mathbf{w}}(s) \big)ds  
-\\  \implies L\left( \dfrac{x-y}{t} \right) \le \dfrac{1}{t}\int_0^tL \big( \dot{\mathbf{w}}(s) \big)ds
-$$
-양변에 $t$를 곱하고 $g(y)$를 더하면
-$$
+$$</p>
+<p>그리고 시점을 $y$라 하자 $\mathbf{w}(0)=y$. 그러면 위의 부등식은 아래와 같다.</p>
+<p>$$
+\begin{align*}
+&amp;&amp; L\left( \dfrac{1}{t} \big( \mathbf{w}(t)-\mathbf{w}(0) \big)  \right) &amp;\le \dfrac{1}{t}\int_0^tL \big( \dot{\mathbf{w}}(s) \big)ds  
+\\  \implies&amp;&amp; L\left( \dfrac{x-y}{t} \right) &amp;\le \dfrac{1}{t}\int_0^tL \big( \dot{\mathbf{w}}(s) \big)ds
+\end{align*}
+$$</p>
+<p>양변에 $t$를 곱하고 $g(y)$를 더하면 다음과 같다.</p>
+<p>$$
 tL\left( \dfrac{x-y}{t} \right) + g(y) \le \int_0^tL \big( \dot{\mathbf{w}}(s) \big)ds + g(y)
-$$
-우변의 $\inf$이 $u(x,t)$이므로
-$$
+$$</p>
+<p>우변의 $\inf$이 $u(x,t)$이므로 다음과 같다.</p>
+<p>$$
 tL\left( \dfrac{x-y}{t} \right) + g(y) \le u(x,t)
-$$
-마지막으로 양변에 $\inf \limits_{y\in \mathbb{R}^n}$을 취하면 
-$$
+$$</p>
+<p>마지막으로 양변에 $\inf \limits_{y\in \mathbb{R}^n}$을 취하면 다음을 얻는다.</p>
+<p>$$
 \inf \limits_{y \in \mathbb{R}^n} \left( tL\left( \dfrac{x-y}{t} \right) + g(y) \right) \le u(x,t)
-$$
-그러므로 Step 1과 Step 2에 의해서
-$$
-u(x,t) = \inf \limits_{y \in \mathbb{R}^n} \left(  tL\left( \dfrac{x-y}{t} \right) + g(y) \right) \quad \cdots (3)
-$$
-Step 3 $\left\{y_k \right\}_{k=1}^\infty$를 $(3)$의 미니마이징 시퀀스$(\mathrm{minimizing\ sequence})$라고 하자. 그러면
-$$
-  tL\left( \dfrac{x-y_k}{t} \right) + g(y_k) \rightarrow u(x,t)\in [-\infty, \infty) \quad \mathrm{as}\ k\rightarrow \infty \quad \cdots (4)
-$$
-3 -1우선 $\left\{y_k \right\}$가 언바운디드$(\mathrm{unbounded})$라고 가정하자. 이게 모순임을 확인해서 $\left\{ y_k \right\}$가 유계$(\mathrm{bounded})$임을 보일 것이다. 가정에 의해 $|y_k| \rightarrow \infty$이고 $y_k=0$인 $k$는 많아봐야 유한개이다. 따라서 $y_k\ne 0$을 만족하는 것만 모은 부분수열을 다시 $\left\{ y_k \right\}$라 하자. 그러면
-$$
-\left| \dfrac{x-y_k}{t} \right| \rightarrow \infty
-$$
-이고 글 상단의 $L$의 성질에 의해 
-$$
-a_k:= \dfrac{L\left( \dfrac{x-y_k}{t}\right)}{\left| \dfrac{x-y_k}{t}\right|} \rightarrow \infty
-$$
-따라서 $L\left( \dfrac{x-y_l}{t}\right) \rightarrow \infty$이고 여기에 상수를 곱해도 같은 결과를 얻으므로
-$$
-tL\left( \dfrac{x-y_k}{t}\right) \rightarrow \infty \quad \cdots (5) 
-$$
-글 상단에서 언급했던 $g$의 립시츠 조건을 다시 적으면
-$$
+$$</p>
+</li>
+</ul>
+<p>그러므로 <strong>Step 1.</strong> 과 <strong>Step 2.</strong> 에 의해서 다음이 성립한다.</p>
+<p>$$
+\begin{equation}
+u(x,t) = \inf \limits_{y \in \mathbb{R}^n} \left(  tL\left( \dfrac{x-y}{t} \right) + g(y) \right)
+\label{eq3}
+\end{equation}
+$$</p>
+<ul>
+<li>
+<p><strong>Step 3.</strong></p>
+<p>$\left\{y_k \right\}_{k=1}^\infty$를 $\eqref{eq3}$의 <strong>미니마이징 시퀀스</strong><sup>minimizing sequence</sup>라고 하자. 그러면 다음이 성립한다.</p>
+<p>$$
+\begin{equation}
+tL\left( \dfrac{x-y_k}{t} \right) + g(y_k) \to u(x,t)\in [-\infty, \infty) \quad \mathrm{as}\ k\to \infty
+\label{eq4}
+\end{equation}
+$$</p>
+<p>우선 $\left\{y_k \right\}$가 <a href="../180">유계</a>가 아니라고 가정하자. 이게 모순임을 확인해서 $\left\{ y_k \right\}$가 유계임을 보일 것이다. 가정에 의해 $|y_k| \to \infty$이고 $y_k=0$인 $k$는 많아봐야 유한개이다. 따라서 $y_k\ne 0$을 만족하는 것만 모은 부분수열을 다시 $\left\{ y_k \right\}$라 하자. 다음이 성립한다.</p>
+<p>$$
+\left| \dfrac{x-y_k}{t} \right| \to \infty
+$$</p>
+<p>그러면 라그랑지안 $L$의 성질에 의해 다음이 성립한다.</p>
+<p>$$
+a_k:= \dfrac{L\left( \dfrac{x-y_k}{t}\right)}{\left| \dfrac{x-y_k}{t}\right|} \to \infty
+$$</p>
+<p>따라서 $L\left( \dfrac{x-y_l}{t}\right) \to \infty$이고 여기에 상수를 곱해도 같은 결과를 얻는다.</p>
+<p>$$
+\begin{equation}
+tL\left( \dfrac{x-y_k}{t}\right) \to \infty
+\label{eq5}
+\end{equation}
+$$</p>
+<p>$g$의 립시츠 조건을 다시 적으면 다음과 같다.</p>
+<p>$$
 \dfrac{|g(x)-g(y_k)|}{|x-y_k|} \le \mathrm{Lip}(g)=C \quad \forall \ k \in \mathbb{N}
-$$
-따라서
-$$
+$$</p>
+<p>따라서 다음을 얻는다.</p>
+<p>$$
 g(x) -g(y_k) \le C|x-y_k|
-$$
-위의 양 변에 $(5)$를 더하면
-$$
+$$</p>
+<p>양 변에 $\eqref{eq5}$를 더하면 다음과 같다.</p>
+<p>$$
 tL\left( \dfrac{x-y_k}{t}\right)+ g(x) -g(y_k) \le C|x-y_k|+ tL\left( \dfrac{x-y_k}{t}\right) \quad \mathrm{for\ large}\ k
-$$
-위 식을 적절히 이항하면
-$$
+$$</p>
+<p>위 식을 적절히 이항하면 아래와 같다.</p>
+<p>$$
 tL\left( \dfrac{x-y_k}{t}\right)-C|x-y_k| + g(x)  \le  tL\left( \dfrac{x-y_k}{t}\right) + g(y_k) 
-$$
-다시 적으면
-$$
+$$</p>
+<p>다시 적으면 다음과 같다.</p>
+<p>$$
 a_k|x-y_k| -C|x-y_k| + g(x)  =|x-y_k|(a_k-C)+g(x) \le  tL\left( \dfrac{x-y_k}{t}\right) + g(y_k) 
-$$
-$a_k\rightarrow \infty$이고 $|x-y_k| \rightarrow \infty$이므로 좌변이 $\infty$로 발산하고 우변도 발산한다. 따라서 $u(x,t)$의 정의에 의해 $u(x,t)\rightarrow \infty$이다. 이는 $(4)$에 모순이므로 $\left\{ y_k \right\}$는 유계이다.$\left\{ y_k \right\}$가 유계이므로 $y_k \rightarrow y_0$라고 가정하자. 그러면 
-$$
-tL \left( \dfrac{x-y_k}{t} \right)+g(y_k) \rightarrow tL \left( \dfrac{x-y_0}{t}\right)+g(y_0) =\min\limits_{y \in \mathbb{R}^n}\left( tL \left( \dfrac{x-y}{t}\right)+g(y) \right)
-$$
-이고 $(4)$에 의해 
-$$
-  tL\left( \dfrac{x-y_k}{t} \right) + g(y_k) \rightarrow u(x,t)\in [-\infty, \infty) \quad \mathrm{as}\ k\rightarrow \infty
-$$
-이므로
-$$
+$$</p>
+<p>$a_k\to \infty$이고 $|x-y_k| \to \infty$이므로 좌변이 $\infty$로 발산하고 우변도 발산한다. 따라서 $u(x,t)$의 정의에 의해 $u(x,t)\to \infty$이다. 이는 $\eqref{eq4}$에 모순이므로 $\left\{ y_k \right\}$는 유계이다.</p>
+<p>$\left\{ y_k \right\}$가 유계이므로 $y_k \to y_0$라고 가정하자. 그러면 다음이 성립한다.</p>
+<p>$$
+tL \left( \dfrac{x-y_k}{t} \right)+g(y_k) \to tL \left( \dfrac{x-y_0}{t}\right)+g(y_0) =\min\limits_{y \in \mathbb{R}^n}\left( tL \left( \dfrac{x-y}{t}\right)+g(y) \right)
+$$</p>
+<p>그러면 $\eqref{eq4}$에 의해 다음이 성립한다.</p>
+<p>$$
+tL\left( \dfrac{x-y_k}{t} \right) + g(y_k) \to u(x,t)\in [-\infty, \infty) \quad \mathrm{as}\ k\to \infty
+$$</p>
+<p>그러므로 다음을 얻는다.</p>
+<p>$$
 u(x,t) = \min \limits_{y  \in \mathbb{R}^n} \left( tL\left( \dfrac{x-y}{t} \right) +g(y) \right)
-$$
-<p style="text-align: right;">■</p></p>
+$$</p>
+</li>
+</ul>
+<p style="text-align: right;">■</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Lawrence C. Evans, <em>Partial Differential Equations</em> (2nd Edition, 2010), p122-124 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
@@ -888,7 +940,7 @@ $$
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (29)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1827)</summary>
+    <summary>전체 포스트 (1831)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -938,7 +990,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%A4%EC%A0%84-%EC%88%98%EB%8A%A5-%EC%8A%A4%ED%82%AC/" style="color: black">실전 수능 스킬 (15)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (26)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (27)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
@@ -952,7 +1004,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (29)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (30)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -976,11 +1028,11 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (22)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (50)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (51)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (55)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (73)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (74)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (62)</a>
         </li><li>

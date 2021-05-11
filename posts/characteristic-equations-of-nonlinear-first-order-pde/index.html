@@ -107,7 +107,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/characteristic-equations-of-nonlinear-first-order-pde\/",
-    "wordCount" : "1373",
+    "wordCount" : "1698",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -277,108 +277,132 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#정리1">정리</a></li>
-    <li><a href="#설명">설명</a>
-      <ul>
-        <li><a href="#특성-메소드">특성 메소드</a></li>
-        <li><a href="#특성-방정식의-유도">특성 방정식의 유도</a></li>
-      </ul>
-    </li>
+    <li><a href="#특성-메소드1">특성 메소드</a></li>
+    <li><a href="#설명">설명</a></li>
+    <li><a href="#유도">유도</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="정리1">정리<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p>$u\in C^2(\Omega)$가 아래의 <strong><a href="../1071">비선형 1계 편미분 방정식</a></strong> 의 해라고 하자.
-$$
-\begin{equation}
+<ul>
+<li>x와 p에 대해서, 편미분방정식의 변수임을 강조할 때는 일반 글씨체 $x,p \in \mathbb{R}^{n}$으로 표기하고, $s$에 대한 함수임을 강조할 때는 굵은 글씨체 $\mathbf{x}, \mathbf{p} \in \mathbb{R}^{n}$으로 표기한다.</li>
+</ul>
+<h2 id="특성-메소드1">특성 메소드<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p><a href="../1700">열린 집합</a> $\Omega \subset \mathbb{R}^{n}$가 주어졌다고 하자. $u\in C^{2}(\Omega)$가 아래의 <a href="../1071">비선형 1계 편미분 방정식</a>의 해라고 하자.</p>
+<p>$$
 F(Du,\ u,\ x)=0
-\label{eq1}
-\end{equation}
 $$</p>
 <p>그리고 $\mathbf{x}, z, \mathbf{p}$를 다음과 같이 두자.</p>
 <p>$$
 \begin{align*}
-\mathbf{x}(s) &amp;=(x^{1}(s), \dots, x^{n}(s)) \in C^1(I;\Omega)\quad (s\in I)
+\mathbf{x}(s) &amp;=(x^{1}(s), \dots, x^{n}(s)) \in C^1(I;\Omega)\quad (s\in I \subset \mathbb{R})
 \\ z(s) &amp;= u(\mathbf{x}(s))
 \\ \mathbf{p}(s) &amp;= Du(\mathbf{x}(s))
 \end{align*}
 $$</p>
-<p>이들이 다음의 방정식 $(10)(c)$를 푼다고 가정하자.</p>
+<p>여기서 $\mathbf{x}$가 다음의 식을 만족한다고 가정하자.</p>
 <p>$$
-\dot{\mathbf{x}}(s) = D_pF\big(\mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big) 
+\dot{\mathbf{x}}(s) = D_{p}F\big(\mathbf{p}(s), z(s), \mathbf{x}(s) \big) 
 $$</p>
-<p>그러면 $\mathbf{p}(s)$와 $z(s)$는 각각 $(10)(a)$와 $(10)(b)$를 푸는 해가 된다. 이를 묶어서 표현하면</p>
+<p>그러면 $\mathbf{p}(s)$와 $z(s)$는 각각 다음의 상미분방정식의 해가 된다.</p>
 <p>$$
-\begin{cases}(a)\ \  \dot{\mathbf{p}} (s) = -D_{x}F\big(\mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big)-D_{z}F\big(\mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big)\mathbf{p}(s) 
-\\  (b)\ \  \dot{z}(s) = D_pF\big(\mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big) \cdot \mathbf{p}(s) 
-\\  (c)\ \ \dot{\mathbf{x}}(s) = D_pF\big(\mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big) \end{cases} \quad \cdots (10)
+\begin{cases}
+\dot{\mathbf{p}} (s) = -D_{x}F\big(\mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big)-D_{z}F\big(\mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big)\mathbf{p}(s) 
+\\ \dot{z}(s) = D_pF\big(\mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big) \cdot \mathbf{p}(s) 
+\\ \dot{\mathbf{x}}(s) = D_pF\big(\mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big) \end{cases}
 $$</p>
 <h2 id="설명">설명</h2>
-<h3 id="특성-메소드">특성 메소드</h3>
-<p>$(\mathrm{Characteristic\ method})$</p>
-<p>주어진 비선형 1계 편미분 방정식이 다음과 같다고 하자.</p>
+<p><strong>특성 메소드</strong><sup>method of characterisrics</sup> 는 비선형 1계 편미분방정식을 푸는 방법 중 하나로, 하나의 편미분방정식을 <a href="../1659">연립 상미분방정식</a><sup>system of ODE</sup>으로 나타내어 푸는 것이다.</p>
+<h2 id="유도">유도</h2>
+<p>다음과 같은 비선형 1계 편미분 방정식이 주어졌다고 하자.</p>
 <p>$$
-F(Du,\ u,\ x)=0 \quad \cdots (1)
+\begin{equation}
+F(Du, u, x) = 0
+\label{eq1}
+\end{equation}
 $$</p>
-<p>이때, $\Omega \subset \mathbb{R}^n$이 열린 집합이고, $F\in C^\infty(\mathbb{R}^n \times \mathbb{R} \times \Omega)$라고 가정한다. 그리고 아래와 같은 경계 조건을 만족한다.</p>
+<p>이때, $\Omega \subset \mathbb{R}^{n}$는 <a href="../1700">열린 집합</a>이고, $F\in C^{\infty}(\mathbb{R}^n \times \mathbb{R} \times \Omega)$라고 가정한다. 그리고 아래와 같은 경계 조건이 주어졌다고 하자.</p>
 <p>$$
-u=g \quad \mathrm{on}\ \Gamma \quad \cdots (2)
+\begin{equation}
+u=g \quad \text{ on } \Gamma
+\label{eq2}
+\end{equation}
 $$</p>
-<p>이때, $\Gamma \subset \partial \Omega$이고, $g:\Gamma \rightarrow \mathbb{R}$이다. 특성 메소드는 비선형 1계 편미분 방정식을 푸는 방법 중 하나로 편미분 방정식을 여러 상미분 방정식의 시스템으로 나타내서 풀이를 간단하게 하는 것이다.</p>
-<h3 id="특성-방정식의-유도">특성 방정식의 유도</h3>
-<p>아이디어는 주어진 경계 조건을 활용하여 고정된 $x\in\Omega$와 $x^0 \in \Gamma$를 잇는 $\Omega$안의 선을 찾는 것이다. $u$가 $(1)$, $(2)$를 만족하는 해라고 할 때, 이 선을 따라서 $u$를 얻는 것이 목표이다.</p>
+<p>특성 메소드의 아이디어는 주어진 경계 조건을 활용하여 고정된 $x\in\Omega$와 $x^0 \in \Gamma$를 잇는 $\Omega$안의 선을 찾는 것이다. 다시 말해 $u \in C^{2}$가 $\eqref{eq1}, \eqref{eq2}$를 만족하는 해라고 할 때, 다음 그림과 같은 선을 따라서 $u$의 값을 얻는 것이 목표이다.</p>
 <p><img src="1.JPG#center" alt="1.JPG"></p>
-<p>위 그림과 같은 선이 다음과 같은 함수로 표현된다고 하자.</p>
+<p>그림에서의 선이 다음과 같은 함수로 표현된다고 하자.</p>
 <p>$$
 \mathbf{x}(s)=\big( x^1(s),\ \cdots,\ x^n(s) \big), \quad s\in I\subset \mathbb{R} 
 $$</p>
-<p>$s=0$일 때 $\mathbf{x}(s)=x^0$이고는 $s$가 증가함에 따라 $\Omega$ 내부로 선을 따라서 움직인다고 생각하자. 그리고 $u\in C^2$가 $(1)$의 해라고 하자. 그리고 다음과 같이 정의하자.</p>
+<p>$\mathbf{x}(0)=x^{0}$이라 두고, $\mathbf{x}$는 $s$가 증가함에 따라 $\Omega$ 내부로 선을 따라서 움직인다고 생각하자. $s$에 따른 $u$의 값을 $z$라는 함수로 나타내자.</p>
 <p>$$
-z(s):= u(\mathbf{x}(s)) \quad \cdots (3)
+\begin{equation}
+z(s):= u(\mathbf{x}(s))
+\label{eq3}
+\end{equation}
 $$</p>
+<p>비슷하게, $s$에 따른 $Du$의 값을 $\mathbf{p}$라고 하자.</p>
 <p>$$
 \mathbf{p}(s) := Du(\mathbf{x}(s)) 
 $$</p>
-<p>즉, $\mathbf{p}(s)=(p^1(s),\ \cdots,\ p^n(s))$이고 각 성분은 아래와 같다.</p>
+<p>그러면 $\mathbf{p}(s)=(p^{1}(s), \dots, p^{n}(s))$이라할 때, 각 성분은 아래와 같다.</p>
 <p>$$
-p^i(s)=u_{x_i}( \mathbf{x}(s)) \quad \cdots (4) 
+\begin{equation}
+p^i(s)=u_{x_i}( \mathbf{x}(s))
+\label{eq4}
+\end{equation}
 $$</p>
-<p>문자 위의 점을 $\dot{　} := \dfrac{d}{ds}$라고 정의하자. $dp^i(s)=u_{x_ix_1}dx^1+\cdots u_{x_ix_n}dx^n$이므로 $\dot{p}^i(s)$는 아래와 같다.</p>
+<p>$s$에 대한 미분을 간단히 $\dfrac{d f}{ds} = \dot{f}$라고 표기하자. $dp^i(s)=u_{x_ix_1}dx^1+\cdots u_{x_ix_n}dx^n$이므로 $\dot{p}^i(s)$는 아래와 같다.</p>
 <p>$$
-\dot{p}^i(s)=\sum \limits_{j=1}^n u_{x_ix_j}( \mathbf{x}(s))\dot{x}^j(s) \quad \cdots (5) 
+\begin{equation}
+\dot{p}^i(s)=\sum \limits_{j=1}^n u_{x_ix_j}( \mathbf{x}(s))\dot{x}^j(s)
+\label{eq5}
+\end{equation}
 $$</p>
-<p>1계 편미분 방정식을 푸는 것이 목적인데 위 식이 $u_{x_ix_j}$라는 2계 미분을 포함하므로 이를 없애줄 필요가 있다. 이는 준비가 덜 됐으니 잠시 미루자.$dF=F_{p_1}dp_1+\cdots F_{p_n}dp_n+F_{z}dz+F_{x_1}dx_1+\cdots+F_{x_n}dx_n$이므로 $(1)$을 $x_i$에 대해서 미분하면</p>
+<p>이때 $dF=F_{p_{1}}dp_{1}+\cdots F_{p_{n}}dp_{n}+F_{z}dz+F_{x_{1}}dx_{} + \cdots + F_{x_{n}}dx_n$이므로 $\eqref{eq1}$을 $x_{i}$에 대해서 미분하면 다음과 같다.</p>
 <p>$$
-\sum \limits_{j=1}^n F_{p_j}\big( \mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big)p^j_{x_i}(s)+F_{z} \big( \mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big)z_{x_i}(s)+F_{x_i} \big( \mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big) = 0 
+\sum \limits_{j=1}^n F_{p_j}\big( \mathbf{p}(s), z(s), \mathbf{x}(s) \big)p^j_{x_i}(s)+F_{z} \big( \mathbf{p}(s), z(s), \mathbf{x}(s) \big)z_{x_i}(s)+F_{x_i} \big( \mathbf{p}(s), z(s), \mathbf{x}(s) \big) = 0 
 $$</p>
-<p>위의 식들을 대입해주면</p>
+<p>이때 $\eqref{eq3}, \eqref{eq4}$에 의해서 $z_{x_{i}}=u_{x_{i}}=p^{i}$이고, $\eqref{eq4}$에 의해서 $p^{j}_{x_{i}}=u_{x_{j}x_{i}}$이므로, 이를 위 식에 대입하면 다음을 얻는다.</p>
 <p>$$
-(6)\cdots\quad \sum \limits_{j=1}^n F_{p_j}\big( \mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big)u_{x_ix_j}(\mathbf{x}(s))+F_{z}\big( \mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big) p^i(s)+F_{x_i}\big( \mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big)  = 0
+\begin{equation}
+\sum \limits_{j=1}^{n} F_{p_{j}}\big( \mathbf{p}(s), z(s), \mathbf{x}(s) \big)u_{x_{j}x_{i}}(\mathbf{x}(s))+F_{z}\big( \mathbf{p}(s), z(s), \mathbf{x}(s) \big) p^{i}(s)+F_{x_{i}}\big( \mathbf{p}(s), z(s), \mathbf{x}(s) \big)  = 0
+\label{eq6}
+\end{equation}
 $$</p>
-<p>이제 $(5)$의 2계 미분을 없애주기 위해 다음을 가정하자.</p>
+<p>그런데 위 식을 보면 $\eqref{eq5}$ 때문에 $u_{x_{i}x_{j}}$라는 2계 미분항이 생겼다는 것을 알 수 있다. 1계 편미분방정식을 풀기 위해 2계 미분을 푼다는 것은 맞지 않으므로 이를 없애줄 필요가 있다. 이 작업을 위해서 $\dot{\mathbf{x}}$의 각 성분이 다음을 만족한다고 가정하자.</p>
 <p>$$
-\dot{x}^j(s)=F_{p_j}(\mathbf{p}(s),\ z(s),\ \mathbf{x}(s)) \quad \forall\ s\in I \quad \cdots (7)
+\begin{equation}
+\dot{x}^{j}(s)=F_{p_{j}}(\mathbf{p}(s), z(s), \mathbf{x}(s)), \quad \forall\ s\in I \subset \mathbb{R}
+\label{eq7}
+\end{equation}
 $$</p>
-<p>$(6)$에 $(7)$을 대입하고 $(5)$를 이용하면 다음과 같은 식을 이끌어낼 수 있다.</p>
+<p>$\eqref{eq6}$에 $\eqref{eq7}$을 대입하고 $\eqref{eq5}$를 이용하면 다음과 같은 식을 이끌어낼 수 있다.</p>
 <p>$$
-\dot{p}^j=-F_{z} \big( \mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big)p^i(s)-F_{x_i} \big( \mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big) = 0 \quad \forall\ s\in I \quad \cdots (8)
+\begin{equation}
+\dot{p}^{i} (s) = -F_{z} \big( \mathbf{p}(s), z(s), \mathbf{x}(s) \big)p^i(s)-F_{x_i} \big( \mathbf{p}(s), z(s), \mathbf{x}(s) \big), \quad \forall\ s\in I(i=1,\dots,n)
+\label{eq8}
+\end{equation}
 $$</p>
-<p>또한 $(3)$을 미분하면</p>
+<p>또한 $\eqref{eq3}$을  $s$에 대해서 미분하면 다음과 같다.</p>
 <p>$$
 \dot{z}(s)=\sum \limits_{j=1}^n u_{x_j}(\mathbf{x}(s))\dot{x}^j(s) 
 $$</p>
-<p>이고 여기에 $(4)$, 와 $(7)$을 대입하면</p>
+<p>여기에 $\eqref{eq4} p^{i}=u_{x_{i}}$와 $\eqref{eq7} \dot{x}^{j} = F_{p_{j}}$을 대입하면 다음을 얻는다.</p>
 <p>$$
-\dot{z}(s)=\sum \limits_{j=1}^n p^j(s)F_{p_j}\big( \mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big) \quad s\in I \quad \cdots (9)
+\begin{equation}
+\dot{z}(s)=\sum \limits_{j=1}^n p^j(s)F_{p_j}\big( \mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big), \quad s\in I \subset \mathbb{R},
+\label{eq9}
+\end{equation}
 $$</p>
-<p>이렇게 얻은 $(7)$, $(8)$, $(9)$를 아래와 같이 정리해서 묶어 $2n+1$개의 1계 상미분 방정식의 시스템으로 표현할 수 있다.</p>
+<p>이러한 과정으로 얻은 $\eqref{eq7}, \eqref{eq8}, \eqref{eq9}$를 아래와 같이 정리해서 묶어 $2n+1$개의 연립방정식으로 표현한 것을 <strong>특성 방정식</strong><sup>characteristic equations</sup>이라 한다. 또한 각각의 미지수 $\mathbf{p}(s), z(s), \mathbf{x}(s)$를 $\eqref{eq1}$의 <strong>특성</strong><sup>characteristics, 지표</sup>이라 한다.</p>
 <p>$$
-\begin{cases}(a)\ \  \dot{\mathbf{p}} (s) = -D_{x}F\big(\mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big)-D_{z}F\big(\mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big)\mathbf{p}(s) 
-\\  (b)\ \  \dot{z}(s) = D_pF\big(\mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big) \cdot \mathbf{p}(s) 
-\\  (c)\ \ \dot{\mathbf{x}}(s) = D_pF\big(\mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big) \end{cases} \quad \cdots (10)
+\begin{cases}
+\dot{\mathbf{p}} (s) = -D_{x}F\big(\mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big)-D_{z}F\big(\mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big)\mathbf{p}(s) 
+\\ \dot{z}(s) = D_pF\big(\mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big) \cdot \mathbf{p}(s) 
+\\ \dot{\mathbf{x}}(s) = D_pF\big(\mathbf{p}(s),\ z(s),\ \mathbf{x}(s) \big) \end{cases}
 $$</p>
-<p>위 시스템을 <strong>특성 방정식$(\mathrm{characteristic\ equations})$</strong> 이라 한다. 또한 미지수 $\mathbf{p}(s)$, $z(s)$, $\mathbf{x}(s)$를 $(1)$의 <strong>특성$(\mathrm{characteristics})$</strong> 이라 한다.</p>
+<p style="text-align: right;">■</p>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -807,7 +831,7 @@ $$</p>
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (29)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1827)</summary>
+    <summary>전체 포스트 (1831)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -857,7 +881,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%A4%EC%A0%84-%EC%88%98%EB%8A%A5-%EC%8A%A4%ED%82%AC/" style="color: black">실전 수능 스킬 (15)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (26)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (27)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%94%ED%98%B8%EB%A1%A0/" style="color: black">암호론 (12)</a>
         </li><li>
@@ -871,7 +895,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (29)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (30)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -895,11 +919,11 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (22)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (50)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (51)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (55)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (73)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (74)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (62)</a>
         </li><li>
