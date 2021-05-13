@@ -107,7 +107,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/newton-raphson-method\/",
-    "wordCount" : "1901",
+    "wordCount" : "1897",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -297,8 +297,8 @@ margin-right: auto;">
 </p>
 
 <a href="../1005">고차원에 대해 일반화된 뉴턴-랩슨 메소드</a></p>
-<p><img src="20180831_192324.png#center" alt="20180831\_192324.png">
-$f,f',f''$ 가 $\alpha$ 의 근방에서 연속이고 $f(\alpha) = 0, f'(\alpha) \ne 0$ 이라고 하자. $\alpha$ 와 충분히 가까운 초기값 $x_{0}$ 에 대해 $\displaystyle x_{n+1} := x_{n} - {{ f ( x_{n} ) } \over { f' ( x_{n} ) }}$ 과 같이 정의된 수열 $\left\{ x_{n} \right\}$ 은 $n \to \infty$ 일 때 $\alpha$ 로 쿼드러틱하게 수렴한다.</p>
+<p><img src="20180831_192324.png#center" alt="20180831\_192324.png"></p>
+<p>$f,f',f''$ 가 $\alpha$ 의 근방에서 연속이고 $f(\alpha) = 0, f'(\alpha) \ne 0$ 이라고 하자. $\alpha$ 와 충분히 가까운 초기값 $x_{0}$ 에 대해 $\displaystyle x_{n+1} := x_{n} - {{ f ( x_{n} ) } \over { f' ( x_{n} ) }}$ 과 같이 정의된 수열 $\left\{ x_{n} \right\}$ 은 $n \to \infty$ 일 때 $\alpha$ 로 쿼드러틱하게 수렴한다.</p>
 <p>뉴턴-랩슨 메소드는 그냥 뉴턴 메소드라고 불리기도 한다. 미분가능성이나 연속성과 같은 조건이 있긴 하지만 그래도 간단하고 수렴속도가 빨라 방정식 $f(x) = 0$ 의 근사해를 찾는데 유용한 방법이다.<strong>쿼드러틱Quadratic하게 수렴한다</strong> 는 말은 <a href="../674">수렴률</a>을 이야기할 때 $2$차적으로 수렴한다는 말인데, 적절한 번역이 없다. $1$ 차가 &lsquo;선형&rsquo;으로 번역되는 것에 비하면 그냥 $2$ 차로 수렴한다는 말은 너무 두리뭉술하고 쓰이는 용례가 적어 부득이하게 영어표현을 그대로 썼다. 그럼에도 굳이 언급한 것은 대부분의 경우 <a href="../676">바이섹션 메소드</a>에 비해 수렴하는 속도가 빠름을 수학적으로 보일 수 있기 때문이다.</p>
 <p><img src="20180831_192719.png#center" alt="20180831\_192719.png">
 그러나 &lsquo;$\alpha$ 의 근방&rsquo;이나 &lsquo;충분히 가까운 초기값&rsquo;이라는 표현에서 눈치챌 수 있듯, 실제로는 마냥 생각 없이 쓸 수 있는 방법이 아니다. 위와 같이 재수 없게 초기값을 잘못 줘서 $0$ 으로 나누는 문제가 일어나거나 수열 자체가 해와 먼 곳으로 갈 수도 있다. 그래서 코드를 쓸 때도 특정 횟수 안에 해를 구하지 못했다면 그냥 계산을 포기하는 등의 예외처리가 필요하다.</p>
@@ -327,7 +327,8 @@ $$
 $$</p>
 <p>Part 2.**  수렴성$f'$ 는 $\alpha$ 근방에서 연속이고 $f'(\alpha) \ne 0$ 이므로 모든 $x \in I_{\delta}$ 에 대해 $f'(x) \ne 0$ 을 만족하는 $ I_{\delta} : = [ \alpha - \delta , \alpha + \delta ] $ 가 존재한다.</p>
 <p>$\displaystyle M( \delta ) := {{ \max_{x \in I_{\delta} } | f'' (x) | } \over { 2 \min_{x \in I_{\delta} } | f'(x) | }}$ 이라고 두면 $\delta$ 를 작게 잡을때마다 $\displaystyle \max_{x \in I_{\delta} } | f'' (x) |$ 은 커지지 않고 $\displaystyle \min_{x \in I_{\delta} } | f'(x) | $ 은 작아지지 않으므로 $M ( \delta )$ 전체는 커지지 않는다. 따라서 $M(\delta) | \alpha - x_{0} | &lt; 1$ 이 성립하도록 하는 $x_{0} \in I_{\delta}$ 가 존재하게끔 충분히 작은 $\delta = \delta_{0}$ 를 잡을 수 있다. 바로 이 $x_{0}$ 가 $\alpha$ 와 충분히 가까운 초기값이다.</p>
-<p>이 $\delta_{0}$ 에 대해 이제 $M:= M(\delta_{0})$ 라고 하자.$(1)$ 의 양변에 절대값을 취하면
+<p>이 $\delta_{0}$ 에 대해 이제 $M:= M(\delta_{0})$ 라고 하자.</p>
+<p>$(1)$ 의 양변에 절대값을 취하면
 $$
 | \alpha - x_{n+1}| \le M | \alpha - x_{n} |^2
 $$

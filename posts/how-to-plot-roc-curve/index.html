@@ -314,8 +314,8 @@ p &lt;- predict(out0, newdata=test, type=&quot;response&quot;); p
 prf &lt;- performance(pr, measure = &quot;tpr&quot;, x.measure = &quot;fpr&quot;)
 win.graph(); plot(prf, main='ROC of Test Data')
 </code></pre><p>위의 코드를 실행하면 다음과 같이 ROC 커브를 그려준다.</p>
-<p><img src="ROC.png#center" alt="ROC.png">
-위 곡선은 모든 컷오프에 대해서 FPR과 TPR을 계산하고, 그것을 각각 $x$ 축의 좌표, $y$ 축의 좌표로 갖는 곡선이다. 곡선은 가능한 한 그 아래의 면적이 넓은 것이 좋다. 궤적으로 보자면 곡선과 왼쪽 위의 점 $(0,1)$ 이 가깝게 붙는 식으로 나오는 게 좋다.막상 그 컷오프는 그림에서 표현되지 않는데, <a href="../720">자료구조를 뜯어보면</a> $alpha.values 를 통해 참조할 수 있음을 알 수 있다.</p>
+<p><img src="ROC.png#center" alt="ROC.png"></p>
+<p>위 곡선은 모든 컷오프에 대해서 FPR과 TPR을 계산하고, 그것을 각각 $x$ 축의 좌표, $y$ 축의 좌표로 갖는 곡선이다. 곡선은 가능한 한 그 아래의 면적이 넓은 것이 좋다. 궤적으로 보자면 곡선과 왼쪽 위의 점 $(0,1)$ 이 가깝게 붙는 식으로 나오는 게 좋다.막상 그 컷오프는 그림에서 표현되지 않는데, <a href="../720">자료구조를 뜯어보면</a> $alpha.values 를 통해 참조할 수 있음을 알 수 있다.</p>
 <p><img src="20190129_101311.png#center" alt="20190129\_101311.png">
 str() 함수로 뜯어보면 컷오프가 0.939 일 때 TPR이 0, FPR이 0.00556 임을 알 수 있다. FPR이 0.00556 이라는 것은 &lsquo;반대&rsquo;를 잘못 예측한 비율이 $0.5%$ 밖에 안 된다는 뜻이다. 여기까진 좋아보이지만, TPR이 0이므로 &lsquo;찬성&rsquo;을 제대로 예측한 케이스가 단 한 건도 없다는 말이 된다. 직관적으로 생각해보면 &lsquo;찬성&rsquo;할 확률이 0.939 이하인 사람을 모두 &lsquo;반대&rsquo;로 예측했기 때문에 &lsquo;찬성&rsquo;을 &lsquo;찬성&rsquo;으로 예측하는 허들이 너무 높았던 것이다. 이러니 &lsquo;반대&rsquo;는 다 맞춰도 &lsquo;찬성&rsquo;은 맞출 수가 없는 것이다.</p>
 <h2 id="그림이-각져서-나와요">그림이 각져서 나와요</h2>
