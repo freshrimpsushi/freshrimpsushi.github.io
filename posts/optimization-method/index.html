@@ -107,7 +107,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/optimization-method\/",
-    "wordCount" : "900",
+    "wordCount" : "895",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -295,14 +295,16 @@ margin-right: auto;">
 <br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
 </p>
 
-<strong>1.</strong>  함수 $f : \mathbb{R}^{n} \to \mathbb{R}$ 의 함수값이 최소가 되도록 하는 $x^{ \ast } = \text{argmin}_{x} f(x)$ 를 구하는 문제를 <strong>최적화 문제</strong><sup>Optimization Problem</sup>라 하고, 그 문제를 푸는 알고리즘을 <strong>최적화 기법</strong>이라 부른다. 최적화 문제에서 주어진 함수 $f$ 를 특히 <strong>대상 함수</strong><sup>Objective Function</sup>라 한다.</p>
-<p>2.**  정의역의 모든 $x$ 에 대해 $f(x^{ \ast }) \le f(x)$ 를 만족하는 $x^{ \ast }$ 를 **최적해**<sup>Global Optimizer</sup>라 부른다.</p>
-<p>3.**  모든 $x \in \mathcal{N}$ 에 대해 $f(x^{ \ast }) \le f(x)$ 를 만족하는 $x^{ \ast }$ 의 네이버 후드 $\mathcal{N}$ 이 존재하면 $x^{ \ast }$ 를 **국소 최적해**<sup>Local Optimizer</sup>라 부른다.</p>
-<p>1.**  최적화 기법을 사용하는 사람은 &lsquo;이익을 극대화&rsquo;하거나 &lsquo;비용을 최소화&rsquo;한다는 말을 쓸 수 있지만, 수학자에게 최대냐 최소냐는 크게 중요한 문제가 아니다. 최소화를 최적화와 거의 같은 의미로 쓰는 이유는 최소화 문제에서 쓰던 알고리즘이라도 마지막에 $-1$ 만 곱하면 최대화 문제에 쓸 수 있기도 하고, 수학적으로 대단히 중요한 함수들인 <a href="../381">메트릭</a>이나 놈이 $0$ 보다 크거나 같은 실수의 집합을 공역으로 갖기 때문, 다시 말해 최소값이 존재하기 때문이다.</p>
+**1. 함수 $f : \mathbb{R}^{n} \to \mathbb{R}$ 의 함수값이 최소가 되도록 하는 $x^{ \ast } = \text{argmin}_{x} f(x)$ 를 구하는 문제를 <strong>최적화 문제</strong><sup>Optimization Problem</sup>라 하고, 그 문제를 푸는 알고리즘을 <strong>최적화 기법</strong>이라 부른다. 최적화 문제에서 주어진 함수 $f$ 를 특히 <strong>대상 함수</strong><sup>Objective Function</sup>라 한다.</p>
+<p>2.**  정의역의 모든 $x$ 에 대해 $f(x^{ \ast }) \le f(x)$ 를 만족하는 $x^{ \ast }$ 를 **최적해**<sup>Global Optimizer</sup>라 부른다.
+3. 모든 $x \in \mathcal{N}$ 에 대해 $f(x^{ \ast }) \le f(x)$ 를 만족하는 $x^{ \ast }$ 의 네이버 후드 $\mathcal{N}$ 이 존재하면 $x^{ \ast }$ 를 **국소 최적해**<sup>Local Optimizer</sup>라 부른다.</p>
+<ol>
+<li>최적화 기법을 사용하는 사람은 &lsquo;이익을 극대화&rsquo;하거나 &lsquo;비용을 최소화&rsquo;한다는 말을 쓸 수 있지만, 수학자에게 최대냐 최소냐는 크게 중요한 문제가 아니다. 최소화를 최적화와 거의 같은 의미로 쓰는 이유는 최소화 문제에서 쓰던 알고리즘이라도 마지막에 $-1$ 만 곱하면 최대화 문제에 쓸 수 있기도 하고, 수학적으로 대단히 중요한 함수들인 <a href="../381">메트릭</a>이나 놈이 $0$ 보다 크거나 같은 실수의 집합을 공역으로 갖기 때문, 다시 말해 최소값이 존재하기 때문이다.</li>
+</ol>
 <p>대상 함수(혹은 목적 함수, 비용 함수, 손실 함수)는 보통 스무스한 경우를 상정하지만, 반드시 그러리라는 보장은 없기 때문에 이를 극복하기 위한 메소드 역시 연구되었다.</p>
 <p>3.** , **2.**  최적해의 존재성은 간단한 조건 몇가지로도 보일 수 있을지 모르나, 로컬 옵티마이저가 글로벌 옵티마이저라는 것을 보일 수 있는 정리는 없다. 이상적으로는 누구나 최적해를 구하길 바라지만, 실전적으로 구한 해가 최적해이길 진심으로 기대하는 경우는 거의 없다. 최적화 문제는 많지만 그 모든 문제에 대해 딱 맞는, &lsquo;최적화된&rsquo; 최적화 기법은 없기 때문에 수많은 개선 알고리즘이 개발되어왔다.보통의 경우 다음의 정의들은 무의미하나, 일단 언급해둔다.</p>
-<p><strong>4.</strong>  모든 $x \in \mathcal{N}$ 에 대해 $f(x^{ \ast }) &lt; f(x)$ 를 만족하는 $x^{ \ast }$ 의 네이버 후드 $\mathcal{N}$ 이 존재하면 $x^{ \ast }$ 를 <strong>강한 국소 최적해</strong><sup>Strict Local Optimizer</sup>라 부른다.</p>
-<p>5.**  모든 $x \in \mathcal{N}$ 에 대해 $f(x^{ \ast }) &lt; f(x)$ 를 만족하는 $x^{ \ast }$ 이 유일한 네이버 후드 $\mathcal{N}$ 이 존재하면 $x^{ \ast }$ 를 **고립된 국소 최적해**<sup>Isolated Local Optimizer</sup>라 부른다.</p>
+<p><strong>4.</strong>  모든 $x \in \mathcal{N}$ 에 대해 $f(x^{ \ast }) &lt; f(x)$ 를 만족하는 $x^{ \ast }$ 의 네이버 후드 $\mathcal{N}$ 이 존재하면 $x^{ \ast }$ 를 <strong>강한 국소 최적해</strong><sup>Strict Local Optimizer</sup>라 부른다.
+5.  모든 $x \in \mathcal{N}$ 에 대해 $f(x^{ \ast }) &lt; f(x)$ 를 만족하는 $x^{ \ast }$ 이 유일한 네이버 후드 $\mathcal{N}$ 이 존재하면 $x^{ \ast }$ 를 <strong>고립된 국소 최적해</strong><sup>Isolated Local Optimizer</sup>라 부른다.</p>
 
 
 
@@ -647,7 +649,7 @@ margin-right: auto;">
     <p><b>카테고리</b></p>
 
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
-        <span style="color:rgb(255,204,000);">●</span> 함수 (66)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 함수 (66)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%80%EB%93%B1%EC%8B%9D/>
         <span style="color:rgb(051,204,051);">●</span> 부등식 (5)</a><br>    
     <a href=https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/>
@@ -659,12 +661,12 @@ margin-right: auto;">
     <a href=https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 선형대수 (19)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/>
-        <span style="color:rgb(255,051,051);">●</span> 추상대수 (78)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 추상대수 (78)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/>
-        <span style="color:rgb(051,204,051);">●</span> 그래프이론 (40++)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 그래프이론 (50++)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/>
-        <span style="color:rgb(051,204,051);">●</span> 해석개론 (93+18)</a><br>
+        <span style="color:rgb(255,204,000);">●</span> 해석개론 (93+18)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B5%EC%86%8C%ED%95%B4%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 복소해석 (66)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC%EA%B3%B5%EA%B0%84/>
@@ -707,7 +709,7 @@ margin-right: auto;">
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (58)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(255,204,000);">●</span> 수리통계학 (65)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (65)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (44)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -716,14 +718,14 @@ margin-right: auto;">
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/>
         <span style="color:rgb(255,204,000);">●</span> 줄리아 (40++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/>
-        <span style="color:rgb(051,204,051);">●</span> 프로그래밍 (20+)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 프로그래밍 (24)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/>
         <span style="color:rgb(051,204,051);">●</span> 알고리즘 (27)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/>
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (29)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1845)</summary>
+    <summary>전체 포스트 (1847)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -737,7 +739,7 @@ margin-right: auto;">
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (3)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (57)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (58)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
@@ -807,7 +809,7 @@ margin-right: auto;">
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (44)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (41)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (42)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (22)</a>
         </li><li>
