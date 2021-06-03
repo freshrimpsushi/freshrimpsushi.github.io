@@ -107,7 +107,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-use-parallel-processing-in-r\/",
-    "wordCount" : "1771",
+    "wordCount" : "1709",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -277,25 +277,16 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#코드">코드</a></li>
+    <li><a href="#설명">설명</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-R 이 속도 때문에 쓰는 언어는 아니지만, 빠른 속도가 필요할 때도 분명히 있을 것이다. 코드를 깔끔하게 잘 짜더라도 너무 오래 걸린다면 보통 병렬처리나 GPU를 동원하게 된다. 언뜻 생각했을 때 R 에서 병렬처리를 할 일이 뭐 있나 싶겠지만, 빅데이터를 다루게 되거나 규모가 큰 시뮬레이션을 하게 된다면 병렬처리가 특히 유용한 수단이 된다. 오히려 R 이야말로 병렬처리를 정말 많이 사용한다고 볼 수도 있다.</p>
+<h2 id="개요">개요</h2>
+<p>R 이 속도 때문에 쓰는 언어는 아니지만, 빠른 속도가 필요할 때도 분명히 있을 것이다. 코드를 깔끔하게 잘 짜더라도 너무 오래 걸린다면 보통 병렬처리나 GPU를 동원하게 된다. 언뜻 생각했을 때 R 에서 병렬처리를 할 일이 뭐 있나 싶겠지만, 빅데이터를 다루게 되거나 규모가 큰 시뮬레이션을 하게 된다면 병렬처리가 특히 유용한 수단이 된다. 오히려 R 이야말로 병렬처리를 정말 많이 사용한다고 볼 수도 있다.</p>
+<h2 id="코드">코드</h2>
 <p>다음은 큰 수들을 1000개 뽑아서 <a href="../775">소인수분해</a>를 하고 그 <a href="../1246">시간을 재는</a> R 코드다: </p>
 <pre><code>library(foreach)
 library(doParallel)
@@ -331,35 +322,25 @@ eratosthenes&lt;-function(n){
   }
   })
   stopCluster(myCluster)
-```![20190830\_165312.png](20190830\_165312.png#center)
+</code></pre><p><img src="20190830_165312.png#center" alt="20190830\_165312.png"></p>
+<h2 id="설명">설명</h2>
+<p><a href="../775">소인수분해</a>의 경우 병렬처리의 이점을 잘 살리는 유형의 문제가 아닌데, 그럼에도 불구하고 시간을 절반이상 단축시킨 것을 볼 수 있다. 참고로 논리 프로세서가 8개라고 해서 실행시간이 1/8로 줄어들지는 않는다. 긍정적으로 말해서, 굳이 병렬처리를 하지 않아도 CPU는 원래 나름 효율적으로 일을 분배하기 때문이다. 부정적으로 말해서, 병렬처리를 해봤자 늘 쓰던 CPU라는 점에선 다른게 없기 때문이다. 물론 긍정적이든 부정적이든 병렬처리가 주는 이점은 상당하다. 다음은 각각 그냥 반복문과 병렬처리를 했을 때의 CPU 사용률을 움짤로 찐 것이다:</p>
+<p><img src="Honeycam2019-08-3016-08-26.gif#center" alt="Honeycam2019-08-3016-08-26.gif"></p>
+<p>위의 움짤은 모든 논리 프로세서가 놀고 있다가 반복문을 돌렸을 때의 CPU 사용률을 나타낸다. 모든 논리 프로세서를 놀리는 것은 아니지만, 기본적으로 일하는 프로세서만 일하고 그 외에는 논다.
+<img src="Honeycam2019-08-3016-14-37.gif#center" alt="Honeycam2019-08-3016-14-37.gif"></p>
+<p>위의 움짤은 모든 논리 프로세서가 놀고 있다가 병렬처리를 했을 때의 CPU 사용률을 나타낸다. 일반 반복문에 비해 병렬처리를 하면 얄짤없이 모든 프로세서가 100%의 사용률을 보이는 것을 확인할 수 있다. 이것이 실제로 실행 시간을 얼마나 단축하든, 최선을 다했다는 점은 변함이 없다.</p>
+<p>사용되는 패키지는 <code>foreach</code>와 <code>doParallel</code>로, 다음과 같은 함수들을 사용한다:</p>
+<ol>
+<li><code>detectCores()</code>: 현재 사용하는 컴퓨터의 논리 프로세서가 몇개인지 찾아서 반환한다. 예제코드에서 <code>-1</code>로 코어 하나를 빼는 이유는 병렬처리에 모든 프로세서를 할당해버렸을 경우 아예 컴퓨터를 사용하는게 불가능하기 때문이다. 작업을 시켜놓은 컴퓨터로 많은 걸 하려고 하진 않겠지만, 현실적으로 최소한 마우스 커서 정도는 움직일 수 있고 진행 상황이 어느정도인지 확인하는 정도는 할 수 있는 게 좋다. 그래서 극한의 효율을 추구하는 게 아닌 이상, 프로세서 하나 정도는 여유를 준다. 이렇게 여유를 주지 않으면 화면이 전혀 움직이지 않을 때 그냥 계산이 많아서 버벅대는건지, 컴퓨터 자체가 뻗어서 움직이지 않는 것인지 알 수가 없다.</li>
+<li><code>makeCluster()</code>: 이름 그대로 클러스터를 만들어주는 함수다. 그냥 메모리를 할당하는 정도의 개념으로 받아들여도 무방하다.</li>
+<li><code>registerDoParallel()</code>: 만들어진 클러스터에서 병렬처리를 할 수 있도록 할당해주는 함수다.</li>
+<li><code>clusterExport()</code>: 클러스터에서 병렬처리해서 얻은 데이터를 받아줄 변수를 지정해준다. 위 예시의 경우에는 <code>mycluster</code>에서 얻은 데이터를 <code>record</code> 변수에 할당하도록 한다. 문법적으로는 어색하지만 익숙해지면 별로 이상할 것도 없다.</li>
+<li><code>foreach()</code>: R 이나 파이썬 외의 언어에서는 쉽게 만날 수 있는데, 적어도 병렬처리를 할 때는 조금 다른 문법을 가진다. <code>n = test</code>는 R 문법으로 봤을 때 <code>n in test</code>와 비슷한 역할을 한다. <code>combine</code> 옵션은 그렇게 얻은 데이터를 어떻게 취합할 것인가를 결정한다. <code>combine=c</code>는 그저 계산이 되는대로 저장하는 방식이다. <code>c()</code>가 원래 벡터를 만드는 함수기 때문이다. 원한다면 <code>c()</code> 를 쓰지 않고 순서대로 저장되는 옵션같은 것도 선택할 수 있지만, 이 경우 성능 저하가 유발되므로 가능한 한 처음부터 그런 코드를 짜지 않는 편이 좋다.</li>
+<li><code>%dopar%</code>: 적어도 병렬처리를 할 때 있어서는 그냥 문법적인 요소로 생각하는 것이 좋다. <code>foreach()</code>로 정한 반복문을 어떻게 실행할지를 정하는 함수로 보면 충분하다. </li>
+<li><code>stopCluster()</code>: 클러스터를 멈춰주는 함수다. <code>makeCluster()</code> 가 메모리를 할당한다면, <code>stopCluster()</code>는 해제시켜주는 역할을 한다. 컴퓨터를 어느정도 이해한다면 이것이 얼마나 중요한지 어렵지 않게 알 수 있을 것이다. 이해하지 못한다고 해도 병렬처리를 해야할만큼의 작업을 하고 있다면 이러한 함수가 왜 있는지는 쉽게 납득할 수 있을 것이다.</li>
+</ol>
+<p>재미있는 사실은 위의 함수가 정확히 어떤 역할들을 하는지 몰라도 상관없다는 점이다. 그냥 복붙해서 필요한 부분만 바꾸고, <code>foreach()</code> 함수의 옵션만 정확하게 파악하면 된다. 백 번 읽는 것보다 한 번 실행해보는 것이 낫다. 정말로 필요한 입장이라면 함수 하나하나에 의미를 두지 말고 그냥 실행해보자.</p>
 
-
-[소인수분해](../775)의 경우 병렬처리의 이점을 잘 살리는 유형의 문제가 아닌데, 그럼에도 불구하고 시간을 절반이상 단축시킨 것을 볼 수 있다. 참고로 논리 프로세서가 8개라고 해서 실행시간이 1/8로 줄어들지는 않는다. 긍정적으로 말해서, 굳이 병렬처리를 하지 않아도 CPU는 원래 나름 효율적으로 일을 분배하기 때문이다. 부정적으로 말해서, 병렬처리를 해봤자 늘 쓰던 CPU라는 점에선 다른게 없기 때문이다. 물론 긍정적이든 부정적이든 병렬처리가 주는 이점은 상당하다. 다음은 각각 그냥 반복문과 병렬처리를 했을 때의 CPU 사용률을 움짤로 찐 것이다:
-
-![Honeycam2019-08-3016-08-26.gif](Honeycam2019-08-3016-08-26.gif#center)
-
-위의 움짤은 모든 논리 프로세서가 놀고 있다가 반복문을 돌렸을 때의 CPU 사용률을 나타낸다. 모든 논리 프로세서를 놀리는 것은 아니지만, 기본적으로 일하는 프로세서만 일하고 그 외에는 논다.
-![Honeycam2019-08-3016-14-37.gif](Honeycam2019-08-3016-14-37.gif#center)
-
-위의 움짤은 모든 논리 프로세서가 놀고 있다가 병렬처리를 했을 때의 CPU 사용률을 나타낸다. 일반 반복문에 비해 병렬처리를 하면 얄짤없이 모든 프로세서가 100%의 사용률을 보이는 것을 확인할 수 있다. 이것이 실제로 실행 시간을 얼마나 단축하든, 최선을 다했다는 점은 변함이 없다.
-
-사용되는 패키지는 `foreach`와 `doParallel`로, 다음과 같은 함수들을 사용한다: 
-
-**(1)**  `detectCores()` : 현재 사용하는 컴퓨터의 논리 프로세서가 몇개인지 찾아서 반환한다. 예제코드에서 `-1`로 코어 하나를 빼는 이유는 병렬처리에 모든 프로세서를 할당해버렸을 경우 아예 컴퓨터를 사용하는게 불가능하기 때문이다. 작업을 시켜놓은 컴퓨터로 많은 걸 하려고 하진 않겠지만, 현실적으로 최소한 마우스 커서 정도는 움직일 수 있고 진행 상황이 어느정도인지 확인하는 정도는 할 수 있는 게 좋다. 그래서 극한의 효율을 추구하는 게 아닌 이상, 프로세서 하나 정도는 여유를 준다. 이렇게 여유를 주지 않으면 화면이 전혀 움직이지 않을 때 그냥 계산이 많아서 버벅대는건지, 컴퓨터 자체가 뻗어서 움직이지 않는 것인지 알 수가 없다.
-
-**(2)**  `makeCluster()` : 이름 그대로 클러스터를 만들어주는 함수다. 그냥 메모리를 할당하는 정도의 개념으로 받아들여도 무방하다.
-
-**(3)**  `registerDoParallel()` : 만들어진 클러스터에서 병렬처리를 할 수 있도록 할당해주는 함수다.
-
-**(4)**  `clusterExport()` : 클러스터에서 병렬처리해서 얻은 데이터를 받아줄 변수를 지정해준다. 위 예시의 경우에는 `mycluster`에서 얻은 데이터를 `record` 변수에 할당하도록 한다. 문법적으로는 어색하지만 익숙해지면 별로 이상할 것도 없다.
-
-**(5)**  `foreach()` : R 이나 파이썬 외의 언어에서는 쉽게 만날 수 있는데, 적어도 병렬처리를 할 때는 조금 다른 문법을 가진다. `n = test`는 R 문법으로 봤을 때 `n in test`와 비슷한 역할을 한다. `combine` 옵션은 그렇게 얻은 데이터를 어떻게 취합할 것인가를 결정한다. `combine=c`는 그저 계산이 되는대로 저장하는 방식이다. `c()`가 원래 벡터를 만드는 함수기 때문이다. 원한다면 `c()` 를 쓰지 않고 순서대로 저장되는 옵션같은 것도 선택할 수 있지만, 이 경우 성능 저하가 유발되므로 가능한 한 처음부터 그런 코드를 짜지 않는 편이 좋다.
-
-**(6)**  `%dopar%` : 적어도 병렬처리를 할 때 있어서는 그냥 문법적인 요소로 생각하는 것이 좋다. `foreach()`로 정한 반복문을 어떻게 실행할지를 정하는 함수로 보면 충분하다. 
-
-**(7)**  `stopCluster()` : 클러스터를 멈춰주는 함수다. `makeCluster()` 가 메모리를 할당한다면, `stopCluster()`는 해제시켜주는 역할을 한다. 컴퓨터를 어느정도 이해한다면 이것이 얼마나 중요한지 어렵지 않게 알 수 있을 것이다. 이해하지 못한다고 해도 병렬처리를 해야할만큼의 작업을 하고 있다면 이러한 함수가 왜 있는지는 쉽게 납득할 수 있을 것이다.
-
-재미있는 사실은 위의 함수가 정확히 어떤 역할들을 하는지 몰라도 상관없다는 점이다. 그냥 복붙해서 필요한 부분만 바꾸고, `foreach()` 함수의 옵션만 정확하게 파악하면 된다. 백 번 읽는 것보다 한 번 실행해보는 것이 낫다. 정말로 필요한 입장이라면 함수 하나하나에 의미를 두지 말고 그냥 실행해보자.</code></pre>
 
 
 <script type="text/javascript">
@@ -716,6 +697,8 @@ eratosthenes&lt;-function(n){
         <span style="color:rgb(051,204,051);">●</span> 선형대수 (19)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 추상대수 (78)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/>
+        <span style="color:rgb(255,051,051);">●</span> 위상수학 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 그래프이론 (50++)</a><br>
     <hr>
@@ -759,7 +742,7 @@ eratosthenes&lt;-function(n){
         <span style="color:rgb(051,204,051);">●</span> 상대성이론 (6)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/r/>
-        <span style="color:rgb(255,051,051);">●</span> R (53)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> R (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (58)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
@@ -777,9 +760,11 @@ eratosthenes&lt;-function(n){
         <span style="color:rgb(051,204,051);">●</span> 알고리즘 (27)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/>
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (29)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EA%B5%90%EA%B3%BC%EA%B3%BC%EC%A0%95/>
+        <span style="color:rgb(255,051,051);">●</span> 교과과정 (54)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1847)</summary>
+    <summary>전체 포스트 (1856)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -789,17 +774,17 @@ eratosthenes&lt;-function(n){
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (38)</a>
         </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B5%90%EA%B3%BC%EA%B3%BC%EC%A0%95/" style="color: black">교과과정 (54)</a>
+        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (40)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (3)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (4)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (58)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (60)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (31)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC-%EA%B5%90%EA%B3%BC/" style="color: black">물리 교과 (9)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">물리학미분류 (10)</a>
         </li><li>
@@ -821,13 +806,9 @@ eratosthenes&lt;-function(n){
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (52)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (56)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (58)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (54)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%ED%95%99-%EA%B5%90%EA%B3%BC/" style="color: black">수학 교과 (30)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%8B%A4%EC%A0%84-%EC%88%98%EB%8A%A5-%EC%8A%A4%ED%82%AC/" style="color: black">실전 수능 스킬 (15)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (27)</a>
         </li><li>
@@ -835,7 +816,7 @@ eratosthenes&lt;-function(n){
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (52)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">열물리학 (23)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">열물리학 (26)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/" style="color: black">위상수학 (59)</a>
         </li><li>
@@ -867,7 +848,7 @@ eratosthenes&lt;-function(n){
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (22)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (51)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (52)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (55)</a>
         </li><li>
