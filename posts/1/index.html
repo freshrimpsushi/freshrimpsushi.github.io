@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/1\/",
-    "wordCount" : "625",
+    "wordCount" : "22",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -278,91 +278,10 @@
 
 <aside>
     <b>목차</b>
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#정리">정리</a></li>
-    <li><a href="#설명">설명</a></li>
-    <li><a href="#증명-1">증명 </a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#코드">코드</a></li>
-    <li><a href="#환경">환경</a></li>
-  </ul>
-</nav>
+    <nav id="TableOfContents"></nav>
 </aside>
 
-<h1 id="그뢴발-부등식-증명">그뢴발 부등식 증명</h1>
-<p>Proof of Grönwall&rsquo;s Inequality</p>
-<h2 id="정리">정리</h2>
-<p><a href="../2027">최소값</a> $a \in \mathbb{R}$ 를 가지는 구간 $I \subset \mathbb{R}$ 에서 두 <a href="../1206">연속함수</a> $f,w : I \to \mathbb{R}$ 가 정의되어 있다고 하자. $w$ 가 $\forall t \in I$ 에서 $w(t) \ge 0$ 이고 어떤 상수 $C \in \mathbb{R}$ 에 대해
-$$
-f(t) \le C + \int_{a}^{t} w(s) f(s) ds \qquad , \forall t \in I
-$$
-이면 다음이 성립한다.
-$$
-f(t) \le C \exp \left( \int_{a}^{t} w(s) ds \right) \qquad , \forall t \in I
-$$</p>
-<h2 id="설명">설명</h2>
-<p>구간 $I$ 가 최소값 $a$ 를 가진다는 것은 $I$ 가 $a &lt; b$ 에 대해 다음과 같이 생겼다는 의미다.
-$$
-[a,b] \text{ or } [a,b) \text{ or } [a,\infty)
-$$</p>
-<h2 id="증명-1">증명 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p>$$
-\begin{align*}
-\alpha (t) &amp;= C + \int_{a}^{t} w(s) f(s) ds
-\\ \beta (t) &amp;= C \exp \left( \int_{a}^{t} w(s) ds \right)
-\end{align*}
-$$</p>
-<p>두 함수 $\alpha, \beta$ 를 위와 같이 정의하고 $\displaystyle \gamma(t) := {{ \alpha (t) } \over { \beta (t) }}$ 라 하면 $\gamma (a) = 1$ 이고 몫의 미분법에 따라
-$$
-\begin{eqnarray*}
-&amp;&amp; \gamma ' (t)
-\\ &amp;=&amp; {{ \alpha'(t) \beta (t) - \alpha (t) \beta' (t) } \over { \left[ \beta (t) \right]^{2} }}
-\\ &amp;=&amp; {{ w(t) f(t) \cdot C \exp \left( \int_{a}^{t} w(s) ds \right) - \left( C + \int_{a}^{t} w(s) f(s) ds \right) \cdot w (t) C \exp \left( \int_{a}^{t} w(s) ds \right) } \over { \left( C \exp \left( \int_{a}^{t} w(s) ds \right) \right)^{2} }}
-\\ &amp;=&amp; w(t) {{ f(t) - C - \int_{a}^{t} w(s) f(s) ds } \over { C \exp \left( \int_{a}^{t} w(s) ds \right) }}
-\end{eqnarray*}
-$$
-이다. 가정에서 $\displaystyle f(t) \le C + \int_{a}^{t} w(s) f(s) ds$ 이고 $w(t) \ge 0$ 이므로 $\gamma'(t) \le 0$ 다. 따라서 $\gamma (t)$ 는 증가하지 않는 함수고, $\gamma (t) \le 1$ 이므로 다음이 성립한다.
-$$
-\begin{eqnarray*}
-&amp;&amp; \gamma (t) = {{ \alpha(t) } \over { \beta(t) }} \le 1
-\\ &amp;\implies&amp; \alpha (t) \le \beta (t)
-\\ &amp;\implies&amp; C + \int_{a}^{t} w(s) f(s) ds \le C \exp \left( \int_{a}^{t} w(s) ds \right)
-\\ &amp;\implies&amp; f(t) \le C + \int_{a}^{t} w(s) f(s) ds \le C \exp \left( \int_{a}^{t} w(s) ds \right)
-\\ &amp;\implies&amp; f(t) \le C \exp \left( \int_{a}^{t} w(s) ds \right)
-\end{eqnarray*}
-$$</p>
-<p style="text-align: right;">■</p>
 <h1 id="줄리아에서-소수점-아래-특정-자리에서-반올림하는-법">줄리아에서 소수점 아래 특정 자리에서 반올림하는 법</h1>
-<h2 id="코드">코드</h2>
-<p>사실 줄리아는 문자열 포맷 등이 아주 편리한 언어는 아니다. 콘솔에 출력할 때 문자열 자체 기능을 사용하는 방법도 있지만 <code>round()</code> 함수의 기본 옵션인 <code>digits</code>를 사용하는 게 편한 경우가 많을 것이다.</p>
-<pre><code>julia&gt; for k in 0:8
-           println(round(π, digits = k))
-       end
-3.0
-3.1
-3.14
-3.142
-3.1416
-3.14159
-3.141593
-3.1415927
-3.14159265
-</code></pre><h2 id="환경">환경</h2>
-<ul>
-<li>OS: Windows</li>
-<li>Version: 1.6.0</li>
-</ul>
-<section class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1" role="doc-endnote">
-<p><a href="https://math.stackexchange.com/a/276322/459895">https://math.stackexchange.com/a/276322/459895</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-</ol>
-</section>
 
 
 
@@ -789,7 +708,7 @@ $$</p>
         <span style="color:rgb(255,051,051);">●</span> 교과과정 (54)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1862)</summary>
+    <summary>전체 포스트 (1868)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -831,7 +750,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (52)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (55)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (56)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (54)</a>
         </li><li>
@@ -841,7 +760,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (52)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">열물리학 (27)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">열물리학 (28)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/" style="color: black">위상수학 (59)</a>
         </li><li>
@@ -869,7 +788,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (44)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (42)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (43)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (22)</a>
         </li><li>
@@ -881,7 +800,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (62)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (55)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (56)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (47)</a>
         </li>
