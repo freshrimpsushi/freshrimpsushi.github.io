@@ -59,9 +59,9 @@
     </script>
 
     
-<meta name="title" content="합성곱과 라플라스 변환">
+<meta name="title" content="라플라스 변환의 컨볼루션(합성곱)">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="합성곱과 라플라스 변환"/>
+<meta property="og:title" content="라플라스 변환의 컨볼루션(합성곱)"/>
 <meta property="og:description" content="convolution and laplace transform"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
@@ -74,8 +74,8 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "j_",
-    "name": "합성곱과 라플라스 변환",
-    "headline": "합성곱과 라플라스 변환",
+    "name": "라플라스 변환의 컨볼루션(합성곱)",
+    "headline": "라플라스 변환의 컨볼루션(합성곱)",
     "alternativeHeadline": "",
     "description": "convolution and laplace transform",
     "inLanguage": "ko",
@@ -114,14 +114,14 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/convolution-and-laplace-transform\/",
-    "wordCount" : "847",
+    "wordCount" : "700",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>합성곱과 라플라스 변환</title>
+    <title>라플라스 변환의 컨볼루션(합성곱)</title>
 
 </head>
 
@@ -261,9 +261,9 @@
             <div class = "content">
             
 
-<title>합성곱과 라플라스 변환</title>
+<title>라플라스 변환의 컨볼루션(합성곱)</title>
 
-<h1>합성곱과 라플라스 변환</h1>
+<h1>라플라스 변환의 컨볼루션(합성곱)</h1>
 <aside>
     convolution and laplace transform
     <p style="text-align: right;">
@@ -284,93 +284,110 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#정의1">정의</a></li>
+    <li><a href="#정리">정리</a></li>
     <li><a href="#증명">증명</a></li>
+    <li><a href="#예제">예제</a>
+      <ul>
+        <li><a href="#1">1 </a></li>
+        <li><a href="#2">2</a></li>
+      </ul>
+    </li>
+    <li><a href="#부록">부록</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-$F(s)=\mathcal{L} \left\{ f(t) \right\}$이고 $G(s)=\mathcal{L} \left\{ g(t) \right\}$라고 하자. 그리고 $F(s)G(s)=H(s)=\mathcal{L} \left\{ h(t) \right\}$라고 하자. 그러면 $h(t)$는 $f(t)$와 $g(t)$의 <strong><a href="../1000">합성곱</a></strong> 이다.
-$$
-h(t)=\int_0^t f(t-\tau)g(\tau)d\tau = \int_0^t f(\tau) g(t-\tau)d\tau 
+<h2 id="정의1">정의<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>$\mathcal{L}$을 <a href="../761">라플라스 변환</a>이라고 하자. 다음의 식을 만족하는 함수 $f*g$를 $f$와 $g$의 라플라스 변환에 대한 <a href="../1848">컨볼루션</a><sup>convolution of Laplace transform</sup>이라 한다.</p>
+<p>$$
+\mathcal{L}(f*g) = \mathcal{L}(f) \cdot \mathcal{L}(g)
 $$</p>
-<p>$F(s)G(s)=H(s)=\mathcal{L} \left\{ h(t) \right\}$라고 했을 때 $h(t)=f(t)g(t)$라면 정말 편하고 좋겠지만 그렇지 않다. 대신 $h(t)$는 $f(t)$와 $g(t)$의 단순한 곱이 아닌 합성곱으로 주어진다. ****</p>
+<h2 id="정리">정리</h2>
+<p>$f$와 $g$의 라플라스 변환에 대한 컨볼루션 $h=f*g$는 다음과 같다.</p>
+<p>$$
+h(t) = f*g(t) = \int_0^t f(t-\tau)g(\tau)d\tau = \int_0^t f(\tau) g(t-\tau)d\tau 
+$$</p>
 <h2 id="증명">증명</h2>
-<p>$h(t)$를 $f(t)$와 $g(t)$의 합성곱이라 두고 라플라스 변환을 했을 때 $F(s)G(s)$와 같음을 보이면 증명 완료이다.
-$$
+<p>$$
 \begin{align*}
 \mathcal{L} \left\{ h(t) \right\} &amp;= \int_0^{\infty} e^{-st} \left( \int_0^t f(t-\tau)g(\tau)d\tau \right)dt 
 \\  &amp;= \int_0^{\infty}\int_0^t e^{-st}  f(t-\tau)g(\tau)d\tau dt 
 \end{align*}
-$$
-적분 순서를 바꿔주면
-$$
+$$</p>
+<p>적분 순서를 바꿔주면(부록 참고)</p>
+<p>$$
 \int_0^{\infty}\int_0^t d\tau dt\quad  \implies  \quad \int_0^{\infty}\int_\tau^{\infty} dt d\tau
-$$
-이므로 위 식은 아래와 같다.
-$$
- \int_0^{\infty}\int_\tau^{\infty} e^{-st}  f(t-\tau)g(\tau)dt d\tau 
-$$
-$u=t-\tau$라고 치환해주면
-$$
-  \int_0^{\infty}\int_0^{\infty} e^{-su}e^{-s\tau}  f(u)g(\tau)du d\tau 
-$$
-$u$와 $\tau$에 대한 적분을 각각 분리해주면
-$$
-  \int_0^{\infty}e^{-s\tau}g(\tau)d\tau\int_0^{\infty} e^{-su}  f(u)du=G(s)F(s)  
-$$
-따라서 $F(s)G(s)=H(s)=\mathcal{L} \left\{ h(t) \right\}$를 만족하는 $h(t)$는 $f(t)$와 $g(t)$의 합성곱이다.<p style="text-align: right;">■</p>
-**예제 1 ** $H(s)=\dfrac{a}{s^2(s^2+a^2)}$의 라플라스 역변환을 구하여라.$\mathcal{L} \left\{ t \right\}=\dfrac{1}{s^2}$이고, $\mathcal{L} \left\{ \sin (at)\right\}=\dfrac{a}{s^2+a^2}$이므로 $h(t)$는 $t$와 $\sin (at)$의 합성곱이다.
-$$
+$$</p>
+<p>이므로 위 식은 아래와 같다.</p>
+<p>$$
+\int_0^{\infty}\int_\tau^{\infty} e^{-st}  f(t-\tau)g(\tau)dt d\tau 
+$$</p>
+<p>$u=t-\tau$라고 치환해주면</p>
+<p>$$
+\int_0^{\infty}\int_0^{\infty} e^{-su}e^{-s\tau}  f(u)g(\tau)du d\tau 
+$$</p>
+<p>$u$와 $\tau$에 대한 적분을 각각 분리해주면</p>
+<p>$$
+\int_0^{\infty}e^{-s\tau}g(\tau)d\tau\int_0^{\infty} e^{-su}  f(u)du=G(s)F(s)  
+$$</p>
+<p>따라서</p>
+<p>$$
+\mathcal{L}(f*g)(s) = \mathcal{L}h(s) = H(s) = G(s) F(s) = \mathcal{L}g \cdot \mathcal{L}f
+$$</p>
+<p style="text-align: right;">■</p>
+<h2 id="예제">예제</h2>
+<h3 id="1">1 </h3>
+<p><strong>$H(s)=\dfrac{a}{s^2(s^2+a^2)}$의 라플라스 역변환을 구하여라.</strong></p>
+<p>$\mathcal{L} \left\{ t \right\}=\dfrac{1}{s^2}$이고, $\mathcal{L} \left\{ \sin (at)\right\}=\dfrac{a}{s^2+a^2}$이므로 $h(t)$는 $t$와 $\sin (at)$의 합성곱이다.</p>
+<p>$$
 h(t) = \int_0^t (t-\tau)\sin (a\tau) d\tau = \dfrac{at-\sin(at)}{a^2}
-$$
-참고 : **<a href="../743">라플라스 변환표</a>** **예제**  2 다음과 같이 주어진 초기값 문제를 풀어라
-$$
+$$</p>
+<p>참고 : <a href="../743">라플라스 변환표</a></p>
+<h3 id="2">2</h3>
+<p><strong>다음과 같이 주어진 초기값 문제를 풀어라.</strong></p>
+<p>$$
 \begin{cases} y''+4y=g(t) 
 \\  y(0)=3, \quad y'(0)=-1 \end{cases}
 $$</p>
-<p>주어진 2계 선형 비동차 미분방정식이 아래와 같다고 하자.
-$$
+<p>주어진 2계 선형 비동차 미분방정식이 아래와 같다고 하자.</p>
+<p>$$
 ay'' + by' + cy = g(t)
-$$
-그리고 $\mathcal{L} \left\{ y \right\} =Y(s)$,  $\mathcal{L} \left\{ g(t) \right\}=G(s)$라고 하자. 그러면
-$$
+$$</p>
+<p>그리고 $\mathcal{L} \left\{ y \right\} =Y(s)$,  $\mathcal{L} \left\{ g(t) \right\}=G(s)$라고 하자. 그러면</p>
+<p>$$
 Y(s) = \dfrac{ (as + b)y(0) + ay'(0) } {as^2+bs+c} + \dfrac{G(s) }{as^2+bs+c}
 $$</p>
-<p><a href="../763"><strong>라플라스 변환을 이용한 2계 미분 방정식의 풀이에 대한 공식</strong> </a>을 적용하면
-$$
+<p><a href="../763">라플라스 변환을 이용한 2계 미분 방정식의 풀이에 대한 공식</a>을 적용하면</p>
+<p>$$
 Y(s)=\dfrac{3s-1}{s^2+4}+\dfrac{G(s)}{s^2+4}
-$$
-정리하면
-$$
+$$</p>
+<p>정리하면</p>
+<p>$$
 Y(s)=3\dfrac{s}{s^2+4}-\dfrac{1}{2}\dfrac{2}{s^2+4}+\dfrac{1}{2}\dfrac{2}{s^2+4}G(s)
-$$
-그러면 $\mathcal{L} \left\{ \cos (2t) \right\}=\dfrac{s}{s^2+4}$이고, $\mathcal{L} \left\{ \sin (2t) \right\}=\dfrac{2}{s^2+4}$이므로 $y(t)$는
-$$
+$$</p>
+<p>그러면 $\mathcal{L} \left\{ \cos (2t) \right\}=\dfrac{s}{s^2+4}$이고, $\mathcal{L} \left\{ \sin (2t) \right\}=\dfrac{2}{s^2+4}$이므로 $y(t)$는</p>
+<p>$$
 y(t)=3\cos (2t) -\dfrac{1}{2}\sin (2t) +\dfrac{1}{2} \int_0^t \sin (2(t-\tau))g(\tau)d\tau
-$$
+$$</p>
 <p style="text-align: right;">■</p>
-+추가내용<img src="1.png#center" alt="1.png">
-<img src="2.png#center" alt="2.png"></p>
+<h2 id="부록">부록</h2>
+<p><img src="1.png#center" alt="1.png"></p>
+<p><img src="2.png#center" alt="2.png"></p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>William E. Boyce , <em>Boyce&rsquo;s Elementary Differential Equations and Boundary Value Problems</em> (11th Edition, 2017), p275-276 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var title = '합성곱과 라플라스 변환';
+        var title = '라플라스 변환의 컨볼루션(합성곱)';
         var link = 'https:\/\/freshrimpsushi.github.io\/posts\/convolution-and-laplace-transform\/';
         var arr = new Array();
         var obj = {
@@ -491,7 +508,7 @@ $$
         }
         let board_idx = '1170';
         let board_slug = 'convolution-and-laplace-transform';
-        let board_title = '합성곱과 라플라스 변환';
+        let board_title = '라플라스 변환의 컨볼루션(합성곱)';
 
         $.ajax({
             type: "POST",
@@ -665,7 +682,7 @@ $$
             }
             let idx = '1170';
             let board_slug = 'convolution-and-laplace-transform';
-            let board_title = '합성곱과 라플라스 변환';
+            let board_title = '라플라스 변환의 컨볼루션(합성곱)';
 
             $.ajax({
                 type: "POST",
@@ -793,7 +810,7 @@ $$
         <span style="color:rgb(255,051,051);">●</span> 교과과정 (54)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1864)</summary>
+    <summary>전체 포스트 (1871)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -807,13 +824,13 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (40)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (5)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (7)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (61)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (31)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (32)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">물리학미분류 (10)</a>
         </li><li>
@@ -829,9 +846,9 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (6)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">상미분방정식 (57)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">상미분방정식 (56)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (28)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (32)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (52)</a>
         </li><li>
@@ -853,7 +870,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (34)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (35)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -885,7 +902,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (62)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (57)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (58)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (47)</a>
         </li>

@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/laplace-transform-of-first-order-derivative\/",
-    "wordCount" : "869",
+    "wordCount" : "802",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -284,65 +284,75 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#정리1">정리</a></li>
+    <li><a href="#설명">설명</a></li>
     <li><a href="#증명">증명</a></li>
+    <li><a href="#같이보기">같이보기</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-**1계 도함수의 라플라스 변환
-아래의 두 조건을 가정하자.① 임의의 구간 $0 \le t \le A$에서 함수 $f(t)$가 연속이고, 1계 도함수 $f'(t)$가 <strong>부분적으로 연속(Piecewise Continuous)</strong> 이라고 하자.② $t \ge M$일 때 $|f(t)| \le Ke^{at}$를 만족하는 실수 $a$와 양수 $K$, $M$이 존재한다.그러면 1계 도함수의 라플라스 변환 $\mathcal{L} \left\{ f'(t) \right\}$가 $s&gt;a$일 때 존재하고 그 값은 아래와 같다.$\mathcal {L} \left\{ f'(t) \right\} = s\mathcal {L} \left\{ f(t) \right\} -f(0)$</p>
-<p>조건을 쉽게 설명하면$f(t)$의 라플라스 변환이 존재하고 $f'(t)$가 부분적으로 연속이다.가 된다(<a href="../761">참고</a>). n계 도함수에 대해서는 <a href="../762">여기를 참고</a>하자.</p>
+<h2 id="정리1">정리<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>아래의 두 조건을 가정하자.</p>
+<ol>
+<li>임의의 구간 $0 \le t \le A$에서 함수 $f(t)$가 연속이고, 1계 도함수 $f'(t)$가 <a href="../972">부분적으로 연속</a>이라고 하자.</li>
+<li>$t \ge M$일 때 $|f(t)| \le Ke^{at}$를 만족하는 실수 $a$와 양수 $K$, $M$이 존재한다.</li>
+</ol>
+<p>그러면 $f$의 1계 도함수의 <a href="../761">라플라스 변환</a> $\mathcal{L} \left\{ f'(t) \right\}$가 $s&gt;a$일 때 존재하고 그 값은 아래와 같다.</p>
+<p>$$
+\mathcal {L} \left\{ f'(t) \right\} = s\mathcal {L} \left\{ f(t) \right\} -f(0)
+$$</p>
+<h2 id="설명">설명</h2>
+<p>조건을 다시 쉽게 말하면 &lsquo;$f(t)$의 라플라스 변환이 존재하고 $f&rsquo;(t)$가 부분적으로 연속이다&rsquo;가 된다.</p>
 <h2 id="증명">증명</h2>
-<p>$\displaystyle \lim_{A \to \infty} \int _0 ^A e^{-st}f'(t)dt$가 수렴하면 증명 완료이다.$f'$이 구간에서 부분적으로 연속이라 했으니 $k$개의 불연속 점이 있다고 하자. 그리고 각 불연속 점을 $t_1$, $t_2$, $\cdots$, $t_k$라고 하자. 적분을 불연속 점을 기준으로 나누면 아래와 같다.
-$$
+<p>$\displaystyle \lim_{A \to \infty} \int _0 ^A e^{-st}f'(t)dt$가 수렴하면 증명 완료이다. $f'$이 구간에서 부분적으로 연속이라 했으니 $k$개의 불연속 점이 있다고 하자. 그리고 각 불연속 점을 $t_1$, $t_2$, $\cdots$, $t_k$라고 하자. 적분을 불연속 점을 기준으로 나누면 아래와 같다.</p>
+<p>$$
 \int _0 ^A e^{-st}f'(t)dt =  \int _0 ^{t_1} e^{-st}f'(t)dt + \int _{t_1} ^{t_2} e^{-st}f'(t)dt + \cdots + \int _{t_k} ^A e^{-st}f'(t)dt
-$$
-이제 각 항을 부분적분하자. 적분 결과항과 적분항을 따로 나눠서 정리하면
-$$
+$$</p>
+<p>이제 각 항을 <a href="../1867">부분적분</a>하자. 정적분항과 적분항을 따로 나눠서 정리하면 다음과 같다.</p>
+<p>$$
 \begin{align*}
 \int_0^A e^{-st}f'(t)dt &amp;= \left[ e^{-st}f(t)\right]_{0}^{t_1} + \left[ e^{-st}f(t)\right]_{t_1}^{t_2} + \cdots + \left[ e^{-st}f(t)\right]_{t_k}^{A} 
-\\  &amp; &amp; +s \left[ \int _0 ^{t_1} e^{-st}f(t)dt + \int _{t_1} ^{t_2} e^{-st}f(t)dt + \cdots + \int _{t_k} ^A e^{-st}f(t)dt \right]
+\\ &amp;\quad +s \left[ \int _0 ^{t_1} e^{-st}f(t)dt + \int _{t_1} ^{t_2} e^{-st}f(t)dt + \cdots + \int _{t_k} ^A e^{-st}f(t)dt \right]
 \end{align*}
-$$
-이 때 $f(t)$는 구간에서 연속이므로 적분을 다시 합쳐서 계산할 수 있다. 정리하면
-$$
+$$</p>
+<p>정적분항을 계산하고, 적분항을 합쳐주면 다음과 같다.</p>
+<p>$$
 \begin{align*}
-&amp;\implies&amp;  \left[ e^{-st_1}f(t_1) - e^{-s0}f(0) \right] + \left[ e^{-st_2}f(t_2) - e^{-st_1}f(t_1) \right] + \cdots + \left[ e^{-sA}f(A) - e^{-st_k}f(t_k) \right] + s  \int _0 ^{A} e^{-st}f(t)dt 
-\\  &amp; &amp;= e^{-sA}f(A) - e^{-s0}f(0)  + s  \int _0 ^{A} e^{-st}f(t)dt 
+&amp;\left[ e^{-st_1}f(t_1) - e^{-s0}f(0) \right] + \left[ e^{-st_2}f(t_2) - e^{-st_1}f(t_1) \right] + \cdots + \left[ e^{-sA}f(A) - e^{-st_k}f(t_k) \right] + s  \int _0 ^{A} e^{-st}f(t)dt 
+\\ &amp;= e^{-sA}f(A) - e^{-s0}f(0)  + s  \int _0 ^{A} e^{-st}f(t)dt 
 \end{align*}
-$$
-가정에 의해 $f(t)$의 라플라스 변환이 존재하므로
-$$
+$$</p>
+<p>가정에 의해 $f(t)$의 라플라스 변환이 존재하므로</p>
+<p>$$
 \int _0 ^A e^{-st}f'(t)dt =  e^{-sA}f(A) - f(0)  + s  \mathcal{L} \left\{ f(t) \right\}
-$$
-이제 $\displaystyle \lim_{A \to \infty} e^{-sA}f(A)$가 수렴하는지 확인하면 $f'(t)$의 라플라스 변환이 존재하는지 알게된다. 수렴한다면 무슨 값으로 수렴하는지 알면 $f'(t)$의 라플라스 변환이 무엇인지 알 수 있을 것이다.가정②에 의해, $|f(A)| \le Ke^{aA}$이다. 양변에 $e^{-sA}$를 곱하면
-$$
+$$</p>
+<p>이제 $\displaystyle \lim_{A \to \infty} e^{-sA}f(A)$가 수렴하는지 확인하면 $f'(t)$의 라플라스 변환이 존재하는 것을 보이게 된다. <strong>가정2.</strong> 에 의해, $|f(A)| \le Ke^{aA}$이다. 양변에 $e^{-sA}$를 곱하면</p>
+<p>$$
 |e^{-sA}f(A)| \le Ke^{-(s-a)A}
-$$
-다시 양변에 극한 $\lim \limits_{A \to \infty}$를 취하면 $s&gt;a$일 때 우변은 $0$으로 수렴한다. 따라서 좌변 또한 $0$으로 수렴한다. 즉,
-$$
+$$</p>
+<p>다시 양변에 극한 $\lim \limits_{A \to \infty}$를 취하면 $s&gt;a$일 때 우변은 $0$으로 수렴한다. 따라서 좌변 또한 $0$으로 수렴한다. 즉,</p>
+<p>$$
 \begin{align*}
 \int_0^\infty e^{-st}f'(t)dt &amp;= \lim_{A \to \infty} \int _0 ^A e^{-st}f'(t)dt 
-\\  &amp;= \lim_{A \to \infty} e^{-sA}f(A) - f(0)  + s  \mathcal{L} \left\{ f(t) \right\}
-\\  &amp; =&amp; s \mathcal{L} \left\{ f(t) \right\} -f(0) 
-\\   &amp;= s F(s) -f(0)
+\\ &amp;= \lim_{A \to \infty} e^{-sA}f(A) - f(0)  + s  \mathcal{L} \left\{ f(t) \right\}
+\\ &amp;= s \mathcal{L} \left\{ f(t) \right\} -f(0) 
+\\ &amp;= s F(s) -f(0)
 \end{align*}
-$$
-<p style="text-align: right;">■</p></p>
+$$</p>
+<p style="text-align: right;">■</p>
+<h2 id="같이보기">같이보기</h2>
+<ul>
+<li><a href="../762">$n$계 도함수의 라플라스 변환</a></li>
+</ul>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>William E. Boyce , <em>Boyce&rsquo;s Elementary Differential Equations and Boundary Value Problems</em> (11th Edition, 2017), p248-249 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
@@ -771,7 +781,7 @@ $$
         <span style="color:rgb(255,051,051);">●</span> 교과과정 (54)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1864)</summary>
+    <summary>전체 포스트 (1871)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -785,13 +795,13 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (40)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (5)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (7)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (61)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (31)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (32)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">물리학미분류 (10)</a>
         </li><li>
@@ -807,9 +817,9 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (6)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">상미분방정식 (57)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">상미분방정식 (56)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (28)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (32)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (52)</a>
         </li><li>
@@ -831,7 +841,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (34)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (35)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -863,7 +873,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (62)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (57)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (58)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (47)</a>
         </li>
