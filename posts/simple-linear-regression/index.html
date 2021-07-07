@@ -305,35 +305,35 @@ $$
 \begin{bmatrix}
 y_{1} 
 \\  y_{2} 
-\\  \vdots 
+\\ \vdots 
 \\  y_{n} 
 \end{bmatrix} = \begin{bmatrix}
 1 &amp; x_{1} 
 \\  1 &amp; x_{2} 
-\\  \vdots &amp; \vdots 
+\\ \vdots &amp; \vdots 
 \\  1 &amp; x_{n} 
 \end{bmatrix} \begin{bmatrix}
 \beta_{0} 
-\\  \beta_{1} 
+\\ \beta_{1} 
 \end{bmatrix}  + \begin{bmatrix}
 \varepsilon_{1} 
-\\  \varepsilon_{2} 
-\\  \vdots 
-\\  \varepsilon_{n}  
+\\ \varepsilon_{2} 
+\\ \vdots 
+\\ \varepsilon_{n}  
 \end{bmatrix}
 $$
 이고, 정리하면 $Y = X \beta + \varepsilon$ 을 얻는다.</p>
 <h2 id="최적화">최적화</h2>
 <p>이는 <a href="../356">최소제곱법</a>을 통해 $\| \varepsilon \|_{2} = \| Y - X \beta \|_{2}$ 가 최소가 되도록 하는 $\beta = \begin{bmatrix}
 \beta_{0} 
-\\  \beta_{1} 
+\\ \beta_{1} 
 \end{bmatrix}$ 을 찾는 문제로 귀결된다. $\beta$ 는 직선의 절편과 기울기를 나타내므로, $\beta$ 를 찾는 것은 데이터를 선형 관계로 설명해줄 직선 중 가장 오차가 작은 것을 찾는 것이다. 물론 우리는 두 변수가 정확히 어떤 관계를 갖고 있는지는 알 수 없으므로 우리는 회귀계수의 추정치 $\hat{ \beta_{0}}$ 과 $\hat{ \beta_{1} }$ 을 찾아야한다. 쉽게 말해 데이터랑 제일 비슷하게 생긴 직선을 그으면 된다.</p>
 <p><img src="20190905_104344.png#center" alt="20190905\_104344.png">
 보통 이런 문제는 <a href="../../categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98">수치선형대수</a>의 툴을 사용해서 푸는 게 일반적이지만, 단순회귀분석은 간단한 미적분학으로도 풀 수 있다. 행렬을 다시 헤쳐서 나타내보면
 $$
-\begin{eqnarray}
+\begin{align}
  \varepsilon^2 = \sum_{i=1}^{n} ( y_{i} - \beta_{0} - \beta_{1} x_{i} )^2 
-\end{eqnarray}
+\end{align}
 $$
 를 가장 작게 만드는 $\beta_{0} = \hat{ \beta_{0} }$ 와 $\beta_{1} = \hat {\beta_{1}}$ 을 찾는 것이다.식 $(1)$ 에서 $\beta_{0}$ 에 대해 편미분을 취해보면
 $$
@@ -357,12 +357,12 @@ $$
 $$
 이다. 정리하면
 $$
-\begin{eqnarray*}
- \beta_{1}  &amp;=&amp; {{\sum_{i=1}^{n} x_{i} y_{i} - \sum_{i=1}^{n} x_{i} \overline{y} } \over {\sum_{i=1}^{n} ( x_{i}^2  - \overline{x} x_{i} ) }} 
-\\ &amp;=&amp; {{ \sum_{i=1}^n ( x_{i} - \overline{x} ) ( y_{i} - \overline{y} )  } \over { \sum_{i=1}^{n} (x_{i}^2 - \overline{x}^2 )}} 
-\\ &amp;=&amp; {{ \text{Cov} (X,Y) } \over { \text{Var} ( X ) }} 
-\\ &amp;=&amp; \text{Cor} (X,Y) {{s_{y}} \over {s_{x}}} 
-\end{eqnarray*}
+\begin{align*}
+ \beta_{1}  =&amp; {{\sum_{i=1}^{n} x_{i} y_{i} - \sum_{i=1}^{n} x_{i} \overline{y} } \over {\sum_{i=1}^{n} ( x_{i}^2  - \overline{x} x_{i} ) }} 
+\\ =&amp; {{ \sum_{i=1}^n ( x_{i} - \overline{x} ) ( y_{i} - \overline{y} )  } \over { \sum_{i=1}^{n} (x_{i}^2 - \overline{x}^2 )}} 
+\\ =&amp; {{ \text{Cov} (X,Y) } \over { \text{Var} ( X ) }} 
+\\ =&amp; \text{Cor} (X,Y) {{s_{y}} \over {s_{x}}} 
+\end{align*}
 $$
 실제 계산을 한다면 $\hat{\beta_{1}}$ 보다는 $\hat{\beta_{0}}$ 을 먼저 구해야 할 것이다.</p>
 <h2 id="같이보기">같이보기</h2>
@@ -1008,26 +1008,31 @@ $$
         </div>
 
     
-    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
-	MathJax.Hub.Config({
-		messageStyle: "none",
-		jax: ["input/TeX", "output/HTML-CSS"],
-		"HTML-CSS": { availableFonts: ["TeX"] },
-		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+          ],
+		  trust: ["\\htmlId"],
+		  macros: {
+		  "\\eqref": "\\href{###1}{(\\text{#1})}",
+		  "\\ref": "\\href{###1}{\\text{#1}}",
+		  "\\label": "\\htmlId{#1}{}"
+		  },
+          
+          throwOnError : false
+        });
+    });
+</script>
 
-		tex2jax: {
-			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
-			displayAlign: "left"
-		},
-		
-		TeX: { equationNumbers: {autoNumber: "AMS"}, 
-					extensions: ["cancel.js","color.js"], 
-					   TagSide: "left" 
-		}
-					
-	});
-</script> 
+
 
     
     

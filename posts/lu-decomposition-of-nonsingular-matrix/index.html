@@ -334,14 +334,14 @@ L : = \begin{bmatrix}
  1 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 
 \\  l_{21} &amp; 1 &amp; 0 &amp; \cdots &amp; 0 
 \\  l_{31} &amp; l_{32} &amp; 1 &amp; \cdots &amp; 0  
-\\  \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots 
+\\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots 
 \\  l_{n1} &amp; l_{n2} &amp; l_{n3} &amp; \cdots &amp; 1 
 \end{bmatrix}
 \\ U : = \begin{bmatrix}
  u_{11} &amp; u_{12} &amp; u_{13} &amp; \cdots &amp; u_{1n} 
 \\  0 &amp; u_{22} &amp; u_{23} &amp; \cdots &amp; u_{2n} 
 \\  0 &amp; 0 &amp; u_{33} &amp; \cdots &amp; u_{3n}  
-\\  \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots 
+\\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots 
 \\  0 &amp; 0 &amp; 0 &amp; \cdots &amp; u_{nn} 
 \end{bmatrix}$$</p>
 <p>여기서 $L$ 은 소거연산자들의 곱이므로 대각성분들이 모두 $1$ 임을 쉽게 확인할 수 있다. 위 정의에 따라 직접 $A = (a_{ij})$ 의 성분 $a_{ij}$ 를 계산해보면</p>
@@ -351,12 +351,12 @@ $$</p>
 <p>이 된다. 이제 $a_{ij}$ 를 대각선 상에 있는 경우, 대각선 윗쪽에 있는 경우, 대각성 아랫쪽에 있는 경우로 나누어서 생각해보자.</p>
 <p>$i = j = k$이면</p>
 <p>$$
-\begin{eqnarray*}
-a_{kk} &amp;=&amp; \sum_{s = 1}^{\min(i, j)} l_{ks} u_{sk}
-\\ &amp;=&amp; \sum_{s = 1}^{k} l_{ks} u_{sk}
-\\ &amp;=&amp; \sum_{s = 1}^{k-1} l_{ks} u_{sk} + l_{kk} u_{kk}
-\\ &amp;=&amp; \sum_{s = 1}^{k-1} l_{ks} u_{sk} + u_{kk}
-\end{eqnarray*}
+\begin{align*}
+a_{kk} =&amp; \sum_{s = 1}^{\min(i, j)} l_{ks} u_{sk}
+\\ =&amp; \sum_{s = 1}^{k} l_{ks} u_{sk}
+\\ =&amp; \sum_{s = 1}^{k-1} l_{ks} u_{sk} + l_{kk} u_{kk}
+\\ =&amp; \sum_{s = 1}^{k-1} l_{ks} u_{sk} + u_{kk}
+\end{align*}
 $$</p>
 <p>이를 $u_{kk}$ 에 대해서 정리하면</p>
 <p>$$
@@ -1073,26 +1073,31 @@ expand(lu(B))
         </div>
 
     
-    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
-	MathJax.Hub.Config({
-		messageStyle: "none",
-		jax: ["input/TeX", "output/HTML-CSS"],
-		"HTML-CSS": { availableFonts: ["TeX"] },
-		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+          ],
+		  trust: ["\\htmlId"],
+		  macros: {
+		  "\\eqref": "\\href{###1}{(\\text{#1})}",
+		  "\\ref": "\\href{###1}{\\text{#1}}",
+		  "\\label": "\\htmlId{#1}{}"
+		  },
+          
+          throwOnError : false
+        });
+    });
+</script>
 
-		tex2jax: {
-			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
-			displayAlign: "left"
-		},
-		
-		TeX: { equationNumbers: {autoNumber: "AMS"}, 
-					extensions: ["cancel.js","color.js"], 
-					   TagSide: "left" 
-		}
-					
-	});
-</script> 
+
 
     
     

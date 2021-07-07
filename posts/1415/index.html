@@ -324,12 +324,12 @@ $$
 $$</li>
 <li>어떤 픽스된 $F \subset S$ 에 대해
 $$
-\begin{eqnarray*}
+\begin{align*}
 f_{\delta}(x) &amp;:=&amp; \left( 1 - \rho (x, F) / \delta  \right)^{+} 
-\\ &amp;=&amp; \begin{cases} 1 &amp;, x \in F 
+\\ =&amp; \begin{cases} 1 &amp;, x \in F 
 \\  1 - \rho(x,F)/\delta &amp;, x \notin F \land x \in F^{\delta} 
 \\  0 &amp;, x \notin F^{\delta} \end{cases} 
-\end{eqnarray*}
+\end{align*}
 $$</li>
 </ul>
 <p>식은 복잡해보이지만 그림으로 보면 전혀 어려울 게 없다. $\rho(x,A)$ 는 그냥 한 점 $x \in S$ 와 집합 $A \subset S$ 의 최단거리를 나타내는 것이다.</p>
@@ -361,22 +361,22 @@ f_{\varepsilon} \in C_{b}(S)
 $$
 가정에서 모든 $f \in C_{b}(S)$ 에 대해 $P f = Q f$ 라면 $\displaystyle \int_{\Omega} f_{\varepsilon} dP = \int_{\Omega} f_{\varepsilon} dQ$ 이기도 하므로
 $$
-\begin{eqnarray*}
-P(F) &amp;=&amp; \int_{\Omega} 1_{F} dP 
-\\  &amp;\le&amp; \int_{\Omega} f_{\varepsilon} dP 
-\\  &amp;=&amp; \int_{\Omega} f_{\varepsilon} dQ 
-\\  &amp;\le&amp; \int_{\Omega} 1_{F^{\varepsilon}} dQ 
-\\  &amp;=&amp; Q(F^{\varepsilon}) 
-\end{eqnarray*}
+\begin{align*}
+P(F) =&amp; \int_{\Omega} 1_{F} dP 
+\\ \le&amp; \int_{\Omega} f_{\varepsilon} dP 
+\\ =&amp; \int_{\Omega} f_{\varepsilon} dQ 
+\\ \le&amp; \int_{\Omega} 1_{F^{\varepsilon}} dQ 
+\\ =&amp; Q(F^{\varepsilon}) 
+\end{align*}
 $$
 정리하면 $P(F) \le Q ( F^{\varepsilon})$ 이다. $F$ 는 닫힌 집합이므로 $\displaystyle \lim_{\varepsilon \to 0} F^{\varepsilon} = F$ 고, 방금 얻은 식의 양변에 $\displaystyle \lim_{\varepsilon \to 0}$ 를 취하면 <a href="../1302">측도의 연속성</a>에 따라
 $$
-\begin{eqnarray*}
-P(F) &amp;=&amp; \lim_{\varepsilon \to 0} P(F) 
-\\ &amp;\le&amp; \lim_{\varepsilon \to 0} Q (F^{\varepsilon}) 
-\\  &amp;=&amp; Q \left( \lim_{\varepsilon \to 0} F^{\varepsilon} \right)  
-\\  &amp;=&amp; Q(F) 
-\end{eqnarray*}
+\begin{align*}
+P(F) =&amp; \lim_{\varepsilon \to 0} P(F) 
+\\ \le&amp; \lim_{\varepsilon \to 0} Q (F^{\varepsilon}) 
+\\ =&amp; Q \left( \lim_{\varepsilon \to 0} F^{\varepsilon} \right)  
+\\ =&amp; Q(F) 
+\end{align*}
 $$
 정리하면 $P(F) \le Q(F)$ 고, 같은 방법으로 $Q(F) \le P(F)$ 임을 보일 수 있다. 그러면 닫힌 집합 $F$ 에 대해서 $P(F) = Q(F)$ 이고, [2]에 따라 모든 $A \in \mathcal{B}(S)$ 에 대해 $P(A) = Q(A)$ 가 성립한다.</p>
 <p style="text-align: right;">■</p>
@@ -1010,26 +1010,31 @@ $$
         </div>
 
     
-    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
-	MathJax.Hub.Config({
-		messageStyle: "none",
-		jax: ["input/TeX", "output/HTML-CSS"],
-		"HTML-CSS": { availableFonts: ["TeX"] },
-		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+          ],
+		  trust: ["\\htmlId"],
+		  macros: {
+		  "\\eqref": "\\href{###1}{(\\text{#1})}",
+		  "\\ref": "\\href{###1}{\\text{#1}}",
+		  "\\label": "\\htmlId{#1}{}"
+		  },
+          
+          throwOnError : false
+        });
+    });
+</script>
 
-		tex2jax: {
-			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
-			displayAlign: "left"
-		},
-		
-		TeX: { equationNumbers: {autoNumber: "AMS"}, 
-					extensions: ["cancel.js","color.js"], 
-					   TagSide: "left" 
-		}
-					
-	});
-</script> 
+
 
     
     

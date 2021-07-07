@@ -312,12 +312,12 @@ $$
 <h2 id="통계학과-졸업자-수준의-설명">통계학과 졸업자 수준의 설명</h2>
 <p>쉽게 말해 표본 분산의 기대값이 모분산이 되도록 하기 위함이다. 어렵게 말하자면 표본 분산은 $n-1$ 으로 나누어야만 <a href="../1745">불편추정량</a>이 된다. 불편추정량은 <a href="../1735">편의</a>가 없는 추정량인데, 실제로 수식을 전개해보면 $n-1$ 으로 나누는 것이 $\overline{X}$ 를 다루는 과정에서 생기는 문제를 적절하게 해결해준다. 간단하게 요약된 수식은 다음과 같다.
 $$
-\begin{eqnarray*}
-E S^{2} &amp;=&amp; (n-1)^{-1} E \sum_{i=1}^{n} \left( X_{i} - \overline{X} \right)^{2} 
-\\  &amp;=&amp; (n-1)^{-1} \left[ \sum_{i=1}^{n} \left( \sigma^{2} + \mu^{2} \right) - n \left( \mu^{2} + {{\sigma^{2}} \over {n}} \right) \right]  
-\\  &amp;=&amp; (n-1)^{-1} (n-1) \sigma^{2} 
-\\  &amp;=&amp; \sigma^{2} 
-\end{eqnarray*}
+\begin{align*}
+E S^{2} =&amp; (n-1)^{-1} E \sum_{i=1}^{n} \left( X_{i} - \overline{X} \right)^{2} 
+\\ =&amp; (n-1)^{-1} \left[ \sum_{i=1}^{n} \left( \sigma^{2} + \mu^{2} \right) - n \left( \mu^{2} + {{\sigma^{2}} \over {n}} \right) \right]  
+\\ =&amp; (n-1)^{-1} (n-1) \sigma^{2} 
+\\ =&amp; \sigma^{2} 
+\end{align*}
 $$
 위의 수식 전개는 매우 생략되어 있으므로 제대로 이해하고 싶다면 <a href="../1745">상세한 증명</a>을 참고하는 것을 추천한다. 이러한 수리적 논의에 따르면 표본 분산을 구할 때 $n-1$ 으로 나누는 것은 $n$ 으로 나눌 때의 개선책이 아니라 필연적으로 그렇게 해야만하는 당위성을 가진다. 표본 분산을 계산했을 때 그것이 실제 모분산으로 기대되지 않는다면 그것을 표본 분산이라고 부를 이유가 없다.</p>
 <p>만약 졸업자 수준까지 납득한 후에 고등학생, 신입생 수준을 다시 본다면 설명이 몹시 허술한 것을 알 수 있다. 고등학생의 입장에서 표본이 하나일 때 분산이 정의되지 않도록 $n-1$ 으로 나눈다는 설명은 우선 표본이 하나일 때 정의되지 않아야한다는 전제에 공감해야하며, 신입생이 자유도가 $n-1$ 임을 이해했을지라도 왜 자유도로 나누어야하는지에 대한 명쾌한 설명이 없다. 이는 그저 수식을 최대한 동원하지 않고 듣는 사람이 감각적으로 이해할 수 있게끔 설명하는 방법에 불과하다.</p>
@@ -952,26 +952,31 @@ $$
         </div>
 
     
-    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
-	MathJax.Hub.Config({
-		messageStyle: "none",
-		jax: ["input/TeX", "output/HTML-CSS"],
-		"HTML-CSS": { availableFonts: ["TeX"] },
-		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+          ],
+		  trust: ["\\htmlId"],
+		  macros: {
+		  "\\eqref": "\\href{###1}{(\\text{#1})}",
+		  "\\ref": "\\href{###1}{\\text{#1}}",
+		  "\\label": "\\htmlId{#1}{}"
+		  },
+          
+          throwOnError : false
+        });
+    });
+</script>
 
-		tex2jax: {
-			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
-			displayAlign: "left"
-		},
-		
-		TeX: { equationNumbers: {autoNumber: "AMS"}, 
-					extensions: ["cancel.js","color.js"], 
-					   TagSide: "left" 
-		}
-					
-	});
-</script> 
+
 
     
     

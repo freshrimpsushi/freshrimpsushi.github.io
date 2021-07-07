@@ -322,19 +322,19 @@ $$</p>
 </blockquote>
 <p>복잡하게 생각하지 말고 대충 위에서 언급한 요소만 다 때려넣어보면 다음과 같은 함수 $D_{\text{KL}} \left( P , Q \right)$ 를 생각해볼 수 있다.</p>
 <p>$$
-\begin{eqnarray*} &amp;&amp; \left| E_{P} \left[ \log_{2} q(X) - \log_{2} p(X) \right] \right|
-\\ &amp;=&amp; \left| - \sum p(x) \log_{2} q(x) + \sum p(x) \log_{2} p(x) \right|
-\\ &amp;=&amp; \left| H \left( P, Q \right) - H \left( P \right) \right|
+\begin{align*} &amp;&amp; \left| E_{P} \left[ \log_{2} q(X) - \log_{2} p(X) \right] \right|
+\\ =&amp; \left| - \sum p(x) \log_{2} q(x) + \sum p(x) \log_{2} p(x) \right|
+\\ =&amp; \left| H \left( P, Q \right) - H \left( P \right) \right|
 \\ &amp;\overset{?}{=}&amp; D_{\text{KL}} \left( P , Q \right)
-\end{eqnarray*}
+\end{align*}
 $$</p>
 <h2 id="정의">정의</h2>
 <p>두 확률분포 $P, Q$ 의 확률질량함수 $p,q$ 혹은 확률밀도함수 $f,g$ 가 주어져 있다고 하자. 다음과 같이 정의된 $D_{\text{KL}} \left( P \| Q \right)$ 를 $Q$ 에서 $P$ 로의 <strong>쿨백-라이블러 발산</strong><sup>Kullback-Leibler Divergence</sup> 또는 <strong>상대적 엔트로피</strong><sup>Relative Entropy</sup>라고 한다.</p>
 <p>$$
-\begin{eqnarray*} D_{\text{KL}} \left( P \| Q \right) &amp;:=&amp; H(P,Q) - H(P)
+\begin{align*} D_{\text{KL}} \left( P \| Q \right) &amp;:=&amp; H(P,Q) - H(P)
 \\ &amp;\overset{\text{or}}{=}&amp; - \sum p(x) \log_{2} {{ q(x) } \over { p(x) }}
 \\ &amp;\overset{\text{or}}{=}&amp; - \int_{\mathbb{R}} f(x) \log_{2} {{ g(x) } \over { f(x) }} dx
-\end{eqnarray*}
+\end{align*}
 $$</p>
 <h2 id="설명">설명</h2>
 <p>$$
@@ -342,10 +342,10 @@ D_{\text{KL}} \left( P \| Q \right) = - \sum p_{k} \log_{2} {{ q_{k} } \over { p
 $$</p>
 <p>정의에서 대뜸 위의 수식만 보고 쿨백-라이블러 발산의 의미를 이해하는 것은 수학 전공자에게도 쉽지만은 않은 일이다. 수식을 받아들이는 핵심 키는 바로 로그 $\log_{2}$ 다.
 $$
-\begin{eqnarray*} D_{\text{KL}} \left( P \| Q \right) &amp;=&amp; - \sum p_{k} \log_{2} {{ q_{k} } \over { p_{k} }}
-\\ &amp;=&amp; - \sum p_{k} \log_{2} q_{k} - \left( - \sum p_{k} \log_{2} p_{k} \right)
-\\ &amp;=&amp; H ( P, Q ) - H ( P )
-\end{eqnarray*}
+\begin{align*} D_{\text{KL}} \left( P \| Q \right) =&amp; - \sum p_{k} \log_{2} {{ q_{k} } \over { p_{k} }}
+\\ =&amp; - \sum p_{k} \log_{2} q_{k} - \left( - \sum p_{k} \log_{2} p_{k} \right)
+\\ =&amp; H ( P, Q ) - H ( P )
+\end{align*}
 $$
 빌드업에서 언급했던것처럼 단순한 &lsquo;차&rsquo;가 분수꼴로 바뀌는 이유가 로그다. 로그 안의 ${{ q } \over { p }}$ 를 밖으로 찢어내면 뺄셈이 나오고 그제야 이것이 무슨 의미인지 알 것도 같을 것이다. 물론 정확히 알기 위해서는 이것만으로는 부족하고, 샤넌 엔트로피와 크로스 엔트로피에 대해서도 똑바로 공부를 해두어야한다.</p>
 <h3 id="괴리를-나타내는-간단한-측정법">괴리를 나타내는 간단한 측정법</h3>
@@ -369,8 +369,8 @@ $$
 으로, $p=q$ 일 때 $D_{\text{KL}} \left( p \| q \right) = 0$ 인 목적 함수(손실 함수)로 쓰인다. … $H(p)$ 가 단독, (레퍼런스) 엔트로피라면 계산상으로 바뀔 일이 없으니 … 그러나 컴퓨터 입장에서 보자면
 $$
 \begin{align*}<br>
-H (p,q) &amp;= - \sum p(x) \log_{2} q(x)
-\\ D_{\text{KL}} \left( p \| q \right) &amp;= - \sum p(x) \log_{2} {{ q(x) } \over { p(x) }}
+H (p,q) =&amp; - \sum p(x) \log_{2} q(x)
+\\ D_{\text{KL}} \left( p \| q \right) =&amp; - \sum p(x) \log_{2} {{ q(x) } \over { p(x) }}
 \end{align*}
 $$
 둘 중 계산하기 쉬운 쪽은 명명백백하게 크로스 엔트로피다. …</p>
@@ -1006,26 +1006,31 @@ $$
         </div>
 
     
-    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
-	MathJax.Hub.Config({
-		messageStyle: "none",
-		jax: ["input/TeX", "output/HTML-CSS"],
-		"HTML-CSS": { availableFonts: ["TeX"] },
-		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+          ],
+		  trust: ["\\htmlId"],
+		  macros: {
+		  "\\eqref": "\\href{###1}{(\\text{#1})}",
+		  "\\ref": "\\href{###1}{\\text{#1}}",
+		  "\\label": "\\htmlId{#1}{}"
+		  },
+          
+          throwOnError : false
+        });
+    });
+</script>
 
-		tex2jax: {
-			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
-			displayAlign: "left"
-		},
-		
-		TeX: { equationNumbers: {autoNumber: "AMS"}, 
-					extensions: ["cancel.js","color.js"], 
-					   TagSide: "left" 
-		}
-					
-	});
-</script> 
+
 
     
     

@@ -387,10 +387,10 @@ $$</p>
 $$
 p \mid (x-y)$ 라고 가정했으므로 $x - y \equiv 0 \pmod{p}$ 이고, 즉 $x \equiv y \pmod{p}$ 이므로
 $$
-\begin{eqnarray*}
+\begin{align*}
 \sum_{t = 0}^{n-1} x^{(n - 1)-t} y^{t} &amp;\equiv&amp; \sum_{t = 0}^{n-1} x^{(n - 1)-t} x^{t} 
 \\  &amp;\equiv&amp; n\cdot x^{n-1} \pmod{p} 
-\end{eqnarray*}
+\end{align*}
 $$
 그런데 $p \nmid x$ 이고 $\gcd (n,p) = 1$ 이라고 가정했으므로
 $$
@@ -427,33 +427,33 @@ $$</p>
 $$
 p \mid (x-y)$ 라고 가정했으므로 $x - y \equiv 0 \pmod{p}$ 이고, 즉 $x \equiv y \pmod{p}$ 이므로
 $$
-\begin{eqnarray*}
+\begin{align*}
 \sum_{t = 0}^{p-1} x^{(p - 1)-t} y^{t} &amp;\equiv&amp; \sum_{t = 0}^{p-1} x^{(p - 1)-t} x^{t} 
 \\  &amp;\equiv&amp; p\cdot x^{p-1} 
 \\  &amp;\equiv&amp; 0 \pmod{p} 
-\end{eqnarray*}
+\end{align*}
 $$
 따라서 $p \mid \sum_{t = 0}^{p-1} x^{(p - 1)-t} y^{t}$ 이다.</p>
 <p>Part 3. $p^{2} \nmid \sum_{t = 0}^{p-1} x^{(p - 1)-t} y^{t}
 $$
 x \equiv y \pmod{p}$ 이므로 어떤 $k \in \mathbb{Z}$ 에 대해 $y = x + kp$ 로 둘 수 있다. $t = 1, \cdots , p-1$ 와 같이 인덱스를 픽스해두고 $x^{(p - 1)-t} y^{t}$ 를 $x$ 에 대해 전개해보면 $\pmod{p^{2}}$ 에서
 $$
-\begin{eqnarray*}
+\begin{align*}
 x^{(p - 1)-t} y^{t} &amp;\equiv&amp; x^{(p - 1)-t} \left( x + kp \right)^{t} 
 \\  &amp;\equiv&amp; x^{(p-1)-t} \left( x^{t} + t x^{t-1} kp + {{ t(t-1) } \over { 2 }} x^{t-2} k^{2} \cdot  p^{2} + \cdots \right) 
 \\  &amp;\equiv&amp; x^{(p-1)-t} \left( x^{t} + t x^{t-1} kp \right) + O \left( p^{2} \right) 
 \\  &amp;\equiv&amp; x^{p-1} + tkpx^{p-2} \pmod{p^{2}} 
-\end{eqnarray*}
+\end{align*}
 $$
 다시 원래의 급수로 돌아가보면
 $$
-\begin{eqnarray*}
+\begin{align*}
 \sum_{t = 0}^{p-1} x^{(p - 1)-t} y^{t} &amp;\equiv&amp; \sum_{t = 0}^{p-1} \left[ x^{p-1} + tkpx^{p-2} \right] 
 \\  &amp;\equiv&amp; p x^{p-1} + {{ p(p-1) } \over { 2 }} kpx^{p-2} 
 \\  &amp;\equiv&amp; p x^{p-1} + {{ p-1 } \over { 2 }} k x^{p-2} \cdot p^{2} 
 \\  &amp;\equiv&amp; p x^{p-1} \pmod{p^{2}} 
 \\  &amp;\not \equiv&amp; 0 \pmod{p^{2}} 
-\end{eqnarray*}
+\end{align*}
 $$
 따라서 $p^{2} \mid \sum_{t = 0}^{p-1} x^{(p - 1)-t} y^{t}$ 이다.</p>
 <p style="text-align: right;">■</p>
@@ -1101,26 +1101,31 @@ $$
         </div>
 
     
-    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
-	MathJax.Hub.Config({
-		messageStyle: "none",
-		jax: ["input/TeX", "output/HTML-CSS"],
-		"HTML-CSS": { availableFonts: ["TeX"] },
-		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+          ],
+		  trust: ["\\htmlId"],
+		  macros: {
+		  "\\eqref": "\\href{###1}{(\\text{#1})}",
+		  "\\ref": "\\href{###1}{\\text{#1}}",
+		  "\\label": "\\htmlId{#1}{}"
+		  },
+          
+          throwOnError : false
+        });
+    });
+</script>
 
-		tex2jax: {
-			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
-			displayAlign: "left"
-		},
-		
-		TeX: { equationNumbers: {autoNumber: "AMS"}, 
-					extensions: ["cancel.js","color.js"], 
-					   TagSide: "left" 
-		}
-					
-	});
-</script> 
+
 
     
     

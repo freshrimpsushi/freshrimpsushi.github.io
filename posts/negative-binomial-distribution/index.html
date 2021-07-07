@@ -313,7 +313,7 @@ $$</li>
 <li>[2] 평균과 분산: $X \sim \text{NB}(r, p)$ 면
 $$
 E(X) = {{ r (1-p) } \over { p }} 
-\\  \text{Var}(X) = {{ r (1-p) } \over { p^{2} }}
+\\ \text{Var}(X) = {{ r (1-p) } \over { p^{2} }}
 $$</li>
 </ul>
 <h2 id="설명">설명</h2>
@@ -331,12 +331,12 @@ $$
 $$</p>
 </blockquote>
 <p>$$
-\begin{eqnarray*}
-m(t) &amp;=&amp; \sum_{x=0}^{\infty} e^{tx} p(x) 
-\\  &amp;=&amp; \sum_{x=0}^{\infty} e^{tx} \binom{r+x-1}{x} p^{r} (1-p)^{x} 
-\\  &amp;=&amp; p^{r}\sum_{x=0}^{\infty} \binom{-r}{x} (-1)^{x} \left[ (1-p) e^{t} \right]^{x} 
-\\  &amp;=&amp; p^{r}\sum_{x=0}^{\infty} \binom{-r}{x} \left[ - (1-p) e^{t} \right]^{x}
-\end{eqnarray*}
+\begin{align*}
+m(t) =&amp; \sum_{x=0}^{\infty} e^{tx} p(x) 
+\\ =&amp; \sum_{x=0}^{\infty} e^{tx} \binom{r+x-1}{x} p^{r} (1-p)^{x} 
+\\ =&amp; p^{r}\sum_{x=0}^{\infty} \binom{-r}{x} (-1)^{x} \left[ (1-p) e^{t} \right]^{x} 
+\\ =&amp; p^{r}\sum_{x=0}^{\infty} \binom{-r}{x} \left[ - (1-p) e^{t} \right]^{x}
+\end{align*}
 $$</p>
 <blockquote>
 <p><a href="../1103">이항 급수</a>: $|x| &lt; 1$ 이면 $\alpha \in \mathbb{C}$ 에 대해 $\displaystyle (1 + x )^{\alpha} = \sum_{k=0}^{\infty} \binom{\alpha}{k} x^{k}$</p>
@@ -356,13 +356,13 @@ m(t) = p \left( 1 - (1-p) e^{t} \right)^{-1}
 $$
 <a href="../1469">상호 독립</a>인 확률 변수 $X_1, X_2, \cdots , X_r$ 이 $\text{Geo} (p)$ 를 따르므로 $Y$ 의 적률 생성 함수는
 $$
-\displaystyle \begin{eqnarray*}
-M_Y(t) &amp;=&amp; E(e^{Yt}) 
-\\  &amp;=&amp; E(e^{(X_1+X_2+\cdots+X_r)t}) 
-\\  &amp;=&amp; E(e^{X_1 t}) E(e^{X_2 t}) \cdots E(e^{X_r t}) 
-\\  &amp;=&amp; \prod_{i=1}^r p { (1 - (1-p) e^t ) }^{-1} 
-\\ &amp;=&amp; p^r \left\{ (1 - (1-p) e^t ) \right\}^{-r} 
-\end{eqnarray*} 
+\displaystyle \begin{align*}
+M_Y(t) =&amp; E(e^{Yt}) 
+\\ =&amp; E(e^{(X_1+X_2+\cdots+X_r)t}) 
+\\ =&amp; E(e^{X_1 t}) E(e^{X_2 t}) \cdots E(e^{X_r t}) 
+\\ =&amp; \prod_{i=1}^r p { (1 - (1-p) e^t ) }^{-1} 
+\\ =&amp; p^r \left\{ (1 - (1-p) e^t ) \right\}^{-r} 
+\end{align*} 
 $$
 이는 음이항 분포 $\text{NB}(r,p)$ 의 적률 생성 함수와 같으므로 $Y \sim \text{NB}(r,p)$</p>
 <p><p style="text-align: right;">■</p>
@@ -1005,26 +1005,31 @@ $$
         </div>
 
     
-    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
-	MathJax.Hub.Config({
-		messageStyle: "none",
-		jax: ["input/TeX", "output/HTML-CSS"],
-		"HTML-CSS": { availableFonts: ["TeX"] },
-		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+          ],
+		  trust: ["\\htmlId"],
+		  macros: {
+		  "\\eqref": "\\href{###1}{(\\text{#1})}",
+		  "\\ref": "\\href{###1}{\\text{#1}}",
+		  "\\label": "\\htmlId{#1}{}"
+		  },
+          
+          throwOnError : false
+        });
+    });
+</script>
 
-		tex2jax: {
-			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
-			displayAlign: "left"
-		},
-		
-		TeX: { equationNumbers: {autoNumber: "AMS"}, 
-					extensions: ["cancel.js","color.js"], 
-					   TagSide: "left" 
-		}
-					
-	});
-</script> 
+
 
     
     

@@ -297,9 +297,9 @@
 <p>그림만 봤을 때 파란 선을 넘어가는 $k$ 가 많다고 해서 <a href="../914">아르마 모형</a>이라고 판단하는 것은 위험하다. <a href="../1208">아르마 모형의 가역성</a> 때문에 $AR(p)$ 라도 $MA(\infty)$ 처럼 보일 수 있고, $MA(q)$ 라도 $AR(\infty)$ 처럼 보일 수 있기 때문이다. 실제로 왼쪽 위 $AR(1)$ 의 ACF와 오른쪽 아래 $MA(1)$ 의 PACF는 그 크기가 점점 감소하는 식의 이상한 추이를 보인다. 반면 $AR(1)$ 의 PACF와 $MA(1)$ 의 ACF는 $k=1$ 이후로 칼같이 떨어진다.</p>
 <p>문제는 실제 데이터는 이렇게 $AR(p)$ 인지 $MA(q)$ 인지 미리 알 방법이 없다는 것이다.
 $$
-\begin{eqnarray}
+\begin{align}
 Y_{t} := 0.6 Y_{t-1} + e_{t} + 0.3 e_{t-1} 
-\end{eqnarray}
+\end{align}
 $$
 가령 <code>arma11.s</code>는 수식 $(1)$ 과 같이 정의된 $ARMA(1,1)$ 모델에서 나온 샘플 데이터인데, 그 ACF와 PACF를 그려보면 다음과 같이 나타난다.</p>
 <p><img src="2.png#center" alt="2.png"></p>
@@ -972,26 +972,31 @@ out&lt;-auto.arima(lynx); summary(out)
         </div>
 
     
-    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
-	MathJax.Hub.Config({
-		messageStyle: "none",
-		jax: ["input/TeX", "output/HTML-CSS"],
-		"HTML-CSS": { availableFonts: ["TeX"] },
-		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+          ],
+		  trust: ["\\htmlId"],
+		  macros: {
+		  "\\eqref": "\\href{###1}{(\\text{#1})}",
+		  "\\ref": "\\href{###1}{\\text{#1}}",
+		  "\\label": "\\htmlId{#1}{}"
+		  },
+          
+          throwOnError : false
+        });
+    });
+</script>
 
-		tex2jax: {
-			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
-			displayAlign: "left"
-		},
-		
-		TeX: { equationNumbers: {autoNumber: "AMS"}, 
-					extensions: ["cancel.js","color.js"], 
-					   TagSide: "left" 
-		}
-					
-	});
-</script> 
+
 
     
     

@@ -311,22 +311,22 @@ $$</p>
 </blockquote>
 <p>$X_{n} \sim \text{Poi} (n)$ 이므로
 $$
-\begin{eqnarray*}
-M_Y (t) &amp;=&amp; E \left[ \text{exp} \left( Y_{n} t \right) \right] 
-\\  &amp;=&amp; E \left[ \text{exp} \left( {{ X_{n} - n } \over { \sqrt{n} }}  t \right) \right] 
-\\  &amp;=&amp; E \left[ \text{exp} \left( {{ X_{n} } \over { \sqrt{n} }} t  \right)  \text{exp} ( -t \sqrt{n} ) \right] 
-\\  &amp;=&amp; \text{exp} ( -t \sqrt{n} ) E \left[ \text{exp} \left( X_{n} {{ t } \over { \sqrt{n} }} \right) \right]  
-\\  &amp;=&amp; \text{exp} ( -t \sqrt{n} ) \exp \left( n \left( e^{t/\sqrt{n}} - 1 \right) \right)
-\end{eqnarray*}
+\begin{align*}
+M_Y (t) =&amp; E \left[ \text{exp} \left( Y_{n} t \right) \right] 
+\\ =&amp; E \left[ \text{exp} \left( {{ X_{n} - n } \over { \sqrt{n} }}  t \right) \right] 
+\\ =&amp; E \left[ \text{exp} \left( {{ X_{n} } \over { \sqrt{n} }} t  \right)  \text{exp} ( -t \sqrt{n} ) \right] 
+\\ =&amp; \text{exp} ( -t \sqrt{n} ) E \left[ \text{exp} \left( X_{n} {{ t } \over { \sqrt{n} }} \right) \right]  
+\\ =&amp; \text{exp} ( -t \sqrt{n} ) \exp \left( n \left( e^{t/\sqrt{n}} - 1 \right) \right)
+\end{align*}
 $$
 두번째 인수의 <a href="../42">테일러 전개</a>를 통해
 $$
-\begin{eqnarray*}
+\begin{align*}
  &amp;&amp; \text{exp} \left( -t \sqrt{n} + n \left( 1 + {{t} \over {\sqrt{n}}}  + {{1} \over {2!}} {{t^2} \over {n}} + {{1} \over {3!}} {{t^3} \over {n \sqrt{n} }} + \cdots - 1 \right) \right) 
-\\  &amp;=&amp; \text{exp} \left( -t \sqrt{n} + n \left( {{t} \over {\sqrt{n}}}  + {{1} \over {2!}} {{t^2} \over {n}} + {{1} \over {3!}} {{t^3} \over {n \sqrt{n} }} + \cdots \right) \right) 
-\\  &amp;=&amp; \text{exp} \left( -t \sqrt{n} + t \sqrt{n}  + {{t^2} \over {2!}} + {{1} \over {3!}} {{t^3} \over { \sqrt{n} }} + \cdots \right)  
-\\  &amp;=&amp; \text{exp} \left( {{t^2} \over {2!}} + {{1} \over {3!}} {{t^3} \over { \sqrt{n} }} + \cdots \right) 
-\end{eqnarray*}
+\\ =&amp; \text{exp} \left( -t \sqrt{n} + n \left( {{t} \over {\sqrt{n}}}  + {{1} \over {2!}} {{t^2} \over {n}} + {{1} \over {3!}} {{t^3} \over {n \sqrt{n} }} + \cdots \right) \right) 
+\\ =&amp; \text{exp} \left( -t \sqrt{n} + t \sqrt{n}  + {{t^2} \over {2!}} + {{1} \over {3!}} {{t^3} \over { \sqrt{n} }} + \cdots \right)  
+\\ =&amp; \text{exp} \left( {{t^2} \over {2!}} + {{1} \over {3!}} {{t^3} \over { \sqrt{n} }} + \cdots \right) 
+\end{align*}
 $$
 따라서
 $$
@@ -971,26 +971,31 @@ $$</p>
         </div>
 
     
-    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
-	MathJax.Hub.Config({
-		messageStyle: "none",
-		jax: ["input/TeX", "output/HTML-CSS"],
-		"HTML-CSS": { availableFonts: ["TeX"] },
-		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+          ],
+		  trust: ["\\htmlId"],
+		  macros: {
+		  "\\eqref": "\\href{###1}{(\\text{#1})}",
+		  "\\ref": "\\href{###1}{\\text{#1}}",
+		  "\\label": "\\htmlId{#1}{}"
+		  },
+          
+          throwOnError : false
+        });
+    });
+</script>
 
-		tex2jax: {
-			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
-			displayAlign: "left"
-		},
-		
-		TeX: { equationNumbers: {autoNumber: "AMS"}, 
-					extensions: ["cancel.js","color.js"], 
-					   TagSide: "left" 
-		}
-					
-	});
-</script> 
+
 
     
     

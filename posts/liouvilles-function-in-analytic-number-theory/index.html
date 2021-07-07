@@ -317,8 +317,8 @@ $$</p>
 <p>$$
 \begin{matrix}
 n &amp; 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 &amp; 6 &amp; 7 &amp; 8 &amp; 9 &amp; 10 
-\\  \ \lambda(n) &amp; 1 &amp; -1 &amp; -1 &amp; 1 &amp; -1 &amp; 1 &amp; -1 &amp; -1 &amp; 1 &amp; 1 
-\\  \sum_{d \mid n} \lambda(d) &amp; 1 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 
+\\ \ \lambda(n) &amp; 1 &amp; -1 &amp; -1 &amp; 1 &amp; -1 &amp; 1 &amp; -1 &amp; -1 &amp; 1 &amp; 1 
+\\ \sum_{d \mid n} \lambda(d) &amp; 1 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 
 \end{matrix}
 $$
 리우빌 함수는 그 정의만 보아서는 어떤 함수인지 잘 감이 오지 않는다. 이는 정의가 비슷한 <a href="../1531">뫼비우스 함수</a>와 마찬가지인데, 흥미롭게도 **[1]**의 증명과정과 <a href="../1549">뫼비우스 역 공식</a>에 따르면 다음과 같은 사실을 확인할 수 있다.
@@ -331,13 +331,13 @@ $$</p>
 6.  $f$ 가 완전 승법적이면 $F(n) := \sum_{d \mid n} f(d)$ 는 승법적이다.</p>
 <p>$g$ 를 $g(n) := \sum_{d \mid n} \lambda(n)$ 과 같이 정의하면 정리 [2]에 따라 $\lambda$ 가 완전 승법적이므로 <strong>보조정리 (6)</strong> 에 따라 $g$ 는 승법적이다. $g$ 가 승법적 함수라면 <strong>보조정리 (2)</strong> 에 따라 $g$ 를 쪼개서 생각할 수 있으므로 어떤 픽스된 소수 $p$ 와 $a \in \mathbb{N}$ 에 대해 $g \left( p^{a} \right)$ 만을 계산하면 충분하다.
 $$
-\begin{eqnarray*}
-g \left( p^{a} \right) &amp;=&amp; \sum_{d \mid p^{a}} \lambda (d) 
-\\  &amp;=&amp; 1 + \lambda \left( p \right) + \cdots \lambda \left( p^{a} \right) 
-\\  &amp;=&amp; 1 - 1 + 1 - 1 + \cdots + (-1)^{a} 
-\\  &amp;=&amp; \begin{cases} 0 &amp;, a \text{ is odd} 
+\begin{align*}
+g \left( p^{a} \right) =&amp; \sum_{d \mid p^{a}} \lambda (d) 
+\\ =&amp; 1 + \lambda \left( p \right) + \cdots \lambda \left( p^{a} \right) 
+\\ =&amp; 1 - 1 + 1 - 1 + \cdots + (-1)^{a} 
+\\ =&amp; \begin{cases} 0 &amp;, a \text{ is odd} 
 \\  1 &amp;, a \text{ is even} \end{cases} 
-\end{eqnarray*}
+\end{align*}
 $$
 따라서 $g(n)$ 은 $0$ 과 $1$ 들만의 곱으로 나타나며, 단 하나의 $p$ 에 대해서라도 $a$ 가 짝수가 아니면 $0$ 이 곱해져서 $g(n) = 0$ 이 된다.</p>
 <p style="text-align: right;">■</p>
@@ -981,26 +981,31 @@ $$
         </div>
 
     
-    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
-	MathJax.Hub.Config({
-		messageStyle: "none",
-		jax: ["input/TeX", "output/HTML-CSS"],
-		"HTML-CSS": { availableFonts: ["TeX"] },
-		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+          ],
+		  trust: ["\\htmlId"],
+		  macros: {
+		  "\\eqref": "\\href{###1}{(\\text{#1})}",
+		  "\\ref": "\\href{###1}{\\text{#1}}",
+		  "\\label": "\\htmlId{#1}{}"
+		  },
+          
+          throwOnError : false
+        });
+    });
+</script>
 
-		tex2jax: {
-			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
-			displayAlign: "left"
-		},
-		
-		TeX: { equationNumbers: {autoNumber: "AMS"}, 
-					extensions: ["cancel.js","color.js"], 
-					   TagSide: "left" 
-		}
-					
-	});
-</script> 
+
 
     
     

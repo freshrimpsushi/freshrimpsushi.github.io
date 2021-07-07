@@ -329,10 +329,10 @@ $$</p>
 <p>여기서 $x_{i}$ 들은 $H_{n} (x) = 0$ 를 만족하는 에르미트 노드다.</p>
 <p>이상적분은 필요한데 $f$ 에 $\displaystyle {{ 1 } \over { \sqrt{1-x^2} }}$, $e^{-x}$, $e^{-x^2}$ 가 포함되어있지 않다면 다음과 같이 $g$ 를 만드는 트릭을 쓰면 된다.
 $$
-\begin{eqnarray*}
-\int_{0}^{\infty} f(x) dx &amp;=&amp; \int_{0}^{\infty} f(x) e^{x} e^{-x} dx 
-\\  &amp;=&amp; \int_{0}^{\infty} g(x) e^{-x} dx 
-\end{eqnarray*}
+\begin{align*}
+\int_{0}^{\infty} f(x) dx =&amp; \int_{0}^{\infty} f(x) e^{x} e^{-x} dx 
+\\ =&amp; \int_{0}^{\infty} g(x) e^{-x} dx 
+\end{align*}
 $$
 한편 가우스-체비셰프 구적법의 모티브를 살펴보자. 체비셰프 노드는 다음과 같이 주어진다.
 $$
@@ -340,18 +340,18 @@ x_{i} = \cos \left( {{ 2i-1 } \over { 2n }} \pi \right)
 $$
 물론 이 노드들은 이산적이지만, 연속적으로 보면 $\displaystyle x = \cos \left( \pi t \right)$ 과 같이 변수 치환으로 받아들일 수 있다.
 $$
-\begin{eqnarray*}
-dx &amp;=&amp; - \pi \sin \pi t dt 
-\\  &amp;=&amp; - \pi \sqrt{1 - x^2 } dt 
-\end{eqnarray*}
+\begin{align*}
+dx =&amp; - \pi \sin \pi t dt 
+\\ =&amp; - \pi \sqrt{1 - x^2 } dt 
+\end{align*}
 $$
 이와 같이 치환 적분을 해보면
 $$
-\begin{eqnarray*}
-\int_{-1}^{1} {{ 1 } \over { \sqrt{1 - x^2 } }} f(x) dx &amp;=&amp; - \pi \int_{1}^{0} {{ 1 } \over { \sqrt{1 - x^2 } }} f(x) \sqrt{1 - x^2 } dt 
-\\  &amp;=&amp; \pi \int_{0}^{1} f \left( \cos ( \pi t ) \right) dt 
+\begin{align*}
+\int_{-1}^{1} {{ 1 } \over { \sqrt{1 - x^2 } }} f(x) dx =&amp; - \pi \int_{1}^{0} {{ 1 } \over { \sqrt{1 - x^2 } }} f(x) \sqrt{1 - x^2 } dt 
+\\ =&amp; \pi \int_{0}^{1} f \left( \cos ( \pi t ) \right) dt 
 \\  &amp; \approx &amp; \pi {{ 1 } \over { n }} \sum_{i=1}^{n} f \left( \cos \left( {{ 2 i - 1 } \over { 2n }} \pi \right) \right) 
-\end{eqnarray*}
+\end{align*}
 $$
 물론 이는 정확한 유도가 아니며 딱히 <a href="../1144">가우스 구적법</a>이랑도 상관 없는 이야기다. 위의 수식 전개는 특별한 노드를 고른다는 아이디어가 사실 치환과 비슷할 수 있다는 점을 확인하기 위함일 뿐이다.</p>
 
@@ -984,26 +984,31 @@ $$
         </div>
 
     
-    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
-	MathJax.Hub.Config({
-		messageStyle: "none",
-		jax: ["input/TeX", "output/HTML-CSS"],
-		"HTML-CSS": { availableFonts: ["TeX"] },
-		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+          ],
+		  trust: ["\\htmlId"],
+		  macros: {
+		  "\\eqref": "\\href{###1}{(\\text{#1})}",
+		  "\\ref": "\\href{###1}{\\text{#1}}",
+		  "\\label": "\\htmlId{#1}{}"
+		  },
+          
+          throwOnError : false
+        });
+    });
+</script>
 
-		tex2jax: {
-			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
-			displayAlign: "left"
-		},
-		
-		TeX: { equationNumbers: {autoNumber: "AMS"}, 
-					extensions: ["cancel.js","color.js"], 
-					   TagSide: "left" 
-		}
-					
-	});
-</script> 
+
 
     
     

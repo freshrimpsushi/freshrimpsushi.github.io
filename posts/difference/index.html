@@ -305,13 +305,13 @@ $$
 $$
 와 같이 계산되며, $2$차 차분은
 $$
-\begin{eqnarray*}
-\nabla^2 Y_{t} &amp;=&amp; \nabla \left( \nabla Y_{t} \right) 
-\\ &amp;=&amp; \nabla \left( Y_{t} - Y_{t-1} \right) 
-\\ &amp;=&amp; \nabla  Y_{t} -  \nabla Y_{t-1} 
-\\ &amp;=&amp; (  Y_{t} - Y_{t-1} ) - (  Y_{t-1} - Y_{t-2} ) 
-\\ &amp;=&amp;=  Y_{t} - 2 Y_{t-1} + Y_{t-2} 
-\end{eqnarray*}
+\begin{align*}
+\nabla^2 Y_{t} =&amp; \nabla \left( \nabla Y_{t} \right) 
+\\ =&amp; \nabla \left( Y_{t} - Y_{t-1} \right) 
+\\ =&amp; \nabla  Y_{t} -  \nabla Y_{t-1} 
+\\ =&amp; (  Y_{t} - Y_{t-1} ) - (  Y_{t-1} - Y_{t-2} ) 
+\\ &amp;==  Y_{t} - 2 Y_{t-1} + Y_{t-2} 
+\end{align*}
 $$
 와 같이 계산된다. 다시 말해 $Y_{t}$ 에 차분을 두 번 취했다고 해서 $Y_{t} - Y_{t-2}$ 가 되지는 않는다. 이렇게 길게 늘어지기만 하는 차분은 <a href="../1067">계절형 차분</a>으로 따로 정의된다.</p>
 <p>시계열에서 차분이 필요한 이유는 <strong>트렌드</strong><sup>Trend</sup>가 있는 데이터를 다룰 때 편리하기 때문이다. 시계열분석에서 트렌드란 &lsquo;데이터의 값이 일정 기간동안 증가하거나 감소하는 경향&rsquo;을 말하는데, 이 경우 <a href="../907">정상성</a>에 문제가 있다. 해서 적절하게 차분을 취해 데이터가 정상성을 갖도록 하는 전처리를 거치게 된다. 단순히 증가하거나 감소하는 정도라면 한 번으로 충분하며, 복잡합 모양을 갖추면 그만큼 차분을 많이 취해야 할 수도 있다.</p>
@@ -976,26 +976,31 @@ diff(oil.price,lag=2)
         </div>
 
     
-    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
-	MathJax.Hub.Config({
-		messageStyle: "none",
-		jax: ["input/TeX", "output/HTML-CSS"],
-		"HTML-CSS": { availableFonts: ["TeX"] },
-		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+          ],
+		  trust: ["\\htmlId"],
+		  macros: {
+		  "\\eqref": "\\href{###1}{(\\text{#1})}",
+		  "\\ref": "\\href{###1}{\\text{#1}}",
+		  "\\label": "\\htmlId{#1}{}"
+		  },
+          
+          throwOnError : false
+        });
+    });
+</script>
 
-		tex2jax: {
-			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
-			displayAlign: "left"
-		},
-		
-		TeX: { equationNumbers: {autoNumber: "AMS"}, 
-					extensions: ["cancel.js","color.js"], 
-					   TagSide: "left" 
-		}
-					
-	});
-</script> 
+
 
     
     

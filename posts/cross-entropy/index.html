@@ -325,8 +325,8 @@ $$
 <p>수학에 익숙하고 예리한 독자라면 언뜻 목적 함수에서 $D_{\text{KL}} \left( p \| q \right)$ 만이 중요하지 않은가 궁금할 것이다. $H(p)$ 가 단독, (레퍼런스) 엔트로피라면 계산상으로 바뀔 일이 없으니 그냥 $D_{\text{KL}} \left( p \| q \right)$ 자체를 손실 함수로 사용하는게 효율적으로 보인다. 그러나 컴퓨터 입장에서 보자면
 $$
 \begin{align*}<br>
-H (p,q) &amp;= - \sum p(x) \log_{2} q(x)
-\\ D_{\text{KL}} \left( p \| q \right) &amp;= - \sum p(x) \log_{2} {{ q(x) } \over { p(x) }}
+H (p,q) =&amp; - \sum p(x) \log_{2} q(x)
+\\ D_{\text{KL}} \left( p \| q \right) =&amp; - \sum p(x) \log_{2} {{ q(x) } \over { p(x) }}
 \end{align*}
 $$
 둘 중 계산하기 쉬운 쪽은 명명백백하게 크로스 엔트로피다. 이러나 저러나 최적화(학습) 결과는 똑같은데 굳이굳이 $q(x) / p(x)$ 를 계산할 필요가 없다. $H(p)$ 가 바뀔 일이 없으니 $D_{\text{KL}} \left( p \| q \right)$ 를 쓰는 게 아니라, 거꾸로 크로스 엔트로피를 쓰는 이유가 된다. 결론은 &lsquo;손실함수의 맥락에서 크로스 엔트로피와 쿨백-라이블러 발산은 개념적으로 정확히 같다&rsquo;는 것이다.</p>
@@ -971,26 +971,31 @@ $$
         </div>
 
     
-    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
-	MathJax.Hub.Config({
-		messageStyle: "none",
-		jax: ["input/TeX", "output/HTML-CSS"],
-		"HTML-CSS": { availableFonts: ["TeX"] },
-		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+          ],
+		  trust: ["\\htmlId"],
+		  macros: {
+		  "\\eqref": "\\href{###1}{(\\text{#1})}",
+		  "\\ref": "\\href{###1}{\\text{#1}}",
+		  "\\label": "\\htmlId{#1}{}"
+		  },
+          
+          throwOnError : false
+        });
+    });
+</script>
 
-		tex2jax: {
-			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
-			displayAlign: "left"
-		},
-		
-		TeX: { equationNumbers: {autoNumber: "AMS"}, 
-					extensions: ["cancel.js","color.js"], 
-					   TagSide: "left" 
-		}
-					
-	});
-</script> 
+
 
     
     

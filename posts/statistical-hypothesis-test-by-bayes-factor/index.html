@@ -328,11 +328,11 @@ $$
 <p>$Y \sim B (10, \theta )$ 일 때 $\displaystyle H_{0} : \theta =  {{1} \over {2}}$ vs $\displaystyle H_{1} : \theta \ne  {{1} \over {2}}$ 에 대해 베이즈 검정을 하려한다. $H_{0}$ 와 $H_{1}$ 의 사전확률이 동일하고 $H_{1}$ 하에서 $\theta \sim \text{Beta} (1,1)$ 이며 관측값이 $Y=7$ 이다. 베이즈 인자 $B_{01}$ 을 구하라.</p>
 <h2 id="풀이">풀이</h2>
 <p>$$
-\begin{eqnarray*}
-B_{01} &amp;=&amp; {{ \alpha_{0 } / \pi_{0} } \over { \alpha_{1 } / \pi_{1} }} = {{ p ( y \mid \theta_{0} )  } \over { \int_{\Theta_{1}} p ( y \mid \theta ) g ( \theta ) d \theta }} = {{ p ( Y = 7 \mid \theta = {{1} \over {2}} ) } \over { \int_{\Theta_{1}} p ( y \mid \theta ) d \theta }}  
-\\ &amp;=&amp; {{ \binom{10}{7} \left( {{1} \over {2}} \right)^{7} \left( 1- {{1} \over {2}} \right)^{3} } \over { \int_{0}^{1} \binom{10}{7} \theta^{7} \left( 1 - \theta \right)^{3} d \theta }} = {{1} \over {2^{10}}} {{1} \over { \int_{0}^{1} \theta^{8-1} (1 - \theta)^{4-1} d \theta  }} =  {{1} \over {2^{10}}} {{ \Gamma ( 8 + 4 ) } \over {  \Gamma ( 8 )  \Gamma ( 4 )  }}
-\\ &amp;=&amp; {{1} \over {2^{10}}} {{ 11! } \over { 7! \cdot 3! }}  =  {{1} \over {2^{10}}} {{ 8 \cdot 9 \cdot 10 \cdot 11 } \over { 2 \cdot 3 }} =  {{ 2^4 \cdot 3^2 \cdot 5 \cdot 11 } \over { 2^{11} \cdot 3 }} = {{ 165 } \over { 2^{7} }}   = 1.2890625
-\end{eqnarray*}
+\begin{align*}
+B_{01} =&amp; {{ \alpha_{0 } / \pi_{0} } \over { \alpha_{1 } / \pi_{1} }} = {{ p ( y \mid \theta_{0} )  } \over { \int_{\Theta_{1}} p ( y \mid \theta ) g ( \theta ) d \theta }} = {{ p ( Y = 7 \mid \theta = {{1} \over {2}} ) } \over { \int_{\Theta_{1}} p ( y \mid \theta ) d \theta }}  
+\\ =&amp; {{ \binom{10}{7} \left( {{1} \over {2}} \right)^{7} \left( 1- {{1} \over {2}} \right)^{3} } \over { \int_{0}^{1} \binom{10}{7} \theta^{7} \left( 1 - \theta \right)^{3} d \theta }} = {{1} \over {2^{10}}} {{1} \over { \int_{0}^{1} \theta^{8-1} (1 - \theta)^{4-1} d \theta  }} =  {{1} \over {2^{10}}} {{ \Gamma ( 8 + 4 ) } \over {  \Gamma ( 8 )  \Gamma ( 4 )  }}
+\\ =&amp; {{1} \over {2^{10}}} {{ 11! } \over { 7! \cdot 3! }}  =  {{1} \over {2^{10}}} {{ 8 \cdot 9 \cdot 10 \cdot 11 } \over { 2 \cdot 3 }} =  {{ 2^4 \cdot 3^2 \cdot 5 \cdot 11 } \over { 2^{11} \cdot 3 }} = {{ 165 } \over { 2^{7} }}   = 1.2890625
+\end{align*}
 $$
 따라서 $B_{01}$ 은 귀무가설을 지지하는 약한 증거가 된다.</p>
 <section class="footnotes" role="doc-endnotes">
@@ -973,26 +973,31 @@ $$
         </div>
 
     
-    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
-	MathJax.Hub.Config({
-		messageStyle: "none",
-		jax: ["input/TeX", "output/HTML-CSS"],
-		"HTML-CSS": { availableFonts: ["TeX"] },
-		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+          ],
+		  trust: ["\\htmlId"],
+		  macros: {
+		  "\\eqref": "\\href{###1}{(\\text{#1})}",
+		  "\\ref": "\\href{###1}{\\text{#1}}",
+		  "\\label": "\\htmlId{#1}{}"
+		  },
+          
+          throwOnError : false
+        });
+    });
+</script>
 
-		tex2jax: {
-			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
-			displayAlign: "left"
-		},
-		
-		TeX: { equationNumbers: {autoNumber: "AMS"}, 
-					extensions: ["cancel.js","color.js"], 
-					   TagSide: "left" 
-		}
-					
-	});
-</script> 
+
 
     
     

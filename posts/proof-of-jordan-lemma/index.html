@@ -300,21 +300,21 @@ $$</p>
 <p>조르당이라는 발음법은 콩글리쉬가 아니라 프랑스어에서 온 것이다. 보조정리이니만큼 바로 그 의미를 깨닫긴 어렵고, 여러가지 <a href="../372">적분 테크닉</a>에 쓰인다는 정도만 알아두면 충분하다. 증명은 따분해보이지만 의외로 별 거 없으니까 한번 정도는 제대로 공부해보는것도 나쁘지 않다.</p>
 <h2 id="증명">증명</h2>
 <p>$$
-\begin{eqnarray*}
-\left| \int_{\Gamma} e^{m i z} dz \right| &amp;=&amp; \left| \int_{0}^{\pi} e^{m i z} dz \right| 
-\\  &amp;\le&amp; \int_{0}^{\pi} \left| e^{m i R \cos{\theta}} \right| \left| e^{- m R \sin{\theta}} \right| \left| i R e^{i \theta} \right| d \theta 
-\\ &amp;=&amp; R \int_{0}^{\pi} e^{-m R \sin \theta} d \theta 
-\\ &amp;=&amp; 2 R \int_{0}^{\pi/2} e^{-m R \sin \theta} d \theta 
-\end{eqnarray*}
+\begin{align*}
+\left| \int_{\Gamma} e^{m i z} dz \right| &amp;= \left| \int_{0}^{\pi} e^{m i z} dz \right| 
+\\ \le&amp; \int_{0}^{\pi} \left| e^{m i R \cos{\theta}} \right| \left| e^{- m R \sin{\theta}} \right| \left| i R e^{i \theta} \right| d \theta 
+\\ =&amp; R \int_{0}^{\pi} e^{-m R \sin \theta} d \theta 
+\\ =&amp; 2 R \int_{0}^{\pi/2} e^{-m R \sin \theta} d \theta 
+\end{align*}
 $$
 $\displaystyle \theta \in \left[ 0 , {{\pi} \over {2}} \right] $ 에 대해 $\displaystyle {{2} \over {\pi}} \theta \le \sin{\theta}$ 이고 $\displaystyle e^{-m R \sin \theta} \le e^{-m R {{2} \over {\pi}} \theta }$ 이므로
 $$
-\begin{eqnarray*}
-\left| \int_{\Gamma} e^{m i z} dz \right| &amp;\le&amp; 2 R \int_{0}^{\pi/2} e^{-m R {{2} \over {\pi}} \theta} d \theta 
-\\  &amp;=&amp; 2R \left[ - {{ \pi } \over { mR 2 }} e^{-m R {{2} \over {\pi}} \theta} \right]_{0}^{ \pi / 2} 
-\\  &amp;=&amp; {{\pi} \over {m}} (1 - e^{-mR} ) 
-\\ &amp;&lt;&amp; {{\pi} \over {m}} 
-\end{eqnarray*}
+\begin{align*}
+\left| \int_{\Gamma} e^{m i z} dz \right| &amp;\le 2 R \int_{0}^{\pi/2} e^{-m R {{2} \over {\pi}} \theta} d \theta 
+\\ =&amp; 2R \left[ - {{ \pi } \over { mR 2 }} e^{-m R {{2} \over {\pi}} \theta} \right]_{0}^{ \pi / 2} 
+\\ =&amp; {{\pi} \over {m}} (1 - e^{-mR} ) 
+\\ &lt;&amp; {{\pi} \over {m}} 
+\end{align*}
 $$
 가정에서 $f$ 는 $\Gamma$ 상에서 연속이고 $\displaystyle \lim_{z \to \infty} f(z) = 0$ 이므로 임의의 $\varepsilon &gt;0$ 에 대해서
 $$
@@ -971,26 +971,31 @@ $$</p>
         </div>
 
     
-    <script async='async' src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML,Safe' type='text/javascript'>
-	MathJax.Hub.Config({
-		messageStyle: "none",
-		jax: ["input/TeX", "output/HTML-CSS"],
-		"HTML-CSS": { availableFonts: ["TeX"] },
-		extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+          ],
+		  trust: ["\\htmlId"],
+		  macros: {
+		  "\\eqref": "\\href{###1}{(\\text{#1})}",
+		  "\\ref": "\\href{###1}{\\text{#1}}",
+		  "\\label": "\\htmlId{#1}{}"
+		  },
+          
+          throwOnError : false
+        });
+    });
+</script>
 
-		tex2jax: {
-			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-			displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
-			displayAlign: "left"
-		},
-		
-		TeX: { equationNumbers: {autoNumber: "AMS"}, 
-					extensions: ["cancel.js","color.js"], 
-					   TagSide: "left" 
-		}
-					
-	});
-</script> 
+
 
     
     
