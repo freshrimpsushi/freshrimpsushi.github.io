@@ -62,7 +62,7 @@
 <meta name="title" content="르벡공간에서의 민코프스키 부등식 증명">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
 <meta property="og:title" content="르벡공간에서의 민코프스키 부등식 증명"/>
-<meta property="og:description" content="Proof of Minkowskis Inequality in Lebesgue Space"/>
+<meta property="og:description" content="Proof of Minkowski&#39;s Inequality in Lebesgue Space"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -77,7 +77,7 @@
     "name": "르벡공간에서의 민코프스키 부등식 증명",
     "headline": "르벡공간에서의 민코프스키 부등식 증명",
     "alternativeHeadline": "",
-    "description": "Proof of Minkowskis Inequality in Lebesgue Space",
+    "description": "Proof of Minkowski\u0027s Inequality in Lebesgue Space",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/proof-of-minkowskis-inequality-in-lebesgue-space\/",
-    "wordCount" : "480",
+    "wordCount" : "872",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -265,7 +265,7 @@
 
 <h1>르벡공간에서의 민코프스키 부등식 증명</h1>
 <aside>
-    Proof of Minkowskis Inequality in Lebesgue Space
+    Proof of Minkowski&#39;s Inequality in Lebesgue Space
     <p style="text-align: right;">
         614
 
@@ -284,7 +284,7 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#정리-1">정리 </a></li>
+    <li><a href="#정리1">정리</a></li>
     <li><a href="#설명">설명</a></li>
     <li><a href="#증명">증명</a></li>
     <li><a href="#같이보기">같이보기</a></li>
@@ -292,45 +292,91 @@
 </nav>
 </aside>
 
-<h2 id="정리-1">정리 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p>$p \ge 1$ 이고 $f,g \in \mathcal{L}^{p}$ 면
-$$\left\|f + g \right\|_{p} \le \left\|f \right\|_{p} +  \left\|g \right\|_{p}$$</p>
+<h2 id="정리1">정리<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>$\Omega \subset \mathbb{R}^{n}$를 <a href="../1700">열린 집합</a>이라고 하자. $1 \le p &lt; \infty$이고 $u, v \in L^{p}(\Omega)$이면,</p>
+<p>$$
+\left\| u + v \right\|_{p} \le \left\| u \right\|_{p}+\left\| v \right\|_{p}
+$$</p>
+<p>이를 <strong>민코프스키 부등식</strong><sup>Minkowski inequality</sup>이라 한다.</p>
 <h2 id="설명">설명</h2>
-<p><a href="../605">르벡공간</a>이 $\mathcal{L}^p$ 가 <a href="../1225">놈 벡터공간</a>임을 보이는데에 필요하다.</p>
+<p>$\left\| \cdot \right\|_{p}$가 삼각 부등식을 만족하여 <a href="../1225">놈</a>이 되고, <a href="../605">$L^{p}$ 공간</a>은 <a href="../1225">놈 공간</a>이 된다는 의미를 갖는다.</p>
 <h2 id="증명">증명</h2>
-<p>$p=1$ 는 <a href="../592">코시-슈바르츠 부등식에 의해 바로 유도</a>되므로 $p&gt;1$ 에 대해서만 보이면 충분하다.</p>
+<p>$p=1$인 경우에는 적분의 성질에 의해 자명하게 성립한다.</p>
+<p>$$
+\int_{\Omega} \left| u(x) + v(x) \right| dx \le \int_{\Omega} \left| u(x) \right| dx + \int_{\Omega} \left| v(x) \right| dx 
+$$</p>
+<p>$1 \lt p \lt \infty$라고 하자. $w$를 $w \ge 0$이고 $\left\| w \right\|_{p^{\prime}} \le 1$인 함수라고 하자.</p>
+<blockquote>
+<p><a href="../609">횔더 부등식</a></p>
+<p>$\dfrac{1}{p} + \dfrac{1}{p^{\prime}} = 1$인 $1 \le p, p^{\prime} &lt; \infty$에 대해서, 만약 $u \in L^p(\Omega)$, $v\in L^{p^{\prime}}(\Omega)$이면</p>
+<p>$$
+\int_{\Omega} |u(x)v(x)| dx \le \| u \|_{p} \| v \|_{p^{\prime}}
+$$</p>
+</blockquote>
+<p>그러면 횔더 부등식에 의해 다음이 성립한다.</p>
 <p>$$
 \begin{align*}
-| f + g |^{p} =&amp; \left|(f + g) (f+ g)^{p-1} \right|
-\\ \le&amp; |f| |f + g |^{p-1} + |g| | f+ g |^{p-1}
+\int_{\Omega} \left| u(x) + v(x) \right| w(x) dx \le&amp; \int_{\Omega} \left| u(x) \right| w(x) dx + \int_{\Omega} \left| v(x) \right| w(x) dx
+\\ \le&amp; \left\| u \right\|_{p} \left\| w \right\|_{p^{\prime}} + \left\| v \right\|_{p} \left\| w \right\|_{p^{\prime}}
+\\ \le&amp; \left\| u \right\|_{p} + \left\| v \right\|_{p}
 \end{align*}
-$$
-이므로
-$$\int | f + g |^{p} dm \le \int |f| |f + g |^{p-1} dm + \int |g| | f+ g |^{p-1} dm$$
-여기서 $\displaystyle {{1} \over {p}} + {{1} \over {q}} =1$ 을 만족하는 $q \in (0,1)$ 를 잡으면
-$$p + q = pq \iff p = (p-1) q $$
-즉 $|f + g |^{(p-1)q} = |f + g|^{p} &lt; \infty$ 이고 $(f+ g)^{p-1} \in \mathcal{L}^{q}$ 이다.</p>
+$$</p>
+<p>따라서 다음의 식이 성립한다.</p>
+<p>$$
+\sup \left\{ \int_{\Omega} \left| u(x) + v(x) \right| w(x) dx : v(x) \ge 0 \text{ on } \Omega, \left\| w \right\|_{p^{\prime}} \le 1 \right\} \lt \left\| u \right\|_{p} + \left\| v \right\|_{p}
+$$</p>
 <blockquote>
-<p><a href="../609">횔더 부등식</a>: $p&gt;1$ 에 대해 $\displaystyle {{1} \over {p}} + {{1} \over {q}} = 1$ 이고 $f \in \mathcal{L}^{p} (E)$ , $g \in \mathcal{q} (E)$ 면 $fg \in \mathcal{L}^{1} (E)$ 이고
-$$\left\| fg \right\|_{1} \le \left\|f \right\|_{p} \left\|g \right\|_{q}$$</p>
+<p><a href="../3098">횔더 부등식의 역: $L^{p}$ 함수일 충분조건</a></p>
+<p>$\sup \left\{ \int_{\Omega} \left| u(x) \right| v(x) dx : v(x) \ge 0 \text{ on } \Omega, \left\| v \right\|_{p^{\prime}} \le 1 \right\} \lt \infty$가 성립하면,
+$$
+u\in L^{p}(\Omega) \quad \text{and} \quad \left\| u \right\|_{p} = \sup \left\{ \int_{\Omega} \left| u(x) \right| v(x) dx : v(x) \ge 0 \text{ on } \Omega, \left\| v \right\|_{p^{\prime}} \le 1 \right\}
+$$</p>
 </blockquote>
-<p>횔더 부등식에 의해
+<p>위의 정리에 의해서,</p>
+<p>$$
+\left\| u + v \right\|_{p} \lt \left\| u \right\|_{p} + \left\| v \right\|_{p}
+$$</p>
+<!-- 
 $$
 \begin{align*}
-&amp;&amp; \int |f| |f + g |^{p-1} dm + \int |g| | f+ g |^{p-1} dm
-\\ \le&amp; \left( \int |f|^{p} dm \right)^{{{1} \over {p}}} \left( \int |f + q|^{ (p-1) q } dm \right)^{{{1} \over {q}}} + \left( \int |g|^{p} dm \right)^{{{1} \over {p}}} \left( \int |f + q|^{ (p-1) q } dm \right)^{{{1} \over {q}}}
+| u + v |^{p} =& \left| (u + v)(u + v)^{p-1} \right|
+\\\ =& \left| u(u + v)^{p-1} + v(u + v)^{p-1} \right|
+\\\ \le& \left| u \right| | u + v |^{p-1} + \left| v \right| | u + v |^{p-1}
+\end{align*}
+$$
+
+이므로
+
+$$
+\int\_{\Omega} | u + v |^{p} dx \le \int\_{\Omega} \left| u \right| |u + v |^{p-1} dx + \int\_{\Omega} \left| v \right| | u + v |^{p-1} dx
+$$
+
+여기서 $\displaystyle {{1} \over {p}} + {{1} \over {q}} =1$ 을 만족하는 $q \in (0,1)$ 를 잡으면
+$$p + q = pq \iff p = (p-1) q $$
+즉 $|u + v |^{(p-1)q} = |u + v|^{p} < \infty$ 이고 $(u + v)^{p-1} \in \mathcal{L}^{p^{\prime}}$ 이다.
+
+> [횔더 부등식](../609): $p>1$ 에 대해 $\displaystyle {{1} \over {p}} + {{1} \over {q}} = 1$ 이고 $f \in \mathcal{L}^{p} (E)$ , $g \in \mathcal{q} (E)$ 면 $fg \in \mathcal{L}^{1} (E)$ 이고
+> $$\left\\| fg \right\\|\_{1} \le \left\\|f \right\\|\_{p} \left\\|g \right\\|\_{q}$$
+
+횔더 부등식에 의해
+$$
+\begin{align*}
+ && \int\_{\Omega} \left| u \right| |u + v |^{p-1} dx + \int\_{\Omega} \left| v \right| | u + v |^{p-1} dx
+\\\ \le& \left( \int\_{\Omega} \left| u \right|^{p} dx \right)^{{{1} \over {p}}} \left( \int\_{\Omega} |f + q|^{ (p-1) q } dx \right)^{{{1} \over {q}}} + \left( \int\_{\Omega} \left| v \right|^{p} dx \right)^{{{1} \over {p}}} \left( \int\_{\Omega} |f + q|^{ (p-1) q } dx \right)^{{{1} \over {q}}}
 \end{align*}
 $$
 $p = (p-1) q$ 이므로
 $$
-\int | f + g |^{p} dm \le \left[ \left( \int |f|^{p} dm \right)^{{{1} \over {p}}} + \left( \int |g|^{p} dm \right)^{{{1} \over {p}}} \right] \left( \int |f + q|^{ p } dm \right)^{{{1} \over {q}}}
+\int\_{\Omega} | u + v |^{p} dx \le \left[ \left( \int\_{\Omega} \left| u \right|^{p} dx \right)^{{{1} \over {p}}} + \left( \int\_{\Omega} \left| v \right|^{p} dx \right)^{{{1} \over {p}}} \right] \left( \int\_{\Omega} |f + q|^{ p } dx \right)^{{{1} \over {q}}}
 $$
-$\displaystyle \left( \int |f + q|^{ p } dm \right)^{{{1} \over {q}}} = 0$ 이면 $\left\|f+ g \right\|_{p}=0$ 이므로 자명하게 부등식을 만족하고, $\displaystyle \left( \int |f + q|^{ p } dm \right)^{{{1} \over {q}}} &gt; 0$ 이면
+$\displaystyle \left( \int\_{\Omega} |f + q|^{ p } dx \right)^{{{1} \over {q}}} = 0$ 이면 $\left\\|u + v \right\\|\_{p}=0$ 이므로 자명하게 부등식을 만족하고, $\displaystyle \left( \int\_{\Omega} |f + q|^{ p } dx \right)^{{{1} \over {q}}} > 0$ 이면
 $$
-\left( \int | f + g |^{p} dm \right)^{1- {{1} \over {q}}} \le  \left\|f \right\|_{p} + \left\|g \right\|_{p} 
+\left( \int\_{\Omega} | u + v |^{p} dx \right)^{1- {{1} \over {q}}} \le  \left\\|f \right\\|\_{p} + \left\\|g \right\\|\_{p} 
 $$
 $\displaystyle 1 - {{1} \over {q}} = {{1} \over {p}}$ 이므로
-$$\left\|f + g \right\|_{p} \le \left\|f \right\|_{p} + \left\|g \right\|_{p}$$</p>
+$$\left\\|u + v \right\\|\_{p} \le \left\\|f \right\\|\_{p} + \left\\|g \right\\|\_{p}$$
+[^1]: Capinski. (1999). Measure, Integral and Probability: p143.
+-->
 <p style="text-align: right;">■</p>
 <h2 id="같이보기">같이보기</h2>
 <ul>
@@ -340,7 +386,7 @@ $$\left\|f + g \right\|_{p} \le \left\|f \right\|_{p} + \left\|g \right\|_{p}$$
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Capinski. (1999). Measure, Integral and Probability: p143. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Robert A. Adams and John J. F. Foutnier, <em>Sobolev Space</em> (2nd Edition, 2003), p25-26 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -733,7 +779,7 @@ $$\left\|f + g \right\|_{p} \le \left\|f \right\|_{p} + \left\|g \right\|_{p}$$
     <a href=https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 측도론 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%A5%B4%EB%B2%A1%EA%B3%B5%EA%B0%84/>
-        <span style="color:rgb(255,051,051);">●</span> 르벡공간 (21)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 르벡공간 (22)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 동역학 (60++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/>
@@ -792,7 +838,7 @@ $$\left\|f + g \right\|_{p} \le \left\|f \right\|_{p} + \left\|g \right\|_{p}$$
         <span style="color:rgb(255,051,051);">●</span> TeX (0++)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1887)</summary>
+    <summary>전체 포스트 (1888)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -808,9 +854,9 @@ $$\left\|f + g \right\|_{p} \le \left\|f \right\|_{p} + \left\|g \right\|_{p}$$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (7)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (63)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (64)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A5%B4%EB%B2%A1%EA%B3%B5%EA%B0%84/" style="color: black">르벡공간 (20)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A5%B4%EB%B2%A1%EA%B3%B5%EA%B0%84/" style="color: black">르벡공간 (19)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
@@ -836,7 +882,7 @@ $$\left\|f + g \right\|_{p} \le \left\|f \right\|_{p} + \left\|g \right\|_{p}$$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/" style="color: black">소볼레프공간 (11)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (54)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (55)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (56)</a>
         </li><li>
