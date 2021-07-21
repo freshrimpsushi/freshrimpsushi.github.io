@@ -1046,12 +1046,17 @@ $R+T=1$이 성립하는 것은 쉽게 확인할 수 있다.<p style="text-align:
                 var str = "";
                  
                 for(var i = 0; i < rows.length; i++) {
-                    if(rows[i]['board_idx'] == 0) {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
-                    } else if(rows[i]['board_idx'] == -1) {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
-                    } else {
+                    if(rows[i]['board_idx'] > -1)
+                    {
                         str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
+                    }
+                    else if(rows[i]['board_idx'] == -1)
+                    {
+                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
+                    }
+                    else
+                    {
+                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
                     }
                     str += "<b> - " + rows[i]['author'] + "</b>: ";
                     str += "" + rows[i]['content'] + "";

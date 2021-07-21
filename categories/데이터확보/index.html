@@ -244,7 +244,7 @@
 <ul>
 <li>🔒 <a href="../../posts/2164">CYBOS Plus</a> 😡: 대우증권의 Open API로 특정 종목의 코드나 종가, 시가총액, 기관순매수 등의 일간 혹은 실시간 시계열 데이터를 포함해 트레이딩 시스템에서 필요할 법한 거의 모든 정보와 기능을 제공한다. (2021.07.15)
 <ul>
-<li><a href="../../posts/2166">CYBOS Plus 설치 튜토리얼</a></li>
+<li><a href="../../posts/2166">설치 튜토리얼</a></li>
 </ul>
 </li>
 </ul>
@@ -259,7 +259,7 @@
 <li>🔒 <a href="../../posts/2158">AI Hub</a> 😀: AI 학습용 데이터를 제공한다. 음성/자연어, 비전, 헬스케어, 자율주행, 안전, 농축수산, 국토환경, 교육 등의 분야에서 이미지, 비디오, 텍스트, 오디오, 3D, 센서 데이터와 같이 다양한 포맷을 다룬다. (2021.07.14)</li>
 <li>🔒 <a href="../../posts/2162">kaggle</a> 😀: 전 세계적으로 가장 유명한 오픈 데이터 허브로, 셀 수 없을만큼 다양한 데이터를 공개하고 작은 대회도 많이 열고 있다. (2021.07.15)
 <ul>
-<li>🔒 <a href="../../posts/2160">kaggle API로 데이터 받는 법, OSError: Could not find kaggle.json. 해결</a></li>
+<li>🔒 <a href="../../posts/2160">API로 데이터 받는 법, OSError: Could not find kaggle.json. 해결</a></li>
 </ul>
 </li>
 </ul>
@@ -864,12 +864,17 @@
                 var str = "";
                  
                 for(var i = 0; i < rows.length; i++) {
-                    if(rows[i]['board_idx'] == 0) {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
-                    } else if(rows[i]['board_idx'] == -1) {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
-                    } else {
+                    if(rows[i]['board_idx'] > -1)
+                    {
                         str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
+                    }
+                    else if(rows[i]['board_idx'] == -1)
+                    {
+                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
+                    }
+                    else
+                    {
+                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
                     }
                     str += "<b> - " + rows[i]['author'] + "</b>: ";
                     str += "" + rows[i]['content'] + "";

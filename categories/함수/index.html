@@ -228,7 +228,7 @@
 </nav>
 </aside>
 
-<p>옛말에 &ldquo;수학자가 죽는다는 것은 function을 잃는 것&quot;이라 했다. 어떤 카테고리 하나에 묶이기엔 애매할 정도로 수학 전반에서 쓰이는 함수를 총망라한다.</p>
+<p>옛말에 &ldquo;수학자가 죽는다는 것은 function을 잃는 것&rdquo; 이라 했다. 어떤 카테고리 하나에 묶이기엔 애매할 정도로 수학 전반에서 쓰이는 함수를 총망라한다.</p>
 <ul>
 <li>해석적 정수론에 쓰이는 <a href="../../posts/1487">산술 함수</a>는 <a href="../%EC%A0%95%EC%88%98%EB%A1%A0">정수론</a> 카테고리에 따로 빼두었다.</li>
 <li>딥러닝에 자주 쓰이는 <a href="../../posts/991">활성화 함수</a>는 <a href="../%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D">머신러닝</a> 카테고리에 따로 빼두었다.</li>
@@ -248,7 +248,7 @@
 <li><a href="../../posts/1003">반파대칭 함수</a></li>
 </ul>
 </li>
-<li>🔒 <a href="../../posts/2053">생존 함수</a></li>
+<li><a href="../../posts/2053">생존 함수</a></li>
 <li>🔒 <a href="../../posts/2078">조화 함수</a></li>
 <li><a href="../../posts/3037">선형함수</a></li>
 <li><a href="../../posts/1096">가법함수와 승법함수</a>
@@ -1068,12 +1068,17 @@
                 var str = "";
                  
                 for(var i = 0; i < rows.length; i++) {
-                    if(rows[i]['board_idx'] == 0) {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
-                    } else if(rows[i]['board_idx'] == -1) {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
-                    } else {
+                    if(rows[i]['board_idx'] > -1)
+                    {
                         str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
+                    }
+                    else if(rows[i]['board_idx'] == -1)
+                    {
+                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
+                    }
+                    else
+                    {
+                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
                     }
                     str += "<b> - " + rows[i]['author'] + "</b>: ";
                     str += "" + rows[i]['content'] + "";

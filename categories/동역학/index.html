@@ -376,7 +376,7 @@
 <li><a href="../../posts/2028">SIS 모델: 재감염과 고질병</a> 🟢</li>
 <li><a href="../../posts/2030">성병 모델: 2개 집단 간의 질병 전파</a> 🟢</li>
 <li><a href="../../posts/2032">종간 전염 모델: 3개 집단 간의 질병 전파</a> 🟢</li>
-<li>🔒 <a href="../../posts/2052">에이즈 전염 모델</a> 🟢</li>
+<li><a href="../../posts/2052">에이즈 전염 모델</a> 🟢</li>
 </ul>
 <h2 id="시뮬레이션">시뮬레이션</h2>
 <ul>
@@ -1136,12 +1136,17 @@
                 var str = "";
                  
                 for(var i = 0; i < rows.length; i++) {
-                    if(rows[i]['board_idx'] == 0) {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
-                    } else if(rows[i]['board_idx'] == -1) {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
-                    } else {
+                    if(rows[i]['board_idx'] > -1)
+                    {
                         str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
+                    }
+                    else if(rows[i]['board_idx'] == -1)
+                    {
+                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
+                    }
+                    else
+                    {
+                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
                     }
                     str += "<b> - " + rows[i]['author'] + "</b>: ";
                     str += "" + rows[i]['content'] + "";

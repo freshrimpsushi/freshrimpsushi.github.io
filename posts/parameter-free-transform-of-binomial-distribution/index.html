@@ -954,12 +954,17 @@ $c$ 가 무엇이든 미분방정식을 똑같이 세우고 똑같이 풀 수 �
                 var str = "";
                  
                 for(var i = 0; i < rows.length; i++) {
-                    if(rows[i]['board_idx'] == 0) {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
-                    } else if(rows[i]['board_idx'] == -1) {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
-                    } else {
+                    if(rows[i]['board_idx'] > -1)
+                    {
                         str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
+                    }
+                    else if(rows[i]['board_idx'] == -1)
+                    {
+                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
+                    }
+                    else
+                    {
+                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
                     }
                     str += "<b> - " + rows[i]['author'] + "</b>: ";
                     str += "" + rows[i]['content'] + "";

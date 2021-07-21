@@ -301,7 +301,7 @@
 <li>🔒 <a href="../../posts/2159">가우시안 프로세스</a></li>
 <li><a href="../../posts/957">위너 프로세스 BM $W_{t}$, $B_{t}$</a></li>
 <li>🔒 <a href="../../posts/2154">지오메트릭 브라우니안 모션 GBM</a></li>
-<li>🔒 프랙셔널 브라우니안 모션 FBM
+<li>🔒 <a href="../../posts/2167">프랙셔널 브라우니안 모션 FBM</a>
 <ul>
 <li>🔒 <a href="../../posts/2161">자기유사성과 허스트 인덱스</a></li>
 </ul>
@@ -1060,12 +1060,17 @@
                 var str = "";
                  
                 for(var i = 0; i < rows.length; i++) {
-                    if(rows[i]['board_idx'] == 0) {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
-                    } else if(rows[i]['board_idx'] == -1) {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
-                    } else {
+                    if(rows[i]['board_idx'] > -1)
+                    {
                         str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
+                    }
+                    else if(rows[i]['board_idx'] == -1)
+                    {
+                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
+                    }
+                    else
+                    {
+                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
                     }
                     str += "<b> - " + rows[i]['author'] + "</b>: ";
                     str += "" + rows[i]['content'] + "";
