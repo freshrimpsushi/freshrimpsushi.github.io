@@ -292,7 +292,7 @@
 
 <h2 id="설명">설명</h2>
 <p><img src="2020-10-29181504.png#center" alt="2020-10-29181504.png"></p>
-<p><strong>퍼셉트론</strong> 은 1957년 로젠블렛에 의해 고안됐으며 최초의 <a href="../1013">지도 학습</a> 모델이다. 위 그림<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>과 같이 단일 층으로 구성돼있고 <a href="../991">활성화 함수</a> $\varphi$는 입력 데이터와 가중치의 곱을 $+1$ 혹은 $-1$로 반환한다. $-1$대신 $0$이라 두기도 하는데 본질적으로 차이는 없다. 간단한 예로 아래 그림과 같은 $m=2$인 2차원 데이터를 생각해보자. 입력 데이터를 $x=(x_{1},x_{2})$, 가중치를 $w=(w_{1},w_{2})$, 편향을 $b$라고 하면 퍼셉트론은 다음과 같이 작동하여 예측값 $\hat{y}$를 반환한다.</p>
+<p><strong>퍼셉트론</strong> 은 1957년 로젠블렛에 의해 고안됐으며 최초의 <a href="../1013">지도 학습</a> 모델이다. 위 그림<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>과 같이 단일 층으로 구성돼있고 <a href="../991">활성화 함수</a> $\varphi$는 입력 데이터와 가중치의 곱을 $+1$ 혹은 $-1$로 반환한다. $-1$대신 $0$이라 두기도 하는데 본질적으로 차이는 없다. 간단한 예로 아래 그림과 같은 $m=2$인 2차원 데이터를 생각해보자. 입력 데이터를 $x=(x_{1},x_{2})$, 가중치를 $w=(w_{1},w_{2})$, 편향을 $b$라고 하면 퍼셉트론은 다음과 같이 작동하여 예측값 $\hat{y}$를 반환한다.</p>
 <p>$$
 \hat{y}=\varphi_{w,b}(x)=\varphi( w_{1}x_{1}+w_{2}x_{2}+b) =\begin{cases} +1, &amp; \text{if } w_{1}x_{1}+w_{2}x_{2}+b&gt;0 
 \\  -1, &amp; \text{if } w_{1}x_{1}+w_{2}x_{2}+b &lt;0 \end{cases}
@@ -323,7 +323,7 @@ b &amp; w_{1} &amp; \dots &amp;w_{N}
 \end{bmatrix} ^{T} \begin{bmatrix}
 1&amp; x_{1} &amp; \dots &amp; x_{N} 
 \end{bmatrix} \right)
-\\  &amp;= \varphi \left( \bf{w}^T \bf{x} \right) 
+\\  &amp;= \varphi \left( \bf{w}^T \bf{x} \right) 
 \end{align*}
 $$
 따라서 퍼셉트론의 학습 목표는 아래 그림과 같이 두 종류의 데이터를 구분지을 수 있는 선을 그을 수 있도록 하는 것이다.
@@ -333,11 +333,11 @@ $$
 <p>위 그림과 같은 $\mathbf{w}$를 구하면 모든 파란색 점과의 각도가 90도 이내이므로 내적의 값이 양수이고, 모든 초록색 점과의 각도가 90도보다 크므로 내적의 값이 음수가 된다. 따라서 이러한 조건을 만족하는 $\mathbf{w}$가 유일하지는 않다. 이런식으로 퍼셉트론이 아래의 그림<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>처럼 데이터를 구분짓는 선을 그릴 수 있는 경우를 선형 분리가능linearly separable하다고 한다.
 <img src="2.PNG#center" alt="2.PNG"></p>
 <h2 id="학습-방법">학습 방법</h2>
-<p>학습 방법은 단순하다. $n$번째 입력 데이터 $\mathbf{x} (n)$이 $-1$로 분류되어야하는데 $\hat{y}(n)=\varphi \left( \mathbf{w}^{T}(n)\mathbf{x}(n) \right)=1$의 결과가 나왔다고 해보자. 이는 현재의 가중치에 대해서 $\mathbf{w}^{T}(n)\mathbf{x}(n)$이 양수라는 뜻이고 퍼셉트론이 올바르게 예측하려면 $\mathbf{w}^{T}(n)\mathbf{x}(n)$의 값이 음수가 되어야 한다. 따라서 $\mathbf{w}^T(n)\mathbf{x}(n)$에 어떤 값을 빼는 식으로 업데이트 하면 된다. 이를 입력 데이터 $\mathbf{x}(n)$에 의존하도록 하면 가중치의 업데이트를 다음과 같이 나타낼 수 있다.
+<p>학습 방법은 단순하다. $n$번째 입력 데이터 $\mathbf{x} (n)$이 $-1$로 분류되어야하는데 $\hat{y}(n)=\varphi \left( \mathbf{w}^{T}(n)\mathbf{x}(n) \right)=1$의 결과가 나왔다고 해보자. 이는 현재의 가중치에 대해서 $\mathbf{w}^{T}(n)\mathbf{x}(n)$이 양수라는 뜻이고 퍼셉트론이 올바르게 예측하려면 $\mathbf{w}^{T}(n)\mathbf{x}(n)$의 값이 음수가 되어야 한다. 따라서 $\mathbf{w}^T(n)\mathbf{x}(n)$에 어떤 값을 빼는 식으로 업데이트 하면 된다. 이를 입력 데이터 $\mathbf{x}(n)$에 의존하도록 하면 가중치의 업데이트를 다음과 같이 나타낼 수 있다.
 $$
 \begin{align*}
 &amp;&amp; \mathbf{w}^T(n+1)\mathbf{x}(n) &amp;=\mathbf{w}^T(n)\mathbf{x}(n)-\eta\mathbf{x}^T(n)\mathbf{x}(n)
-\\  \implies &amp;&amp; \mathbf{w}(n+1) &amp;= \mathbf{w}(n) -\eta \mathbf{x}(n)  
+\\  \implies &amp;&amp; \mathbf{w}(n+1) &amp;= \mathbf{w}(n) -\eta \mathbf{x}(n)<br>
 \end{align*}
 $$
 이때 $\eta&gt;0$는 학습률learning rate라 불리는 상수이다. 같은 방법으로 $+1$인 $\mathbf{x}$를 $-1$로 예측한 반대의 경우 다음과 같이 가중치를 업데이트하면 된다.
@@ -346,7 +346,7 @@ $$
 $$
 위의 두 가지 경우를 다음과 같이 한 번에 나타낼 수 있다.
 $$
-\mathbf{w}(n+1) = \mathbf{w}(n) +\eta y(n) \mathbf{x}(n) 
+\mathbf{w}(n+1) = \mathbf{w}(n) +\eta y(n) \mathbf{x}(n) 
 $$
 이때 $y(n)$는 $\mathbf{x}(n)$의 라벨(정답)이다. 실제로 퍼셉트론이 2차원, 3차원 데이터에 대해서 학습하는 과정을 움짤로 보면 다음과 같다.</p>
 <p><img src="perceptron3.gif#center" alt="perceptron3.gif"></p>
@@ -748,10 +748,14 @@ $$
         <span style="color:rgb(051,204,051);">●</span> 복소해석 (66)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC%EA%B3%B5%EA%B0%84/>
         <span style="color:rgb(051,204,051);">●</span> 거리공간 (33)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EB%B0%94%EB%82%98%ED%9D%90%EA%B3%B5%EA%B0%84/>
+        <span style="color:rgb(255,051,051);">●</span> 놈공간/바나흐공간 (40)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/>
+        <span style="color:rgb(255,051,051);">●</span> 내적공간/힐베르트공간 (35)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 측도론 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%A5%B4%EB%B2%A1%EA%B3%B5%EA%B0%84/>
-        <span style="color:rgb(051,204,051);">●</span> 르벡공간 (22)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 르벡공간 (26)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 동역학 (60++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/>
@@ -810,7 +814,7 @@ $$
         <span style="color:rgb(255,051,051);">●</span> TeX (0++)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1888)</summary>
+    <summary>전체 포스트 (1890)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -828,7 +832,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (64)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A5%B4%EB%B2%A1%EA%B3%B5%EA%B0%84/" style="color: black">르벡공간 (19)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A5%B4%EB%B2%A1%EA%B3%B5%EA%B0%84/" style="color: black">르벡공간 (23)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
@@ -837,6 +841,8 @@ $$
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">물리학미분류 (10)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AF%B8%EC%A0%81%EB%B6%84%ED%95%99/" style="color: black">미적분학 (18)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B0%94%EB%82%98%ED%9D%90%EA%B3%B5%EA%B0%84/" style="color: black">바나흐공간 (47)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">벡터해석 (42)</a>
         </li><li>
@@ -856,7 +862,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (55)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (56)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (57)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (54)</a>
         </li><li>
@@ -892,7 +898,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/" style="color: black">통계적분석 (57)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (45)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (46)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (41)</a>
         </li><li>
@@ -900,15 +906,13 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (58)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98%ED%95%B4%EC%84%9D/" style="color: black">함수해석 (42)</a>
-        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (77)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (63)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (61)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (37)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (28)</a>
         </li>
     </ul>
 </details>
