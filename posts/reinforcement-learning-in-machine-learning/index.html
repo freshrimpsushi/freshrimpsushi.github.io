@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/reinforcement-learning-in-machine-learning\/",
-    "wordCount" : "2965",
+    "wordCount" : "2962",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -354,12 +354,12 @@
 </tr>
 </tbody>
 </table>
-<p>이제 다음의 격자 모델을 예시로 들어 각 요소들을 구체적으로 설명하겠다. 한 번에 상하좌우 네 방향 중 하나로 한 칸씩 움직일 수 있는 로봇이 아래와 같은 격자칸에 서있는 경우를 생각해보자. 시작칸은 $\bbox[3px, border:1px solid black]{2}$부터 $\bbox[3px, border:1px solid black]{15}$까지 임의로 정해지고, 로봇이 $\bbox[darkgray, 3px, border:1px solid black]{1}$ 혹은 $\bbox[darkgray, 3px, border:1px solid black]{16}$으로 이동하면 에피소드가 끝난다고 하자.</p>
+<p>이제 다음의 격자 모델을 예시로 들어 각 요소들을 구체적으로 설명하겠다. 한 번에 상하좌우 네 방향 중 하나로 한 칸씩 움직일 수 있는 로봇이 아래와 같은 격자칸에 서있는 경우를 생각해보자. 시작칸은 $\boxed{2}$부터 $\boxed{15}$까지 임의로 정해지고, 로봇이 $\fcolorbox{black}{darkgray}{1}$ 혹은 $\fcolorbox{black}{darkgray}{16}$으로 이동하면 에피소드가 끝난다고 하자.</p>
 <p><img src="1.PNG#center" alt="1.PNG"></p>
 <h3 id="상태">상태</h3>
 <p><strong>상태</strong>는 <a href="../1433">확률변수</a>이며 state의 앞글자를 따서 $S$라고 표기한다. 에피소드는 시간에 따라 순차적으로 진행되기 때문에 인덱스로 $t$를 쓴다. 따라서 타임스텝이 $t$일 때의 상태함수를 $S_{t}$라고 표기한다. 처음 상태는 보통 $t=0$으로 나타낸다. 정리하면 $S_{t}$는 시간이 $t$일 때 각각의 격자들에 대해서 다음과 같이 함숫값을 주는 함수이다.</p>
 <p>$$
-S_{t} \left( \bbox[3px, border:1px solid black]{n} \right) = n,\quad 1\le n \le 16
+S_{t} \left( \boxed{n} \right) = n,\quad 1\le n \le 16
 $$</p>
 <p>이때 가능한 모든 상태값(상태함수의 함숫값)들의 집합을 $\mathcal{S}\subset \mathbb{R}$라고 표기하고, 이의 원소를 $s$로 표기한다.</p>
 <p>$$
@@ -367,16 +367,16 @@ $$</p>
 $$</p>
 <p>그러면 위 격자모델에 대한 상태함수는 다음과 같다.</p>
 <p>$$
-S_{t} : \left\{\bbox[darkgray, 3px, border:1px solid black]{1}, \bbox[3px, border:1px solid black]{2}, \dots, \bbox[3px, border:1px solid black]{15}, \bbox[darkgray, 3px, border:1px solid black]{16} \right\} \to \mathcal{S}
-\\ S_{t} \left( \bbox[3px, border:1px solid black]{n} \right) = s_{n}=n,\quad 1\le n \le 16
+S_{t} : \left\{ \fcolorbox{black}{darkgray}{1}, \boxed{2}, \dots, \boxed{15}, \fcolorbox{black}{darkgray}{16} \right\} \to \mathcal{S}
+\\ S_{t} \left( \boxed{n} \right) = s_{n} = n,\quad 1\le n \le 16
 $$</p>
 <p>그러면 시간이 $t$일 때 상태값이 $s_{6}$였다가 다음 타임스텝에서 상태값이 $s_{10}$으로 바뀔 <a href="../1431">확률</a>은 다음과 같다.</p>
 <p>$$
 P \left( S_{t+1} = s_{10} | S_{t} = s_{6}  \right)
 $$</p>
-<p>도달한 순간 에피소드가 끝나게 되는 상태를 <strong>터미널 스테이트</strong><sup>terminal state</sup>라고 한다. 위 격자 모델에서 터미널 스테이트는 $\bbox[darkgray, 3px, border:1px solid black]{1}$, $\bbox[darkgray, 3px, border:1px solid black]{16}$이다.</p>
+<p>도달한 순간 에피소드가 끝나게 되는 상태를 <strong>터미널 스테이트</strong><sup>terminal state</sup>라고 한다. 위 격자 모델에서 터미널 스테이트는 $\fcolorbox{black}{darkgray}{1}, \fcolorbox{black}{darkgray}{16}$이다.</p>
 <h3 id="행동">행동</h3>
-<p><strong>행동</strong>이란 에이전트가 현재 상태에서 취할 수 있는 선택지를 말하며 이 또한 확률변수이다. action의 앞글자를 따와서 $A_{t}$로 표기한다. 위의 격자모델 예시에서는 $\bbox[3px, border:1px solid black]{2}$~$\bbox[3px, border:1px solid black]{15}$에서 각각 상하좌우를 선택할 수 있다. 가능한 모든 행동값(행동함수의 함숫값)들의 집합을 $\mathcal{A}\subset \mathbb{R}$라고 표기하고, 이의 원소를 $a$라고 표기한다.</p>
+<p><strong>행동</strong>이란 에이전트가 현재 상태에서 취할 수 있는 선택지를 말하며 이 또한 확률변수이다. action의 앞글자를 따와서 $A_{t}$로 표기한다. 위의 격자모델 예시에서는 $\boxed{2}$ ~ $\boxed{15}$에서 각각 상하좌우를 선택할 수 있다. 가능한 모든 행동값(행동함수의 함숫값)들의 집합을 $\mathcal{A}\subset \mathbb{R}$라고 표기하고, 이의 원소를 $a$라고 표기한다.</p>
 <p>$$
 \mathcal{A} = \left\{ a_{1}, a_{2}, \dots \right\}
 $$</p>
@@ -409,7 +409,7 @@ P(a_{1} | s_{2}) = \dfrac{1}{4}
 \end{cases} \quad \text{or} \quad
 \pi : \mathcal{S} \times \mathcal{A} \to [0,1]
 $$</p>
-<p>물론 이는 최적화된 정책은 아니다. 간단히 $\bbox[3px, border:1px solid black]{2}$의 경우만 생각해봐도 위쪽으로 가면 격자 밖으로 벗어난 것이므로 위쪽으로 갈 확률 자체가 아예 없는 것이 더 나은 정책이다. 따라서 아래의 그림에서 $\pi_{1}$보다 $\pi_{2}$가 더 좋은 정책이라고 말할 수 있다.</p>
+<p>물론 이는 최적화된 정책은 아니다. 간단히 $\boxed{2}$의 경우만 생각해봐도 위쪽으로 가면 격자 밖으로 벗어난 것이므로 위쪽으로 갈 확률 자체가 아예 없는 것이 더 나은 정책이다. 따라서 아래의 그림에서 $\pi_{1}$보다 $\pi_{2}$가 더 좋은 정책이라고 말할 수 있다.</p>
 <p><img src="2.PNG#center" alt="2.PNG"></p>
 <p>강화학습 알고리즘의 목표는 최적의 정책을 찾는 것이다. 그러면 최적의 정책은 어떻게 찾느냐 하는건데, 정책의 좋은 정도를 평가하는 <strong>가치함수</strong><sup>value function</sup>를 통해서 찾을 수 있다.</p>
 <h3 id="보상">보상</h3>
@@ -427,7 +427,7 @@ $$</p>
 <p>$$
 f(s_{t}, a_{t}) = (s_{t+1}, r_{t+1})
 $$</p>
-<p>격자모델 예시에 대해서 구체적으로 설명하면 다음과 같다. 에이전트가 $\bbox[3px, border:1px solid black]{7}$에서 $\uparrow$를 선택하여 환경이 다음 상태 $\bbox[3px, border:1px solid black]{3}$와 보상 $-1$를 결정했다면 다음과 같은 수식으로 나타낸다.</p>
+<p>격자모델 예시에 대해서 구체적으로 설명하면 다음과 같다. 에이전트가 $\boxed{7}$에서 $\uparrow$를 선택하여 환경이 다음 상태 $\boxed{3}$와 보상 $-1$를 결정했다면 다음과 같은 수식으로 나타낸다.</p>
 <p>$$
 f(s_{7}, a_{1}) = (s_{3}, -1)
 $$</p>
@@ -906,7 +906,7 @@ $$</p>
         <span style="color:rgb(255,051,051);">●</span> TeX (0++)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1892)</summary>
+    <summary>전체 포스트 (1894)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -954,7 +954,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (55)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (57)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (58)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (54)</a>
         </li><li>
@@ -984,7 +984,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/" style="color: black">텐서해석 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (10)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
