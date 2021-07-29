@@ -327,43 +327,43 @@ $$</p>
 <p>확률 변수의 변환은 사실 말만 어려울 뿐 아니라 정직하고 복잡한 계산이 필요한 일이다. 변환이 단사가 아닌 경우를 나누어서 각자 자코비언을 계산해야하는데, 이게 얼마나 어려운 일일지는 문제에 따라 다르다. 이 어려움이 어떤 것인지 느껴보기 위해 다음의 예를 생각해보자:
 $$
 f(x_{1} , x_{2}) = \begin{cases} {{ 1 } \over { \pi }} &amp;, 0 &lt; x_{1}^{2} + x_{2}^{2} &lt; 1 
-\\  0 &amp;, \text{otherwise} \end{cases}
+\\  0 &amp;, \text{otherwise} \end{cases}
 $$
-위와 같은 확률 밀도 함수를 가지는 확률 변수는 원 안의 점을 유니폼한 확률로 샘플링한다. 자연스러운 변환은 직교좌표를 극좌표로 바꾸는 것이겠지만, 이해를 돕기 위해 다소 작위적인 변환 $Y_{1} = X_{1}^{2} + X_{2}^{2}$, $Y_{2} = X_{1}^{2} / (X_{1}^{2} + X_{2}^{2})$ 을 생각해보자. 식에 제곱이 있기 때문에 이 변환은 단사가 아니고, 다음과 같은 네 가지의 경우로 나누어서 생각을 해야한다.
+위와 같은 확률 밀도 함수를 가지는 확률 변수는 원 안의 점을 유니폼한 확률로 샘플링한다. 자연스러운 변환은 직교좌표를 극좌표로 바꾸는 것이겠지만, 이해를 돕기 위해 다소 작위적인 변환 $Y_{1} = X_{1}^{2} + X_{2}^{2}$, $Y_{2} = X_{1}^{2} / (X_{1}^{2} + X_{2}^{2})$ 을 생각해보자. 식에 제곱이 있기 때문에 이 변환은 단사가 아니고, 다음과 같은 네 가지의 경우로 나누어서 생각을 해야한다.
 $$
-x_{1} = \sqrt{y_{1} y_{2}} \land x_{2} = \sqrt{y_{1} (1 - y_{2}) } 
-\\  x_{1} = \sqrt{y_{1} y_{2}} \land x_{2} = - \sqrt{y_{1} (1 - y_{2}) }  
-\\  x_{1} = -\sqrt{y_{1} y_{2}} \land x_{2} = \sqrt{y_{1} (1 - y_{2}) } 
+x_{1} = \sqrt{y_{1} y_{2}} \land x_{2} = \sqrt{y_{1} (1 - y_{2}) } 
+\\  x_{1} = \sqrt{y_{1} y_{2}} \land x_{2} = - \sqrt{y_{1} (1 - y_{2}) }<br>
+\\  x_{1} = -\sqrt{y_{1} y_{2}} \land x_{2} = \sqrt{y_{1} (1 - y_{2}) } 
 \\  x_{1} = - \sqrt{y_{1} y_{2}} \land x_{2} = - \sqrt{y_{1} (1 - y_{2}) }
 $$
 이들의 $i = 1, 2, 3, 4$ 번째 자코비언은 각각 다음과 같이 계산된다.
 $$
 J_{1} = \begin{bmatrix}
-{{ 1 } \over { 2 }} \sqrt{{ y_{2} } \over { y_{1} }} &amp;  {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { y_{2} }} 
-\\  {{ 1 } \over { 2 }} \sqrt{{ 1 - y_{2} } \over { y_{1} }} &amp;  - {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { 1 - y_{2} }} 
-\end{bmatrix} = - {{ 1 } \over { 4 \sqrt{y_{2} (1 - y_{2})} }} 
+{{ 1 } \over { 2 }} \sqrt{{ y_{2} } \over { y_{1} }} &amp;  {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { y_{2} }} 
+\\  {{ 1 } \over { 2 }} \sqrt{{ 1 - y_{2} } \over { y_{1} }} &amp;  - {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { 1 - y_{2} }} 
+\end{bmatrix} = - {{ 1 } \over { 4 \sqrt{y_{2} (1 - y_{2})} }} 
 $$</p>
 <p>$$
- J_{2} = \begin{bmatrix}
-{{ 1 } \over { 2 }} \sqrt{{ y_{2} } \over { y_{1} }} &amp; - {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { y_{2} }} 
-\\  {{ 1 } \over { 2 }} \sqrt{{ 1 - y_{2} } \over { y_{1} }} &amp;  {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { 1 - y_{2} }} 
-\end{bmatrix} = - {{ 1 } \over { 4 \sqrt{y_{2} (1 - y_{2})} }} 
+J_{2} = \begin{bmatrix}
+{{ 1 } \over { 2 }} \sqrt{{ y_{2} } \over { y_{1} }} &amp; - {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { y_{2} }} 
+\\  {{ 1 } \over { 2 }} \sqrt{{ 1 - y_{2} } \over { y_{1} }} &amp;  {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { 1 - y_{2} }} 
+\end{bmatrix} = - {{ 1 } \over { 4 \sqrt{y_{2} (1 - y_{2})} }} 
 $$</p>
 <p>$$
- J_{3} = \begin{bmatrix}
-- {{ 1 } \over { 2 }} \sqrt{{ y_{2} } \over { y_{1} }} &amp; {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { y_{2} }} 
-\\  - {{ 1 } \over { 2 }} \sqrt{{ 1 - y_{2} } \over { y_{1} }} &amp;  - {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { 1 - y_{2} }} 
-\end{bmatrix} = {{ 1 } \over { 4 \sqrt{y_{2} (1 - y_{2})} }} 
+J_{3} = \begin{bmatrix}
+- {{ 1 } \over { 2 }} \sqrt{{ y_{2} } \over { y_{1} }} &amp; {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { y_{2} }} 
+\\  - {{ 1 } \over { 2 }} \sqrt{{ 1 - y_{2} } \over { y_{1} }} &amp;  - {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { 1 - y_{2} }} 
+\end{bmatrix} = {{ 1 } \over { 4 \sqrt{y_{2} (1 - y_{2})} }} 
 $$</p>
 <p>$$
- J_{4} = \begin{bmatrix}
-- {{ 1 } \over { 2 }} \sqrt{{ y_{2} } \over { y_{1} }} &amp; - {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { y_{2} }} 
-\\  - {{ 1 } \over { 2 }} \sqrt{{ 1 - y_{2} } \over { y_{1} }} &amp; {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { 1 - y_{2} }} 
-\end{bmatrix} = {{ 1 } \over { 4 \sqrt{y_{2} (1 - y_{2})} }} 
+J_{4} = \begin{bmatrix}
+- {{ 1 } \over { 2 }} \sqrt{{ y_{2} } \over { y_{1} }} &amp; - {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { y_{2} }} 
+\\  - {{ 1 } \over { 2 }} \sqrt{{ 1 - y_{2} } \over { y_{1} }} &amp; {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { 1 - y_{2} }} 
+\end{bmatrix} = {{ 1 } \over { 4 \sqrt{y_{2} (1 - y_{2})} }} 
 $$
 따라서 $y_{1} , y_{2}$ 으로 구해지는 새로운 조인트 확률 밀도 함수 $g$ 는 다음과 같다.
 $$
-g(y_{1} , y_{2}) = \sum_{i=1}^{4} {{ 1 } \over { \pi }} \left| \pm {{ 1 } \over { 4 \sqrt{y_{2} (1 - y_{2})} }} \right|  = {{ 1 } \over { \pi \sqrt{y_{2} (1 - y_{2})} }}
+g(y_{1} , y_{2}) = \sum_{i=1}^{4} {{ 1 } \over { \pi }} \left| \pm {{ 1 } \over { 4 \sqrt{y_{2} (1 - y_{2})} }} \right|  = {{ 1 } \over { \pi \sqrt{y_{2} (1 - y_{2})} }}
 $$</p>
 <p>계산이 역겹게 보인다면 정상이다.</p>
 
@@ -818,7 +818,7 @@ $$</p>
         <span style="color:rgb(255,051,051);">●</span> TeX (0++)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1894)</summary>
+    <summary>전체 포스트 (1897)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -884,7 +884,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (35)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (36)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -896,7 +896,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/" style="color: black">텐서해석 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
@@ -908,7 +908,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (22)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (59)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (60)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (77)</a>
         </li><li>

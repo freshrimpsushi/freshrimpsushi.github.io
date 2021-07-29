@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/k-th-roots-modulo-m\/",
-    "wordCount" : "607",
+    "wordCount" : "589",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -284,40 +284,53 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#알고리즘-1">알고리즘 </a></li>
+    <li><a href="#설명">설명</a></li>
     <li><a href="#증명">증명</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-<a href="../1348">자연수</a> $b,k,m$ 가 $\gcd (b , m) = \gcd ( k , \phi (m) ) = 1$ 을 만족하면 합동방정식 $x^{k} \equiv  b \pmod{ m }$ 의 해 $x$ 는 다음과 같이 계산할 수 있다.**Step 1.
-$\phi (m)$ 을 계산한다.**Step 2.
-$ku - \phi(m) v =1$ 을 만족하는 $u, v$ 을 찾고 양변에 $u$ 승을 취해 $x^{ku} \equiv b^{u} \pmod{m}$ 를 얻는다.**Step 3.
-$b^{u} \pmod{ m }$ 을 연속제곱법으로 계산한다.</p>
-<p>$\phi$ 는 <a href="../445">토션트 함수</a>로, <a href="../452">곱셈적 성질</a>을 가져 $m$ 의 소인수분해가 핵심이다.</p>
-<p>알려져있듯 소인수분해엔 딱히 왕도가 없어서 무척 어려운데, 무지막지하게 큰 <a href="../2163">소수</a> $p,q$ 가 존재해서 $m=pq$ 이라고 한다면 $x := \phi (m)$ 을 구하는 것부터가 힘들다. 언뜻 이것은 단점으로 보이지만, 오히려 이를 이용하면 $x$ 를 암호처럼 사용할 수 있게 된다. $k$ 와 $m$ 이 공개되어 있어도 $m$ 의 소인수분해를 모르면 $x$ 를 계산 하는 것이 몹시 어렵다. 따라서 $x$ 를 알 자격이 있는 사람만 $m$ 의 소인수분해를 안다면 훌륭한 암호 체계가 된다. 이러한 암호 체계를 <a href="../1173">RSA 암호</a>라고 한다.</p>
+<h2 id="알고리즘-1">알고리즘 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p><a href="../1348">자연수</a> $b,k,m$ 가 $\gcd (b , m) = \gcd ( k , \phi (m) ) = 1$ 을 만족하면 합동방정식 $x^{k} \equiv  b \pmod{ m }$ 의 해 $x$ 는 다음과 같이 계산할 수 있다.</p>
+<hr>
+<p><strong>Step 1.</strong></p>
+<p>$\phi (m)$ 을 계산한다.</p>
+<hr>
+<p><strong>Step 2.</strong></p>
+<p>$ku - \phi(m) v =1$ 을 만족하는 $u, v$ 을 찾고 양변에 $u$ 승을 취해 $x^{ku} \equiv b^{u} \pmod{m}$ 를 얻는다.</p>
+<hr>
+<p><strong>Step 3.</strong></p>
+<p>$b^{u} \pmod{ m }$ 을 <a href="../621">연속제곱법</a>으로 계산한다.</p>
+<h2 id="설명">설명</h2>
+<p>$\phi$ 는 <a href="../445">토션트 함수</a>로, <a href="../452">곱셈적 성질</a>을 가져 $m$ 의 소인수분해가 핵심이다.</p>
+<p>알려져있듯 소인수분해엔 딱히 왕도가 없어서 무척 어려운데, 무지막지하게 큰 <a href="../2163">소수</a> $p,q$ 가 존재해서 $m=pq$ 이라고 한다면 $x := \phi (m)$ 을 구하는 것부터가 힘들다. 언뜻 이것은 단점으로 보이지만, 오히려 이를 이용하면 $x$ 를 암호처럼 사용할 수 있게 된다. $k$ 와 $m$ 이 공개되어 있어도 $m$ 의 소인수분해를 모르면 $x$ 를 계산 하는 것이 몹시 어렵다. 따라서 $x$ 를 알 자격이 있는 사람만 $m$ 의 소인수분해를 안다면 훌륭한 암호 체계가 된다. 이러한 암호 체계를 <a href="../1173">RSA 암호</a>라고 한다.</p>
 <p>이 알고리즘은 아주 큰 소수를 찾는 일이 실용적 가치를 가진다는 것을 말해준다.</p>
 <h2 id="증명">증명</h2>
-<p>$ku - \phi(m) v =1$ 을 만족하는 <a href="../417">정수해 $u,v$ 의 존재성</a>은 보장되어 있다.</p>
-<p>그러면 $ku = \phi(m) v + 1$ 이므로, $x^{ku} \equiv x^{ \phi (m) v + 1 }  \pmod{m}$</p>
-<p><a href="../491">오일러의 토션트 정리</a>$\gcd(x,m) = 1 \implies x^{ \phi (m) } \equiv 1 \pmod{m}$</p>
-<p>$x^{ \phi (m) v + 1 }   \equiv x^{ 1 } = b^{u}  \pmod{m}$ 이므로, $b^{u}$ 만 계산하면 된다.</p>
-<p>여기서 조건인 $\gcd (x, m) = 1$ 을 만족하진 않았지만, 이렇게 구해진 $x$ 는 주어진 합동방정식의 해로써 전혀 문제가 없다.</p>
-<p>$x^{k} = \left( b^{u} \right)^{k} = b^{uk} = b^{ 1+ \phi (m ) v} = b \cdot b^{ \phi (m ) v}$ 인데, $\gcd (b , m) = 1$ 은 가정했으므로 $x^{k} \equiv b \pmod{ m } $</p>
+<p>$ku - \phi(m) v =1$ 을 만족하는 <a href="../417">정수해 $u,v$ 의 존재성</a>은 보장되어있고, $ku = \phi(m) v + 1$ 이므로
+$$
+x^{ku} \equiv x^{ \phi (m) v + 1 }  \pmod{m}
+$$</p>
+<blockquote>
+<p><a href="../491">오일러의 토션트 정리</a>: $\gcd(x,m) = 1 \implies x^{ \phi (m) } \equiv 1 \pmod{m}$</p>
+</blockquote>
+<p>$x^{ \phi (m) v + 1 }   \equiv x^{ 1 } = b^{u}  \pmod{m}$ 이므로, $b^{u}$ 만 계산하면 된다. 여기서 조건인 $\gcd (x, m) = 1$ 을 만족하진 않았지만, 이렇게 구해진 $x$ 는 주어진 합동방정식의 해로써 전혀 문제가 없다.</p>
+<p>$$
+x^{k} = \left( b^{u} \right)^{k} = b^{uk} = b^{ 1+ \phi (m ) v} = b \cdot b^{ \phi (m ) v}
+$$
+인데, $\gcd (b , m) = 1$ 을 가정했으므로 다음이 성립한다.
+$$
+x^{k} \equiv b \pmod{ m }
+$$</p>
 <p style="text-align: right;">■</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Silverman. (2012). A Friendly Introduction to Number Theory (4th Edition): p119. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
@@ -770,7 +783,7 @@ $b^{u} \pmod{ m }$ 을 연속제곱법으로 계산한다.</p>
         <span style="color:rgb(255,051,051);">●</span> TeX (0++)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1894)</summary>
+    <summary>전체 포스트 (1897)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -836,7 +849,7 @@ $b^{u} \pmod{ m }$ 을 연속제곱법으로 계산한다.</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (35)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (36)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -848,7 +861,7 @@ $b^{u} \pmod{ m }$ 을 연속제곱법으로 계산한다.</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/" style="color: black">텐서해석 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
@@ -860,7 +873,7 @@ $b^{u} \pmod{ m }$ 을 연속제곱법으로 계산한다.</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (22)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (59)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (60)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (77)</a>
         </li><li>

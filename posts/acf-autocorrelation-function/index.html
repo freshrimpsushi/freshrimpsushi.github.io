@@ -309,11 +309,11 @@ $$
 $$</li>
 <li>다음과 같이 정의된 $\rho_{ t , s }$ 를 <strong>자기상관함수</strong>라고 한다.
 $$
-\displaystyle \rho_{ t , s } := \text{cor} ( Y_{t} , Y_{s} ) = {{ \gamma_{t , s} } \over { \sqrt{  \gamma_{t , t} \gamma_{s , s} } }}
+\displaystyle \rho_{ t , s } := \text{cor} ( Y_{t} , Y_{s} ) = {{ \gamma_{t , s} } \over { \sqrt{  \gamma_{t , t} \gamma_{s , s} } }}
 $$</li>
 <li>다음과 같이 정의된 $\rho_{ k }$ 를 <strong>시차 $k$ 의 자기상관함수</strong>라고 한다.
 $$
-\displaystyle \rho_{ k } := \text{cor} ( Y_{t} , Y_{t-k} ) = {{ \gamma_{t , t - k} } \over { \sqrt{  \gamma_{t , t} \gamma_{t-k , t-k} } }} 
+\displaystyle \rho_{ k } := \text{cor} ( Y_{t} , Y_{t-k} ) = {{ \gamma_{t , t - k} } \over { \sqrt{  \gamma_{t , t} \gamma_{t-k , t-k} } }} 
 $$</li>
 <li>다음과 같이 정의된 $r_{ k }$ 를 <strong>시차 $k$ 의 표본자기상관함수</strong>라고 한다.
 $$
@@ -324,7 +324,7 @@ $$</li>
 <p>자기상관함수란 <a href="../900">시계열 데이터</a>의 자기상관성을 파악하기 위한 함수로, 같은 변수라도 어떤 시차를 가지고 스스로와 비슷한지에 관심을 둔다. 서로 다른 변수의 상관관계에 관심을 가지는 <a href="../548">회귀분석</a>의 아이디어와는 달리, 그 스스로가 시차 $k$ 를 두고 $Y_{t}$ 와 $Y_{t-k}$ 로 나뉘어 두 변수와 같이 취급된다.</p>
 <h3 id="수식적-설명">수식적 설명</h3>
 <p>수식적으로는 $Y_{t}$ 가 $MA(q)$ 에서 나왔다고 생각해봤을 때 $\displaystyle Y_{t} = e_{t} - \sum_{k=1}^{q} \theta_{k} e_{t-k}$ 이므로 $Y_{t}$ 를 여러 정규분포의 합으로 볼 수 있고, $\rho_{k}$ 가 곧 $\theta_{k}$ 이므로 $MA(q)$ 모형을 찾는데에 유용하다.</p>
-<p>sACF $r_{k}$ 는 ACF $\rho_{k}$ 의 추정치고, $Y_{t}$ 가 $MA(q)$ 모형에서 나왔다면 $k &gt; q$ 일 때 정규분포 $\displaystyle N \left( \rho_{k} , {{1} \over {n}} \left[ 1 + 2 \sum_{j=1}^{q} \rho_{j}^{2} \right]^2 \right)$ 를 따른다. 수식으로 나타내보면
+<p>sACF $r_{k}$ 는 ACF $\rho_{k}$ 의 추정치고, $Y_{t}$ 가 $MA(q)$ 모형에서 나왔다면 $k &gt; q$ 일 때 정규분포 $\displaystyle N \left( \rho_{k} , {{1} \over {n}} \left[ 1 + 2 \sum_{j=1}^{q} \rho_{j}^{2} \right]^2 \right)$ 를 따른다. 수식으로 나타내보면
 $$
 \displaystyle r_{k} \sim N \left( \rho_{k} , {{1} \over {n}} \left[ 1 + 2 \sum_{j=1}^{q} \rho_{j}^{2} \right]^2 \right)
 $$
@@ -336,19 +336,19 @@ $$
 <li>$H_{1}$ : $MA(k) \iff \theta_{k} \ne 0$, 즉, $Y_{t}$ 는 시차 $k$ 의 자기상관관계를 가진다.</li>
 </ul>
 <h2 id="해석">해석</h2>
-<p>귀무가설 하에서는 모든 $k$ 에 대해 $\rho_{k} = \theta_{k} = 0$ 이므로 $q = 0$ 과 $\displaystyle r_{k} \sim N \left( 0 , {{1} \over {N }} \right)$ 을 가정하고 표준오차는 $\displaystyle {{1} \over {\sqrt{n} }}$ 가 된다. 따라서 유의수준 $\alpha$ 에 대해서 가설검정을 하고 싶다면 $| \theta_{k} |$ 가 신뢰구간상한 $\displaystyle {{ z_{1 - \alpha/2} } \over { \sqrt{n} }}$ 을 넘기는지 확인하면 된다. 넘어가면 유의한 시차의 후보가 되고, 넘어가지 못하면 자기상관관계가 없는 것으로 본다.</p>
+<p>귀무가설 하에서는 모든 $k$ 에 대해 $\rho_{k} = \theta_{k} = 0$ 이므로 $q = 0$ 과 $\displaystyle r_{k} \sim N \left( 0 , {{1} \over {N }} \right)$ 을 가정하고 표준오차는 $\displaystyle {{1} \over {\sqrt{n} }}$ 가 된다. 따라서 유의수준 $\alpha$ 에 대해서 가설검정을 하고 싶다면 $| \theta_{k} |$ 가 신뢰구간상한 $\displaystyle {{ z_{1 - \alpha/2} } \over { \sqrt{n} }}$ 을 넘기는지 확인하면 된다. 넘어가면 유의한 시차의 후보가 되고, 넘어가지 못하면 자기상관관계가 없는 것으로 본다.</p>
 <h2 id="실습">실습</h2>
 <p><img src="20190723_125305.png#center" alt="20190723\_125305.png"></p>
-<p><code>ma1.2.s</code> 데이터는 $MA(1)$ 모델에서 나온 <code>TSA</code> 패키지의 샘플 데이터다. 실제 <a href="../1200">아리마 모형</a>으로 분석할 때 역시 추정치의 절대값이 표준오차의 두 배가 넘는지를 기준으로 유의한 계수인지 파악한다.</p>
+<p><code>ma1.2.s</code> 데이터는 $MA(1)$ 모델에서 나온 <code>TSA</code> 패키지의 샘플 데이터다. 실제 <a href="../1200">아리마 모형</a>으로 분석할 때 역시 추정치의 절대값이 표준오차의 두 배가 넘는지를 기준으로 유의한 계수인지 파악한다.</p>
 <p><img src="1.png#center" alt="1.png"></p>
-<p>한편 <code>TSA</code> 패키지의 <code>acf()</code> 함수를 사용하면 위와 같이 여러 $k$ 에 대해 <strong>코릴로그램</strong><sup>Correlogram</sup>을 그려준다. 굳이 머릿속으로 계산할 것 없이, 선을 넘어가면 유의한 것으로 보고 넘어가지 않으면 유의하지 않은 것으로 보아도 좋다. 기본적으로 유의수준 $5 %$ 에서 계산된다.</p>
+<p>한편 <code>TSA</code> 패키지의 <code>acf()</code> 함수를 사용하면 위와 같이 여러 $k$ 에 대해 <strong>코릴로그램</strong><sup>Correlogram</sup>을 그려준다. 굳이 머릿속으로 계산할 것 없이, 선을 넘어가면 유의한 것으로 보고 넘어가지 않으면 유의하지 않은 것으로 보아도 좋다. 기본적으로 유의수준 $5 %$ 에서 계산된다.</p>
 <p>여기서 주의해야할 것으로 $k=6$ 에서 살짝 삐져나온 것 역시 통계적으로 유의한 것은 맞지만, 실제로 자기상관관계가 있는것으로 보지는 않는다는 것이다. 시계열 분석에서 이 정도 삐져나오는 경우는 아주 빈번하며, 정신건강을 위해서는 융통성을 발휘하여 그냥 받아들이는 것을 추천한다.</p>
 <p><img src="2.png#center" alt="2.png"></p>
-<p>자기상관함수를 이용한 가설검정을 제대로 이해했는지 확인해보는 방법으로써 위와 같이 실제로 선을 직접 그어보는 것을 추천한다. R 에서는 고작 코드 한 줄이지만, 한 번이라도 직접 실행시켜봄으로써 $r_{k}$ 가 정규분포를 따르며, 그 표준오차가 복잡한 수식 없이 $\displaystyle \text{se} ( r_{k} ) =  {{1} \over {\sqrt{n}}}$ 으로 구해진다는 것을 받아들일 수 있다.</p>
+<p>자기상관함수를 이용한 가설검정을 제대로 이해했는지 확인해보는 방법으로써 위와 같이 실제로 선을 직접 그어보는 것을 추천한다. R 에서는 고작 코드 한 줄이지만, 한 번이라도 직접 실행시켜봄으로써 $r_{k}$ 가 정규분포를 따르며, 그 표준오차가 복잡한 수식 없이 $\displaystyle \text{se} ( r_{k} ) =  {{1} \over {\sqrt{n}}}$ 으로 구해진다는 것을 받아들일 수 있다.</p>
 <h2 id="코드">코드</h2>
 <pre><code>library(TSA)
-data(ma1.2.s); win.graph(6,4); acf(ma1.2.s)
-arima(ma1.2.s, order=c(0,0,1))
+data(ma1.2.s); win.graph(6,4); acf(ma1.2.s)
+arima(ma1.2.s, order=c(0,0,1))
 abline(h=1.96*1/sqrt(length(ma1.2.s)),col='red')
 </code></pre><h2 id="같이보기">같이보기</h2>
 <ul>
@@ -816,7 +816,7 @@ abline(h=1.96*1/sqrt(length(ma1.2.s)),col='red')
         <span style="color:rgb(255,051,051);">●</span> TeX (0++)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1894)</summary>
+    <summary>전체 포스트 (1897)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -882,7 +882,7 @@ abline(h=1.96*1/sqrt(length(ma1.2.s)),col='red')
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (35)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (36)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -894,7 +894,7 @@ abline(h=1.96*1/sqrt(length(ma1.2.s)),col='red')
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/" style="color: black">텐서해석 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
@@ -906,7 +906,7 @@ abline(h=1.96*1/sqrt(length(ma1.2.s)),col='red')
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (22)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (59)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (60)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (77)</a>
         </li><li>

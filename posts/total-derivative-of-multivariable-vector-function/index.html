@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/total-derivative-of-multivariable-vector-function\/",
-    "wordCount" : "1121",
+    "wordCount" : "1753",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -287,8 +287,12 @@
     <li><a href="#빌드업1">빌드업</a></li>
     <li><a href="#정의">정의</a></li>
     <li><a href="#설명">설명</a></li>
-    <li><a href="#정리-유일성">정리: 유일성</a></li>
-    <li><a href="#증명">증명</a></li>
+    <li><a href="#정리">정리</a>
+      <ul>
+        <li><a href="#유일성">유일성</a></li>
+        <li><a href="#연쇄법칙">연쇄법칙</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 </aside>
@@ -319,30 +323,47 @@ $$</p>
 $$</p>
 <p>이를 토대로 다변수 벡터함수의 도함수를 정의한다.</p>
 <h2 id="정의">정의</h2>
-<p>$E\subset \mathbb{R}^{n}$를 <a href="../1700">열린집합</a>, $\mathbf{x}\in E$라고 하자. $\mathbf{f} : E \to \mathbb{R}^{m}$에 대해서, 다음을 만족하는 $\mathbf{h} \in \mathbb{R}^{n}$에 대한 <a href="../3026">선형변환</a> $A\in L(\mathbb{R}^{n}, \mathbb{R}^{m})$가 존재하면 $f$가 $\mathbf{x}$에서 미분가능하다고 한다. 또한 $A$를 $f$의 <strong>전도함수</strong><sup>total derivative</sup> 혹은 간단히 <strong>도함수</strong> 라고 하고 $\mathbf{f}'$으로 표기한다.</p>
+<p>$E\subset \mathbb{R}^{n}$를 <a href="../1700">열린집합</a>, $\mathbf{x}\in E$라고 하자. $\mathbf{f} : E \to \mathbb{R}^{m}$에 대해서, 다음을 만족하는 $\mathbf{h} \in \mathbb{R}^{n}$에 대한 <a href="../3026">선형변환</a> $A\in L(\mathbb{R}^{n}, \mathbb{R}^{m})$가 존재하면 $f$가 $\mathbf{x}$에서 미분가능하다고 한다. 또한 $A$를 $f$의 <strong>전도함수</strong><sup>total derivative</sup> 혹은 간단히 <strong>도함수</strong> 라고 하고 $\mathbf{f}'(\mathbf{x})$으로 표기한다.</p>
 <p>$$
 \begin{equation}
-\lim \limits_{|\mathbf{h}| \to 0} \dfrac{| \mathbf{f} ( \mathbf{x} + \mathbf{h}) - \mathbf{f} (\mathbf{x}) - \mathbf{A}( \mathbf{h} )|}{|\mathbf{h}|} = 0
+\lim \limits_{|\mathbf{h}| \to 0} \dfrac{| \mathbf{f} ( \mathbf{x} + \mathbf{h}) - \mathbf{f} (\mathbf{x}) - A( \mathbf{h} )|}{|\mathbf{h}|} = 0
 \label{2}
 \end{equation}
 $$</p>
+<p>만약 $\mathbf{f}$가 $E$의 모든 점에서 미분가능하면, $\mathbf{f}$가 $E$에서 미분가능하다고 한다.</p>
 <h2 id="설명">설명</h2>
 <p>전<sup>全</sup>은 전체를 의미하며, <a href="../3036">편도함수</a>에 대비되는 말이다. 전도 $\check{}$ 함수가 아니라 전 $\check{}$ 도함수이다.</p>
+<p>주의해야할 점은 $\mathbf{f}^{\prime}(\mathbf{x})$는 $\mathbf{f}^{\prime}(\mathbf{x}) : E \subset \R^{n} \to \R^{m}$을 만족하는 <a href="../3026">선형변환</a>이라는 것이다. 따라서 $\mathbf{f}^{\prime}(\mathbf{x}) = A$는 다음과 같이 행렬로 표현할 수 있다.</p>
+<p>$$
+\mathbf{f}^{\prime}(\mathbf{x}) = A
+= \begin{bmatrix} a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} \\ a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn} \end{bmatrix}
+$$</p>
+<p>그러면 $\mathbf{f}$의 전도함수 $\mathbf{f}^{\prime}$는 $\mathbf{x} \in E \subset \R^{n}$이 주어질 때 마다 어떤 $m \times n$ 행렬 $A$를 매핑하는 함수라고 볼 수 있다. 이 행렬은 $\mathbf{f}$의 <a href="../3036">편도함수</a>로부터 쉽게 구할 수 있으며 이를 <a href="../989">자코비안</a><sup>Jacobian matrix, 야코비 행렬</sup>이라고도 한다.</p>
+<p>$$
+\mathbf{f}^{\prime}(\mathbf{x})
+= \begin{bmatrix}
+(D_{1}f_{1}) (\mathbf{x}) &amp; (D_{2}f_{1}) (\mathbf{x}) &amp; \cdots &amp; (D_{n}f_{1}) (\mathbf{x})
+\\ (D_{1}f_{2}) (\mathbf{x}) &amp; (D_{2}f_{2}) (\mathbf{x}) &amp; \cdots &amp; (D_{n}f_{2}) (\mathbf{x})
+\\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots
+\\ (D_{1}f_{m}) (\mathbf{x}) &amp; (D_{2}f_{m}) (\mathbf{x}) &amp; \cdots &amp; (D_{n}f_{m}) (\mathbf{x})
+\end{bmatrix}
+$$</p>
 <p>전도함수는 유한차원 위에서 정의된 함수에 대해서는 미분 일반화의 끝판왕이며, 여기서 $\mathbf{f}$의 정의역, 공역을 <a href="../703">바나흐 공간</a>으로 일반화한 것을 <a href="../1332">프레셰 도함수</a>라고 한다. 일변수함수일 때 성립했던 성질들도 당연히 성립한다.</p>
 <ul>
 <li>유일성</li>
 <li>연쇄법칙</li>
 </ul>
-<h2 id="정리-유일성">정리: 유일성</h2>
+<h2 id="정리">정리</h2>
+<h3 id="유일성">유일성</h3>
 <p>$E, \mathbf{x}, \mathbf{f}$를 <a href="#%EC%A0%95%EC%9D%98">정의</a>에서와 같다고 하자. $A_{1}, A_{2}$가 $\eqref{2}$를 만족시킨다고 하자. 그러면 두 선형변환은 같다.</p>
 <p>$$
 A_{1} = A_{2}
 $$</p>
-<h2 id="증명">증명</h2>
+<h4 id="증명">증명</h4>
 <p>$B = A_{1} - A_{2}$라고 하자. 그러면 삼각부등식에 의해서 다음이 성립한다.</p>
 <p>$$
 \begin{align*}
-| B( \mathbf{h} ) | &amp;= | A_{1}(\mathbf{h}) - A_{2}(\mathbf{h}) 
+| B( \mathbf{h} ) | &amp;= \left| A_{1}(\mathbf{h}) - A_{2}(\mathbf{h}) \right|
 \\ &amp;= | A_{1}(\mathbf{h}) - \mathbf{f} (\mathbf{x} + \mathbf{h}) - \mathbf{f} (\mathbf{x}) + \mathbf{f} (\mathbf{x} + \mathbf{h}) + \mathbf{f} (\mathbf{x}) - A_{2}(\mathbf{h}) |
 \\ &amp;\le | \mathbf{f} (\mathbf{x} + \mathbf{h}) + \mathbf{f} (\mathbf{x}) - A_{1}(\mathbf{h}) |  + | \mathbf{f} (\mathbf{x} + \mathbf{h}) + \mathbf{f} (\mathbf{x}) - A_{2}(\mathbf{h}) |
 \end{align*}
@@ -359,6 +380,18 @@ $$</p>
 <p>$$
 B=A_{1}-A_{2}=0 \implies A_{1} = A_{2}
 $$</p>
+<p style="text-align: right;">■</p>
+<h3 id="연쇄법칙">연쇄법칙</h3>
+<p>정의에서와 같이 $E \subset \R^{n}$을 열린집합, $\mathbf{f} : E \to \R^{m}$를 $\mathbf{x}_{0} \in E$에서 미분가능한 함수라고 하자. $\mathbf{g} : \mathbf{f}(E) \to \R^{k}$를 $\mathbf{f}(\mathbf{x}_{0}) \in \mathbf{f}(E)$에서 미분가능한 함수하고 하자. 그리고 $\mathbf{F} : E \to \R^{k}$를 다음과 같이 $\mathbf{f}$와 $\mathbf{g}$의 <a href="../3048">합성</a>이라고 하자.</p>
+<p>$$
+\mathbf{F} (\mathbf{x}) = \mathbf{g} \left( \mathbf{f}(\mathbf{x}) \right)
+$$</p>
+<p>그러면 $\mathbf{F}$는 $\mathbf{x}_{0}$에서 미분가능하고, 전도함수는 다음과 같다.</p>
+<p>$$
+\mathbf{F}^{\prime} (\mathbf{x}_{0}) = \mathbf{g}^{\prime} \left( \mathbf{f}(\mathbf{x}_{0}) \right) \mathbf{f}^{\prime} (\mathbf{x}_{0})
+$$</p>
+<h4 id="증명-1">증명</h4>
+<p><a href="../1334">놈 공간에 대해서 일반화된 증명</a></p>
 <p style="text-align: right;">■</p>
 <section class="footnotes" role="doc-endnotes">
 <hr>
@@ -820,7 +853,7 @@ $$</p>
         <span style="color:rgb(255,051,051);">●</span> TeX (0++)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1894)</summary>
+    <summary>전체 포스트 (1897)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -886,7 +919,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (35)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (36)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -898,7 +931,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/" style="color: black">텐서해석 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
@@ -910,7 +943,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (22)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (59)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (60)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (77)</a>
         </li><li>

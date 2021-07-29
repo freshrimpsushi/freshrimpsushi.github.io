@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/proof-of-successive-squaring-method\/",
-    "wordCount" : "795",
+    "wordCount" : "833",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -284,94 +284,106 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#알고리즘">알고리즘</a></li>
+    <li><a href="#설명">설명</a></li>
+    <li><a href="#예제">예제</a></li>
     <li><a href="#증명">증명</a></li>
+    <li><a href="#코드">코드</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-<a href="../1348">자연수</a> $a,k,m$ 에 대해 $b \equiv a^{k} \pmod{m}$ 를 다음과 같이 계산할 수 있다.**Step 1. $k$ 의 이진법 전개$u_{i} = 0$ 혹은 $u_{i} = 1$ 에 대해  $\displaystyle k = \sum_{i=0}^{r} u_{i} 2^{i} = u_{0} + 2 u_{1} + \cdots + 2^r u_{r}$ 로 나타낸다.**Step 2.
-$a \equiv A_{0} \pmod{m}
+<h2 id="알고리즘">알고리즘</h2>
+<p><a href="../1348">자연수</a> $a,k,m$ 에 대해 $b \equiv a^{k} \pmod{m}$ 를 다음과 같이 계산할 수 있다.</p>
+<hr>
+<p><strong>Step 1. $k$ 의 이진법 전개</strong></p>
+<p>$u_{i} = 0$ 혹은 $u_{i} = 1$ 에 대해 다음과 같이 나타낸다.
 $$
-a^{2} \equiv ( a^1 )^2 \equiv A_{0}^2 \equiv A_{1} \pmod{m}
+k = \sum_{i=0}^{r} u_{i} 2^{i} = u_{0} + 2 u_{1} + \cdots + 2^r u_{r}
+$$</p>
+<hr>
+<p><strong>Step 2.</strong></p>
+<p>$$
+\begin{align*}
+a &amp; &amp; &amp; \equiv A_{0} \pmod{m}
+\\ a^{2} &amp; \equiv ( a^1 )^2 &amp; \equiv A_{0}^2 &amp; \equiv A_{1} \pmod{m}
+\\ a^{4} &amp; \equiv ( a^2 )^2 &amp; \equiv A_{1}^2 &amp; \equiv A_{2} \pmod{m}
+\\ a^{8} &amp; \equiv ( a^4 )^2 &amp; \equiv A_{2}^2 &amp; \equiv A_{3} \pmod{m}
+\\ &amp; &amp; &amp;  \vdots
+\end{align*}
 $$
-a^{4} \equiv ( a^2 )^2 \equiv A_{1}^2 \equiv A_{2} \pmod{m}
+위와 같이 $a^{2^{r}} \equiv ( a^{2^{r-1}} )^2 \equiv A_{r-1}^2 \equiv A_{r} \pmod{m}$ 를 계산한다.</p>
+<hr>
+<p><strong>Step 3.</strong></p>
+<p>$A_{0}^{u_{0}} \cdot A_{1}^{u_{1}} \cdot \cdots A_{r}^{u_{r}}$ 을 계산하면 다음을 얻는다.
 $$
-a^{8} \equiv ( a^4 )^2 \equiv A_{2}^2 \equiv A_{3} \pmod{m}$&hellip;위와 같이 $a^{2^{r}} \equiv ( a^{2^{r-1}} )^2 \equiv A_{r-1}^2 \equiv A_{r} \pmod{m}$ 를 계산한다.**Step 3.
-$A_{0}^{u_{0}} \cdot A_{1}^{u_{1}} \cdot \cdots A_{r}^{u_{r}}$ 을 계산하면 $a^{k} \equiv A_{0}^{u_{0}} \cdot A_{1}^{u_{1}} \cdot \cdots A_{r}^{u_{r}} \pmod{m}$</p>
-<p>컴퓨터의 발전으로 거듭제곱의 계산도 빠르게 할 수 있는 시대가 왔지만 인간은 만족을 모른다.</p>
-<p>연속제곱법은 모듈러 연산에 무지막지하게 큰 숫자를 직접 구하지 않고도 그 답을 내주는 방법이다.</p>
-<p>한번 제곱할때마다 $\pmod{m}$ 으로 나눠주기 때문에 수가 $m$ 이하로 떨어져서 계산량이 줄어드는 것이다.</p>
-<p>예를 들어 $7^{327} \pmod{853}$ 을 구한다고 해보자.</p>
-<p>$7^{327}$ 에 상용로그를 취하면 $327 \log 7 \approx 327 \cdot 0.8450 = 276.315$ 이므로 자릿수만 무려 $277$ 인 큰 수다.</p>
-<p>정직하게 다 곱해서 나눗셈을 하기엔 너무 크니까 위의 알고리즘을 사용해보자.일단 위의 알고리즘대로 $327$ 를 이진법 전개하면 $327 = 256 + 64 + 4 +2 +1 = 2^{8} + 2^{6} + 2^2 + 2^1 + 2^0
+a^{k} \equiv A_{0}^{u_{0}} \cdot A_{1}^{u_{1}} \cdot \cdots A_{r}^{u_{r}} \pmod{m}
+$$</p>
+<h2 id="설명">설명</h2>
+<p>컴퓨터의 발전으로 거듭제곱의 계산도 빠르게 할 수 있는 시대가 왔지만 인간은 만족을 모른다. 연속제곱법은 모듈러 연산에 무지막지하게 큰 숫자를 직접 구하지 않고도 그 답을 내주는 방법이다. 한번 제곱할때마다 $\pmod{m}$ 으로 나눠주기 때문에 수가 $m$ 이하로 떨어져서 계산량이 줄어드는 것이다.</p>
+<h2 id="예제">예제</h2>
+<p>예를 들어 $7^{327} \pmod{853}$ 을 구한다고 해보자. $7^{327}$ 에 상용로그를 취하면 $327 \log 7 \approx 327 \cdot 0.8450 = 276.315$ 이므로 자릿수만 무려 $277$ 인 큰 수다. 정직하게 다 곱해서 나눗셈을 하기엔 너무 크니까 위의 알고리즘을 사용해보자. 일단 위의 알고리즘대로 $327$ 를 이진법 전개하면 다음과 같다.
 $$
-7 \equiv 7 \equiv 7 \pmod{853}
+327 = 256 + 64 + 4 +2 +1 = 2^{8} + 2^{6} + 2^2 + 2^1 + 2^0
 $$
-7^{2} \equiv ( 7^1 )^2 \equiv 7^2 \equiv 49 \pmod{853}
+Step 2대로 계산해보면
 $$
-7^{4} \equiv ( 7^2 )^2 \equiv 49^2 \equiv 2401 \equiv 695 \pmod{853}
+\begin{align*}
+7 &amp; &amp; \equiv 7 &amp; \equiv 7 \pmod{853}
+\\ 7^{2} &amp; \equiv ( 7^1 )^2 &amp; \equiv 7^2 &amp; \equiv 49 \pmod{853}
+\\ 7^{4} &amp; \equiv ( 7^2 )^2 &amp; \equiv 49^2 &amp; \equiv 2401 \equiv 695 \pmod{853}
+\\ 7^{8} &amp; \equiv ( 7^4 )^2 &amp; \equiv 695^2 &amp; \equiv 227 \pmod{853}
+\\ 7^{16} &amp; \equiv ( 7^8 )^2 &amp; \equiv 227^2 &amp; \equiv 349 \pmod{853}
+\\ 7^{32} &amp; \equiv ( 7^{16} )^2 &amp; \equiv 349^2 &amp; \equiv 675 \pmod{853}
+\\ 7^{64} &amp; \equiv ( 7^{32} )^2 &amp; \equiv 675^2 &amp; \equiv 123 \pmod{853}
+\\ 7^{128} &amp; \equiv ( 7^{64} )^2 &amp; \equiv 123^2 &amp; \equiv 628 \pmod{853}
+\\ 7^{256} &amp; \equiv ( 7^{128} )^2 &amp; \equiv 628^2 &amp; \equiv 298 \pmod{853}
+\end{align*}
 $$
-7^{8} \equiv ( 7^4 )^2 \equiv 695^2 \equiv 227 \pmod{853}
+따라서
 $$
-7^{16} \equiv ( 7^8 )^2 \equiv 227^2 \equiv 349 \pmod{853}
+7^{327} = 7^{256} \cdot 7^{64} \cdot 7^{4} \cdot 7^{2} \cdot 7^{1} = 298 \cdot 123 \cdot 695 \cdot 49 \cdot 7 \equiv 286 \pmod{853}
 $$
-7^{32} \equiv ( 7^{16} )^2 \equiv 349^2 \equiv 675 \pmod{853}
-$$
-7^{64} \equiv ( 7^{32} )^2 \equiv 675^2 \equiv 123 \pmod{853}
-$$
-7^{128} \equiv ( 7^{64} )^2 \equiv 123^2 \equiv 628 \pmod{853}
-$$
-7^{256} \equiv ( 7^{128} )^2 \equiv 628^2 \equiv 298 \pmod{853}$따라서 $7^{327} = 7^{256} \cdot 7^{64} \cdot 7^{4} \cdot 7^{2} \cdot 7^{1} = 298 \cdot 123 \cdot 695 \cdot 49 \cdot 7 \equiv 286 \pmod{853}$ 이 방법도 힘들다고 느낄 수는 있겠지만, 그냥 $327$ 번을 일일이 곱하는 것에 비하면 아주 해봄직한 계산량이다.</p>
+이다. 이 방법도 힘들다고 느낄 수는 있겠지만, 그냥 $327$ 번을 일일이 곱하는 것에 비하면 아주 해봄직한 계산량이다.</p>
 <h2 id="증명">증명</h2>
-<p>$a^{k} = a^{u_{0} + 2u_{1} + \cdots + 2^r u_{r} } 
-$$
-= a^{u_{0}} a^{ 2u_{1} } \cdots a^{ 2^r u_{r} } 
-$$
-\equiv A_{0}^{u_{0}} A_{1}^{u_{1}} \cdots A_{r}^{u_{r}} \pmod{m}$</p>
+<p>$$
+\begin{align*}
+a^{k} =&amp; a^{u_{0} + 2u_{1} + \cdots + 2^r u_{r} }
+\\ =&amp; a^{u_{0}} a^{ 2u_{1} } \cdots a^{ 2^r u_{r} } 
+\\ \equiv &amp; A_{0}^{u_{0}} A_{1}^{u_{1}} \cdots A_{r}^{u_{r}} \pmod{m}
+\end{align*}
+$$</p>
 <p style="text-align: right;">■</p>
-<p>아래는 연속제곱법으로 $7^{327} \pmod{853}$ 구하는 예제 코드로, R 언어로 작성되었다. 참고로 power 옵션은 음의 정수에도 대응되며, mod가 소수라면 power=-1을 입력함으로써 주어진 base의 역원을 구할 수 있다.</p>
-<pre><code>FPM&lt;-function(base,power,mod) #It is equal to (base^power)%%mod
+<h2 id="코드">코드</h2>
+<p>아래는 연속제곱법으로 $7^{327} \pmod{853}$ 구하는 예제 코드로, R 언어로 작성되었다. 참고로 <code>power</code> 옵션은 음의 정수에도 대응되며, <code>mod</code>가 소수라면 <code>power=-1</code>을 입력함으로써 주어진 <code>base</code>의 곱셈에 대한 역원을 구할 수 있다.</p>
+<pre><code>FPM&lt;-function(base,power,mod) #It is equal to (base^power)%%mod
 {
-  i&lt;-0
-  if (power&lt;0) {
-    while((base*i)%%mod != 1) {i=i+1}
-    base&lt;-i
-    power&lt;-(-power)}
-  
-  if (power==0) {return(1)}
-  if (power==1) {return(base%%mod)}
-  
-  n&lt;-0
-  while(power&gt;=2^n) {n=n+1}
-  
-  A&lt;-rep(1,n)
-  A[1]=base
-  
-  for(i in 1:(n-1)) {A[i+1]=(A[i]^2)%%mod}
-  
-  for(i in n:1) {
-    if(power&gt;=2^(i-1)) {power=power-2^(i-1)}
-    else {A[i]=1} }
-  
-  for(i in 2:n) {A[1]=(A[1]*A[i])%%mod}
-  
-  return(A[1])
+  i&lt;-0
+  if (power&lt;0) {
+    while((base*i)%%mod != 1) {i=i+1}
+    base&lt;-i
+    power&lt;-(-power)}
+  
+  if (power==0) {return(1)}
+  if (power==1) {return(base%%mod)}
+  
+  n&lt;-0
+  while(power&gt;=2^n) {n=n+1}
+  
+  A&lt;-rep(1,n)
+  A[1]=base
+  
+  for(i in 1:(n-1)) {A[i+1]=(A[i]^2)%%mod}
+  
+  for(i in n:1) {
+    if(power&gt;=2^(i-1)) {power=power-2^(i-1)}
+    else {A[i]=1} }
+  
+  for(i in 2:n) {A[1]=(A[1]*A[i])%%mod}
+  
+  return(A[1])
 }
- 
+ 
 FPM(7,327,853)
 FPM(7,-1,11)
 </code></pre>
@@ -826,7 +838,7 @@ FPM(7,-1,11)
         <span style="color:rgb(255,051,051);">●</span> TeX (0++)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1894)</summary>
+    <summary>전체 포스트 (1897)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -892,7 +904,7 @@ FPM(7,-1,11)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (35)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (36)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -904,7 +916,7 @@ FPM(7,-1,11)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/" style="color: black">텐서해석 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
@@ -916,7 +928,7 @@ FPM(7,-1,11)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (22)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (59)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (60)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (77)</a>
         </li><li>

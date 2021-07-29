@@ -295,25 +295,25 @@
 <p><strong>시계열 회귀 분석</strong>이란 말 그대로 <a href="../900">시계열 데이터</a>로 <a href="../548">회귀분석</a>하는 기법을 말한다. 원래 회귀분석 자체가 시계열 데이터를 다루는데 있어서 적합하지 않은 것은 사실이지만, 그럼에도 불구하고 복수의 시계열 데이터를 다룰 때는 회귀분석의 아이디어와 툴을 빌리는 것이 좋을 때가 있다.</p>
 <h2 id="실습">실습</h2>
 <p><img src="1.png#center" alt="1.png"></p>
-<p>가령 위와 같이 두 종류의 데이터 x와 y가 주어져있다고 하자. 물론 두 데이터의 개형이 완전히 같은 것도 아니고, 각 시점에서는 상이하지만 전체적으로 보았을 땐 x의 등락이 시차 $k=10$ 정도의 여유를 두고 y에서도 비슷하게 일어나는 것을 볼 수 있다.</p>
+<p>가령 위와 같이 두 종류의 데이터 x와 y가 주어져있다고 하자. 물론 두 데이터의 개형이 완전히 같은 것도 아니고, 각 시점에서는 상이하지만 전체적으로 보았을 땐 x의 등락이 시차 $k=10$ 정도의 여유를 두고 y에서도 비슷하게 일어나는 것을 볼 수 있다.</p>
 <p><img src="2.png#center" alt="2.png"></p>
-<p>실제로 y를 빨간 실선으로 한 화면에 찍어보면 위와 같은 모습을 보인다. 이에 따라 x에 10의 시차를 주고 <a href="../648">단순회귀분석</a>을 해보면 다음과 같이 추측이 얼추 맞아떨어짐을 확인할 수 있다.</p>
+<p>실제로 y를 빨간 실선으로 한 화면에 찍어보면 위와 같은 모습을 보인다. 이에 따라 x에 10의 시차를 주고 <a href="../648">단순회귀분석</a>을 해보면 다음과 같이 추측이 얼추 맞아떨어짐을 확인할 수 있다.</p>
 <p><img src="20190731_143111.png#center" alt="20190731\_143111.png"></p>
 <p><img src="3.png#center" alt="3.png"></p>
-<p>실제 적합치를 파란 실선으로 나타내보면 완벽하지는 않아도 x가 y를 꽤 정확하게 예측할 수 있음을 확인할 수 있다. 물론 데이터에 딱맞는 분석법은 아니지만, 필요하다면 언제든지 사용할 수 있어야한다.</p>
+<p>실제 적합치를 파란 실선으로 나타내보면 완벽하지는 않아도 x가 y를 꽤 정확하게 예측할 수 있음을 확인할 수 있다. 물론 데이터에 딱맞는 분석법은 아니지만, 필요하다면 언제든지 사용할 수 있어야한다.</p>
 <h2 id="코드">코드</h2>
-<p>아래는 R 로 작성한 예제코드다.</p>
+<p>아래는 R 로 작성한 예제코드다.</p>
 <pre><code>library(TSA)
 set.seed(150421)
 data(&quot;bluebird&quot;)
 x&lt;-ts(c(scale(bluebird[-(1:10),1])))
 y&lt;-ts(c(scale(-zlag(bluebird[,2],d=10)[-(1:10)])))
 example=ts.intersect(x,y)
-win.graph(6,5); plot(example,yax.flip = T)
-win.graph(6,4); plot(example[,1]); lines(example[,2],col='red')
+win.graph(6,5); plot(example,yax.flip = T)
+win.graph(6,4); plot(example[,1]); lines(example[,2],col='red')
 legend(&quot;topright&quot;,pch=16,col=1:2,legend=c(&quot;x&quot;,&quot;y&quot;))
-out&lt;-lm(y~zlag(x,d=10)); summary(out);
-win.graph(6,4); plot(y); lines(c(rep(NA,10),fitted(out)),col='blue')
+out&lt;-lm(y~zlag(x,d=10)); summary(out);
+win.graph(6,4); plot(y); lines(c(rep(NA,10),fitted(out)),col='blue')
 legend(&quot;topright&quot;,pch=16,col=c(1,4),legend=c(&quot;x&quot;,&quot;fitted&quot;))
 </code></pre>
 
@@ -767,7 +767,7 @@ legend(&quot;topright&quot;,pch=16,col=c(1,4),legend=c(&quot;x&quot;,&quot;fitte
         <span style="color:rgb(255,051,051);">●</span> TeX (0++)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1894)</summary>
+    <summary>전체 포스트 (1897)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -833,7 +833,7 @@ legend(&quot;topright&quot;,pch=16,col=c(1,4),legend=c(&quot;x&quot;,&quot;fitte
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (35)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (36)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -845,7 +845,7 @@ legend(&quot;topright&quot;,pch=16,col=c(1,4),legend=c(&quot;x&quot;,&quot;fitte
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/" style="color: black">텐서해석 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
@@ -857,7 +857,7 @@ legend(&quot;topright&quot;,pch=16,col=c(1,4),legend=c(&quot;x&quot;,&quot;fitte
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (22)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (59)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (60)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (77)</a>
         </li><li>

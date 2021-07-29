@@ -304,32 +304,32 @@ margin-right: auto;">
 </p>
 
 <h2 id="개요">개요</h2>
-<p><a href="../548">회귀분석</a>을 한 이후의 <a href="../650">잔차</a> $\left\{ e_{t} \right\}_{t=1}^{n}$ 가 주어져있다고 하고 $e_{t} := \rho e_{t-1} + \nu_{t}$ 이라 하자.
+<p><a href="../548">회귀분석</a>을 한 이후의 <a href="../650">잔차</a> $\left\{ e_{t} \right\}_{t=1}^{n}$ 가 주어져있다고 하고 $e_{t} := \rho e_{t-1} + \nu_{t}$ 이라 하자.
 $H_{0}$ : $\rho = 0$ 즉, 잔차끼리 <a href="../1209">자기상관성</a>을 가지지 않는다.
-$H_{1}$ : $\rho \ne 0$ 즉, 잔차끼리 <a href="../1209">자기상관성</a>을 가진다.</p>
-<p><strong>더빈-왓슨 테스트</strong> 는 <a href="../548">회귀분석</a> 후 <a href="../679">잔차의 독립성</a>을 확인할 때 쓰이는 테스트로써, 잔차끼리 자기상관성이 있는지 없는지를 판단한다. 검정통계량은</p>
+$H_{1}$ : $\rho \ne 0$ 즉, 잔차끼리 <a href="../1209">자기상관성</a>을 가진다.</p>
+<p><strong>더빈-왓슨 테스트</strong> 는 <a href="../548">회귀분석</a> 후 <a href="../679">잔차의 독립성</a>을 확인할 때 쓰이는 테스트로써, 잔차끼리 자기상관성이 있는지 없는지를 판단한다. 검정통계량은</p>
 <p>$$
 d := {{ \sum_{t=2}^{n} \left( e_{t} - e_{t-1} \right)^2 } \over {\sum_{t=1}^{n} e_{t}^{2} }}
 $$</p>
 <p>와 같이 구해지며, 항상 $0 \le d \le 4$ 다. $d$ 의 값은 다음과 같이 해석된다:
-$d \approx 0$ : 잔차끼리 양의 상관관계를 가진다.
+$d \approx 0$ : 잔차끼리 양의 상관관계를 가진다.
 $d \approx 2$ : 잔차끼리 상관관계를 가지지 않는다.
-$d \approx 4$ : 잔차끼리 음의 상관관계를 가진다.
+$d \approx 4$ : 잔차끼리 음의 상관관계를 가진다.
 물론 검정을 할 땐 유의수준 $\alpha$ 가 주어져서 하한 $d_{L , \alpha}$ 과 상한 $d_{U , \alpha}$ 를 구해서 비교한다.
-더빈-왓슨 테스트는 보기보다 사용하기 까다로운 테스트인데, 주의사항은 다음과 같다: 
+더빈-왓슨 테스트는 보기보다 사용하기 까다로운 테스트인데, 주의사항은 다음과 같다: 
 <strong>(1)</strong> $e_{t}$ 와 $e_{t-1}$ 만의 상관관계를 파악할 뿐 $e_{t}$ 와 $e_{t-k}$ 에 대해서는 알 수 없다. 많은 시차 $k$ 에 대해 확인하기 위해서는 일반화된 더빈-왓슨 테스트를 사용해야한다.
-<strong>(2)</strong>  잔차끼리 자기상관성이 있다면 독립이 아니지만, <a href="../536">자기상관성이 없다고 독립은 아니다.</a>
-<strong>(3)</strong>  거의 필요 없다. 더빈-왓슨 테스트를 신뢰하지 않는 건 아니지만, **(1)**과 <strong>(2)</strong>  같은 단점들 때문에 정확해봤자 분석을 정당화하는데 별 도움이 안되기 때문이다.
+<strong>(2)</strong>  잔차끼리 자기상관성이 있다면 독립이 아니지만, <a href="../536">자기상관성이 없다고 독립은 아니다.</a>
+<strong>(3)</strong>  거의 필요 없다. 더빈-왓슨 테스트를 신뢰하지 않는 건 아니지만, **(1)**과 <strong>(2)</strong>  같은 단점들 때문에 정확해봤자 분석을 정당화하는데 별 도움이 안되기 때문이다.
 <strong>(4)</strong>  <a href="../941">아리마 모델</a>의 잔차에는 적용할 수 없다. 따라서 <a href="../1209">자기상관함수</a> 혹은 <a href="../1219">륭-박스 테스트</a>를 사용해야한다.
-물론 이러한 단점들이 있어도 테스트 자체는 쉽고 만만해서 아직도 많은 교과서에서 소개하고 쓰이고 있다. 단점들을 요약하자면 &lsquo;써도 되는데 너무 믿지는 마라&rsquo;정도가 되겠다. 아직 통계를 잘 모르는 학습자에게는 더더욱 그렇다. 쓰는 건 좋은데, 그 용도와 한계를 정확하게 알고 써야한다. 독립성은 고작 더빈-왓슨 테스트 하나 통과했다고 쉽게 증명할 수 있는 게 아니다.
-R 에서는 <code>lmtest</code> 패키지의 <code>dwtest()</code> 함수를 사용해서 간단하게 더빈-왓슨 테스트를 해볼 수 있다.
+물론 이러한 단점들이 있어도 테스트 자체는 쉽고 만만해서 아직도 많은 교과서에서 소개하고 쓰이고 있다. 단점들을 요약하자면 &lsquo;써도 되는데 너무 믿지는 마라&rsquo;정도가 되겠다. 아직 통계를 잘 모르는 학습자에게는 더더욱 그렇다. 쓰는 건 좋은데, 그 용도와 한계를 정확하게 알고 써야한다. 독립성은 고작 더빈-왓슨 테스트 하나 통과했다고 쉽게 증명할 수 있는 게 아니다.
+R 에서는 <code>lmtest</code> 패키지의 <code>dwtest()</code> 함수를 사용해서 간단하게 더빈-왓슨 테스트를 해볼 수 있다.
 <img src="Rplot.png#center" alt="Rplot.png"></p>
 <p>언뜻 보아도 잔차는 독립적인데, 다음과 같이 검정해보면 실제로 자기상관성이 없음을 확인할 수 있다.
 <img src="20190730_111316.png#center" alt="20190730\_111316.png"></p>
 <pre><code>library(lmtest)
- 
+ 
 out&lt;-lm(waiting~eruptions,data=faithful)
-win.graph(6,3); plot(rstudent(out),main=&quot;residuals&quot;)
+win.graph(6,3); plot(rstudent(out),main=&quot;residuals&quot;)
 dwtest(out)```</code></pre>
 
 
@@ -782,7 +782,7 @@ dwtest(out)```</code></pre>
         <span style="color:rgb(255,051,051);">●</span> TeX (0++)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1894)</summary>
+    <summary>전체 포스트 (1897)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -848,7 +848,7 @@ dwtest(out)```</code></pre>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (35)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (36)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -860,7 +860,7 @@ dwtest(out)```</code></pre>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/" style="color: black">텐서해석 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
@@ -872,7 +872,7 @@ dwtest(out)```</code></pre>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (22)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (59)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (60)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (77)</a>
         </li><li>

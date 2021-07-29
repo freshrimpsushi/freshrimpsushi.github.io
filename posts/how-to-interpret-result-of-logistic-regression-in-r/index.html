@@ -298,14 +298,14 @@
 </aside>
 
 <h2 id="실습">실습</h2>
-<p><a href="../331">내장데이터</a> <code>turnout</code> 데이터를 불러와보자.</p>
+<p><a href="../331">내장데이터</a> <code>turnout</code> 데이터를 불러와보자.</p>
 <p><img src="20190119_112220.png#center" alt="20190119\_112220.png"></p>
-<p><code>turnout</code>는 1992년 미국 총선에 대한 데이터로써, race(인종), 연령(age), 교육수준(educate), income(수입)에 따른 vote(투표여부)를 파악할 수 있다. 이 데이터는 투표를 했느냐 안 했느냐하는 종속변수에 관심이 있으므로 <a href="../832">로지스틱 회귀분석</a>을 사용할 수 있다.</p>
+<p><code>turnout</code>는 1992년 미국 총선에 대한 데이터로써, race(인종), 연령(age), 교육수준(educate), income(수입)에 따른 vote(투표여부)를 파악할 수 있다. 이 데이터는 투표를 했느냐 안 했느냐하는 종속변수에 관심이 있으므로 <a href="../832">로지스틱 회귀분석</a>을 사용할 수 있다.</p>
 <p>로지스틱 회귀분석은 일반적인 회귀분석과 달리 <code>glm()</code> 함수를 통해 모형을 세운다. 이때 옵션으로써 <code>family=binomial()</code> 을 넣어주면 알아서 로지스틱 회귀분석을 해준다. 갑자기 &lsquo;바이노미얼&rsquo;이 나오는 이유는 종속변수가 0이냐 1이냐의 이항변수기 때문이다.</p>
 <p><img src="20190119_112300.png#center" alt="20190119\_112300.png"></p>
 <p><img src="20190119_113117.png#center" alt="20190119\_113117.png"></p>
 <h3 id="결과-해석">결과 해석</h3>
-<p>결과를 보면 일반적인 <a href="../670">다중회귀분석</a>과 비슷한듯 다른 점이 많다. 각 변수에 대한 회귀계수를 보는 법은 똑같지만 <a href="../672">F검정</a>이 없어졌고 <strong>이탈도</strong><sup>deviance</sup>라는 것이 생겼다.
+<p>결과를 보면 일반적인 <a href="../670">다중회귀분석</a>과 비슷한듯 다른 점이 많다. 각 변수에 대한 회귀계수를 보는 법은 똑같지만 <a href="../672">F검정</a>이 없어졌고 <strong>이탈도</strong><sup>deviance</sup>라는 것이 생겼다.
 이탈도라는 것은 로지스틱 회귀모형이 얼마나 데이터를 못 설명하는지에 대한 척도로 보아도 무방하다. <strong>영이탈도</strong><sup>Null deviance</sup>는 아무런 변수 없이 상수항만 있을 때의 이탈도로써 데이터가 전혀 없는 최악의 상황이라 할 수 있다. 이렇게 얻어진 <strong>잔차이탈도</strong><sup>Residual deviance</sup>는 작으면 작을수록 좋고, 카이제곱분포를 따르기 때문에 카이제곱 적합도 검정을 통해 모형이 적합한지 확인할 수 있다.
 <code>glm()</code> 함수의 이름이 &lsquo;일반화된 회귀분석&rsquo;을 의미하긴 하지만, 기본적으로 회귀분석이기 때문에 다중공선성을 고려하지 않을 수 없다. 다행스럽게도 VIF는 <code>vif()</code> 함수를 사용함으로써 쉽게 구해낼 수 있다. 예제에선 다중공선성 문제가 없는 것으로 보인다.</p>
 <h3 id="모형-진단">모형 진단</h3>
@@ -314,38 +314,38 @@
 <img src="20190119_124433.png#center" alt="20190119\_124433.png"></p>
 <p>카이제곱 적합도 검정을 하는 방법은 아주 간단하다. 유의수준 $\alpha$ 에 대해 검정하고 싶다면 <a href="../578">qchisq() 함수</a>에 $(1 - \alpha)$ 와 잔차이탈도의 자유도를 넣어줘서 임계치를 계산하면 된다. 위와 같이 임계치보다 잔차이탈도가 작으면 모형은 적합하다고 본다.
 <img src="20190119_124452.png#center" alt="20190119\_124452.png"></p>
-<p>호스머-렘쇼 적합도 검정은 로지스틱 회귀분석에서 사용하는 대표적인 적합도 검정으로, 마찬가지로 카이제곱 통계량을 통해 모델이 적합한지 검정해준다. ResourceSelection 패키지의 hoslem.test() 함수에 모형의 실제 종속변수와 적합치를 넣어줌으로써 검정할 수 있다. 귀무가설은 &lsquo;모형이 적합하다&rsquo;이므로 위와 같이 유의확률이 높아 귀무가설을 기각하지 못하면 모형이 적합한 것으로 본다. 그러나 <a href="https://stats.stackexchange.com/users/4253/frank-harrell">프랭크 하렐</a>에 따르면 여러가지 약점이 있어 이제는 더 이상 권장되지 않는다고 한다.</p>
+<p>호스머-렘쇼 적합도 검정은 로지스틱 회귀분석에서 사용하는 대표적인 적합도 검정으로, 마찬가지로 카이제곱 통계량을 통해 모델이 적합한지 검정해준다. ResourceSelection 패키지의 hoslem.test() 함수에 모형의 실제 종속변수와 적합치를 넣어줌으로써 검정할 수 있다. 귀무가설은 &lsquo;모형이 적합하다&rsquo;이므로 위와 같이 유의확률이 높아 귀무가설을 기각하지 못하면 모형이 적합한 것으로 본다. 그러나 <a href="https://stats.stackexchange.com/users/4253/frank-harrell">프랭크 하렐</a>에 따르면 여러가지 약점이 있어 이제는 더 이상 권장되지 않는다고 한다.</p>
 <p><img src="20190119_131735.png#center" alt="20190119\_131735.png"></p>
 <p><code>rms</code> 패키지의 <code>lrm()</code> 함수를 사용하면 모형의 우도비 검정을 해준다. 위 두가지 방법이 적합도 검정이고 귀무가설이 &lsquo;모형이 적합하다&rsquo;인 것과 달리 우도비 검정에선 귀무가설을 기각해야 모형이 적합한 것으로 본다. 이왕 <code>rms</code> 패키지를 쓰고 있다면 굳이 <code>glm()</code> 함수로 로지스틱 회귀모형을 만들고 그 아웃풋을 넣지 말고 그냥 <code>lrm()</code> 함수에 모형을 바로 넣어줘도 상관 없다. 예제로 보자면 <code>lrm(vote~.,data=turnout)</code> 을 입력함으로써 모든 과정을 한번에 수행해준다.</p>
 <h3 id="예측">예측</h3>
 <p>마지막으로 로지스틱 회귀모형을 이용해 직접 확률을 계산해보도록 하자. 확률은 <code>predict()</code> 함수에 <code>type='response'</code> 옵션을 넣어줌으로써 간단하게 계산된다.
 <img src="20190119_122236.png#center" alt="20190119\_122236.png"></p>
-<p>물론 우리는 이미 데이터를 갖고 있고 참값을 알고 있기 때문에 이러한 예측은 큰 의미가 없다. 따라서 <code>newdata</code> 옵션을 통해 새로운 데이터를 주고 그때도 잘 맞추는지 확인하는 과정이 필요하다.</p>
+<p>물론 우리는 이미 데이터를 갖고 있고 참값을 알고 있기 때문에 이러한 예측은 큰 의미가 없다. 따라서 <code>newdata</code> 옵션을 통해 새로운 데이터를 주고 그때도 잘 맞추는지 확인하는 과정이 필요하다.</p>
 <h2 id="코드">코드</h2>
 <p>아래는 예제 코드다.</p>
 <pre><code>install.packages(&quot;Zelig&quot;)
 install.packages(&quot;car&quot;)
 install.packages(&quot;ResourceSelection&quot;)
 install.packages('rms')
- 
+ 
 library(Zelig)
-data(turnout); head(turnout)
-out0&lt;-glm(vote~.,family=binomial(),data=turnout); summary(out0)
- 
+data(turnout); head(turnout)
+out0&lt;-glm(vote~.,family=binomial(),data=turnout); summary(out0)
+ 
 library(car)
 vif(out0)
- 
-win.graph(4,4); plot(out0$residuals,main=&quot;잔차그림&quot;)
- 
+ 
+win.graph(4,4); plot(out0$residuals,main=&quot;잔차그림&quot;)
+ 
 qchisq(0.95,df=1995)
- 
+ 
 library(ResourceSelection)
 hoslem.test(out0$y,fitted(out0))
- 
+ 
 library(rms)
 lrm(out0)
 lrm(vote~.,data=turnout)
- 
+ 
 predict(out0,type='response')
 </code></pre><h2 id="같이보기">같이보기</h2>
 <ul>
@@ -804,7 +804,7 @@ predict(out0,type='response')
         <span style="color:rgb(255,051,051);">●</span> TeX (0++)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1894)</summary>
+    <summary>전체 포스트 (1897)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -870,7 +870,7 @@ predict(out0,type='response')
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (35)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (36)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -882,7 +882,7 @@ predict(out0,type='response')
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/" style="color: black">텐서해석 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
@@ -894,7 +894,7 @@ predict(out0,type='response')
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (22)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (59)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (60)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (77)</a>
         </li><li>

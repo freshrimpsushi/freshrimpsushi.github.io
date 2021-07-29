@@ -294,18 +294,18 @@
 <h2 id="실습">실습</h2>
 <p><a href="../1280">가치 모델</a>은 <a href="../1278">아치 이펙트</a>를 설명하는 유용한 수단으로써 분석 절차 자체는 <a href="../1216">아르마 모델</a>과 흡사하다.</p>
 <p><img src="1.png#center" alt="1.png"></p>
-<p>위의 그래프는 <a href="../331">내장데이터</a> <code>EuStockMarkets</code>에서 <code>DAX</code>만 뽑아내서 그린 것으로, 1991년부터 1999년까지 독일 DAX지수를 나타낸다.</p>
+<p>위의 그래프는 <a href="../331">내장데이터</a> <code>EuStockMarkets</code>에서 <code>DAX</code>만 뽑아내서 그린 것으로, 1991년부터 1999년까지 독일 DAX지수를 나타낸다.</p>
 <p><img src="2.png#center" alt="2.png"></p>
-<p><a href="../1278">리턴의 제곱을 보면</a> 거의 확실하게 아치 이펙트가 있는 것으로 보인다. 리턴의 제곱이 <a href="../1216">아르마 모델을 따르는지</a><a href="../1216"> 확인</a>하기 위해서 <a href="../1213">EACF</a>를 사용해보자.</p>
+<p><a href="../1278">리턴의 제곱을 보면</a> 거의 확실하게 아치 이펙트가 있는 것으로 보인다. 리턴의 제곱이 <a href="../1216">아르마 모델을 따르는지</a><a href="../1216"> 확인</a>하기 위해서 <a href="../1213">EACF</a>를 사용해보자.</p>
 <p><img src="20190904_133855.png#center" alt="20190904\_133855.png"></p>
 <p>리턴의 제곱이 아르마 모델 $ARMA(1,3)$ 을 따른다고 추측되므로 리턴이 $GARCH(1,3)$ 을 따른다는 가정을 세워볼 수 있다. <code>tseries</code> 패키지의 <code>garch()</code> 함수를 사용하면 가치 모델로 분석을 할 수 있다.</p>
 <p><img src="20190904_113946.png#center" alt="20190904\_113946.png"></p>
-<p>분석 결과를 읽는 방법은 <a href="../670">회귀분석</a>과 똑같은데, 차이점이 있다면 그 밑에 알아서 <a href="../949">하르케-베라 테스트Jarque Bera Test</a>와 <a href="../1219">륭-박스 테스트Box-Ljung Test</a>도 해준다는 것이다. 륭-박스 테스트의 p밸류가 크게 나왔기 때문에 모델 피팅 자체는 잘 된 것으로 보이는데, 하르케-베라 테스트의 p밸류가 낮다는 것은 좋은 징조가 아니다. <a href="../1218">잔차의 정규성</a>에 문제가 있다는 것인데, 히스토그램을 그려 체크해보자.</p>
+<p>분석 결과를 읽는 방법은 <a href="../670">회귀분석</a>과 똑같은데, 차이점이 있다면 그 밑에 알아서 <a href="../949">하르케-베라 테스트Jarque Bera Test</a>와 <a href="../1219">륭-박스 테스트Box-Ljung Test</a>도 해준다는 것이다. 륭-박스 테스트의 p밸류가 크게 나왔기 때문에 모델 피팅 자체는 잘 된 것으로 보이는데, 하르케-베라 테스트의 p밸류가 낮다는 것은 좋은 징조가 아니다. <a href="../1218">잔차의 정규성</a>에 문제가 있다는 것인데, 히스토그램을 그려 체크해보자.</p>
 <p><img src="3.png#center" alt="3.png"></p>
 <p>가만보면 어마어마하게 큰 이상치 때문에 정규성이 결여되었음을 알 수 있다. <a href="../1268">왜도</a>는 이상치에 영향을 크게 받는데, 아무래도 그 때문에 검정이 왜곡된 것으로 보인다. 이상치를 제거하고 다시 검정해보자.</p>
 <p><img src="20190904_135117.png#center" alt="20190904\_135117.png"></p>
-<p>이상치를 뺐을 때 <a href="../949">하르케-베라 테스트</a>는 잔차가 정규성을 가진다는 것을 지지한다. 그러나 여전히 <a href="../939">샤피로-윌크 테스트</a>는 정규성이 결여되었다고 판단했는데, 같은 정규성 검정이지만 이렇게 다른 경우도 충분히 있을 수 있다. <a href="../900">시계열 분석</a>의 특성상 너무 큰 이상치가 있는 경우가 아주 흔한데, 하르케-베라 테스트는 샤피로-윌크 테스트와 달리 이상치를 제거했을 때 정규분포임이 드러나는 경우가 더 많다.</p>
-<p>적어도 이 경우엔 샤피로-윌크 테스트를 통과하지 못했지만 하르케-베라 테스트를 통과했으므로 잔차가 정규성을 가진다고 보아도 무방하다. 결론적으로, 리턴이 $GARCH(1,3)$ 을 따른다고 말해도 좋다.</p>
+<p>이상치를 뺐을 때 <a href="../949">하르케-베라 테스트</a>는 잔차가 정규성을 가진다는 것을 지지한다. 그러나 여전히 <a href="../939">샤피로-윌크 테스트</a>는 정규성이 결여되었다고 판단했는데, 같은 정규성 검정이지만 이렇게 다른 경우도 충분히 있을 수 있다. <a href="../900">시계열 분석</a>의 특성상 너무 큰 이상치가 있는 경우가 아주 흔한데, 하르케-베라 테스트는 샤피로-윌크 테스트와 달리 이상치를 제거했을 때 정규분포임이 드러나는 경우가 더 많다.</p>
+<p>적어도 이 경우엔 샤피로-윌크 테스트를 통과하지 못했지만 하르케-베라 테스트를 통과했으므로 잔차가 정규성을 가진다고 보아도 무방하다. 결론적으로, 리턴이 $GARCH(1,3)$ 을 따른다고 말해도 좋다.</p>
 <h2 id="코드">코드</h2>
 <p>다음은 예제 코드다.</p>
 <pre><code>library(TSA)
@@ -778,7 +778,7 @@ shapiro.test(resi2)
         <span style="color:rgb(255,051,051);">●</span> TeX (0++)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1894)</summary>
+    <summary>전체 포스트 (1897)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -844,7 +844,7 @@ shapiro.test(resi2)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (35)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (36)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -856,7 +856,7 @@ shapiro.test(resi2)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/" style="color: black">텐서해석 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
@@ -868,7 +868,7 @@ shapiro.test(resi2)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (22)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (59)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (60)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (77)</a>
         </li><li>

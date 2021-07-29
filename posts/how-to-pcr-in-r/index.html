@@ -293,24 +293,24 @@
 </aside>
 
 <h2 id="개요">개요</h2>
-<p><strong>주성분회귀분석</strong><sup>PCR</sup> 이란 <a href="../812">주성분분석</a>과 <a href="../666">다중회귀분석</a>을 합친 것으로, 주성분분석을 통해 얻은 주성분을 새로운 독립변수로 둔 회귀분석을 말한다. 사실 통계학의 관점에서 주성분분석 그 자체는 별 필요가 없고, 보통 회귀분석에 쓰일 때나 의미가 있다.</p>
+<p><strong>주성분회귀분석</strong><sup>PCR</sup> 이란 <a href="../812">주성분분석</a>과 <a href="../666">다중회귀분석</a>을 합친 것으로, 주성분분석을 통해 얻은 주성분을 새로운 독립변수로 둔 회귀분석을 말한다. 사실 통계학의 관점에서 주성분분석 그 자체는 별 필요가 없고, 보통 회귀분석에 쓰일 때나 의미가 있다.</p>
 <h2 id="실습">실습</h2>
 <p><strong>(<a href="../808">다중공선성을 찾아내는 법</a>에 이어서)</strong></p>
 <p><img src="20181226_143145.png#center" alt="20181226\_143145.png">
 <img src="20181226_143253.png#center" alt="20181226\_143253.png"></p>
 <p>주성분을 만들어내는 과정은 <a href="../346">행렬분해</a>를 포함한 복잡한 계산을 동반하지만, R에서는 <code>prcomp()</code> 함수를 통해 쉽게 구해낼 수가 있다.</p>
 <ul>
-<li>(1) Rotation: 실제로 원래의 독립변수에 곱해서 주성분을 만들 계수들을 나타낸다. 예를들어 PC1을 만들기 위해선 population에 $-0.098$, white에 $0.056$, &hellip; , poverty에 $-0.187$ 곱한 뒤 모두 더해서 만들어진다. 또한 데이터에 따라선 어떤 주성분이 어떤 변수에 대한 정보를 많이 가지고 있는지 한 눈에 확인할 수 있는 지표가 되기도 한다.</li>
-<li>(2) Importance of components: 말그대로 각 주성분의 중요도를 나타낸다. Proportion of Variance가 높을수록 데이터의 많은 부분을 설명하고 그만큼 중요한 주성분이라는 의미가 된다. 이를 시각적으로 나타낸 것이 우측의 <strong>Scree Plot</strong>이다. Scree plot은 그냥 plot() 함수에 주성분분석 결과를 넣은 것만으로도 쉽게 그릴 수 있다. 이 그림을 통해 주성분을 어디까지 쓸 것인지를 결정한다.</li>
+<li>(1) Rotation: 실제로 원래의 독립변수에 곱해서 주성분을 만들 계수들을 나타낸다. 예를들어 PC1을 만들기 위해선 population에 $-0.098$, white에 $0.056$, &hellip; , poverty에 $-0.187$ 곱한 뒤 모두 더해서 만들어진다. 또한 데이터에 따라선 어떤 주성분이 어떤 변수에 대한 정보를 많이 가지고 있는지 한 눈에 확인할 수 있는 지표가 되기도 한다.</li>
+<li>(2) Importance of components: 말그대로 각 주성분의 중요도를 나타낸다. Proportion of Variance가 높을수록 데이터의 많은 부분을 설명하고 그만큼 중요한 주성분이라는 의미가 된다. 이를 시각적으로 나타낸 것이 우측의 <strong>Scree Plot</strong>이다. Scree plot은 그냥 plot() 함수에 주성분분석 결과를 넣은 것만으로도 쉽게 그릴 수 있다. 이 그림을 통해 주성분을 어디까지 쓸 것인지를 결정한다.</li>
 <li>(3) <strong>Elbow Point</strong>: Scree plot에서 급격하게 기울기가 바뀌는 지점으로, 이후로는 주성분을 더 써도 이득이 적어지는 부분을 말한다. Elbow point 이후의 주성분은 분석에 쓰지 않아도 딱히 상관 없다. 예제와 같은 경우엔 PC1, PC2, PC3까지만 쓰는 것이 바람직할 것이다.</li>
 </ul>
 <p>그런데 결국 이걸 어떻게 회귀분석에 집어넣을지가 문제다. 독립변수들을 Rotation과 곱해서 PC를 만들고 회귀분석을 한 후 원래의 독립변수에 대한 식을 세우는 것은 여간 귀찮은 일이 아니므로, <a href="https://cran.r-project.org/web/packages/pls/pls.pdf">pls 패키지</a>의 <code>pcr()</code> 함수를 사용해보도록 하자.</p>
 <p><img src="20181226_145248.png#center" alt="20181226\_145248.png">
 <img src="20181226_145215.png#center" alt="20181226\_145215.png"></p>
 <p><code>summary()</code> 함수를 통해 출력된 결과에선 몇 개의 주성분을 사용했을 때 <code>collgeGrad</code>를 얼마나 설명하는지를 알려준다.</p>
-<p>위의 주성분분석에서 주성분의 갯수는 $3$ 개면 충분했다. <code>jack.test()</code> 함수의 <code>ncomp</code> 옵션에 <code>3</code>을 넣고 실행시켜보면 주성분에 대한 회귀계수가 아니라 원래 독립변수에 대한 회귀계수를 알려줄 뿐만이 아니라, <a href="../654">t검정</a>까지 한번에 해준다.</p>
+<p>위의 주성분분석에서 주성분의 갯수는 $3$ 개면 충분했다. <code>jack.test()</code> 함수의 <code>ncomp</code> 옵션에 <code>3</code>을 넣고 실행시켜보면 주성분에 대한 회귀계수가 아니라 원래 독립변수에 대한 회귀계수를 알려줄 뿐만이 아니라, <a href="../654">t검정</a>까지 한번에 해준다.</p>
 <p>또한 오른쪽의 <a href="../675">잔차그림을 보았을 땐</a> 특별한 문제가 없어보인다.</p>
-<pre><code>win.graph(4,4); plot(scale(PCRout$residuals[,,3]),main=&quot;Residual&quot;)
+<pre><code>win.graph(4,4); plot(scale(PCRout$residuals[,,3]),main=&quot;Residual&quot;)
 </code></pre><p>잔차그림을 출력할 때 주의할 것은 <code>pcr()</code> 함수가 반환하는 결과에 <code>$residuals</code>를 참조함으로써 얻어지는 건 맞는데, 이렇게만 하면 주성분을 몇개나 썼는지에 따른 잔차가 모두 포함된 3차 배열로 나온다는 것이다. 이 예제에선 [,,3]으로 슬라이싱함으로써 주성분이 3개까지 쓰인 PCR의 잔차를 참조했다. 만약 주성분분을 k개만큼 사용했다면 [,,k]과 같이 슬라이싱 해야한다.</p>
 <h2 id="코드">코드</h2>
 <p>아래는 예제 코드다.</p>
@@ -318,18 +318,18 @@
 install.packages('car')
 library(pls)
 library(car)
- 
+ 
 X&lt;-MplsDemo[,-1]
-Y&lt;-X[,7]; X&lt;-X[,-7]
- 
-PCAout&lt;-prcomp(X[,-7],center=T,scale.=T); PCAout; summary(PCAout)
-win.graph(3,3); plot(PCAout, type='l',main=&quot;screeplot&quot;)
- 
+Y&lt;-X[,7]; X&lt;-X[,-7]
+ 
+PCAout&lt;-prcomp(X[,-7],center=T,scale.=T); PCAout; summary(PCAout)
+win.graph(3,3); plot(PCAout, type='l',main=&quot;screeplot&quot;)
+ 
 PCRout&lt;-pcr(collegeGrad~.,data=MplsDemo[,-1],validation=&quot;LOO&quot;,jackknife=T)
 summary(PCRout)
 jack.test(PCRout,ncomp=3)
- 
-win.graph(4,4); plot(scale(PCRout$residuals[,,3]),main=&quot;Residual&quot;)
+ 
+win.graph(4,4); plot(scale(PCRout$residuals[,,3]),main=&quot;Residual&quot;)
 </code></pre><h2 id="같이보기">같이보기</h2>
 <ul>
 <li><a href="../812">주성분분석</a></li>
@@ -787,7 +787,7 @@ win.graph(4,4); plot(scale(PCRout$residuals[,,3]),main=&quot;Residual&quot;)
         <span style="color:rgb(255,051,051);">●</span> TeX (0++)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1894)</summary>
+    <summary>전체 포스트 (1897)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -853,7 +853,7 @@ win.graph(4,4); plot(scale(PCRout$residuals[,,3]),main=&quot;Residual&quot;)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (35)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (36)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -865,7 +865,7 @@ win.graph(4,4); plot(scale(PCRout$residuals[,,3]),main=&quot;Residual&quot;)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/" style="color: black">텐서해석 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
@@ -877,7 +877,7 @@ win.graph(4,4); plot(scale(PCRout$residuals[,,3]),main=&quot;Residual&quot;)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (22)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (59)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (60)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (77)</a>
         </li><li>

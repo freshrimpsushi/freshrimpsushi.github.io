@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/partial-derivative\/",
-    "wordCount" : "892",
+    "wordCount" : "1257",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -286,8 +286,13 @@
   <ul>
     <li><a href="#정의1">정의</a></li>
     <li><a href="#설명">설명</a></li>
-    <li><a href="#정리">정리</a></li>
+    <li><a href="#정리">정리</a>
+      <ul>
+        <li><a href="#따름-정리">따름 정리</a></li>
+      </ul>
+    </li>
     <li><a href="#증명">증명</a></li>
+    <li><a href="#예시">예시</a></li>
   </ul>
 </nav>
 </aside>
@@ -307,20 +312,32 @@ $$</p>
 \dfrac{\partial f_{i}}{\partial x_{j}} = D_{j}f_{i} := \lim _{t \to 0} \dfrac{f_{i}(\mathbf{x}+ t \mathbf{e}_{j}) -f_{i}(\mathbf{x})}{t}
 $$</p>
 <h2 id="설명">설명</h2>
-<p>편<sup>偏</sup>은 치우쳐졌다는 의미이며, 미분을 모든 변수가 아니라 하나의 변수에 대해서만 생각하겠다는 뜻이다. <a href="../3032">전도함수</a>에 대비되는 말이다. 편도$\check{}$함수가 아니라 편$\check{}$도함수이다.</p>
+<p>편<sup>偏</sup>은 치우쳐졌다는 의미이며, 미분을 모든 변수가 아니라 하나의 변수에 대해서만 생각하겠다는 뜻이다. <a href="../3082">전도함수</a>에 대비되는 말이다.</p>
+<p>편도 $\check{}$ 함수가 아니라 편 $\check{}$ 도함수이다.</p>
+<p>$\mathbf{f}$의 전도함수와 편도함수 사이에는 다음의 정리와 같은 관계가 성립한다.</p>
 <h2 id="정리">정리</h2>
 <p>$E, \mathbf{x}, \mathbf{f}$를 <a href="#%EC%A0%95%EC%9D%981">정의</a>에서와 같다고 하자. $\mathbf{f}$가 $\mathbf{x}$에서 <a href="../3082">미분가능</a>하다고 하자. 그러면 각각의 편도함수 $D_{j}f_{i}(\mathbf{x})$가 존재하고, 다음의 식이 성립한다.</p>
 <p>$$
-\mathbf{f}^{\prime}(\mathbf{x})\mathbf{e}_{j} =  \sum_{i=1}^{m} D_{j}f_{i}(\mathbf{x})\mathbf{u}_{i},\quad j \in \left\{ 1,\dots, m \right\}
+\mathbf{f}^{\prime}(\mathbf{x})\mathbf{e}_{j} =  \sum_{i=1}^{m} D_{j}f_{i}(\mathbf{x})\mathbf{u}_{i},\quad j \in \left\{ 1,\dots, n \right\}
 $$</p>
-<hr>
-<p>$\mathbf{f}$의 전도함수는 $\mathbf{f}$의 모든 편도함수를 구해서 선형결합시키는 것과 같다는</p>
+<h3 id="따름-정리">따름 정리</h3>
+<p>$\mathbf{f}^{\prime}(\mathbf{x})$는 다음과 같은 행렬로 표현되는 <a href="../3082">선형변환</a>이다.</p>
+<p>$$
+\mathbf{f}^{\prime}(\mathbf{x})
+= \begin{bmatrix}
+(D_{1}f_{1}) (\mathbf{x}) &amp; (D_{2}f_{1}) (\mathbf{x}) &amp; \cdots &amp; (D_{n}f_{1}) (\mathbf{x})
+\\ (D_{1}f_{2}) (\mathbf{x}) &amp; (D_{2}f_{2}) (\mathbf{x}) &amp; \cdots &amp; (D_{n}f_{2}) (\mathbf{x})
+\\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots
+\\ (D_{1}f_{m}) (\mathbf{x}) &amp; (D_{2}f_{m}) (\mathbf{x}) &amp; \cdots &amp; (D_{n}f_{m}) (\mathbf{x})
+\end{bmatrix}
+$$</p>
+<p>이를 $\mathbf{f}$의 <a href="../989">자코비안</a><sup>Jacobian matrix, 야코비 행렬</sup>이라고도 한다.</p>
 <h2 id="증명">증명</h2>
 <p>$j$를 고정하자. $\mathbf{f}$가 $\mathbf{x}$에서 미분가능하다고 가정했으므로 다음의 식이 성립한다.</p>
 <p>$$
 \mathbf{f}( \mathbf{x} + t \mathbf{e}_{j}) - \mathbf{f}(\mathbf{x}) = \mathbf{f}^{\prime}(\mathbf{x})(t\mathbf{e}_{j}) + \mathbf{r}(t\mathbf{e}_{j})
 $$</p>
-<p>이때 $\mathbf{r}(t\mathbf{e}_{j})$은 다음을 만족하는 <a href="../3083">나머지</a>이다.</p>
+<p>이때 $\mathbf{r}(t\mathbf{e}_{j})$은 다음을 만족하는 <a href="../3082">나머지</a>이다.</p>
 <p>$$
 \lim _{t \to 0} \dfrac{|\mathbf{r}(t\mathbf{e}_{j}) |}{t}=0
 $$</p>
@@ -345,6 +362,30 @@ $$</p>
 \mathbf{f}^{\prime}(\mathbf{x})\mathbf{e}_{j}  = \sum_{i=1}^{m} D_{j}f_{i}(\mathbf{x}) \mathbf{u}_{i}
 $$</p>
 <p style="text-align: right;">■</p>
+<h2 id="예시">예시</h2>
+<p>$f : \R^{3} \to \R, \gamma : \R \to \R^{3}$가 미분가능한 함수라고 하자. 또한</p>
+<p>$$
+\gamma (t) = \left( x(t), y(t), z(t) \right)
+$$</p>
+<p>그리고 $f$와 $\gamma$의 <a href="../3048">합성</a>을 $g = f \circ \gamma$라고 하자.</p>
+<p>$$
+g(t) = f \circ \gamma (t) = f \left( \gamma (t) \right)
+$$</p>
+<p>그러면 $g^{\prime}$은 <a href="../3082">연쇄법칙</a>, 편미분의 정의, 위에서 소개한 정리에 의해 다음과 같다.</p>
+<p>$$
+\begin{align*}
+\dfrac{d g}{d t}(t_{0}) = g^{\prime}(t_{0}) =&amp; f^{\prime}(\gamma(t_{0})) \gamma^{\prime}(t_{0})
+\\ =&amp; \begin{bmatrix} D_{1}f(\gamma (t_{0})) &amp; D_{2}f(\gamma (t_{0})) &amp; D_{3}f(\gamma (t_{0})) \end{bmatrix}
+\begin{bmatrix} D\gamma_{1} (t_{0}) \\ D\gamma_{2} (t_{0}) \\ D\gamma_{3} (t_{0}) \end{bmatrix}
+\\ =&amp; \begin{bmatrix} \dfrac{\partial f}{\partial x}(\gamma (t_{0})) &amp; \dfrac{\partial f}{\partial y}(\gamma (t_{0})) &amp; \dfrac{\partial f}{\partial z}(\gamma (t_{0})) \end{bmatrix}
+\begin{bmatrix} \dfrac{d x}{d t}(t_{0}) \\ \dfrac{d y}{d t}(t_{0}) \\ \dfrac{d z}{d t}(t_{0}) \end{bmatrix}
+\\ =&amp; \dfrac{\partial f}{\partial x}(\gamma (t_{0}))\dfrac{d x}{d t}(t_{0}) + \dfrac{\partial f}{\partial y}(\gamma (t_{0}))\dfrac{d y}{d t}(t_{0}) + \dfrac{\partial f}{\partial z}(\gamma (t_{0}))\dfrac{d z}{d t}(t_{0})
+\end{align*}
+$$</p>
+<p>따라서</p>
+<p>$$
+\implies \dfrac{d g}{d t} = \dfrac{\partial f}{\partial x}\dfrac{d x}{d t} + \dfrac{\partial f}{\partial y}\dfrac{d y}{d t} + \dfrac{\partial f}{\partial z}\dfrac{d z}{d t}
+$$</p>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -805,7 +846,7 @@ $$</p>
         <span style="color:rgb(255,051,051);">●</span> TeX (0++)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1894)</summary>
+    <summary>전체 포스트 (1897)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -871,7 +912,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (35)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (36)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -883,7 +924,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/" style="color: black">텐서해석 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
@@ -895,7 +936,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (22)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (59)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (60)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (77)</a>
         </li><li>

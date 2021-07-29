@@ -294,7 +294,7 @@
 
 <h2 id="데이터-탐색">데이터 탐색</h2>
 <pre><code>tail(attitude)
-</code></pre><p>R에서 <a href="../331">내장데이터 attitude를 불러와</a> <code>tail()</code> 함수를 통해 확인해보자.</p>
+</code></pre><p>R에서 <a href="../331">내장데이터 attitude를 불러와</a> <code>tail()</code> 함수를 통해 확인해보자.</p>
 <p><img src="20180825_144319.png#center" alt="20180825\_144319.png"></p>
 <p>우리는 <code>rating</code>을 종속변수로 두고 다른 독립변수들이 <code>rating</code>에 어떤 영향을 얼마나 미치는지에 관심이 있다. 데이터만 봐서는 <code>rating</code>과 다른 변수들 사이에 선형관계가 있는지 확인하기 어려우므로 그림을 그려 확인해보자.</p>
 <pre><code>win.graph()
@@ -303,16 +303,16 @@ plot(attitude)
 <p><img src="20181226_134511.png#center" alt="20181226\_134511.png"></p>
 <p>일단 그림으로 보기에 <code>rating</code>은 <code>complaints</code>과는 확실히 선형관계가 있어보인다. 그 외에는 <code>learning</code>, <code>raises</code>와 선형관계를 이루는 것 같기는 한데 <code>complaints</code>에 비해서는 흩어진 정도가 심한 것으로 나타난다. 단순회귀분석과 마찬가지로 <code>lm()</code> 함수에 선형모형을 입력하고 <code>summary()</code> 함수를 통해 결과를 볼 수 있다.</p>
 <h2 id="결과-해석">결과 해석</h2>
-<p>아래 코드에서 1~2열과 3열은 완전히 같은 표현으로, 선형모형을 입력할 때 찍힌 점(.) 은 &lsquo;그 외의 모든 변수&rsquo;를 의미한다. [ <strong>NOTE</strong>: 한편 여기서 <code>rating~.-privileges</code> 와 같이 입력해서 <code>privileges</code>만을 제외하는 식으로도 쓸 수 있다. ]</p>
+<p>아래 코드에서 1~2열과 3열은 완전히 같은 표현으로, 선형모형을 입력할 때 찍힌 점(.) 은 &lsquo;그 외의 모든 변수&rsquo;를 의미한다. [ <strong>NOTE</strong>: 한편 여기서 <code>rating~.-privileges</code> 와 같이 입력해서 <code>privileges</code>만을 제외하는 식으로도 쓸 수 있다. ]</p>
 <pre><code>out&lt;-lm(rating~complaints+privileges+learning
-   +raises+critical+advance,data=attitude)
+   +raises+critical+advance,data=attitude)
 out&lt;-lm(rating~.,data=attitude)
- 
+ 
 summary(out)
 </code></pre><p><img src="20180825_150719.png#center" alt="20180825\_150719.png"></p>
 <ul>
-<li>(1) 잔차<sup>Residuals</sup>: median을 가운데로 두고 다른 분위수가 대칭적으로 나타나는지 정도만 봐도 무방하다. 분위수만으로는 제대로 된 모형진단을 할 수 없기 때문에 보나 마나 큰 의미가 없다.</li>
-<li>(2) 추정치<sup>Estimate</sup>: 각 변수에 따른 회귀계수로, (Intercept)는 회귀직선의 $y$ 절편, 나머지는 변수마다의 단위변화율을 나타낸다. <a href="../652">단순회귀분석과 달리</a> 여러가지 독립변수가 있기 때문에 <a href="../537">유의수준</a>에 따라 결과가 달라진다. 유의수준 $5 %$ 에서는 learning의 회귀계수가 $0$ 이라는 귀무가설이 기각되지 못하므로
+<li>(1) 잔차<sup>Residuals</sup>: median을 가운데로 두고 다른 분위수가 대칭적으로 나타나는지 정도만 봐도 무방하다. 분위수만으로는 제대로 된 모형진단을 할 수 없기 때문에 보나 마나 큰 의미가 없다.</li>
+<li>(2) 추정치<sup>Estimate</sup>: 각 변수에 따른 회귀계수로, (Intercept)는 회귀직선의 $y$ 절편, 나머지는 변수마다의 단위변화율을 나타낸다. <a href="../652">단순회귀분석과 달리</a> 여러가지 독립변수가 있기 때문에 <a href="../537">유의수준</a>에 따라 결과가 달라진다. 유의수준 $5 %$ 에서는 learning의 회귀계수가 $0$ 이라는 귀무가설이 기각되지 못하므로
 $$
 \text{(rating)} = 0.61319 \cdot \text{(complaints)} + \varepsilon 
 $$
@@ -320,24 +320,24 @@ $$
 $$
 \text{(rating)} = 0.61319 \cdot \text{(complaints)} + 0.32033 \cdot \text{(learning)} + \varepsilon 
 $$</li>
-<li>(3) 표준오차<sup>Std. Error</sup>: 몰라도 된다. 추정치의 표준오차로써, 이를 사용해서 회귀계수의 신뢰구간을 구할 수 있다.</li>
-<li>(4) t value: 몰라도 된다. 추정치를 표준오차로 나눈 값으로써, 자유도 $n-p-1$ 의 t분포를 따르는 검정통계량이 된다. 이를 통해 회귀계수가 통계적으로 유의한지 <a href="../654">가설검정</a>을 할 수 있다.</li>
-<li>(5) <a href="../537">p값pr(&gt;|t|)</a>: 이게 작다는 것은 회귀계수가 유의하다는 뜻이고, 상관관계가 있다는 것을 보이고 싶다면 값이 작을수록 좋다. 이 값이 얼마나 작은지에 따라 바로 아래에 있는 Signif. codes대로 점이 찍히게 된다. 보통 유의수준은 5%로 잡으므로, 점 하나만 찍혀도 상관관계는 있다고 봐도 무방하다. 만약 이 값이 커서 회귀관계가 없는 것으로 밝혀진다면 회귀계수가 어떻게 구해지든 통계적으로는 의미가 없다. 이 p값은 t분포에서 나온 것이므로 pr(&gt;|t|) 라는 표현이 적절함을 알 수 있다.</li>
-<li>(6) <a href="../826">수정설명력</a><sup>Adjusted R-squared</sup>: 이 분석이 변수의 갯수에 비해 데이터를 얼마나 잘 설명하는가를 나타내는 척도로써, 높을수록 좋다. 회귀분석에서 변수의 갯수가 늘어난다는 것은 그만큼 쓸수있는 데이터가 늘어난다는 것이고, 그 때 설명력 $R^{2}$ 는 무조건 증가한다. 수정설명력이 <a href="../650">설명력</a>과 다른 점은 $\displaystyle R^2 = 1 - {{ \text{ SSE } } \over { \text{ SST} }}$ 와 달리 $\displaystyle R^{2}_{a} = 1 - {{ \text{ SSE } / (n - p - 1) } \over { \text{ SST} / (n - 1) }}$ 로 계산되어 변수의 갯수가 반영된다는 것이다. 실제로 쓰이는 응용수학에서 변수의 갯수를 늘린다는 것은 비용의 증대를 의미하고, 당연히 이를 줄이는 방법을 강구해야한다. 수정설명력 $R^{2}_{a}$ 는 변수의 갯수에 대해 페널티를 적용함으로써 설명력을 보정하고, 모형과 모형을 비교하는데 쓰이게 된다. 모형을 비교해 보았을 때 변수를 잔뜩 늘렸는데도 수정설명력이 별로 증가하지 않는다면 그만큼 쓸데없는 낭비를 한 것으로 본다.</li>
-<li>(7) F-Statistic : 이것의 p-value가 작다는 것은 유의한 회귀계수가 있다는 뜻이고, 상관관계가 있다는 것을 보이고 싶다면 값이 작을수록 좋다. 회귀계수의 t검정이 회귀계수 하나하나에 대한 검정이라면, F검정은 회귀분석 자체에 대한 검정이다. p-값을 논외로 놓고 F통계량만 이야기해보자면 모형을 비교하는데에 요긴하게 쓰이게 된다.</li>
+<li>(3) 표준오차<sup>Std. Error</sup>: 몰라도 된다. 추정치의 표준오차로써, 이를 사용해서 회귀계수의 신뢰구간을 구할 수 있다.</li>
+<li>(4) t value: 몰라도 된다. 추정치를 표준오차로 나눈 값으로써, 자유도 $n-p-1$ 의 t분포를 따르는 검정통계량이 된다. 이를 통해 회귀계수가 통계적으로 유의한지 <a href="../654">가설검정</a>을 할 수 있다.</li>
+<li>(5) <a href="../537">p값pr(&gt;|t|)</a>: 이게 작다는 것은 회귀계수가 유의하다는 뜻이고, 상관관계가 있다는 것을 보이고 싶다면 값이 작을수록 좋다. 이 값이 얼마나 작은지에 따라 바로 아래에 있는 Signif. codes대로 점이 찍히게 된다. 보통 유의수준은 5%로 잡으므로, 점 하나만 찍혀도 상관관계는 있다고 봐도 무방하다. 만약 이 값이 커서 회귀관계가 없는 것으로 밝혀진다면 회귀계수가 어떻게 구해지든 통계적으로는 의미가 없다. 이 p값은 t분포에서 나온 것이므로 pr(&gt;|t|) 라는 표현이 적절함을 알 수 있다.</li>
+<li>(6) <a href="../826">수정설명력</a><sup>Adjusted R-squared</sup>: 이 분석이 변수의 갯수에 비해 데이터를 얼마나 잘 설명하는가를 나타내는 척도로써, 높을수록 좋다. 회귀분석에서 변수의 갯수가 늘어난다는 것은 그만큼 쓸수있는 데이터가 늘어난다는 것이고, 그 때 설명력 $R^{2}$ 는 무조건 증가한다. 수정설명력이 <a href="../650">설명력</a>과 다른 점은 $\displaystyle R^2 = 1 - {{ \text{ SSE } } \over { \text{ SST} }}$ 와 달리 $\displaystyle R^{2}_{a} = 1 - {{ \text{ SSE } / (n - p - 1) } \over { \text{ SST} / (n - 1) }}$ 로 계산되어 변수의 갯수가 반영된다는 것이다. 실제로 쓰이는 응용수학에서 변수의 갯수를 늘린다는 것은 비용의 증대를 의미하고, 당연히 이를 줄이는 방법을 강구해야한다. 수정설명력 $R^{2}_{a}$ 는 변수의 갯수에 대해 페널티를 적용함으로써 설명력을 보정하고, 모형과 모형을 비교하는데 쓰이게 된다. 모형을 비교해 보았을 때 변수를 잔뜩 늘렸는데도 수정설명력이 별로 증가하지 않는다면 그만큼 쓸데없는 낭비를 한 것으로 본다.</li>
+<li>(7) F-Statistic : 이것의 p-value가 작다는 것은 유의한 회귀계수가 있다는 뜻이고, 상관관계가 있다는 것을 보이고 싶다면 값이 작을수록 좋다. 회귀계수의 t검정이 회귀계수 하나하나에 대한 검정이라면, F검정은 회귀분석 자체에 대한 검정이다. p-값을 논외로 놓고 F통계량만 이야기해보자면 모형을 비교하는데에 요긴하게 쓰이게 된다.</li>
 </ul>
 <p>주의할 것은 이렇게 결과를 볼 수 있게 되었다고 끝난 게 아니라는 점이다. 다중회귀분석이 단순회귀보다 훨씬 어려운 것은 독립변수가 늘어나면서 단순회귀분석에는 <a href="../696">없었던</a> <a href="../808">문제</a>가 생기기 때문이다. 수치적인 계산만으로는 <a href="../810">설명하기 어려운</a> <a href="../675">여러가지 확인 절차</a>가 남아있으며, 사실 이것을 잘 하는 게 통계를 잘 하는 것이다.</p>
 <h2 id="코드">코드</h2>
 <p>아래는 전체 예제코드다.</p>
 <pre><code>tail(attitude)
- 
+ 
 win.graph()
 plot(attitude)
- 
+ 
 out&lt;-lm(rating~complaints+privileges+learning
-   +raises+critical+advance,data=attitude)
+   +raises+critical+advance,data=attitude)
 out&lt;-lm(rating~.,data=attitude)
- 
+ 
 summary(out)
 </code></pre><h2 id="같이보기">같이보기</h2>
 <ul>
@@ -796,7 +796,7 @@ summary(out)
         <span style="color:rgb(255,051,051);">●</span> TeX (0++)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1894)</summary>
+    <summary>전체 포스트 (1897)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -862,7 +862,7 @@ summary(out)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (35)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (36)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -874,7 +874,7 @@ summary(out)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/" style="color: black">텐서해석 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
@@ -886,7 +886,7 @@ summary(out)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (22)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (59)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (60)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (77)</a>
         </li><li>

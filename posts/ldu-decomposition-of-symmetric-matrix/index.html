@@ -297,13 +297,13 @@
 <h2 id="개요">개요</h2>
 <p>$L^{T}$ 는 상삼각행렬이므로 $A = LU$ 에서의 $U$ 를 $U:= DL^{T}$ 으로 바꾼다고 보면 된다. 일반적인 <a href="../345">LU 분해</a>보다 조건이 까다로워진만큼 계산량은 많이 줄어든다.</p>
 <h2 id="정리">정리</h2>
-<p>가역대칭행렬 $A$ 에 대해 $A = LDL^{T}$ 를 만족하는 하삼각행렬 $L$ 과 대각행렬 $D$ 가 존재한다.</p>
+<p>가역대칭행렬 $A$ 에 대해 $A = LDL^{T}$ 를 만족하는 하삼각행렬 $L$ 과 대각행렬 $D$ 가 존재한다.</p>
 <h2 id="증명">증명</h2>
 <p>$A$ 는 <a href="../3003">가역행렬</a>이므로 $A = L U$ 를 만족하는 하삼각행렬 $L$ 과 상삼각행렬 $U$ 가 존재한다. 한편 $A = A^{T}$ 이므로</p>
 <p>$$
 L U = A = A^{T} = U^{T} L^{T}
 $$</p>
-<p>LU 분해에서 $L$ 은 대각선 성분이 모두 $1$ 인 하삼각행렬로 구해지므로 $\det L = 1$, 즉 역행렬 $L^{-1}$ 이 존재한다. $L^{-1}$ 는 하삼각행렬이고
+<p>LU 분해에서 $L$ 은 대각선 성분이 모두 $1$ 인 하삼각행렬로 구해지므로 $\det L = 1$, 즉 역행렬 $L^{-1}$ 이 존재한다. $L^{-1}$ 는 하삼각행렬이고
 $$
 L U = U^{T} L^{T}
 $$
@@ -327,42 +327,42 @@ $$</p>
 <p>이제 구체적으로 $L$ 과 $D$ 를 계산하기 위해 아래와 같이 정의해보자.</p>
 <p>$$
 L : = \begin{bmatrix}
- 1 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 
+1 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 
 \\  l_{21} &amp; 1 &amp; 0 &amp; \cdots &amp; 0 
-\\  l_{31} &amp; l_{32} &amp; 1 &amp; \cdots &amp; 0  
-\\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots 
-\\  l_{n1} &amp; l_{n2} &amp; l_{n3} &amp; \cdots &amp; 1 
+\\  l_{31} &amp; l_{32} &amp; 1 &amp; \cdots &amp; 0<br>
+\\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots 
+\\  l_{n1} &amp; l_{n2} &amp; l_{n3} &amp; \cdots &amp; 1 
 \end{bmatrix},\quad
-D : = \begin{bmatrix}
- d_{11} &amp; 0 &amp; 0 &amp; \cdots &amp; 0 
+D : = \begin{bmatrix}
+d_{11} &amp; 0 &amp; 0 &amp; \cdots &amp; 0 
 \\  0 &amp; d_{22} &amp; 0 &amp; \cdots &amp; 0 
-\\  0 &amp; 0 &amp; d_{33} &amp; \cdots &amp; 0  
-\\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots 
+\\  0 &amp; 0 &amp; d_{33} &amp; \cdots &amp; 0<br>
+\\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots 
 \\  0 &amp; 0 &amp; 0 &amp; \cdots &amp; d_{nn} 
-\end{bmatrix} 
+\end{bmatrix} 
 $$</p>
 <p>$A = (a_{ij}) = LDL^{T}$ 를 직접 계산해보자.</p>
 <p>$l_{ij} &gt; 0$ 이고 $l_{ii} = 1$ 이므로</p>
 <p>$$
 \begin{align*}
-a_{ij} =&amp; \sum_{\nu = 1}^{n} l_{i \nu} \sum_{\mu = 1}^{n} d_{\nu \mu} l_{\mu j}^{T}
-\\ =&amp; \sum_{\nu = 1}^{n} l_{i \nu}  \sum_{\mu = 1}^{n} \delta_{\nu \mu} d_{\nu \mu} l_{ j \mu} 
+a_{ij} =&amp; \sum_{\nu = 1}^{n} l_{i \nu} \sum_{\mu = 1}^{n} d_{\nu \mu} l_{\mu j}^{T}
+\\ =&amp; \sum_{\nu = 1}^{n} l_{i \nu}  \sum_{\mu = 1}^{n} \delta_{\nu \mu} d_{\nu \mu} l_{ j \mu} 
 \\ =&amp; \sum_{\nu = 1}^{n} l_{i \nu} d_{\nu \nu} l_{ j \nu} 
-\\ =&amp; \sum_{\nu = 1}^{ \min (i,j) } l_{i \nu} d_{\nu \nu} l_{ j \nu}
+\\ =&amp; \sum_{\nu = 1}^{ \min (i,j) } l_{i \nu} d_{\nu \nu} l_{ j \nu}
 \end{align*}
 $$</p>
 <p>우선 $j \le i$ 인 경우로 가정해보자.</p>
 <p>$$
-a_{ij} = \sum_{\nu = 1}^{j} l_{i \nu} d_{\nu \nu} l_{j \nu} = \sum_{\nu = 1}^{j-1} l_{i \nu} d_{\nu \nu} l_{j \nu} + l_{ij} d_{jj} l_{jj} = \sum_{\nu = 1}^{j-1} l_{i \nu} d_{\nu \nu} l_{j \nu} + l_{ij} d_{jj}
+a_{ij} = \sum_{\nu = 1}^{j} l_{i \nu} d_{\nu \nu} l_{j \nu} = \sum_{\nu = 1}^{j-1} l_{i \nu} d_{\nu \nu} l_{j \nu} + l_{ij} d_{jj} l_{jj} = \sum_{\nu = 1}^{j-1} l_{i \nu} d_{\nu \nu} l_{j \nu} + l_{ij} d_{jj}
 $$</p>
 <p>여기서 $i = j = k$ 인 경우</p>
 <p>$$
-a_{kk} = \sum_{\nu = 1}^{k-1} l_{k \nu} d_{\nu \nu} l_{k \nu} + d_{kk} 
+a_{kk} = \sum_{\nu = 1}^{k-1} l_{k \nu} d_{\nu \nu} l_{k \nu} + d_{kk} 
 d_{kk}
 $$</p>
 <p>에 대해 정리하면</p>
 <p>$$
-d_{kk} = a_{kk} - \sum_{\nu = 1}^{k-1} d_{\nu \nu} l_{k \nu}^2
+d_{kk} = a_{kk} - \sum_{\nu = 1}^{k-1} d_{\nu \nu} l_{k \nu}^2
 $$</p>
 <p>반대로 $j = k$ 이고 $i = k+1, \cdots , n$ 이라고 하면</p>
 <p>$$
@@ -370,32 +370,32 @@ a_{ik} = \sum_{\nu = 1}^{k-1} l_{i \nu} d_{\nu \nu} l_{k \nu} + l_{ik} d_{kk}
 $$</p>
 <p>$l_{ik}$ 에 대해 정리하면</p>
 <p>$$
-l_{ik} = {{1} \over {d_{kk}}} \left\{ a_{ik} - \sum_{\nu = 1}^{k-1} l_{i \nu} d_{\nu \nu} l_{k \nu} \right\}
+l_{ik} = {{1} \over {d_{kk}}} \left\{ a_{ik} - \sum_{\nu = 1}^{k-1} l_{i \nu} d_{\nu \nu} l_{k \nu} \right\}
 $$</p>
 <h2 id="알고리즘">알고리즘</h2>
 <p>$(a_{ij}) \in \mathbb{R}^{n \times n}$ 가 가역대칭행렬이라고 하자.</p>
 <p>**Step 1. $k = 1$</p>
-<p>$d_{11} = a_{11}$ 을 대입하고 $\displaystyle l_{i1} = {{1} \over {d_{11}}} a_{i1}$ 을 계산한다.</p>
+<p>$d_{11} = a_{11}$ 을 대입하고 $\displaystyle l_{i1} = {{1} \over {d_{11}}} a_{i1}$ 을 계산한다.</p>
 <hr>
 <p>**Step 2. $k = 2, 3, \cdots , n-1$</p>
 <ul>
 <li>
 <p><strong>Step 2-1.</strong> 다음을 계산한다.
 $$
-d_{kk} = a_{kk} - \sum_{\nu = 1}^{k-1} d_{\nu \nu} l_{k \nu}^2
+d_{kk} = a_{kk} - \sum_{\nu = 1}^{k-1} d_{\nu \nu} l_{k \nu}^2
 $$</p>
 </li>
 <li>
 <p>**Step 2-2. $i = k+1 , k+2 , \cdots , n-1$ 에 대해 다음을 계산한다.
 $$
-l_{ik} = {{1} \over {d_{kk}}} \left\{ a_{ik} - \sum_{\nu = 1}^{k-1} l_{i \nu} d_{\nu \nu} l_{k \nu} \right\}
+l_{ik} = {{1} \over {d_{kk}}} \left\{ a_{ik} - \sum_{\nu = 1}^{k-1} l_{i \nu} d_{\nu \nu} l_{k \nu} \right\}
 $$</p>
 </li>
 </ul>
 <hr>
 <p>**Step 3. $k = n$ 에 대해 다음을 계산한다.
 $$
-d_{nn} = a_{nn} - \sum_{\nu = 1}^{n-1} d_{\nu \nu} l_{n \nu}^2
+d_{nn} = a_{nn} - \sum_{\nu = 1}^{n-1} d_{\nu \nu} l_{n \nu}^2
 $$</p>
 <hr>
 <ul>
@@ -404,33 +404,33 @@ $$</p>
 <h2 id="코드">코드</h2>
 <p>이제 LU 분해에서 했던 것과 같은 예제를 가져와서 LDU 분해를 실제로 해보자.</p>
 <p><img src="5A1AC6BB2.png#center" alt="5A1AC6BB2.png"></p>
-<p>아래의 코드는 위의 알고리즘을 실제로 R 에서 구현한 것이다.</p>
-<pre><code>B &lt;- matrix(c(2,1,0,1,2,1,0,1,2), ncol= 3); B
- 
+<p>아래의 코드는 위의 알고리즘을 실제로 R 에서 구현한 것이다.</p>
+<pre><code>B &lt;- matrix(c(2,1,0,1,2,1,0,1,2), ncol= 3); B
+ 
 LDU&lt;-function(A)
 {
-  n=length(A[,1])
-  L&lt;-diag(1,n)
-  D&lt;-diag(0,n)
-  
-  k=1
-  D[1,1] = A[1,1]
-  L[,1] = A[,1]/D[1,1]
- 
-  for(k in 2:(n-1))
-  {
-    D[k,k] = A[k,k] - sum(diag(D)[1:(k-1)]*L[k,1:(k-1)]^2)
-    for(i in (k+1):n)
-    {
-      L[i,k] = ( A[i,k] - sum(L[i,1:(k-1)]*diag(D)[1:(k-1)]*L[k,1:(k-1)]) )/D[k,k]
-    }
-  }
-  
-  D[n,n] = A[n,n] - sum(diag(D)[1:(n-1)]*L[n,1:(n-1)]^2)
- 
-  return(list(L=L, D=D))
+  n=length(A[,1])
+  L&lt;-diag(1,n)
+  D&lt;-diag(0,n)
+  
+  k=1
+  D[1,1] = A[1,1]
+  L[,1] = A[,1]/D[1,1]
+ 
+  for(k in 2:(n-1))
+  {
+    D[k,k] = A[k,k] - sum(diag(D)[1:(k-1)]*L[k,1:(k-1)]^2)
+    for(i in (k+1):n)
+    {
+      L[i,k] = ( A[i,k] - sum(L[i,1:(k-1)]*diag(D)[1:(k-1)]*L[k,1:(k-1)]) )/D[k,k]
+    }
+  }
+  
+  D[n,n] = A[n,n] - sum(diag(D)[1:(n-1)]*L[n,1:(n-1)]^2)
+ 
+  return(list(L=L, D=D))
 }
- 
+ 
 LDU(B)
 LDU(B)$L%*%LDU(B)$D%*%t(LDU(B)$L)
 </code></pre><p>실행 결과는 다음과 같다.
@@ -889,7 +889,7 @@ LDU(B)$L%*%LDU(B)$D%*%t(LDU(B)$L)
         <span style="color:rgb(255,051,051);">●</span> TeX (0++)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1894)</summary>
+    <summary>전체 포스트 (1897)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -955,7 +955,7 @@ LDU(B)$L%*%LDU(B)$D%*%t(LDU(B)$L)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (35)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (36)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -967,7 +967,7 @@ LDU(B)$L%*%LDU(B)$D%*%t(LDU(B)$L)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/" style="color: black">텐서해석 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
@@ -979,7 +979,7 @@ LDU(B)$L%*%LDU(B)$D%*%t(LDU(B)$L)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (22)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (59)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (60)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (77)</a>
         </li><li>

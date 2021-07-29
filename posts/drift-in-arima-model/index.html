@@ -296,60 +296,60 @@
 </aside>
 
 <h2 id="설명">설명</h2>
-<p>시계열 분석을 하다보면 종종 다음과 같이 <strong>드리프트</strong><sup>Drift</sup>라는 계수를 보게 된다.</p>
+<p>시계열 분석을 하다보면 종종 다음과 같이 <strong>드리프트</strong><sup>Drift</sup>라는 계수를 보게 된다.</p>
 <p><img src="20190716_155512.png#center" alt="20190716\_155512.png"></p>
-<p>물론 위의 경우 표준오차에 비해서 계수의 크기가 너무 작기 때문에 무시해도 상관 없다. 그러나 실제로 유의한 계수인 동시에 수식으로도 써야할 일이 있다면 드리프트가 무엇인지 알아야한다. 아쉽게도 국내에는 드리프트가 도대체 무엇인지에 대한 좋은 설명이 없으며, 수식을 동원하지 않고서는 &lsquo;상수항 비슷한 것&rsquo;이라는 설명밖에 할 수 없다.</p>
-<p>수식을 읽을 생각이 없고 분석에 마땅히 중요한 것도 아니며 그래서 궁금하지도 않다면 그냥 상수항, 평균정도로 알고 넘어가도 상관 없다. 아래에 등장할 두 번째 분석만 보면 된다. 물론 전공자라면 적어도 한 번은 수식 전개를 따라가보는 것을 강력하게 권장한다.</p>
+<p>물론 위의 경우 표준오차에 비해서 계수의 크기가 너무 작기 때문에 무시해도 상관 없다. 그러나 실제로 유의한 계수인 동시에 수식으로도 써야할 일이 있다면 드리프트가 무엇인지 알아야한다. 아쉽게도 국내에는 드리프트가 도대체 무엇인지에 대한 좋은 설명이 없으며, 수식을 동원하지 않고서는 &lsquo;상수항 비슷한 것&rsquo;이라는 설명밖에 할 수 없다.</p>
+<p>수식을 읽을 생각이 없고 분석에 마땅히 중요한 것도 아니며 그래서 궁금하지도 않다면 그냥 상수항, 평균정도로 알고 넘어가도 상관 없다. 아래에 등장할 두 번째 분석만 보면 된다. 물론 전공자라면 적어도 한 번은 수식 전개를 따라가보는 것을 강력하게 권장한다.</p>
 <h3 id="수식적인-설명">수식적인 설명</h3>
 <p><a href="../941">아리마 모형</a>
 $$
 \nabla^{d} Y_{t} := \sum_{i = 1}^{p} \phi_{i} \nabla^{d} Y_{t-i} + e_{t} - \sum_{i = 1}^{q} \theta_{i} e_{t-i}
 $$
-에서 시작해보자. 아니, <a href="../916">차분</a>이 없어서 그보다 단순한 <a href="../914">아르마 모형</a>에서 시작해보자.
+에서 시작해보자. 아니, <a href="../916">차분</a>이 없어서 그보다 단순한 <a href="../914">아르마 모형</a>에서 시작해보자.
 $$
 \begin{align}
-\displaystyle Y_{t} - \sum_{i = 1}^{p} \phi_{i} Y_{t-i} = e_{t} - \sum_{i = 1}^{q} \theta_{i} e_{t-i} 
-\end{align} 
+\displaystyle Y_{t} - \sum_{i = 1}^{p} \phi_{i} Y_{t-i} = e_{t} - \sum_{i = 1}^{q} \theta_{i} e_{t-i} 
+\end{align} 
 $$
-간략하게 나타내기 위해 <a href="../916">백쉬프트 $B$</a> 를 쓴 다음의 표현을 사용해보자.
+간략하게 나타내기 위해 <a href="../916">백쉬프트 $B$</a> 를 쓴 다음의 표현을 사용해보자.
 $$
-\phi(B) := \left( 1 - \phi_{1} B \cdots - \phi_{p} B^{p} \right)
+\phi(B) := \left( 1 - \phi_{1} B \cdots - \phi_{p} B^{p} \right)
 $$</p>
 <p>$$
-\theta(B) := \left( 1 - \theta_{1} B \cdots - \phi_{q} B^{q} \right)
+\theta(B) := \left( 1 - \theta_{1} B \cdots - \phi_{q} B^{q} \right)
 $$
 이 표현을 $(1)$ 에 적용시키면
 $$
 \phi(B) Y_{t} = \theta(B) e_{t}
 $$
-이것이 바로 <a href="../914">아르마 모형</a>의 또다른 표현인데, 여기서 상수항 $c$ 를 다음과 같이 추가해보자.
+이것이 바로 <a href="../914">아르마 모형</a>의 또다른 표현인데, 여기서 상수항 $c$ 를 다음과 같이 추가해보자.
 $$
 \phi(B) \left( Y_{t} - c \right) = \theta(B) e_{t}
 $$
-식 $(1)$ 의 $c$ 가 다름아닌 <strong>드리프트</strong> 다. 수식을 보면 드리프트를 왜 &lsquo;상수항&rsquo; 혹은 &lsquo;평균&rsquo;으로 설명하는지 납득이 갈 것이다. 물론 이것은 <a href="../914">아르마 모형</a>이고, <a href="../916">차분</a>이 포함된 <a href="../941">아리마 모형</a>에 대해서는 다른 모습으로 나타난다. 편의를 위해 <a href="../916">차분</a>은 $d=1$ 번만 취하는 $ARIMA(p,1,q)$ 를 생각해보자.
+식 $(1)$ 의 $c$ 가 다름아닌 <strong>드리프트</strong> 다. 수식을 보면 드리프트를 왜 &lsquo;상수항&rsquo; 혹은 &lsquo;평균&rsquo;으로 설명하는지 납득이 갈 것이다. 물론 이것은 <a href="../914">아르마 모형</a>이고, <a href="../916">차분</a>이 포함된 <a href="../941">아리마 모형</a>에 대해서는 다른 모습으로 나타난다. 편의를 위해 <a href="../916">차분</a>은 $d=1$ 번만 취하는 $ARIMA(p,1,q)$ 를 생각해보자.
 $$
 \begin{align}
-\phi(B) \nabla \left( Y_{t} - a - b t \right) = \theta(B) e_{t} 
+\phi(B) \nabla \left( Y_{t} - a - b t \right) = \theta(B) e_{t} 
 \end{align}
 $$
-식 $(2)$ 에서 $a$ 를 <strong>절편</strong><sup>Intercept</sup> , $b$ 를 <strong>드리프트</strong><sup>Drift</sup>라 부른다. <a href="../916">차분</a>을 풀어헤쳐보면
+식 $(2)$ 에서 $a$ 를 <strong>절편</strong><sup>Intercept</sup> , $b$ 를 <strong>드리프트</strong><sup>Drift</sup>라 부른다. <a href="../916">차분</a>을 풀어헤쳐보면
 $$
 \begin{align*}
-&amp;&amp; \phi(B) (1 - B) \left( Y_{t} - a - b t \right) = \theta(B) e_{t}
-\\ \iff&amp; \phi(B) \left[ \left( Y_{t} - a - b t \right) - \left( Y_{t-1} - a - b (t-1) \right) \right] = \theta(B) e_{t}
+&amp;&amp; \phi(B) (1 - B) \left( Y_{t} - a - b t \right) = \theta(B) e_{t}
+\\ \iff&amp; \phi(B) \left[ \left( Y_{t} - a - b t \right) - \left( Y_{t-1} - a - b (t-1) \right) \right] = \theta(B) e_{t}
 \\ \iff&amp; \phi(B) \left[ Y_{t} - Y_{t-1} - a + a - bt - b(t-1) \right] = \theta(B) e_{t}
 \\ \iff&amp; \phi(B) \left( \nabla Y_{t} - b \right) = \theta(B) e_{t}
 \end{align*}
 $$</p>
-<p>결국 $b$ 는 $(1)$ 에서의 $c$ 와 같은 역할이 되므로 드리프트라고 부르는 것이 타당함을 알 수 있다. 물론 차분이 두 번 이상 필요한 분석은 거의 없지만, 이와 같은 방법으로 자연수 $d$ 에 대해서도 일반화 할 수 있다. [ <strong>NOTE</strong>: 수학적인 감각에 익숙한 사람이라면 $(2)$ 에서 상수항 $a$ 에 차분을 취하면 없어지는 현상에서 미분을 떠올릴 수 있을 것이다. ]</p>
+<p>결국 $b$ 는 $(1)$ 에서의 $c$ 와 같은 역할이 되므로 드리프트라고 부르는 것이 타당함을 알 수 있다. 물론 차분이 두 번 이상 필요한 분석은 거의 없지만, 이와 같은 방법으로 자연수 $d$ 에 대해서도 일반화 할 수 있다. [ <strong>NOTE</strong>: 수학적인 감각에 익숙한 사람이라면 $(2)$ 에서 상수항 $a$ 에 차분을 취하면 없어지는 현상에서 미분을 떠올릴 수 있을 것이다. ]</p>
 <h2 id="실습">실습</h2>
 <p><img src="20190716_155837.png#center" alt="20190716\_155837.png">
-다시 분석으로 돌아와보자. 보다시피, 아니 보나마나 그냥 데이터의 $ARIMA(1,1,2)$ 와 <a href="../916">차분</a>을 취한 데이터의 $ARIMA(1,0,2)$ 은 당연히 똑같을 수밖에 없다. 단 한가지 달라진 게 있다면 $ARIMA(1,1,2)$ 에서 <code>drift</code>라고 적혀있던 계수의 이름이 $ARIMA(1,0,2)$ 에서는 <code>mean</code>으로 바뀐 것이다. 수식을 이해했으면 더 좋겠지만, 이해하지 못했더라도 드리프트가 &lsquo;상수항, 평균 비슷한 것&rsquo;이라는 정도는 짐작할 수 있을 것이다.</p>
+다시 분석으로 돌아와보자. 보다시피, 아니 보나마나 그냥 데이터의 $ARIMA(1,1,2)$ 와 <a href="../916">차분</a>을 취한 데이터의 $ARIMA(1,0,2)$ 은 당연히 똑같을 수밖에 없다. 단 한가지 달라진 게 있다면 $ARIMA(1,1,2)$ 에서 <code>drift</code>라고 적혀있던 계수의 이름이 $ARIMA(1,0,2)$ 에서는 <code>mean</code>으로 바뀐 것이다. 수식을 이해했으면 더 좋겠지만, 이해하지 못했더라도 드리프트가 &lsquo;상수항, 평균 비슷한 것&rsquo;이라는 정도는 짐작할 수 있을 것이다.</p>
 <h2 id="코드">코드</h2>
 <pre><code>library(TSA)
 data(&quot;oil.price&quot;)
-out&lt;-auto.arima(oil.price); summary(out)
-out&lt;-auto.arima(diff(oil.price)); summary(out)
+out&lt;-auto.arima(oil.price); summary(out)
+out&lt;-auto.arima(diff(oil.price)); summary(out)
 </code></pre>
 
 
@@ -802,7 +802,7 @@ out&lt;-auto.arima(diff(oil.price)); summary(out)
         <span style="color:rgb(255,051,051);">●</span> TeX (0++)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1894)</summary>
+    <summary>전체 포스트 (1897)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -868,7 +868,7 @@ out&lt;-auto.arima(diff(oil.price)); summary(out)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (35)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (36)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -880,7 +880,7 @@ out&lt;-auto.arima(diff(oil.price)); summary(out)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/" style="color: black">텐서해석 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
@@ -892,7 +892,7 @@ out&lt;-auto.arima(diff(oil.price)); summary(out)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (22)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (59)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (60)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (77)</a>
         </li><li>

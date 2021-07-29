@@ -292,7 +292,7 @@
 </aside>
 
 <h2 id="알고리즘">알고리즘</h2>
-<p>$k \in \mathbb{N}$ 에 대해 $n=2^{k}$ 이라고 하자. $A, B \in \mathbb{R}^{n \times n}$ 에 대해 조던 블록 행렬 표현을 사용해 다음과 같은 8개의 ${{n} \over {2}} \times {{n} \over {2}}$ 행렬 $A_{i}$, $B_{i}$ 들을 생각해보자.
+<p>$k \in \mathbb{N}$ 에 대해 $n=2^{k}$ 이라고 하자. $A, B \in \mathbb{R}^{n \times n}$ 에 대해 조던 블록 행렬 표현을 사용해 다음과 같은 8개의 ${{n} \over {2}} \times {{n} \over {2}}$ 행렬 $A_{i}$, $B_{i}$ 들을 생각해보자.
 $$
 AB= \begin{bmatrix}
 A_{1} &amp; A_{2} 
@@ -305,11 +305,11 @@ C_{1} &amp; C_{2}
 \\  C_{3} &amp; C_{4} 
 \end{bmatrix} = C
 $$
-$C = AB$ 를 구하기 위해 다음을 계산한다.
+$C = AB$ 를 구하기 위해 다음을 계산한다.
 $$
 P_{1} = A_{1} ( B_{2} - B_{4} ) 
 \\  P_{2} = ( A_{1} + A_{2} ) B_{4} 
-\\  P_{3} = ( A_{3} + A_{4} ) B_{1} 
+\\  P_{3} = ( A_{3} + A_{4} ) B_{1} 
 \\  P_{4} = A_{4} ( B_{3} - B_{1} ) 
 \\  P_{5} = (A_{1} + A_{4}) ( B_{1} + B_{4} ) 
 \\  P_{6} = (A_{2} - A_{4}) ( B_{3} + B_{4} ) 
@@ -327,26 +327,26 @@ $A_{i} B_{j}$ 를 계산할 때도 같은 방법을 반복하면 그 <a href="..
 <li>물론 $n \ne 2^{k}$ 라고 해서 쓸 수 없는 것은 아니고, 사이즈를 조정해서 그대로 적용시켜도 된다.</li>
 </ul>
 <h2 id="설명">설명</h2>
-<p>상식적이고 곧바로 떠올릴 수 있는 행렬의 곱셈은
+<p>상식적이고 곧바로 떠올릴 수 있는 행렬의 곱셈은
 $$
 C_{1} = A_{1}B_{1} + A_{2} B_{3} 
 \\  C_{2} = A_{1}B_{2} + A_{2} B_{4} 
 \\  C_{3} = A_{3}B_{1} + A_{4} B_{3} 
 \\  C_{4} = A_{3}B_{2} + A_{4} B_{4}
 $$
-이 계산을 계속 반복하면 되는데, 여기에 걸리는 시간이 <a href="../1283">$\Theta ( n^3 )$ 라는 것</a>은 의심의 여지가 없었다.</p>
+이 계산을 계속 반복하면 되는데, 여기에 걸리는 시간이 <a href="../1283">$\Theta ( n^3 )$ 라는 것</a>은 의심의 여지가 없었다.</p>
 <p>슈트라센이 태어나기 전까진 말이다.</p>
 <p>이 알고리즘은 아주 아주 획기적인데, 본디 한 개의 $C_{i}$ 을 계산하는데는 반드시 두 번의 행렬 곱셈이 필요하기 때문이다. 합쳐서 한번 계산할 때마다 8번을 계산해야하는데, 슈트라센은 이것을 7번으로 줄였다. 저 방법 외에 달리 방법이 있을까 고민한 것부터가 비범한 센스고, 정말 찾아낸 것은 불가사의하다고까지 말할 수 있을 정도다. 이 알고리즘의 개발로 인해서 행렬 계산에 쓰였을 자원들을 조금이나마, 아니 엄청나게 많이 아낄 수 있다.</p>
 <h2 id="증명">증명</h2>
-<p><strong>Part 1.</strong>  계산가능성</p>
+<p><strong>Part 1.</strong>  계산가능성</p>
 <p>그냥 직접 계산해보는 수밖에 없다.</p>
 <p>**Part 1-1. $C_{1} = A_{1}B_{1} + A_{2} B_{3}$</p>
 <p>$$
 \begin{align*}
 C_{1} =&amp; -P_{2} + P_{4} + P_{5} + P_{6} 
-\\ =&amp; ( {\color{red}- A_{1} B_{4}} - A_{2} B_{4} ) + P_{4} + ( A_{1}B_{1} + {\color{red} A_{1}B_{4} } + A_{4} B_{1} + A_{4}B_{4} ) + P_{6} 
-\\ =&amp; - A_{2} B_{4} + (A_{4} B_{3} {\color{red}- A_{4} B_{1} }) + A_{1}B_{1} + {\color{red} A_{4} B_{1} } + A_{4}B_{4} + P_{6} 
-\\ =&amp; {\color{red} - A_{2} B_{4} } + \color{blue}{A_{4} B_{3} } + A_{1}B_{1} + \color{green}{A_{4}B_{4}} + ( A_{2} B_{3} + {\color{red} A_{2} A_{4} } \color{blue}{ - A_{4} B_{3} }- \color{green}{A_{4} B_{4}}) 
+\\ =&amp; ( {\color{red}- A_{1} B_{4}} - A_{2} B_{4} ) + P_{4} + ( A_{1}B_{1} + {\color{red} A_{1}B_{4} } + A_{4} B_{1} + A_{4}B_{4} ) + P_{6} 
+\\ =&amp; - A_{2} B_{4} + (A_{4} B_{3} {\color{red}- A_{4} B_{1} }) + A_{1}B_{1} + {\color{red} A_{4} B_{1} } + A_{4}B_{4} + P_{6} 
+\\ =&amp; {\color{red} - A_{2} B_{4} } + \color{blue}{A_{4} B_{3} } + A_{1}B_{1} + \color{green}{A_{4}B_{4}} + ( A_{2} B_{3} + {\color{red} A_{2} A_{4} } \color{blue}{ - A_{4} B_{3} }- \color{green}{A_{4} B_{4}}) 
 \\ =&amp; A_{1}B_{1} + A_{2} B_{3} 
 \end{align*}
 $$</p>
@@ -370,27 +370,27 @@ $$</p>
 <p>$$
 \begin{align*}
 C_{4} =&amp; P_{1} - P_{3} + P_{5} + P_{7} 
-\\ =&amp; (A_{1}B_{2}  \color{red}{ - A_{1} B_{4}} ) - P_{3} + ( A_{1}B_{1} +  \color{red}{A_{1}B_{4} }+ A_{4}B_{1} + A_{4}B_{4}) + P_{7} 
-\\ =&amp; A_{1}B_{2} + (- A_{3}B_{1} - {\color{red}A_{4}B_{1}}) + A_{1}B_{1} + {\color{red}A_{4}B_{1}} + A_{4}B_{4} + P_{7} 
-\\ =&amp; {\color{red} A_{1}B_{2}} - \color{blue}{A_{3}B_{1}} + \color{green}{A_{1}B_{1}}+ A_{4}B_{4} + ( \color{blue}{A_{3}B_{1}} + A_{3}B_{2} - \color{green}{A_{1}B_{1}} {\color{red}- A_{1}B_{2}}) 
+\\ =&amp; (A_{1}B_{2}  \color{red}{ - A_{1} B_{4}} ) - P_{3} + ( A_{1}B_{1} +  \color{red}{A_{1}B_{4} }+ A_{4}B_{1} + A_{4}B_{4}) + P_{7} 
+\\ =&amp; A_{1}B_{2} + (- A_{3}B_{1} - {\color{red}A_{4}B_{1}}) + A_{1}B_{1} + {\color{red}A_{4}B_{1}} + A_{4}B_{4} + P_{7} 
+\\ =&amp; {\color{red} A_{1}B_{2}} - \color{blue}{A_{3}B_{1}} + \color{green}{A_{1}B_{1}}+ A_{4}B_{4} + ( \color{blue}{A_{3}B_{1}} + A_{3}B_{2} - \color{green}{A_{1}B_{1}} {\color{red}- A_{1}B_{2}}) 
 \\ =&amp; A_{3}B_{2} + A_{4} B_{4} 
 \end{align*}
 $$</p>
 <hr>
 <p><strong>Part 2.</strong>  시간복잡도</p>
-<p>본질적으로 원래의 계산법이 <a href="../1283">$\Theta ( n^3 )$ 이라는 것을 증명</a>한 방법과 같다. 한번 계산하는데 걸리는 시간이 $T(n)$ 이고 반복 외의 수행시간을 $c$ 라고 하면 $\displaystyle T(n) = 7 T \left( {{n} \over {2}} \right) + c$ 이므로</p>
+<p>본질적으로 원래의 계산법이 <a href="../1283">$\Theta ( n^3 )$ 이라는 것을 증명</a>한 방법과 같다. 한번 계산하는데 걸리는 시간이 $T(n)$ 이고 반복 외의 수행시간을 $c$ 라고 하면 $\displaystyle T(n) = 7 T \left( {{n} \over {2}} \right) + c$ 이므로</p>
 <p>$$
 \begin{align*}
-T(n) =&amp; 7 T \left( {{n} \over {2}} \right) + c 
-\\ =&amp; 7 \left[ 7 T \left( {{n} \over {4}} \right) + c \right] + c 
-\\ =&amp; 7 \left[ 49 T \left( {{n} \over {8}} \right) + 7 c + c \right] + c 
-\\ =&amp; 7^3 T \left( {{n} \over {8}} \right) + (1+7+7^2)c 
-\\ =&amp; 7^3 T \left( {{n} \over {8}} \right) + {{7^3 - 1} \over {7 - 1}}c 
+T(n) =&amp; 7 T \left( {{n} \over {2}} \right) + c 
+\\ =&amp; 7 \left[ 7 T \left( {{n} \over {4}} \right) + c \right] + c 
+\\ =&amp; 7 \left[ 49 T \left( {{n} \over {8}} \right) + 7 c + c \right] + c 
+\\ =&amp; 7^3 T \left( {{n} \over {8}} \right) + (1+7+7^2)c 
+\\ =&amp; 7^3 T \left( {{n} \over {8}} \right) + {{7^3 - 1} \over {7 - 1}}c 
 \\ &amp; \vdots &amp; 
 \\ \approx&amp; 7^{\log_{2} n} ( T(1) + c ) 
 \\ =&amp; n^{\log_{2} 7} ( T(1) + c ) 
 \\ =&amp; n^{2.807} ( T(1) + c ) 
-\\ =&amp; \Theta ( n^2.807 ) 
+\\ =&amp; \Theta ( n^2.807 ) 
 \end{align*}
 $$</p>
 <p style="text-align: right;">■</p>
@@ -846,7 +846,7 @@ $$</p>
         <span style="color:rgb(255,051,051);">●</span> TeX (0++)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1894)</summary>
+    <summary>전체 포스트 (1897)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -912,7 +912,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (35)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (36)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -924,7 +924,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/" style="color: black">텐서해석 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
@@ -936,7 +936,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (22)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (59)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (60)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (77)</a>
         </li><li>

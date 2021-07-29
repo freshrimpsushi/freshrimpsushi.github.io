@@ -301,35 +301,35 @@
 <p>데이터 $Y = \begin{bmatrix}
 y_{1} 
 \\ \vdots 
-\\  y_{n} 
-\end{bmatrix}$ 에 대한 추정치가 $\widehat{Y} = \begin{bmatrix}
+\\  y_{n} 
+\end{bmatrix}$ 에 대한 추정치가 $\widehat{Y} = \begin{bmatrix}
 \widehat{ y_{1} } 
 \\ \vdots 
-\\ \widehat{y_{n}} 
+\\ \widehat{y_{n}} 
 \end{bmatrix}$ 와 같이 주어져 있을 때 데이터와 추정치의 괴리도를 나태는 <a href="../970">스칼라 함수</a> $L : \mathbb{R}^{n} \to [ 0 , \infty )$ 를 <strong>손실 함수</strong>라 한다.</p>
 <h2 id="다른-이름">다른 이름</h2>
 <p>손실 함수는 학습을 통해 얻은 데이터의 추정치가 실제 데이터와 얼마나 차이나는지 평가하는 지표로 쓰인다. 이 값이 크면 클수록 많이 틀렸다는 의미고, 이 값이 $0$ 이라는 것은 &lsquo;무손실&rsquo; 즉 완벽하게 추정할 수 있다는 의미가 된다. 이는 <a href="../381">수학에서 말하는 메트릭</a>과 크게 다를 바가 없다.</p>
-<p>원래 경제학에서 먼저 쓰인 단어기 때문에 $L$ 은 때때로 **<a href="../1012">비용 함수Cost Function</a>**라 불리기도 한다.</p>
+<p>원래 경제학에서 먼저 쓰인 단어기 때문에 $L$ 은 때때로 **<a href="../1012">비용 함수Cost Function</a>**라 불리기도 한다.</p>
 <h2 id="종류">종류</h2>
 <p>다음 두가지는 대표적인 손실 함수로, 용도에 알맞게 사용할 정도로만 알면 충분하다.</p>
 <h3 id="msemean-of-squared-error">MSE(Mean of Squared Error)</h3>
 <p>$$
-L \left( \widehat{Y} \right) := {{1} \over {n}} \sum_{i=1}^{n} ( y_{i} - \widehat{ y_{i} } )^2 
+L \left( \widehat{Y} \right) := {{1} \over {n}} \sum_{i=1}^{n} ( y_{i} - \widehat{ y_{i} } )^2 
 $$
 <a href="../650">MSE</a>는 유서 깊은 손실 함수로써, $y_{i} \in \mathbb{R}$ 일 때 유의미하게 사용할 수 있다.</p>
 <h3 id="크로스-엔트로피">크로스 엔트로피</h3>
 <p>$$
-L \left( \widehat{Y} \right) := - {{1} \over {n}} \sum_{i=1}^{n} \left&lt; y_{i} , \log \left( \sigma ( \hat{y_{i}} ) \right) \right&gt;
+L \left( \widehat{Y} \right) := - {{1} \over {n}} \sum_{i=1}^{n} \left&lt; y_{i} , \log \left( \sigma ( \hat{y_{i}} ) \right) \right&gt;
 $$</p>
-<p><a href="../2045">크로스 엔트로피</a>는 이른바 원-핫 코딩을 할 때 유효한 수단이 되며, $Y$ 가 범주형 데이터일 때 $\widehat{Y}$ 가 추정한 각각의 확률을 이용해 계산한다. 주로 분류 문제에 사용된다.</p>
-<p>원-핫 코딩이란 그냥 범주의 이진법 전개를 말한다. $2^{m}$ 개의 계급이 있다면 각각의 $y_{i}$ 와 $\hat{y_{i}}$ 는 $j = 1 , \cdots , m$ 에 대해 $y_{i} = ( y_{i1} , \cdots , y_{ij} , \cdots , y_{im} ) \in \left\{ 0 , 1 \right\}^m$, $\hat{ y_{i} } = ( \hat{ y_{i1} } , \cdots , \hat{y_{ij}} , \cdots , \hat{y_{im}} ) \in \left\{ 0 , 1 \right\}^m$ 과 같은 벡터로 나타난다.</p>
+<p><a href="../2045">크로스 엔트로피</a>는 이른바 원-핫 코딩을 할 때 유효한 수단이 되며, $Y$ 가 범주형 데이터일 때 $\widehat{Y}$ 가 추정한 각각의 확률을 이용해 계산한다. 주로 분류 문제에 사용된다.</p>
+<p>원-핫 코딩이란 그냥 범주의 이진법 전개를 말한다. $2^{m}$ 개의 계급이 있다면 각각의 $y_{i}$ 와 $\hat{y_{i}}$ 는 $j = 1 , \cdots , m$ 에 대해 $y_{i} = ( y_{i1} , \cdots , y_{ij} , \cdots , y_{im} ) \in \left\{ 0 , 1 \right\}^m$, $\hat{ y_{i} } = ( \hat{ y_{i1} } , \cdots , \hat{y_{ij}} , \cdots , \hat{y_{im}} ) \in \left\{ 0 , 1 \right\}^m$ 과 같은 벡터로 나타난다.</p>
 <p>예를 들어 $Y$ 가 다섯 개의 계급을 갖는다면 $1$ 은 $y_{i_{0}} = [0,0,1]$, $4$ 는 $[1,0,0]$ 처럼 나타내는 식이다.</p>
-<p>$\sigma$ 는 <a href="../993">소프트맥스 함수</a>로써 주어진 벡터의 값들을 $[0,1]$ 에 바운드 시키고 확률분포의 조건을 만족시키게 하는 함수다. $\left&lt; \cdot , \cdot \right&gt;$ 은 <a href="../255">내적</a>이다. $\sigma ( \hat{y_{i}} ) \in [0,1]$ 이므로 $\log \left( \sigma ( \hat{y_{i}} ) \right) &lt; 0$ 이고 $y_{i}$ 는 $0$ 혹은 $1$ 이므로
+<p>$\sigma$ 는 <a href="../993">소프트맥스 함수</a>로써 주어진 벡터의 값들을 $[0,1]$ 에 바운드 시키고 확률분포의 조건을 만족시키게 하는 함수다. $\left&lt; \cdot , \cdot \right&gt;$ 은 <a href="../255">내적</a>이다. $\sigma ( \hat{y_{i}} ) \in [0,1]$ 이므로 $\log \left( \sigma ( \hat{y_{i}} ) \right) &lt; 0$ 이고 $y_{i}$ 는 $0$ 혹은 $1$ 이므로
 $$
-L \left( \widehat{Y} \right) = - {{1} \over {n}} \sum_{i=1}^{n} \left&lt; y_{i} , \log \left( \sigma ( \hat{y_{i}} ) \right) \right&gt; \ge 0
+L \left( \widehat{Y} \right) = - {{1} \over {n}} \sum_{i=1}^{n} \left&lt; y_{i} , \log \left( \sigma ( \hat{y_{i}} ) \right) \right&gt; \ge 0
 $$
 임을 쉽게 확인할 수 있다.</p>
-<p>$y_{i} =  ( y_{i1} , \cdots , y_{ij} , \cdots , y_{im} )$ 의 추정치인 $\hat{ y_{i} } = ( \hat{ y_{i1} } , \cdots , \hat{y_{ij}} , \cdots , \hat{y_{im}} )$ 의 각 성분들은 확률이 높을수록 큰 값, 낮을 수록 낮은 값을 갖는다. 이를 소프트맥스 함수에 넣으면 확률이 클수록 $1$ 에 가깝고 낮을수록 $0$ 에 가까운 값으로 조정된다. 만약 실제 성분이 $1$ 인데 확률을 낮게 계산했다면 $- 1 \cdot \log (c)$ 은 $c\ll 1$ 이므로 꽤 큰 값이 된다. 반대로 실제 성분이 $0$ 인데 확률을 높게 계산해봐도 $- 0 \cdot \log(c)$ 은 큰 의미가 없다. 따라서 많이 틀리면 틀릴수록 크로스 엔트로피가 치솟게 될 것임을 어렵지 않게 짐작할 수 있다.</p>
+<p>$y_{i} =  ( y_{i1} , \cdots , y_{ij} , \cdots , y_{im} )$ 의 추정치인 $\hat{ y_{i} } = ( \hat{ y_{i1} } , \cdots , \hat{y_{ij}} , \cdots , \hat{y_{im}} )$ 의 각 성분들은 확률이 높을수록 큰 값, 낮을 수록 낮은 값을 갖는다. 이를 소프트맥스 함수에 넣으면 확률이 클수록 $1$ 에 가깝고 낮을수록 $0$ 에 가까운 값으로 조정된다. 만약 실제 성분이 $1$ 인데 확률을 낮게 계산했다면 $- 1 \cdot \log (c)$ 은 $c\ll 1$ 이므로 꽤 큰 값이 된다. 반대로 실제 성분이 $0$ 인데 확률을 높게 계산해봐도 $- 0 \cdot \log(c)$ 은 큰 의미가 없다. 따라서 많이 틀리면 틀릴수록 크로스 엔트로피가 치솟게 될 것임을 어렵지 않게 짐작할 수 있다.</p>
 <h2 id="같이보기">같이보기</h2>
 <ul>
 <li><a href="../1012">수치해석에서의 손실 함수</a></li>
@@ -786,7 +786,7 @@ $$
         <span style="color:rgb(255,051,051);">●</span> TeX (0++)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1894)</summary>
+    <summary>전체 포스트 (1897)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -852,7 +852,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (72)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (35)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (36)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -864,7 +864,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/" style="color: black">텐서해석 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (11)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
@@ -876,7 +876,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (22)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (59)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (60)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (77)</a>
         </li><li>
