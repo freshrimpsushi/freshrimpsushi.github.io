@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/beta-distribution\/",
-    "wordCount" : "1087",
+    "wordCount" : "1303",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -294,11 +294,15 @@
         <li><a href="#2">[2]</a></li>
       </ul>
     </li>
+    <li><a href="#코드">코드</a></li>
   </ul>
 </nav>
 </aside>
 
 <h2 id="정의-1">정의 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p><img src="pdf0.gif#center" alt="pdf0">
+<img src="pdf1.gif#center" alt="pdf1">
+<img src="pdf2.gif#center" alt="pdf2"></p>
 <p>$\alpha , \beta &gt; 0$ 에 대해 다음과 같은 확률 밀도 함수를 가지는 <a href="../1433">연속 확률 분포</a> $\text{Beta}(\alpha,\beta)$ 를 <strong>베타 분포</strong><sup>beta Distribution</sup>라고 한다.
 $$
 f(x) = {{ 1 } \over {  B(\alpha,\beta) }} x^{\alpha - 1} (1-x)^{\beta - 1} \qquad , x \in [0,1]
@@ -365,12 +369,11 @@ m(t) =&amp; \int_{0}^{1} e^{tx} {{ 1 } \over {  B(\alpha,\beta) }} x^{\alpha - 1
 \end{align*}
 $$</p>
 <blockquote>
-<p><a href="../1481">베타 함수와 감마 함수의 관계</a>:
-$$
-B(p,q) = {{\Gamma (p) \Gamma (q)} \over {\Gamma (p+q) }}
-$$
-​
-$$
+<p><a href="../1481">베타 함수와 감마 함수의 관계</a>: $$B(p,q) = {{\Gamma (p) \Gamma (q)} \over {\Gamma (p+q) }}$$</p>
+</blockquote>
+<p>​
+베타함수를 감마함수로 풀어내보면</p>
+<p>$$
 \begin{align*}
 m(t) =&amp; 1 + \sum_{k=1}^{\infty} {{ t^{k} } \over { k! }} {{ B \left( \alpha + k , \beta \right) } \over {  B(\alpha,\beta) }} 
 \\ =&amp; 1 + \sum_{k=1}^{\infty} {{ t^{k} } \over { k! }} {{ \Gamma ( \alpha + k ) \Gamma ( \beta )  } \over { \Gamma \left( \alpha + \beta + k \right) }} {{ \Gamma ( \alpha + \beta )  } \over { \Gamma \left( \alpha \right) \Gamma \left( \beta \right) }} 
@@ -380,16 +383,49 @@ m(t) =&amp; 1 + \sum_{k=1}^{\infty} {{ t^{k} } \over { k! }} {{ B \left( \alpha 
 \\ =&amp; 1 + \sum_{k=1}^{\infty} {{ t^{k} } \over { k! }} \prod_{r=0}^{k-1} {{ \alpha + r } \over { \alpha + \beta + r }} 
 \end{align*}
 $$</p>
-</blockquote>
 <p style="text-align: right;">■</p>
 <h3 id="2">[2]</h3>
 <p><a href="../97">직접연역한다.</a></p>
 <p style="text-align: right;">■</p>
-<section class="footnotes" role="doc-endnotes">
+<h2 id="코드">코드</h2>
+<p>다음은 베타분포의 확률밀도함수를 움짤로 보여주는 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다.</p>
+<pre><code>@time using LaTeXStrings
+@time using Distributions
+@time using Plots
+
+cd(@__DIR__)
+
+x = 0:0.01:1
+B = collect(0.1:0.1:10.0); append!(B, reverse(B))
+
+animation = @animate for β ∈ B
+    plot(x, pdf.(Beta(0.5, β), x),
+     color = :black,
+     label = &quot;α = 0.5, β = $(rpad(β, 3, '0'))&quot;, size = (400,300))
+    xlims!(0,1); ylims!(0,5); title!(L&quot;\mathrm{pmf\,of\,Beta} (0.5, \beta)&quot;)
+end
+gif(animation, &quot;pdf0.gif&quot;)
+
+animation = @animate for β ∈ B
+    plot(x, pdf.(Beta(1, β), x),
+     color = :black,
+     label = &quot;α = 1, β = $(rpad(β, 3, '0'))&quot;, size = (400,300))
+    xlims!(0,1); ylims!(0,5); title!(L&quot;\mathrm{pmf\,of\,Beta} (1, \beta)&quot;)
+end
+gif(animation, &quot;pdf1.gif&quot;)
+
+animation = @animate for β ∈ B
+    plot(x, pdf.(Beta(2, β), x),
+     color = :black,
+     label = &quot;α = 2, β = $(rpad(β, 3, '0'))&quot;, size = (400,300))
+    xlims!(0,1); ylims!(0,5); title!(L&quot;\mathrm{pmf\,of\,Beta} (2, \beta)&quot;)
+end
+gif(animation, &quot;pdf2.gif&quot;)
+</code></pre><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Hogg et al. (2013). Introduction to Mathematical Statistcs(7th Edition): p165.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Hogg et al. (2013). Introduction to Mathematical Statistcs(7th Edition): p165. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -757,7 +793,7 @@ $$</p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (66)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
-        <span style="color:rgb(051,204,051);">●</span> 보조정리 (10)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 보조정리 (11)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 집합론 (46)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/>
@@ -784,11 +820,11 @@ $$</p>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B0%94%EB%82%98%ED%9D%90%EA%B3%B5%EA%B0%84/>
         <span style="color:rgb(051,204,051);">●</span> 바나흐공간 (32)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/>
-        <span style="color:rgb(255,051,051);">●</span> 힐베르트공간 (35)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 힐베르트공간 (30)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 측도론 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%A5%B4%EB%B2%A1%EA%B3%B5%EA%B0%84/>
-        <span style="color:rgb(051,204,051);">●</span> 르벡공간 (33)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 르벡공간 (37)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/>
         <span style="color:rgb(051,204,051);">●</span> 동역학 (68++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/>
@@ -865,7 +901,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (64)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A5%B4%EB%B2%A1%EA%B3%B5%EA%B0%84/" style="color: black">르벡공간 (31)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A5%B4%EB%B2%A1%EA%B3%B5%EA%B0%84/" style="color: black">르벡공간 (34)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
@@ -879,7 +915,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">벡터해석 (42)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/" style="color: black">보조정리 (9)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/" style="color: black">보조정리 (10)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B5%EC%86%8C%ED%95%B4%EC%84%9D/" style="color: black">복소해석 (62)</a>
         </li><li>
@@ -943,7 +979,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (61)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (34)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (30)</a>
         </li>
     </ul>
 </details>
@@ -1099,6 +1135,10 @@ $$</p>
 
 
     
+    
+        <link rel="stylesheet" href= https://freshrimpsushi.github.io/css/atom-one-light.css>
+        <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
+        <script>hljs.initHighlightingOnLoad();</script>
     
     
     </aside>

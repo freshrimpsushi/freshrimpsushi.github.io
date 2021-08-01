@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/t-distribution\/",
-    "wordCount" : "889",
+    "wordCount" : "1031",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -284,7 +284,7 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#정의">정의</a></li>
+    <li><a href="#정의-1">정의 </a></li>
     <li><a href="#설명">설명</a></li>
     <li><a href="#기초-성질">기초 성질</a></li>
     <li><a href="#정리">정리</a></li>
@@ -297,11 +297,13 @@
         <li><a href="#c">[c]</a></li>
       </ul>
     </li>
+    <li><a href="#코드">코드</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="정의">정의</h2>
+<h2 id="정의-1">정의 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p><img src="pdf.png#center" alt="pdf.png"></p>
 <p>자유도 $\nu &gt; 0$ 에 대해 다음과 같은 확률 밀도 함수를 가지는 <a href="../1433">연속 확률 분포</a> $t \left( \nu \right)$ 를 t-분포라고 한다.
 $$
 f(x) = {{ \Gamma \left( {{ \nu + 1 } \over { 2 }} \right) } \over { \sqrt{\nu \pi} \Gamma \left( {{ \nu } \over { 2 }} \right) }} \left( 1 + {{ x^{2} } \over { \nu }} \right)^{- {{ \nu + 1 } \over { 2 }}} \qquad ,x \in \mathbb{R}
@@ -311,12 +313,12 @@ $$</p>
 <li>$\Gamma (\nu)$ 는 <a href="../95">감마 함수</a>다.</li>
 </ul>
 <h2 id="설명">설명</h2>
-<p><strong>t-분포</strong>는 지금도 맥주로 유명한 기네스 양조 공장에서 일하던 <strong>윌리엄 고셋</strong><sup>William S. Gosset</sup>이 발견하고 발표해 널리 알려진 분포로써, 당시에는 기업에 묶여있는 몸이었던지라 학생Student라는 필명으로 투고해 <strong>스튜던트 t-분포</strong>라 불리기도 한다. 통계학과 신입생의 경우에는 표본이 정규분포를 따른다고 가정은 하지만 실제로는 30개에 못 미치는 소표본일 때 사용하는 분포로써 처음 접하게 된다.</p>
+<p><strong>t-분포</strong>는 지금도 맥주로 유명한 기네스 양조 공장에서 일하던 <strong>윌리엄 고셋</strong><sup>William S. Gosset</sup>이 발견하고 발표해 널리 알려진 분포로써, 당시에는 기업에 묶여있는 몸이었던지라 학생Student라는 필명으로 투고해 <strong>스튜던트 t-분포</strong>라 불리기도 한다. 통계학과 신입생의 경우에는 표본이 정규분포를 따른다고 가정은 하지만 실제로는 30개에 못 미치는 소표본일 때 사용하는 분포로써 처음 접하게 된다. $\nu \ge 30$ 일 때는 거의 정규분포에 수렴했다고 본다.</p>
 <p>한편, 특히 $\nu = 1$ 일 때의 분포를 <a href="../147">코시 분포</a>라고 한다.</p>
 <h2 id="기초-성질">기초 성질</h2>
 <ul>
 <li>[1] 적률 생성 함수: $t$-분포는 적률 생성 함수가 존재하지 않는다.</li>
-<li>[2] 평균과 분산**: $X \sim t (\nu)$ 이면
+<li>[2] 평균과 분산: $X \sim t (\nu)$ 이면
 $$
 E(X) = 0 \qquad , \nu &gt;1 
 \\ \text{Var}(X) = {{ \nu } \over { \nu - 2 }} \qquad , \nu &gt; 2 
@@ -333,7 +335,7 @@ $$</li>
 $$
 \displaystyle { {W} \over {\sqrt{V/r} } } \sim t(r)
 $$</li>
-<li>[c] <a href="../195">스튜던트 t-분포의 극한분포로써 표준정규분포 유도</a> $T_n \sim t(n)$ 이면
+<li>[c] <a href="../195">스튜던트 t-분포의 극한분포로써 표준정규분포 유도</a>: $T_n \sim t(n)$ 이면
 $$
 T_n \ \overset{D}{\to} N(0,1)
 $$</li>
@@ -372,6 +374,38 @@ $$</p>
 <h3 id="c">[c]</h3>
 <p><a href="../195">확률밀도함수에 스털링 근사를 사용한다.</a></p>
 <p style="text-align: right;">■</p>
+<h2 id="코드">코드</h2>
+<p>다음은 코시분포, t분포, 코시분포의 확률밀도함수를 움짤로 보여주는 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다.</p>
+<pre><code>@time using LaTeXStrings
+@time using Distributions
+@time using Plots
+
+cd(@__DIR__)
+
+x = -4:0.1:4
+plot(x, pdf.(Cauchy(), x),
+ color = :red,
+ label = &quot;Cauchy&quot;, size = (400,300))
+plot!(x, pdf.(TDist(3), x),
+ color = :orange,
+ label = &quot;t(3)&quot;, size = (400,300))
+plot!(x, pdf.(TDist(30), x),
+ color = :black, linestyle = :dash,
+ label = &quot;t(30)&quot;, size = (400,300))
+plot!(x, pdf.(Normal(), x),
+ color = :black,
+ label = &quot;Standard Normal&quot;, size = (400,300))
+
+xlims!(-4,5); ylims!(0,0.5); title!(L&quot;\mathrm{pdf\,of\, t}(\nu)&quot;)
+png(&quot;pdf&quot;)
+</code></pre><section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Hogg et al. (2013). Introduction to Mathematical Statistcs(7th Edition): p191. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
@@ -736,7 +770,7 @@ $$</p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (66)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
-        <span style="color:rgb(051,204,051);">●</span> 보조정리 (10)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 보조정리 (11)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 집합론 (46)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/>
@@ -763,11 +797,11 @@ $$</p>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B0%94%EB%82%98%ED%9D%90%EA%B3%B5%EA%B0%84/>
         <span style="color:rgb(051,204,051);">●</span> 바나흐공간 (32)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/>
-        <span style="color:rgb(255,051,051);">●</span> 힐베르트공간 (35)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 힐베르트공간 (30)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 측도론 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%A5%B4%EB%B2%A1%EA%B3%B5%EA%B0%84/>
-        <span style="color:rgb(051,204,051);">●</span> 르벡공간 (33)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 르벡공간 (37)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/>
         <span style="color:rgb(051,204,051);">●</span> 동역학 (68++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/>
@@ -844,7 +878,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (64)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A5%B4%EB%B2%A1%EA%B3%B5%EA%B0%84/" style="color: black">르벡공간 (31)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A5%B4%EB%B2%A1%EA%B3%B5%EA%B0%84/" style="color: black">르벡공간 (34)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
@@ -858,7 +892,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">벡터해석 (42)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/" style="color: black">보조정리 (9)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/" style="color: black">보조정리 (10)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B5%EC%86%8C%ED%95%B4%EC%84%9D/" style="color: black">복소해석 (62)</a>
         </li><li>
@@ -922,7 +956,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (61)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (34)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (30)</a>
         </li>
     </ul>
 </details>
@@ -1078,6 +1112,10 @@ $$</p>
 
 
     
+    
+        <link rel="stylesheet" href= https://freshrimpsushi.github.io/css/atom-one-light.css>
+        <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
+        <script>hljs.initHighlightingOnLoad();</script>
     
     
     </aside>
