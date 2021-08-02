@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/dirichlet-kernel\/",
-    "wordCount" : "1004",
+    "wordCount" : "849",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -286,20 +286,19 @@
   <ul>
     <li><a href="#정의">정의</a></li>
     <li><a href="#설명">설명</a></li>
-    <li><a href="#정리1">정리1</a></li>
+    <li><a href="#정리1">정리1</a>
+      <ul>
+        <li><a href="#증명">증명</a></li>
+      </ul>
+    </li>
     <li><a href="#정리2">정리2</a>
       <ul>
-        <li><a href="#증명2">증명2</a></li>
+        <li><a href="#증명-1">증명</a></li>
       </ul>
     </li>
     <li><a href="#정리3">정리3</a>
       <ul>
-        <li><a href="#증명3">증명3</a></li>
-      </ul>
-    </li>
-    <li><a href="#정리4">정리4</a>
-      <ul>
-        <li><a href="#증명4">증명4</a></li>
+        <li><a href="#증명-2">증명</a></li>
       </ul>
     </li>
   </ul>
@@ -311,31 +310,37 @@
 <p>$$
 \begin{equation}
 D_{n}(t) := \dfrac{1}{2}+\sum \limits_{k=1}^{n} \cos kt
-\label{def}
 \end{equation}
 $$</p>
 <h2 id="설명">설명</h2>
 <p>디리클레 커널은 델다함수, 지수함수 등과 관련되어 있으며, 푸리에 해석에서 등장한다. 관련된 몇 가지의 정리와 증명을 소개한다.</p>
+<!-- 
+## 정리1
+
+디리클레 커널 $D\_{n}(t)$는 $n \rightarrow \infty$일 때 [디랙 델타 함수](../103) $\delta(t)$로 수렴한다.
+
+$$
+\lim \limits \_{n \to \infty} D\_{n}(t) = \delta (t)
+$$
+
+--- 
+
+![300px-Dirichlet\_kernel\_anime.gif](300px-Dirichlet\_kernel\_anime.gif#center)
+
+자세한 증명 대신 그림으로 대체한다. 그림을 보면 $n$이 커질수록 $x=0$에서의 값은 발산하고 그 외는 $0$으로 수렴하는 것을 알 수 있다.
+ -->
 <h2 id="정리1">정리1</h2>
-<p>디리클레 커널 $D_{n}(t)$는 $n \rightarrow \infty$일 때 <a href="../103">디랙 델타 함수</a>  $\delta(t)$로 수렴한다.</p>
-<p>$$
-\lim \limits _{n \to \infty} D_{n}(t) = \delta (t)
-$$</p>
-<hr>
-<p><img src="300px-Dirichlet_kernel_anime.gif#center" alt="300px-Dirichlet\_kernel\_anime.gif"></p>
-<p>자세한 증명 대신 그림으로 대체한다. 그림을 보면 $n$이 커질수록 $x=0$에서의 값은 발산하고 그 외는 $0$으로 수렴하는 것을 알 수 있다.</p>
-<h2 id="정리2">정리2</h2>
 <p>디리클레 커널은 아래의 식을 만족한다.</p>
 <p>$$
 D_{n}(t)=\dfrac{\sin\left(n+\frac{1}{2}\right) t}{2\sin \frac{1}{2}t}
 $$</p>
-<h3 id="증명2">증명2</h3>
+<h3 id="증명">증명</h3>
 <p>코사인 함수를 복소지수 함수 꼴로 표현하면 다음과 같다.</p>
 <p>$$
 \begin{align*}
-D_{n}(t) &amp;= \dfrac{1}{2}+\dfrac{1}{2}\sum \limits_{k=1}^n( e^{ikt}+e^{-ikt} ) 
-\\  &amp;= \dfrac{1}{2} \left[ 1+\sum \limits_{k=1}^{n} (e^{ikt}+e^{-ikt} ) \right] 
-\\  &amp;= \dfrac{1}{2} \sum \limits_{k=-n}^{n} e^{ikt} 
+D_{n}(t) =&amp; \dfrac{1}{2}+\dfrac{1}{2}\sum \limits_{k=1}^n( e^{ikt}+e^{-ikt} )
+\\ =&amp; \dfrac{1}{2} \left[ 1+\sum \limits_{k=1}^{n} (e^{ikt}+e^{-ikt} ) \right]
+\\ =&amp; \dfrac{1}{2} \sum \limits_{k=-n}^{n} e^{ikt}
 \end{align*}
 $$</p>
 <p>이때</p>
@@ -348,79 +353,77 @@ $$</p>
 <p>을 사용하면 첫항이 $a_{1}=e^{-int}$이고, 공비가 $r=e^{it}$이므로 다음과 같이 정리할 수 있다.</p>
 <p>$$
 \begin{align*}
-D_{n}(t) &amp;= \dfrac{1}{2} \sum \limits_{k=-n}^{n} e^{ikt} = \dfrac{1}{2} \sum \limits_{k=1}^{2n+1} e^{i(k-n-1)t}
-\\ &amp;= \dfrac{1}{2} \dfrac{ ( e^{-int} ) \left( e^{i(2n+1)t -1} \right) }{e^{it}-1}
-\\ &amp;= \dfrac{1}{2}e^{-int}\dfrac{e^{i(n+\frac{1}{2}) t }-e^{-i(n+\frac{1}{2})t} }{e^{i\frac{1}{2}t}-e^{-i\frac{1}{2}t }} \dfrac{e^{i(n+\frac{1}{2})t}} {e^{i\frac{1}{2}t}}
-\\ &amp;= \dfrac{1}{2}\dfrac{e^{i(n+\frac{1}{2}) t }-e^{-i(n+\frac{1}{2})t} }{e^{i\frac{1}{2}t}-e^{-i\frac{1}{2}t }} \dfrac{e^{i(n+\frac{1}{2})t}} {e^{i(n+\frac{1}{2})t}}
-\\ &amp;= \dfrac{1}{2}\dfrac{\sin (n+\frac{1}{2})t} {\sin \frac{1}{2} t}
+D_{n}(t) =&amp; \dfrac{1}{2} \sum \limits_{k=-n}^{n} e^{ikt} = \dfrac{1}{2} \sum \limits_{k=1}^{2n+1} e^{i(k-n-1)t}
+\\ =&amp; \dfrac{1}{2} \dfrac{ ( e^{-int} ) \left( e^{i(2n+1)t -1} \right) }{e^{it}-1}
+\\ =&amp; \dfrac{1}{2}e^{-int}\dfrac{e^{i(n+\frac{1}{2}) t }-e^{-i(n+\frac{1}{2})t} }{e^{i\frac{1}{2}t}-e^{-i\frac{1}{2}t }} \dfrac{e^{i(n+\frac{1}{2})t}} {e^{i\frac{1}{2}t}}
+\\ =&amp; \dfrac{1}{2}\dfrac{e^{i(n+\frac{1}{2}) t }-e^{-i(n+\frac{1}{2})t} }{e^{i\frac{1}{2}t}-e^{-i\frac{1}{2}t }} \dfrac{e^{i(n+\frac{1}{2})t}} {e^{i(n+\frac{1}{2})t}}
+\\ =&amp; \dfrac{1}{2}\dfrac{\sin (n+\frac{1}{2})t} {\sin \frac{1}{2} t}
 \end{align*}
 $$</p>
 <p>마지막 등호에서는 <a href="../2056">$\sin x = \dfrac{e^{ix} - e^{-ix}}{2i}$</a>임을 이용했다.</p>
 <p style="text-align: right;">■</p>
-<h2 id="정리3">정리3</h2>
+<h2 id="정리2">정리2</h2>
 <p>아래의 식을 <a href="../2050">$2L$-주기함수</a> $f(t)$의 <a href="../929">푸리에 급수의 부분합</a>이라 하자.</p>
 <p>$$
 \begin{equation}
 S_{N} ^{f} (t)=\dfrac{1}{2}a_{0}+\sum \limits_{n=1}^{N} \left( a_{n}\cos\dfrac{n\pi t}{L}+b_{n}\sin\frac{n\pi t}{L} \right)
-\label{partialsum}
 \end{equation}
 $$</p>
 <p>그러면 부분합 $S_{N}^{f}(t)$를 아래와 같이 디리클레 커널을 포함하는 적분으로 표현할 수 있다.</p>
 <p>$$
 S_{N}^{f} (t)=\dfrac{1}{L}\int_{-L}^{L}f(x)D_{n}\left(\dfrac{\pi(x-t)}{L}\right)dx
 $$</p>
-<h3 id="증명3">증명3</h3>
+<h3 id="증명-1">증명</h3>
 <p>푸리에 계수 $a_{0}$, $a_{n}$, $b_{n}$을 <a href="../929">구해보면 다음과 같다.</a></p>
 <p>$$
 \begin{align*}
-a_{0} &amp;= \int_{-L}^{L} f(x) dx
-\\ a_{n} &amp;= \dfrac{1}{L}\int_{-L}^{L}f(x)\cos\dfrac{n\pi x}{L} dx
-\\ b_{n} &amp;= \dfrac{1}{L}\int_{-L}^{L}f(x)\sin\dfrac{n\pi x}{L} dx
+a_{0} =&amp; \int_{-L}^{L} f(x) dx
+\\ a_{n} =&amp; \dfrac{1}{L}\int_{-L}^{L}f(x)\cos\dfrac{n\pi x}{L} dx
+\\ b_{n} =&amp; \dfrac{1}{L}\int_{-L}^{L}f(x)\sin\dfrac{n\pi x}{L} dx
 \end{align*}
 $$</p>
 <p>그러면 아래의 식을 얻는다.</p>
 <p>$$
 \begin{align*}
 &amp; a_{n} \cos\dfrac{n\pi t}{L} + b_{n} \sin\dfrac{n\pi t}{L}
-\\ =&amp; \left( \dfrac{1}{L}\int_{-L}^{L}f(x)\cos\dfrac{n\pi x}{L} dx \right) \cos\dfrac{n\pi t}{L} + \left( \dfrac{1}{L}\int_{-L}^{L}f(x)\sin\dfrac{n\pi  x}{L} dx \right)\sin\dfrac{n\pi t}{L}
-\\ =&amp;  \dfrac{1}{L}\int_{-L}^{L}f(x) \left[ \cos\dfrac{n\pi x}{L} \cos\dfrac{n\pi t}{L} + \sin\dfrac{n\pi  x}{L} \sin\dfrac{n\pi t}{L} \right] dx
+\\ =&amp; \left( \dfrac{1}{L}\int_{-L}^{L}f(x)\cos\dfrac{n\pi x}{L} dx \right) \cos\dfrac{n\pi t}{L} + \left( \dfrac{1}{L}\int_{-L}^{L}f(x)\sin\dfrac{n\pi x}{L} dx \right)\sin\dfrac{n\pi t}{L}
+\\ =&amp; \dfrac{1}{L}\int_{-L}^{L}f(x) \left[ \cos\dfrac{n\pi x}{L} \cos\dfrac{n\pi t}{L} + \sin\dfrac{n\pi x}{L} \sin\dfrac{n\pi t}{L} \right] dx
 \end{align*}
 $$</p>
 <p>그러면 <a href="../44">삼각함수의 덧셈정리</a>에 의해서 다음의 식을 얻는다.</p>
 <p>$$
 a_{n}\cos\dfrac{n\pi t}{L} + b_{n}\cos\dfrac{n\pi t}{L} = \dfrac{1}{L}\int_{-L}^{L}f(x) \left[ \cos\dfrac{n\pi (x-t)}{L} \right] dx
 $$</p>
-<p>이를 $\eqref{partialsum}$에 대입하면 다음과 같다.</p>
+<p>이를 $(2)$에 대입하면 다음과 같다.</p>
 <p>$$
 \begin{align*}
-S_{N} ^{f} (t) &amp;= \dfrac{1}{2}a_{0}+\sum \limits_{n=1}^{N} \left( a_{n}\cos\dfrac{n\pi t}{L}+b_{n}\sin\frac{n\pi t}{L} \right)
-\\ &amp;= \dfrac{1}{2}\dfrac{1}{L}\int_{-L}^{L} f(x)dx+\sum\limits_{n=1}^{N}\left( \dfrac{1}{L}\int_{-L}^{L}f(x) \left[ \cos\dfrac{n\pi (x-t)}{L} \right] dx \right) 
-\\  &amp;= \dfrac{1}{L} \int_{-L}^{L} f(x) \left[ \dfrac{1}{2} + \sum\limits_{n=1}^{N} \cos \dfrac{n\pi (x-t)}{L}\right]dx 
-\\  &amp;= \dfrac{1}{L}\int_{-L}^{L}f(x)D_{n}\left(\dfrac{\pi(x-t)}{L}\right)dx<br>
+S_{N} ^{f} (t) =&amp; \dfrac{1}{2}a_{0}+\sum \limits_{n=1}^{N} \left( a_{n}\cos\dfrac{n\pi t}{L}+b_{n}\sin\frac{n\pi t}{L} \right)
+\\ =&amp; \dfrac{1}{2}\dfrac{1}{L}\int_{-L}^{L} f(x)dx+\sum\limits_{n=1}^{N}\left( \dfrac{1}{L}\int_{-L}^{L}f(x) \left[ \cos\dfrac{n\pi (x-t)}{L} \right] dx \right)
+\\ =&amp; \dfrac{1}{L} \int_{-L}^{L} f(x) \left[ \dfrac{1}{2} + \sum\limits_{n=1}^{N} \cos \dfrac{n\pi (x-t)}{L}\right]dx
+\\ =&amp; \dfrac{1}{L}\int_{-L}^{L}f(x)D_{n}\left(\dfrac{\pi(x-t)}{L}\right)dx
 \end{align*}
 $$</p>
 <p>마지막 등호에서 디리클레 커널의 정의를 사용했다.</p>
 <p style="text-align: right;">■</p>
-<h2 id="정리4">정리4</h2>
-<p>임의의 정수 $N \in \mathbb{Z}$에 대하여 아래의 식이 성립한다.</p>
+<h2 id="정리3">정리3</h2>
+<p>임의의 정수 $n \in \mathbb{Z}$에 대하여 아래의 식이 성립한다.</p>
 <p>$$
 \begin{equation}
 \dfrac{1}{L}\int_{-L}^{L}D_{n}\left( \dfrac{\pi (x-t)}{L} \right)dx=1
-\label{thm4}
 \end{equation}
 $$</p>
-<h3 id="증명4">증명4</h3>
-<p>$\dfrac{\pi (x-t)}{L}=y$라고 치환하자. 그러면 $\eqref{thm4}$의 좌변은 다음과 같다.</p>
+<h3 id="증명-2">증명</h3>
+<p>$\dfrac{\pi (x-t)}{L}=y$라고 치환하자. 그러면 $(3)$의 좌변은 다음과 같다.</p>
 <p>$$
 \begin{align*}
 &amp;\dfrac{1}{L}\int_{-\pi -\frac{\pi}{L}t}^{\pi-\frac{\pi}{L}t} D_{n}(y) \dfrac{L}{\pi}dy
-\\ =&amp; \dfrac{1}{\pi}\int_{-\pi -\frac{\pi}{L}t}^{\pi-\frac{\pi}{L}t} \left( \dfrac{1}{2} + \sum \limits_{n=1}^{N} \cos ny \right) dy &amp; \text{by}  \eqref{def}
+\\ =&amp; \dfrac{1}{\pi}\int_{-\pi -\frac{\pi}{L}t}^{\pi-\frac{\pi}{L}t} \left( \dfrac{1}{2} + \sum \limits_{n=1}^{N} \cos ny \right) dy &amp; \text{ by } (1)
 \\ =&amp; \dfrac{1}{2\pi}\int_{-\pi -\frac{\pi}{L}t}^{\pi-\frac{\pi}{L}t} dy+ \sum \limits_{n=1}^{N} \int_{-\pi -\frac{\pi}{L}t}^{\pi-\frac{\pi}{L}t} \cos ny dy
 \\ =&amp; \dfrac{1}{2\pi} 2\pi + \sum \limits_{n=1}^{N} \int_{-\pi -\frac{\pi}{L}t}^{\pi-\frac{\pi}{L}t} \cos ny dy
 \\ =&amp; 1
 \end{align*}
 $$</p>
-<p>이때 두번째 항의 적분이 $0$이 되는 이유는 <a href="../928">$cos 0y=1$과 $\cos ny (n\ne 0)$가 서로 수직</a>이기 때문이다.</p>
+<p>이때 두번째 항의 적분이 $0$이 되는 이유는 <a href="../928">$\cos 0y=1$과 $\cos ny (n\ne 0)$가 서로 수직</a>이기 때문이다.</p>
 <p style="text-align: right;">■</p>
 
 
@@ -876,7 +879,7 @@ $$</p>
         <span style="color:rgb(255,051,051);">●</span> TeX (0++)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1900)</summary>
+    <summary>전체 포스트 (1901)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
         </li><li>
@@ -964,7 +967,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (23)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (61)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (62)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (77)</a>
         </li><li>
