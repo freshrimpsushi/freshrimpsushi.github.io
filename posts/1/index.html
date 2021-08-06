@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/1\/",
-    "wordCount" : "55",
+    "wordCount" : "740",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -282,6 +282,14 @@
   <ul>
     <li><a href="#문법">문법</a></li>
   </ul>
+
+  <ul>
+    <li><a href="#가이드-1">가이드 </a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#가이드-1-1">가이드 </a></li>
+  </ul>
 </nav>
 </aside>
 
@@ -291,6 +299,69 @@
 <p>구획 S, I, R은 각각 감염가능, 감염된, 제거된 것을 나타낸다.</p>
 <hr>
 <h1 id="in-the-former-1471-2105-p7">in the former 1471-2105 p7</h1>
+<h1 id="줄리아아에서-배열의-원소들이-어떤-리스트에-속하는지-체크하는-법-ref">줄리아아에서 배열의 원소들이 어떤 리스트에 속하는지 체크하는 법 <code>Ref()</code></h1>
+<p>How to Check that Elements in Array are in some List</p>
+<h2 id="가이드-1">가이드 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<pre><code>julia&gt; x = rand('a':'c', 10)
+10-element Vector{Char}:
+ 'a': ASCII/Unicode U+0061 (category Ll: Letter, lowercase)
+ 'a': ASCII/Unicode U+0061 (category Ll: Letter, lowercase)
+ 'b': ASCII/Unicode U+0062 (category Ll: Letter, lowercase)
+ 'c': ASCII/Unicode U+0063 (category Ll: Letter, lowercase)
+ 'b': ASCII/Unicode U+0062 (category Ll: Letter, lowercase)
+ 'c': ASCII/Unicode U+0063 (category Ll: Letter, lowercase)
+ 'c': ASCII/Unicode U+0063 (category Ll: Letter, lowercase)
+ 'c': ASCII/Unicode U+0063 (category Ll: Letter, lowercase)
+ 'b': ASCII/Unicode U+0062 (category Ll: Letter, lowercase)
+ 'b': ASCII/Unicode U+0062 (category Ll: Letter, lowercase)
+</code></pre><p>위와 같은 배열이 있다고 하자. 우리의 목표는 <code>'a'</code> 와 <code>'b'</code> 를 모두 골라내는 것이다. 상식적으로는 <a href="../1442">포함기호 $\in$</a>로 브로드캐스트하면 될 것 같지만, 결과는 다음과 같다.</p>
+<pre><code>julia&gt; x .∈ ['a', 'b']
+ERROR: DimensionMismatch(&quot;arrays could not be broadcast to a common size; got a dimension with lengths 10 and 2&quot;)
+</code></pre><p><code>DimensionMismatch</code> 에러가 레이즈되었다. 이는 브로드캐스팅이 배열 <code>x</code> 와 범주 <code>['a', 'b']</code> 양쪽에 동시에 일어났기 때문에 발생한 에러다. 에러메세지를 해석해보자면 <code>x</code> 의 길이 10과 <code>['a', 'b']</code>의 길이 2가 동시에 들어와서 혼란스럽다는 것이다.</p>
+<pre><code>julia&gt; x .∈ Ref(['a', 'b'])
+10-element BitVector:
+ 1
+ 1
+ 1
+ 0
+ 1
+ 0
+ 0
+ 0
+ 1
+ 1
+</code></pre><p>이럴떈 <code>Ref()</code> 함수를 통해 브로드캐스팅 문제를 해결할 수 있다. 이를 통해 <code>['a', 'b']</code> 속의 <code>'a'</code> 와 <code>'b'</code> 가 스칼라로 취급되고,</p>
+<pre><code>julia&gt; y = rand('a':'c', 1, 10)
+1×10 Matrix{Char}:
+ 'b'  'a'  'b'  'b'  'a'  'c'  'a'  'b'  'b'  'c'
+
+julia&gt; y .∈ ['a', 'b']
+2×10 BitMatrix:
+ 0  1  0  0  1  0  1  0  0  0
+ 1  0  1  1  0  0  0  1  1  0
+
+julia&gt; y .∈ Ref(['a', 'b'])
+1×10 BitMatrix:
+ 1  1  1  1  1  0  1  1  1  0
+
+julia&gt; 
+</code></pre><h1 id="터미널에서-텍스트-파일-인코딩-확인하는-법">터미널에서 텍스트 파일 인코딩 확인하는 법</h1>
+<p>How to Check Text File in Terminal
+프로그래밍</p>
+<h2 id="가이드-1-1">가이드 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>이 방법은 파이썬이 설치되어 있어야 사용할 수 있다. 터미널에 <code>pip install chardet</code> 을 입력해 <code>chardet</code> 을 설치하고 인코딩을 확인할 파일이 있는 경로에서 다음과 같이 명령하면 어떤 인코딩 방식인지 신뢰도와 함께 확인해준다.</p>
+<pre><code>PS C:\Users\rmsms\Downloads&gt; chardetect .\example.csv
+.\example.csv: EUC-KR with confidence 0.99
+</code></pre><p>이 예에서 <code>example.csv</code>의 인코딩은 <code>EUC-KR</code>이다.</p>
+<p>주의해야할 점으로는 분명 <code>pip install chardet</code>을 통해, 그러니까 <code>chardet</code>으로 설치해놓고 명령할 땐 <code>chardetect</code>로 한다는 것이다. 스펠링을 틀리지 않도록 하자.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://stackoverflow.com/a/59978386/12285249">https://stackoverflow.com/a/59978386/12285249</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
@@ -674,7 +745,7 @@
         <span style="color:rgb(051,204,051);">●</span> 그래프이론 (50++)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/>
-        <span style="color:rgb(255,204,000);">●</span> 해석개론 (93+18)</a><br>
+        <span style="color:rgb(051,204,0051);">●</span> 해석개론 (96)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B5%EC%86%8C%ED%95%B4%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 복소해석 (66)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC%EA%B3%B5%EA%B0%84/>
@@ -686,11 +757,13 @@
     <a href=https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 측도론 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%A5%B4%EB%B2%A1%EA%B3%B5%EA%B0%84/>
-        <span style="color:rgb(051,204,051);">●</span> 르벡공간 (37)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 르벡공간 (30)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/>
+        <span style="color:rgb(051,204,051);">●</span> 소볼레프공간 (11)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/>
         <span style="color:rgb(051,204,051);">●</span> 동역학 (68++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/>
-        <span style="color:rgb(051,204,051);">●</span> 푸리에해석 (43)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 푸리에해석 (50)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 초함수론 (23)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/>
@@ -745,10 +818,8 @@
         <span style="color:rgb(255,051,051);">●</span> TeX (0++)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1902)</summary>
+    <summary>전체 포스트 (1906)</summary>
     <ul><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/etc/" style="color: black">ETC (5)</a>
-        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/r/" style="color: black">R (53)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC%EA%B3%B5%EA%B0%84/" style="color: black">거리공간 (33)</a>
@@ -759,11 +830,11 @@
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (40)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (7)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (8)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (64)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A5%B4%EB%B2%A1%EA%B3%B5%EA%B0%84/" style="color: black">르벡공간 (34)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A5%B4%EB%B2%A1%EA%B3%B5%EA%B0%84/" style="color: black">르벡공간 (27)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
@@ -771,9 +842,7 @@
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">물리학미분류 (10)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AF%B8%EC%A0%81%EB%B6%84%ED%95%99/" style="color: black">미적분학 (18)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B0%94%EB%82%98%ED%9D%90%EA%B3%B5%EA%B0%84/" style="color: black">바나흐공간 (32)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B0%94%EB%82%98%ED%9D%90%EA%B3%B5%EA%B0%84/" style="color: black">바나흐공간 (33)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">벡터해석 (42)</a>
         </li><li>
@@ -785,15 +854,15 @@
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (6)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">상미분방정식 (56)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">상미분방정식 (58)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (34)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/" style="color: black">소볼레프공간 (11)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (55)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (56)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (59)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (60)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (54)</a>
         </li><li>
@@ -802,6 +871,8 @@
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (51)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">열물리학 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%98%81%EC%96%B4/" style="color: black">영어 (2)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/" style="color: black">위상수학 (59)</a>
         </li><li>
@@ -827,15 +898,15 @@
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/" style="color: black">통계적분석 (57)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (48)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (41)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (48)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (23)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (62)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (77)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (95)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (63)</a>
         </li><li>
