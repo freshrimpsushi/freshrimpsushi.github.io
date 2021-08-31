@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-construct-mlp-in-pytorch\/",
-    "wordCount" : "703",
+    "wordCount" : "883",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -288,6 +288,7 @@
     <li><a href="#인공신경망-정의">인공신경망 정의</a></li>
     <li><a href="#옵티마이저와-손실함수-정의">옵티마이저와 손실함수 정의</a></li>
     <li><a href="#학습">학습</a></li>
+    <li><a href="#전체코드">전체코드</a></li>
   </ul>
 </nav>
 </aside>
@@ -319,13 +320,13 @@ import torch.nn.functional as F
         x = F.relu(x)
         
         return x
-</code></pre><p><code>nn.Linear(m, n, bias=True)</code>에서 m은 입력값의 차원, n은 출력값의 차원을 의미한다.</p>
+</code></pre><p><code>nn.Linear(m, n, bias=True)</code>에서 m은 입력값의 차원, n은 출력값의 차원을 의미한다. 가중치를 원하는 방법으로 <a href="../3104">초기화</a>할 수도 있다.</p>
 <p>만약 MLP에서 이미지 등의 2차원 배열을 입력으로 사용할거라면 <code>x = x.view(-1,m)</code>을 사용하여 입력 데이터를 한 줄로 펴주어야 한다. -1은 나머지 값을 알아서 처리하라는 의미이며, 배치 학습을 시킬 경우 배치 사이즈와 같아진다.</p>
 <h2 id="옵티마이저와-손실함수-정의">옵티마이저와 손실함수 정의</h2>
 <p>위에서 만든 모델, 옵티마이저, 손실함수 등을 다음과 같이 정의한다. 만약 GPU를 사용한다면 <code>.to(DEVICE)</code>를 써서 GPU에 올려야한다. 당연히 DEVICE는 사용할 GPU로 위에서 미리 정의해야한다. <code>lr</code>은 <a href="../987">러닝 레이트</a>를 의미한다.</p>
 <pre><code>model = Custom_Net().to(DEVICE)
 
-optimizer = torch.optim.Adam(model.parameters()), lr = 0.1)
+optimizer = torch.optim.Adam(model.parameters()), lr = 0.0001)
 criterion = nn.MSELoss()
 </code></pre><p><code>print</code>로 뉴럴 네트워크가 어떻게 구성됐는지 확인할 수 있다.</p>
 <pre><code>&gt;&gt;&gt; print(model)
@@ -335,8 +336,8 @@ Custom_Net(
   (fully_cnnected_3): Linear(in_features=512, out_features=10, bias=True)
 )
 </code></pre><h2 id="학습">학습</h2>
-<p>입력 $X$와 출력 $Y$로 구성된 데이터 셋이 있다고 하면, 정의한 모델을 학습시키는 함수를 다음과 같이 구현할 수 있다.</p>
-<pre><code>def train(model):
+<p>입력 $X$와 출력 $Y$로 구성된 적당한 <a href="../3107">데이터 셋</a> <code>Data_set</code>이 주어졌다고 하자. 그러면 정의한 모델을 학습시키는 함수를 다음과 같이 구현할 수 있다.</p>
+<pre><code>def train():
     model.train()
             
     for batch_idx, (X, Y) in enumerate(Data_set):
@@ -357,7 +358,63 @@ Custom_Net(
 <li><code>loss.backward()</code>: <a href="../3077">역 전파 알고리즘</a>으로 loss에 대한 $\delta$ 값들을 계산한다.</li>
 <li><code>optimizer.step()</code>: 계산한 $\delta$를 바탕으로 옵티마이저를 최적화 한다.</li>
 </ul>
+<h2 id="전체코드">전체코드</h2>
+<pre><code>#필요한 라이브러리 import
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
 
+#모델 정의
+class Custom_Net(nn.Module):
+    def __init__(self):
+        super(Custom_Net, self).__init__()
+
+        self.fully_cnnected_1 = nn.Linear(1024, 1024, bias=False)
+        self.fully_cnnected_2 = nn.Linear(1024, 512, bias=False)
+        self.fully_cnnected_3 = nn.Linear(512, 10, bias=True)
+                        
+    def forward(self, x):
+
+        x = f.view(-1,1024)
+
+        x = self.fully_cnnected_1(x)
+        x = F.relu(x)
+        x = self.fully_cnnected_2(x)
+        x = F.relu(x)
+        x = self.fully_cnnected_2(x)
+        x = F.relu(x)
+        
+        return x
+
+model = Custom_Net().to(DEVICE)
+
+#옵티마이저, 손실함수 설정
+optimizer = torch.optim.Adam(model.parameters()), lr = 0.0001)
+criterion = nn.MSELoss()
+EPOCHS = 1000
+
+#학습함수 정의
+def train():
+    model.train()
+            
+    for batch_idx, (X, Y) in enumerate(Data_set):
+        
+        optimizer.zero_grad()
+
+        output = model(X)
+        
+        loss = criterion(output, Y)
+        loss.backward()
+        optimizer.step()
+
+        print(loss)
+
+    return loss
+
+#학습
+for epoch in range(1, EPOCHS):
+    loss = train()
+</code></pre>
 
 
 <script type="text/javascript">
@@ -817,7 +874,7 @@ Custom_Net(
         <span style="color:rgb(255,051,051);">●</span> TeX (0)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1924)</summary>
+    <summary>전체 포스트 (1929)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/r/" style="color: black">R (53)</a>
         </li><li>
@@ -831,13 +888,13 @@ Custom_Net(
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (13)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (65)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (66)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A5%B4%EB%B2%A1%EA%B3%B5%EA%B0%84/" style="color: black">르벡공간 (30)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (34)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (35)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">물리학미분류 (10)</a>
         </li><li>
@@ -845,7 +902,7 @@ Custom_Net(
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">벡터해석 (45)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/" style="color: black">보조정리 (11)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/" style="color: black">보조정리 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B5%EC%86%8C%ED%95%B4%EC%84%9D/" style="color: black">복소해석 (62)</a>
         </li><li>
@@ -879,7 +936,7 @@ Custom_Net(
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (84)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (37)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (38)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -903,7 +960,7 @@ Custom_Net(
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (23)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (63)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (64)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (95)</a>
         </li><li>
