@@ -59,10 +59,10 @@
     </script>
 
     
-<meta name="title" content="일차 형식과 이차 형식">
+<meta name="title" content="스칼라 필드의 선적분">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="일차 형식과 이차 형식"/>
-<meta property="og:description" content="linear form and quadratic form"/>
+<meta property="og:title" content="스칼라 필드의 선적분"/>
+<meta property="og:description" content="Line Integral of Scalar Field"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -74,15 +74,15 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "j_",
-    "name": "일차 형식과 이차 형식",
-    "headline": "일차 형식과 이차 형식",
+    "name": "스칼라 필드의 선적분",
+    "headline": "스칼라 필드의 선적분",
     "alternativeHeadline": "",
-    "description": "linear form and quadratic form",
+    "description": "Line Integral of Scalar Field",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/linear-form-and-quadratic-form\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/line-integral-of-scalar-field\/"
     },
     "author" : {
         "@type": "Person",
@@ -98,9 +98,9 @@
     },
     "copyrightHolder" : "생새우초밥집",
     "copyrightYear" : "2021",
-    "dateCreated": "2021-03-05T00:00:00.00Z",
-    "datePublished": "2021-03-05T00:00:00.00Z",
-    "dateModified": "2021-03-05T00:00:00.00Z",
+    "dateCreated": "2021-09-12T00:00:00.00Z",
+    "datePublished": "2021-09-12T00:00:00.00Z",
+    "dateModified": "2021-09-12T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -113,15 +113,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/linear-form-and-quadratic-form\/",
-    "wordCount" : "916",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/line-integral-of-scalar-field\/",
+    "wordCount" : "985",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>일차 형식과 이차 형식</title>
+    <title>스칼라 필드의 선적분</title>
 
 </head>
 
@@ -130,7 +130,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0.png style="max-height: 80px; width: auto;">
             
             
             
@@ -261,21 +261,21 @@
             <div class = "content">
             
 
-<title>일차 형식과 이차 형식</title>
+<title>스칼라 필드의 선적분</title>
 
-<h1>일차 형식과 이차 형식</h1>
+<h1>스칼라 필드의 선적분</h1>
 <aside>
-    linear form and quadratic form
+    Line Integral of Scalar Field
     <p style="text-align: right;">
-        1734
+        3112
 
     
     
-            <a href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수</a>&emsp;
+            <a href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론</a>&emsp;
             
     </span>
     
-    작성일: 2021-03-05&nbsp;<br>
+    작성일: 2021-09-12&nbsp;<br>
     작성자: 전기현 사장 &nbsp;
 </p>
 </aside>
@@ -284,15 +284,16 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#일차형식">일차형식</a>
+    <li><a href="#평면-곡선위의-선적분1">평면 곡선위의 선적분</a>
       <ul>
-        <li><a href="#정의1">정의</a></li>
+        <li><a href="#빌드업">빌드업</a></li>
+        <li><a href="#정의">정의</a></li>
         <li><a href="#설명">설명</a></li>
       </ul>
     </li>
-    <li><a href="#이차형식">이차형식</a>
+    <li><a href="#공간-곡선위의-선적분">공간 곡선위의 선적분</a>
       <ul>
-        <li><a href="#정의">정의</a></li>
+        <li><a href="#정의-1">정의</a></li>
         <li><a href="#설명-1">설명</a></li>
       </ul>
     </li>
@@ -300,88 +301,64 @@
 </nav>
 </aside>
 
-<h2 id="일차형식">일차형식</h2>
-<h3 id="정의1">정의<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h3>
-<p>상수 $a_{1}, a_{2}, \dots, a_{n}$과 변수 $x_{1}, x_{2}, \dots, x_{n}$들에 대해서 다음과 같은 일차 다항식을 <strong>일차형식</strong><sup>linear form</sup>이라 한다.</p>
+<h2 id="평면-곡선위의-선적분1">평면 곡선위의 선적분<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<h3 id="빌드업">빌드업</h3>
+<p>$y = f(x)$와 같이 주어진 함수의 정적분은 $x$축을 따라서 함숫값 $f(x)$들을 모두 더하는 아이디어로 정의되어있다. 따라서 $x$축 위의 <strong>직선</strong>을 따라서 적분값을 구하게 된다.</p>
+<p>이제 이변수함수 $z=f(x,y)$를 생각해보자. 일변수함수일때와는 달리 변수가 $xy-$평면 위를 움직이므로 적분 구간은 반드시 직선일 필요가 없다. 얼마든지 자유로운 모양의 선을 따라서 $z=f(x,y)$의 적분을 생각할 수 있다. 이제 매개변수 방정식 $x=x(t), y=y(t), a\le t \le b$로 표현되는 <a href="../3110">매끄러운</a> 곡선 $C$가 아래의 그림과 같이 주어졌다고 하자.</p>
+<p><img src="1.PNG#center" alt="1.PNG"></p>
+<p>점 $P_{i}$들로 나누어진 부분 호의 길이를 $\Delta s_{i}$, 그 안의 임의의 점을 $(x_{i}^{\ast}, y_{i}^{\ast})$라고 하자. 그러면 곡선 $C$를 따라가는 $f$ 그래프의 면적은 다음과 같이 근사할 수 있다.</p>
 <p>$$
-a_{1}x_{1} + a_{2}x_{2} + \cdots + a_{n}x_{n} = \sum \limits _{i=1}^{n} a_{i}x_{i}
+\sum \limits_{i=1}^{n} f(x_{i}^{\ast}, y_{i}^{\ast})\Delta s_{i}
+$$</p>
+<p>$n$이 커질수록 실제 넓이에 점점 가까워질 것이다.</p>
+<h3 id="정의">정의</h3>
+<p>$C$를 매개변수 방정식 $x=x(t), y=y(t), a\le t \le b$로 표현되는 <a href="../3110">매끄러운</a> 곡선이라고 하자. $f$를 $C$ 위에서 정의된 함수라고 하자. 만약 아래의 극한이 존재하면, 이를 <strong>$C$를 따라가는 $f$의 선 적분</strong><sup>line integral of $f$ along $C$</sup>이라고 정의하고 다음과 같이 표기한다.</p>
+<p>$$
+\int_{C} f(x,y) ds = \lim \limits_{n \to \infty} \sum \limits_{i=1}^{n} f(x_{i}^{\ast}, y_{i}^{\ast})\Delta s_{i}
 $$</p>
 <h3 id="설명">설명</h3>
-<p>$a_{i}$, $x_{i}$들이 실수이면 $\mathbb{R}^{n}$ 상의 일차 형식이라 한다. 또한 상수와 변수를 $\mathbf{a}=\begin{bmatrix} a_{1} &amp; \cdots &amp; a_{n} \end{bmatrix}^{T}$, $\mathbf{x}=\begin{bmatrix} x_{1} &amp; \cdots &amp; x_{n} \end{bmatrix}^{T}$와 같이 <a href="../1955">열벡터</a>로 나타내면 일차 형식은 다음과 같이 <a href="../3011">행렬 내적</a>으로 표현할 수 있다.</p>
+<blockquote>
+<p><a href="../3111">곡선의 길이</a></p>
 <p>$$
-\mathbf{a} \cdot \mathbf{x} = \mathbf{a}^{T} \mathbf{x} =
-\begin{bmatrix} a_{1} &amp; \cdots &amp; a_{n} \end{bmatrix}
-\begin{bmatrix} x_{1} \\ \vdots \\ x_{n} \end{bmatrix}
-=\sum \limits _{i=1}^{n} a_{i}x_{i}
+L = \int_{C} ds = \int_{a}^{b} \sqrt{\left( \dfrac{d x}{d t} \right)^{2} + \left( \dfrac{d y}{d t} \right)^{2}} dt
 $$</p>
-<h2 id="이차형식">이차형식</h2>
-<h3 id="정의">정의</h3>
-<p>$1\le i,j \le n$에 대해서, 실수인 변수 $x_{i}$와 상수 $a_{ij}$들의 이차 다항식을 <strong>이차 형식</strong><sup>quadratic form</sup>이라 한다.</p>
+</blockquote>
+<p>이는 곡선의 길이를 구할 때 함숫값 $f(x,y)$를 가중치로 곱해준 것으로 생각할 수 있다. 따라서 다음의 식을 얻는다.</p>
 <p>$$
-a_{11}^{\ }x_{1}^{2} + a_{22}^{\ }x_{2}^{2} + \cdots a_{nn}^{\ }x_{n}^{2} + \left( \text{all possible terms } a_{ij}x_{i}x_{j} \text{ in which } i\ne j \right) = \sum \limits _{i=1}^{n} \sum \limits _{j=1}^{n} a_{ij}x_{i}x_{j}
+\int_{C} f(x,y) ds = \int_{a}^{b} f\left( x(t), y(t) \right)\sqrt{\left(\dfrac{d x}{d t}\right)^{2} + \left(\dfrac{d y}{d t}\right)^{2}}dt
 $$</p>
-<p>이때 $a_{ij}=a_{ji}$이고, 인덱스가 다른 $a_{ij}x_{i}x_{j}$꼴의 항을 <strong>혼합항</strong><sup>cross product terms</sup>이라 한다. 이 정의를 행렬로 표현하면 다음과 같다.</p>
-<p>변수를 $n\times 1$ 행렬 $\mathbf{x}$, 상수를 $n\times n$ <a href="../3005">대칭행렬</a> $A$라고 하면 이에 대한 이차 형식은 $Q_{A}(\mathbf{x})$로 표기하고 <strong>$A$에 연관된 이차 형식</strong><sup>quadratic form associated with A</sup>이라 부른다.</p>
+<p>또한 $\mathbf{r}(t) = \left( x(t), y(t) \right)$라고 두면 $\mathbf{r}^{\prime} = \left( x^{\prime}(t), y^{\prime}(t) \right)$이므로 다음이 성립한다.</p>
 <p>$$
-Q_{A}(\mathbf{x}) = \mathbf{x}^{T}A\mathbf{x}
-=\begin{bmatrix}
-x_{1} &amp; \cdots &amp;x_{n}
-\end{bmatrix}
-\begin{bmatrix}
-a_{11} &amp; \cdots &amp; a_{1n}
-\\  \vdots &amp; \ddots &amp; \vdots
-\\  a_{n1} &amp; \cdots &amp; a_{nn}
-\end{bmatrix}\begin{bmatrix}
-x_{1}
-\\  \vdots
-\\  x_{n}
-\end{bmatrix}=\sum \limits _{i=1} ^{n}\sum \limits _{j=1} ^{n}a_{ij}x_{i}x_{j}
+\begin{align*}
+\int_{C} f(x,y) ds =&amp; \int_{a}^{b} f\left( x(t), y(t) \right)\sqrt{\left(\dfrac{d x}{d t}\right)^{2} + \left(\dfrac{d y}{d t}\right)^{2}}dt
+\\ =&amp; \int_{a}^{b} f\left( \mathbf{r}(t) \right) \left| \mathbf{r}^{\prime}(t) \right| dt
+\end{align*}
 $$</p>
-<p>위 정의를 복소수에 대해서 확장하면 행렬 $A$의 조건이 대칭행렬인 것에서  <a href="../3007">에르미트 행렬</a>인 것으로 바뀐다.</p>
+<p>다음과 같이 곡선의 길이 $ds$가 아니라 각 좌표축에서의 길이 $dx, dy$로 적분하는 것을 생각할 수 있다.</p>
 <p>$$
-Q_{A}(\mathbf{x}) = \mathbf{x}^{\ast}A\mathbf{x}
+\begin{align*}
+\int_{C} f(x,y) dx =&amp; \lim \limits_{n \to \infty} \sum \limits_{i=1}^{n} f(x_{i}^{\ast}, y_{i}^{\ast})\Delta x_{i} = \int_{a}^{b} f\left( x(t), y(t) \right) x^{\prime}(t) dt
+\\ \int_{C} f(x,y) dy =&amp; \lim \limits_{n \to \infty} \sum \limits_{i=1}^{n} f(x_{i}^{\ast}, y_{i}^{\ast})\Delta y_{i} = \int_{a}^{b} f\left( x(t), y(t) \right) y^{\prime}(t) dt
+\end{align*}
+$$</p>
+<p>이러한 꼴은 <a href="../3113">벡터 필드의 선적분</a>에서 만날 수 있다.</p>
+<h2 id="공간-곡선위의-선적분">공간 곡선위의 선적분</h2>
+<p>3차원 함수의 선적분도 2차원 선적분과 같은 방식으로 자연스럽게 정의된다.</p>
+<h3 id="정의-1">정의</h3>
+<p>$C$를 매개변수 방정식 $x=x(t), y=y(t), z=z(t), a\le t \le b$로 표현되는 <a href="../3110">매끄러운</a> 곡선이라고 하자. $f$를 $C$ 위에서 정의된 함수라고 하자. 만약 아래의 극한이 존재하면, 이를 <strong>$C$를 따라가는 $f$의 선 적분</strong>이라고 정의하고 다음과 같이 표기한다.</p>
+<p>$$
+\int_{C} f(x,y,z) ds = \lim \limits_{n \to \infty} \sum \limits_{i=1}^{n} f(x_{i}^{\ast}, y_{i}^{\ast}, z_{i}^{\ast})\Delta s_{i}
 $$</p>
 <h3 id="설명-1">설명</h3>
-<p>예로 $\mathbb{R}^{2}$상의 이차 형식은 다음과 같다.</p>
+<p>2차원일 때의 공식 역시 3차원일 때도 성립한다.</p>
 <p>$$
-\begin{align*}
-&amp; a_{11}^{\ }x_{1}^{2} + a_{22}^{\ }x_{2}^{2} + a_{12}^{\ }x_{1}^{\ }x_{2}^{\ } + a_{21}^{\ }x_{2}^{\ }x_{1}^{\ }
-\\ =&amp; a_{11}^{\ }x_{1}^{2} + a_{22}^{\ }x_{2}^{2} + 2a_{12}^{\ }x_{1}^{\ }x_{2}^{\ }
-\end{align*}
-$$</p>
-<p>$\mathbb{R}^{3}$상의 이차 형식은 다음과 같다.</p>
-<p>$$
-a_{11}^{\ }x_{1}^{2} + a_{22}^{\ }x_{2}^{2} + a_{33}^{\ }x_{3}^{2} + 2a_{12}^{\ }x_{1}^{\ }x_{2}^{\ } + 2a_{13}^{\ }x_{1}^{\ }x_{3}^{\ } + 2a_{23}^{\ }x_{2}^{\ }x_{3}^{\ }
-$$</p>
-<p>중복을 피하기 위해 위와 같이 혼합항을 결합해서 적는 것이 일반적이다. 이차 형식은 <a href="../3011">행렬 내적의 성질</a>에 의해 다음과 같이 나타낼 수 있다. 실수, 복소수에 대해서 각각 다음과 같다.</p>
-<p>$$
-\begin{align*}
-\mathbf{x}^{T} A \mathbf{x} &amp;= \mathbf{x} \cdot A\mathbf{x} = A\mathbf{x} \cdot \mathbf{x}
-\\ \mathbf{x}^{\ast} A \mathbf{x} &amp;= \mathbf{x} \cdot A\mathbf{x} = A\mathbf{x} \cdot \mathbf{x}
-\end{align*}
-$$</p>
-<p>$A$가 <a href="../1958">대각행렬</a>일 경우에는 $a_{ij}=0 (i \ne j)$이므로 이차 형식 $Q_{A}(\mathbf{x})$는 혼합항을 가지지 않는다.</p>
-<p>$$
-Q_{A}(\mathbf{x}) = \mathbf{x}^{T}A\mathbf{x}
-=\begin{bmatrix}
-x_{1} &amp; \cdots &amp;x_{n}
-\end{bmatrix}
-\begin{bmatrix}
-a_{11} &amp; 0 &amp; \cdots &amp; 0
-\\ 0 &amp; a_{22} &amp;  \cdots &amp; 0
-\\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots
-\\ 0 &amp; 0 &amp; \cdots &amp; a_{nn}
-\end{bmatrix}\begin{bmatrix}
-x_{1}
-\\  \vdots
-\\  x_{n}
-\end{bmatrix}=\sum \limits _{i=1}^{n} a_{ii}x_{i}^{2}
+\int_{C} f(x,y,z) ds = \int_{a}^{b} f\left( x(t), y(t), z(t) \right)\sqrt{\left(\dfrac{d x}{d t}\right)^{2} + \left(\dfrac{d y}{d t}\right)^{2} + \left(\dfrac{d z}{d t}\right)^{2}}dt
 $$</p>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Howard Anton, <em>Elementary Linear Algebra: Aplications Version</em> (12th Edition, 2019), p416-417 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>James Stewart, <em>Calculus: Early Transcendentals</em> (5th Edition, 2003), p1062-1069&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -390,8 +367,8 @@ $$</p>
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var title = '일차 형식과 이차 형식';
-        var link = 'https:\/\/freshrimpsushi.github.io\/posts\/linear-form-and-quadratic-form\/';
+        var title = '스칼라 필드의 선적분';
+        var link = 'https:\/\/freshrimpsushi.github.io\/posts\/line-integral-of-scalar-field\/';
         var arr = new Array();
         var obj = {
             "title": title,
@@ -509,9 +486,9 @@ $$</p>
             alert('빈칸을 채워주세요');
             return;
         }
-        let board_idx = '1734';
-        let board_slug = 'linear-form-and-quadratic-form';
-        let board_title = '일차 형식과 이차 형식';
+        let board_idx = '3112';
+        let board_slug = 'line-integral-of-scalar-field';
+        let board_title = '스칼라 필드의 선적분';
 
         $.ajax({
             type: "POST",
@@ -625,7 +602,7 @@ $$</p>
             type: "POST",
             url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.comment.php?action=getComment",
             data: {
-                board_idx: '1734'
+                board_idx: '3112'
             },
             dataType: "json",
             success: function (data) {
@@ -699,9 +676,9 @@ $$</p>
                 alert('빈칸을 채워주세요');
                 return;
             }
-            let idx = '1734';
-            let board_slug = 'linear-form-and-quadratic-form';
-            let board_title = '일차 형식과 이차 형식';
+            let idx = '3112';
+            let board_slug = 'line-integral-of-scalar-field';
+            let board_title = '스칼라 필드의 선적분';
 
             $.ajax({
                 type: "POST",
@@ -853,9 +830,11 @@ $$</p>
         <span style="color:rgb(051,204,051);">●</span> 교과과정 (53)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1941)</summary>
+    <summary>전체 포스트 (1949)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/r/" style="color: black">R (53)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/tex/" style="color: black">TeX (1)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC%EA%B3%B5%EA%B0%84/" style="color: black">거리공간 (33)</a>
         </li><li>
@@ -865,7 +844,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (40)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (17)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (20)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (66)</a>
         </li><li>
@@ -877,7 +856,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">물리학미분류 (10)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B0%94%EB%82%98%ED%9D%90%EA%B3%B5%EA%B0%84/" style="color: black">바나흐공간 (33)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B0%94%EB%82%98%ED%9D%90%EA%B3%B5%EA%B0%84/" style="color: black">바나흐공간 (34)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">벡터해석 (42)</a>
         </li><li>
@@ -885,19 +864,19 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B5%EC%86%8C%ED%95%B4%EC%84%9D/" style="color: black">복소해석 (65)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (44)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (43)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (6)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">상미분방정식 (58)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (34)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (33)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/" style="color: black">소볼레프공간 (11)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (52)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (60)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (62)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (53)</a>
         </li><li>
@@ -943,7 +922,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (63)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (100)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (103)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (63)</a>
         </li><li>
