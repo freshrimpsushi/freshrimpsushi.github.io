@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/sufficient-statistic\/",
-    "wordCount" : "411",
+    "wordCount" : "1091",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -291,6 +291,12 @@
       </ul>
     </li>
     <li><a href="#설명">설명</a></li>
+    <li><a href="#예시">예시</a>
+      <ul>
+        <li><a href="#와닿지-않는-예시">와닿지 않는 예시</a></li>
+        <li><a href="#와닿는-예시">와닿는 예시</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 </aside>
@@ -306,6 +312,43 @@ $$
 <p><a href="../1730">통계량</a> $T(\mathbf{X})$ 가 주어진 <a href="../1715">샘플</a> 의 $\mathbf{X}$ <a href="../1458">조건부 확률 분포</a>가 모수 $\theta$ 에 종속되지 않으면 $T(\mathbf{X})$ 를 $\theta$ 에 대한 <strong>충분통계량</strong>이라 한다.</p>
 <h2 id="설명">설명</h2>
 <p>정의의 수식이 의미하는 것은 직관적으로 보았을 때 분자와 분모에서 $\theta$ 가 캔슬된다는 것―충분통계량 $Y_{1}$ 이 랜덤 샘플 $X_{1} , \cdots , X_{n}$ 의 정보를 정확하게 물고 있다는 의미가 될 것이다. 충분통계량의 &lsquo;충분&rsquo;이란 $\theta$ 에 대해 가진 정보가 &lsquo;충분&rsquo;하다 정도로 받아들이면 되고, 충분통계량이 빠진 후에는 $\theta$ 에 대한 정보가 전혀 남아있지 않아야한다.</p>
+<h2 id="예시">예시</h2>
+<blockquote>
+<p><a href="../2084">네이만 인수분해 정리</a>: <a href="../1715">랜덤 샘플</a> $X_{1} , \cdots , X_{n}$ 이 모수 $\theta \in \Omega$ 에 대해 같은 확률질량/밀도함수 $f \left( x ; \theta \right)$ 를 가진다고 하자. <a href="../1730">통계량</a> $Y = u_{1} \left( X_{1} , \cdots , X_{n} \right)$ 이 $\theta$ 의 <a href="../2061">충분통계량</a>인 것은 다음을 만족하는 음이 아닌 두 함수 $k_{1} , k_{2} \ge 0$ 이 존재하는 것이다.
+$$
+f \left( x_{1} ; \theta \right) \cdots f \left( x_{n} ; \theta \right) = k_{1} \left[ u_{1} \left( x_{1} , \cdots , x_{n} \right) ; \theta \right] k_{2} \left( x_{1} , \cdots , x_{n} \right)
+$$
+단, $k_{2}$ 는 $\theta$ 에 종속되지 않아야한다.</p>
+</blockquote>
+<p>예시로써 충분통계량을 이해하기 위해 위의 정리를 사용하자.</p>
+<h3 id="와닿지-않는-예시">와닿지 않는 예시</h3>
+<p>$$
+X_{1} , \cdots , X_{n} \sim N \left( \mu , \sigma^{2} \right)
+$$</p>
+<p>경험적으로 충분통계량은 왜 이런 걸 구하는지 이해하지 못하는 것에서 시작해야 이해할 수 있었다. 대표적으로 와닿지 않는 예시로써 위와 같이 <a href="../1645">정규분포</a> $N \left( \mu , \sigma^{2} \right)$ 의 모평균 $\mu$ 에 대한 충분통계량을 보는 것이다. 인수분해 정리에 따르면 $\mu$ 의 충분통계량은
+$$
+\begin{align*}
+\prod_{k=1}^{n} f \left( x_{k} ; \mu \right) =&amp; \prod_{k=1}^{n} {{ 1 } \over { \sigma \sqrt{2 \pi} }} \exp \left( - {{ \left( x_{i} - \mu \right)^{2} } \over { 2 \sigma^{2} }} \right)
+\\ =&amp; \left( {{ 1 } \over { \sigma \sqrt{2 \pi} }} \right)^{n} \exp \left( - \sum_{k=1}^{n} {{ \left( x_{i} - \mu \right)^{2} } \over { 2 \sigma^{2} }} \right)
+\\ =&amp; \left( {{ 1 } \over { \sigma \sqrt{2 \pi} }} \right)^{n} \exp \left( - \sum_{k=1}^{n} {{ x_{i}^{2} } \over { 2 \sigma^{2} }} \right) \exp \left( - \sum_{k=1}^{n} {{ \left( 2 x_{i} - \mu^{2} \right) } \over { 2 \sigma^{2} }} \right)
+\end{align*}
+$$</p>
+<h3 id="와닿는-예시">와닿는 예시</h3>
+<p>$$
+X_{1} , \cdots , X_{n} \sim U (0,\theta) \text{ with } f \left( x ; \theta \right) = \begin{cases}
+1 &amp; , \text{if } x \in (0,\theta)
+\\ 0 &amp; , \text{otherwise}
+\end{cases} = {{ 1 } \over { \theta }} I_{(0,\theta)}
+$$</p>
+<p>가령 최대값의 모수가 $\theta$ 인 <a href="../443">유니폼분포</a>에서 얻은 <a href="../1715">랜덤 샘플</a>을 생각해보자. 실제 그 <a href="../1715">실현</a>이
+$$
+\begin{bmatrix}2.3 \\ 1.2 \\ 1.7 \\ 0.1 \\ 1.1\end{bmatrix}
+$$
+이고 더 이상의 샘플을 얻을 수 없다면, 균등분포 $U(a,b)$ 의 평균이 ${{ b+a } \over { 2 }}$ 기 때문에 다음과 같은 추정량을 생각해볼 수 있다.
+$$
+{{ \hat{\theta} + 0 } \over { 2 }} = {{ \sum_{k} x_{k} } \over { n }}
+$$</p>
+<p>한편 직관적으로 생각해보면 $\theta$ 에 대한 또 다른 합리적 추정은 $\hat{\theta} = 2.3$ 이 될 것이다. 그보다 큰 샘플을 얻을 리가 없다는 게 아니라, 지금 샘플을 보았을 때 딱히 $2.3$ 보다 크게 생각할 이유가 하등 없기 때문이다.</p>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -681,7 +724,7 @@ $$
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
-        <span style="color:rgb(051,204,051);">●</span> 보조정리 (11)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 보조정리 (16)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 집합론 (46)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/>
@@ -716,7 +759,7 @@ $$
     <a href=https://freshrimpsushi.github.io/categories/%EC%82%B0%EB%9E%80%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(255,051,051);">●</span> 산란이론 (0++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 동역학 (68++)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 동역학 (70++)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC%EA%B3%B5%EA%B0%84/>
         <span style="color:rgb(051,204,051);">●</span> 거리공간 (33)</a><br>
@@ -761,8 +804,6 @@ $$
         <span style="color:rgb(255,051,051);">●</span> 양자역학 (52)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/>
         <span style="color:rgb(051,204,051);">●</span> 열물리학 (24)</a><br>
-    <a href=https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/>
-        <span style="color:rgb(255,204,000);">●</span> 전자기학 (49)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 상대성이론 (6)</a><br>
     <hr>
@@ -782,7 +823,7 @@ $$
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/>
         <span style="color:rgb(255,204,000);">●</span> 줄리아 (70++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/>
-        <span style="color:rgb(051,204,051);">●</span> 프로그래밍 (29)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 프로그래밍 (31)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/>
         <span style="color:rgb(051,204,051);">●</span> 알고리즘 (27)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/>
@@ -831,9 +872,9 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B0%94%EB%82%98%ED%9D%90%EA%B3%B5%EA%B0%84/" style="color: black">바나흐공간 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/" style="color: black">보조정리 (13)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/" style="color: black">보조정리 (14)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B5%EC%86%8C%ED%95%B4%EC%84%9D/" style="color: black">복소해석 (65)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B5%EC%86%8C%ED%95%B4%EC%84%9D/" style="color: black">복소해석 (66)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (43)</a>
         </li><li>
@@ -847,7 +888,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/" style="color: black">소볼레프공간 (11)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC/" style="color: black">수리물리 (49)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC/" style="color: black">수리물리 (37)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">수리물리학 (2)</a>
         </li><li>
@@ -857,7 +898,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (27)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (53)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (54)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">열물리학 (28)</a>
         </li><li>
@@ -895,11 +936,11 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (48)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (24)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (25)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (66)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (74)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (95)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (96)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (63)</a>
         </li><li>
