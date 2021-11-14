@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/seminar\/",
-    "wordCount" : "158",
+    "wordCount" : "747",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -282,7 +282,8 @@
   <ul>
     <li><a href="#google-drivehttpsdrivegooglecomdrivefolders18_uiq6uk_wqabzg6tkzjhlwz7nqvo8eq"><a href="https://drive.google.com/drive/folders/18_UiQ6UK_WQABZg6tKZJHlWZ7NqVo8eq">Google Drive</a></a></li>
     <li><a href="#one-drivehttps1drvmsusaualhvq0uuvlgb8wzg9oj7t-_5h0_qe1ngwjm"><a href="https://1drv.ms/u/s!AuAlHvQ0uuVlgb8WZG9OJ7t-_5H0_Q?e=1NgwjM">One Drive</a></a></li>
-    <li><a href="#정리-1">정리 </a></li>
+    <li><a href="#정리">정리</a></li>
+    <li><a href="#설명">설명</a></li>
     <li><a href="#증명">증명</a></li>
   </ul>
 </nav>
@@ -291,11 +292,44 @@
 <h2 id="google-drivehttpsdrivegooglecomdrivefolders18_uiq6uk_wqabzg6tkzjhlwz7nqvo8eq"><a href="https://drive.google.com/drive/folders/18_UiQ6UK_WQABZg6tKZJHlWZ7NqVo8eq">Google Drive</a></h2>
 <h2 id="one-drivehttps1drvmsusaualhvq0uuvlgb8wzg9oj7t-_5h0_qe1ngwjm"><a href="https://1drv.ms/u/s!AuAlHvQ0uuVlgb8WZG9OJ7t-_5H0_Q?e=1NgwjM">One Drive</a></h2>
 <hr>
-<p>최소분산불편추정량의 유일성
-Uniqueness of UMVUE</p>
-<h2 id="정리-1">정리 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p>만약 $W$ 가 $\tau(\theta)$ 의 <a href="../2272">최선불편추정량</a>이라면, $W$ 는 유일하다.</p>
+<p>로케이션 패밀리의 충분통계량과 최대우도추정량
+Sufficient Statistic and MLE of Location Family</p>
+<h2 id="정리">정리</h2>
+<p><a href="../1433">확률밀도함수</a>가 $f_{X} \left( x ; \theta \right) = f_{X} \left( x - \theta \right)$ 인 <a href="../2251">로케이션 패밀리</a>에서 얻은 <a href="../1715">랜덤샘플</a> $X_{1} , \cdots , X_{n}$ 이 주어져 있다고 하자. <a href="../2061">충분통계량</a>과 <a href="../2026">최대우도추정량</a>은</p>
+<ul>
+<li>$X$ 의 서포트가 위로 유계면 $\max X_{k}$</li>
+<li>$X$ 의 서포트가 아래로 유계면 $\min X_{k}$</li>
+</ul>
+<p>에 종속된다.</p>
+<hr>
+<ul>
+<li><a href="../1433">확률변수의 서포트</a>란 확률밀도함수의 함수값이 $0$ 보다 큰 점들의 집합을 의미한다.
+$$
+S_{X} := \left\{ x \in \mathbb{R} : f_{X} (x ; \theta) &gt; 0 \right\}
+$$</li>
+<li><a href="../180">유계 집합</a>이란 주어진 집합의 모든 원소에 대해서 크거나 같은 원소가 존재하는 집합을 말한다.</li>
+</ul>
+<h2 id="설명">설명</h2>
+<p>예로써 <a href="../1510">일양분포</a> $U \left( 0, \theta \right)$ 에서 데이터
+$$
+0.7 \\ 0.8 \\ 0.1 \\ 0.2 \\ 0.1 \\ 0.9
+$$
+를 얻었다고 한다면, $\theta$ 의 충분통계량과 최대우도추정량은 당연히 가장 큰 값인 $0.9$ 다. 이와 같이 서포트 자체가 로케이션 파라메터 $\theta$ 에 종속된 경우엔 볼 것도 없이 $\min X_{k}$ 를 생각하면 된다. <a href="../1510">지수분포</a>도 마찬가지다.</p>
 <h2 id="증명">증명</h2>
+<p>아래로 유계인 경우만 보이자. $X$ 의 서포트가 아래로 유계라는 것은 그 확률밀도함수가 <a href="../1790">지시함수</a> $I$ 에 대해 다음과 같이 나타나는 것과 동치다.
+$$
+f_{X} ( x ; \theta ) = f_{X} ( x ; \theta ) I_{[\theta, \infty)} (x)
+$$</p>
+<blockquote>
+<p><a href="../2243">지시함수의 곱</a>: $$
+\prod_{i=1}^{n} I_{[\theta,\infty)} \left( x_{i} \right) = I_{[\theta,\infty)} \left( \min_{i \in [n]} x_{i} \right)
+$$</p>
+</blockquote>
+<p>$I$ 가 미분가능한 함수가 아니라서 당황스러울 수 있는데 오히려 정의에 입각해서 생각하면 어려울 게 없다. <a href="../2239">우도함수</a> $L$ 은
+$$
+L \left( \theta ; \mathbf{x} \right) = \prod_{k=1}^{n} f \left( x_{k} ; \theta \right) I_{[\theta, \infty)} \left( x_{k} \right) = I_{[\theta,\infty)} \left( \min_{{k} \in [n]} x_{k} \right) \prod_{k=1}^{n} f \left( x_{k} ; \theta \right)
+$$
+이므로, $\min x_{k}$ 이 $\theta$ 의 추정량 $\hat{\theta}$ 보다 작은 경우 얄짤없이 $0$ 이 곱해진다. 따라서 최대우도추정량은 $\min X_{k}$ 에 종속될 수 밖에 없고, $L$ 은 $X_{1} , \cdots , X_{n}$ 의 <a href="../1449">조인트 확률밀도함수</a>와 같은 꼴을 가지고 있으니 <a href="../2084">네이만 인수분해 정리</a>에 따라 충분통계량 역시 $\min X_{k}$ 에 대한 함수로 나타나야한다.</p>
 <p style="text-align: right;">■</p>
 <!-- 보통 [행렬](../1955)의 **스펙트라**<sup>Spectra</sup>라고 하면 그 [고유값과 고유벡터](../319)를 통틀어서 말하는 것이고, 행렬이 없다면 그에 대응하는 행렬 혹은 선형대수적으로 추상화된 고유값과 고유벡터를 의미하는 표현이다.[^9]
 
@@ -366,14 +400,6 @@ Uniqueness of UMVUE</p>
 
 taking additionally into account a switching prevention strategy - 스위칭 예방 전략을 추가적으로 고려하여 --><blockquote>
 </blockquote>
-<section class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1" role="doc-endnote">
-<p>Casella. (2001). Statistical Inference(2nd Edition): p343.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-</ol>
-</section>
 
 
 
@@ -852,7 +878,7 @@ taking additionally into account a switching prevention strategy - 스위칭 예
         <span style="color:rgb(051,204,051);">●</span> 교과과정 (53)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (1998)</summary>
+    <summary>전체 포스트 (2000)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -868,7 +894,7 @@ taking additionally into account a switching prevention strategy - 스위칭 예
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B5%90%EA%B3%BC%EA%B3%BC%EC%A0%95/" style="color: black">교과과정 (53)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (40)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (41)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (40)</a>
         </li><li>
@@ -950,7 +976,7 @@ taking additionally into account a switching prevention strategy - 스위칭 예
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (48)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (25)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (26)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (75)</a>
         </li><li>
