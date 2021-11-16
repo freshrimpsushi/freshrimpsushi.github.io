@@ -59,10 +59,10 @@
     </script>
 
     
-<meta name="title" content="충분통계량">
+<meta name="title" content="통계학에서의 주성분분석">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="충분통계량"/>
-<meta property="og:description" content="sufficient statistic"/>
+<meta property="og:title" content="통계학에서의 주성분분석"/>
+<meta property="og:description" content="pca principal components analysis in statistiics"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -74,15 +74,15 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "r_",
-    "name": "충분통계량",
-    "headline": "충분통계량",
+    "name": "통계학에서의 주성분분석",
+    "headline": "통계학에서의 주성분분석",
     "alternativeHeadline": "",
-    "description": "sufficient statistic",
+    "description": "pca principal components analysis in statistiics",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/sufficient-statistic\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/pca-principal-components-analysis-in-statistiics\/"
     },
     "author" : {
         "@type": "Person",
@@ -97,10 +97,10 @@
         "name": "류대식"
     },
     "copyrightHolder" : "생새우초밥집",
-    "copyrightYear" : "2021",
-    "dateCreated": "2021-08-04T00:00:00.00Z",
-    "datePublished": "2021-08-04T00:00:00.00Z",
-    "dateModified": "2021-08-04T00:00:00.00Z",
+    "copyrightYear" : "2019",
+    "dateCreated": "2019-01-20T00:00:00.00Z",
+    "datePublished": "2019-01-20T00:00:00.00Z",
+    "dateModified": "2019-01-20T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -113,15 +113,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/sufficient-statistic\/",
-    "wordCount" : "1806",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/pca-principal-components-analysis-in-statistiics\/",
+    "wordCount" : "1834",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>충분통계량</title>
+    <title>통계학에서의 주성분분석</title>
 
 </head>
 
@@ -130,7 +130,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D.png style="max-height: 80px; width: auto;">
             
             
             
@@ -261,21 +261,21 @@
             <div class = "content">
             
 
-<title>충분통계량</title>
+<title>통계학에서의 주성분분석</title>
 
-<h1>충분통계량</h1>
+<h1>통계학에서의 주성분분석</h1>
 <aside>
-    sufficient statistic
+    pca principal components analysis in statistiics
     <p style="text-align: right;">
-        2061
+        812
 
     
     
-            <a href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학</a>&emsp;
+            <a href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/" style="color: black">통계적분석</a>&emsp;
             
     </span>
     
-    작성일: 2021-08-04&nbsp;<br>
+    작성일: 2019-01-20&nbsp;<br>
     작성자: 류대식 사장 &nbsp;
 </p>
 </aside>
@@ -284,98 +284,136 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#정의">정의</a>
-      <ul>
-        <li><a href="#수식적인-정의-1">수식적인 정의 </a></li>
-        <li><a href="#일반적인-정의-2">일반적인 정의 </a></li>
-      </ul>
-    </li>
-    <li><a href="#설명">설명</a>
-      <ul>
-        <li><a href="#와닿지-않는-예시">와닿지 않는 예시</a></li>
-        <li><a href="#와닿는-예시">와닿는 예시</a></li>
-        <li><a href="#최소충분통계량">최소충분통계량</a></li>
-      </ul>
-    </li>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#유도-1">유도 </a></li>
+    <li><a href="#한계">한계</a></li>
+    <li><a href="#조건수-1">조건수 </a></li>
+    <li><a href="#같이보기">같이보기</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="정의">정의</h2>
-<h3 id="수식적인-정의-1">수식적인 정의 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h3>
-<p>모수 $\theta \in \Omega$ 에 대해 <a href="../1715">랜덤 샘플</a> $X_{1} , \cdots , X_{n}$ 의 확률질량/밀도함수를 $f(x;\theta)$, <a href="../1730">통계량</a> $Y_{1} := u_{1} \left( X_{1} , \cdots , X_{n} \right)$ 의 확률질량/밀도함수를 $f_{Y_{1}} \left( y_{1}; \theta \right)$ 이라 하자. $\theta \in \Omega$ 에 종속되지 않은 $H \left( x_{1} , \cdots , x_{n} \right)$ 에 대해
-$$
-{{ f \left( x_{1} ; \theta \right) \cdots f \left( x_{n} ; \theta \right) } \over { f_{Y_{1}} \left( u_{1} \left( x_{1} , \cdots, x_{n} \right) ; \theta \right) }} = H \left( x_{1} , \cdots , x_{n} \right)
-$$
-이면 $Y_{1}$ 을 $\theta$ 에 대한 <strong>충분통계량</strong><sup>Sufficient Statistic</sup>이라 한다.</p>
-<h3 id="일반적인-정의-2">일반적인 정의 <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h3>
-<p><a href="../1730">통계량</a> $T(\mathbf{X})$ 가 주어진 <a href="../1715">샘플</a> 의 $\mathbf{X}$ <a href="../1458">조건부 확률 분포</a>가 모수 $\theta$ 에 종속되지 않으면 $T(\mathbf{X})$ 를 $\theta$ 에 대한 <strong>충분통계량</strong>이라 한다.</p>
-<h2 id="설명">설명</h2>
-<p>정의의 수식이 의미하는 것은 직관적으로 보았을 때 분자와 분모에서 $\theta$ 가 캔슬된다는 것―충분통계량 $Y_{1}$ 이 랜덤 샘플 $X_{1} , \cdots , X_{n}$ 의 정보를 정확하게 물고 있다는 의미가 될 것이다. 충분통계량의 &lsquo;충분&rsquo;이란 $\theta$ 에 대해 가진 정보가 &lsquo;충분&rsquo;하다 정도로 받아들이면 되고, 충분통계량이 빠진 후에는 $\theta$ 에 대한 정보가 전혀 남아있지 않아야한다.</p>
-<p>예시로써 충분통계량을 이해하기 위해 다음의 정리를 사용하자.</p>
-<blockquote>
-<p><a href="../2084">네이만 인수분해 정리</a>: <a href="../1715">랜덤 샘플</a> $X_{1} , \cdots , X_{n}$ 이 모수 $\theta \in \Omega$ 에 대해 같은 확률질량/밀도함수 $f \left( x ; \theta \right)$ 를 가진다고 하자. <a href="../1730">통계량</a> $Y = u_{1} \left( X_{1} , \cdots , X_{n} \right)$ 이 $\theta$ 의 <a href="../2061">충분통계량</a>인 것은 다음을 만족하는 음이 아닌 두 함수 $k_{1} , k_{2} \ge 0$ 이 존재하는 것이다.
-$$
-f \left( x_{1} ; \theta \right) \cdots f \left( x_{n} ; \theta \right) = k_{1} \left[ u_{1} \left( x_{1} , \cdots , x_{n} \right) ; \theta \right] k_{2} \left( x_{1} , \cdots , x_{n} \right)
-$$
-단, $k_{2}$ 는 $\theta$ 에 종속되지 않아야한다.</p>
-</blockquote>
-<h3 id="와닿지-않는-예시">와닿지 않는 예시</h3>
+<h2 id="개요">개요</h2>
+<p><a href="../666">다중회귀분석</a> $Y \leftarrow X_{1} , \cdots, X_{p}$ 을 한다고 생각해보자. <strong>주성분분석</strong>, 영어 약어로 <strong>PCA</strong>는 쉽게 말해 양적변수들이 <a href="../808">제대로 독립이 되도록</a> &lsquo;재구성&rsquo;해서 분석하는 방법이다. 다변량 데이터의 분석이라는 관점으로 보자면 보다 적은 변수로 현상을 설명하기 위한 &lsquo;차원축소&rsquo;로써의 의미가 있다.</p>
+<p>주성분분석의 이론적인 유도를 제대로 이해하기 위해선 <a href="../../categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98">선형대수</a>, 가능하다면 <a href="../../categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98">수치선형대수</a>에 대한 지식까지 필요하다. 도저히 눈에 들어오지 않는다면 Step 3,4도 읽고 이해해보도록 하자.</p>
+<h2 id="유도-1">유도 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p><strong>Step 1. 표준화$p$ 개의 독립변수와 $n$ 개의 표본이 있는 데이터</strong></p>
 <p>$$
-X_{1} , \cdots , X_{n} \sim N \left( \mu , \sigma^{2} \right)
+\begin{bmatrix}
+y_{1} 
+\\  y_{2} 
+\\ \vdots 
+\\  y_{n} 
+\end{bmatrix} = \begin{bmatrix}
+1 &amp; x_{11} &amp; \cdots &amp; x_{1p} 
+\\  1 &amp; x_{21} &amp; \cdots &amp; x_{2p} 
+\\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots 
+\\  1 &amp; x_{n1} &amp; \cdots &amp; x_{np} 
+\end{bmatrix} \begin{bmatrix}
+\beta_{0} 
+\\ \beta_{1} 
+\\ \vdots 
+\\ \beta_{p} 
+\end{bmatrix} 
 $$</p>
-<p>경험적으로 충분통계량은 왜 이런 걸 구하는지 이해하지 못하는 것에서 시작해야 이해할 수 있었다. 대표적으로 와닿지 않는 예시로써 위와 같이 <a href="../1645">정규분포</a> $N \left( \mu , \sigma^{2} \right)$ 의 모평균 $\mu$ 에 대한 충분통계량을 보는 것이다. 인수분해 정리에 따르면 $\mu$ 의 충분통계량은
+<p>는 <a href="../550">계획행렬</a>을 써서 $Y = X \beta + \varepsilon$ 과 같이 나타낼 수 있다. 이 $X$ 를 표준화한 행렬 $Z$ 라고 함은 $j$ 번째 독립변수 $X_{j}$ 의 표본평균 $\overline{ x_{j} }$ 와 표본표준편차 $s_{ X_{j} }$ 에 대해 $(i,j)$-성분을</p>
+<p>$$
+\displaystyle \left( Z \right)_{ij}: = {{ x_{ij} } - \overline{ x_{j} } \over { s_{ X_{j} } }} 
+$$</p>
+<p>으로 갖는 행렬이다. 그러면 새로운 회귀계수</p>
+<p>$$
+\Theta := \begin{bmatrix}
+\theta_{1} 
+\\ \theta_{2} 
+\\ \vdots 
+\\ \theta_{p} 
+\end{bmatrix} 
+$$</p>
+<p>에 대해 상수항이 없는 회귀분석의 계획행렬식 $Y = Z \Theta + \varepsilon$ 을 얻을 수 있다. 이 $Z = \begin{bmatrix}
+Z_{1} &amp; \cdots &amp; Z_{p} 
+\end{bmatrix}$ 는 벡터 $X_{1} , \cdots , X_{p}$ 를 표준화한 $Z_{1} , \cdots , Z_{p}$ 로 구성된 $( n \times p )$ 행렬이 된다.</p>
+<hr>
+<p><strong>Step 2.</strong></p>
+<p>스펙트럴 분해에 대해 $Z^{T} Z$ 는 $( p \times p )$ <a href="../313">대칭행렬</a>인데, 그 정의를 생각해보면 $\displaystyle {{1} \over {n-1}} Z^{T} Z$ 는 $Z_{1} , \cdots , Z_{p}$ 에 대한 <a href="../425">공분산</a>행렬이 된다. 특히 $Z$ 는 표준화된 행렬이므로, 동시에 <a href="../57">상관계수</a>행렬이 되기도 한다. <a href="../346">스펙트럴 이론</a>에 따르면</p>
+<p>$$
+\begin{cases} Z^{T} Z = Q \Lambda Q^{T} 
+\\  Q^{T} Q = Q Q^{T} = I \end{cases}
+$$</p>
+<p>를 만족하는 정규직교행렬</p>
+<p>$$
+Q = \begin{bmatrix}
+q_{11} &amp; q_{12} &amp; \cdots &amp; q_{1p} 
+\\  q_{21} &amp; q_{22} &amp; \cdots &amp; q_{2p} 
+\\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots 
+\\  q_{p1} &amp; q_{p2} &amp; \cdots &amp; q_{pp} 
+\end{bmatrix}
+$$</p>
+<p>와 $Z^{T} Z$ 의 고유값들로 이루어진 대각행렬</p>
+<p>$$
+\Lambda = \text{diag} ( \lambda_{1} , \lambda_{2} , \cdots , \lambda_{p} ) = \begin{bmatrix}
+\lambda_{1} &amp; 0 &amp; \cdots &amp; 0 
+\\  0 &amp; \lambda_{2} &amp; \cdots &amp; 0 
+\\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots 
+\\  0 &amp; 0 &amp; \cdots &amp; \lambda_{p} 
+\end{bmatrix}
+$$</p>
+<p>가 존재한다. 이제 편의상 $\lambda_{1} \ge \lambda_{2} \ge \cdots \ge \lambda_{p}$ 이 되도록 두고 $Z$ 역시 그에 대응되도록 재정렬한 행렬로 생각하자.</p>
+<hr>
+<p><strong>Step 3.</strong>  주성분 구성</p>
+<p>$I = QQ^{T}$ 이므로
+$$
+Y = Z \Theta + \varepsilon = Z Q Q^{T} \Theta + \varepsilon 
+$$
+여기서 $C := ZQ $, $\alpha := Q^{T} \Theta$ 라고 두면
+$$
+Y = C \alpha + \varepsilon
+$$
+이 $C = \begin{bmatrix}
+C_{1} &amp; \cdots &amp; C_{p} 
+\end{bmatrix}$ 에 대해 $C_{1} , \cdots , C_{p}$ 를 $Z_{1}, \cdots , Z_{p}$ 의 <strong>주성분</strong><sup>PCs</sup>이라 한다. $j$ 번째 주성분의 모양은</p>
+<p>$$
+\displaystyle C_{j} = q_{1j} Z_{1} + \cdots + q_{pj} Z_{p} = \sum_{i=1}^{p} q_{ij} Z_{j} 
+$$</p>
+<p>와 같이 기존의 독립변수들을 선형결합으로 재구성한 것이다.</p>
+<hr>
+<p><strong>Step 4.</strong></p>
+<p>주성분의 독립성또한 다음의 계산으로 이 주성분끼리의 독립성을 확인할 수 있다.
 $$
 \begin{align*}
-\prod_{k=1}^{n} f \left( x_{k} ; \mu \right) =&amp; \prod_{k=1}^{n} {{ 1 } \over { \sigma \sqrt{2 \pi} }} \exp \left( - {{ \left( x_{i} - \mu \right)^{2} } \over { 2 \sigma^{2} }} \right)
-\\ =&amp; \left( {{ 1 } \over { \sigma \sqrt{2 \pi} }} \right)^{n} \exp \left( - \sum_{k=1}^{n} {{ \left( x_{i} - \mu \right)^{2} } \over { 2 \sigma^{2} }} \right)
-\\ =&amp; \left( {{ 1 } \over { \sigma \sqrt{2 \pi} }} \right)^{n} \exp \left( - \sum_{k=1}^{n} {{ x_{i}^{2} } \over { 2 \sigma^{2} }} \right) \exp \left( - \sum_{k=1}^{n} {{ \left( 2 x_{i} - \mu^{2} \right) } \over { 2 \sigma^{2} }} \right)
-\\ =&amp; \left( {{ 1 } \over { \sigma \sqrt{2 \pi} }} \right)^{n} \exp \left( - \sum_{k=1}^{n} {{ x_{i}^{2} } \over { 2 \sigma^{2} }} \right) \cdot \exp \left( - {{ 1 } \over { \sigma^{2} }} \sum_{k=1}^{n} x_{i} + {{ n(\mu/\sigma)^{2} } \over { 2 \ }} \right)
-\\ =&amp; k_{2} \left( x_{1} , \cdots , x_{n} \right) \cdot k_{1} \left[ u_{1} \left( x_{1} , \cdots , x_{n} \right) ; \mu \right] 
+&amp; Z^{T} Z = Q \Lambda Q^{T} 
+\\ \implies&amp; Q^{T} Z^{T} Z Q = \Lambda 
+\\ \implies&amp; \left( Z Q \right) ^{T} \left( Z Q \right) = \Lambda 
+\\ \implies&amp; C^{T} C = \Lambda 
 \end{align*}
 $$
-이므로 표본합 $\sum_{k=1}^{n} X_{k}$ 이든 분자 분모에 $n$ 을 곱해서 표본평균 $\overline{X}$ 가 되든 상관 없다. 어찌되든 우리의 직관대로 $\mu$ 의 충분통계량으로써 그 <a href="../1745">불편추정량</a>이면서 <a href="../2021">일치추정량</a>이면서 <a href="../2026">최대우도추정량</a>인 표본평균이 나온 것까진 좋다. 수식적으로는 무슨 말인지 알겠다. 그런데 뭐 어쩌란건지, 영 감이 잡히지 않을 것이다.</p>
-<h3 id="와닿는-예시">와닿는 예시</h3>
+다시 말해
+$$
+C_{j}^{T} C_{j} = \begin{cases} \lambda_{j} &amp; , i=j 
+\\  0 &amp; , i \ne j \end{cases}
+$$
+이므로 주성분끼리는 반드시 독립이고, 고유값 $\lambda_{j}$ 가 $0$ 에 가까울 정도로 작다는 말은 $\displaystyle C_{j} = \sum_{i=1}^{p} q_{ij} Z_{j}$ 가 영벡터에 가깝다는 의미가 되므로 $Z_{1} , \cdots , Z_{p}$ 가 다중공선성을 가진다고 볼 수 있다.</p>
+<p style="text-align: right;">■</p>
+<h2 id="한계">한계</h2>
+<p><a href="../814">주성분회귀분석</a> $Y \leftarrow C_{1} , \cdots , C_{p}$ 은 고유값에 문제가 있는 변수들을 제거함으로써 다중공선성의 문제를 회피한다. 또한 원래 회귀분석과 비교했을 때 훨씬 적은 수의 변수를 사용하는 것이므로 차원이 축소되었다고 말할 수 있다.</p>
+<p>언뜻 주성분분석은 만능처럼 보이지만 꼭 그런것만은 아니다. 우선 $Z$ 를 만들기 위해서 표준화를 한다는 것은 <a href="../686">질적변수</a>나 <a href="../805">변환</a>에 대해 손을 쓰기 어려운 점이 많다는 뜻이며, 이렇게 &lsquo;재구성&rsquo;을 하는 과정에서 분석 자체가 이해하기 어려워진다.</p>
+<p>통계가 통계학을 이해하지 못하는 사람에게도 필요하다는 점을 생각해보면 이 점은 꽤 치명적이다. 예를들어 한국 경제에 대한 분석에 주성분분석을 쓴다면 구체적으로 실업률 $X_{2}$ 나 평균 초봉 $X_{7}$ 과 같이 이해하기 쉬운 수치가 아니라 &lsquo;종합고용지수&rsquo; $C_{4}$ 와 같은 이상한 단어로 표현하게 되는 식이다. 분석자조차도 쓸만한 회귀식은 만들어냈을지언정 그 진정한 의미는 파악하지 못하는 대참사가 일어날 수도 있다. (컴퓨터 공학쪽에서는 데이터의 이해보단 예측과 분류가 중요하기 때문에 이런 단점을 크게 신경쓰지 않는다.)</p>
+<p>또한 어떤 주성분도 탈락시키지 않고 $Y \leftarrow C_{1} , \cdots , C_{p}$ 를 그대로 사용한다면 원래의 $Y \leftarrow X_{1} , \cdots , X_{p}$ 와 다를 바가 없는데, 여기서 몇몇 주성분을 탈락시킨다는 것 자체가 원래 있던 데이터를 포기한다는 뜻이 된다. 그래도 필요하다면 써야겠지만, 필요 없으면 굳이 쓸 이유가 없다. 쓸 땐 쓰더라도 어떤 단점과 한계가 있는지는 명확히 알고 써야한다.</p>
+<h2 id="조건수-1">조건수 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>한편 유도과정에서 구해지는 고유값을 통해 <a href="../808">다중공선성</a>을 진단하는 수치적인 지표인 <strong>조건수</strong><sup>Condition Number</sup></p>
 <p>$$
-X_{1} , \cdots , X_{n} \sim U (0,\theta) \text{ with } f \left( x ; \theta \right) = \begin{cases}
-1 &amp; , \text{if } x \in (0,\theta)
-\\ 0 &amp; , \text{otherwise}
-\end{cases} = {{ 1 } \over { \theta }} I_{(0,\theta)} (x)
+\displaystyle \kappa := \sqrt{ {{ \lambda_{1} } \over { \lambda_{p} }} }
 $$</p>
-<p>가령 최대값의 모수가 $\theta$ 인 <a href="../443">유니폼분포</a>에서 얻은 <a href="../1715">랜덤 샘플</a>을 생각해보자. 실제 그 <a href="../1715">실현</a>이
-$$
-\begin{bmatrix}2.3 \\ 1.2 \\ 1.7 \\ 0.1 \\ 1.1\end{bmatrix}
-$$
-이고 더 이상의 샘플을 얻을 수 없다면, 균등분포 $U(a,b)$ 의 모평균이 ${{ b+a } \over { 2 }}$ 기 때문에 다음과 같은 추정량을 생각해볼 수 있다.
-$$
-{{ \hat{\theta} + 0 } \over { 2 }} = {{ \sum_{k} x_{k} } \over { n }} \implies \hat{\theta} \overset{?}{=} {{ 2 \sum_{k} x_{k} } \over { n }}
-$$
-수리통계적으로 썩 나쁘지 않은 추측같다. 실제로 위 데이터로 계산한 표본평균의 $2$배는 $2.16$ 으로 꽤 그럴싸한데, 생각해보면 $2.3$ 이 샘플에 있으므로 $\theta = 2.16$ 일 리가 없다. 때려죽여도 $\theta$ 가 $2.3$ 보다는 크거나 같아야할 것이고, 직관적으로 보아 $\theta$ 에 대한 합리적 추정은 그냥 간단히 $\hat{\theta} = 2.3$ 이 될 수 있다. 그보다 큰 샘플을 얻을 리가 없다는 게 아니라, 지금 샘플을 보았을 때 딱히 $2.3$ 보다 크게 생각할 이유가 하등 없기 때문이다. 이제 실제로 충분통계량을 찾아보자.</p>
-<blockquote>
-<p><a href="../2243">지시함수의 곱</a>: $$
-\prod_{i=1}^{n} I_{(-\infty, \theta]} \left( x_{i} \right) = I_{(-\infty, \theta]} \left( \max_{i \in [n]} x_{i} \right)
-$$</p>
-</blockquote>
-<p>이 보조정리와 인수분해 정리에 따라 생각해보면 $\theta$ 에 대한 충분통계량은
-$$
-\begin{align*}
-\prod_{k=1}^{n} f \left( x_{k} ; \mu \right) =&amp; \prod_{k=1}^{n} {{ 1 } \over { \theta }} I_{(0,\theta)} \left( x_{k} \right)
-\\ = &amp; {{ 1 } \over { \theta^{n} }} I_{(0,\theta)} \left( \max x_{k} \right) \cdot 1
-\\ = &amp; k_{1} \left[ u_{1} \left( x_{1} , \cdots , x_{n} \right) ; \theta \right] k_{2} \left( x_{1} , \cdots , x_{n} \right)
-\end{align*}
-$$
-이므로 표본의 최대값 $\max_{k} X_{k} = X_{(n)}$ 이 될 수 있다. 이것이 의미하는 것은 말 그대로 $\theta$ 에 대한 정보를 생각할 때 여타 다른 샘플은 필요 없고, $\max_{k} X_{k}$ 만 생각하면 &lsquo;충분&rsquo;하다는 것이다.</p>
-<p>이러한 아이디어는 데이터 많이 뽑아서 모수 찍고 어디로 근사시키고 하는 사고방식과는 아예 궤를 달리한다. 언뜻 직관뿐인 단순 추측에 대해 수리와 형식으로써 접근하는 <strong>통계적 추론</strong>이고, 이를 통해 한 단계 더 깊은 통계학의 세계로 들어설 수 있다.</p>
-<h3 id="최소충분통계량">최소충분통계량</h3>
-<p>우리는 <a href="#%EC%99%80%EB%8B%BF%EB%8A%94-%EC%98%88%EC%8B%9C">와닿는 예시</a>에서 $\max_{k} X_{k}$ 이 $\theta$ 에 대한 충분통계량임을 직관과 비교해서 확인했다. 딱봐도 이보다 더 좋은 충분통계량은 없어보이는데, <a href="../2247">최소충분통계량</a>에 대한 논의가 그 답이 될 수 있을 것이다.</p>
+<p>를 계산할 수 있다. 경험적으로 $\kappa &gt; 15$ 면 원래 데이터에 다중공선성이 있다고 짐작할 수 있으나, 그다지 많이 사용되지는 않는다.</p>
+<h2 id="같이보기">같이보기</h2>
+<ul>
+<li><a href="../808">다중공선성</a></li>
+<li><a href="../814">R 에서 주성분회귀분석 하는 법</a></li>
+</ul>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Hogg et al. (2013). Introduction to Mathematical Statistcs(7th Edition): p391.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-<li id="fn:2" role="doc-endnote">
-<p>Casella. (2001). Statistical Inference(2nd Edition): p272.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Hadi. (2006). Regression Analysis by Example(4th Edition): p255~257.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -384,8 +422,8 @@ $$
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var title = '충분통계량';
-        var link = 'https:\/\/freshrimpsushi.github.io\/posts\/sufficient-statistic\/';
+        var title = '통계학에서의 주성분분석';
+        var link = 'https:\/\/freshrimpsushi.github.io\/posts\/pca-principal-components-analysis-in-statistiics\/';
         var arr = new Array();
         var obj = {
             "title": title,
@@ -503,9 +541,9 @@ $$
             alert('빈칸을 채워주세요');
             return;
         }
-        let board_idx = '2061';
-        let board_slug = 'sufficient-statistic';
-        let board_title = '충분통계량';
+        let board_idx = '812';
+        let board_slug = 'pca-principal-components-analysis-in-statistiics';
+        let board_title = '통계학에서의 주성분분석';
 
         $.ajax({
             type: "POST",
@@ -619,7 +657,7 @@ $$
             type: "POST",
             url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.comment.php?action=getComment",
             data: {
-                board_idx: '2061'
+                board_idx: '812'
             },
             dataType: "json",
             success: function (data) {
@@ -693,9 +731,9 @@ $$
                 alert('빈칸을 채워주세요');
                 return;
             }
-            let idx = '2061';
-            let board_slug = 'sufficient-statistic';
-            let board_title = '충분통계량';
+            let idx = '812';
+            let board_slug = 'pca-principal-components-analysis-in-statistiics';
+            let board_title = '통계학에서의 주성분분석';
 
             $.ajax({
                 type: "POST",
@@ -875,7 +913,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (41)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (40)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (41)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (18)</a>
         </li><li>
@@ -965,7 +1003,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (61)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">확률미분방정식 (3)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">확률미분방정식 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (30)</a>
         </li>

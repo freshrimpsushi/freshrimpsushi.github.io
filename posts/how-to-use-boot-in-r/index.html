@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-use-boot-in-r\/",
-    "wordCount" : "1034",
+    "wordCount" : "1036",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -299,10 +299,10 @@
 <p>구하고 싶은 통계량을 반환하는 함수 boot.fn()을 정의한다.당연히 여기서 함수의 이름은 어찌되든 상관 없다. 이때 인수 중엔 <code>boot.fn&lt;-function(dataset, index)</code>와 같이 두번째 옵션 <code>index</code>가 있어야한다.</p>
 <hr>
 <p><strong>Step 2.</strong></p>
-<p><code>boot()</code> 함수에 옵션 <code>data, statistic, R</code>을 설정하고 실행한다.</p>
+<p><code>boot()</code> 함수에 옵션 <code>data, statistiic, R</code>을 설정하고 실행한다.</p>
 <ul>
 <li><code>data</code>는 데이터셋,</li>
-<li><code>statistic</code>은 <strong>Step 1.</strong> 에서 정의한 함수</li>
+<li><code>statistiic</code>은 <strong>Step 1.</strong> 에서 정의한 함수</li>
 <li><code>R</code>에는 반복할 횟수를 넣어준다.</li>
 </ul>
 <h2 id="예제">예제</h2>
@@ -316,11 +316,11 @@
 <p>부트스트랩에 쓰이는 함수는 위와 같이 <code>dataset</code>과 <code>index</code>라는 두 개의 인수가 필수적이다. <code>dataset</code>은 오리지널 데이터를 받아주고, <code>index</code>는 부트스트랩을 통한 재표본추출의 튜플을 받아줄 것이다.</p>
 <p><code>return()</code>을 보면 알겠지만 해당 함수가 돌려주는 것은 모델이나 요약 전체가 아니라 회귀계수로 이루어진 벡터 뿐이다. 이렇게 함수를 포멀하게 정의할 필요가 있다보니 R에 대한 기초가 부족하면 부트스트랩 함수를 이해하기 어려울 것이다. 부트스트랩을 쓸 정도로 통계학에 숙달된 학습자라면 큰 문제는 없겠지만, 조금 어렵게 느껴져도 정상이니 자책하지 말자.</p>
 <p><img src="20180507_202925.png#center" alt="20180507\_202925.png"></p>
-<p><code>boot()</code> 함수는 <code>data</code>에 데이터셋을 받고 R에 실행 횟수를 받는다.<code>statistic</code> 옵션이 받아주는 것은 <code>boot.fn()</code>이 반환하는 &lsquo;벡터&rsquo;가 아니라 &lsquo;함수 그 자체&rsquo;인 <code>boot.fn</code>라는 부분에서 많이 실수한다.</p>
+<p><code>boot()</code> 함수는 <code>data</code>에 데이터셋을 받고 R에 실행 횟수를 받는다.<code>statistiic</code> 옵션이 받아주는 것은 <code>boot.fn()</code>이 반환하는 &lsquo;벡터&rsquo;가 아니라 &lsquo;함수 그 자체&rsquo;인 <code>boot.fn</code>라는 부분에서 많이 실수한다.</p>
 <p>계속해서 에러가 난다면 대부분은 여기가 문제다. 실행 결과를 보면 첫번째 회귀계수부터 t1, t2, t3, t4로 나타나고 계수나 표준오차가 처음에 했던 로지스틱 회귀분석의 결과와 상당히 비슷하게 구해졌음을 확인할 수 있다. 여기서 부트스트랩을 통해 얻어내고자 하는 것은 <a href="../551">점추정값인 original이 아니라 std. error라는 점</a>에 주의하도록 하자. 잘 비교해보면 알겠지만 original이란 그냥 전체 데이터에서 얻은 회귀계수로써 부트스트랩 그 자체와는 하등 상관없고 필요없다.</p>
 <h2 id="코드">코드</h2>
 <p>아래는 예제코드다. 부트스트랩같은 경우엔 너무 사용법이 특이해서 이해가 잘 안가면 그냥 예제를 자기 케이스에 맞게 바꿔 쓰기만해도 된다.</p>
-<pre><code>library(ISLR)
+<pre tabindex="0"><code>library(ISLR)
 library(boot)
 set.seed(150421)
 data(&quot;Default&quot;)
@@ -334,7 +334,7 @@ boot.fn&lt;-function(dataset,index)
   return(coef(glm(default~.,family=binomial(),data=dataset,subset=index)))
 }
  
-boot.result&lt;-boot(data=Default,statistic=boot.fn,R=1000); boot.result
+boot.result&lt;-boot(data=Default,statistiic=boot.fn,R=1000); boot.result
 </code></pre>
 
 
@@ -831,7 +831,7 @@ boot.result&lt;-boot(data=Default,statistic=boot.fn,R=1000); boot.result
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (41)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (40)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (41)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (18)</a>
         </li><li>
@@ -921,7 +921,7 @@ boot.result&lt;-boot(data=Default,statistic=boot.fn,R=1000); boot.result
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (61)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">확률미분방정식 (3)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">확률미분방정식 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (30)</a>
         </li>
