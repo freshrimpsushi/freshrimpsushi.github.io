@@ -295,13 +295,13 @@
 </aside>
 
 <h2 id="라이브러리">라이브러리</h2>
-<pre tabindex="0"><code>import torch
+<pre><code>import torch
 import torch.nn as nn
 import torch.nn.functional as F
 </code></pre><p><code>nn</code>와 <code>nn.functional</code>에는 뉴럴 네트워크를 구성하는 여러가지 레이어, 손실함수, 활성화 함수 등이 포함되어있다.</p>
 <h2 id="인공신경망-정의">인공신경망 정의</h2>
 <p>fully connected layer 3개를, relu <a href="../991">활성화 함수</a>를 써서 쌓은 MLP<sup>multi layer perceptron</sup>를 만들고 싶다면 다음과 같은 코드로 구현할 수 있다.</p>
-<pre tabindex="0"><code>class Custom_Net(nn.Module):
+<pre><code>class Custom_Net(nn.Module):
     def __init__(self):
         super(Custom_Net, self).__init__()
 
@@ -325,12 +325,12 @@ import torch.nn.functional as F
 <p>만약 MLP에서 이미지 등의 2차원 배열을 입력으로 사용할거라면 <code>x = x.view(-1,m)</code>을 사용하여 입력 데이터를 한 줄로 펴주어야 한다. -1은 나머지 값을 알아서 처리하라는 의미이며, 배치 학습을 시킬 경우 배치 사이즈와 같아진다.</p>
 <h2 id="옵티마이저와-손실함수-정의">옵티마이저와 손실함수 정의</h2>
 <p>위에서 만든 모델, 옵티마이저, 손실함수 등을 다음과 같이 정의한다. 만약 GPU를 사용한다면 <code>.to(DEVICE)</code>를 써서 GPU에 올려야한다. 당연히 DEVICE는 사용할 GPU로 위에서 미리 정의해야한다. <code>lr</code>은 <a href="../987">러닝 레이트</a>를 의미한다.</p>
-<pre tabindex="0"><code>model = Custom_Net().to(DEVICE)
+<pre><code>model = Custom_Net().to(DEVICE)
 
 optimizer = torch.optim.Adam(model.parameters()), lr = 0.0001)
 criterion = nn.MSELoss()
 </code></pre><p><code>print</code>로 뉴럴 네트워크가 어떻게 구성됐는지 확인할 수 있다.</p>
-<pre tabindex="0"><code>&gt;&gt;&gt; print(model)
+<pre><code>&gt;&gt;&gt; print(model)
 Custom_Net(
   (fully_cnnected_1): Linear(in_features=1024, out_features=1024, bias=False)
   (fully_cnnected_2): Linear(in_features=1024, out_features=512, bias=False)
@@ -338,7 +338,7 @@ Custom_Net(
 )
 </code></pre><h2 id="학습">학습</h2>
 <p>입력 $X$와 출력 $Y$로 구성된 적당한 <a href="../3108">데이터 셋</a> <code>Data_set</code>이 주어졌다고 하자. 그러면 정의한 모델을 학습시키는 함수를 다음과 같이 구현할 수 있다.</p>
-<pre tabindex="0"><code>def train():
+<pre><code>def train():
     model.train()
             
     for batch_idx, (X, Y) in enumerate(Data_set):
@@ -360,7 +360,7 @@ Custom_Net(
 <li><code>optimizer.step()</code>: 계산한 $\delta$를 바탕으로 옵티마이저를 최적화 한다.</li>
 </ul>
 <h2 id="전체코드">전체코드</h2>
-<pre tabindex="0"><code>#필요한 라이브러리 import
+<pre><code>#필요한 라이브러리 import
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -898,7 +898,7 @@ for epoch in range(1, EPOCHS):
         <span style="color:rgb(051,204,051);">●</span> 교과과정 (53)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2001)</summary>
+    <summary>전체 포스트 (2002)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -914,7 +914,7 @@ for epoch in range(1, EPOCHS):
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B5%90%EA%B3%BC%EA%B3%BC%EC%A0%95/" style="color: black">교과과정 (53)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (41)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (42)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (41)</a>
         </li><li>
@@ -942,7 +942,7 @@ for epoch in range(1, EPOCHS):
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (6)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">상미분방정식 (58)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">상미분방정식 (57)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (33)</a>
         </li><li>
@@ -998,7 +998,7 @@ for epoch in range(1, EPOCHS):
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (26)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (75)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (76)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (96)</a>
         </li><li>

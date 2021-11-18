@@ -62,7 +62,7 @@
 <meta name="title" content="채프만-콜모고로프 방정식 유도">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
 <meta property="og:title" content="채프만-콜모고로프 방정식 유도"/>
-<meta property="og:description" content="derivation of chapman kolmogorov equation"/>
+<meta property="og:description" content="Derivation of Chapman-Klmogorov Equation"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -77,7 +77,7 @@
     "name": "채프만-콜모고로프 방정식 유도",
     "headline": "채프만-콜모고로프 방정식 유도",
     "alternativeHeadline": "",
-    "description": "derivation of chapman kolmogorov equation",
+    "description": "Derivation of Chapman-Klmogorov Equation",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/derivation-of-chapman-kolmogorov-equation\/",
-    "wordCount" : "382",
+    "wordCount" : "491",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -265,7 +265,7 @@
 
 <h1>채프만-콜모고로프 방정식 유도</h1>
 <aside>
-    derivation of chapman kolmogorov equation
+    Derivation of Chapman-Klmogorov Equation
     <p style="text-align: right;">
         47
 
@@ -284,7 +284,12 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#정리">정리</a></li>
+    <li><a href="#정리">정리</a>
+      <ul>
+        <li><a href="#이산적-확률과정">이산적 확률과정</a></li>
+        <li><a href="#연속적-확률과정">연속적 확률과정</a></li>
+      </ul>
+    </li>
     <li><a href="#설명">설명</a></li>
     <li><a href="#유도">유도</a></li>
   </ul>
@@ -292,21 +297,33 @@
 </aside>
 
 <h2 id="정리">정리</h2>
+<p><a href="../857">확률과정</a>의 <a href="../2284">전이확률 $p_{ij}^{(n)}$, $p_{ij}(t)$</a>과 <a href="../2284">전이확률행렬 $P^{(n)}$, $P(t)$</a> 에 대해 다음의 방정식들이 성립한다.</p>
+<h3 id="이산적-확률과정">이산적 확률과정</h3>
 <p>$$
-\displaystyle { p }_{ ij }^{ (n+m) } =\sum _{ k } {  { p } _{ ik }^{ (n) }  { p } _{ kj }^{ (m) }  } 
+\begin{align*}
+p_{ ij }^{ (n+m) } =&amp; \sum _{ k } p_{ ik }^{ (n) }  p _{ kj }^{ (m) }
+\\ P^{(n+m)} =&amp; P^{(n)} P^{(m)}
+\end{align*}
+$$</p>
+<h3 id="연속적-확률과정">연속적 확률과정</h3>
+<p>$$
+\begin{align*}
+p_{ij} (t + s) =&amp; \sum _{ k } p_{ ik } \left( t \right) p _{ kj } \left( s \right)
+\\ P(t+s) =&amp; P(t) P(s)
+\end{align*}
 $$</p>
 <h2 id="설명">설명</h2>
 <p>스테이트 $i$ 에서 $j$ 로 갈 때까지 걸리는 $n+m$ 의 스텝을 $n$ 과 $m$ 으로 쪼개어 표현할 수 있다는 뜻이다. 굳이 증명하지 않고 직관적으로 생각해봐도 $i$ 부터 $k$ 까지 $n$ 번 걸리는 확률과 $k$ 에서 $j$ 까지 $m$ 번 걸리는 확률을 생각해보면 $i$ 에서 $k$ 를 거쳐 $j$ 까지 갈 확률일테고, 모든 상태 $k$ 에 대해서 이 확률들을 더한 값은 중간에 뭘 거쳤든 결국 $i$ 에서 $j$ 로 가는 확률이 될 것이다.</p>
 <h2 id="유도">유도</h2>
-<p>전략: 처음에 $X_0$ 를 $i$ 로 가정해서 그 뒤로 쓸데없이 &lsquo;$i$에서 출발하는&rsquo; 것에 대한 언급을 하지 않을 수 있다. 시그마 안에서의 식은 조건부 확률 $P(A|B)=P(AB)/P(B)$ 의 양변에 $P(B)$ 를 곱하면 $P(AB)=P(A|B)P(B)$ 처럼 나타낼 수 있는 것과 같이 넘어간다.</p>
+<p>전략: 이산적 확률과정에 대해서만 증명한다. 처음에 $X_0$ 를 $i$ 로 가정해서 그 뒤로 쓸데없이 &lsquo;$i$에서 출발하는&rsquo; 것에 대한 언급을 하지 않을 수 있다. 시그마 안에서의 식은 <a href="../1458">조건부확률</a> $P(A|B)=P(AB)/P(B)$ 의 양변에 $P(B)$ 를 곱하면 $P(AB)=P(A|B)P(B)$ 처럼 나타낼 수 있는 것과 같이 넘어간다.</p>
 <hr>
 <p>$ { X }_{ 0 }=i$ 이라 가정하면
 $$
 \begin{align*}
 { p } _{ ij }^{ (n+m) } =&amp; P({ X }_{ n+m }=j  )
-\\ &amp;=\sum _{ k }^{    }{ P({ X }_{ m }=j    ,  { X }_{ n }=k) }
-\\ &amp;=\sum _{ k }^{    }{ P({ X }_{ m }=j    |  { X }_{ n }=k)P({ X }_{ n }=k) }
-\\ &amp;=\sum _{ k }^{    }{  { p }_{ ik }^{ (n) }  { p }_{ kj }^{ (m) }  } 
+\\ =&amp; \sum _{ k }^{    }{ P({ X }_{ m }=j    ,  { X }_{ n }=k) }
+\\ =&amp; \sum _{ k }^{    }{ P({ X }_{ m }=j    |  { X }_{ n }=k)P({ X }_{ n }=k) }
+\\ =&amp; \sum _{ k }^{    }{  { p }_{ ik }^{ (n) }  { p }_{ kj }^{ (m) }  } 
 \end{align*} 
 $$</p>
 <p style="text-align: right;">■</p>
@@ -788,7 +805,7 @@ $$</p>
         <span style="color:rgb(051,204,051);">●</span> 교과과정 (53)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2001)</summary>
+    <summary>전체 포스트 (2002)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -804,7 +821,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B5%90%EA%B3%BC%EA%B3%BC%EC%A0%95/" style="color: black">교과과정 (53)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (41)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (42)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (41)</a>
         </li><li>
@@ -832,7 +849,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (6)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">상미분방정식 (58)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">상미분방정식 (57)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (33)</a>
         </li><li>
@@ -888,7 +905,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (26)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (75)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (76)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (96)</a>
         </li><li>
