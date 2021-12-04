@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/random-graph\/",
-    "wordCount" : "1177",
+    "wordCount" : "1181",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -255,7 +255,7 @@
         });
     });
 </script>
-    <hr>
+    
         
         <div class = "wrapper">
 
@@ -299,7 +299,7 @@
 
 <h2 id="정의">정의</h2>
 <h3 id="쉬운-정의">쉬운 정의</h3>
-<p>확률적인 절차로 만들어지거나 어떤 확률 분포에 따라 표현되는 그래프를 <strong>랜덤 그래프</strong><sup>Random Graph</sup>라 한다.</p>
+<p>비결정론적인 절차로 만들어지거나 어떤 확률 분포에 따라 표현되는 그래프를 <strong>랜덤 그래프</strong><sup>Random Graph</sup>라 한다.</p>
 <h3 id="어려운-정의">어려운 정의</h3>
 <p><a href="../498">확률 공간</a> $( \Omega , \mathcal{F} , P)$ 이 주어져 있고, $2^{\binom{n}{2}}$ 는 버텍스가 $n$ 개인 라벨링 된 그래프를 모두 모은 <a href="../2112">그래프 패밀리</a>를 나타낸다고 하자.</p>
 <p>$\mathcal{F}$-가측인 함수 $\mathbb{G} : \Omega \to 2^{\binom{n}{2}}$ 를 <strong>랜덤 그래프</strong><sup>Random Graph</sup>라 한다. 다시 말해, $\mathbb{G}$ 는 모든 (그래프의) <a href="../1251">보렐 셋</a> $B \in 2^{\binom{n}{2}}$ 에 대해 $\mathbb{G}^{-1} \left( B \right) \in \mathcal{F}$ 를 만족시키는 함수다.</p>
@@ -311,7 +311,7 @@
 $$
 P \left( \mathbb{G} = G_{0} \right) = {{ 3 } \over { 4 }}
 $$
-위 수식은 <a href="../498">사건</a>은 $\left\{ \mathbb{G} = G_{0} \right\} \in \mathcal{F}$ 이다. 확률이라는 함수 안에 들어가는 것은 언제나 사건이라는 점을 명심하자. 랜덤 그래프는 일반적인 확률론에서 단지 공역이 그래프 패밀리인 <strong>랜덤 엘러먼트</strong><sup>Random Element</sup>에 불과하다.</p>
+위 수식에서의 <a href="../498">사건</a>은 $\left\{ \mathbb{G} = G_{0} \right\} \in \mathcal{F}$ 이다. <a href="../1431">확률</a>이라는 함수 안에 들어가는 것은 언제나 사건이라는 점을 명심하자. 랜덤 그래프는 일반적인 확률론에서 단지 공역이 그래프 패밀리인 <strong>랜덤 엘러먼트</strong><sup>Random Element</sup>에 불과하다.</p>
 <h2 id="예시">예시</h2>
 <p>예로써 $n$ 개의 라벨링 된<sup>Labeled</sup> 버텍스와 $m$ 개의 에지를 가진 심플 그래프라는 [프로퍼티] $\mathscr{G}_{n,m} \subset 2^{\binom{n}{2}}$ 를 생각해보자.</p>
 <p>정확히 $m$ 개의 링크를 가진 랜덤 그래프는 $\mathbb{G}_{n, m} : \Omega \to \mathscr{G}_{n,m}$ 과 같이 나타낼 수 있다. 이렇게 만들어지는 그래프는 $n$ 개의 노드와 $m$ 개의 링크만 가지면 누가 어떤 확률로 만들어지든 아무래도 상관 없다. 다시 말해, 아직까지는 <a href="../1288">확률 분포</a>가 주어지지 않았다. 여기서 우리가 가장 쉽게 생각할 수 있는 확률 분포는 다음과 같이 모두가 같은 확률인 일양 분포다.</p>
@@ -374,10 +374,10 @@ $$
     <div class="write-content">
         <textarea name="comment" value="" placeholder="내용" style="IME-MODE:active;"></textarea>
     </div>
-
     <div class="write-button">
         <input class="write_comment" type="submit" name="submit" value="등록">
     </div>
+    <aside align="middle">댓글에도 $\TeX$이 적용됩니다.</aside>
 </div>
 
 
@@ -667,20 +667,51 @@ $$
             
 
 <aside>
+    <p><b>🔎 F2</b></p>
+    <ul class="lately-viewed-list" style="list-style-type: none; padding-left:4px;">
+        
+    </ul>
+</aside>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        let postList = JSON.parse(localStorage.getItem('latelyViewPostList'));
+        let list = $('.lately-viewed-list');
+        let str = "";
+        if(postList == '' || postList == null || postList == undefined || postList == 0 || postList == NaN) {
+            localStorage.setItem('latelyViewPostList', null);
+            str += "열람한 포스트가 없습니다.";
+            list.append(str);
+            str = "";
+        } else {
+            for (let i = (postList.length - 1); i >= 0; i--) {
+                str += "<li style='font-size:0.8rem;'><a href='";
+                str += postList[i].link;
+                str += "'> · ";
+                str += postList[i].title;
+                str += "</a></li>";
+                list.append(str);
+                str = "";
+            }
+        }
+    });
+</script>
+
+
+
+<aside>
     <a href="https://freshrimpsushi.com/community/" target='_blank'>
         <div style="float: center;">
         <p style="font-size: 1.5rem; text-align: center; margin:0%;">
-            커뮤니티 β 오픈<br>💬</p>
-        <p style="text-align: center; margin:0%">
-            (클릭)</p>
+            커뮤니티💬(클릭)</p>
         </div>
     </a>
 </aside>
 
 
 <aside>
-    <p><b>카테고리</b></p>
-
+    <p><b>카테고리</b>
+         <a href="../1595">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -694,7 +725,7 @@ $$
     <a href=https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 행렬대수 (65)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/>
-        <span style="color:rgb(051,204,051);">●</span> 선형대수 (19)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 선형대수 (20)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 추상대수 (78)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/>
@@ -719,7 +750,7 @@ $$
     <a href=https://freshrimpsushi.github.io/categories/%EC%82%B0%EB%9E%80%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(255,051,051);">●</span> 산란이론 (0++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/>
-        <span style="color:rgb(255,204,000);">●</span> 동역학 (70++)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 동역학 (70++)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC%EA%B3%B5%EA%B0%84/>
         <span style="color:rgb(051,204,051);">●</span> 거리공간 (33)</a><br>
@@ -798,7 +829,7 @@ $$
         <span style="color:rgb(051,204,051);">●</span> 교과과정 (53)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2017)</summary>
+    <summary>전체 포스트 (2018)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -814,7 +845,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B5%90%EA%B3%BC%EA%B3%BC%EC%A0%95/" style="color: black">교과과정 (53)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (44)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (45)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (45)</a>
         </li><li>
@@ -915,45 +946,6 @@ $$
 </aside>
 
 <aside>
-    <p><b>최근 본 포스트</b></p>
-    <ul class="lately-viewed-list" style="list-style-type: none; padding-left:4px;">
-        
-    </ul>
-</aside>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        let postList = JSON.parse(localStorage.getItem('latelyViewPostList'));
-        let list = $('.lately-viewed-list');
-        let str = "";
-        if(postList == '' || postList == null || postList == undefined || postList == 0 || postList == NaN) {
-            localStorage.setItem('latelyViewPostList', null);
-            str += "열람한 포스트가 없습니다.";
-            list.append(str);
-            str = "";
-        } else {
-            for (let i = (postList.length - 1); i >= 0; i--) {
-                str += "<li style='font-size:0.8rem;'><a href='";
-                str += postList[i].link;
-                str += "'> · ";
-                str += postList[i].title;
-                str += "</a></li>";
-                list.append(str);
-                str = "";
-            }
-        }
-    });
-</script>
-
-
-
-<aside>
-    <p><b>태그</b></p>
-    <div><a class = "in_sidebar" href="https://freshrimpsushi.github.io/tags/r/" title="r" style="color: black">R</a>&emsp;<a class = "in_sidebar" href="https://freshrimpsushi.github.io/tags/%EC%A4%84%EB%A6%AC%EC%95%84/" title="줄리아" style="color: black">줄리아</a>&emsp;
-    </div>
-</aside>
-
-<aside>
     <h2></h2>
     <ul>
     </ul>
@@ -1022,6 +1014,12 @@ $$
         });
     });
 </script>
+
+<aside>
+    <p><b>태그</b></p>
+    <div><a class = "in_sidebar" href="https://freshrimpsushi.github.io/tags/r/" title="r" style="color: black">R</a>&emsp;<a class = "in_sidebar" href="https://freshrimpsushi.github.io/tags/%EC%A4%84%EB%A6%AC%EC%95%84/" title="줄리아" style="color: black">줄리아</a>&emsp;
+    </div>
+</aside>
             </div>
 
         </div>
