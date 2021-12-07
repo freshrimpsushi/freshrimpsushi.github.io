@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/discrete-fourier-transform\/",
-    "wordCount" : "1552",
+    "wordCount" : "1547",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -294,10 +294,10 @@
 <h2 id="빌드업1">빌드업<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
 <p>$f$가 특정한 간격마다 측정되는 어떤 물리적인 신호라고 하자. 그러면 현실적인 조건을 생각해봤을 때, 신호가 측정되기 시작하는 순간 $t=0$와 측정이 끝나는 순간 $t=\Omega$가 존재할테니 $f$의 함숫값은 $[0, \Omega]$를 제외한 곳에서 모두 $0$이라 가정할 수 있다.</p>
 <blockquote>
-<p><a href="../3054">샘플링 정리</a></p>
-<p>$f\in L^{2}$이고 $\hat{f}$의 값이 길이가 $2\Omega$인 구간 에서만 존재한다고 가정하자. 다시말해 $\hat{f} (\omega) = 0\ for\ | \omega | \ge \Omega$라고 가정하자. 그러면 $t_{n}=n\pi / \Omega(n=0, \pm 1, \pm 2, \dots)$에 대해서 다음이 성립한다.</p>
+<p><a href="../3054">주파수 샘플링 정리</a></p>
+<p>$\hat{f} \in L^{2}$이고 $f (t) = 0\ \text{for } t \in [0, 2\Omega]$라고 가정하자. 그러면 $\hat{f}(\omega)$는 $m\pi / \Omega(m=0, \pm 1, \pm 2, \dots)$에서의 값들로 결정된다. 즉 다음이 성립한다.</p>
 <p>$$
-f(t) = \sum \limits_{-\infty}^{\infty} f \left( \dfrac{n\pi}{\Omega}\right) \dfrac{\sin (\Omega t -n\pi )}{\Omega t - n\pi} 
+\hat{f}(\omega) = \sum \limits_{m = -\infty}^{\infty} \hat{f} \left( \dfrac{m\pi}{\Omega}\right) \dfrac{\sin (\Omega \omega -m\pi )}{\Omega \omega - m\pi} 
 $$</p>
 </blockquote>
 <p>그러면 $f$의 값이 길이가 $\Omega$인 구간 $[0,\Omega]$에만 존재하므로, 샘플링 정리에 의해서 $\hat{f}$의 값은 이산 간격의 $\hat{f} \left( \dfrac{\pi m}{\Omega/2} \right) = \hat{f} \left( \dfrac{2\pi m}{\Omega} \right)$들에 의해 결정된다는 것을 알 수 있다. 따라서 이를 계산해보면, <a href="../1898">푸리에 변환</a>의 정의에 의해서 다음과 같다.</p>
@@ -328,7 +328,7 @@ $$</p>
 <p>$$
 \hat{a}_{m+N}=\hat{a}_{m}
 $$</p>
-<p>따라서 $N$차원 벡터 $\mathbf{a} = (a_{0}, a_{1}, \dots, a_{N-1}) \in \mathbb{C}^{N}$으로부터 $N$차원 벡터 $\hat{\mathbf{a}} = (\hat{a}_{0}, \hat{a}_{1}, \dots, \hat{a}_{N-1}) \in \mathbb{C}^{N}$가 매핑된다는 것을 알 수 있다. 이를 바탕으로 $N$-point <strong>이산 푸리에 변환</strong><sup>discrete Fourier transform, DFT</sup>을 다음과 같이 정의하자.</p>
+<p>따라서 $N$차원 벡터 $\mathbf{a} = (a_{0}, a_{1}, \dots, a_{N-1}) \in \mathbb{C}^{N}$으로부터 $N$차원 벡터 $\hat{\mathbf{a}} = (\hat{a}_{0}, \hat{a}_{1}, \dots, \hat{a}_{N-1}) \in \mathbb{C}^{N}$가 매핑된다는 것을 알 수 있다. 이를 바탕으로 $N$-포인트 <strong>이산 푸리에 변환</strong><sup>discrete Fourier transform, DFT</sup>을 다음과 같이 정의하자.</p>
 <h2 id="정의">정의</h2>
 <p>다음과 같이 정의되는 <a href="../3026">선형변환</a> $\mathcal{F}_{N} : \mathbb{C}^{N} \to \mathbb{C}^{N}$을 <strong>이산 푸리에 변환</strong>이라 한다.</p>
 <p>$$
@@ -337,8 +337,8 @@ $$</p>
 <p>이때 $\mathbf{a} = (a_{0}, a_{1}, \dots, a_{N-1})$, $\hat{\mathbf{a}} = (\hat{a}_{0}, \hat{a}_{1}, \dots, \hat{a}_{N-1})$이다.</p>
 <h2 id="같이보기">같이보기</h2>
 <ul>
-<li><a href="../3058">이산 푸리에 변환의 컨볼루션</a></li>
-<li><a href="../3059">이산 푸리에 역변환</a></li>
+<li><a href="../3058">이산 푸리에 변환의 성질</a></li>
+<li><a href="../3069">이산 푸리에 역변환</a></li>
 </ul>
 <!--
 [푸리에 변환](../1101) 은 물리학, 의학, 공학, 전자공학 등에서 매우 유용하게 쓰인다. 허나 이는 적분 변환이기 때문에 컴퓨터로 다룰 때 그대로 사용할 수 없다. 사람이야 적분을 손으로 계산할 수 있지만 컴퓨터는 그런거 못 한다. 컴퓨터가 다루는 모든 신호는 0과 1의 조합으로 표현되는 이산 신호이다. 그래서 **이산 푸리에 변환**<sup>discrete Fourier transform, DFT</sup>을 사용한다. 정의는 다음과 같다.
@@ -374,7 +374,7 @@ f 가 $M\times N$의 정보를 가지고 있으면 fft2(f)는 $M\times N$의 푸
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Gerald B. Folland, <em>Fourier Analysis and Its Applications</em> (1992), p249-251&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Gerald B. Folland, <em>Fourier Analysis and Its Applications</em> (1992), p249-251 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -769,7 +769,7 @@ f 가 $M\times N$의 정보를 가지고 있으면 fft2(f)는 $M\times N$의 푸
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../284">🎲</a></p>
+         <a href="../22">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -887,7 +887,7 @@ f 가 $M\times N$의 정보를 가지고 있으면 fft2(f)는 $M\times N$의 푸
         <span style="color:rgb(051,204,051);">●</span> 교과과정 (53)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2023)</summary>
+    <summary>전체 포스트 (2025)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -983,7 +983,7 @@ f 가 $M\times N$의 정보를 가지고 있으면 fft2(f)는 $M\times N$의 푸
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (54)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (48)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (50)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (26)</a>
         </li><li>

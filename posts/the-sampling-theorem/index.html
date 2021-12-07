@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/the-sampling-theorem\/",
-    "wordCount" : "1299",
+    "wordCount" : "1533",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -286,23 +286,35 @@
   <ul>
     <li><a href="#빌드업1">빌드업</a></li>
     <li><a href="#정리">정리</a></li>
-    <li><a href="#설명">설명</a></li>
+    <li><a href="#설명">설명</a>
+      <ul>
+        <li><a href="#주파수-샘플링-정리">주파수 샘플링 정리</a></li>
+      </ul>
+    </li>
     <li><a href="#증명">증명</a></li>
   </ul>
 </nav>
 </aside>
 
 <h2 id="빌드업1">빌드업<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p>어떤 물리적 신호 $f$가 시간 $t_{1} &lt; t_{2} &lt; t_{3} &lt; \cdots$에 따라서 측정되고 있다고 생각해보자. 일반적으로 $f(t_{1}), f(t_{2}), \dots$를 알고 있다고 해도 임의의 $f(t)$를 알 수는 없다. 하지만 여기서 신호 $f$가 특정한 범위 내의 주파수의 신호만 포함한다고 가정해보자. 즉 어떤 상수 $\Omega$보다 작은 주파수만 포함하는 신호 $f$를 생각하자는 것인데, 이러한 $f$를 <strong>대역제한 신호</strong><sup>band-limited signal</sup>라고 한다. 이를 푸리에 해석의 언어로 말해보면 <a href="../3039">$\hat{f}(\omega)$가 $|\omega| \ge \Omega$인 영역에서는 함숫값이 전부 $0$</a>이라는 것과 같다.
-따라서 $f$가 대역제한이라는 조건은 $\hat{f} (\omega) = 0\ for\ | \omega | \ge \Omega$라는 조건과 동치이고, $\hat{f} \in L^{1}$라는 것을 의미한다. 이러한 조건에서는 아래와 같은 강력한 정리가 성립한다.</p>
+<p>어떤 물리적 신호 $f$가 시간 $t_{1} &lt; t_{2} &lt; t_{3} &lt; \cdots$에 따라서 측정되고 있다고 생각해보자. $f(t_{1}), f(t_{2}), \dots$를 알고 있다고 해도, 일반적으로는 임의의 $f(t)$ 값을 알 수는 없다. 하지만 여기서 신호 $f$가 특정한 범위 내의 주파수의 신호만 포함한다고 가정해보자. 즉 어떤 상수 $\Omega$보다 작은 주파수만 포함하는 신호 $f$를 생각하자는 것인데, 이러한 $f$를 <strong>대역제한 신호</strong><sup>band-limited signal, 주파수제한 신호</sup>라고 한다.</p>
+<p>이를 푸리에 해석의 언어로 말해보면 <a href="../3039">$\hat{f}(\omega)$가 $|\omega| \ge \Omega$인 영역에서는 함숫값이 전부 $0$</a>이라는 것과 같다.
+따라서 $f$가 대역제한이라는 조건은 $\hat{f} (\omega) = 0\ \text{for } | \omega | \ge \Omega$라는 조건과 동치이고, $\hat{f} \in L^{1}$라는 것을 의미한다. 이러한 조건에서는 아래와 같은 강력한 정리가 성립한다.</p>
 <h2 id="정리">정리</h2>
-<p>$f\in L^{2}$이고 $\hat{f} (\omega) = 0\ for\ | \omega | \ge \Omega$라고 가정하자. 그러면 $t_{n}=n\pi / \Omega(n=0, \pm 1, \pm 2, \dots)$에 대해서 다음이 성립한다.</p>
+<p>$f\in L^{2}$이고 $\hat{f} (\omega) = 0\ \text{for } | \omega | \ge \Omega$라고 가정하자. 그러면 $f(t)$는 $n\pi / \Omega(n=0, \pm 1, \pm 2, \dots)$에서의 값들로 결정된다. 즉 다음이 성립한다.</p>
 <p>$$
-f(t) = \sum \limits_{-\infty}^{\infty} f \left( \dfrac{n\pi}{\Omega}\right) \dfrac{\sin (\Omega t -n\pi )}{\Omega t - n\pi} 
+f(t) = \sum \limits_{n = -\infty}^{\infty} f \left( \dfrac{n\pi}{\Omega}\right) \dfrac{\sin (\Omega t -n\pi )}{\Omega t - n\pi} 
 $$</p>
 <h2 id="설명">설명</h2>
-<p>샘플링 정리는 가산개의 함숫값 $f \left( \dfrac{n\pi}{\Omega}\right)$만 알면 모든 $t$에 대해서 $f(t)$를 알 수 있다는 의미를 갖는다.</p>
-<p>신호 해석의 관점에서 샘플링 정리를 봤을 때 $\hat{f} (\omega) = 0\ for\ | \omega | \ge \Omega$라는 조건은 신호 $f$의 주파수가 제한되어 있다는 말과 같다.</p>
+<p>이를 <strong>샘플링 정리</strong><sup>sampling theorem</sup>라 한다. 샘플링 정리는 가산개의 함숫값 $f \left( \dfrac{n\pi}{\Omega}\right)$만으로도 모든 $t$에 대한 $f(t)$를 결정할 수 있는 조건을 제시한다.</p>
+<p>신호 해석의 관점에서 샘플링 정리를 봤을 때 $\hat{f} (\omega) = 0\ \text{for } | \omega | \ge \Omega$라는 조건은 신호 $f$의 주파수가 제한되어 있다는 말과 같다.</p>
+<p>한편 주파수 함수 $\hat{f} \in L^{2}$와 <strong>시간제한 신호</strong><sup>time-limited signal</sup> $f(t)$에 대해서도 위와 같은 꼴의 공식이 성립한다.</p>
+<h3 id="주파수-샘플링-정리">주파수 샘플링 정리</h3>
+<p>$\hat{f} \in L^{2}$이고 $f (t) = 0\ \text{for } | t | \ge L$라고 가정하자. 그러면 $\hat{f}(\omega)$는 $n\pi / L(n=0, \pm 1, \pm 2, \dots)$에서의 값들로 결정된다. 즉 다음이 성립한다.</p>
+<p>$$
+\hat{f}(\omega) = \sum \limits_{n = -\infty}^{\infty} \hat{f} \left( \dfrac{n\pi}{L}\right) \dfrac{\sin (L \omega -n\pi )}{L \omega - n\pi} 
+$$</p>
+<p>증명은 시간 샘플링 정리와 같다.</p>
 <h2 id="증명">증명</h2>
 <p>$\hat{f} \in L^{1}$이므로 $\hat{f}$은 <a href="../934">푸리에 급수로 표현가능</a>하다. $\hat{f} (\omega)$는 $[-\Omega, \Omega]$에서 정의되어 있으므로 <a href="../964">복소 푸리에 급수</a>는 다음과 같다.</p>
 <p>$$
@@ -377,7 +389,7 @@ $$</p>
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Gerald B. Folland, <em>Fourier Analysis and Its Applications</em> (1992), p230-231&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Gerald B. Folland, <em>Fourier Analysis and Its Applications</em> (1992), p230-231 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -772,7 +784,7 @@ $$</p>
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1207">🎲</a></p>
+         <a href="../589">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -890,7 +902,7 @@ $$</p>
         <span style="color:rgb(051,204,051);">●</span> 교과과정 (53)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2023)</summary>
+    <summary>전체 포스트 (2025)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -986,7 +998,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (54)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (48)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (50)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (26)</a>
         </li><li>
