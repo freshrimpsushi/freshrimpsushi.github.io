@@ -59,10 +59,10 @@
     </script>
 
     
-<meta name="title" content="시계열분석에서의 차분">
+<meta name="title" content="줄리아에서 zfill() 사용하는 법">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="시계열분석에서의 차분"/>
-<meta property="og:description" content="difference"/>
+<meta property="og:title" content="줄리아에서 zfill() 사용하는 법"/>
+<meta property="og:description" content="What is zfill in Julia"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -74,15 +74,15 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "r_",
-    "name": "시계열분석에서의 차분",
-    "headline": "시계열분석에서의 차분",
+    "name": "줄리아에서 zfill() 사용하는 법",
+    "headline": "줄리아에서 zfill() 사용하는 법",
     "alternativeHeadline": "",
-    "description": "difference",
+    "description": "What is zfill in Julia",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/difference\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/what-is-zfill-in-julia\/"
     },
     "author" : {
         "@type": "Person",
@@ -97,10 +97,10 @@
         "name": "류대식"
     },
     "copyrightHolder" : "생새우초밥집",
-    "copyrightYear" : "2019",
-    "dateCreated": "2019-03-18T00:00:00.00Z",
-    "datePublished": "2019-03-18T00:00:00.00Z",
-    "dateModified": "2019-03-18T00:00:00.00Z",
+    "copyrightYear" : "2021",
+    "dateCreated": "2021-12-08T00:00:00.00Z",
+    "datePublished": "2021-12-08T00:00:00.00Z",
+    "dateModified": "2021-12-08T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -113,15 +113,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/difference\/",
-    "wordCount" : "829",
-    "genre" : [ "R" ],
-    "keywords" : [ "R" ]
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/what-is-zfill-in-julia\/",
+    "wordCount" : "415",
+    "genre" : [ ],
+    "keywords" : [ ]
 }
 </script>
 
 
-    <title>시계열분석에서의 차분</title>
+    <title>줄리아에서 zfill() 사용하는 법</title>
 
 </head>
 
@@ -130,7 +130,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/%EC%A4%84%EB%A6%AC%EC%95%84.png style="max-height: 80px; width: auto;">
             
             
             
@@ -261,21 +261,21 @@
             <div class = "content">
             
 
-<title>시계열분석에서의 차분</title>
+<title>줄리아에서 zfill() 사용하는 법</title>
 
-<h1>시계열분석에서의 차분</h1>
+<h1>줄리아에서 zfill() 사용하는 법</h1>
 <aside>
-    difference
+    What is zfill in Julia
     <p style="text-align: right;">
-        916
+        2124
 
     
     
-            <a href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/" style="color: black">통계적분석</a>&emsp;
+            <a href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아</a>&emsp;
             
     </span>
     
-    작성일: 2019-03-18&nbsp;<br>
+    작성일: 2021-12-08&nbsp;<br>
     작성자: 류대식 사장 &nbsp;
 </p>
 </aside>
@@ -284,65 +284,50 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#정의-1">정의 </a></li>
-    <li><a href="#설명">설명</a></li>
-    <li><a href="#실습">실습</a></li>
+    <li><a href="#개요-1">개요 </a></li>
     <li><a href="#코드">코드</a></li>
-    <li><a href="#같이보기">같이보기</a></li>
+    <li><a href="#환경">환경</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="정의-1">정의 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<ol>
-<li>오퍼레이터 $B$ 를 $B Y_{t} = Y_{t-1}$ 과 같이 정의하고, <strong>백쉬프트</strong><sup>Backshift</sup>라 한다.</li>
-<li>오퍼레이터 $\nabla$ 를 $\nabla := 1 - B$ 그리고 $\nabla^{r+1} = \nabla \left( \nabla^{r} Y_{t} \right)$ 와 같이 정의하고 <strong>차분</strong> 이라한다.</li>
-</ol>
-<h2 id="설명">설명</h2>
-<p>차분의 정의에 따르면 $1$차 차분은
-$$
-\nabla Y_{t} = Y_{t} - Y_{t-1}
-$$
-와 같이 계산되며, $2$차 차분은
-$$
-\begin{align*}
-\nabla^2 Y_{t} =&amp; \nabla \left( \nabla Y_{t} \right) 
-\\ =&amp; \nabla \left( Y_{t} - Y_{t-1} \right) 
-\\ =&amp; \nabla  Y_{t} -  \nabla Y_{t-1} 
-\\ =&amp; (  Y_{t} - Y_{t-1} ) - (  Y_{t-1} - Y_{t-2} ) 
-\\ &amp;==  Y_{t} - 2 Y_{t-1} + Y_{t-2} 
-\end{align*}
-$$
-와 같이 계산된다. 다시 말해 $Y_{t}$ 에 차분을 두 번 취했다고 해서 $Y_{t} - Y_{t-2}$ 가 되지는 않는다. 이렇게 길게 늘어지기만 하는 차분은 <a href="../1067">계절형 차분</a>으로 따로 정의된다.</p>
-<p>시계열에서 차분이 필요한 이유는 <strong>트렌드</strong><sup>Trend</sup>가 있는 데이터를 다룰 때 편리하기 때문이다. 시계열분석에서 트렌드란 &lsquo;데이터의 값이 일정 기간동안 증가하거나 감소하는 경향&rsquo;을 말하는데, 이 경우 <a href="../907">정상성</a>에 문제가 있다. 해서 적절하게 차분을 취해 데이터가 정상성을 갖도록 하는 전처리를 거치게 된다. 단순히 증가하거나 감소하는 정도라면 한 번으로 충분하며, 복잡합 모양을 갖추면 그만큼 차분을 많이 취해야 할 수도 있다.</p>
-<p>눈대중만으로 차분을 취하는 게 맞는지, 얼마나 취하는 게 적절한지 확신이 서지 않을 땐 보통 <a href="../921">디키-풀러 테스트</a>를 사용하며, 거꾸로 왜 차분을 더 이상 취할 필요가 없는지를 정당화하는데도 쓸 수 있다.</p>
-<h2 id="실습">실습</h2>
-<p><code>TSA</code> 패키지의 <code>oil.price</code> 데이터를 살펴보자.</p>
-<p><img src="20190225_105705.png#center" alt="20190225\_105705.png"></p>
-<p><img src="0.png#center" alt="0.png"></p>
-<p><code>oil.price</code>는 1986년부터 2005년까지의 원유 가격에 대한 데이터다. 뒤로 갈수록 급등세가 강하기 때문에 정상성이 결여되어있다고 할 수 있다. 이런 데이터는 분석이 곤란하기 때문에 차분을 취해줌으로써 트렌드를 제거한다.</p>
-<p>R 에서 차분을 취하는 방법은 아주 쉽다. <code>diff()</code> 함수를 사용하면 첫번째 관측치를 탈락시키고 차분된 데이터를 리턴한다. 자주 쓸 일은 없지만 <code>lag=n</code> 라는 옵션을 줌으로써 $n$ 차 차분 역시 간단하게 할 수 있다.</p>
-<p><img src="20190225_105734.png#center" alt="20190225\_105734.png"></p>
-<p><img src="D0.png#center" alt="D0.png"></p>
-<p>차분을 취한 결과 등락 자체는 여전히 거세지만 평균적으로는 $0$ 근처에서 움직임을 확인할 수 있다.</p>
+<h2 id="개요-1">개요 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>파이썬에서 <code>zfill()</code>은 사실 문자열 클래스의 메소드로써, 좌측을 0으로 채워주는 기능을 가지고 있다. 줄리아에서는 이보다 범용적이고 쓰임새가 많은 내장 함수로써 <code>lpad()</code>를 제공한다. <code>zfill()</code>은 제로zero를 채운다fill는 의미고, <code>lpad()</code>는 왼쪽left의 패딩padding을 의미한다.</p>
 <h2 id="코드">코드</h2>
-<p>아래는 예제 코드다.</p>
-<pre tabindex="0"><code>library(TSA)
-data(oil.price); oil.price
-win.graph(4,4); plot(oil.price,main='oil.price')
-diff(oil.price)
-win.graph(4,4); plot(diff(oil.price),main='∇oil.price')
- 
-diff(oil.price,lag=2)
-</code></pre><h2 id="같이보기">같이보기</h2>
+<pre><code>julia&gt; lpad(&quot;12&quot;, 4, &quot;0&quot;)
+&quot;0012&quot;
+
+julia&gt; lpad(12, 4, &quot;0&quot;)
+&quot;0012&quot;
+</code></pre><p>개요에서의 설명을 이어서 하자면 줄리아에서 <code>lpad()</code>는 <code>zfill()</code>에 비해 좀 더 제네릭<sup>Generic</sup>하다. 우선 문자열의 메소드가 아니기 때문에 인수로 문자열을 주든 숫자를 주든 알아서 문자열로 리턴해준다.</p>
+<pre><code>julia&gt; lpad(12, 4)
+&quot;  12&quot;
+
+julia&gt; lpad(12, 4, &quot;_&quot;)
+&quot;__12&quot;
+
+julia&gt; lpad(12, 4, &quot;_!&quot;)
+&quot;_!12&quot;
+
+julia&gt; lpad(12, 4, &quot;_?!&quot;)
+&quot;_?12&quot;
+
+julia&gt; lpad(12, 7, &quot;_?!&quot;)
+&quot;_?!_?12&quot;
+</code></pre><p>보통 이러한 함수를 사용하는 이유는 출력할 때 깔끔하게 칸을 맞추기 위해서지 꼭 0이 필요해서가 아니다. 채울 문자로 아무것도 주지 않으면 띄어쓰기를 넣고, 캐릭터나 스트링을 주면 위에서 보이는 것과 같이 눈치껏 채워준다.</p>
+<pre><code>julia&gt; rpad(&quot;left&quot;, 6, '0')
+&quot;left00&quot;
+</code></pre><p>당연히 <code>rpad()</code> 함수도 있다. 기본적인 기능은 똑같고 오른쪽 패딩이라는 점만 다르다.</p>
+<h2 id="환경">환경</h2>
 <ul>
-<li><a href="../722">수치해석에서의 차분</a></li>
+<li>OS: Windows</li>
+<li>julia: v1.6.0</li>
 </ul>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Cryer. (2008). Time Series Analysis: With Applications in R(2nd Edition): p90.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://docs.julialang.org/en/v1/base/strings/#Base.lpad">https://docs.julialang.org/en/v1/base/strings/#Base.lpad</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -351,8 +336,8 @@ diff(oil.price,lag=2)
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var title = '시계열분석에서의 차분';
-        var link = 'https:\/\/freshrimpsushi.github.io\/posts\/difference\/';
+        var title = '줄리아에서 zfill() 사용하는 법';
+        var link = 'https:\/\/freshrimpsushi.github.io\/posts\/what-is-zfill-in-julia\/';
         var arr = new Array();
         var obj = {
             "title": title,
@@ -470,9 +455,9 @@ diff(oil.price,lag=2)
             alert('빈칸을 채워주세요');
             return;
         }
-        let board_idx = '916';
-        let board_slug = 'difference';
-        let board_title = '시계열분석에서의 차분';
+        let board_idx = '2124';
+        let board_slug = 'what-is-zfill-in-julia';
+        let board_title = '줄리아에서 zfill() 사용하는 법';
 
         $.ajax({
             type: "POST",
@@ -586,7 +571,7 @@ diff(oil.price,lag=2)
             type: "POST",
             url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.comment.php?action=getComment",
             data: {
-                board_idx: '916'
+                board_idx: '2124'
             },
             dataType: "json",
             success: function (data) {
@@ -660,9 +645,9 @@ diff(oil.price,lag=2)
                 alert('빈칸을 채워주세요');
                 return;
             }
-            let idx = '916';
-            let board_slug = 'difference';
-            let board_title = '시계열분석에서의 차분';
+            let idx = '2124';
+            let board_slug = 'what-is-zfill-in-julia';
+            let board_title = '줄리아에서 zfill() 사용하는 법';
 
             $.ajax({
                 type: "POST",
@@ -737,7 +722,7 @@ diff(oil.price,lag=2)
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../617">🎲</a></p>
+         <a href="../1646">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -855,7 +840,7 @@ diff(oil.price,lag=2)
         <span style="color:rgb(051,204,051);">●</span> 교과과정 (53)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2026)</summary>
+    <summary>전체 포스트 (2027)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -929,7 +914,7 @@ diff(oil.price,lag=2)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (84)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (47)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (48)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>

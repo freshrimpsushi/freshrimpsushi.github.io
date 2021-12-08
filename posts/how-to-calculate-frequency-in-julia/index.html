@@ -302,7 +302,7 @@
 <p><code>FreqTables.jl</code> 패키지의 <code>freqtable()</code> 함수를 사용하면 된다. <a href="../../categories/r">R</a>에서의 <code>freq()</code> 함수와 유사한 기능을 한다.</p>
 <h2 id="코드">코드</h2>
 <h3 id="배열">배열</h3>
-<pre tabindex="0"><code>julia&gt; compartment = rand(['S','I','R'], 1000);
+<pre><code>julia&gt; compartment = rand(['S','I','R'], 1000);
 
 julia&gt; freqtable(compartment)
 3-element Named Vector{Int64}
@@ -314,7 +314,7 @@ Dim1  │
 </code></pre><p>위와 같이 그냥 배열을 넣으면 각 계급별로 카운트 해준다.</p>
 <h3 id="데이터프레임">데이터프레임</h3>
 <p><code>freqtable()</code>는 특히 데이터프레임에 유용하다. <a href="../686">R에서의 질적변수를 포함한 회귀분석 예제</a>와 마찬가지로 <a href="../2316">내장데이터</a> <code>ToothGrowth</code>를 불러와보자.</p>
-<pre tabindex="0"><code>julia&gt; ToothGrowth = dataset(&quot;datasets&quot;, &quot;ToothGrowth&quot;)
+<pre><code>julia&gt; ToothGrowth = dataset(&quot;datasets&quot;, &quot;ToothGrowth&quot;)
 60×3 DataFrame
  Row │ Len      Supp  Dose    
      │ Float64  Cat…  Float64
@@ -358,14 +358,14 @@ Dose  │
 1.0   │ 20
 2.0   │ 20
 </code></pre><p><code>ToothGrowth</code>는 기니피그에게 비타민 C 혹은 오렌지 주스 <code>:Supp</code>를 다른 양 <code>:Dose</code>로 먹이고 치아의 길이 <code>:Len</code>를 기록한 데이터다. 각 칼럼별로 빈도를 계산해보면 위와 같이 깔끔하게 정리해준다. 여기서 데이터가 반드시 <a href="../2318">범주형 데이터</a>일 필요는 없음을 확인할 수 있다.</p>
-<pre tabindex="0"><code>julia&gt; freqtable(ToothGrowth, :Supp, :Dose)
+<pre><code>julia&gt; freqtable(ToothGrowth, :Supp, :Dose)
 2×3 Named Matrix{Int64}
 Supp ╲ Dose │ 0.5  1.0  2.0
 ────────────┼──────────────
 &quot;OJ&quot;        │  10   10   10
 &quot;VC&quot;        │  10   10   10
 </code></pre><p>물론 이러한 테이블은 범주형 데이터를 다룰 때 가장 효과적이다. <code>:Supp</code>, <code>:Dose</code>에 대해 빈도수를 계산해보면 알아서 2차원으로 카테고리를 나누어 빈도수를 계산해주었다.</p>
-<pre tabindex="0"><code>julia&gt; freqtable(ToothGrowth, :Len, :Dose, :Supp)
+<pre><code>julia&gt; freqtable(ToothGrowth, :Len, :Dose, :Supp)
 43×3×2 Named Array{Int64, 3}
 
 [:, :, Supp=&quot;OJ&quot;] =
@@ -383,7 +383,7 @@ Len ╲ Dose │ 0.5  1.0  2.0
 33.9       │   0    0    1
 </code></pre><p>3개 이상의 칼럼에 대한 계산은 그냥 2차원 테이블을 계급의 수만큼 리턴한다. 이쯤되면 데이터를 탐색하거나 요약하는 의미는 거의 없다.</p>
 <h3 id="성능-비교">성능 비교</h3>
-<pre tabindex="0"><code>julia&gt; @time for t in 1:10^4
+<pre><code>julia&gt; @time for t in 1:10^4
            freqtable(compartment)
        end
        @time for t in 1:10^4
@@ -395,7 +395,7 @@ Len ╲ Dose │ 0.5  1.0  2.0
   0.059198 seconds (180.00 k allocations: 134.125 MiB, 36.71% gc time)
 </code></pre><p>테이블을 떠나서 빈도수를 측정하는 것 자체가 유용하다는 생각이 든다. 이에 직접 카운트하는 것과 <code>freqtable()</code>을 통해 한번에 빈도수를 계산하는 속도를 여러가지로 측정해봤는데, 어느 한 쪽이 반드시 빠르거나 하지는 않았다. 데이터의 수나 계급의 수에 따라서 엎치락뒤치락 하는데, 전반적으로 <code>freqtable()</code>가 느린 편이었다. 그렇다고 엄청나게 밀리지도 않으니, 속도를 떠나 잘 고민해서 쓸 땐 쓰자.</p>
 <h3 id="전체코드">전체코드</h3>
-<pre tabindex="0"><code>using FreqTables
+<pre><code>using FreqTables
 
 compartment = rand(['S','I','R'], 1000);
 freqtable(compartment)
@@ -823,7 +823,7 @@ end
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../968">🎲</a></p>
+         <a href="../1020">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -941,7 +941,7 @@ end
         <span style="color:rgb(051,204,051);">●</span> 교과과정 (53)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2026)</summary>
+    <summary>전체 포스트 (2027)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -1015,7 +1015,7 @@ end
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (84)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (47)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (48)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
