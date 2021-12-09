@@ -305,14 +305,14 @@ margin-right: auto;">
 함수 $f : \mathbb{R} \to \mathbb{R}$ 와 서로 다른 $x_{1} , \cdots , x_{n}$ 에 대해 다음을 $f$ 의 계차상이라고 한다.</p>
 <p>$f[x_{0}] := f( x_{0} ) 
 $$
-\displaystyle f [ x_{0} , x_{1} ] : = {{ f ( x_{1} )  - f ( x_{0} ) } \over { x_{1} - x_{0} }} 
+\displaystyle f [ x_{0} , x_{1} ] : = {{ f ( x_{1} ) - f ( x_{0} ) } \over { x_{1} - x_{0} }} 
 $$
 \displaystyle f [ x_{0} , x_{1} , x_{2} ] : = {{ f [ x_{1} , x_{2} ]  - f [ x_{0} , x_{1} ] } \over { x_{2} - x_{0} }} 
 $$
 \displaystyle f [ x_{0} , \cdots , x_{n} ] : = {{ f [ x_{1} , \cdots , x_{n} ]  - f [ x_{0} , x_{n-1} ] } \over { x_{n} - x_{0} }}$</p>
 <ul>
 <li>[1]: $f [ x_{0} , \cdots , x_{n} ] =$ 는 $x_{0} , \cdots , x_{n}$ 의 순서와 상관 없이 항상 같다.</li>
-<li>[2]: $\displaystyle f [ x_{0} , \cdots , x_{n} ] = \sum_{i=0}^{n} {{ f( x_{i} ) } \over { \displaystyle \prod_{j \in \left\{ 0 , \cdots , n \right\} \setminus \left\{ i \right\} } ( x_{i} - x_{j} )  }}  $</li>
+<li>[2]: $\displaystyle f [ x_{0} , \cdots , x_{n} ] = \sum_{i=0}^{n} {{ f( x_{i} ) } \over { \displaystyle \prod_{j \in \left\{ 0 , \cdots , n \right\} \setminus \left\{ i \right\} } ( x_{i} - x_{j} ) }}  $</li>
 <li>[3]: $f' ( \xi ) = f [ x_0 , x_{1} ]$ 를 만족하는 $\xi$ 가 $\mathscr{H} \left\{ x_{0} , x_{1} \right\}$ 에 존재한다.</li>
 <li>[4]: $\displaystyle {{1} \over {n!}} f^{(n)} ( \xi ) =f [ x_{0} , \cdots , x_{n} ]$ 를 만족하는 $\xi$ 가 $\mathscr{H} \left\{ x_{0} , \cdots , x_{n} \right\}$ 에 존재한다.</li>
 </ul>
@@ -322,9 +322,9 @@ $$
 <li>$\mathscr{H} \left\{ a,b,c, \cdots \right\}$ 는 $a,b,c, \cdots$ 를 포함하는 가장 작은 구간을 나타낸다.</li>
 </ul>
 <p>계차상은 수치해석학의 여러가지 이론들을 표현할 때 지면을 아끼는데 큰 도움을 준다.</p>
-<p>[2]** 는 실제 계산에 있어서 특히 유용한데, $\displaystyle f [ x_{0} , x_{1} , x_{2} ] = {{ f( x_{0} ) } \over { ( x_{0} - x_{1} ) ( x_{0} - x_{2} )  }}
+<p>[2]** 는 실제 계산에 있어서 특히 유용한데, $\displaystyle f [ x_{0} , x_{1} , x_{2} ] = {{ f( x_{0} ) } \over { ( x_{0} - x_{1} ) ( x_{0} - x_{2} ) }}
 $$
-\displaystyle + {{ f( x_{1} ) } \over { ( x_{1} - x_{2} ) ( x_{1} - x_{0} )  }} + {{ f( x_{2} ) } \over { ( x_{2} - x_{0} ) ( x_{2} - x_{1} )  }}$ 와 같이 나타나기 때문에 실제 정의와 같이 재귀적으로 반복계산을 할 수고를 덜어준다.</p>
+\displaystyle + {{ f( x_{1} ) } \over { ( x_{1} - x_{2} ) ( x_{1} - x_{0} ) }} + {{ f( x_{2} ) } \over { ( x_{2} - x_{0} ) ( x_{2} - x_{1} ) }}$ 와 같이 나타나기 때문에 실제 정의와 같이 재귀적으로 반복계산을 할 수고를 덜어준다.</p>
 <p>[3]**은 사실 <a href="../37">평균값 정리</a>로써, 미분을 한 때 &lsquo;순간 변화율&rsquo;과 같은 개념으로 생각한 적이 있다면 왜 계차상이 미분을 대신하고 Divided Difference이라는 이름을 갖는지 이해할 수 있을 것이다. **[4]**와 같은 형태로 일반화가 가능하다. 증명은 거꾸로 계차상의 인수들이 한없이 가까워지는, 즉 극한을 취하는 느낌을 생각해보면 <strong>[3]'</strong> , **[4]'**와 같이 $n$계 미분계수로 볼 수 있다. 이러한 개념적 접근은 <a href="../1031">계차상의 정의에서 오는 한계를 극복</a>하고 수치해석의 이론을 더욱 풍부하게 만들어준다.간단히 $f(x) := x^2 + 1$ 에 대해 몇몇 계차상을 구해보자.</p>
 <p>$f[3] = f(3) = 10
 $$
@@ -355,7 +355,7 @@ $$
 \Psi&rsquo;_{n} (x_{j}) := (x-x_{0}) \cdots (x - x_{j-1})(x - x_{j+1}) \cdots (x - x_{n})
 $$</p>
 <p>$$
-\displaystyle \implies {{ \Psi(x)_{n} } \over { (x - x_{j}) \Psi'_{n}(x_{j}) }} \equiv {{ (x - x_{0} ) \cdots  (x - x_{j-1} ) (x - x_{j+1} ) \cdots (x - x_{n} ) } \over { (x_{j} - x_{0} ) \cdots  (x_{j} - x_{j-1} ) (x_{j} - x_{j+1} ) \cdots (x_{j} - x_{n} )  }} = l_{j} (x) 
+\displaystyle \implies {{ \Psi(x)_{n} } \over { (x - x_{j}) \Psi'_{n}(x_{j}) }} \equiv {{ (x - x_{0} ) \cdots  (x - x_{j-1} ) (x - x_{j+1} ) \cdots (x - x_{n} ) } \over { (x_{j} - x_{0} ) \cdots  (x_{j} - x_{j-1} ) (x_{j} - x_{j+1} ) \cdots (x_{j} - x_{n} ) }} = l_{j} (x) 
 $$
 <a href="../1023">라그랑주 공식</a>에 따르면 $f$ 의 <a href="../1021">폴리노미얼 인터폴레이션</a>은
 $$
@@ -363,10 +363,10 @@ $$
 $$
 따라서 $p_{n}$ 의 최고차항의 계수는 $\displaystyle \sum_{j=0}^{n} {{ f( x_{j}) } \over { \Psi'_{n} (x_{j}) }}$ 인데, <a href="../1025">뉴턴 계차상 공식</a>에서 $p_{n}$ 의 최고차항의 계수는 $f [x_{0} , \cdots , x_{n} ]$ 이므로
 $$
-\displaystyle f [ x_{0} , \cdots , x_{n} ] = \sum_{i=0}^{n} {{ f( x_{i} ) } \over { \displaystyle \prod_{j \in \left\{ 0 , \cdots , n \right\} \setminus \left\{ i \right\} } ( x_{i} - x_{j} )  }}
+\displaystyle f [ x_{0} , \cdots , x_{n} ] = \sum_{i=0}^{n} {{ f( x_{i} ) } \over { \displaystyle \prod_{j \in \left\{ 0 , \cdots , n \right\} \setminus \left\{ i \right\} } ( x_{i} - x_{j} ) }}
 $$</p>
 <p><p style="text-align: right;">■</p>
-<strong>증명[1]</strong> [2]에 의해 $[x_{0} , \cdots , x_{n}]$ 내부의 순서를 바꾸는 것은 $\displaystyle \sum_{i=0}^{n} {{ f( x_{i} ) } \over { \displaystyle \prod_{j \in \left\{ 0 , \cdots , n \right\} \setminus \left\{ i \right\} } ( x_{i} - x_{j} )  }}$ 을 계산할 때 <a href="../178">덧셈의 순서를 바꾸는 것에 불과</a>하므로 항상 같다.</p>
+<strong>증명[1]</strong> [2]에 의해 $[x_{0} , \cdots , x_{n}]$ 내부의 순서를 바꾸는 것은 $\displaystyle \sum_{i=0}^{n} {{ f( x_{i} ) } \over { \displaystyle \prod_{j \in \left\{ 0 , \cdots , n \right\} \setminus \left\{ i \right\} } ( x_{i} - x_{j} ) }}$ 을 계산할 때 <a href="../178">덧셈의 순서를 바꾸는 것에 불과</a>하므로 항상 같다.</p>
 <p><p style="text-align: right;">■</p>
 <strong>Strategy[4]</strong>  : <a href="../1023">라그랑주 공식</a>과 <a href="../1025">뉴턴 계차상 공식</a>의 차수를 비교한다.<strong>증명[4]</strong> $p_{n}(x) = p_{n-1}(x) + C(x)$ 이라고 하면 $\deg C = n$ 이고 $i= 0, \cdots, (n-1)$ 에 대해서 $p_{n}(x_{i}) = f(x_{i}) = p_{n-1}(x_{i})$ 이므로 어떤 상수 $a_{n} \ne 0$ 에 대해 $C (x) = a_{n} (x - x_{0}) \cdots (x - x_{n-1})$ 와 같이 나타난다. $C(x)$ 에 $x=x_{n}$ 을 대입해보면
 $$
@@ -784,7 +784,7 @@ $$</p>
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../135">🎲</a></p>
+         <a href="../1705">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
