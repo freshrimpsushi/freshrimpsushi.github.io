@@ -299,42 +299,42 @@
 
 <h2 id="개요">개요</h2>
 <p>NA는 Not Available의 약자로, R 프로그래밍에선 주로 &lsquo;결측값&rsquo;을 의미한다. 일반적인 프로그래밍 언어에서의 null과는 그 의미도 쓰임새도 전혀 다름에 주의하도록 하자. 교과서에서 다루는 예제들은 보통 분석하기에 알맞도록 잘 정리되어 있지만, 실제로 분석에 임할 땐 전혀 그렇지가 않다. 그런 데이터를 핸들링함에 있어서 가장 빈번하게 만나는 것이 바로 결측값이다. 이러한 결측값은 비슷한 경향을 가진 데이터들을 모방하는 <strong>이미테이션</strong><sup>Imitation</sup>이나 직접 제거하는 식으로 처리하게 된다.</p>
-<p>물론 통계학이 늘 그렇듯 모든 경우에 통하는 방법 따윈 없고, 이런 방법들 자체가 연구의 대상이다. 이 포스트에서 그렇게 거창한 것까지 모두 다룰 수는 없고, R에서 결측치를 다루는 간단한 방법 정도만 소개하도록 하겠다.</p>
+<p>물론 통계학이 늘 그렇듯 모든 경우에 통하는 방법 따윈 없고, 이런 방법들 자체가 연구의 대상이다. 이 포스트에서 그렇게 거창한 것까지 모두 다룰 수는 없고, R에서 결측치를 다루는 간단한 방법 정도만 소개하도록 하겠다.</p>
 <h2 id="팁">팁</h2>
-<p>다음은 예제 파일 <code>example526.csv</code>을 불러온 모습이다.</p>
+<p>다음은 예제 파일 <code>example526.csv</code>을 불러온 모습이다.</p>
 <p><img src="20180413_135239.png#center" alt="20180413\_135239.png">
 <img src="20180413_135244.png#center" alt="20180413\_135244.png"></p>
 <p>아무런 값이 입력되어있지 않은 칸은 별도의 설정이 없어도 결측값 NA로 나타난 것을 알 수 있다.</p>
-<p>한편 데이터의 <a href="../497">구조를 살펴보면</a> 언뜻 연속형 자료 같은 X1이 범주형으로 나타남을 알 수 있다. 이는 X1에 말 그대로 &lsquo;비어있지는 않지만 결측치&rsquo;인 문자열 &ldquo;?&ldquo;가 포함되었기 때문이다.</p>
+<p>한편 데이터의 <a href="../497">구조를 살펴보면</a> 언뜻 연속형 자료 같은 X1이 범주형으로 나타남을 알 수 있다. 이는 X1에 말 그대로 &lsquo;비어있지는 않지만 결측치&rsquo;인 문자열 &ldquo;?&ldquo;가 포함되었기 때문이다.</p>
 <h3 id="nastrings">na.strings</h3>
 <p><img src="20180413_140116.png#center" alt="20180413\_140116.png">
 <img src="20180413_140107.png#center" alt="20180413\_140107.png"></p>
 <p>이럴 때는 파일을 불러들일 때 <code>na.strings</code> 옵션을 통해 결측값으로 취급할 문자열 벡터를 주면 된다.코드에서 &ldquo;?&ldquo;를 결측치로 지정하고 나면 데이터의 구조도 정상적으로 나타남을 확인할 수 있다. 한편 <code>X2</code>의 가장 아래를 보면 <code>-99</code>로 극단적으로 이상한 데이터가 있다. 이는 다른 관측치와 비교해보았을 때 눈에 띄게 이질적인 수치로, 이상치라고 보기도 어렵고 결측치를 의미할 가능성이 높다.</p>
-<p>물론 앞서 한것과 같이 <code>na.strings</code>로 예외를 늘려 다시 불러오는 방법도 있지만, 그 수가 극히 적거나 종류가 많으면 불편하다.</p>
+<p>물론 앞서 한것과 같이 <code>na.strings</code>로 예외를 늘려 다시 불러오는 방법도 있지만, 그 수가 극히 적거나 종류가 많으면 불편하다.</p>
 <p><img src="20180413_141017.png#center" alt="20180413\_141017.png"></p>
-<p>따라서 위와 같이 특정 조건을 주고 거기에 직접 NA를 덮어씌우는 방법을 사용할 수 있다. -99처럼 음수이면서 극단적으로 큰 값은 없었기 때문에 0보다 작은 모든 값을 NA로 바꾼 것이다. 어찌보면 그 부분만 모면하는 땜빵이지만, 또 다르게 보면 필요한 부분만 처리하는 정밀 조정이다.</p>
-<p>이런 사소하고 별 것 아닌 테크닉을 쓰고 싶을 때 자유롭게 쓰는 것이 실력이다.</p>
+<p>따라서 위와 같이 특정 조건을 주고 거기에 직접 NA를 덮어씌우는 방법을 사용할 수 있다. -99처럼 음수이면서 극단적으로 큰 값은 없었기 때문에 0보다 작은 모든 값을 NA로 바꾼 것이다. 어찌보면 그 부분만 모면하는 땜빵이지만, 또 다르게 보면 필요한 부분만 처리하는 정밀 조정이다.</p>
+<p>이런 사소하고 별 것 아닌 테크닉을 쓰고 싶을 때 자유롭게 쓰는 것이 실력이다.</p>
 <h3 id="isna">is.na</h3>
 <p><img src="20180413_141747.png#center" alt="20180413\_141747.png"></p>
-<p>이제 <code>is.na()</code> 함수를 통해 확인해보면 처음 데이터에서 조금 이상했던 값들이 모두 NA로 바뀌었음을 확인할 수 있다.</p>
-<p>대개의 경우엔 이런 결측치들이 포함된 관측치들은 필요가 없으므로 모두 제거할 일만 남았다.</p>
+<p>이제 <code>is.na()</code> 함수를 통해 확인해보면 처음 데이터에서 조금 이상했던 값들이 모두 NA로 바뀌었음을 확인할 수 있다.</p>
+<p>대개의 경우엔 이런 결측치들이 포함된 관측치들은 필요가 없으므로 모두 제거할 일만 남았다.</p>
 <p>여기에는 여러가지 창의적인 방법들이 있지만, R 에는 친절하게도 이를 위한 함수가 기본적으로 제공된다.</p>
 <h3 id="naomit">na.omit</h3>
 <p><img src="20180413_142327.png#center" alt="20180413\_142327.png">
 <img src="20180413_142040.png#center" alt="20180413\_142040.png"></p>
-<p>그냥 <code>na.omit()</code> 함수에 넣으면 하나라도 NA가 포함된 관측치는 모두 깔끔하게 제거된다.6, 9, 10번 줄이 깔끔하게 사라졌다. 별로 대단한 팁들도 아니지만 잘 모르거나 잘 못쓰면 본격적인 분석을 시작하기도 전부터 엄청난 시간을 빼앗기게 된다. 반드시 자기 것으로 만들어 두고두고 유용하게 써먹도록 하자.</p>
+<p>그냥 <code>na.omit()</code> 함수에 넣으면 하나라도 NA가 포함된 관측치는 모두 깔끔하게 제거된다.6, 9, 10번 줄이 깔끔하게 사라졌다. 별로 대단한 팁들도 아니지만 잘 모르거나 잘 못쓰면 본격적인 분석을 시작하기도 전부터 엄청난 시간을 빼앗기게 된다. 반드시 자기 것으로 만들어 두고두고 유용하게 써먹도록 하자.</p>
 <h2 id="코드">코드</h2>
 <p>아래는 예제 코드다.</p>
-<pre tabindex="0"><code>example526&lt;-read.csv(file = file.choose()); example526
+<pre tabindex="0"><code>example526&lt;-read.csv(file = file.choose()); example526
 str(example526)
- 
-example526&lt;-read.csv(file = file.choose(),na.strings = c(&quot;?&quot;)); example526
+ 
+example526&lt;-read.csv(file = file.choose(),na.strings = c(&quot;?&quot;)); example526
 str(example526)
- 
-example526[example526&lt;0]&lt;-NA; example526
- 
+ 
+example526[example526&lt;0]&lt;-NA; example526
+ 
 is.na(example526)
- 
+ 
 example526
 na.omit(example526)
 </code></pre>
@@ -728,7 +728,7 @@ na.omit(example526)
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../221">🎲</a></p>
+         <a href="../247">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -846,7 +846,7 @@ na.omit(example526)
         <span style="color:rgb(051,204,051);">●</span> 교과과정 (53)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2029)</summary>
+    <summary>전체 포스트 (2030)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -867,6 +867,8 @@ na.omit(example526)
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (48)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (18)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (1)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (67)</a>
         </li><li>

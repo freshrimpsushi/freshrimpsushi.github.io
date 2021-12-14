@@ -302,7 +302,8 @@ margin-right: auto;">
 <br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
 </p>
 
-아무리 데이터가 산더미같이 쌓여있고 정교한 수학적 기법을 적용시켰다고 한들 써먹지 못하면 의미가 없다. 여기서 &lsquo;쓴다&rsquo;는 것은 어떤 데이터에 대해 통계를 내고 그 통계를 근거로 어떠한 &lsquo;주장을 한다&rsquo;는 것이다. 이를 위해선 당연히 그 통계가 믿을만해야하고, 그걸 누가 무슨 잣대로 판단할 것이냐는 질문의 답이 <strong>가설 검정</strong> 이다.아래의 예시를 통해 이해해보자.</p>
+아무리 데이터가 산더미같이 쌓여있고 정교한 수학적 기법을 적용시켰다고 한들 써먹지 못하면 의미가 없다. 여기서 &lsquo;쓴다&rsquo;는 것은 어떤 데이터에 대해 통계를 내고 그 통계를 근거로 어떠한 &lsquo;주장을 한다&rsquo;는 것이다. 이를 위해선 당연히 그 통계가 믿을만해야하고, 그걸 누가 무슨 잣대로 판단할 것이냐는 질문의 답이 <strong>가설 검정</strong> 이다.</p>
+<p>아래의 예시를 통해 이해해보자.</p>
 <p><img src="20180404_143936.png#center" alt="20180404\_143936.png"></p>
 <p>위 데이터를 강북 고등학교 이과 3학년 1반부터 15반까지의 중간고사 평균 점수라고 하자. 한눈에 보아도 15반의 평균이 월등하게 높고, 표준화를 해보면 더욱 확실히 알 수 있게 된다. 그런데 이렇게 순위를 매기거나 전체 평균보다 높냐 낮냐를 따지는 건 쉽지만 &lsquo;얼마나&rsquo; 잘하는지 못하는지는 따지기 어렵다. 평균 조금 차이 나는걸로 누가 낫네 마네해봤자 도토리 키재기밖에 안된다는 것이다. 분명 어느 정도 이상부터 &lsquo;급이 다르다&rsquo;고 말할 수 있긴할텐데, 그 정도가 어느정도인지가 모호하다.</p>
 <p>여기서 Z-score가 자유도 $14$ 의 $t$ 분포를 따른다는 걸 생각해보자.</p>
@@ -310,7 +311,8 @@ margin-right: auto;">
 <p>$t_{14}$ 의 확률밀도함수와 평균의 분포를 함께 나타내보면 위 그림과 같이 나타난다. Z-score의 평균은 $0$ 이고, Z-score가 $0$ 에 가깝다는 것은 그만큼 원래 데이터가 &lsquo;평균에서 멀지않은&rsquo; 데이터라는 의미가 된다. 반면 $0$ 에서 멀리 떨어진 Z-score의 원래 데이터는 높든 낮든 평균과 비슷하다고 말하기 어려울 것이다.</p>
 <p><img src="3.png#center" alt="3.png">
 노란색으로 칠해진 영역의 넓이는 양쪽을 합쳐서 $\color{red}{0.05}$ 인데, 이는 데이터가 그 구간에 나타날 확률이 $\color{red}{0.05}$ 임을 나타낸다. 데이터가 여기에 속하는 것은 이론적으로 $\color{red}{5 %}$ 확률의 매우 드문 경우고, 어쩌다가 우연히 나왔다기엔 그 차이가 너무 크다. 이렇게 평균과 다르면서 평균보다 점수가 높다면, 어쩌다 우연히가 아니라 실력 자체가 낫다고 말할 수 있지 않을까?<img src="4.png#center" alt="4.png">
-다시 예시로 돌아와보면 15반은 학급 전원이 그냥 어쩌다 시험을 잘 친것이라고 보기엔 비정상적으로 평균이 높은 것이다. 여기서 귀무가설 $H_{0}$ 가 &lsquo;15반의 평균은 3학년 전체의 평균과 큰 차이가 없다&rsquo; 라면 귀무가설을 기각할 수 있겠다. 이때 노랗게 칠해진 구역이 &lsquo;기각 시키는 구역&rsquo;이라서 <strong>기각역</strong><sup>Rejection Region</sup>이라 부른다. 그리고 그 구역을 정할 때의 넓이가 &lsquo;어느정도부터 의미 있는지의 정도&rsquo;라서 <strong>유의수준</strong><sup>Significance Probability</sup>이라 부른다. 한마디로 <strong>가설 검정</strong>은 &lsquo;그저 우연이라고 보긴 힘들다&rsquo;는 말을 통계로써 뒷받침하는 것이라고 할수 있다. 그걸 판단하는 건 기각역에 들어갔느냐 들어가지 않느냐고, 그 기준은 유의수준이 된다.적어도 기각역과 유의수준에 대해서는 정확한 정의 그 자체보다 그 개념을 확실히 체득하는 것이 중요하다. 실제로 볼 일도 별로 없고 쓰지도 않는다고 등한시하면 정말 필요하고 기본기로써 바로바로 생각나야할 때 생각이 나지 않는다.아래는 본 포스팅에 사용된 R 코드다.</p>
+다시 예시로 돌아와보면 15반은 학급 전원이 그냥 어쩌다 시험을 잘 친것이라고 보기엔 비정상적으로 평균이 높은 것이다. 여기서 귀무가설 $H_{0}$ 가 &lsquo;15반의 평균은 3학년 전체의 평균과 큰 차이가 없다&rsquo; 라면 귀무가설을 기각할 수 있겠다. 이때 노랗게 칠해진 구역이 &lsquo;기각 시키는 구역&rsquo;이라서 <strong>기각역</strong><sup>Rejection Region</sup>이라 부른다. 그리고 그 구역을 정할 때의 넓이가 &lsquo;어느정도부터 의미 있는지의 정도&rsquo;라서 <strong>유의수준</strong><sup>Significance Probability</sup>이라 부른다. 한마디로 <strong>가설 검정</strong>은 &lsquo;그저 우연이라고 보긴 힘들다&rsquo;는 말을 통계로써 뒷받침하는 것이라고 할수 있다. 그걸 판단하는 건 기각역에 들어갔느냐 들어가지 않느냐고, 그 기준은 유의수준이 된다.적어도 기각역과 유의수준에 대해서는 정확한 정의 그 자체보다 그 개념을 확실히 체득하는 것이 중요하다. 실제로 볼 일도 별로 없고 쓰지도 않는다고 등한시하면 정말 필요하고 기본기로써 바로바로 생각나야할 때 생각이 나지 않는다.</p>
+<p>아래는 본 포스팅에 사용된 R 코드다.</p>
 <pre tabindex="0"><code>set.seed(150421);
 avg&lt;-signif(6*rnorm(15)+60,3); names(avg)&lt;-paste0('(',(1:15),')'); avg
 Z = scale(avg)[,1]; Z
@@ -746,7 +748,7 @@ arrows(Z,-0.04,Z,-0.005,length=0.1)
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../147">🎲</a></p>
+         <a href="../1548">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -864,7 +866,7 @@ arrows(Z,-0.04,Z,-0.005,length=0.1)
         <span style="color:rgb(051,204,051);">●</span> 교과과정 (53)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2029)</summary>
+    <summary>전체 포스트 (2030)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -885,6 +887,8 @@ arrows(Z,-0.04,Z,-0.005,length=0.1)
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (48)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (18)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (1)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (67)</a>
         </li><li>

@@ -293,18 +293,18 @@
 
 <h2 id="개요">개요</h2>
 <p>R 은 기본적으로 통계학을 위해 태어난 언어기 때문에 데이터의 입력 역시 편리하게 되어있다.</p>
-<pre tabindex="0"><code>read.table(file, header = FALSE, sep = &quot;&quot;, na.strings = &quot;NA&quot;, fileEncoding = &quot;&quot;)
+<pre tabindex="0"><code>read.table(file, header = FALSE, sep = &quot;&quot;, na.strings = &quot;NA&quot;, fileEncoding = &quot;&quot;)
 </code></pre><h2 id="함수-소개">함수 소개</h2>
 <p><code>read.table()</code>은 데이터 테이블을 불러들이는 함수로써 위와 같이 여러가지 유용한 옵션을 제공한다. 옵션자체는 더 많이 있지만, 자주 쓰이고 반드시 알아두어야할 것을 추린 것이다. 다음의 설명들을 참고하자:</p>
 <ul>
-<li>(1) <code>header</code>: 첫줄의 취급에 대한 옵션이다. <code>header=T</code>로 두면 별도의 조작 없이 첫번째 줄을 데이터에서 제외하고 열의 이름으로 지정해준다. 디폴트는 <code>header=F</code>인데, 어지간한 데이터는 디폴트 그대로 쓸 일이 없다.</li>
-<li>(2) <code>sep</code>: 구분자에 대한 옵션이다. 많은 데이터가 주로 csv(콤마로 구분된 데이터, Comma Separated Value format)로 저장되므로 보통은 <code>read.csv()</code>를 쓰게 된다. <code>read.csv()</code>는 기본적으로 <code>sep = ','</code>이 디폴트기 때문에 별도로 건드릴 필요가 없어서 조금이나마 코드가 깔끔해진다. 그런데 간혹 <code>read.table()</code>을 그대로 쓰거나 그 외에도 탭이나 슬래쉬로 구분된 경우 등 종종 쓸 일이 있다. 데이터를 불러들였는데 한 열에 지저분하게 <code>\t</code>(탭)이 덕지덕지 붙어 불러들여졌다면 백퍼센트 이 문제다.</li>
-<li>(3) <code>na.strings</code>: 결측치에 대한 옵션이다. 교과서에 나오는 예제가 아니라 어디선가 가져온 데이터라면 워낙 정리를 엉망으로 해놔서 결측치가 넘쳐난다. 연속형 변수에 문자가 있다는 건 십중팔구 결측치를 나타내고, 이들을 핸들링하지 못하면 데이터 처리에 애를 먹게 된다. 불러들일 때부터 결측치로 분류하고나면 그 뒤로는 NA로 나타나 깔끔하게 정리할 수 있으므로 자주 사용한다. 참고로 <code>na.strings=c(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;)</code>와 같이 복수의 문자를 벡터로 넘겨줌으로써 여러 종류의 결측치 표현에도 대응할 수 있다.</li>
-<li>(4) <code>fileEncoding</code>: 불러들인 파일의 인코딩에 대한 옵션이다. 컴퓨터 전공자들은 C 나 파이썬에서 보다 일반적인 &lsquo;데이터&rsquo;를 다루지만 통계를 먼저 배운 사람들은 이런 부분을 경시하는 게 사실이다. 까놓고 말해 자주 쓰는 건 아니지만, 그래서 몰라도 된다고 하기엔 의외로 뒷통수 맞을 일이 많으므로 꼭 알아두는 게 좋다. 문제가 발생해도 당황하지 않고 데이터 파일의 인코딩을 확인한 후 입력하면 깔끔하게 해결된다.</li>
+<li>(1) <code>header</code>: 첫줄의 취급에 대한 옵션이다. <code>header=T</code>로 두면 별도의 조작 없이 첫번째 줄을 데이터에서 제외하고 열의 이름으로 지정해준다. 디폴트는 <code>header=F</code>인데, 어지간한 데이터는 디폴트 그대로 쓸 일이 없다.</li>
+<li>(2) <code>sep</code>: 구분자에 대한 옵션이다. 많은 데이터가 주로 csv(콤마로 구분된 데이터, Comma Separated Value format)로 저장되므로 보통은 <code>read.csv()</code>를 쓰게 된다. <code>read.csv()</code>는 기본적으로 <code>sep = ','</code>이 디폴트기 때문에 별도로 건드릴 필요가 없어서 조금이나마 코드가 깔끔해진다. 그런데 간혹 <code>read.table()</code>을 그대로 쓰거나 그 외에도 탭이나 슬래쉬로 구분된 경우 등 종종 쓸 일이 있다. 데이터를 불러들였는데 한 열에 지저분하게 <code>\t</code>(탭)이 덕지덕지 붙어 불러들여졌다면 백퍼센트 이 문제다.</li>
+<li>(3) <code>na.strings</code>: 결측치에 대한 옵션이다. 교과서에 나오는 예제가 아니라 어디선가 가져온 데이터라면 워낙 정리를 엉망으로 해놔서 결측치가 넘쳐난다. 연속형 변수에 문자가 있다는 건 십중팔구 결측치를 나타내고, 이들을 핸들링하지 못하면 데이터 처리에 애를 먹게 된다. 불러들일 때부터 결측치로 분류하고나면 그 뒤로는 NA로 나타나 깔끔하게 정리할 수 있으므로 자주 사용한다. 참고로 <code>na.strings=c(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;)</code>와 같이 복수의 문자를 벡터로 넘겨줌으로써 여러 종류의 결측치 표현에도 대응할 수 있다.</li>
+<li>(4) <code>fileEncoding</code>: 불러들인 파일의 인코딩에 대한 옵션이다. 컴퓨터 전공자들은 C 나 파이썬에서 보다 일반적인 &lsquo;데이터&rsquo;를 다루지만 통계를 먼저 배운 사람들은 이런 부분을 경시하는 게 사실이다. 까놓고 말해 자주 쓰는 건 아니지만, 그래서 몰라도 된다고 하기엔 의외로 뒷통수 맞을 일이 많으므로 꼭 알아두는 게 좋다. 문제가 발생해도 당황하지 않고 데이터 파일의 인코딩을 확인한 후 입력하면 깔끔하게 해결된다.</li>
 </ul>
 <h2 id="에러-eof-within-quoted-string">에러: EOF within quoted string</h2>
 <p><img src="20180422_213714.png#center" alt="20180422\_213714.png"></p>
-<p>한편 빅데이터를 불러들이다보면 용량이 너무 크다보니 위와 같은 경고 메세지가 뜰 수 있다. 이럴 땐 옵션에서 <code>quote=&quot;&quot;</code>만 추가해주면 간단하게 해결된다. 그러나 좋은 해결법은 아예 <a href="../1270">더 좋은 함수</a>를 사용하는 것이다. 문제의 원인이 잘못된 데이터인 경우보다는 잘못된 사용자인 경우가 훨씬 더 많고, 솔직히 당신은 후자임을 명심하자.</p>
+<p>한편 빅데이터를 불러들이다보면 용량이 너무 크다보니 위와 같은 경고 메세지가 뜰 수 있다. 이럴 땐 옵션에서 <code>quote=&quot;&quot;</code>만 추가해주면 간단하게 해결된다. 그러나 좋은 해결법은 아예 <a href="../1270">더 좋은 함수</a>를 사용하는 것이다. 문제의 원인이 잘못된 데이터인 경우보다는 잘못된 사용자인 경우가 훨씬 더 많고, 솔직히 당신은 후자임을 명심하자.</p>
 
 
 
@@ -696,7 +696,7 @@
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../334">🎲</a></p>
+         <a href="../606">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -814,7 +814,7 @@
         <span style="color:rgb(051,204,051);">●</span> 교과과정 (53)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2029)</summary>
+    <summary>전체 포스트 (2030)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -835,6 +835,8 @@
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (48)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (18)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (1)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (67)</a>
         </li><li>
