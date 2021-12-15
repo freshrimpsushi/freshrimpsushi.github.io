@@ -317,7 +317,7 @@
 </ul>
 <h3 id="코드-리뷰">코드 리뷰</h3>
 <p><strong>Step 1. 초기화 및 격자공간 생성</strong></p>
-<pre tabindex="0"><code>julia&gt; row\_size = 10
+<pre><code>julia&gt; row\_size = 10
 10
 
 julia&gt; column\_size = 10
@@ -356,7 +356,7 @@ julia&gt; stage\_lattice[rand(1:row\_size), rand(1:column\_size)] = 'I'; stage\_
 </code></pre><p><a href="../1932">격자 기반 시뮬레이션 튜토리얼</a>과 비슷하게 격자 공간을 생성하고 랜덤한 위치에 성분을 넣는다. 위의 경우에에는 $6$행 $6$열에 생성된 것을 확인할 수 있다. 이를 <a href="../1459">히트맵</a>으로 시각화하면 다음과 같다.</p>
 <p><img src="06-01.png#center" alt="06-01.png"></p>
 <p><strong>Step 2. 계산</strong></p>
-<pre tabindex="0"><code>julia&gt; I\_lattice = (stage\_lattice .== 'I')
+<pre><code>julia&gt; I\_lattice = (stage\_lattice .== 'I')
 10×10 BitArray{2}:
  0  0  0  0  0  0  0  0  0  0
  0  0  0  0  0  0  0  0  0  0
@@ -387,7 +387,7 @@ julia&gt; count\_lattice =
  0  0  0  0  0  0  0  0  0  0
 </code></pre><p>주변에 성분이 얼마나 있는지 세어놓은 행렬 $(n_{ij})$ 을 만든다. 예제에선 벡터 연산을 이용해 구했지만 반드시 이렇게 계산할 필요는 없다.</p>
 <p><strong>Step 3. 확산</strong></p>
-<pre tabindex="0"><code>julia&gt; probability\_lattice = 1 .- (1-β).^count\_lattice
+<pre><code>julia&gt; probability\_lattice = 1 .- (1-β).^count\_lattice
 10×10 Array{Float64,2}:
  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0
  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0
@@ -413,7 +413,7 @@ julia&gt; hit\_lattice = probability\_lattice .&gt; rand(row\_size, column\_size
  0  0  0  0  0  0  0  0  0  0
  0  0  0  0  0  0  0  0  0  0
 </code></pre><p>각 칸 별로 확산 받을 확률을 계산해서 행렬 $\left( 1-(1-\beta)^{n_{ij}} \right)$ 를 만든다. 이렇게 계산하는 이유는 주변에 성분이 많을수록 확산률이 높아지는 것을 반영하기 위해서다. 빈 공간에서 성분을 받을 확률은 $\beta$, 받지 않을 확률은 $(1-\beta)$ 다. 빈 공간 $i$행 $j$열이 주변 $n_{ij}$개의 성분에게서 확산을 받지 않을 확률은 $(1-\beta)^{n_{ij}}$ 이고, 결국 그들 중 하나에게서라도 확산을 받았을 확률이 바로 $\left( 1-(1-\beta)^{n_{ij}} \right)$ 이다.</p>
-<pre tabindex="0"><code>julia&gt; probability\_lattice = 1 .- (1-β).^count\_lattice
+<pre><code>julia&gt; probability\_lattice = 1 .- (1-β).^count\_lattice
 10×10 Array{Float64,2}:
  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0
  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0
@@ -832,7 +832,7 @@ julia&gt; hit\_lattice = probability\_lattice .&gt; rand(row\_size, column\_size
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../66">🎲</a></p>
+         <a href="../1568">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
