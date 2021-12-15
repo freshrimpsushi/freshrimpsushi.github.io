@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/trick-for-big-o-notation-in-denominator\/",
-    "wordCount" : "447",
+    "wordCount" : "452",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -271,7 +271,7 @@
 
     
     
-            <a href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석</a>&emsp;
+            <a href="https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/" style="color: black">보조정리</a>&emsp;
             
     </span>
     
@@ -284,39 +284,58 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#정리">정리</a></li>
+    <li><a href="#설명">설명</a></li>
     <li><a href="#증명">증명</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-$a \ne 0$ 와 $p&gt;0$, $n \in \mathbb{N}$ 에 대해 $\displaystyle {{1} \over { \sqrt[p]{a + O ( h^n ) } }} = {{1} \over { \sqrt[p]{a } }}+ O(h^n)$</p>
-<p>복잡하게 생긴 분모를 깔끔한 형태로 바꿔주는 렘마로써 요긴하게 쓰일 수 있다.상수항 $a$ 이 없다면 렘마 없이도 $\displaystyle {{1} \over { \sqrt[p]{ O ( h^n ) } }} = O \left( h^{ - {{n} \over {p}} }  \right) $ 으로 깔끔하게 올라오지만 보통 쓸모가 없다.</p>
+<h2 id="정리">정리</h2>
+<p>$a \ne 0$ 와 $p&gt;0$, $n \in \mathbb{N}$ 에 대해 다음이 성립한다.
+$$
+{{1} \over { \sqrt[p]{a + O ( h^n ) } }} = {{1} \over { \sqrt[p]{a } }}+ O(h^n)
+$$</p>
+<h2 id="설명">설명</h2>
+<p>복잡하게 생긴 분모를 깔끔한 형태로 바꿔주는 렘마로써 요긴하게 쓰일 수 있다.</p>
+<p>상수항 $a$ 이 없다면 렘마 없이도 $\displaystyle {{1} \over { \sqrt[p]{ O ( h^n ) } }} = O \left( h^{ - {{n} \over {p}} }  \right) $ 으로 깔끔하게 올라오지만 보통 쓸모가 없다.</p>
 <h2 id="증명">증명</h2>
-<p>$\displaystyle  {{1} \over { \sqrt[p]{a + O ( h^n ) } }} = {{1} \over { \sqrt[p]{a + b h^n } }} = (a + b h^n )^{-{{1} \over {p}}}$ 에 대해 $\displaystyle q := {{1} \over {p}}$ 라 두고 함수 $\displaystyle f(h) :=  (a + b h^n )^{-q}$ 를 정의하자.</p>
-<p>$f$ 에 대해 <a href="../42">매클로린 전개</a>를 하면 $\displaystyle f(h) = f(0) + h f'(0) + {{h^2} \over {2}} f''(0) + {{h^3} \over {6}} f^{(3)}(0) + \cdots 
+<p>$$
+{{1} \over { \sqrt[p]{a + O ( h^n ) } }} = {{1} \over { \sqrt[p]{a + b h^n } }} = (a + b h^n )^{-{{1} \over {p}}}
 $$
-\displaystyle f(h) =  (a + b h^n )^{-q}$ 이므로 $\displaystyle f(0) = (a + b \cdot  0^n )^{-q} =  {{1} \over { \sqrt[p]{a } }}
+에 대해 $\displaystyle q := {{1} \over {p}}$ 라 두고 함수 $\displaystyle f(h) :=  (a + b h^n )^{-q}$ 를 정의하자.</p>
+<p>$f$ 에 대해 <a href="../42">매클로린 전개</a>를 하면
 $$
-\displaystyle f'(h) = -qbnh^{n-1} (a+  bh^{n})^{-q-1}$ 이므로 $f'(0) = 0
+f(h) = f(0) + h f'(0) + {{h^2} \over {2}} f''(0) + {{h^3} \over {6}} f^{(3)}(0) + \cdots 
 $$
-\displaystyle f''(h) = -qbn(n-1)h^{n-2} (a+  bh^{n})^{-q-1} + bnh^{n-1} (-q-1) bnh^{n-1} (a+  bh^{n})^{-q-2}$ 이므로 $f''(0) = 0$이런 식으로 $k$계 도함수 $f^{(k)}$ 을 구해보면 $k=2,3, \cdots, (n-1)$ 에 대해 $f^{(k)}(0) = 0$ 임을 알 수 있다.</p>
-<p>그리고 어떤 $g(h)$ 에 대해 $f^{(n)}(h) = -qbn!h^{n-n}  (a+  bh^{n})^{-q-1} + h g(h)$ 이므로, $\displaystyle f^{(n)} = -qbn! {{1} \over { \sqrt[q+1]{a } }}$따라서 $\displaystyle f(h) ={{1} \over { \sqrt[p]{a } }} + 0 + \cdots + 0 - {{h^n} \over {n!}} qbn! {{1} \over { \sqrt[q+1]{a } }} + {{h^{ (n+1) } } \over {(n+1)! }} f^{(n+1)}(0) + \cdots 
+$\displaystyle f(h) =  (a + b h^n )^{-q}$ 이므로
 $$
-0$ 이후에 등장하는 모든 항들을 $h^n$ 으로 묶어내면 $\displaystyle {{1} \over { \sqrt[p]{a + O ( h^n ) } }} = {{1} \over { \sqrt[p]{a } }}+ O(h^n)$ 를 얻는다.</p>
+f(0) = (a + b \cdot  0^n )^{-q} =  {{1} \over { \sqrt[p]{a } }}
+$$
+다. 한편
+$$
+f'(h) = -qbnh^{n-1} (a+  bh^{n})^{-q-1}
+$$
+이므로 $f'(0) = 0$ 고,
+$$
+f''(h) = -qbn(n-1)h^{n-2} (a+  bh^{n})^{-q-1} + bnh^{n-1} (-q-1) bnh^{n-1} (a+  bh^{n})^{-q-2}
+$$
+이므로 $f''(0) = 0$ 다. 이런 식으로 $k$계 도함수 $f^{(k)}$ 을 구해보면 $k=2,3, \cdots, (n-1)$ 에 대해 $f^{(k)}(0) = 0$ 임을 알 수 있다. 어떤 $g(h)$ 에 대해 
+$$
+f^{(n)}(h) = -qbn!h^{n-n}  (a+  bh^{n})^{-q-1} + h g(h)
+$$
+이므로,
+$$
+f^{(n)} (h) = -qbn! {{1} \over { \sqrt[q+1]{a } }}
+$$
+다. 따라서
+$$
+f(h) ={{1} \over { \sqrt[p]{a } }} + 0 + \cdots + 0 - {{h^n} \over {n!}} qbn! {{1} \over { \sqrt[q+1]{a } }} + {{h^{ (n+1) } } \over {(n+1)! }} f^{(n+1)}(0) + \cdots 
+$$
+다. $0$ 이후에 등장하는 모든 항들을 $h^n$ 으로 묶어내면 다음을 얻는다.
+$$
+{{1} \over { \sqrt[p]{a + O ( h^n ) } }} = {{1} \over { \sqrt[p]{a } }}+ O(h^n)
+$$</p>
 <p style="text-align: right;">■</p>
 
 
@@ -709,11 +728,11 @@ $$
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../973">🎲</a></p>
+         <a href="../134">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
-        <span style="color:rgb(051,204,051);">●</span> 보조정리 (16)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 보조정리 (17)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 집합론 (47)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/>
@@ -771,7 +790,7 @@ $$
     <a href=https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/>
         <span style="color:rgb(051,204,051);">●</span> 매트랩 (16)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/>
-        <span style="color:rgb(255,051,051);">●</span> 수치해석 (54)</a><br>
+        <span style="color:rgb(255,051,051);">●</span> 수치해석 (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(255,051,051);">●</span> 최적화이론 (10++)</a><br>
     <hr>
@@ -827,7 +846,7 @@ $$
         <span style="color:rgb(051,204,051);">●</span> 교과과정 (53)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2030)</summary>
+    <summary>전체 포스트 (2031)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -863,13 +882,13 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B0%94%EB%82%98%ED%9D%90%EA%B3%B5%EA%B0%84/" style="color: black">바나흐공간 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/" style="color: black">보조정리 (14)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/" style="color: black">보조정리 (15)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B5%EC%86%8C%ED%95%B4%EC%84%9D/" style="color: black">복소해석 (66)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (43)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%82%B0%EB%9E%80%EC%9D%B4%EB%A1%A0/" style="color: black">산란이론 (4)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%82%B0%EB%9E%80%EC%9D%B4%EB%A1%A0/" style="color: black">산란이론 (5)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (6)</a>
         </li><li>
@@ -885,7 +904,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (63)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (53)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (52)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (27)</a>
         </li><li>

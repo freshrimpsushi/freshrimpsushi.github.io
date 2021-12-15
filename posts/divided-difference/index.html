@@ -62,7 +62,7 @@
 <meta name="title" content="수치해석학에서의 계차상">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
 <meta property="og:title" content="수치해석학에서의 계차상"/>
-<meta property="og:description" content="divided difference"/>
+<meta property="og:description" content="Divided Difference"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -77,7 +77,7 @@
     "name": "수치해석학에서의 계차상",
     "headline": "수치해석학에서의 계차상",
     "alternativeHeadline": "",
-    "description": "divided difference",
+    "description": "Divided Difference",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/divided-difference\/",
-    "wordCount" : "1758",
+    "wordCount" : "1806",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -265,7 +265,7 @@
 
 <h1>수치해석학에서의 계차상</h1>
 <aside>
-    divided difference
+    Divided Difference
     <p style="text-align: right;">
         969
 
@@ -284,56 +284,79 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#정의">정의</a></li>
+    <li><a href="#정리">정리</a></li>
+    <li><a href="#설명">설명</a>
+      <ul>
+        <li><a href="#예시">예시</a></li>
+        <li><a href="#구현">구현</a></li>
+      </ul>
+    </li>
+    <li><a href="#증명">증명</a>
+      <ul>
+        <li><a href="#2">[2]</a></li>
+        <li><a href="#1">[1]</a></li>
+        <li><a href="#4">[4]</a></li>
+        <li><a href="#3">[3]</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-함수 $f : \mathbb{R} \to \mathbb{R}$ 와 서로 다른 $x_{1} , \cdots , x_{n}$ 에 대해 다음을 $f$ 의 계차상이라고 한다.</p>
-<p>$f[x_{0}] := f( x_{0} ) 
-$$
-\displaystyle f [ x_{0} , x_{1} ] : = {{ f ( x_{1} ) - f ( x_{0} ) } \over { x_{1} - x_{0} }} 
-$$
-\displaystyle f [ x_{0} , x_{1} , x_{2} ] : = {{ f [ x_{1} , x_{2} ]  - f [ x_{0} , x_{1} ] } \over { x_{2} - x_{0} }} 
-$$
-\displaystyle f [ x_{0} , \cdots , x_{n} ] : = {{ f [ x_{1} , \cdots , x_{n} ]  - f [ x_{0} , x_{n-1} ] } \over { x_{n} - x_{0} }}$</p>
+<h2 id="정의">정의</h2>
+<p>함수 $f : \mathbb{R} \to \mathbb{R}$ 와 서로 다른 $x_{1} , \cdots , x_{n}$ 에 대해 다음을 $f$ 의 <strong>계차상</strong><sup>Divided Difference</sup>이라고 한다.</p>
+<p>$$
+\begin{align*}
+f[x_{0}] :=&amp; f( x_{0} )
+\\ f [ x_{0} , x_{1} ] :=&amp; {{ f ( x_{1} ) - f ( x_{0} ) } \over { x_{1} - x_{0} }}
+\\ f [ x_{0} , x_{1} , x_{2} ] :=&amp; {{ f [ x_{1} , x_{2} ]  - f [ x_{0} , x_{1} ] } \over { x_{2} - x_{0} }}
+\\ f [ x_{0} , \cdots , x_{n} ] :=&amp; {{ f [ x_{1} , \cdots , x_{n} ]  - f [ x_{0} , x_{n-1} ] } \over { x_{n} - x_{0} }}
+\end{align*}
+$$</p>
+<h2 id="정리">정리</h2>
 <ul>
-<li>[1]: $f [ x_{0} , \cdots , x_{n} ] =$ 는 $x_{0} , \cdots , x_{n}$ 의 순서와 상관 없이 항상 같다.</li>
-<li>[2]: $\displaystyle f [ x_{0} , \cdots , x_{n} ] = \sum_{i=0}^{n} {{ f( x_{i} ) } \over { \displaystyle \prod_{j \in \left\{ 0 , \cdots , n \right\} \setminus \left\{ i \right\} } ( x_{i} - x_{j} ) }}  $</li>
-<li>[3]: $f' ( \xi ) = f [ x_0 , x_{1} ]$ 를 만족하는 $\xi$ 가 $\mathscr{H} \left\{ x_{0} , x_{1} \right\}$ 에 존재한다.</li>
-<li>[4]: $\displaystyle {{1} \over {n!}} f^{(n)} ( \xi ) =f [ x_{0} , \cdots , x_{n} ]$ 를 만족하는 $\xi$ 가 $\mathscr{H} \left\{ x_{0} , \cdots , x_{n} \right\}$ 에 존재한다.</li>
+<li>[1]: $f [ x_{0} , \cdots , x_{n} ]$ 는 $x_{0} , \cdots , x_{n}$ 의 순서와 상관 없이 항상 같다.</li>
+<li>[2]: $$f [ x_{0} , \cdots , x_{n} ] = \sum_{i=0}^{n} {{ f( x_{i} ) } \over { \prod_{j \in \left\{ 0 , \cdots , n \right\} \setminus \left\{ i \right\} } ( x_{i} - x_{j} ) }}$$</li>
+<li>[3]: 다음을 만족하는 $\xi$ 가 $\mathscr{H} \left\{ x_{0} , x_{1} \right\}$ 에 존재한다.$$f' ( \xi ) = f [ x_0 , x_{1} ]$$</li>
+<li>[4]: 다음을 만족하는 $\xi$ 가 $\mathscr{H} \left\{ x_{0} , \cdots , x_{n} \right\}$ 에 존재한다.$${{1} \over {n!}} f^{(n)} ( \xi ) =f [ x_{0} , \cdots , x_{n} ]$$</li>
+<li>[3]': $$f [ x_{i} , x_{i} ] = f' ( x_{i} )$$</li>
+<li>[4]': $$f [ \underbrace{  x_{i} , \cdots , x_{i} }_{ n+1 } ] = {{1} \over {n!}} f^{(n)} ( x_{i} )$$</li>
 </ul>
-<p><strong>[3]'</strong> $\displaystyle f [ x_{i} , x_{i} ] = f' ( x_{i} )$</p>
-<p>[4]'** $\displaystyle f [ \underbrace{  x_{i} , \cdots , x_{i} }_{ n+1 } ] = {{1} \over {n!}} f^{(n)} ( x_{i} ) $</p>
+<hr>
 <ul>
 <li>$\mathscr{H} \left\{ a,b,c, \cdots \right\}$ 는 $a,b,c, \cdots$ 를 포함하는 가장 작은 구간을 나타낸다.</li>
 </ul>
-<p>계차상은 수치해석학의 여러가지 이론들을 표현할 때 지면을 아끼는데 큰 도움을 준다.</p>
-<p>[2]** 는 실제 계산에 있어서 특히 유용한데, $\displaystyle f [ x_{0} , x_{1} , x_{2} ] = {{ f( x_{0} ) } \over { ( x_{0} - x_{1} ) ( x_{0} - x_{2} ) }}
+<h2 id="설명">설명</h2>
+<p>계차상은 <a href="../../categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D">수치해석</a>의 여러가지 이론들을 표현할 때 지면을 아끼는데 큰 도움을 준다.</p>
+<p>정리 [2]는 실제 계산에 있어서 특히 유용한데,
 $$
-\displaystyle + {{ f( x_{1} ) } \over { ( x_{1} - x_{2} ) ( x_{1} - x_{0} ) }} + {{ f( x_{2} ) } \over { ( x_{2} - x_{0} ) ( x_{2} - x_{1} ) }}$ 와 같이 나타나기 때문에 실제 정의와 같이 재귀적으로 반복계산을 할 수고를 덜어준다.</p>
-<p>[3]**은 사실 <a href="../37">평균값 정리</a>로써, 미분을 한 때 &lsquo;순간 변화율&rsquo;과 같은 개념으로 생각한 적이 있다면 왜 계차상이 미분을 대신하고 Divided Difference이라는 이름을 갖는지 이해할 수 있을 것이다. **[4]**와 같은 형태로 일반화가 가능하다. 증명은 거꾸로 계차상의 인수들이 한없이 가까워지는, 즉 극한을 취하는 느낌을 생각해보면 <strong>[3]'</strong> , **[4]'**와 같이 $n$계 미분계수로 볼 수 있다. 이러한 개념적 접근은 <a href="../1031">계차상의 정의에서 오는 한계를 극복</a>하고 수치해석의 이론을 더욱 풍부하게 만들어준다.간단히 $f(x) := x^2 + 1$ 에 대해 몇몇 계차상을 구해보자.</p>
-<p>$f[3] = f(3) = 10
+f [ x_{0} , x_{1} , x_{2} ] = {{ f( x_{0} ) } \over { ( x_{0} - x_{1} ) ( x_{0} - x_{2} ) }} + {{ f( x_{1} ) } \over { ( x_{1} - x_{2} ) ( x_{1} - x_{0} ) }} + {{ f( x_{2} ) } \over { ( x_{2} - x_{0} ) ( x_{2} - x_{1} ) }}
 $$
-\displaystyle f[0,5] = {{ f(0) - f(5) } \over { 0 - 5}} = {{1 - 26 } \over { -5 }} = 5
+와 같이 나타나기 때문에 실제 정의와 같이 재귀적으로 반복계산을 할 수고를 덜어준다.</p>
+<p>[3]은 사실 <a href="../37">평균값 정리</a>로써, 미분을 한 때 &lsquo;순간 변화율&rsquo;과 같은 개념으로 생각한 적이 있다면 왜 계차상이 미분을 대신하고 Divided Difference이라는 이름을 갖는지 이해할 수 있을 것이다. 정리 [4]와 같은 형태로 일반화가 가능하다. 증명은 거꾸로 계차상의 인수들이 한없이 가까워지는, 즉 극한을 취하는 느낌을 생각해보면 [3]&rsquo;, [4]&lsquo;와 같이 $n$계 미분계수로 볼 수 있다. 이러한 개념적 접근은 <a href="../1031">계차상의 정의에서 오는 한계를 극복</a>하고 <a href="../../categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D">수치해석</a>의 이론을 더욱 풍부하게 만들어준다.</p>
+<h3 id="예시">예시</h3>
+<p>간단히 $f(x) := x^2 + 1$ 에 대해 몇몇 계차상을 구해보자.</p>
+<p>한 점에 대해서는,
 $$
-\displaystyle f[2,3,-1] = {{ \displaystyle {{ f(2) - f( 3) } \over { 2 - 3 }} - {{ f(3) - f(-1) } \over { 3 - (-1) }} } \over { 2 - (-1) }} 
+f[3] = f(3) = 10
+$$</p>
+<p>두 점에 대해서는,
 $$
-\displaystyle =  {{ \displaystyle {{ 5 - 10 } \over { -1 }} - {{ 10 - 2 } \over { 4 }} } \over { 3}} = {{ 5 -2 } \over {3}} =1$계차상은 물론 유한한 벡터에 대해서 늘 구할 수 있지만 보통은 위와 같이 $n=2$ 까지만 사용하며, 그 외엔 쓸 일이 거의 없다.</p>
-<p>다음은 계차상을 R 코드로 구현한 것으로써, 함수 $f$ 와 벡터 $\mathbb{x} = ( x_{0} , \cdots , x_{n} )$ 을 받아 $f [ x_{0} , \cdots , x_{n} ]$ 을 반환한다.</p>
+f[0,5] = {{ f(0) - f(5) } \over { 0 - 5}} = {{1 - 26 } \over { -5 }} = 5
+$$</p>
+<p>세 점에 대해서는,
+$$
+\begin{align*}
+f[2,3,-1] =&amp; {{ \displaystyle {{ f(2) - f( 3) } \over { 2 - 3 }} - {{ f(3) - f(-1) } \over { 3 - (-1) }} } \over { 2 - (-1) }} 
+\\ =&amp; {{ \displaystyle {{ 5 - 10 } \over { -1 }} - {{ 10 - 2 } \over { 4 }} } \over { 3}}
+\\ =&amp; {{ 5 -2 } \over {3}}
+\\ =&amp; 1
+\end{align*}
+$$
+계차상은 물론 유한한 벡터에 대해서 늘 구할 수 있지만 보통은 위와 같이 $n=2$ 까지만 사용하며, 그 외엔 쓸 일이 거의 없다.</p>
+<h3 id="구현">구현</h3>
+<p>다음은 계차상을 <a href="../../categories/r">R</a> 코드로 구현한 것으로써, 함수 $f$ 와 벡터 $\mathbb{x} = ( x_{0} , \cdots , x_{n} )$ 을 받아 $f [ x_{0} , \cdots , x_{n} ]$ 을 반환한다.</p>
 <pre tabindex="0"><code>f&lt;-function(x) {x^2 + 1}
 dd&lt;-function(f,X){
   if(length(X)==1) {return(f(X))}
@@ -345,9 +368,12 @@ dd(f,c(3))
 dd(f,c(0,5))
 dd(f,c(2,3,-1))
 </code></pre><p>위 코드를 실행시킨 결과는 다음과 같으며, $f(x) = x^2 +1$ 에 대한 손계산과 정확히 일치함을 확인할 수 있다.</p>
-<p><img src="20190319_161740.png#center" alt="20190319\_161740.png">
-<strong>Strategy[2]</strong>  : <a href="../1023">라그랑주 공식</a>과 <a href="../1025">뉴턴 계차상 공식</a>의 차수를 비교한다.<strong>증명[2]</strong> 
-$$
+<p><img src="20190319_161740.png#center" alt="20190319\_161740.png"></p>
+<h2 id="증명">증명</h2>
+<h3 id="2">[2]</h3>
+<p>전략: <a href="../1023">라그랑주 공식</a>과 <a href="../1025">뉴턴 계차상 공식</a>의 차수를 비교한다.</p>
+<hr>
+<p>$$
 \Psi_{n} (x) := (x-x_{0}) \cdots (x - x_{n})
 $$
 $\Psi_{n}$ 을 $x$ 에 대해 미분하고 $x = x_{j}$ 를 대입하면
@@ -365,10 +391,14 @@ $$
 $$
 \displaystyle f [ x_{0} , \cdots , x_{n} ] = \sum_{i=0}^{n} {{ f( x_{i} ) } \over { \displaystyle \prod_{j \in \left\{ 0 , \cdots , n \right\} \setminus \left\{ i \right\} } ( x_{i} - x_{j} ) }}
 $$</p>
-<p><p style="text-align: right;">■</p>
-<strong>증명[1]</strong> [2]에 의해 $[x_{0} , \cdots , x_{n}]$ 내부의 순서를 바꾸는 것은 $\displaystyle \sum_{i=0}^{n} {{ f( x_{i} ) } \over { \displaystyle \prod_{j \in \left\{ 0 , \cdots , n \right\} \setminus \left\{ i \right\} } ( x_{i} - x_{j} ) }}$ 을 계산할 때 <a href="../178">덧셈의 순서를 바꾸는 것에 불과</a>하므로 항상 같다.</p>
-<p><p style="text-align: right;">■</p>
-<strong>Strategy[4]</strong>  : <a href="../1023">라그랑주 공식</a>과 <a href="../1025">뉴턴 계차상 공식</a>의 차수를 비교한다.<strong>증명[4]</strong> $p_{n}(x) = p_{n-1}(x) + C(x)$ 이라고 하면 $\deg C = n$ 이고 $i= 0, \cdots, (n-1)$ 에 대해서 $p_{n}(x_{i}) = f(x_{i}) = p_{n-1}(x_{i})$ 이므로 어떤 상수 $a_{n} \ne 0$ 에 대해 $C (x) = a_{n} (x - x_{0}) \cdots (x - x_{n-1})$ 와 같이 나타난다. $C(x)$ 에 $x=x_{n}$ 을 대입해보면
+<p style="text-align: right;">■</p>
+<h3 id="1">[1]</h3>
+<p>정리 [2]에 의해 $[x_{0} , \cdots , x_{n}]$ 내부의 순서를 바꾸는 것은 $\displaystyle \sum_{i=0}^{n} {{ f( x_{i} ) } \over { \displaystyle \prod_{j \in \left\{ 0 , \cdots , n \right\} \setminus \left\{ i \right\} } ( x_{i} - x_{j} ) }}$ 을 계산할 때 <a href="../178">덧셈의 순서를 바꾸는 것에 불과</a>하므로 항상 같다.</p>
+<p style="text-align: right;">■</p>
+<h3 id="4">[4]</h3>
+<p>전략: <a href="../1023">라그랑주 공식</a>과 <a href="../1025">뉴턴 계차상 공식</a>의 차수를 비교한다.</p>
+<hr>
+<p>$p_{n}(x) = p_{n-1}(x) + C(x)$ 이라고 하면 $\deg C = n$ 이고 $i= 0, \cdots, (n-1)$ 에 대해서 $p_{n}(x_{i}) = f(x_{i}) = p_{n-1}(x_{i})$ 이므로 어떤 상수 $a_{n} \ne 0$ 에 대해 $C (x) = a_{n} (x - x_{0}) \cdots (x - x_{n-1})$ 와 같이 나타난다. $C(x)$ 에 $x=x_{n}$ 을 대입해보면
 $$
 C(x_{n} ) = p_{n} (x_{n}) - p_{n-1}(x_{n})
 $$</p>
@@ -382,16 +412,23 @@ $$</p>
 <p>$$
 \displaystyle a_{n} = {{ f (x_{n}) - p_{n-1}(x_{n-1}) } \over { (x_{n} - x_{0}) \cdots (x_{n} - x_{n-1})  }}
 $$</p>
-<p><a href="../1021">폴리노미얼 인터폴레이션과 실제 함수와의 오차</a>$n$번 미분가능한 $f : \mathbb{R} \to \mathbb{R}$ 와 어떤 $\xi \in \mathscr{H} \left\{ x_{0} , \cdots , x_{n-1} \right\}$ 에 대해 $f$ 의 폴리노미얼 인터폴레이션 $p_{n-1}$ 은 어떤 $x_{n} \in \mathbb{R}$ 에 대해 $\displaystyle f(x_{n}) - p_{n-1} (x_{n}) = {{ (x_{n} - x_{0}) \cdots (x_{n} - x_{n-1}) } \over { n! }} f^{(n)} ( \xi )$ 을 만족한다.</p>
-<p>$$
-\displaystyle a_{n} = {{ f^{(n)} ( \xi ) } \over { n! }} 
+<blockquote>
+<p><a href="../1021">폴리노미얼 인터폴레이션과 실제 함수와의 오차</a>: $n$번 미분가능한 $f : \mathbb{R} \to \mathbb{R}$ 와 어떤 $\xi \in \mathscr{H} \left\{ x_{0} , \cdots , x_{n-1} \right\}$ 에 대해 $f$ 의 폴리노미얼 인터폴레이션 $p_{n-1}$ 은 어떤 $x_{n} \in \mathbb{R}$ 에 대해 
 $$
-한편 <a href="../1025">뉴턴 계차상 공식</a>에서 $p_{n}$ 의 최고차항의 계수는 $a_{n} = f [x_{0} , \cdots , x_{n} ]$ 이므로
-$$
-\displaystyle {{1} \over {n!}} f^{(n)} ( \xi ) =f [ x_{0} , \cdots , x_{n} ] 
+f(x_{n}) - p_{n-1} (x_{n}) = {{ (x_{n} - x_{0}) \cdots (x_{n} - x_{n-1}) } \over { n! }} f^{(n)} ( \xi )
 $$</p>
-<p><p style="text-align: right;">■</p>
-<strong>증명[3]</strong> <strong>[4]</strong> 에 의해 자명하다.</p>
+</blockquote>
+<p><a href="../1021">폴리노미얼 인터폴레이션과 실제 함수와의 오차</a> 공식에 따라
+$$
+a_{n} = {{ f^{(n)} ( \xi ) } \over { n! }} 
+$$
+다. 한편 <a href="../1025">뉴턴 계차상 공식</a>에서 $p_{n}$ 의 최고차항의 계수는 $a_{n} = f [x_{0} , \cdots , x_{n} ]$ 이므로
+$$
+{{1} \over {n!}} f^{(n)} ( \xi ) =f [ x_{0} , \cdots , x_{n} ] 
+$$</p>
+<p style="text-align: right;">■</p>
+<h3 id="3">[3]</h3>
+<p>정리 [4]에 의해 자명하다.</p>
 <p style="text-align: right;">■</p>
 
 
@@ -784,11 +821,11 @@ $$</p>
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1835">🎲</a></p>
+         <a href="../1173">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
-        <span style="color:rgb(051,204,051);">●</span> 보조정리 (16)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 보조정리 (17)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 집합론 (47)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/>
@@ -846,7 +883,7 @@ $$</p>
     <a href=https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/>
         <span style="color:rgb(051,204,051);">●</span> 매트랩 (16)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/>
-        <span style="color:rgb(255,051,051);">●</span> 수치해석 (54)</a><br>
+        <span style="color:rgb(255,051,051);">●</span> 수치해석 (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(255,051,051);">●</span> 최적화이론 (10++)</a><br>
     <hr>
@@ -902,7 +939,7 @@ $$</p>
         <span style="color:rgb(051,204,051);">●</span> 교과과정 (53)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2030)</summary>
+    <summary>전체 포스트 (2031)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -938,13 +975,13 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B0%94%EB%82%98%ED%9D%90%EA%B3%B5%EA%B0%84/" style="color: black">바나흐공간 (36)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/" style="color: black">보조정리 (14)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/" style="color: black">보조정리 (15)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B5%EC%86%8C%ED%95%B4%EC%84%9D/" style="color: black">복소해석 (66)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (43)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%82%B0%EB%9E%80%EC%9D%B4%EB%A1%A0/" style="color: black">산란이론 (4)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%82%B0%EB%9E%80%EC%9D%B4%EB%A1%A0/" style="color: black">산란이론 (5)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (6)</a>
         </li><li>
@@ -960,7 +997,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (63)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (53)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (52)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (27)</a>
         </li><li>
