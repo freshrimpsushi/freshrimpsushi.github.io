@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/the-christoffel-symbol-in-differential-geometry\/",
-    "wordCount" : "426",
+    "wordCount" : "1040",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -284,39 +284,65 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#표기법">표기법</a></li>
-    <li><a href="#정의1">정의</a></li>
+    <li><a href="#빌드업1">빌드업</a></li>
+    <li><a href="#정의">정의</a></li>
     <li><a href="#설명">설명</a></li>
     <li><a href="#같이보기">같이보기</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="표기법">표기법</h2>
-<ul>
-<li>$\mathbf{x} : U \to \R^{3}$ : <a href="../2106">단순곡면</a></li>
-<li>$(u_{1}, u_{2})$ : $U$의 좌표</li>
-<li>$\mathbf{x}_{i} := \partial _{u_{i}}\mathbf{x} = \dfrac{\partial \mathbf{x}}{\partial u_{i}}$ : <a href="../3152">편속도벡터</a></li>
-<li>$\mathbf{x}_{ij} := \partial _{u_{i}}\partial_{u_{j}}\mathbf{x} = \dfrac{\partial^{2} \mathbf{x}}{\partial u_{i} \partial u_{j}}$ : 이계 편 도함수</li>
-<li>$[g_{ij}]$ : <a href="../3148">리만 메트릭</a> 행렬</li>
-<li>$[g^{lk}]$ : 리만 메트릭 행렬의 역행렬</li>
-</ul>
-<h2 id="정의1">정의<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p>$\mathbf{x} : U \to \mathbb{R}^{3}$ 단순 곡면이라 하자. 다음과 같이 정의되는 ${\Gamma_{ij}}^{k}(1\le i,j,k \le 2)$를 <strong>크리스토펠 심볼</strong><sup>Christoffel symbol</sup>이라 한다.</p>
+<h2 id="빌드업1">빌드업<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>$\mathbf{x} : U \to \mathbb{R}^{3}$를 <a href="../2106">좌표조각사상</a>이라 하자. 미분 기하학에서는 기하적인 대상의 특징과 성질을 미분을 통해 설명한다. 따라서 좌표조각 $\mathbf{x}$의 도함수들이 각종 정리와 공식에서 등장하게 된다. 가령 1계 도함수 $\left\{ \mathbf{x}_{1}, \mathbf{x}_{2}  \right\}$들은 <a href="../tangent-vector-on-simple-surface/#%EC%A0%95%EB%A6%AC">탄젠트 공간 $T_{p}M$의 기저</a>가 된다. 따라서 임의의 탄젠트 벡터 $\mathbf{X} \in T_{p}M$은 다음과 같이 표현할 수 있다.</p>
 <p>$$
-{\Gamma_{ij}}^{k} := \sum \limits_{l=1}^{2} \left\langle \mathbf{x}_{ij}, \mathbf{x}_{l} \right\rangle g^{lk} = \left\langle \mathbf{x}_{ij}, \mathbf{x}_{l} \right\rangle g^{lk}
+\mathbf{X} = X^{1}\mathbf{x}_{1} + X^{2}\mathbf{x}_{2}
+$$</p>
+<p>그럼 이제 좌표조각사상의 2계 도함수 $\mathbf{x}_{ij} = \dfrac{\partial^{2} \mathbf{x}}{\partial u_{i} \partial u_{j}}$를 생각해보자. 이는 $\mathbb{R}^{3}$의 벡터이므로 $\mathbb{R}^{3}$의 기저의 선형결합으로 나타낼 수 있다. 그런데 우리는 이미 $\mathbb{R}^{3}$에서 서로 수직한 3개의 벡터를 알고 있는데, 그것은 1계 도함수들과 <a href="../2110">단위 노멀</a>이다.</p>
+<p>$$
+\left\{ \mathbf{n}, \mathbf{x}_{1}, \mathbf{x}_{2} \right\}
+$$</p>
+<p>그러면 $\mathbf{x}_{ij}$는 다음과 같이 나타낼 수 있다.</p>
+<p>$$
+\mathbf{x}_{ij} = a_{ij} \mathbf{n} + b^{1}_{ij} \mathbf{x}_{1} + b^{2}_{ij} \mathbf{x}_{2}
+$$</p>
+<p>이러한 계수 $b_{ij}^{1}, b_{ij}^{2}$들을 <strong>크리스토펠 심볼</strong>이라 한다. 이제 계수를 구체적으로 구해보자. <a href="../the-first-fundamental-form-riemannian-metric/#%EC%A0%95%EB%A6%AC">제1 기본형식의 성질</a>에 의해 다음이 성립한다.</p>
+<p>$$
+\begin{align*}
+&amp;&amp; \left\langle \mathbf{x}_{ij}, \mathbf{x}_{l} \right\rangle
+&amp;=\ b_{ij}^{1}\left\langle \mathbf{x}_{1}, \mathbf{x}_{l} \right\rangle + b_{ij}^{2}\left\langle \mathbf{x}_{2}, \mathbf{x}_{l} \right\rangle \\ 
+&amp;&amp; &amp;=\ \sum\limits_{k^{\prime}=1}^{2}b_{ij}^{k^{\prime}}\left\langle \mathbf{x}_{k^{\prime}}, \mathbf{x}_{l} \right\rangle \\ 
+&amp;&amp; &amp;=\ \sum\limits_{k^{\prime}=1}^{2}b_{ij}^{k^{\prime}} g_{k^{\prime}l} \\ 
+\implies &amp;&amp; \sum\limits_{l=1}^{2}\left\langle \mathbf{x}_{ij}, \mathbf{x}_{l} \right\rangle g^{lk} &amp;=\ \sum\limits_{l=1}^{2}\sum\limits_{k^{\prime}=1}^{2}b_{ij}^{k^{\prime}} g_{k^{\prime}l}g^{lk} \\ 
+&amp;&amp; &amp;=\ \sum\limits_{k^{\prime}=1}^{2}b_{ij}^{k^{\prime}} \delta_{k^{\prime}}^{k} \\ 
+&amp;&amp; &amp;=\ b_{ij}^{k}
+\end{align*}
+$$</p>
+<p>이제 이러한 $b_{ij}^{k}$들을 $\Gamma_{ij}^{k}$로 표기하고 다음과 같이 정의하자.</p>
+<!-- ## 표기법
+
+- $\mathbf{x} : U \to \R^{3}$ : [단순곡면](../2106)
+- $(u\_{1}, u\_{2})$ : $U$의 좌표
+- $\mathbf{x}\_{i} := \partial \_{u\_{i}}\mathbf{x} = \dfrac{\partial \mathbf{x}}{\partial u\_{i}}$ : [편속도벡터](../3152)
+- $\mathbf{x}\_{ij} := \partial \_{u\_{i}}\partial\_{u\_{j}}\mathbf{x} = \dfrac{\partial^{2} \mathbf{x}}{\partial u\_{i} \partial u\_{j}}$ : 이계 편 도함수
+- $[g\_{ij}]$ : [리만 메트릭](../3148) 행렬
+- $[g^{lk}]$ : 리만 메트릭 행렬의 역행렬 -->
+<h2 id="정의">정의</h2>
+<p>다음과 같이 정의되는 $\Gamma_{ij}^{k}(1\le i,j,k \le 2)$를 <strong>크리스토펠 심볼</strong><sup>Christoffel symbol</sup>이라 한다.</p>
+<p>$$
+\Gamma_{ij}^{k} := \sum \limits_{l=1}^{2} \left\langle \mathbf{x}_{ij}, \mathbf{x}_{l} \right\rangle g^{lk} = \left\langle \mathbf{x}_{ij}, \mathbf{x}_{l} \right\rangle g^{lk}
 $$</p>
 <p>$\sum$이 생략된 식은 <a href="../90">아인슈타인 표기법</a>을 사용한 것이다.</p>
 <h2 id="설명">설명</h2>
 <p>$\mathbf{x}_{12} = \mathbf{x}_{21}$이므로 $\Gamma_{12}^{k} = \Gamma_{21}^{k}$이다.</p>
-<p>위에서 소개한 크리스토펠 심볼은 엄밀하게는 <strong>제2 크리스토펠 심볼</strong> 이다. <strong>제1 크리스토펠 심볼</strong><sup>Christoffel symbol of the first kind</sup>은 <a href="../gausss-formulas-in-differential-geometry#%EC%84%A4%EB%AA%85">다음과 같이 정의</a>된다.</p>
+<p>$\mathbf{x}_{ij}$의 탄젠트 성분<sup>tangential components</sup> $b_{ij}^{k}$를 $\Gamma_{ij}^{k}$라 표기하고 크리스토펠 심볼이라 부르고, $\mathbf{x}_{ij}$의 노멀 성분<sup>normal component</sup> $a_{ij}$를 $L_{ij}$라 표기하고 <a href="../3156">제2 기본형식의 계수</a>라 부른다.</p>
+<p>위에서 소개한 크리스토펠 심볼은 구체적으로 <strong>제2 크리스토펠 심볼</strong>이다. <strong>제1 크리스토펠 심볼</strong><sup>Christoffel symbol of the first kind</sup>은 <a href="../gausss-formulas-in-differential-geometry#%EC%84%A4%EB%AA%85">다음과 같이 정의</a>된다.</p>
 <p>$$
-\Gamma_{ij \vert l} := \sum \limits_{k=1}^{2} {\Gamma_{ij}}^{k}g_{kl}
+\Gamma_{ij \vert l} := \sum \limits_{k=1}^{2} \Gamma_{ij}^{k}g_{kl}
 $$</p>
-<p>보통 크리스토펠 심볼이라고 하면 제2을 가리킨다. 이러한 기호들을 처음 쓴 사람은 G. B. Christoffel이며 당시에는 제2 심볼을 $\begin{Bmatrix} ij \\ k \end{Bmatrix}$와 같이 썼다고 한다.</p>
+<p>보통 크리스토펠 심볼이라고 하면 제2 심볼을 가리킨다. 이러한 기호들을 처음 쓴 사람은 G. B. Christoffel이며 당시에는 제2 심볼을 $\begin{Bmatrix} ij \\ k \end{Bmatrix}$와 같이 썼다고 한다.</p>
 <h2 id="같이보기">같이보기</h2>
 <ul>
-<li><a href="../3148">제1 기본 형식, 리만 메트릭</a></li>
+<li><a href="../3148">제1 기본 형식</a></li>
 <li><a href="../3156">제2 기본 형식</a></li>
 </ul>
 <section class="footnotes" role="doc-endnotes">
@@ -718,7 +744,7 @@ $$</p>
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../937">🎲</a></p>
+         <a href="../915">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -836,7 +862,7 @@ $$</p>
         <span style="color:rgb(051,204,051);">●</span> 교과과정 (53)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2035)</summary>
+    <summary>전체 포스트 (2038)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -854,7 +880,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (45)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (49)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (51)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (18)</a>
         </li><li>
@@ -878,7 +904,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (43)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%82%B0%EB%9E%80%EC%9D%B4%EB%A1%A0/" style="color: black">산란이론 (4)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%82%B0%EB%9E%80%EC%9D%B4%EB%A1%A0/" style="color: black">산란이론 (3)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (6)</a>
         </li><li>
