@@ -311,23 +311,23 @@ I <span style="color:#f92672">=</span> coordinate[<span style="color:#f92672">:<
 <span style="color:#a6e22e">@time</span> sum(pairwise(Euclidean(),S,I) <span style="color:#f92672">.&lt;</span> ε, dims <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
 <span style="color:#a6e22e">@time</span> kdtree <span style="color:#f92672">=</span> KDTree(S); contact <span style="color:#f92672">=</span> length<span style="color:#f92672">.</span>(inrange(kdtree, I, ε, true))
 </code></pre></div><p>위 코드를 실행시킨 결과는 다음과 같다. 맨 아래의 두 커맨드라인은 같은 작업을 수행하지만 속도차이는 500배 정도가 난다. 실제로 k-d 트리에서 탐색할 때 <a href="../1283">시간복잡도</a>는 $\log n$ 으로 매우 효율적이다.</p>
-<pre><code>julia&gt; @time sum(pairwise(Euclidean(),S,I) .&lt; ε, dims = 1)
-  0.098394 seconds (14 allocations: 69.639 MiB, 8.23% gc Time)
-1×9004 Array{Int64,2}:
- 0  0  1  0  0  0  0  …  1  0  0  0  0  0
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> sum(pairwise(Euclidean(),S,I) <span style="color:#f92672">.&lt;</span> ε, dims <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
+  <span style="color:#ae81ff">0.098394</span> seconds (<span style="color:#ae81ff">14</span> allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">69.639</span> MiB, <span style="color:#ae81ff">8.23</span><span style="color:#f92672">%</span> gc Time)
+<span style="color:#ae81ff">1</span><span style="color:#f92672">×</span><span style="color:#ae81ff">9004</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+ <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#f92672">…</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
 
-julia&gt; @time kdtree = KDTree(S); contact = length.(inrange(kdtree, I, ε, true))
-  0.000213 seconds (22 allocations: 51.609 KiB)
-9004-element Array{Int64,1}:
- 0
- 0
- 1
- 0
- ⋮
- 0
- 0
- 0
-</code></pre><p>단순 속도 문제를 차치하고서라도 k-d 트리를 사용한 방식에서는 1차원 배열을 반환했기 때문에 결과물을 사용하는 측면에서도 더욱 간편하다.</p>
+julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> kdtree <span style="color:#f92672">=</span> KDTree(S); contact <span style="color:#f92672">=</span> length<span style="color:#f92672">.</span>(inrange(kdtree, I, ε, true))
+  <span style="color:#ae81ff">0.000213</span> seconds (<span style="color:#ae81ff">22</span> allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">51.609</span> KiB)
+<span style="color:#ae81ff">9004</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
+ <span style="color:#ae81ff">0</span>
+ <span style="color:#ae81ff">0</span>
+ <span style="color:#ae81ff">1</span>
+ <span style="color:#ae81ff">0</span>
+ <span style="color:#f92672">⋮</span>
+ <span style="color:#ae81ff">0</span>
+ <span style="color:#ae81ff">0</span>
+ <span style="color:#ae81ff">0</span>
+</code></pre></div><p>단순 속도 문제를 차치하고서라도 k-d 트리를 사용한 방식에서는 1차원 배열을 반환했기 때문에 결과물을 사용하는 측면에서도 더욱 간편하다.</p>
 <h2 id="환경">환경</h2>
 <ul>
 <li>OS: Windows</li>
@@ -732,7 +732,7 @@ julia&gt; @time kdtree = KDTree(S); contact = length.(inrange(kdtree, I, ε, tru
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1072">🎲</a></p>
+         <a href="../243">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -850,7 +850,7 @@ julia&gt; @time kdtree = KDTree(S); contact = length.(inrange(kdtree, I, ε, tru
         <span style="color:rgb(051,204,051);">●</span> 교과과정 (53)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2044)</summary>
+    <summary>전체 포스트 (2042)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -868,7 +868,7 @@ julia&gt; @time kdtree = KDTree(S); contact = length.(inrange(kdtree, I, ε, tru
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (45)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (53)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (52)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
@@ -880,7 +880,7 @@ julia&gt; @time kdtree = KDTree(S); contact = length.(inrange(kdtree, I, ε, tru
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (39)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (38)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">물리학미분류 (1)</a>
         </li><li>
@@ -960,7 +960,7 @@ julia&gt; @time kdtree = KDTree(S); contact = length.(inrange(kdtree, I, ε, tru
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (61)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">확률미분방정식 (12)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">확률미분방정식 (13)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (30)</a>
         </li>
@@ -1058,9 +1058,12 @@ julia&gt; @time kdtree = KDTree(S); contact = length.(inrange(kdtree, I, ε, tru
         </div>
 
     
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js" integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         renderMathInElement(document.body, {

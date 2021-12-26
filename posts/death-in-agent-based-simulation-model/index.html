@@ -319,100 +319,100 @@
 </ul>
 <h3 id="코드-리뷰">코드 리뷰</h3>
 <p><strong>Step 1. 초기화 및 에이전트 생성</strong></p>
-<pre><code>julia&gt; N0 = 500 # 초기 인구수
-500
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> N0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">500</span> <span style="color:#75715e"># 초기 인구수</span>
+<span style="color:#ae81ff">500</span>
 
-julia&gt; d = 0.04 # 사망률
-0.04
+julia<span style="color:#f92672">&gt;</span> d <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.04</span> <span style="color:#75715e"># 사망률</span>
+<span style="color:#ae81ff">0.04</span>
 
-julia&gt; max\_iteration = 180 # 시뮬레이션 기간
-180
+julia<span style="color:#f92672">&gt;</span> max<span style="color:#f92672">\</span>_iteration <span style="color:#f92672">=</span> <span style="color:#ae81ff">180</span> <span style="color:#75715e"># 시뮬레이션 기간</span>
+<span style="color:#ae81ff">180</span>
 
-julia&gt; gaussian2 = MvNormal([0.0; 0.0], 0.04I) # 2차원 정규분포
+julia<span style="color:#f92672">&gt;</span> gaussian2 <span style="color:#f92672">=</span> MvNormal([<span style="color:#ae81ff">0.0</span>; <span style="color:#ae81ff">0.0</span>], <span style="color:#ae81ff">0.04</span>I) <span style="color:#75715e"># 2차원 정규분포</span>
 IsoNormal(
-dim: 2
-μ: [0.0, 0.0]
-Σ: [0.04 0.0; 0.0 0.04]
+dim<span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>
+μ<span style="color:#f92672">:</span> [<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>]
+Σ<span style="color:#f92672">:</span> [<span style="color:#ae81ff">0.04</span> <span style="color:#ae81ff">0.0</span>; <span style="color:#ae81ff">0.0</span> <span style="color:#ae81ff">0.04</span>]
 )
 
-julia&gt; Random.seed!(0);
+julia<span style="color:#f92672">&gt;</span> Random<span style="color:#f92672">.</span>seed!(<span style="color:#ae81ff">0</span>);
 
-julia&gt; Time\_evolution = [] # 인구수를 기록하기 위한 스택
-Any[]
-</code></pre><p><a href="../1875">에이전트 기반 시뮬레이션 튜토리얼</a>과 비슷하게 에이전트를 생성한다. 여기서 각 변수들은 위의 파라메터 세팅을 반영한다.</p>
+julia<span style="color:#f92672">&gt;</span> Time<span style="color:#f92672">\</span>_evolution <span style="color:#f92672">=</span> [] <span style="color:#75715e"># 인구수를 기록하기 위한 스택</span>
+<span style="color:#66d9ef">Any</span>[]
+</code></pre></div><p><a href="../1875">에이전트 기반 시뮬레이션 튜토리얼</a>과 비슷하게 에이전트를 생성한다. 여기서 각 변수들은 위의 파라메터 세팅을 반영한다.</p>
 <ul>
 <li><code>N0</code> $\leftarrow N_{0} = 5$</li>
 <li><code>d</code> $\leftarrow d = 0.04$</li>
 <li><code>max\_iteration</code> $\leftarrow t_{\text{end}} = 180$</li>
 </ul>
 <p><code>Random.seed!(0)</code>은 결과를 재현하기 위한 시드넘버 설정,은 결과를 재현하기 위한 시드넘버 설정, <code>time\_evolutiond</code>는 개체수를 기록하기 위한 스택으로 시뮬레이션 자체에는 영향을 미치지 않으나 시뮬레이션을 반복하고 분석하기 위해 중요하게 쓰이는 테크닉이다.</p>
-<pre><code>julia&gt; coordinate = rand(gaussian2, N0)'
-500×2 Adjoint{Float64,Array{Float64,2}}:
-  0.135821    0.165683
- -0.0706015  -0.0269708
-  0.117323    0.0594672
-  0.0129895  -0.0218035
- -0.102842    0.314866
- -0.137781   -0.152561
-  0.0794965   0.162326
- -0.0692709  -0.0375145
-  ⋮
- -0.22697     0.178074
-  0.036792   -0.35028
- -0.253518    0.418463
- -0.226243   -0.111246
-  0.120505   -0.0111552
-  0.0882067   0.0526977
-  0.398744   -0.114504
- -0.215111    0.259829
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f92672">=</span> rand(gaussian2, N0)<span style="color:#f92672">&#39;</span>
+<span style="color:#ae81ff">500</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">Adjoint</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}}<span style="color:#f92672">:</span>
+  <span style="color:#ae81ff">0.135821</span>    <span style="color:#ae81ff">0.165683</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0706015</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0269708</span>
+  <span style="color:#ae81ff">0.117323</span>    <span style="color:#ae81ff">0.0594672</span>
+  <span style="color:#ae81ff">0.0129895</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0218035</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.102842</span>    <span style="color:#ae81ff">0.314866</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.137781</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.152561</span>
+  <span style="color:#ae81ff">0.0794965</span>   <span style="color:#ae81ff">0.162326</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0692709</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0375145</span>
+  <span style="color:#f92672">⋮</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.22697</span>     <span style="color:#ae81ff">0.178074</span>
+  <span style="color:#ae81ff">0.036792</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.35028</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.253518</span>    <span style="color:#ae81ff">0.418463</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.226243</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.111246</span>
+  <span style="color:#ae81ff">0.120505</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0111552</span>
+  <span style="color:#ae81ff">0.0882067</span>   <span style="color:#ae81ff">0.0526977</span>
+  <span style="color:#ae81ff">0.398744</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.114504</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.215111</span>    <span style="color:#ae81ff">0.259829</span>
 
-julia&gt; N = N0
-500
-</code></pre><p>$N$ 은 개체수를 나타내므로 우선 $N \leftarrow N_{0}$ 와 같이 초기 개체수를 받아 주어야한다.</p>
+julia<span style="color:#f92672">&gt;</span> N <span style="color:#f92672">=</span> N0
+<span style="color:#ae81ff">500</span>
+</code></pre></div><p>$N$ 은 개체수를 나타내므로 우선 $N \leftarrow N_{0}$ 와 같이 초기 개체수를 받아 주어야한다.</p>
 <hr>
 <p><strong>Step 2. 에이전트의 사망</strong></p>
-<pre><code>julia&gt; coordinate = coordinate[(rand(N) .&gt; d),:]
-481×2 Array{Float64,2}:
-  0.135821    0.165683
- -0.0706015  -0.0269708
-  0.117323    0.0594672
-  0.0129895  -0.0218035
- -0.102842    0.314866
-  0.0794965   0.162326
- -0.0692709  -0.0375145
-  ⋮
- -0.253518    0.418463
- -0.226243   -0.111246
-  0.120505   -0.0111552
-  0.0882067   0.0526977
-  0.398744   -0.114504
- -0.215111    0.259829
-</code></pre><p>현재 에이전트의 수만큼 0과 1사이에서 난수를 뽑는다. 이것이 <code>d</code>보다 작다는 것은 <code>d</code>의 확률로 <strong>사망</strong> 이 일어났다는 뜻이다. 위 스크린샷에서는 19개의 에이전트가 사망해 481개의 에이전트가 남은 것을 볼 수 있다. 이는 기존 에이전트 500개 중 약 4%가 사망한 것으로, 우리의 파라메터 세팅이 거의 정확하게 반영된 것을 확인할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f92672">=</span> coordinate[(rand(N) <span style="color:#f92672">.&gt;</span> d),<span style="color:#f92672">:</span>]
+<span style="color:#ae81ff">481</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+  <span style="color:#ae81ff">0.135821</span>    <span style="color:#ae81ff">0.165683</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0706015</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0269708</span>
+  <span style="color:#ae81ff">0.117323</span>    <span style="color:#ae81ff">0.0594672</span>
+  <span style="color:#ae81ff">0.0129895</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0218035</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.102842</span>    <span style="color:#ae81ff">0.314866</span>
+  <span style="color:#ae81ff">0.0794965</span>   <span style="color:#ae81ff">0.162326</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0692709</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0375145</span>
+  <span style="color:#f92672">⋮</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.253518</span>    <span style="color:#ae81ff">0.418463</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.226243</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.111246</span>
+  <span style="color:#ae81ff">0.120505</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0111552</span>
+  <span style="color:#ae81ff">0.0882067</span>   <span style="color:#ae81ff">0.0526977</span>
+  <span style="color:#ae81ff">0.398744</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.114504</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.215111</span>    <span style="color:#ae81ff">0.259829</span>
+</code></pre></div><p>현재 에이전트의 수만큼 0과 1사이에서 난수를 뽑는다. 이것이 <code>d</code>보다 작다는 것은 <code>d</code>의 확률로 <strong>사망</strong> 이 일어났다는 뜻이다. 위 스크린샷에서는 19개의 에이전트가 사망해 481개의 에이전트가 남은 것을 볼 수 있다. 이는 기존 에이전트 500개 중 약 4%가 사망한 것으로, 우리의 파라메터 세팅이 거의 정확하게 반영된 것을 확인할 수 있다.</p>
 <hr>
 <p><strong>Step 3. 기록과 에이전트 이동</strong></p>
-<pre><code>julia&gt; push!(time\_evolution, N)
-1-element Array{Any,1}:
- 481
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> push!(time<span style="color:#f92672">\</span>_evolution, N)
+<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Any</span>,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
+ <span style="color:#ae81ff">481</span>
 
-julia&gt; coordinate = coordinate + rand(gaussian2, N)'
-481×2 Array{Float64,2}:
-  0.399141     0.492689
- -0.151015    -0.00161691
- -0.00843121   0.10119
-  0.111592     0.00865223
-  0.0591775    0.150437
-  0.0060825    0.0383255
- -0.0652535   -0.0688566
- -0.702124    -0.485473
-  ⋮
-  0.437486    -0.354416
- -0.149827     0.156366
- -0.0737965   -0.168831
-  0.344358    -0.136392
- -0.231089    -0.0695535
-  0.446688     0.143493
-  0.133667     0.156873
-</code></pre><p>위의 <strong>Step 2.</strong> 에서 에이전트가 19개 줄었으므로 $N$ 역시 업데이트 해주었고, 이 때의 개체수를 기록했다. 각 에이전트의 좌표는 행렬로 표현되고 있으므로 이변수 정규분포를 $N$ 번 뽑아 쌓은 $N \times 2$ 행렬을 더하면 에이전트가 이동한 것을 구현할 수 있다. 이를 마치고 <strong>Step 2.</strong> 로 돌아간다. 계속해서 반복하다가, $t = t_{\text{end}}$ 가 되면 멈춘다.</p>
+julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f92672">=</span> coordinate <span style="color:#f92672">+</span> rand(gaussian2, N)<span style="color:#f92672">&#39;</span>
+<span style="color:#ae81ff">481</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+  <span style="color:#ae81ff">0.399141</span>     <span style="color:#ae81ff">0.492689</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.151015</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">0.00161691</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.00843121</span>   <span style="color:#ae81ff">0.10119</span>
+  <span style="color:#ae81ff">0.111592</span>     <span style="color:#ae81ff">0.00865223</span>
+  <span style="color:#ae81ff">0.0591775</span>    <span style="color:#ae81ff">0.150437</span>
+  <span style="color:#ae81ff">0.0060825</span>    <span style="color:#ae81ff">0.0383255</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0652535</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0688566</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.702124</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">0.485473</span>
+  <span style="color:#f92672">⋮</span>
+  <span style="color:#ae81ff">0.437486</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">0.354416</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.149827</span>     <span style="color:#ae81ff">0.156366</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0737965</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.168831</span>
+  <span style="color:#ae81ff">0.344358</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">0.136392</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.231089</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0695535</span>
+  <span style="color:#ae81ff">0.446688</span>     <span style="color:#ae81ff">0.143493</span>
+  <span style="color:#ae81ff">0.133667</span>     <span style="color:#ae81ff">0.156873</span>
+</code></pre></div><p>위의 <strong>Step 2.</strong> 에서 에이전트가 19개 줄었으므로 $N$ 역시 업데이트 해주었고, 이 때의 개체수를 기록했다. 각 에이전트의 좌표는 행렬로 표현되고 있으므로 이변수 정규분포를 $N$ 번 뽑아 쌓은 $N \times 2$ 행렬을 더하면 에이전트가 이동한 것을 구현할 수 있다. 이를 마치고 <strong>Step 2.</strong> 로 돌아간다. 계속해서 반복하다가, $t = t_{\text{end}}$ 가 되면 멈춘다.</p>
 <p>위 과정을 반복하기만하면 포스트 상단의 움짤과 같은 현상을 볼 수 있다.</p>
 <h3 id="전체-코드">전체 코드</h3>
 <p>다음은 이 포스트에 쓰인 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다.</p>
@@ -841,7 +841,7 @@ end
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1474">🎲</a></p>
+         <a href="../1985">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -959,7 +959,7 @@ end
         <span style="color:rgb(051,204,051);">●</span> 교과과정 (53)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2044)</summary>
+    <summary>전체 포스트 (2042)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -977,7 +977,7 @@ end
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (45)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (53)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (52)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
@@ -989,7 +989,7 @@ end
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (39)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (38)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">물리학미분류 (1)</a>
         </li><li>
@@ -1069,7 +1069,7 @@ end
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (61)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">확률미분방정식 (12)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">확률미분방정식 (13)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (30)</a>
         </li>
@@ -1167,9 +1167,12 @@ end
         </div>
 
     
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js" integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         renderMathInElement(document.body, {
