@@ -6,9 +6,81 @@
     <description>Recent content in 머신러닝 on 생새우초밥집</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko</language>
-    <lastBuildDate>Sun, 07 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 29 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>PyTorch에서 랜덤 순열 만들고 텐서 순서 섞는 법</title>
+      <title>줄리아에서 머신러닝 데이터 셋 사용하는 방법</title>
+      <link>https://freshrimpsushi.github.io/posts/how-to-use-machine-learning-data-sets-in-julia/</link>
+      <pubDate>Wed, 29 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://freshrimpsushi.github.io/posts/how-to-use-machine-learning-data-sets-in-julia/</guid>
+      <description>설명 MLDatasets.jl1 2 패키지로 아래와 같은 데이터 셋을 사용할 수 있다. Vision CIFAR10 CIFAR100 EMNIST FashionMNIST MNIST SVHN2 Miscellaneous BostonHousing Iris Mutagenesis Text PTBLM UD_English Graphs CiteSeer Cora PubMed TUDatasets 예시 MNIST julia&amp;gt; Train_X, Train_Y = MNIST.traindata() julia&amp;gt; typeof(Train_X) Base.ReinterpretArray{FixedPointNumbers.N0f8, 3, UInt8, Array{UInt8, 3}, false} julia&amp;gt; size(Train_X) (28, 28, 60000) julia&amp;gt; typeof(Train_Y) Vector{Int64} (alias for Array{Int64, 1}) julia&amp;gt; Train_Y 60000-element Vector{Int64}: 5 0 4 1 9 2 1 3 1 4 3 5 3 ⋮ 7 8 9 2 9 5 1 8 3 5 6 8 특이한 점은 Train_Y가 원-핫 인코딩 벡터가 아니라 정수로 구성되어 있다는 점이다. 116번째는 4에 대</description>
+    </item>
+    
+    <item>
+      <title>파이토치에서 텐서 붙이거나 쌓는 방법</title>
+      <link>https://freshrimpsushi.github.io/posts/how-to-concatenate-or-stack-tensors-in-pytorch/</link>
+      <pubDate>Mon, 27 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://freshrimpsushi.github.io/posts/how-to-concatenate-or-stack-tensors-in-pytorch/</guid>
+      <description>텐서 붙이기 cat()1 cat(tensors, dim=0)는 2개 이상의 텐서들을 지정한 차원을 기준으로 붙인다. 기준이 된다는 말은 지정한 차원의 크기가 늘어나도록 붙인다는 뜻이다. 따라서 당연하게도 지정한 차원 외의 나머지 부분의 크기가 같아야한다. 예를 들어 $(2,2)$ 텐서와 $(2,3)$ 텐서가 있다면 0번째 차원으로는 붙일 수 없고, 1번째 차원으로는 붙일 수 있다. $$ \text{cat} \Big( [(a,b),(a,b)], \dim=0 \Big) = (2a,b) \\ \text{cat}</description>
+    </item>
+    
+    <item>
+      <title>파이토치에서 모델의 가중치 값을 얻는 방법</title>
+      <link>https://freshrimpsushi.github.io/posts/how-to-obtaion-weights-of-model-in-pytorch/</link>
+      <pubDate>Sat, 25 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://freshrimpsushi.github.io/posts/how-to-obtaion-weights-of-model-in-pytorch/</guid>
+      <description>설명 다음과 같은 모델을 정의하자. import torch import torch.nn as nn class Model(nn.Module): def __init__(self): super(Model, self).__init__() self.linear = nn.Linear(3, 3, bias=True) self.conv = nn.Conv2d(3, 5, 2) f = Model() 그러면 .weight와 .bias 메소드로 각 층의 가중치와 바이어스에 접근할 수 있다. 단 .weight(.bias)로 얻은 값은 텐서가 아니라 파라매터라는 객체이므로 가중치의 값을 가진 텐서를 얻고 싶다면 .weight.data(.bias.dat</description>
+    </item>
+    
+    <item>
+      <title>파이토치에서 텐서 깊은 복사하는 방법</title>
+      <link>https://freshrimpsushi.github.io/posts/hot-to-deepcopy-pytorch-tensor/</link>
+      <pubDate>Thu, 23 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://freshrimpsushi.github.io/posts/hot-to-deepcopy-pytorch-tensor/</guid>
+      <description>설명 파이토치 텐서도 다른 객체와 마찬가지로 copy.deepcopy()를 이용해 깊은 복사를 할 수 있다. &amp;gt;&amp;gt;&amp;gt; import torch &amp;gt;&amp;gt;&amp;gt; import copy &amp;gt;&amp;gt;&amp;gt; a = torch.ones(2,2) &amp;gt;&amp;gt;&amp;gt; b = a &amp;gt;&amp;gt;&amp;gt; c = copy.deepcopy(a) &amp;gt;&amp;gt;&amp;gt; a += 1 &amp;gt;&amp;gt;&amp;gt; a tensor([[2., 2.], [2., 2.]]) &amp;gt;&amp;gt;&amp;gt; b tensor([[2., 2.], [2., 2.]]) &amp;gt;&amp;gt;&amp;gt; c tensor([[1., 1.], [1., 1.]]) 하지만 이는 사용자가 명시적으로 정의한 텐서에 한해서만 가능하다. 가령 딥러닝 모델의 아웃풋을 copy.deepcopy()로 복사하려고</description>
+    </item>
+    
+    <item>
+      <title>파이토치에서 리스트와 반복문으로 인공 신경망 레이어 정의하는 방법</title>
+      <link>https://freshrimpsushi.github.io/posts/how-to-define-neural-network-using-list-and-for-statement-in-pytorch/</link>
+      <pubDate>Tue, 21 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://freshrimpsushi.github.io/posts/how-to-define-neural-network-using-list-and-for-statement-in-pytorch/</guid>
+      <description>설명 쌓아야할 층이 많거나, 신경망 구조를 자주 바꿔야하는 등의 이유로 인공 신경망의 정의를 자동화하고 싶은 경우가 있다. 이럴 때 다음과 같은 for문으로 정의하고 싶은 생각이 들 것이다. class Model(nn.Module): def __init__(self): super(Model, self).__init__() fc_ = [nn.Linear(n,n) for i in range(m)] def forward(self, x): for i in range(m): x = fc_[m](x) x = F.relu(x) return x 하지만 이와 같이 파이썬 리스트로 신경망을 정의하게되면 각 nn.Linear 층의 파라매터를 인식하지 못한다. 따</description>
+    </item>
+    
+    <item>
+      <title>줄리아 플럭스에서 MLP 구현하고 경사하강법으로 최적화하는 방법</title>
+      <link>https://freshrimpsushi.github.io/posts/how-to-implement-mlp-and-optimize-it-using-gradient-descent-in-flux/</link>
+      <pubDate>Sun, 19 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://freshrimpsushi.github.io/posts/how-to-implement-mlp-and-optimize-it-using-gradient-descent-in-flux/</guid>
+      <description>MLP 구현 우선 줄리아의 머신러닝 패키지인 Flux.jl와 옵티마이저 업데이트 메소드 update!를 불러오자. using Flux using Flux: update! Dense() 함수로 선형층을 쓸 수 있다. Chain() 함수로 선형층을 쌓을 수 있다. 케라스와 파이토치에서 Sequential()과 같은 기능을 한다. julia&amp;gt; model = Chain( Dense(10, 5, relu), Dense(5, 5, relu), Dense(5, 2) ) Chain( Dense(10, 5, relu), # 55 parameters Dense(5, 5, relu), # 30 parameters Dense(5, 2), # 12 parameters ) # Total: 6 arrays, 97</description>
+    </item>
+    
+    <item>
+      <title>줄리아 플럭스에서 은닉층 다루는 방법</title>
+      <link>https://freshrimpsushi.github.io/posts/how-to-handle-hidden-layer-in-julia-flux/</link>
+      <pubDate>Fri, 17 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://freshrimpsushi.github.io/posts/how-to-handle-hidden-layer-in-julia-flux/</guid>
+      <description>선형1 플럭스에서 선형층은 Dense()로 구현할 수 있다. Dense(in, out, σ=identity; bias=true, init=glorot_uniform) Dense(W::AbstractMatrix, [bias, σ] 활성화함수에 대한 기본값은 항등함수이다. relu나 tanh, sigmoid 등 잘 알려진 함수를 사용할 수 있다. julia&amp;gt; Dense(5, 2) Dense(5, 2) # 12 parameters julia&amp;gt; Dense(5, 2, relu) Dense(5, 2, relu) # 12 parameters julia&amp;gt; Dense(5, 2, sigmoid) Dense(5, 2, σ) julia&amp;gt; d1 = Dense(ones(2, 5), false, tanh) # using provided weight matrix Dense(5, 2, tanh; bias=false) # 10 parameters julia&amp;gt; d1(ones(5)) 2-element Vector{Float64}: 0.9999092042625951 0.9999092042625951 컨볼루션2 플럭스에서 컨볼</description>
+    </item>
+    
+    <item>
+      <title>파이토치 텐서의 차원, 크기 다루기</title>
+      <link>https://freshrimpsushi.github.io/posts/handling-dimension-and-size-of-tensor-in-pytorch/</link>
+      <pubDate>Wed, 15 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://freshrimpsushi.github.io/posts/handling-dimension-and-size-of-tensor-in-pytorch/</guid>
+      <description>정의 $A$를 파이토치 텐서라고 하자. 다음과 같은 순서쌍 $(a_{0}, a_{1}, \dots, a_{n-1})$을 $A$의 사이즈라고 한다. $$ \text{A.size() = torch.Size}([a_{0}, a_{1}, \dots, a_{n-1} ]) $$ $\prod \limits_{i=0}^{n-1} a_{i} = a_{0} \times a_{1} \times \cdots a_{n-1}$을 $A$의 크기라고 하자. $A$를 $n$차원 텐서라고 한다. $a_{i}$는 각각 $i$번째 차원의 크기이며 $1$보다 큰 정수이다. 파이썬이므로 $0$번째 차원</description>
+    </item>
+    
+    <item>
+      <title>파이토치에서 랜덤 순열 만들고 텐서 순서 섞는 법</title>
       <link>https://freshrimpsushi.github.io/posts/how-to-create-random-permutation-and-shuffle-order-of-tensor-in-pytorch/</link>
       <pubDate>Sun, 07 Nov 2021 00:00:00 +0000</pubDate>
       
@@ -17,7 +89,7 @@
     </item>
     
     <item>
-      <title>PyTorch에서 가중치, 모델, 옵티마이저 저장하고 불러오는 방법</title>
+      <title>파이토치에서 가중치, 모델, 옵티마이저 저장하고 불러오는 방법</title>
       <link>https://freshrimpsushi.github.io/posts/saving-and-loading-a-general-checkpoint-in-pytorch/</link>
       <pubDate>Thu, 16 Sep 2021 00:00:00 +0000</pubDate>
       
@@ -26,7 +98,7 @@
     </item>
     
     <item>
-      <title>PyTorch에서 Numpy 배열로 커스텀 데이터 셋 만들고 사용하는 방법</title>
+      <title>파이토치에서 Numpy 배열로 커스텀 데이터 셋 만들고 사용하는 방법</title>
       <link>https://freshrimpsushi.github.io/posts/how-to-create-and-use-custom-data-set-from-numpy-arrays-in-pytorch/</link>
       <pubDate>Sat, 04 Sep 2021 00:00:00 +0000</pubDate>
       
@@ -35,7 +107,7 @@
     </item>
     
     <item>
-      <title>PyTorch에서 가중치 초기화 하는 방법</title>
+      <title>파이토치에서 가중치 초기화 하는 방법</title>
       <link>https://freshrimpsushi.github.io/posts/weights-initialization-in-pytorch/</link>
       <pubDate>Fri, 27 Aug 2021 00:00:00 +0000</pubDate>
       
@@ -44,7 +116,7 @@
     </item>
     
     <item>
-      <title>PyTorch로 MLP 구현하는 방법</title>
+      <title>파이토치에서 MLP 구현하는 방법</title>
       <link>https://freshrimpsushi.github.io/posts/how-to-construct-mlp-in-pytorch/</link>
       <pubDate>Wed, 25 Aug 2021 00:00:00 +0000</pubDate>
       

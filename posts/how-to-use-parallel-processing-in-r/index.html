@@ -295,41 +295,41 @@
 <p>R 이 속도 때문에 쓰는 언어는 아니지만, 빠른 속도가 필요할 때도 분명히 있을 것이다. 코드를 깔끔하게 잘 짜더라도 너무 오래 걸린다면 보통 병렬처리나 GPU를 동원하게 된다. 언뜻 생각했을 때 R 에서 병렬처리를 할 일이 뭐 있나 싶겠지만, 빅데이터를 다루게 되거나 규모가 큰 시뮬레이션을 하게 된다면 병렬처리가 특히 유용한 수단이 된다. 오히려 R 이야말로 병렬처리를 정말 많이 사용한다고 볼 수도 있다.</p>
 <h2 id="코드">코드</h2>
 <p>다음은 큰 수들을 1000개 뽑아서 <a href="../775">소인수분해</a>를 하고 그 <a href="../1246">시간을 재는</a> R 코드다:</p>
-<pre tabindex="0"><code>library(foreach)
-library(doParallel)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(foreach)
+<span style="color:#a6e22e">library</span>(doParallel)
 
-eratosthenes&lt;-function(n){
-  residue&lt;-2:n
-  while(n %in% residue){
-    p&lt;-residue[1]
-    residue&lt;-residue[as.logical(residue%%p)]
+eratosthenes<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(n){
+  residue<span style="color:#f92672">&lt;-</span><span style="color:#ae81ff">2</span><span style="color:#f92672">:</span>n
+  <span style="color:#a6e22e">while</span>(n <span style="color:#f92672">%in%</span> residue){
+    p<span style="color:#f92672">&lt;-</span>residue[1]
+    residue<span style="color:#f92672">&lt;-</span>residue<span style="color:#a6e22e">[as.logical</span>(residue<span style="color:#f92672">%%</span>p)]
   }
-  return(p)
+  <span style="color:#a6e22e">return</span>(p)
 }
   
-  set.seed(150421)
-  test&lt;-sample(2*1:10^5+1,1000)
+  <span style="color:#a6e22e">set.seed</span>(<span style="color:#ae81ff">150421</span>)
+  test<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">sample</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>^5<span style="color:#ae81ff">+1</span>,<span style="color:#ae81ff">1000</span>)
   
-  system.time({
-    for(n in test){
-      eratosthenes(n)
+  <span style="color:#a6e22e">system.time</span>({
+    <span style="color:#a6e22e">for</span>(n in test){
+      <span style="color:#a6e22e">eratosthenes</span>(n)
     }
   })
   
-  numCores &lt;- detectCores() -1
-  myCluster &lt;- makeCluster(numCores)
-  registerDoParallel(myCluster)
+  numCores <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">detectCores</span>() <span style="color:#ae81ff">-1</span>
+  myCluster <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">makeCluster</span>(numCores)
+  <span style="color:#a6e22e">registerDoParallel</span>(myCluster)
   
-  record&lt;-numeric(0)
-  clusterExport(myCluster, &quot;record&quot;)
+  record<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">numeric</span>(<span style="color:#ae81ff">0</span>)
+  <span style="color:#a6e22e">clusterExport</span>(myCluster, <span style="color:#e6db74">&#34;record&#34;</span>)
   
-  system.time({
-  foreach(n = test, .combine = c) %dopar% {
-    eratosthenes(n)
+  <span style="color:#a6e22e">system.time</span>({
+  <span style="color:#a6e22e">foreach</span>(n <span style="color:#f92672">=</span> test, .combine <span style="color:#f92672">=</span> c) <span style="color:#f92672">%dopar%</span> {
+    <span style="color:#a6e22e">eratosthenes</span>(n)
   }
   })
-  stopCluster(myCluster)
-</code></pre><p><img src="20190830_165312.png#center" alt="20190830\_165312.png"></p>
+  <span style="color:#a6e22e">stopCluster</span>(myCluster)
+</code></pre></div><p><img src="20190830_165312.png#center" alt="20190830\_165312.png"></p>
 <h2 id="설명">설명</h2>
 <p><a href="../775">소인수분해</a>의 경우 병렬처리의 이점을 잘 살리는 유형의 문제가 아닌데, 그럼에도 불구하고 시간을 절반이상 단축시킨 것을 볼 수 있다. 참고로 논리 프로세서가 8개라고 해서 실행시간이 1/8로 줄어들지는 않는다. 긍정적으로 말해서, 굳이 병렬처리를 하지 않아도 CPU는 원래 나름 효율적으로 일을 분배하기 때문이다. 부정적으로 말해서, 병렬처리를 해봤자 늘 쓰던 CPU라는 점에선 다른게 없기 때문이다. 물론 긍정적이든 부정적이든 병렬처리가 주는 이점은 상당하다. 다음은 각각 그냥 반복문과 병렬처리를 했을 때의 CPU 사용률을 움짤로 찐 것이다:</p>
 <p><img src="Honeycam2019-08-3016-08-26.gif#center" alt="Honeycam2019-08-3016-08-26.gif"></p>
@@ -738,7 +738,7 @@ eratosthenes&lt;-function(n){
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1794">🎲</a></p>
+         <a href="../1699">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -802,7 +802,7 @@ eratosthenes&lt;-function(n){
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/>
         <span style="color:rgb(255,051,051);">●</span> 수치해석 (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/>
-        <span style="color:rgb(255,051,051);">●</span> 최적화이론 (20++)</a><br>
+        <span style="color:rgb(255,051,051);">●</span> 최적화이론 (26)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC/>
         <span style="color:rgb(255,051,051);">●</span> 수리물리 (50)</a><br>
@@ -858,7 +858,7 @@ eratosthenes&lt;-function(n){
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2048)</summary>
+    <summary>전체 포스트 (2060)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -880,7 +880,7 @@ eratosthenes&lt;-function(n){
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (1)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (2)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (67)</a>
         </li><li>
@@ -888,7 +888,7 @@ eratosthenes&lt;-function(n){
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (38)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (46)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">물리학미분류 (1)</a>
         </li><li>
@@ -918,7 +918,7 @@ eratosthenes&lt;-function(n){
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (63)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (52)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (50)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (27)</a>
         </li><li>
@@ -936,13 +936,13 @@ eratosthenes&lt;-function(n){
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (85)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (48)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (50)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (23)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/" style="color: black">최적화이론 (3)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/" style="color: black">최적화이론 (5)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/" style="color: black">추상대수 (78)</a>
         </li><li>
@@ -1053,6 +1053,9 @@ eratosthenes&lt;-function(n){
     <div><a class = "in_sidebar" href="https://freshrimpsushi.github.io/tags/r/" title="r" style="color: black">R</a>&emsp;<a class = "in_sidebar" href="https://freshrimpsushi.github.io/tags/%EC%A4%84%EB%A6%AC%EC%95%84/" title="줄리아" style="color: black">줄리아</a>&emsp;
     </div>
 </aside>
+
+
+
             </div>
 
         </div>

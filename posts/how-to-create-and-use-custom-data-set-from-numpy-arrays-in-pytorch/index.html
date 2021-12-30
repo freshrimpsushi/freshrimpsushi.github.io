@@ -59,9 +59,9 @@
     </script>
 
     
-<meta name="title" content="PyTorch에서 Numpy 배열로 커스텀 데이터 셋 만들고 사용하는 방법">
+<meta name="title" content="파이토치에서 Numpy 배열로 커스텀 데이터 셋 만들고 사용하는 방법">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="PyTorch에서 Numpy 배열로 커스텀 데이터 셋 만들고 사용하는 방법"/>
+<meta property="og:title" content="파이토치에서 Numpy 배열로 커스텀 데이터 셋 만들고 사용하는 방법"/>
 <meta property="og:description" content="How to Create and Use Custom Data Set from Numpy Arrays in PyTorch"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
@@ -74,8 +74,8 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "j_",
-    "name": "PyTorch에서 Numpy 배열로 커스텀 데이터 셋 만들고 사용하는 방법",
-    "headline": "PyTorch에서 Numpy 배열로 커스텀 데이터 셋 만들고 사용하는 방법",
+    "name": "파이토치에서 Numpy 배열로 커스텀 데이터 셋 만들고 사용하는 방법",
+    "headline": "파이토치에서 Numpy 배열로 커스텀 데이터 셋 만들고 사용하는 방법",
     "alternativeHeadline": "",
     "description": "How to Create and Use Custom Data Set from Numpy Arrays in PyTorch",
     "inLanguage": "ko",
@@ -121,7 +121,7 @@
 </script>
 
 
-    <title>PyTorch에서 Numpy 배열로 커스텀 데이터 셋 만들고 사용하는 방법</title>
+    <title>파이토치에서 Numpy 배열로 커스텀 데이터 셋 만들고 사용하는 방법</title>
 
 </head>
 
@@ -261,9 +261,9 @@
             <div class = "content">
             
 
-<title>PyTorch에서 Numpy 배열로 커스텀 데이터 셋 만들고 사용하는 방법</title>
+<title>파이토치에서 Numpy 배열로 커스텀 데이터 셋 만들고 사용하는 방법</title>
 
-<h1>PyTorch에서 Numpy 배열로 커스텀 데이터 셋 만들고 사용하는 방법</h1>
+<h1>파이토치에서 Numpy 배열로 커스텀 데이터 셋 만들고 사용하는 방법</h1>
 <aside>
     How to Create and Use Custom Data Set from Numpy Arrays in PyTorch
     <p style="text-align: right;">
@@ -295,25 +295,25 @@
 </aside>
 
 <h2 id="설명">설명</h2>
-<pre tabindex="0"><code>&gt;&gt;&gt; import numpy as np
+<pre><code>&gt;&gt;&gt; import numpy as np
 &gt;&gt;&gt; import torch
 &gt;&gt;&gt; from torch.utils.data import TensorDataset, DataLoader
 </code></pre><p>$32\times 32$의 크기로 된 &lsquo;흑백&rsquo;사진 100장을 쌓아올린 numpy 배열 $X$와 이에 대한 레이블 $Y$가 준비되어있다고 가정하자. 이를 다음가 같은 코드로 불러왔다고 하자.</p>
-<pre tabindex="0"><code>&gt;&gt;&gt; X = np.load(&quot;X.npy&quot;)
+<pre><code>&gt;&gt;&gt; X = np.load(&quot;X.npy&quot;)
 &gt;&gt;&gt; X.shape
 (100, 32, 32)
 &gt;&gt;&gt; Y = np.load(&quot;Y.npy&quot;)
 &gt;&gt;&gt; Y.shape
 (100)
 </code></pre><p>학습에 사용할 데이터 셋을 만들기 위해 다음과 같이 numpy배열을 tensor로 바꿔준다.</p>
-<pre tabindex="0"><code>&gt;&gt;&gt; X = torch.from_numpy(X)
+<pre><code>&gt;&gt;&gt; X = torch.from_numpy(X)
 &gt;&gt;&gt; Y = torch.from_numpy(Y)
 </code></pre><p><code>TensorDataset</code>으로 학습할 데이터를 묶는다. 물론 3 종류 이상의 데이터를 묶어 데이터 셋을 만드는 것도 가능하다.</p>
-<pre tabindex="0"><code>&gt;&gt;&gt; train_data = TensorDataset(X, Y)
+<pre><code>&gt;&gt;&gt; train_data = TensorDataset(X, Y)
 </code></pre><p><code>DataLoader</code>로 데이터 순서를 무작위로 섞어 원하는 배치 사이즈로 만들 수 있다. 가령 배치 사이즈를 25로 설정하면 총 100개이므로 $25 \times 32 \times 32$짜리 데이터가 4개 생기는 것이다.</p>
-<pre tabindex="0"><code>&gt;&gt; train_loader = DataLoader(train_data, batch_size=BATCH_SIZE, shuffle=True)
+<pre><code>&gt;&gt; train_loader = DataLoader(train_data, batch_size=BATCH_SIZE, shuffle=True)
 </code></pre><p>이를 다음과 같이 <a href="../3103">학습 함수를 정의</a>하여 사용할 수 있다.</p>
-<pre tabindex="0"><code>def train(model):
+<pre><code>def train(model):
     model.train()
             
     for batch_idx, (X, Y) in enumerate(Data_set):
@@ -329,7 +329,7 @@
     return loss
 </code></pre><h3 id="전체-코드">전체 코드</h3>
 <p><a href="../3103">적당한 model이 정의되어있다</a>고 가정하자.</p>
-<pre tabindex="0"><code>#필요한 라이브러리 import
+<pre><code>#필요한 라이브러리 import
 import numpy as np
 import torch
 from torch.utils.data import TensorDataset, DataLoader
@@ -379,7 +379,7 @@ for epoch in range(1, EPOCHS):
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var title = 'PyTorch에서 Numpy 배열로 커스텀 데이터 셋 만들고 사용하는 방법';
+        var title = '파이토치에서 Numpy 배열로 커스텀 데이터 셋 만들고 사용하는 방법';
         var link = 'https:\/\/freshrimpsushi.github.io\/posts\/how-to-create-and-use-custom-data-set-from-numpy-arrays-in-pytorch\/';
         var arr = new Array();
         var obj = {
@@ -500,7 +500,7 @@ for epoch in range(1, EPOCHS):
         }
         let board_idx = '3108';
         let board_slug = 'how-to-create-and-use-custom-data-set-from-numpy-arrays-in-pytorch';
-        let board_title = 'PyTorch에서 Numpy 배열로 커스텀 데이터 셋 만들고 사용하는 방법';
+        let board_title = '파이토치에서 Numpy 배열로 커스텀 데이터 셋 만들고 사용하는 방법';
 
         $.ajax({
             type: "POST",
@@ -690,7 +690,7 @@ for epoch in range(1, EPOCHS):
             }
             let idx = '3108';
             let board_slug = 'how-to-create-and-use-custom-data-set-from-numpy-arrays-in-pytorch';
-            let board_title = 'PyTorch에서 Numpy 배열로 커스텀 데이터 셋 만들고 사용하는 방법';
+            let board_title = '파이토치에서 Numpy 배열로 커스텀 데이터 셋 만들고 사용하는 방법';
 
             $.ajax({
                 type: "POST",
@@ -765,7 +765,7 @@ for epoch in range(1, EPOCHS):
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../748">🎲</a></p>
+         <a href="../1055">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -829,7 +829,7 @@ for epoch in range(1, EPOCHS):
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/>
         <span style="color:rgb(255,051,051);">●</span> 수치해석 (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/>
-        <span style="color:rgb(255,051,051);">●</span> 최적화이론 (20++)</a><br>
+        <span style="color:rgb(255,051,051);">●</span> 최적화이론 (26)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC/>
         <span style="color:rgb(255,051,051);">●</span> 수리물리 (50)</a><br>
@@ -885,7 +885,7 @@ for epoch in range(1, EPOCHS):
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2048)</summary>
+    <summary>전체 포스트 (2060)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -907,7 +907,7 @@ for epoch in range(1, EPOCHS):
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (1)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (2)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (67)</a>
         </li><li>
@@ -915,7 +915,7 @@ for epoch in range(1, EPOCHS):
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (38)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (46)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">물리학미분류 (1)</a>
         </li><li>
@@ -945,7 +945,7 @@ for epoch in range(1, EPOCHS):
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (63)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (52)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (50)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (27)</a>
         </li><li>
@@ -963,13 +963,13 @@ for epoch in range(1, EPOCHS):
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (85)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (48)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (50)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (23)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/" style="color: black">최적화이론 (3)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/" style="color: black">최적화이론 (5)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/" style="color: black">추상대수 (78)</a>
         </li><li>
@@ -1080,6 +1080,9 @@ for epoch in range(1, EPOCHS):
     <div><a class = "in_sidebar" href="https://freshrimpsushi.github.io/tags/r/" title="r" style="color: black">R</a>&emsp;<a class = "in_sidebar" href="https://freshrimpsushi.github.io/tags/%EC%A4%84%EB%A6%AC%EC%95%84/" title="줄리아" style="color: black">줄리아</a>&emsp;
     </div>
 </aside>
+
+
+
             </div>
 
         </div>

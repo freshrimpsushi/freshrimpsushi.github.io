@@ -59,10 +59,10 @@
     </script>
 
     
-<meta name="title" content="수치해석에서의 경사하강법">
+<meta name="title" content="수학에서의 경사하강법">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="수치해석에서의 경사하강법"/>
-<meta property="og:description" content="Gradient descent method"/>
+<meta property="og:title" content="수학에서의 경사하강법"/>
+<meta property="og:description" content="Gradient descent Method"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -74,10 +74,10 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "r_",
-    "name": "수치해석에서의 경사하강법",
-    "headline": "수치해석에서의 경사하강법",
+    "name": "수학에서의 경사하강법",
+    "headline": "수학에서의 경사하강법",
     "alternativeHeadline": "",
-    "description": "Gradient descent method",
+    "description": "Gradient descent Method",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
@@ -114,14 +114,14 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/gradient-descent-method\/",
-    "wordCount" : "990",
+    "wordCount" : "992",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>수치해석에서의 경사하강법</title>
+    <title>수학에서의 경사하강법</title>
 
 </head>
 
@@ -261,17 +261,17 @@
             <div class = "content">
             
 
-<title>수치해석에서의 경사하강법</title>
+<title>수학에서의 경사하강법</title>
 
-<h1>수치해석에서의 경사하강법</h1>
+<h1>수학에서의 경사하강법</h1>
 <aside>
-    Gradient descent method
+    Gradient descent Method
     <p style="text-align: right;">
         1012
 
     
     
-            <a href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석</a>&emsp;
+            <a href="https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/" style="color: black">최적화이론</a>&emsp;
             
     </span>
     
@@ -284,56 +284,69 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#정의-1">정의 </a></li>
+    <li><a href="#설명">설명</a>
+      <ul>
+        <li><a href="#경사하강법">경사하강법</a></li>
+      </ul>
+    </li>
+    <li><a href="#코드">코드</a></li>
+    <li><a href="#같이보기">같이보기</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-<a href="../987">머신러닝에서의 경사하강법</a></p>
+<h2 id="정의-1">정의 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
 <p><a href="../970">스칼라 함수</a> $\varphi : \mathbb{R}^{n} \to \mathbb{R}$ 을 <strong>비용 함수</strong><sup>Cost Function</sup>이라 한다. 비용 함수 $ \varphi ( \mathbb{x} )$ 의 극소값을 구하기 위해 $\mathbb{x} = \mathbb{x}_{n}$ 에서 $\varphi ( \mathbb{x}_{n+1} ) &lt; \varphi ( \mathbb{x}_{n} )$ 를 만족시키는 $\mathbb{x}_{n+1}$ 를 찾는 알고리즘을 <strong>하강법</strong><sup>Descent Method</sup>이라 한다.</p>
-<p>$\varphi$ 를 비용 함수라고 부를만한 예로써 집을 한 채 짓는다고 하자. 집 한 채에 들어가는 자원은 목재, 석재, 철재, 유리, 인건비, 부동산 등등이 있을텐데 이는 결국 &lsquo;얼마나 많은 돈을 써야하는가&rsquo;의 문제로 귀결된다. 이 문제에서 $\varphi$ 는 각각의 자원을 성분으로 갖는 벡터를 비용이라는 스칼라로 매핑해주는 함수가 된다. 여기서 누구나 궁금해할만한 질문은 &lsquo;그 최소비용이 얼마인가&rsquo;하는 것이다.  한편 머신러닝 등에서는 비용 함수는 손실 함수라고도 부르는데, 이 경우 &lsquo;실제 값과 예측 값의 차이가 가장 작아질 때가 언제인가&rsquo;가 된다.어떤 문제가 됐든 이를 수학적으로 추상화하면 &lsquo;스칼라 함수의 최소값을 구하는 문제&rsquo;로 요약할 수 있다. 하강법은 이 문제를 풀기 위해 $n$ 차원 <a href="../673">매니폴드</a> 상에서 스칼라가 극소값을 찾는 메소드다. 주의해야할 것은 최소값이 아니라 극소값이라는 것이다. $\varphi$ 가 <a href="../262">컨벡스</a>하다면 모르지만 일반적인 경우에서 하강법은 로컬 미니멈을 찾아낼 수 있을 뿐 그것이 글로벌 미니멈이라는 보장을 해줄 수 없다.경사하강법은 여러가지 하강법 중에서도 가장 인기있는 메소드로써, 비용 함수의 그래디언트를 이용해 극소값을 찾는다. 이러한 방법의 실전적인 사용례를 알고 싶다면 <a href="../987">머신러닝에서의 경사하강법</a>에 대해 알아보는 게 좋다.</p>
+<h2 id="설명">설명</h2>
+<p>$\varphi$ 를 비용 함수라고 부를만한 예로써 집을 한 채 짓는다고 하자. 집 한 채에 들어가는 자원은 목재, 석재, 철재, 유리, 인건비, 부동산 등등이 있을텐데 이는 결국 &lsquo;얼마나 많은 돈을 써야하는가&rsquo;의 문제로 귀결된다. 이 문제에서 $\varphi$ 는 각각의 자원을 성분으로 갖는 벡터를 비용이라는 스칼라로 매핑해주는 함수가 된다. 여기서 누구나 궁금해할만한 질문은 &lsquo;그 최소비용이 얼마인가&rsquo;하는 것이다.  한편 머신러닝 등에서는 비용 함수는 손실 함수라고도 부르는데, 이 경우 &lsquo;실제 값과 예측 값의 차이가 가장 작아질 때가 언제인가&rsquo;가 된다.</p>
+<p>어떤 문제가 됐든 이를 수학적으로 추상화하면 &lsquo;스칼라 함수의 최소값을 구하는 문제&rsquo;로 요약할 수 있다. 하강법은 이 문제를 풀기 위해 $n$ 차원 <a href="../673">매니폴드</a> 상에서 스칼라가 극소값을 찾는 메소드다. 주의해야할 것은 최소값이 아니라 극소값이라는 것이다. $\varphi$ 가 <a href="../262">컨벡스</a>하다면 모르지만 일반적인 경우에서 하강법은 로컬 미니멈을 찾아낼 수 있을 뿐 그것이 글로벌 미니멈이라는 보장을 해줄 수 없다.</p>
+<h3 id="경사하강법">경사하강법</h3>
+<p>경사하강법은 여러가지 하강법 중에서도 가장 인기있는 메소드로써, 비용 함수의 그래디언트를 이용해 극소값을 찾는다. 이러한 방법의 실전적인 사용례를 알고 싶다면 <a href="../987">머신러닝에서의 경사하강법</a>에 대해 알아보는 게 좋다.</p>
+<blockquote>
 <p>적절한 $\alpha&gt;0$ 에 대해 $\mathbb{x}_{n+1} := \mathbb{x}_{n} - \alpha \nabla \varphi ( \mathbb{x}_{n} )$ 를 <strong>경사하강법</strong>이라 한다.</p>
+</blockquote>
 <p>$- \nabla \varphi ( \mathbb{x}_{n} )$ 는 $\mathbb{x} = \mathbb{x}_{n}$ 에서 <a href="../1010">매니폴드가 가장 크게 감소하는 방향을 나타내므로</a> $\alpha$ 가 적절하다면 $\left\{ \mathbb{x}_{n} \right\}$ 는 극소점으로 수렴할 것이다.</p>
 <p>다만 이 방법은 쉽고 간편한 한편 다른 메소드에 비해 수렴하는 속도가 빠르다고 하긴 어려우며, 일단 <a href="../1434">그리디 알고리즘</a>이다. 다시 말해, 각 단계에서는 최선을 다해 감소해서 로컬하게는 가장 크게 감소하지만 글로벌하게 보았을 땐 별로 좋은 방법이 아닐 수 있다는 것이다.</p>
-<p>다음은 경사하강법을 <a href="../../categories/r">R</a> 코드로 구현한 것으로, <a href="../971">그래디언트를 구하기 위해</a> numDeriv 패키지를 사용했다.</p>
-<pre tabindex="0"><code>library(numDeriv)
+<h2 id="코드">코드</h2>
+<p>다음은 경사하강법을 <a href="../../categories/r">R</a> 코드로 구현한 것으로, <a href="../971">그래디언트를 구하기 위해</a> <code>numDeriv</code> 패키지를 사용했다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(numDeriv)
  
-optimizer&lt;-function(f,x0,alpha=0.01){
-  while(abs(f(x0))&gt;10^(-8)){
-    x0&lt;-x0-alpha*grad(f,x0)
+optimizer<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(f,x0,alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.01</span>){
+  <span style="color:#a6e22e">while</span>(<span style="color:#a6e22e">abs</span>(<span style="color:#a6e22e">f</span>(x0))<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">10</span><span style="color:#a6e22e">^</span>(<span style="color:#ae81ff">-8</span>)){
+    x0<span style="color:#f92672">&lt;-</span>x0<span style="color:#f92672">-</span>alpha<span style="color:#f92672">*</span><span style="color:#a6e22e">grad</span>(f,x0)
   }
-  return(x0)
+  <span style="color:#a6e22e">return</span>(x0)
 }
  
-z&lt;-function(v){
-  return((v[1]-2)^2+(v[2]-3)^2)
+z<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(v){
+  <span style="color:#a6e22e">return</span>((v[1]<span style="color:#ae81ff">-2</span>)^2<span style="color:#f92672">+</span>(v[2]<span style="color:#ae81ff">-3</span>)^2)
 }
  
-optimizer(z,c(0,0))
-z(c(1.999945,2.999918))
-</code></pre><p>위 코드를 실행시킨 결과는 다음과 같다.</p>
+<span style="color:#a6e22e">optimizer</span>(z,<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>))
+<span style="color:#a6e22e">z</span>(<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1.999945</span>,<span style="color:#ae81ff">2.999918</span>))
+</code></pre></div><p>위 코드를 실행시킨 결과는 다음과 같다.</p>
 <p><img src="20190329_151329.png#center" alt="20190329\_151329.png"></p>
 <p>위 결과는 아주 간단한 예제로써 $z(x,y) = (x-2)^2 + (y-3)^2$ 이 최소값을 갖도록 하는 점을 찾아냈음을 보여준다. 다음과 같은 곡면에서 $z$ 가 최소가 되는 점은 $(2,3)$ 이다.</p>
 <p><img src="20190329_152428.png#center" alt="20190329\_152428.png"></p>
+<h2 id="같이보기">같이보기</h2>
+<ul>
+<li><a href="../987">머신러닝에서의 경사하강법</a></li>
+</ul>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Atkinson. (1989). An Introduction to Numerical Analysis(2nd Edition): p113.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var title = '수치해석에서의 경사하강법';
+        var title = '수학에서의 경사하강법';
         var link = 'https:\/\/freshrimpsushi.github.io\/posts\/gradient-descent-method\/';
         var arr = new Array();
         var obj = {
@@ -454,7 +467,7 @@ z(c(1.999945,2.999918))
         }
         let board_idx = '1012';
         let board_slug = 'gradient-descent-method';
-        let board_title = '수치해석에서의 경사하강법';
+        let board_title = '수학에서의 경사하강법';
 
         $.ajax({
             type: "POST",
@@ -644,7 +657,7 @@ z(c(1.999945,2.999918))
             }
             let idx = '1012';
             let board_slug = 'gradient-descent-method';
-            let board_title = '수치해석에서의 경사하강법';
+            let board_title = '수학에서의 경사하강법';
 
             $.ajax({
                 type: "POST",
@@ -719,7 +732,7 @@ z(c(1.999945,2.999918))
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1605">🎲</a></p>
+         <a href="../1046">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -783,7 +796,7 @@ z(c(1.999945,2.999918))
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/>
         <span style="color:rgb(255,051,051);">●</span> 수치해석 (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/>
-        <span style="color:rgb(255,051,051);">●</span> 최적화이론 (20++)</a><br>
+        <span style="color:rgb(255,051,051);">●</span> 최적화이론 (26)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC/>
         <span style="color:rgb(255,051,051);">●</span> 수리물리 (50)</a><br>
@@ -839,7 +852,7 @@ z(c(1.999945,2.999918))
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2048)</summary>
+    <summary>전체 포스트 (2060)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -861,7 +874,7 @@ z(c(1.999945,2.999918))
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (1)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (2)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (67)</a>
         </li><li>
@@ -869,7 +882,7 @@ z(c(1.999945,2.999918))
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (38)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (46)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">물리학미분류 (1)</a>
         </li><li>
@@ -899,7 +912,7 @@ z(c(1.999945,2.999918))
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (63)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (52)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (50)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (27)</a>
         </li><li>
@@ -917,13 +930,13 @@ z(c(1.999945,2.999918))
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (85)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (48)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (50)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (23)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/" style="color: black">최적화이론 (3)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/" style="color: black">최적화이론 (5)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/" style="color: black">추상대수 (78)</a>
         </li><li>
@@ -1034,6 +1047,9 @@ z(c(1.999945,2.999918))
     <div><a class = "in_sidebar" href="https://freshrimpsushi.github.io/tags/r/" title="r" style="color: black">R</a>&emsp;<a class = "in_sidebar" href="https://freshrimpsushi.github.io/tags/%EC%A4%84%EB%A6%AC%EC%95%84/" title="줄리아" style="color: black">줄리아</a>&emsp;
     </div>
 </aside>
+
+
+
             </div>
 
         </div>
