@@ -62,7 +62,7 @@
 <meta name="title" content="줄리아, 매트랩, 파이썬, R에서 동등한 코드들">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
 <meta property="og:title" content="줄리아, 매트랩, 파이썬, R에서 동등한 코드들"/>
-<meta property="og:description" content="equivalent codes in julia, matlab, python, R"/>
+<meta property="og:description" content="Cheat Sheet : Equivalent Codes in Julia, Matlab, Python, R"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -77,7 +77,7 @@
     "name": "줄리아, 매트랩, 파이썬, R에서 동등한 코드들",
     "headline": "줄리아, 매트랩, 파이썬, R에서 동등한 코드들",
     "alternativeHeadline": "",
-    "description": "equivalent codes in julia, matlab, python, R",
+    "description": "Cheat Sheet : Equivalent Codes in Julia, Matlab, Python, R",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/equivalent-codes-in-julia-python-matlab-r\/",
-    "wordCount" : "446",
+    "wordCount" : "1263",
     "genre" : [ "줄리아" ],
     "keywords" : [ "줄리아" ]
 }
@@ -265,7 +265,7 @@
 
 <h1>줄리아, 매트랩, 파이썬, R에서 동등한 코드들</h1>
 <aside>
-    equivalent codes in julia, matlab, python, R
+    Cheat Sheet : Equivalent Codes in Julia, Matlab, Python, R
     <p style="text-align: right;">
         3031
 
@@ -284,150 +284,421 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#일반">일반</a></li>
-    <li><a href="#푸리에-변환">푸리에 변환</a></li>
-    <li><a href="#보간법supinterpolationsup">보간법<sup>interpolation</sup></a></li>
-    <li><a href="#시각화">시각화</a></li>
+    <li><a href="#일반supcommonsup">일반<sup>Common</sup></a></li>
+    <li><a href="#푸리에-변환supfourier-transformsup">푸리에 변환<sup>Fourier Transform</sup></a></li>
+    <li><a href="#보간법supinterpolationsup">보간법<sup>Interpolation</sup></a></li>
+    <li><a href="#시각화supvisualizationsup">시각화<sup>Visualization</sup></a></li>
+    <li><a href="#머신러닝supmachine-learningsup">머신러닝<sup>Machine Learning</sup></a></li>
   </ul>
 </nav>
 </aside>
 
+<!-- table example
+<table width="728px" cellpadding="5px">
+<tr bgcolor="#FEAB99" align='middle'>
+    <th colspan=2><b>주석 comment</b></td>
+</tr>
+<tr align=middle>
+    <td width=150>줄리아<sup>Julia</sup></td>
+    <td align = "left" leftpadding=2> <code>#comment</code></td>
+</tr>
+<tr align=middle>
+    <td width=150>파이썬<sup>Python</sup></td>
+    <td align = "left"><code>#comment</code></td>
+</tr>
+<tr align=middle>
+    <td width=150>R</td>
+    <td align = "left"> <code>#comment</code></td>
+</tr>
+<tr align=middle>
+    <td width=150>매트랩<sup>Matlab</sup></td>
+    <td align = "left"> <code>%comment</code></td>
+</tr>
+</table>
+-->
+<h2 id="일반supcommonsup">일반<sup>Common</sup></h2>
 <p>파이썬에 대해서 다음과 같은 환경이라고 하자.</p>
 <pre tabindex="0"><code>import numpy as np
-</code></pre><h2 id="일반">일반</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align:left"></th>
-<th style="text-align:center">줄리아</th>
-<th style="text-align:center">매트랩</th>
-<th style="text-align:center">파이썬</th>
-<th style="text-align:center">R</th>
+</code></pre><table width="728px" cellpadding="5px">
+<tr bgcolor="#FEAB99" align='middle'>
+    <th colspan=2><b>주석 comment</b></td>
 </tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">주석</td>
-<td style="text-align:center"><code>#comment</code></td>
-<td style="text-align:center"><code>%comment</code></td>
-<td style="text-align:center"><code>#comment</code></td>
-<td style="text-align:center"><code>#comment</code></td>
+<tr align=middle>
+    <td width=150>줄리아<sup>Julia</sup></td>
+    <td rowspan="3" align = "left"> <code>#comment</code> </td>
 </tr>
-<tr>
-<td style="text-align:left">2차원 그리드</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"><code>[X,Y] = meshgrid(x,y)</code></td>
-<td style="text-align:center"><code>X,Y = np.meshgrid(x,y)</code></td>
-<td style="text-align:center"></td>
+<tr align=middle>
+    <td width=150>파이썬<sup>Python</sup></td>
 </tr>
-<tr>
-<td style="text-align:left"><a href="../2022">플래튼</a></td>
-<td style="text-align:center"><code>y = vec(x)</code></td>
-<td style="text-align:center"><code>y = x(:)</code></td>
-<td style="text-align:center"><code>y = np.ravel(x)</code></td>
-<td style="text-align:center"><code>y = c(x)</code></td>
+<tr align=middle>
+    <td width=150>R</td>
 </tr>
-<tr>
-<td style="text-align:left">영행렬</td>
-<td style="text-align:center"><code>y = zeros(4,2)</code></td>
-<td style="text-align:center"><code>y = zeros(4,2)</code></td>
-<td style="text-align:center"><code>y = np.zeros([4,2])</code></td>
-<td style="text-align:center"><code>y = matrix(0,4,2)</code></td>
+<tr align=middle>
+    <td width=150>매트랩<sup>Matlab</sup></td>
+    <td align = "left"> <code>%comment</code> </td>
 </tr>
-</tbody>
 </table>
-<h2 id="푸리에-변환">푸리에 변환</h2>
+<table width="728px" cellpadding="5px">
+<tr bgcolor="#FEAB99" align='middle'>
+    <th colspan=2><b>2차원 그리드 2D grid</b></td>
+</tr>
+<!-- <tr align=middle>
+    <td width=150>줄리아<sup>Julia</sup></td>
+    <td align = "left" leftpadding=2> <code>#comment</code></td>
+</tr> -->
+<tr align=middle>
+    <td width=150>파이썬<sup>Python</sup></td>
+    <td align = "left"><code>np.meshgrid(x,y)</code></td>
+</tr>
+<!-- <tr align=middle>
+    <td width=150>R</td>
+    <td align = "left"> <code>#comment</code></td>
+</tr> -->
+<tr align=middle>
+    <td width=150>매트랩<sup>Matlab</sup></td>
+    <td align = "left"> <code>[X,Y] = meshgrid(x,y)</code></td>
+</tr>
+</table>
+<table width="728px" cellpadding="5px">
+<tr bgcolor="#FEAB99" align='middle'>
+    <th colspan=2><b>플래튼 Flatten</b></td>
+</tr>
+<tr align=middle>
+    <td width=150>줄리아<sup>Julia</sup></td>
+    <td align = "left" leftpadding=2> <code>y = vec(x)</code></td>
+</tr>
+<tr align=middle>
+    <td width=150>파이썬<sup>Python</sup></td>
+    <td align = "left"><code>y = np.ravel(x)</code></td>
+</tr>
+<!-- <tr align=middle>
+    <td width=150>R</td>
+    <td align = "left"> <code>#comment</code></td>
+</tr> -->
+<tr align=middle>
+    <td width=150>매트랩<sup>Matlab</sup></td>
+    <td align = "left"> <code>y = x(:)</code></td>
+</tr>
+</table>
+<table width="728px" cellpadding="5px">
+<tr bgcolor="#FEAB99" align='middle'>
+    <th colspan=2><b>영행렬 Zero array</b></td>
+</tr>
+<tr align=middle>
+    <td width=150>줄리아<sup>Julia</sup></td>
+    <td align = "left" leftpadding=2> <code>y = zeros(4,2)</code></td>
+</tr>
+<tr align=middle>
+    <td width=150>파이썬<sup>Python</sup></td>
+    <td align = "left"><code>y = np.zeros([4,2])</code></td>
+</tr>
+<tr align=middle>
+    <td width=150>R</td>
+    <td align = "left"> <code>y = matrix(0,4,2)</code></td>
+</tr>
+<tr align=middle>
+    <td width=150>매트랩<sup>Matlab</sup></td>
+    <td align = "left"> <code>y = zeros(4,2)</code></td>
+</tr>
+</table>
+<!--
+|                   |      줄리아      |         매트랩          |          파이썬          |          R          |
+| :---------------- | :--------------: | :---------------------: | :----------------------: | :-----------------: |
+| 주석              |    `#comment`    |       `%comment`        |        `#comment`        |     `#comment`      |
+| 2차원 그리드      |                  | `[X,Y] = meshgrid(x,y)` | `X,Y = np.meshgrid(x,y)` |                     |
+| [플래튼](../2022) |   `y = vec(x)`   |       `y = x(:)`        |    `y = np.ravel(x)`     |     `y = c(x)`      |
+| 영행렬            | `y = zeros(4,2)` |    `y = zeros(4,2)`     |  `y = np.zeros([4,2])`   | `y = matrix(0,4,2)` |
+-->
+<h2 id="푸리에-변환supfourier-transformsup">푸리에 변환<sup>Fourier Transform</sup></h2>
 <p>줄리아에 대해서 다음과 같은 환경이라고 하자.</p>
 <pre tabindex="0"><code>using FFTW
-</code></pre><table>
-<thead>
-<tr>
-<th style="text-align:left"></th>
-<th style="text-align:center">줄리아</th>
-<th style="text-align:center">매트랩</th>
-<th style="text-align:center">파이썬</th>
-<th style="text-align:center">R</th>
+</code></pre><table width="728px" cellpadding="5px">
+<tr bgcolor="#FEAB99" align='middle'>
+    <th colspan=2><b>푸리에 변환 Fourier transform</b></td>
 </tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">푸리에 변환</td>
-<td style="text-align:center"><code>y = fft(x)</code></td>
-<td style="text-align:center"><code>y = fft(x)</code></td>
-<td style="text-align:center"><code>y = np.fft.fft(x)</code></td>
-<td style="text-align:center"><code>y = fft(x)</code></td>
+<tr align=middle>
+    <td width=150>줄리아<sup>Julia</sup></td>
+    <td align = "left" leftpadding=2> <code>y = fft(x)</code></td>
 </tr>
-<tr>
-<td style="text-align:left">역변환 변환</td>
-<td style="text-align:center"><code>x = ifft(y)</code></td>
-<td style="text-align:center"><code>x = ifft(y)</code></td>
-<td style="text-align:center"><code>x = np.fft.ifft(y)</code></td>
-<td style="text-align:center"><code>x = fft(y,inverse=TRUE)/length(y)</code></td>
+<tr align=middle>
+    <td width=150>파이썬<sup>Python</sup></td>
+    <td align = "left"><code>y = np.fft.fft(x)</code></td>
 </tr>
-</tbody>
+<tr align=middle>
+    <td width=150>R</td>
+    <td align = "left"> <code>y = fft(x)</code></td>
+</tr>
+<tr align=middle>
+    <td width=150>매트랩<sup>Matlab</sup></td>
+    <td align = "left"> <code>y = fft(x)</code></td>
+</tr>
 </table>
-<h2 id="보간법supinterpolationsup">보간법<sup>interpolation</sup></h2>
+<table width="728px" cellpadding="5px">
+<tr bgcolor="#FEAB99" align='middle'>
+    <th colspan=2><b>푸리에 역변환 Inverse Fourier transform</b></td>
+</tr>
+<tr align=middle>
+    <td width=150>줄리아<sup>Julia</sup></td>
+    <td align = "left" leftpadding=2> <code>y = ifft(x)</code></td>
+</tr>
+<tr align=middle>
+    <td width=150>파이썬<sup>Python</sup></td>
+    <td align = "left"><code>y = np.fft.ifft(x)</code></td>
+</tr>
+<tr align=middle>
+    <td width=150>R</td>
+    <td align = "left"> <code>x = fft(y,inverse=TRUE)/length(y)</code></td>
+</tr>
+<tr align=middle>
+    <td width=150>매트랩<sup>Matlab</sup></td>
+    <td align = "left"> <code>y = ifft(x)</code></td>
+</tr>
+</table>
+<!-- 
+|             |    줄리아     |    매트랩     |        파이썬        |                  R                  |
+| :---------- | :-----------: | :-----------: | :------------------: | :---------------------------------: |
+| 푸리에 변환 | `y = fft(x)`  | `y = fft(x)`  | `y = np.fft.fft(x)`  |            `y = fft(x)`             |
+| 역변환 변환 | `x = ifft(y)` | `x = ifft(y)` | `x = np.fft.ifft(y)` | `x = fft(y,inverse=TRUE)/length(y)` |
+-->
+<h2 id="보간법supinterpolationsup">보간법<sup>Interpolation</sup></h2>
 <p>파이썬에 대해서 다음과 같은 환경이라고 하자.</p>
 <pre tabindex="0"><code>from scipy.interpolate import griddata
 </code></pre><p>$X, Y, P, Z$를 2차원 배열, $x, y$를 1차월 배열이라고 하자.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left"></th>
-<th style="text-align:center">줄리아</th>
-<th style="text-align:center">매트랩</th>
-<th style="text-align:center">파이썬</th>
-<th style="text-align:center">R</th>
+<table width="728px" cellpadding="5px">
+<tr bgcolor="#FEAB99" align='middle'>
+    <th colspan=2><b>2차원 보간 2D interpolation</b></td>
 </tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">2차원보간</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"><code>Z = interp2(X, Y, P, x, y)</code></td>
-<td style="text-align:center"><code>Z = griddata( (np.ravel(X), np.ravel(Y)), np.ravel(P), (x, y) )</code></td>
-<td style="text-align:center"></td>
+<!-- <tr align=middle>
+    <td width=150>줄리아<sup>Julia</sup></td>
+    <td align = "left" leftpadding=2> <code>heatmap(A), clim = (a,b)</code></td>
+</tr> -->
+<tr align=middle>
+    <td width=150>파이썬<sup>Python</sup></td>
+    <td align = "left"><code>Z = griddata( (np.ravel(X), np.ravel(Y)), np.ravel(P), (x, y) )</code></td>
 </tr>
-</tbody>
+<!-- <tr align=middle>
+    <td width=150>R</td>
+    <td align = "left"> <code>#comment</code></td>
+</tr> -->
+<tr align=middle>
+    <td width=150>매트랩<sup>Matlab</sup></td>
+    <td align = "left"> <code>Z = interp2(X, Y, P, x, y)</code></td>
+</tr>
 </table>
-<h2 id="시각화">시각화</h2>
-<p>파이썬에 대해서 다음과 같은 환경이라고 하자.</p>
+<!-- 
+|           | 줄리아 |            매트랩            |                              파이썬                               |   R   |
+| :-------- | :----: | :--------------------------: | :---------------------------------------------------------------: | :---: |
+| 2차원보간 |        | `Z = interp2(X, Y, P, x, y)` | `Z = griddata( (np.ravel(X), np.ravel(Y)), np.ravel(P), (x, y) )` |       |
+-->
+<h2 id="시각화supvisualizationsup">시각화<sup>Visualization</sup></h2>
+<p>줄리아에 대해서 다음과 같은 환경이라고 하자.</p>
+<pre tabindex="0"><code>using Plots
+</code></pre><p>파이썬에 대해서 다음과 같은 환경이라고 하자.</p>
 <pre tabindex="0"><code>import matplotlib.pyplot as plt
 </code></pre><p>2차원 이미지로 출력하고자 하는 배열을 <code>A</code>라고 하자.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left"></th>
-<th style="text-align:center">줄리아</th>
-<th style="text-align:center">매트랩</th>
-<th style="text-align:center">파이썬</th>
-<th style="text-align:center">R</th>
+<table width="728px" cellpadding="5px">
+<tr bgcolor="#FEAB99" align='middle'>
+    <th colspan=2><b>스케일 범위 지정 Set scale range</b></td>
 </tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">스케일 범위 지정</td>
-<td style="text-align:center"><a href="../2126"><code>heatmap(A), clim = (a,b))</code></a></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">🔒(22/02/05)<a href="../3185"><code>plt.imshow(A)</code></br> <code>plt.colorbar()</code> </br> <code>plt.clim(a,b)</code></a></td>
-<td style="text-align:center"></td>
+<tr align=middle>
+    <td width=150>줄리아<sup>Julia</sup></td>
+    <td align = "left" leftpadding=2> <code>heatmap(A), clim = (a,b)</code></td>
 </tr>
-<tr>
-<td style="text-align:left">수평선</td>
-<td style="text-align:center">🔒(22/09/02)<a href="../2258"><code>hline!(a)</code></a></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">🔒(22/02/25)<a href="../3195"><code>plt.axhline(a)</code></a></td>
-<td></td>
+<tr align=middle>
+    <td width=150>파이썬<sup>Python</sup></td>
+    <td align = "left"><code>plt.imshow(A)</br>plt.colorbar()</br>plt.clim(a,b)</code></td>
 </tr>
-<tr>
-<td style="text-align:left">수직선</td>
-<td style="text-align:center">🔒(22/09/02)<a href="../2258"><code>vline!(a)</code></a></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">🔒(22/02/25)<a href="../3195"><code>plt.axvline(a)</code></a></td>
-<td></td>
-</tr>
-</tbody>
+<!-- <tr align=middle>
+    <td width=150>R</td>
+    <td align = "left"> <code>#comment</code></td>
+</tr> -->
+<!-- <tr align=middle>
+    <td width=150>매트랩<sup>Matlab</sup></td>
+    <td align = "left"> <code>%comment</code></td>
+</tr> -->
 </table>
+<table width="728px" cellpadding="5px">
+<tr bgcolor="#FEAB99" align='middle'>
+    <th colspan=2><b>수평선 Horizon line</b></td>
+</tr>
+<tr align=middle>
+    <td width=150>줄리아<sup>Julia</sup></td>
+    <td align = "left" leftpadding=2> <code>hline!(a)</code></td>
+</tr>
+<tr align=middle>
+    <td width=150>파이썬<sup>Python</sup></td>
+    <td align = "left"><code>plt.axhline(a)</code></td>
+</tr>
+<!-- <tr align=middle>
+    <td width=150>R</td>
+    <td align = "left"> <code>#comment</code></td>
+</tr> -->
+<!-- <tr align=middle>
+    <td width=150>매트랩<sup>Matlab</sup></td>
+    <td align = "left"> <code>%comment</code></td>
+</tr> -->
+</table>
+<table width="728px" cellpadding="5px">
+<tr bgcolor="#FEAB99" align='middle'>
+    <th colspan=2><b>수직선 Vertical line</b></td>
+</tr>
+<tr align=middle>
+    <td width=150>줄리아<sup>Julia</sup></td>
+    <td align = "left" leftpadding=2> <code>vline!(a)</code></td>
+</tr>
+<tr align=middle>
+    <td width=150>파이썬<sup>Python</sup></td>
+    <td align = "left"><code>plt.axvline(a)</code></td>
+</tr>
+<!-- <tr align=middle>
+    <td width=150>R</td>
+    <td align = "left"> <code>#comment</code></td>
+</tr> -->
+<!-- <tr align=middle>
+    <td width=150>매트랩<sup>Matlab</sup></td>
+    <td align = "left"> <code>%comment</code></td>
+</tr> -->
+</table>
+<!-- 
+|                  |                 줄리아                 | 매트랩 |                                      파이썬                                       |   R   |
+| :--------------- | :------------------------------------: | :----: | :-------------------------------------------------------------------------------: | :---: |
+| 스케일 범위 지정 | [`heatmap(A), clim = (a,b))`](../2126) |        | 🔒(22/02/05)[`plt.imshow(A)`</br> `plt.colorbar()` </br> `plt.clim(a,b)`](../3185) |       |
+| 수평선           |    🔒(22/09/02)[`hline!(a)`](../2258)    |        |                       🔒(22/02/25)[`plt.axhline(a)`](../3195)                       |
+| 수직선           |    🔒(22/09/02)[`vline!(a)`](../2258)    |        |                       🔒(22/02/25)[`plt.axvline(a)`](../3195)                       |
+-->
+<h2 id="머신러닝supmachine-learningsup">머신러닝<sup>Machine Learning</sup></h2>
+<p>플럭스에 대해서 다음과 같은 환경이라고 하자.</p>
+<pre tabindex="0"><code>using Flux
+</code></pre><p>파이토치에 대해서 다음과 같은 환경이라고 하자.</p>
+<pre tabindex="0"><code>import torch
+import torch.nn as nn
+import torch.nn.functional as F
+</code></pre><p>텐서플로우에 대해서 다음과 같은 환경이라고 하자.</p>
+<pre tabindex="0"><code>import tensorflow as tf
+from tensorflow import keras
+</code></pre><table width="728px" cellpadding="5px">
+<tr bgcolor="#FEAB99" align='middle'>
+    <th colspan=2><b>배열/텐서 Array/Tensor</b></td>
+</tr>
+<tr align=middle>
+    <td width=150>플럭스<sup>Flux</sup></td>
+    <td align = "left" leftpadding=2> <code>A = [1 2 3]</code></td>
+</tr>
+<tr align=middle>
+    <td width=150>파이토치<sup>PyTorch</sup></td>
+    <td align = "left"><code>A = torch.tensor([1, 2, 3])</code></td>
+</tr>
+<tr align=middle>
+    <td width=150>텐서플로우<sup>TensorFlow</sup></td>
+    <td align = "left"> <code>A = tf.constant([1, 1, 1])</code></td>
+</tr>
+</table>
+<table width="728px" cellpadding="5px">
+<tr bgcolor="#FEAB99" align='middle'>
+    <th colspan=2><b>덴스 레이어 Dense layer</b></td>
+</tr>
+<tr align=middle>
+    <td width=150>플럭스<sup>Flux</sup></td>
+    <td align = "left" leftpadding=2> <code>Dense(in, out, bias=true, relu)</code></td>
+</tr>
+<tr align=middle>
+    <td width=150>파이토치<sup>PyTorch</sup></td>
+    <td align = "left"><code>torch.nn.Linear(in, out, bias=True)</code></td>
+</tr>
+<tr align=middle>
+    <td width=150>텐서플로우<sup>TensorFlow</sup></td>
+    <td align = "left"> <code>keras.layers.Dense(out, activation="relu")</code></td>
+</tr>
+</table>
+<table width="728px" cellpadding="5px">
+<tr bgcolor="#FEAB99" align='middle'>
+    <th colspan=2><b>시퀀셜 모델 Sequential model</b></td>
+</tr>
+<tr align=middle>
+    <td width=150>플럭스<sup>Flux</sup></td>
+    <td align = "left" leftpadding=2><code>model = Chain(
+        <br>Dense(5, 10, relu),
+        <br>Dense(10, 10, relu),
+        <br>Dense(10, 2, relu)
+        <br>)</code></td>
+</tr>
+<tr align=middle>
+    <td width=150>파이토치<sup>PyTorch</sup></td>
+    <td align = "left"><code>model = nn.Sequential(
+        <br>nn.Linear(5, 10),
+        <br>nn.Relu(),
+        <br>nn.Linear(10, 10),
+        <br>nn.Relu(),
+        <br>nn.Linear(10, 2),
+        <br>nn.Relu()
+        <br>)</code></td>
+</tr>
+<tr align=middle>
+    <td width=150>텐서플로우<sup>TensorFlow</sup></td>
+    <td align = "left"> <code>model = keras.models.Sequential([
+        <br>keras.layers.Flatten(input_shape=[5]),
+        <br>keras.layers.Dense(10, activation="relu"),
+        <br>keras.layers.Dense(10, activation="relu"),
+        <br>keras.layers.Dense(2, activation="relu"),
+        <br>])</code></td>
+</tr>
+</table>
+<table width="728px" cellpadding="5px">
+<tr bgcolor="#FEAB99" align='middle'>
+    <th colspan=2><b>모델 요약 Model summary</b></td>
+</tr>
+<tr align=middle>
+    <td width=150>플럭스<sup>Flux</sup></td>
+    <td align = "left" leftpadding=2><code>julia> model
+    <br>
+    <br>Chain(
+    <br>Dense(5, 10, relu),                   # 60 parameters
+    <br>Dense(10, 10, relu),                  # 110 parameters
+    <br>Dense(10, 2, relu),                   # 22 parameters
+    <br>)                   # Total: 6 arrays, 192 parameters, 1.125 KiB.
+    </code></td>
+</tr>
+<tr align=middle>
+    <td width=150>파이토치<sup>PyTorch</sup></td>
+    <td align = "left"><code>>>>model
+        <br>
+        <br>Sequential(
+        <br>  (0): Linear(in_features=5, out_features=10, bias=True)
+        <br>  (1): ReLU()
+        <br>  (2): Linear(in_features=10, out_features=10, bias=True)
+        <br>  (3): ReLU()
+        <br>  (4): Linear(in_features=10, out_features=2, bias=True)
+        <br>  (5): ReLU()
+        <br>)</code></td>
+</tr>
+<tr align=middle>
+    <td width=150>텐서플로우<sup>TensorFlow</sup></td>
+    <td align = "left">
+        <code>
+        >>>model.build()
+        <br>>>>model.summary()
+        <br>
+        <br>Model: "sequential_1"
+        <br>_________________________________________________________________
+        <br>Layer (type)                Output Shape              Param #   
+        <br>=================================================================
+        <br>flatten (Flatten)           (None, 5)                 0         
+        <br>                                                                
+        <br>dense_4 (Dense)             (None, 10)                60        
+        <br>                                                                
+        <br>dense_5 (Dense)             (None, 10)                110       
+        <br>                                                                
+        <br>dense_6 (Dense)             (None, 2)                 22        
+        <br>
+        <br>=================================================================
+        <br>Total params: 192
+        <br>Trainable params: 192
+        <br>Non-trainable params: 0
+        <br>_________________________________________________________________</code>
+    </td>
+</tr>
+</table>
+<p>모델 요약</p>
 
 
 
@@ -819,7 +1090,7 @@
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1849">🎲</a></p>
+         <a href="../1249">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -939,7 +1210,7 @@
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2047)</summary>
+    <summary>전체 포스트 (2048)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -1009,7 +1280,7 @@
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%98%81%EC%96%B4/" style="color: black">영어 (3)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/" style="color: black">위상수학 (59)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/" style="color: black">위상수학 (60)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%A0%EC%B2%B4%EC%97%AD%ED%95%99/" style="color: black">유체역학 (5)</a>
         </li><li>
