@@ -319,7 +319,7 @@
 </ul>
 <h3 id="코드-리뷰">코드 리뷰</h3>
 <p><strong>Step 1. 초기화 및 에이전트 생성</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> N0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">500</span> <span style="color:#75715e"># 초기 인구수</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> N0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">500</span> <span style="color:#75715e"># 초기 인구수</span>
 <span style="color:#ae81ff">500</span>
 
 julia<span style="color:#f92672">&gt;</span> d <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.04</span> <span style="color:#75715e"># 사망률</span>
@@ -346,8 +346,8 @@ julia<span style="color:#f92672">&gt;</span> Time<span style="color:#f92672">\</
 <li><code>max\_iteration</code> $\leftarrow t_{\text{end}} = 180$</li>
 </ul>
 <p><code>Random.seed!(0)</code>은 결과를 재현하기 위한 시드넘버 설정,은 결과를 재현하기 위한 시드넘버 설정, <code>time\_evolutiond</code>는 개체수를 기록하기 위한 스택으로 시뮬레이션 자체에는 영향을 미치지 않으나 시뮬레이션을 반복하고 분석하기 위해 중요하게 쓰이는 테크닉이다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f92672">=</span> rand(gaussian2, N0)<span style="color:#f92672">&#39;</span>
-<span style="color:#ae81ff">500</span>×2 Adjoint{<span style="color:#66d9ef">Float64</span>,<span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}}<span style="color:#f92672">:</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f92672">=</span> rand(gaussian2, N0)<span style="color:#f92672">&#39;</span>
+<span style="color:#ae81ff">500</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">Adjoint</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}}<span style="color:#f92672">:</span>
   <span style="color:#ae81ff">0.135821</span>    <span style="color:#ae81ff">0.165683</span>
  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0706015</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0269708</span>
   <span style="color:#ae81ff">0.117323</span>    <span style="color:#ae81ff">0.0594672</span>
@@ -356,7 +356,7 @@ julia<span style="color:#f92672">&gt;</span> Time<span style="color:#f92672">\</
  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.137781</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.152561</span>
   <span style="color:#ae81ff">0.0794965</span>   <span style="color:#ae81ff">0.162326</span>
  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0692709</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0375145</span>
-  ⋮
+  <span style="color:#f92672">⋮</span>
  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.22697</span>     <span style="color:#ae81ff">0.178074</span>
   <span style="color:#ae81ff">0.036792</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.35028</span>
  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.253518</span>    <span style="color:#ae81ff">0.418463</span>
@@ -371,8 +371,8 @@ julia<span style="color:#f92672">&gt;</span> N <span style="color:#f92672">=</sp
 </code></pre></div><p>$N$ 은 개체수를 나타내므로 우선 $N \leftarrow N_{0}$ 와 같이 초기 개체수를 받아 주어야한다.</p>
 <hr>
 <p><strong>Step 2. 에이전트의 사망</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f92672">=</span> coordinate[(rand(N) <span style="color:#f92672">.&gt;</span> d),<span style="color:#f92672">:</span>]
-<span style="color:#ae81ff">481</span>×2 <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f92672">=</span> coordinate[(rand(N) <span style="color:#f92672">.&gt;</span> d),<span style="color:#f92672">:</span>]
+<span style="color:#ae81ff">481</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
   <span style="color:#ae81ff">0.135821</span>    <span style="color:#ae81ff">0.165683</span>
  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0706015</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0269708</span>
   <span style="color:#ae81ff">0.117323</span>    <span style="color:#ae81ff">0.0594672</span>
@@ -380,7 +380,7 @@ julia<span style="color:#f92672">&gt;</span> N <span style="color:#f92672">=</sp
  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.102842</span>    <span style="color:#ae81ff">0.314866</span>
   <span style="color:#ae81ff">0.0794965</span>   <span style="color:#ae81ff">0.162326</span>
  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0692709</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0375145</span>
-  ⋮
+  <span style="color:#f92672">⋮</span>
  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.253518</span>    <span style="color:#ae81ff">0.418463</span>
  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.226243</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.111246</span>
   <span style="color:#ae81ff">0.120505</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0111552</span>
@@ -390,12 +390,12 @@ julia<span style="color:#f92672">&gt;</span> N <span style="color:#f92672">=</sp
 </code></pre></div><p>현재 에이전트의 수만큼 0과 1사이에서 난수를 뽑는다. 이것이 <code>d</code>보다 작다는 것은 <code>d</code>의 확률로 <strong>사망</strong> 이 일어났다는 뜻이다. 위 스크린샷에서는 19개의 에이전트가 사망해 481개의 에이전트가 남은 것을 볼 수 있다. 이는 기존 에이전트 500개 중 약 4%가 사망한 것으로, 우리의 파라메터 세팅이 거의 정확하게 반영된 것을 확인할 수 있다.</p>
 <hr>
 <p><strong>Step 3. 기록과 에이전트 이동</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> push!(time<span style="color:#f92672">\</span>_evolution, N)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> push!(time<span style="color:#f92672">\</span>_evolution, N)
 <span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Any</span>,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
  <span style="color:#ae81ff">481</span>
 
 julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f92672">=</span> coordinate <span style="color:#f92672">+</span> rand(gaussian2, N)<span style="color:#f92672">&#39;</span>
-<span style="color:#ae81ff">481</span>×2 <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+<span style="color:#ae81ff">481</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
   <span style="color:#ae81ff">0.399141</span>     <span style="color:#ae81ff">0.492689</span>
  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.151015</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">0.00161691</span>
  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.00843121</span>   <span style="color:#ae81ff">0.10119</span>
@@ -404,7 +404,7 @@ julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f926
   <span style="color:#ae81ff">0.0060825</span>    <span style="color:#ae81ff">0.0383255</span>
  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0652535</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0688566</span>
  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.702124</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">0.485473</span>
-  ⋮
+  <span style="color:#f92672">⋮</span>
   <span style="color:#ae81ff">0.437486</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">0.354416</span>
  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.149827</span>     <span style="color:#ae81ff">0.156366</span>
  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0737965</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.168831</span>
@@ -841,7 +841,7 @@ end
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../517">🎲</a></p>
+         <a href="../985">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -939,7 +939,7 @@ end
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (50++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
-        <span style="color:rgb(051,204,051);">●</span> 확률론 (70++)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 확률론 (72)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/>
         <span style="color:rgb(255,204,000);">●</span> 줄리아 (100++)</a><br>
@@ -961,7 +961,7 @@ end
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2063)</summary>
+    <summary>전체 포스트 (2064)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
