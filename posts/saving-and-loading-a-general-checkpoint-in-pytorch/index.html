@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/saving-and-loading-a-general-checkpoint-in-pytorch\/",
-    "wordCount" : "764",
+    "wordCount" : "768",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -304,7 +304,7 @@
 <h2 id="재학습하지-않는-경우1-2-3">재학습하지 않는 경우<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> <sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></h2>
 <h3 id="저장하기">저장하기</h3>
 <p>재학습하지 않는 경우라면 간단하게 가중치 혹은 모델만 저장해도 된다. 아래에서 말하겠지만 재학습을 할거라면 옵티마이저까지 저장해야한다. 가중치는 다음과 같이 간단히 저장할 수 있다.</p>
-<pre tabindex="0"><code># 모델 정의
+<pre><code># 모델 정의
 class CustomModel(nn.module):
     ...(이하생략)
 
@@ -313,10 +313,10 @@ model = CustomModel()
 # 가중치 저장
 torch.save(model.state_dict(), 'weights.pt')
 </code></pre><p>이때 확장자는 <code>.pt</code> 혹은 <code>.pth</code>를 사용한다. 모델을 통째로 저장하는 방법은 다음과 같다. 파이토치 공식 홈페이지에서는 위와 같이 <code>model.state_dict()</code>을 저장하는 것을 권장한다.</p>
-<pre tabindex="0"><code>torch.save(model, 'model.pt')
+<pre><code>torch.save(model, 'model.pt')
 </code></pre><h3 id="불러오기">불러오기</h3>
 <p>가중치만 저장한 경우에는 불러올 수 있다.</p>
-<pre tabindex="0"><code># 저장된 가중치와 같은 구조의 모델 정의
+<pre><code># 저장된 가중치와 같은 구조의 모델 정의
 model = CustomModel()
 
 # 가중치 불러오기
@@ -325,14 +325,14 @@ moel.load_state_dict(torch.load('weights.pt'))
 # evaluation mode
 model.eval()
 </code></pre><p>모델을 통째로 저장한 경우에는 다음과 같이 불러온다.</p>
-<pre tabindex="0"><code>model = CustomModel()
+<pre><code>model = CustomModel()
 model = torch.load()
 model.eval()
 </code></pre><p>공식 홈페이지의 설명<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> 대로면 모델을 통째로 저장한 경우에도 모델을 불러오기 전에 미리 정의를 해야한다는 것 같은데, 그러면 이 두 방식에서 실질적으로 무슨 차이가 있는지는 잘 모르겠다. 어찌됐건 모델 자체를 저장하는 경우는 다른 경로에서 사용하거나 하는 등의 상황에서 불러오기가 제대로 되지 않을 수 있다고 하니, 권장하고 있는 방식으로 저장하고 불러오는 것이 좋겠다.</p>
 <h2 id="재학습하는-경우">재학습하는 경우</h2>
 <p>위에서 말했듯이 재학습하는 경우에는 가중치와 더불어 반드시 옵티마이저의 상태까지 같이 저장해야한다. 왜 그래야하는지는 이해가 안되지만 이렇게 안하면 학습이 이어지지 않으니 주의하자. 필요에 따라서 현재 에포크, 로스 등도 같이 저장할 수 있다.</p>
 <h3 id="저장하기-1">저장하기</h3>
-<pre tabindex="0"><code># 모델 정의
+<pre><code># 모델 정의
 class CustomModel(nn.module):
     ...(이하생략)
 
@@ -350,7 +350,7 @@ torch.save({
 </code></pre><p>이런식으로 여러 정보를 저장하는 정우에는 확장자를 <code>.tar</code>로 쓴다고 한다. 무슨 차이인지는 모르겠는데 공식 홈페이지에서 그렇게 쓰라고 한다.</p>
 <h3 id="불러오기-1">불러오기</h3>
 <p>불러오기 전에 모델과 옵티마이저가 정의되어 있어야 한다.</p>
-<pre tabindex="0"><code>model = CustomModel()
+<pre><code>model = CustomModel()
 optimizer = torch.optim.Adam(model.parameters(), lr = 0.001)
 
 # 불러오고 적용하기
@@ -371,16 +371,16 @@ model.train()
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://pytorch.org/tutorials/recipes/recipes/saving_and_loading_a_general_checkpoint.html?highlight=saving%20loading">https://pytorch.org/tutorials/recipes/recipes/saving_and_loading_a_general_checkpoint.html?highlight=saving%20loading</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://pytorch.org/tutorials/recipes/recipes/saving_and_loading_a_general_checkpoint.html?highlight=saving%20loading">https://pytorch.org/tutorials/recipes/recipes/saving_and_loading_a_general_checkpoint.html?highlight=saving%20loading</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p><a href="https://tutorials.pytorch.kr/beginner/saving_loading_models.html">https://tutorials.pytorch.kr/beginner/saving_loading_models.html</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://tutorials.pytorch.kr/beginner/saving_loading_models.html">https://tutorials.pytorch.kr/beginner/saving_loading_models.html</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:3" role="doc-endnote">
-<p><a href="https://tutorials.pytorch.kr/recipes/recipes/saving_and_loading_a_general_checkpoint.html">https://tutorials.pytorch.kr/recipes/recipes/saving_and_loading_a_general_checkpoint.html</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://tutorials.pytorch.kr/recipes/recipes/saving_and_loading_a_general_checkpoint.html">https://tutorials.pytorch.kr/recipes/recipes/saving_and_loading_a_general_checkpoint.html</a> <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:4" role="doc-endnote">
-<p><a href="https://pytorch.org/tutorials/beginner/saving_loading_models.html?highlight=saving%20loading">https://pytorch.org/tutorials/beginner/saving_loading_models.html?highlight=saving%20loading</a>&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://pytorch.org/tutorials/beginner/saving_loading_models.html?highlight=saving%20loading">https://pytorch.org/tutorials/beginner/saving_loading_models.html?highlight=saving%20loading</a> <a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -775,7 +775,7 @@ model.train()
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1932">🎲</a></p>
+         <a href="../1920">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -895,7 +895,7 @@ model.train()
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2061)</summary>
+    <summary>전체 포스트 (2063)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -973,7 +973,7 @@ model.train()
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (85)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (50)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (52)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
