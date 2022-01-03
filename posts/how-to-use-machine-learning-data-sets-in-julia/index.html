@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-use-machine-learning-data-sets-in-julia\/",
-    "wordCount" : "360",
+    "wordCount" : "421",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -336,6 +336,9 @@
 <li>
 <p><a href="../3219">데이터 원-핫 인코딩하는 방법</a></p>
 </li>
+<li>
+<p><a href="../3221">MLP 구현해서 MNIST 데이터 셋 학습시키는 방법</a></p>
+</li>
 </ul>
 <h2 id="예시">예시</h2>
 <h3 id="mnist">MNIST</h3>
@@ -385,7 +388,16 @@ julia<span style="color:#f92672">&gt;</span> Train_Y
 
 julia&gt; Train_Y = MLDatasets.MNIST.trainlabels()
 60000-element Vector{Int64}:
-</code></pre><p>특이한 점은 <code>Train_Y</code>가 원-핫 인코딩 벡터가 아니라 정수로 구성되어 있다는 점이다. 116번째는 4에 대한 데이터임을 다음과 같이 확인할 수 있다. 손글씨 사진은 90도만큼 회전된 사진임에 주의하자.</p>
+</code></pre><p>테스트 셋은 다음과 같이 불러온다.</p>
+<pre><code>julia&gt; Test_X = MLDatasets.MNIST.testtensor()
+28×28×10000 reinterpret(FixedPointNumbers.N0f8, ::Array{UInt8, 3})
+
+
+julia&gt; Test_Y = MLDatasets.MNIST.testlabels()
+10000-element Vector{Int64}:
+
+julia&gt; Test_X, Test_Y = MLDatasets.MNIST.testdata()
+</code></pre><p>특이한 점은 <code>Train_Y</code>가 <a href="../3219">원-핫 인코딩 벡터</a>가 아니라 정수로 구성되어 있다는 점이다. 116번째는 4에 대한 데이터임을 다음과 같이 확인할 수 있다. 손글씨 사진은 90도만큼 회전된 사진임에 주의하자.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> fig <span style="color:#f92672">=</span> heatmap(imrotate(Train_X[<span style="color:#f92672">:</span>,<span style="color:#f92672">:</span>,<span style="color:#ae81ff">116</span>],<span style="color:#f92672">-</span>pi<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>))
 
 julia<span style="color:#f92672">&gt;</span> savefig(fig, <span style="color:#e6db74">&#34;MNIST116.png&#34;</span>)
@@ -828,7 +840,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</sp
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1292">🎲</a></p>
+         <a href="../229">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -948,7 +960,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</sp
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2068)</summary>
+    <summary>전체 포스트 (2069)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -970,7 +982,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</sp
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (2)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (3)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (67)</a>
         </li><li>
