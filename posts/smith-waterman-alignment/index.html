@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/smith-waterman-alignment\/",
-    "wordCount" : "1272",
+    "wordCount" : "1273",
     "genre" : [ "줄리아" ],
     "keywords" : [ "줄리아" ]
 }
@@ -324,12 +324,12 @@ s_{i,j} \leftarrow \max \begin{cases} s_{i-1,j} + \delta \left( v_{i}, -  \right
 <p>행렬에서 가장 점수가 높은 원소를 $s_{\text{max}}$ 라고 하자. $s_{\text{max}}$ 부터 시작해 좌, 좌상, 상단의 원소 중 가장 점수가 높은 원소를 고르다 0을 만나면 멈춘다. 두 문자열의 일부와 가장 비슷한 국소 정렬을 얻는다. 그 점수는 $s_{\text{max}}$ 이다.</p>
 <h2 id="예제">예제</h2>
 <p><strong>Input</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> s1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ATTAGCTCAC&#34;</span>;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> s1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ATTAGCTCAC&#34;</span>;
 
 julia<span style="color:#f92672">&gt;</span> s2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ACTATAGCGCAG&#34;</span>;
 </code></pre></div><p>위와 같은 두 <a href="../1828">염기서열</a>을 전역 정렬하자.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> EDNAFULL
-<span style="color:#66d9ef">SubstitutionMatrix</span>{<span style="color:#66d9ef">BioSymbols</span><span style="color:#f92672">.</span><span style="color:#66d9ef">DNA</span>,<span style="color:#66d9ef">Int64</span>}<span style="color:#f92672">:</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> EDNAFULL
+SubstitutionMatrix{BioSymbols<span style="color:#f92672">.</span>DNA,<span style="color:#66d9ef">Int64</span>}<span style="color:#f92672">:</span>
      A  C  M  G  R  S  V  T  W  Y  H  K  D  B  N
   A  <span style="color:#ae81ff">5</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>
   C <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">5</span>  <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>
@@ -375,7 +375,7 @@ s2 = &quot;ACTATAGCGCAG&quot;;
 scoremodel = AffineGapScoreModel(EDNAFULL, gap_open=-5, gap_extend=0);
 local_result = pairalign(LocalAlignment(), s1, s2, scoremodel)
 </code></pre><h3 id="실행-결과">실행 결과</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> BioAlignments
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> BioAlignments
 
 julia<span style="color:#f92672">&gt;</span> s1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ATTAGCTCAC&#34;</span>;
 
@@ -384,7 +384,7 @@ julia<span style="color:#f92672">&gt;</span> s2 <span style="color:#f92672">=</s
 julia<span style="color:#f92672">&gt;</span> scoremodel <span style="color:#f92672">=</span> AffineGapScoreModel(EDNAFULL, gap_open<span style="color:#f92672">=-</span><span style="color:#ae81ff">5</span>, gap_extend<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>);
 
 julia<span style="color:#f92672">&gt;</span> local_result <span style="color:#f92672">=</span> pairalign(LocalAlignment(), s1, s2, scoremodel)
-<span style="color:#66d9ef">PairwiseAlignmentResult</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#66d9ef">String</span>,<span style="color:#66d9ef">String</span>}<span style="color:#f92672">:</span>
+PairwiseAlignmentResult{<span style="color:#66d9ef">Int64</span>,String,String}<span style="color:#f92672">:</span>
   score<span style="color:#f92672">:</span> <span style="color:#ae81ff">26</span>
   seq<span style="color:#f92672">:</span>  <span style="color:#ae81ff">1</span> ATTAGCTCA  <span style="color:#ae81ff">9</span>
           <span style="color:#f92672">||</span> <span style="color:#f92672">|||</span> <span style="color:#f92672">||</span>
@@ -393,7 +393,7 @@ julia<span style="color:#f92672">&gt;</span> local_result <span style="color:#f9
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Del C. Jones, Pavel A. Pevzner. (2009). An Introduction to Bioinformatics Algorithms (Computational Molecular Biology): p181.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Del C. Jones, Pavel A. Pevzner. (2009). An Introduction to Bioinformatics Algorithms (Computational Molecular Biology): p181. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -788,7 +788,7 @@ julia<span style="color:#f92672">&gt;</span> local_result <span style="color:#f9
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../16">🎲</a></p>
+         <a href="../598">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -908,7 +908,7 @@ julia<span style="color:#f92672">&gt;</span> local_result <span style="color:#f9
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2069)</summary>
+    <summary>전체 포스트 (2073)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -926,7 +926,7 @@ julia<span style="color:#f92672">&gt;</span> local_result <span style="color:#f9
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (45)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (55)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (56)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
@@ -938,7 +938,7 @@ julia<span style="color:#f92672">&gt;</span> local_result <span style="color:#f9
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (47)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (49)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%AC%BC%EB%A6%AC%ED%95%99%EB%AF%B8%EB%B6%84%EB%A5%98/" style="color: black">물리학미분류 (1)</a>
         </li><li>
@@ -978,7 +978,7 @@ julia<span style="color:#f92672">&gt;</span> local_result <span style="color:#f9
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%98%81%EC%96%B4/" style="color: black">영어 (3)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/" style="color: black">위상수학 (60)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/" style="color: black">위상수학 (61)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%A0%EC%B2%B4%EC%97%AD%ED%95%99/" style="color: black">유체역학 (5)</a>
         </li><li>
@@ -1020,7 +1020,7 @@ julia<span style="color:#f92672">&gt;</span> local_result <span style="color:#f9
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (61)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">확률미분방정식 (15)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">확률미분방정식 (16)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (30)</a>
         </li>
