@@ -59,10 +59,10 @@
     </script>
 
     
-<meta name="title" content="mine">
+<meta name="title" content="SDE 수치적 해의 강한 수렴과 약한 수렴">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="mine"/>
-<meta property="og:description" content="Mine"/>
+<meta property="og:title" content="SDE 수치적 해의 강한 수렴과 약한 수렴"/>
+<meta property="og:description" content="Strong and Weak Convergence of SDE Solver"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -74,15 +74,15 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "r_",
-    "name": "mine",
-    "headline": "mine",
+    "name": "SDE 수치적 해의 강한 수렴과 약한 수렴",
+    "headline": "SDE 수치적 해의 강한 수렴과 약한 수렴",
     "alternativeHeadline": "",
-    "description": "Mine",
+    "description": "Strong and Weak Convergence of SDE Solver",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/mine\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/strong-and-weak-convergence-of-sde-solver\/"
     },
     "author" : {
         "@type": "Person",
@@ -97,10 +97,10 @@
         "name": "류대식"
     },
     "copyrightHolder" : "생새우초밥집",
-    "copyrightYear" : "2021",
-    "dateCreated": "2021-01-01T00:00:00.00Z",
-    "datePublished": "2021-01-01T00:00:00.00Z",
-    "dateModified": "2021-01-01T00:00:00.00Z",
+    "copyrightYear" : "2022",
+    "dateCreated": "2022-01-13T00:00:00.00Z",
+    "datePublished": "2022-01-13T00:00:00.00Z",
+    "dateModified": "2022-01-13T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -113,15 +113,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/mine\/",
-    "wordCount" : "0",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/strong-and-weak-convergence-of-sde-solver\/",
+    "wordCount" : "650",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>mine</title>
+    <title>SDE 수치적 해의 강한 수렴과 약한 수렴</title>
 
 </head>
 
@@ -130,7 +130,8 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/basic.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/%ED%99%95%EB%A5%A0%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D.png style="max-height: 80px; width: auto;">
+
             
             
             
@@ -261,33 +262,72 @@
             <div class = "content">
             
 
-<title>mine</title>
+<title>SDE 수치적 해의 강한 수렴과 약한 수렴</title>
 
-<h1>mine</h1>
+<h1>SDE 수치적 해의 강한 수렴과 약한 수렴</h1>
 <aside>
-    Mine
+    Strong and Weak Convergence of SDE Solver
     <p style="text-align: right;">
-        1
+        2142
 
     
     
-    작성일: 2021-01-01&nbsp;<br>
+            <a href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">확률미분방정식</a>&emsp;
+            
+    </span>
+    
+    작성일: 2022-01-13&nbsp;<br>
     작성자: 류대식 사장 &nbsp;
 </p>
 </aside>
 
 <aside>
     <b>목차</b>
-    <nav id="TableOfContents"></nav>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#빌드업">빌드업</a></li>
+    <li><a href="#정의-1">정의 </a></li>
+    <li><a href="#설명">설명</a></li>
+  </ul>
+</nav>
 </aside>
 
+<h2 id="빌드업">빌드업</h2>
+<p>$$
+d X_{t} = f \left( t, X_{t} \right) dt + g \left( t , X_{t} \right) d W_{t} \qquad , t \in \left[ t_{0} , T \right]
+$$
+<a href="../2125">확률미분방정식</a>이 위와 같이 주어져 있고, 시간은 $t_{0} &lt; t_{1} &lt; \cdots &lt; t_{N}$ 와 같이 이산화<sup>Discretization</sup> 되어있다고 하자. 충분히 큰 $N \in \mathbb{N}$ 을 선택해서 $\Delta = \left( T - t_{0} \right) / N \in (0,1)$ 이라 두면 이는 시간을 등간격<sup>Equidistant</sup>으로 자른 것이다. SDE의 해를 $X(t)$ 라 하고 $Y(T)$ 를 그 수치적 근사해라고 한다면, 둘의 평균적인 차이인
+$$
+E \left| X(T) - Y(T) \right|
+$$
+는 수치적 근사해가 얼마나 정확한지에 대한 합리적 측도가 될 것이다.</p>
+<h2 id="정의-1">정의 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>$\Delta$ 에 의존하지 않으면서 다음을 만족시키는 상수 $C$ 와 $\gamma$ 가 존재하면 $Y_{\Delta}$ 가 솔루션 $X$ 에 <strong>$\gamma$로 강하게 수렴한다</strong><sup>converges strongly with order $\gamma$</sup>고 말한다.
+$$
+E \left| X(T) - Y_{\Delta} (T) \right| \le C \Delta^{\gamma}
+$$
+$\Delta$ 에 의존하지 않으면서 다음을 만족시키는 <a href="../2058">다항 함수</a> $h$ 와 상수 $C_{h}$, $\beta$ 가 존재하면 $Y_{\Delta}$ 가 솔루션 $X$ 에 <strong>$\gamma$로 약하게 수렴한다</strong><sup>converges weakly with order $\gamma$</sup>고 말한다.
+$$
+\left| E \left( h \left( X (T) \right) \right) - E \left( h \left( Y_{\Delta} (T) \right) \right) \right| \le C_{h} \Delta^{\beta}
+$$</p>
+<h2 id="설명">설명</h2>
+<p>$X(T)$ 와 $Y_{\Delta}(T)$ 는 끝 점 $T$ 에서의 <a href="../1433">확률변수</a>다. 수식이 의미하는 것은 마지막 점에서의 괴리가 $\Delta \to 0$ 일 때 평균적으로 $0$ 에 가까워진다는 의미이므로, 둘 모두 &lsquo;수렴&rsquo;이라는 개념을 잘 나타낸다고 볼 수 있다.</p>
+<p>약한 수렴은 솔루션 그 자체가 아니라 다항함수 $h$ 로 식을 고칠 여지가 있다는 점에서 &lsquo;약하다&rsquo;는 표현이 적절하다. 강하게 수렴한다는 건 그에 대비되는 말이라고 보아야한다. 보편적으로 $f$ 와 $g$ 에 어떤 스무딩 컨디션들이 주어져 있다면 강한 수렴의 차수보다 약한 수렴의 차수가 높다.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Panik. (2017). Stochastic Differential Equations: An Introduction with Applications in Population Dynamics Modeling: p196.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var title = 'mine';
-        var link = 'https:\/\/freshrimpsushi.github.io\/posts\/mine\/';
+        var title = 'SDE 수치적 해의 강한 수렴과 약한 수렴';
+        var link = 'https:\/\/freshrimpsushi.github.io\/posts\/strong-and-weak-convergence-of-sde-solver\/';
         var arr = new Array();
         var obj = {
             "title": title,
@@ -405,9 +445,9 @@
             alert('빈칸을 채워주세요');
             return;
         }
-        let board_idx = '1';
-        let board_slug = 'mine';
-        let board_title = 'mine';
+        let board_idx = '2142';
+        let board_slug = 'strong-and-weak-convergence-of-sde-solver';
+        let board_title = 'SDE 수치적 해의 강한 수렴과 약한 수렴';
 
         $.ajax({
             type: "POST",
@@ -521,7 +561,7 @@
             type: "POST",
             url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.comment.php?action=getComment",
             data: {
-                board_idx: '1'
+                board_idx: '2142'
             },
             dataType: "json",
             success: function (data) {
@@ -595,9 +635,9 @@
                 alert('빈칸을 채워주세요');
                 return;
             }
-            let idx = '1';
-            let board_slug = 'mine';
-            let board_title = 'mine';
+            let idx = '2142';
+            let board_slug = 'strong-and-weak-convergence-of-sde-solver';
+            let board_title = 'SDE 수치적 해의 강한 수렴과 약한 수렴';
 
             $.ajax({
                 type: "POST",
@@ -672,7 +712,7 @@
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1665">🎲</a></p>
+         <a href="../258">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -794,7 +834,7 @@
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2078)</summary>
+    <summary>전체 포스트 (2086)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -824,7 +864,7 @@
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (49)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (50)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B0%94%EB%82%98%ED%9D%90%EA%B3%B5%EA%B0%84/" style="color: black">바나흐공간 (36)</a>
         </li><li>
@@ -868,9 +908,9 @@
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/" style="color: black">전자기학 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (87)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (88)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (54)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (59)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -904,7 +944,7 @@
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (61)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">확률미분방정식 (17)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">확률미분방정식 (18)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (30)</a>
         </li>
@@ -1035,10 +1075,6 @@
 
 
     
-    
-        <link rel="stylesheet" href= https://freshrimpsushi.github.io/css/atom-one-light.css>
-        <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
-        <script>hljs.initHighlightingOnLoad();</script>
     
     
     </aside>
