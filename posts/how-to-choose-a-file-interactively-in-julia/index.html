@@ -59,10 +59,10 @@
     </script>
 
     
-<meta name="title" content="라돈 변환">
+<meta name="title" content="줄리아에서 file.choose()처럼 대화창 열어서 파일 선택하는 법">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="라돈 변환"/>
-<meta property="og:description" content="definition and property of radon transform"/>
+<meta property="og:title" content="줄리아에서 file.choose()처럼 대화창 열어서 파일 선택하는 법"/>
+<meta property="og:description" content="How to Choose a File Interactively in julia"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -73,34 +73,34 @@
 {
     "@context": "http://schema.org",
     "@type": "BlogPosting",
-    "articleSection": "j_",
-    "name": "라돈 변환",
-    "headline": "라돈 변환",
+    "articleSection": "r_",
+    "name": "줄리아에서 file.choose()처럼 대화창 열어서 파일 선택하는 법",
+    "headline": "줄리아에서 file.choose()처럼 대화창 열어서 파일 선택하는 법",
     "alternativeHeadline": "",
-    "description": "definition and property of radon transform",
+    "description": "How to Choose a File Interactively in julia",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/definition-and-property-of-radon-transform\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/how-to-choose-a-file-interactively-in-julia\/"
     },
     "author" : {
         "@type": "Person",
-        "name": "전기현"
+        "name": "류대식"
     },
     "creator" : {
         "@type": "Person",
-        "name": "전기현"
+        "name": "류대식"
     },
     "accountablePerson" : {
         "@type": "Person",
-        "name": "전기현"
+        "name": "류대식"
     },
     "copyrightHolder" : "생새우초밥집",
-    "copyrightYear" : "2019",
-    "dateCreated": "2019-06-01T00:00:00.00Z",
-    "datePublished": "2019-06-01T00:00:00.00Z",
-    "dateModified": "2019-06-01T00:00:00.00Z",
+    "copyrightYear" : "2022",
+    "dateCreated": "2022-01-15T00:00:00.00Z",
+    "datePublished": "2022-01-15T00:00:00.00Z",
+    "dateModified": "2022-01-15T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -113,15 +113,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/definition-and-property-of-radon-transform\/",
-    "wordCount" : "638",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-choose-a-file-interactively-in-julia\/",
+    "wordCount" : "112",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>라돈 변환</title>
+    <title>줄리아에서 file.choose()처럼 대화창 열어서 파일 선택하는 법</title>
 
 </head>
 
@@ -130,7 +130,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC.gif style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/%EC%A4%84%EB%A6%AC%EC%95%84.png style="max-height: 80px; width: auto;">
             
             
             
@@ -261,22 +261,22 @@
             <div class = "content">
             
 
-<title>라돈 변환</title>
+<title>줄리아에서 file.choose()처럼 대화창 열어서 파일 선택하는 법</title>
 
-<h1>라돈 변환</h1>
+<h1>줄리아에서 file.choose()처럼 대화창 열어서 파일 선택하는 법</h1>
 <aside>
-    definition and property of radon transform
+    How to Choose a File Interactively in julia
     <p style="text-align: right;">
-        1118
+        2143
 
     
     
-            <a href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피</a>&emsp;
+            <a href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아</a>&emsp;
             
     </span>
     
-    작성일: 2019-06-01&nbsp;<br>
-    작성자: 전기현 사장 &nbsp;
+    작성일: 2022-01-15&nbsp;<br>
+    작성자: 류대식 사장 &nbsp;
 </p>
 </aside>
 
@@ -284,53 +284,37 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#정의">정의</a></li>
-    <li><a href="#설명">설명</a></li>
-    <li><a href="#성질">성질</a></li>
-    <li><a href="#증명">증명</a></li>
+    <li><a href="#코드-1">코드 </a></li>
+    <li><a href="#환경">환경</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="정의">정의</h2>
-<p>함수 $f : \mathbb{R}^2 \to R$가 주어졌다고 하자. $l_{s,\theta}$를 <a href="../1110">극좌표 $(s,\theta)$에 의해 결정되는 직선</a>이라고 하자. $f$를 $l_{s,\theta}$위에서  적분한 것을 $f$의 라돈 변환이라고 하고 아래와 같이 나타낸다.</p>
-<p>$$
-\begin{align*}
-\mathcal{R}f(s,\theta) &amp;:= \int_{l_{s,\theta}}fdt
-\\ &amp;= \int_{t =-\infty}^{\infty} f\big( s\cos\theta-t\sin\theta,\ s\sin\theta + t\cos\theta \big) dt
-\end{align*} 
-$$</p>
-<h2 id="설명">설명</h2>
-<p>커널이 $K=1$인 <a href="../1847">적분변환</a>의 일종이다.</p>
-<p>물리적으로 설명하자면 $l_{s,\theta}$은 전자기파(방사선)가 지나간 경로, $f$는 신체의 단면이다. CT와 같은 의학용 진단 장비의 원리에서 사용된다. 참고로 라돈은 방사성 원소 라돈이 아니라 오스트리아의 수학자 라돈$(\mathrm{Johann\ Radon,\ 1887-1956})$을 의미한다.</p>
-<p>CT 촬영을 통해 얻는 데이터가 바로 $\mathcal{R}f$이다. 하지만 이게 병원에서 볼 수 있는 CT 촬영 사진이라는 말은 아니다. $f$가 신체의 단면을 묘사하는 사진이다. 따라서 CT 촬영으로 얻은 $\mathcal{R}f$로부터 시작해서 여러 수학적인 테크닉을 거쳐 $f$를 얻으면 그게 병원에서 보는 CT 촬영 사진이다. 그런 수학적인 테크닉을 <a href="../1166">라돈 역 변환</a><sup>inverse Radon transform</sup>이라 부른다.</p>
-<h2 id="성질">성질</h2>
-<p>라돈 변환은 <a href="../3037">선형</a>이다.</p>
-<p>$$
-\mathcal{R}[\alpha f+\beta g](s,\ \theta)=\alpha \mathcal{R}f(s,\ \theta)+\beta \mathcal{R}g(s,\ \theta)
-$$</p>
-<h2 id="증명">증명</h2>
-<p>[적분이 선형]이기 때문에 볼 것도 없지만 직접 계산해서 확인해보면 다음과 같다.</p>
-<p>$$
-\begin{align*}
-\mathcal{R}[\alpha f+\beta g](s,\ \theta) &amp;= \int _{t=-\infty}^{\infty} (\alpha f + \beta g) ( s\cos\theta-t\sin\theta,\ s\sin\theta + t\cos\theta )dt
-\\ &amp;= \int _{t=-\infty}^{\infty} \bigg[ (\alpha f)( s\cos\theta-t\sin\theta,\ s\sin\theta + t\cos\theta )
-\\  &amp;+ (\beta g) ( s\cos\theta-t\sin\theta,\ s\sin\theta + t\cos\theta )   \bigg] dt
-\\ &amp;= \int _{t=-\infty}^{\infty}  (\alpha f)( s\cos\theta-t\sin\theta,\ s\sin\theta + t\cos\theta ) dt
-\\  &amp;+ \int _{t=-\infty}^{\infty}(\beta g) ( s\cos\theta-t\sin\theta,\ s\sin\theta + t\cos\theta )    dt
-\\ &amp;= \alpha \int _{t=-\infty}^{\infty} f( s\cos\theta-t\sin\theta,\ s\sin\theta + t\cos\theta ) dt
-\\  &amp;+ \beta \int _{t=-\infty}^{\infty} g ( s\cos\theta-t\sin\theta,\ s\sin\theta + t\cos\theta )    dt
-\\ &amp;= \alpha \mathcal{R}f(s,\ \theta) + \beta \mathcal{R} g( s,\ \theta)
-\end{align*}
-$$
-<p style="text-align: right;">■</p></p>
+<h2 id="코드-1">코드 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<pre><code>using Gtk
+file_name = open_dialog(&quot;파일 열기&quot;)
+</code></pre><p>첫번째 인수로 주어지는 문자열은 대화창의 타이틀이다. 실행하면 다음과 같이 &lsquo;파일 열기&rsquo;라는 대화창이 뜨는 것을 확인할 수 있다.</p>
+<p><img src="20210712_135032.png#center" alt="20210712_135032.png"></p>
+<h2 id="환경">환경</h2>
+<ul>
+<li>OS: Windows</li>
+<li>julia: v1.6.0</li>
+</ul>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://discourse.julialang.org/t/choose-a-file-interactively/10910/3">https://discourse.julialang.org/t/choose-a-file-interactively/10910/3</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var title = '라돈 변환';
-        var link = 'https:\/\/freshrimpsushi.github.io\/posts\/definition-and-property-of-radon-transform\/';
+        var title = '줄리아에서 file.choose()처럼 대화창 열어서 파일 선택하는 법';
+        var link = 'https:\/\/freshrimpsushi.github.io\/posts\/how-to-choose-a-file-interactively-in-julia\/';
         var arr = new Array();
         var obj = {
             "title": title,
@@ -448,9 +432,9 @@ $$
             alert('빈칸을 채워주세요');
             return;
         }
-        let board_idx = '1118';
-        let board_slug = 'definition-and-property-of-radon-transform';
-        let board_title = '라돈 변환';
+        let board_idx = '2143';
+        let board_slug = 'how-to-choose-a-file-interactively-in-julia';
+        let board_title = '줄리아에서 file.choose()처럼 대화창 열어서 파일 선택하는 법';
 
         $.ajax({
             type: "POST",
@@ -564,7 +548,7 @@ $$
             type: "POST",
             url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.comment.php?action=getComment",
             data: {
-                board_idx: '1118'
+                board_idx: '2143'
             },
             dataType: "json",
             success: function (data) {
@@ -638,9 +622,9 @@ $$
                 alert('빈칸을 채워주세요');
                 return;
             }
-            let idx = '1118';
-            let board_slug = 'definition-and-property-of-radon-transform';
-            let board_title = '라돈 변환';
+            let idx = '2143';
+            let board_slug = 'how-to-choose-a-file-interactively-in-julia';
+            let board_title = '줄리아에서 file.choose()처럼 대화창 열어서 파일 선택하는 법';
 
             $.ajax({
                 type: "POST",
@@ -715,7 +699,7 @@ $$
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../524">🎲</a></p>
+         <a href="../1876">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -855,7 +839,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (45)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (58)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (59)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
@@ -913,7 +897,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (88)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (59)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (60)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -927,7 +911,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/" style="color: black">텐서해석 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (13)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
@@ -1078,6 +1062,10 @@ $$
 
 
     
+    
+        <link rel="stylesheet" href= https://freshrimpsushi.github.io/css/atom-one-light.css>
+        <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
+        <script>hljs.initHighlightingOnLoad();</script>
     
     
     </aside>
