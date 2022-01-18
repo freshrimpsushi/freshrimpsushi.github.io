@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/needleman-wunsch-algorithm\/",
-    "wordCount" : "1357",
+    "wordCount" : "1356",
     "genre" : [ "줄리아" ],
     "keywords" : [ "줄리아" ]
 }
@@ -324,12 +324,12 @@ s_{i,j} \leftarrow \max \begin{cases} s_{i-1,j} + \delta \left( v_{i}, -  \right
 <p>$s_{mn}$ 부터 행과 열이 오른쪽 아래에서 왼쪽 위로 따라가며 일치하는 원소를 고르면 두 문자열과 가장 유사한 전역 정렬을 얻는다. 그 점수는 $s_{mn}$ 이다.</p>
 <h2 id="예제">예제</h2>
 <p><strong>Input</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> s1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ATTAGCTCAC&#34;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> s1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ATTAGCTCAC&#34;</span>;
 
 julia<span style="color:#f92672">&gt;</span> s2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ACTATAGCGCAG&#34;</span>;
 </code></pre></div><p>위와 같은 두 <a href="../1828">염기서열</a>을 전역 정렬하자.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> EDNAFULL
-SubstitutionMatrix{BioSymbols<span style="color:#f92672">.</span>DNA,<span style="color:#66d9ef">Int64</span>}<span style="color:#f92672">:</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> EDNAFULL
+<span style="color:#66d9ef">SubstitutionMatrix</span>{<span style="color:#66d9ef">BioSymbols</span><span style="color:#f92672">.</span><span style="color:#66d9ef">DNA</span>,<span style="color:#66d9ef">Int64</span>}<span style="color:#f92672">:</span>
      A  C  M  G  R  S  V  T  W  Y  H  K  D  B  N
   A  <span style="color:#ae81ff">5</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>
   C <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">5</span>  <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>
@@ -355,7 +355,7 @@ SubstitutionMatrix{BioSymbols<span style="color:#f92672">.</span>DNA,<span style
 <p><strong>Step 2. 각 셀에서 스코어를 계산한다.</strong></p>
 <p><img src="step2.png#center" alt="step2"></p>
 <p>C3(3행 3열)에서 다음과 같이 함수를 입력하고 모든 칸으로 복사하면 된다.</p>
-<pre><code>=MAX(B2+IF(C$1=$A3,5,-4), C2-5,B3-5)
+<pre tabindex="0"><code>=MAX(B2+IF(C$1=$A3,5,-4), C2-5,B3-5)
 </code></pre><hr>
 <p><strong>Output. 우측 하단부터 트레이싱한다.</strong></p>
 <p><img src="step3.png#center" alt="step3"></p>
@@ -368,7 +368,7 @@ SubstitutionMatrix{BioSymbols<span style="color:#f92672">.</span>DNA,<span style
 <p>트레이싱 과정에서 알 수 있듯 최적의 서열 정렬은 딱히 유일하지 않을 수 있다. 이렇게 찾을 수 있는 최적의 전역 정렬은 <code>A-T-TAGCCAC</code> 혹은 <code>A-T-TAGCGAC</code> 심지어 <code>ACT-TAGCGAC</code>도 될 수 있다. 그러나 찾을 수 있는 서열정렬들의 점수는 모두 22점으로 동일하다.</p>
 <h2 id="코드">코드</h2>
 <p>다이내믹 프로그래밍인만큼 위와 같이 엑셀로도 간단하게 구현할 수 있다. <a href="#%EC%98%88%EC%A0%9C">예제</a>에서 보았듯 공부한다는 목적에는 괜찮지만 이걸 계속 재사용하는 것은 분명 미련한 짓이다. 다음은 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서 쉽고 빠르게 같은 작업을 수행하는 코드다.</p>
-<pre><code>using BioAlignments
+<pre tabindex="0"><code>using BioAlignments
 
 s1 = &quot;ATTAGCTCAC&quot;;
 s2 = &quot;ACTATAGCGCAG&quot;;
@@ -376,7 +376,7 @@ s2 = &quot;ACTATAGCGCAG&quot;;
 scoremodel = AffineGapScoreModel(EDNAFULL, gap_open=-5, gap_extend=0);
 global_result = pairalign(GlobalAlignment(), s1, s2, scoremodel)
 </code></pre><h3 id="실행-결과">실행 결과</h3>
-<pre><code>using BioAlignments
+<pre tabindex="0"><code>using BioAlignments
 
 julia&gt; s1 = &quot;ATTAGCTCAC&quot;;
 
@@ -394,7 +394,7 @@ PairwiseAlignmentResult{Int64,String,String}:
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Del C. Jones, Pavel A. Pevzner. (2009). An Introduction to Bioinformatics Algorithms (Computational Molecular Biology): p177. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Del C. Jones, Pavel A. Pevzner. (2009). An Introduction to Bioinformatics Algorithms (Computational Molecular Biology): p177.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -795,7 +795,7 @@ PairwiseAlignmentResult{Int64,String,String}:
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1618">🎲</a></p>
+         <a href="../611">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -813,7 +813,7 @@ PairwiseAlignmentResult{Int64,String,String}:
     <a href=https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 추상대수 (76)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 위상수학 (62)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 위상수학 (63)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 그래프이론 (53)</a><br>
     <hr>
@@ -900,7 +900,7 @@ PairwiseAlignmentResult{Int64,String,String}:
     <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/>
         <span style="color:rgb(255,204,000);">●</span> 줄리아 (100++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/>
-        <span style="color:rgb(051,204,051);">●</span> 프로그래밍 (31)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 프로그래밍 (32)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/>
         <span style="color:rgb(051,204,051);">●</span> 알고리즘 (28)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/>
@@ -917,7 +917,7 @@ PairwiseAlignmentResult{Int64,String,String}:
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2094)</summary>
+    <summary>전체 포스트 (2097)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -935,7 +935,7 @@ PairwiseAlignmentResult{Int64,String,String}:
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (45)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (59)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (60)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
@@ -1007,7 +1007,7 @@ PairwiseAlignmentResult{Int64,String,String}:
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/" style="color: black">텐서해석 (12)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (12)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (13)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81-%EA%B2%80%EC%A0%95/" style="color: black">통계적 검정 (14)</a>
         </li><li>
@@ -1147,7 +1147,25 @@ PairwiseAlignmentResult{Int64,String,String}:
 		  macros: {
 		  "\\eqref": "\\href{###1}{(\\text{#1})}",
 		  "\\ref": "\\href{###1}{\\text{#1}}",
-		  "\\label": "\\htmlId{#1}{}"
+		  "\\label": "\\htmlId{#1}{}",
+		  "\\for": "\\text{ for }",
+		  "\\and": "\\text{ and }",
+		  "\\or": "\\text{ or }",
+		  "\\st": "\\text{ s.t. }",
+		  "\\by": "\\text{ by }",
+		  "\\on": "\\text{ on }",
+		  "\\if": "\\text{ if }",
+		  "\\with": "\\text{ with }",
+		  "\\sgn": "\\text{sgn}",
+		  "\\sign": "\\text{sign}",
+		  "\\sinc": "\\text{sinc}",
+		  "\\diag": "\\text{diag}",
+		  "\\diam": "\\text{diam}",
+		  "\\trace": "\\text{trace}",
+		  "\\Re": "\\text{Re}",
+		  "\\Im": "\\text{Im}",
+		  "\\Poi": "\\text{Poi}",
+		  "\\span": "\\text{span}",
 		  },
           
           throwOnError : false
