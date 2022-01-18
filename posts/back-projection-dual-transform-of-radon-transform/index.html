@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/back-projection-dual-transform-of-radon-transform\/",
-    "wordCount" : "572",
+    "wordCount" : "1347",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -285,23 +285,51 @@
     <nav id="TableOfContents">
   <ul>
     <li><a href="#정의1-2">정의 </a></li>
-    <li><a href="#정리">정리</a></li>
-    <li><a href="#설명">설명</a></li>
-    <li><a href="#증명">증명</a></li>
+    <li><a href="#정리">정리</a>
+      <ul>
+        <li><a href="#수식">수식</a></li>
+        <li><a href="#라돈변환의-백-프로젝션">라돈변환의 백 프로젝션</a></li>
+      </ul>
+    </li>
+    <li><a href="#설명">설명</a>
+      <ul>
+        <li><a href="#기하적-의미와-시각화">기하적 의미와 시각화</a></li>
+      </ul>
+    </li>
+    <li><a href="#증명">증명</a>
+      <ul>
+        <li><a href="#수식-1">수식</a></li>
+        <li><a href="#라돈변환의-백-프로젝션3">라돈변환의 백 프로젝션</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 </aside>
 
 <h2 id="정의1-2">정의<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h2>
-<p><a href="../1945">라돈 변환</a> $\mathcal{R} : L^{2}(\mathbb{R}^{n}) \to L^{2}(T)$의 <a href="../1562">듀얼 오퍼레이터</a> $\mathcal{R}^{\#} : L^{2}(T) \to L^{2}(\mathbb{R}^{n})$를 <strong>백 프로젝션</strong><sup>back projection, 배경투사</sup>이라 한다.</p>
+<p><a href="../1945">라돈 변환</a> $\mathcal{R} : L^{2}(\mathbb{R}^{n}) \to L^{2}(\Lambda)$의 <a href="../1562">듀얼 오퍼레이터</a> $\mathcal{R}^{\#} : L^{2}(\Lambda) \to L^{2}(\mathbb{R}^{n})$를 <strong>백 프로젝션</strong><sup>back projection, 배경투사</sup>이라 한다.</p>
 <p>$$
-\left\langle \mathcal{R}f ,g \right\rangle_{L^{2}(T)} = \left\langle f , \mathcal{R}^{\#}g \right\rangle_{L^{2}(\mathbb{R}^{n})}
+\left\langle \mathcal{R}f ,g \right\rangle_{L^{2}(\Lambda)} = \left\langle f , \mathcal{R}^{\#}g \right\rangle_{L^{2}(\mathbb{R}^{n})}
 $$</p>
-<p>여기서 $T = \mathbb{R}^{1} \times \mathbb{S}^{n-1}$는 $\mathbb{R}^{n+1}$의 유닛 실린더이다.</p>
+<p>여기서 $\Lambda = \mathbb{R}^{1} \times \mathbb{S}^{n-1}$는 $\mathbb{R}^{n+1}$의 유닛 실린더이다.</p>
 <h2 id="정리">정리</h2>
+<h3 id="수식">수식</h3>
 <p>백 프로젝션은 구체적으로 다음과 같다.</p>
 <p>$$
 \mathcal{R}^{\#} g (\mathbf{x}) = \int_{\mathbb{S}^{n-1}} g (\mathbf{x} \cdot \boldsymbol{\theta}, \boldsymbol{\theta}) d\boldsymbol{\theta}
+$$</p>
+<p>특히 2차원에서는,</p>
+<p>$$
+\mathcal{R}^{\#} g (x,y) = \int_{0}^{2\pi} g (x\cos\theta + y\sin\theta, \theta) d\theta
+$$</p>
+<h3 id="라돈변환의-백-프로젝션">라돈변환의 백 프로젝션</h3>
+<p>다음의 식이 성립한다.</p>
+<p>$$
+\mathcal{R}^{\#} \mathcal{R} f = \left| \mathbb{S}^{n-2} \right| \dfrac{1}{\left| \mathbf{x} \right|} \ast f
+$$</p>
+<p>여기서 $\ast$는 <a href="../1000">컨볼루션</a>, $\left| \mathbb{S}^{n-1} \right|$는 $n$차원 구의 겉넓이이다. 특히 2차원에서는,</p>
+<p>$$
+\mathcal{R}^{\#} \mathcal{R} f = \dfrac{2}{\left| \mathbf{x} \right|} \ast f
 $$</p>
 <!-- $(x,y)$를 2차원 직교좌표, $(s,\theta)$를 2차원 극좌표라고 하자. $f: \mathbb{R}^{2]} \to \mathbb{R}$이라고 하자. 그러면 $(x, y)$에서 $f=f(s,\theta)$의 **백 프로젝션 변환**<sup>back projection transform, 배경투사</sup>을 다음과 같이 정의한다.
 
@@ -309,17 +337,14 @@ $$
 \mathcal{B}f(x,y) := \int\_0^\pi f(x\cos\theta+y\sin\theta,\ \theta) d\theta
 $$ -->
 <h2 id="설명">설명</h2>
-<p>백 프로젝션은 앞글자를 따서 $\mathcal{B}$라고도 표기한다.</p>
-<p>2차원에 대해서는 다음과 같다.</p>
-<p>$$
-\mathcal{R}^{\#} g (x,y) = \int_{0}^{2\pi} g (x\cos\theta + y\sin\theta, \theta) d\theta
-$$</p>
+<!-- 백 프로젝션은 앞글자를 따서 $\mathcal{B}$라고도 표기한다. -->
 <p>백 프로젝션은 라돈 변환의 듀얼이므로 라돈 역변환의 후보로 생각할 수 있다. 하지만 라돈 변환은 <a href="../adjoint-operator-on-hilbert-space/#%EC%84%A4%EB%AA%85">유니터리</a>가 아니므로 다음이 성립하지 않는다.</p>
 <p>$$
 \mathcal{R}^{-1} \ne \mathcal{R}^{\#}
 $$</p>
-<p>실제로 계산해보면 $\mathcal{R}^{\#}\mathcal{R}f$가 $f$와 비슷하기는 하지만 같지 않다는 것을 확인할 수 있다.</p>
+<p>두번째 정리를 보면 $\mathcal{R}^{\#}\mathcal{R}f$가 $f$와 비슷하기는 하지만 같지는 않다는 것을 알 수 있다. 실제로 계산해보면 원본을 블러<sup>blur</sup>처리한 것처럼 보인다.</p>
 <p><img src="%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C4.PNG#center" alt="슬라이드4.PNG"></p>
+<p>따라서 필터를 통해 블러 효과를 없애준다는 의미로 라돈 역변환을 <a href="../1166">filtered back projection</a>이라 부른다.</p>
 <!-- 극좌표 $(s,\theta)$가 주어질 때 마다 2차원 평면에 아래와 같은 [직선이 결정](../1110)된다.
 
 $$
@@ -339,19 +364,31 @@ $$
 ![PDE.png](PDE.png#center)
 
 위의 그림을 보면 원점에서부터 직선까지의 거리 $s$를 $x\_0\cos\theta$와 $y\_0\sin\theta$의 합으로 나타낼 수 있다. -->
+<h3 id="기하적-의미와-시각화">기하적 의미와 시각화</h3>
+<p>이해를 위해 2차원을 고려하자. 라돈 변환의 백프로젝션은 다음과 같다.</p>
+<p>$$
+\mathcal{R}^{\#} \mathcal{R} f(\mathbf{x}) =\ \int_{0}^{2\pi} \mathcal{R}f(\mathbf{x} \cdot \boldsymbol{\theta}, \theta) d \theta ,\quad \boldsymbol{\theta} = (\cos \theta, \sin \theta)
+$$</p>
+<p>여기서 $\mathcal{R}f(\mathbf{x} \cdot \boldsymbol{\theta}, \theta)$는, $f$를 원점에서부터 $\mathbf{x} \cdot \boldsymbol{\theta}$만큼 떨어져있고 $\boldsymbol{\theta}$와 수직인 <a href="../1110">직선 $l_{\mathbf{x}\cdot \boldsymbol{\theta}, \theta}$</a>로 선적분 한 것이다. 이 직선은 $\theta$와 수직인 각도로 점 $\mathbf{x}$를 지나는 직선이다.</p>
+<p><img src="%EA%B7%B8%EB%A6%BC4.png#center" alt="그림4.png"></p>
+<p>그런데 백 프로젝션은 값 $\mathcal{R}f(\mathbf{x} \cdot \boldsymbol{\theta}, \theta)$을 모든 $\theta \in [0,2\pi)$에 대해서 더한 것(적분)이므로, $\mathcal{R}^{\#} \mathcal{R} f(\mathbf{x})$는 점 $\mathbf{x}$를 지나는 모든 선에 대한 $f$의 선적분의 평균($2\pi$로 나누면)이 된다.</p>
+<p><img src="%EA%B7%B8%EB%A6%BC5.png#center" alt="그림5.png"></p>
+<p>다음의 그림은 $\mathcal{R}^{\#} \mathcal{R} f(\mathbf{x})$를 계산할 때, $\mathcal{R}f(\mathbf{x} \cdot \boldsymbol{\theta}, \theta)$의 값을 $\theta = 0$부터 누적하여 더하는 과정을 보여준다.</p>
+<p><img src="BP.gif#center" alt="BP.gif"></p>
 <h2 id="증명">증명</h2>
+<h3 id="수식-1">수식</h3>
 <p>$$
 \begin{align*}
-\left\langle \mathcal{R}f ,g \right\rangle_{L^{2}(T)}
+\left\langle \mathcal{R}f ,g \right\rangle_{L^{2}(\Lambda)}
 =&amp;\ \int_{\mathbb{R}}\int_{\mathbb{S}^{n-1}} \mathcal{R}f(s, \boldsymbol{\theta}) g(s, \boldsymbol{\theta}) d\boldsymbol{\theta} ds \\ 
 =&amp;\ \int_{\mathbb{R}}\int_{\mathbb{S}^{n-1}} \int_{\mathbb{R}}f(s\boldsymbol{\theta} + t\boldsymbol{\theta}^{\perp})dt g(s, \boldsymbol{\theta}) d\boldsymbol{\theta} ds \\ 
 =&amp;\ \int_{\mathbb{R}} \int_{\mathbb{R}} \int_{\mathbb{S}^{n-1}} f(s\boldsymbol{\theta} + t\boldsymbol{\theta}^{\perp}) g(s, \boldsymbol{\theta}) d\boldsymbol{\theta} ds dt
 \end{align*}
 $$</p>
-<p>$s \boldsymbol{\theta} + t \boldsymbol{\theta}^{\perp} = \mathbf{x}$로 치환하면, $s = \mathbf{x} \cdot \boldsymbol{\theta}$이므로, 다음이 성립한다.</p>
+<p>$s \boldsymbol{\theta} + t \boldsymbol{\theta}^{\perp} = \mathbf{x}$로 치환하면, $s = \mathbf{x} \cdot \boldsymbol{\theta}$이고, 다음이 성립한다.</p>
 <p>$$
 \begin{align*}
-\left\langle \mathcal{R}f ,g \right\rangle_{L^{2}(T)}
+\left\langle \mathcal{R}f ,g \right\rangle_{L^{2}(\Lambda)}
 =&amp;\ \int_{\mathbb{R}^{n}}\int_{\mathbb{S}^{n-1}} f(\mathbf{x}) g(\mathbf{x} \cdot \boldsymbol{\theta}, \boldsymbol{\theta}) d\boldsymbol{\theta} d \mathbf{x} \\ 
 =&amp;\ \int_{\mathbb{R}^{n}} f(\mathbf{x}) \left( \int_{\mathbb{S}^{n-1}} g(\mathbf{x} \cdot \boldsymbol{\theta}, \boldsymbol{\theta}) d\boldsymbol{\theta} \right) d \mathbf{x} \\ 
 =&amp;\ \left\langle f, \left( \int_{\mathbb{S}^{n-1}} g(\left\langle \cdot, \boldsymbol{\theta} \right\rangle, \boldsymbol{\theta}) d\boldsymbol{\theta} \right)  \right\rangle_{L^{2}(\mathbb{R}^{n})}
@@ -359,7 +396,31 @@ $$</p>
 $$</p>
 <p>따라서,</p>
 <p>$$
-\left\langle \mathcal{R}f ,g \right\rangle_{L^{2}(T)} = \left\langle f , \mathcal{R}^{\#}g \right\rangle_{L^{2}(\mathbb{R}^{n})}
+\mathcal{R}^{\#} g (\mathbf{x}) = \int_{\mathbb{S}^{n-1}} g (\mathbf{x} \cdot \boldsymbol{\theta}, \boldsymbol{\theta}) d\boldsymbol{\theta}
+$$</p>
+<p style="text-align: right;">■</p>
+<h3 id="라돈변환의-백-프로젝션3">라돈변환의 백 프로젝션<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></h3>
+<p>$$
+\begin{align*}
+\mathcal{R}^{\#} \mathcal{R} f(\mathbf{x})
+=&amp;\ \int\limits_{\mathbb{S}^{n-1}} \mathcal{R}f(\mathbf{x} \cdot \boldsymbol{\theta}, \boldsymbol{\theta}) d \boldsymbol{\theta} \\ 
+=&amp;\ \int\limits_{\mathbb{S}^{n-1}} \int\limits_{\mathbf{y} \cdot \boldsymbol{\theta} = 0} f\big((\mathbf{x} \cdot \boldsymbol{\theta})\boldsymbol{\theta} + \mathbf{y} \big) d \mathbf{y} d \boldsymbol{\theta} \\ 
+\end{align*}
+$$</p>
+<p>이때 $(\mathbf{x} \cdot \boldsymbol{\theta})\boldsymbol{\theta} = \mathbf{x} - (\mathbf{x} \cdot \boldsymbol{\theta}^{\perp})\boldsymbol{\theta}^{\perp}$이고, 두번째 항은 $\mathbf{y} \cdot \boldsymbol{\theta} = 0$인 $\mathbf{y}$에 포함되므로, 위 적분은 다음과 같다.</p>
+<p>$$
+\mathcal{R}^{\#} \mathcal{R} f(\mathbf{x})
+=\ \int\limits_{\mathbb{S}^{n-1}} \int\limits_{\mathbf{y} \cdot \boldsymbol{\theta} = 0} f(\mathbf{x}  + \mathbf{y} ) d \mathbf{y} d \boldsymbol{\theta} 
+$$</p>
+<blockquote>
+<p>보조정리</p>
+<p>$$
+\int \limits_{\mathbb{S}^{n-1}} \int \limits_{\mathbf{y} \cdot \boldsymbol{\theta} = 0} f(\mathbf{x} + \mathbf{y}) d \mathbf{y} d \boldsymbol{\theta} = \left| \mathbb{S}^{n-2} \right| \int \limits_{\mathbb{R}^{n}} \dfrac{f(\mathbf{y})}{\left| \mathbf{x} - \mathbf{y} \right|}d \mathbf{y}
+$$</p>
+</blockquote>
+<p>그러면 보조정리에 의해,</p>
+<p>$$
+\mathcal{R}^{\#} \mathcal{R} f(\mathbf{x}) = \left| \mathbb{S}^{n-2} \right| \int \limits_{\mathbb{R}^{n}} \dfrac{f(\mathbf{y})}{\left| \mathbf{x} - \mathbf{y} \right|}d \mathbf{y} = \left| \mathbb{S}^{n-2} \right| \dfrac{1}{\left| \mathbf{x} \right|} \ast f
 $$</p>
 <p style="text-align: right;">■</p>
 <!-- ## 응용
@@ -370,16 +431,18 @@ $$
 \mathcal{B}\mathcal{R}f(x,y) = \int\_0^\pi \mathcal{R}f(x\cos\theta+y\sin\theta,\ \theta) d\theta
 $$
 
-이는 점 $(x, y)$를 지나는 각 직선들에 대한 라돈 변환의 평균과 같다. --><blockquote>
-</blockquote>
+이는 점 $(x, y)$를 지나는 각 직선들에 대한 라돈 변환의 평균과 같다. -->
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Frank Natterer, <em>The Mathematics of Computerized Tomography</em> (2001), p13&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Frank Natterer, <em>The Mathematics of Computerized Tomography</em> (2001), p13 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p>Peter Kuchment, <em>The Radon Transform and Medical Imaging</em> (2014), p34-36&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Peter Kuchment, <em>The Radon Transform and Medical Imaging</em> (2014), p34-36 <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>Frank Natterer, <em>The Mathematics of Computerized Tomography</em> (2001), p15-16 <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -780,7 +843,7 @@ $$
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1260">🎲</a></p>
+         <a href="../471">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -902,7 +965,7 @@ $$
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2097)</summary>
+    <summary>전체 포스트 (2096)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
