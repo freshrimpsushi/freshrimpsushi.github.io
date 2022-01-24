@@ -295,10 +295,10 @@
 <!-- "2022-03-29" -->
 <h2 id="mlp-구현">MLP 구현</h2>
 <p>우선 줄리아의 머신러닝 패키지인 <code>Flux.jl</code>와 옵티마이저 업데이트 메소드 <code>update!</code>를 불러오자.</p>
-<pre tabindex="0"><code>using Flux
+<pre><code>using Flux
 using Flux: update!
 </code></pre><p><a href="../3207"><code>Dense()</code></a> 함수로 선형층을 쓸 수 있다. <code>Chain()</code> 함수로 선형층을 쌓을 수 있다. <a href="../equivalent-codes-in-julia-python-matlab-r/#%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9Dsupmachine-learningsup">케라스와 파이토치에서 <code>Sequential()</code>과 같은 기능</a>을 한다.</p>
-<pre tabindex="0"><code>julia&gt; model = Chain(
+<pre><code>julia&gt; model = Chain(
            Dense(10, 5, relu),
            Dense(5, 5, relu),
            Dense(5, 2)
@@ -309,7 +309,7 @@ Chain(
   Dense(5, 2),                          # 12 parameters
 )                   # Total: 6 arrays, 97 parameters, 772 bytes.
 </code></pre><p>이제 임의의 두 벡터를 만들자.</p>
-<pre tabindex="0"><code>x, y = randn(Float32,10), randn(Float32,2) # Dummy data
+<pre><code>x, y = randn(Float32,10), randn(Float32,2) # Dummy data
 </code></pre><p>그러면 우리가 원하는 것은 모델이 입력 $\mathbf{x}$를 받아서 출력으로 $\mathbf{y}$를 내놓는 것이다. 즉 다음의 식이 성립하는 것이다.</p>
 <p>$$
 \begin{equation}
@@ -317,20 +317,20 @@ Chain(
 \end{equation}
 $$</p>
 <p>지금 모델의 가중치는 이와는 무관하게 초기화되어있으므로 당연히 $\mathbf{x}$를 입력으로 받아서 $\mathbf{y}$를 출력으로 내놓지 못한다. <a href="../967">손실함수</a>를 정의해서 확인해보자.</p>
-<pre tabindex="0"><code>julia&gt; loss(x,y) = sum((model(x) .- y).^2)
+<pre><code>julia&gt; loss(x,y) = sum((model(x) .- y).^2)
 loss (generic function with 1 method)
 
 julia&gt; loss(x,y)
 2.1870441f0
 </code></pre><h2 id="경사하강법을-통한-최적화1">경사하강법을 통한 최적화<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
 <p>이제 $(1)$이 성립하도록 <a href="../987">경사하강법</a>을 통해 모델의 파라매터를 수정할 것이다. 우선 모델의 파라매터를 $\theta$, <a href="../987">학습률</a>을 $\eta$라고 두자.</p>
-<pre tabindex="0"><code>julia&gt; θ = Flux.params(model) #Parameters of model
+<pre><code>julia&gt; θ = Flux.params(model) #Parameters of model
 Params([Float32[-0.29360774 0.19699441 … 0.14506716 0.0025551221; -0.49602875 -0.16636823 … 0.5430107 -0.6045276; … ; -0.29023308 -0.092979304 … -0.32037085 0.5427146; -0.2713689 0.17020355 … 0.31819585 -0.15343323], Float32[0.0, 0.0, 0.0, 0.0, 0.0], Float32[0.7170611 -0.029388033 … -0.74007404 -0.6452301; 0.4532911 -0.020822287 … 0.13228391 -0.2621395; … ; -0.16696058 -0.3569812 … 0.50665516 0.68468684; 0.19336864 -0.7220591 … 0.66947246 0.5213879], Float32[0.0, 0.0, 0.0, 0.0, 0.0], Float32[-0.57012194 -0.12291523 … -0.22337069 -0.54895186; 0.45517293 0.5325932 … -0.16550031 -0.15918007], Float32[0.0, 0.0]])
 
 julia&gt; η = 0.1 # Learning Rate
 0.1
 </code></pre><p><code>gradient()</code>로 그래디언트를 계산하고, <code>update!</code> 메서드로 파라매터를 수정할 수 있다. 로스가 $10^{-7}$보다 작아질 때까지 최적화해보면 다음과 같다.</p>
-<pre tabindex="0"><code>julia&gt; i=1
+<pre><code>julia&gt; i=1
 1
 
 julia&gt; @time while loss(x,y) &gt; 0.0000001
@@ -352,7 +352,7 @@ epoch_90 loss=1.0927481e-7
 epoch_91 loss=9.224256e-8
   0.136134 seconds (150.85 k allocations: 8.681 MiB, 66.42% compilation time)
 </code></pre><p>다음의 코드는 위의 경우와 같은 기능을 한다.</p>
-<pre tabindex="0"><code>opt = Descent(0.1) # Gradient descent with learning rate 0.1
+<pre><code>opt = Descent(0.1) # Gradient descent with learning rate 0.1
 
 i=1
 @time while loss(x,y) &gt; 0.0000001
@@ -364,7 +364,7 @@ i=1
     i+=1
 end
 </code></pre><p>실제로 $\mathbf{y}$와 $\text{model}(\mathbf{x})$의 값을 비교해보면 거의 차이가 없음을 알 수 있다.</p>
-<pre tabindex="0"><code>julia&gt; y
+<pre><code>julia&gt; y
 2-element Vector{Float32}:
   0.8913109
  -1.4473413
@@ -375,7 +375,7 @@ julia&gt; model(x)
  -1.4475975
 
 </code></pre><h2 id="코드-전문">코드 전문</h2>
-<pre tabindex="0"><code>## Load package
+<pre><code>## Load package
 using Flux
 using Flux: update!
 
@@ -816,7 +816,7 @@ end
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1054">🎲</a></p>
+         <a href="../1759">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -940,7 +940,7 @@ end
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2103)</summary>
+    <summary>전체 포스트 (2102)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -958,7 +958,7 @@ end
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (45)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (61)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (60)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
