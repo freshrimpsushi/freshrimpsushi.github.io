@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/shepp-logan-phantom-in-julia-matlab-python\/",
-    "wordCount" : "691",
+    "wordCount" : "763",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -284,19 +284,18 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#매트랩httpskrmathworkscomhelpimagesrefphantomhtmls_tiddoc_ta"><a href="https://kr.mathworks.com/help/images/ref/phantom.html?s_tid=doc_ta">매트랩</a></a>
+    <li><a href="#줄리아1">줄리아</a>
       <ul>
         <li><a href="#환경">환경</a></li>
       </ul>
     </li>
-    <li><a href="#파이썬httpsscikit-imageorgdocsdevapiskimagedatahtmlhighlightsheppshepp-logan-phantom"><a href="https://scikit-image.org/docs/dev/api/skimage.data.html?highlight=shepp#shepp-logan-phantom">파이썬</a></a>
+    <li><a href="#매트랩2">매트랩</a>
       <ul>
         <li><a href="#환경-1">환경</a></li>
       </ul>
     </li>
-    <li><a href="#줄리아">줄리아</a>
+    <li><a href="#파이썬3">파이썬</a>
       <ul>
-        <li><a href="#전체코드">전체코드</a></li>
         <li><a href="#환경-2">환경</a></li>
       </ul>
     </li>
@@ -304,13 +303,31 @@
 </nav>
 </aside>
 
-<h2 id="매트랩httpskrmathworkscomhelpimagesrefphantomhtmls_tiddoc_ta"><a href="https://kr.mathworks.com/help/images/ref/phantom.html?s_tid=doc_ta">매트랩</a></h2>
+<h2 id="줄리아1">줄리아<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<ul>
+<li><code>phantom(m,n=1)</code>: $m\times m$ 크기의 Shepp-Logan <a href="../3235">팬텀</a>을 생성한다. <code>n=1</code>일 때는 Shepp-Logan 팬텀, <code>n=2</code>일 때는 Modified Shepp-Logan 팬텀을 생성한다.</li>
+</ul>
+<pre><code>using Tomography
+using Plots
+
+# 팬텀 생성
+p = phantom(256,2)
+
+# 그림 출력
+heatmap(reverse(p, dims=1))
+</code></pre><p><img src="Julia.png#center" alt="Julia.png"></p>
+<h3 id="환경">환경</h3>
+<ul>
+<li>OS: Windows10</li>
+<li>Version: Julia 1.7.1, Tomography 0.1.5</li>
+</ul>
+<h2 id="매트랩2">매트랩<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h2>
 <p><code>phantom</code>으로 Shepp-Logan <a href="../1741">팬텀</a>을 생성할 수 있다. 아무런 변수도 입력하지 않으면 $256 \times 256$의 배열이 만들어진다. 첫번째 변수에는 팬텀의 종류, 두번째 변수에는 크기를 입력하여 임의의 팬텀을 생성할 수 있다. 아래는 예제코드와 실행결과이다.</p>
-<pre tabindex="0"><code>%팬텀 생성
+<pre><code>%팬텀 생성
 p1 = phantom();
 p2 = phantom('Modified Shepp-Logan',2^10);
 
-%그림 그리기
+%그림 출력
 figure()
 
 %첫번째 그림 p1
@@ -324,44 +341,53 @@ subplot(1,2,2)
 imagesc(p2)
 colorbar
 title('p2')
-</code></pre><h3 id="환경">환경</h3>
+</code></pre><h3 id="환경-1">환경</h3>
 <ul>
 <li>OS: Windows10</li>
 <li>Version: R2020b</li>
 </ul>
 <p><img src="Matlab.png#center" alt="Matlab.png"></p>
-<h2 id="파이썬httpsscikit-imageorgdocsdevapiskimagedatahtmlhighlightsheppshepp-logan-phantom"><a href="https://scikit-image.org/docs/dev/api/skimage.data.html?highlight=shepp#shepp-logan-phantom">파이썬</a></h2>
+<h2 id="파이썬3">파이썬<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></h2>
 <p>사이킷이미지 패키지 <code>skimage</code>의 <code>data</code> 모듈에서 <code>shepp_logan_phantom</code>함수를 쓰면 된다. 변수를 입력하지 않으면 $400 \times 400$의 팬텀을 생성한다. 아래는 예제코드와 실행결과이다.</p>
-<pre tabindex="0"><code>import matplotlib.pyplot as plt
+<pre><code>import matplotlib.pyplot as plt
 
 from skimage.data import shepp_logan_phantom
 
-#Phantom 생성
+# 팬텀 생성
 P = shepp_logan_phantom() #default size=(400,400)
 
-#그림 출력
+# 그림 출력
 plt.imshow(P)
 plt.show()
 </code></pre><p><img src="Python.png#center" alt="Python.png"></p>
-<h3 id="환경-1">환경</h3>
+<h3 id="환경-2">환경</h3>
 <ul>
 <li>OS: Windows10</li>
 <li>Version: Python 3.9.2, scikit-image 0.18.1</li>
 </ul>
-<h2 id="줄리아">줄리아</h2>
-<p>지원하지 않는다. 직접 코드를 짜서 실행해보면 다음과 같이 작동한다. 가독성을 위해 최하단에 <code>phantom</code>의 전체 코드를 올려두었다.</p>
-<pre tabindex="0"><code>julia&gt; p=phantom(100,2)
+<!-- ## 줄리아
+
+지원하지 않는다. 직접 코드를 짜서 실행해보면 다음과 같이 작동한다. 가독성을 위해 최하단에 `phantom`의 전체 코드를 올려두었다.
+
+```
+julia> p=phantom(100,2)
 100×100 Array{Float64,2}:
 
-julia&gt; using Plots
+julia> using Plots
 
-julia&gt; fig=heatmap(p, yflip=true)
+julia> fig=heatmap(p, yflip=true)
 
-julia&gt; savefig(fig,&quot;Julia.png&quot;)
-</code></pre><p><img src="Julia.png#center" alt="Julia.png"></p>
-<h3 id="전체코드">전체코드</h3>
-<p>타원에 대한 값은 <a href="https://en.wikipedia.org/wiki/Shepp%E2%80%93Logan_phantom">위키피디아</a>와 매트랩의 <code>phantom</code> 코드를 뜯어봐서 참고하였다.</p>
-<pre tabindex="0"><code>function phantom(N::Int64, n::Int64) #N:이미지 크기, n:팬텀의 타입
+julia> savefig(fig,"Julia.png")
+```
+
+![Julia.png](Julia.png#center)
+
+### 전체코드
+
+타원에 대한 값은 [위키피디아](https://en.wikipedia.org/wiki/Shepp%E2%80%93Logan_phantom)와 매트랩의 `phantom` 코드를 뜯어봐서 참고하였다.
+
+```
+function phantom(N::Int64, n::Int64) #N:이미지 크기, n:팬텀의 타입
     #Shepp-Logan phantom n=1
     #            A     a       b        x0     y0        phi     
     #            k1    k2      k3       k4     k5        k6          
@@ -404,16 +430,16 @@ julia&gt; savefig(fig,&quot;Julia.png&quot;)
   
     for k=1:10
   
-      if k &lt; 9 #회전이 없는 타원
+      if k < 9 #회전이 없는 타원
         for i=1:N, j=1:N #i, j 헷갈리지 않게 주의
-          if ( (x[j]-sl[k,4])/sl[k,2] )^2 + ( (y[i]-sl[k,5])/sl[k,3] )^2 &lt; 1
+          if ( (x[j]-sl[k,4])/sl[k,2] )^2 + ( (y[i]-sl[k,5])/sl[k,3] )^2 < 1
             P[i, j]+= sl[k,1]
           end
         end
   
       else #회전이 있는 타원
         for i=1:N, j=1:N
-          if ( (cos(sl[k,6])*(x[j]-sl[k,4])+sin(sl[k,6])*(y[i]-sl[k,5]))/sl[k,2] )^2+( (sin(sl[k,6])*(x[j]-sl[k,4])-cos(sl[k,6])*(y[i]-sl[k,5]))/sl[k,3] )^2&lt; 1
+          if ( (cos(sl[k,6])*(x[j]-sl[k,4])+sin(sl[k,6])*(y[i]-sl[k,5]))/sl[k,2] )^2+( (sin(sl[k,6])*(x[j]-sl[k,4])-cos(sl[k,6])*(y[i]-sl[k,5]))/sl[k,3] )^2< 1
             P[i, j]+= sl[k,1]
           end
         end
@@ -424,11 +450,26 @@ julia&gt; savefig(fig,&quot;Julia.png&quot;)
     return P
   
  end
-</code></pre><h3 id="환경-2">환경</h3>
-<ul>
-<li>OS: Windows10</li>
-<li>Version: 1.5.3</li>
-</ul>
+ ```
+
+### 환경
+- OS: Windows10
+- Version: 1.5.3 -->
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://knu-math-ai.github.io/Tomography.jl/dev/phantom/">https://knu-math-ai.github.io/Tomography.jl/dev/phantom/</a>
+토모그래피 패키지 <code>Tomography.jl</code>에서 <code>phantom()</code>함수를 사용하면 된다.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p><a href="https://kr.mathworks.com/help/images/ref/phantom.html?s_tid=doc_ta">https://kr.mathworks.com/help/images/ref/phantom.html?s_tid=doc_ta</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p><a href="https://scikit-image.org/docs/dev/api/skimage.data.html?highlight=shepp#shepp-logan-phantom">https://scikit-image.org/docs/dev/api/skimage.data.html?highlight=shepp#shepp-logan-phantom</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
@@ -776,7 +817,7 @@ julia&gt; savefig(fig,&quot;Julia.png&quot;)
             
 
 <aside>
-    <p><b>🔎 F2</b></p>
+    <p><b>🔎 F2 키를 눌러 검색</b></p>
     <ul class="lately-viewed-list" style="list-style-type: none; padding-left:4px;">
         
     </ul>
@@ -826,7 +867,7 @@ julia&gt; savefig(fig,&quot;Julia.png&quot;)
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1080">🎲</a></p>
+         <a href="../753">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -917,6 +958,8 @@ julia&gt; savefig(fig,&quot;Julia.png&quot;)
         <span style="color:rgb(051,204,051);">●</span> R (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/>
         <span style="color:rgb(255,051,051);">●</span> 데이터확보 (20++)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%8B%9C%EA%B0%81%ED%99%94/>
+        <span style="color:rgb(255,051,051);">●</span> 데이터시각화 (0++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EA%B2%80%EC%A0%95/>
         <span style="color:rgb(255,051,051);">●</span> 통계적검정 (14)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
@@ -950,7 +993,7 @@ julia&gt; savefig(fig,&quot;Julia.png&quot;)
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2104)</summary>
+    <summary>전체 포스트 (2105)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -1050,7 +1093,7 @@ julia&gt; savefig(fig,&quot;Julia.png&quot;)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (50)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (29)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (30)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (78)</a>
         </li><li>
