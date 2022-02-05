@@ -59,10 +59,10 @@
     </script>
 
     
-<meta name="title" content="세미나3">
+<meta name="title" content="파이썬 matplotlib.pyplot에서 그림 스케일 범위 지정하는 방법">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="세미나3"/>
-<meta property="og:description" content="세미나3"/>
+<meta property="og:title" content="파이썬 matplotlib.pyplot에서 그림 스케일 범위 지정하는 방법"/>
+<meta property="og:description" content="How to Set the Scale Range in Python matplotlib.pyplot"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -74,15 +74,15 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "j_",
-    "name": "세미나3",
-    "headline": "세미나3",
+    "name": "파이썬 matplotlib.pyplot에서 그림 스케일 범위 지정하는 방법",
+    "headline": "파이썬 matplotlib.pyplot에서 그림 스케일 범위 지정하는 방법",
     "alternativeHeadline": "",
-    "description": "세미나3",
+    "description": "How to Set the Scale Range in Python matplotlib.pyplot",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/tpalsk3\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/how-to-set-the-scale-range-in-python-matplotlib-pyplot\/"
     },
     "author" : {
         "@type": "Person",
@@ -97,10 +97,10 @@
         "name": "전기현"
     },
     "copyrightHolder" : "생새우초밥집",
-    "copyrightYear" : "2021",
-    "dateCreated": "2021-01-01T00:00:00.00Z",
-    "datePublished": "2021-01-01T00:00:00.00Z",
-    "dateModified": "2021-01-01T00:00:00.00Z",
+    "copyrightYear" : "2022",
+    "dateCreated": "2022-02-05T00:00:00.00Z",
+    "datePublished": "2022-02-05T00:00:00.00Z",
+    "dateModified": "2022-02-05T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -113,15 +113,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/tpalsk3\/",
-    "wordCount" : "74",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-set-the-scale-range-in-python-matplotlib-pyplot\/",
+    "wordCount" : "185",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>세미나3</title>
+    <title>파이썬 matplotlib.pyplot에서 그림 스케일 범위 지정하는 방법</title>
 
 </head>
 
@@ -130,7 +130,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/basic.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D.png style="max-height: 80px; width: auto;">
             
             
             
@@ -261,48 +261,80 @@
             <div class = "content">
             
 
-<title>세미나3</title>
+<title>파이썬 matplotlib.pyplot에서 그림 스케일 범위 지정하는 방법</title>
 
-<h1>세미나3</h1>
+<h1>파이썬 matplotlib.pyplot에서 그림 스케일 범위 지정하는 방법</h1>
 <aside>
-    세미나3
+    How to Set the Scale Range in Python matplotlib.pyplot
     <p style="text-align: right;">
-        
+        3185
 
     
     
-    작성일: 2021-01-01&nbsp;<br>
+            <a href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍</a>&emsp;
+            
+    </span>
+    
+    작성일: 2022-02-05&nbsp;<br>
     작성자: 전기현 사장 &nbsp;
 </p>
 </aside>
 
 <aside>
     <b>목차</b>
-    <nav id="TableOfContents"></nav>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#코드1">코드</a></li>
+    <li><a href="#환경">환경</a></li>
+    <li><a href="#환경-1">환경</a></li>
+    <li><a href="#같이보기">같이보기</a></li>
+  </ul>
+</nav>
 </aside>
 
-<p>$$
-\Huge (f, c) \quad \overset{\mathcal{W}}{{\huge |} \!\!\!\longrightarrow} \quad u|_{\Gamma} = \mathcal{W}(f,c)
-$$</p>
-<p>$$
-\Huge f \text{ or } c \quad \overset{\mathcal{W}^{-1}}{\longleftarrow \!\!\! {\huge |}}\ \ \ \mathcal{W}(f,c)
-$$</p>
-<p>$$
-\Huge \text{NN} = \widetilde{\mathcal{W}^{-1}} \approx \mathcal{W}^{-1} \\[1em]
-\text{NN}(\mathcal{W}_{c}f) = ( \tilde{f}, \tilde{c} ) \\[1em]
-\| \tilde{f} - f \| \to 0, \| \tilde{c} - c \| \to 0
-$$</p>
-<p>$$
-\Huge \mathcal{W}(\tilde{f}, \tilde{c}) = \mathcal{W}_{\tilde{c}}\tilde{f} \\[1em]
-\| \mathcal{W}_{\tilde{c}}\tilde{f} - \mathcal{W}_{c}f \| \to 0
-$$</p>
+<h2 id="코드1">코드<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p><code>plt.clim()</code>을 통해 이미지의 스케일을 고정할 수 있다. 다만 <code>plt.imshow()</code>는 컬러바를 프린트하지 않는 것이 기본값이기에 <code>plt.colorbar()</code>를 추가해야 볼 수 있다.</p>
+<pre><code>import numpy as np
+import matplotlib.pyplot as plt
+
+A = np.random.rand(4,4)
+
+plt.imshow(A)
+plt.colorbar()
+plt.show()
+
+plt.imshow(A)
+plt.colorbar()
+plt.clim(0,1)
+plt.show()
+</code></pre><p>결과는 다음과 같다. 첫번째 이미지와는 달리 두번째 이미지에서는 컬러바의 범위가 0에서부터 1까지로 고정되어있음을 볼 수 있다.</p>
+<p><img src="1.PNG#center" alt="1.PNG"></p>
+<p><img src="2.PNG#center" alt="2.PNG"></p>
+<h2 id="환경">환경</h2>
+<h2 id="환경-1">환경</h2>
+<ul>
+<li>OS: Windows10</li>
+<li>Version: Python 3.9.2, matplotlib 3.4.2</li>
+</ul>
+<h2 id="같이보기">같이보기</h2>
+<ul>
+<li><a href="../2126">줄리아에서</a></li>
+</ul>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.clim.html?highlight=clim#matplotlib.pyplot.clim">https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.clim.html?highlight=clim#matplotlib.pyplot.clim</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var title = '세미나3';
-        var link = 'https:\/\/freshrimpsushi.github.io\/posts\/tpalsk3\/';
+        var title = '파이썬 matplotlib.pyplot에서 그림 스케일 범위 지정하는 방법';
+        var link = 'https:\/\/freshrimpsushi.github.io\/posts\/how-to-set-the-scale-range-in-python-matplotlib-pyplot\/';
         var arr = new Array();
         var obj = {
             "title": title,
@@ -420,9 +452,9 @@ $$</p>
             alert('빈칸을 채워주세요');
             return;
         }
-        let board_idx = '';
-        let board_slug = 'tpalsk3';
-        let board_title = '세미나3';
+        let board_idx = '3185';
+        let board_slug = 'how-to-set-the-scale-range-in-python-matplotlib-pyplot';
+        let board_title = '파이썬 matplotlib.pyplot에서 그림 스케일 범위 지정하는 방법';
 
         $.ajax({
             type: "POST",
@@ -536,7 +568,7 @@ $$</p>
             type: "POST",
             url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.comment.php?action=getComment",
             data: {
-                board_idx: ''
+                board_idx: '3185'
             },
             dataType: "json",
             success: function (data) {
@@ -610,9 +642,9 @@ $$</p>
                 alert('빈칸을 채워주세요');
                 return;
             }
-            let idx = '';
-            let board_slug = 'tpalsk3';
-            let board_title = '세미나3';
+            let idx = '3185';
+            let board_slug = 'how-to-set-the-scale-range-in-python-matplotlib-pyplot';
+            let board_title = '파이썬 matplotlib.pyplot에서 그림 스케일 범위 지정하는 방법';
 
             $.ajax({
                 type: "POST",
@@ -693,7 +725,7 @@ $$</p>
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1960">🎲</a></p>
+         <a href="../1247">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -819,7 +851,7 @@ $$</p>
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2216)</summary>
+    <summary>전체 포스트 (2215)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -837,7 +869,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (45)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (63)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (62)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
@@ -921,7 +953,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (50)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (31)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (32)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (78)</a>
         </li><li>
@@ -1060,16 +1092,17 @@ $$</p>
 		  "\\on": "\\text{ on }",
 		  "\\if": "\\text{ if }",
 		  "\\with": "\\text{ with }",
-		  "\\sgn": "\\text{sgn}",
-		  "\\sign": "\\text{sign}",
-		  "\\sinc": "\\text{sinc}",
-		  "\\diag": "\\text{diag}",
-		  "\\diam": "\\text{diam}",
-		  "\\trace": "\\text{trace}",
-		  "\\Re": "\\text{Re}",
-		  "\\Im": "\\text{Im}",
-		  "\\Poi": "\\text{Poi}",
-		  "\\span": "\\text{span}",
+		  "\\sgn": "\\operatorname{sgn}",
+		  "\\sign": "\\operatorname{sign}",
+		  "\\sinc": "\\operatorname{sinc}",
+		  "\\diag": "\\operatorname{diag}",
+		  "\\diam": "\\operatorname{diam}",
+		  "\\trace": "\\operatorname{trace}",
+		  "\\Re": "\\operatorname{Re}",
+		  "\\Im": "\\operatorname{Im}",
+		  "\\Poi": "\\operatorname{Poi}",
+		  "\\span": "\\operatorname{span}",
+		  "\\supp": "\\operatorname{supp}",
 		  },
           
           throwOnError : false

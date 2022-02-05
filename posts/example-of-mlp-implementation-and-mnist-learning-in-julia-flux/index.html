@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/example-of-mlp-implementation-and-mnist-learning-in-julia-flux\/",
-    "wordCount" : "997",
+    "wordCount" : "999",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -303,40 +303,40 @@
 <!-- "2022-04-18" -->
 <h2 id="mnist-데이터-셋-불러오기">MNIST 데이터 셋 불러오기</h2>
 <p>오래된 예제의 경우 이 부분에서 <code>Flux.Data</code>를 사용하는 코드를 볼 수 있는데, 이제는 플럭스에서 지원하지 않는다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> Flux<span style="color:#f92672">.</span>Data<span style="color:#f92672">.</span>MNIST<span style="color:#f92672">.</span>images()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> Flux<span style="color:#f92672">.</span>Data<span style="color:#f92672">.</span>MNIST<span style="color:#f92672">.</span>images()
 ┌ Warning<span style="color:#f92672">:</span> Flux<span style="color:#f92672">&#39;</span>s datasets are deprecated, please use the package MLDatasets<span style="color:#f92672">.</span>jl
 </code></pre></div><p>공식 문서<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>에서 <a href="../3191">`MLDatasets.jl'</a> 패키지를 사용하라고 안내한다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> Flux
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> Flux
 
 julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> MLDatasets
 
 julia<span style="color:#f92672">&gt;</span> imgs <span style="color:#f92672">=</span> MLDatasets<span style="color:#f92672">.</span>MNIST<span style="color:#f92672">.</span>traintensor()
-<span style="color:#ae81ff">28</span><span style="color:#f92672">×</span><span style="color:#ae81ff">28</span><span style="color:#f92672">×</span><span style="color:#ae81ff">60000</span> reinterpret(FixedPointNumbers<span style="color:#f92672">.</span>N0f8, <span style="color:#f92672">::</span><span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">UInt8</span>, <span style="color:#ae81ff">3</span>})
+<span style="color:#ae81ff">28</span>×28×60000 reinterpret(FixedPointNumbers<span style="color:#f92672">.</span>N0f8, <span style="color:#f92672">::</span><span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">UInt8</span>, <span style="color:#ae81ff">3</span>})
 
 julia<span style="color:#f92672">&gt;</span> labs <span style="color:#f92672">=</span> MLDatasets<span style="color:#f92672">.</span>MNIST<span style="color:#f92672">.</span>trainlabels()
 <span style="color:#ae81ff">60000</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Int64</span>}
 </code></pre></div><p>이미지와 레이블을 이대로 쓸 수는 없다. 이미지는 자료형을 32비트 부동소수점으로 바꿔줘야하고, 레이블은 <a href="../3219">원-핫 인코딩</a>을 해주어야한다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">=</span> float<span style="color:#f92672">.</span>(imgs)
-<span style="color:#ae81ff">28</span><span style="color:#f92672">×</span><span style="color:#ae81ff">28</span><span style="color:#f92672">×</span><span style="color:#ae81ff">60000</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float32</span>, <span style="color:#ae81ff">3</span>}
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">=</span> float<span style="color:#f92672">.</span>(imgs)
+<span style="color:#ae81ff">28</span>×28×60000 <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float32</span>, <span style="color:#ae81ff">3</span>}
 
 julia<span style="color:#f92672">&gt;</span> Y <span style="color:#f92672">=</span> Flux<span style="color:#f92672">.</span>onehotbatch(labs, <span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">9</span>)
-<span style="color:#ae81ff">10</span><span style="color:#f92672">×</span><span style="color:#ae81ff">60000</span> OneHotMatrix(<span style="color:#f92672">::</span><span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">UInt32</span>}) with eltype <span style="color:#66d9ef">Bool</span>
+<span style="color:#ae81ff">10</span>×60000 OneHotMatrix(<span style="color:#f92672">::</span><span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">UInt32</span>}) with eltype <span style="color:#66d9ef">Bool</span>
 </code></pre></div><p>이제 데이터와 레이블을 묶어서 훈련 집합을 만들자. 다음의 두 가지 방법이 있다.</p>
 <ol>
 <li><code>repeated((X, Y), n)</code></li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> Base<span style="color:#f92672">.</span>Iterators<span style="color:#f92672">:</span> repeated
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> Base<span style="color:#f92672">.</span>Iterators<span style="color:#f92672">:</span> repeated
 
 julia<span style="color:#f92672">&gt;</span> Train_Data <span style="color:#f92672">=</span> repeated((X,Y), <span style="color:#ae81ff">1</span>)
 </code></pre></div><p><code>(X, Y)</code>를 n번 반복해서 붙인다. 따라서 <code>n=10</code>으로 두고 데이터 셋을 만들어 학습시키면 10epoch만큼 학습하는 것과 같다.</p>
 <ol start="2">
 <li><code>Flux.DataLoader((X, Y); batchsize=1, shuffle=false, partial=true, rng=GLOBAL_RNG)</code></li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> Train_Data <span style="color:#f92672">=</span> Flux<span style="color:#f92672">.</span>DataLoader((X,Y), batchsize<span style="color:#f92672">=</span><span style="color:#ae81ff">60000</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> Train_Data <span style="color:#f92672">=</span> Flux<span style="color:#f92672">.</span>DataLoader((X,Y), batchsize<span style="color:#f92672">=</span><span style="color:#ae81ff">60000</span>)
 </code></pre></div><p>데이터 60,000개를 한 번에 학습시킬거라 배치 사이즈를 60,000으로 뒀다.</p>
 <h2 id="mlp-구현">MLP 구현</h2>
 <p>MLP는 <a href="../3211"><code>Chain()</code></a> 함수로 구현할 수 있다. 우리는 데이터 $X$를 펼쳐놓지 않았으므로, 첫번째 층에 <code>Flux.flatten</code>을 추가해야 한다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> MLP <span style="color:#f92672">=</span> Chain(Flux<span style="color:#f92672">.</span>flatten,
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> MLP <span style="color:#f92672">=</span> Chain(Flux<span style="color:#f92672">.</span>flatten,
                    Dense(<span style="color:#ae81ff">28</span><span style="color:#f92672">*</span><span style="color:#ae81ff">28</span>, <span style="color:#ae81ff">28</span>, relu),
                    Dense(<span style="color:#ae81ff">28</span>, <span style="color:#ae81ff">10</span>),
                    softmax)
@@ -347,31 +347,31 @@ Chain(
   NNlib<span style="color:#f92672">.</span>softmax,
 )                   <span style="color:#75715e"># Total: 4 arrays, 22_270 parameters, 87.242 KiB.</span>
 </code></pre></div><p>참고로 <code>flatten()</code>을 데이터에 적용하려면, 나머지 부분은 같게 두고 <code>X</code>와 <code>Chain()</code>을 다음과 같이 수정하면 된다. 다만 속도에 별 차이는 없다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">X <span style="color:#f92672">=</span> flatten(float<span style="color:#f92672">.</span>(imgs))
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">X <span style="color:#f92672">=</span> flatten(float<span style="color:#f92672">.</span>(imgs))
 
 julia<span style="color:#f92672">&gt;</span> MLP <span style="color:#f92672">=</span> Chain(Dense(<span style="color:#ae81ff">28</span><span style="color:#f92672">*</span><span style="color:#ae81ff">28</span>, <span style="color:#ae81ff">28</span>, relu),
                    Dense(<span style="color:#ae81ff">28</span>, <span style="color:#ae81ff">10</span>),
                    softmax)
 </code></pre></div><h2 id="손실함수와-옵티마이저-정의">손실함수와 옵티마이저 정의</h2>
 <p><a href="../967">손실함수</a>는 <a href="../loss-function/#%ED%81%AC%EB%A1%9C%EC%8A%A4-%EC%97%94%ED%8A%B8%EB%A1%9C%ED%94%BC">크로스 엔트로피</a>로, 옵티마이저는 ADAM으로 정의하자.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> LOSS(x,y) <span style="color:#f92672">=</span> Flux<span style="color:#f92672">.</span>crossentropy(MLP(x), y)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> LOSS(x,y) <span style="color:#f92672">=</span> Flux<span style="color:#f92672">.</span>crossentropy(MLP(x), y)
 LOSS (generic <span style="color:#66d9ef">function</span> with <span style="color:#ae81ff">1</span> method)
 
 julia<span style="color:#f92672">&gt;</span> LOSS(X,Y)
 <span style="color:#ae81ff">2.3614984f0</span>
 
 julia<span style="color:#f92672">&gt;</span> opt <span style="color:#f92672">=</span> ADAM()
-ADAM(<span style="color:#ae81ff">0.001</span>, (<span style="color:#ae81ff">0.9</span>, <span style="color:#ae81ff">0.999</span>), <span style="color:#66d9ef">IdDict</span>{<span style="color:#66d9ef">Any</span>, <span style="color:#66d9ef">Any</span>}())
+ADAM(<span style="color:#ae81ff">0.001</span>, (<span style="color:#ae81ff">0.9</span>, <span style="color:#ae81ff">0.999</span>), IdDict{<span style="color:#66d9ef">Any</span>, <span style="color:#66d9ef">Any</span>}())
 </code></pre></div><h2 id="훈련">훈련</h2>
 <p><code>train!()</code> 메서드로 모델을 훈련시킨다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> Flux<span style="color:#f92672">.</span>train!(LOSS, params(MLP), Train_Data, opt)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> Flux<span style="color:#f92672">.</span>train!(LOSS, params(MLP), Train_Data, opt)
 </code></pre></div><h3 id="학습-과정-출력2">학습 과정 출력<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h3>
 <p>다만 이렇게하면 학습과정을 알 수 없다. 콜백을 다음과 같이 설정하면 1초에 한 번씩 로스를 출력한다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> Flux<span style="color:#f92672">.</span>train!(LOSS, params(MLP), Train_Data, opt, cb <span style="color:#f92672">=</span> Flux<span style="color:#f92672">.</span>throttle(() <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">@show</span>(LOSS(X, Y)), <span style="color:#ae81ff">1</span>))
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> Flux<span style="color:#f92672">.</span>train!(LOSS, params(MLP), Train_Data, opt, cb <span style="color:#f92672">=</span> Flux<span style="color:#f92672">.</span>throttle(() <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">@show</span>(LOSS(X, Y)), <span style="color:#ae81ff">1</span>))
 LOSS(X, Y) <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.2364092f0</span>
 </code></pre></div><h3 id="에포크-설정">에포크 설정</h3>
 <p><code>@epochs</code> <a href="../1454">매크로</a>로 에포크를 설정할 수 있다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> Flux<span style="color:#f92672">:</span> <span style="color:#a6e22e">@epochs</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> Flux<span style="color:#f92672">:</span> <span style="color:#a6e22e">@epochs</span>
 
 julia<span style="color:#f92672">&gt;</span>  <span style="color:#a6e22e">@epochs</span> <span style="color:#ae81ff">5</span> Flux<span style="color:#f92672">.</span>train!(LOSS, params(MLP), Train_Data, opt, cb <span style="color:#f92672">=</span> Flux<span style="color:#f92672">.</span>throttle(() <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">@show</span>(LOSS(X, Y)), <span style="color:#ae81ff">1</span>))
 [ Info<span style="color:#f92672">:</span> Epoch <span style="color:#ae81ff">1</span>
@@ -386,7 +386,7 @@ LOSS(X, Y) <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.03
 LOSS(X, Y) <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.9894044f0</span>
 </code></pre></div><h3 id="훈련-시간-측정">훈련 시간 측정</h3>
 <p><code>@time</code> 매크로로 훈련 시간을 측정할 수 있다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@epochs</span> <span style="color:#ae81ff">5</span> <span style="color:#a6e22e">@time</span> Flux<span style="color:#f92672">.</span>train!(LOSS, params(MLP), Train_Data, opt, cb <span style="color:#f92672">=</span> Flux<span style="color:#f92672">.</span>throttle(() <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">@show</span>(LOSS(X, Y)), <span style="color:#ae81ff">1</span>))
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@epochs</span> <span style="color:#ae81ff">5</span> <span style="color:#a6e22e">@time</span> Flux<span style="color:#f92672">.</span>train!(LOSS, params(MLP), Train_Data, opt, cb <span style="color:#f92672">=</span> Flux<span style="color:#f92672">.</span>throttle(() <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">@show</span>(LOSS(X, Y)), <span style="color:#ae81ff">1</span>))
 [ Info<span style="color:#f92672">:</span> Epoch <span style="color:#ae81ff">1</span>
 LOSS(X, Y) <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.9431362f0</span>
   <span style="color:#ae81ff">0.366819</span> seconds (<span style="color:#ae81ff">238.95</span> k allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">269.987</span> MiB, <span style="color:#ae81ff">33.97</span><span style="color:#f92672">%</span> compilation time)
@@ -403,7 +403,7 @@ LOSS(X, Y) <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.80
 LOSS(X, Y) <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.7620988f0</span>
   <span style="color:#ae81ff">0.258424</span> seconds (<span style="color:#ae81ff">418</span> allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">257.373</span> MiB)
 </code></pre></div><h2 id="코드-전문">코드 전문</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Flux
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Flux
 <span style="color:#66d9ef">using</span> MLDatasets
 
 <span style="color:#66d9ef">using</span> Base<span style="color:#f92672">.</span>Iterators<span style="color:#f92672">:</span> repeated
@@ -442,10 +442,10 @@ opt <span style="color:#f92672">=</span> ADAM()
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://fluxml.ai/Flux.jl/stable/datasets/">https://fluxml.ai/Flux.jl/stable/datasets/</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://fluxml.ai/Flux.jl/stable/datasets/">https://fluxml.ai/Flux.jl/stable/datasets/</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p><a href="https://fluxml.ai/Flux.jl/stable/training/training/#Callbacks">https://fluxml.ai/Flux.jl/stable/training/training/#Callbacks</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://fluxml.ai/Flux.jl/stable/training/training/#Callbacks">https://fluxml.ai/Flux.jl/stable/training/training/#Callbacks</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -846,7 +846,7 @@ opt <span style="color:#f92672">=</span> ADAM()
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../594">🎲</a></p>
+         <a href="../988">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (64)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -972,7 +972,7 @@ opt <span style="color:#f92672">=</span> ADAM()
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2216)</summary>
+    <summary>전체 포스트 (2215)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -990,7 +990,7 @@ opt <span style="color:#f92672">=</span> ADAM()
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (45)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (63)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (62)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
@@ -1074,7 +1074,7 @@ opt <span style="color:#f92672">=</span> ADAM()
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (50)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (31)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (32)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (78)</a>
         </li><li>
@@ -1213,16 +1213,17 @@ opt <span style="color:#f92672">=</span> ADAM()
 		  "\\on": "\\text{ on }",
 		  "\\if": "\\text{ if }",
 		  "\\with": "\\text{ with }",
-		  "\\sgn": "\\text{sgn}",
-		  "\\sign": "\\text{sign}",
-		  "\\sinc": "\\text{sinc}",
-		  "\\diag": "\\text{diag}",
-		  "\\diam": "\\text{diam}",
-		  "\\trace": "\\text{trace}",
-		  "\\Re": "\\text{Re}",
-		  "\\Im": "\\text{Im}",
-		  "\\Poi": "\\text{Poi}",
-		  "\\span": "\\text{span}",
+		  "\\sgn": "\\operatorname{sgn}",
+		  "\\sign": "\\operatorname{sign}",
+		  "\\sinc": "\\operatorname{sinc}",
+		  "\\diag": "\\operatorname{diag}",
+		  "\\diam": "\\operatorname{diam}",
+		  "\\trace": "\\operatorname{trace}",
+		  "\\Re": "\\operatorname{Re}",
+		  "\\Im": "\\operatorname{Im}",
+		  "\\Poi": "\\operatorname{Poi}",
+		  "\\span": "\\operatorname{span}",
+		  "\\supp": "\\operatorname{supp}",
 		  },
           
           throwOnError : false
