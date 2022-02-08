@@ -62,7 +62,7 @@
 <meta name="title" content="뉴턴 계차상 공식 유도">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
 <meta property="og:title" content="뉴턴 계차상 공식 유도"/>
-<meta property="og:description" content="Derivation of newton divided difference formula"/>
+<meta property="og:description" content="Derivation of Newton Divided Difference Formula"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -77,7 +77,7 @@
     "name": "뉴턴 계차상 공식 유도",
     "headline": "뉴턴 계차상 공식 유도",
     "alternativeHeadline": "",
-    "description": "Derivation of newton divided difference formula",
+    "description": "Derivation of Newton Divided Difference Formula",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/derivation-of-newton-divided-difference-formula\/",
-    "wordCount" : "1095",
+    "wordCount" : "1067",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -265,7 +265,7 @@
 
 <h1>뉴턴 계차상 공식 유도</h1>
 <aside>
-    Derivation of newton divided difference formula
+    Derivation of Newton Divided Difference Formula
     <p style="text-align: right;">
         1025
 
@@ -284,42 +284,37 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#공식">공식</a></li>
+    <li><a href="#설명">설명</a></li>
+    <li><a href="#유도">유도</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-서로 다른 $x_{0} , \cdots , x_{n}$ 의 데이터 $(x_{0}, f(x_{0} )) , \cdots , (x_{n} , f( x_{n} ) )$ 에 대해 $\displaystyle p_{n} (x) =\sum_{i=0}^{n} f [ x_{0} , \cdots , x_{i} ] \prod_{j=0}^{i-1} (x - x_{j} ) $</p>
-<p>복잡해보이지만 $n=1,2,3$ 에 대해서 실제로 전개를 해보면 다음과 같이 단순하게 나타난다.
+<h2 id="공식">공식</h2>
+<p>서로 다른 $x_{0} , \cdots , x_{n}$ 의 데이터 $(x_{0}, f(x_{0} )) , \cdots , (x_{n} , f( x_{n} ) )$ 에 대해 
 $$
-p_{0} (x) = f(x_{0})
+p_{n} (x) =\sum_{i=0}^{n} f [ x_{0} , \cdots , x_{i} ] \prod_{j=0}^{i-1} (x - x_{j} ) 
 $$</p>
-<p>$$
-p_{2} (1) = f( x_{0} ) + (x - x_{0} ) f [ x_{0} , x_{1} ] 
-$$</p>
-<p>$$
-p_{2} (x) = f( x_{0} ) + (x - x_{0} ) f [ x_{0} , x_{1} ] + ( x - x_{0} ) ( x - x_{1} ) f [ x_{0} , x_{1} , x_{2} ] 
+<h2 id="설명">설명</h2>
+<p>복잡해보이지만 $n=0,1,2$ 에 대해서 실제로 전개를 해보면 다음과 같이 단순하게 나타난다.
+$$
+\begin{align*}
+p_{0} (x) =&amp; f(x_{0})
+\\ p_{1} (x) =&amp; f( x_{0} ) + (x - x_{0} ) f [ x_{0} , x_{1} ] 
+\\ p_{2} (x) =&amp; f( x_{0} ) + (x - x_{0} ) f [ x_{0} , x_{1} ] + ( x - x_{0} ) ( x - x_{1} ) f [ x_{0} , x_{1} , x_{2} ] 
+\end{align*}
 $$
 뉴턴 계차상 공식은 <a href="../969">계차상</a>을 이용해 <a href="../1021">폴리노미얼 인터폴레이션</a>을 나타내는 방법으로, 라그랑주 공식에 비해서 복잡해보이지만 데이터가 추가됨에 따라 업데이트를 해야할 땐 훨씬 편리하다. 뉴턴 계차상 공식을 재귀적으로 나타내면
 $$
-\displaystyle p_{n} (x) = p_{n-1}(x) + f[x_{0} , \cdots , x_{n} ] \prod_{i=0}^{n-1} (x - x_{i}) 
+p_{n} (x) = p_{n-1}(x) + f[x_{0} , \cdots , x_{n} ] \prod_{i=0}^{n-1} (x - x_{i}) 
 $$
 과 같은 형태가 되는데, 라그랑주 공식밖에 없었다면 $p_{n-1}$ 을 이미 알고 있는데 또 $(n+1) \times (n+1)$ 사이즈의 역행렬을 계산해야하는 수고를 해야한다. 어떤 방식으로 계산하든 결과 자체는 <a href="../1023">라그랑주 공식</a>과 똑같으므로 추가되는 데이터가 적다면 뉴턴 계차상 공식이 유용하게 쓰일 수 있다.</p>
-<p>한편 <a href="../1023">라그랑주 공식</a>과 정확히 같으면서도 다른 모양을 갖고 있다는 점을 이용해 계차상에 대한 <a href="../969">여러가지 유용한 정리들을 증명</a>할 수 있다.<strong>Strategy</strong>: $p_{n}$ 과 $p_{n-1}$ 의 차를 $C$ 라고 두면 $p_{n}$ 과 $C$ 의 최고차항의 계수는 같아야하므로 $C$ 의 계수만 계산해서 간접적으로 재귀식을 유도한다.<strong>유도</strong> 
-$$
+<p>한편 <a href="../1023">라그랑주 공식</a>과 정확히 같으면서도 다른 모양을 갖고 있다는 점을 이용해 계차상에 대한 <a href="../969">여러가지 유용한 정리들을 증명</a>할 수 있다.</p>
+<h2 id="유도">유도</h2>
+<p>전략: $p_{n}$ 과 $p_{n-1}$ 의 차를 $C$ 라고 두면 $p_{n}$ 과 $C$ 의 최고차항의 계수는 같아야하므로 $C$ 의 계수만 계산해서 간접적으로 재귀식을 유도한다.</p>
+<hr>
+<p>$$
 p_{n}(x) = p_{n-1}(x) + C(x)
 $$
 이라고 하면 $\deg C = n$ 이고 $i= 0, \cdots, (n-1)$ 에 대해서
@@ -332,7 +327,7 @@ C (x) = a_{n} (x - x_{0}) \cdots (x - x_{n-1})
 $$
 와 같이 나타난다. $p_{n}$ 과 $C$ 의 최고차항은 같으므로, $a_{n} = f [ x_{0} , \cdots , x_{n}]$ 이 성립함을 보이면 된다.데이터 $\left\{ x_{0}, \cdots , x_{k} \right\}$ 에서 $x_{k}$ 가 빠진 데이터 $\left\{ x_{0}, \cdots , x_{k-1} \right\}$ 로 얻은 폴리노미얼 인터폴레이션을 $L_{k-1}(x)$, $x_{0}$ 가 빠진 데이터 $\left\{ x_{1}, \cdots , x_{k} \right\}$ 로 얻은 폴리노미얼 인터폴레이션을 $R_{k-1}(x)$ 이라고 하자. 각각의 알파벳은 왼쪽Left과 오른쪽Right을 의미한다. 이에 대해 $p_{k}$ 를 다음과 같이 두자.
 $$
-\displaystyle p_{k}(x) := {{ (x-x_{0}) R_{k-1} (x) - (x-x_{k}) L_{k-1} (x)  } \over { x_{k} - x_{0} }}
+p_{k}(x) := {{ (x-x_{0}) R_{k-1} (x) - (x-x_{k}) L_{k-1} (x)  } \over { x_{k} - x_{0} }}
 $$
 그러면 $i=1,\cdots , k-1$ 에 대해
 $$
@@ -355,7 +350,7 @@ $$
 $$
 $k &gt; 1$ 일 때 $a_{k-1} = f[ x_{0} , \cdots , x_{k-1} ]$ 이 성립한다고 가정하면 $L_{k-1}$ 의 최고차항의 계수는 $f[ x_{0} , \cdots , x_{k-1} ]$ 이고, $R_{k-1}$ 최고차항의 계수는 $f[ x_{1} , \cdots , x_{k} ]$ 이다. $p_{k}$ 의 분수꼴을 헤쳐보면
 $$
-\displaystyle p_{k}(x) = {{ R_{k-1} (x) - L_{k-1} (x)  } \over { x_{k} - x_{0} }} x + {{ x_{k} L_{k-1} (x) - x_{0} R_{k-1} (x) } \over { x_{k} - x_{0} }}
+p_{k}(x) = {{ R_{k-1} (x) - L_{k-1} (x)  } \over { x_{k} - x_{0} }} x + {{ x_{k} L_{k-1} (x) - x_{0} R_{k-1} (x) } \over { x_{k} - x_{0} }}
 $$
 따라서 $p_{k}(x)$ 의 최고차항의 계수는
 $$
@@ -763,7 +758,7 @@ $$</p>
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1657">🎲</a></p>
+         <a href="../1484">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (79)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -889,7 +884,7 @@ $$</p>
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2215)</summary>
+    <summary>전체 포스트 (2221)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -961,13 +956,11 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%A0%EC%B2%B4%EC%97%AD%ED%95%99/" style="color: black">유체역학 (5)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%84%EA%B8%B0%ED%98%84/" style="color: black">전기현 (1)</a>
-        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/" style="color: black">전자기학 (49)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (88)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (115)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (120)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -991,7 +984,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (50)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (32)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (33)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (78)</a>
         </li><li>

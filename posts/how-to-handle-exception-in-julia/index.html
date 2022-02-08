@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-handle-exception-in-julia\/",
-    "wordCount" : "656",
+    "wordCount" : "655",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -304,12 +304,12 @@
 <p>코딩을 하다가 알수없는 에러에 고생해본 사람은 알게된다, 프로그래밍에 있어서 에러가 정말 중요하다는 사실을&hellip;</p>
 <p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서는 <code>error()</code> 함수 혹은 <code>@error</code> <a href="../1454">매크로</a>를 통해 에러를 낼 수 있다. 내장 예외는 줄리아 v1.63을 기준으로 25가지가 정의되어 있다. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <h2 id="코드">코드</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> log(<span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>im)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> log(<span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>im)
 <span style="color:#ae81ff">0.8047189562170501</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.1071487177940904</span>im
 </code></pre></div><p>가령 프로그램에서 <a href="../2063">로그 함수 $\log$</a> 를 사용할 때, 입력으로 오직 실수만 허용되어야하는 경우를 생각해볼 수 있다. 그러나 줄리아에서는 위와 같이 기본적으로 <a href="../2063">복소수로 확장된 $\log_{\mathbb{C}}$</a> 를 제공한다. 프로그램은 에러 없이 돌아간다고 능사가 아니다. 의도하지 않은 계산은 예상치 못한 문제를 일으키기 때문에, 우리가 원하지 않는 계산이 일어난다면 애초부터 에러를 내고 돌아가질 않아야한다.</p>
 <p>원래의 <code>log</code>의 <a href="../3123">정의역을 실수 $\mathbb{R}$ 으로 제한</a>시키는 코드를 만들어보자.</p>
 <h3 id="error-함수"><code>error()</code> 함수</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">function</span> Rlog(x)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">function</span> Rlog(x)
            <span style="color:#66d9ef">if</span> typeof(<span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>im) <span style="color:#f92672">&lt;:</span> <span style="color:#66d9ef">Real</span>
                <span style="color:#66d9ef">return</span> log(x)
            <span style="color:#66d9ef">else</span>
@@ -320,7 +320,7 @@
        Rlog(<span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>im)
 ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">LoadError</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">DomainError</span><span style="color:#f92672">:</span> Rlog allow real number only
 Stacktrace<span style="color:#f92672">:</span>
- [<span style="color:#ae81ff">1</span>] error(<span style="color:#f92672">::</span><span style="color:#66d9ef">Type</span>, <span style="color:#f92672">::</span>String)
+ [<span style="color:#ae81ff">1</span>] error(<span style="color:#f92672">::</span><span style="color:#66d9ef">Type</span>, <span style="color:#f92672">::</span><span style="color:#66d9ef">String</span>)
    <span style="color:#960050;background-color:#1e0010">@</span> Base <span style="color:#f92672">.\</span>error<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">42</span>
  [<span style="color:#ae81ff">2</span>] Rlog(x<span style="color:#f92672">::</span><span style="color:#66d9ef">Complex</span>{<span style="color:#66d9ef">Int64</span>})
    <span style="color:#960050;background-color:#1e0010">@</span> Main c<span style="color:#f92672">:\</span>admin<span style="color:#f92672">\</span>REPL<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">7</span>
@@ -329,7 +329,7 @@ Stacktrace<span style="color:#f92672">:</span>
 <span style="color:#66d9ef">in</span> expression starting at c<span style="color:#f92672">:\</span>admin<span style="color:#f92672">\</span>REPL<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">11</span>
 </code></pre></div><p>위의 <code>Rlog</code>에서는 입력값이 실수가 아니면 <code>DomainError</code>를 레이즈<sup>Raise</sup>하도록 제한했다.</p>
 <h3 id="error-매크로"><code>error()</code> 매크로</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">function</span> Rlog2(x)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">function</span> Rlog2(x)
            <span style="color:#66d9ef">if</span> typeof(<span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>im) <span style="color:#f92672">&lt;:</span> <span style="color:#66d9ef">Real</span>
                <span style="color:#66d9ef">return</span> log(x)
            <span style="color:#66d9ef">else</span>
@@ -373,7 +373,7 @@ Rlog2(1 + 2im)
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://docs.julialang.org/en/v1/manual/control-flow/#Built-in-Exceptions">https://docs.julialang.org/en/v1/manual/control-flow/#Built-in-Exceptions</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://docs.julialang.org/en/v1/manual/control-flow/#Built-in-Exceptions">https://docs.julialang.org/en/v1/manual/control-flow/#Built-in-Exceptions</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -774,7 +774,7 @@ Rlog2(1 + 2im)
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1259">🎲</a></p>
+         <a href="../785">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (79)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -900,7 +900,7 @@ Rlog2(1 + 2im)
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2215)</summary>
+    <summary>전체 포스트 (2221)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
         </li><li>
@@ -972,13 +972,11 @@ Rlog2(1 + 2im)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%A0%EC%B2%B4%EC%97%AD%ED%95%99/" style="color: black">유체역학 (5)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%84%EA%B8%B0%ED%98%84/" style="color: black">전기현 (1)</a>
-        </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/" style="color: black">전자기학 (49)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (88)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (115)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (120)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -1002,7 +1000,7 @@ Rlog2(1 + 2im)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (50)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (32)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (33)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (78)</a>
         </li><li>

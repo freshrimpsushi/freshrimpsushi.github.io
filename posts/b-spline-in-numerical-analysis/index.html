@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="ko" class = "blog">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    
+    
+
+    
+    <meta name="NaverBot" content="All"/>
+    <meta name="NaverBot" content="index,follow"/>
+    <meta name="Yeti" content="All"/>
+    <meta name="Yeti" content="index,follow"/>
+
+    
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <link href=https://freshrimpsushi.github.io/css/comment.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel='stylesheet' href= https://freshrimpsushi.github.io/css/custum.css></noscript>
+
+    
+    <link rel="canonical" href="https://freshrimpsushi.github.io/">
+
+    
+    <link rel="icon" href="https://freshrimpsushi.github.io/logo/favicon.ico">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta name="msapplication-TileImage" content="logo/basic.png">
+
+    
+    <style type="text/css">
+        .thmbox{
+            background: rgb(245,245,245) ;
+             
+            border-radius : 20px ;
+            padding : 20px ;
+        }
+    </style>
+
+    
+    <script data-ad-client="ca-pub-4751085325232621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
+    <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
+    
+    
+    <script type="text/javascript" src=https://freshrimpsushi.github.io/js/jquery-3.5.1.min.js></script>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NLV8Y9PRK1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-NLV8Y9PRK1');
+    </script>
+
+    
+<meta name="title" content="수치해석학에서의 B-스플라인 ">
+<meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
+<meta property="og:title" content="수치해석학에서의 B-스플라인 "/>
+<meta property="og:description" content="B-Spline in Numerical Analysis"/>
+<meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
+
+
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "articleSection": "r_",
+    "name": "수치해석학에서의 B-스플라인 ",
+    "headline": "수치해석학에서의 B-스플라인 ",
+    "alternativeHeadline": "",
+    "description": "B-Spline in Numerical Analysis",
+    "inLanguage": "ko",
+    "isFamilyFriendly": "true",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/b-spline-in-numerical-analysis\/"
+    },
+    "author" : {
+        "@type": "Person",
+        "name": "류대식"
+    },
+    "creator" : {
+        "@type": "Person",
+        "name": "류대식"
+    },
+    "accountablePerson" : {
+        "@type": "Person",
+        "name": "류대식"
+    },
+    "copyrightHolder" : "생새우초밥집",
+    "copyrightYear" : "2019",
+    "dateCreated": "2019-05-18T00:00:00.00Z",
+    "datePublished": "2019-05-18T00:00:00.00Z",
+    "dateModified": "2019-05-18T00:00:00.00Z",
+    "publisher":{
+        "@type":"Organization",
+        "name": "생새우초밥집",
+        "url": "https://freshrimpsushi.github.io/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https:\/\/freshrimpsushi.github.io\/logo\/basic.png",
+            "width":"32",
+            "height":"32"
+        }
+    },
+    "image": "https://freshrimpsushi.github.io/logo/basic.png",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/b-spline-in-numerical-analysis\/",
+    "wordCount" : "1537",
+    "genre" : [ ],
+    "keywords" : [ ]
+}
+</script>
+
+
+    <title>수치해석학에서의 B-스플라인 </title>
+
+</head>
+
+    <body class="main">
+    <header>
+    <a href="../../" rel="home">
+        <p style="text-align:center; font-size: 1rem; color: black;">
+            
+                <img src=https://freshrimpsushi.github.io/logo/basic.png style="max-height: 80px; width: auto;">
+            
+            
+            
+        </p>
+    </a>
+</header>
+
+    <div id="fastSearch">
+    <input id="searchInput" tabindex="0">
+    <ul id="searchResults">
+    </ul>
+  </div>
+  <script src="../../js/fuse.js"></script> 
+  <script src="../../js/fastsearch.js"></script>
+    <div class="mobile_search">
+    <div class="search_box">
+        <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용">
+    </div>
+    <ul id="searchResultsMobile"></ul>
+</div>
+
+<script>
+    var firstRun = true;
+    var mobile_search = $('.mobile_search');
+    var fuse_mobile;
+    var list_mobile = document.getElementById('searchResultsMobile');
+    var first_mobile = list_mobile.firstChild;
+    var last_mobile = list_mobile.lastChild;
+    var resultsAvailable_mobile = false;
+
+    function fetchJSONFileMobile(path, callback) {
+        var httpRequest = new XMLHttpRequest();
+        httpRequest.onreadystatechange = function () {
+            if (httpRequest.readyState === 4) {
+                if (httpRequest.status === 200) {
+                    var data = JSON.parse(httpRequest.responseText);
+                    if (callback) callback(data);
+                }
+            }
+        };
+        httpRequest.open('GET', path);
+        httpRequest.send();
+    }
+
+    function loadSearchMobile() {
+        fetchJSONFileMobile('/index.json', function (data) {
+            var options = {
+                shouldSort: true,
+                location: 0,
+                distance: 100,
+                threshold: 0.4,
+                minMatchCharLength: 2,
+                keys: [
+                    'title',
+                    'permalink',
+                    'summary'
+                ]
+            };
+            fuse_mobile = new Fuse(data, options);
+        });
+    }
+    
+    function executeSearchMobile(term) {
+        let results = fuse_mobile.search(term);
+        let searchitems = '';
+
+        if (results.length === 0) {
+            mobile_search.css({
+                'height': '30px',
+                'overflow': 'hidden'
+            });
+            resultsAvailable_mobile = false;
+            searchitems = '';
+        } else {
+            mobile_search.css({
+                'height': '200px',
+                'overflow': 'auto'
+            });
+            for (let item in results.slice(0, 100)) {
+                searchitems = searchitems + '<li><a href="' + results[item].item.permalink + '" tabindex="0">' + '<span class="title">' + results[item].item.title + '</span></a></li>';
+            }
+            resultsAvailable_mobile = true;
+        }
+
+        document.getElementById("searchResultsMobile").innerHTML = searchitems;
+        if (results.length > 0) {
+            first_mobile = list_mobile.firstChild.firstElementChild;
+            last_mobile = list_mobile.lastChild.firstElementChild;
+        }
+    }
+    $(document).ready(function() {
+        
+        var isMobile = false;
+        
+        var filter = "win16|win32|win64|mac";
+        
+        if (navigator.platform) {
+            isMobile = filter.indexOf(navigator.platform.toLowerCase()) < 0;
+        }
+
+        if (isMobile) {
+        
+        } else { 
+            $('.mobile_search').css('display', 'none');
+        }
+
+        $('.search_box input').focus(function() {
+            if (firstRun) {
+                loadSearchMobile();
+                firstRun = false;
+            }
+        });
+
+        $('.search_box input').blur(function() {
+            
+        });
+
+        $('.search_box input').keyup(function() {
+            let term = $('.search_box input').val();
+            executeSearchMobile(term);
+        });
+    });
+</script>
+    
+        
+        <div class = "wrapper">
+
+            <div class = "content">
+            
+
+<title>수치해석학에서의 B-스플라인 </title>
+
+<h1>수치해석학에서의 B-스플라인 </h1>
+<aside>
+    B-Spline in Numerical Analysis
+    <p style="text-align: right;">
+        1045
+
+    
+    
+            <a href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석</a>&emsp;
+            
+    </span>
+    
+    작성일: 2019-05-18&nbsp;<br>
+    작성자: 류대식 사장 &nbsp;
+</p>
+</aside>
+
+<aside>
+    <b>목차</b>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#heading"></a></li>
+    <li><a href="#같이보기">같이보기</a></li>
+  </ul>
+</nav>
+</aside>
+
+<h2 id="heading"></h2>
+<p style="
+text-align: center;
+max-width: 80%;
+text-align:center;
+color: black;
+background: rgb(255, 196, 0);
+border-radius: 10px;
+margin-left: auto;
+margin-right: auto;">
+<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
+</p>
+
+<ul>
+<li>글과 수식이 읽기 싫으면 그냥 그림으로 보고 이해해도 무방하다.</li>
+</ul>
+<p>구간 $[a,b]$ 를 $a \le x_{0} &lt; x_{1} &lt; \cdots &lt; x_{n} &lt; \cdots x_{N} \le b$ 와 같은 노드 포인트들로 쪼갰다고 하자. 주어진 자유도 $K$ 에 대해서 $x_{-K} &lt; x_{-K + 1} &lt; \cdots &lt; x_{-1} &lt; x_{0}$ 과 $x_{N} &lt; x_{N + 1} &lt; \cdots &lt; x_{N+K-1} &lt; x_{N+K}$ 의 추가적인 노드를 생각한다. $i$번째 노드 포인트와 자유도 $1 \le k \le K$ 에 디펜드하는 재귀함수
+$$
+\displaystyle B_{i,k}(x) := \begin{cases} \chi_{[x_{i} , x_{i+1} )} (x) &amp; , k=1 
+\\  {{ x - t_{i} } \over {t_{i+k-1} - t_{i} }} B_{i , k-1} (x) - {{ x - t_{i+k} } \over {t_{i+k} - t_{i+1} }} B_{i+1, k-1} (x) &amp; , k &gt; 1 \end{cases}
+$$
+를 정의하자. 이에 대해 주어진 데이터를 인터폴레이트하는 <a href="../1036">스플라인</a> $\displaystyle \sum_{i=-3}^{n-1} \alpha_{i} B_{i , K} (x)$ 를 <strong>B-스플라인</strong>이라 한다.</p>
+<p>[1]**  주어진 데이터에 대해 B-스플라인은 유일하다.</p>
+<ul>
+<li>[2]: $x \notin (x_{i} , x_{i+K} )$ 에 대해 $B_{i, K} (x) = 0$</li>
+<li>[3]: 모든 $x$ 에 대해 $0 \le B_{i} (x) \le 1$</li>
+</ul>
+<ul>
+<li>$\chi$ 는 영역 $A$ 에 대해 $\chi_{A} (x) := \begin{cases} 0 &amp; , x \notin A 
+\\  1 &amp; , x \in A \end{cases}$ 과 같이 정의된 <a href="../518">지시 함수</a>를 나타낸다.<strong>B-스플라인</strong> 이란 스플라인 중에서도 <a href="../253">베이시스</a>를 가지고 피스와이즈 폴리노미얼 인터폴레이트를 하는 스플라인을 말한다. 함수 $B_{i,K}$ 는 원래의 주어진 함수를 재구축하는 <strong>B</strong> asis라는 의미에서 $B$ 라는 알파벳을 사용한다.</li>
+</ul>
+<p>실용성으로 말할 것 같으면 컴퓨터 그래픽을 위시한 응용분야가 넓고 이론적으로도 수학적으로 좋은 성질들을 풍부하게 가져서 B-스플라인만으로도 책 한 권이 나온다. 이것을 포스트 하나만으로 자세하게 설명하는 건 너무 어렵고, 어떤 개념인지 간단하게 체크만 해보도록 하자. 정의만 봤을 땐 손도 못 댈만큼 난해한 것으로 보이지만 실제 개념 자체는 그렇게 어렵지 않다.</p>
+<p>[1]**  <a href="../1036">스플라인</a> 이전에 <a href="../1016">인터폴레이션</a>으로써의 기본 소양이다. $\alpha_{i}$ 들의 유일성을 보이는 방법은 본질적으로 <a href="../1021">폴리노미얼 인터폴레이션</a>과 다른 점이 없으며, 실제로 받아들일 때의 차이점은 <a href="../753">함수공간</a>을 상상할 수 있느냐 없느냐 뿐이다. 그나마도 실제로는 함수공간을 다루는 것이 아니므로 함수공간에 익숙하지 않아도 상관 없다.</p>
+<ul>
+<li>[2]: $B$ 가 저렇게 정의가 된 이유이자, 베이시스가 리니얼리 인디펜던트 하다는 것을 보장하는 근거다. 무슨 소리인지 이해가 잘 안 가더라도 그림만 보면 딱 이해가 될 것이다.</li>
+<li>[3]: 함수값의 스케일이 정해져있으면서 특히 음수가 되지 못한다는 것은 실제 함수값에 대한 인터폴레이팅은 사실상 계수 $\alpha_{i}$ 에만 달려있다는 말이 된다. 함수의 모양에 일일이 신경쓸 필요가 없다는 것은 B-스플라인이 다루기 좋은 또 다른 이유다.</li>
+</ul>
+<p>예시를 시작하기에 앞서 언급하자면 사실 원래의 B-스플라인이 커버하는 노드는 위의 정의보다 훨씬 가혹해도 상관없다. 서로 같은 점이 있어도 되고, 추가적인 노드는 상상 이상으로 자유롭다. 그러나 이해를 돕기 위해 예시에서는 유니폼한 간격으로 주어진 노드만을 생각할 것이다.</p>
+<p><img src="20190415_145943.png#center" alt="20190415\_145943.png">
+자유도 $k=1$ 일 때 데이터를 인터폴레이트하기 위한 $B_{i,1}$ 은 위와 같은 모양을 한다. 이들의 결합으로써 원래의 데이터를 인터폴레이트한다는 것은 말 그대로 그냥 사각 기둥의 높이만 바꿔서 대충 맞추는 것이다. 그러나 함수들의 선형결합으로써 원래의 데이터를 복원한다는 아이디어를 설명하기에는 더할나위 없다.</p>
+<p><img src="20190415_145953.png#center" alt="20190415\_145953.png">
+자유도 $k=2$ 일 때 $B_{i,2}$ 는 위와 같은 모양을 가짐을 수식적으로 쉽게 확인할 수 있다. 단, 쉬운 것과 간단한 것은 다르다는 사실을 유념하도록 하자. 자유도 $k=1$ 일때와 비교해봤을 때 $\displaystyle \sum_{i=-3}^{n-1} \alpha_{i} B_{i , K} (x)$ 는 조금은 덜 각진 모양을 할 것이다. 참고로 그림에는 따로 표현하지 않았지만 자유도가 늘어남에 따라 $x_{-1} = -1$ 과 $x_{5} = 5$ 같은 추가적인 노드는 계속 생겨나며, 그 곳에서의 $B_{i,2}$ 역시 새롭게 만들어진다.</p>
+<p><img src="20190415_150000.png#center" alt="20190415\_150000.png">
+자유도 $k=3$ 일 때 $B_{i,3}$ 는 구간별로 쿼드러틱하다. 물론 재귀적으로 정의된 $B_{i,k}$ 의 특성상 전 구간에서 이차함수라는 보장은 없으며, 실제로 안 되는 경우가 대부분일 것이다. 위의 예시들과 가장 크게 달라진 것은 드디어 곡선이 되었다는 것이다.</p>
+<p><strong>B-스플라인</strong> 이란 위와 같이 특정 구간에서 다루기 쉽고 그 외에는 함수값이 모조리 $0$ 인 함수들의 선형결합으로 인터폴레이트하는 함수다. 그래서 정의는 복잡하게 쓰여지지만 실제 개념은 저런 걸 더 많이, 더 나쁜 조건에서 똑같은 일을 반복하는 것에 지나지 않는다.</p>
+<h2 id="같이보기">같이보기</h2>
+<ul>
+<li><a href="../1815">해석학에서 스플라인, B-스플라인</a></li>
+</ul>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var title = '수치해석학에서의 B-스플라인 ';
+        var link = 'https:\/\/freshrimpsushi.github.io\/posts\/b-spline-in-numerical-analysis\/';
+        var arr = new Array();
+        var obj = {
+            "title": title,
+            "link": link
+        };
+        var postList = JSON.parse(localStorage.getItem('latelyViewPostList'));
+        if(postList == '' || postList == null || postList == undefined || postList == 0 || postList == NaN) {
+            arr.push(obj);
+            localStorage.setItem('latelyViewPostList', JSON.stringify(arr));
+        } else {
+            var listSize = postList.length;
+            for (var i = 0; i < listSize; i++) {
+                if (title == postList[i].title) {
+                    postList.splice(i, 1);
+                    break;
+                }
+            }
+            arr = postList;
+            arr.push(obj);
+            if(arr.length > 5) {
+                arr.shift();
+            }
+            localStorage.setItem('latelyViewPostList', JSON.stringify(arr));
+        }
+    });
+</script>
+
+            
+<div style="margin-bottom: 10px;">댓글</div>
+<div class="area-reply">
+    <ol class="list-reply">
+        
+    </ol>
+</div>
+<hr>
+
+
+
+<div class="write-box">
+    <div class="write-author-info box-account">
+        <input type="hidden" name="cmt_idx">
+        <input class="ai-author" type="text" name="name" value="" title="이름" placeholder="이름">
+        <input class="ai-password" type="password" name="password" value="" title="비밀번호" maxlength="12" placeholder="비밀번호">
+    </div>
+    <div class="write-content">
+        <textarea name="comment" value="" placeholder="내용" style="IME-MODE:active;"></textarea>
+    </div>
+    <div class="write-button">
+        <input class="write_comment" type="submit" name="submit" value="등록">
+    </div>
+    <aside align="middle">댓글에도 $\TeX$이 적용됩니다.</aside>
+</div>
+
+
+<script type="text/javascript">
+    function update_comment_click(cmt_idx) {
+        let author = $('#comment'+ cmt_idx + ' .update-author').val();
+        let password = $('#comment'+ cmt_idx + ' .update-password').val();
+        let content = $('#comment'+ cmt_idx + ' .update-content').val();
+        
+        $.ajax({
+            type: "POST",
+            url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.comment.php?action=updateComment",
+            data: {
+                cmt_idx: cmt_idx,
+                author: author,
+                password: password,
+                content: content
+            },
+            dataType: "json",
+            success: function (data) {
+                let msg = data['msg'];
+                if (msg) {
+                    location.reload();
+                } else {
+                    alert('비밀번호가 일치하지 않습니다.');
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function delete_comment_click(cmt_idx) {
+        let password = $('#comment'+ cmt_idx + ' .delete-password').val();
+
+        $.ajax({
+            type: "POST",
+            url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.comment.php?action=deleteComment",
+            data: {
+                cmt_idx: cmt_idx,
+                password: password
+            },
+            dataType: "json",
+            success: function (data) {
+                let msg = data['msg'];
+                if (msg) {
+                    location.reload();
+                } else {
+                    alert('비밀번호가 일치하지 않습니다.');
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function re_comment_click(cmt_idx) {
+        let author = $('#comment' + cmt_idx + ' .re-comment-author').val();
+        let password = $('#comment' + cmt_idx + ' .re-comment-password').val();
+        let content = $('#comment' + cmt_idx + ' .re-comment-content').val();
+        if (author == "" || password == "" || content == "") {
+            alert('빈칸을 채워주세요');
+            return;
+        }
+        let board_idx = '1045';
+        let board_slug = 'b-spline-in-numerical-analysis';
+        let board_title = '수치해석학에서의 B-스플라인 ';
+
+        $.ajax({
+            type: "POST",
+            url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.comment.php?action=writeReComment",
+            data: {
+                board_idx: board_idx,
+                board_slug: board_slug,
+                board_title: board_title,
+                cmt_idx: cmt_idx,
+                author: author,
+                password: password,
+                content: content
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                let msg = data['msg'];
+                if (msg) {
+                    location.reload();
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function cancel_click(cmt_idx) {
+        let address = window.location.href;
+        console.log(address);
+        if(address.indexOf("#comment") != -1)
+        {
+            while(address.charAt(address.length-1) != 't') {
+                address = address.slice(0, -1);
+            }
+            address = address.slice(0, -8);
+            address = (address + '#comment' + cmt_idx);
+        }
+        location.replace(address);
+        location.reload();
+    }
+
+    function update_comment(cmt_idx) {
+        let li = $('#comment' + cmt_idx);
+        $.ajax({
+            type: "POST",
+            url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.comment.php?action=getSingleComment",
+            data: {
+                cmt_idx: cmt_idx
+            },
+            dataType: "json",
+            success: function (data) {
+                let rows = data['rows'];
+                let msg = data['msg'];
+                if (msg) {
+                    let author = rows[0]['author'];
+                    let content = rows[0]['content'];
+                    let str = "";
+                    str += "<div class='update-author-info'>";
+                    str += "<input class='update-author' type='text' name='name' value='" + author + "' title='이름' placeholder='이름'>";
+                    str += "<input class='update-password' type='password' name='password' value='' title='비밀번호' placeholder='비밀번호'>";
+                    str += "</div>";
+                    str += "<textarea class='update-content' name='comment' placeholder='' value='' style='IME-MODE:active;'>" + content + "</textarea>";
+                    str += "<input class='update_comment-button' type='submit' name='submit' value='수정' onclick='update_comment_click(" + cmt_idx + ")'>";
+                    str += "<input class='update_comment-button' type='submit' name='submit' value='취소' onclick='cancel_click(" + cmt_idx + ")'>";
+                    li.html(str);
+                    str = "";
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function delete_comment(cmt_idx) {
+        let li = $('#comment' + cmt_idx);
+        let str = "";
+        str += "<div class='delete-author-info'>";
+        str += "<input class='delete-password' type='password' name='password' value='' title='비밀번호' placeholder='비밀번호'>";
+        str += "</div>";
+        str += "<input class='delete_comment-botton' type='submit' name='submit' value='삭제' onclick='delete_comment_click(" + cmt_idx + ")'>";
+        str += "<input class='delete_comment-botton' type='submit' name='submit' value='취소' onclick='cancel_click(" + cmt_idx + ")'>";
+        li.html(str);
+        str = "";
+    }
+
+    function re_comment(cmt_idx) {
+        let li = $('#comment' + cmt_idx);
+        let re_comment = $('#comment' + cmt_idx + ' .re-comment');
+        let str = "";
+
+        str += "<div class='re-comment-box'>";
+        str += "<div class='re-comment-author-info'>";
+        str += "<input class='re-comment-author' type='text' name='name' value='' title='이름' placeholder='이름'>";
+        str += "<input class='re-comment-password' type='password' name='password' value='' title='비밀번호' placeholder='비밀번호'>";
+        str += "</div>";
+        str += "<textarea class='re-comment-content' name='comment' placeholder='내용' value='' style='IME-MODE:active;'></textarea>";
+        str += "<input class='re-comment-btn' type='submit' name='submit' value='등록' onclick='re_comment_click(" + cmt_idx + ")'>";
+        str += "<input class='re-comment-btn' type='submit' name='submit' value='취소' onclick='cancel_click(" + cmt_idx + ")'>";
+        str += "</div>";
+
+        re_comment.html(str);
+        str = "";
+    }
+
+    $(document).ready(function() {
+        
+
+        $.ajax({
+            type: "POST",
+            url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.comment.php?action=getComment",
+            data: {
+                board_idx: '1045'
+            },
+            dataType: "json",
+            success: function (data) {
+                let rows = data['rows'];
+                let list_reply = $('.list-reply');
+                let str = "";
+                 
+                for (let i = 0; i < rows.length; i++) {
+                    str += "<li id='comment" + rows[i]['cmt_idx'] + "' class='parents'>";
+                    str += "<div class='content-info'>";
+                    str += "<div class='list-author'>" + rows[i]['author'] + "</div>";
+                    str += "<div class='list-bridge'>▶</div>";
+                    str += "<div class='list-date'>" + rows[i]['datetime'] + "</div>";
+                    str += "<div class='list-button'>";
+                    str += "<div class='list-update-button' onclick='update_comment(" + rows[i]['cmt_idx'] + ")'>수정</div>";
+                    str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['cmt_idx'] + ")'>삭제</div>";
+                    str += "</div>";
+                    str += "</div>";
+                    str += "<div class='content-text'>" + rows[i]['content'] + "</div>";
+                    str += "<div class='re-comment'><span class='re-comment-button' onclick='re_comment(" + rows[i]['cmt_idx'] + ")'>답글</span></div>";
+                    str += "</li>";
+                    list_reply.append(str);
+                    str = "";
+                     
+                    for (var j = 0; j < rows[i]['child'].length; j++) {
+                        str += "<li id='comment" + rows[i]['child'][j]['cmt_idx'] + "' class='child'>";
+                        str += "<div class='content-info'>";
+                        str += "<div class='list-author'>" + rows[i]['child'][j]['author'] + "</div>";
+                        str += "<div class='list-bridge'>▶</div>";
+                        str += "<div class='list-date'>" + rows[i]['child'][j]['datetime'] + "</div>";
+                        str += "<div class='list-button'>";
+                        str += "<div class='list-update-button' onclick='update_comment(" + rows[i]['child'][j]['cmt_idx'] + ")'>수정</div>";
+                        str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['child'][j]['cmt_idx'] + ")'>삭제</div>";
+                        str += "</div>";
+                        str += "</div>";
+                        str += "<div class='content-text'>" + rows[i]['child'][j]['content'] + "</div>";
+                        str += "</li>";
+                        list_reply.append(str);
+                        str = "";
+                    }
+                }
+                renderMathInElement(document.body, {
+                    
+                    
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false},
+                    ],
+                    trust: ["\\htmlId"],
+                    macros: {
+                    "\\eqref": "\\href{###1}{(\\text{#1})}",
+                    "\\ref": "\\href{###1}{\\text{#1}}",
+                    "\\label": "\\htmlId{#1}{}"
+                    },
+                    
+                    throwOnError : false
+                });
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+
+        
+
+        $(".write_comment").on("click", function() {
+            let name = $('.write-author-info input[name=name]').val();
+            let password = $('.write-author-info input[name=password]').val();
+            let content = $('.write-content textarea').val();
+            if (name == "" || password == "" || content == "") {
+                alert('빈칸을 채워주세요');
+                return;
+            }
+            let idx = '1045';
+            let board_slug = 'b-spline-in-numerical-analysis';
+            let board_title = '수치해석학에서의 B-스플라인 ';
+
+            $.ajax({
+                type: "POST",
+                url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.comment.php?action=writeComment",
+                data: {
+                    board_idx: idx,
+                    board_slug: board_slug,
+                    board_title: board_title,
+                    name: name,
+                    password: password,
+                    content: content
+                },
+                dataType: "json",
+                success: function (data) {
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+</script>
+            </div>
+
+            <div class = "sidebar">
+
+            
+
+<aside>
+    <p><b>🔎 F2 키를 눌러 검색</b></p>
+    <ul class="lately-viewed-list" style="list-style-type: none; padding-left:4px;">
+        
+    </ul>
+</aside>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        let postList = JSON.parse(localStorage.getItem('latelyViewPostList'));
+        let list = $('.lately-viewed-list');
+        let str = "";
+        if(postList == '' || postList == null || postList == undefined || postList == 0 || postList == NaN) {
+            localStorage.setItem('latelyViewPostList', null);
+            str += "열람한 포스트가 없습니다.";
+            list.append(str);
+            str = "";
+        } else {
+            for (let i = (postList.length - 1); i >= 0; i--) {
+                str += "<li style='font-size:0.8rem;'><a href='";
+                str += postList[i].link;
+                str += "'> · ";
+                str += postList[i].title;
+                str += "</a></li>";
+                list.append(str);
+                str = "";
+            }
+        }
+    });
+</script>
+
+
+
+<aside>
+    <a href="https://forms.gle/sfCHw7YKj5zMHMpK7" target='_blank'>
+        <div style="float: center;">
+        <p style="font-size: 1.5rem; text-align: center; margin:0%;">
+            설문조사🚨(클릭)</p>
+        </div>
+    </a>
+    <a href="https://freshrimpsushi.com/community/" target='_blank'>
+        <div style="float: center;">
+        <p style="font-size: 1.5rem; text-align: center; margin:0%;">
+            커뮤니티🏙️(클릭)</p>
+        </div>
+    </a>
+</aside>
+
+
+<aside>
+    <p><b>카테고리</b>
+         <a href="../1219">🎲</a></p>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
+        <span style="color:rgb(051,204,051);">●</span> 함수 (79)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
+        <span style="color:rgb(051,204,051);">●</span> 보조정리 (19)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/>
+        <span style="color:rgb(051,204,051);">●</span> 집합론 (47)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/>
+        <span style="color:rgb(051,204,051);">●</span> 정수론 (89)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/>
+        <span style="color:rgb(255,204,000);">●</span> 기하학 (100++)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/>
+        <span style="color:rgb(051,204,051);">●</span> 행렬대수 (68)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/>
+        <span style="color:rgb(051,204,051);">●</span> 선형대수 (20)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/>
+        <span style="color:rgb(051,204,051);">●</span> 추상대수 (77)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/>
+        <span style="color:rgb(051,204,051);">●</span> 위상수학 (63)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/>
+        <span style="color:rgb(051,204,051);">●</span> 그래프이론 (50)</a><br>
+    <hr>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/>
+        <span style="color:rgb(051,204,051);">●</span> 해석개론 (96)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/>
+        <span style="color:rgb(051,204,051);">●</span> 다변수벡터해석 (21)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B5%EC%86%8C%ED%95%B4%EC%84%9D/>
+        <span style="color:rgb(051,204,051);">●</span> 복소해석 (66)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/>
+        <span style="color:rgb(051,204,051);">●</span> 측도론 (59)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/>
+        <span style="color:rgb(051,204,051);">●</span> 푸리에해석 (51)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/>
+        <span style="color:rgb(051,204,051);">●</span> 초함수론 (23)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/>
+        <span style="color:rgb(051,204,051);">●</span> 토모그래피 (19)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%82%B0%EB%9E%80%EC%9D%B4%EB%A1%A0/>
+        <span style="color:rgb(255,051,051);">●</span> 산란이론 (0++)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/>
+        <span style="color:rgb(051,204,051);">●</span> 동역학 (70++)</a><br>
+    <hr>
+    <a href=https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC%EA%B3%B5%EA%B0%84/>
+        <span style="color:rgb(051,204,051);">●</span> 거리공간 (33)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EB%B0%94%EB%82%98%ED%9D%90%EA%B3%B5%EA%B0%84/>
+        <span style="color:rgb(051,204,051);">●</span> 바나흐공간 (32)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/>
+        <span style="color:rgb(051,204,051);">●</span> 힐베르트공간 (30)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EB%A5%B4%EB%B2%A1%EA%B3%B5%EA%B0%84/>
+        <span style="color:rgb(051,204,051);">●</span> 르벡공간 (30)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/>
+        <span style="color:rgb(051,204,051);">●</span> 소볼레프공간 (11)</a><br>
+    <hr>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%83%81%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/>
+        <span style="color:rgb(051,204,051);">●</span> 상미분방정식 (57)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/>
+        <span style="color:rgb(051,204,051);">●</span> 편미분방정식 (50)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/>
+        <span style="color:rgb(051,204,051);">●</span> 확률미분방정식 (25)</a><br>
+    <hr>
+    <a href=https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/>
+        <span style="color:rgb(051,204,051);">●</span> 매트랩 (16)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/>
+        <span style="color:rgb(255,204,000);">●</span> 수치해석 (53)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/>
+        <span style="color:rgb(255,051,051);">●</span> 최적화이론 (26)</a><br>
+    <hr>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC/>
+        <span style="color:rgb(255,051,051);">●</span> 수리물리 (50)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/>
+        <span style="color:rgb(051,204,051);">●</span> 3차원벡터해석 (32)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/>
+        <span style="color:rgb(051,204,051);">●</span> 텐서해석 (13)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/>
+        <span style="color:rgb(051,204,051);">●</span> 고전역학 (38)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%9C%A0%EC%B2%B4%EC%97%AD%ED%95%99/>
+        <span style="color:rgb(255,051,051);">●</span> 유체역학 (5)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/>
+        <span style="color:rgb(255,204,000);">●</span> 전자기학 (49)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EA%B4%91%ED%95%99/>
+        <span style="color:rgb(255,051,000);">●</span> 광학 (6)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/>
+        <span style="color:rgb(255,051,051);">●</span> 양자역학 (52)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/>
+        <span style="color:rgb(051,204,051);">●</span> 열물리학 (24)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/>
+        <span style="color:rgb(051,204,051);">●</span> 상대성이론 (6)</a><br>
+    <hr>
+    <a href=https://freshrimpsushi.github.io/categories/r/>
+        <span style="color:rgb(051,204,051);">●</span> R (53)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/>
+        <span style="color:rgb(255,051,051);">●</span> 데이터확보 (20++)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%8B%9C%EA%B0%81%ED%99%94/>
+        <span style="color:rgb(255,051,051);">●</span> 데이터시각화 (0++)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EA%B2%80%EC%A0%95/>
+        <span style="color:rgb(255,051,051);">●</span> 통계적검정 (14)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
+        <span style="color:rgb(051,204,051);">●</span> 통계적분석 (58)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
+        <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
+        <span style="color:rgb(051,204,051);">●</span> 확률론 (72)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B6%84%EC%84%9D/>
+        <span style="color:rgb(255,051,051);">●</span> 위상데이터분석 (10++)</a><br>
+    <hr>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/>
+        <span style="color:rgb(051,204,051);">●</span> 줄리아 (118)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/>
+        <span style="color:rgb(051,204,051);">●</span> 프로그래밍 (32)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/>
+        <span style="color:rgb(051,204,051);">●</span> 알고리즘 (28)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/>
+        <span style="color:rgb(051,204,051);">●</span> 머신러닝 (51)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%84%B8%EC%9D%B4%EB%B2%84%EB%A9%94%ED%8A%B8%EB%A6%AD%EC%8A%A4/>
+        <span style="color:rgb(255,051,051);">●</span> 세이버메트릭스 (11)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%98%81%EC%96%B4/>
+        <span style="color:rgb(255,051,051);">●</span> 영어 (7)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/tex/>
+        <span style="color:rgb(255,051,051);">●</span> TeX (6)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EA%B5%90%EA%B3%BC%EA%B3%BC%EC%A0%95/>
+        <span style="color:rgb(051,204,051);">●</span> 교과과정 (53)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EC%83%9D%EC%83%88%EC%9A%B0%EC%B4%88%EB%B0%A5%EC%A7%80/>
+        <span>●</span> 생새우초밥지 (1)</a><br>
+    <hr>
+<details>
+    <summary>전체 포스트 (2221)</summary>
+    <ul><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/r/" style="color: black">R (53)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/tex/" style="color: black">TeX (3)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC%EA%B3%B5%EA%B0%84/" style="color: black">거리공간 (33)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B4%91%ED%95%99/" style="color: black">광학 (6)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B5%90%EA%B3%BC%EA%B3%BC%EC%A0%95/" style="color: black">교과과정 (53)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (45)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (62)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (3)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (67)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A5%B4%EB%B2%A1%EA%B3%B5%EA%B0%84/" style="color: black">르벡공간 (30)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (51)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B0%94%EB%82%98%ED%9D%90%EA%B3%B5%EA%B0%84/" style="color: black">바나흐공간 (36)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/" style="color: black">보조정리 (16)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B5%EC%86%8C%ED%95%B4%EC%84%9D/" style="color: black">복소해석 (66)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/" style="color: black">분포이론 (57)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%82%B0%EB%9E%80%EC%9D%B4%EB%A1%A0/" style="color: black">산란이론 (3)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/" style="color: black">상대성이론 (6)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">상미분방정식 (57)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EC%83%88%EC%9A%B0%EC%B4%88%EB%B0%A5%EC%A7%80/" style="color: black">생새우초밥지 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (33)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/" style="color: black">소볼레프공간 (11)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC/" style="color: black">수리물리 (40)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%EB%9F%89/" style="color: black">수리통계량 (1)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (105)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (50)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (27)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (52)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">열물리학 (28)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%98%81%EC%96%B4/" style="color: black">영어 (3)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/" style="color: black">위상수학 (61)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%A0%EC%B2%B4%EC%97%AD%ED%95%99/" style="color: black">유체역학 (5)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/" style="color: black">전자기학 (49)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (88)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (120)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (23)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/" style="color: black">최적화이론 (5)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/" style="color: black">추상대수 (78)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/" style="color: black">측도론 (50)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/" style="color: black">텐서해석 (12)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (13)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EA%B2%80%EC%A0%95/" style="color: black">통계적검정 (14)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/" style="color: black">통계적분석 (58)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (54)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (50)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (33)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (78)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (96)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (64)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (62)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">확률미분방정식 (23)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (30)</a>
+        </li>
+    </ul>
+</details>
+</aside>
+
+<aside>
+    <h2></h2>
+    <ul>
+    </ul>
+</aside>
+
+<aside>
+    <p><b>최근 댓글</b></p>
+    <ul class="current-reply">
+        
+    </ul>
+</aside>
+
+<script>
+    $(document).ready(function() {
+        
+
+        $.ajax({
+            type: "POST",
+            url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.recent_comment.php?action=currentComment",
+            data: {},
+            dataType: "json",
+            success: function(data) {
+                var rows = data['rows'];
+                var ul_currnet_list = $('.current-reply');
+                var str = "";
+                 
+                for(var i = 0; i < rows.length; i++) {
+                    if(rows[i]['board_idx'] > -1)
+                    {
+                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
+                    }
+                    else if(rows[i]['board_idx'] == -1)
+                    {
+                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
+                    }
+                    else
+                    {
+                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
+                    }
+                    str += "<b> - " + rows[i]['author'] + "</b>: ";
+                    str += "" + rows[i]['content'] + "";
+                    str += "</a></li>";
+                    ul_currnet_list.append(str);
+                    str = "";
+                }
+                renderMathInElement(document.body, {
+                    
+                    
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false},
+                    ],
+                    trust: ["\\htmlId"],
+                    macros: {
+                    "\\eqref": "\\href{###1}{(\\text{#1})}",
+                    "\\ref": "\\href{###1}{\\text{#1}}",
+                    "\\label": "\\htmlId{#1}{}"
+                    },
+                    
+                    throwOnError : false
+                });
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
+    });
+</script>
+
+<aside>
+    <p><b>태그</b></p>
+    <div><a class = "in_sidebar" href="https://freshrimpsushi.github.io/tags/r/" title="r" style="color: black">R</a>&emsp;<a class = "in_sidebar" href="https://freshrimpsushi.github.io/tags/%EC%A4%84%EB%A6%AC%EC%95%84/" title="줄리아" style="color: black">줄리아</a>&emsp;
+    </div>
+</aside>
+
+
+
+            </div>
+
+        </div>
+    </body>
+
+    <hr>
+    <footer>
+    <aside>
+        <div>
+            <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io" target="_blank">Hugo</a></p>
+            <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact: freshrimpsushi@gmail.com<br>
+                <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi</p>
+        </div>
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js" integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+          ],
+		  trust: ["\\htmlId"],
+		  macros: {
+		  "\\eqref": "\\href{###1}{(\\text{#1})}",
+		  "\\ref": "\\href{###1}{\\text{#1}}",
+		  "\\label": "\\htmlId{#1}{}",
+		  "\\for": "\\text{ for }",
+		  "\\and": "\\text{ and }",
+		  "\\or": "\\text{ or }",
+		  "\\st": "\\text{ s.t. }",
+		  "\\by": "\\text{ by }",
+		  "\\on": "\\text{ on }",
+		  "\\if": "\\text{ if }",
+		  "\\with": "\\text{ with }",
+		  "\\sgn": "\\operatorname{sgn}",
+		  "\\sign": "\\operatorname{sign}",
+		  "\\sinc": "\\operatorname{sinc}",
+		  "\\diag": "\\operatorname{diag}",
+		  "\\diam": "\\operatorname{diam}",
+		  "\\trace": "\\operatorname{trace}",
+		  "\\Re": "\\operatorname{Re}",
+		  "\\Im": "\\operatorname{Im}",
+		  "\\Poi": "\\operatorname{Poi}",
+		  "\\span": "\\operatorname{span}",
+		  "\\supp": "\\operatorname{supp}",
+		  },
+          
+          throwOnError : false
+        });
+    });
+</script>
+
+
+
+    
+    
+    
+    </aside>
+</footer>
+</html>
+<!DOCTYPE html>
