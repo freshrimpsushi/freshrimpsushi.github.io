@@ -293,8 +293,8 @@
 
 <h2 id="코드">코드</h2>
 <p><code>vec()</code> 함수를 쓰면 된다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> A <span style="color:#f92672">=</span> rand(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>)
-<span style="color:#ae81ff">3</span><span style="color:#f92672">×</span><span style="color:#ae81ff">4</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> A <span style="color:#f92672">=</span> rand(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>)
+<span style="color:#ae81ff">3</span>×4 <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">8</span>  <span style="color:#ae81ff">7</span>  <span style="color:#ae81ff">3</span>
  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">9</span>  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">2</span>
  <span style="color:#ae81ff">5</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">7</span>
@@ -314,8 +314,8 @@ julia<span style="color:#f92672">&gt;</span> vec(A)
  <span style="color:#ae81ff">2</span>
  <span style="color:#ae81ff">7</span>
 </code></pre></div><p>사람이 생각하기로, 사람에게 보이기로는 똑같이 1차원 배열인데 타입상 2차원 배열이라 에러를 내는 경우도 이 방법으로 해결하면 된다. 다음 두 명령은 정확히 같은 배열로 보이지만 <a href="../definition-of-matrix#%EC%97%B4-%EB%B2%A1%ED%84%B0%EC%99%80-%ED%96%89-%EB%B2%A1%ED%84%B0">$\mathbb{N}^{10 \times 1}$ 행렬이냐 $\mathbb{N}^{10 }$ 벡터냐의 차이</a>가 있다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> b <span style="color:#f92672">=</span> rand(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">1</span>)
-<span style="color:#ae81ff">10</span><span style="color:#f92672">×</span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> b <span style="color:#f92672">=</span> rand(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">1</span>)
+<span style="color:#ae81ff">10</span>×1 <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
  <span style="color:#ae81ff">4</span>
  <span style="color:#ae81ff">8</span>
  <span style="color:#ae81ff">0</span>
@@ -341,14 +341,14 @@ julia<span style="color:#f92672">&gt;</span> vec(b)
  <span style="color:#ae81ff">7</span>
 </code></pre></div><h2 id="실제-flatten-함수">실제 <code>flatten()</code> 함수</h2>
 <p>사실은 <code>Base.Iterators</code> 에 진짜 이름이 플래튼인 <code>flatten()</code> 이 구현되어 있다. 실행 결과는 다음과 같으며, 솔직히 쓰고 싶지 않을 것이다. 엄밀히 말해서는 배열을 바꿔준다기보다는 반복문 등에 들어갈 때 반복자<sup>Iterators</sup>로써 사용할 때 필요할 수도 있다. 솔직히 필요 없다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> c <span style="color:#f92672">=</span> rand(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>)
-<span style="color:#ae81ff">3</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Int64</span>}<span style="color:#f92672">:</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> c <span style="color:#f92672">=</span> rand(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>)
+<span style="color:#ae81ff">3</span>×3 <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Int64</span>}<span style="color:#f92672">:</span>
  <span style="color:#ae81ff">7</span>  <span style="color:#ae81ff">7</span>  <span style="color:#ae81ff">4</span>
  <span style="color:#ae81ff">9</span>  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">8</span>
  <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">5</span>
 
 julia<span style="color:#f92672">&gt;</span> Iterators<span style="color:#f92672">.</span>flatten(c)
-Base<span style="color:#f92672">.</span>Iterators<span style="color:#f92672">.</span><span style="color:#66d9ef">Flatten</span>{<span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Int64</span>}}([<span style="color:#ae81ff">7</span> <span style="color:#ae81ff">7</span> <span style="color:#ae81ff">4</span>; <span style="color:#ae81ff">9</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">8</span>; <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">5</span>])
+Base<span style="color:#f92672">.</span>Iterators<span style="color:#f92672">.</span>Flatten{<span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Int64</span>}}([<span style="color:#ae81ff">7</span> <span style="color:#ae81ff">7</span> <span style="color:#ae81ff">4</span>; <span style="color:#ae81ff">9</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">8</span>; <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">5</span>])
 
 julia<span style="color:#f92672">&gt;</span> vec(c)
 <span style="color:#ae81ff">9</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Int64</span>}<span style="color:#f92672">:</span>
@@ -763,7 +763,7 @@ julia<span style="color:#f92672">&gt;</span> vec(c)
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../82">🎲</a></p>
+         <a href="../1079">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (79)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -799,8 +799,6 @@ julia<span style="color:#f92672">&gt;</span> vec(c)
         <span style="color:rgb(051,204,051);">●</span> 초함수론 (23)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/>
         <span style="color:rgb(051,204,051);">●</span> 토모그래피 (19)</a><br>
-    <a href=https://freshrimpsushi.github.io/categories/%EC%82%B0%EB%9E%80%EC%9D%B4%EB%A1%A0/>
-        <span style="color:rgb(255,051,051);">●</span> 산란이론 (0++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/>
         <span style="color:rgb(051,204,051);">●</span> 동역학 (70++)</a><br>
     <hr>
@@ -831,18 +829,12 @@ julia<span style="color:#f92672">&gt;</span> vec(c)
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC/>
         <span style="color:rgb(255,051,051);">●</span> 수리물리 (50)</a><br>
-    <a href=https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/>
-        <span style="color:rgb(051,204,051);">●</span> 3차원벡터해석 (32)</a><br>
-    <a href=https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/>
-        <span style="color:rgb(051,204,051);">●</span> 텐서해석 (13)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/>
         <span style="color:rgb(051,204,051);">●</span> 고전역학 (38)</a><br>
-    <a href=https://freshrimpsushi.github.io/categories/%EC%9C%A0%EC%B2%B4%EC%97%AD%ED%95%99/>
-        <span style="color:rgb(255,051,051);">●</span> 유체역학 (5)</a><br>
+    
     <a href=https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 전자기학 (49)</a><br>
-    <a href=https://freshrimpsushi.github.io/categories/%EA%B4%91%ED%95%99/>
-        <span style="color:rgb(255,051,000);">●</span> 광학 (6)</a><br>
+    
     <a href=https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/>
         <span style="color:rgb(255,051,051);">●</span> 양자역학 (52)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/>
@@ -889,9 +881,9 @@ julia<span style="color:#f92672">&gt;</span> vec(c)
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2221)</summary>
+    <summary>전체 포스트 (2220)</summary>
     <ul><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/r/" style="color: black">R (53)</a>
         </li><li>
@@ -899,7 +891,7 @@ julia<span style="color:#f92672">&gt;</span> vec(c)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC%EA%B3%B5%EA%B0%84/" style="color: black">거리공간 (33)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (39)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B4%91%ED%95%99/" style="color: black">광학 (6)</a>
         </li><li>
@@ -941,7 +933,7 @@ julia<span style="color:#f92672">&gt;</span> vec(c)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/" style="color: black">소볼레프공간 (11)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC/" style="color: black">수리물리 (40)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC/" style="color: black">수리물리 (83)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%EB%9F%89/" style="color: black">수리통계량 (1)</a>
         </li><li>
@@ -976,8 +968,6 @@ julia<span style="color:#f92672">&gt;</span> vec(c)
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/" style="color: black">추상대수 (78)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/" style="color: black">측도론 (50)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/" style="color: black">텐서해석 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (13)</a>
         </li><li>

@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-use-machine-learning-data-sets-in-julia\/",
-    "wordCount" : "452",
+    "wordCount" : "454",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -333,10 +333,10 @@
 <h2 id="예시">예시</h2>
 <h3 id="mnist">MNIST</h3>
 <p>데이터와 레이블을 한 번에 불러오려면 <code>.traindata()</code>를 사용한다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> Train_X, Train_Y <span style="color:#f92672">=</span> MLDatasets<span style="color:#f92672">.</span>MNIST<span style="color:#f92672">.</span>traindata()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> Train_X, Train_Y <span style="color:#f92672">=</span> MLDatasets<span style="color:#f92672">.</span>MNIST<span style="color:#f92672">.</span>traindata()
 
 julia<span style="color:#f92672">&gt;</span> typeof(Train_X)
-Base<span style="color:#f92672">.</span><span style="color:#66d9ef">ReinterpretArray</span>{<span style="color:#66d9ef">FixedPointNumbers</span><span style="color:#f92672">.</span><span style="color:#66d9ef">N0f8</span>, <span style="color:#ae81ff">3</span>, <span style="color:#66d9ef">UInt8</span>, <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">UInt8</span>, <span style="color:#ae81ff">3</span>}, <span style="color:#66d9ef">false</span>}
+Base<span style="color:#f92672">.</span>ReinterpretArray{FixedPointNumbers<span style="color:#f92672">.</span>N0f8, <span style="color:#ae81ff">3</span>, <span style="color:#66d9ef">UInt8</span>, <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">UInt8</span>, <span style="color:#ae81ff">3</span>}, <span style="color:#66d9ef">false</span>}
 
 julia<span style="color:#f92672">&gt;</span> size(Train_X)
 (<span style="color:#ae81ff">28</span>, <span style="color:#ae81ff">28</span>, <span style="color:#ae81ff">60000</span>)
@@ -359,7 +359,7 @@ julia<span style="color:#f92672">&gt;</span> Train_Y
  <span style="color:#ae81ff">3</span>
  <span style="color:#ae81ff">5</span>
  <span style="color:#ae81ff">3</span>
- <span style="color:#f92672">⋮</span>
+ ⋮
  <span style="color:#ae81ff">7</span>
  <span style="color:#ae81ff">8</span>
  <span style="color:#ae81ff">9</span>
@@ -388,7 +388,7 @@ julia&gt; Test_Y = MLDatasets.MNIST.testlabels()
 
 julia&gt; Test_X, Test_Y = MLDatasets.MNIST.testdata()
 </code></pre><p>특이한 점은 <code>Train_Y</code>가 <a href="../3219">원-핫 인코딩 벡터</a>가 아니라 정수로 구성되어 있다는 점이다. 116번째는 4에 대한 데이터임을 다음과 같이 확인할 수 있다. 손글씨 사진은 90도만큼 회전된 사진임에 주의하자.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> fig <span style="color:#f92672">=</span> heatmap(imrotate(Train_X[<span style="color:#f92672">:</span>,<span style="color:#f92672">:</span>,<span style="color:#ae81ff">116</span>],<span style="color:#f92672">-</span>pi<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>))
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> fig <span style="color:#f92672">=</span> heatmap(imrotate(Train_X[<span style="color:#f92672">:</span>,<span style="color:#f92672">:</span>,<span style="color:#ae81ff">116</span>],<span style="color:#f92672">-</span>pi<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>))
 
 julia<span style="color:#f92672">&gt;</span> savefig(fig, <span style="color:#e6db74">&#34;MNIST116.png&#34;</span>)
 
@@ -396,13 +396,13 @@ julia<span style="color:#f92672">&gt;</span> Train_Y[<span style="color:#ae81ff"
 <span style="color:#ae81ff">4</span>
 </code></pre></div><p><img src="MNIST116.png#center" alt="MNIST116.png"></p>
 <h3 id="cifar10">CIFAR10</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> Train_X2, Train_Y2 <span style="color:#f92672">=</span> CIFAR10<span style="color:#f92672">.</span>traindata()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> Train_X2, Train_Y2 <span style="color:#f92672">=</span> CIFAR10<span style="color:#f92672">.</span>traindata()
 
 julia<span style="color:#f92672">&gt;</span> size(Train_X2)
 (<span style="color:#ae81ff">32</span>, <span style="color:#ae81ff">32</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">50000</span>)
 
 julia<span style="color:#f92672">&gt;</span>typeof(Train_X2)
-Base<span style="color:#f92672">.</span><span style="color:#66d9ef">ReinterpretArray</span>{<span style="color:#66d9ef">N0f8</span>, <span style="color:#ae81ff">4</span>, <span style="color:#66d9ef">UInt8</span>, <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">UInt8</span>, <span style="color:#ae81ff">4</span>}, <span style="color:#66d9ef">false</span>}
+Base<span style="color:#f92672">.</span>ReinterpretArray{N0f8, <span style="color:#ae81ff">4</span>, <span style="color:#66d9ef">UInt8</span>, <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">UInt8</span>, <span style="color:#ae81ff">4</span>}, <span style="color:#66d9ef">false</span>}
 
 julia<span style="color:#f92672">&gt;</span> size(Train_Y2)
 (<span style="color:#ae81ff">50000</span>,)
@@ -432,10 +432,10 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</sp
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://github.com/JuliaML/MLDatasets.jl">https://github.com/JuliaML/MLDatasets.jl</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://github.com/JuliaML/MLDatasets.jl">https://github.com/JuliaML/MLDatasets.jl</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p><a href="https://juliaml.github.io/MLDatasets.jl/dev/">https://juliaml.github.io/MLDatasets.jl/dev/</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://juliaml.github.io/MLDatasets.jl/dev/">https://juliaml.github.io/MLDatasets.jl/dev/</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -836,7 +836,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</sp
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../664">🎲</a></p>
+         <a href="../1252">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (79)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -872,8 +872,6 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</sp
         <span style="color:rgb(051,204,051);">●</span> 초함수론 (23)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/>
         <span style="color:rgb(051,204,051);">●</span> 토모그래피 (19)</a><br>
-    <a href=https://freshrimpsushi.github.io/categories/%EC%82%B0%EB%9E%80%EC%9D%B4%EB%A1%A0/>
-        <span style="color:rgb(255,051,051);">●</span> 산란이론 (0++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/>
         <span style="color:rgb(051,204,051);">●</span> 동역학 (70++)</a><br>
     <hr>
@@ -904,18 +902,12 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</sp
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC/>
         <span style="color:rgb(255,051,051);">●</span> 수리물리 (50)</a><br>
-    <a href=https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/>
-        <span style="color:rgb(051,204,051);">●</span> 3차원벡터해석 (32)</a><br>
-    <a href=https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/>
-        <span style="color:rgb(051,204,051);">●</span> 텐서해석 (13)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/>
         <span style="color:rgb(051,204,051);">●</span> 고전역학 (38)</a><br>
-    <a href=https://freshrimpsushi.github.io/categories/%EC%9C%A0%EC%B2%B4%EC%97%AD%ED%95%99/>
-        <span style="color:rgb(255,051,051);">●</span> 유체역학 (5)</a><br>
+    
     <a href=https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/>
         <span style="color:rgb(255,204,000);">●</span> 전자기학 (49)</a><br>
-    <a href=https://freshrimpsushi.github.io/categories/%EA%B4%91%ED%95%99/>
-        <span style="color:rgb(255,051,000);">●</span> 광학 (6)</a><br>
+    
     <a href=https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/>
         <span style="color:rgb(255,051,051);">●</span> 양자역학 (52)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/>
@@ -962,9 +954,9 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</sp
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2221)</summary>
+    <summary>전체 포스트 (2220)</summary>
     <ul><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (32)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/r/" style="color: black">R (53)</a>
         </li><li>
@@ -972,7 +964,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</sp
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC%EA%B3%B5%EA%B0%84/" style="color: black">거리공간 (33)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (40)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99/" style="color: black">고전역학 (39)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B4%91%ED%95%99/" style="color: black">광학 (6)</a>
         </li><li>
@@ -1014,7 +1006,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</sp
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/" style="color: black">소볼레프공간 (11)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC/" style="color: black">수리물리 (40)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC/" style="color: black">수리물리 (83)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%EB%9F%89/" style="color: black">수리통계량 (1)</a>
         </li><li>
@@ -1049,8 +1041,6 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</sp
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/" style="color: black">추상대수 (78)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/" style="color: black">측도론 (50)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%85%90%EC%84%9C%ED%95%B4%EC%84%9D/" style="color: black">텐서해석 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (13)</a>
         </li><li>
