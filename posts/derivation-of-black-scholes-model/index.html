@@ -59,10 +59,10 @@
     </script>
 
     
-<meta name="title" content="함수 근사">
+<meta name="title" content="블랙-숄즈 모델 유도">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="함수 근사"/>
-<meta property="og:description" content="approximation of functions"/>
+<meta property="og:title" content="블랙-숄즈 모델 유도"/>
+<meta property="og:description" content="Derivation of Black-Scholes Model"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -74,15 +74,15 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "r_",
-    "name": "함수 근사",
-    "headline": "함수 근사",
+    "name": "블랙-숄즈 모델 유도",
+    "headline": "블랙-숄즈 모델 유도",
     "alternativeHeadline": "",
-    "description": "approximation of functions",
+    "description": "Derivation of Black-Scholes Model",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/approximation-of-functions\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/derivation-of-black-scholes-model\/"
     },
     "author" : {
         "@type": "Person",
@@ -97,10 +97,10 @@
         "name": "류대식"
     },
     "copyrightHolder" : "생새우초밥집",
-    "copyrightYear" : "2019",
-    "dateCreated": "2019-06-10T00:00:00.00Z",
-    "datePublished": "2019-06-10T00:00:00.00Z",
-    "dateModified": "2019-06-10T00:00:00.00Z",
+    "copyrightYear" : "2022",
+    "dateCreated": "2022-02-10T00:00:00.00Z",
+    "datePublished": "2022-02-10T00:00:00.00Z",
+    "dateModified": "2022-02-10T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -113,15 +113,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/approximation-of-functions\/",
-    "wordCount" : "1145",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/derivation-of-black-scholes-model\/",
+    "wordCount" : "4649",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>함수 근사</title>
+    <title>블랙-숄즈 모델 유도</title>
 
 </head>
 
@@ -130,7 +130,8 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/basic.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/%ED%99%95%EB%A5%A0%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D.png style="max-height: 80px; width: auto;">
+
             
             
             
@@ -261,21 +262,21 @@
             <div class = "content">
             
 
-<title>함수 근사</title>
+<title>블랙-숄즈 모델 유도</title>
 
-<h1>함수 근사</h1>
+<h1>블랙-숄즈 모델 유도</h1>
 <aside>
-    approximation of functions
+    Derivation of Black-Scholes Model
     <p style="text-align: right;">
-        1107
+        2156
 
     
     
-            <a href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석</a>&emsp;
+            <a href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">확률미분방정식</a>&emsp;
             
     </span>
     
-    작성일: 2019-06-10&nbsp;<br>
+    작성일: 2022-02-10&nbsp;<br>
     작성자: 류대식 사장 &nbsp;
 </p>
 </aside>
@@ -284,43 +285,204 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#모델-1">모델 </a>
+      <ul>
+        <li><a href="#변수">변수</a></li>
+        <li><a href="#파라메터">파라메터</a></li>
+      </ul>
+    </li>
+    <li><a href="#설명">설명</a>
+      <ul>
+        <li><a href="#블랙의-희극">블랙의 희극</a></li>
+        <li><a href="#숄즈의-비극">숄즈의 비극</a></li>
+      </ul>
+    </li>
+    <li><a href="#가정">가정</a>
+      <ul>
+        <li><a href="#수수료-세금-배당금-등의-언급되지-않은-요소는-고려하지-않는다">수수료, 세금, 배당금 등의 언급되지 않은 요소는 고려하지 않는다</a></li>
+        <li><a href="#파생상품은-기초자산과-시점에-종속되어있다">파생상품은 기초자산과 시점에 종속되어있다</a></li>
+        <li><a href="#기초자산은-기하-브라운-운동을-한다">기초자산은 기하 브라운 운동을 한다</a></li>
+        <li><a href="#무위험자산은-멜서스-성장을-한다">무위험자산은 멜서스 성장을 한다</a></li>
+        <li><a href="#무차익가격-포트폴리오-간에는-가치-차이가-없다">무차익가격: 포트폴리오 간에는 가치 차이가 없다</a></li>
+        <li><a href="#마찰이-없는-시장-분할과-공매도에-제한이-없다">마찰이 없는 시장: 분할과 공매도에 제한이 없다</a></li>
+      </ul>
+    </li>
+    <li><a href="#유도">유도</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-수치적인 계산을 할 때 컴퓨터가 인간보다 압도적으로 빠른 것은 사실이지만, 딱히 컴퓨터가 초월함수와 무리수를 이해했기 때문은 아니다. 가령 $\displaystyle \sin {{ \pi } \over {6}} = {{1} \over { 2 }}$ 을 계산시킨다면 삼각함수의 기하학적인 정의를 이용해서 직각삼각형을 그려보고 빗변과 높이의 비를 구하는 게 아니라, 다항함수로 급수전개해서 사칙연산으로 구하는 것이다. 컴퓨터의 입장에서 보자면 $\displaystyle \sin x \approx x - {{x^3} \over {3!}} + {{x^5} \over {5!}}$ 가 진정으로 무엇을 의미하는지는 별로 알 바 아니다. 그냥 사칙연산이 인간보다 빠르니까 있는 다항함수로 된 공식을 가져다 쓸 뿐이다. 그리고 이러한 다항함수가 언제나 존재함은 다음의 정리에 의해 보장되어 있다.</p>
-<p>**<a href="../1117">스톤-바이어슈트라스 정리</a>
-$f$ 가 $[a,b]$ 상에서 연속이면 주어진 $\epsilon &gt; 0$ 에 대해 $\displaystyle \max_{x \in [a,b]} | f(x) - p (x) | &lt; \epsilon$ 을 만족하는 다항함수 $p(x)$ 가 존재한다.</p>
-<p>그런데 &lsquo;컴퓨터의 입장&rsquo; 이야기가 나온김에 생각을 해보자면 $\displaystyle {{\pi^{31} } \over {31!}}$ 과 같은 수의 계산은 컴퓨터 입장에서도 상당히 어려움을 알 수 있다. 우선 분자와 분모 둘 다 꽤 길어서 계산 이전에 큰 숫자를 저장하는 것부터가 일인데, 사람과는 달리 계산 순서를 바꾸는 식으로 계산 소요를 줄일 수 있다는 발상도 없기 때문이다. [ <strong>NOTE</strong>: 실제로 이러한 기교는 암호론 등의 응용수학 분야에서 <a href="../621">연속제곱법</a>과 같은 알고리즘으로 구현되어 있다. ]거기다 &lsquo;인간의 입장&rsquo;에서 봤을 때도 테일러 급수는 충분히 작은 $(-h, h)$ 에서만 수렴성이 보장됨을 알고 있다. 이는 사실상 테일러 공식을 이용한 계산이 포인트와이즈하다는 말이다.물론 테일러 전개는 이론적인 접근에 있어 수학 역사상 최고로 손꼽힐만큼 강력한 툴이지만, 위의 고찰에서 수치적 계산을 위한 공식으로는 별로 좋지 않을 수 있음을 알 수 있다. 다른 말로, $f(x)$ 를 $\displaystyle f(x) \approx \sum_{k=0}^{n} a_{k} \varphi_{n} (X)$ 와 같은 식으로 계산하고 싶다면 그 베이시스로써 $\displaystyle \left\{ \varphi_{n} (x) = {{x^{n}} \over {n!}} : n \ge 0 \right\}$ 은 별로 좋지 않은 것이다.</p>
-<p><a href="../394">그램-슈미트 프로세스</a>모든 유한차원 내적공간은 정규직교기저를 갖는다.</p>
-<p>다행스럽게도 컴퓨터가 이해할 수 있는 <a href="../806">다항함수의 집합 $\mathbb{Q} [ x ]$ 은 유한차원 놈드 벡터 스페이스</a>가 되므로 오소노멀 베이시스를 갖는 다는 것 자체는 보장되어 있다. 수치해석에서 실제 문제를 해결하기 위해 관심을 가지는 대상은 그 중에서도 특히 다음의 성질들을 가지는 베이시스다.</p>
-<p>**(i): $\displaystyle p_{n} (x)$ 이 $\displaystyle \left\{ \varphi_{n} (x) \in \mathbb{Q} [ x ] : n \ge 0 \right\}$ 의 선형결합으로 나타나며, $\displaystyle \max_{x \in [a,b]} | f(x) - p_{n} (x) |$ 이 원하는만큼 작아지도록 하는 $n \in \mathbb{N}$ 이 존재해야한다.</p>
-<p>(ii): $p_{n} (x)$ 은 $\displaystyle p_{n} (x) = \sum_{k=0}^{n} a_{k} \varphi_{n} (X)$ 과 같이 계산되는 게 좋다. 즉, 오차를 줄이려고 할 때마다 완전히 새롭게 계산하는 게 아니라 새로운 항을 더함으로써 계산하는 게 좋다.</p>
+<h2 id="모델-1">모델 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>$t$ 시점에서 $S_{t}$ 를 기초자산 $1$단위의 가격이라 하고 $S_{t}$ 가 <a href="../2154">기하 브라운 운동</a>을 한다고 가정하자. 즉, <a href="../957">표준 브라운 운동</a> $W_{t}$ 와 추세<sup>Drift</sup> $\mu \in \mathbb{R}$ 와 확산<sup>Diffusion</sup> $\sigma^{2} &gt; 0$ 에 대해 $S_{t}$ 는 다음의 <a href="../2125">확률미분방정식</a>의 솔루션이다.
+$$
+d S_{t} = S_{t} \left( \mu dt + \sigma d W_{t} \right)
+$$
+무위험이자율 $r \in \mathbb{R}$ 이 주어져 있을 때, $t$ 시점에서 파생상품 $1$단위의 가격 $F = F \left( t, S_{t} \right)$ 는 다음의 <a href="../../categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D">편미분방정식</a>을 따른다.
+$$
+r F = {{ \partial F } \over { \partial t }} + r S_{t} {{ \partial F } \over { \partial S_{t} }} + {{ 1 } \over { 2 }} \sigma^{2} S_{t}^{2} {{ \partial^{2} F } \over { \partial S_{t}^{2} }}
+$$</p>
+<h3 id="변수">변수</h3>
 <ul>
-<li>(iii): $| a_{n} |$ 이 빠르게 $0$ 으로 수렴하는 게 좋다. 즉, 최대한 적은 항만 더해도 빠르게 수렴하는 게 좋다.</li>
+<li>$F \left( t, S_{t} \right)$: 파생상품<sup>Derivatives</sup>은 선물, 옵션 등의 금융상품을 말한다.</li>
+<li>$S_{t}$: 기초자산<sup>Underlying Assets</sup>은 통화, 채권, 주식 등 파생상품의 거래대상이 되는 상품을 말한다.</li>
 </ul>
-<p>여기서 $\mathbb{R} [ x ]$ 가 아니라 계수가 유리수인 다항함수의 집합 $\mathbb{Q} [ x ]$ 을 생각하는 이유는 간단하다. 컴퓨터는 수치적인 계산을 할 때 무리수를 이해하지 못하기 때문이다.</p>
+<h3 id="파라메터">파라메터</h3>
+<ul>
+<li>$r \in \mathbb{R}$: 무위험자산<sup>Risk-free Assets</sup>의 이자율을 나타낸다. 무위험자산의 대표적인 예로 예금이 있다.</li>
+<li>$\sigma^{2} &gt; 0$: 시장의 변동성<sup>Volatility</sup>을 나타낸다.</li>
+</ul>
+<h2 id="설명">설명</h2>
+<p>파생상품에 대한 흔한 오해와는 다르게, 선물<sup>Future</sup>이나 옵션<sup>Option</sup>은 불확실한 미래에 대한 헤지<sup>Edge</sup>의 수단으로 만들어졌었다. 불확실한 미래에 대비하기 위해 다소의 비용<sup>Premium</sup>을 지불하더라도 리스크를 줄이기 위한 방법이었던 것이다. 문제는 그 가격을 책정하는 적절한 방법이 없었다는 것이고, 매매자들은 경험에 따라 감으로 파생상품들을 거래했었다. 블랙-숄즈 모델은 그러한 파생상품의 가격을 수학적으로 설명할 수 있게 만든 방정식이다.</p>
+<p>흔히 블랙-숄즈 모델(1973)의 기여자로는 <strong>피셔 블랙</strong><sup>Fischer Black</sup>과 <strong>마이런 숄즈</strong><sup>Myron Scholes</sup>에 더불어 본 포스트의 &lsquo;헤징을 이용한 유도&rsquo;를 소개한 <strong>로버트 머튼</strong><sup>Robert K. Merton</sup> 세 사람이 꼽힌다. 안타깝게도 블랙은 1995년 먼저 숨을 거두었고, 숄즈와 머튼은 1997년 노벨 경제학상을 수상한다. 블랙-숄즈-머튼 방정식의 발견 이후 옵션시장은 눈부시게 발전했고, 학계에는 아예 금융 공학이라는 새로운 분과의 태동을 이끌었다.</p>
+<h3 id="블랙의-희극">블랙의 희극</h3>
+<p>위키피디아<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>에 따르면 블랙은 박사과정 당시 전공을 자주 바꾸며 어디 한군데 정착을 잘 못했다고 한다. 물리학에서 수학으로, 컴퓨터로, 인공지능으로 바꾸었다는데 결국 지대한 공헌으로 이름을 남긴 분야는 경제학이 되었다.</p>
+<p>믿을만한 레퍼런스는 찾지 못했지만 필자가 어디서 들은 바에 따르면 블랙은 물리학을 전공할 당시 주변의 미친 천재들을 보고 &lsquo;여기선 살아남을 수 없겠다&rsquo;고 생각했다고 한다. 후에 경제/금융을 공부해보니 거기선 수학을 적극적으로 쓰는 선구자가 없었고, 이공계 괴물들이 없는 황무지에서 수학을 무기로 스스로 선구자가 되었다고 한다.</p>
+<h3 id="숄즈의-비극">숄즈의 비극</h3>
+<p>나무위키<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>에 따르면 숄즈는 1997년 노벨경제학상 기자회견에서 상금으로 주식 투자를 하겠다고 답해 센세이션을 일으켰다고 한다. 당시 숄즈가 운용하던 헤지펀드는 지나친 자신감으로 과도하게 레버리지<sup>Leverage</sup>를 쓰다가 1998년 러시아의 채무불이행으로 파산했다고 한다. 위기를 겪은 뒤 문제를 해결한 숄즈는 끝끝내 투자자들에게 수익을 돌려주었고, 이후로도 펀드매니저를 하다가 서브프라임 모기지 사태가 터지기 직전 은퇴했다고 한다.</p>
+<h2 id="가정">가정</h2>
+<p>본격적인 유도에 앞서 몇가지 가정에 대해 체크해보자.</p>
+<h3 id="수수료-세금-배당금-등의-언급되지-않은-요소는-고려하지-않는다">수수료, 세금, 배당금 등의 언급되지 않은 요소는 고려하지 않는다</h3>
+<p>물리학 모델에서 관심의 대상이 아닌 저항이나 온도, 기압 등을 고려하지 않는 정도로 받아들이면 된다. 거기에 더불어 추세 $\mu$ 와 $\sigma$ 등은 간단하게 상수라 가정한다.</p>
+<h3 id="파생상품은-기초자산과-시점에-종속되어있다">파생상품은 기초자산과 시점에 종속되어있다</h3>
+<p>파생상품의 가격이 기초자산에 독립이라면 딱히 파생, 기초라는 단어를 쓸 이유가 없다. 기초자산의 가격이 변함에 따라 파생상품의 가격이 변하는 것이 타당하다. 또한 시간의 흐름에 따라 바뀌지 않는다면(상수라면) 파생상품의 가격을 고민하는 의미가 없다. 따라서 $F$ 의 꼴을 정확히 말할 순 없어도, 다음과 같이 적어도 두 요소 $t$ 와 $S_{t}$ 에 대한 함수라고 가정한다.
+$$
+F = F \left( t, S_{t} \right)
+$$</p>
+<h3 id="기초자산은-기하-브라운-운동을-한다">기초자산은 기하 브라운 운동을 한다</h3>
+<p><a href="../2154">기하 브라운 운동 GBM</a>의 대표적인 응용은 바로 주가와 같은 기초자산의 가격 변동을 설명하는 것이다. 인구수의 변동량이 전체 인구수에 비례하듯 자산의 가격 변동 역시 자산의 가격에 비례하고 상장폐지를 당하지 않는 이상 음수가 될 수 없는 등 좋은 가정을 많이 가지고 있다.
+$$
+d S_{t} = S_{t} \left( \mu dt + \sigma d W_{t} \right)
+$$</p>
+<p>어떤 주식의 가격 $p_{t}$ 가 GBM을 따른다고 가정하자. $t$일째 종가를 $t-1$일째의 종가로 나누고 로그를 취한
+$$
+r_{t} = \nabla \log p_{t} = \log {{ p_{t} } \over { p_{t-1} }}
+$$
+을 수익률―<a href="../1272">리턴</a><sup>Return</sup>이라 하는데, 주가의 크기에 상관없이 가격이 올랐으면 양수, 떨어졌으면 음수로 우리의 직관과 일치한다. <a href="#%EB%A1%9C%EA%B7%B8-%EC%A0%95%EA%B7%9C%EB%B6%84%ED%8F%AC">로그-정규분포 단락</a>에서 설명한대로 이 리턴은 정규분포를 따르며, 단순한 등락이 아니라 주가의 성장과 역성장 그 본질에 관심을 두는 것으로 볼 수 있다.</p>
+<h3 id="무위험자산은-멜서스-성장을-한다">무위험자산은 멜서스 성장을 한다</h3>
+<p><a href="../1871">멜서스 성장 모델</a>은 인구 동역학<sup>Population Dynamics</sup>에서 자원의 제한이나 개입 등이 없을 때 집단의 성장을 설명하는 가장 단순한 모델로써, 경제/금융의 센스에서는 무위험자산의 증식을 설명하는 가정이 될 수 있다. 무위험수익률은 $r$ 상수로써 가정되며, 그 금융소득은 자산 $N_{t}$ 의 규모에 비례하므로 다음과 같은 <a href="../../categories/%EC%83%81%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D">상미분방정식</a>으로 표현될 수 있다.
+$$
+{{ d V_{t} } \over { d t }} = r V_{t}
+$$</p>
+<h3 id="무차익가격-포트폴리오-간에는-가치-차이가-없다">무차익가격: 포트폴리오 간에는 가치 차이가 없다</h3>
+<ul>
+<li>포트폴리오<sup>Portfolio</sup>에 대한 수식적인 설명은 본 증명에서 더욱 자세히 설명하겠다.</li>
+</ul>
+<p>무차익가격<sup>Arbitrage-free Pricing</sup>의 가정이란 우리가 고려할 모든 포트폴리오가 같은 가치로 균형을 이루었다는 것이다. 가령 포트폴리오 $A$ 의 가치가 $B$ 보다 높다면 합리적인 거래주체는 더 가치있는 $A$ 의 비중을 늘려 차익을 낼 수 있기 때문에, $B$ 를 생각할 이유가 없다. 따라서 우리가 고려할 포트폴리오들은 이미 이런 식의 차익거래로는 더 이상 이익을 낼 수 없는 상태임을 가정한다.</p>
+<h3 id="마찰이-없는-시장-분할과-공매도에-제한이-없다">마찰이 없는 시장: 분할과 공매도에 제한이 없다</h3>
+<p>주식을 해본 사람이라면 알겠지만 이 매매라는 건 최소한의 호가 단위가 있기 때문에 내가 원하는 액수대로 거래할 수 없고, 공매도를 하고 싶어도 한국 주식 시장에서는 차입 공매도(주식을 빌리는 것)이 원칙인 등 제한이 있다. 그 거래 단위를 마음대로 분할할 수 있고 어떤 제약도 없이 공매도를 할 수 있다는 것은 행동에 거스르는 마찰이 없는 것으로 볼 수 있다.</p>
+<h2 id="유도">유도</h2>
+<p><strong>Part 1. 포트폴리오 구성</strong></p>
+<p>우리가 보유할 수 있는 자산은 다음의 세가지 종류 뿐이라고 하자.</p>
+<ul>
+<li>기초자산: $s$ 단위만큼 보유하고 있다고 하자.</li>
+<li>파생상품: $f$ 단위만큼 보유하고 있다고 하자.</li>
+<li>무위험자산: 기초자산도 아니고 파생상품도 아닌 자산으로, 현금이라 생각해도 무방하다.</li>
+</ul>
+<p>$t$ 시점에서 우리가 보유한 모든 자산의 가치를 $V_{t}$ 라고 한다면, $S_{t}$ 가 기초자산 $1$단위의 가격이었고 $F \left( t , S_{t} \right)$ 가 파생상품 $1$단위의 가격이었으므로 다음과 같이 나타낼 수 있다.
+$$
+V_{t} = f F \left( t, S_{t} \right) + s S_{t}
+$$
+포트폴리오를 구성한다는 것은 이 $f$ 와 $s$ 의 양을 조절하는 것, 다시 말해 어떻게 투자할지에 대한 전략을 짠다는 것이다. 이러한 포트폴리오 구성으로 발생하는 거래량이 너무 많아서 시장에 영향을 미친다는 가정은 비합리적이므로, 기초자산과 파생상품의 가격은 $f$ 와 $s$ 의 선택에 무관하다고 가정하자. 다시 말해, $f$ 와 $s$ 를 어떻게 정하든 아래에서 이어지는 수학적 논의는 달라지지 않는 것이다.</p>
+<p>주의해야할 것은 $V_{t}$ 는 전체 자산의 합이 아니라는 것이다. 현금계좌가 아닌 주식 잔고만 본다고 생각하면 쉽다. 포트폴리오의 예로써 어떤 것들이 있는지 생각해보자:</p>
+<ul>
+<li>저축 $V_{t} = 0$: 주식계좌를 정리하고 모조리 저축해서 이자만 받는다. 수학밖에 모르는 선비의 눈에는 너무 트리비얼<sup>Trivial</sup>해 보이겠지만 폭락장이나 불경기에 대처할 수 있는 엄연한 전략이다.</li>
+<li>개미<sup>Ant</sup> $V_{t} = 5 S_{t}$: 개인이라면 파생상품에는 손 대지 말도록 하자. 개인이 공매도가 금지되어 있는 나라에서 대부분의 개인 투자자는 이러한 포트폴리오를 갖는다. 예로써 수식에서 $S_{t} = 81,200$ 가 삼성전자의 주가라면, 이 포트폴리오는 삼성전자 $5$주를 보유한 내 친구 &lsquo;김수형&rsquo;의 계좌다.</li>
+<li>헤지<sup>Hedge</sup> $\displaystyle V_{t} = 1 \cdot F- {{ \partial F } \over { \partial S_{t} }} \cdot S_{t}$: 콜옵션<sup>Call Option</sup>을 $1$만큼 매수하고 그 기초자산을 ${{ \partial F } \over { \partial S_{t} }}$ 만큼 공매도 했다고 생각해보자. 옵션 만기일에 기초자산의 가격이 많이 올랐다면 콜옵션이 크게 이익을 벌어주고, 기초자산의 가격이 오히려 떨어졌다면 공매도에서 진작 이익을 본 것이다.</li>
+</ul>
+<p>헤지에 대한 설명에서 언급했고 앞으로 다룰 옵션은 <strong>유럽형 옵션</strong><sup>European Option</sup>으로, 보통 우리가 아는 &lsquo;만기일에만 권리를 행사할 수 있는 옵션&rsquo;이다. <strong>미국형 옵션</strong><sup>American Option</sup>은 만기 이전에도 항상 권리를 행사할 수 있다는데, 별로 알 바는 아니고 유럽형 미국형 하는 단어에 겁 먹지 말도록 하자.</p>
+ <!-- - 풋맨 $V\_{t} = 12 F - 300 S\_{t}$: 증권 직원이 어떤 개잡주의 고점에서 풋 옵션<sup>Put Option</sup>을 $12$만큼 매수하고 해당 주식을 $300$주만큼 공매도 때렸다고 상상해보자. 당장 해당 거래일 주가가 폭락을 했으며, 기관이 매도세라는 포지션을 일부러 노출시켜 주가가 박살났다고 하자. -->
+<p>우리는 마지막 예시, 현물 공매도로 파생상품을 헤지하는 포트폴리오
+$$
+V_{t} = 1 \cdot F \left( t, S_{t} \right) - {{ \partial F } \over { \partial S_{t} }} \cdot S_{t}
+$$
+에서 블랙-숄즈 방정식을 유도해볼 것이다. 정확하게 헤지를 했으니 이 포트폴리오는 무위험자산이고, 시간 $t$ 에 대한 증분<sup>Increment</sup>은
+$$
+d V_{t} = d F - {{ \partial F } \over { \partial S_{t} }} d S_{t}
+$$
+이다. 여기서 $S_{t}$ 는 기하 브라운 운동을 한다고 가정했으므로 $d S_{t}$ 에 $\displaystyle  S_{t} \left( \mu dt + \sigma d W_{t} \right)$ 를 대입하면
+$$
+d V_{t} = d F - {{ \partial F } \over { \partial S_{t} }} S_{t} \left( \mu dt + \sigma d W_{t} \right)
+$$
+이다. 한편 무차익가격의 가정을 생각해보면, 이 포트폴리오와 무위험자산의 포트폴리오의 증분은 같아야한다. 만약 포트폴리오 간에 가격차가 있다고 가정한다면, 다른 한 쪽의 포트폴리오를 처분하고 다른 포트폴리오에 투자함으로써 차익을 내면 되기 때문이다. 무위험자산은 <a href="../1871">멜서스 성장</a>을 한다는 가정을 했으므로, 무위험이자율 $r$ 에 대해 다음과 같은 <a href="../../categories/%EC%83%81%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D">상미분방정식</a>으로 나타난다.
+$$
+{{ d V_{t} } \over { d t }} = r V_{t}
+$$
+이들을 정리해서 나타내보면
+$$
+\begin{align*}
+d V_{t} =&amp; d F - {{ \partial F } \over { \partial S_{t} }} S_{t} \left( \mu dt + \sigma d W_{t} \right)
+\\ d V_{t} =&amp;  r V_{t} dt
+\end{align*}
+$$
+이므로,
+$$
+\begin{equation}
+r V_{t} dt = d F - {{ \partial F } \over { \partial S_{t} }} S_{t} \left( \mu dt + \sigma d W_{t} \right) \label{1}
+\end{equation}
+$$
+을 얻는다. 이제 이토 미적분을 통해 $dF$ 를 구해보자.</p>
+<hr>
+<p><strong>Part 2. 이토 캘큘러스</strong></p>
+<blockquote>
+<p><a href="../2121">이토 공식</a>: <a href="../2119">이토 프로세스</a> $\left\{ X_{t} \right\}_{t \ge 0}$ 가 주어져 있다고 하자.
+$$
+d X_{t} = u dt + v d W_{t}
+$$
+함수 $V \left( t, X_{t} \right) = V \in C^{2} \left( [0,\infty) \times \mathbb{R} \right)$ 에 대해 $Y_{t} := V \left( t, X_{t} \right)$ 라 두면 $\left\{ Y_{t} \right\}$ 역시 이토 프로세스고, 다음이 성립한다.
+$$
+\begin{align*}
+d Y_{t} =&amp; V_{t} dt + V_{x} d X_{t} + {{ 1 } \over { 2 }} V_{xx} \left( d X_{t} \right)^{2}
+\\ =&amp; \left( V_{t} + V_{x} u + {{ 1 } \over { 2 }} V_{xx} v^{2} \right) dt + V_{x} v d W_{t}
+\end{align*}
+$$</p>
+</blockquote>
+<p>기하 브라운 운동에서 $S_{t}$ 를 분배법칙에 따라 헤쳐놓으면
+$$
+d S_{t} = \mu S_{t} dt + \sigma S_{t} d W_{t}
+$$
+이고, 이토 공식에서 $u = \mu S_{t}$ 그리고 $v = \sigma S_{t}$ 이므로
+$$
+d F = \left( {{ \partial F } \over { \partial t }} + {{ \partial F } \over { \partial S_{t} }} \mu S_{t} + {{ 1 } \over { 2 }} {{ \partial^{2} F } \over { \partial S_{t}^{2} }} \sigma^{2} S_{t}^{2} \right) dt + {{ \partial F } \over { \partial S_{t} }} \sigma S_{t} d W_{t}
+$$
+을 얻는다. $\eqref{1}$ 의 $d F$ 에 이를 대입해보면
+$$
+\begin{align*}
+r V_{t} dt =&amp; d F - {{ \partial F } \over { \partial S_{t} }} S_{t} \mu dt - {{ \partial F } \over { \partial S_{t} }} \sigma S_{t} d W_{t}
+\\ =&amp; \left( {{ \partial F } \over { \partial t }} + {\color{Red}{{ \partial F } \over { \partial S_{t} }} \mu S_{t}} + {{ 1 } \over { 2 }} {{ \partial^{2} F } \over { \partial S_{t}^{2} }} \sigma^{2} S_{t}^{2} \right) dt + {\color{Blue}{{ \partial F } \over { \partial S_{t} }} \sigma S_{t} d W_{t}}
+\\ &amp; - {\color{Red}{{ \partial F } \over { \partial S_{t} }} S_{t} \mu dt} - {\color{Blue}{{ \partial F } \over { \partial S_{t} }} \sigma S_{t} d W_{t}}
+\\ =&amp; {{ \partial F } \over { \partial t }} dt + {{ 1 } \over { 2 }} {{ \partial^{2} F } \over { \partial S_{t}^{2} }} \sigma^{2} S_{t}^{2} dt
+\end{align*}
+$$
+이다. 좌변의 포트폴리오의 가치 $V_{t}$ 가 $\displaystyle V_{t} = F- {{ \partial F } \over { \partial S_{t} }} S_{t}$ 와 같이 정의되어 있었으므로 이를 대입하면
+$$
+r \left( F- {{ \partial F } \over { \partial S_{t} }} S_{t} \right) dt = {{ \partial F } \over { \partial t }} dt + {{ 1 } \over { 2 }} {{ \partial^{2} F } \over { \partial S_{t}^{2} }} \sigma^{2} S_{t}^{2} dt
+$$
+이다. $rF$ 에 대해 식을 정리하면 우리가 원하던 다음의 방정식을 얻는다.
+$$
+r F = {{ \partial F } \over { \partial t }} + r S_{t} {{ \partial F } \over { \partial S_{t} }} + {{ 1 } \over { 2 }} \sigma^{2} S_{t}^{2} {{ \partial^{2} F } \over { \partial S_{t}^{2} }}
+$$</p>
+<p style="text-align: right;">■</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>최병선. (2012). Black-Scholes식의 다양한 유도&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p><a href="https://en.wikipedia.org/wiki/Fischer_Black">https://en.wikipedia.org/wiki/Fischer_Black</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p><a href="https://namu.wiki/w/%EB%B8%94%EB%9E%99-%EC%88%84%EC%A6%88%20%EB%AA%A8%ED%98%95#s-5">https://namu.wiki/w/%EB%B8%94%EB%9E%99-%EC%88%84%EC%A6%88%20%EB%AA%A8%ED%98%95#s-5</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var title = '함수 근사';
-        var link = 'https:\/\/freshrimpsushi.github.io\/posts\/approximation-of-functions\/';
+        var title = '블랙-숄즈 모델 유도';
+        var link = 'https:\/\/freshrimpsushi.github.io\/posts\/derivation-of-black-scholes-model\/';
         var arr = new Array();
         var obj = {
             "title": title,
@@ -438,9 +600,9 @@ $f$ 가 $[a,b]$ 상에서 연속이면 주어진 $\epsilon &gt; 0$ 에 대해 $\
             alert('빈칸을 채워주세요');
             return;
         }
-        let board_idx = '1107';
-        let board_slug = 'approximation-of-functions';
-        let board_title = '함수 근사';
+        let board_idx = '2156';
+        let board_slug = 'derivation-of-black-scholes-model';
+        let board_title = '블랙-숄즈 모델 유도';
 
         $.ajax({
             type: "POST",
@@ -554,7 +716,7 @@ $f$ 가 $[a,b]$ 상에서 연속이면 주어진 $\epsilon &gt; 0$ 에 대해 $\
             type: "POST",
             url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.comment.php?action=getComment",
             data: {
-                board_idx: '1107'
+                board_idx: '2156'
             },
             dataType: "json",
             success: function (data) {
@@ -628,9 +790,9 @@ $f$ 가 $[a,b]$ 상에서 연속이면 주어진 $\epsilon &gt; 0$ 에 대해 $\
                 alert('빈칸을 채워주세요');
                 return;
             }
-            let idx = '1107';
-            let board_slug = 'approximation-of-functions';
-            let board_title = '함수 근사';
+            let idx = '2156';
+            let board_slug = 'derivation-of-black-scholes-model';
+            let board_title = '블랙-숄즈 모델 유도';
 
             $.ajax({
                 type: "POST",
@@ -711,7 +873,7 @@ $f$ 가 $[a,b]$ 상에서 연속이면 주어진 $\epsilon &gt; 0$ 에 대해 $\
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1059">🎲</a></p>
+         <a href="../90">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (79)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -829,7 +991,7 @@ $f$ 가 $[a,b]$ 상에서 연속이면 주어진 $\epsilon &gt; 0$ 에 대해 $\
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2220)</summary>
+    <summary>전체 포스트 (2222)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -937,7 +1099,7 @@ $f$ 가 $[a,b]$ 상에서 연속이면 주어진 $\epsilon &gt; 0$ 에 대해 $\
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (62)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">확률미분방정식 (23)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">확률미분방정식 (24)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (30)</a>
         </li>

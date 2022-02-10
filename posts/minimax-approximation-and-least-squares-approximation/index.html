@@ -62,7 +62,7 @@
 <meta name="title" content="수치해석학에서의 최소극대화 근사와 최소제곱 근사">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
 <meta property="og:title" content="수치해석학에서의 최소극대화 근사와 최소제곱 근사"/>
-<meta property="og:description" content="Minimax approximation and least squares approximation"/>
+<meta property="og:description" content="Minimax Approximation and Least Squares Approximation"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -77,7 +77,7 @@
     "name": "수치해석학에서의 최소극대화 근사와 최소제곱 근사",
     "headline": "수치해석학에서의 최소극대화 근사와 최소제곱 근사",
     "alternativeHeadline": "",
-    "description": "Minimax approximation and least squares approximation",
+    "description": "Minimax Approximation and Least Squares Approximation",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/minimax-approximation-and-least-squares-approximation\/",
-    "wordCount" : "977",
+    "wordCount" : "982",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -265,7 +265,7 @@
 
 <h1>수치해석학에서의 최소극대화 근사와 최소제곱 근사</h1>
 <aside>
-    Minimax approximation and least squares approximation
+    Minimax Approximation and Least Squares Approximation
     <p style="text-align: right;">
         1116
 
@@ -284,36 +284,37 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#빌드업-1">빌드업 </a></li>
+    <li><a href="#최소제곱-근사-2">최소제곱 근사 </a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-주어진 함수 $f : [a,b] \to \mathbb{R}$ 를 근사하는 문제가 주어져 있다고 하자. 계산은 컴퓨터의 몫이므로 다항함수로 $f$ 를 근사하는 것이 목표다. <a href="../1107">함수를 근사</a>시킨다는 것은 한 점에서의 계산이 아니라 정의역 $[a,b]$ 전체에서 $f$ 와 비슷한 함수를 사용하고 싶은 것이므로 가장 크게 틀리는 부분을 줄이는 것이 목표다. 이러한 상황을 <strong>최소극대화</strong><sup>Minimax</sup>  문제라고 한다. [ <strong>NOTE</strong>: &lsquo;최소극대화&rsquo;라는 단어는 경제학에서 최소한의 이익을 극대화하는 상황에서 나온 표현이므로 지금 문제에 맞지 않다. 한자 표현에 매달리기보단 그냥 &lsquo;미니맥스&rsquo;로 알아두자. ]
+<h2 id="빌드업-1">빌드업 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>주어진 함수 $f : [a,b] \to \mathbb{R}$ 를 근사하는 문제가 주어져 있다고 하자. 계산은 컴퓨터의 몫이므로 다항함수로 $f$ 를 근사하는 것이 목표다. <a href="../1107">함수를 근사</a>시킨다는 것은 한 점에서의 계산이 아니라 정의역 $[a,b]$ 전체에서 $f$ 와 비슷한 함수를 사용하고 싶은 것이므로 가장 크게 틀리는 부분을 줄이는 것이 목표다. 이러한 상황을 <strong>최소극대화</strong><sup>Minimax</sup>  문제라고 한다. [ <strong>NOTE</strong>: &lsquo;최소극대화&rsquo;라는 단어는 경제학에서 최소한의 이익을 극대화하는 상황에서 나온 표현이므로 지금 문제에 맞지 않다. 한자 표현에 매달리기보단 그냥 &lsquo;미니맥스&rsquo;로 알아두자. ]
 $$
-\displaystyle \rho_{n} (f) := \inf_{\deg(q) \le n } \left\| f - q \right\|_{\infty} 
+\rho_{n} (f) := \inf_{\deg(q) \le n } \left\| f - q \right\|_{\infty} 
 $$
-최소극대화 문제를 수식으로 다시 써 보면 위의 $\rho_{n} (f)$ 가 가장 작아지도록 하는 $n$ 차 이하의 다항함수 $q$ 를 찾는 것이다. $| \cdot |_{\infty}$ 는 <a href="../1225">맥시멈 놈</a>을 나타내며, 우리는 이것이 가장 작아지도록 하는 $q_{n}^{ \ast }$ 을 찾는 것이 목표다. 다시 말해, $\rho_{n} (f) = | f - q_{n}^{ \ast } |$ 을 만족하는 $q_{n}^{ \ast }$ 을 찾는 것이 최소극대화 근사다.</p>
-<p>그러나 이는 말이 쉽지 생각보다 만만한 작업이 아니다. 최소극대화 근사를 한다는 것은 거듭 강조하지만 한 점이 아니라 $[a,b]$ 전체에서의 오차를 한꺼번에 고려해야 이뤄낼 수 있는 일이다. 다시 생각해보면 $[a,b]$ 는 폐구간 이전에 언카운터블하게 많은 점을 포함하는 집합이고, 보기보단 다루기 까다롭다.
-$$
+최소극대화 문제를 수식으로 다시 써 보면 위의 $\rho_{n} (f)$ 가 가장 작아지도록 하는 $n$ 차 이하의 다항함수 $q$ 를 찾는 것이다. $\| \cdot \|_{\infty}$ 는 <a href="../1225">맥시멈 놈</a>을 나타내며, 우리는 이것이 가장 작아지도록 하는 $q_{n}^{ \ast }$ 을 찾는 것이 목표다. 다시 말해, $\rho_{n} (f) = \| f - q_{n}^{ \ast } \|$ 을 만족하는 $q_{n}^{ \ast }$ 을 찾는 것이 최소극대화 근사다.</p>
+<p>그러나 이는 말이 쉽지 생각보다 만만한 작업이 아니다. 최소극대화 근사를 한다는 것은 거듭 강조하지만 한 점이 아니라 $[a,b]$ 전체에서의 오차를 한꺼번에 고려해야 이뤄낼 수 있는 일이다. 다시 생각해보면 $[a,b]$ 는 폐구간 이전에 언카운터블하게 많은 점을 포함하는 집합이고, 보기보단 다루기 까다롭다.</p>
+<h2 id="최소제곱-근사-2">최소제곱 근사 <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h2>
+<p>$$
 M_{n} (f) := \inf_{\deg(r) \le n } \left\| f - r \right\|_{2} 
 $$
-수학자들은 이러한 난관을 우회하기 위한 해법으로 최소제곱 근사를 끌고왔다. 편차의 제곱이 가장 작아지도록 하는 해를 찾는 방법을 <a href="../356">최소제곱법</a>이라고 하며, 수식적으로는 위의 $M_{n} (f)$ 가 가장 작아지도록 하는 $n$ 차 이하의 다항함수 $r$ 을 찾는 방법이다. 다시 말해, $M_{n} (f) = | f - r_{n}^{ \ast } |$ 을 만족하는 $r_{n}^{ \ast }$ 을 찾는 것이 최소제곱 근사다. 이러한 메소드의 구현에서 쓰이는 선형대수학적 기교들은 <a href="../703">함수해석에도 자연스럽게 응용</a>될 수 있다.</p>
-<p>하필 최소제곱, $\displaystyle | f - r |_{2} = \sqrt{ \int_{a}^{b} \left| f(x) - r(x) \right|^{2} d x }$ 을 사용하는 이유는 바로 <a href="../594">힐베르트 스페이스</a>에서만 내적이 정의되기 때문이다. 내적이 정의됨으로써 비교적 여러가지 기교를 사용할 수 있게 되므로 <a href="../605">르벡 스페이스</a> 중에서도 <a href="../594">힐베르트 스페이스</a>를 선택하는 것이다.</p>
-<p>그리고 <a href="../1122">놀랍게도 어떤 방법으로 만들어진 최소제곱해 $C_{n}$</a> 은 $| \cdot |_{2}$ 가 아니라 $| \cdot |_{\infty}$ 에서도 꽤 좋은 퍼포먼스를 보여준다. 비록 최소극대까진 아니더라도 $\displaystyle | f - C_{n} | \le {{ \ln n } \over { n }}$ 정도로만 바운드 되어도 $\ln n$ 의 발산 속도가 $n$ 의 발산 속도보다는 훨씬 느리기 때문에 $C_{n}$ 도 그럭저럭 쓸만한 근사가 될 수 있는 것이다.</p>
+수학자들은 이러한 난관을 우회하기 위한 해법으로 최소제곱 근사를 끌고왔다. 편차의 제곱이 가장 작아지도록 하는 해를 찾는 방법을 <a href="../356">최소제곱법</a>이라고 하며, 수식적으로는 위의 $M_{n} (f)$ 가 가장 작아지도록 하는 $n$ 차 이하의 다항함수 $r$ 을 찾는 방법이다. 다시 말해, $M_{n} (f) = \| f - r_{n}^{ \ast } \|$ 을 만족하는 $r_{n}^{ \ast }$ 을 찾는 것이 최소제곱 근사다. 이러한 메소드의 구현에서 쓰이는 선형대수학적 기교들은 <a href="../703">함수해석에도 자연스럽게 응용</a>될 수 있다.</p>
+<p>하필 최소제곱, $\displaystyle \| f - r \|_{2} = \sqrt{ \int_{a}^{b} \left| f(x) - r(x) \right|^{2} d x }$ 을 사용하는 이유는 바로 <a href="../594">힐베르트 스페이스</a>에서만 내적이 정의되기 때문이다. 내적이 정의됨으로써 비교적 여러가지 기교를 사용할 수 있게 되므로 <a href="../605">르벡 스페이스</a> 중에서도 <a href="../594">힐베르트 스페이스</a>를 선택하는 것이다.</p>
+<p>그리고 <a href="../1122">놀랍게도 어떤 방법으로 만들어진 최소제곱해 $C_{n}$</a> 은 $\| \cdot \|_{2}$ 가 아니라 $\| \cdot \|_{\infty}$ 에서도 꽤 좋은 퍼포먼스를 보여준다. 비록 최소극대까진 아니더라도 $\displaystyle \| f - C_{n} \| \le {{ \ln n } \over { n }}$ 정도로만 바운드 되어도 $\ln n$ 의 발산 속도가 $n$ 의 발산 속도보다는 훨씬 느리기 때문에 $C_{n}$ 도 그럭저럭 쓸만한 근사가 될 수 있는 것이다.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Atkinson. (1989). An Introduction to Numerical Analysis(2nd Edition): p201.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>Atkinson. (1989). An Introduction to Numerical Analysis(2nd Edition): p204.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
@@ -711,7 +712,7 @@ $$
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1969">🎲</a></p>
+         <a href="../161">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (79)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -829,7 +830,7 @@ $$
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2220)</summary>
+    <summary>전체 포스트 (2222)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -937,7 +938,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (62)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">확률미분방정식 (23)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">확률미분방정식 (24)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84/" style="color: black">힐베르트공간 (30)</a>
         </li>
