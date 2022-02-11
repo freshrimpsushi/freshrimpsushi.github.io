@@ -62,7 +62,7 @@
 <meta name="title" content="수치적으로 이상적분을 계산하기 위한 변수 치환 트릭">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
 <meta property="og:title" content="수치적으로 이상적분을 계산하기 위한 변수 치환 트릭"/>
-<meta property="og:description" content="Substitution trick to calculate numerically improper integration"/>
+<meta property="og:description" content="Substitution trick to Calculate Numerically Improper Integration"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -77,7 +77,7 @@
     "name": "수치적으로 이상적분을 계산하기 위한 변수 치환 트릭",
     "headline": "수치적으로 이상적분을 계산하기 위한 변수 치환 트릭",
     "alternativeHeadline": "",
-    "description": "Substitution trick to calculate numerically improper integration",
+    "description": "Substitution trick to Calculate Numerically Improper Integration",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/substitution-trick-to-calculate-numerically-improper-integration\/",
-    "wordCount" : "1317",
+    "wordCount" : "1304",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -265,7 +265,7 @@
 
 <h1>수치적으로 이상적분을 계산하기 위한 변수 치환 트릭</h1>
 <aside>
-    Substitution trick to calculate numerically improper integration
+    Substitution trick to Calculate Numerically Improper Integration
     <p style="text-align: right;">
         1147
 
@@ -284,32 +284,35 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
-    <li><a href="#증명1">증명[1]</a></li>
-    <li><a href="#증명2">증명[2]</a></li>
+    <li><a href="#정리-1">정리 </a></li>
+    <li><a href="#설명">설명</a></li>
+    <li><a href="#예시">예시</a>
+      <ul>
+        <li><a href="#우회-적분">우회 적분</a></li>
+        <li><a href="#속도-개선">속도 개선</a></li>
+      </ul>
+    </li>
+    <li><a href="#증명">증명</a>
+      <ul>
+        <li><a href="#1">[1]</a></li>
+        <li><a href="#2">[2]</a></li>
+      </ul>
+    </li>
+    <li><a href="#구현">구현</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-$0 &lt; a &lt; b &lt; \infty$ 라고 하자.</p>
+<h2 id="정리-1">정리 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>$0 &lt; a &lt; b &lt; \infty$ 라고 하자.</p>
 <ul>
-<li>[1]: $ 0 &lt; p &lt; 1$ 면 $\displaystyle \int_{0}^{b} {{ f(x) } \over {x^{p} }} dx = \int_{0}^{{{ 1 } \over { 1-p }} b^{1-p} } f \left( \left[ ( 1- p ) m \right]^{{{ 1 } \over { 1-p }}} \right) dm$</li>
-<li>[2]: $ 1 &lt; p$ 면 $\displaystyle \int_{a}^{ \infty } {{ f(x) } \over {x^{p} }} dx = \int_{0}^{{{ 1 } \over { p-1 }} a^{1-p}}f \left( \left[ ( p-1 ) m \right]^{{{ 1 } \over { 1-p }}} \right)  dm$</li>
+<li>[1]: $ 0 &lt; p &lt; 1$ 면 $$\int_{0}^{b} {{ f(x) } \over {x^{p} }} dx = \int_{0}^{{{ 1 } \over { 1-p }} b^{1-p} } f \left( \left[ ( 1- p ) m \right]^{{{ 1 } \over { 1-p }}} \right) dm$$</li>
+<li>[2]: $ 1 &lt; p$ 면 $$\int_{a}^{ \infty } {{ f(x) } \over {x^{p} }} dx = \int_{0}^{{{ 1 } \over { p-1 }} a^{1-p}}f \left( \left[ ( p-1 ) m \right]^{{{ 1 } \over { 1-p }}} \right)  dm$$</li>
 </ul>
-<p>이상적분은 언제나 골칫덩이지만 풀이를 포기할 수는 없다. 보통 적분이 어려운 이유는 어지간한 트릭을 써봐도 정작 그 트릭들이 계속 새로운 문제를 만들어내기 때문이다. 다행스럽게도 <a href="../1128">수치적 적분</a>에서는 함수만 정확히 가지고 있다면 자세한 과정이 없어도 어쨌든 계산을 해낼 수 있다. 대표적인 방법이 치환으로, 함수가 싱귤러할지라도 분모로 뺄 수 있는 항이 $ x^{p}$ 정도라면 쉽게 해결할 수 있다.</p>
+<h2 id="설명">설명</h2>
+<p>이상적분은 언제나 골칫덩이지만 풀이를 포기할 수는 없다. 보통 적분이 어려운 이유는 어지간한 트릭을 써봐도 정작 그 트릭들이 계속 새로운 문제를 만들어내기 때문이다. 다행스럽게도 <a href="../1128">수치적 적분</a>에서는 함수만 정확히 가지고 있다면 자세한 과정이 없어도 어쨌든 계산을 해낼 수 있다. 대표적인 방법이 치환으로, 함수가 싱귤러할지라도 분모로 뺄 수 있는 항이 $x^{p}$ 정도라면 쉽게 해결할 수 있다.</p>
+<h2 id="예시">예시</h2>
+<h3 id="우회-적분">우회 적분</h3>
 <p>예로써 다음의 이상적분을 생각해보자.
 $$
 \int_{0}^{1} {{e^{-x}} \over {\sqrt{x}}} dx \approx 1.493648265625
@@ -323,8 +326,9 @@ $$
 \end{align*}
 $$
 이와 같은 트릭을 통해 폐구간에 대한 적분을 만들었다면 적분 기법을 적용할 수 있다. 실제로 <a href="../1130">사다리꼴 룰</a>을 통해 수치를 계산해보면 다음과 같은 결과를 얻을 수 있다.</p>
-<p><img src="20190625_130928.png#center" alt="20190625\_130928.png">
-한편 더욱 흥미로운 예로써 다음의 경우를 살펴보자.
+<p><img src="20190625_130928.png#center" alt="20190625\_130928.png"></p>
+<h3 id="속도-개선">속도 개선</h3>
+<p>한편 더욱 흥미로운 예로써 다음의 경우를 살펴보자.
 $$
 \int_{0}^{1} e^{-x} \sqrt{x} dx \approx 0.378944691641
 $$
@@ -340,8 +344,9 @@ $$
 <p><img src="20190625_130937.png#center" alt="20190625\_130937.png">
 <img src="20190625_130945.png#center" alt="20190625\_130945.png">
 치환 없이 계산해도 뭐 수렴이야 한다. 하지만 치환을 거친 계산 결과가 무섭게 참값으로 수렴하는 것에 비해, 치환 없이 계산한 값은 안 무서운 속도로 수렴함을 확인할 수 있다. 속도에 목숨 거는 <a href="../../categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D">수치해석</a>의 특징상 이러한 로스는 가능한 한 줄여주는 게 좋다. 언젠가 선택해야할 때가 온다면 코드의 간결함, 아름다움보다는 수학자의 꼼꼼하고 치밀한 트릭을 골라야할 것이다.</p>
-<p>Strategy[1][2]**: 실제 계산은 컴퓨터에게 맡길 것이기 때문에 폐구간에서의 적분으로만 바꾸면 된다. 방법은 본질적으로 같다.</p>
-<h2 id="증명1">증명[1]</h2>
+<h2 id="증명">증명</h2>
+<p>전략: 실제 계산은 컴퓨터에게 맡길 것이기 때문에 폐구간에서의 적분으로만 바꾸면 된다. 방법은 본질적으로 같다.</p>
+<h3 id="1">[1]</h3>
 <p>$$
 \displaystyle m := \int_{0}^{x} {{ 1 } \over { t^{p} }} dt = {{ 1 } \over { 1-p }} x^{1-p} 
 $$
@@ -353,7 +358,7 @@ $$
 \end{align*}
 $$</p>
 <p style="text-align: right;">■</p>
-<h2 id="증명2">증명[2]</h2>
+<h3 id="2">[2]</h3>
 <p>$$
 \displaystyle m := \int_{x}^{\infty} {{ 1 } \over { t^{p} }} dt = - {{ 1 } \over { 1-p }} x^{1-p} 
 $$
@@ -364,73 +369,82 @@ $$
 \\ =&amp; \int_{0}^{{{ 1 } \over { p-1 }} a^{1-p}}f \left( \left[ ( p-1 ) m \right]^{{{ 1 } \over { 1-p }}} \right)  dm 
 \end{align*}
 $$</p>
-<p><p style="text-align: right;">■</p>
-다음은 예제들을 수치적으로 푼 파이썬 코드다.</p>
-<pre><code>import numpy as np
+<p style="text-align: right;">■</p>
+<h2 id="구현">구현</h2>
+<p>다음은 예제들을 수치적으로 푼 파이썬 코드다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
  
-def f1(x) :
-    return np.exp(-x)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f1</span>(x) :
+    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>x)
  
-def f2(x) :
-    return np.exp(-x)*np.sqrt(x)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f2</span>(x) :
+    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>x)<span style="color:#f92672">*</span>np<span style="color:#f92672">.</span>sqrt(x)
  
-def f3(x) :
-    return np.exp(-x)*x
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f3</span>(x) :
+    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span>x)<span style="color:#f92672">*</span>x
  
-def I(f,a,b,n) :
-    h=(b-a)/n
-    x=np.linspace(a,b,n+1)
-    x=f(x)
-    x[0]=x[0]/2
-    x[-1]=x[-1]/2
-    return(h*sum(x))
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">I</span>(f,a,b,n) :
+    h<span style="color:#f92672">=</span>(b<span style="color:#f92672">-</span>a)<span style="color:#f92672">/</span>n
+    x<span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>linspace(a,b,n<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+    x<span style="color:#f92672">=</span>f(x)
+    x[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">=</span>x[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
+    x[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">=</span>x[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
+    <span style="color:#66d9ef">return</span>(h<span style="color:#f92672">*</span>sum(x))
  
-def CVI(f,a,b,n) :
-    b=2*np.sqrt(b)
-    h=(b-a)/n
-    x=np.linspace(a,b,n+1)
-    x=f((x**2)/4)
-    x[0]=x[0]/2
-    x[-1]=x[-1]/2
-    return(h*sum(x))
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">CVI</span>(f,a,b,n) :
+    b<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>np<span style="color:#f92672">.</span>sqrt(b)
+    h<span style="color:#f92672">=</span>(b<span style="color:#f92672">-</span>a)<span style="color:#f92672">/</span>n
+    x<span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>linspace(a,b,n<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+    x<span style="color:#f92672">=</span>f((x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">4</span>)
+    x[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">=</span>x[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
+    x[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">=</span>x[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
+    <span style="color:#66d9ef">return</span>(h<span style="color:#f92672">*</span>sum(x))
  
  
-TV1=1.49364826562485405079
-TV2=0.37894469164098470380
+TV1<span style="color:#f92672">=</span><span style="color:#ae81ff">1.49364826562485405079</span>
+TV2<span style="color:#f92672">=</span><span style="color:#ae81ff">0.37894469164098470380</span>
  
-print(&quot;&quot;)
+print(<span style="color:#e6db74">&#34;&#34;</span>)
  
-print(&quot;True Value 1 : %2.12f&quot; % TV1) 
-print(&quot;|   n |  In       |  I-In      |&quot;)
-print(&quot;=&quot;*32)
-for n in range(3,10) :
-    print(&quot;| %3d |  %8.6f |  %9.2e |&quot; % (
-        2**n,
-        CVI(f1,0,1,2**n),
-        TV1-CVI(f1,0,1,2**n)))
-print(&quot;&quot;)
+print(<span style="color:#e6db74">&#34;True Value 1 : </span><span style="color:#e6db74">%2.12f</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> TV1) 
+print(<span style="color:#e6db74">&#34;|   n |  In       |  I-In      |&#34;</span>)
+print(<span style="color:#e6db74">&#34;=&#34;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">32</span>)
+<span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">10</span>) :
+    print(<span style="color:#e6db74">&#34;| </span><span style="color:#e6db74">%3d</span><span style="color:#e6db74"> |  </span><span style="color:#e6db74">%8.6f</span><span style="color:#e6db74"> |  </span><span style="color:#e6db74">%9.2e</span><span style="color:#e6db74"> |&#34;</span> <span style="color:#f92672">%</span> (
+        <span style="color:#ae81ff">2</span><span style="color:#f92672">**</span>n,
+        CVI(f1,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span><span style="color:#f92672">**</span>n),
+        TV1<span style="color:#f92672">-</span>CVI(f1,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span><span style="color:#f92672">**</span>n)))
+print(<span style="color:#e6db74">&#34;&#34;</span>)
  
-print(&quot;True Value 2 : %2.12f&quot; % TV2)
-print(&quot;|   n |  In       |  I-In      |&quot;)
-print(&quot;=&quot;*32)
-for n in range(3,10) :
-    print(&quot;| %3d |  %8.6f |  %9.2e |&quot; % (
-        2**n,
-        I(f2,0,1,2**n),
-        TV2-I(f2,0,1,2**n)))
-print(&quot;&quot;)
+print(<span style="color:#e6db74">&#34;True Value 2 : </span><span style="color:#e6db74">%2.12f</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> TV2)
+print(<span style="color:#e6db74">&#34;|   n |  In       |  I-In      |&#34;</span>)
+print(<span style="color:#e6db74">&#34;=&#34;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">32</span>)
+<span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">10</span>) :
+    print(<span style="color:#e6db74">&#34;| </span><span style="color:#e6db74">%3d</span><span style="color:#e6db74"> |  </span><span style="color:#e6db74">%8.6f</span><span style="color:#e6db74"> |  </span><span style="color:#e6db74">%9.2e</span><span style="color:#e6db74"> |&#34;</span> <span style="color:#f92672">%</span> (
+        <span style="color:#ae81ff">2</span><span style="color:#f92672">**</span>n,
+        I(f2,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span><span style="color:#f92672">**</span>n),
+        TV2<span style="color:#f92672">-</span>I(f2,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span><span style="color:#f92672">**</span>n)))
+print(<span style="color:#e6db74">&#34;&#34;</span>)
  
-print(&quot;True Value 2 : %2.12f&quot; % TV2)
-print(&quot;|   n |  In       |  I-In      |&quot;)
-print(&quot;=&quot;*32)
-for n in range(3,10) :
-    print(&quot;| %3d |  %8.6f |  %9.2e |&quot; % (
-        2**n,
-        CVI(f3,0,1,2**n),
-        TV2-CVI(f3,0,1,2**n)))
+print(<span style="color:#e6db74">&#34;True Value 2 : </span><span style="color:#e6db74">%2.12f</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> TV2)
+print(<span style="color:#e6db74">&#34;|   n |  In       |  I-In      |&#34;</span>)
+print(<span style="color:#e6db74">&#34;=&#34;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">32</span>)
+<span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">10</span>) :
+    print(<span style="color:#e6db74">&#34;| </span><span style="color:#e6db74">%3d</span><span style="color:#e6db74"> |  </span><span style="color:#e6db74">%8.6f</span><span style="color:#e6db74"> |  </span><span style="color:#e6db74">%9.2e</span><span style="color:#e6db74"> |&#34;</span> <span style="color:#f92672">%</span> (
+        <span style="color:#ae81ff">2</span><span style="color:#f92672">**</span>n,
+        CVI(f3,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span><span style="color:#f92672">**</span>n),
+        TV2<span style="color:#f92672">-</span>CVI(f3,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span><span style="color:#f92672">**</span>n)))
  
-print(&quot;&quot;)
-</code></pre>
+print(<span style="color:#e6db74">&#34;&#34;</span>)
+</code></pre></div><section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Atkinson. (1989). An Introduction to Numerical Analysis(2nd Edition): p305~306.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
 
 
 <script type="text/javascript">
@@ -827,7 +841,7 @@ print(&quot;&quot;)
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1915">🎲</a></p>
+         <a href="../1659">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (79)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>

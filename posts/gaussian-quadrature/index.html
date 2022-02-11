@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/gaussian-quadrature\/",
-    "wordCount" : "547",
+    "wordCount" : "533",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -284,29 +284,20 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#정의-1">정의 </a></li>
+    <li><a href="#설명">설명</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-$f : [a,b] \to \mathbb{R}$ 가 $[a,b]$ 에서 적분가능하고 $[a,b]$ 를 $a = x_{1} &lt; \cdots &lt; x_{n} = b$ 와 같은 노드 포인트들로 쪼갰다고 하자.
+<h2 id="정의-1">정의 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>$f : [a,b] \to \mathbb{R}$ 가 $[a,b]$ 에서 적분가능하고 $[a,b]$ 를 $a = x_{1} &lt; \cdots &lt; x_{n} = b$ 와 같은 노드 포인트들로 쪼갰다고 하자.
 $$
 I_{n} (f) := \sum_{j=1}^{n} w_{j} f ( x_{j} ) \approx \int_{a}^{b} w(x) f(x) dx = I ( f ) 
 $$
-위와 같이 정의된 $I_{n}$ 의 가중치 $w_{j}$ 들을 구해서 <a href="../1128">수치적 적분</a>을 계산하는 것을 <strong>가우스 구적법</strong>이라 한다. <a href="../1107">$f$ 를 잘 근사하는 다항함수 $p_{n-1}$ 이 존재하는 것</a>은 보장되어있기 때문에, $f$ 대신 $p_{n-1}$ 을 생각해보려 한다. 편의상 $w(x) = 1$ 이라고 두자. [ <strong>NOTE</strong>: 이 경우, <strong>가우스-르장드르 구적법</strong>이라 한다. ]
+위와 같이 정의된 $I_{n}$ 의 가중치 $w_{j}$ 들을 구해서 <a href="../1128">수치적 적분</a>을 계산하는 것을 <strong>가우스 구적법</strong>이라 한다.</p>
+<h2 id="설명">설명</h2>
+<p><a href="../1107">$f$ 를 잘 근사하는 다항함수 $p_{n-1}$ 이 존재하는 것</a>은 보장되어있기 때문에, $f$ 대신 $p_{n-1}$ 을 생각해보려 한다. 편의상 $w(x) = 1$ 이라고 두자. [ <strong>NOTE</strong>: 이 경우, <strong>가우스-르장드르 구적법</strong>이라 한다. ]
 $$
 \displaystyle E_{n} ( p_{n-1} ) : = \int_{a}^{b} p_{n-1} (x) dx - \sum_{j=1}^{n} w_{j} p_{n-1} ( x_{j} )
 $$
@@ -323,19 +314,13 @@ E_{n} ( x^{i} ) = \int_{a}^{b} x^{i} dx - \sum_{j=1}^{n} w_{j} x_{j}^{i} = 0
 $$
 이어야하고, 풀어서 써보면
 $$
-w_{1} + \cdots + w_{n} = \int_{a}^{b} 1 dx
-$$</p>
-<p>$$
-\displaystyle w_{1} x_{1} + \cdots + w_{n} x_{n} = \int_{a}^{b} x dx
-$$</p>
-<p>$$
-\displaystyle w_{1} x_{1}^{2} + \cdots + w_{n} x_{n}^{2} = \int_{a}^{b} x^{2} dx
-$$</p>
-<p>$$
-\vdots
-$$</p>
-<p>$$
-\displaystyle w_{1} x_{1}^{n-1} + \cdots + w_{n} x_{n}^{n-1} = \int_{a}^{b} x^{n-1} dx
+\begin{align*}
+w_{1} + \cdots + w_{n} =&amp; \int_{a}^{b} 1 dx
+\\ w_{1} x_{1} + \cdots + w_{n} x_{n} =&amp; \int_{a}^{b} x dx
+\\ w_{1} x_{1}^{2} + \cdots + w_{n} x_{n}^{2} =&amp; \int_{a}^{b} x^{2} dx
+\\ \vdots&amp;
+\\ w_{1} x_{1}^{n-1} + \cdots + w_{n} x_{n}^{n-1} =&amp; \int_{a}^{b} x^{n-1} dx
+\end{align*}
 $$
 행렬로 나타내보면
 $$
@@ -358,6 +343,14 @@ w_{1}
 $$
 여기서 $w_{1}, \cdots , w_{n}$ 의 존재성은 <a href="../736">방데르몽드 행렬식</a>에 의해  보장된다.</p>
 <p>가우스 구적법의 장점은 <a href="../1138">뉴턴-코테스 적분 공식</a>과 달리 노드가 제멋대로 있어도 상관 없다는 것이다.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Atkinson. (1989). An Introduction to Numerical Analysis(2nd Edition): p270.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
@@ -755,7 +748,7 @@ $$
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1404">🎲</a></p>
+         <a href="../769">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (79)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
