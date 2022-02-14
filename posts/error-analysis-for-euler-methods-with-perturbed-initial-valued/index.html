@@ -62,7 +62,7 @@
 <meta name="title" content="초기값이 조금 달라졌을 때 오일러 메소드의 오차">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
 <meta property="og:title" content="초기값이 조금 달라졌을 때 오일러 메소드의 오차"/>
-<meta property="og:description" content="Error analysis for euler methods with perturbed initial valued"/>
+<meta property="og:description" content="Error Analysis for Euler Methods with perturbed Initial Valued"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -77,7 +77,7 @@
     "name": "초기값이 조금 달라졌을 때 오일러 메소드의 오차",
     "headline": "초기값이 조금 달라졌을 때 오일러 메소드의 오차",
     "alternativeHeadline": "",
-    "description": "Error analysis for euler methods with perturbed initial valued",
+    "description": "Error Analysis for Euler Methods with perturbed Initial Valued",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/error-analysis-for-euler-methods-with-perturbed-initial-valued\/",
-    "wordCount" : "1216",
+    "wordCount" : "1200",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -265,7 +265,7 @@
 
 <h1>초기값이 조금 달라졌을 때 오일러 메소드의 오차</h1>
 <aside>
-    Error analysis for euler methods with perturbed initial valued
+    Error Analysis for Euler Methods with perturbed Initial Valued
     <p style="text-align: right;">
         692
 
@@ -284,47 +284,42 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
-    <li><a href="#증명">증명</a></li>
+    <li><a href="#정리">정리</a></li>
+    <li><a href="#설명">설명</a></li>
+    <li><a href="#증명-1">증명 </a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-$[x_{0} , b] \times \mathbb{R}$ 에서 정의된 $f$ 에 대해 초기값 문제 $\begin{cases} y' = f(x,y) 
-\\  y( x_{0} ) = Y_{0} \end{cases}$ 의 해 $Y(x)$ 가 $Y \in C^{3} [ x_{0} , b ]$ 이고 $\displaystyle f_{y} (x,y) = {{ \partial f (x,y) } \over { \partial y }}$ 와 $\displaystyle f_{yy} (x,y) = {{ \partial^{2} f (x,y) } \over { \partial y^{2} }}$ 가 연속이면서 바운디드라고 하자. 초기값 $y_{h} (x_{0} )$ 가 $Y_{0} - y_{h} (x_{0} ) = \delta_{0} h + O ( h^2 )$ 을 만족시킨다고 하자. 그러면 오일러 메소드로 생기는 오차는 선형 초기값 문제 $\begin{cases} \displaystyle D' (x) = f_{y} (x, Y(x) ) D(x) + {{1} \over {2}} Y'' (x) 
-\\  D ( x_{0} ) = \delta_{0} \end{cases}$ 의 해 $D(x)$ 에 대해 다음을 만족한다.
+<h2 id="정리">정리</h2>
+<p>$[x_{0} , b] \times \mathbb{R}$ 에서 정의된 $f$ 에 대해 초기값 문제 $\begin{cases} y' = f(x,y) 
+\\  y( x_{0} ) = Y_{0} \end{cases}$ 의 해 $Y(x)$ 가 $Y \in C^{3} [ x_{0} , b ]$ 이고 $\displaystyle f_{y} (x,y) = {{ \partial f (x,y) } \over { \partial y }}$ 와 $\displaystyle f_{yy} (x,y) = {{ \partial^{2} f (x,y) } \over { \partial y^{2} }}$ 가 <a href="../1206">연속</a>이면서 <a href="../180">바운디드</a>라고 하자. 초기값 $y_{h} (x_{0} )$ 가 $Y_{0} - y_{h} (x_{0} ) = \delta_{0} h + O ( h^2 )$ 을 만족시킨다고 하자. 그러면 <a href="../687">오일러 메소드</a>로 생기는 오차는 선형 초기값 문제 
+$$
+\begin{cases} \displaystyle D' (x) = f_{y} (x, Y(x) ) D(x) + {{1} \over {2}} Y'' (x) 
+\\  D ( x_{0} ) = \delta_{0} \end{cases}
+$$
+의 해 $D(x)$ 에 대해 다음을 만족한다.
 $$
 Y(x_{n} ) - y_{h} (x_{n} ) = D(x_{n} ) h  + O (h^2) 
 $$</p>
+<h2 id="설명">설명</h2>
 <p>초기값 $y_{h} (x_{0} )$ 가 $Y_{0} - y_{h} (x_{0} ) = \delta_{0} h + O ( h^2 )$ 을 만족시킨다는 말은 곧 초기값이 참값과 조금 달라도 된다는 뜻이다. 그리고 그 차이에서 발생하는 오차 그 자체도 $D$ 를 계산할 수 있다면 더 줄어들 수 있다.</p>
-<p>Strategy**  : <a href="../689">강한 립시츠 조건</a>을 가정하고 $\epsilon_{n} = O ( h^2)$ 을 보이기 위한 $g_{n}$, $k_{n}$ 을 만들어낸다. 조금은 억척스럽다고도 할 수 있을만큼 수식 조작이 많은 증명법이나, 수치해석에서는 심심치 않게 보이기도 한다. 아름다운 증명은 아닐지라도 방식 자체에는 익숙해지는게 좋다.</p>
-<h2 id="증명">증명</h2>
+<h2 id="증명-1">증명 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>전략: <a href="../689">강한 립시츠 조건</a>을 가정하고 $\epsilon_{n} = O ( h^2)$ 을 보이기 위한 $g_{n}$, $k_{n}$ 을 만들어낸다. 조금은 억척스럽다고도 할 수 있을만큼 수식 조작이 많은 증명법이나, 수치해석에서는 심심치 않게 보이기도 한다. 아름다운 증명은 아닐지라도 방식 자체에는 익숙해지는게 좋다.</p>
 <p>$x_{i} : = x_{0} + ih$ 이고, 특히 $x_{n+1} - x_{n} = h$ 이다. 편의상
 $$
 Y(x_{n} ) := Y_{n}
-$$</p>
-<p>$$
+$$
+$$
 y(x_{n}) := y_{n}
 $$
-라 쓰고 $n$ 번째의 오차를 다음과 같이
+라 쓰고 $n$ 번째의 오차 $\epsilon_{n}$ 을 다음과 같이 나타내자.
 $$
 \epsilon_{n} : = Y(x_{n}) - y (x_{n} ) 
 $$</p>
-<p>Part 1.
-$Y(x_{n+1} )$ 를 $ x_{n}$ 에 대해 $3$ 차 <a href="../41">테일러 전개</a>하면 어떤 $x_{n} \le \xi_{n} \le x_{n+1}$ 에 대해
+<hr>
+<p><strong>Part 1.</strong></p>
+<p>$Y(x_{n+1} )$ 를 $ x_{n}$ 에 대해 $3$ 차 <a href="../41">테일러 전개</a>하면 어떤 $x_{n} \le \xi_{n} \le x_{n+1}$ 에 대해
 $$
 Y_{n+1} = Y_{n} + h Y'_{n} + {{h^2} \over {2}} Y'' ( x_{n} ) + {{h^3} \over {6}} Y''' ( \xi_{n} ) 
 $$
@@ -340,17 +335,20 @@ f(x_{n} , y_{n} ) = f(x_{n} , Y_{n} ) + (y_{n } - Y_{n}) f_{y} (x_{n} , Y_{n} ) 
 $$
 따라서
 $$
-\displaystyle \epsilon_{n+1} = \epsilon_{n} + h \left( \epsilon_{ n } f_{y} (x_{n} , Y_{n} ) - {{1} \over {2}} \epsilon^2 f_{yy} (x_{n} , \zeta_{n} ) \right)  + {{h^2} \over {2}} Y'' ( x_{n} ) + {{h^3} \over {6}} Y''' ( \xi_{n} )
+\epsilon_{n+1} = \epsilon_{n} + h \left( \epsilon_{ n } f_{y} (x_{n} , Y_{n} ) - {{1} \over {2}} \epsilon^2 f_{yy} (x_{n} , \zeta_{n} ) \right)  + {{h^2} \over {2}} Y'' ( x_{n} ) + {{h^3} \over {6}} Y''' ( \xi_{n} )
 $$
 정리하면
 $$
 \epsilon_{n+1} = [ 1+ f_{y} (x_{n} , Y_{n} ) ] \epsilon_{n} + {{h^2} \over {2}} Y'' ( x_{n} ) + {{h^3} \over {6}} Y''' ( \xi_{n} ) - {{1} \over {2}} h f_{yy} (x_{n} , \zeta_{n} ) \epsilon_{n}^{2} 
 $$</p>
-<p>Part 2.</p>
-<p><a href="../689">강한 립시츠 조건과 오일러 메소드의 오차</a>$\displaystyle \max_{ x_{0 } \le x_{n} \le b } | Y_{x_{n}} - y_{h} (x_{n})  |  \le \epsilon^{( b - x_{0} ) K} | \epsilon_{0} | + \left[ {{ \epsilon^{(b- x_{0}) K } - 1 } \over {K}} \right] \tau (h) $</p>
+<hr>
+<p><strong>Part 2.</strong></p>
+<blockquote>
+<p><a href="../689">강한 립시츠 조건과 오일러 메소드의 오차</a>: $$\max_{ x_{0 } \le x_{n} \le b } | Y_{x_{n}} - y_{h} (x_{n})  |  \le \epsilon^{( b - x_{0} ) K} | \epsilon_{0} | + \left[ {{ \epsilon^{(b- x_{0}) K } - 1 } \over {K}} \right] \tau (h)$$</p>
+</blockquote>
 <p>$\epsilon = O (h)$ 이므로
 $$
-\displaystyle {{h^3} \over {6}} Y''' ( \xi_{n} ) - {{1} \over {2}} h f_{yy} (x_{n} , \zeta_{n} ) \epsilon_{n}^{2} = O (h^{3} ) 
+{{h^3} \over {6}} Y''' ( \xi_{n} ) - {{1} \over {2}} h f_{yy} (x_{n} , \zeta_{n} ) \epsilon_{n}^{2} = O (h^{3} ) 
 $$
 이고, $O ( h^3)$ 은 충분히 작다고 가정되므로 $O ( h^3)$ 이 제거된 $g_{n+1}$ 를 다음과 같이 정의할 수 있다.
 $$
@@ -369,8 +367,9 @@ $$
 $$
 g_{n} = D ( x_{n} ) h + O ( h^2 )
 $$</p>
-<p>Part 3.
-$k_{n} : = e_{n} - g_{n}$ 이라고 하면
+<hr>
+<p><strong>Part 3.</strong></p>
+<p>$k_{n} : = e_{n} - g_{n}$ 이라고 하면
 $$
 k_{n+1} = [ 1 + h f_{h} (x_{n} , y_{n} ) ] k_{n} + O(h^3)
 $$
@@ -391,6 +390,14 @@ $$
 \end{align*}
 $$</p>
 <p style="text-align: right;">■</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Atkinson. (1989). An Introduction to Numerical Analysis(2nd Edition): p352~354.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
@@ -788,7 +795,7 @@ $$</p>
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1574">🎲</a></p>
+         <a href="../1146">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (79)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -848,7 +855,7 @@ $$</p>
     <a href=https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/>
         <span style="color:rgb(051,204,051);">●</span> 매트랩 (16)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/>
-        <span style="color:rgb(255,204,000);">●</span> 수치해석 (53)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수치해석 (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(255,051,051);">●</span> 최적화이론 (26)</a><br>
     <hr>
@@ -874,7 +881,7 @@ $$</p>
     <a href=https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%8B%9C%EA%B0%81%ED%99%94/>
         <span style="color:rgb(255,051,051);">●</span> 데이터시각화 (0++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EA%B2%80%EC%A0%95/>
-        <span style="color:rgb(255,051,051);">●</span> 통계적검정 (14)</a><br>
+        <span style="color:rgb(255,204,000);">●</span> 통계적검정 (14)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (58)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
@@ -906,7 +913,7 @@ $$</p>
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2224)</summary>
+    <summary>전체 포스트 (2229)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -928,7 +935,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (3)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (67)</a>
         </li><li>
@@ -982,7 +989,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (88)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (120)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (122)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -1004,7 +1011,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (50)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (33)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (34)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (78)</a>
         </li><li>

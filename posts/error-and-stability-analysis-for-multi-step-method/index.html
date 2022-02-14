@@ -62,7 +62,7 @@
 <meta name="title" content="멀티스텝 메소드의 수렴성과 오차">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
 <meta property="og:title" content="멀티스텝 메소드의 수렴성과 오차"/>
-<meta property="og:description" content="Error and stability analysis for multi step Method"/>
+<meta property="og:description" content="Error and stability Analysis for Multi Step Method"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -77,7 +77,7 @@
     "name": "멀티스텝 메소드의 수렴성과 오차",
     "headline": "멀티스텝 메소드의 수렴성과 오차",
     "alternativeHeadline": "",
-    "description": "Error and stability analysis for multi step Method",
+    "description": "Error and stability Analysis for Multi Step Method",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/error-and-stability-analysis-for-multi-step-method\/",
-    "wordCount" : "978",
+    "wordCount" : "968",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -265,7 +265,7 @@
 
 <h1>멀티스텝 메소드의 수렴성과 오차</h1>
 <aside>
-    Error and stability analysis for multi step Method
+    Error and stability Analysis for Multi Step Method
     <p style="text-align: right;">
         698
 
@@ -284,39 +284,33 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
-    <li><a href="#증명">증명</a></li>
+    <li><a href="#정리">정리</a></li>
+    <li><a href="#설명">설명</a></li>
+    <li><a href="#증명-1">증명 </a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-초기값 문제 $\begin{cases} y' = f(x,y) 
-\\  ( y( x_{0} ) , \cdots , y(x_{p}) )= ( Y_{0} , \cdots , Y_{p} ) \end{cases}$ 에 대해 멀티스텝 메소드 $\displaystyle y_{n+1} = \sum_{j=0}^{p} a_{j} y_{n-j} + h \sum_{j = -1}^{p} b_{j} f (x_{n-j} , y_{n-j} )$ 가 일관성을 가지고, <strong>초기 오차</strong> $\displaystyle \eta (h) : = \max_{ 0 \le i \le p} | Y (x_{i} ) - y_{h} (x_{i} ) |$ 가 $\displaystyle \lim_{ h \to 0} \eta (h) = 0$ 를 만족하고, $j = 0, 1, \cdots , p$ 에 대해 $a_{j} \ge 0$ 이고 $f$ 가 립시츠 조건을 만족하면 메소드는 수렴하고 적절한 상수 $c_{1} , c_{2}$ 에 대해
+<h2 id="정리">정리</h2>
+<p>초기값 문제 $\begin{cases} y' = f(x,y) 
+\\  ( y( x_{0} ) , \cdots , y(x_{p}) )= ( Y_{0} , \cdots , Y_{p} ) \end{cases}$ 에 대해 <a href="../693">멀티스텝 메소드</a>
+$$
+\displaystyle y_{n+1} = \sum_{j=0}^{p} a_{j} y_{n-j} + h \sum_{j = -1}^{p} b_{j} f (x_{n-j} , y_{n-j} )
+$$
+가 일관성을 가지고, <strong>초기 오차</strong> $\displaystyle \eta (h) : = \max_{ 0 \le i \le p} | Y (x_{i} ) - y_{h} (x_{i} ) |$ 가 $\displaystyle \lim_{ h \to 0} \eta (h) = 0$ 를 만족하고, $j = 0, 1, \cdots , p$ 에 대해 $a_{j} \ge 0$ 이고 $f$ 가 립시츠 조건을 만족하면 메소드는 수렴하고 적절한 상수 $c_{1} , c_{2}$ 에 대해
 $$
 \max_{ x_{0} \le x_{n} \le b} | Y (x_{n} ) - y_{h} (x_{n} ) |  \le c_{1} \eta (h) + c_{2} \tau (h) 
 $$
 가 성립한다. 특히 $\eta (h) = O ( h^{m} )$ 이면, 메소드의 수렴 속도는 $O ( h^{m} )$ 이다.</p>
+<h2 id="설명">설명</h2>
 <p><a href="../693">멀티스텝 메소드</a>이라는 것은 특정 방법 하나만을 지칭하는 게 아니므로 증명을 통해 그 수렴성을 보장하는 것은 매우 중요한 일이다. $h$ 에 따른 오차가 얼마나 커지는지 파악하는 것 역시 실제로 써먹을 생각이라면 당연히 해야하는 작업이다.</p>
-<h2 id="증명">증명</h2>
+<h2 id="증명-1">증명 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
 <p>참값 $Y_{i}$ 와 계산값 $y_{i}$ 의 차를 $\epsilon_{i} : = Y_{i} - y_{i}$ 라고 나타내면
 $$
 Y_{n+1} = \sum_{j=0}^{p} a_{j} Y_{n-j} + h \sum_{j = -1}^{p} b_{j} f (x_{n-j} , Y_{n-j} ) + h \tau_{n} (Y) 
 $$</p>
 <p>$$
-\displaystyle y_{n+1} = \sum_{j=0}^{p} a_{j} y_{n-j} + h \sum_{j = -1}^{p} b_{j} f (x_{n-j} , y_{n-j} ) 
+y_{n+1} = \sum_{j=0}^{p} a_{j} y_{n-j} + h \sum_{j = -1}^{p} b_{j} f (x_{n-j} , y_{n-j} ) 
 $$
 위의 두 식을 빼면
 $$
@@ -324,26 +318,32 @@ $$
 $$
 $f$ 는 <a href="../684">립시츠 조건</a>을 만족하므로
 $$
-\displaystyle | \epsilon_{n+1} | \le \sum_{j=0}^{p} a_{j} | \epsilon_{n-j} | + h K \sum_{j = -1}^{p} b_{j} | \epsilon_{n - j} |   + h \tau_{n} (h) 
+| \epsilon_{n+1} | \le \sum_{j=0}^{p} a_{j} | \epsilon_{n-j} | + h K \sum_{j = -1}^{p} b_{j} | \epsilon_{n - j} |   + h \tau_{n} (h) 
 $$
 $n$ 까지의 $\epsilon_{i}$ 중 가장 큰 오차를 나타내는 표현 $\displaystyle E_{n} := \max_{0 \le i \le n} | \epsilon_{i} |$ 을 사용해보면
 $$
 | \epsilon_{n+1} | \le \sum_{j=0}^{p} a_{j} E_{n}+ h K \sum_{j = -1}^{p} | b_{j} | E_{n+1 }   + h \tau_{n} (h) 
 $$</p>
-<p><a href="../694">멀티스텝 메소드의 일관성과 수렴차수</a>초기값 문제 $\begin{cases} y' = f(x,y) 
-\\  ( y( x_{0} ) , \cdots , y(x_{p}) )= ( Y_{0} , \cdots , Y_{p} ) \end{cases}$ 에 대해 멀티스텝 메소드 $\displaystyle y_{n+1} = \sum_{j=0}^{p} a_{j} y_{n-j} + h \sum_{j = -1}^{p} b_{j} f (x_{n-j} , y_{n-j} )$ 가 일관성을 가지는 필요충분조건은 <strong>[1]</strong> 이고, 수렴차수 $m \in \mathbb{N}$ 을 갖는 필요충분조건은 <strong>[2]</strong> 다.</p>
+<blockquote>
+<p><a href="../694">멀티스텝 메소드의 일관성과 수렴차수</a>: 초기값 문제 $\begin{cases} y' = f(x,y) 
+\\  ( y( x_{0} ) , \cdots , y(x_{p}) )= ( Y_{0} , \cdots , Y_{p} ) \end{cases}$ 에 대해 <a href="../693">멀티스텝 메소드</a>
+$$
+\displaystyle y_{n+1} = \sum_{j=0}^{p} a_{j} y_{n-j} + h \sum_{j = -1}^{p} b_{j} f (x_{n-j} , y_{n-j} )
+$$
+가 일관성을 가지는 필요충분조건은 <strong>(i)</strong> 이고, 수렴차수 $m \in \mathbb{N}$ 을 갖는 필요충분조건은 <strong>(ii)</strong> 다.</p>
 <ul>
-<li>[1]: $\begin{cases} \displaystyle \sum_{j = 0}^{p} a_{j} = 1 
-\\ \displaystyle - \sum_{j = 0}^{p} j a_{j} + \sum_{j = -1}^{p} b_{j} = 1 \end{cases}$</li>
-<li>[2]: $\displaystyle \sum_{j=0}^{p} (-j)^{i} a_{j} + i \sum_{j=-1}^{p} (- j )^{i-1}  b_{j} = 1$ 단, $ (i = 0, 1 , \cdots , m) $</li>
+<li>(i): $$\begin{cases} \displaystyle \sum_{j = 0}^{p} a_{j} = 1 
+\\ \displaystyle - \sum_{j = 0}^{p} j a_{j} + \sum_{j = -1}^{p} b_{j} = 1 \end{cases}$$</li>
+<li>(ii): $i = 0, 1 , \cdots , m$ 에 대해 $$\sum_{j=0}^{p} (-j)^{i} a_{j} + i \sum_{j=-1}^{p} (- j )^{i-1}  b_{j} = 1$$</li>
 </ul>
+</blockquote>
 <p>주어진 멀티스텝 메소드가 일관성을 가지므로 $\displaystyle c : = K \sum_{j = -1}^{p} | b_{j} |$ 라고 하면
 $$
 | \epsilon_{n+1} | \le E_{n}+ hc E_{n+1 }   + h \tau_{n} (h) 
 $$
 $ | \epsilon_{n+1} | \le E_{n+1}$ 면 $E_{n+1} = E_{n}$ 이므로
 $$
-\displaystyle | \epsilon_{n+1} | \le E_{n+1} = E_{n} \le E_{n}+ hc E_{n+1 }   + h \tau_{n} (h) 
+| \epsilon_{n+1} | \le E_{n+1} = E_{n} \le E_{n}+ hc E_{n+1 }   + h \tau_{n} (h) 
 $$
 $ | \epsilon_{n+1} | &gt; E_{n+1}$ 면
 $$
@@ -351,7 +351,7 @@ E_{n+1} &lt; | \epsilon_{n+1} | \le E_{n} \le E_{n}+ hc E_{n+1 }   + h \tau_{n} 
 $$
 따라서 어떤 경우든
 $$
-\displaystyle E_{n+1} \le E_{n}+ hc E_{n+1 }   + h \tau_{n} (h) 
+E_{n+1} \le E_{n}+ hc E_{n+1 }   + h \tau_{n} (h) 
 $$
 항을 정리하면
 $$
@@ -372,6 +372,14 @@ E_{n} =&amp; \max_{ x_{0} \le x_{n} \le b} | Y (x_{n} ) - y_{h} (x_{n} ) |
 \end{align*}
 $$</p>
 <p style="text-align: right;">■</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Atkinson. (1989). An Introduction to Numerical Analysis(2nd Edition): p360~361.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
@@ -769,7 +777,7 @@ $$</p>
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1585">🎲</a></p>
+         <a href="../989">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (79)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -829,7 +837,7 @@ $$</p>
     <a href=https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/>
         <span style="color:rgb(051,204,051);">●</span> 매트랩 (16)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/>
-        <span style="color:rgb(255,204,000);">●</span> 수치해석 (53)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수치해석 (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(255,051,051);">●</span> 최적화이론 (26)</a><br>
     <hr>
@@ -855,7 +863,7 @@ $$</p>
     <a href=https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%8B%9C%EA%B0%81%ED%99%94/>
         <span style="color:rgb(255,051,051);">●</span> 데이터시각화 (0++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EA%B2%80%EC%A0%95/>
-        <span style="color:rgb(255,051,051);">●</span> 통계적검정 (14)</a><br>
+        <span style="color:rgb(255,204,000);">●</span> 통계적검정 (14)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (58)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
@@ -887,7 +895,7 @@ $$</p>
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2224)</summary>
+    <summary>전체 포스트 (2229)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -909,7 +917,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (3)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (67)</a>
         </li><li>
@@ -963,7 +971,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (88)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (120)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (122)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -985,7 +993,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (50)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (33)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (34)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (78)</a>
         </li><li>

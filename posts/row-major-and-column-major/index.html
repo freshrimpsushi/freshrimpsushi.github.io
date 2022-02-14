@@ -62,7 +62,7 @@
 <meta name="title" content="2차원 배열의 행우선과 열우선">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
 <meta property="og:title" content="2차원 배열의 행우선과 열우선"/>
-<meta property="og:description" content="row-major and column-major"/>
+<meta property="og:description" content="Row-major and column-major"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -77,7 +77,7 @@
     "name": "2차원 배열의 행우선과 열우선",
     "headline": "2차원 배열의 행우선과 열우선",
     "alternativeHeadline": "",
-    "description": "row-major and column-major",
+    "description": "Row-major and column-major",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/row-major-and-column-major\/",
-    "wordCount" : "999",
+    "wordCount" : "997",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -265,7 +265,7 @@
 
 <h1>2차원 배열의 행우선과 열우선</h1>
 <aside>
-    row-major and column-major
+    Row-major and column-major
     <p style="text-align: right;">
         2014
 
@@ -344,12 +344,12 @@ $$</p>
 <p>포트란, 매트랩, R, 줄리아&hellip;</p>
 <p>라인업이 기가 막힌다. 한 눈에 보아도 과학, 계산쪽의 언어들이 열우선을 채택한 것을 알 수 있다. 애초에 행렬이라는 것의 기원이 <a href="../279">연립방정식의 축약</a>임을 생각해보면 당연한 일이다. 세상에 행렬을 가로 방향으로 읽는 수학자는 없다. 당연히 행을 따라 위에서 아래로, 다시 말해 열우선으로 읽는게 정상이다.</p>
 <h2 id="퍼포먼스-비교">퍼포먼스 비교</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> size <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">^</span><span style="color:#ae81ff">4</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> size <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">^</span><span style="color:#ae81ff">4</span>
 <span style="color:#ae81ff">10000</span>
 
 julia<span style="color:#f92672">&gt;</span> M <span style="color:#f92672">=</span> rand(size, size);
 </code></pre></div><p>줄리아 언어를 기준으로 벤치마크를 해보았다. 아래의 두 코드 펜스를 보면 정확히 같은 코드에서 행/렬의 순서만 바꾸고 실행시간을 측정했는데 행을 먼저 읽었을 때 36초, 열우선인 줄리아는 열을 먼저 읽어들였을 때 20초가 걸려 거의 2배 수준의 극적인 성능 차이가 있음을 확인했다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">=</span> zeros(size, size);
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">=</span> zeros(size, size);
 
 julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>size
            <span style="color:#66d9ef">for</span> j <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>size
@@ -357,7 +357,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
            <span style="color:#66d9ef">end</span>
        <span style="color:#66d9ef">end</span>
  <span style="color:#ae81ff">36.088533</span> seconds (<span style="color:#ae81ff">489.82</span> M allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">8.789</span> GiB, <span style="color:#ae81ff">4.64</span><span style="color:#f92672">%</span> gc Time)
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">=</span> zeros(size, size);
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">=</span> zeros(size, size);
 
 julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">for</span> j <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>size
            <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>size
@@ -369,10 +369,10 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://en.wikipedia.org/wiki/Row-_and_column-major_order">https://en.wikipedia.org/wiki/Row-_and_column-major_order</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Row-_and_column-major_order">https://en.wikipedia.org/wiki/Row-_and_column-major_order</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p><a href="https://velog.io/@kjh107704/row-major-%ED%96%89-%EC%9A%B0%EC%84%A0-column-major%EC%97%B4-%EC%9A%B0%EC%84%A0%EA%B0%80-%EC%99%9C-%EC%A4%91%EC%9A%94%ED%95%9C%EA%B0%80">https://velog.io/@kjh107704/row-major-%ED%96%89-%EC%9A%B0%EC%84%A0-column-major%EC%97%B4-%EC%9A%B0%EC%84%A0%EA%B0%80-%EC%99%9C-%EC%A4%91%EC%9A%94%ED%95%9C%EA%B0%80</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://velog.io/@kjh107704/row-major-%ED%96%89-%EC%9A%B0%EC%84%A0-column-major%EC%97%B4-%EC%9A%B0%EC%84%A0%EA%B0%80-%EC%99%9C-%EC%A4%91%EC%9A%94%ED%95%9C%EA%B0%80">https://velog.io/@kjh107704/row-major-%ED%96%89-%EC%9A%B0%EC%84%A0-column-major%EC%97%B4-%EC%9A%B0%EC%84%A0%EA%B0%80-%EC%99%9C-%EC%A4%91%EC%9A%94%ED%95%9C%EA%B0%80</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -773,7 +773,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1581">🎲</a></p>
+         <a href="../1003">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (79)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -833,7 +833,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
     <a href=https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/>
         <span style="color:rgb(051,204,051);">●</span> 매트랩 (16)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/>
-        <span style="color:rgb(255,204,000);">●</span> 수치해석 (53)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수치해석 (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(255,051,051);">●</span> 최적화이론 (26)</a><br>
     <hr>
@@ -859,7 +859,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
     <a href=https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%8B%9C%EA%B0%81%ED%99%94/>
         <span style="color:rgb(255,051,051);">●</span> 데이터시각화 (0++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EA%B2%80%EC%A0%95/>
-        <span style="color:rgb(255,051,051);">●</span> 통계적검정 (14)</a><br>
+        <span style="color:rgb(255,204,000);">●</span> 통계적검정 (14)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (58)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
@@ -891,7 +891,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2224)</summary>
+    <summary>전체 포스트 (2229)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -913,7 +913,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (3)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (67)</a>
         </li><li>
@@ -967,7 +967,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (88)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (120)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (122)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -989,7 +989,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (50)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (33)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (34)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (78)</a>
         </li><li>

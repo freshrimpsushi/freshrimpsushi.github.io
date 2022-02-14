@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/numerical-solution-for-heat-equation-with-dirichlet-boundary-condition\/",
-    "wordCount" : "1398",
+    "wordCount" : "1397",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -284,38 +284,37 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#예제-1">예제 </a>
+      <ul>
+        <li><a href="#풀이">풀이</a></li>
+        <li><a href="#교훈-스티프한-미분방정식">교훈: 스티프한 미분방정식</a></li>
+      </ul>
+    </li>
+    <li><a href="#같이보기">같이보기</a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-<a href="../581">대수적 풀이</a></p>
-<p>$\begin{cases} u_{t} = \gamma u_{xx} 
+<h2 id="예제-1">예제 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>$$
+\begin{cases} u_{t} = \gamma u_{xx} 
 \\  u(t,0) = u(t,l) = 0 
-\\  u(0,x) = f(x) \end{cases}$</p>
-<p>주어진 문제는 대수적 풀이가 있을 정도로 쉽고 간단하지만, 미분방정식을 푸는 방법으로써의 수치해석을 왜 배우는지 명쾌하게 알려주는 예시가 되기도 한다. <a href="../687">단순히 $y' = f(x,y)$ 꼴의 미분방정식을 푸는 게</a> 편미분방정식의 풀이로도 이어지는 것이다.</p>
-<p>**풀이
-대수적 풀이에서와 달리 $\gamma$ 의 값이 중요한 것은 아니므로 편의 상 $\gamma = 1$ 이라고 하자.선공간 $x$ 의 스텝사이즈를 $\delta$ 로 두면 $x_{j} = \delta j , j= 0, 1, \cdots , m$ 와 같이 나타낼 수 있다.</p>
+\\  u(0,x) = f(x) \end{cases}
+$$</p>
+<p>주어진 문제는 <a href="../581">대수적 풀이</a>가 있을 정도로 쉽고 간단하지만, 미분방정식을 푸는 방법으로써의 수치해석을 왜 배우는지 명쾌하게 알려주는 예시가 되기도 한다. <a href="../687">단순히 $y' = f(x,y)$ 꼴의 미분방정식을 푸는 게</a> 편미분방정식의 풀이로도 이어지는 것이다.</p>
+<h3 id="풀이">풀이</h3>
+<p>대수적 풀이에서와 달리 $\gamma$ 의 값이 중요한 것은 아니므로 편의 상 $\gamma = 1$ 이라고 하자.</p>
+<p>$$
+x_{j} = \delta j
+$$
+선공간<sup>Line Space</sup> $x$ 의 스텝사이즈를 $\delta$ 로 두면 $j= 0, 1, \cdots , m$ 에 대해  위와 같이 나타낼 수 있다.</p>
 <p>$x$ 에 대한 이계미분의 근사로써
 $$
-\displaystyle U_{xx} \approx {{ U(t, x_{j+1}) - 2 U(t, x_{j}) + U(t, x_{j-1}) } \over { \delta^2 }}
+U_{xx} \approx {{ U(t, x_{j+1}) - 2 U(t, x_{j}) + U(t, x_{j-1}) } \over { \delta^2 }}
 $$
 라고 하면 오직 $t$ 에 대한 식
 $$
-\displaystyle u_{t} (t, x_{j}) = {{ u(t, x_{j+1}) - 2 u(t, x_{j}) + u(t, x_{j-1}) } \over { \delta^2 }}
+u_{t} (t, x_{j}) = {{ u(t, x_{j+1}) - 2 u(t, x_{j}) + u(t, x_{j-1}) } \over { \delta^2 }}
 $$
 을 $m-1$ 개만큼 얻을 수 있다. 이것을 행렬로 나타내보면
 $$
@@ -344,7 +343,7 @@ u (t, x_{1})
 $$
 이고, 지면을 아끼기 위해
 $$
-\displaystyle \mathbb{u}'(t) :=\begin{bmatrix}
+\mathbb{u}'(t) :=\begin{bmatrix}
 u_{t} (t, x_{1}) 
 \\  u_{t} (t, x_{2}) 
 \\  u_{t} (t, x_{3}) 
@@ -354,7 +353,7 @@ u_{t} (t, x_{1})
 \end{bmatrix} 
 $$</p>
 <p>$$
-\displaystyle \Lambda := {{1} \over {\delta^2}} \begin{bmatrix}
+\Lambda := {{1} \over {\delta^2}} \begin{bmatrix}
 -2 &amp; 1 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 
 \\ 1 &amp; -2 &amp; 1 &amp; \cdots &amp; 0 &amp; 0 
 \\  0 &amp; 1 &amp; -2 &amp; \cdots &amp; 0 &amp; 0 
@@ -364,7 +363,7 @@ $$</p>
 \end{bmatrix} 
 $$</p>
 <p>$$
-\displaystyle \mathbb{u} (t) := \begin{bmatrix}
+\mathbb{u} (t) := \begin{bmatrix}
 u (t, x_{1}) 
 \\  u (t, x_{2}) 
 \\  u (t, x_{3}) 
@@ -373,10 +372,13 @@ u (t, x_{1})
 \\  u (t, x_{m-1}) 
 \end{bmatrix} 
 $$
-라고 두면 $\mathbb{u} ' (t) = \Lambda \mathbb{u} (t)$ 이다. 이제 시간 $t$ 의 스텝사이즈를 $h$ 로 두어 $t_{k} = hk$ 라 하고 여러가지 메소드를 적용해서 수치적인 솔루션을 구하면 된다.**풀이 끝
-그러나 이것은 어디까지나 이론적인 이야기고, 실제로 수치적인 해를 구하는데에는 상당한 어려움이 있다.</p>
+라고 두면 $\mathbb{u} ' (t) = \Lambda \mathbb{u} (t)$ 이다. 이제 시간 $t$ 의 스텝사이즈를 $h$ 로 두어 $t_{k} = hk$ 라 하고 여러가지 메소드를 적용해서 수치적인 솔루션을 구하면 된다.</p>
+<p style="text-align: right;">■</p>
+<h3 id="교훈-스티프한-미분방정식">교훈: 스티프한 미분방정식</h3>
+<p>그러나 이것은 어디까지나 이론적인 이야기고, 실제로 수치적인 해를 구하는데에는 상당한 어려움이 있다.</p>
 <p>$\Lambda$ 의 고유값을 알기 위해 $\Lambda - \lambda I_{m-1}$ 의 행렬식을 구해보자.</p>
-<p><a href="../787">삼중대각행렬의 행렬식</a>삼중대각행렬 $X_{n} := \begin{bmatrix}
+<blockquote>
+<p><a href="../787">삼중대각행렬의 행렬식</a>: 삼중대각행렬 $X_{n} := \begin{bmatrix}
 x &amp; 1 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 
 \\ 1 &amp; x &amp; 1 &amp; \cdots &amp; 0 &amp; 0 
 \\  0 &amp; 1 &amp; x &amp; \cdots &amp; 0 &amp; 0 
@@ -384,8 +386,9 @@ x &amp; 1 &amp; 0 &amp; \cdots &amp; 0 &amp; 0
 \\  0 &amp; 0 &amp; 0 &amp; \cdots &amp; x &amp; 1 
 \\  0 &amp; 0 &amp; 0 &amp; \cdots &amp; 1 &amp; x 
 \end{bmatrix}$ 에 대해 $\displaystyle | x_{n}| = U_{n} \left( {{x} \over {2}} \right)$</p>
+</blockquote>
 <p>$$
-\displaystyle \Lambda - \lambda I_{m-1} = {{1} \over { \delta^2 }} \begin{bmatrix}
+\Lambda - \lambda I_{m-1} = {{1} \over { \delta^2 }} \begin{bmatrix}
 -2 - \delta^2 \lambda &amp; 1 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 
 \\ 1 &amp;  -2 - \delta^2  &amp; 1 &amp; \cdots &amp; 0 &amp; 0 
 \\  0 &amp; 1 &amp;  -2 - \delta^2  &amp; \cdots &amp; 0 &amp; 0 
@@ -396,21 +399,23 @@ x &amp; 1 &amp; 0 &amp; \cdots &amp; 0 &amp; 0
 $$
 은 $(m - 1) \times (m-1)$ 삼중대각행렬이므로, 행렬식은
 $$
-\displaystyle \det \left( \Lambda - \lambda I_{m-1} \right) = {{1} \over { \delta^2 }}  U_{m-1} \left( {{-2 - \delta^2 \lambda } \over {2}} \right)
+\det \left( \Lambda - \lambda I_{m-1} \right) = {{1} \over { \delta^2 }}  U_{m-1} \left( {{-2 - \delta^2 \lambda } \over {2}} \right)
 $$
 와 같이 구해진다. 여기서 $U_{m-1}$ 은 <a href="../779">$m-1$ 차 제2종 체비셰프 다항함수</a>를 의미한다.</p>
-<p><a href="../779">제2종 체비셰프 다항함수의 근과 대칭성</a></p>
+<blockquote>
+<p><a href="../779">제2종 체비셰프 다항함수의 근과 대칭성</a>:</p>
 <ul>
 <li>[1]: $\displaystyle U_{n} (X)$ 의 근은 $\displaystyle x_{k} = \cos \left( {{k} \over {n+1}} \pi \right)$, $k=1, \cdots , n$</li>
 <li>[2]: $U_{n} (-x) = (-1)^{n} U_{n} (x)$</li>
 </ul>
+</blockquote>
 <p>괄호에서 $-1$ 을 빼내면
 $$
 {{(-1)^{m-1}} \over { \delta^2 }}  U_{m-1} \left( {{2 + \delta^2 \lambda } \over {2}} \right)
 $$
 이고, 고유값을 구하기 위해선
 $$
-\displaystyle U_{m-1} \left( {{2 + \delta^2 \lambda } \over {2}} \right)
+U_{m-1} \left( {{2 + \delta^2 \lambda } \over {2}} \right)
 $$
 만 신경쓰면 충분하다. $\displaystyle U_{m-1} \left( {{2 + \delta^2 \lambda } \over {2}} \right)$ 의 $j$ 번째 근은 $j=1, \cdots , (m-1)$ 에 대해
 $$
@@ -426,17 +431,29 @@ $$
 $$
 따라서 고유값은
 $$
-\displaystyle \lambda_{j} = - {{4} \over { \delta^2 }} \sin^2 \left( {{j \pi } \over {2m}} \right)
+\lambda_{j} = - {{4} \over { \delta^2 }} \sin^2 \left( {{j \pi } \over {2m}} \right)
 $$
 과 같이 구해진다. 그런데
 $$
 \begin{align*}
 \left| \lambda_{m-1} \right| =&amp; \left| {{4} \over { \delta^2 }} \sin^2 \left( {{(m-1) \pi } \over {2m}} \right) \right| 
-\\ &amp; \approx &amp; {{4} \over {\delta^2}} 
+\\ \approx &amp; {{4} \over {\delta^2}} 
 \\ =&amp; 4 m^2 
 \end{align*}
-$$
-이므로, $\lambda_{j}$ 는 $\displaystyle m = {{1} \over {\delta}}$ 이 크면 클수록 고유값의 크기도 엄청나게 커진다. 수치해를 가능한 한 정확히 알기 위해 $\delta$ 를 작게 잡아 $[0,1]$ 을 많이 쪼갰다면 계산이 무척 어려워지는 것이다. 가령 $m=100$ 으로만 잡아도 $\mathbb{u} ' (t) = \Lambda \mathbb{u} (t)$ 은 **스티프**<sup>Stiff</sup> 한 문제가 되어서 수치적으로 풀기엔 꽤 어렵다.</p>
+$$</p>
+<p>이므로, $\lambda_{j}$ 는 $\displaystyle m = {{1} \over {\delta}}$ 이 크면 클수록 고유값의 크기도 엄청나게 커진다. 수치해를 가능한 한 정확히 알기 위해 $\delta$ 를 작게 잡아 $[0,1]$ 을 많이 쪼갰다면 계산이 무척 어려워지는 것이다. 가령 $m=100$ 으로만 잡아도 $\mathbb{u} ' (t) = \Lambda \mathbb{u} (t)$ 은 <strong>스티프</strong><sup>Stiff</sup> 한 문제가 되어서 수치적으로 풀기엔 꽤 어렵다.</p>
+<h2 id="같이보기">같이보기</h2>
+<ul>
+<li><a href="../581">대수적 풀이</a></li>
+</ul>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Atkinson. (1989). An Introduction to Numerical Analysis(2nd Edition): p414~417.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
@@ -834,7 +851,7 @@ $$
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1110">🎲</a></p>
+         <a href="../562">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (79)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -894,7 +911,7 @@ $$
     <a href=https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/>
         <span style="color:rgb(051,204,051);">●</span> 매트랩 (16)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/>
-        <span style="color:rgb(255,204,000);">●</span> 수치해석 (53)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수치해석 (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(255,051,051);">●</span> 최적화이론 (26)</a><br>
     <hr>
@@ -920,7 +937,7 @@ $$
     <a href=https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%8B%9C%EA%B0%81%ED%99%94/>
         <span style="color:rgb(255,051,051);">●</span> 데이터시각화 (0++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EA%B2%80%EC%A0%95/>
-        <span style="color:rgb(255,051,051);">●</span> 통계적검정 (14)</a><br>
+        <span style="color:rgb(255,204,000);">●</span> 통계적검정 (14)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (58)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
@@ -952,7 +969,7 @@ $$
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2224)</summary>
+    <summary>전체 포스트 (2229)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -974,7 +991,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (3)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (67)</a>
         </li><li>
@@ -1028,7 +1045,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (88)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (120)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (122)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -1050,7 +1067,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (50)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (33)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (34)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (78)</a>
         </li><li>

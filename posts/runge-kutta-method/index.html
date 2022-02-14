@@ -62,7 +62,7 @@
 <meta name="title" content="룽게-쿠타 메소드">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
 <meta property="og:title" content="룽게-쿠타 메소드"/>
-<meta property="og:description" content="runge kutta Method"/>
+<meta property="og:description" content="Runge-Kutta Method"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -77,7 +77,7 @@
     "name": "룽게-쿠타 메소드",
     "headline": "룽게-쿠타 메소드",
     "alternativeHeadline": "",
-    "description": "runge kutta Method",
+    "description": "Runge-Kutta Method",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/runge-kutta-method\/",
-    "wordCount" : "1165",
+    "wordCount" : "1168",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -265,7 +265,7 @@
 
 <h1>룽게-쿠타 메소드</h1>
 <aside>
-    runge kutta Method
+    Runge-Kutta Method
     <p style="text-align: right;">
         796
 
@@ -284,32 +284,30 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#메소드-1">메소드 </a></li>
+    <li><a href="#설명">설명</a></li>
+    <li><a href="#직관적인-유도">직관적인 유도</a></li>
+    <li><a href="#구현">구현</a>
+      <ul>
+        <li><a href="#r">R</a></li>
+        <li><a href="#줄리아">줄리아</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-$D \subset \mathbb{R}^2$ 에서 정의된 연속함수 $f$ 에 대해 초기값 문제 $\begin{cases} y' = f(x,y) 
+<h2 id="메소드-1">메소드 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>$D \subset \mathbb{R}^2$ 에서 정의된 연속함수 $f$ 에 대해 초기값 문제 $\begin{cases} y' = f(x,y) 
 \\  y( x_{0} ) = Y_{0} \end{cases}$ 가 주어져 있다. 구간 $(a,b)$ 을 $a \le x_{0} &lt; x_{1} &lt; \cdots &lt; x_{n} &lt; \cdots x_{N} \le b$ 와 같은 노드 포인트들로 쪼갰다고 하자. 특히 충분히 작은 $h &gt; 0$ 에 대해 $x_{j} = x_{0} + j h$ 이라고 하면 초기값 $y_{0} = Y_{0}$ 에 대해
 $$
 y_{n+1} = y_{n-1} + h \sum_{j=1}^{p} \gamma_{j} V_{j} 
 $$</p>
+<h2 id="설명">설명</h2>
 <p><strong>룽게-쿠타 메소드</strong>는 <a href="../724">아담스 메소드</a>처럼 여러가지 형태를 가지며 복잡한 대수적 조작을 통해 $\gamma_{j}$ 와 $V_{j}$ 를 결정한다. 그 중에서도 가장 인기 있게 쓰이는 것이 <strong>4차 룽게-쿠타 메소드</strong> 로써, 흔히 <strong>RK4</strong>라 줄여서 부른다.</p>
-<p>**4차 룽게-쿠타 메소드</p>
-<p>$$
+<blockquote>
+<p>4차 룽게-쿠타 메소드:
+$$
 \begin{align*}
 y_{n+1} =&amp; y_{n} + {{h} \over {6}} \left[ V_{1} + 2 V_{2} + 2 V_{3} + V_{4} \right] 
 \\  V_{1} =&amp; f(x_{n} , y_{n}) 
@@ -318,7 +316,9 @@ y_{n+1} =&amp; y_{n} + {{h} \over {6}} \left[ V_{1} + 2 V_{2} + 2 V_{3} + V_{4} 
 \\  V_{4} =&amp; f \left( x_{n} + h , y_{n} + h V_{3} \right) 
 \end{align*}
 $$</p>
+</blockquote>
 <p>수식을 보면 한 스텝 $h$ 만큼을 진행하기 위해 $\displaystyle {{h} \over {2}}$ 지점의 데이터까지 사용한 것을 알 수 있다.</p>
+<h2 id="직관적인-유도">직관적인 유도</h2>
 <p>위의 항들을 하나씩 풀어서 가장 간단한 <a href="../687">오일러 메소드</a> $y_{n+1} = y_{n} + h f ( x_{n} , y_{n} ) $ 를 통해 생각해보자. (편의상 $\displaystyle x_{n+ {{1} \over {2}} } : = x_{n} + {{h} \over {2}}$, $y_{n+ {{1} \over {2}} } \approx Y(x_{n + {{h} \over {2}} } )$ 이라고 하자.)
 $$
 V_{1} = f(x_{n} , y_{n} ) 
@@ -334,7 +334,7 @@ $$
 $$
 V_{3} =  f \left( x_{n} + {{h} \over {2}} , y_{n} + {{h} \over {2}} f \left( x_{n + {{1} \over {2}} } , y_{n + {{1} \over {2}} } \right) \right) 
 $$
-역시 백워드 오일러 메소드 $y_{n+1} = y_{n} + h f ( x_{n+1} , y_{n+1} )$ 에 의해 $\displaystyle V_{3} =  f \left( x_{n + {{1} \over {2}} } , y_{n + {{1} \over {2}} } \right) $ 으로, $x_{n+{{1} \over {2}} }$ 지점에서의 미분계수 $\displaystyle y_{n + {{1} \over {2}} }'$ 가 된다.
+역시 백워드 <a href="../687">오일러 메소드</a> $y_{n+1} = y_{n} + h f ( x_{n+1} , y_{n+1} )$ 에 의해 $\displaystyle V_{3} =  f \left( x_{n + {{1} \over {2}} } , y_{n + {{1} \over {2}} } \right) $ 으로, $x_{n+{{1} \over {2}} }$ 지점에서의 미분계수 $\displaystyle y_{n + {{1} \over {2}} }'$ 가 된다.
 $$
 \begin{align*}
 V_{4} =&amp; f \left( x_{n} + h , y_{n} + h V_{3} \right) 
@@ -342,15 +342,16 @@ V_{4} =&amp; f \left( x_{n} + h , y_{n} + h V_{3} \right)
 \\ =&amp; f \left( x_{n + {{h} \over {2}}} + {{h} \over {2}} , y_{n + {{h} \over {2}}} + {{h} \over {2}} V_{3} \right) 
 \end{align*}
 $$
-또한 백워드 오일러 메소드에 의해 $x_{n+ 1 }$ 지점에서의 미분계수 $\displaystyle y_{n + 1}'$ 가 된다.
+또한 백워드 <a href="../687">오일러 메소드</a>에 의해 $x_{n+ 1 }$ 지점에서의 미분계수 $\displaystyle y_{n + 1}'$ 가 된다.
 $$
 {{h} \over {6}} \left[ V_{1} + 2 V_{2} + 2 V_{3} + V_{4} \right]
 $$
 은 한 스텝 $h$ 를 진행시키기 위해 $x_{n+{{1} \over {2}} }$ 지점의 데이터까지 사용하면서 특히 $x_{n+{{1} \over {2}} }$ 지점에 가중치를 준 가중평균으로 볼 수 있다.</p>
 <p>여기서 더 많은 계산을 추가할 순 있지만 RK4부터는 수렴차수가 계산량만큼 올라가주지 않는다. 꼭 더 올려주지 않더라도 스티프한 문제가 아니라면 RK4만으로 충분한 편이고, 코딩 또한 비교적 쉬워서 널리 쓰이고 있다.</p>
-<p>다음은 R 로 RK4를 구현하고 <a href="../867">로렌츠 어트랙터</a>를 3D로 그리는 코드다.</p>
-<pre><code>
-library(rgl)
+<h2 id="구현">구현</h2>
+<h3 id="r">R</h3>
+<p>다음은 <a href="../../categories/r">R</a>로 RK4를 구현하고 <a href="../867">로렌츠 어트랙터</a>를 3D로 그리는 코드다.</p>
+<pre><code>library(rgl)
  
 RK4&lt;-function(ODE,v,h=10^(-2)){
   V1 = ODE(v)
@@ -379,33 +380,41 @@ for(i in 1:10000){
 plot3d(traj,type='l')
 plot(traj[,1],traj[,3],type='l')
 </code></pre><p>코드를 실행하면 다음과 같은 3D 플랏을 얻는다.</p>
-<p><img src="20190226_173942.png#center" alt="20190226\_173942.png">
-다음은 위와 같은 내용의 코드를 줄리아로 구현한 것이다.</p>
-<pre><code>
-function RK4(ODE::Function,v::Array{Float64,1},h=10^(-2))
-    V1 = ODE(v)
-    V2 = ODE(v .+ (h/2)*V1)
-    V3 = ODE(v .+ (h/2)*V2)
-    V4 = ODE(v .+ h*V3)
-    return @. v + (h/6)*(V1 + 2*V2 + 2*V3 + V4)
-end
-function lorenz(v::Array{Float64,1}; ρ=28.,σ=10.,β=8/3)
-  dvdt = deepcopy(v)
-  dvdt[1] = σ*(v[2]-v[1])
-  dvdt[2] = v[1]*(ρ-v[3])-v[2]
-  dvdt[3] = v[1]*v[2] - β*v[3]
-  return dvdt
-end
-function  lorenz\_attracter(v::Array{Float64,1}, endtime = 10000)
-  traj = Array{Float64,1}[]
+<p><img src="20190226_173942.png#center" alt="20190226\_173942.png"></p>
+<h3 id="줄리아">줄리아</h3>
+<p>다음은 위와 같은 내용의 코드를 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>로 구현한 것이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">function</span> RK4(ODE<span style="color:#f92672">::</span><span style="color:#66d9ef">Function</span>,v<span style="color:#f92672">::</span><span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">1</span>},h<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span><span style="color:#f92672">^</span>(<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>))
+    V1 <span style="color:#f92672">=</span> ODE(v)
+    V2 <span style="color:#f92672">=</span> ODE(v <span style="color:#f92672">.+</span> (h<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">*</span>V1)
+    V3 <span style="color:#f92672">=</span> ODE(v <span style="color:#f92672">.+</span> (h<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">*</span>V2)
+    V4 <span style="color:#f92672">=</span> ODE(v <span style="color:#f92672">.+</span> h<span style="color:#f92672">*</span>V3)
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">@.</span> v <span style="color:#f92672">+</span> (h<span style="color:#f92672">/</span><span style="color:#ae81ff">6</span>)<span style="color:#f92672">*</span>(V1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>V2 <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>V3 <span style="color:#f92672">+</span> V4)
+<span style="color:#66d9ef">end</span>
+<span style="color:#66d9ef">function</span> lorenz(v<span style="color:#f92672">::</span><span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">1</span>}; ρ<span style="color:#f92672">=</span><span style="color:#ae81ff">28.</span>,σ<span style="color:#f92672">=</span><span style="color:#ae81ff">10.</span>,β<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>)
+  dvdt <span style="color:#f92672">=</span> deepcopy(v)
+  dvdt[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> σ<span style="color:#f92672">*</span>(v[<span style="color:#ae81ff">2</span>]<span style="color:#f92672">-</span>v[<span style="color:#ae81ff">1</span>])
+  dvdt[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> v[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">*</span>(ρ<span style="color:#f92672">-</span>v[<span style="color:#ae81ff">3</span>])<span style="color:#f92672">-</span>v[<span style="color:#ae81ff">2</span>]
+  dvdt[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> v[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">*</span>v[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">-</span> β<span style="color:#f92672">*</span>v[<span style="color:#ae81ff">3</span>]
+  <span style="color:#66d9ef">return</span> dvdt
+<span style="color:#66d9ef">end</span>
+<span style="color:#66d9ef">function</span>  lorenz_attracter(v<span style="color:#f92672">::</span><span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">1</span>}, endtime <span style="color:#f92672">=</span> <span style="color:#ae81ff">10000</span>)
+  traj <span style="color:#f92672">=</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">1</span>}[]
   v
-  for i in 1:endtime
-    traj = vcat(traj,[v])
-    v = RK4(lorenz,v)
-  end
-  return traj
-end
-</code></pre>
+  <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>endtime
+    traj <span style="color:#f92672">=</span> vcat(traj,[v])
+    v <span style="color:#f92672">=</span> RK4(lorenz,v)
+  <span style="color:#66d9ef">end</span>
+  <span style="color:#66d9ef">return</span> traj
+<span style="color:#66d9ef">end</span>
+</code></pre></div><section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Atkinson. (1989). An Introduction to Numerical Analysis(2nd Edition): p420.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
 
 
 <script type="text/javascript">
@@ -802,7 +811,7 @@ end
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../36">🎲</a></p>
+         <a href="../1786">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (79)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -862,7 +871,7 @@ end
     <a href=https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/>
         <span style="color:rgb(051,204,051);">●</span> 매트랩 (16)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/>
-        <span style="color:rgb(255,204,000);">●</span> 수치해석 (53)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수치해석 (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(255,051,051);">●</span> 최적화이론 (26)</a><br>
     <hr>
@@ -888,7 +897,7 @@ end
     <a href=https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%8B%9C%EA%B0%81%ED%99%94/>
         <span style="color:rgb(255,051,051);">●</span> 데이터시각화 (0++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EA%B2%80%EC%A0%95/>
-        <span style="color:rgb(255,051,051);">●</span> 통계적검정 (14)</a><br>
+        <span style="color:rgb(255,204,000);">●</span> 통계적검정 (14)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (58)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
@@ -920,7 +929,7 @@ end
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2224)</summary>
+    <summary>전체 포스트 (2229)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -942,7 +951,7 @@ end
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (3)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (67)</a>
         </li><li>
@@ -996,7 +1005,7 @@ end
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (88)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (120)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (122)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
@@ -1018,7 +1027,7 @@ end
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (50)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (33)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (34)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (78)</a>
         </li><li>
