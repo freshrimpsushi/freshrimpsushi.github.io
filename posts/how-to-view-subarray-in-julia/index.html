@@ -302,7 +302,7 @@
 <h2 id="개요">개요</h2>
 <p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서 <code>view</code>는 배열<sup>Array</sup>의 부분배열<sup>Subarray</sup>를 빠르게 참조하게끔 해주는 데이터 구조다. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 실제로 쓰는 입장에서는 번거롭기만하고 차이가 없어보이지만 게으르게<sup>Lazily</sup> 참조되면서 더 가볍운 배열을 리턴한다. 따라서 아주 베이직한 수준에서까지 최적화된 줄리아 코드에서는 <code>@views</code>라는 매크로를 쉽게 찾아볼 수 있다. <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
 <h2 id="코드">코드</h2>
-<pre tabindex="0"><code>julia&gt; M = rand(0:1,10,10)
+<pre><code>julia&gt; M = rand(0:1,10,10)
 10×10 Matrix{Int64}:
  1  0  1  1  1  0  0  1  1  0
  1  0  1  1  0  0  0  1  1  1
@@ -316,7 +316,7 @@
  0  0  0  0  0  1  0  0  0  1
 </code></pre><p>위 행렬 <code>M</code>의 부분행렬을 참조해보자.</p>
 <h3 id="함수형-view">함수형: <code>view()</code></h3>
-<pre tabindex="0"><code>julia&gt; A = view(M, 3:4, :)
+<pre><code>julia&gt; A = view(M, 3:4, :)
 2×10 view(::Matrix{Int64}, 3:4, :) with eltype Int64:
  0  0  0  1  0  0  1  1  1  0
  1  0  1  1  1  1  1  1  0  1
@@ -326,13 +326,13 @@
 </ul>
 <p>그러나 이 형태는 일반적으로 코드를 보기 어렵게 만들기 때문에 선호되지 않는다. 다음의 매크로를 사용하면 <code>view</code>를 사용하면서도 기본적인 줄리아 문법과 큰 차이가 없다.</p>
 <h3 id="매크로-view">매크로: <code>@view</code></h3>
-<pre tabindex="0"><code>julia&gt; B = @view M[3:4,:]
+<pre><code>julia&gt; B = @view M[3:4,:]
 2×10 view(::Matrix{Int64}, 3:4, :) with eltype Int64:
  0  0  0  1  0  0  1  1  1  0
  1  0  1  1  1  1  1  1  0  1
 </code></pre><p><code>@view</code> 매크로는 일반적으로 부분배열을 참조하는 맥락의 코드에 <code>view</code>가 적용된 것처럼 바꿔주는 매크로다.</p>
 <h3 id="블럭-전체에-적용-views">블럭 전체에 적용: <code>@views</code></h3>
-<pre tabindex="0"><code>julia&gt; @views begin
+<pre><code>julia&gt; @views begin
            C = M[5:6,:];
            D = M[7:8,:];
        end
@@ -368,7 +368,7 @@ x <span style="color:#f92672">=</span> rand(<span style="color:#ae81ff">10</span
 <span style="color:#a6e22e">@time</span> fcopy(x);
 <span style="color:#a6e22e">@time</span> fview(x);
 </code></pre></div><h2 id="속도-비교">속도 비교</h2>
-<pre tabindex="0"><code>julia&gt; fcopy(x) = sum(x[2:end-1]);
+<pre><code>julia&gt; fcopy(x) = sum(x[2:end-1]);
 
 julia&gt; @views fview(x) = sum(x[2:end-1]);
 
@@ -380,7 +380,7 @@ julia&gt; @time fcopy(x);
 julia&gt; @time fview(x);
   0.016209 seconds (77.07 k allocations: 4.149 MiB, 96.49% compilation time)
 </code></pre><p><code>fcopy()</code>와 <code>fview()</code>는 정확히 같은 기능을 하는 함수지만 속도에서 차이가 난다. 위 결과만 보면 비슷비슷한 속도처럼 보이지만 대부분은 컴파일 시간<sup>Compilation Time</sup>이다. 이를 제외하고 당순 실행시간만 비교해보면 다음과 같이 약 4배 정도의 차이가 난다.</p>
-<pre tabindex="0"><code>julia&gt; @time fcopy(x);
+<pre><code>julia&gt; @time fcopy(x);
   0.002933 seconds (3 allocations: 7.629 MiB)
 
 julia&gt; @time fview(x);
@@ -798,7 +798,7 @@ julia&gt; @time fview(x);
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1006">🎲</a></p>
+         <a href="../1162">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (79)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -916,7 +916,7 @@ julia&gt; @time fview(x);
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2232)</summary>
+    <summary>전체 포스트 (2234)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -934,7 +934,7 @@ julia&gt; @time fview(x);
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (45)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (66)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (67)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
@@ -1022,7 +1022,7 @@ julia&gt; @time fview(x);
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (64)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (63)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (64)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">확률미분방정식 (24)</a>
         </li><li>

@@ -317,7 +317,7 @@
 <p><strong>(<a href="../868">ROC 곡선 그리는 법</a>에 이어서)</strong></p>
 <p><img src="99C508455C4FA79537.png#center" alt="99C508455C4FA79537.png"></p>
 <p>위 그림은 <a href="../868">전 포스트</a>에서 데이터를 트레이닝 데이터와 테스트 데이터로 나누었을 때의 ROC 곡선이다. 이제는 최적의 컷오프를 구하기 위해 데이터를 삼분할 필요가 있다. 이때의 비율은 데이터마다 다르지만 별다른 문제가 없다면 3:1:1 정도가 무난하다.</p>
-<pre tabindex="0"><code>DATANUM&lt;-nrow(DATA)
+<pre><code>DATANUM&lt;-nrow(DATA)
 numeric(DATANUM)
 DATANUM*c(0.6,0.2,0.2)
   
@@ -334,7 +334,7 @@ test&lt;-DATA[slicing==3,]; head(test)
 <p><img src="20190208_143314.png#center" alt="20190208\_143314.png"></p>
 <h3 id="step-1">Step 1.</h3>
 <p>트레이닝 데이터를 학습시켜 모형을 만든다.</p>
-<pre tabindex="0"><code>out0&lt;-glm(vote~.,family=binomial(),data=train); summary(out0)
+<pre><code>out0&lt;-glm(vote~.,family=binomial(),data=train); summary(out0)
 vif(out0)
  
 out1&lt;-step(out0, direction=&quot;both&quot;); summary(out1)
@@ -345,7 +345,7 @@ vif(out1)
 모형을 살펴보면 특별히 문제될 곳이 없다.</p>
 <h3 id="step-2">Step 2.</h3>
 <p>밸리데이션 데이터에 적용시켜 최적의 컷오프를 찾는다.</p>
-<pre tabindex="0"><code>p &lt;- predict(out1, newdata=valid, type=&quot;response&quot;)
+<pre><code>p &lt;- predict(out1, newdata=valid, type=&quot;response&quot;)
  
 pr &lt;- prediction(p, valid$vote)
 prf &lt;- performance(pr, measure = &quot;tpr&quot;, x.measure = &quot;fpr&quot;)
@@ -353,7 +353,7 @@ win.graph(); plot(prf, main='ROC of Validation Data')
 </code></pre><p>위의 코드를 실행하면 마치 밸리데이터 데이터를 테스트 데이터처럼 취급해서 다음과 같이 ROC 커브를 그려준다.</p>
 <p><img src="vp.png#center" alt="vp.png">
 최적의 컷오프는 데이터와 목적에 따라 다르게 결정될 수 있지만, 별도의 주안점이 없다면 왼쪽 위의 $(0,1)$ 에서 가장 가까운 점을 찾아 그 점의 컷오프를 최적의 컷오프로 삼는다. 거리를 계산해야하기 때문에 코드는 다소 복잡하다.</p>
-<pre tabindex="0"><code>optid&lt;-(1:length(prf@y.values[[1]][-1]))[((prf@x.values[[1]][-1])^2 + (1-prf@y.values[[1]][-11])^2)
+<pre><code>optid&lt;-(1:length(prf@y.values[[1]][-1]))[((prf@x.values[[1]][-1])^2 + (1-prf@y.values[[1]][-11])^2)
                                          ==min((prf@x.values[[1]][-1])^2 + (1-prf@y.values[[1]][-1])^2)]
 points(prf@x.values[[1]][-1][optid],prf@y.values[[1]][-1][optid], col='red', pch=15)
 optcut&lt;-prf@alpha.values[[1]][-1][optid]; optcut
@@ -364,14 +364,14 @@ optcut&lt;-prf@alpha.values[[1]][-1][optid]; optcut
 <p>이 예제에서 얻은 최적의 컷오프는 $0.4564142$ 로써, 이보다 높으면 1로 판정하고 낮으면 0으로 판정하는게 가장 좋다고 받아들여도 무방하다.(벌써 세번째 강조하는건데, 가장 좋다고 받아들일 수 있는 것이지 가장 좋은 것이 아니다. 이에 대해 타당한 해석을 내놓는 것은 전적으로 분석자에게 달려있다.)</p>
 <h3 id="step-3">Step 3.</h3>
 <p>테스트 데이터에서 얼마나 잘 맞는지 확인해본다.</p>
-<pre tabindex="0"><code>p &lt;- predict(out1, newdata=test, type=&quot;response&quot;); head(p,48)
+<pre><code>p &lt;- predict(out1, newdata=test, type=&quot;response&quot;); head(p,48)
 table(test$vote, p&gt;optcut)
 </code></pre><p>위의 코드를 실행하면 테스트 데이터에서 확률을 계산해주고 최적 컷오프에 따른 <a href="../571">오류행렬</a>을 출력해준다.</p>
 <p><img src="20190208_150337.png#center" alt="20190208\_150337.png"></p>
 <p>위 오류행렬의 정분류율은 약 $81 \%$ 로써 꽤 쓸만하고, 분석자가 만족할만하다면 최종모형으로 받아들여봄직하다.눈치챘겠지만 엄밀히 말해 최적 컷오프를 구하는데 있어서 꼭 ROC 곡선을 그릴 필요는 없다. 어차피 계산을 위한 데이터는 데이터 프레임으로써 다 구해놨기 때문에 코드만 잘 돌려서 값만 얻어내도 전혀 상관 없다.</p>
 <h2 id="코드">코드</h2>
 <p>아래는 예제 코드다.</p>
-<pre tabindex="0"><code>install.packages(&quot;car&quot;)
+<pre><code>install.packages(&quot;car&quot;)
 install.packages(&quot;ResourceSelection&quot;)
 install.packages(&quot;ROCR&quot;)
  
@@ -820,7 +820,7 @@ table(test$vote, p&gt;optcut)
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../198">🎲</a></p>
+         <a href="../1017">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (79)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -938,7 +938,7 @@ table(test$vote, p&gt;optcut)
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2232)</summary>
+    <summary>전체 포스트 (2234)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -956,7 +956,7 @@ table(test$vote, p&gt;optcut)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (45)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (66)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (67)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
@@ -1044,7 +1044,7 @@ table(test$vote, p&gt;optcut)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (64)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (63)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (64)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">확률미분방정식 (24)</a>
         </li><li>
