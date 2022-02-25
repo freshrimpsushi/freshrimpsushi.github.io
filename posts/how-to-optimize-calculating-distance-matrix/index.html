@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-optimize-calculating-distance-matrix\/",
-    "wordCount" : "719",
+    "wordCount" : "721",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -321,7 +321,7 @@ end
 
 @time foo(S, I)
 </code></pre><p>물론 그룹을 나누어 계산한다는 발상은 딱히 줄리아가 아니라 어떤 수단을 써도 뛰어난 성능 개선을 가져다준다. 요지는 그렇게 할 때 무식하게 반복문을 돌릴 필요 없이 <code>Distance</code> 패키지의 <code>pairwise()</code> 함수를 잘 쓰면 된다는 것이다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> foo(S, I);
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> foo(S, I);
   <span style="color:#ae81ff">0.170835</span> seconds (<span style="color:#ae81ff">7.98</span> k allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">210.854</span> MiB, <span style="color:#ae81ff">12.56</span><span style="color:#f92672">%</span> gc Time)
 
 julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> sum(pairwise(Euclidean(),S,I) <span style="color:#f92672">.&lt;</span> <span style="color:#ae81ff">0.1</span>, dims <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>);
@@ -329,7 +329,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
 </code></pre></div><p>위 두가지 명령은 정확히 같은 역할을 하지만 속도 면에서 약 2배, allocation은 계산도 하기 싫을만큼 큰 차이가 나며 코딩 난이도 측면에서도 반복문보다 훨씬 쉽다.</p>
 <h2 id="추가-연구-1">추가 연구 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
 <p>유클리드 거리가 거리함수일 때, <code>Euclidean()</code> 대신 <code>SqEuclidean()</code>를 사용하면 루트를 취하는 계산을 생략할 수 있어 속도가 더 빨라진다. 다음은 정확히 같은 결과를 내지만, 속도 측면에서는 1.5배 정도의 차이가 난다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> sum(pairwise(Euclidean(),S,I) <span style="color:#f92672">.&lt;</span> <span style="color:#ae81ff">0.1</span>, dims <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>);
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> sum(pairwise(Euclidean(),S,I) <span style="color:#f92672">.&lt;</span> <span style="color:#ae81ff">0.1</span>, dims <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>);
   <span style="color:#ae81ff">0.091917</span> seconds (<span style="color:#ae81ff">14</span> allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">69.639</span> MiB, <span style="color:#ae81ff">7.60</span><span style="color:#f92672">%</span> gc Time)
 
 julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> sum(pairwise(SqEuclidean(),S,I) <span style="color:#f92672">.&lt;</span> <span style="color:#ae81ff">0.01</span>, dims <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>);
@@ -344,10 +344,10 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://github.com/JuliaStats/Distances.jl#pairwise-benchmark">https://github.com/JuliaStats/Distances.jl#pairwise-benchmark</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://github.com/JuliaStats/Distances.jl#pairwise-benchmark">https://github.com/JuliaStats/Distances.jl#pairwise-benchmark</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p><a href="https://en.wikipedia.org/wiki/K-d_tree">https://en.wikipedia.org/wiki/K-d_tree</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://en.wikipedia.org/wiki/K-d_tree">https://en.wikipedia.org/wiki/K-d_tree</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -748,7 +748,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../859">🎲</a></p>
+         <a href="../590">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -818,7 +818,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
         <span style="color:rgb(051,204,051);">●</span> 고전역학 (38)</a><br>
     
     <a href=https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/>
-        <span style="color:rgb(255,204,000);">●</span> 전자기학 (49)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 전자기학 (49)</a><br>
     
     <a href=https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/>
         <span style="color:rgb(255,051,051);">●</span> 양자역학 (52)</a><br>
@@ -866,7 +866,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2239)</summary>
+    <summary>전체 포스트 (2238)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -940,7 +940,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%A0%EC%B2%B4%EC%97%AD%ED%95%99/" style="color: black">유체역학 (5)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/" style="color: black">전자기학 (49)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/" style="color: black">전자기학 (50)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (89)</a>
         </li><li>
@@ -1083,6 +1083,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js" integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
         onload="renderMathInElement(document.body);"></script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         renderMathInElement(document.body, {
@@ -1092,7 +1093,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
               {left: '$$', right: '$$', display: true},
               {left: '$', right: '$', display: false},
           ],
-		  trust: ["\\htmlId", "\\href"],
+		  trust: (context) => ['\\url', '\\href', '\\includegraphics'].includes(context.command),
 		  macros: {
 		  "\\eqref": "\\href{###1}{(\\text{#1})}",
 		  "\\ref": "\\href{###1}{\\text{#1}}",
@@ -1116,6 +1117,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
 		  "\\Poi": "\\operatorname{Poi}",
 		  "\\span": "\\operatorname{span}",
 		  "\\supp": "\\operatorname{supp}",
+		  "\\rcurs" : "\\includegraphics[height=0.4em, width=0.45em, alt=KA logo]{https://upload.wikimedia.org/wikipedia/commons/a/a9/Script-r.png}}"
 		  },
           
           throwOnError : false

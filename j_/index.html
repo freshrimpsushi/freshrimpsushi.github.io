@@ -222,8 +222,6 @@
     <summary>전체 포스트</summary>
 <ul>
 
-    <li><a href="https://freshrimpsushi.github.io/posts/"></a></li>
-
     <li><a href="https://freshrimpsushi.github.io/posts/how-to-concatenate-or-stack-tensors-in-pytorch/">파이토치에서 텐서 붙이거나 쌓는 방법</a></li>
 
     <li><a href="https://freshrimpsushi.github.io/posts/how-to-use-machine-learning-data-sets-in-julia/">줄리아에서 머신러닝 데이터 셋 사용하는 방법</a></li>
@@ -776,6 +774,8 @@
 
     <li><a href="https://freshrimpsushi.github.io/posts/smoothing-effect-in-laplaces-equation/">조화 함수의 스무싱 이펙트</a></li>
 
+    <li><a href="https://freshrimpsushi.github.io/posts/gauge-transformation/">게이지 변환</a></li>
+
     <li><a href="https://freshrimpsushi.github.io/posts/transverse-wave-longitudinal-wave-linear-polarization/">수직파 평행파 선편광</a></li>
 
     <li><a href="https://freshrimpsushi.github.io/posts/coulomb-gauge-and-lorenz-gauge/">쿨롱 게이지와 로렌츠 게이지</a></li>
@@ -946,9 +946,9 @@
 
     <li><a href="https://freshrimpsushi.github.io/posts/jefimenko-equation/">제피멩코 방정식</a></li>
 
-    <li><a href="https://freshrimpsushi.github.io/posts/derivation-of-lienard-wiechert-potentials/">리에나르-비케르트 전위 유도</a></li>
+    <li><a href="https://freshrimpsushi.github.io/posts/derivation-of-lienard-wiechert-potentials/">리에나르-비케르트 전위</a></li>
 
-    <li><a href="https://freshrimpsushi.github.io/posts/gradient-of-retarded-time/">지연시각의 기울기</a></li>
+    <li><a href="https://freshrimpsushi.github.io/posts/gradient-of-retarded-time/">지연시각의 그래디언트(기울기)</a></li>
 
     <li><a href="https://freshrimpsushi.github.io/posts/parallelepiped/">일반적인 평행육면체의 정의</a></li>
 
@@ -2355,7 +2355,7 @@
         <span style="color:rgb(051,204,051);">●</span> 고전역학 (38)</a><br>
     
     <a href=https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/>
-        <span style="color:rgb(255,204,000);">●</span> 전자기학 (49)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 전자기학 (49)</a><br>
     
     <a href=https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/>
         <span style="color:rgb(255,051,051);">●</span> 양자역학 (52)</a><br>
@@ -2403,7 +2403,7 @@
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2239)</summary>
+    <summary>전체 포스트 (2238)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -2477,7 +2477,7 @@
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%A0%EC%B2%B4%EC%97%AD%ED%95%99/" style="color: black">유체역학 (5)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/" style="color: black">전자기학 (49)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%84%EC%9E%90%EA%B8%B0%ED%95%99/" style="color: black">전자기학 (50)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (89)</a>
         </li><li>
@@ -2620,6 +2620,7 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js" integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
         onload="renderMathInElement(document.body);"></script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         renderMathInElement(document.body, {
@@ -2629,7 +2630,7 @@
               {left: '$$', right: '$$', display: true},
               {left: '$', right: '$', display: false},
           ],
-		  trust: ["\\htmlId", "\\href"],
+		  trust: (context) => ['\\url', '\\href', '\\includegraphics'].includes(context.command),
 		  macros: {
 		  "\\eqref": "\\href{###1}{(\\text{#1})}",
 		  "\\ref": "\\href{###1}{\\text{#1}}",
@@ -2653,6 +2654,7 @@
 		  "\\Poi": "\\operatorname{Poi}",
 		  "\\span": "\\operatorname{span}",
 		  "\\supp": "\\operatorname{supp}",
+		  "\\rcurs" : "\\includegraphics[height=0.4em, width=0.45em, alt=KA logo]{https://upload.wikimedia.org/wikipedia/commons/a/a9/Script-r.png}}"
 		  },
           
           throwOnError : false
