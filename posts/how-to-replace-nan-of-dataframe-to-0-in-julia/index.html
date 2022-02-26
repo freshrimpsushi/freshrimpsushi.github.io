@@ -299,8 +299,8 @@
 <h2 id="개요">개요</h2>
 <p><a href="../2326">특정 값으로 바꾸는 방법</a>은 한 열씩 바꾸기 때문에 불편하고, 데이터프레임 전체에서 <code>NaN</code>을 처리할 땐 더 좋은 트릭을 사용해봄직하다.</p>
 <h2 id="코드">코드</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> df <span style="color:#f92672">=</span> DataFrame(rand(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>), <span style="color:#f92672">:</span>auto) <span style="color:#f92672">./</span> DataFrame(rand(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>), <span style="color:#f92672">:</span>auto)
-<span style="color:#ae81ff">3</span>×3 DataFrame
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> df <span style="color:#f92672">=</span> DataFrame(rand(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>), <span style="color:#e6db74">:auto</span>) <span style="color:#f92672">./</span> DataFrame(rand(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>), <span style="color:#e6db74">:auto</span>)
+<span style="color:#ae81ff">3</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> DataFrame
  Row │ x1       x2       x3      
      │ <span style="color:#66d9ef">Float64</span>  <span style="color:#66d9ef">Float64</span>  <span style="color:#66d9ef">Float64</span>
 ─────┼───────────────────────────
@@ -308,8 +308,8 @@
    <span style="color:#ae81ff">2</span> │   Inf        <span style="color:#ae81ff">8.0</span>    Inf
    <span style="color:#ae81ff">3</span> │     <span style="color:#ae81ff">4.0</span>      <span style="color:#ae81ff">1.0</span>      <span style="color:#ae81ff">4.0</span>
 </code></pre></div><p>가령 위의 데이터 프레임에서 <code>Inf</code>를 <code>0</code>으로 대체하고 싶다면 다음과 같이 단 한 줄로 바꿀 수 있다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> ifelse<span style="color:#f92672">.</span>(isinf<span style="color:#f92672">.</span>(df), <span style="color:#ae81ff">0</span>, df)
-<span style="color:#ae81ff">3</span>×3 DataFrame
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> ifelse<span style="color:#f92672">.</span>(isinf<span style="color:#f92672">.</span>(df), <span style="color:#ae81ff">0</span>, df)
+<span style="color:#ae81ff">3</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> DataFrame
  Row │ x1       x2       x3      
      │ <span style="color:#66d9ef">Float64</span>  <span style="color:#66d9ef">Float64</span>  <span style="color:#66d9ef">Float64</span>
 ─────┼───────────────────────────
@@ -318,10 +318,10 @@
    <span style="color:#ae81ff">3</span> │     <span style="color:#ae81ff">4.0</span>      <span style="color:#ae81ff">1.0</span>      <span style="color:#ae81ff">4.0</span>
 </code></pre></div><p>당연하지만 <code>ifelse.(isinf.(df), 0, df)</code> 에서 <code>isinf</code>를 <code>isnan</code>으로 교체하면 <code>NaN</code>을 처리하고, <code>0</code>을 고쳐서 어떤 값으로 보낼지 바꿀 수 있다.</p>
 <h3 id="전체코드">전체코드</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> DataFrames, Random
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> DataFrames, Random
 Random<span style="color:#f92672">.</span>seed!(<span style="color:#ae81ff">0</span>)
 
-df <span style="color:#f92672">=</span> DataFrame(rand(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>), <span style="color:#f92672">:</span>auto) <span style="color:#f92672">./</span> DataFrame(rand(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>), <span style="color:#f92672">:</span>auto)
+df <span style="color:#f92672">=</span> DataFrame(rand(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>), <span style="color:#e6db74">:auto</span>) <span style="color:#f92672">./</span> DataFrame(rand(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>), <span style="color:#e6db74">:auto</span>)
 ifelse<span style="color:#f92672">.</span>(isinf<span style="color:#f92672">.</span>(df), <span style="color:#ae81ff">0</span>, df)
 </code></pre></div><h2 id="같이보기">같이보기</h2>
 <ul>
@@ -729,7 +729,7 @@ ifelse<span style="color:#f92672">.</span>(isinf<span style="color:#f92672">.</s
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../212">🎲</a></p>
+         <a href="../1409">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -847,7 +847,7 @@ ifelse<span style="color:#f92672">.</span>(isinf<span style="color:#f92672">.</s
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2238)</summary>
+    <summary>전체 포스트 (2240)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -869,7 +869,7 @@ ifelse<span style="color:#f92672">.</span>(isinf<span style="color:#f92672">.</s
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (6)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (7)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (67)</a>
         </li><li>

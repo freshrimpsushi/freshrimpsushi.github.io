@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-calculate-frequency-in-julia\/",
-    "wordCount" : "1069",
+    "wordCount" : "1068",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -302,7 +302,7 @@
 <p><code>FreqTables.jl</code> 패키지의 <code>freqtable()</code> 함수를 사용하면 된다. <a href="../../categories/r">R</a>에서의 <code>freq()</code> 함수와 유사한 기능을 한다.</p>
 <h2 id="코드">코드</h2>
 <h3 id="배열">배열</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> compartment <span style="color:#f92672">=</span> rand([<span style="color:#e6db74">&#39;S&#39;</span>,<span style="color:#e6db74">&#39;I&#39;</span>,<span style="color:#e6db74">&#39;R&#39;</span>], <span style="color:#ae81ff">1000</span>);
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> compartment <span style="color:#f92672">=</span> rand([<span style="color:#e6db74">&#39;S&#39;</span>,<span style="color:#e6db74">&#39;I&#39;</span>,<span style="color:#e6db74">&#39;R&#39;</span>], <span style="color:#ae81ff">1000</span>);
 
 julia<span style="color:#f92672">&gt;</span> freqtable(compartment)
 <span style="color:#ae81ff">3</span><span style="color:#f92672">-</span>element Named <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Int64</span>}
@@ -314,8 +314,8 @@ Dim1  │
 </code></pre></div><p>위와 같이 그냥 배열을 넣으면 각 계급별로 카운트 해준다.</p>
 <h3 id="데이터프레임">데이터프레임</h3>
 <p><code>freqtable()</code>는 특히 데이터프레임에 유용하다. <a href="../686">R에서의 질적변수를 포함한 회귀분석 예제</a>와 마찬가지로 <a href="../2316">내장데이터</a> <code>ToothGrowth</code>를 불러와보자.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> ToothGrowth <span style="color:#f92672">=</span> dataset(<span style="color:#e6db74">&#34;datasets&#34;</span>, <span style="color:#e6db74">&#34;ToothGrowth&#34;</span>)
-<span style="color:#ae81ff">60</span>×3 DataFrame
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> ToothGrowth <span style="color:#f92672">=</span> dataset(<span style="color:#e6db74">&#34;datasets&#34;</span>, <span style="color:#e6db74">&#34;ToothGrowth&#34;</span>)
+<span style="color:#ae81ff">60</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> DataFrame
  Row │ Len      Supp  Dose    
      │ <span style="color:#66d9ef">Float64</span>  Cat…  <span style="color:#66d9ef">Float64</span>
 ─────┼────────────────────────
@@ -323,13 +323,13 @@ Dim1  │
    <span style="color:#ae81ff">2</span> │    <span style="color:#ae81ff">11.5</span>  VC        <span style="color:#ae81ff">0.5</span>
    <span style="color:#ae81ff">3</span> │     <span style="color:#ae81ff">7.3</span>  VC        <span style="color:#ae81ff">0.5</span>
    <span style="color:#ae81ff">4</span> │     <span style="color:#ae81ff">5.8</span>  VC        <span style="color:#ae81ff">0.5</span>
-  ⋮  │    ⋮      ⋮       ⋮
+  <span style="color:#f92672">⋮</span>  │    <span style="color:#f92672">⋮</span>      <span style="color:#f92672">⋮</span>       <span style="color:#f92672">⋮</span>
   <span style="color:#ae81ff">58</span> │    <span style="color:#ae81ff">27.3</span>  OJ        <span style="color:#ae81ff">2.0</span>
   <span style="color:#ae81ff">59</span> │    <span style="color:#ae81ff">29.4</span>  OJ        <span style="color:#ae81ff">2.0</span>
   <span style="color:#ae81ff">60</span> │    <span style="color:#ae81ff">23.0</span>  OJ        <span style="color:#ae81ff">2.0</span>
                <span style="color:#ae81ff">53</span> rows omitted
 
-julia<span style="color:#f92672">&gt;</span> freqtable(ToothGrowth, <span style="color:#f92672">:</span>Len)
+julia<span style="color:#f92672">&gt;</span> freqtable(ToothGrowth, <span style="color:#e6db74">:Len</span>)
 <span style="color:#ae81ff">43</span><span style="color:#f92672">-</span>element Named <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Int64</span>}
 Len  │
 ─────┼──
@@ -337,20 +337,20 @@ Len  │
 <span style="color:#ae81ff">5.2</span>  │ <span style="color:#ae81ff">1</span>
 <span style="color:#ae81ff">5.8</span>  │ <span style="color:#ae81ff">1</span>
 <span style="color:#ae81ff">6.4</span>  │ <span style="color:#ae81ff">1</span>
-⋮      ⋮
+<span style="color:#f92672">⋮</span>      <span style="color:#f92672">⋮</span>
 <span style="color:#ae81ff">29.5</span> │ <span style="color:#ae81ff">1</span>
 <span style="color:#ae81ff">30.9</span> │ <span style="color:#ae81ff">1</span>
 <span style="color:#ae81ff">32.5</span> │ <span style="color:#ae81ff">1</span>
 <span style="color:#ae81ff">33.9</span> │ <span style="color:#ae81ff">1</span>
 
-julia<span style="color:#f92672">&gt;</span> freqtable(ToothGrowth, <span style="color:#f92672">:</span>Supp)
+julia<span style="color:#f92672">&gt;</span> freqtable(ToothGrowth, <span style="color:#e6db74">:Supp</span>)
 <span style="color:#ae81ff">2</span><span style="color:#f92672">-</span>element Named <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Int64</span>}
 Supp  │
 ──────┼───
 <span style="color:#e6db74">&#34;OJ&#34;</span>  │ <span style="color:#ae81ff">30</span>
 <span style="color:#e6db74">&#34;VC&#34;</span>  │ <span style="color:#ae81ff">30</span>
 
-julia<span style="color:#f92672">&gt;</span> freqtable(ToothGrowth, <span style="color:#f92672">:</span>Dose)
+julia<span style="color:#f92672">&gt;</span> freqtable(ToothGrowth, <span style="color:#e6db74">:Dose</span>)
 <span style="color:#ae81ff">3</span><span style="color:#f92672">-</span>element Named <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Int64</span>}
 Dose  │
 ──────┼───
@@ -358,32 +358,32 @@ Dose  │
 <span style="color:#ae81ff">1.0</span>   │ <span style="color:#ae81ff">20</span>
 <span style="color:#ae81ff">2.0</span>   │ <span style="color:#ae81ff">20</span>
 </code></pre></div><p><code>ToothGrowth</code>는 기니피그에게 비타민 C 혹은 오렌지 주스 <code>:Supp</code>를 다른 양 <code>:Dose</code>로 먹이고 치아의 길이 <code>:Len</code>를 기록한 데이터다. 각 칼럼별로 빈도를 계산해보면 위와 같이 깔끔하게 정리해준다. 여기서 데이터가 반드시 <a href="../2318">범주형 데이터</a>일 필요는 없음을 확인할 수 있다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> freqtable(ToothGrowth, <span style="color:#f92672">:</span>Supp, <span style="color:#f92672">:</span>Dose)
-<span style="color:#ae81ff">2</span>×3 Named <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Int64</span>}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> freqtable(ToothGrowth, <span style="color:#e6db74">:Supp</span>, <span style="color:#e6db74">:Dose</span>)
+<span style="color:#ae81ff">2</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> Named <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Int64</span>}
 Supp ╲ Dose │ <span style="color:#ae81ff">0.5</span>  <span style="color:#ae81ff">1.0</span>  <span style="color:#ae81ff">2.0</span>
 ────────────┼──────────────
 <span style="color:#e6db74">&#34;OJ&#34;</span>        │  <span style="color:#ae81ff">10</span>   <span style="color:#ae81ff">10</span>   <span style="color:#ae81ff">10</span>
 <span style="color:#e6db74">&#34;VC&#34;</span>        │  <span style="color:#ae81ff">10</span>   <span style="color:#ae81ff">10</span>   <span style="color:#ae81ff">10</span>
 </code></pre></div><p>물론 이러한 테이블은 범주형 데이터를 다룰 때 가장 효과적이다. <code>:Supp</code>, <code>:Dose</code>에 대해 빈도수를 계산해보면 알아서 2차원으로 카테고리를 나누어 빈도수를 계산해주었다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> freqtable(ToothGrowth, <span style="color:#f92672">:</span>Len, <span style="color:#f92672">:</span>Dose, <span style="color:#f92672">:</span>Supp)
-<span style="color:#ae81ff">43</span>×3×2 Named <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>, <span style="color:#ae81ff">3</span>}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> freqtable(ToothGrowth, <span style="color:#e6db74">:Len</span>, <span style="color:#e6db74">:Dose</span>, <span style="color:#e6db74">:Supp</span>)
+<span style="color:#ae81ff">43</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> Named <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>, <span style="color:#ae81ff">3</span>}
 
 [<span style="color:#f92672">:</span>, <span style="color:#f92672">:</span>, Supp<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;OJ&#34;</span>] <span style="color:#f92672">=</span>
 Len ╲ Dose │ <span style="color:#ae81ff">0.5</span>  <span style="color:#ae81ff">1.0</span>  <span style="color:#ae81ff">2.0</span>
 ───────────┼──────────────
 <span style="color:#ae81ff">4.2</span>        │   <span style="color:#ae81ff">0</span>    <span style="color:#ae81ff">0</span>    <span style="color:#ae81ff">0</span>
-⋮              ⋮    ⋮    ⋮
+<span style="color:#f92672">⋮</span>              <span style="color:#f92672">⋮</span>    <span style="color:#f92672">⋮</span>    <span style="color:#f92672">⋮</span>
 <span style="color:#ae81ff">33.9</span>       │   <span style="color:#ae81ff">0</span>    <span style="color:#ae81ff">0</span>    <span style="color:#ae81ff">0</span>
 
 [<span style="color:#f92672">:</span>, <span style="color:#f92672">:</span>, Supp<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;VC&#34;</span>] <span style="color:#f92672">=</span>
 Len ╲ Dose │ <span style="color:#ae81ff">0.5</span>  <span style="color:#ae81ff">1.0</span>  <span style="color:#ae81ff">2.0</span>
 ───────────┼──────────────
 <span style="color:#ae81ff">4.2</span>        │   <span style="color:#ae81ff">1</span>    <span style="color:#ae81ff">0</span>    <span style="color:#ae81ff">0</span>
-⋮              ⋮    ⋮    ⋮
+<span style="color:#f92672">⋮</span>              <span style="color:#f92672">⋮</span>    <span style="color:#f92672">⋮</span>    <span style="color:#f92672">⋮</span>
 <span style="color:#ae81ff">33.9</span>       │   <span style="color:#ae81ff">0</span>    <span style="color:#ae81ff">0</span>    <span style="color:#ae81ff">1</span>
 </code></pre></div><p>3개 이상의 칼럼에 대한 계산은 그냥 2차원 테이블을 계급의 수만큼 리턴한다. 이쯤되면 데이터를 탐색하거나 요약하는 의미는 거의 없다.</p>
 <h3 id="성능-비교">성능 비교</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">for</span> t <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span><span style="color:#f92672">^</span><span style="color:#ae81ff">4</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">for</span> t <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span><span style="color:#f92672">^</span><span style="color:#ae81ff">4</span>
            freqtable(compartment)
        <span style="color:#66d9ef">end</span>
        <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">for</span> t <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span><span style="color:#f92672">^</span><span style="color:#ae81ff">4</span>
@@ -395,7 +395,7 @@ Len ╲ Dose │ <span style="color:#ae81ff">0.5</span>  <span style="color:#ae8
   <span style="color:#ae81ff">0.059198</span> seconds (<span style="color:#ae81ff">180.00</span> k allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">134.125</span> MiB, <span style="color:#ae81ff">36.71</span><span style="color:#f92672">%</span> gc time)
 </code></pre></div><p>테이블을 떠나서 빈도수를 측정하는 것 자체가 유용하다는 생각이 든다. 이에 직접 카운트하는 것과 <code>freqtable()</code>을 통해 한번에 빈도수를 계산하는 속도를 여러가지로 측정해봤는데, 어느 한 쪽이 반드시 빠르거나 하지는 않았다. 데이터의 수나 계급의 수에 따라서 엎치락뒤치락 하는데, 전반적으로 <code>freqtable()</code>가 느린 편이었다. 그렇다고 엄청나게 밀리지도 않으니, 속도를 떠나 잘 고민해서 쓸 땐 쓰자.</p>
 <h3 id="전체코드">전체코드</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> FreqTables
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> FreqTables
 
 compartment <span style="color:#f92672">=</span> rand([<span style="color:#e6db74">&#39;S&#39;</span>,<span style="color:#e6db74">&#39;I&#39;</span>,<span style="color:#e6db74">&#39;R&#39;</span>], <span style="color:#ae81ff">1000</span>);
 freqtable(compartment)
@@ -403,12 +403,12 @@ freqtable(compartment)
 <span style="color:#66d9ef">using</span> RDatasets
 ToothGrowth <span style="color:#f92672">=</span> dataset(<span style="color:#e6db74">&#34;datasets&#34;</span>, <span style="color:#e6db74">&#34;ToothGrowth&#34;</span>)
 
-freqtable(ToothGrowth, <span style="color:#f92672">:</span>Len)
-freqtable(ToothGrowth, <span style="color:#f92672">:</span>Supp)
-freqtable(ToothGrowth, <span style="color:#f92672">:</span>Dose)
+freqtable(ToothGrowth, <span style="color:#e6db74">:Len</span>)
+freqtable(ToothGrowth, <span style="color:#e6db74">:Supp</span>)
+freqtable(ToothGrowth, <span style="color:#e6db74">:Dose</span>)
 
-freqtable(ToothGrowth, <span style="color:#f92672">:</span>Supp, <span style="color:#f92672">:</span>Dose)
-freqtable(ToothGrowth, <span style="color:#f92672">:</span>Len, <span style="color:#f92672">:</span>Dose, <span style="color:#f92672">:</span>Supp)
+freqtable(ToothGrowth, <span style="color:#e6db74">:Supp</span>, <span style="color:#e6db74">:Dose</span>)
+freqtable(ToothGrowth, <span style="color:#e6db74">:Len</span>, <span style="color:#e6db74">:Dose</span>, <span style="color:#e6db74">:Supp</span>)
 
 <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">for</span> t <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span><span style="color:#f92672">^</span><span style="color:#ae81ff">4</span>
     freqtable(compartment)
@@ -428,7 +428,7 @@ freqtable(ToothGrowth, <span style="color:#f92672">:</span>Len, <span style="col
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://github.com/nalimilan/FreqTables.jl">https://github.com/nalimilan/FreqTables.jl</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://github.com/nalimilan/FreqTables.jl">https://github.com/nalimilan/FreqTables.jl</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -829,7 +829,7 @@ freqtable(ToothGrowth, <span style="color:#f92672">:</span>Len, <span style="col
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1527">🎲</a></p>
+         <a href="../1556">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -947,7 +947,7 @@ freqtable(ToothGrowth, <span style="color:#f92672">:</span>Len, <span style="col
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2238)</summary>
+    <summary>전체 포스트 (2240)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -969,7 +969,7 @@ freqtable(ToothGrowth, <span style="color:#f92672">:</span>Len, <span style="col
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (6)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (7)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (67)</a>
         </li><li>
