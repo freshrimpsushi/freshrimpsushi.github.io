@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-use-polynomials.jl-in-julia\/",
-    "wordCount" : "807",
+    "wordCount" : "808",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -312,7 +312,7 @@
 <p>패키지의 모든 기능을 정리한 것은 아니고 유용할만한 것만 추렸으니 자세한 것은 리파지터리를 확인하자. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <h2 id="일반-다항-함수">일반 다항 함수</h2>
 <h3 id="계수로-다항함수-정의-polynomial">계수로 다항함수 정의 <code>Polynomial()</code></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> Polynomials
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> Polynomials
 
 julia<span style="color:#f92672">&gt;</span> p <span style="color:#f92672">=</span> Polynomial([<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>])
 Polynomial(<span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> x<span style="color:#f92672">^</span><span style="color:#ae81ff">3</span>)
@@ -320,7 +320,7 @@ Polynomial(<span style="color:#ae81ff">1</span> <span style="color:#f92672">+</s
 julia<span style="color:#f92672">&gt;</span> q <span style="color:#f92672">=</span> Polynomial([<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>])
 Polynomial(<span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> x)
 
-julia<span style="color:#f92672">&gt;</span> r <span style="color:#f92672">=</span> Polynomial([<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>], <span style="color:#e6db74">:t</span>)
+julia<span style="color:#f92672">&gt;</span> r <span style="color:#f92672">=</span> Polynomial([<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>], <span style="color:#f92672">:</span>t)
 Polynomial(<span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> t)
 
 julia<span style="color:#f92672">&gt;</span> p(<span style="color:#ae81ff">0</span>)
@@ -334,27 +334,27 @@ julia<span style="color:#f92672">&gt;</span> p(<span style="color:#ae81ff">2</sp
 <li><code>var</code>에서는 다항함수의 변수를 준다. 위의 예처럼 <a href="../2195">심볼</a> <code>:t</code>를 넣으면 <code>t</code>에 대한 다항식이 된다.</li>
 </ul>
 <h3 id="데이터로-다항함수-정의-fit">데이터로 다항함수 정의 <code>fit()</code></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> fit([<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>], [<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">2</span>])
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> fit([<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>], [<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">2</span>])
 Polynomial(<span style="color:#ae81ff">2.0</span><span style="color:#f92672">*</span>x<span style="color:#f92672">^</span><span style="color:#ae81ff">2</span>)
 </code></pre></div><p><code>fit(::Type{RationalFunction}, xs::AbstractVector{S}, ys::AbstractVector{T}, m, n; var=:x)</code></p>
 <ul>
 <li>$x$-좌표가 <code>xs</code>고 $y$-좌표가 <code>ys</code>인 점들을 지나는 다항 함수를 리턴한다.</li>
 </ul>
 <h3 id="근으로-다항함수-정의-roots">근으로 다항함수 정의 <code>roots()</code></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> fromroots([<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>])
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> fromroots([<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>])
 Polynomial(<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">+</span> x<span style="color:#f92672">^</span><span style="color:#ae81ff">2</span>)
 </code></pre></div><p><code>fromroots(::AbstractVector{&lt;:Number}; var=:x)</code></p>
 <ul>
 <li>배열로 받은 데이터가 근이 되게끔 하는 다항 함수를 리턴한다.</li>
 </ul>
 <h3 id="연산-----">연산 <code>+</code>, <code>-</code>, <code>*</code>, <code>÷</code></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> p <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> p <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
 Polynomial(<span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> x<span style="color:#f92672">^</span><span style="color:#ae81ff">3</span>)
 
 julia<span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">2</span>p
 Polynomial(<span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>x<span style="color:#f92672">^</span><span style="color:#ae81ff">3</span>)
 </code></pre></div><p>스칼라를 더하거나 곱하면 위와 같이 직관적으로 연산된다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> p <span style="color:#f92672">+</span> q
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> p <span style="color:#f92672">+</span> q
 Polynomial(<span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> x <span style="color:#f92672">+</span> x<span style="color:#f92672">^</span><span style="color:#ae81ff">3</span>)
 
 julia<span style="color:#f92672">&gt;</span> p <span style="color:#f92672">-</span> q
@@ -367,8 +367,8 @@ julia<span style="color:#f92672">&gt;</span> p <span style="color:#f92672">÷</s
 Polynomial(<span style="color:#ae81ff">1.0</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1.0</span><span style="color:#f92672">*</span>x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.0</span><span style="color:#f92672">*</span>x<span style="color:#f92672">^</span><span style="color:#ae81ff">2</span>)
 </code></pre></div><p>다항 함수 간의 사칙연산은 <code>+</code>, <code>-</code>, <code>*</code>, <code>÷</code>에 오버라이딩<sup>Overriding</sup>된다.</p>
 <h3 id="근-찾기-roots">근 찾기 <code>roots()</code></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> roots(p)
-<span style="color:#ae81ff">3</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">ComplexF64</span>}<span style="color:#f92672">:</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> roots(p)
+<span style="color:#ae81ff">3</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Vector</span>{ComplexF64}<span style="color:#f92672">:</span>
                <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.0</span>im
  <span style="color:#ae81ff">0.4999999999999998</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.8660254037844383</span>im
  <span style="color:#ae81ff">0.4999999999999998</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.8660254037844383</span>im
@@ -377,14 +377,14 @@ Polynomial(<span style="color:#ae81ff">1.0</span> <span style="color:#f92672">-<
 <li><code>f</code>의 <a href="../723">근</a>들을 <a href="../1947">벡터</a>로 리턴한다.</li>
 </ul>
 <h3 id="미분-derivative">미분 <code>derivative()</code></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> derivative(p, <span style="color:#ae81ff">3</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> derivative(p, <span style="color:#ae81ff">3</span>)
 Polynomial(<span style="color:#ae81ff">6</span>)
 </code></pre></div><p><code>derivative(f::AbstractPolynomial, order::Int = 1)</code></p>
 <ul>
 <li><code>f</code>의 <code>order</code>계 도함수를 리턴한다.</li>
 </ul>
 <h3 id="적분-integrate">적분 <code>integrate()</code></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> integrate(p, <span style="color:#ae81ff">7</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> integrate(p, <span style="color:#ae81ff">7</span>)
 Polynomial(<span style="color:#ae81ff">7.0</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.0</span><span style="color:#f92672">*</span>x <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.25</span><span style="color:#f92672">*</span>x<span style="color:#f92672">^</span><span style="color:#ae81ff">4</span>)
 </code></pre></div><p><code>integrate(f::AbstractPolynomial, C = 0)</code></p>
 <ul>
@@ -392,7 +392,7 @@ Polynomial(<span style="color:#ae81ff">7.0</span> <span style="color:#f92672">+<
 </ul>
 <h2 id="특수-다항-함수">특수 다항 함수</h2>
 <h3 id="로랑-다항-함수-laurentpolynomial">로랑 다항 함수 <code>LaurentPolynomial()</code></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> LaurentPolynomial([<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>], <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> LaurentPolynomial([<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>], <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
 LaurentPolynomial(<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>x⁻¹ <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>x <span style="color:#f92672">+</span> x²)
 </code></pre></div><p><code>LaurentPolynomial{T,X}(coeffs::AbstractVector, [m::Integer = 0], [var = :x])</code></p>
 <ul>
@@ -400,7 +400,7 @@ LaurentPolynomial(<span style="color:#ae81ff">4</span><span style="color:#f92672
 <li>최소차항의 차수는 <code>m</code>으로 주어진다.</li>
 </ul>
 <h3 id="체비셰프-다항-함수-chebyshevt">체비셰프 다항 함수 <code>ChebyshevT()</code></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> ChebyshevT([<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>])
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> ChebyshevT([<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>])
 ChebyshevT(<span style="color:#ae81ff">3</span><span style="color:#f92672">⋅</span>T_0(x) <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">⋅</span>T_1(x) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">⋅</span>T_2(x))
 </code></pre></div><p><code>ChebyshevT{T, X}(coeffs::AbstractVector)</code></p>
 <ul>
@@ -415,7 +415,7 @@ ChebyshevT(<span style="color:#ae81ff">3</span><span style="color:#f92672">⋅</
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://juliamath.github.io/Polynomials.jl/stable/">https://juliamath.github.io/Polynomials.jl/stable/</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://juliamath.github.io/Polynomials.jl/stable/">https://juliamath.github.io/Polynomials.jl/stable/</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -816,7 +816,7 @@ ChebyshevT(<span style="color:#ae81ff">3</span><span style="color:#f92672">⋅</
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../733">🎲</a></p>
+         <a href="../677">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -878,7 +878,7 @@ ChebyshevT(<span style="color:#ae81ff">3</span><span style="color:#f92672">⋅</
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 수치해석 (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/>
-        <span style="color:rgb(255,051,051);">●</span> 최적화이론 (26)</a><br>
+        <span style="color:rgb(255,051,051);">●</span> 최적화이론 (27)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC/>
         <span style="color:rgb(255,051,051);">●</span> 수리물리 (50)</a><br>
@@ -934,7 +934,7 @@ ChebyshevT(<span style="color:#ae81ff">3</span><span style="color:#f92672">⋅</
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2240)</summary>
+    <summary>전체 포스트 (2244)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -952,7 +952,7 @@ ChebyshevT(<span style="color:#ae81ff">3</span><span style="color:#f92672">⋅</
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (45)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (68)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (69)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
@@ -964,7 +964,7 @@ ChebyshevT(<span style="color:#ae81ff">3</span><span style="color:#f92672">⋅</
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (51)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (53)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B0%94%EB%82%98%ED%9D%90%EA%B3%B5%EA%B0%84/" style="color: black">바나흐공간 (36)</a>
         </li><li>
@@ -1018,7 +1018,7 @@ ChebyshevT(<span style="color:#ae81ff">3</span><span style="color:#f92672">⋅</
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (23)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/" style="color: black">최적화이론 (5)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/" style="color: black">최적화이론 (6)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/" style="color: black">추상대수 (78)</a>
         </li><li>
@@ -1124,7 +1124,7 @@ ChebyshevT(<span style="color:#ae81ff">3</span><span style="color:#f92672">⋅</
 
 <aside>
     <p><b>태그</b></p>
-    <div><a class = "in_sidebar" href="https://freshrimpsushi.github.io/tags/r/" title="r" style="color: black">R</a>&emsp;<a class = "in_sidebar" href="https://freshrimpsushi.github.io/tags/%EC%A4%84%EB%A6%AC%EC%95%84/" title="줄리아" style="color: black">줄리아</a>&emsp;
+    <div><a class = "in_sidebar" href="https://freshrimpsushi.github.io/tags/r/" title="r" style="color: black">R</a>&emsp;<a class = "in_sidebar" href="https://freshrimpsushi.github.io/tags/%EC%A4%84%EB%A6%AC%EC%95%84/" title="줄리아" style="color: black">줄리아</a>&emsp;<a class = "in_sidebar" href="https://freshrimpsushi.github.io/tags/%ED%8C%A8%EC%8A%A4%ED%8A%B8%ED%8A%B8%EB%9E%99/" title="패스트트랙" style="color: black">패스트트랙</a>&emsp;
     </div>
 </aside>
 
@@ -1161,6 +1161,7 @@ ChebyshevT(<span style="color:#ae81ff">3</span><span style="color:#f92672">⋅</
               {left: '$$', right: '$$', display: true},
               {left: '$', right: '$', display: false},
           ],
+		  trust: true,
 		  trust: (context) => ['\\url', '\\href', '\\includegraphics'].includes(context.command),
 		  macros: {
 		  "\\eqref": "\\href{###1}{(\\text{#1})}",
@@ -1185,6 +1186,8 @@ ChebyshevT(<span style="color:#ae81ff">3</span><span style="color:#f92672">⋅</
 		  "\\Poi": "\\operatorname{Poi}",
 		  "\\span": "\\operatorname{span}",
 		  "\\supp": "\\operatorname{supp}",
+		  "\\rank": "\\operatorname{rank}",
+		  "\\nullity": "\\operatorname{nullity}",
 		  "\\rcurs" : "\\includegraphics[height=0.4em, width=0.45em, alt=KA logo]{https://upload.wikimedia.org/wikipedia/commons/a/a9/Script-r.png}}"
 		  },
           
