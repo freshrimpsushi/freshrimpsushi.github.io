@@ -300,15 +300,15 @@
 <p>많은 언어에서 데이터프레임을 지원함에도 의외로 할 때마다 새롭고 짜증나는 게 빈 배열 생성이다.</p>
 <h2 id="코드">코드</h2>
 <h3 id="타입-지정">타입 지정</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> DataFrames
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> DataFrames
 
-julia<span style="color:#f92672">&gt;</span> df1 <span style="color:#f92672">=</span> DataFrame(x <span style="color:#f92672">=</span> <span style="color:#66d9ef">Int64</span>[], y <span style="color:#f92672">=</span> String[])
-<span style="color:#ae81ff">0</span>×2 DataFrame
+julia<span style="color:#f92672">&gt;</span> df1 <span style="color:#f92672">=</span> DataFrame(x <span style="color:#f92672">=</span> <span style="color:#66d9ef">Int64</span>[], y <span style="color:#f92672">=</span> <span style="color:#66d9ef">String</span>[])
+<span style="color:#ae81ff">0</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> DataFrame
 </code></pre></div><p>실제로 빈 배열을 데이터로써 넣어주면 된다. 이 때 타입을 지정하게 되는데, 데이터가 전혀 없을 땐 칼럼 이름과 타입도 보이지 않는다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> push!(df1, [<span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#34;three&#34;</span>])
-<span style="color:#ae81ff">1</span>×2 DataFrame
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> push!(df1, [<span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#34;three&#34;</span>])
+<span style="color:#ae81ff">1</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> DataFrame
 │ Row │ x     │ y      │
-│     │ <span style="color:#66d9ef">Int64</span> │ String │
+│     │ <span style="color:#66d9ef">Int64</span> │ <span style="color:#66d9ef">String</span> │
 ├─────┼───────┼────────┤
 │ <span style="color:#ae81ff">1</span>   │ <span style="color:#ae81ff">3</span>     │ three  │
 
@@ -318,20 +318,20 @@ julia<span style="color:#f92672">&gt;</span> push!(df1, [<span style="color:#ae8
 ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">InexactError</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">Int64</span>(<span style="color:#ae81ff">3.14</span>)
 </code></pre></div><p>데이터를 넣으면 정상적으로 칼럼 이름과 타입이 출력된다. 타입이 맞지 않을 경우 데이터가 추가되지 않으니 주의하자.</p>
 <h3 id="타입-미지정">타입 미지정</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> df2 <span style="color:#f92672">=</span> DataFrame(x <span style="color:#f92672">=</span> [], y <span style="color:#f92672">=</span> String[])
-<span style="color:#ae81ff">0</span>×2 DataFrame
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> df2 <span style="color:#f92672">=</span> DataFrame(x <span style="color:#f92672">=</span> [], y <span style="color:#f92672">=</span> <span style="color:#66d9ef">String</span>[])
+<span style="color:#ae81ff">0</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> DataFrame
 
 julia<span style="color:#f92672">&gt;</span> push!(df2, [<span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#34;three&#34;</span>])
-<span style="color:#ae81ff">1</span>×2 DataFrame
+<span style="color:#ae81ff">1</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> DataFrame
 │ Row │ x   │ y      │
-│     │ <span style="color:#66d9ef">Any</span> │ String │
+│     │ <span style="color:#66d9ef">Any</span> │ <span style="color:#66d9ef">String</span> │
 ├─────┼─────┼────────┤
 │ <span style="color:#ae81ff">1</span>   │ <span style="color:#ae81ff">3</span>   │ three  │
 
 julia<span style="color:#f92672">&gt;</span> push!(df2, [<span style="color:#ae81ff">3.14</span>, <span style="color:#e6db74">&#34;pi&#34;</span>])
-<span style="color:#ae81ff">2</span>×2 DataFrame
+<span style="color:#ae81ff">2</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> DataFrame
 │ Row │ x    │ y      │
-│     │ <span style="color:#66d9ef">Any</span>  │ String │
+│     │ <span style="color:#66d9ef">Any</span>  │ <span style="color:#66d9ef">String</span> │
 ├─────┼──────┼────────┤
 │ <span style="color:#ae81ff">1</span>   │ <span style="color:#ae81ff">3</span>    │ three  │
 │ <span style="color:#ae81ff">2</span>   │ <span style="color:#ae81ff">3.14</span> │ pi     │
@@ -738,7 +738,7 @@ julia<span style="color:#f92672">&gt;</span> push!(df2, [<span style="color:#ae8
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../155">🎲</a></p>
+         <a href="../857">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -856,13 +856,13 @@ julia<span style="color:#f92672">&gt;</span> push!(df2, [<span style="color:#ae8
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2244)</summary>
+    <summary>전체 포스트 (2247)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/r/" style="color: black">R (53)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/tex/" style="color: black">TeX (3)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/tex/" style="color: black">TeX (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC%EA%B3%B5%EA%B0%84/" style="color: black">거리공간 (33)</a>
         </li><li>
@@ -886,7 +886,7 @@ julia<span style="color:#f92672">&gt;</span> push!(df2, [<span style="color:#ae8
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (53)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (55)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B0%94%EB%82%98%ED%9D%90%EA%B3%B5%EA%B0%84/" style="color: black">바나흐공간 (36)</a>
         </li><li>

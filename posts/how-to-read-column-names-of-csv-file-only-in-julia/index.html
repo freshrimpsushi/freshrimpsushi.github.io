@@ -297,10 +297,10 @@
 <h2 id="가이드">가이드</h2>
 <p><img src="20211206_151035.png#center" alt="20211206_151035.png"></p>
 <p>가령 위와 같은 <code>example.csv</code> 파일이 있다고 하자. 이를 <a href="../1923">데이터프레임으로 불러들일 때</a>, 데이터 전체가 아니라 열이름만 유지되어있고 텅 빈 데이터프레임을 만들고 싶을 때가 있다. <a href="../2230">빈 데이터프레임이 필요한 경우</a>가 있기 때문에 이런 경우도 반드시 있다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> CSV, DataFrames
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> CSV, DataFrames
 
-julia<span style="color:#f92672">&gt;</span> df <span style="color:#f92672">=</span> CSV<span style="color:#f92672">.</span>read(<span style="color:#e6db74">&#34;example.csv&#34;</span>, DataFrame, limit <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)[[<span style="color:#66d9ef">false</span>],<span style="color:#f92672">:</span>]
-<span style="color:#ae81ff">0</span>×3 DataFrame
+julia<span style="color:#f92672">&gt;</span> df <span style="color:#f92672">=</span> CSV<span style="color:#f92672">.</span>read(<span style="color:#e6db74">&#34;example.csv&#34;</span>, DataFrame, limit <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)[[false],<span style="color:#f92672">:</span>]
+<span style="color:#ae81ff">0</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> DataFrame
 </code></pre></div><p>위 실행 결과에서 만들어진 데이터프레임은 3개의 열을 그대로 가지고 있지만 그 내용물은 전혀 가져오지 않았다.</p>
 <p><code>CSV.read(limit = 1)</code></p>
 <ul>
@@ -310,22 +310,22 @@ julia<span style="color:#f92672">&gt;</span> df <span style="color:#f92672">=</s
 <ul>
 <li>길이 $1$ 인 비트 배열<sup>Bit Array</sup> <code>[false]</code>로써 아무런 행도 참조하지 않았다. 이를 통해 빈 배열이 남았다.</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> names(df)
-<span style="color:#ae81ff">3</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Vector</span>{String}<span style="color:#f92672">:</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> names(df)
+<span style="color:#ae81ff">3</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">String</span>}<span style="color:#f92672">:</span>
  <span style="color:#e6db74">&#34;I&#34;</span>
  <span style="color:#e6db74">&#34;V&#34;</span>
  <span style="color:#e6db74">&#34;E&#34;</span>
 </code></pre></div><p><code>names()</code> 함수로 열이름을 확인해보면 열이름은 정상적으로 유지되어 있음을 확인할 수 있다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> push!(df, [<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">4</span>,<span style="color:#e6db74">&#34;r&#34;</span>])
-<span style="color:#ae81ff">1</span>×3 DataFrame
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> push!(df, [<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">4</span>,<span style="color:#e6db74">&#34;r&#34;</span>])
+<span style="color:#ae81ff">1</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> DataFrame
  Row │ I      V      E       
      │ <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span>  String1
 ─────┼───────────────────────
    <span style="color:#ae81ff">1</span> │     <span style="color:#ae81ff">4</span>      <span style="color:#ae81ff">4</span>  r
 </code></pre></div><p><code>push!()</code>로 새로운 데이터를 집어넣어도 원래 있던 배열처럼 제대로 작동하는 것을 확인할 수 있다.</p>
 <h3 id="그냥-limit--0를-하면">그냥 <code>limit = 0</code>를 하면?</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> df2 <span style="color:#f92672">=</span> CSV<span style="color:#f92672">.</span>read(<span style="color:#e6db74">&#34;example.csv&#34;</span>, DataFrame, limit <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>)
-<span style="color:#ae81ff">0</span>×3 DataFrame
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> df2 <span style="color:#f92672">=</span> CSV<span style="color:#f92672">.</span>read(<span style="color:#e6db74">&#34;example.csv&#34;</span>, DataFrame, limit <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>)
+<span style="color:#ae81ff">0</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> DataFrame
 
 julia<span style="color:#f92672">&gt;</span> push!(df2, [<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">4</span>,<span style="color:#e6db74">&#34;r&#34;</span>])
 ┌ Error<span style="color:#f92672">:</span> Error adding value to column <span style="color:#f92672">:</span>I<span style="color:#f92672">.</span>
@@ -734,7 +734,7 @@ ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">LoadError<
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../198">🎲</a></p>
+         <a href="../901">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -852,13 +852,13 @@ ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">LoadError<
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2244)</summary>
+    <summary>전체 포스트 (2247)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/r/" style="color: black">R (53)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/tex/" style="color: black">TeX (3)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/tex/" style="color: black">TeX (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC%EA%B3%B5%EA%B0%84/" style="color: black">거리공간 (33)</a>
         </li><li>
@@ -882,7 +882,7 @@ ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">LoadError<
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (53)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (55)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B0%94%EB%82%98%ED%9D%90%EA%B3%B5%EA%B0%84/" style="color: black">바나흐공간 (36)</a>
         </li><li>

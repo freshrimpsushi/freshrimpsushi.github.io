@@ -59,10 +59,10 @@
     </script>
 
     
-<meta name="title" content="계산위상에서의 바운더리 행렬">
+<meta name="title" content="표현자 정리 증명">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="계산위상에서의 바운더리 행렬"/>
-<meta property="og:description" content="Boundary Matrix in Computational Matrix"/>
+<meta property="og:title" content="표현자 정리 증명"/>
+<meta property="og:description" content="Proof of Representer Theorem"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -74,15 +74,15 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "r_",
-    "name": "계산위상에서의 바운더리 행렬",
-    "headline": "계산위상에서의 바운더리 행렬",
+    "name": "표현자 정리 증명",
+    "headline": "표현자 정리 증명",
     "alternativeHeadline": "",
-    "description": "Boundary Matrix in Computational Matrix",
+    "description": "Proof of Representer Theorem",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/boundary-matrix-in-computational-matrix\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/proof-of-representer-theorem\/"
     },
     "author" : {
         "@type": "Person",
@@ -98,9 +98,9 @@
     },
     "copyrightHolder" : "생새우초밥집",
     "copyrightYear" : "2013",
-    "dateCreated": "2013-06-23T00:00:00.00Z",
-    "datePublished": "2013-06-23T00:00:00.00Z",
-    "dateModified": "2013-06-23T00:00:00.00Z",
+    "dateCreated": "2013-06-29T00:00:00.00Z",
+    "datePublished": "2013-06-29T00:00:00.00Z",
+    "dateModified": "2013-06-29T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -113,15 +113,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/boundary-matrix-in-computational-matrix\/",
-    "wordCount" : "0",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/proof-of-representer-theorem\/",
+    "wordCount" : "2860",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>계산위상에서의 바운더리 행렬</title>
+    <title>표현자 정리 증명</title>
 
 </head>
 
@@ -130,7 +130,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/basic.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D.png style="max-height: 80px; width: auto;">
             
             
             
@@ -261,17 +261,21 @@
             <div class = "content">
             
 
-<title>계산위상에서의 바운더리 행렬</title>
+<title>표현자 정리 증명</title>
 
-<h1>계산위상에서의 바운더리 행렬</h1>
+<h1>표현자 정리 증명</h1>
 <aside>
-    Boundary Matrix in Computational Matrix
+    Proof of Representer Theorem
     <p style="text-align: right;">
-        2405
+        2408
 
     
     
-    작성일: 2013-06-23&nbsp;<br>
+            <a href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝</a>&emsp;
+            
+    </span>
+    
+    작성일: 2013-06-29&nbsp;<br>
     작성자: 류대식 사장 &nbsp;
 </p>
 </aside>
@@ -280,19 +284,199 @@
     <b>목차</b>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#정리">정리</a>
+      <ul>
+        <li><a href="#비모수supnonparametricsup">비모수<sup>Nonparametric</sup></a></li>
+        <li><a href="#반모수supsemiparametricsup">반모수<sup>Semiparametric</sup></a></li>
+      </ul>
+    </li>
+    <li><a href="#설명">설명</a>
+      <ul>
+        <li><a href="#표현자">표현자</a></li>
+        <li><a href="#대상-함수와-레귤라이저">대상 함수와 레귤라이저</a></li>
+      </ul>
+    </li>
+    <li><a href="#증명-2">증명 </a></li>
   </ul>
 </nav>
 </aside>
 
-<h2 id="heading"></h2>
+<h2 id="정리">정리</h2>
+<p>인풋 집합<sup>Input Set</sup> $X \ne \emptyset$ 과 <a href="../2406">양정부호 커널</a> $k: X \times X \to \mathbb{R}$ 이 주어져 있다고 하자. <strong>학습데이터셋</strong><sup>Training Dataset</sup>을
+$$
+D := \left\{ \left( x_{i} , y_{i} \right) \right\}_{i=1}^{m} \subset X \times \mathbb{R}
+$$
+라 하고, <a href="../2406">재생 커널 힐베르트 공간</a> $H_{k}$ 의 클래스
+$$
+\mathcal{F} := \left\{ f \in \mathbb{R}^{X} : f \left( \cdot \right) = \sum_{i=1}^{\infty} \beta_{i} k \left( \cdot , z_{i} \right) \land \beta_{i} \in \mathbb{R} \land z_{i} \in X \land \left\| f \right\| &lt; \infty \right\} \subset H_{k}
+$$
+를 위와 같이 둔다. 임의의 <a href="../1463">대상 함수</a> $c : \left( D \times \mathbb{R} \right) ^{m} \to \overline{\mathbb{R}}$ 과 <a href="../848">단조증가함수</a>인 <a href="../1807">레귤라이저</a><sup>Regulizer</sup> $g : \mathbb{R} \to [0,\infty)$ 에 대해 다음과 같이 <strong>정칙화된 대상 범함수</strong><sup>Regulized Objective Functional</sup> $L : \mathcal{F} \to \overline{\mathbb{R}}$ 이 정의되어 있다고 하자.
+$$
+L (f) := c \left( \left( x_{1}, y_{1}, f \left( x_{1} \right) \right), \cdots , \left( x_{m}, y_{m}, f \left( x_{m} \right) \right) \right) + g \left( \left\| f \right\| \right)
+$$
+여기서 $H_{k}$ 의 <a href="../1225">놈</a> $\left\| \cdot \right\|$ 은 $k$ 의 양정부호성<sup>Positive Definiteness</sup>에 따라 다음과 같이 주어진다.
+$$
+\left\| \sum_{i=1}^{\infty} \beta_{i} k \left( \cdot , z_{i} \right) \right\|^{2} := \sum_{i=1}^{\infty} \sum_{j=1}^{\infty} \beta_{i} \beta_{j} k \left( z_{i} , z_{j} \right) \ge 0
+$$</p>
+<hr>
+<ul>
+<li>$\mathbb{R}$ 은 <a href="../178">실수의 집합</a>이고, $\overline{\mathbb{R}}$ 은 무한대 $\infty$ 를 포함하는 <a href="../1252">확장 실수</a>다.</li>
+<li>$\mathbb{R}^{X}$ 는 정의역이 $X$ 고 공역이 $\mathbb{R}$ 인 <a href="../470">함수</a>를 모아놓은 <a href="../646">함수공간</a>이다.</li>
+<li><a href="../1807">레귤라이저</a>란 데이터에 대한 오버피팅을 방지하기 위한 페널티<sup>Penalty</sup> 함수다.</li>
+<li><a href="../742">범함수</a>란 엄밀하지 않게 대충 말하자면 함수 자체를 인풋으로 받아들이는 함수다.</li>
+</ul>
+<h3 id="비모수supnonparametricsup">비모수<sup>Nonparametric</sup></h3>
+<p>$L (f)$ 를 최소화하는 함수 $f \in \mathcal{F}$ 는 어떤 $\left\{ \alpha_{i} \right\}_{i=1}^{m} \subset \mathbb{R}$ 에 대해 다음과 같은 꼴로 나타난다.
+$$
+f (\cdot) = \sum_{i=1}^{m} \alpha_{i} k \left( \cdot , x_{i} \right)
+$$</p>
+<h3 id="반모수supsemiparametricsup">반모수<sup>Semiparametric</sup></h3>
+<p>$X$ 에서 정의된 $M$ 개의 실함수의 집합을 $\left\{ \psi_{p} : X \to \mathbb{R} \right\}_{p=1}^{M}$ 에 대해 <a href="../1955">행렬</a> $\left( \psi_{p} \left( x_{i} \right) \right)_{ip}$ 의 <a href="../3021">랭크</a>가 $M$ 이라고 하자. 그러면 $f \in \mathcal{F}$ 와 $h \in \span \left\{ \psi_{p} \right\}$ 에 대해
+$$
+c \left( \left( x_{1}, y_{1}, \tilde{f} \left( x_{1} \right) \right) , \cdots , \left( x_{m}, y_{m}, \tilde{f} \left( x_{m} \right) \right) \right) + g \left( \left\| f \right\| \right)
+$$
+를 최소화하는 $\tilde{f} = f + h$ 는 어떤 $\left\{ \alpha_{i} \right\}_{i=1}^{m}, \left\{ \beta_{p} \right\}_{p=1}^{M} \subset \mathbb{R}$ 에 대해 다음과 같은 꼴로 나타난다.
+$$
+\tilde{f} (\cdot) = \sum_{i=1}^{m} \alpha_{i} k \left( \cdot , x_{i} \right) + \sum_{p=1}^{M} \beta_{p} \psi_{p} (\cdot)
+$$</p>
+<h2 id="설명">설명</h2>
+<p>가능하다면 다음 두 포스트를 먼저 읽어보는 것을 추천한다:</p>
+<ul>
+<li><a href="../2406">재생 커널 힐베르트 공간</a></li>
+<li><a href="../2402">서포트벡터머신</a></li>
+</ul>
+<h3 id="표현자">표현자</h3>
+<p><strong>표현자 정리</strong><sup>Representer Theorem</sup>은 <a href="../../categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D">고전적 머신러닝</a>, 특히 <a href="../2402">서포트벡터머신</a>의 맥락에서 가장 중요한 정리 중 하나로써 주어진 데이터에 대해 우리가 근사시키고 싶은 <a href="../1463">대상 함수</a> $f$ 가 적절한 <a href="../2406">커널</a> $k$ 에 대해
+$$
+f (\cdot) = \sum_{i=1}^{m} \alpha_{i} k \left( \cdot , x_{i} \right)
+$$
+와 같은 꼴로 나타난다고 하는 강력한 정리다. 여기서 커널의 인풋 중 하나가 $x_{i}$ 로 픽스된 함수 
+$$
+k \left( \cdot , x_{i} \right) = \phi \left( x_{i} \right) (\cdot)\in H_{k}
+$$
+을 표현자<sup>Representer</sup>라 부른다. 이에 따르면 표현자 정리는 &lsquo;<a href="../2406">재생 커널 힐베르트 공간</a>에서 학습데이터에 적합한<sup>Fitted</sup> 임의의 함수는 표현자들의 유한한 <a href="../512">선형결합</a>으로 나타낼 수 있다&rsquo;고 요약할 수 있겠다. 특히 비선형회귀를 위한 서포트벡터 머신의 커널 트릭은 이에 정확히 부합한다.</p>
+<ul>
+<li>이는 <a href="../996">딥러닝</a>과 <a href="../1853">시벤코 정리</a>의 관계와 유사하다.</li>
+</ul>
+<p>데이터 과학의 맥락에서 표현자 $\phi \left( x_{i} \right) (\cdot)$ 는 피쳐 맵<sup>Feature Map</sup>이라고도 불리는데, 임의의 데이터 $X$ 를 우리가 그 특징<sup>Feature</sup>을 알 수 있는 <a href="../776">힐베르트공간</a>으로 옮기고 그 유한한 합으로 우리가 원하는 함수를 표현할 수 있다는 말은 그동안 우리가 배워온 많은 머신러닝 기법들이 왜 작동해왔는지를 정당화한다. 물론 수학적 보장이 없더라도 그 기법들은 기법 그 자체로써 유효하지만, 표현자 정리가 있음으로써 그 기법들이 이론적 기반을 다지게 된다는 점에서 아주 중요하다.</p>
+<h3 id="대상-함수와-레귤라이저">대상 함수와 레귤라이저</h3>
+<p>정리의 스테이트먼트에서는 대상함수 $c$ 와 레귤라이저 $g$ 를 아주 일반적으로 정의했지만, 실질적으로 많은 경우에 $c$ 는 데이터와 $f$ 의 적합도를 측정하는 <a href="../650">평균잔차제곱</a>, 즉
+$$
+c = {{ 1 } \over { m }} \sum_{i=1}^{n} \left( y_{i} - f \left( x_{i} \right) \right)^{2}
+$$
+로 보고 $g$ 는 제곱 <a href="../1229">세미 놈</a> 페널티 $g \left( \left\| f \right\| \right) = \lambda \left\| f \right\|^{2}$ 로 보아도 무방하다. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<p>주의해야할 점은 이 수식의 모양이나 단어의 의미만 보고 대상함수와 레귤라이저를 구분해서는 안 된다는 것이다. 표현자 정리의 가장 대표적인 응용이 서포트 벡터 머신인데, 마진에 느슨한 허용을 주는 <a href="../support-vector-machine#%EC%86%8C%ED%94%84%ED%8A%B8-%EB%A7%88%EC%A7%84-svm">소프트 마진 SVM</a>에서 다루는 <a href="../1463">최소화 문제</a>는 다음과 같다.
+$$
+\begin{matrix}
+\text{Minimize}   &amp; {{ 1 } \over { 2 }} \left\| \mathbf{w} \right\|_{2}^{2} + \lambda \sum_{k=1}^{n} \xi_{k}
+\\ \text{subject to} &amp; \left| f \left( \mathbf{x}_{k} \right) \right| \ge 1 - \xi_{k}
+\\ &amp; \xi_{k} \ge 0
+\end{matrix}
+\\ k = 1, \cdots , n
+$$</p>
+<p>여기서 최적화 그 자체만 생각했을 때 대상함수는 상수 $\lambda \ne 0$ 에 대해 사실
+$$
+{{ 1 } \over { 2 \lambda }} \left\| \mathbf{w} \right\|_{2}^{2} + \sum_{k=1}^{n} \xi_{k}
+$$
+과 다름 없으며, 이 때는 데이터와의 괴리를 생각하는 $\sum_{k=1}^{n} \xi_{k}$ 가 $c$ 고 서포트 벡터 머신의 초평면 $f (\mathbf{x}) = \mathbf{w}^{T} + b$ 에서 유도되는 ${{ 1 } \over { 2 \lambda }} \left\| \mathbf{w} \right\|_{2}^{2}$ 가 $g$ 로 읽혀야한다. 이 최적화의 의미를 수학에 두느냐 머신러닝에 두느냐에 따라 헷갈릴 수 있는데,</p>
+<ul>
+<li>수학의 색이 더 강한 사람은 SVM을 &lsquo;일단 <a href="../1887">선형회귀</a>를 끝낸 뒤 예외를 두는 것&rsquo;으로 보기 때문에 $\left\| \mathbf{w} \right\|_{2}^{2}$ 를 먼저 최소화하려 하고</li>
+<li>데이터과학의 색이 더 강한 사람은 SVM을 &lsquo;우선 데이터를 잘 분류하는데에 성공하고, 그 중에서 가장 마진이 큰 <a href="../2042">초평면</a>을 찾는 것&rsquo;으로 보기 때문에 $\sum_{k=1}^{n} \xi_{k}$ 을 먼저 최소화하려고 하기 때문이다.</li>
+</ul>
+<p>양쪽 다 충분히 공감할 수 있는 관점이고, 표현자 정리의 응용이 SVM 하나만 있는 것도 아니니 여기서는 뇌새김 암기법 같은 것을 찾으려 하지 말고 문제에 따라 능동적으로 사고하고 받아들여야한다.</p>
+<h2 id="증명-2">증명 <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h2>
+<p>참고문헌에 있는대로 <strong>비모수적 표현자 정리</strong>만 증명한다.</p>
+<hr>
+<p><strong>Part 1. $f = \sum_{i=1}^{m} \alpha_{i} \phi \left( x_{i} \right) + v$</strong></p>
+<blockquote>
+<p><a href="../2406">재생커널의 정의</a>: 함수 $k : X \times X \to \mathbb{C}$ 가 다음 두 조건을 만족하면 $H$ 의 <strong>재생 커널</strong><sup>Reproducing Kernel</sup>이라 한다.</p>
+<ul>
+<li>(i): <strong>표현자</strong><sup>Representer</sup>: 모든 $x \in X$ 에 대해
+$$
+k \left( \cdot , x \right) \in H
+$$</li>
+<li>(ii) <strong>재생 성질</strong><sup>Reproducing Property</sup>: 모든 $x \in X$ 과 모든 $f \in H$ 에 대해
+$$
+\left&lt; f , k \left( \cdot , x \right) \right&gt; = f(x) = \delta_{x} (f)
+$$
+특히 모든 $x_{1} , x_{2} \in X$ 에 대해 다음이 성립한다.
+$$
+k \left( x_{1} , x_{2} \right) = \left&lt; k \left( \cdot , x_{2} \right), k \left( \cdot , x_{1} \right) \right&gt;
+$$</li>
+</ul>
+</blockquote>
+<p>재생커널 $k : X \times X \to \mathbb{R}$ 에 대해 $x \mapsto k (\cdot ,x)$ 인 (표현자) 함수 $\phi : X \to \mathbb{R}^{X}$ 를 정의하자. $k$ 는 재생커널이므로, $x&rsquo; \in X$ 에서 함수 $\left( \phi (x) \right) (\cdot)$ 의 함수값은 모든 $x, x' \in X$ 에 대해
+$$
+\left( \phi (x) \right) (x ') = k \left( x' , x \right) = \left&lt; \phi \left( x ' \right) , \phi (x) \right&gt;
+$$
+이다. 여기서 $\left&lt; \cdot , \cdot \right&gt;$ 는 $H_{k}$ 의 <a href="../1842">내적</a>이다. 주어진 $\left\{ x_{i} \right\}_{i=1}^{m}$ 에 대해 임의의 함수 $f \in \mathcal{F}$ 는 $\span \left\{ \phi \left( x_{i} \right) \right\}_{i=1}^{m}$ 의 부분과 그에 <a href="../3045">직교</a>해서 모든 $j$ 에 대해
+$$
+\left&lt; v , \phi \left( x_{j} \right) \right&gt; = 0
+$$
+를 만족하는 $v \in \mathcal{F}$ 와 어떤 $\left( \alpha_{1} , \cdots , \alpha_{m} \right) \subset \mathbb{R}^{m}$ 에 대해 다음과 같이 나타낼 수 있다.
+$$
+f = \sum_{i=1}^{m} \alpha_{i} \phi \left( x_{i} \right) + v
+$$
+우리는 이제
+$$
+\begin{align*}
+L (f) :=&amp; c \left( \left( x_{1}, y_{1}, f \left( x_{1} \right) \right), \cdots , \left( x_{m}, y_{m}, f \left( x_{m} \right) \right) \right) + g \left( \left\| f \right\| \right)
+\\ =&amp; c + g
+\end{align*}
+$$
+에서 $c$ 는 $v$ 에 독립이며, $v = 0$ 일 때 $f$ 가 $L(f)$ 를 최소화함을 논할 것이다.</p>
+<hr>
+<p><strong>Part 2. $c$ 와 $v$ 는 독립이다</strong></p>
+<p>함수 $f = f(\cdot)$ 와 재생 커널 $k \left( \cdot , x_{j} \right)$ 의 내적은 재생 성질에 따라
+$$
+\begin{align*}
+=&amp; \left&lt; f , k \left( \cdot , x_{j} \right) \right&gt;
+\\ f \left( x_{j} \right) =&amp; \left&lt; \sum_{i=1}^{m} \alpha_{i} \phi \left( x_{i} \right) + v , \phi \left( x_{j} \right) \right&gt;
+\\ =&amp; \sum_{i=1}^{m} \alpha_{i} \left&lt; \phi \left( x_{i} \right) , \phi \left( x_{j} \right) \right&gt; + 0
+\end{align*}
+$$
+이다. 이는 $v$ 에 독립이므로, $L (f) = c + g$ 에서 학습데이터 $D$ 와 $f$ 에만 종속된
+$$
+c = c \left( \left( x_{1}, y_{1}, f \left( x_{1} \right) \right), \cdots , \left( x_{m}, y_{m}, f \left( x_{m} \right) \right) \right)
+$$
+역시 $v$ 에 독립임을 알 수 있다.</p>
+<hr>
+<p><strong>Part 3. $g$ 는 $v = 0$ 일 때 최소화된다</strong></p>
+<ul>
+<li>(1): $v$ 는 $\sum_{i=1}^{m} \alpha_{i} \phi \left( x_{i} \right)$ 에 직교하고</li>
+<li>(2): $g$ 가 <a href="../848">단조함수</a>로 가정했으므로</li>
+</ul>
+<p>$$
+\begin{align*}
+&amp; g \left( \left\| f \right\| \right)
+\\ =&amp; g \left( \left\| \sum_{i=1}^{m} \alpha_{i} \phi \left( x_{i} \right) + v \right\| \right)
+\\ =&amp; g \left( \sqrt{\left\| \sum_{i=1}^{m} \alpha_{i} \phi \left( x_{i} \right) + v \right\|^{2} + \left\| v \right\|^{2}} \right) &amp; \because (1)
+\\ \ge&amp; g \left( \left\| \sum_{i=1}^{m} \alpha_{i} \phi \left( x_{i} \right) \right\| \right) &amp; \because (2)
+\end{align*}
+$$
+를 얻는다. 보다시피 $v = 0$ 일 때 등식이 성립하며, $g$ 가 최소화되려면 $v=0$ 이어야 한다. 한편 Part 2에서 $v$ 는 $c$ 에 영향을 끼칠 수 없음을 확인했으므로 $v = 0$ 으로 두어도 무방하고, $L = c + g$ 를 최소화하는 함수 $f$ 는 다음과 같은 꼴로 나타날 수 있게 된다.
+$$
+f (\cdot) = \sum_{i=1}^{m} \alpha_{i} k \left( \cdot , x_{i} \right)
+$$</p>
+<p style="text-align: right;">■</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Wahba. (2019). Representer Theorem. <a href="https://pages.stat.wisc.edu/~wahba/ftp1/wahba.wang.2019submit.pdf">https://pages.stat.wisc.edu/~wahba/ftp1/wahba.wang.2019submit.pdf</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>Schölkopf. (2001). A Generalized Representer Theorem. <a href="https://link.springer.com/chapter/10.1007/3-540-44581-1_27">https://link.springer.com/chapter/10.1007/3-540-44581-1_27</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var title = '계산위상에서의 바운더리 행렬';
-        var link = 'https:\/\/freshrimpsushi.github.io\/posts\/boundary-matrix-in-computational-matrix\/';
+        var title = '표현자 정리 증명';
+        var link = 'https:\/\/freshrimpsushi.github.io\/posts\/proof-of-representer-theorem\/';
         var arr = new Array();
         var obj = {
             "title": title,
@@ -410,9 +594,9 @@
             alert('빈칸을 채워주세요');
             return;
         }
-        let board_idx = '2405';
-        let board_slug = 'boundary-matrix-in-computational-matrix';
-        let board_title = '계산위상에서의 바운더리 행렬';
+        let board_idx = '2408';
+        let board_slug = 'proof-of-representer-theorem';
+        let board_title = '표현자 정리 증명';
 
         $.ajax({
             type: "POST",
@@ -526,7 +710,7 @@
             type: "POST",
             url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.comment.php?action=getComment",
             data: {
-                board_idx: '2405'
+                board_idx: '2408'
             },
             dataType: "json",
             success: function (data) {
@@ -600,9 +784,9 @@
                 alert('빈칸을 채워주세요');
                 return;
             }
-            let idx = '2405';
-            let board_slug = 'boundary-matrix-in-computational-matrix';
-            let board_title = '계산위상에서의 바운더리 행렬';
+            let idx = '2408';
+            let board_slug = 'proof-of-representer-theorem';
+            let board_title = '표현자 정리 증명';
 
             $.ajax({
                 type: "POST",
@@ -683,7 +867,7 @@
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1114">🎲</a></p>
+         <a href="../367">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -801,13 +985,13 @@
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2244)</summary>
+    <summary>전체 포스트 (2247)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/r/" style="color: black">R (53)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/tex/" style="color: black">TeX (3)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/tex/" style="color: black">TeX (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC%EA%B3%B5%EA%B0%84/" style="color: black">거리공간 (33)</a>
         </li><li>
@@ -831,7 +1015,7 @@
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9/" style="color: black">매트랩 (16)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (53)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (55)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B0%94%EB%82%98%ED%9D%90%EA%B3%B5%EA%B0%84/" style="color: black">바나흐공간 (36)</a>
         </li><li>
