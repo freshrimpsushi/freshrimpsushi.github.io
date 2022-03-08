@@ -296,60 +296,60 @@
 <img src="Honeycam2019-12-1113-12-52.gif#center" alt="Honeycam2019-12-1113-12-52.gif">
 기존의 언어, 특히 파이썬과 가장 다른 점은 유니코드 기호들도 코드의 일부로 사용할 수 있다는 점일 것이다. Atom 에디터에서 Juno를 사용하고 있다면 위와 같이 텍 코드를 자동완성 할 수 있다. 저러한 코드에서 $\in$ 은 단지 기호가 아니라 실제로 <a href="../1316">원소가 집합에 속하는지</a>를 묘사한다.</p>
 <h2 id="코드">코드</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">=</span> <span style="color:#66d9ef">Set</span>([<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span>]); print(X)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Set</span>([<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>])
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> X[<span style="color:#ae81ff">1</span>]
-</span></span><span style="display:flex;"><span>ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">MethodError</span><span style="color:#f92672">:</span> no method matching getindex(<span style="color:#f92672">::</span><span style="color:#66d9ef">Set</span>{<span style="color:#66d9ef">Int64</span>}, <span style="color:#f92672">::</span><span style="color:#66d9ef">Int64</span>)
-</span></span><span style="display:flex;"><span>Stacktrace<span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span> [<span style="color:#ae81ff">1</span>] top<span style="color:#f92672">-</span>level scope at REPL[<span style="color:#ae81ff">23</span>]<span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> X print(i) <span style="color:#66d9ef">end</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">231</span>
-</span></span></code></pre></div><p>위의 코드는 집합 $X$ 를 $X := \left\{ 1, 2, 3, 1 \right\} = \left\{ 2,3,1 \right\}$ 과 같이 정의한 것을 의미한다. 수학에서의 집합이 그러하듯 중복과 순서의 개념이 없다. 따라서 첫번째 인덱스를 참조하면 에러가 뜬다. 그러나 자료형 자체는 파이썬과 비슷하게 이터러블<sup>Iterable</sup>하기 때문에 반복문에서는 사용할 수 있다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">if</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">∈</span>X print(<span style="color:#e6db74">&#34;!&#34;</span>) <span style="color:#66d9ef">else</span> print(<span style="color:#e6db74">&#34;?&#34;</span>) <span style="color:#66d9ef">end</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">!</span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">if</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">∈</span>X print(<span style="color:#e6db74">&#34;!&#34;</span>) <span style="color:#66d9ef">else</span> print(<span style="color:#e6db74">&#34;?&#34;</span>) <span style="color:#66d9ef">end</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">?</span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">if</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">∉</span>X print(<span style="color:#e6db74">&#34;!&#34;</span>) <span style="color:#66d9ef">else</span> print(<span style="color:#e6db74">&#34;?&#34;</span>) <span style="color:#66d9ef">end</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">!</span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">if</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>] <span style="color:#f92672">⊆</span> X print(<span style="color:#e6db74">&#34;!&#34;</span>) <span style="color:#66d9ef">else</span> print(<span style="color:#e6db74">&#34;?&#34;</span>) <span style="color:#66d9ef">end</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">!</span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">if</span> [<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>] <span style="color:#f92672">⊆</span> X print(<span style="color:#e6db74">&#34;!&#34;</span>) <span style="color:#66d9ef">else</span> print(<span style="color:#e6db74">&#34;?&#34;</span>) <span style="color:#66d9ef">end</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">?</span>
-</span></span></code></pre></div><p>마치 수식을 읽는 듯한 친숙함이 든다면 집합 자료형을 유용하게 쓸 준비도 되어 있는 것이다. 주목할 것은 딱히 위와 같은 계산들이 집합 자료형에 대해서만 돌아가는 게 아니라는 것이다. 다시 말해, 리스트에 대해서도 같은 연산들을 편하게 사용할 수 있다. 집합 자료형은 어색해도 집합에만 친숙하다면 줄리아의 집합 연산자를 활용하는 데에는 전혀 문제가 없다. 참고로 포함관계는 \susbet $\subset$ 이 아니라 \subseteq $\subseteq$ 을 써야한다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> Y <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;1&#34;</span>,<span style="color:#e6db74">&#34;2&#34;</span>,<span style="color:#ae81ff">3</span>]
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Any</span>,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;1&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;2&#34;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#f92672">∪</span>(X,Y)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Set</span>{<span style="color:#66d9ef">Any</span>} with <span style="color:#ae81ff">5</span> elements<span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;1&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;2&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#f92672">∩</span>(X,Y)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Set</span>{<span style="color:#66d9ef">Int64</span>} with <span style="color:#ae81ff">1</span> element<span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#f92672">∩</span>(Y,X)
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Any</span>,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> setdiff(X,Y); X
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Set</span>{<span style="color:#66d9ef">Int64</span>} with <span style="color:#ae81ff">3</span> elements<span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> setdiff!(X,Y); X
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Set</span>{<span style="color:#66d9ef">Int64</span>} with <span style="color:#ae81ff">2</span> elements<span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">1</span>
-</span></span></code></pre></div><p>기본적으로 집합을 다루기 때문에 당연히 <a href="../1344">합집합</a>과 <a href="../134">교집합</a> 역시 수식과 비슷하게 표현할 수 있다. 두번째 줄과 세번째 줄의 차이점은 연산의 순서다. $X$ 는 줄리아에서 집합 자료형, $Y$ 는 그냥 배열로 정의되어있고, 리턴되는 값은 첫번째 인자로 들어오는 데이터의 자료형을 따른다. 이러한 차이점은 줄리아와 같은 <a href="../1364">강한 타입 언어</a>에서는 아주 중요하므로, 반드시 숙지해두어야한다.차집합은 함수와 모듈 두 가지로 정의되어 있는데, <code>setdiff()</code>는 그냥 차집합을 반환하고 <code>setdiff!()</code>는 그 자체만으로 집합을 업데이트 하는 차이점을 확인할 수 있다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">=</span> <span style="color:#66d9ef">Set</span>([<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span>]); print(X)
+<span style="color:#66d9ef">Set</span>([<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>])
+julia<span style="color:#f92672">&gt;</span> X[<span style="color:#ae81ff">1</span>]
+ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">MethodError</span><span style="color:#f92672">:</span> no method matching getindex(<span style="color:#f92672">::</span><span style="color:#66d9ef">Set</span>{<span style="color:#66d9ef">Int64</span>}, <span style="color:#f92672">::</span><span style="color:#66d9ef">Int64</span>)
+Stacktrace<span style="color:#f92672">:</span>
+ [<span style="color:#ae81ff">1</span>] top<span style="color:#f92672">-</span>level scope at REPL[<span style="color:#ae81ff">23</span>]<span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>
+
+julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> X print(i) <span style="color:#66d9ef">end</span>
+<span style="color:#ae81ff">231</span>
+</code></pre></div><p>위의 코드는 집합 $X$ 를 $X := \left\{ 1, 2, 3, 1 \right\} = \left\{ 2,3,1 \right\}$ 과 같이 정의한 것을 의미한다. 수학에서의 집합이 그러하듯 중복과 순서의 개념이 없다. 따라서 첫번째 인덱스를 참조하면 에러가 뜬다. 그러나 자료형 자체는 파이썬과 비슷하게 이터러블<sup>Iterable</sup>하기 때문에 반복문에서는 사용할 수 있다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">if</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">∈</span>X print(<span style="color:#e6db74">&#34;!&#34;</span>) <span style="color:#66d9ef">else</span> print(<span style="color:#e6db74">&#34;?&#34;</span>) <span style="color:#66d9ef">end</span>
+<span style="color:#f92672">!</span>
+julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">if</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">∈</span>X print(<span style="color:#e6db74">&#34;!&#34;</span>) <span style="color:#66d9ef">else</span> print(<span style="color:#e6db74">&#34;?&#34;</span>) <span style="color:#66d9ef">end</span>
+<span style="color:#f92672">?</span>
+julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">if</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">∉</span>X print(<span style="color:#e6db74">&#34;!&#34;</span>) <span style="color:#66d9ef">else</span> print(<span style="color:#e6db74">&#34;?&#34;</span>) <span style="color:#66d9ef">end</span>
+<span style="color:#f92672">!</span>
+julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">if</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>] <span style="color:#f92672">⊆</span> X print(<span style="color:#e6db74">&#34;!&#34;</span>) <span style="color:#66d9ef">else</span> print(<span style="color:#e6db74">&#34;?&#34;</span>) <span style="color:#66d9ef">end</span>
+<span style="color:#f92672">!</span>
+julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">if</span> [<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>] <span style="color:#f92672">⊆</span> X print(<span style="color:#e6db74">&#34;!&#34;</span>) <span style="color:#66d9ef">else</span> print(<span style="color:#e6db74">&#34;?&#34;</span>) <span style="color:#66d9ef">end</span>
+<span style="color:#f92672">?</span>
+</code></pre></div><p>마치 수식을 읽는 듯한 친숙함이 든다면 집합 자료형을 유용하게 쓸 준비도 되어 있는 것이다. 주목할 것은 딱히 위와 같은 계산들이 집합 자료형에 대해서만 돌아가는 게 아니라는 것이다. 다시 말해, 리스트에 대해서도 같은 연산들을 편하게 사용할 수 있다. 집합 자료형은 어색해도 집합에만 친숙하다면 줄리아의 집합 연산자를 활용하는 데에는 전혀 문제가 없다. 참고로 포함관계는 \susbet $\subset$ 이 아니라 \subseteq $\subseteq$ 을 써야한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> Y <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;1&#34;</span>,<span style="color:#e6db74">&#34;2&#34;</span>,<span style="color:#ae81ff">3</span>]
+<span style="color:#ae81ff">3</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Any</span>,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
+  <span style="color:#e6db74">&#34;1&#34;</span>
+  <span style="color:#e6db74">&#34;2&#34;</span>
+ <span style="color:#ae81ff">3</span>
+
+julia<span style="color:#f92672">&gt;</span> <span style="color:#f92672">∪</span>(X,Y)
+<span style="color:#66d9ef">Set</span>{<span style="color:#66d9ef">Any</span>} with <span style="color:#ae81ff">5</span> elements<span style="color:#f92672">:</span>
+  <span style="color:#e6db74">&#34;1&#34;</span>
+  <span style="color:#ae81ff">2</span>
+  <span style="color:#ae81ff">3</span>
+  <span style="color:#e6db74">&#34;2&#34;</span>
+  <span style="color:#ae81ff">1</span>
+
+julia<span style="color:#f92672">&gt;</span> <span style="color:#f92672">∩</span>(X,Y)
+<span style="color:#66d9ef">Set</span>{<span style="color:#66d9ef">Int64</span>} with <span style="color:#ae81ff">1</span> element<span style="color:#f92672">:</span>
+  <span style="color:#ae81ff">3</span>
+
+julia<span style="color:#f92672">&gt;</span> <span style="color:#f92672">∩</span>(Y,X)
+<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Any</span>,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
+ <span style="color:#ae81ff">3</span>
+
+julia<span style="color:#f92672">&gt;</span> setdiff(X,Y); X
+<span style="color:#66d9ef">Set</span>{<span style="color:#66d9ef">Int64</span>} with <span style="color:#ae81ff">3</span> elements<span style="color:#f92672">:</span>
+  <span style="color:#ae81ff">2</span>
+  <span style="color:#ae81ff">3</span>
+  <span style="color:#ae81ff">1</span>
+
+julia<span style="color:#f92672">&gt;</span> setdiff!(X,Y); X
+<span style="color:#66d9ef">Set</span>{<span style="color:#66d9ef">Int64</span>} with <span style="color:#ae81ff">2</span> elements<span style="color:#f92672">:</span>
+  <span style="color:#ae81ff">2</span>
+  <span style="color:#ae81ff">1</span>
+</code></pre></div><p>기본적으로 집합을 다루기 때문에 당연히 <a href="../1344">합집합</a>과 <a href="../134">교집합</a> 역시 수식과 비슷하게 표현할 수 있다. 두번째 줄과 세번째 줄의 차이점은 연산의 순서다. $X$ 는 줄리아에서 집합 자료형, $Y$ 는 그냥 배열로 정의되어있고, 리턴되는 값은 첫번째 인자로 들어오는 데이터의 자료형을 따른다. 이러한 차이점은 줄리아와 같은 <a href="../1364">강한 타입 언어</a>에서는 아주 중요하므로, 반드시 숙지해두어야한다.차집합은 함수와 모듈 두 가지로 정의되어 있는데, <code>setdiff()</code>는 그냥 차집합을 반환하고 <code>setdiff!()</code>는 그 자체만으로 집합을 업데이트 하는 차이점을 확인할 수 있다.</p>
 <h2 id="환경">환경</h2>
 <ul>
 <li>OS: Windows</li>
@@ -752,7 +752,7 @@
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1973">🎲</a></p>
+         <a href="../1257">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -870,7 +870,7 @@
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2269)</summary>
+    <summary>전체 포스트 (2270)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -936,7 +936,7 @@
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">열물리학 (28)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%98%81%EC%96%B4/" style="color: black">영어 (3)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%98%81%EC%96%B4/" style="color: black">영어 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B6%84%EC%84%9D/" style="color: black">위상데이터분석 (16)</a>
         </li><li>
@@ -948,7 +948,7 @@
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/" style="color: black">정수론 (89)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (122)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/" style="color: black">줄리아 (123)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/" style="color: black">집합론 (46)</a>
         </li><li>
