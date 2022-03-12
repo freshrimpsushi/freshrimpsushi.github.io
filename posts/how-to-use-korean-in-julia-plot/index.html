@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-use-korean-in-julia-plot\/",
-    "wordCount" : "670",
+    "wordCount" : "640",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -303,63 +303,63 @@
 </ul>
 <h2 id="에러">에러</h2>
 <p><img src="result0.png#center" alt="result0.png"></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> plot(data, color <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>black,
-        label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;값&#34;</span>, title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;브라운모션&#34;</span>)
-GKS<span style="color:#f92672">:</span> glyph missing from current font<span style="color:#f92672">:</span> <span style="color:#ae81ff">48652</span>
-GKS<span style="color:#f92672">:</span> glyph missing from current font<span style="color:#f92672">:</span> <span style="color:#ae81ff">46972</span>
-GKS<span style="color:#f92672">:</span> glyph missing from current font<span style="color:#f92672">:</span> <span style="color:#ae81ff">50868</span>
-GKS<span style="color:#f92672">:</span> glyph missing from current font<span style="color:#f92672">:</span> <span style="color:#ae81ff">47784</span>
-GKS<span style="color:#f92672">:</span> glyph missing from current font<span style="color:#f92672">:</span> <span style="color:#ae81ff">49496</span>
-</code></pre></div><h3 id="원인">원인</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> plot(data, color <span style="color:#f92672">=</span> <span style="color:#e6db74">:black</span>,
+</span></span><span style="display:flex;"><span>        label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;값&#34;</span>, title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;브라운모션&#34;</span>)
+</span></span><span style="display:flex;"><span>GKS<span style="color:#f92672">:</span> glyph missing from current font<span style="color:#f92672">:</span> <span style="color:#ae81ff">48652</span>
+</span></span><span style="display:flex;"><span>GKS<span style="color:#f92672">:</span> glyph missing from current font<span style="color:#f92672">:</span> <span style="color:#ae81ff">46972</span>
+</span></span><span style="display:flex;"><span>GKS<span style="color:#f92672">:</span> glyph missing from current font<span style="color:#f92672">:</span> <span style="color:#ae81ff">50868</span>
+</span></span><span style="display:flex;"><span>GKS<span style="color:#f92672">:</span> glyph missing from current font<span style="color:#f92672">:</span> <span style="color:#ae81ff">47784</span>
+</span></span><span style="display:flex;"><span>GKS<span style="color:#f92672">:</span> glyph missing from current font<span style="color:#f92672">:</span> <span style="color:#ae81ff">49496</span>
+</span></span></code></pre></div><h3 id="원인">원인</h3>
 <p>한글 폰트를 못 찾아서 그렇다.</p>
 <h3 id="해결법">해결법</h3>
 <p>두 방법 별로 좋지만은 않으며, 대안이 있다면 언제든지 제보 바란다. 줄리아를 사용하는 일이라면 한국어가 많이 필요하지 않은 탓인지 한글에 대한 지원이 미비한 것은 사실이다.</p>
 <h4 id="defaultfontfamily---1"><code>default(fontfamily = &quot;&quot;)</code> <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h4>
-<pre><code>plot(data, color = :black,
- label = &quot;값&quot;, title = &quot;브라운모션&quot;, fontfamily = &quot;&quot;)
+<pre tabindex="0"><code>plot(data, color = :black,
+ label = &#34;값&#34;, title = &#34;브라운모션&#34;, fontfamily = &#34;&#34;)
 
-default(fontfamily = &quot;&quot;)
+default(fontfamily = &#34;&#34;)
 plot(data, color = :red,
- label = &quot;값&quot;, title = &quot;브라운모션&quot;)
+ label = &#34;값&#34;, title = &#34;브라운모션&#34;)
 </code></pre><p><code>plot()</code>의 <code>fontfamily = &quot;&quot;</code> 옵션이나 <code>default(fontfamily = &quot;&quot;)</code>를 통해 한글을 출력 시킬 수는 있다. 구체적인 폰트명을 바꿔보아도 제대로 인식하지 못하고, 저장할 땐 결국 폰트를 찾지 못하는 문제가 있음을 확인했다. 첫 그림처럼 깨지지는 않고, 아예 글이 빈칸으로 출력된다.</p>
 <p><img src="result1.png#center" alt="result1.png">
 <img src="result2.png#center" alt="result2.png"></p>
 <h4 id="plotsplotly-2">Plots.plotly() <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h4>
-<pre><code>Plots.plotly()
+<pre tabindex="0"><code>Plots.plotly()
 plot(data, color = :black,
- label = &quot;값&quot;, title = &quot;브라운모션&quot;)
-savefig(&quot;result.html&quot;)
+ label = &#34;값&#34;, title = &#34;브라운모션&#34;)
+savefig(&#34;result.html&#34;)
 </code></pre><p><code>plotly</code> 백엔드를 사용하면 어떻게 한글 자체는 나온다. 다만 한 번에 <code>*.png</code>로 저장하지는 못하고 <code>*.html</code>로 출력한 후 따로 저장하는 과정이 필요하다.</p>
 <p><img src="result3.png#center" alt="result3.png"></p>
 <h2 id="코드">코드</h2>
-<pre><code>using Plots
+<pre tabindex="0"><code>using Plots
 #Plots.gr()
 
 data = cumsum(randn(100))
 plot(data, color = :black,
- label = &quot;값&quot;, title = &quot;브라운모션&quot;)
+ label = &#34;값&#34;, title = &#34;브라운모션&#34;)
 
 plot(data, color = :black,
- label = &quot;값&quot;, title = &quot;브라운모션&quot;, fontfamily = &quot;&quot;)
+ label = &#34;값&#34;, title = &#34;브라운모션&#34;, fontfamily = &#34;&#34;)
 
-default(fontfamily = &quot;&quot;)
+default(fontfamily = &#34;&#34;)
 plot(data, color = :red,
- label = &quot;값&quot;, title = &quot;브라운모션&quot;)
+ label = &#34;값&#34;, title = &#34;브라운모션&#34;)
 
-savefig(&quot;result.png&quot;)
+savefig(&#34;result.png&#34;)
 
 Plots.plotly()
 plot(data, color = :black,
- label = &quot;값&quot;, title = &quot;브라운모션&quot;)
-savefig(&quot;result.html&quot;)
+ label = &#34;값&#34;, title = &#34;브라운모션&#34;)
+savefig(&#34;result.html&#34;)
 </code></pre><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://discourse.julialang.org/t/nice-fonts-with-plots-gr-and-latexstrings/60037">https://discourse.julialang.org/t/nice-fonts-with-plots-gr-and-latexstrings/60037</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://discourse.julialang.org/t/nice-fonts-with-plots-gr-and-latexstrings/60037">https://discourse.julialang.org/t/nice-fonts-with-plots-gr-and-latexstrings/60037</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p><a href="https://besixdouze.net/16">https://besixdouze.net/16</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://besixdouze.net/16">https://besixdouze.net/16</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -760,7 +760,7 @@ savefig(&quot;result.html&quot;)
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../8">🎲</a></p>
+         <a href="../822">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -878,7 +878,7 @@ savefig(&quot;result.html&quot;)
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2270)</summary>
+    <summary>전체 포스트 (2274)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -896,11 +896,11 @@ savefig(&quot;result.html&quot;)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (45)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (71)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (72)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (9)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (10)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (67)</a>
         </li><li>
@@ -944,7 +944,7 @@ savefig(&quot;result.html&quot;)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">열물리학 (28)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%98%81%EC%96%B4/" style="color: black">영어 (4)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%98%81%EC%96%B4/" style="color: black">영어 (5)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B6%84%EC%84%9D/" style="color: black">위상데이터분석 (16)</a>
         </li><li>
