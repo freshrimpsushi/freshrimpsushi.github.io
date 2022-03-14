@@ -295,41 +295,41 @@
 <p>R 이 속도 때문에 쓰는 언어는 아니지만, 빠른 속도가 필요할 때도 분명히 있을 것이다. 코드를 깔끔하게 잘 짜더라도 너무 오래 걸린다면 보통 병렬처리나 GPU를 동원하게 된다. 언뜻 생각했을 때 R 에서 병렬처리를 할 일이 뭐 있나 싶겠지만, 빅데이터를 다루게 되거나 규모가 큰 시뮬레이션을 하게 된다면 병렬처리가 특히 유용한 수단이 된다. 오히려 R 이야말로 병렬처리를 정말 많이 사용한다고 볼 수도 있다.</p>
 <h2 id="코드">코드</h2>
 <p>다음은 큰 수들을 1000개 뽑아서 <a href="../775">소인수분해</a>를 하고 그 <a href="../1246">시간을 재는</a> R 코드다:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(foreach)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(doParallel)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>eratosthenes<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(n){
-</span></span><span style="display:flex;"><span>  residue<span style="color:#f92672">&lt;-</span><span style="color:#ae81ff">2</span><span style="color:#f92672">:</span>n
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">while</span>(n <span style="color:#f92672">%in%</span> residue){
-</span></span><span style="display:flex;"><span>    p<span style="color:#f92672">&lt;-</span>residue[1]
-</span></span><span style="display:flex;"><span>    residue<span style="color:#f92672">&lt;-</span>residue<span style="color:#a6e22e">[as.logical</span>(residue<span style="color:#f92672">%%</span>p)]
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">return</span>(p)
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">set.seed</span>(<span style="color:#ae81ff">150421</span>)
-</span></span><span style="display:flex;"><span>  test<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">sample</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>^5<span style="color:#ae81ff">+1</span>,<span style="color:#ae81ff">1000</span>)
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">system.time</span>({
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">for</span>(n in test){
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">eratosthenes</span>(n)
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  })
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  numCores <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">detectCores</span>() <span style="color:#ae81ff">-1</span>
-</span></span><span style="display:flex;"><span>  myCluster <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">makeCluster</span>(numCores)
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">registerDoParallel</span>(myCluster)
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  record<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">numeric</span>(<span style="color:#ae81ff">0</span>)
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">clusterExport</span>(myCluster, <span style="color:#e6db74">&#34;record&#34;</span>)
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">system.time</span>({
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">foreach</span>(n <span style="color:#f92672">=</span> test, .combine <span style="color:#f92672">=</span> c) <span style="color:#f92672">%dopar%</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">eratosthenes</span>(n)
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  })
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">stopCluster</span>(myCluster)
-</span></span></code></pre></div><p><img src="20190830_165312.png#center" alt="20190830\_165312.png"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(foreach)
+<span style="color:#a6e22e">library</span>(doParallel)
+
+eratosthenes<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(n){
+  residue<span style="color:#f92672">&lt;-</span><span style="color:#ae81ff">2</span><span style="color:#f92672">:</span>n
+  <span style="color:#a6e22e">while</span>(n <span style="color:#f92672">%in%</span> residue){
+    p<span style="color:#f92672">&lt;-</span>residue[1]
+    residue<span style="color:#f92672">&lt;-</span>residue<span style="color:#a6e22e">[as.logical</span>(residue<span style="color:#f92672">%%</span>p)]
+  }
+  <span style="color:#a6e22e">return</span>(p)
+}
+  
+  <span style="color:#a6e22e">set.seed</span>(<span style="color:#ae81ff">150421</span>)
+  test<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">sample</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>^5<span style="color:#ae81ff">+1</span>,<span style="color:#ae81ff">1000</span>)
+  
+  <span style="color:#a6e22e">system.time</span>({
+    <span style="color:#a6e22e">for</span>(n in test){
+      <span style="color:#a6e22e">eratosthenes</span>(n)
+    }
+  })
+  
+  numCores <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">detectCores</span>() <span style="color:#ae81ff">-1</span>
+  myCluster <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">makeCluster</span>(numCores)
+  <span style="color:#a6e22e">registerDoParallel</span>(myCluster)
+  
+  record<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">numeric</span>(<span style="color:#ae81ff">0</span>)
+  <span style="color:#a6e22e">clusterExport</span>(myCluster, <span style="color:#e6db74">&#34;record&#34;</span>)
+  
+  <span style="color:#a6e22e">system.time</span>({
+  <span style="color:#a6e22e">foreach</span>(n <span style="color:#f92672">=</span> test, .combine <span style="color:#f92672">=</span> c) <span style="color:#f92672">%dopar%</span> {
+    <span style="color:#a6e22e">eratosthenes</span>(n)
+  }
+  })
+  <span style="color:#a6e22e">stopCluster</span>(myCluster)
+</code></pre></div><p><img src="20190830_165312.png#center" alt="20190830\_165312.png"></p>
 <h2 id="설명">설명</h2>
 <p><a href="../775">소인수분해</a>의 경우 병렬처리의 이점을 잘 살리는 유형의 문제가 아닌데, 그럼에도 불구하고 시간을 절반이상 단축시킨 것을 볼 수 있다. 참고로 논리 프로세서가 8개라고 해서 실행시간이 1/8로 줄어들지는 않는다. 긍정적으로 말해서, 굳이 병렬처리를 하지 않아도 CPU는 원래 나름 효율적으로 일을 분배하기 때문이다. 부정적으로 말해서, 병렬처리를 해봤자 늘 쓰던 CPU라는 점에선 다른게 없기 때문이다. 물론 긍정적이든 부정적이든 병렬처리가 주는 이점은 상당하다. 다음은 각각 그냥 반복문과 병렬처리를 했을 때의 CPU 사용률을 움짤로 찐 것이다:</p>
 <p><img src="Honeycam2019-08-3016-08-26.gif#center" alt="Honeycam2019-08-3016-08-26.gif"></p>
@@ -744,7 +744,7 @@
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1823">🎲</a></p>
+         <a href="../1356">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -862,7 +862,7 @@
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2275)</summary>
+    <summary>전체 포스트 (2259)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -929,8 +929,6 @@
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">열물리학 (28)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%98%81%EC%96%B4/" style="color: black">영어 (5)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B6%84%EC%84%9D/" style="color: black">위상데이터분석 (16)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/" style="color: black">위상수학 (62)</a>
         </li><li>
