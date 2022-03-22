@@ -300,15 +300,15 @@
 <p>많은 언어에서 데이터프레임을 지원함에도 의외로 할 때마다 새롭고 짜증나는 게 빈 배열 생성이다.</p>
 <h2 id="코드">코드</h2>
 <h3 id="타입-지정">타입 지정</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> DataFrames
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> DataFrames
 
-julia<span style="color:#f92672">&gt;</span> df1 <span style="color:#f92672">=</span> DataFrame(x <span style="color:#f92672">=</span> <span style="color:#66d9ef">Int64</span>[], y <span style="color:#f92672">=</span> <span style="color:#66d9ef">String</span>[])
-<span style="color:#ae81ff">0</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> DataFrame
+julia<span style="color:#f92672">&gt;</span> df1 <span style="color:#f92672">=</span> DataFrame(x <span style="color:#f92672">=</span> <span style="color:#66d9ef">Int64</span>[], y <span style="color:#f92672">=</span> String[])
+<span style="color:#ae81ff">0</span>×2 DataFrame
 </code></pre></div><p>실제로 빈 배열을 데이터로써 넣어주면 된다. 이 때 타입을 지정하게 되는데, 데이터가 전혀 없을 땐 칼럼 이름과 타입도 보이지 않는다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> push!(df1, [<span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#34;three&#34;</span>])
-<span style="color:#ae81ff">1</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> DataFrame
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> push!(df1, [<span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#34;three&#34;</span>])
+<span style="color:#ae81ff">1</span>×2 DataFrame
 │ Row │ x     │ y      │
-│     │ <span style="color:#66d9ef">Int64</span> │ <span style="color:#66d9ef">String</span> │
+│     │ <span style="color:#66d9ef">Int64</span> │ String │
 ├─────┼───────┼────────┤
 │ <span style="color:#ae81ff">1</span>   │ <span style="color:#ae81ff">3</span>     │ three  │
 
@@ -318,20 +318,20 @@ julia<span style="color:#f92672">&gt;</span> push!(df1, [<span style="color:#ae8
 ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">InexactError</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">Int64</span>(<span style="color:#ae81ff">3.14</span>)
 </code></pre></div><p>데이터를 넣으면 정상적으로 칼럼 이름과 타입이 출력된다. 타입이 맞지 않을 경우 데이터가 추가되지 않으니 주의하자.</p>
 <h3 id="타입-미지정">타입 미지정</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> df2 <span style="color:#f92672">=</span> DataFrame(x <span style="color:#f92672">=</span> [], y <span style="color:#f92672">=</span> <span style="color:#66d9ef">String</span>[])
-<span style="color:#ae81ff">0</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> DataFrame
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> df2 <span style="color:#f92672">=</span> DataFrame(x <span style="color:#f92672">=</span> [], y <span style="color:#f92672">=</span> String[])
+<span style="color:#ae81ff">0</span>×2 DataFrame
 
 julia<span style="color:#f92672">&gt;</span> push!(df2, [<span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#34;three&#34;</span>])
-<span style="color:#ae81ff">1</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> DataFrame
+<span style="color:#ae81ff">1</span>×2 DataFrame
 │ Row │ x   │ y      │
-│     │ <span style="color:#66d9ef">Any</span> │ <span style="color:#66d9ef">String</span> │
+│     │ <span style="color:#66d9ef">Any</span> │ String │
 ├─────┼─────┼────────┤
 │ <span style="color:#ae81ff">1</span>   │ <span style="color:#ae81ff">3</span>   │ three  │
 
 julia<span style="color:#f92672">&gt;</span> push!(df2, [<span style="color:#ae81ff">3.14</span>, <span style="color:#e6db74">&#34;pi&#34;</span>])
-<span style="color:#ae81ff">2</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> DataFrame
+<span style="color:#ae81ff">2</span>×2 DataFrame
 │ Row │ x    │ y      │
-│     │ <span style="color:#66d9ef">Any</span>  │ <span style="color:#66d9ef">String</span> │
+│     │ <span style="color:#66d9ef">Any</span>  │ String │
 ├─────┼──────┼────────┤
 │ <span style="color:#ae81ff">1</span>   │ <span style="color:#ae81ff">3</span>    │ three  │
 │ <span style="color:#ae81ff">2</span>   │ <span style="color:#ae81ff">3.14</span> │ pi     │
@@ -738,7 +738,7 @@ julia<span style="color:#f92672">&gt;</span> push!(df2, [<span style="color:#ae8
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1308">🎲</a></p>
+         <a href="../694">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -785,8 +785,7 @@ julia<span style="color:#f92672">&gt;</span> push!(df2, [<span style="color:#ae8
         <span style="color:rgb(051,204,051);">●</span> 힐베르트공간 (30)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%A5%B4%EB%B2%A1%EA%B3%B5%EA%B0%84/>
         <span style="color:rgb(051,204,051);">●</span> 르벡공간 (30)</a><br>
-    <a href=https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/>
-        <span style="color:rgb(051,204,051);">●</span> 소볼레프공간 (11)</a><br>
+    
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%EC%83%81%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/>
         <span style="color:rgb(051,204,051);">●</span> 상미분방정식 (57)</a><br>
@@ -814,8 +813,7 @@ julia<span style="color:#f92672">&gt;</span> push!(df2, [<span style="color:#ae8
         <span style="color:rgb(255,051,051);">●</span> 양자역학 (52)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/>
         <span style="color:rgb(051,204,051);">●</span> 열물리학 (24)</a><br>
-    <a href=https://freshrimpsushi.github.io/categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/>
-        <span style="color:rgb(051,204,051);">●</span> 상대성이론 (6)</a><br>
+    
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/r/>
         <span style="color:rgb(051,204,051);">●</span> R (53)</a><br>
@@ -846,23 +844,21 @@ julia<span style="color:#f92672">&gt;</span> push!(df2, [<span style="color:#ae8
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (50++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%84%B8%EC%9D%B4%EB%B2%84%EB%A9%94%ED%8A%B8%EB%A6%AD%EC%8A%A4/>
         <span style="color:rgb(255,051,051);">●</span> 세이버메트릭스 (11)</a><br>
-    <a href=https://freshrimpsushi.github.io/categories/%EC%98%81%EC%96%B4/>
-        <span style="color:rgb(051,204,051);">●</span> 영어 (7)</a><br>
-    <a href=https://freshrimpsushi.github.io/categories/tex/>
-        <span style="color:rgb(051,204,051);">●</span> TeX (6)</a><br>
+    <a href=https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/>
+        <span style="color:rgb(051,204,051);">●</span> 논문작성 (13)</a><br>
+    
+    
     <a href=https://freshrimpsushi.github.io/categories/%EA%B5%90%EA%B3%BC%EA%B3%BC%EC%A0%95/>
         <span style="color:rgb(051,204,051);">●</span> 교과과정 (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%83%9D%EC%83%88%EC%9A%B0%EC%B4%88%EB%B0%A5%EC%A7%80/>
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2264)</summary>
+    <summary>전체 포스트 (2263)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/r/" style="color: black">R (53)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/tex/" style="color: black">TeX (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B1%B0%EB%A6%AC%EA%B3%B5%EA%B0%84/" style="color: black">거리공간 (33)</a>
         </li><li>
@@ -875,6 +871,8 @@ julia<span style="color:#f92672">&gt;</span> push!(df2, [<span style="color:#ae8
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (45)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (74)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (9)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
@@ -921,8 +919,6 @@ julia<span style="color:#f92672">&gt;</span> push!(df2, [<span style="color:#ae8
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (52)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">열물리학 (28)</a>
-        </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%98%81%EC%96%B4/" style="color: black">영어 (5)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/" style="color: black">위상수학 (62)</a>
         </li><li>
