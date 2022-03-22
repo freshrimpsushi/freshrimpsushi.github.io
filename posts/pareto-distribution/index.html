@@ -383,22 +383,22 @@ p(bx) = {{ p(b) p(x) } \over { p(1) }}
 $$
 이다. 이를 $b$ 에 대해 미분해보면
 $$
-x p&rsquo;(bx) = {{ p&rsquo; (b) p(x) } \over { p(1) }}
+x p'(bx) = {{ p' (b) p(x) } \over { p(1) }}
 $$
 이다. $b=1$ 를 대입해보면 <a href="../3047">로그함수의 미분법을 이용한 트릭</a>에 따라<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>
 $$
 \begin{align*}
-&amp; x p&rsquo;(x) = {{ p&rsquo; (1) p(x) } \over { p(1) }}
-\\ \implies &amp; {{ p&rsquo;(x) } \over { p(x) }} = {{ p&rsquo;(1) } \over { p(1) }} \cdot {{ 1 } \over { x }}
-\\ \implies &amp; {{ d \log p(x) } \over { dx }} = {{ p&rsquo;(1) } \over { p(1) }} \cdot {{ 1 } \over { x }}
-\\ \implies &amp; d \log p(x) = {{ p&rsquo;(1) } \over { p(1) }}  {{ 1 } \over { x }} dx
+&amp; x p'(x) = {{ p' (1) p(x) } \over { p(1) }}
+\\ \implies &amp; {{ p'(x) } \over { p(x) }} = {{ p'(1) } \over { p(1) }} \cdot {{ 1 } \over { x }}
+\\ \implies &amp; {{ d \log p(x) } \over { dx }} = {{ p'(1) } \over { p(1) }} \cdot {{ 1 } \over { x }}
+\\ \implies &amp; d \log p(x) = {{ p'(1) } \over { p(1) }}  {{ 1 } \over { x }} dx
 \end{align*}
 $$
 이는 간단한 <a href="../503">분리가능 1계 미분방정식</a>으로, 어떤 상수 $\text{constant}$ 에 대해 다음을 얻는다.
 $$
-\log p(x) = {{ p&rsquo;(1) } \over { p(1) }} \log x + \text{constant}
+\log p(x) = {{ p'(1) } \over { p(1) }} \log x + \text{constant}
 $$
-$x = 1$ 을 대입해보면 $\text{constant} = \log p(1)$ 임을 알 수 있다. $\displaystyle \alpha := - {{ p&rsquo;(1) } \over { p(1) }}$ 이라 정의하면 우리가 원하던 다음의 식을 얻는다.
+$x = 1$ 을 대입해보면 $\text{constant} = \log p(1)$ 임을 알 수 있다. $\displaystyle \alpha := - {{ p'(1) } \over { p(1) }}$ 이라 정의하면 우리가 원하던 다음의 식을 얻는다.
 $$
 \begin{align*}
 &amp; \log p(x) = - \alpha \log x + \log p(1)
@@ -422,23 +422,23 @@ $$</p>
 <p style="text-align: right;">■</p>
 <h2 id="시각화">시각화</h2>
 <p>다음은 파레토분포의 확률밀도함수를 움짤로 보여주는 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> LaTeXStrings
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Distributions
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Plots
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>cd(<span style="color:#a6e22e">@__DIR__</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span>A <span style="color:#f92672">=</span> collect(<span style="color:#ae81ff">0.5</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.01</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3.5</span>); append!(A, reverse(A))
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>animation <span style="color:#f92672">=</span> <span style="color:#a6e22e">@animate</span> <span style="color:#66d9ef">for</span> α <span style="color:#f92672">∈</span> A
-</span></span><span style="display:flex;"><span>    plot(x, pdf<span style="color:#f92672">.</span>(Pareto(α), x),
-</span></span><span style="display:flex;"><span>     color <span style="color:#f92672">=</span> <span style="color:#e6db74">:black</span>,
-</span></span><span style="display:flex;"><span>     label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;α = </span><span style="color:#e6db74">$</span>(round(α, digits <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>))<span style="color:#e6db74">&#34;</span>, size <span style="color:#f92672">=</span> (<span style="color:#ae81ff">400</span>,<span style="color:#ae81ff">300</span>))
-</span></span><span style="display:flex;"><span>    xlims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">5</span>); ylims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">4</span>); title!(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;\mathrm{pdf\,of\,Pareto}(</span><span style="color:#ae81ff">\a</span><span style="color:#e6db74">lpha)&#34;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
-</span></span><span style="display:flex;"><span>gif(animation, <span style="color:#e6db74">&#34;pdf.gif&#34;</span>)
-</span></span></code></pre></div><section class="footnotes" role="doc-endnotes">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> LaTeXStrings
+<span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Distributions
+<span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Plots
+
+cd(<span style="color:#a6e22e">@__DIR__</span>)
+
+x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>
+A <span style="color:#f92672">=</span> collect(<span style="color:#ae81ff">0.5</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.01</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3.5</span>); append!(A, reverse(A))
+
+animation <span style="color:#f92672">=</span> <span style="color:#a6e22e">@animate</span> <span style="color:#66d9ef">for</span> α <span style="color:#f92672">∈</span> A
+    plot(x, pdf<span style="color:#f92672">.</span>(Pareto(α), x),
+     color <span style="color:#f92672">=</span> <span style="color:#e6db74">:black</span>,
+     label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;α = </span><span style="color:#e6db74">$</span>(round(α, digits <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>))<span style="color:#e6db74">&#34;</span>, size <span style="color:#f92672">=</span> (<span style="color:#ae81ff">400</span>,<span style="color:#ae81ff">300</span>))
+    xlims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">5</span>); ylims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">4</span>); title!(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;\mathrm{pdf\,of\,Pareto}(</span><span style="color:#ae81ff">\a</span><span style="color:#e6db74">lpha)&#34;</span>)
+<span style="color:#66d9ef">end</span>
+gif(animation, <span style="color:#e6db74">&#34;pdf.gif&#34;</span>)
+</code></pre></div><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
@@ -846,7 +846,7 @@ $$</p>
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../183">🎲</a></p>
+         <a href="../529">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -955,7 +955,7 @@ $$</p>
     <a href=https://freshrimpsushi.github.io/categories/%EC%84%B8%EC%9D%B4%EB%B2%84%EB%A9%94%ED%8A%B8%EB%A6%AD%EC%8A%A4/>
         <span style="color:rgb(255,051,051);">●</span> 세이버메트릭스 (11)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%98%81%EC%96%B4/>
-        <span style="color:rgb(255,051,051);">●</span> 영어 (7)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 영어 (7)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/tex/>
         <span style="color:rgb(051,204,051);">●</span> TeX (6)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EA%B5%90%EA%B3%BC%EA%B3%BC%EC%A0%95/>
@@ -964,7 +964,7 @@ $$</p>
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2263)</summary>
+    <summary>전체 포스트 (2264)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -986,7 +986,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (12)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (13)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (68)</a>
         </li><li>
