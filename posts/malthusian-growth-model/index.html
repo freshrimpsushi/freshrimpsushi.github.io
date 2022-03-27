@@ -309,7 +309,7 @@
 <h2 id="모델">모델</h2>
 <p><img src="01_malthusian_growth_integration.gif#center" alt="01\_malthusian\_growth\_integration.gif"></p>
 <p>$$
-N ' = rN
+N &rsquo; = rN
 $$</p>
 <h3 id="변수">변수</h3>
 <ul>
@@ -357,7 +357,7 @@ $$</p>
 <li>번식: <code>b</code>의 확률로 자신의 위치에 새로운 에이전트를 만든다.</li>
 <li>사망: <code>d</code>의 확률로 시뮬레이션에서 제외된다.</li>
 </ul>
-<pre><code>b # 번식률
+<pre tabindex="0"><code>b # 번식률
 d # 사망률
 replicated = (rand(N) .&lt; b) # 번식 판정
 new\_coordinate = coordinate[replicated,:]
@@ -366,26 +366,26 @@ coordinate = cat(coordinate, new\_coordinate, dims = 1);
 </code></pre><p>에이전트의 <a href="../1880">번식</a>과 <a href="../1884">사망</a>이라는 간단한 액션만을 사용했고 시스템에서 고유성장률 $r$ 에 해당하는 파라메터가 바뀜에 따라 시스템이 어떻게 변하는지 체크하면 충분하다.</p>
 <p>주의해야할 것은 시뮬레이션에 사용되는 번식확률 <code>b</code> 와 시스템의 번식률 $b$, 사망확률 <code>d</code> 와 시스템의 사망률 $d$ 는 대개 같지 않다는 것이다. 미분방정식으로 표현되는 <a href="../1505">자율 시스템</a>과는 정확히 일치하지 않아 시뮬레이션에 대한 피팅은 그럭저럭 적절한 파라메터를 직관적으로 찾는 식으로 이루어졌다.</p>
 <h3 id="r0-인-경우">$r&gt;0$ 인 경우</h3>
-<pre><code>N0 = 50 # 초기 인구수
+<pre tabindex="0"><code>N0 = 50 # 초기 인구수
 b = 0.05 # 번식률
 d = 0.02 # 사망률
 </code></pre><p><img src="malthusian_growth_integration1.gif#center" alt="malthusian\_growth\_integration1.gif"></p>
 <p>시뮬레이션인만큼 처음에는 살짝 주춤할수도 있지만 번식률이 사망률보다 크기 때문에 결국은 폭발적인 성장이 일어난다.</p>
 <h3 id="r0-인-경우-1">$r&lt;0$ 인 경우</h3>
-<pre><code>N0 = 50 # 초기 인구수
+<pre tabindex="0"><code>N0 = 50 # 초기 인구수
 b = 0.04 # 번식률
 d = 0.05 # 사망률
 </code></pre><p><img src="malthusian_growth_integration2.gif#center" alt="malthusian\_growth\_integration2.gif"></p>
 <p>이론적인 절멸 수순을 거의 정확하게 밟아가는 것을 볼 수 있다.</p>
 <h3 id="r0-인-경우-2">$r=0$ 인 경우</h3>
-<pre><code>N0 = 50 # 초기 인구수
+<pre tabindex="0"><code>N0 = 50 # 초기 인구수
 b = 0.05 # 번식률
 d = 0.05 # 사망률
 </code></pre><p><img src="malthusian_growth_integration3.gif#center" alt="malthusian\_growth\_integration3.gif"></p>
 <p>미분방정식으로 표현했을 땐 초기값이 <a href="../1505">고정점</a>이 되어 변동이 없어야하지만 시뮬레이션에선 그 순간순간의 운 때문에 절멸 직전까지도 갔다가 다시 회복하기도 한다. 이 움직임은 일종의 <a href="../857">브라우니안 모션</a>으로 보이기도 하는데, 실제로 인구수를 늘리거나 번식률과 사망률을 내리면 조금 더 안정적인 평형상태를 유지할 것이다.</p>
 <h2 id="코드">코드</h2>
 <p>다음은 이 포스트에 쓰인 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다.</p>
-<pre><code>cd(@__DIR__) # 파일 저장 경로
+<pre tabindex="0"><code>cd(@__DIR__) # 파일 저장 경로
 
 @time using Plots
 @time using Random
@@ -410,7 +410,7 @@ sol = solve(prob; saveat=(0.0:0.1:1.8))
 
 compare = plot(sol,vars=(0,1),
   linestyle = :dash,  color = :black,
-  size = (400,300), label = &quot;Theoretical&quot;, legend=:topleft)
+  size = (400,300), label = &#34;Theoretical&#34;, legend=:topleft)
 
 #---
 
@@ -423,7 +423,7 @@ gaussian2 = MvNormal([0.0; 0.0], 0.03I) # 2차원 정규분포
 Random.seed!(0)
 time_evolution = [] # 인구수를 기록하기 위한
 let
-  coordinate = rand(gaussian2, N0)'
+  coordinate = rand(gaussian2, N0)&#39;
   N = N0
 
   anim = @animate for t = (0:max_iteration)/100
@@ -432,7 +432,7 @@ let
 
     plot!(figure[1], coordinate[:,1], coordinate[:,2], Seriestype = :scatter,
       markercolor = RGB(1.,94/255,0.), markeralpha = 0.4, markerstrokewidth	= 0.1,
-      aspect_ratio = 1, title = &quot;t = $t&quot;,
+      aspect_ratio = 1, title = &#34;t = $t&#34;,
       xaxis=true,yaxis=true,axis=nothing, legend = false)
       xlims!(figure[1], -10.,10.)
       ylims!(figure[1], -10.,10.)
@@ -444,23 +444,23 @@ let
 
     N = size(coordinate, 1)
     push!(time_evolution, N)
-    coordinate = coordinate + rand(gaussian2, N)'
+    coordinate = coordinate + rand(gaussian2, N)&#39;
 
     if t &lt; 0.9
       plot!(figure[2], sol,vars=(0,1),
         linestyle = :dash,  color = :black,
-        label = &quot;Theoretical&quot;, legend=:bottomright)
+        label = &#34;Theoretical&#34;, legend=:bottomright)
     else
       plot!(figure[2], sol,vars=(0,1),
         linestyle = :dash,  color = :black,
-        label = &quot;Theoretical&quot;, legend=:topleft)
+        label = &#34;Theoretical&#34;, legend=:topleft)
     end
     plot!(figure[2], 0.0:0.01:t, Time_evolution,
-      color = RGB(1.,94/255,0.), linewidth = 2, label = &quot;Simulation&quot;,
+      color = RGB(1.,94/255,0.), linewidth = 2, label = &#34;Simulation&#34;,
       yscale = :log10, yticks = 10 .^(1:4))
     ylims!(figure[2], 0.,min(time_evolution[end]*2,10000.))
   end
-  gif(anim, &quot;malthusian_growth_integration1.gif&quot;, fps = 18)
+  gif(anim, &#34;malthusian_growth_integration1.gif&#34;, fps = 18)
 end
 
 #---
@@ -480,7 +480,7 @@ sol = solve(prob; saveat=(0.0:0.1:1.8))
 
 compare = plot(sol,vars=(0,1),
   linestyle = :dash,  color = :black,
-  size = (400,300), label = &quot;Theoretical&quot;, legend=:topleft)
+  size = (400,300), label = &#34;Theoretical&#34;, legend=:topleft)
 
 
 #---
@@ -494,7 +494,7 @@ gaussian2 = MvNormal([0.0; 0.0], 0.03I) # 2차원 정규분포
 Random.seed!(0)
 time_evolution = [] # 인구수를 기록하기 위한
 let
-  coordinate = rand(gaussian2, N0)'
+  coordinate = rand(gaussian2, N0)&#39;
   N = N0
 
   anim = @animate for t = (0:max_iteration)/100
@@ -503,7 +503,7 @@ let
 
     plot!(figure[1], coordinate[:,1], coordinate[:,2], Seriestype = :scatter,
       markercolor = RGB(1.,94/255,0.), markeralpha = 0.4, markerstrokewidth	= 0.1,
-      aspect_ratio = 1, title = &quot;t = $t&quot;,
+      aspect_ratio = 1, title = &#34;t = $t&#34;,
       xaxis=true,yaxis=true,axis=nothing, legend = false)
       xlims!(figure[1], -10.,10.)
       ylims!(figure[1], -10.,10.)
@@ -515,18 +515,18 @@ let
 
     N = size(coordinate, 1)
     push!(time_evolution, N)
-    coordinate = coordinate + rand(gaussian2, N)'
+    coordinate = coordinate + rand(gaussian2, N)&#39;
 
 
     plot!(figure[2], sol,vars=(0,1),
       linestyle = :dash,  color = :black,
-      label = &quot;Theoretical&quot;, legend=:topright)
+      label = &#34;Theoretical&#34;, legend=:topright)
     plot!(figure[2], 0.0:0.01:t, Time_evolution,
-      color = RGB(1.,94/255,0.), linewidth = 2, label = &quot;Simulation&quot;,
+      color = RGB(1.,94/255,0.), linewidth = 2, label = &#34;Simulation&#34;,
       yscale = :log10, yticks = 10 .^(1:4))
     ylims!(figure[2], 0., 50.)
   end
-  gif(anim, &quot;malthusian_growth_integration2.gif&quot;, fps = 18)
+  gif(anim, &#34;malthusian_growth_integration2.gif&#34;, fps = 18)
 end
 
 
@@ -547,7 +547,7 @@ sol = solve(prob; saveat=(0.0:0.1:3.0))
 
 compare = plot(sol,vars=(0,1),
   linestyle = :dash,  color = :black,
-  size = (400,300), label = &quot;Theoretical&quot;, legend=:topleft)
+  size = (400,300), label = &#34;Theoretical&#34;, legend=:topleft)
 
 
 #---
@@ -561,7 +561,7 @@ gaussian2 = MvNormal([0.0; 0.0], 0.03I) # 2차원 정규분포
 Random.seed!(0)
 time_evolution = [] # 인구수를 기록하기 위한
 let
-  coordinate = rand(gaussian2, N0)'
+  coordinate = rand(gaussian2, N0)&#39;
   N = N0
 
   anim = @animate for t = (0:max_iteration)/100
@@ -570,7 +570,7 @@ let
 
     plot!(figure[1], coordinate[:,1], coordinate[:,2], Seriestype = :scatter,
       markercolor = RGB(1.,94/255,0.), markeralpha = 0.4, markerstrokewidth	= 0.1,
-      aspect_ratio = 1, title = &quot;t = $t&quot;,
+      aspect_ratio = 1, title = &#34;t = $t&#34;,
       xaxis=true,yaxis=true,axis=nothing, legend = false)
       xlims!(figure[1], -10.,10.)
       ylims!(figure[1], -10.,10.)
@@ -582,18 +582,18 @@ let
 
     N = size(coordinate, 1)
     push!(time_evolution, N)
-    coordinate = coordinate + rand(gaussian2, N)'
+    coordinate = coordinate + rand(gaussian2, N)&#39;
 
 
     plot!(figure[2], sol,vars=(0,1),
       linestyle = :dash,  color = :black,
-      label = &quot;Theoretical&quot;, legend=:topleft)
+      label = &#34;Theoretical&#34;, legend=:topleft)
     plot!(figure[2], 0.0:0.01:t, Time_evolution,
-      color = RGB(1.,94/255,0.), linewidth = 2, label = &quot;Simulation&quot;,
+      color = RGB(1.,94/255,0.), linewidth = 2, label = &#34;Simulation&#34;,
       yscale = :log10, yticks = 10 .^(1:4))
     ylims!(figure[2], 0., 100.)
   end
-  gif(anim, &quot;malthusian_growth_integration3.gif&quot;, fps = 18)
+  gif(anim, &#34;malthusian_growth_integration3.gif&#34;, fps = 18)
 end
 </code></pre>
 
@@ -992,7 +992,7 @@ end
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../733">🎲</a></p>
+         <a href="../287">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -1108,7 +1108,7 @@ end
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2263)</summary>
+    <summary>전체 포스트 (2269)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1124,13 +1124,13 @@ end
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (45)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (74)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (76)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (9)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (10)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (13)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (14)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (68)</a>
         </li><li>
@@ -1156,7 +1156,7 @@ end
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EC%83%88%EC%9A%B0%EC%B4%88%EB%B0%A5%EC%A7%80/" style="color: black">생새우초밥지 (1)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (33)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (34)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/" style="color: black">소볼레프공간 (11)</a>
         </li><li>
@@ -1350,7 +1350,7 @@ end
 		  "\\sinc": "\\operatorname{sinc}",
 		  "\\diag": "\\operatorname{diag}",
 		  "\\diam": "\\operatorname{diam}",
-		  "\\trace": "\\operatorname{trace}",
+		  "\\trace": "\\operatorname{Tr}",
 		  "\\Re": "\\operatorname{Re}",
 		  "\\Im": "\\operatorname{Im}",
 		  "\\Poi": "\\operatorname{Poi}",
@@ -1358,6 +1358,7 @@ end
 		  "\\supp": "\\operatorname{supp}",
 		  "\\rank": "\\operatorname{rank}",
 		  "\\nullity": "\\operatorname{nullity}",
+		  "\\Ric": "\\operatorname{Ric}",
 		  "\\rcurs" : "\\includegraphics[height=0.4em, width=0.45em, alt=KA logo]{https://upload.wikimedia.org/wikipedia/commons/a/a9/Script-r.png}}"
 		  },
           

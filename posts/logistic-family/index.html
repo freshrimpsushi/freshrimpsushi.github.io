@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/logistic-family\/",
-    "wordCount" : "1631",
+    "wordCount" : "1670",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -304,7 +304,7 @@
 <h2 id="성질">성질</h2>
 <ul>
 <li>[1]: $x \in [0,1] \iff g_{a} (x) \ge 0$</li>
-<li>[2]: $g'_{a} (x) = a ( 1 - 2x)$</li>
+<li>[2]: $g&rsquo;_{a} (x) = a ( 1 - 2x)$</li>
 <li>[3]: $1 &lt; a \le 4$ 이면 $\displaystyle x_{1} = {{ a - 1} \over { a }}$ 는 $g_{a} (x)$ 의 고정점이다.</li>
 <li>[4]: $1 &lt; a &lt; 3$ 이면
 $$
@@ -320,7 +320,7 @@ $$</li>
 <p>$4 &lt; a $ 일 경우 $a x (1-x)$ 의 최댓값이 $\displaystyle {{a} \over {4}} &gt; 1$ 이므로 맵을 취할때마다 점점 더 커져서 $x_{n } = g^{k}_{a} (x_{n-1})$ 이 $1$ 보다 커지는 순간이 올 수밖에 없다.</p>
 <ul>
 <li>그러면 [1]에 의해 $x_{n+1} = g^{k+1}_{a} ( x_{n} )$ 은 음수고, 그 후로는 음의 방향으로 발산할수밖에 없다. 이 역시 너무 당연하기 때문에 별로 궁금할 게 없다. 정리하자면 $1 \le a \le 4$ 일 때만 어떤 의미가 있다.</li>
-<li>[2]와 [3], 그리고 <a href="../856">싱크와 소스 판정법</a>에 의해 $1 &lt; a &lt; 3$ 이면 $\displaystyle | g'_{a} ( x_{1} )| = | 2 - a | &lt; 1$ 이므로 고정점 $x_{0}$ 는 싱크가 되고, 따라서 <strong>(4)</strong> 를 얻을 수 있다. 이 경우 맵을 계속 취하다가 싱크랑 충분히 가까운 점이 걸리면 그 뒤로는 싱크로 끌려가고 값 역시 안정된다. 인구로 보면 어느 안정적인 평형 상태가 있어서 더 이상 성장하지도 않고 쇠퇴하지도 않는 것이다.</li>
+<li>[2]와 [3], 그리고 <a href="../856">싱크와 소스 판정법</a>에 의해 $1 &lt; a &lt; 3$ 이면 $\displaystyle | g&rsquo;_{a} ( x_{1} )| = | 2 - a | &lt; 1$ 이므로 고정점 $x_{0}$ 는 싱크가 되고, 따라서 <strong>(4)</strong> 를 얻을 수 있다. 이 경우 맵을 계속 취하다가 싱크랑 충분히 가까운 점이 걸리면 그 뒤로는 싱크로 끌려가고 값 역시 안정된다. 인구로 보면 어느 안정적인 평형 상태가 있어서 더 이상 성장하지도 않고 쇠퇴하지도 않는 것이다.</li>
 </ul>
 <p>한편 $a$ 가 $3$ 보다 더 커지면 방정식 $g_{a}^{2^{n}} (x) = x$ 을 품으로써 피리어딕-$2^{n}$ 싱크를 찾을 수도 있다. 이 경우 맵을 취할때 마다 몇가지 수가 반복해서 나타나며, 랜덤한 타이밍에 멈춘다면 그들 중 하나를 얻게 될 것이다. 다만 이는 $a=3.84$ 부근에서 성립하지 않아 정리로 만들어서 장담할 수는 없다.</p>
 <h3 id="바이퍼케이션">바이퍼케이션</h3>
@@ -338,7 +338,7 @@ $$</li>
 <p>실제로 로지스틱 맵 $g_{4} = 4 x (1 - x )$ 의 $\rho(x)$ 를 그려보면 위와 같다. 물론 $\left\{ x_{1} , x_{2} , \cdots \right\}$ 은 <a href="../968">캐어릭하기 때문에</a> 정말로 $x_{N}$ 이 어디 있는지까지는 예측할 수 없지만 그래도 $0$ 과 $1$ 근처에 있을 확률이 제일 높은 건 알 수 있다.</p>
 <h2 id="코드">코드</h2>
 <p>아래는 바이퍼케이션 다이어그램을 그리는 코드를 R 로 작성한 것이다.</p>
-<pre><code>ga&lt;-function(a,x,k=1) {
+<pre tabindex="0"><code>ga&lt;-function(a,x,k=1) {
   tmp &lt;- a*x *(1 - x)
   if(k==1) {return( tmp ) }
   else {return(ga(a,tmp,k-1))}
@@ -351,24 +351,24 @@ for(a in seq(1,4.1,by=0.0001))
 }
  
 win.graph(8,4)
-plot(result,main='bifurcation diagram',xlim=c(1,4),ylim=c(0,1),pch=20, cex=0.1,
-     xlab='a',ylab='101번째 값')
+plot(result,main=&#39;bifurcation diagram&#39;,xlim=c(1,4),ylim=c(0,1),pch=20, cex=0.1,
+     xlab=&#39;a&#39;,ylab=&#39;101번째 값&#39;)
 abline(v=c(3,4),lty=2); abline(h=0)
-abline(v=3.45,col='red')
+abline(v=3.45,col=&#39;red&#39;)
 </code></pre><p>아래는 네츄럴 인베리언트 덴서티의 개형을 그리는 코드를 R 로 작성한 것이다.</p>
-<pre><code>set.seed(150421)
+<pre tabindex="0"><code>set.seed(150421)
 logistic&lt;-function(x) {4*x*(1-x)}
  
 record&lt;-runif(1)
 for(i in 1:10^5) {record&lt;-c(record,logistic(record[length(record)]))}
 out&lt;-hist(record[-(1:10000)])
-win.graph(4,4); plot(x=seq(0,1,len=20),out$density,type='l',
-                  xlab='x',ylab='ρ',main='Naturla Invariant Density ρ(x)')
+win.graph(4,4); plot(x=seq(0,1,len=20),out$density,type=&#39;l&#39;,
+                  xlab=&#39;x&#39;,ylab=&#39;ρ&#39;,main=&#39;Naturla Invariant Density ρ(x)&#39;)
 </code></pre><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Yorke. (1996). CHAOS: An Introduction to Dynamical Systems: p17~21. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Yorke. (1996). CHAOS: An Introduction to Dynamical Systems: p17~21.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -769,7 +769,7 @@ win.graph(4,4); plot(x=seq(0,1,len=20),out$density,type='l',
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../454">🎲</a></p>
+         <a href="../1054">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -885,7 +885,7 @@ win.graph(4,4); plot(x=seq(0,1,len=20),out$density,type='l',
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2263)</summary>
+    <summary>전체 포스트 (2269)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -901,13 +901,13 @@ win.graph(4,4); plot(x=seq(0,1,len=20),out$density,type='l',
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (45)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (74)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (76)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (9)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (10)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (13)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (14)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (68)</a>
         </li><li>
@@ -933,7 +933,7 @@ win.graph(4,4); plot(x=seq(0,1,len=20),out$density,type='l',
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EC%83%88%EC%9A%B0%EC%B4%88%EB%B0%A5%EC%A7%80/" style="color: black">생새우초밥지 (1)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (33)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (34)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/" style="color: black">소볼레프공간 (11)</a>
         </li><li>
@@ -1127,7 +1127,7 @@ win.graph(4,4); plot(x=seq(0,1,len=20),out$density,type='l',
 		  "\\sinc": "\\operatorname{sinc}",
 		  "\\diag": "\\operatorname{diag}",
 		  "\\diam": "\\operatorname{diam}",
-		  "\\trace": "\\operatorname{trace}",
+		  "\\trace": "\\operatorname{Tr}",
 		  "\\Re": "\\operatorname{Re}",
 		  "\\Im": "\\operatorname{Im}",
 		  "\\Poi": "\\operatorname{Poi}",
@@ -1135,6 +1135,7 @@ win.graph(4,4); plot(x=seq(0,1,len=20),out$density,type='l',
 		  "\\supp": "\\operatorname{supp}",
 		  "\\rank": "\\operatorname{rank}",
 		  "\\nullity": "\\operatorname{nullity}",
+		  "\\Ric": "\\operatorname{Ric}",
 		  "\\rcurs" : "\\includegraphics[height=0.4em, width=0.45em, alt=KA logo]{https://upload.wikimedia.org/wikipedia/commons/a/a9/Script-r.png}}"
 		  },
           

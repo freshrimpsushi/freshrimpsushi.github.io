@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-define-varargs-function-in-julia\/",
-    "wordCount" : "448",
+    "wordCount" : "447",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -299,7 +299,7 @@ $$
 e = {{ 1 } \over { 0! }} + {{ 1 } \over { 1! }} + {{ 1 } \over { 2! }} + \cdots = \sum_{k=0}^{\infty} {{ 1 } \over { k! }}
 $$
 이 예제에서는 오일러 상수 $e = 2.71828182 \cdots$ 로 수렴하는 <a href="../470">수열</a>을 보려고 한다.</p>
-<pre><code>function f(x...)
+<pre tabindex="0"><code>function f(x...)
     zeta = 0
     for x_ in x
         zeta += 1/prod(1:x_)
@@ -307,21 +307,21 @@ $$
     return zeta
 end
 </code></pre><p>위와 같이 <code>x</code> 뒤에 점을 찍어 <code>x...</code>라 쓰면 주어지는 인자들을 알아서 배열로 생각해준다. 함수의 내용은 위 수식에서 보이는바와 같이 순서대로 팩토리얼의 역수를 취해 더해서 리턴하는 게 전부다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> f(<span style="color:#ae81ff">0</span>)
-<span style="color:#ae81ff">1.0</span>
-
-julia<span style="color:#f92672">&gt;</span> f(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>)
-<span style="color:#ae81ff">2.0</span>
-
-julia<span style="color:#f92672">&gt;</span> f(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>)
-<span style="color:#ae81ff">2.5</span>
-
-julia<span style="color:#f92672">&gt;</span> f(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">10</span>)
-<span style="color:#ae81ff">2.7182818011463845</span>
-</code></pre></div><p>실행결과는 위와 같이 자연수를 길게 줄수록 오일러 상수에 가까워지는 것을 확인할 수 있다. 여기서 주목할 점은 가변적으로 들어간 인자들이 알아서 <code>x</code>라는 배열로 묶여서 사용되었다는 점이다. 예컨대 다음과 같이 개념적으로 배열을 집어넣으면 에러를 낼 수 있다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> f(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>)
-ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">MethodError</span><span style="color:#f92672">:</span> no method matching (<span style="color:#f92672">::</span><span style="color:#66d9ef">Colon</span>)(<span style="color:#f92672">::</span><span style="color:#66d9ef">Int64</span>, <span style="color:#f92672">::</span><span style="color:#66d9ef">UnitRange</span>{<span style="color:#66d9ef">Int64</span>})
-</code></pre></div><h2 id="환경">환경</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> f(<span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1.0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> f(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2.0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> f(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2.5</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> f(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2.7182818011463845</span>
+</span></span></code></pre></div><p>실행결과는 위와 같이 자연수를 길게 줄수록 오일러 상수에 가까워지는 것을 확인할 수 있다. 여기서 주목할 점은 가변적으로 들어간 인자들이 알아서 <code>x</code>라는 배열로 묶여서 사용되었다는 점이다. 예컨대 다음과 같이 개념적으로 배열을 집어넣으면 에러를 낼 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> f(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">MethodError</span><span style="color:#f92672">:</span> no method matching (<span style="color:#f92672">::</span><span style="color:#66d9ef">Colon</span>)(<span style="color:#f92672">::</span><span style="color:#66d9ef">Int64</span>, <span style="color:#f92672">::</span><span style="color:#66d9ef">UnitRange</span>{<span style="color:#66d9ef">Int64</span>})
+</span></span></code></pre></div><h2 id="환경">환경</h2>
 <ul>
 <li>OS: Windows</li>
 <li>julia: v1.6.3</li>
@@ -330,7 +330,7 @@ ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">MethodErro
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://docs.julialang.org/en/v1/manual/functions/#Varargs-Functions">https://docs.julialang.org/en/v1/manual/functions/#Varargs-Functions</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://docs.julialang.org/en/v1/manual/functions/#Varargs-Functions">https://docs.julialang.org/en/v1/manual/functions/#Varargs-Functions</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -731,7 +731,7 @@ ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">MethodErro
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../168">🎲</a></p>
+         <a href="../311">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -847,7 +847,7 @@ ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">MethodErro
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2263)</summary>
+    <summary>전체 포스트 (2269)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -863,13 +863,13 @@ ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">MethodErro
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (45)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (74)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (76)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (9)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (10)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (13)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (14)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (68)</a>
         </li><li>
@@ -895,7 +895,7 @@ ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">MethodErro
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EC%83%88%EC%9A%B0%EC%B4%88%EB%B0%A5%EC%A7%80/" style="color: black">생새우초밥지 (1)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (33)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (34)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/" style="color: black">소볼레프공간 (11)</a>
         </li><li>
@@ -1089,7 +1089,7 @@ ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">MethodErro
 		  "\\sinc": "\\operatorname{sinc}",
 		  "\\diag": "\\operatorname{diag}",
 		  "\\diam": "\\operatorname{diam}",
-		  "\\trace": "\\operatorname{trace}",
+		  "\\trace": "\\operatorname{Tr}",
 		  "\\Re": "\\operatorname{Re}",
 		  "\\Im": "\\operatorname{Im}",
 		  "\\Poi": "\\operatorname{Poi}",
@@ -1097,6 +1097,7 @@ ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">MethodErro
 		  "\\supp": "\\operatorname{supp}",
 		  "\\rank": "\\operatorname{rank}",
 		  "\\nullity": "\\operatorname{nullity}",
+		  "\\Ric": "\\operatorname{Ric}",
 		  "\\rcurs" : "\\includegraphics[height=0.4em, width=0.45em, alt=KA logo]{https://upload.wikimedia.org/wikipedia/commons/a/a9/Script-r.png}}"
 		  },
           

@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/row-major-and-column-major\/",
-    "wordCount" : "999",
+    "wordCount" : "997",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -344,35 +344,35 @@ $$</p>
 <p>포트란, 매트랩, R, 줄리아&hellip;</p>
 <p>라인업이 기가 막힌다. 한 눈에 보아도 과학, 계산쪽의 언어들이 열우선을 채택한 것을 알 수 있다. 애초에 행렬이라는 것의 기원이 <a href="../279">연립방정식의 축약</a>임을 생각해보면 당연한 일이다. 세상에 행렬을 가로 방향으로 읽는 수학자는 없다. 당연히 행을 따라 위에서 아래로, 다시 말해 열우선으로 읽는게 정상이다.</p>
 <h2 id="퍼포먼스-비교">퍼포먼스 비교</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> size <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">^</span><span style="color:#ae81ff">4</span>
-<span style="color:#ae81ff">10000</span>
-
-julia<span style="color:#f92672">&gt;</span> M <span style="color:#f92672">=</span> rand(size, size);
-</code></pre></div><p>줄리아 언어를 기준으로 벤치마크를 해보았다. 아래의 두 코드 펜스를 보면 정확히 같은 코드에서 행/렬의 순서만 바꾸고 실행시간을 측정했는데 행을 먼저 읽었을 때 36초, 열우선인 줄리아는 열을 먼저 읽어들였을 때 20초가 걸려 거의 2배 수준의 극적인 성능 차이가 있음을 확인했다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">=</span> zeros(size, size);
-
-julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>size
-           <span style="color:#66d9ef">for</span> j <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>size
-               X[i,j] <span style="color:#f92672">=</span> (M[i,j] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
-           <span style="color:#66d9ef">end</span>
-       <span style="color:#66d9ef">end</span>
- <span style="color:#ae81ff">36.088533</span> seconds (<span style="color:#ae81ff">489.82</span> M allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">8.789</span> GiB, <span style="color:#ae81ff">4.64</span><span style="color:#f92672">%</span> gc Time)
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">=</span> zeros(size, size);
-
-julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">for</span> j <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>size
-           <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>size
-               X[i,j] <span style="color:#f92672">=</span> (M[i,j] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
-           <span style="color:#66d9ef">end</span>
-       <span style="color:#66d9ef">end</span>
- <span style="color:#ae81ff">19.936053</span> seconds (<span style="color:#ae81ff">489.82</span> M allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">8.789</span> GiB, <span style="color:#ae81ff">7.59</span><span style="color:#f92672">%</span> gc Time)
-</code></pre></div><section class="footnotes" role="doc-endnotes">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> size <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">^</span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> M <span style="color:#f92672">=</span> rand(size, size);
+</span></span></code></pre></div><p>줄리아 언어를 기준으로 벤치마크를 해보았다. 아래의 두 코드 펜스를 보면 정확히 같은 코드에서 행/렬의 순서만 바꾸고 실행시간을 측정했는데 행을 먼저 읽었을 때 36초, 열우선인 줄리아는 열을 먼저 읽어들였을 때 20초가 걸려 거의 2배 수준의 극적인 성능 차이가 있음을 확인했다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">=</span> zeros(size, size);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>size
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">for</span> j <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>size
+</span></span><span style="display:flex;"><span>               X[i,j] <span style="color:#f92672">=</span> (M[i,j] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">36.088533</span> seconds (<span style="color:#ae81ff">489.82</span> M allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">8.789</span> GiB, <span style="color:#ae81ff">4.64</span><span style="color:#f92672">%</span> gc Time)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">=</span> zeros(size, size);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">for</span> j <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>size
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>size
+</span></span><span style="display:flex;"><span>               X[i,j] <span style="color:#f92672">=</span> (M[i,j] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">19.936053</span> seconds (<span style="color:#ae81ff">489.82</span> M allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">8.789</span> GiB, <span style="color:#ae81ff">7.59</span><span style="color:#f92672">%</span> gc Time)
+</span></span></code></pre></div><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://en.wikipedia.org/wiki/Row-_and_column-major_order">https://en.wikipedia.org/wiki/Row-_and_column-major_order</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Row-_and_column-major_order">https://en.wikipedia.org/wiki/Row-_and_column-major_order</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p><a href="https://velog.io/@kjh107704/row-major-%ED%96%89-%EC%9A%B0%EC%84%A0-column-major%EC%97%B4-%EC%9A%B0%EC%84%A0%EA%B0%80-%EC%99%9C-%EC%A4%91%EC%9A%94%ED%95%9C%EA%B0%80">https://velog.io/@kjh107704/row-major-%ED%96%89-%EC%9A%B0%EC%84%A0-column-major%EC%97%B4-%EC%9A%B0%EC%84%A0%EA%B0%80-%EC%99%9C-%EC%A4%91%EC%9A%94%ED%95%9C%EA%B0%80</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://velog.io/@kjh107704/row-major-%ED%96%89-%EC%9A%B0%EC%84%A0-column-major%EC%97%B4-%EC%9A%B0%EC%84%A0%EA%B0%80-%EC%99%9C-%EC%A4%91%EC%9A%94%ED%95%9C%EA%B0%80">https://velog.io/@kjh107704/row-major-%ED%96%89-%EC%9A%B0%EC%84%A0-column-major%EC%97%B4-%EC%9A%B0%EC%84%A0%EA%B0%80-%EC%99%9C-%EC%A4%91%EC%9A%94%ED%95%9C%EA%B0%80</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -773,7 +773,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../797">🎲</a></p>
+         <a href="../141">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -889,7 +889,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2263)</summary>
+    <summary>전체 포스트 (2269)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -905,13 +905,13 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (45)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (74)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (76)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (9)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (10)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (13)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (14)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (68)</a>
         </li><li>
@@ -937,7 +937,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EC%83%88%EC%9A%B0%EC%B4%88%EB%B0%A5%EC%A7%80/" style="color: black">생새우초밥지 (1)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (33)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (34)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/" style="color: black">소볼레프공간 (11)</a>
         </li><li>
@@ -1131,7 +1131,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
 		  "\\sinc": "\\operatorname{sinc}",
 		  "\\diag": "\\operatorname{diag}",
 		  "\\diam": "\\operatorname{diam}",
-		  "\\trace": "\\operatorname{trace}",
+		  "\\trace": "\\operatorname{Tr}",
 		  "\\Re": "\\operatorname{Re}",
 		  "\\Im": "\\operatorname{Im}",
 		  "\\Poi": "\\operatorname{Poi}",
@@ -1139,6 +1139,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
 		  "\\supp": "\\operatorname{supp}",
 		  "\\rank": "\\operatorname{rank}",
 		  "\\nullity": "\\operatorname{nullity}",
+		  "\\Ric": "\\operatorname{Ric}",
 		  "\\rcurs" : "\\includegraphics[height=0.4em, width=0.45em, alt=KA logo]{https://upload.wikimedia.org/wikipedia/commons/a/a9/Script-r.png}}"
 		  },
           
