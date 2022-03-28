@@ -300,42 +300,42 @@
 <p>많은 언어에서 데이터프레임을 지원함에도 의외로 할 때마다 새롭고 짜증나는 게 빈 배열 생성이다.</p>
 <h2 id="코드">코드</h2>
 <h3 id="타입-지정">타입 지정</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> DataFrames
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> df1 <span style="color:#f92672">=</span> DataFrame(x <span style="color:#f92672">=</span> <span style="color:#66d9ef">Int64</span>[], y <span style="color:#f92672">=</span> <span style="color:#66d9ef">String</span>[])
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> DataFrame
-</span></span></code></pre></div><p>실제로 빈 배열을 데이터로써 넣어주면 된다. 이 때 타입을 지정하게 되는데, 데이터가 전혀 없을 땐 칼럼 이름과 타입도 보이지 않는다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> push!(df1, [<span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#34;three&#34;</span>])
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> DataFrame
-</span></span><span style="display:flex;"><span>│ Row │ x     │ y      │
-</span></span><span style="display:flex;"><span>│     │ <span style="color:#66d9ef">Int64</span> │ <span style="color:#66d9ef">String</span> │
-</span></span><span style="display:flex;"><span>├─────┼───────┼────────┤
-</span></span><span style="display:flex;"><span>│ <span style="color:#ae81ff">1</span>   │ <span style="color:#ae81ff">3</span>     │ three  │
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> push!(df1, [<span style="color:#ae81ff">3.14</span>, <span style="color:#e6db74">&#34;pi&#34;</span>])
-</span></span><span style="display:flex;"><span>┌ Error<span style="color:#f92672">:</span> Error adding value to column <span style="color:#f92672">:</span>x<span style="color:#f92672">.</span>
-</span></span><span style="display:flex;"><span>└ <span style="color:#960050;background-color:#1e0010">@</span> DataFrames C<span style="color:#f92672">:\</span>Users<span style="color:#f92672">\</span>rmsms<span style="color:#f92672">\.</span>julia<span style="color:#f92672">\</span>packages<span style="color:#f92672">\</span>DataFrames<span style="color:#f92672">\</span>GtZ1l<span style="color:#f92672">\</span>src<span style="color:#f92672">\</span>dataframe<span style="color:#f92672">\</span>dataframe<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">1606</span>
-</span></span><span style="display:flex;"><span>ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">InexactError</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">Int64</span>(<span style="color:#ae81ff">3.14</span>)
-</span></span></code></pre></div><p>데이터를 넣으면 정상적으로 칼럼 이름과 타입이 출력된다. 타입이 맞지 않을 경우 데이터가 추가되지 않으니 주의하자.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">using</span> DataFrames
+
+julia<span style="color:#f92672">&gt;</span> df1 <span style="color:#f92672">=</span> DataFrame(x <span style="color:#f92672">=</span> <span style="color:#66d9ef">Int64</span>[], y <span style="color:#f92672">=</span> <span style="color:#66d9ef">String</span>[])
+<span style="color:#ae81ff">0</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> DataFrame
+</code></pre></div><p>실제로 빈 배열을 데이터로써 넣어주면 된다. 이 때 타입을 지정하게 되는데, 데이터가 전혀 없을 땐 칼럼 이름과 타입도 보이지 않는다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> push!(df1, [<span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#34;three&#34;</span>])
+<span style="color:#ae81ff">1</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> DataFrame
+│ Row │ x     │ y      │
+│     │ <span style="color:#66d9ef">Int64</span> │ <span style="color:#66d9ef">String</span> │
+├─────┼───────┼────────┤
+│ <span style="color:#ae81ff">1</span>   │ <span style="color:#ae81ff">3</span>     │ three  │
+
+julia<span style="color:#f92672">&gt;</span> push!(df1, [<span style="color:#ae81ff">3.14</span>, <span style="color:#e6db74">&#34;pi&#34;</span>])
+┌ Error<span style="color:#f92672">:</span> Error adding value to column <span style="color:#f92672">:</span>x<span style="color:#f92672">.</span>
+└ <span style="color:#960050;background-color:#1e0010">@</span> DataFrames C<span style="color:#f92672">:\</span>Users<span style="color:#f92672">\</span>rmsms<span style="color:#f92672">\.</span>julia<span style="color:#f92672">\</span>packages<span style="color:#f92672">\</span>DataFrames<span style="color:#f92672">\</span>GtZ1l<span style="color:#f92672">\</span>src<span style="color:#f92672">\</span>dataframe<span style="color:#f92672">\</span>dataframe<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">1606</span>
+ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">InexactError</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">Int64</span>(<span style="color:#ae81ff">3.14</span>)
+</code></pre></div><p>데이터를 넣으면 정상적으로 칼럼 이름과 타입이 출력된다. 타입이 맞지 않을 경우 데이터가 추가되지 않으니 주의하자.</p>
 <h3 id="타입-미지정">타입 미지정</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> df2 <span style="color:#f92672">=</span> DataFrame(x <span style="color:#f92672">=</span> [], y <span style="color:#f92672">=</span> <span style="color:#66d9ef">String</span>[])
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> DataFrame
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> push!(df2, [<span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#34;three&#34;</span>])
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> DataFrame
-</span></span><span style="display:flex;"><span>│ Row │ x   │ y      │
-</span></span><span style="display:flex;"><span>│     │ <span style="color:#66d9ef">Any</span> │ <span style="color:#66d9ef">String</span> │
-</span></span><span style="display:flex;"><span>├─────┼─────┼────────┤
-</span></span><span style="display:flex;"><span>│ <span style="color:#ae81ff">1</span>   │ <span style="color:#ae81ff">3</span>   │ three  │
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> push!(df2, [<span style="color:#ae81ff">3.14</span>, <span style="color:#e6db74">&#34;pi&#34;</span>])
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> DataFrame
-</span></span><span style="display:flex;"><span>│ Row │ x    │ y      │
-</span></span><span style="display:flex;"><span>│     │ <span style="color:#66d9ef">Any</span>  │ <span style="color:#66d9ef">String</span> │
-</span></span><span style="display:flex;"><span>├─────┼──────┼────────┤
-</span></span><span style="display:flex;"><span>│ <span style="color:#ae81ff">1</span>   │ <span style="color:#ae81ff">3</span>    │ three  │
-</span></span><span style="display:flex;"><span>│ <span style="color:#ae81ff">2</span>   │ <span style="color:#ae81ff">3.14</span> │ pi     │
-</span></span></code></pre></div><p>데이터 프레임의 타입으로 스트레스를 받고 싶지 않다면 그냥 위와 같이 <code>Any</code>의 빈 배열을 만들면 된다. 타입 지정과 달리 데이터가 잘 들어간 것을 확인할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> df2 <span style="color:#f92672">=</span> DataFrame(x <span style="color:#f92672">=</span> [], y <span style="color:#f92672">=</span> <span style="color:#66d9ef">String</span>[])
+<span style="color:#ae81ff">0</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> DataFrame
+
+julia<span style="color:#f92672">&gt;</span> push!(df2, [<span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#34;three&#34;</span>])
+<span style="color:#ae81ff">1</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> DataFrame
+│ Row │ x   │ y      │
+│     │ <span style="color:#66d9ef">Any</span> │ <span style="color:#66d9ef">String</span> │
+├─────┼─────┼────────┤
+│ <span style="color:#ae81ff">1</span>   │ <span style="color:#ae81ff">3</span>   │ three  │
+
+julia<span style="color:#f92672">&gt;</span> push!(df2, [<span style="color:#ae81ff">3.14</span>, <span style="color:#e6db74">&#34;pi&#34;</span>])
+<span style="color:#ae81ff">2</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> DataFrame
+│ Row │ x    │ y      │
+│     │ <span style="color:#66d9ef">Any</span>  │ <span style="color:#66d9ef">String</span> │
+├─────┼──────┼────────┤
+│ <span style="color:#ae81ff">1</span>   │ <span style="color:#ae81ff">3</span>    │ three  │
+│ <span style="color:#ae81ff">2</span>   │ <span style="color:#ae81ff">3.14</span> │ pi     │
+</code></pre></div><p>데이터 프레임의 타입으로 스트레스를 받고 싶지 않다면 그냥 위와 같이 <code>Any</code>의 빈 배열을 만들면 된다. 타입 지정과 달리 데이터가 잘 들어간 것을 확인할 수 있다.</p>
 <h2 id="환경">환경</h2>
 <ul>
 <li>OS: Windows</li>
@@ -738,7 +738,7 @@
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../994">🎲</a></p>
+         <a href="../959">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -854,7 +854,7 @@
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2269)</summary>
+    <summary>전체 포스트 (2270)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -872,7 +872,7 @@
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (76)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (10)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>

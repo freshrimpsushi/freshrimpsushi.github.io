@@ -348,40 +348,40 @@ $$
 x_{n+1} = x_{n} - {{ 2 f ( x_{n} ) } \over { w_{n} \pm \sqrt{ w_{n}^{2} - 4 f (x_{n} ) f [ x_{n} , x_{n-1} , x_{n-2} ] } }}
 $$
 을 공식으로 사용한다.</p>
-<p>한편 $f&rsquo;$ 가 꼭 존재할 필요는 없으나, $f&rsquo; ( \alpha ) \ne 0$ 이라면 $n \to \infty$ 일 때 $w_{n} \to f&rsquo; ( \alpha )$ 이기 때문에 미분계수를 찾는 용도로도 쓸 수 있기는 하다.</p>
+<p>한편 $f'$ 가 꼭 존재할 필요는 없으나, $f' ( \alpha ) \ne 0$ 이라면 $n \to \infty$ 일 때 $w_{n} \to f' ( \alpha )$ 이기 때문에 미분계수를 찾는 용도로도 쓸 수 있기는 하다.</p>
 <h2 id="구현">구현</h2>
 <p>다음은 뮬러 메소드를 R 로 구현한 것이다. 실제 정리에선 세 점 $(x_{0} , x_{1} , x_{2})$ 을 가지고 시작하지만 실제론 $x_{0} , x_{1}$ 만 있어도 $\displaystyle x_{2} := {{x_{0} + x_{1}} \over {2}}$ 을 결정할 수 있어서 두 개의 초기값만 받아서 사용한다. 이 때 $(x_{0} , x_{1})$ 이 실제로 실수일지라도 <a href="../981">자료형은 복소수</a>여야한다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>dd<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(f,X){
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">length</span>(X)<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>) {<span style="color:#a6e22e">return</span>(<span style="color:#a6e22e">f</span>(X))}
-</span></span><span style="display:flex;"><span>  temp<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">numeric</span>(<span style="color:#ae81ff">0</span>)
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">for</span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(X)) {temp[i]<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">prod</span>(X[i]<span style="color:#f92672">-</span>X[<span style="color:#f92672">-</span>i])}
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">return</span>(<span style="color:#a6e22e">sum</span>(<span style="color:#a6e22e">f</span>(X)<span style="color:#f92672">/</span>temp))
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>Muller<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(f,x0,x1)
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  x2<span style="color:#f92672">&lt;-</span>(x0<span style="color:#f92672">+</span>x1)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">while</span>(<span style="color:#a6e22e">Mod</span>(<span style="color:#a6e22e">f</span>(x2))<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">10</span><span style="color:#a6e22e">^</span>(<span style="color:#ae81ff">-3</span>)){
-</span></span><span style="display:flex;"><span>    w <span style="color:#f92672">=</span> <span style="color:#a6e22e">dd</span>(f,<span style="color:#a6e22e">c</span>(x2,x1)) <span style="color:#f92672">+</span> <span style="color:#a6e22e">dd</span>(f,<span style="color:#a6e22e">c</span>(x2,x0)) <span style="color:#f92672">-</span> <span style="color:#a6e22e">dd</span>(f,<span style="color:#a6e22e">c</span>(x0,x1))
-</span></span><span style="display:flex;"><span>    p <span style="color:#f92672">=</span> w <span style="color:#f92672">+</span> <span style="color:#a6e22e">sqrt</span>(w^2 <span style="color:#f92672">-</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">*</span><span style="color:#a6e22e">f</span>(x2)<span style="color:#f92672">*</span><span style="color:#a6e22e">dd</span>(f,<span style="color:#a6e22e">c</span>(x2,x1,x0)))
-</span></span><span style="display:flex;"><span>    m <span style="color:#f92672">=</span> w <span style="color:#f92672">-</span> <span style="color:#a6e22e">sqrt</span>(w^2 <span style="color:#f92672">-</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">*</span><span style="color:#a6e22e">f</span>(x2)<span style="color:#f92672">*</span><span style="color:#a6e22e">dd</span>(f,<span style="color:#a6e22e">c</span>(x2,x1,x0)))
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">Mod</span>(p)<span style="color:#f92672">&gt;</span><span style="color:#a6e22e">Mod</span>(m)) {w<span style="color:#f92672">&lt;-</span>p} else {w<span style="color:#f92672">&lt;-</span>m}
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    x0<span style="color:#f92672">&lt;-</span>x1
-</span></span><span style="display:flex;"><span>    x1<span style="color:#f92672">&lt;-</span>x2
-</span></span><span style="display:flex;"><span>    x2 <span style="color:#f92672">&lt;-</span> (x2 <span style="color:#f92672">-</span> (( <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">f</span>(x2) ) <span style="color:#f92672">/</span> w))
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">return</span>(x2)
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>f<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(x) {x^2 <span style="color:#f92672">+</span> <span style="color:#ae81ff">9</span>}
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Muller</span>(f,<span style="color:#ae81ff">-6+0i</span>,<span style="color:#ae81ff">-5+0i</span>)
-</span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>g<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(x) {x^2 <span style="color:#f92672">+</span> x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>}
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Muller</span>(g,<span style="color:#ae81ff">-1i</span>,<span style="color:#ae81ff">-2+0i</span>)
-</span></span></code></pre></div><p>다음은 위 코드를 실행 시킨 결과다. $f(x) = x^2 + 9 =$ 의 허근 중 하나인 $x = -3 i$ 와 $g(x) = x^2 + x + 1 = 0$ 의 복소근 중 하나인 $\displaystyle x = - {{1 + \sqrt{3} i } \over {2}}$ 을 잘 찾아냈음을 확인할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">dd<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(f,X){
+  <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">length</span>(X)<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>) {<span style="color:#a6e22e">return</span>(<span style="color:#a6e22e">f</span>(X))}
+  temp<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">numeric</span>(<span style="color:#ae81ff">0</span>)
+  <span style="color:#a6e22e">for</span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(X)) {temp[i]<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">prod</span>(X[i]<span style="color:#f92672">-</span>X[<span style="color:#f92672">-</span>i])}
+  <span style="color:#a6e22e">return</span>(<span style="color:#a6e22e">sum</span>(<span style="color:#a6e22e">f</span>(X)<span style="color:#f92672">/</span>temp))
+}
+ 
+Muller<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(f,x0,x1)
+{
+  x2<span style="color:#f92672">&lt;-</span>(x0<span style="color:#f92672">+</span>x1)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
+  
+  <span style="color:#a6e22e">while</span>(<span style="color:#a6e22e">Mod</span>(<span style="color:#a6e22e">f</span>(x2))<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">10</span><span style="color:#a6e22e">^</span>(<span style="color:#ae81ff">-3</span>)){
+    w <span style="color:#f92672">=</span> <span style="color:#a6e22e">dd</span>(f,<span style="color:#a6e22e">c</span>(x2,x1)) <span style="color:#f92672">+</span> <span style="color:#a6e22e">dd</span>(f,<span style="color:#a6e22e">c</span>(x2,x0)) <span style="color:#f92672">-</span> <span style="color:#a6e22e">dd</span>(f,<span style="color:#a6e22e">c</span>(x0,x1))
+    p <span style="color:#f92672">=</span> w <span style="color:#f92672">+</span> <span style="color:#a6e22e">sqrt</span>(w^2 <span style="color:#f92672">-</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">*</span><span style="color:#a6e22e">f</span>(x2)<span style="color:#f92672">*</span><span style="color:#a6e22e">dd</span>(f,<span style="color:#a6e22e">c</span>(x2,x1,x0)))
+    m <span style="color:#f92672">=</span> w <span style="color:#f92672">-</span> <span style="color:#a6e22e">sqrt</span>(w^2 <span style="color:#f92672">-</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">*</span><span style="color:#a6e22e">f</span>(x2)<span style="color:#f92672">*</span><span style="color:#a6e22e">dd</span>(f,<span style="color:#a6e22e">c</span>(x2,x1,x0)))
+    
+    <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">Mod</span>(p)<span style="color:#f92672">&gt;</span><span style="color:#a6e22e">Mod</span>(m)) {w<span style="color:#f92672">&lt;-</span>p} else {w<span style="color:#f92672">&lt;-</span>m}
+    
+    x0<span style="color:#f92672">&lt;-</span>x1
+    x1<span style="color:#f92672">&lt;-</span>x2
+    x2 <span style="color:#f92672">&lt;-</span> (x2 <span style="color:#f92672">-</span> (( <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">f</span>(x2) ) <span style="color:#f92672">/</span> w))
+  }
+  <span style="color:#a6e22e">return</span>(x2)
+}
+ 
+f<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(x) {x^2 <span style="color:#f92672">+</span> <span style="color:#ae81ff">9</span>}
+<span style="color:#a6e22e">Muller</span>(f,<span style="color:#ae81ff">-6+0i</span>,<span style="color:#ae81ff">-5+0i</span>)
+ 
+g<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(x) {x^2 <span style="color:#f92672">+</span> x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>}
+<span style="color:#a6e22e">Muller</span>(g,<span style="color:#ae81ff">-1i</span>,<span style="color:#ae81ff">-2+0i</span>)
+</code></pre></div><p>다음은 위 코드를 실행 시킨 결과다. $f(x) = x^2 + 9 =$ 의 허근 중 하나인 $x = -3 i$ 와 $g(x) = x^2 + x + 1 = 0$ 의 복소근 중 하나인 $\displaystyle x = - {{1 + \sqrt{3} i } \over {2}}$ 을 잘 찾아냈음을 확인할 수 있다.</p>
 <p><img src="20190321_165937.png#center" alt="20190321\_165937.png"></p>
 <section class="footnotes" role="doc-endnotes">
 <hr>
@@ -788,7 +788,7 @@ $$
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1267">🎲</a></p>
+         <a href="../1270">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -904,7 +904,7 @@ $$
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2269)</summary>
+    <summary>전체 포스트 (2270)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -922,7 +922,7 @@ $$
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (76)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (10)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
