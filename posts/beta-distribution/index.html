@@ -429,39 +429,39 @@ $$</p>
 <p style="text-align: right;">■</p>
 <h2 id="코드">코드</h2>
 <p>다음은 베타분포의 확률밀도함수를 움짤로 보여주는 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> LaTeXStrings
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Distributions
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Plots
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>cd(<span style="color:#a6e22e">@__DIR__</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.01</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>B <span style="color:#f92672">=</span> collect(<span style="color:#ae81ff">0.1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10.0</span>); append!(B, reverse(B))
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>animation <span style="color:#f92672">=</span> <span style="color:#a6e22e">@animate</span> <span style="color:#66d9ef">for</span> β <span style="color:#f92672">∈</span> B
-</span></span><span style="display:flex;"><span>    plot(x, pdf<span style="color:#f92672">.</span>(Beta(<span style="color:#ae81ff">0.5</span>, β), x),
-</span></span><span style="display:flex;"><span>     color <span style="color:#f92672">=</span> <span style="color:#e6db74">:black</span>,
-</span></span><span style="display:flex;"><span>     label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;α = 0.5, β = </span><span style="color:#e6db74">$</span>(rpad(β, <span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#39;0&#39;</span>))<span style="color:#e6db74">&#34;</span>, size <span style="color:#f92672">=</span> (<span style="color:#ae81ff">400</span>,<span style="color:#ae81ff">300</span>))
-</span></span><span style="display:flex;"><span>    xlims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>); ylims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">5</span>); title!(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;\mathrm{pmf\,of\,Beta} (0.5, </span><span style="color:#ae81ff">\b</span><span style="color:#e6db74">eta)&#34;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
-</span></span><span style="display:flex;"><span>gif(animation, <span style="color:#e6db74">&#34;pdf0.gif&#34;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>animation <span style="color:#f92672">=</span> <span style="color:#a6e22e">@animate</span> <span style="color:#66d9ef">for</span> β <span style="color:#f92672">∈</span> B
-</span></span><span style="display:flex;"><span>    plot(x, pdf<span style="color:#f92672">.</span>(Beta(<span style="color:#ae81ff">1</span>, β), x),
-</span></span><span style="display:flex;"><span>     color <span style="color:#f92672">=</span> <span style="color:#e6db74">:black</span>,
-</span></span><span style="display:flex;"><span>     label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;α = 1, β = </span><span style="color:#e6db74">$</span>(rpad(β, <span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#39;0&#39;</span>))<span style="color:#e6db74">&#34;</span>, size <span style="color:#f92672">=</span> (<span style="color:#ae81ff">400</span>,<span style="color:#ae81ff">300</span>))
-</span></span><span style="display:flex;"><span>    xlims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>); ylims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">5</span>); title!(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;\mathrm{pmf\,of\,Beta} (1, </span><span style="color:#ae81ff">\b</span><span style="color:#e6db74">eta)&#34;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
-</span></span><span style="display:flex;"><span>gif(animation, <span style="color:#e6db74">&#34;pdf1.gif&#34;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>animation <span style="color:#f92672">=</span> <span style="color:#a6e22e">@animate</span> <span style="color:#66d9ef">for</span> β <span style="color:#f92672">∈</span> B
-</span></span><span style="display:flex;"><span>    plot(x, pdf<span style="color:#f92672">.</span>(Beta(<span style="color:#ae81ff">2</span>, β), x),
-</span></span><span style="display:flex;"><span>     color <span style="color:#f92672">=</span> <span style="color:#e6db74">:black</span>,
-</span></span><span style="display:flex;"><span>     label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;α = 2, β = </span><span style="color:#e6db74">$</span>(rpad(β, <span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#39;0&#39;</span>))<span style="color:#e6db74">&#34;</span>, size <span style="color:#f92672">=</span> (<span style="color:#ae81ff">400</span>,<span style="color:#ae81ff">300</span>))
-</span></span><span style="display:flex;"><span>    xlims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>); ylims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">5</span>); title!(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;\mathrm{pmf\,of\,Beta} (2, </span><span style="color:#ae81ff">\b</span><span style="color:#e6db74">eta)&#34;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
-</span></span><span style="display:flex;"><span>gif(animation, <span style="color:#e6db74">&#34;pdf2.gif&#34;</span>)
-</span></span></code></pre></div><section class="footnotes" role="doc-endnotes">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> LaTeXStrings
+<span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Distributions
+<span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Plots
+
+cd(<span style="color:#a6e22e">@__DIR__</span>)
+
+x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.01</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>
+B <span style="color:#f92672">=</span> collect(<span style="color:#ae81ff">0.1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10.0</span>); append!(B, reverse(B))
+
+animation <span style="color:#f92672">=</span> <span style="color:#a6e22e">@animate</span> <span style="color:#66d9ef">for</span> β <span style="color:#f92672">∈</span> B
+    plot(x, pdf<span style="color:#f92672">.</span>(Beta(<span style="color:#ae81ff">0.5</span>, β), x),
+     color <span style="color:#f92672">=</span> <span style="color:#e6db74">:black</span>,
+     label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;α = 0.5, β = </span><span style="color:#e6db74">$</span>(rpad(β, <span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#39;0&#39;</span>))<span style="color:#e6db74">&#34;</span>, size <span style="color:#f92672">=</span> (<span style="color:#ae81ff">400</span>,<span style="color:#ae81ff">300</span>))
+    xlims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>); ylims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">5</span>); title!(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;\mathrm{pmf\,of\,Beta} (0.5, </span><span style="color:#ae81ff">\b</span><span style="color:#e6db74">eta)&#34;</span>)
+<span style="color:#66d9ef">end</span>
+gif(animation, <span style="color:#e6db74">&#34;pdf0.gif&#34;</span>)
+
+animation <span style="color:#f92672">=</span> <span style="color:#a6e22e">@animate</span> <span style="color:#66d9ef">for</span> β <span style="color:#f92672">∈</span> B
+    plot(x, pdf<span style="color:#f92672">.</span>(Beta(<span style="color:#ae81ff">1</span>, β), x),
+     color <span style="color:#f92672">=</span> <span style="color:#e6db74">:black</span>,
+     label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;α = 1, β = </span><span style="color:#e6db74">$</span>(rpad(β, <span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#39;0&#39;</span>))<span style="color:#e6db74">&#34;</span>, size <span style="color:#f92672">=</span> (<span style="color:#ae81ff">400</span>,<span style="color:#ae81ff">300</span>))
+    xlims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>); ylims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">5</span>); title!(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;\mathrm{pmf\,of\,Beta} (1, </span><span style="color:#ae81ff">\b</span><span style="color:#e6db74">eta)&#34;</span>)
+<span style="color:#66d9ef">end</span>
+gif(animation, <span style="color:#e6db74">&#34;pdf1.gif&#34;</span>)
+
+animation <span style="color:#f92672">=</span> <span style="color:#a6e22e">@animate</span> <span style="color:#66d9ef">for</span> β <span style="color:#f92672">∈</span> B
+    plot(x, pdf<span style="color:#f92672">.</span>(Beta(<span style="color:#ae81ff">2</span>, β), x),
+     color <span style="color:#f92672">=</span> <span style="color:#e6db74">:black</span>,
+     label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;α = 2, β = </span><span style="color:#e6db74">$</span>(rpad(β, <span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#39;0&#39;</span>))<span style="color:#e6db74">&#34;</span>, size <span style="color:#f92672">=</span> (<span style="color:#ae81ff">400</span>,<span style="color:#ae81ff">300</span>))
+    xlims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>); ylims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">5</span>); title!(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;\mathrm{pmf\,of\,Beta} (2, </span><span style="color:#ae81ff">\b</span><span style="color:#e6db74">eta)&#34;</span>)
+<span style="color:#66d9ef">end</span>
+gif(animation, <span style="color:#e6db74">&#34;pdf2.gif&#34;</span>)
+</code></pre></div><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
@@ -866,7 +866,7 @@ $$</p>
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../554">🎲</a></p>
+         <a href="../1711">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -982,7 +982,7 @@ $$</p>
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2273)</summary>
+    <summary>전체 포스트 (2275)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -996,9 +996,9 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B5%90%EA%B3%BC%EA%B3%BC%EC%A0%95/" style="color: black">교과과정 (53)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (45)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (46)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (77)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (78)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
         </li><li>

@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-call-firm-and-foreigner-using-cybos-plus\/",
-    "wordCount" : "1725",
+    "wordCount" : "1645",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -318,13 +318,13 @@
 <p>2021년 7월 25일 오후 3시경을 기준으로 종가, 등락률, 거래량, 기관, 외국인의 순매매량을 잘 불러온 것을 확인할 수 있다.</p>
 <h3 id="설명">설명</h3>
 <pre tabindex="0"><code>days = 100
-yesterday = int((date.today() - timedelta(days=1)).strftime(&#34;%Y%m%d&#34;))
-firstday = int((date.today() - timedelta(days=(days + 1))).strftime(&#34;%Y%m%d&#34;))
+yesterday = int((date.today() - timedelta(days=1)).strftime(&quot;%Y%m%d&quot;))
+firstday = int((date.today() - timedelta(days=(days + 1))).strftime(&quot;%Y%m%d&quot;))
 
 ...
 
 data7254 = None
-data7254 = pd.DataFrame(columns=(&#39;종가&#39;, &#39;등락률&#39;, &#39;거래량&#39;, &#39;기관계&#39;, &#39;외국인&#39;))
+data7254 = pd.DataFrame(columns=('종가', '등락률', '거래량', '기관계', '외국인'))
 </code></pre><p>어제부터 100일 이전까지의 데이터를 불러오며, 데이터를 기록할 빈 <code>pandas</code> 데이터 프레임을 만들었다.</p>
 <pre tabindex="0"><code>for j in range((days // 17) + 1):
     time.sleep(0.1)
@@ -349,11 +349,11 @@ data7254 = pd.DataFrame(columns=(&#39;종가&#39;, &#39;등락률&#39;, &#39;거
 <pre tabindex="0"><code>    for i in range(numData):
         oneday = {}
 
-        oneday[&#39;종가&#39;] = stock.GetDataValue(14, i)
-        oneday[&#39;등락률&#39;] = stock.GetDataValue(16, i)
-        oneday[&#39;거래량&#39;] = stock.GetDataValue(17, i)
-        oneday[&#39;기관계&#39;] = firm.GetDataValue(5, i) - firm.GetDataValue(1, i)
-        oneday[&#39;외국인&#39;] = foreigner.GetDataValue(5, i) - foreigner.GetDataValue(1, i)
+        oneday['종가'] = stock.GetDataValue(14, i)
+        oneday['등락률'] = stock.GetDataValue(16, i)
+        oneday['거래량'] = stock.GetDataValue(17, i)
+        oneday['기관계'] = firm.GetDataValue(5, i) - firm.GetDataValue(1, i)
+        oneday['외국인'] = foreigner.GetDataValue(5, i) - foreigner.GetDataValue(1, i)
 
         data7254.loc[len(data7254)] = oneday
 </code></pre><p>안쪽 반복문은 위와 같다. 매번 <code>oneday</code> 라는 빈 딕셔너리를 만들어 값을 받아주고 마지막에 <code>data7254.loc[len(data7254)] = oneday</code> 를 통해 데이터프레임의 마지막 자리에 하나씩 넣어주고 있다.</p>
@@ -375,71 +375,71 @@ data7254 = pd.DataFrame(columns=(&#39;종가&#39;, &#39;등락률&#39;, &#39;거
 </ul>
 <p>보다시피 매매량을 구하려면 매수수량에서 매도수량을 빼는 계산이 필요하다.</p>
 <h3 id="전체코드">전체코드</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> date, timedelta
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> time
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> pandas <span style="color:#66d9ef">as</span> pd
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>days <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>
-</span></span><span style="display:flex;"><span>yesterday <span style="color:#f92672">=</span> int((date<span style="color:#f92672">.</span>today() <span style="color:#f92672">-</span> timedelta(days<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>))<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#34;%Y%m</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span>))
-</span></span><span style="display:flex;"><span>firstday <span style="color:#f92672">=</span> int((date<span style="color:#f92672">.</span>today() <span style="color:#f92672">-</span> timedelta(days<span style="color:#f92672">=</span>(days <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)))<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#34;%Y%m</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span>))
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> win32com.client
-</span></span><span style="display:flex;"><span>instCpCybos <span style="color:#f92672">=</span> win32com<span style="color:#f92672">.</span>client<span style="color:#f92672">.</span>Dispatch(<span style="color:#e6db74">&#34;CpUtil.CpCybos&#34;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> instCpCybos<span style="color:#f92672">.</span>IsConnect:
-</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;Cybos Plus Connected...&#34;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>data7254 <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
-</span></span><span style="display:flex;"><span>data7254 <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>DataFrame(columns<span style="color:#f92672">=</span>(<span style="color:#e6db74">&#39;종가&#39;</span>, <span style="color:#e6db74">&#39;등락률&#39;</span>, <span style="color:#e6db74">&#39;거래량&#39;</span>, <span style="color:#e6db74">&#39;기관계&#39;</span>, <span style="color:#e6db74">&#39;외국인&#39;</span>))
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>instCpStockCode <span style="color:#f92672">=</span> win32com<span style="color:#f92672">.</span>client<span style="color:#f92672">.</span>Dispatch(<span style="color:#e6db74">&#34;CpUtil.CpStockCode&#34;</span>)
-</span></span><span style="display:flex;"><span>seegene <span style="color:#f92672">=</span> instCpStockCode<span style="color:#f92672">.</span>NameToCode(<span style="color:#e6db74">&#34;씨젠&#34;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>stock <span style="color:#f92672">=</span> win32com<span style="color:#f92672">.</span>client<span style="color:#f92672">.</span>Dispatch(<span style="color:#e6db74">&#34;CpSysDib.CpSvr7254&#34;</span>)
-</span></span><span style="display:flex;"><span>stock<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">0</span>, seegene)
-</span></span><span style="display:flex;"><span>stock<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">6</span>) <span style="color:#75715e"># 기간선택구분 일별</span>
-</span></span><span style="display:flex;"><span>stock<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">2</span>, firstday) <span style="color:#75715e"># 시작일자</span>
-</span></span><span style="display:flex;"><span>stock<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">3</span>, yesterday) <span style="color:#75715e"># 끝일자</span>
-</span></span><span style="display:flex;"><span>stock<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">0</span>) <span style="color:#75715e"># 매매비중구분 - 순매수</span>
-</span></span><span style="display:flex;"><span>stock<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">0</span>) <span style="color:#75715e"># 투자자 전체</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>foreigner <span style="color:#f92672">=</span> win32com<span style="color:#f92672">.</span>client<span style="color:#f92672">.</span>Dispatch(<span style="color:#e6db74">&#34;CpSysDib.CpSvr7254&#34;</span>)
-</span></span><span style="display:flex;"><span>foreigner<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">0</span>, seegene)
-</span></span><span style="display:flex;"><span>foreigner<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">6</span>) <span style="color:#75715e"># 기간선택구분 일별</span>
-</span></span><span style="display:flex;"><span>foreigner<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">2</span>, firstday) <span style="color:#75715e"># 시작일자</span>
-</span></span><span style="display:flex;"><span>foreigner<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">3</span>, yesterday) <span style="color:#75715e"># 끝일자</span>
-</span></span><span style="display:flex;"><span>foreigner<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">0</span>) <span style="color:#75715e"># 매매비중구분 - 순매수</span>
-</span></span><span style="display:flex;"><span>foreigner<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">2</span>) <span style="color:#75715e"># 투자자 외국인</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>firm <span style="color:#f92672">=</span> win32com<span style="color:#f92672">.</span>client<span style="color:#f92672">.</span>Dispatch(<span style="color:#e6db74">&#34;CpSysDib.CpSvr7254&#34;</span>)
-</span></span><span style="display:flex;"><span>firm<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">0</span>, seegene)
-</span></span><span style="display:flex;"><span>firm<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">6</span>) <span style="color:#75715e"># 기간선택구분 일별</span>
-</span></span><span style="display:flex;"><span>firm<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">2</span>, firstday) <span style="color:#75715e"># 시작일자</span>
-</span></span><span style="display:flex;"><span>firm<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">3</span>, yesterday) <span style="color:#75715e"># 끝일자</span>
-</span></span><span style="display:flex;"><span>firm<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">0</span>) <span style="color:#75715e"># 매매비중구분 - 순매수</span>
-</span></span><span style="display:flex;"><span>firm<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">3</span>) <span style="color:#75715e"># 투자자 기관계</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range((days <span style="color:#f92672">//</span> <span style="color:#ae81ff">17</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
-</span></span><span style="display:flex;"><span>    time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">0.1</span>)
-</span></span><span style="display:flex;"><span>    stock<span style="color:#f92672">.</span>BlockRequest()
-</span></span><span style="display:flex;"><span>    foreigner<span style="color:#f92672">.</span>BlockRequest()
-</span></span><span style="display:flex;"><span>    firm<span style="color:#f92672">.</span>BlockRequest()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    numData <span style="color:#f92672">=</span> stock<span style="color:#f92672">.</span>GetHeaderValue(<span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(numData):
-</span></span><span style="display:flex;"><span>        oneday <span style="color:#f92672">=</span> {}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        oneday[<span style="color:#e6db74">&#39;종가&#39;</span>] <span style="color:#f92672">=</span> stock<span style="color:#f92672">.</span>GetDataValue(<span style="color:#ae81ff">14</span>, i)
-</span></span><span style="display:flex;"><span>        oneday[<span style="color:#e6db74">&#39;등락률&#39;</span>] <span style="color:#f92672">=</span> stock<span style="color:#f92672">.</span>GetDataValue(<span style="color:#ae81ff">16</span>, i)
-</span></span><span style="display:flex;"><span>        oneday[<span style="color:#e6db74">&#39;거래량&#39;</span>] <span style="color:#f92672">=</span> stock<span style="color:#f92672">.</span>GetDataValue(<span style="color:#ae81ff">17</span>, i)
-</span></span><span style="display:flex;"><span>        oneday[<span style="color:#e6db74">&#39;기관계&#39;</span>] <span style="color:#f92672">=</span> firm<span style="color:#f92672">.</span>GetDataValue(<span style="color:#ae81ff">5</span>, i) <span style="color:#f92672">-</span> firm<span style="color:#f92672">.</span>GetDataValue(<span style="color:#ae81ff">1</span>, i)
-</span></span><span style="display:flex;"><span>        oneday[<span style="color:#e6db74">&#39;외국인&#39;</span>] <span style="color:#f92672">=</span> foreigner<span style="color:#f92672">.</span>GetDataValue(<span style="color:#ae81ff">5</span>, i) <span style="color:#f92672">-</span> foreigner<span style="color:#f92672">.</span>GetDataValue(<span style="color:#ae81ff">1</span>, i)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        data7254<span style="color:#f92672">.</span>loc[len(data7254)] <span style="color:#f92672">=</span> oneday
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> stock<span style="color:#f92672">.</span>Continue <span style="color:#f92672">!=</span> <span style="color:#66d9ef">True</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">break</span>
-</span></span></code></pre></div><section class="footnotes" role="doc-endnotes">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> date, timedelta
+<span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+<span style="color:#f92672">import</span> time
+<span style="color:#f92672">import</span> pandas <span style="color:#66d9ef">as</span> pd
+
+days <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>
+yesterday <span style="color:#f92672">=</span> int((date<span style="color:#f92672">.</span>today() <span style="color:#f92672">-</span> timedelta(days<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>))<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#34;%Y%m</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span>))
+firstday <span style="color:#f92672">=</span> int((date<span style="color:#f92672">.</span>today() <span style="color:#f92672">-</span> timedelta(days<span style="color:#f92672">=</span>(days <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)))<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#34;%Y%m</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span>))
+
+<span style="color:#f92672">import</span> win32com.client
+instCpCybos <span style="color:#f92672">=</span> win32com<span style="color:#f92672">.</span>client<span style="color:#f92672">.</span>Dispatch(<span style="color:#e6db74">&#34;CpUtil.CpCybos&#34;</span>)
+<span style="color:#66d9ef">if</span> instCpCybos<span style="color:#f92672">.</span>IsConnect:
+    print(<span style="color:#e6db74">&#34;Cybos Plus Connected...&#34;</span>)
+
+data7254 <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+data7254 <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>DataFrame(columns<span style="color:#f92672">=</span>(<span style="color:#e6db74">&#39;종가&#39;</span>, <span style="color:#e6db74">&#39;등락률&#39;</span>, <span style="color:#e6db74">&#39;거래량&#39;</span>, <span style="color:#e6db74">&#39;기관계&#39;</span>, <span style="color:#e6db74">&#39;외국인&#39;</span>))
+
+instCpStockCode <span style="color:#f92672">=</span> win32com<span style="color:#f92672">.</span>client<span style="color:#f92672">.</span>Dispatch(<span style="color:#e6db74">&#34;CpUtil.CpStockCode&#34;</span>)
+seegene <span style="color:#f92672">=</span> instCpStockCode<span style="color:#f92672">.</span>NameToCode(<span style="color:#e6db74">&#34;씨젠&#34;</span>)
+
+stock <span style="color:#f92672">=</span> win32com<span style="color:#f92672">.</span>client<span style="color:#f92672">.</span>Dispatch(<span style="color:#e6db74">&#34;CpSysDib.CpSvr7254&#34;</span>)
+stock<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">0</span>, seegene)
+stock<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">6</span>) <span style="color:#75715e"># 기간선택구분 일별</span>
+stock<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">2</span>, firstday) <span style="color:#75715e"># 시작일자</span>
+stock<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">3</span>, yesterday) <span style="color:#75715e"># 끝일자</span>
+stock<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">0</span>) <span style="color:#75715e"># 매매비중구분 - 순매수</span>
+stock<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">0</span>) <span style="color:#75715e"># 투자자 전체</span>
+
+foreigner <span style="color:#f92672">=</span> win32com<span style="color:#f92672">.</span>client<span style="color:#f92672">.</span>Dispatch(<span style="color:#e6db74">&#34;CpSysDib.CpSvr7254&#34;</span>)
+foreigner<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">0</span>, seegene)
+foreigner<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">6</span>) <span style="color:#75715e"># 기간선택구분 일별</span>
+foreigner<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">2</span>, firstday) <span style="color:#75715e"># 시작일자</span>
+foreigner<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">3</span>, yesterday) <span style="color:#75715e"># 끝일자</span>
+foreigner<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">0</span>) <span style="color:#75715e"># 매매비중구분 - 순매수</span>
+foreigner<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">2</span>) <span style="color:#75715e"># 투자자 외국인</span>
+
+firm <span style="color:#f92672">=</span> win32com<span style="color:#f92672">.</span>client<span style="color:#f92672">.</span>Dispatch(<span style="color:#e6db74">&#34;CpSysDib.CpSvr7254&#34;</span>)
+firm<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">0</span>, seegene)
+firm<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">6</span>) <span style="color:#75715e"># 기간선택구분 일별</span>
+firm<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">2</span>, firstday) <span style="color:#75715e"># 시작일자</span>
+firm<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">3</span>, yesterday) <span style="color:#75715e"># 끝일자</span>
+firm<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">0</span>) <span style="color:#75715e"># 매매비중구분 - 순매수</span>
+firm<span style="color:#f92672">.</span>SetInputValue(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">3</span>) <span style="color:#75715e"># 투자자 기관계</span>
+
+<span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range((days <span style="color:#f92672">//</span> <span style="color:#ae81ff">17</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+    time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">0.1</span>)
+    stock<span style="color:#f92672">.</span>BlockRequest()
+    foreigner<span style="color:#f92672">.</span>BlockRequest()
+    firm<span style="color:#f92672">.</span>BlockRequest()
+
+    numData <span style="color:#f92672">=</span> stock<span style="color:#f92672">.</span>GetHeaderValue(<span style="color:#ae81ff">1</span>)
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(numData):
+        oneday <span style="color:#f92672">=</span> {}
+
+        oneday[<span style="color:#e6db74">&#39;종가&#39;</span>] <span style="color:#f92672">=</span> stock<span style="color:#f92672">.</span>GetDataValue(<span style="color:#ae81ff">14</span>, i)
+        oneday[<span style="color:#e6db74">&#39;등락률&#39;</span>] <span style="color:#f92672">=</span> stock<span style="color:#f92672">.</span>GetDataValue(<span style="color:#ae81ff">16</span>, i)
+        oneday[<span style="color:#e6db74">&#39;거래량&#39;</span>] <span style="color:#f92672">=</span> stock<span style="color:#f92672">.</span>GetDataValue(<span style="color:#ae81ff">17</span>, i)
+        oneday[<span style="color:#e6db74">&#39;기관계&#39;</span>] <span style="color:#f92672">=</span> firm<span style="color:#f92672">.</span>GetDataValue(<span style="color:#ae81ff">5</span>, i) <span style="color:#f92672">-</span> firm<span style="color:#f92672">.</span>GetDataValue(<span style="color:#ae81ff">1</span>, i)
+        oneday[<span style="color:#e6db74">&#39;외국인&#39;</span>] <span style="color:#f92672">=</span> foreigner<span style="color:#f92672">.</span>GetDataValue(<span style="color:#ae81ff">5</span>, i) <span style="color:#f92672">-</span> foreigner<span style="color:#f92672">.</span>GetDataValue(<span style="color:#ae81ff">1</span>, i)
+
+        data7254<span style="color:#f92672">.</span>loc[len(data7254)] <span style="color:#f92672">=</span> oneday
+
+    <span style="color:#66d9ef">if</span> stock<span style="color:#f92672">.</span>Continue <span style="color:#f92672">!=</span> <span style="color:#66d9ef">True</span>:
+        <span style="color:#66d9ef">break</span>
+</code></pre></div><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
@@ -844,7 +844,7 @@ data7254 = pd.DataFrame(columns=(&#39;종가&#39;, &#39;등락률&#39;, &#39;거
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../85">🎲</a></p>
+         <a href="../1928">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -960,7 +960,7 @@ data7254 = pd.DataFrame(columns=(&#39;종가&#39;, &#39;등락률&#39;, &#39;거
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2273)</summary>
+    <summary>전체 포스트 (2275)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -974,9 +974,9 @@ data7254 = pd.DataFrame(columns=(&#39;종가&#39;, &#39;등락률&#39;, &#39;거
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B5%90%EA%B3%BC%EA%B3%BC%EC%A0%95/" style="color: black">교과과정 (53)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (45)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (46)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (77)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (78)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
         </li><li>
