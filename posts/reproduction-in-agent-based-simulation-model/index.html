@@ -319,7 +319,7 @@
 </ul>
 <h3 id="코드-리뷰">코드 리뷰</h3>
 <p><strong>Step 1. 초기화 및 에이전트 생성</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> N0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span> <span style="color:#75715e"># 초기 인구수</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> N0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span> <span style="color:#75715e"># 초기 인구수</span>
 <span style="color:#ae81ff">5</span>
 
 julia<span style="color:#f92672">&gt;</span> b <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.05</span> <span style="color:#75715e"># 번식률</span>
@@ -346,8 +346,8 @@ julia<span style="color:#f92672">&gt;</span> Time<span style="color:#f92672">\</
 <li><code>max\_iteration</code> $\leftarrow t_{\text{end}} = 180$</li>
 </ul>
 <p><code>Random.seed!(2)</code>은 결과를 재현하기 위한 시드넘버 설정, <code>time_evolution</code>은 개체수를 기록하기 위한 스택으로 시뮬레이션 자체에는 영향을 미치지 않으나 시뮬레이션을 반복하고 분석하기 위해 중요하게 쓰이는 테크닉이다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f92672">=</span> rand(gaussian2, N0)<span style="color:#f92672">&#39;</span>
-<span style="color:#ae81ff">5</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">Adjoint</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}}<span style="color:#f92672">:</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f92672">=</span> rand(gaussian2, N0)<span style="color:#f92672">&#39;</span>
+<span style="color:#ae81ff">5</span>×2 Adjoint{<span style="color:#66d9ef">Float64</span>,<span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}}<span style="color:#f92672">:</span>
   <span style="color:#ae81ff">0.104598</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.105289</span>
  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.086056</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.243734</span>
  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0955465</span>   <span style="color:#ae81ff">0.0787217</span>
@@ -361,7 +361,7 @@ julia<span style="color:#f92672">&gt;</span> N <span style="color:#f92672">=</sp
 <p>에이전트들의 위치를 산점도로 나타내보면 위와 같이 오밀조밀하게 모여있는 것을 확인할 수 있다.</p>
 <hr>
 <p><strong>Step 2. 에이전트의 번식</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> replicated <span style="color:#f92672">=</span> (rand(N) <span style="color:#f92672">.&lt;</span> b)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> replicated <span style="color:#f92672">=</span> (rand(N) <span style="color:#f92672">.&lt;</span> b)
 <span style="color:#ae81ff">5</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">BitArray</span>{<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
  <span style="color:#ae81ff">0</span>
  <span style="color:#ae81ff">0</span>
@@ -370,11 +370,11 @@ julia<span style="color:#f92672">&gt;</span> N <span style="color:#f92672">=</sp
  <span style="color:#ae81ff">0</span>
 
 julia<span style="color:#f92672">&gt;</span> new<span style="color:#f92672">\</span>_coordinate <span style="color:#f92672">=</span> coordinate[replicated,<span style="color:#f92672">:</span>]
-<span style="color:#ae81ff">1</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+<span style="color:#ae81ff">1</span>×2 <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0955465</span>  <span style="color:#ae81ff">0.0787217</span>
 
 julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f92672">=</span> cat(coordinate, new<span style="color:#f92672">\</span>_coordinate, dims <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
-<span style="color:#ae81ff">6</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+<span style="color:#ae81ff">6</span>×2 <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
   <span style="color:#ae81ff">0.104598</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.105289</span>
  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.086056</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.243734</span>
  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0955465</span>   <span style="color:#ae81ff">0.0787217</span>
@@ -384,7 +384,7 @@ julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f926
 </code></pre></div><p>현재 에이전트의 수만큼 0과 1사이에서 난수를 뽑는다. 이것이 <code>b</code>보다 작다는 것은 <code>b</code>의 확률로 <strong>번식</strong> 이 일어났다는 뜻이다. 위 스크린샷에서는 세번째 에이전트가 $5%$ 의 확률로 번식한 것으로 <strong>Step 1.</strong> 에서 확인했던 좌표 중 세번째 행이 그대로 새로운 행으로 추가되었다.</p>
 <hr>
 <p><strong>Step 3. 기록과 에이전트 이동</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> N <span style="color:#f92672">=</span> size(coordinate, <span style="color:#ae81ff">1</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> N <span style="color:#f92672">=</span> size(coordinate, <span style="color:#ae81ff">1</span>)
 <span style="color:#ae81ff">6</span>
 
 julia<span style="color:#f92672">&gt;</span> push!(time<span style="color:#f92672">\</span>_evolution, N)
@@ -392,7 +392,7 @@ julia<span style="color:#f92672">&gt;</span> push!(time<span style="color:#f9267
  <span style="color:#ae81ff">6</span>
 
 julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f92672">=</span> coordinate <span style="color:#f92672">+</span> rand(gaussian2, N)<span style="color:#f92672">&#39;</span>
-<span style="color:#ae81ff">6</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+<span style="color:#ae81ff">6</span>×2 <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
   <span style="color:#ae81ff">0.0678177</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0642068</span>
  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.137464</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0672691</span>
  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0571189</span>   <span style="color:#ae81ff">0.06278</span>
@@ -405,7 +405,7 @@ julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f926
 <p>위 과정을 반복하기만하면 포스트 상단의 움짤과 같은 현상을 볼 수 있다.</p>
 <h3 id="전체-코드">전체 코드</h3>
 <p>다음은 이 포스트에 쓰인 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다.</p>
-<pre tabindex="0"><code>cd(@__DIR__) # 파일 저장 경로
+<pre><code>cd(@__DIR__) # 파일 저장 경로
 
 @time using Plots
 @time using Random
@@ -838,7 +838,7 @@ end
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1988">🎲</a></p>
+         <a href="../1433">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -976,7 +976,7 @@ end
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (15)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (16)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (68)</a>
         </li><li>
