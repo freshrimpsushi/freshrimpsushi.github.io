@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-calculate-distance-using-nearstneibors.jl-in-julia\/",
-    "wordCount" : "430",
+    "wordCount" : "429",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -295,39 +295,39 @@
 <p>$n$ 개의 좌표끼리 거리를 계산하는데, 행렬을 만들 필요까지는 없고 단순히 거리만 계산하면 되는 경우 다차원 탐색에 유리한 자료구조인 k-d 트리<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>를 사용해 속도를 높일 수 있다. <code>NearestNeighbors.jl</code>에 관련 알고리즘이 모두 구현되어 있으니 <a href="https://github.com/KristofferC/NearestNeighbors.jl">공식 깃허브 페이지</a>를 참고하도록 하자.</p>
 <h2 id="속도-비교">속도 비교</h2>
 <p><code>pairwise()</code> 함수로 <a href="../2020">거리행렬 계산에 최적화된 기법</a>과 비교해보자.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Distances
-<span style="color:#66d9ef">using</span> StatsBase
-<span style="color:#66d9ef">using</span> Random
-<span style="color:#66d9ef">using</span> NearestNeighbors
-
-Random<span style="color:#f92672">.</span>seed!(<span style="color:#ae81ff">0</span>);
-ε <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.01</span>
-N <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">^</span><span style="color:#ae81ff">4</span>
-coordinate <span style="color:#f92672">=</span> rand(<span style="color:#ae81ff">2</span>, N);
-state <span style="color:#f92672">=</span> sample([<span style="color:#e6db74">&#39;S&#39;</span>, <span style="color:#e6db74">&#39;I&#39;</span>], Weights([<span style="color:#ae81ff">0.1</span>, <span style="color:#ae81ff">0.9</span>]), N);
-S <span style="color:#f92672">=</span> coordinate[<span style="color:#f92672">:</span>, state <span style="color:#f92672">.==</span> <span style="color:#e6db74">&#39;S&#39;</span>]
-I <span style="color:#f92672">=</span> coordinate[<span style="color:#f92672">:</span>, state <span style="color:#f92672">.==</span> <span style="color:#e6db74">&#39;I&#39;</span>]
-
-<span style="color:#a6e22e">@time</span> sum(pairwise(Euclidean(),S,I) <span style="color:#f92672">.&lt;</span> ε, dims <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
-<span style="color:#a6e22e">@time</span> kdtree <span style="color:#f92672">=</span> KDTree(S); contact <span style="color:#f92672">=</span> length<span style="color:#f92672">.</span>(inrange(kdtree, I, ε, <span style="color:#66d9ef">true</span>))
-</code></pre></div><p>위 코드를 실행시킨 결과는 다음과 같다. 맨 아래의 두 커맨드라인은 같은 작업을 수행하지만 속도차이는 500배 정도가 난다. 실제로 k-d 트리에서 탐색할 때 <a href="../1283">시간복잡도</a>는 $\log n$ 으로 매우 효율적이다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> sum(pairwise(Euclidean(),S,I) <span style="color:#f92672">.&lt;</span> ε, dims <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
-  <span style="color:#ae81ff">0.098394</span> seconds (<span style="color:#ae81ff">14</span> allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">69.639</span> MiB, <span style="color:#ae81ff">8.23</span><span style="color:#f92672">%</span> gc Time)
-<span style="color:#ae81ff">1</span>×9004 <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
- <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  …  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
-
-julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> kdtree <span style="color:#f92672">=</span> KDTree(S); contact <span style="color:#f92672">=</span> length<span style="color:#f92672">.</span>(inrange(kdtree, I, ε, <span style="color:#66d9ef">true</span>))
-  <span style="color:#ae81ff">0.000213</span> seconds (<span style="color:#ae81ff">22</span> allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">51.609</span> KiB)
-<span style="color:#ae81ff">9004</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
- <span style="color:#ae81ff">0</span>
- <span style="color:#ae81ff">0</span>
- <span style="color:#ae81ff">1</span>
- <span style="color:#ae81ff">0</span>
- ⋮
- <span style="color:#ae81ff">0</span>
- <span style="color:#ae81ff">0</span>
- <span style="color:#ae81ff">0</span>
-</code></pre></div><p>단순 속도 문제를 차치하고서라도 k-d 트리를 사용한 방식에서는 1차원 배열을 반환했기 때문에 결과물을 사용하는 측면에서도 더욱 간편하다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Distances
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> StatsBase
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Random
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> NearestNeighbors
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Random<span style="color:#f92672">.</span>seed!(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>ε <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.01</span>
+</span></span><span style="display:flex;"><span>N <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">^</span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>coordinate <span style="color:#f92672">=</span> rand(<span style="color:#ae81ff">2</span>, N);
+</span></span><span style="display:flex;"><span>state <span style="color:#f92672">=</span> sample([<span style="color:#e6db74">&#39;S&#39;</span>, <span style="color:#e6db74">&#39;I&#39;</span>], Weights([<span style="color:#ae81ff">0.1</span>, <span style="color:#ae81ff">0.9</span>]), N);
+</span></span><span style="display:flex;"><span>S <span style="color:#f92672">=</span> coordinate[<span style="color:#f92672">:</span>, state <span style="color:#f92672">.==</span> <span style="color:#e6db74">&#39;S&#39;</span>]
+</span></span><span style="display:flex;"><span>I <span style="color:#f92672">=</span> coordinate[<span style="color:#f92672">:</span>, state <span style="color:#f92672">.==</span> <span style="color:#e6db74">&#39;I&#39;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@time</span> sum(pairwise(Euclidean(),S,I) <span style="color:#f92672">.&lt;</span> ε, dims <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@time</span> kdtree <span style="color:#f92672">=</span> KDTree(S); contact <span style="color:#f92672">=</span> length<span style="color:#f92672">.</span>(inrange(kdtree, I, ε, true))
+</span></span></code></pre></div><p>위 코드를 실행시킨 결과는 다음과 같다. 맨 아래의 두 커맨드라인은 같은 작업을 수행하지만 속도차이는 500배 정도가 난다. 실제로 k-d 트리에서 탐색할 때 <a href="../1283">시간복잡도</a>는 $\log n$ 으로 매우 효율적이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> sum(pairwise(Euclidean(),S,I) <span style="color:#f92672">.&lt;</span> ε, dims <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.098394</span> seconds (<span style="color:#ae81ff">14</span> allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">69.639</span> MiB, <span style="color:#ae81ff">8.23</span><span style="color:#f92672">%</span> gc Time)
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span><span style="color:#f92672">×</span><span style="color:#ae81ff">9004</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#f92672">…</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> kdtree <span style="color:#f92672">=</span> KDTree(S); contact <span style="color:#f92672">=</span> length<span style="color:#f92672">.</span>(inrange(kdtree, I, ε, true))
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.000213</span> seconds (<span style="color:#ae81ff">22</span> allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">51.609</span> KiB)
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9004</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">⋮</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0</span>
+</span></span></code></pre></div><p>단순 속도 문제를 차치하고서라도 k-d 트리를 사용한 방식에서는 1차원 배열을 반환했기 때문에 결과물을 사용하는 측면에서도 더욱 간편하다.</p>
 <h2 id="환경">환경</h2>
 <ul>
 <li>OS: Windows</li>
@@ -337,7 +337,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://en.wikipedia.org/wiki/K-d_tree">https://en.wikipedia.org/wiki/K-d_tree</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://en.wikipedia.org/wiki/K-d_tree">https://en.wikipedia.org/wiki/K-d_tree</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -738,7 +738,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1859">🎲</a></p>
+         <a href="../1910">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -854,7 +854,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2275)</summary>
+    <summary>전체 포스트 (2277)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -870,7 +870,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (46)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (78)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (79)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
         </li><li>
