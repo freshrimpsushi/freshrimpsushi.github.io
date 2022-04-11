@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/newton-raphson-method\/",
-    "wordCount" : "1884",
+    "wordCount" : "1911",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -295,10 +295,10 @@
 
 <h2 id="메소드-1">메소드 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
 <p><img src="20180831_192324.png#center" alt="20180831\_192324.png"></p>
-<p>$f,f&rsquo;,f&rsquo;&rsquo;$ 가 $\alpha$ 의 근방에서 <a href="../1206">연속</a>이고 $f(\alpha) = 0, f&rsquo;(\alpha) \ne 0$ 이라고 하자.</p>
+<p>$f,f&rsquo;,f&rsquo;&rsquo;$ 가 $\alpha$ 의 근방에서 <a href="../1206">연속</a>이고 $f(\alpha) = 0, f '(\alpha) \ne 0$ 이라고 하자.</p>
 <p>$\alpha$ 와 충분히 가까운 초기값 $x_{0}$ 에 대해 
 $$
-x_{n+1} := x_{n} - {{ f ( x_{n} ) } \over { f&rsquo; ( x_{n} ) }}
+x_{n+1} := x_{n} - {{ f ( x_{n} ) } \over { f ' ( x_{n} ) }}
 $$
 과 같이 정의된 <a href="../470">수열</a> $\left\{ x_{n} \right\}$ 은 $n \to \infty$ 일 때 $\alpha$ 로 쿼드러틱하게 수렴한다.</p>
 <h2 id="설명">설명</h2>
@@ -310,7 +310,7 @@ $$
 <h2 id="같이보기">같이보기</h2>
 <ul>
 <li><a href="../1005">고차원에 대해 일반화된 뉴턴-랩슨 메소드</a></li>
-<li><strong>뉴턴-푸리에 메소드</strong>: $f,f&rsquo;,f&rsquo;&rsquo;$ 가 폐구간 $[a,b]$ 에서 연속이라고 하자. $f$ 가 $[a,b]$ 에서 해를 갖고 증가함수거나 감소함수면 $\displaystyle x_{n+1} = x_{n} - {{ f ( x_{n} ) } \over { f&rsquo; ( x_{n} ) }}$ 과 같이 정의된 <a href="../470">수열</a> $\left\{ x_{n} \right\}$ 은 $n \to \infty$ 일 때 $\alpha$ 로 쿼드러틱하게 수렴한다.</li>
+<li><strong>뉴턴-푸리에 메소드</strong>: $f,f&rsquo;,f&rsquo;&rsquo;$ 가 폐구간 $[a,b]$ 에서 연속이라고 하자. $f$ 가 $[a,b]$ 에서 해를 갖고 증가함수거나 감소함수면 $\displaystyle x_{n+1} = x_{n} - {{ f ( x_{n} ) } \over { f ' ( x_{n} ) }}$ 과 같이 정의된 <a href="../470">수열</a> $\left\{ x_{n} \right\}$ 은 $n \to \infty$ 일 때 $\alpha$ 로 쿼드러틱하게 수렴한다.</li>
 </ul>
 <p>조금 더 강한 조건이 있다면 쿼드러틱하면서도 수렴성이 완전히 보장된 뉴턴-푸리에 메소드를 고려해볼 수 있다. 하지만 이 방법은 본질적으로 뉴턴-랩슨 메소드의 &lsquo;$\alpha$ 의 근방&rsquo; 속으로 폐구간 $[a,b]$ 를 집어넣은 것에 불과하기도 하다. 따라서 조건만 다 체크한다면 뉴턴-랩슨 메소드와 정확히 똑같아지고, 별도로 다른 코드를 작성할 필요가 없다.</p>
 <h2 id="증명">증명</h2>
@@ -318,28 +318,28 @@ $$
 <p><strong>Part 1. <a href="../41">테일러 전개</a></strong></p>
 <p>$f$ 를 $x_{n}$ 에 대해 테일러 전개하면 $x$ 와 $x_{n}$ 사이의 $\xi_{n}$ 에 대해
 $$
-f(x) = f(x_{n} ) + (x - x_{n}) f&rsquo;(x_{n}) + {{(x - x_{n})^2 } \over {2}} f&rsquo;&rsquo; (\xi_{n})
+f(x) = f(x_{n} ) + (x - x_{n}) f '(x_{n}) + {{(x - x_{n})^2 } \over {2}} f '&rsquo; (\xi_{n})
 $$
 $f( \alpha ) = 0$ 이므로 $x = \alpha$ 를 대입하면
 $$
-0 = f(x_{n} ) + ( \alpha - x_{n}) f&rsquo;(x_{n}) + {{( \alpha - x_{n})^2 } \over {2}} f&rsquo;&rsquo; (\xi_{n})
+0 = f(x_{n} ) + ( \alpha - x_{n}) f '(x_{n}) + {{( \alpha - x_{n})^2 } \over {2}} f '&rsquo; (\xi_{n})
 $$
-양변을 $f&rsquo;(x_{n})$ 으로 나누면
+양변을 $f ' (x_{n})$ 으로 나누면
 $$
-0 = {{f(x_{n} )} \over {f&rsquo;(x_{n})}} + \alpha - x_{n} + {{( \alpha - x_{n})^2 } \over {2}} {{f&rsquo;&rsquo; (\xi_{n})} \over { f&rsquo;(x_{n}) }}
+0 = {{f(x_{n} )} \over {f ' (x_{n})}} + \alpha - x_{n} + {{( \alpha - x_{n})^2 } \over {2}} {{f&rsquo;&rsquo; (\xi_{n})} \over { f '(x_{n}) }}
 $$
-$\displaystyle {{ f ( x_{n} ) } \over { f&rsquo; ( x_{n} ) }} - x_{n} = - x_{n+1}$ 이므로
+$\displaystyle {{ f ( x_{n} ) } \over { f ' ( x_{n} ) }} - x_{n} = - x_{n+1}$ 이므로
 $$
-0 = \alpha - x_{n+1} + {{( \alpha - x_{n})^2 } \over {2}} {{f&rsquo;&rsquo; (\xi_{n})} \over { f&rsquo;(x_{n}) }}
+0 = \alpha - x_{n+1} + {{( \alpha - x_{n})^2 } \over {2}} {{f&rsquo;&rsquo; (\xi_{n})} \over { f '(x_{n}) }}
 $$
 이항해서 정리하면
 $$
-\begin{equation} \displaystyle \alpha - x_{n+1} = - {{f&rsquo;&rsquo; (\xi_{n})} \over { 2 f&rsquo;(x_{n}) }} ( \alpha - x_{n})^2 \end{equation}
+\begin{equation} \displaystyle \alpha - x_{n+1} = - {{f&rsquo;&rsquo; (\xi_{n})} \over { 2 f '(x_{n}) }} ( \alpha - x_{n})^2 \end{equation}
 $$</p>
 <hr>
 <p><strong>Part 2. 수렴성</strong></p>
-<p>$f&rsquo;$ 는 $\alpha$ 근방에서 <a href="../1206">연속</a>이고 $f&rsquo;(\alpha) \ne 0$ 이므로 모든 $x \in I_{\delta}$ 에 대해 $f&rsquo;(x) \ne 0$ 을 만족하는 $ I_{\delta} : = [ \alpha - \delta , \alpha + \delta ]$ 가 존재한다.</p>
-<p>$\displaystyle M( \delta ) := {{ \max_{x \in I_{\delta} } | f&rsquo;&rsquo; (x) | } \over { 2 \min_{x \in I_{\delta} } | f&rsquo;(x) | }}$ 이라고 두면 $\delta$ 를 작게 잡을때마다 $\displaystyle \max_{x \in I_{\delta} } | f&rsquo;&rsquo; (x) |$ 은 커지지 않고 $\displaystyle \min_{x \in I_{\delta} } | f&rsquo;(x) |$ 은 작아지지 않으므로 $M ( \delta )$ 전체는 커지지 않는다. 따라서 $M(\delta) | \alpha - x_{0} | &lt; 1$ 이 성립하도록 하는 $x_{0} \in I_{\delta}$ 가 존재하게끔 충분히 작은 $\delta = \delta_{0}$ 를 잡을 수 있다. 바로 이 $x_{0}$ 가 $\alpha$ 와 충분히 가까운 초기값이다.</p>
+<p>$f '$ 는 $\alpha$ 근방에서 <a href="../1206">연속</a>이고 $f ' (\alpha) \ne 0$ 이므로 모든 $x \in I_{\delta}$ 에 대해 $f ' (x) \ne 0$ 을 만족하는 $ I_{\delta} : = [ \alpha - \delta , \alpha + \delta ]$ 가 존재한다.</p>
+<p>$\displaystyle M( \delta ) := {{ \max_{x \in I_{\delta} } | f '&rsquo; (x) | } \over { 2 \min_{x \in I_{\delta} } | f '(x) | }}$ 이라고 두면 $\delta$ 를 작게 잡을때마다 $\displaystyle \max_{x \in I_{\delta} } | f '&rsquo; (x) |$ 은 커지지 않고 $\displaystyle \min_{x \in I_{\delta} } | f '(x) |$ 은 작아지지 않으므로 $M ( \delta )$ 전체는 커지지 않는다. 따라서 $M(\delta) | \alpha - x_{0} | &lt; 1$ 이 성립하도록 하는 $x_{0} \in I_{\delta}$ 가 존재하게끔 충분히 작은 $\delta = \delta_{0}$ 를 잡을 수 있다. 바로 이 $x_{0}$ 가 $\alpha$ 와 충분히 가까운 초기값이다.</p>
 <p>이 $\delta_{0}$ 에 대해 이제 $M:= M(\delta_{0})$ 라고 하자.</p>
 <p>$(1)$ 의 양변에 절대값을 취하면
 $$
@@ -364,9 +364,9 @@ $$
 $M | \alpha - x_{0} | &lt; 1$ 이므로 $n \to \infty$ 일 때 $x_{n} \to \alpha$</p>
 <hr>
 <p><strong>Part 3. 쿼드러틱하게 수렴</strong></p>
-<p>$(1)$ 에 의해 $\displaystyle {{ \alpha - x_{n+1} } \over { ( \alpha - x_{n})^2 }} = - {{f&rsquo;&rsquo; (\xi_{n})} \over { 2 f&rsquo;(x_{n}) }}$ 이고 $x_{n} \to \alpha$ 일 때 $\xi_{n} \to \alpha$ 이므로
+<p>$(1)$ 에 의해 $\displaystyle {{ \alpha - x_{n+1} } \over { ( \alpha - x_{n})^2 }} = - {{f&rsquo;&rsquo; (\xi_{n})} \over { 2 f '(x_{n}) }}$ 이고 $x_{n} \to \alpha$ 일 때 $\xi_{n} \to \alpha$ 이므로
 $$
-\lim_{n \to \infty} {{\alpha - x_{n+1} } \over { ( \alpha - x_{n} )^2 }} = - \lim_{n \to \infty} {{f&rsquo;&rsquo;( \xi_{n} )} \over { 2 f&rsquo; ( x_{n} ) }} = -{{f&rsquo;&rsquo;(\alpha)} \over { 2 f&rsquo; ( \alpha ) }}
+\lim_{n \to \infty} {{\alpha - x_{n+1} } \over { ( \alpha - x_{n} )^2 }} = - \lim_{n \to \infty} {{f&rsquo;&rsquo;( \xi_{n} )} \over { 2 f ' ( x_{n} ) }} = -{{f&rsquo;&rsquo;(\alpha)} \over { 2 f ' ( \alpha ) }}
 $$</p>
 <p style="text-align: right;">■</p>
 <p>설명에서도 수렴성이 항상 보장되지는 않는다고 했는데, 실제로 증명과정에서도 충분히 작은 $I$ 를 잡는다.</p>
@@ -828,7 +828,7 @@ Newton(h,-2)
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../931">🎲</a></p>
+         <a href="../720">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -944,7 +944,7 @@ Newton(h,-2)
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2277)</summary>
+    <summary>전체 포스트 (2279)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -958,7 +958,7 @@ Newton(h,-2)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B5%90%EA%B3%BC%EA%B3%BC%EC%A0%95/" style="color: black">교과과정 (53)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (46)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (47)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (79)</a>
         </li><li>
@@ -966,7 +966,7 @@ Newton(h,-2)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (19)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (16)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/" style="color: black">데이터확보 (17)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/" style="color: black">동역학 (68)</a>
         </li><li>
