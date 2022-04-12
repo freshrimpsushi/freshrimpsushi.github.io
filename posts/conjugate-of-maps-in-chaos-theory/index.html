@@ -309,8 +309,8 @@
 <p>모든 $x$ 에 대해 $g \left( C(x) \right) = C \left( f(x) \right)$ 라고 하자.</p>
 <ul>
 <li>[1]: $x$ 가 $f$ 의 피리어딕-$k$ 포인트면 $C(x)$ 는 $g$ 의 피리어딕-$k$ 포인트다.</li>
-<li>[2]: $f$ 의 <a href="../858">피리어딕-$k$ 오빗</a>에서 $C&rsquo; \ne 0$ 면
-$$\left( g^{k} \right) &rsquo; \left( C (x) \right) = \left( f^{k} \right) &rsquo; (x)$$</li>
+<li>[2]: $f$ 의 <a href="../858">피리어딕-$k$ 오빗</a>에서 $C' \ne 0$ 면
+$$\left( g^{k} \right) ' \left( C (x) \right) = \left( f^{k} \right) ' (x)$$</li>
 </ul>
 <h2 id="설명">설명</h2>
 <p>위의 두 가지 정리는 <strong>컨쥬게이시</strong><sup>Conjugacy</sup>가 맵을 거듭해서 취하는 것과 미분에 관계없이 유지됨을 의미한다. 이는 곧 하나의 시스템에서 <a href="../862">랴푸노프 지수</a>를 구하기 쉽다면 이와 컨쥬게이트인 시스템에서도 랴푸노프 지수를 구하기 쉽다는 말이다.</p>
@@ -358,27 +358,27 @@ g^{k} \left( C (x) \right) = C \left( f^{k} (x)  \right)
 $$</p>
 <p>체인 룰에 의해</p>
 <p>$$
-\left( g^{k} \right)' \left( C(x) \right) C&rsquo; (x) = C&rsquo;(x) \left( f^{k} \right)' (x)
+\left( g^{k} \right)' \left( C(x) \right) C' (x) = C'(x) \left( f^{k} \right)' (x)
 $$</p>
-<p>$C&rsquo;(x) \ne 0$ 이므로 양변에서 소거하면</p>
+<p>$C'(x) \ne 0$ 이므로 양변에서 소거하면</p>
 <p>$$
 \left( g^{k} \right)' \left( C(x) \right) = \left( f^{k} \right)' (x)
 $$</p>
 <p style="text-align: right;">■</p>
 <h2 id="코드">코드</h2>
 <p>다음은 텐트 맵 $T$ 와 로지스틱 맵 $G$, $T^{k}$ 의 그래프를 그려주는 코드를 R 로 작성한 것이다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>tent<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(x) {<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">abs</span>(<span style="color:#ae81ff">1-2</span><span style="color:#f92672">*</span>x)}
-</span></span><span style="display:flex;"><span>logistic<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(x) {<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>x<span style="color:#f92672">*</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>x)}
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">4</span>); <span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>))
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">plot</span>(tent,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Tent Map T&#39;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">plot</span>(logistic,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Logistic Map G\&#39;)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> 
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">win.graph(9,3.5); par(mfrow=c(1,3))
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">plot(tent,main=&#39;</span>T<span style="color:#e6db74">&#39;,xlab=&#39;</span>x<span style="color:#e6db74">&#39;,ylab=&#39;</span>y<span style="color:#e6db74">&#39;); abline(0,1)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">plot(seq(0,1,len=1000),tent(tent(seq(0,1,len=1000))),main=&#39;</span>T^2<span style="color:#e6db74">&#39;,type=&#39;</span>l<span style="color:#e6db74">&#39;,xlab=&#39;</span>x<span style="color:#e6db74">&#39;,ylab=&#39;</span>y<span style="color:#e6db74">&#39;);abline(0,1)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">plot(seq(0,1,len=1000),tent(tent(tent(tent(tent(seq(0,1,len=1000))))))
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">     ,main=&#39;</span>T^k<span style="color:#e6db74">&#39;,type=&#39;</span>l<span style="color:#e6db74">&#39;,xlab=&#39;</span>x<span style="color:#e6db74">&#39;,ylab=&#39;</span>y<span style="color:#e6db74">&#39;</span><span style="color:#960050;background-color:#1e0010">);abline(0,1)</span>
-</span></span></code></pre></div><section class="footnotes" role="doc-endnotes">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">tent<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(x) {<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">abs</span>(<span style="color:#ae81ff">1-2</span><span style="color:#f92672">*</span>x)}
+logistic<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(x) {<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>x<span style="color:#f92672">*</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>x)}
+<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">4</span>); <span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>))
+<span style="color:#a6e22e">plot</span>(tent,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Tent Map T&#39;</span>)
+<span style="color:#a6e22e">plot</span>(logistic,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Logistic Map G\&#39;)
+</span><span style="color:#e6db74"> 
+</span><span style="color:#e6db74">win.graph(9,3.5); par(mfrow=c(1,3))
+</span><span style="color:#e6db74">plot(tent,main=&#39;</span>T<span style="color:#e6db74">&#39;,xlab=&#39;</span>x<span style="color:#e6db74">&#39;,ylab=&#39;</span>y<span style="color:#e6db74">&#39;); abline(0,1)
+</span><span style="color:#e6db74">plot(seq(0,1,len=1000),tent(tent(seq(0,1,len=1000))),main=&#39;</span>T^2<span style="color:#e6db74">&#39;,type=&#39;</span>l<span style="color:#e6db74">&#39;,xlab=&#39;</span>x<span style="color:#e6db74">&#39;,ylab=&#39;</span>y<span style="color:#e6db74">&#39;);abline(0,1)
+</span><span style="color:#e6db74">plot(seq(0,1,len=1000),tent(tent(tent(tent(tent(seq(0,1,len=1000))))))
+</span><span style="color:#e6db74">     ,main=&#39;</span>T^k<span style="color:#e6db74">&#39;,type=&#39;</span>l<span style="color:#e6db74">&#39;,xlab=&#39;</span>x<span style="color:#e6db74">&#39;,ylab=&#39;</span>y<span style="color:#e6db74">&#39;</span><span style="color:#960050;background-color:#1e0010">);abline(0,1)</span>
+</code></pre></div><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
@@ -792,7 +792,7 @@ $$</p>
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../928">🎲</a></p>
+         <a href="../1520">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -908,7 +908,7 @@ $$</p>
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2279)</summary>
+    <summary>전체 포스트 (2281)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -924,7 +924,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (47)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (79)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (80)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
         </li><li>
@@ -954,7 +954,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%81%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">상미분방정식 (57)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EC%83%88%EC%9A%B0%EC%B4%88%EB%B0%A5%EC%A7%80/" style="color: black">생새우초밥지 (1)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EC%83%88%EC%9A%B0%EC%B4%88%EB%B0%A5%EC%A7%80/" style="color: black">생새우초밥지 (2)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (34)</a>
         </li><li>
