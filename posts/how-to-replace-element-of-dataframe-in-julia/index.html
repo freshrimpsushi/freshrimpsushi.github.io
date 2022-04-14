@@ -114,7 +114,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-replace-element-of-dataframe-in-julia\/",
-    "wordCount" : "1189",
+    "wordCount" : "1190",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -299,10 +299,10 @@
 <h2 id="개요">개요</h2>
 <p><code>replace!()</code> 메소드를 사용하면 된다.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 첫번째 인자로는 변경할 데이터프레임의 칼럼이 들어가고, 두번째 인자로는 <a href="../2201">페어</a> <code>A =&gt; B</code> 가 들어간다. 여기서 데이터프레임의 칼럼이 들어간다는 게 중요하다.</p>
 <h2 id="코드">코드</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> WJSN
-<span style="color:#ae81ff">10</span><span style="color:#f92672">×</span><span style="color:#ae81ff">4</span> DataFrame
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> WJSN
+<span style="color:#ae81ff">10</span>×4 DataFrame
  Row │ member  birth  height  unit   
-     │ <span style="color:#66d9ef">String</span>  <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span>   <span style="color:#66d9ef">String</span> 
+     │ String  <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span>   String 
 ─────┼───────────────────────────────
    <span style="color:#ae81ff">1</span> │ 다영       <span style="color:#ae81ff">99</span>     <span style="color:#ae81ff">161</span>  쪼꼬미
    <span style="color:#ae81ff">2</span> │ 다원       <span style="color:#ae81ff">97</span>     <span style="color:#ae81ff">167</span>  메보즈
@@ -315,10 +315,10 @@
    <span style="color:#ae81ff">9</span> │ 진숙       <span style="color:#ae81ff">99</span>     <span style="color:#ae81ff">162</span>  쪼꼬미
   <span style="color:#ae81ff">10</span> │ 현정       <span style="color:#ae81ff">94</span>     <span style="color:#ae81ff">165</span>  보스즈
 </code></pre></div><p>예제로 사용할 <code>WJSN</code> 데이터프레임은 위와 같다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> replace!(WJSN<span style="color:#f92672">.</span>member, <span style="color:#e6db74">&#34;진숙&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;여름&#34;</span>); WJSN
-<span style="color:#ae81ff">10</span><span style="color:#f92672">×</span><span style="color:#ae81ff">4</span> DataFrame
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> replace!(WJSN<span style="color:#f92672">.</span>member, <span style="color:#e6db74">&#34;진숙&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;여름&#34;</span>); WJSN
+<span style="color:#ae81ff">10</span>×4 DataFrame
  Row │ member  birth  height  unit   
-     │ <span style="color:#66d9ef">String</span>  <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span>   <span style="color:#66d9ef">String</span> 
+     │ String  <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span>   String 
 ─────┼───────────────────────────────
    <span style="color:#ae81ff">1</span> │ 다영       <span style="color:#ae81ff">99</span>     <span style="color:#ae81ff">161</span>  쪼꼬미
    <span style="color:#ae81ff">2</span> │ 다원       <span style="color:#ae81ff">97</span>     <span style="color:#ae81ff">167</span>  메보즈
@@ -331,10 +331,10 @@
    <span style="color:#ae81ff">9</span> │ 여름       <span style="color:#ae81ff">99</span>     <span style="color:#ae81ff">162</span>  쪼꼬미
   <span style="color:#ae81ff">10</span> │ 현정       <span style="color:#ae81ff">94</span>     <span style="color:#ae81ff">165</span>  보스즈
 </code></pre></div><p><code>:member</code>열의 <code>&quot;진숙&quot;</code>을 <code>&quot;여름&quot;</code>으로 바꾸었다. 여기서 <code>replace()</code>가 아닌 <code>replace!()</code>를 사용했으며, 데이터프레임 자체가 아니라 데이터프레임의 특정 열이 들어간 것에 주의하자.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> replace!(WJSN<span style="color:#f92672">.</span>unit, <span style="color:#e6db74">&#34;보스즈&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;더블랙&#34;</span>); WJSN
-<span style="color:#ae81ff">10</span><span style="color:#f92672">×</span><span style="color:#ae81ff">4</span> DataFrame
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> replace!(WJSN<span style="color:#f92672">.</span>unit, <span style="color:#e6db74">&#34;보스즈&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;더블랙&#34;</span>); WJSN
+<span style="color:#ae81ff">10</span>×4 DataFrame
  Row │ member  birth  height  unit   
-     │ <span style="color:#66d9ef">String</span>  <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span>   <span style="color:#66d9ef">String</span> 
+     │ String  <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span>   String 
 ─────┼───────────────────────────────
    <span style="color:#ae81ff">1</span> │ 다영       <span style="color:#ae81ff">99</span>     <span style="color:#ae81ff">161</span>  쪼꼬미
    <span style="color:#ae81ff">2</span> │ 다원       <span style="color:#ae81ff">97</span>     <span style="color:#ae81ff">167</span>  메보즈
@@ -348,7 +348,7 @@
   <span style="color:#ae81ff">10</span> │ 현정       <span style="color:#ae81ff">94</span>     <span style="color:#ae81ff">165</span>  더블랙
 </code></pre></div><p><code>:unit</code>열의 <code>&quot;보스즈&quot;</code>를 <code>&quot;더블랙&quot;</code>으로 일괄변경했다.</p>
 <h3 id="전체-코드">전체 코드</h3>
-<pre tabindex="0"><code>using DataFrames
+<pre><code>using DataFrames
 
 WJSN = DataFrame(
     member = [&quot;다영&quot;,&quot;다원&quot;,&quot;루다&quot;,&quot;소정&quot;,&quot;수빈&quot;,&quot;연정&quot;,&quot;주연&quot;,&quot;지연&quot;,&quot;진숙&quot;,&quot;현정&quot;],
@@ -375,7 +375,7 @@ replace!(WJSN.unit, &quot;보스즈&quot; =&gt; &quot;더블랙&quot;); WJSN
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://dataframes.juliadata.org/stable/man/working_with_dataframes/#Replacing-Data">https://dataframes.juliadata.org/stable/man/working_with_dataframes/#Replacing-Data</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://dataframes.juliadata.org/stable/man/working_with_dataframes/#Replacing-Data">https://dataframes.juliadata.org/stable/man/working_with_dataframes/#Replacing-Data</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -776,7 +776,7 @@ replace!(WJSN.unit, &quot;보스즈&quot; =&gt; &quot;더블랙&quot;); WJSN
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../137">🎲</a></p>
+         <a href="../386">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -790,7 +790,7 @@ replace!(WJSN.unit, &quot;보스즈&quot; =&gt; &quot;더블랙&quot;); WJSN
     <a href=https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 행렬대수 (68)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/>
-        <span style="color:rgb(051,204,051);">●</span> 선형대수 (20)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 선형대수 (47)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 추상대수 (77)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/>
@@ -892,7 +892,7 @@ replace!(WJSN.unit, &quot;보스즈&quot; =&gt; &quot;더블랙&quot;); WJSN
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2281)</summary>
+    <summary>전체 포스트 (2282)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -906,7 +906,7 @@ replace!(WJSN.unit, &quot;보스즈&quot; =&gt; &quot;더블랙&quot;); WJSN
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B5%90%EA%B3%BC%EA%B3%BC%EC%A0%95/" style="color: black">교과과정 (53)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (47)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (48)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (80)</a>
         </li><li>
@@ -924,7 +924,7 @@ replace!(WJSN.unit, &quot;보스즈&quot; =&gt; &quot;더블랙&quot;); WJSN
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/" style="color: black">머신러닝 (55)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B0%94%EB%82%98%ED%9D%90%EA%B3%B5%EA%B0%84/" style="color: black">바나흐공간 (36)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B0%94%EB%82%98%ED%9D%90%EA%B3%B5%EA%B0%84/" style="color: black">바나흐공간 (32)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/" style="color: black">보조정리 (16)</a>
         </li><li>
@@ -940,7 +940,7 @@ replace!(WJSN.unit, &quot;보스즈&quot; =&gt; &quot;더블랙&quot;); WJSN
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EC%83%88%EC%9A%B0%EC%B4%88%EB%B0%A5%EC%A7%80/" style="color: black">생새우초밥지 (2)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (34)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (38)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/" style="color: black">소볼레프공간 (11)</a>
         </li><li>
@@ -996,7 +996,7 @@ replace!(WJSN.unit, &quot;보스즈&quot; =&gt; &quot;더블랙&quot;); WJSN
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (96)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (64)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (65)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (65)</a>
         </li><li>
@@ -1118,7 +1118,7 @@ replace!(WJSN.unit, &quot;보스즈&quot; =&gt; &quot;더블랙&quot;); WJSN
               {left: '$', right: '$', display: false},
           ],
 		  trust: true,
-		  trust: (context) => ['\\url', '\\href', '\\includegraphics'].includes(context.command),
+		  trust: (context) => ['\\htmlId', '\\href', '\\includegraphics'].includes(context.command),
 		  macros: {
 		  "\\eqref": "\\href{###1}{(\\text{#1})}",
 		  "\\ref": "\\href{###1}{\\text{#1}}",
