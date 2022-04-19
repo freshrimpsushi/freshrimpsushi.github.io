@@ -294,16 +294,16 @@
 <h2 id="요약">요약</h2>
 <p><code>trunc</code> 함수의 첫번째 인수로써 <code>Int</code> 를 넣으면 된다.</p>
 <h2 id="코드">코드</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">for</span> t <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span><span style="color:#f92672">^</span><span style="color:#ae81ff">8</span>
-</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">Int64</span>(ceil(t<span style="color:#f92672">/</span><span style="color:#ae81ff">1000</span>))
-</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">end</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.189653</span> seconds
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">for</span> t <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span><span style="color:#f92672">^</span><span style="color:#ae81ff">8</span>
-</span></span><span style="display:flex;"><span>           trunc(<span style="color:#66d9ef">Int64</span>, ceil(t<span style="color:#f92672">/</span><span style="color:#ae81ff">1000</span>))
-</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">end</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.128472</span> seconds
-</span></span></code></pre></div><p>두 반복문은 정확히 같은 기능을 하지만 1.5배 정도의 속도차이를 보인다. 위는 <code>ceil</code>로 소수점 아래를 버리고 <code>Int64</code>로 타입 캐스트를 했고, 아래는 <code>trunc</code> 함수의 자체 기능으로써 네이티브하게 정수를 리턴했기 때문에 더 빠르다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">for</span> t <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span><span style="color:#f92672">^</span><span style="color:#ae81ff">8</span>
+           <span style="color:#66d9ef">Int64</span>(ceil(t<span style="color:#f92672">/</span><span style="color:#ae81ff">1000</span>))
+       <span style="color:#66d9ef">end</span>
+  <span style="color:#ae81ff">0.189653</span> seconds
+
+julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">for</span> t <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span><span style="color:#f92672">^</span><span style="color:#ae81ff">8</span>
+           trunc(<span style="color:#66d9ef">Int64</span>, ceil(t<span style="color:#f92672">/</span><span style="color:#ae81ff">1000</span>))
+       <span style="color:#66d9ef">end</span>
+  <span style="color:#ae81ff">0.128472</span> seconds
+</code></pre></div><p>두 반복문은 정확히 같은 기능을 하지만 1.5배 정도의 속도차이를 보인다. 위는 <code>ceil</code>로 소수점 아래를 버리고 <code>Int64</code>로 타입 캐스트를 했고, 아래는 <code>trunc</code> 함수의 자체 기능으로써 네이티브하게 정수를 리턴했기 때문에 더 빠르다.</p>
 <p>다른 언어를 쓰던 사람에게는 위쪽 반복문 같은 정직한 명령이 자연스럽겠지만 줄리아에서는 자료형을 첫번째 인수로 넣어서 리턴을 받는 식의 내장함수가 많으므로 아래쪽 반복문과 같은 용법이 더 익숙해질 것이다.</p>
 <h2 id="환경">환경</h2>
 <ul>
@@ -707,7 +707,7 @@
 
 <aside>
     <p><b>카테고리</b>
-         <a href="../1991">🎲</a></p>
+         <a href="../37">🎲</a></p>
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
@@ -872,6 +872,8 @@
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EC%83%88%EC%9A%B0%EC%B4%88%EB%B0%A5%EC%A7%80/" style="color: black">생새우초밥지 (2)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (38)</a>
+        </li><li>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%B8%EC%9D%B4%EB%B2%84%EB%A9%94%ED%8A%B8%EB%A6%AD%EC%8A%A4/" style="color: black">세이버메트릭스 (1)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/" style="color: black">소볼레프공간 (11)</a>
         </li><li>
