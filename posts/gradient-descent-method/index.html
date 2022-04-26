@@ -123,7 +123,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/gradient-descent-method\/",
-    "wordCount" : "992",
+    "wordCount" : "993",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -276,7 +276,7 @@
 <aside>
     Gradient Descent Method
     <p style="text-align: right;">
-         <a href="../1893">🎲</a>
+         <a href="../1212">🎲</a>
         1012
 
     
@@ -320,22 +320,22 @@
 <p>다만 이 방법은 쉽고 간편한 한편 다른 메소드에 비해 수렴하는 속도가 빠르다고 하긴 어려우며, 일단 <a href="../1434">그리디 알고리즘</a>이다. 다시 말해, 각 단계에서는 최선을 다해 감소해서 로컬하게는 가장 크게 감소하지만 글로벌하게 보았을 땐 별로 좋은 방법이 아닐 수 있다는 것이다.</p>
 <h2 id="코드">코드</h2>
 <p>다음은 경사하강법을 <a href="../../categories/r">R</a> 코드로 구현한 것으로, <a href="../971">그래디언트를 구하기 위해</a> <code>numDeriv</code> 패키지를 사용했다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(numDeriv)
-</span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>optimizer<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(f,x0,alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.01</span>){
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">while</span>(<span style="color:#a6e22e">abs</span>(<span style="color:#a6e22e">f</span>(x0))<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">10</span><span style="color:#a6e22e">^</span>(<span style="color:#ae81ff">-8</span>)){
-</span></span><span style="display:flex;"><span>    x0<span style="color:#f92672">&lt;-</span>x0<span style="color:#f92672">-</span>alpha<span style="color:#f92672">*</span><span style="color:#a6e22e">grad</span>(f,x0)
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">return</span>(x0)
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>z<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(v){
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">return</span>((v[1]<span style="color:#ae81ff">-2</span>)^2<span style="color:#f92672">+</span>(v[2]<span style="color:#ae81ff">-3</span>)^2)
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">optimizer</span>(z,<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>))
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">z</span>(<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1.999945</span>,<span style="color:#ae81ff">2.999918</span>))
-</span></span></code></pre></div><p>위 코드를 실행시킨 결과는 다음과 같다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(numDeriv)
+ 
+optimizer<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(f,x0,alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.01</span>){
+  <span style="color:#a6e22e">while</span>(<span style="color:#a6e22e">abs</span>(<span style="color:#a6e22e">f</span>(x0))<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">10</span><span style="color:#a6e22e">^</span>(<span style="color:#ae81ff">-8</span>)){
+    x0<span style="color:#f92672">&lt;-</span>x0<span style="color:#f92672">-</span>alpha<span style="color:#f92672">*</span><span style="color:#a6e22e">grad</span>(f,x0)
+  }
+  <span style="color:#a6e22e">return</span>(x0)
+}
+ 
+z<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(v){
+  <span style="color:#a6e22e">return</span>((v[1]<span style="color:#ae81ff">-2</span>)^2<span style="color:#f92672">+</span>(v[2]<span style="color:#ae81ff">-3</span>)^2)
+}
+ 
+<span style="color:#a6e22e">optimizer</span>(z,<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>))
+<span style="color:#a6e22e">z</span>(<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1.999945</span>,<span style="color:#ae81ff">2.999918</span>))
+</code></pre></div><p>위 코드를 실행시킨 결과는 다음과 같다.</p>
 <p><img src="20190329_151329.png#center" alt="20190329\_151329.png"></p>
 <p>위 결과는 아주 간단한 예제로써 $z(x,y) = (x-2)^2 + (y-3)^2$ 이 최소값을 갖도록 하는 점을 찾아냈음을 보여준다. 다음과 같은 곡면에서 $z$ 가 최소가 되는 점은 $(2,3)$ 이다.</p>
 <p><img src="20190329_152428.png#center" alt="20190329\_152428.png"></p>
@@ -347,7 +347,7 @@
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Atkinson. (1989). An Introduction to Numerical Analysis(2nd Edition): p113.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Atkinson. (1989). An Introduction to Numerical Analysis(2nd Edition): p113. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -865,7 +865,7 @@
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2292)</summary>
+    <summary>전체 포스트 (2291)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
