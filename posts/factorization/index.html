@@ -123,7 +123,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/factorization\/",
-    "wordCount" : "1174",
+    "wordCount" : "1304",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -276,7 +276,7 @@
 <aside>
     factorization
     <p style="text-align: right;">
-         <a href="../2008">🎲</a>
+         <a href="../2139">🎲</a>
         775
 
     
@@ -296,7 +296,12 @@
   <ul>
     <li><a href="#정의">정의</a></li>
     <li><a href="#설명">설명</a></li>
-    <li><a href="#코드">코드</a></li>
+    <li><a href="#코드">코드</a>
+      <ul>
+        <li><a href="#r">R</a></li>
+        <li><a href="#줄리아">줄리아</a></li>
+      </ul>
+    </li>
     <li><a href="#같이보기">같이보기</a>
       <ul>
         <li><a href="#소인수분해-문제의-어려움을-이용한-보안-알고리즘">소인수분해 문제의 어려움을 이용한 보안 알고리즘</a></li>
@@ -319,8 +324,9 @@
 <p>컴퓨터가 발달하면서 곱셈은 아주 쉬운 일이 되어버렸지만, 그 무지막지한 계산능력으로도 소인수분해는 어려운 문제로 머물러 있다. 그러나 이러한 소인수분해 문제의 특징은 동시에 <a href="../911">암호의 필수적인 성질</a>이 되며, <a href="../911">이산로그 문제</a>의 약점을 극복하고 우리의 삶을 풍요롭게 만들어주었다.</p>
 <p>소인수분해를 빠르게 수행하는 방법으로는 양자 컴퓨터를 기반으로 한 <strong>쇼어 알고리즘</strong><sup>Shor Algorithm</sup>이 있으나, 양자 컴퓨터 상용화는 요원하기 때문에 소인수분해 문제의 어려움을 이용한 암호체계들은 당분간 현역에 머물러 있을 것으로 보인다.</p>
 <h2 id="코드">코드</h2>
+<h3 id="r">R</h3>
 <p>다음은 에라토스테네스의 체를 <a href="../../categories/r">R</a> 코드로 구현한 것이다. <a href="../1348">자연수</a> $n$ 이 주어지면 에라토스테네스의 체와 같은 방법으로 소수인지 아닌지 판별해준다. $n$ 과 같은 수가 반환되면 소수, $n$ 보다 작은 수가 반환되면 $n$ 의 <a href="../2137">약수</a> 중 가장 작은 수를 의미한다.</p>
-<pre><code>eratosthenes&lt;-function(n){
+<pre tabindex="0"><code>eratosthenes&lt;-function(n){
   residue&lt;-2:n
   while(n %in% residue){
     p&lt;-residue[1]
@@ -333,7 +339,47 @@ eratosthenes(101)
 eratosthenes(1517)
 </code></pre><p><img src="20190807_144554.png#center" alt="20190807\_144554.png">
 예로써 $101$ 은 소수기 때문에 $101$ 이 그대로 반환되며, $1517=37 \times 41$ 이므로 $37$ 이 반환된다.</p>
-<h2 id="같이보기">같이보기</h2>
+<h3 id="줄리아">줄리아</h3>
+<p>다음은 조금 더 효율적으로 구현된 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다.</p>
+<pre tabindex="0"><code>function factorize(n)
+    factors = []
+    while n &gt; 1
+        for k in 2:n
+            if n % k == 0
+                n ÷= k
+                push!(factors, k)
+            end
+        end
+    end
+    return factors
+end
+
+function eratosthenes(n::Integer)
+    if n == 1 return [[1]] end
+    if n == 2 return [[1], [2]] end
+    primes = [2]
+    factorized = [[1], [2]]
+    for k ∈ 3:n
+        m = k
+        for p ∈ primes
+            if m % p == 0
+                m ÷= p
+                temp = [p; factorized[m]]
+                push!(factorized, temp)
+                break
+            end
+        end
+        if length(factorized) != k
+            push!(primes, k)
+            push!(factorized, [k])
+        end
+    end
+    return factorized, primes
+end
+F, P = eratosthenes(20)
+F
+P
+</code></pre><h2 id="같이보기">같이보기</h2>
 <ul>
 <li><a href="../775">소인수분해</a></li>
 </ul>
@@ -861,7 +907,7 @@ eratosthenes(1517)
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2291)</summary>
+    <summary>전체 포스트 (2294)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -877,7 +923,7 @@ eratosthenes(1517)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (83)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (84)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
         </li><li>
@@ -911,7 +957,7 @@ eratosthenes(1517)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (38)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%B8%EC%9D%B4%EB%B2%84%EB%A9%94%ED%8A%B8%EB%A6%AD%EC%8A%A4/" style="color: black">세이버메트릭스 (2)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%B8%EC%9D%B4%EB%B2%84%EB%A9%94%ED%8A%B8%EB%A6%AD%EC%8A%A4/" style="color: black">세이버메트릭스 (3)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/" style="color: black">소볼레프공간 (11)</a>
         </li><li>
