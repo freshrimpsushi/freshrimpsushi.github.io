@@ -115,7 +115,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/time-dilation\/",
-    "wordCount" : "1229",
+    "wordCount" : "1205",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -269,7 +269,7 @@
 <aside>
     time dilation
     <p style="text-align: right;">
-         <a href="../1562">🎲</a>
+         <a href="../1497">🎲</a>
         75
 
     
@@ -304,11 +304,11 @@
 <h2 id="시간-지연">시간 지연</h2>
 <p>시간 지연이란 간단히 말하면 광속에 가깝게 운동하는 물체일수록 시간이 천천히(느리게) 흐르는 것이다. 시간축이 더 길어진다는 의미에서 시간 팽칭이라 하기고 한다.</p>
 <p><img src="21.jpg#center" alt="21.jpg"></p>
-<p>$A$계와 $A$계를 기준으로 $x$방향으로 $v_{0}$의 속도로 등속운동하는 $A&rsquo;$계가 있다고 하자. $A$계에서 정지해있는 물체의 world line은 아래와 같다.</p>
+<p>$A$계와 $A$계를 기준으로 $x$방향으로 $v_{0}$의 속도로 등속운동하는 $A'$계가 있다고 하자. $A$계에서 정지해있는 물체의 world line은 아래와 같다.</p>
 <p><img src="31.jpg#center" alt="31.jpg"></p>
 <p><img src="41.jpg#center" alt="41.jpg"></p>
-<p>하나의 사건이 시작됐다가 끝나는데 움직이는 계$(A&rsquo;$계$)$에서 바라봤을 때 더 오래 걸린다. 즉 시간이 천천히 흐른다는 것을 알 수 있다. 이 때 정지한 계와 비교했을 때 $\gamma_{0}$배만큼 시간이 늘어나고 $\gamma_{0}$는 $A&rsquo;$계의 속도 $v_{0}$에 의존한다. 빠르게 움직이면 움직일수록 $\gamma_{0}$값이 커져 시간이 점점 느리게 간다.</p>
-<p>혹성탈출이나 인터스텔라에 나오는 지구와 우주선에서 서로 나이를 다르게 먹는 현상이 바로 이것이다. 길이 수축과 마찬가지로 $A&rsquo;$계가 움직이지 않는 방향(수직한 방향)으로는 시간 지연이 일어나지 않는다. 혹시 궁금하다면 좌표를 다르게 해놓고 직접 계산해보라. 항상 이동방향과 나란한 방향으로만 동시성이 깨지고 시간지연, 길이수축이 일어난다.</p>
+<p>하나의 사건이 시작됐다가 끝나는데 움직이는 계$(A'$계$)$에서 바라봤을 때 더 오래 걸린다. 즉 시간이 천천히 흐른다는 것을 알 수 있다. 이 때 정지한 계와 비교했을 때 $\gamma_{0}$배만큼 시간이 늘어나고 $\gamma_{0}$는 $A'$계의 속도 $v_{0}$에 의존한다. 빠르게 움직이면 움직일수록 $\gamma_{0}$값이 커져 시간이 점점 느리게 간다.</p>
+<p>혹성탈출이나 인터스텔라에 나오는 지구와 우주선에서 서로 나이를 다르게 먹는 현상이 바로 이것이다. 길이 수축과 마찬가지로 $A'$계가 움직이지 않는 방향(수직한 방향)으로는 시간 지연이 일어나지 않는다. 혹시 궁금하다면 좌표를 다르게 해놓고 직접 계산해보라. 항상 이동방향과 나란한 방향으로만 동시성이 깨지고 시간지연, 길이수축이 일어난다.</p>
 <h2 id="사고-실험">사고 실험</h2>
 <p>시간지연 현상을 확인할 수 있는 가장 대표적인 실험이다. 빛의 속도는 일정하므로 상수 $c$라고 표시하자.</p>
 <p><img src="1.png#center" alt="1.png"></p>
@@ -385,7 +385,7 @@ $$</p>
     <div class="write-button">
         <input class="write_comment" type="submit" name="submit" value="등록">
     </div>
-    <aside align="middle">댓글에도 $\TeX$이 적용됩니다.</aside>
+    <aside style="text-align: center;">댓글에도 $\TeX$이 적용됩니다.</aside>
 </div>
 
 
@@ -587,7 +587,9 @@ $$</p>
                     str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['cmt_idx'] + ")'>삭제</div>";
                     str += "</div>";
                     str += "</div>";
-                    str += "<div class='content-text'>" + rows[i]['content'] + "</div>";
+                    let content = rows[i]['content'];
+                    content = content.replace(/\n/g, '<br />');
+                    str += "<div class='content-text'>" + content + "</div>";
                     str += "<div class='re-comment'><span class='re-comment-button' onclick='re_comment(" + rows[i]['cmt_idx'] + ")'>답글</span></div>";
                     str += "</li>";
                     list_reply.append(str);
@@ -604,7 +606,9 @@ $$</p>
                         str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['child'][j]['cmt_idx'] + ")'>삭제</div>";
                         str += "</div>";
                         str += "</div>";
-                        str += "<div class='content-text'>" + rows[i]['child'][j]['content'] + "</div>";
+                        let content = rows[i]['child'][j]['content'];
+                        content = content.replace(/\n/g, '<br />');
+                        str += "<div class='content-text'>" + content + "</div>";
                         str += "</li>";
                         list_reply.append(str);
                         str = "";
@@ -867,7 +871,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (85)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (86)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
         </li><li>
@@ -976,67 +980,47 @@ $$</p>
 </aside>
 
 <aside>
-    <p><b>최근 댓글</b></p>
-    <ul class="current-reply">
-        
-    </ul>
+  <p><b>최근 댓글</b></p>
+  <div class="current-reply">
+  </div>
 </aside>
 
 <script>
-    $(document).ready(function() {
-        
+  const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/recent_comment.php?action=getCurrentComment';
+  let recentRows = []; 
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      if (data.ok) {
+        recentRows = data.rows;
+        render_recent_comment(recentRows);
+      }
+    })
+    .catch(err => console.error(err));
 
-        $.ajax({
-            type: "POST",
-            url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.recent_comment.php?action=currentComment",
-            data: {},
-            dataType: "json",
-            success: function(data) {
-                var rows = data['rows'];
-                var ul_currnet_list = $('.current-reply');
-                var str = "";
-                 
-                for(var i = 0; i < rows.length; i++) {
-                    if(rows[i]['board_idx'] > -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else if(rows[i]['board_idx'] == -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    str += "<b> - " + rows[i]['author'] + "</b>: ";
-                    str += "" + rows[i]['content'] + "";
-                    str += "</a></li>";
-                    ul_currnet_list.append(str);
-                    str = "";
-                }
-                renderMathInElement(document.body, {
-                    
-                    
-                    delimiters: [
-                        {left: '$$', right: '$$', display: true},
-                        {left: '$', right: '$', display: false},
-                    ],
-                    trust: ["\\htmlId"],
-                    macros: {
-                    "\\eqref": "\\href{###1}{(\\text{#1})}",
-                    "\\ref": "\\href{###1}{\\text{#1}}",
-                    "\\label": "\\htmlId{#1}{}"
-                    },
-                    
-                    throwOnError : false
-                });
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
-            }
-        });
+  
+  function render_recent_comment(rows) {
+    const currentReply = document.querySelector('.current-reply');
+    let html = '';
+    rows.map(row => {
+      let link = 'https:\/\/freshrimpsushi.github.io';
+      if (row.board_idx > -1) {
+        link += `/posts/${row.board_slug}#comment${row.cmt_idx}`;
+      } else if (row.board_idx == -1) {
+        link += `#comment${row.cmt_idx}`;
+      } else {
+        link += `/categories/${row.board_title}#comment${row.cmt_idx}`;
+      }
+      html += `<div class="current-reply-list">`;
+      html += `<a href="${link}">`;
+      html += `<b> - ${row.author}</b>: `;
+      html += `${row.content}`;
+      html += `</a>`;
+      html += `</div>`;
     });
+    currentReply.innerHTML = html;
+    renderKaTex(currentReply);
+  }
 </script>
 
 <aside>
@@ -1079,6 +1063,7 @@ $$</p>
               {left: '$', right: '$', display: false},
           ],
 		  trust: true,
+		  diplayMode: true,
 		  trust: (context) => ['\\htmlId', '\\href', '\\includegraphics'].includes(context.command),
 		  macros: {
 		  "\\eqref": "\\href{###1}{(\\text{#1})}",
@@ -1118,6 +1103,8 @@ $$</p>
 
     
     
+    
+    <script src=https://freshrimpsushi.github.io/js/common.js></script>
     
     </aside>
 </footer>

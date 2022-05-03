@@ -268,7 +268,7 @@
 <aside>
     How to Compile c Code using gcc in linux
     <p style="text-align: right;">
-         <a href="../1241">🎲</a>
+         <a href="../1801">🎲</a>
         1653
 
     
@@ -294,9 +294,9 @@
 <h2 id="가이드">가이드</h2>
 <p>보통 C/C++을 이용한 프로그램 개발은 윈도우에서 비주얼 스튜디오를 쓰는 것이 권장되나, 간단한 테스트나 수치계산, 시뮬레이션 등을 리눅스로 진행할 때는 리눅스 특유의 가벼움이 큰 장점으로 다가올 때가 있다.</p>
 <p>가령 <code>infection\_modified\_200428.c</code>이라는 c 소스코드가 있다면, 터미널에서 해당 경로로 이동한 뒤 다음과 같이 입력해보자.</p>
-<pre tabindex="0"><code>gcc -o infection infection\_modified\_200428.c -lm
+<pre><code>gcc -o infection infection\_modified\_200428.c -lm
 </code></pre><p>그러면 같은 경로에 <code>infection</code>이라는 실행 파일이 생기고, 다음과 같이 실행할 수 있다.</p>
-<pre tabindex="0"><code>./infection
+<pre><code>./infection
 </code></pre><p>gcc 명령어에서 <code>-o</code>는 output으로, 바로 뒤에 출력될 파일의 이름을 입력받는다. 공백 하나와 함께 그 다음에는 컴파일 할 소스코드의 정확한 파일명을 입력받는다.</p>
 <p>마지막에 있는 <code>-lm</code>은 (아마도) library math의 약자로써, 수학 라이브러리가 쓰였음을 알려주는 옵션이다. 주의해야할 것은 같은 명령어라도 <code>-lm</code>이 맨 뒤에 있지 않으면 컴파일이 되지 않는 경우가 왕왕 있다는 점이다.</p>
 
@@ -356,7 +356,7 @@
     <div class="write-button">
         <input class="write_comment" type="submit" name="submit" value="등록">
     </div>
-    <aside align="middle">댓글에도 $\TeX$이 적용됩니다.</aside>
+    <aside style="text-align: center;">댓글에도 $\TeX$이 적용됩니다.</aside>
 </div>
 
 
@@ -558,7 +558,9 @@
                     str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['cmt_idx'] + ")'>삭제</div>";
                     str += "</div>";
                     str += "</div>";
-                    str += "<div class='content-text'>" + rows[i]['content'] + "</div>";
+                    let content = rows[i]['content'];
+                    content = content.replace(/\n/g, '<br />');
+                    str += "<div class='content-text'>" + content + "</div>";
                     str += "<div class='re-comment'><span class='re-comment-button' onclick='re_comment(" + rows[i]['cmt_idx'] + ")'>답글</span></div>";
                     str += "</li>";
                     list_reply.append(str);
@@ -575,7 +577,9 @@
                         str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['child'][j]['cmt_idx'] + ")'>삭제</div>";
                         str += "</div>";
                         str += "</div>";
-                        str += "<div class='content-text'>" + rows[i]['child'][j]['content'] + "</div>";
+                        let content = rows[i]['child'][j]['content'];
+                        content = content.replace(/\n/g, '<br />');
+                        str += "<div class='content-text'>" + content + "</div>";
                         str += "</li>";
                         list_reply.append(str);
                         str = "";
@@ -838,7 +842,7 @@
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (85)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (86)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
         </li><li>
@@ -947,67 +951,47 @@
 </aside>
 
 <aside>
-    <p><b>최근 댓글</b></p>
-    <ul class="current-reply">
-        
-    </ul>
+  <p><b>최근 댓글</b></p>
+  <div class="current-reply">
+  </div>
 </aside>
 
 <script>
-    $(document).ready(function() {
-        
+  const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/recent_comment.php?action=getCurrentComment';
+  let recentRows = []; 
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      if (data.ok) {
+        recentRows = data.rows;
+        render_recent_comment(recentRows);
+      }
+    })
+    .catch(err => console.error(err));
 
-        $.ajax({
-            type: "POST",
-            url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.recent_comment.php?action=currentComment",
-            data: {},
-            dataType: "json",
-            success: function(data) {
-                var rows = data['rows'];
-                var ul_currnet_list = $('.current-reply');
-                var str = "";
-                 
-                for(var i = 0; i < rows.length; i++) {
-                    if(rows[i]['board_idx'] > -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else if(rows[i]['board_idx'] == -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    str += "<b> - " + rows[i]['author'] + "</b>: ";
-                    str += "" + rows[i]['content'] + "";
-                    str += "</a></li>";
-                    ul_currnet_list.append(str);
-                    str = "";
-                }
-                renderMathInElement(document.body, {
-                    
-                    
-                    delimiters: [
-                        {left: '$$', right: '$$', display: true},
-                        {left: '$', right: '$', display: false},
-                    ],
-                    trust: ["\\htmlId"],
-                    macros: {
-                    "\\eqref": "\\href{###1}{(\\text{#1})}",
-                    "\\ref": "\\href{###1}{\\text{#1}}",
-                    "\\label": "\\htmlId{#1}{}"
-                    },
-                    
-                    throwOnError : false
-                });
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
-            }
-        });
+  
+  function render_recent_comment(rows) {
+    const currentReply = document.querySelector('.current-reply');
+    let html = '';
+    rows.map(row => {
+      let link = 'https:\/\/freshrimpsushi.github.io';
+      if (row.board_idx > -1) {
+        link += `/posts/${row.board_slug}#comment${row.cmt_idx}`;
+      } else if (row.board_idx == -1) {
+        link += `#comment${row.cmt_idx}`;
+      } else {
+        link += `/categories/${row.board_title}#comment${row.cmt_idx}`;
+      }
+      html += `<div class="current-reply-list">`;
+      html += `<a href="${link}">`;
+      html += `<b> - ${row.author}</b>: `;
+      html += `${row.content}`;
+      html += `</a>`;
+      html += `</div>`;
     });
+    currentReply.innerHTML = html;
+    renderKaTex(currentReply);
+  }
 </script>
 
 <aside>
@@ -1050,6 +1034,7 @@
               {left: '$', right: '$', display: false},
           ],
 		  trust: true,
+		  diplayMode: true,
 		  trust: (context) => ['\\htmlId', '\\href', '\\includegraphics'].includes(context.command),
 		  macros: {
 		  "\\eqref": "\\href{###1}{(\\text{#1})}",
@@ -1089,6 +1074,8 @@
 
     
     
+    
+    <script src=https://freshrimpsushi.github.io/js/common.js></script>
     
     </aside>
 </footer>

@@ -268,7 +268,7 @@
 <aside>
     Chebyshev Polynomial of the second kind
     <p style="text-align: right;">
-         <a href="../1475">🎲</a>
+         <a href="../1156">🎲</a>
         779
 
     
@@ -311,7 +311,7 @@
 </aside>
 
 <h2 id="정의">정의</h2>
-<p>$$U_{n} (x) := {{1} \over {n+1} } T_{n+1} &rsquo; (x)  = {{\sin \left( ( n +1 ) \theta \right)} \over { \sin \theta }}
+<p>$$U_{n} (x) := {{1} \over {n+1} } T_{n+1} ' (x)  = {{\sin \left( ( n +1 ) \theta \right)} \over { \sin \theta }}
 $$
 을 <strong>제2종 체비셰프 다항함수</strong>라 한다.</p>
 <h2 id="기초-성질">기초 성질</h2>
@@ -354,10 +354,10 @@ U_{0} (x) =&amp; 1
 \end{align*}
 $$</p>
 <p>$T_{n} (X)$ 은 <a href="../777">제1종 체비셰프 다항함수</a>다.</p>
-<p>$\displaystyle {{1} \over {n+1} } T_{n+1} &rsquo; (x)  = {{\sin \left( ( n +1 ) \theta \right)} \over { \sin \theta }}$ 임을 보이는건 다음과 같이 <a href="../167">역삼각함수의 미분법</a>을 사용하면 된다.
+<p>$\displaystyle {{1} \over {n+1} } T_{n+1} ' (x)  = {{\sin \left( ( n +1 ) \theta \right)} \over { \sin \theta }}$ 임을 보이는건 다음과 같이 <a href="../167">역삼각함수의 미분법</a>을 사용하면 된다.
 $$
 \begin{align*}
-\displaystyle U_{n} (x) =&amp; {{1} \over {n+1} } \left[ \cos \left( ( n +1 ) \cos^{-1} x \right)  \right]&rsquo; 
+\displaystyle U_{n} (x) =&amp; {{1} \over {n+1} } \left[ \cos \left( ( n +1 ) \cos^{-1} x \right)  \right]' 
 \\ &amp;= {{n+1} \over {n+1} } {{ - 1} \over { \sqrt{ 1 - x^{2} } }} \left[ - \sin \left( ( n +1 ) \cos^{-1} x \right)  \right] 
 \\ =&amp; {{\sin \left( ( n +1 ) \cos^{-1} x \right)} \over { \sqrt{ 1 - x^{2} } }} 
 \\ =&amp; {{ \sin \left( (n+1) \theta \right) } \over {\sin \theta }} 
@@ -369,9 +369,9 @@ $$
 <h3 id="0">[0]</h3>
 <p>제1종 체비셰프 다항함수의 재귀식 $T_{n+1} (x) = 2x T_{n} (x) - T_{n-1} (X)$ 의 양변을 미분하면
 $$
-T_{n+1}&rsquo; (x) = 2 T_{n} (x) + 2x T_{n}&rsquo; (x) - T_{n-1}&rsquo; (x) 
+T_{n+1}' (x) = 2 T_{n} (x) + 2x T_{n}' (x) - T_{n-1}' (x) 
 $$
-$T_{n+1}&rsquo; (x) = ( n+1 ) U_{n} (x) $ 이므로
+$T_{n+1}' (x) = ( n+1 ) U_{n} (x) $ 이므로
 $$
 (n+1) U_{n} (x) = 2 T_{n} (x) + 2x n U_{n-1} (x) - (n-1) U_{n-2} (x) 
 $$
@@ -429,12 +429,12 @@ $$</p>
 <p>다항함수 자체를 반환해주므로 바로 계산에 사용할 수도 있다. <code>n</code>은 차수, <code>kind</code>로 종류를 주고 <code>print</code> 옵션을 참으로 주면 계수를 출력해준다.</p>
 <p><img src="20181120_130322.png#center" alt="20181120\_130322.png"></p>
 <p>출력되는 계수는 상수항부터 고차항순으로 출력되며, 제2종 체비셰프 다항함수는 $U_{3} (x) = 8x^{3} - 4x$ 이므로 제대로 구해졌음을 알 수 있다. 함숫값 역시 $U_{3} (3) = 8 \cdot 3^{3} - 4 \cdot 3 = 216-12 = 204$ 로 정확하게 계산되었다.</p>
-<pre tabindex="0"><code>Chebyshev&lt;-function(n,kind=1,print=F)
+<pre><code>Chebyshev&lt;-function(n,kind=1,print=F)
 {
   p&lt;-NA
   
-  if((round(n)-n)!=0 | n&lt;0) {stop(&#34;Wrong Degree!!&#34;)} #degree must be nonnegative integer
-  if(!kind%in%(1:2)) {stop(&#34;Wrong Kind!!&#34;)} #kind must be 1 or 2
+  if((round(n)-n)!=0 | n&lt;0) {stop(&quot;Wrong Degree!!&quot;)} #degree must be nonnegative integer
+  if(!kind%in%(1:2)) {stop(&quot;Wrong Kind!!&quot;)} #kind must be 1 or 2
   
   if(n==0)
   {
@@ -527,7 +527,7 @@ p&lt;-Chebyshev(3,2,T); p(3)
     <div class="write-button">
         <input class="write_comment" type="submit" name="submit" value="등록">
     </div>
-    <aside align="middle">댓글에도 $\TeX$이 적용됩니다.</aside>
+    <aside style="text-align: center;">댓글에도 $\TeX$이 적용됩니다.</aside>
 </div>
 
 
@@ -729,7 +729,9 @@ p&lt;-Chebyshev(3,2,T); p(3)
                     str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['cmt_idx'] + ")'>삭제</div>";
                     str += "</div>";
                     str += "</div>";
-                    str += "<div class='content-text'>" + rows[i]['content'] + "</div>";
+                    let content = rows[i]['content'];
+                    content = content.replace(/\n/g, '<br />');
+                    str += "<div class='content-text'>" + content + "</div>";
                     str += "<div class='re-comment'><span class='re-comment-button' onclick='re_comment(" + rows[i]['cmt_idx'] + ")'>답글</span></div>";
                     str += "</li>";
                     list_reply.append(str);
@@ -746,7 +748,9 @@ p&lt;-Chebyshev(3,2,T); p(3)
                         str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['child'][j]['cmt_idx'] + ")'>삭제</div>";
                         str += "</div>";
                         str += "</div>";
-                        str += "<div class='content-text'>" + rows[i]['child'][j]['content'] + "</div>";
+                        let content = rows[i]['child'][j]['content'];
+                        content = content.replace(/\n/g, '<br />');
+                        str += "<div class='content-text'>" + content + "</div>";
                         str += "</li>";
                         list_reply.append(str);
                         str = "";
@@ -1009,7 +1013,7 @@ p&lt;-Chebyshev(3,2,T); p(3)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (85)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (86)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
         </li><li>
@@ -1118,67 +1122,47 @@ p&lt;-Chebyshev(3,2,T); p(3)
 </aside>
 
 <aside>
-    <p><b>최근 댓글</b></p>
-    <ul class="current-reply">
-        
-    </ul>
+  <p><b>최근 댓글</b></p>
+  <div class="current-reply">
+  </div>
 </aside>
 
 <script>
-    $(document).ready(function() {
-        
+  const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/recent_comment.php?action=getCurrentComment';
+  let recentRows = []; 
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      if (data.ok) {
+        recentRows = data.rows;
+        render_recent_comment(recentRows);
+      }
+    })
+    .catch(err => console.error(err));
 
-        $.ajax({
-            type: "POST",
-            url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.recent_comment.php?action=currentComment",
-            data: {},
-            dataType: "json",
-            success: function(data) {
-                var rows = data['rows'];
-                var ul_currnet_list = $('.current-reply');
-                var str = "";
-                 
-                for(var i = 0; i < rows.length; i++) {
-                    if(rows[i]['board_idx'] > -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else if(rows[i]['board_idx'] == -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    str += "<b> - " + rows[i]['author'] + "</b>: ";
-                    str += "" + rows[i]['content'] + "";
-                    str += "</a></li>";
-                    ul_currnet_list.append(str);
-                    str = "";
-                }
-                renderMathInElement(document.body, {
-                    
-                    
-                    delimiters: [
-                        {left: '$$', right: '$$', display: true},
-                        {left: '$', right: '$', display: false},
-                    ],
-                    trust: ["\\htmlId"],
-                    macros: {
-                    "\\eqref": "\\href{###1}{(\\text{#1})}",
-                    "\\ref": "\\href{###1}{\\text{#1}}",
-                    "\\label": "\\htmlId{#1}{}"
-                    },
-                    
-                    throwOnError : false
-                });
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
-            }
-        });
+  
+  function render_recent_comment(rows) {
+    const currentReply = document.querySelector('.current-reply');
+    let html = '';
+    rows.map(row => {
+      let link = 'https:\/\/freshrimpsushi.github.io';
+      if (row.board_idx > -1) {
+        link += `/posts/${row.board_slug}#comment${row.cmt_idx}`;
+      } else if (row.board_idx == -1) {
+        link += `#comment${row.cmt_idx}`;
+      } else {
+        link += `/categories/${row.board_title}#comment${row.cmt_idx}`;
+      }
+      html += `<div class="current-reply-list">`;
+      html += `<a href="${link}">`;
+      html += `<b> - ${row.author}</b>: `;
+      html += `${row.content}`;
+      html += `</a>`;
+      html += `</div>`;
     });
+    currentReply.innerHTML = html;
+    renderKaTex(currentReply);
+  }
 </script>
 
 <aside>
@@ -1221,6 +1205,7 @@ p&lt;-Chebyshev(3,2,T); p(3)
               {left: '$', right: '$', display: false},
           ],
 		  trust: true,
+		  diplayMode: true,
 		  trust: (context) => ['\\htmlId', '\\href', '\\includegraphics'].includes(context.command),
 		  macros: {
 		  "\\eqref": "\\href{###1}{(\\text{#1})}",
@@ -1264,6 +1249,8 @@ p&lt;-Chebyshev(3,2,T); p(3)
         <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
         <script>hljs.initHighlightingOnLoad();</script>
     
+    
+    <script src=https://freshrimpsushi.github.io/js/common.js></script>
     
     </aside>
 </footer>

@@ -268,7 +268,7 @@
 <aside>
     How to Plot on Heatmap in Julia
     <p style="text-align: right;">
-         <a href="../1016">🎲</a>
+         <a href="../1695">🎲</a>
         3213
 
     
@@ -294,7 +294,7 @@
 
 <h2 id="코드">코드</h2>
 <p>우리가 $(5,5)$ 배열의 히트맵 위에 $0$부터 $2\pi$까지의 사인 곡선을 그리고 싶다고 하자. 다음과 같은 코드로 짜고 싶겠지만 그림에서 보이듯 원하는 대로 출력되지 않는다.</p>
-<pre tabindex="0"><code>using Plots
+<pre><code>using Plots
 
 A = rand(Bool, 5,5)
 heatmap(A, color=:greens)
@@ -304,14 +304,14 @@ y = sin.(x)
 plot!(x, y, color=:red, width=3)
 </code></pre><p><img src="1.png#center" alt="1.png"></p>
 <p>이는 배열 $A$의 가로, 세로의 범위가 $1$에서 $5$까지로 인식되기 때문이다. 이를 해결하기 위해 아래과 같은 코드로 $A$의 가로, 세로 범위가 각각 어디부터 어디까지인지 지정해주면 된다. 참고로 배열 $A$의 범위를 지정하지 않고, 히트맵이 보여지는 범위만 지정하면 아래의 (나)처럼 출력된다.</p>
-<pre tabindex="0"><code>xₐ = range(0,2pi, length=5)
+<pre><code>xₐ = range(0,2pi, length=5)
 yₐ = range(-1.5,1.5, length=5)
 
 p1 = heatmap(xₐ, yₐ, A, color=:greens, xlims=(0,2pi), ylims=(-1.5,1.5)) #그림 (가)
 p2 = heatmap(A, color=:greens, xlims=(0,2pi), ylims=(-1.5,1.5)) #그림 (나)
 </code></pre><p><img src="2.png#center" alt="2.png"></p>
 <p>이제 <code>p1</code> 위에 사인 곡선을 다시 그리면 원하는대로 제대로 그려진다.</p>
-<pre tabindex="0"><code>plot!(x, y, color=:red, width=3)
+<pre><code>plot!(x, y, color=:red, width=3)
 </code></pre><p><img src="3.png#center" alt="3.png"></p>
 <h2 id="환경">환경</h2>
 <ul>
@@ -375,7 +375,7 @@ p2 = heatmap(A, color=:greens, xlims=(0,2pi), ylims=(-1.5,1.5)) #그림 (나)
     <div class="write-button">
         <input class="write_comment" type="submit" name="submit" value="등록">
     </div>
-    <aside align="middle">댓글에도 $\TeX$이 적용됩니다.</aside>
+    <aside style="text-align: center;">댓글에도 $\TeX$이 적용됩니다.</aside>
 </div>
 
 
@@ -577,7 +577,9 @@ p2 = heatmap(A, color=:greens, xlims=(0,2pi), ylims=(-1.5,1.5)) #그림 (나)
                     str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['cmt_idx'] + ")'>삭제</div>";
                     str += "</div>";
                     str += "</div>";
-                    str += "<div class='content-text'>" + rows[i]['content'] + "</div>";
+                    let content = rows[i]['content'];
+                    content = content.replace(/\n/g, '<br />');
+                    str += "<div class='content-text'>" + content + "</div>";
                     str += "<div class='re-comment'><span class='re-comment-button' onclick='re_comment(" + rows[i]['cmt_idx'] + ")'>답글</span></div>";
                     str += "</li>";
                     list_reply.append(str);
@@ -594,7 +596,9 @@ p2 = heatmap(A, color=:greens, xlims=(0,2pi), ylims=(-1.5,1.5)) #그림 (나)
                         str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['child'][j]['cmt_idx'] + ")'>삭제</div>";
                         str += "</div>";
                         str += "</div>";
-                        str += "<div class='content-text'>" + rows[i]['child'][j]['content'] + "</div>";
+                        let content = rows[i]['child'][j]['content'];
+                        content = content.replace(/\n/g, '<br />');
+                        str += "<div class='content-text'>" + content + "</div>";
                         str += "</li>";
                         list_reply.append(str);
                         str = "";
@@ -857,7 +861,7 @@ p2 = heatmap(A, color=:greens, xlims=(0,2pi), ylims=(-1.5,1.5)) #그림 (나)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (85)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (86)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
         </li><li>
@@ -966,67 +970,47 @@ p2 = heatmap(A, color=:greens, xlims=(0,2pi), ylims=(-1.5,1.5)) #그림 (나)
 </aside>
 
 <aside>
-    <p><b>최근 댓글</b></p>
-    <ul class="current-reply">
-        
-    </ul>
+  <p><b>최근 댓글</b></p>
+  <div class="current-reply">
+  </div>
 </aside>
 
 <script>
-    $(document).ready(function() {
-        
+  const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/recent_comment.php?action=getCurrentComment';
+  let recentRows = []; 
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      if (data.ok) {
+        recentRows = data.rows;
+        render_recent_comment(recentRows);
+      }
+    })
+    .catch(err => console.error(err));
 
-        $.ajax({
-            type: "POST",
-            url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.recent_comment.php?action=currentComment",
-            data: {},
-            dataType: "json",
-            success: function(data) {
-                var rows = data['rows'];
-                var ul_currnet_list = $('.current-reply');
-                var str = "";
-                 
-                for(var i = 0; i < rows.length; i++) {
-                    if(rows[i]['board_idx'] > -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else if(rows[i]['board_idx'] == -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    str += "<b> - " + rows[i]['author'] + "</b>: ";
-                    str += "" + rows[i]['content'] + "";
-                    str += "</a></li>";
-                    ul_currnet_list.append(str);
-                    str = "";
-                }
-                renderMathInElement(document.body, {
-                    
-                    
-                    delimiters: [
-                        {left: '$$', right: '$$', display: true},
-                        {left: '$', right: '$', display: false},
-                    ],
-                    trust: ["\\htmlId"],
-                    macros: {
-                    "\\eqref": "\\href{###1}{(\\text{#1})}",
-                    "\\ref": "\\href{###1}{\\text{#1}}",
-                    "\\label": "\\htmlId{#1}{}"
-                    },
-                    
-                    throwOnError : false
-                });
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
-            }
-        });
+  
+  function render_recent_comment(rows) {
+    const currentReply = document.querySelector('.current-reply');
+    let html = '';
+    rows.map(row => {
+      let link = 'https:\/\/freshrimpsushi.github.io';
+      if (row.board_idx > -1) {
+        link += `/posts/${row.board_slug}#comment${row.cmt_idx}`;
+      } else if (row.board_idx == -1) {
+        link += `#comment${row.cmt_idx}`;
+      } else {
+        link += `/categories/${row.board_title}#comment${row.cmt_idx}`;
+      }
+      html += `<div class="current-reply-list">`;
+      html += `<a href="${link}">`;
+      html += `<b> - ${row.author}</b>: `;
+      html += `${row.content}`;
+      html += `</a>`;
+      html += `</div>`;
     });
+    currentReply.innerHTML = html;
+    renderKaTex(currentReply);
+  }
 </script>
 
 <aside>
@@ -1069,6 +1053,7 @@ p2 = heatmap(A, color=:greens, xlims=(0,2pi), ylims=(-1.5,1.5)) #그림 (나)
               {left: '$', right: '$', display: false},
           ],
 		  trust: true,
+		  diplayMode: true,
 		  trust: (context) => ['\\htmlId', '\\href', '\\includegraphics'].includes(context.command),
 		  macros: {
 		  "\\eqref": "\\href{###1}{(\\text{#1})}",
@@ -1112,6 +1097,8 @@ p2 = heatmap(A, color=:greens, xlims=(0,2pi), ylims=(-1.5,1.5)) #그림 (나)
         <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
         <script>hljs.initHighlightingOnLoad();</script>
     
+    
+    <script src=https://freshrimpsushi.github.io/js/common.js></script>
     
     </aside>
 </footer>

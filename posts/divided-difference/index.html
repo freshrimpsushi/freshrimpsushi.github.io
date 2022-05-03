@@ -115,7 +115,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/divided-difference\/",
-    "wordCount" : "1811",
+    "wordCount" : "1805",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -268,7 +268,7 @@
 <aside>
     Divided Difference
     <p style="text-align: right;">
-         <a href="../572">🎲</a>
+         <a href="../859">🎲</a>
         969
 
     
@@ -320,10 +320,10 @@ $$</p>
 <ul>
 <li>[1]: $f [ x_{0} , \cdots , x_{n} ]$ 는 $x_{0} , \cdots , x_{n}$ 의 순서와 상관 없이 항상 같다.</li>
 <li>[2]: $$f [ x_{0} , \cdots , x_{n} ] = \sum_{i=0}^{n} {{ f( x_{i} ) } \over { \prod_{j \in \left\{ 0 , \cdots , n \right\} \setminus \left\{ i \right\} } ( x_{i} - x_{j} ) }}$$</li>
-<li>[3]: 다음을 만족하는 $\xi$ 가 $\mathscr{H} \left\{ x_{0} , x_{1} \right\}$ 에 존재한다.$$f&rsquo; ( \xi ) = f [ x_0 , x_{1} ]$$</li>
+<li>[3]: 다음을 만족하는 $\xi$ 가 $\mathscr{H} \left\{ x_{0} , x_{1} \right\}$ 에 존재한다.$$f' ( \xi ) = f [ x_0 , x_{1} ]$$</li>
 <li>[4]: 다음을 만족하는 $\xi$ 가 $\mathscr{H} \left\{ x_{0} , \cdots , x_{n} \right\}$ 에 존재한다.$${{1} \over {n!}} f^{(n)} ( \xi ) =f [ x_{0} , \cdots , x_{n} ]$$</li>
-<li>[3]&rsquo;: $$f [ x_{i} , x_{i} ] = f ' ( x_{i} )$$</li>
-<li>[4]&rsquo;: $$f [ \underbrace{  x_{i} , \cdots , x_{i} }_{ n+1 } ] = {{1} \over {n!}} f^{(n)} ( x_{i} )$$</li>
+<li>[3]': $$f [ x_{i} , x_{i} ] = f ' ( x_{i} )$$</li>
+<li>[4]': $$f [ \underbrace{  x_{i} , \cdots , x_{i} }_{ n+1 } ] = {{1} \over {n!}} f^{(n)} ( x_{i} )$$</li>
 </ul>
 <hr>
 <ul>
@@ -359,7 +359,7 @@ $$
 계차상은 물론 유한한 벡터에 대해서 늘 구할 수 있지만 보통은 위와 같이 $n=2$ 까지만 사용하며, 그 외엔 쓸 일이 거의 없다.</p>
 <h3 id="구현">구현</h3>
 <p>다음은 계차상을 <a href="../../categories/r">R</a> 코드로 구현한 것으로써, 함수 $f$ 와 벡터 $\mathbb{x} = ( x_{0} , \cdots , x_{n} )$ 을 받아 $f [ x_{0} , \cdots , x_{n} ]$ 을 반환한다.</p>
-<pre tabindex="0"><code>f&lt;-function(x) {x^2 + 1}
+<pre><code>f&lt;-function(x) {x^2 + 1}
 dd&lt;-function(f,X){
   if(length(X)==1) {return(f(X))}
   temp&lt;-numeric(0)
@@ -383,13 +383,13 @@ $$
 \Psi&rsquo;_{n} (x_{j}) := (x-x_{0}) \cdots (x - x_{j-1})(x - x_{j+1}) \cdots (x - x_{n})
 $$</p>
 <p>$$
-\implies {{ \Psi(x)_{n} } \over { (x - x_{j}) \Psi&rsquo;_{n}(x_{j}) }} \equiv {{ (x - x_{0} ) \cdots  (x - x_{j-1} ) (x - x_{j+1} ) \cdots (x - x_{n} ) } \over { (x_{j} - x_{0} ) \cdots  (x_{j} - x_{j-1} ) (x_{j} - x_{j+1} ) \cdots (x_{j} - x_{n} ) }} = l_{j} (x) 
+\implies {{ \Psi(x)_{n} } \over { (x - x_{j}) \Psi'_{n}(x_{j}) }} \equiv {{ (x - x_{0} ) \cdots  (x - x_{j-1} ) (x - x_{j+1} ) \cdots (x - x_{n} ) } \over { (x_{j} - x_{0} ) \cdots  (x_{j} - x_{j-1} ) (x_{j} - x_{j+1} ) \cdots (x_{j} - x_{n} ) }} = l_{j} (x) 
 $$
 <a href="../1023">라그랑주 공식</a>에 따르면 $f$ 의 <a href="../1021">폴리노미얼 인터폴레이션</a>은
 $$
-p_{n} (x) = \sum_{j=0}^{n} {{ \Psi_{n} (x) } \over { (x - x_{j}) \Psi&rsquo;_{n} (x_{j}) }} \cdot f( x_{j}) 
+p_{n} (x) = \sum_{j=0}^{n} {{ \Psi_{n} (x) } \over { (x - x_{j}) \Psi'_{n} (x_{j}) }} \cdot f( x_{j}) 
 $$
-따라서 $p_{n}$ 의 최고차항의 계수는 $\displaystyle \sum_{j=0}^{n} {{ f( x_{j}) } \over { \Psi&rsquo;_{n} (x_{j}) }}$ 인데, <a href="../1025">뉴턴 계차상 공식</a>에서 $p_{n}$ 의 최고차항의 계수는 $f [x_{0} , \cdots , x_{n} ]$ 이므로
+따라서 $p_{n}$ 의 최고차항의 계수는 $\displaystyle \sum_{j=0}^{n} {{ f( x_{j}) } \over { \Psi'_{n} (x_{j}) }}$ 인데, <a href="../1025">뉴턴 계차상 공식</a>에서 $p_{n}$ 의 최고차항의 계수는 $f [x_{0} , \cdots , x_{n} ]$ 이므로
 $$
 f [ x_{0} , \cdots , x_{n} ] = \sum_{i=0}^{n} {{ f( x_{i} ) } \over { \displaystyle \prod_{j \in \left\{ 0 , \cdots , n \right\} \setminus \left\{ i \right\} } ( x_{i} - x_{j} ) }}
 $$</p>
@@ -489,7 +489,7 @@ $$</p>
     <div class="write-button">
         <input class="write_comment" type="submit" name="submit" value="등록">
     </div>
-    <aside align="middle">댓글에도 $\TeX$이 적용됩니다.</aside>
+    <aside style="text-align: center;">댓글에도 $\TeX$이 적용됩니다.</aside>
 </div>
 
 
@@ -691,7 +691,9 @@ $$</p>
                     str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['cmt_idx'] + ")'>삭제</div>";
                     str += "</div>";
                     str += "</div>";
-                    str += "<div class='content-text'>" + rows[i]['content'] + "</div>";
+                    let content = rows[i]['content'];
+                    content = content.replace(/\n/g, '<br />');
+                    str += "<div class='content-text'>" + content + "</div>";
                     str += "<div class='re-comment'><span class='re-comment-button' onclick='re_comment(" + rows[i]['cmt_idx'] + ")'>답글</span></div>";
                     str += "</li>";
                     list_reply.append(str);
@@ -708,7 +710,9 @@ $$</p>
                         str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['child'][j]['cmt_idx'] + ")'>삭제</div>";
                         str += "</div>";
                         str += "</div>";
-                        str += "<div class='content-text'>" + rows[i]['child'][j]['content'] + "</div>";
+                        let content = rows[i]['child'][j]['content'];
+                        content = content.replace(/\n/g, '<br />');
+                        str += "<div class='content-text'>" + content + "</div>";
                         str += "</li>";
                         list_reply.append(str);
                         str = "";
@@ -971,7 +975,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (85)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (86)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
         </li><li>
@@ -1080,67 +1084,47 @@ $$</p>
 </aside>
 
 <aside>
-    <p><b>최근 댓글</b></p>
-    <ul class="current-reply">
-        
-    </ul>
+  <p><b>최근 댓글</b></p>
+  <div class="current-reply">
+  </div>
 </aside>
 
 <script>
-    $(document).ready(function() {
-        
+  const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/recent_comment.php?action=getCurrentComment';
+  let recentRows = []; 
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      if (data.ok) {
+        recentRows = data.rows;
+        render_recent_comment(recentRows);
+      }
+    })
+    .catch(err => console.error(err));
 
-        $.ajax({
-            type: "POST",
-            url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.recent_comment.php?action=currentComment",
-            data: {},
-            dataType: "json",
-            success: function(data) {
-                var rows = data['rows'];
-                var ul_currnet_list = $('.current-reply');
-                var str = "";
-                 
-                for(var i = 0; i < rows.length; i++) {
-                    if(rows[i]['board_idx'] > -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else if(rows[i]['board_idx'] == -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    str += "<b> - " + rows[i]['author'] + "</b>: ";
-                    str += "" + rows[i]['content'] + "";
-                    str += "</a></li>";
-                    ul_currnet_list.append(str);
-                    str = "";
-                }
-                renderMathInElement(document.body, {
-                    
-                    
-                    delimiters: [
-                        {left: '$$', right: '$$', display: true},
-                        {left: '$', right: '$', display: false},
-                    ],
-                    trust: ["\\htmlId"],
-                    macros: {
-                    "\\eqref": "\\href{###1}{(\\text{#1})}",
-                    "\\ref": "\\href{###1}{\\text{#1}}",
-                    "\\label": "\\htmlId{#1}{}"
-                    },
-                    
-                    throwOnError : false
-                });
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
-            }
-        });
+  
+  function render_recent_comment(rows) {
+    const currentReply = document.querySelector('.current-reply');
+    let html = '';
+    rows.map(row => {
+      let link = 'https:\/\/freshrimpsushi.github.io';
+      if (row.board_idx > -1) {
+        link += `/posts/${row.board_slug}#comment${row.cmt_idx}`;
+      } else if (row.board_idx == -1) {
+        link += `#comment${row.cmt_idx}`;
+      } else {
+        link += `/categories/${row.board_title}#comment${row.cmt_idx}`;
+      }
+      html += `<div class="current-reply-list">`;
+      html += `<a href="${link}">`;
+      html += `<b> - ${row.author}</b>: `;
+      html += `${row.content}`;
+      html += `</a>`;
+      html += `</div>`;
     });
+    currentReply.innerHTML = html;
+    renderKaTex(currentReply);
+  }
 </script>
 
 <aside>
@@ -1183,6 +1167,7 @@ $$</p>
               {left: '$', right: '$', display: false},
           ],
 		  trust: true,
+		  diplayMode: true,
 		  trust: (context) => ['\\htmlId', '\\href', '\\includegraphics'].includes(context.command),
 		  macros: {
 		  "\\eqref": "\\href{###1}{(\\text{#1})}",
@@ -1226,6 +1211,8 @@ $$</p>
         <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
         <script>hljs.initHighlightingOnLoad();</script>
     
+    
+    <script src=https://freshrimpsushi.github.io/js/common.js></script>
     
     </aside>
 </footer>

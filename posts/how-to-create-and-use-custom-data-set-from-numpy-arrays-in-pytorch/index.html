@@ -268,7 +268,7 @@
 <aside>
     How to Create and Use Custom Data Set from Numpy Arrays in PyTorch
     <p style="text-align: right;">
-         <a href="../824">🎲</a>
+         <a href="../828">🎲</a>
         3108
 
     
@@ -297,25 +297,25 @@
 </aside>
 
 <h2 id="설명">설명</h2>
-<pre tabindex="0"><code>&gt;&gt;&gt; import numpy as np
+<pre><code>&gt;&gt;&gt; import numpy as np
 &gt;&gt;&gt; import torch
 &gt;&gt;&gt; from torch.utils.data import TensorDataset, DataLoader
 </code></pre><p>$32\times 32$의 크기로 된 &lsquo;흑백&rsquo;사진 100장을 쌓아올린 numpy 배열 $X$와 이에 대한 레이블 $Y$가 준비되어있다고 가정하자. 이를 다음가 같은 코드로 불러왔다고 하자.</p>
-<pre tabindex="0"><code>&gt;&gt;&gt; X = np.load(&#34;X.npy&#34;)
+<pre><code>&gt;&gt;&gt; X = np.load(&quot;X.npy&quot;)
 &gt;&gt;&gt; X.shape
 (100, 32, 32)
-&gt;&gt;&gt; Y = np.load(&#34;Y.npy&#34;)
+&gt;&gt;&gt; Y = np.load(&quot;Y.npy&quot;)
 &gt;&gt;&gt; Y.shape
 (100)
 </code></pre><p>학습에 사용할 데이터 셋을 만들기 위해 다음과 같이 numpy배열을 tensor로 바꿔준다.</p>
-<pre tabindex="0"><code>&gt;&gt;&gt; X = torch.from_numpy(X)
+<pre><code>&gt;&gt;&gt; X = torch.from_numpy(X)
 &gt;&gt;&gt; Y = torch.from_numpy(Y)
 </code></pre><p><code>TensorDataset</code>으로 학습할 데이터를 묶는다. 물론 3 종류 이상의 데이터를 묶어 데이터 셋을 만드는 것도 가능하다.</p>
-<pre tabindex="0"><code>&gt;&gt;&gt; train_data = TensorDataset(X, Y)
+<pre><code>&gt;&gt;&gt; train_data = TensorDataset(X, Y)
 </code></pre><p><code>DataLoader</code>로 데이터 순서를 무작위로 섞어 원하는 배치 사이즈로 만들 수 있다. 가령 배치 사이즈를 25로 설정하면 총 100개이므로 $25 \times 32 \times 32$짜리 데이터가 4개 생기는 것이다.</p>
-<pre tabindex="0"><code>&gt;&gt; train_loader = DataLoader(train_data, batch_size=BATCH_SIZE, shuffle=True)
+<pre><code>&gt;&gt; train_loader = DataLoader(train_data, batch_size=BATCH_SIZE, shuffle=True)
 </code></pre><p>이를 다음과 같이 <a href="../3103">학습 함수를 정의</a>하여 사용할 수 있다.</p>
-<pre tabindex="0"><code>def train(model):
+<pre><code>def train(model):
     model.train()
             
     for batch_idx, (X, Y) in enumerate(Data_set):
@@ -331,14 +331,14 @@
     return loss
 </code></pre><h3 id="전체-코드">전체 코드</h3>
 <p><a href="../3103">적당한 model이 정의되어있다</a>고 가정하자.</p>
-<pre tabindex="0"><code>#필요한 라이브러리 import
+<pre><code>#필요한 라이브러리 import
 import numpy as np
 import torch
 from torch.utils.data import TensorDataset, DataLoader
 
 #numpy 배열 불러오기
-X = np.load(&#34;X.npy&#34;)
-Y = np.load(&#34;Y.npy&#34;)
+X = np.load(&quot;X.npy&quot;)
+Y = np.load(&quot;Y.npy&quot;)
 
 #tensor로 데이터 타입 변환
 X = torch.from_numpy(X)
@@ -433,7 +433,7 @@ for epoch in range(1, EPOCHS):
     <div class="write-button">
         <input class="write_comment" type="submit" name="submit" value="등록">
     </div>
-    <aside align="middle">댓글에도 $\TeX$이 적용됩니다.</aside>
+    <aside style="text-align: center;">댓글에도 $\TeX$이 적용됩니다.</aside>
 </div>
 
 
@@ -635,7 +635,9 @@ for epoch in range(1, EPOCHS):
                     str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['cmt_idx'] + ")'>삭제</div>";
                     str += "</div>";
                     str += "</div>";
-                    str += "<div class='content-text'>" + rows[i]['content'] + "</div>";
+                    let content = rows[i]['content'];
+                    content = content.replace(/\n/g, '<br />');
+                    str += "<div class='content-text'>" + content + "</div>";
                     str += "<div class='re-comment'><span class='re-comment-button' onclick='re_comment(" + rows[i]['cmt_idx'] + ")'>답글</span></div>";
                     str += "</li>";
                     list_reply.append(str);
@@ -652,7 +654,9 @@ for epoch in range(1, EPOCHS):
                         str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['child'][j]['cmt_idx'] + ")'>삭제</div>";
                         str += "</div>";
                         str += "</div>";
-                        str += "<div class='content-text'>" + rows[i]['child'][j]['content'] + "</div>";
+                        let content = rows[i]['child'][j]['content'];
+                        content = content.replace(/\n/g, '<br />');
+                        str += "<div class='content-text'>" + content + "</div>";
                         str += "</li>";
                         list_reply.append(str);
                         str = "";
@@ -915,7 +919,7 @@ for epoch in range(1, EPOCHS):
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (85)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (86)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
         </li><li>
@@ -1024,67 +1028,47 @@ for epoch in range(1, EPOCHS):
 </aside>
 
 <aside>
-    <p><b>최근 댓글</b></p>
-    <ul class="current-reply">
-        
-    </ul>
+  <p><b>최근 댓글</b></p>
+  <div class="current-reply">
+  </div>
 </aside>
 
 <script>
-    $(document).ready(function() {
-        
+  const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/recent_comment.php?action=getCurrentComment';
+  let recentRows = []; 
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      if (data.ok) {
+        recentRows = data.rows;
+        render_recent_comment(recentRows);
+      }
+    })
+    .catch(err => console.error(err));
 
-        $.ajax({
-            type: "POST",
-            url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.recent_comment.php?action=currentComment",
-            data: {},
-            dataType: "json",
-            success: function(data) {
-                var rows = data['rows'];
-                var ul_currnet_list = $('.current-reply');
-                var str = "";
-                 
-                for(var i = 0; i < rows.length; i++) {
-                    if(rows[i]['board_idx'] > -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else if(rows[i]['board_idx'] == -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    str += "<b> - " + rows[i]['author'] + "</b>: ";
-                    str += "" + rows[i]['content'] + "";
-                    str += "</a></li>";
-                    ul_currnet_list.append(str);
-                    str = "";
-                }
-                renderMathInElement(document.body, {
-                    
-                    
-                    delimiters: [
-                        {left: '$$', right: '$$', display: true},
-                        {left: '$', right: '$', display: false},
-                    ],
-                    trust: ["\\htmlId"],
-                    macros: {
-                    "\\eqref": "\\href{###1}{(\\text{#1})}",
-                    "\\ref": "\\href{###1}{\\text{#1}}",
-                    "\\label": "\\htmlId{#1}{}"
-                    },
-                    
-                    throwOnError : false
-                });
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
-            }
-        });
+  
+  function render_recent_comment(rows) {
+    const currentReply = document.querySelector('.current-reply');
+    let html = '';
+    rows.map(row => {
+      let link = 'https:\/\/freshrimpsushi.github.io';
+      if (row.board_idx > -1) {
+        link += `/posts/${row.board_slug}#comment${row.cmt_idx}`;
+      } else if (row.board_idx == -1) {
+        link += `#comment${row.cmt_idx}`;
+      } else {
+        link += `/categories/${row.board_title}#comment${row.cmt_idx}`;
+      }
+      html += `<div class="current-reply-list">`;
+      html += `<a href="${link}">`;
+      html += `<b> - ${row.author}</b>: `;
+      html += `${row.content}`;
+      html += `</a>`;
+      html += `</div>`;
     });
+    currentReply.innerHTML = html;
+    renderKaTex(currentReply);
+  }
 </script>
 
 <aside>
@@ -1127,6 +1111,7 @@ for epoch in range(1, EPOCHS):
               {left: '$', right: '$', display: false},
           ],
 		  trust: true,
+		  diplayMode: true,
 		  trust: (context) => ['\\htmlId', '\\href', '\\includegraphics'].includes(context.command),
 		  macros: {
 		  "\\eqref": "\\href{###1}{(\\text{#1})}",
@@ -1170,6 +1155,8 @@ for epoch in range(1, EPOCHS):
         <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
         <script>hljs.initHighlightingOnLoad();</script>
     
+    
+    <script src=https://freshrimpsushi.github.io/js/common.js></script>
     
     </aside>
 </footer>

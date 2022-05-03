@@ -115,7 +115,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-calculate-distance-using-nearstneibors.jl-in-julia\/",
-    "wordCount" : "429",
+    "wordCount" : "430",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -268,7 +268,7 @@
 <aside>
     How to Calculate Distance using NearstNeibors.jl in julia
     <p style="text-align: right;">
-         <a href="../925">🎲</a>
+         <a href="../344">🎲</a>
         2088
 
     
@@ -297,39 +297,39 @@
 <p>$n$ 개의 좌표끼리 거리를 계산하는데, 행렬을 만들 필요까지는 없고 단순히 거리만 계산하면 되는 경우 다차원 탐색에 유리한 자료구조인 k-d 트리<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>를 사용해 속도를 높일 수 있다. <code>NearestNeighbors.jl</code>에 관련 알고리즘이 모두 구현되어 있으니 <a href="https://github.com/KristofferC/NearestNeighbors.jl">공식 깃허브 페이지</a>를 참고하도록 하자.</p>
 <h2 id="속도-비교">속도 비교</h2>
 <p><code>pairwise()</code> 함수로 <a href="../2020">거리행렬 계산에 최적화된 기법</a>과 비교해보자.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Distances
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> StatsBase
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Random
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> NearestNeighbors
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Random<span style="color:#f92672">.</span>seed!(<span style="color:#ae81ff">0</span>);
-</span></span><span style="display:flex;"><span>ε <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.01</span>
-</span></span><span style="display:flex;"><span>N <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">^</span><span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span>coordinate <span style="color:#f92672">=</span> rand(<span style="color:#ae81ff">2</span>, N);
-</span></span><span style="display:flex;"><span>state <span style="color:#f92672">=</span> sample([<span style="color:#e6db74">&#39;S&#39;</span>, <span style="color:#e6db74">&#39;I&#39;</span>], Weights([<span style="color:#ae81ff">0.1</span>, <span style="color:#ae81ff">0.9</span>]), N);
-</span></span><span style="display:flex;"><span>S <span style="color:#f92672">=</span> coordinate[<span style="color:#f92672">:</span>, state <span style="color:#f92672">.==</span> <span style="color:#e6db74">&#39;S&#39;</span>]
-</span></span><span style="display:flex;"><span>I <span style="color:#f92672">=</span> coordinate[<span style="color:#f92672">:</span>, state <span style="color:#f92672">.==</span> <span style="color:#e6db74">&#39;I&#39;</span>]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@time</span> sum(pairwise(Euclidean(),S,I) <span style="color:#f92672">.&lt;</span> ε, dims <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@time</span> kdtree <span style="color:#f92672">=</span> KDTree(S); contact <span style="color:#f92672">=</span> length<span style="color:#f92672">.</span>(inrange(kdtree, I, ε, true))
-</span></span></code></pre></div><p>위 코드를 실행시킨 결과는 다음과 같다. 맨 아래의 두 커맨드라인은 같은 작업을 수행하지만 속도차이는 500배 정도가 난다. 실제로 k-d 트리에서 탐색할 때 <a href="../1283">시간복잡도</a>는 $\log n$ 으로 매우 효율적이다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> sum(pairwise(Euclidean(),S,I) <span style="color:#f92672">.&lt;</span> ε, dims <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.098394</span> seconds (<span style="color:#ae81ff">14</span> allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">69.639</span> MiB, <span style="color:#ae81ff">8.23</span><span style="color:#f92672">%</span> gc Time)
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span><span style="color:#f92672">×</span><span style="color:#ae81ff">9004</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#f92672">…</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> kdtree <span style="color:#f92672">=</span> KDTree(S); contact <span style="color:#f92672">=</span> length<span style="color:#f92672">.</span>(inrange(kdtree, I, ε, true))
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.000213</span> seconds (<span style="color:#ae81ff">22</span> allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">51.609</span> KiB)
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9004</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span> <span style="color:#f92672">⋮</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0</span>
-</span></span></code></pre></div><p>단순 속도 문제를 차치하고서라도 k-d 트리를 사용한 방식에서는 1차원 배열을 반환했기 때문에 결과물을 사용하는 측면에서도 더욱 간편하다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Distances
+<span style="color:#66d9ef">using</span> StatsBase
+<span style="color:#66d9ef">using</span> Random
+<span style="color:#66d9ef">using</span> NearestNeighbors
+
+Random<span style="color:#f92672">.</span>seed!(<span style="color:#ae81ff">0</span>);
+ε <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.01</span>
+N <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">^</span><span style="color:#ae81ff">4</span>
+coordinate <span style="color:#f92672">=</span> rand(<span style="color:#ae81ff">2</span>, N);
+state <span style="color:#f92672">=</span> sample([<span style="color:#e6db74">&#39;S&#39;</span>, <span style="color:#e6db74">&#39;I&#39;</span>], Weights([<span style="color:#ae81ff">0.1</span>, <span style="color:#ae81ff">0.9</span>]), N);
+S <span style="color:#f92672">=</span> coordinate[<span style="color:#f92672">:</span>, state <span style="color:#f92672">.==</span> <span style="color:#e6db74">&#39;S&#39;</span>]
+I <span style="color:#f92672">=</span> coordinate[<span style="color:#f92672">:</span>, state <span style="color:#f92672">.==</span> <span style="color:#e6db74">&#39;I&#39;</span>]
+
+<span style="color:#a6e22e">@time</span> sum(pairwise(Euclidean(),S,I) <span style="color:#f92672">.&lt;</span> ε, dims <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
+<span style="color:#a6e22e">@time</span> kdtree <span style="color:#f92672">=</span> KDTree(S); contact <span style="color:#f92672">=</span> length<span style="color:#f92672">.</span>(inrange(kdtree, I, ε, <span style="color:#66d9ef">true</span>))
+</code></pre></div><p>위 코드를 실행시킨 결과는 다음과 같다. 맨 아래의 두 커맨드라인은 같은 작업을 수행하지만 속도차이는 500배 정도가 난다. 실제로 k-d 트리에서 탐색할 때 <a href="../1283">시간복잡도</a>는 $\log n$ 으로 매우 효율적이다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> sum(pairwise(Euclidean(),S,I) <span style="color:#f92672">.&lt;</span> ε, dims <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
+  <span style="color:#ae81ff">0.098394</span> seconds (<span style="color:#ae81ff">14</span> allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">69.639</span> MiB, <span style="color:#ae81ff">8.23</span><span style="color:#f92672">%</span> gc Time)
+<span style="color:#ae81ff">1</span>×9004 <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+ <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  …  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+
+julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> kdtree <span style="color:#f92672">=</span> KDTree(S); contact <span style="color:#f92672">=</span> length<span style="color:#f92672">.</span>(inrange(kdtree, I, ε, <span style="color:#66d9ef">true</span>))
+  <span style="color:#ae81ff">0.000213</span> seconds (<span style="color:#ae81ff">22</span> allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">51.609</span> KiB)
+<span style="color:#ae81ff">9004</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
+ <span style="color:#ae81ff">0</span>
+ <span style="color:#ae81ff">0</span>
+ <span style="color:#ae81ff">1</span>
+ <span style="color:#ae81ff">0</span>
+ ⋮
+ <span style="color:#ae81ff">0</span>
+ <span style="color:#ae81ff">0</span>
+ <span style="color:#ae81ff">0</span>
+</code></pre></div><p>단순 속도 문제를 차치하고서라도 k-d 트리를 사용한 방식에서는 1차원 배열을 반환했기 때문에 결과물을 사용하는 측면에서도 더욱 간편하다.</p>
 <h2 id="환경">환경</h2>
 <ul>
 <li>OS: Windows</li>
@@ -339,7 +339,7 @@
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://en.wikipedia.org/wiki/K-d_tree">https://en.wikipedia.org/wiki/K-d_tree</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://en.wikipedia.org/wiki/K-d_tree">https://en.wikipedia.org/wiki/K-d_tree</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -400,7 +400,7 @@
     <div class="write-button">
         <input class="write_comment" type="submit" name="submit" value="등록">
     </div>
-    <aside align="middle">댓글에도 $\TeX$이 적용됩니다.</aside>
+    <aside style="text-align: center;">댓글에도 $\TeX$이 적용됩니다.</aside>
 </div>
 
 
@@ -602,7 +602,9 @@
                     str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['cmt_idx'] + ")'>삭제</div>";
                     str += "</div>";
                     str += "</div>";
-                    str += "<div class='content-text'>" + rows[i]['content'] + "</div>";
+                    let content = rows[i]['content'];
+                    content = content.replace(/\n/g, '<br />');
+                    str += "<div class='content-text'>" + content + "</div>";
                     str += "<div class='re-comment'><span class='re-comment-button' onclick='re_comment(" + rows[i]['cmt_idx'] + ")'>답글</span></div>";
                     str += "</li>";
                     list_reply.append(str);
@@ -619,7 +621,9 @@
                         str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['child'][j]['cmt_idx'] + ")'>삭제</div>";
                         str += "</div>";
                         str += "</div>";
-                        str += "<div class='content-text'>" + rows[i]['child'][j]['content'] + "</div>";
+                        let content = rows[i]['child'][j]['content'];
+                        content = content.replace(/\n/g, '<br />');
+                        str += "<div class='content-text'>" + content + "</div>";
                         str += "</li>";
                         list_reply.append(str);
                         str = "";
@@ -882,7 +886,7 @@
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (85)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (86)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
         </li><li>
@@ -991,67 +995,47 @@
 </aside>
 
 <aside>
-    <p><b>최근 댓글</b></p>
-    <ul class="current-reply">
-        
-    </ul>
+  <p><b>최근 댓글</b></p>
+  <div class="current-reply">
+  </div>
 </aside>
 
 <script>
-    $(document).ready(function() {
-        
+  const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/recent_comment.php?action=getCurrentComment';
+  let recentRows = []; 
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      if (data.ok) {
+        recentRows = data.rows;
+        render_recent_comment(recentRows);
+      }
+    })
+    .catch(err => console.error(err));
 
-        $.ajax({
-            type: "POST",
-            url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.recent_comment.php?action=currentComment",
-            data: {},
-            dataType: "json",
-            success: function(data) {
-                var rows = data['rows'];
-                var ul_currnet_list = $('.current-reply');
-                var str = "";
-                 
-                for(var i = 0; i < rows.length; i++) {
-                    if(rows[i]['board_idx'] > -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else if(rows[i]['board_idx'] == -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    str += "<b> - " + rows[i]['author'] + "</b>: ";
-                    str += "" + rows[i]['content'] + "";
-                    str += "</a></li>";
-                    ul_currnet_list.append(str);
-                    str = "";
-                }
-                renderMathInElement(document.body, {
-                    
-                    
-                    delimiters: [
-                        {left: '$$', right: '$$', display: true},
-                        {left: '$', right: '$', display: false},
-                    ],
-                    trust: ["\\htmlId"],
-                    macros: {
-                    "\\eqref": "\\href{###1}{(\\text{#1})}",
-                    "\\ref": "\\href{###1}{\\text{#1}}",
-                    "\\label": "\\htmlId{#1}{}"
-                    },
-                    
-                    throwOnError : false
-                });
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
-            }
-        });
+  
+  function render_recent_comment(rows) {
+    const currentReply = document.querySelector('.current-reply');
+    let html = '';
+    rows.map(row => {
+      let link = 'https:\/\/freshrimpsushi.github.io';
+      if (row.board_idx > -1) {
+        link += `/posts/${row.board_slug}#comment${row.cmt_idx}`;
+      } else if (row.board_idx == -1) {
+        link += `#comment${row.cmt_idx}`;
+      } else {
+        link += `/categories/${row.board_title}#comment${row.cmt_idx}`;
+      }
+      html += `<div class="current-reply-list">`;
+      html += `<a href="${link}">`;
+      html += `<b> - ${row.author}</b>: `;
+      html += `${row.content}`;
+      html += `</a>`;
+      html += `</div>`;
     });
+    currentReply.innerHTML = html;
+    renderKaTex(currentReply);
+  }
 </script>
 
 <aside>
@@ -1094,6 +1078,7 @@
               {left: '$', right: '$', display: false},
           ],
 		  trust: true,
+		  diplayMode: true,
 		  trust: (context) => ['\\htmlId', '\\href', '\\includegraphics'].includes(context.command),
 		  macros: {
 		  "\\eqref": "\\href{###1}{(\\text{#1})}",
@@ -1137,6 +1122,8 @@
         <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
         <script>hljs.initHighlightingOnLoad();</script>
     
+    
+    <script src=https://freshrimpsushi.github.io/js/common.js></script>
     
     </aside>
 </footer>

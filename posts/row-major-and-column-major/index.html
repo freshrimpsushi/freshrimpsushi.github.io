@@ -115,7 +115,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/row-major-and-column-major\/",
-    "wordCount" : "997",
+    "wordCount" : "999",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -268,7 +268,7 @@
 <aside>
     Row-major and column-major
     <p style="text-align: right;">
-         <a href="../573">🎲</a>
+         <a href="../405">🎲</a>
         2014
 
     
@@ -346,35 +346,35 @@ $$</p>
 <p>포트란, 매트랩, R, 줄리아&hellip;</p>
 <p>라인업이 기가 막힌다. 한 눈에 보아도 과학, 계산쪽의 언어들이 열우선을 채택한 것을 알 수 있다. 애초에 행렬이라는 것의 기원이 <a href="../279">연립방정식의 축약</a>임을 생각해보면 당연한 일이다. 세상에 행렬을 가로 방향으로 읽는 수학자는 없다. 당연히 행을 따라 위에서 아래로, 다시 말해 열우선으로 읽는게 정상이다.</p>
 <h2 id="퍼포먼스-비교">퍼포먼스 비교</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> size <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">^</span><span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10000</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> M <span style="color:#f92672">=</span> rand(size, size);
-</span></span></code></pre></div><p>줄리아 언어를 기준으로 벤치마크를 해보았다. 아래의 두 코드 펜스를 보면 정확히 같은 코드에서 행/렬의 순서만 바꾸고 실행시간을 측정했는데 행을 먼저 읽었을 때 36초, 열우선인 줄리아는 열을 먼저 읽어들였을 때 20초가 걸려 거의 2배 수준의 극적인 성능 차이가 있음을 확인했다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">=</span> zeros(size, size);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>size
-</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">for</span> j <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>size
-</span></span><span style="display:flex;"><span>               X[i,j] <span style="color:#f92672">=</span> (M[i,j] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">end</span>
-</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">end</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">36.088533</span> seconds (<span style="color:#ae81ff">489.82</span> M allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">8.789</span> GiB, <span style="color:#ae81ff">4.64</span><span style="color:#f92672">%</span> gc Time)
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">=</span> zeros(size, size);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">for</span> j <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>size
-</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>size
-</span></span><span style="display:flex;"><span>               X[i,j] <span style="color:#f92672">=</span> (M[i,j] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">end</span>
-</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">end</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">19.936053</span> seconds (<span style="color:#ae81ff">489.82</span> M allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">8.789</span> GiB, <span style="color:#ae81ff">7.59</span><span style="color:#f92672">%</span> gc Time)
-</span></span></code></pre></div><section class="footnotes" role="doc-endnotes">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> size <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">^</span><span style="color:#ae81ff">4</span>
+<span style="color:#ae81ff">10000</span>
+
+julia<span style="color:#f92672">&gt;</span> M <span style="color:#f92672">=</span> rand(size, size);
+</code></pre></div><p>줄리아 언어를 기준으로 벤치마크를 해보았다. 아래의 두 코드 펜스를 보면 정확히 같은 코드에서 행/렬의 순서만 바꾸고 실행시간을 측정했는데 행을 먼저 읽었을 때 36초, 열우선인 줄리아는 열을 먼저 읽어들였을 때 20초가 걸려 거의 2배 수준의 극적인 성능 차이가 있음을 확인했다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">=</span> zeros(size, size);
+
+julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>size
+           <span style="color:#66d9ef">for</span> j <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>size
+               X[i,j] <span style="color:#f92672">=</span> (M[i,j] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+           <span style="color:#66d9ef">end</span>
+       <span style="color:#66d9ef">end</span>
+ <span style="color:#ae81ff">36.088533</span> seconds (<span style="color:#ae81ff">489.82</span> M allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">8.789</span> GiB, <span style="color:#ae81ff">4.64</span><span style="color:#f92672">%</span> gc Time)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">=</span> zeros(size, size);
+
+julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">for</span> j <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>size
+           <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>size
+               X[i,j] <span style="color:#f92672">=</span> (M[i,j] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+           <span style="color:#66d9ef">end</span>
+       <span style="color:#66d9ef">end</span>
+ <span style="color:#ae81ff">19.936053</span> seconds (<span style="color:#ae81ff">489.82</span> M allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">8.789</span> GiB, <span style="color:#ae81ff">7.59</span><span style="color:#f92672">%</span> gc Time)
+</code></pre></div><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://en.wikipedia.org/wiki/Row-_and_column-major_order">https://en.wikipedia.org/wiki/Row-_and_column-major_order</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Row-_and_column-major_order">https://en.wikipedia.org/wiki/Row-_and_column-major_order</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p><a href="https://velog.io/@kjh107704/row-major-%ED%96%89-%EC%9A%B0%EC%84%A0-column-major%EC%97%B4-%EC%9A%B0%EC%84%A0%EA%B0%80-%EC%99%9C-%EC%A4%91%EC%9A%94%ED%95%9C%EA%B0%80">https://velog.io/@kjh107704/row-major-%ED%96%89-%EC%9A%B0%EC%84%A0-column-major%EC%97%B4-%EC%9A%B0%EC%84%A0%EA%B0%80-%EC%99%9C-%EC%A4%91%EC%9A%94%ED%95%9C%EA%B0%80</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://velog.io/@kjh107704/row-major-%ED%96%89-%EC%9A%B0%EC%84%A0-column-major%EC%97%B4-%EC%9A%B0%EC%84%A0%EA%B0%80-%EC%99%9C-%EC%A4%91%EC%9A%94%ED%95%9C%EA%B0%80">https://velog.io/@kjh107704/row-major-%ED%96%89-%EC%9A%B0%EC%84%A0-column-major%EC%97%B4-%EC%9A%B0%EC%84%A0%EA%B0%80-%EC%99%9C-%EC%A4%91%EC%9A%94%ED%95%9C%EA%B0%80</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -435,7 +435,7 @@ $$</p>
     <div class="write-button">
         <input class="write_comment" type="submit" name="submit" value="등록">
     </div>
-    <aside align="middle">댓글에도 $\TeX$이 적용됩니다.</aside>
+    <aside style="text-align: center;">댓글에도 $\TeX$이 적용됩니다.</aside>
 </div>
 
 
@@ -637,7 +637,9 @@ $$</p>
                     str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['cmt_idx'] + ")'>삭제</div>";
                     str += "</div>";
                     str += "</div>";
-                    str += "<div class='content-text'>" + rows[i]['content'] + "</div>";
+                    let content = rows[i]['content'];
+                    content = content.replace(/\n/g, '<br />');
+                    str += "<div class='content-text'>" + content + "</div>";
                     str += "<div class='re-comment'><span class='re-comment-button' onclick='re_comment(" + rows[i]['cmt_idx'] + ")'>답글</span></div>";
                     str += "</li>";
                     list_reply.append(str);
@@ -654,7 +656,9 @@ $$</p>
                         str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['child'][j]['cmt_idx'] + ")'>삭제</div>";
                         str += "</div>";
                         str += "</div>";
-                        str += "<div class='content-text'>" + rows[i]['child'][j]['content'] + "</div>";
+                        let content = rows[i]['child'][j]['content'];
+                        content = content.replace(/\n/g, '<br />');
+                        str += "<div class='content-text'>" + content + "</div>";
                         str += "</li>";
                         list_reply.append(str);
                         str = "";
@@ -917,7 +921,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (85)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (86)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
         </li><li>
@@ -1026,67 +1030,47 @@ $$</p>
 </aside>
 
 <aside>
-    <p><b>최근 댓글</b></p>
-    <ul class="current-reply">
-        
-    </ul>
+  <p><b>최근 댓글</b></p>
+  <div class="current-reply">
+  </div>
 </aside>
 
 <script>
-    $(document).ready(function() {
-        
+  const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/recent_comment.php?action=getCurrentComment';
+  let recentRows = []; 
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      if (data.ok) {
+        recentRows = data.rows;
+        render_recent_comment(recentRows);
+      }
+    })
+    .catch(err => console.error(err));
 
-        $.ajax({
-            type: "POST",
-            url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.recent_comment.php?action=currentComment",
-            data: {},
-            dataType: "json",
-            success: function(data) {
-                var rows = data['rows'];
-                var ul_currnet_list = $('.current-reply');
-                var str = "";
-                 
-                for(var i = 0; i < rows.length; i++) {
-                    if(rows[i]['board_idx'] > -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else if(rows[i]['board_idx'] == -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    str += "<b> - " + rows[i]['author'] + "</b>: ";
-                    str += "" + rows[i]['content'] + "";
-                    str += "</a></li>";
-                    ul_currnet_list.append(str);
-                    str = "";
-                }
-                renderMathInElement(document.body, {
-                    
-                    
-                    delimiters: [
-                        {left: '$$', right: '$$', display: true},
-                        {left: '$', right: '$', display: false},
-                    ],
-                    trust: ["\\htmlId"],
-                    macros: {
-                    "\\eqref": "\\href{###1}{(\\text{#1})}",
-                    "\\ref": "\\href{###1}{\\text{#1}}",
-                    "\\label": "\\htmlId{#1}{}"
-                    },
-                    
-                    throwOnError : false
-                });
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
-            }
-        });
+  
+  function render_recent_comment(rows) {
+    const currentReply = document.querySelector('.current-reply');
+    let html = '';
+    rows.map(row => {
+      let link = 'https:\/\/freshrimpsushi.github.io';
+      if (row.board_idx > -1) {
+        link += `/posts/${row.board_slug}#comment${row.cmt_idx}`;
+      } else if (row.board_idx == -1) {
+        link += `#comment${row.cmt_idx}`;
+      } else {
+        link += `/categories/${row.board_title}#comment${row.cmt_idx}`;
+      }
+      html += `<div class="current-reply-list">`;
+      html += `<a href="${link}">`;
+      html += `<b> - ${row.author}</b>: `;
+      html += `${row.content}`;
+      html += `</a>`;
+      html += `</div>`;
     });
+    currentReply.innerHTML = html;
+    renderKaTex(currentReply);
+  }
 </script>
 
 <aside>
@@ -1129,6 +1113,7 @@ $$</p>
               {left: '$', right: '$', display: false},
           ],
 		  trust: true,
+		  diplayMode: true,
 		  trust: (context) => ['\\htmlId', '\\href', '\\includegraphics'].includes(context.command),
 		  macros: {
 		  "\\eqref": "\\href{###1}{(\\text{#1})}",
@@ -1172,6 +1157,8 @@ $$</p>
         <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
         <script>hljs.initHighlightingOnLoad();</script>
     
+    
+    <script src=https://freshrimpsushi.github.io/js/common.js></script>
     
     </aside>
 </footer>

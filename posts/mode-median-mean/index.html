@@ -268,7 +268,7 @@
 <aside>
     Mode median mean
     <p style="text-align: right;">
-         <a href="../1041">🎲</a>
+         <a href="../2032">🎲</a>
         740
 
     
@@ -319,16 +319,16 @@
 <h2 id="정의">정의</h2>
 <p>확률변수 $X$ 의 확률밀도함수를 $f(x)$ 라고 하자.</p>
 <ul>
-<li>(0&rsquo;) 최빈값: $\argmax f(x)$</li>
-<li>(1&rsquo;) 중앙값: $\displaystyle \arg \int_{- \infty}^{x} f(t) dt = {{1} \over {2}}$</li>
-<li>(2&rsquo;) 평균: $\displaystyle \int_{-\infty}^{\infty} x f(x) dx$</li>
+<li>(0') 최빈값: $\argmax f(x)$</li>
+<li>(1') 중앙값: $\displaystyle \arg \int_{- \infty}^{x} f(t) dt = {{1} \over {2}}$</li>
+<li>(2') 평균: $\displaystyle \int_{-\infty}^{\infty} x f(x) dx$</li>
 </ul>
 <h2 id="설명">설명</h2>
 <p>한편 이러한 대표값은 표본이 아니라 확률분포에서도 정의될 수 있다. 어느정도 통계에 관한 수학이 익숙하다면 위의 수식만으로 정의를 이해해보는 것이 좋다.</p>
 <ul>
-<li>(0&rsquo;): 최빈값은 한마디로 확률밀도함수 $f(x)$ 의 값이 최대가 되도록 하는 $x$ 로써 구해진다.</li>
-<li>(1&rsquo;): 중앙값은 적분해서 정확히 그 값이 $0.5$ 가 되도록 하는 $x$ 로써 구해진다.</li>
-<li>(2&rsquo;): 평균은 분포의 기대값으로 구해진다.</li>
+<li>(0'): 최빈값은 한마디로 확률밀도함수 $f(x)$ 의 값이 최대가 되도록 하는 $x$ 로써 구해진다.</li>
+<li>(1'): 중앙값은 적분해서 정확히 그 값이 $0.5$ 가 되도록 하는 $x$ 로써 구해진다.</li>
+<li>(2'): 평균은 분포의 기대값으로 구해진다.</li>
 </ul>
 <p>아래의 그림들과 함께 대표값들이 대략 어디쯤 위치하는지 살펴보자. 빨간색 화살표는 <strong>최빈값</strong>, 파란색 화살표는 <strong>중앙값</strong>, 녹색 화살표는 <strong>평균</strong>을 의미한다.</p>
 <h3 id="단봉형이-아닌-분포">단봉형이 아닌 분포</h3>
@@ -402,7 +402,7 @@
     <div class="write-button">
         <input class="write_comment" type="submit" name="submit" value="등록">
     </div>
-    <aside align="middle">댓글에도 $\TeX$이 적용됩니다.</aside>
+    <aside style="text-align: center;">댓글에도 $\TeX$이 적용됩니다.</aside>
 </div>
 
 
@@ -604,7 +604,9 @@
                     str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['cmt_idx'] + ")'>삭제</div>";
                     str += "</div>";
                     str += "</div>";
-                    str += "<div class='content-text'>" + rows[i]['content'] + "</div>";
+                    let content = rows[i]['content'];
+                    content = content.replace(/\n/g, '<br />');
+                    str += "<div class='content-text'>" + content + "</div>";
                     str += "<div class='re-comment'><span class='re-comment-button' onclick='re_comment(" + rows[i]['cmt_idx'] + ")'>답글</span></div>";
                     str += "</li>";
                     list_reply.append(str);
@@ -621,7 +623,9 @@
                         str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['child'][j]['cmt_idx'] + ")'>삭제</div>";
                         str += "</div>";
                         str += "</div>";
-                        str += "<div class='content-text'>" + rows[i]['child'][j]['content'] + "</div>";
+                        let content = rows[i]['child'][j]['content'];
+                        content = content.replace(/\n/g, '<br />');
+                        str += "<div class='content-text'>" + content + "</div>";
                         str += "</li>";
                         list_reply.append(str);
                         str = "";
@@ -884,7 +888,7 @@
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (85)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (86)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
         </li><li>
@@ -993,67 +997,47 @@
 </aside>
 
 <aside>
-    <p><b>최근 댓글</b></p>
-    <ul class="current-reply">
-        
-    </ul>
+  <p><b>최근 댓글</b></p>
+  <div class="current-reply">
+  </div>
 </aside>
 
 <script>
-    $(document).ready(function() {
-        
+  const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/recent_comment.php?action=getCurrentComment';
+  let recentRows = []; 
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      if (data.ok) {
+        recentRows = data.rows;
+        render_recent_comment(recentRows);
+      }
+    })
+    .catch(err => console.error(err));
 
-        $.ajax({
-            type: "POST",
-            url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.recent_comment.php?action=currentComment",
-            data: {},
-            dataType: "json",
-            success: function(data) {
-                var rows = data['rows'];
-                var ul_currnet_list = $('.current-reply');
-                var str = "";
-                 
-                for(var i = 0; i < rows.length; i++) {
-                    if(rows[i]['board_idx'] > -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else if(rows[i]['board_idx'] == -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    str += "<b> - " + rows[i]['author'] + "</b>: ";
-                    str += "" + rows[i]['content'] + "";
-                    str += "</a></li>";
-                    ul_currnet_list.append(str);
-                    str = "";
-                }
-                renderMathInElement(document.body, {
-                    
-                    
-                    delimiters: [
-                        {left: '$$', right: '$$', display: true},
-                        {left: '$', right: '$', display: false},
-                    ],
-                    trust: ["\\htmlId"],
-                    macros: {
-                    "\\eqref": "\\href{###1}{(\\text{#1})}",
-                    "\\ref": "\\href{###1}{\\text{#1}}",
-                    "\\label": "\\htmlId{#1}{}"
-                    },
-                    
-                    throwOnError : false
-                });
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
-            }
-        });
+  
+  function render_recent_comment(rows) {
+    const currentReply = document.querySelector('.current-reply');
+    let html = '';
+    rows.map(row => {
+      let link = 'https:\/\/freshrimpsushi.github.io';
+      if (row.board_idx > -1) {
+        link += `/posts/${row.board_slug}#comment${row.cmt_idx}`;
+      } else if (row.board_idx == -1) {
+        link += `#comment${row.cmt_idx}`;
+      } else {
+        link += `/categories/${row.board_title}#comment${row.cmt_idx}`;
+      }
+      html += `<div class="current-reply-list">`;
+      html += `<a href="${link}">`;
+      html += `<b> - ${row.author}</b>: `;
+      html += `${row.content}`;
+      html += `</a>`;
+      html += `</div>`;
     });
+    currentReply.innerHTML = html;
+    renderKaTex(currentReply);
+  }
 </script>
 
 <aside>
@@ -1096,6 +1080,7 @@
               {left: '$', right: '$', display: false},
           ],
 		  trust: true,
+		  diplayMode: true,
 		  trust: (context) => ['\\htmlId', '\\href', '\\includegraphics'].includes(context.command),
 		  macros: {
 		  "\\eqref": "\\href{###1}{(\\text{#1})}",
@@ -1135,6 +1120,8 @@
 
     
     
+    
+    <script src=https://freshrimpsushi.github.io/js/common.js></script>
     
     </aside>
 </footer>

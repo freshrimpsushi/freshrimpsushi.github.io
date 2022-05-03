@@ -115,7 +115,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/additive-outlier\/",
-    "wordCount" : "778",
+    "wordCount" : "779",
     "genre" : [ "R" ],
     "keywords" : [ "R" ]
 }
@@ -268,7 +268,7 @@
 <aside>
     Additive outlier
     <p style="text-align: right;">
-         <a href="../331">🎲</a>
+         <a href="../1970">🎲</a>
         1258
 
     
@@ -313,23 +313,23 @@
 <p>실제로 AO가 반영되고나면 AO 그 지점은 물론, 다른 곳에서의 피팅도 더욱 개선되는 것을 알 수 있다.</p>
 <h2 id="코드">코드</h2>
 <p>다음은 <a href="../../categories/r">R</a>로 작성된 예제코드다. 적절한 예시가 없어서 <a href="example.csv">데이터</a>를 첨부했는데, 코드에 링크를 그대로 걸어두었으니 귀찮게 직접 다운 받을 필요는 없을 것이다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(TSA)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(forecast)
-</span></span><span style="display:flex;"><span>PM10<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">read.csv</span>(<span style="color:#e6db74">&#34;https://freshrimpsushi.github.io/posts/additive-outlier/example.csv&#34;</span>)
-</span></span><span style="display:flex;"><span>PM10 <span style="color:#f92672">=</span> <span style="color:#a6e22e">ts</span>(PM10[1<span style="color:#f92672">:</span><span style="color:#ae81ff">365</span>,],start<span style="color:#f92672">=</span><span style="color:#ae81ff">2015</span>,frequency <span style="color:#f92672">=</span> <span style="color:#ae81ff">365</span>)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>); <span style="color:#a6e22e">plot</span>(PM10,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;한국의 미세먼지 농도&#34;</span>,xaxt<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;n&#39;</span>); <span style="color:#a6e22e">axis</span>(side<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>,at<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2015</span>,<span style="color:#ae81ff">2016</span>))
-</span></span><span style="display:flex;"><span>out1<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.arima</span>(PM10)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">detectAO</span>(out1)
-</span></span><span style="display:flex;"><span>ao<span style="color:#f92672">=</span><span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">365</span>); ao[54]<span style="color:#f92672">&lt;-</span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>out2<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.arima</span>(PM10,xreg<span style="color:#f92672">=</span>ao)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>); <span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>))
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">plot</span>(PM10,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;AO 미반영&#34;</span>,xlim<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2015.1</span>,<span style="color:#ae81ff">2015.3</span>),xaxt<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;n&#39;</span>); <span style="color:#a6e22e">lines</span>(<span style="color:#a6e22e">fitted</span>(out1),col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">plot</span>(PM10,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;AO 반영&#34;</span>,xlim<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2015.1</span>,<span style="color:#ae81ff">2015.3</span>),xaxt<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;n&#39;</span>); <span style="color:#a6e22e">lines</span>(<span style="color:#a6e22e">fitted</span>(out2),col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
-</span></span></code></pre></div><section class="footnotes" role="doc-endnotes">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(TSA)
+<span style="color:#a6e22e">library</span>(forecast)
+PM10<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">read.csv</span>(<span style="color:#e6db74">&#34;https://freshrimpsushi.github.io/posts/additive-outlier/example.csv&#34;</span>)
+PM10 <span style="color:#f92672">=</span> <span style="color:#a6e22e">ts</span>(PM10[1<span style="color:#f92672">:</span><span style="color:#ae81ff">365</span>,],start<span style="color:#f92672">=</span><span style="color:#ae81ff">2015</span>,frequency <span style="color:#f92672">=</span> <span style="color:#ae81ff">365</span>)
+<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>); <span style="color:#a6e22e">plot</span>(PM10,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;한국의 미세먼지 농도&#34;</span>,xaxt<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;n&#39;</span>); <span style="color:#a6e22e">axis</span>(side<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>,at<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2015</span>,<span style="color:#ae81ff">2016</span>))
+out1<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.arima</span>(PM10)
+<span style="color:#a6e22e">detectAO</span>(out1)
+ao<span style="color:#f92672">=</span><span style="color:#a6e22e">rep</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">365</span>); ao[54]<span style="color:#f92672">&lt;-</span><span style="color:#ae81ff">1</span>
+out2<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.arima</span>(PM10,xreg<span style="color:#f92672">=</span>ao)
+<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>); <span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>))
+<span style="color:#a6e22e">plot</span>(PM10,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;AO 미반영&#34;</span>,xlim<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2015.1</span>,<span style="color:#ae81ff">2015.3</span>),xaxt<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;n&#39;</span>); <span style="color:#a6e22e">lines</span>(<span style="color:#a6e22e">fitted</span>(out1),col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
+<span style="color:#a6e22e">plot</span>(PM10,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;AO 반영&#34;</span>,xlim<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2015.1</span>,<span style="color:#ae81ff">2015.3</span>),xaxt<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;n&#39;</span>); <span style="color:#a6e22e">lines</span>(<span style="color:#a6e22e">fitted</span>(out2),col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
+</code></pre></div><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Cryer. (2008). Time Series Analysis: With Applications in R(2nd Edition): p257.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Cryer. (2008). Time Series Analysis: With Applications in R(2nd Edition): p257. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -390,7 +390,7 @@
     <div class="write-button">
         <input class="write_comment" type="submit" name="submit" value="등록">
     </div>
-    <aside align="middle">댓글에도 $\TeX$이 적용됩니다.</aside>
+    <aside style="text-align: center;">댓글에도 $\TeX$이 적용됩니다.</aside>
 </div>
 
 
@@ -592,7 +592,9 @@
                     str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['cmt_idx'] + ")'>삭제</div>";
                     str += "</div>";
                     str += "</div>";
-                    str += "<div class='content-text'>" + rows[i]['content'] + "</div>";
+                    let content = rows[i]['content'];
+                    content = content.replace(/\n/g, '<br />');
+                    str += "<div class='content-text'>" + content + "</div>";
                     str += "<div class='re-comment'><span class='re-comment-button' onclick='re_comment(" + rows[i]['cmt_idx'] + ")'>답글</span></div>";
                     str += "</li>";
                     list_reply.append(str);
@@ -609,7 +611,9 @@
                         str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['child'][j]['cmt_idx'] + ")'>삭제</div>";
                         str += "</div>";
                         str += "</div>";
-                        str += "<div class='content-text'>" + rows[i]['child'][j]['content'] + "</div>";
+                        let content = rows[i]['child'][j]['content'];
+                        content = content.replace(/\n/g, '<br />');
+                        str += "<div class='content-text'>" + content + "</div>";
                         str += "</li>";
                         list_reply.append(str);
                         str = "";
@@ -872,7 +876,7 @@
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (85)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (86)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
         </li><li>
@@ -981,67 +985,47 @@
 </aside>
 
 <aside>
-    <p><b>최근 댓글</b></p>
-    <ul class="current-reply">
-        
-    </ul>
+  <p><b>최근 댓글</b></p>
+  <div class="current-reply">
+  </div>
 </aside>
 
 <script>
-    $(document).ready(function() {
-        
+  const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/recent_comment.php?action=getCurrentComment';
+  let recentRows = []; 
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      if (data.ok) {
+        recentRows = data.rows;
+        render_recent_comment(recentRows);
+      }
+    })
+    .catch(err => console.error(err));
 
-        $.ajax({
-            type: "POST",
-            url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.recent_comment.php?action=currentComment",
-            data: {},
-            dataType: "json",
-            success: function(data) {
-                var rows = data['rows'];
-                var ul_currnet_list = $('.current-reply');
-                var str = "";
-                 
-                for(var i = 0; i < rows.length; i++) {
-                    if(rows[i]['board_idx'] > -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else if(rows[i]['board_idx'] == -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    str += "<b> - " + rows[i]['author'] + "</b>: ";
-                    str += "" + rows[i]['content'] + "";
-                    str += "</a></li>";
-                    ul_currnet_list.append(str);
-                    str = "";
-                }
-                renderMathInElement(document.body, {
-                    
-                    
-                    delimiters: [
-                        {left: '$$', right: '$$', display: true},
-                        {left: '$', right: '$', display: false},
-                    ],
-                    trust: ["\\htmlId"],
-                    macros: {
-                    "\\eqref": "\\href{###1}{(\\text{#1})}",
-                    "\\ref": "\\href{###1}{\\text{#1}}",
-                    "\\label": "\\htmlId{#1}{}"
-                    },
-                    
-                    throwOnError : false
-                });
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
-            }
-        });
+  
+  function render_recent_comment(rows) {
+    const currentReply = document.querySelector('.current-reply');
+    let html = '';
+    rows.map(row => {
+      let link = 'https:\/\/freshrimpsushi.github.io';
+      if (row.board_idx > -1) {
+        link += `/posts/${row.board_slug}#comment${row.cmt_idx}`;
+      } else if (row.board_idx == -1) {
+        link += `#comment${row.cmt_idx}`;
+      } else {
+        link += `/categories/${row.board_title}#comment${row.cmt_idx}`;
+      }
+      html += `<div class="current-reply-list">`;
+      html += `<a href="${link}">`;
+      html += `<b> - ${row.author}</b>: `;
+      html += `${row.content}`;
+      html += `</a>`;
+      html += `</div>`;
     });
+    currentReply.innerHTML = html;
+    renderKaTex(currentReply);
+  }
 </script>
 
 <aside>
@@ -1084,6 +1068,7 @@
               {left: '$', right: '$', display: false},
           ],
 		  trust: true,
+		  diplayMode: true,
 		  trust: (context) => ['\\htmlId', '\\href', '\\includegraphics'].includes(context.command),
 		  macros: {
 		  "\\eqref": "\\href{###1}{(\\text{#1})}",
@@ -1127,6 +1112,8 @@
         <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
         <script>hljs.initHighlightingOnLoad();</script>
     
+    
+    <script src=https://freshrimpsushi.github.io/js/common.js></script>
     
     </aside>
 </footer>

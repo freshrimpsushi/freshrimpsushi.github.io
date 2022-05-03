@@ -115,7 +115,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-handle-hidden-layer-in-julia-flux\/",
-    "wordCount" : "481",
+    "wordCount" : "484",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -268,7 +268,7 @@
 <aside>
     How to Handle Hidden Layer in Julia Flux
     <p style="text-align: right;">
-         <a href="../887">🎲</a>
+         <a href="../1272">🎲</a>
         3209
 
     
@@ -301,7 +301,7 @@
 <li><code>Dense(W::AbstractMatrix, [bias, σ]</code></li>
 </ul>
 <p><a href="../991">활성화함수</a>에 대한 기본값은 <a href="../3167">항등함수</a>이다. relu나 tanh, sigmoid 등 잘 알려진 함수를 사용할 수 있다.</p>
-<pre tabindex="0"><code>julia&gt; Dense(5, 2)
+<pre><code>julia&gt; Dense(5, 2)
 Dense(5, 2)         # 12 parameters
 
 julia&gt; Dense(5, 2, relu)
@@ -319,14 +319,14 @@ julia&gt; d1(ones(5))
  0.9999092042625951
 </code></pre><h2 id="컨볼루션2">컨볼루션<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h2>
 <p>플럭스에서 컨볼루션층은 <code>Conv()</code>로 구현할 수 있다.</p>
-<pre tabindex="0"><code>Conv(filter, in =&gt; out, σ = identity;
+<pre><code>Conv(filter, in =&gt; out, σ = identity;
     stride = 1, pad = 0, dilation = 1, groups = 1, [bias, weight, init])
 </code></pre><ul>
 <li><code>filter</code>: 커널의 사이즈를 튜플 <code>(m,n)</code>으로 입력한다.</li>
 <li><code>in =&gt; out</code>: 입력층의 채널 수와 출력층의 채널 수를 입력한다.</li>
 </ul>
 <p>컨볼루션층을 사용할 때 주의해야할 점은 <strong>입력으로 쓰는 배열이 항상 4차원 배열</strong>이어야한다는 것이다. 흑백사진 1장이라해도 <code>(Hight, Width)</code>가 아니라 <code>(Hight, Width, 1, 1)</code>의 사이즈로 입력해야한다는 것이다. RGB 컬러 사진 11장이라면 사이즈가 <code>(Hight, Width, 3, 11)</code>이어야 한다.</p>
-<pre tabindex="0"><code>julia&gt; A = rand(Float32, 4,4,1,1)
+<pre><code>julia&gt; A = rand(Float32, 4,4,1,1)
 4×4×1×1 Array{Float32, 4}:
 [:, :, 1, 1] =
  0.645447  0.459486  0.427283   0.631972
@@ -367,13 +367,13 @@ julia&gt; c(A)
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://fluxml.ai/Flux.jl/stable/models/layers/#Flux.Dense">https://fluxml.ai/Flux.jl/stable/models/layers/#Flux.Dense</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://fluxml.ai/Flux.jl/stable/models/layers/#Flux.Dense">https://fluxml.ai/Flux.jl/stable/models/layers/#Flux.Dense</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p><a href="https://fluxml.ai/Flux.jl/stable/models/nnlib/#Convolution">https://fluxml.ai/Flux.jl/stable/models/nnlib/#Convolution</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://fluxml.ai/Flux.jl/stable/models/nnlib/#Convolution">https://fluxml.ai/Flux.jl/stable/models/nnlib/#Convolution</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:3" role="doc-endnote">
-<p><a href="https://fluxml.ai/Flux.jl/stable/models/nnlib/#Pooling">https://fluxml.ai/Flux.jl/stable/models/nnlib/#Pooling</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://fluxml.ai/Flux.jl/stable/models/nnlib/#Pooling">https://fluxml.ai/Flux.jl/stable/models/nnlib/#Pooling</a> <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -434,7 +434,7 @@ julia&gt; c(A)
     <div class="write-button">
         <input class="write_comment" type="submit" name="submit" value="등록">
     </div>
-    <aside align="middle">댓글에도 $\TeX$이 적용됩니다.</aside>
+    <aside style="text-align: center;">댓글에도 $\TeX$이 적용됩니다.</aside>
 </div>
 
 
@@ -636,7 +636,9 @@ julia&gt; c(A)
                     str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['cmt_idx'] + ")'>삭제</div>";
                     str += "</div>";
                     str += "</div>";
-                    str += "<div class='content-text'>" + rows[i]['content'] + "</div>";
+                    let content = rows[i]['content'];
+                    content = content.replace(/\n/g, '<br />');
+                    str += "<div class='content-text'>" + content + "</div>";
                     str += "<div class='re-comment'><span class='re-comment-button' onclick='re_comment(" + rows[i]['cmt_idx'] + ")'>답글</span></div>";
                     str += "</li>";
                     list_reply.append(str);
@@ -653,7 +655,9 @@ julia&gt; c(A)
                         str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['child'][j]['cmt_idx'] + ")'>삭제</div>";
                         str += "</div>";
                         str += "</div>";
-                        str += "<div class='content-text'>" + rows[i]['child'][j]['content'] + "</div>";
+                        let content = rows[i]['child'][j]['content'];
+                        content = content.replace(/\n/g, '<br />');
+                        str += "<div class='content-text'>" + content + "</div>";
                         str += "</li>";
                         list_reply.append(str);
                         str = "";
@@ -916,7 +920,7 @@ julia&gt; c(A)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (85)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (86)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
         </li><li>
@@ -1025,67 +1029,47 @@ julia&gt; c(A)
 </aside>
 
 <aside>
-    <p><b>최근 댓글</b></p>
-    <ul class="current-reply">
-        
-    </ul>
+  <p><b>최근 댓글</b></p>
+  <div class="current-reply">
+  </div>
 </aside>
 
 <script>
-    $(document).ready(function() {
-        
+  const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/recent_comment.php?action=getCurrentComment';
+  let recentRows = []; 
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      if (data.ok) {
+        recentRows = data.rows;
+        render_recent_comment(recentRows);
+      }
+    })
+    .catch(err => console.error(err));
 
-        $.ajax({
-            type: "POST",
-            url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.recent_comment.php?action=currentComment",
-            data: {},
-            dataType: "json",
-            success: function(data) {
-                var rows = data['rows'];
-                var ul_currnet_list = $('.current-reply');
-                var str = "";
-                 
-                for(var i = 0; i < rows.length; i++) {
-                    if(rows[i]['board_idx'] > -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else if(rows[i]['board_idx'] == -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    str += "<b> - " + rows[i]['author'] + "</b>: ";
-                    str += "" + rows[i]['content'] + "";
-                    str += "</a></li>";
-                    ul_currnet_list.append(str);
-                    str = "";
-                }
-                renderMathInElement(document.body, {
-                    
-                    
-                    delimiters: [
-                        {left: '$$', right: '$$', display: true},
-                        {left: '$', right: '$', display: false},
-                    ],
-                    trust: ["\\htmlId"],
-                    macros: {
-                    "\\eqref": "\\href{###1}{(\\text{#1})}",
-                    "\\ref": "\\href{###1}{\\text{#1}}",
-                    "\\label": "\\htmlId{#1}{}"
-                    },
-                    
-                    throwOnError : false
-                });
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
-            }
-        });
+  
+  function render_recent_comment(rows) {
+    const currentReply = document.querySelector('.current-reply');
+    let html = '';
+    rows.map(row => {
+      let link = 'https:\/\/freshrimpsushi.github.io';
+      if (row.board_idx > -1) {
+        link += `/posts/${row.board_slug}#comment${row.cmt_idx}`;
+      } else if (row.board_idx == -1) {
+        link += `#comment${row.cmt_idx}`;
+      } else {
+        link += `/categories/${row.board_title}#comment${row.cmt_idx}`;
+      }
+      html += `<div class="current-reply-list">`;
+      html += `<a href="${link}">`;
+      html += `<b> - ${row.author}</b>: `;
+      html += `${row.content}`;
+      html += `</a>`;
+      html += `</div>`;
     });
+    currentReply.innerHTML = html;
+    renderKaTex(currentReply);
+  }
 </script>
 
 <aside>
@@ -1128,6 +1112,7 @@ julia&gt; c(A)
               {left: '$', right: '$', display: false},
           ],
 		  trust: true,
+		  diplayMode: true,
 		  trust: (context) => ['\\htmlId', '\\href', '\\includegraphics'].includes(context.command),
 		  macros: {
 		  "\\eqref": "\\href{###1}{(\\text{#1})}",
@@ -1171,6 +1156,8 @@ julia&gt; c(A)
         <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
         <script>hljs.initHighlightingOnLoad();</script>
     
+    
+    <script src=https://freshrimpsushi.github.io/js/common.js></script>
     
     </aside>
 </footer>

@@ -115,7 +115,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/conformal-mapping\/",
-    "wordCount" : "539",
+    "wordCount" : "540",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -268,7 +268,7 @@
 <aside>
     Conformal mapping
     <p style="text-align: right;">
-         <a href="../449">🎲</a>
+         <a href="../963">🎲</a>
         409
 
     
@@ -299,23 +299,23 @@
 <p>등각等角이라는 한자 그대로 <a href="../410">등각변환을 취하면 도형들이 이루는 각이 보존</a>된다.</p>
 <p>그 이름답게 등각사상끼리의 합성은 <a href="../409">등각사상</a>이라는 사실을 알아두도록 하자. 증명은 다음의 대우를 확인하는 것으로 충분하다.
 $$
-(f \circ g) &rsquo; = f '(g) g' = 0 \iff g' = 0 \lor f ' = 0
+(f \circ g) ' = f '(g) g' = 0 \iff g' = 0 \lor f ' = 0
 $$</p>
 <p>이러한 등각변환은 단순폐경로를 많이 다루는 복소해석에서 매우 중요한 것으로, 적분경로를 다룰 때 유용하게 쓰인다. 임계점은 기하학적으로 생각해보자면 방향을 바꾸기 위해 완전히 멈추는, 즉 꺾이는 지점이라고 할 수 있다. 한편 <a href="../1929">해석적</a>이면서 단사인 함수는 아래의 두가지 중요한 성질을 가진다.</p>
 <h2 id="기초-성질">기초 성질</h2>
 <ul>
 <li>[1]: 함수 $f$ 가 $\mathscr{R}$ 에서 <a href="../1929">해석적</a>이고 단사면 모든 $z \in \mathscr{R}$ 에서 $f ' (z) \ne 0$ 이다.</li>
-<li>[2]: 함수 $f$ 가 $\mathscr{R}$ 에서 <a href="../1929">해석적</a>이고 단사며 <a href="../2082">단순폐경로</a> $\mathscr{C}$ 를 $\mathscr{C}&rsquo;$ 로 대응시킨다고 하자. 그러면 $f$ 는 $\mathscr{C}$ 내부의 점을 $\mathscr{C}&rsquo;$ 의 내부 혹은 외부로만 대응시킨다.</li>
+<li>[2]: 함수 $f$ 가 $\mathscr{R}$ 에서 <a href="../1929">해석적</a>이고 단사며 <a href="../2082">단순폐경로</a> $\mathscr{C}$ 를 $\mathscr{C}'$ 로 대응시킨다고 하자. 그러면 $f$ 는 $\mathscr{C}$ 내부의 점을 $\mathscr{C}'$ 의 내부 혹은 외부로만 대응시킨다.</li>
 </ul>
 <hr>
 <ul>
-<li>[1]에서 필요충분조건은 아님에 주의하도록 하자. [2] 는 특히 중요한 성질로써, $\mathscr{C}$ 내부의 한 점만 체크하면 그 외의 점이 $\mathscr{C}&rsquo;$ 의 내부로 가는지 외부로 가는지 알 수 있다.</li>
+<li>[1]에서 필요충분조건은 아님에 주의하도록 하자. [2] 는 특히 중요한 성질로써, $\mathscr{C}$ 내부의 한 점만 체크하면 그 외의 점이 $\mathscr{C}'$ 의 내부로 가는지 외부로 가는지 알 수 있다.</li>
 </ul>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Osborne (1999). Complex variables and their applications: p193, 196.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Osborne (1999). Complex variables and their applications: p193, 196. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -376,7 +376,7 @@ $$</p>
     <div class="write-button">
         <input class="write_comment" type="submit" name="submit" value="등록">
     </div>
-    <aside align="middle">댓글에도 $\TeX$이 적용됩니다.</aside>
+    <aside style="text-align: center;">댓글에도 $\TeX$이 적용됩니다.</aside>
 </div>
 
 
@@ -578,7 +578,9 @@ $$</p>
                     str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['cmt_idx'] + ")'>삭제</div>";
                     str += "</div>";
                     str += "</div>";
-                    str += "<div class='content-text'>" + rows[i]['content'] + "</div>";
+                    let content = rows[i]['content'];
+                    content = content.replace(/\n/g, '<br />');
+                    str += "<div class='content-text'>" + content + "</div>";
                     str += "<div class='re-comment'><span class='re-comment-button' onclick='re_comment(" + rows[i]['cmt_idx'] + ")'>답글</span></div>";
                     str += "</li>";
                     list_reply.append(str);
@@ -595,7 +597,9 @@ $$</p>
                         str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['child'][j]['cmt_idx'] + ")'>삭제</div>";
                         str += "</div>";
                         str += "</div>";
-                        str += "<div class='content-text'>" + rows[i]['child'][j]['content'] + "</div>";
+                        let content = rows[i]['child'][j]['content'];
+                        content = content.replace(/\n/g, '<br />');
+                        str += "<div class='content-text'>" + content + "</div>";
                         str += "</li>";
                         list_reply.append(str);
                         str = "";
@@ -858,7 +862,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (85)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (86)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
         </li><li>
@@ -967,67 +971,47 @@ $$</p>
 </aside>
 
 <aside>
-    <p><b>최근 댓글</b></p>
-    <ul class="current-reply">
-        
-    </ul>
+  <p><b>최근 댓글</b></p>
+  <div class="current-reply">
+  </div>
 </aside>
 
 <script>
-    $(document).ready(function() {
-        
+  const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/recent_comment.php?action=getCurrentComment';
+  let recentRows = []; 
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      if (data.ok) {
+        recentRows = data.rows;
+        render_recent_comment(recentRows);
+      }
+    })
+    .catch(err => console.error(err));
 
-        $.ajax({
-            type: "POST",
-            url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.recent_comment.php?action=currentComment",
-            data: {},
-            dataType: "json",
-            success: function(data) {
-                var rows = data['rows'];
-                var ul_currnet_list = $('.current-reply');
-                var str = "";
-                 
-                for(var i = 0; i < rows.length; i++) {
-                    if(rows[i]['board_idx'] > -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else if(rows[i]['board_idx'] == -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    str += "<b> - " + rows[i]['author'] + "</b>: ";
-                    str += "" + rows[i]['content'] + "";
-                    str += "</a></li>";
-                    ul_currnet_list.append(str);
-                    str = "";
-                }
-                renderMathInElement(document.body, {
-                    
-                    
-                    delimiters: [
-                        {left: '$$', right: '$$', display: true},
-                        {left: '$', right: '$', display: false},
-                    ],
-                    trust: ["\\htmlId"],
-                    macros: {
-                    "\\eqref": "\\href{###1}{(\\text{#1})}",
-                    "\\ref": "\\href{###1}{\\text{#1}}",
-                    "\\label": "\\htmlId{#1}{}"
-                    },
-                    
-                    throwOnError : false
-                });
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
-            }
-        });
+  
+  function render_recent_comment(rows) {
+    const currentReply = document.querySelector('.current-reply');
+    let html = '';
+    rows.map(row => {
+      let link = 'https:\/\/freshrimpsushi.github.io';
+      if (row.board_idx > -1) {
+        link += `/posts/${row.board_slug}#comment${row.cmt_idx}`;
+      } else if (row.board_idx == -1) {
+        link += `#comment${row.cmt_idx}`;
+      } else {
+        link += `/categories/${row.board_title}#comment${row.cmt_idx}`;
+      }
+      html += `<div class="current-reply-list">`;
+      html += `<a href="${link}">`;
+      html += `<b> - ${row.author}</b>: `;
+      html += `${row.content}`;
+      html += `</a>`;
+      html += `</div>`;
     });
+    currentReply.innerHTML = html;
+    renderKaTex(currentReply);
+  }
 </script>
 
 <aside>
@@ -1070,6 +1054,7 @@ $$</p>
               {left: '$', right: '$', display: false},
           ],
 		  trust: true,
+		  diplayMode: true,
 		  trust: (context) => ['\\htmlId', '\\href', '\\includegraphics'].includes(context.command),
 		  macros: {
 		  "\\eqref": "\\href{###1}{(\\text{#1})}",
@@ -1109,6 +1094,8 @@ $$</p>
 
     
     
+    
+    <script src=https://freshrimpsushi.github.io/js/common.js></script>
     
     </aside>
 </footer>

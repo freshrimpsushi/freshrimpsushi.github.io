@@ -268,7 +268,7 @@
 <aside>
     How to Use Complex Number in julia
     <p style="text-align: right;">
-         <a href="../1643">🎲</a>
+         <a href="../779">🎲</a>
         2373
 
     
@@ -305,44 +305,44 @@
 <p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서는 기본적으로 <a href="../../categories/r">R</a>처럼 <a href="../2046">복소수</a>를 지원한다.</p>
 <h2 id="코드">코드</h2>
 <h3 id="허수-im">허수 <code>im</code></h3>
-<pre tabindex="0"><code>julia&gt; z = 3 + 4im
+<pre><code>julia&gt; z = 3 + 4im
 3 + 4im
 </code></pre><p><code>im</code>은 순허수 $i = \sqrt{-1}$ 를 나타낸다. 우리가 상식적으로 사용하는 사칙연산은 모두 사용할 수 있다.</p>
-<pre tabindex="0"><code>julia&gt; typeof(z)
+<pre><code>julia&gt; typeof(z)
 Complex{Int64}
 
 julia&gt; typeof(3.0 + 4.0im)
 ComplexF64 (alias for Complex{Float64})
 </code></pre><p>타입을 체크해보면 같은 복소수라도 어떤 복소수로 이루어져있는지가 다르다. 마치 <a href="../../categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98">추상대수</a>에서 <a href="../1267">정수인 경우 $\mathbb{Z} [i]$</a>, 혹은 <a href="../801">실수인 경우 $\mathbb{R} [i]$</a> 로 구분하는 느낌과 비슷하다.</p>
 <h3 id="실수부-허수부-real-imag">실수부, 허수부 <code>real()</code>, <code>imag()</code></h3>
-<pre tabindex="0"><code>julia&gt; real(z)
+<pre><code>julia&gt; real(z)
 3
 
 julia&gt; imag(z)
 4
 </code></pre><h3 id="켤레복소수-모듈러스-conj-abs">켤레복소수, 모듈러스 <code>conj()</code>, <code>abs()</code></h3>
-<pre tabindex="0"><code>julia&gt; conj(z)
+<pre><code>julia&gt; conj(z)
 3 - 4im
 
 julia&gt; abs(z)
 5.0
 </code></pre><p>한편 여기서 모듈러스 <code>abs()</code>는 딱히 복소수에 대해 새로이 정의하지 않고 절대값 그대로 사용되었음에 주목하라. 줄리아는 다형성<sup>polymorphism</sup>을 가져서 이러한 설계가 네이티브하게 잘 되어있다.</p>
 <h3 id="일반-복소함수">일반 복소함수</h3>
-<pre tabindex="0"><code>julia&gt; cos(z)
+<pre><code>julia&gt; cos(z)
 -27.034945603074224 - 3.851153334811777im
 
 julia&gt; log(z)
 1.6094379124341003 + 0.9272952180016122im
 </code></pre><p>당연하지만 절대값이 그러했듯 <a href="../2056">삼각함수</a>와 <a href="../2063">로그 함수</a>는 복소수 $\mathbb{C}$ 에서도 잘 정의되고, 줄리아에서도 별도의 조작 없이 바로 사용할 수 있다.</p>
 <h3 id="전체코드">전체코드</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>z <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span>im
-</span></span><span style="display:flex;"><span>real(z)
-</span></span><span style="display:flex;"><span>imag(z)
-</span></span><span style="display:flex;"><span>conj(z)
-</span></span><span style="display:flex;"><span>abs(z)
-</span></span><span style="display:flex;"><span>cos(z)
-</span></span><span style="display:flex;"><span>log(z)
-</span></span></code></pre></div><h2 id="환경">환경</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">z <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span>im
+real(z)
+imag(z)
+conj(z)
+abs(z)
+cos(z)
+log(z)
+</code></pre></div><h2 id="환경">환경</h2>
 <ul>
 <li>OS: Windows</li>
 <li>julia: v1.7.0</li>
@@ -404,7 +404,7 @@ julia&gt; log(z)
     <div class="write-button">
         <input class="write_comment" type="submit" name="submit" value="등록">
     </div>
-    <aside align="middle">댓글에도 $\TeX$이 적용됩니다.</aside>
+    <aside style="text-align: center;">댓글에도 $\TeX$이 적용됩니다.</aside>
 </div>
 
 
@@ -606,7 +606,9 @@ julia&gt; log(z)
                     str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['cmt_idx'] + ")'>삭제</div>";
                     str += "</div>";
                     str += "</div>";
-                    str += "<div class='content-text'>" + rows[i]['content'] + "</div>";
+                    let content = rows[i]['content'];
+                    content = content.replace(/\n/g, '<br />');
+                    str += "<div class='content-text'>" + content + "</div>";
                     str += "<div class='re-comment'><span class='re-comment-button' onclick='re_comment(" + rows[i]['cmt_idx'] + ")'>답글</span></div>";
                     str += "</li>";
                     list_reply.append(str);
@@ -623,7 +625,9 @@ julia&gt; log(z)
                         str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['child'][j]['cmt_idx'] + ")'>삭제</div>";
                         str += "</div>";
                         str += "</div>";
-                        str += "<div class='content-text'>" + rows[i]['child'][j]['content'] + "</div>";
+                        let content = rows[i]['child'][j]['content'];
+                        content = content.replace(/\n/g, '<br />');
+                        str += "<div class='content-text'>" + content + "</div>";
                         str += "</li>";
                         list_reply.append(str);
                         str = "";
@@ -886,7 +890,7 @@ julia&gt; log(z)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (85)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (86)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
         </li><li>
@@ -995,67 +999,47 @@ julia&gt; log(z)
 </aside>
 
 <aside>
-    <p><b>최근 댓글</b></p>
-    <ul class="current-reply">
-        
-    </ul>
+  <p><b>최근 댓글</b></p>
+  <div class="current-reply">
+  </div>
 </aside>
 
 <script>
-    $(document).ready(function() {
-        
+  const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/recent_comment.php?action=getCurrentComment';
+  let recentRows = []; 
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      if (data.ok) {
+        recentRows = data.rows;
+        render_recent_comment(recentRows);
+      }
+    })
+    .catch(err => console.error(err));
 
-        $.ajax({
-            type: "POST",
-            url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.recent_comment.php?action=currentComment",
-            data: {},
-            dataType: "json",
-            success: function(data) {
-                var rows = data['rows'];
-                var ul_currnet_list = $('.current-reply');
-                var str = "";
-                 
-                for(var i = 0; i < rows.length; i++) {
-                    if(rows[i]['board_idx'] > -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else if(rows[i]['board_idx'] == -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    str += "<b> - " + rows[i]['author'] + "</b>: ";
-                    str += "" + rows[i]['content'] + "";
-                    str += "</a></li>";
-                    ul_currnet_list.append(str);
-                    str = "";
-                }
-                renderMathInElement(document.body, {
-                    
-                    
-                    delimiters: [
-                        {left: '$$', right: '$$', display: true},
-                        {left: '$', right: '$', display: false},
-                    ],
-                    trust: ["\\htmlId"],
-                    macros: {
-                    "\\eqref": "\\href{###1}{(\\text{#1})}",
-                    "\\ref": "\\href{###1}{\\text{#1}}",
-                    "\\label": "\\htmlId{#1}{}"
-                    },
-                    
-                    throwOnError : false
-                });
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
-            }
-        });
+  
+  function render_recent_comment(rows) {
+    const currentReply = document.querySelector('.current-reply');
+    let html = '';
+    rows.map(row => {
+      let link = 'https:\/\/freshrimpsushi.github.io';
+      if (row.board_idx > -1) {
+        link += `/posts/${row.board_slug}#comment${row.cmt_idx}`;
+      } else if (row.board_idx == -1) {
+        link += `#comment${row.cmt_idx}`;
+      } else {
+        link += `/categories/${row.board_title}#comment${row.cmt_idx}`;
+      }
+      html += `<div class="current-reply-list">`;
+      html += `<a href="${link}">`;
+      html += `<b> - ${row.author}</b>: `;
+      html += `${row.content}`;
+      html += `</a>`;
+      html += `</div>`;
     });
+    currentReply.innerHTML = html;
+    renderKaTex(currentReply);
+  }
 </script>
 
 <aside>
@@ -1098,6 +1082,7 @@ julia&gt; log(z)
               {left: '$', right: '$', display: false},
           ],
 		  trust: true,
+		  diplayMode: true,
 		  trust: (context) => ['\\htmlId', '\\href', '\\includegraphics'].includes(context.command),
 		  macros: {
 		  "\\eqref": "\\href{###1}{(\\text{#1})}",
@@ -1141,6 +1126,8 @@ julia&gt; log(z)
         <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
         <script>hljs.initHighlightingOnLoad();</script>
     
+    
+    <script src=https://freshrimpsushi.github.io/js/common.js></script>
     
     </aside>
 </footer>

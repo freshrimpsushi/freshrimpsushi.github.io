@@ -115,7 +115,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/euler-method-in-numerical-analysis\/",
-    "wordCount" : "670",
+    "wordCount" : "671",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -268,7 +268,7 @@
 <aside>
     Euler Method in Numerical Analysis
     <p style="text-align: right;">
-         <a href="../1712">🎲</a>
+         <a href="../1229">🎲</a>
         687
 
     
@@ -300,7 +300,7 @@
 </aside>
 
 <h2 id="메소드-1">메소드 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p>$D \subset \mathbb{R}^2$ 에서 정의된 연속함수 $f$ 에 대해 초기값 문제 $\begin{cases} y&rsquo; = f(x,y) 
+<p>$D \subset \mathbb{R}^2$ 에서 정의된 연속함수 $f$ 에 대해 초기값 문제 $\begin{cases} y' = f(x,y) 
 \\  y( x_{0} ) = Y_{0} \end{cases}$ 가 주어져 있다. 구간 $(a,b)$ 을 $a \le x_{0} &lt; x_{1} &lt; \cdots &lt; x_{n} &lt; \cdots x_{N} \le b$ 와 같은 노드 포인트들로 쪼갰다고 하자. 특히 충분히 작은 $h &gt; 0$ 에 대해 $x_{j} = x_{0} + j h$ 이라고 하면 초기값 $y_{0} \simeq Y_{0}$ 에 대해
 $$
 y_{n+1} = y_{n} + h f ( x_{n} , y_{n} ) 
@@ -311,20 +311,20 @@ $$</p>
 <h3 id="테일러-전개">테일러 전개</h3>
 <p>$Y(x_{n+1} )$ 를 $x_{n}$ 에 대해 $2$ 차항까지 <a href="../41">테일러 전개</a>하면
 $$
-Y ( x_{n+1} ) = Y ( x_{n} ) + ( x_{n+1} - x_{n}) Y&rsquo; ( x_{n} ) + {{( x_{n+1} - x_{n})^2} \over {2}} Y&rsquo;&rsquo; ( \xi_{n} ) 
+Y ( x_{n+1} ) = Y ( x_{n} ) + ( x_{n+1} - x_{n}) Y' ( x_{n} ) + {{( x_{n+1} - x_{n})^2} \over {2}} Y'' ( \xi_{n} ) 
 $$
 정리하면
 $$
-Y ( x_{n+1} ) = Y ( x_{n} ) + h Y&rsquo; ( x_{n} ) + {{h^2} \over {2}} Y&rsquo;&rsquo; ( \xi_{n} ) 
+Y ( x_{n+1} ) = Y ( x_{n} ) + h Y' ( x_{n} ) + {{h^2} \over {2}} Y'' ( \xi_{n} ) 
 $$
-인데, 여기서 오차항 $\displaystyle {{h^2} \over {2}} Y&rsquo;&rsquo; ( \xi_{n} )$ 을 버리면
+인데, 여기서 오차항 $\displaystyle {{h^2} \over {2}} Y'' ( \xi_{n} )$ 을 버리면
 $$
 y_{n+1} = y_{n} + h f ( x_{n} , y_{n} ) 
 $$</p>
 <p style="text-align: right;">■</p>
 <p>테일러 전개를 통한 유도에서 바로 알 수 있는 것은 $h$ 가 작아지면 오차도 줄어든다는 것이다. 또한 유도과정에서 테일러 근사가 꼭 $2$ 차여야하는 이유는 딱히 없기 때문에, 차수를 올리면 오차가 줄어들 것이다.</p>
 <h3 id="수치적-적분">수치적 적분</h3>
-<p>$[x_{n} , x_{n+1}]$ 에서 $Y&rsquo;(t) = f (t, Y(t))$ 의 정적분은
+<p>$[x_{n} , x_{n+1}]$ 에서 $Y'(t) = f (t, Y(t))$ 의 정적분은
 $$
 \int_{x_{n}}^{x_{n+1}} f(t,Y(t)) dt = Y(x_{n+1}) -  Y(x_{n})
 $$
@@ -337,7 +337,7 @@ $$</p>
 <p>구분구적법의 아이디어를 생각해보면 이 역시 $h$ 가 작아질수록 오차가 작아짐을 짐작할 수가 있다. 그림에서 보다시피 실제 적분값과 수치적으로 구한 값의 차이가 꽤 큰데, 사다리꼴 메소드나 심슨 메소드를 쓰면 오차가 줄어들것이다.</p>
 <h2 id="구현">구현</h2>
 <p>아래는 <a href="../../categories/r">R</a>로 작성된 코드다.</p>
-<pre tabindex="0"><code>Euler&lt;-function(f,Y\_0,a,b,h=10^(-3))
+<pre><code>Euler&lt;-function(f,Y\_0,a,b,h=10^(-3))
 {
   Y &lt;- t(Y\_0)
   node &lt;- seq(a,b,by=h)
@@ -361,7 +361,7 @@ out[,1]
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Atkinson. (1989). An Introduction to Numerical Analysis(2nd Edition): p341.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Atkinson. (1989). An Introduction to Numerical Analysis(2nd Edition): p341. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -422,7 +422,7 @@ out[,1]
     <div class="write-button">
         <input class="write_comment" type="submit" name="submit" value="등록">
     </div>
-    <aside align="middle">댓글에도 $\TeX$이 적용됩니다.</aside>
+    <aside style="text-align: center;">댓글에도 $\TeX$이 적용됩니다.</aside>
 </div>
 
 
@@ -624,7 +624,9 @@ out[,1]
                     str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['cmt_idx'] + ")'>삭제</div>";
                     str += "</div>";
                     str += "</div>";
-                    str += "<div class='content-text'>" + rows[i]['content'] + "</div>";
+                    let content = rows[i]['content'];
+                    content = content.replace(/\n/g, '<br />');
+                    str += "<div class='content-text'>" + content + "</div>";
                     str += "<div class='re-comment'><span class='re-comment-button' onclick='re_comment(" + rows[i]['cmt_idx'] + ")'>답글</span></div>";
                     str += "</li>";
                     list_reply.append(str);
@@ -641,7 +643,9 @@ out[,1]
                         str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['child'][j]['cmt_idx'] + ")'>삭제</div>";
                         str += "</div>";
                         str += "</div>";
-                        str += "<div class='content-text'>" + rows[i]['child'][j]['content'] + "</div>";
+                        let content = rows[i]['child'][j]['content'];
+                        content = content.replace(/\n/g, '<br />');
+                        str += "<div class='content-text'>" + content + "</div>";
                         str += "</li>";
                         list_reply.append(str);
                         str = "";
@@ -904,7 +908,7 @@ out[,1]
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (85)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (86)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
         </li><li>
@@ -1013,67 +1017,47 @@ out[,1]
 </aside>
 
 <aside>
-    <p><b>최근 댓글</b></p>
-    <ul class="current-reply">
-        
-    </ul>
+  <p><b>최근 댓글</b></p>
+  <div class="current-reply">
+  </div>
 </aside>
 
 <script>
-    $(document).ready(function() {
-        
+  const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/recent_comment.php?action=getCurrentComment';
+  let recentRows = []; 
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      if (data.ok) {
+        recentRows = data.rows;
+        render_recent_comment(recentRows);
+      }
+    })
+    .catch(err => console.error(err));
 
-        $.ajax({
-            type: "POST",
-            url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.recent_comment.php?action=currentComment",
-            data: {},
-            dataType: "json",
-            success: function(data) {
-                var rows = data['rows'];
-                var ul_currnet_list = $('.current-reply');
-                var str = "";
-                 
-                for(var i = 0; i < rows.length; i++) {
-                    if(rows[i]['board_idx'] > -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else if(rows[i]['board_idx'] == -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    str += "<b> - " + rows[i]['author'] + "</b>: ";
-                    str += "" + rows[i]['content'] + "";
-                    str += "</a></li>";
-                    ul_currnet_list.append(str);
-                    str = "";
-                }
-                renderMathInElement(document.body, {
-                    
-                    
-                    delimiters: [
-                        {left: '$$', right: '$$', display: true},
-                        {left: '$', right: '$', display: false},
-                    ],
-                    trust: ["\\htmlId"],
-                    macros: {
-                    "\\eqref": "\\href{###1}{(\\text{#1})}",
-                    "\\ref": "\\href{###1}{\\text{#1}}",
-                    "\\label": "\\htmlId{#1}{}"
-                    },
-                    
-                    throwOnError : false
-                });
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
-            }
-        });
+  
+  function render_recent_comment(rows) {
+    const currentReply = document.querySelector('.current-reply');
+    let html = '';
+    rows.map(row => {
+      let link = 'https:\/\/freshrimpsushi.github.io';
+      if (row.board_idx > -1) {
+        link += `/posts/${row.board_slug}#comment${row.cmt_idx}`;
+      } else if (row.board_idx == -1) {
+        link += `#comment${row.cmt_idx}`;
+      } else {
+        link += `/categories/${row.board_title}#comment${row.cmt_idx}`;
+      }
+      html += `<div class="current-reply-list">`;
+      html += `<a href="${link}">`;
+      html += `<b> - ${row.author}</b>: `;
+      html += `${row.content}`;
+      html += `</a>`;
+      html += `</div>`;
     });
+    currentReply.innerHTML = html;
+    renderKaTex(currentReply);
+  }
 </script>
 
 <aside>
@@ -1116,6 +1100,7 @@ out[,1]
               {left: '$', right: '$', display: false},
           ],
 		  trust: true,
+		  diplayMode: true,
 		  trust: (context) => ['\\htmlId', '\\href', '\\includegraphics'].includes(context.command),
 		  macros: {
 		  "\\eqref": "\\href{###1}{(\\text{#1})}",
@@ -1159,6 +1144,8 @@ out[,1]
         <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
         <script>hljs.initHighlightingOnLoad();</script>
     
+    
+    <script src=https://freshrimpsushi.github.io/js/common.js></script>
     
     </aside>
 </footer>

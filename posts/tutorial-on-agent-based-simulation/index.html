@@ -268,7 +268,7 @@
 <aside>
     Tutorial on agent based simulation
     <p style="text-align: right;">
-         <a href="../2063">🎲</a>
+         <a href="../494">🎲</a>
         1875
 
     
@@ -299,30 +299,30 @@
 <h2 id="시뮬레이션">시뮬레이션</h2>
 <h3 id="코드-리뷰">코드 리뷰</h3>
 <p><strong>Step 1. 패키지 로드, 초기값 설정</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> cd(<span style="color:#a6e22e">@\</span>_<span style="color:#f92672">\</span>_DIR<span style="color:#f92672">\</span>_<span style="color:#f92672">\</span>_) <span style="color:#75715e"># 파일 저장 경로cd(@\_\_DIR\_\_) # 파일 저장 경로</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Plots
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">19.989912</span> seconds (<span style="color:#ae81ff">31.16</span> M allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">1.628</span> GiB, <span style="color:#ae81ff">4.49</span><span style="color:#f92672">%</span> gc Time)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Random
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.034412</span> seconds (<span style="color:#ae81ff">33.81</span> k allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">1.722</span> MiB)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Distributions
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">3.436091</span> seconds (<span style="color:#ae81ff">2.74</span> M allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">156.074</span> MiB, <span style="color:#ae81ff">0.90</span><span style="color:#f92672">%</span> gc Time)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> LinearAlgebra
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.009646</span> seconds (<span style="color:#ae81ff">1.23</span> k allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">77.531</span> KiB)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> N0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span> <span style="color:#75715e"># 초기 인구수</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> gaussian2 <span style="color:#f92672">=</span> MvNormal([<span style="color:#ae81ff">0.0</span>; <span style="color:#ae81ff">0.0</span>], <span style="color:#ae81ff">0.02</span>I) <span style="color:#75715e"># 2차원 정규분포</span>
-</span></span><span style="display:flex;"><span>IsoNormal(
-</span></span><span style="display:flex;"><span>dim<span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span>μ<span style="color:#f92672">:</span> [<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>]
-</span></span><span style="display:flex;"><span>Σ<span style="color:#f92672">:</span> [<span style="color:#ae81ff">0.02</span> <span style="color:#ae81ff">0.0</span>; <span style="color:#ae81ff">0.0</span> <span style="color:#ae81ff">0.02</span>]
-</span></span><span style="display:flex;"><span>)
-</span></span></code></pre></div><p>위의 코드는 <a href="../1416">패키지를 불러오고</a> 초기 에이전트의 수, 한 턴마다 주변을 배회하도록 이동 규칙을 준 것이다. 이동량은 다음과 같은 $2$차원 정규분포로 정의되었다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> cd(<span style="color:#960050;background-color:#1e0010">@</span><span style="color:#f92672">\</span>_<span style="color:#f92672">\</span>_DIR<span style="color:#f92672">\</span>_<span style="color:#f92672">\</span>_) <span style="color:#75715e"># 파일 저장 경로cd(@\_\_DIR\_\_) # 파일 저장 경로</span>
+
+julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Plots
+ <span style="color:#ae81ff">19.989912</span> seconds (<span style="color:#ae81ff">31.16</span> M allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">1.628</span> GiB, <span style="color:#ae81ff">4.49</span><span style="color:#f92672">%</span> gc Time)
+
+julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Random
+  <span style="color:#ae81ff">0.034412</span> seconds (<span style="color:#ae81ff">33.81</span> k allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">1.722</span> MiB)
+
+julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Distributions
+  <span style="color:#ae81ff">3.436091</span> seconds (<span style="color:#ae81ff">2.74</span> M allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">156.074</span> MiB, <span style="color:#ae81ff">0.90</span><span style="color:#f92672">%</span> gc Time)
+
+julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> LinearAlgebra
+  <span style="color:#ae81ff">0.009646</span> seconds (<span style="color:#ae81ff">1.23</span> k allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">77.531</span> KiB)
+
+julia<span style="color:#f92672">&gt;</span> N0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span> <span style="color:#75715e"># 초기 인구수</span>
+<span style="color:#ae81ff">10</span>
+
+julia<span style="color:#f92672">&gt;</span> gaussian2 <span style="color:#f92672">=</span> MvNormal([<span style="color:#ae81ff">0.0</span>; <span style="color:#ae81ff">0.0</span>], <span style="color:#ae81ff">0.02</span>I) <span style="color:#75715e"># 2차원 정규분포</span>
+IsoNormal(
+dim<span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>
+μ<span style="color:#f92672">:</span> [<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>]
+Σ<span style="color:#f92672">:</span> [<span style="color:#ae81ff">0.02</span> <span style="color:#ae81ff">0.0</span>; <span style="color:#ae81ff">0.0</span> <span style="color:#ae81ff">0.02</span>]
+)
+</code></pre></div><p>위의 코드는 <a href="../1416">패키지를 불러오고</a> 초기 에이전트의 수, 한 턴마다 주변을 배회하도록 이동 규칙을 준 것이다. 이동량은 다음과 같은 $2$차원 정규분포로 정의되었다.</p>
 <p>$$
 N \left( \mu , \Sigma \right) \qquad \text{where } \mu = (0,0) , \Sigma = \begin{bmatrix}
 0.02 &amp; 0 
@@ -332,35 +332,35 @@ $$</p>
 <hr>
 <p><strong>Step 2. 에이전트 생성</strong></p>
 <p>말은 에이전트 생성이라고 거창하게 포장했지만 사실 별 거 없다. 2차원 정규분포에서 에이전트의 수만큼 샘플을 뽑으면 그 좌표 자체가 에이전트를 표현하게 된다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> Random<span style="color:#f92672">.</span>seed!(<span style="color:#ae81ff">0</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f92672">=</span> rand(gaussian2, N0)<span style="color:#f92672">&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">Adjoint</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}}<span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.0960403</span>    <span style="color:#ae81ff">0.117155</span>
-</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0499228</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0190712</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.0829602</span>    <span style="color:#ae81ff">0.0420496</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.00918497</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0154174</span>
-</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0727203</span>    <span style="color:#ae81ff">0.222644</span>
-</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0974262</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.107877</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.0562125</span>    <span style="color:#ae81ff">0.114782</span>
-</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0489819</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0265268</span>
-</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.2273</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">0.350837</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.321908</span>     <span style="color:#ae81ff">0.0310693</span>
-</span></span></code></pre></div><p>위의 좌표들이 곧 에이전트의 위치를 나타낸다. 각 행은 에이전트 하나씩을 가리키며 첫 열은 x 좌표, 두번째 열은 y 좌표다. 당장은 에이전트들이 어떤 행동 규칙을 가질 필요가 없어 이것으로 충분하다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> Random<span style="color:#f92672">.</span>seed!(<span style="color:#ae81ff">0</span>);
+
+julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f92672">=</span> rand(gaussian2, N0)<span style="color:#f92672">&#39;</span>
+<span style="color:#ae81ff">10</span>×2 Adjoint{<span style="color:#66d9ef">Float64</span>,<span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}}<span style="color:#f92672">:</span>
+  <span style="color:#ae81ff">0.0960403</span>    <span style="color:#ae81ff">0.117155</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0499228</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0190712</span>
+  <span style="color:#ae81ff">0.0829602</span>    <span style="color:#ae81ff">0.0420496</span>
+  <span style="color:#ae81ff">0.00918497</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0154174</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0727203</span>    <span style="color:#ae81ff">0.222644</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0974262</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.107877</span>
+  <span style="color:#ae81ff">0.0562125</span>    <span style="color:#ae81ff">0.114782</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0489819</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0265268</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.2273</span>      <span style="color:#f92672">-</span><span style="color:#ae81ff">0.350837</span>
+  <span style="color:#ae81ff">0.321908</span>     <span style="color:#ae81ff">0.0310693</span>
+</code></pre></div><p>위의 좌표들이 곧 에이전트의 위치를 나타낸다. 각 행은 에이전트 하나씩을 가리키며 첫 열은 x 좌표, 두번째 열은 y 좌표다. 당장은 에이전트들이 어떤 행동 규칙을 가질 필요가 없어 이것으로 충분하다.</p>
 <hr>
 <p><strong>Step 3.  점도표(Scatter plot) 그리기</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> p <span style="color:#f92672">=</span> plot(coordinate[<span style="color:#f92672">:</span>,<span style="color:#ae81ff">1</span>], coordinate[<span style="color:#f92672">:</span>,<span style="color:#ae81ff">2</span>], Seriestype <span style="color:#f92672">=</span> <span style="color:#e6db74">:scatter</span>,
-</span></span><span style="display:flex;"><span>         markercolor <span style="color:#f92672">=</span> RGB(<span style="color:#ae81ff">1.</span>,<span style="color:#ae81ff">94</span><span style="color:#f92672">/</span><span style="color:#ae81ff">255</span>,<span style="color:#ae81ff">0.</span>), markeralpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.4</span>, markerstrokewidth<span style="color:#f92672">=</span> <span style="color:#ae81ff">0.1</span>,
-</span></span><span style="display:flex;"><span>         aspect<span style="color:#f92672">\</span>_ratio <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, size <span style="color:#f92672">=</span> [<span style="color:#ae81ff">400</span>,<span style="color:#ae81ff">400</span>],
-</span></span><span style="display:flex;"><span>         xaxis<span style="color:#f92672">=</span>true,yaxis<span style="color:#f92672">=</span>true,axis<span style="color:#f92672">=</span>nothing, legend <span style="color:#f92672">=</span> false)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> png(p, <span style="color:#e6db74">&#34;agent\_tutorial.png&#34;</span>); p
-</span></span></code></pre></div><p><code>plot()</code> 함수에 옵션 <code>seriestype = :scatter</code>을 넣으면 위와 같이 에이전트의 좌표를 점으로 찍어준다. 그리고 첫번째 줄에서 입력한 경로에서 다음과 같이 <code>&quot;agent\_tutorial.png&quot;</code>라는 파일이 생성되었을 것이다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> p <span style="color:#f92672">=</span> plot(coordinate[<span style="color:#f92672">:</span>,<span style="color:#ae81ff">1</span>], coordinate[<span style="color:#f92672">:</span>,<span style="color:#ae81ff">2</span>], Seriestype <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>scatter,
+         markercolor <span style="color:#f92672">=</span> RGB(<span style="color:#ae81ff">1.</span>,<span style="color:#ae81ff">94</span><span style="color:#f92672">/</span><span style="color:#ae81ff">255</span>,<span style="color:#ae81ff">0.</span>), markeralpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.4</span>, markerstrokewidth<span style="color:#f92672">=</span> <span style="color:#ae81ff">0.1</span>,
+         aspect<span style="color:#f92672">\</span>_ratio <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, size <span style="color:#f92672">=</span> [<span style="color:#ae81ff">400</span>,<span style="color:#ae81ff">400</span>],
+         xaxis<span style="color:#f92672">=</span><span style="color:#66d9ef">true</span>,yaxis<span style="color:#f92672">=</span><span style="color:#66d9ef">true</span>,axis<span style="color:#f92672">=</span>nothing, legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>)
+
+julia<span style="color:#f92672">&gt;</span> png(p, <span style="color:#e6db74">&#34;agent\_tutorial.png&#34;</span>); p
+</code></pre></div><p><code>plot()</code> 함수에 옵션 <code>seriestype = :scatter</code>을 넣으면 위와 같이 에이전트의 좌표를 점으로 찍어준다. 그리고 첫번째 줄에서 입력한 경로에서 다음과 같이 <code>&quot;agent\_tutorial.png&quot;</code>라는 파일이 생성되었을 것이다.</p>
 <p><img src="agent_tutorial.png#center" alt="agent\_tutorial.png"></p>
 <p><code>&quot;agent\_tutorial.png&quot;</code>의 실제 모습은 위와 같다. 이로써 에이전트를 생성하고 산점도로 시각화해본 것이다.</p>
 <h3 id="전체-코드">전체 코드</h3>
 <p>다음은 이 포스트에 쓰인 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다.</p>
-<pre tabindex="0"><code>cd(@__DIR__) # 파일 저장 경로
+<pre><code>cd(@__DIR__) # 파일 저장 경로
 
 @time using Plots
 @time using Random
@@ -371,13 +371,13 @@ N0 = 10 # 초기 인구수
 gaussian2 = MvNormal([0.0; 0.0], 0.02I) # 2차원 정규분포
 
 Random.seed!(0);
-coordinate = rand(gaussian2, N0)&#39;
+coordinate = rand(gaussian2, N0)'
 
 p = plot(coordinate[:,1], coordinate[:,2], Seriestype = :scatter,
   markercolor = RGB(1.,94/255,0.), markeralpha = 0.4, markerstrokewidth	= 0.1,
   aspect_ratio = 1, size = [400,400],
   xaxis=true,yaxis=true,axis=nothing, legend = false)
-png(p, &#34;agent_tutorial.png&#34;); p
+png(p, &quot;agent_tutorial.png&quot;); p
 </code></pre>
 
 
@@ -435,7 +435,7 @@ png(p, &#34;agent_tutorial.png&#34;); p
     <div class="write-button">
         <input class="write_comment" type="submit" name="submit" value="등록">
     </div>
-    <aside align="middle">댓글에도 $\TeX$이 적용됩니다.</aside>
+    <aside style="text-align: center;">댓글에도 $\TeX$이 적용됩니다.</aside>
 </div>
 
 
@@ -637,7 +637,9 @@ png(p, &#34;agent_tutorial.png&#34;); p
                     str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['cmt_idx'] + ")'>삭제</div>";
                     str += "</div>";
                     str += "</div>";
-                    str += "<div class='content-text'>" + rows[i]['content'] + "</div>";
+                    let content = rows[i]['content'];
+                    content = content.replace(/\n/g, '<br />');
+                    str += "<div class='content-text'>" + content + "</div>";
                     str += "<div class='re-comment'><span class='re-comment-button' onclick='re_comment(" + rows[i]['cmt_idx'] + ")'>답글</span></div>";
                     str += "</li>";
                     list_reply.append(str);
@@ -654,7 +656,9 @@ png(p, &#34;agent_tutorial.png&#34;); p
                         str += "<div class='list-delete-button' onclick='delete_comment(" + rows[i]['child'][j]['cmt_idx'] + ")'>삭제</div>";
                         str += "</div>";
                         str += "</div>";
-                        str += "<div class='content-text'>" + rows[i]['child'][j]['content'] + "</div>";
+                        let content = rows[i]['child'][j]['content'];
+                        content = content.replace(/\n/g, '<br />');
+                        str += "<div class='content-text'>" + content + "</div>";
                         str += "</li>";
                         list_reply.append(str);
                         str = "";
@@ -917,7 +921,7 @@ png(p, &#34;agent_tutorial.png&#34;); p
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (85)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (86)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
         </li><li>
@@ -1026,67 +1030,47 @@ png(p, &#34;agent_tutorial.png&#34;); p
 </aside>
 
 <aside>
-    <p><b>최근 댓글</b></p>
-    <ul class="current-reply">
-        
-    </ul>
+  <p><b>최근 댓글</b></p>
+  <div class="current-reply">
+  </div>
 </aside>
 
 <script>
-    $(document).ready(function() {
-        
+  const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/recent_comment.php?action=getCurrentComment';
+  let recentRows = []; 
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      if (data.ok) {
+        recentRows = data.rows;
+        render_recent_comment(recentRows);
+      }
+    })
+    .catch(err => console.error(err));
 
-        $.ajax({
-            type: "POST",
-            url: "https:\/\/freshrimpsushi.com\/blog\/ajax/ajax.recent_comment.php?action=currentComment",
-            data: {},
-            dataType: "json",
-            success: function(data) {
-                var rows = data['rows'];
-                var ul_currnet_list = $('.current-reply');
-                var str = "";
-                 
-                for(var i = 0; i < rows.length; i++) {
-                    if(rows[i]['board_idx'] > -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/posts/"+rows[i]['board_slug']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else if(rows[i]['board_idx'] == -1)
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    else
-                    {
-                        str += "<li style='font-size: 0.8rem;'><a href=https:\/\/freshrimpsushi.github.io/categories/"+rows[i]['board_title']+"#comment"+rows[i]['cmt_idx']+">";
-                    }
-                    str += "<b> - " + rows[i]['author'] + "</b>: ";
-                    str += "" + rows[i]['content'] + "";
-                    str += "</a></li>";
-                    ul_currnet_list.append(str);
-                    str = "";
-                }
-                renderMathInElement(document.body, {
-                    
-                    
-                    delimiters: [
-                        {left: '$$', right: '$$', display: true},
-                        {left: '$', right: '$', display: false},
-                    ],
-                    trust: ["\\htmlId"],
-                    macros: {
-                    "\\eqref": "\\href{###1}{(\\text{#1})}",
-                    "\\ref": "\\href{###1}{\\text{#1}}",
-                    "\\label": "\\htmlId{#1}{}"
-                    },
-                    
-                    throwOnError : false
-                });
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
-            }
-        });
+  
+  function render_recent_comment(rows) {
+    const currentReply = document.querySelector('.current-reply');
+    let html = '';
+    rows.map(row => {
+      let link = 'https:\/\/freshrimpsushi.github.io';
+      if (row.board_idx > -1) {
+        link += `/posts/${row.board_slug}#comment${row.cmt_idx}`;
+      } else if (row.board_idx == -1) {
+        link += `#comment${row.cmt_idx}`;
+      } else {
+        link += `/categories/${row.board_title}#comment${row.cmt_idx}`;
+      }
+      html += `<div class="current-reply-list">`;
+      html += `<a href="${link}">`;
+      html += `<b> - ${row.author}</b>: `;
+      html += `${row.content}`;
+      html += `</a>`;
+      html += `</div>`;
     });
+    currentReply.innerHTML = html;
+    renderKaTex(currentReply);
+  }
 </script>
 
 <aside>
@@ -1129,6 +1113,7 @@ png(p, &#34;agent_tutorial.png&#34;); p
               {left: '$', right: '$', display: false},
           ],
 		  trust: true,
+		  diplayMode: true,
 		  trust: (context) => ['\\htmlId', '\\href', '\\includegraphics'].includes(context.command),
 		  macros: {
 		  "\\eqref": "\\href{###1}{(\\text{#1})}",
@@ -1172,6 +1157,8 @@ png(p, &#34;agent_tutorial.png&#34;); p
         <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
         <script>hljs.initHighlightingOnLoad();</script>
     
+    
+    <script src=https://freshrimpsushi.github.io/js/common.js></script>
     
     </aside>
 </footer>
