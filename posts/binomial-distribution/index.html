@@ -115,7 +115,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/binomial-distribution\/",
-    "wordCount" : "879",
+    "wordCount" : "878",
     "genre" : [ "줄리아" ],
     "keywords" : [ "줄리아" ]
 }
@@ -268,7 +268,7 @@
 <aside>
     Binomial Distribution
     <p style="text-align: right;">
-         <a href="../1299">🎲</a>
+         <a href="../784">🎲</a>
         1480
 
     
@@ -383,21 +383,21 @@ $$</p>
 <hr>
 <p>$M$ 의 도함수는
 $$
-M'(t) = n \left[ (1-p) + pe^{t} \right]^{n-1} \left( pe^{t} \right)
+M&rsquo;(t) = n \left[ (1-p) + pe^{t} \right]^{n-1} \left( pe^{t} \right)
 $$
-<a href="../248">적률 생성 함수의 정의</a>에서 $ E(X) = M'(0):$ 이므로
+<a href="../248">적률 생성 함수의 정의</a>에서 $ E(X) = M&rsquo;(0):$ 이므로
 $$
-\mu := E(X) = M'(0) = np
+\mu := E(X) = M&rsquo;(0) = np
 $$
 $M$ 의 이계도함수는
 $$
-M''(t) = n \left[ (1-p) + pe^{t} \right]^{n-1} \left( pe^{t} \right) + n(n-1) \left[ (1-p) + pe^{t} \right]^{n-2} \left( pe^{t} \right)^{2} 
+M&rsquo;&rsquo;(t) = n \left[ (1-p) + pe^{t} \right]^{n-1} \left( pe^{t} \right) + n(n-1) \left[ (1-p) + pe^{t} \right]^{n-2} \left( pe^{t} \right)^{2} 
 $$
-$M''(0) = np + n(n-1)p^{2}$ 이므로
+$M&rsquo;&rsquo;(0) = np + n(n-1)p^{2}$ 이므로
 $$
 \begin{align*}
 \text{Var}(X) =&amp; E \left( X^{2} \right) - \mu^{2} 
-\\ =&amp; M''(0) - (np)^{2} 
+\\ =&amp; M&rsquo;&rsquo;(0) - (np)^{2} 
 \\ =&amp; np + n(n-1)p^{2} - n^{2}p^{2} 
 \\ =&amp; np(1-p) 
 \end{align*}
@@ -411,35 +411,35 @@ $$</p>
 <p style="text-align: right;">■</p>
 <h2 id="코드">코드</h2>
 <p>다음은 이항분포의 확률질량함수를 움짤로 보여주는 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> LaTeXStrings
-<span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Distributions
-<span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Plots
-
-cd(<span style="color:#a6e22e">@__DIR__</span>)
-
-x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">20</span>
-P <span style="color:#f92672">=</span> collect(<span style="color:#ae81ff">0.0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.01</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1.0</span>); append!(P, reverse(P))
-
-animation <span style="color:#f92672">=</span> <span style="color:#a6e22e">@animate</span> <span style="color:#66d9ef">for</span> p <span style="color:#f92672">∈</span> P
-    scatter(x, pdf<span style="color:#f92672">.</span>(Binomial(<span style="color:#ae81ff">10</span>, p), x),
-     color <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>black, markerstrokecolor <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>black,
-     label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;n = 10, p = </span><span style="color:#e6db74">$</span>(rpad(p, <span style="color:#ae81ff">4</span>, <span style="color:#e6db74">&#39;0&#39;</span>))<span style="color:#e6db74">&#34;</span>, size <span style="color:#f92672">=</span> (<span style="color:#ae81ff">400</span>,<span style="color:#ae81ff">300</span>))
-    xlims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">20</span>); ylims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0.5</span>); title!(L<span style="color:#e6db74">&#34;\mathrm{pmf\,of\,Bin}(10, p)&#34;</span>)
-<span style="color:#66d9ef">end</span>
-gif(animation, <span style="color:#e6db74">&#34;pmf10.gif&#34;</span>)
-
-animation <span style="color:#f92672">=</span> <span style="color:#a6e22e">@animate</span> <span style="color:#66d9ef">for</span> p <span style="color:#f92672">∈</span> P
-    scatter(x, pdf<span style="color:#f92672">.</span>(Binomial(<span style="color:#ae81ff">20</span>, p), x),
-     color <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>black, markerstrokecolor <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>black,
-     label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;n = 20, p = </span><span style="color:#e6db74">$</span>(rpad(p, <span style="color:#ae81ff">4</span>, <span style="color:#e6db74">&#39;0&#39;</span>))<span style="color:#e6db74">&#34;</span>, size <span style="color:#f92672">=</span> (<span style="color:#ae81ff">400</span>,<span style="color:#ae81ff">300</span>))
-    xlims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">20</span>); ylims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0.5</span>); title!(L<span style="color:#e6db74">&#34;\mathrm{pmf\,of\,Bin}(20, p)&#34;</span>)
-<span style="color:#66d9ef">end</span>
-gif(animation, <span style="color:#e6db74">&#34;pmf20.gif&#34;</span>)
-</code></pre></div><section class="footnotes" role="doc-endnotes">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> LaTeXStrings
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Distributions
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Plots
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cd(<span style="color:#a6e22e">@__DIR__</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>P <span style="color:#f92672">=</span> collect(<span style="color:#ae81ff">0.0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.01</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1.0</span>); append!(P, reverse(P))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>animation <span style="color:#f92672">=</span> <span style="color:#a6e22e">@animate</span> <span style="color:#66d9ef">for</span> p <span style="color:#f92672">∈</span> P
+</span></span><span style="display:flex;"><span>    scatter(x, pdf<span style="color:#f92672">.</span>(Binomial(<span style="color:#ae81ff">10</span>, p), x),
+</span></span><span style="display:flex;"><span>     color <span style="color:#f92672">=</span> <span style="color:#e6db74">:black</span>, markerstrokecolor <span style="color:#f92672">=</span> <span style="color:#e6db74">:black</span>,
+</span></span><span style="display:flex;"><span>     label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;n = 10, p = </span><span style="color:#e6db74">$</span>(rpad(p, <span style="color:#ae81ff">4</span>, <span style="color:#e6db74">&#39;0&#39;</span>))<span style="color:#e6db74">&#34;</span>, size <span style="color:#f92672">=</span> (<span style="color:#ae81ff">400</span>,<span style="color:#ae81ff">300</span>))
+</span></span><span style="display:flex;"><span>    xlims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">20</span>); ylims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0.5</span>); title!(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;\mathrm{pmf\,of\,Bin}(10, p)&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>gif(animation, <span style="color:#e6db74">&#34;pmf10.gif&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>animation <span style="color:#f92672">=</span> <span style="color:#a6e22e">@animate</span> <span style="color:#66d9ef">for</span> p <span style="color:#f92672">∈</span> P
+</span></span><span style="display:flex;"><span>    scatter(x, pdf<span style="color:#f92672">.</span>(Binomial(<span style="color:#ae81ff">20</span>, p), x),
+</span></span><span style="display:flex;"><span>     color <span style="color:#f92672">=</span> <span style="color:#e6db74">:black</span>, markerstrokecolor <span style="color:#f92672">=</span> <span style="color:#e6db74">:black</span>,
+</span></span><span style="display:flex;"><span>     label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;n = 20, p = </span><span style="color:#e6db74">$</span>(rpad(p, <span style="color:#ae81ff">4</span>, <span style="color:#e6db74">&#39;0&#39;</span>))<span style="color:#e6db74">&#34;</span>, size <span style="color:#f92672">=</span> (<span style="color:#ae81ff">400</span>,<span style="color:#ae81ff">300</span>))
+</span></span><span style="display:flex;"><span>    xlims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">20</span>); ylims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0.5</span>); title!(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;\mathrm{pmf\,of\,Bin}(20, p)&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>gif(animation, <span style="color:#e6db74">&#34;pmf20.gif&#34;</span>)
+</span></span></code></pre></div><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Hogg et al. (2013). Introduction to Mathematical Statistcs(7th Edition): p142. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Hogg et al. (2013). Introduction to Mathematical Statistcs(7th Edition): p142.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -970,7 +970,7 @@ gif(animation, <span style="color:#e6db74">&#34;pmf20.gif&#34;</span>)
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2299)</summary>
+    <summary>전체 포스트 (2300)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1118,7 +1118,7 @@ gif(animation, <span style="color:#e6db74">&#34;pmf20.gif&#34;</span>)
     const currentReply = document.querySelector('.current-reply');
     let html = '';
     rows.map(row => {
-      let link = 'https:\/\/freshrimpsushi.github.io';
+      let link = 'https:\/\/freshrimpsushi.github.io\/';
       if (row.board_idx > -1) {
         link += `/posts/${row.board_slug}#comment${row.cmt_idx}`;
       } else if (row.board_idx == -1) {
@@ -1178,6 +1178,7 @@ gif(animation, <span style="color:#e6db74">&#34;pmf20.gif&#34;</span>)
               {left: '$', right: '$', display: false},
           ],
 		  trust: true,
+		  diplayMode: true,
 		  trust: (context) => ['\\htmlId', '\\href', '\\includegraphics'].includes(context.command),
 		  macros: {
 		  "\\eqref": "\\href{###1}{(\\text{#1})}",

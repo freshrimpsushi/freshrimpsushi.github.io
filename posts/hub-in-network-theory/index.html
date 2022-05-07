@@ -115,7 +115,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/hub-in-network-theory\/",
-    "wordCount" : "623",
+    "wordCount" : "622",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -269,7 +269,7 @@
 <aside>
     Hub in Network Theory
     <p style="text-align: right;">
-         <a href="../611">🎲</a>
+         <a href="../1027">🎲</a>
         2189
 
     
@@ -307,54 +307,54 @@ $$
 <p>정의에서 곧바로 알 수 있듯 사실 다른 많은 노드와 연결된 노드라는 건 엄밀한 수학적 정의와는 거리가 있다. 어떤 연구냐에 따라 특정 구심성이 어떤 임계치<sup>Threshold</sup>를 넘기는 노드를 허브라고 하거나, 다른 모든 노드와 연결되어야 노드라 부를 수도 있다.</p>
 <h2 id="시각화">시각화</h2>
 <p>다음은 <a href="../2187">바라바시-알버트 모델</a>로 <a href="../2183">스케일-프리 네트워크</a>를 만들고 그 허브를 그리는 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>코드다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Graphs, Plots
-
-<span style="color:#66d9ef">function</span> hiscatter(data; bin <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>,
-    xaxis <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>log10, yaxis <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>log10, size <span style="color:#f92672">=</span> (<span style="color:#ae81ff">600</span>, <span style="color:#ae81ff">400</span>), legend <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>none,
-    xlabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;x&#34;</span>, ylabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;p(x)&#34;</span>,
-    color <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>black)
-    a, b <span style="color:#f92672">=</span> minimum(data), maximum(data)
-
-    <span style="color:#66d9ef">if</span> typeof(bin) <span style="color:#f92672">==</span> <span style="color:#66d9ef">Int</span>
-        <span style="color:#66d9ef">if</span> xaxis <span style="color:#f92672">==</span> <span style="color:#f92672">:</span>linear
-            stat_class <span style="color:#f92672">=</span> collect((a<span style="color:#f92672">:</span>((b <span style="color:#f92672">-</span> a) <span style="color:#f92672">/</span> bin)<span style="color:#f92672">:</span>b))
-        <span style="color:#66d9ef">elseif</span> xaxis <span style="color:#f92672">==</span> <span style="color:#f92672">:</span>log
-            stat_class <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">.^</span> (range(log(a), log(b), length <span style="color:#f92672">=</span> bin<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>))
-        <span style="color:#66d9ef">elseif</span> xaxis <span style="color:#f92672">==</span> <span style="color:#f92672">:</span>log2
-            stat_class <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">.^</span> (range(log2(a), log2(b), length <span style="color:#f92672">=</span> bin<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>))
-        <span style="color:#66d9ef">else</span>
-            stat_class <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">.^</span> (range(log10(a), log10(b), length <span style="color:#f92672">=</span> bin<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>))
-        <span style="color:#66d9ef">end</span>
-    <span style="color:#66d9ef">else</span>
-        stat_class <span style="color:#f92672">=</span> bin
-    <span style="color:#66d9ef">end</span>
-    
-    freq <span style="color:#f92672">=</span> zeros(<span style="color:#66d9ef">Int64</span>, bin)
-    freq[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> sum(data <span style="color:#f92672">.≤</span> stat_class[<span style="color:#ae81ff">2</span>])
-    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">:</span>bin
-        freq[i] <span style="color:#f92672">=</span> sum(stat_class[i] <span style="color:#f92672">.&lt;</span> data <span style="color:#f92672">.≤</span> stat_class[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>])
-    <span style="color:#66d9ef">end</span>
-    pop!(stat_class)
-    
-    <span style="color:#66d9ef">if</span> length(data) <span style="color:#f92672">==</span> sum(freq)
-        well_defined <span style="color:#f92672">=</span> (freq <span style="color:#f92672">.&gt;</span> <span style="color:#ae81ff">0</span>)
-        
-        <span style="color:#66d9ef">return</span> scatter(stat_class[well_defined], freq[well_defined],
-        xaxis <span style="color:#f92672">=</span> xaxis, yaxis <span style="color:#f92672">=</span> yaxis, size <span style="color:#f92672">=</span> size, legend <span style="color:#f92672">=</span> legend,
-        xlabel <span style="color:#f92672">=</span> xlabel, ylabel <span style="color:#f92672">=</span> ylabel,
-        color <span style="color:#f92672">=</span> color) <span style="color:#75715e"># stat_class, freq</span>
-    <span style="color:#66d9ef">else</span>
-        error(<span style="color:#e6db74">&#34;something&#34;</span>)
-    <span style="color:#66d9ef">end</span>
-<span style="color:#66d9ef">end</span>
-
-G <span style="color:#f92672">=</span> barabasi_albert(<span style="color:#ae81ff">1000</span>,<span style="color:#ae81ff">3</span>)
-hiscatter(degree(G), bin <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>, size <span style="color:#f92672">=</span> (<span style="color:#ae81ff">400</span>,<span style="color:#ae81ff">400</span>)); png(<span style="color:#e6db74">&#34;logloghist&#34;</span>)
-</code></pre></div><section class="footnotes" role="doc-endnotes">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Graphs, Plots
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> hiscatter(data; bin <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>,
+</span></span><span style="display:flex;"><span>    xaxis <span style="color:#f92672">=</span> <span style="color:#e6db74">:log10</span>, yaxis <span style="color:#f92672">=</span> <span style="color:#e6db74">:log10</span>, size <span style="color:#f92672">=</span> (<span style="color:#ae81ff">600</span>, <span style="color:#ae81ff">400</span>), legend <span style="color:#f92672">=</span> <span style="color:#e6db74">:none</span>,
+</span></span><span style="display:flex;"><span>    xlabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;x&#34;</span>, ylabel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;p(x)&#34;</span>,
+</span></span><span style="display:flex;"><span>    color <span style="color:#f92672">=</span> <span style="color:#e6db74">:black</span>)
+</span></span><span style="display:flex;"><span>    a, b <span style="color:#f92672">=</span> minimum(data), maximum(data)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> typeof(bin) <span style="color:#f92672">==</span> <span style="color:#66d9ef">Int</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> xaxis <span style="color:#f92672">==</span> <span style="color:#e6db74">:linear</span>
+</span></span><span style="display:flex;"><span>            stat_class <span style="color:#f92672">=</span> collect((a<span style="color:#f92672">:</span>((b <span style="color:#f92672">-</span> a) <span style="color:#f92672">/</span> bin)<span style="color:#f92672">:</span>b))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elseif</span> xaxis <span style="color:#f92672">==</span> <span style="color:#e6db74">:log</span>
+</span></span><span style="display:flex;"><span>            stat_class <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">.^</span> (range(log(a), log(b), length <span style="color:#f92672">=</span> bin<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elseif</span> xaxis <span style="color:#f92672">==</span> <span style="color:#e6db74">:log2</span>
+</span></span><span style="display:flex;"><span>            stat_class <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">.^</span> (range(log2(a), log2(b), length <span style="color:#f92672">=</span> bin<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>            stat_class <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">.^</span> (range(log10(a), log10(b), length <span style="color:#f92672">=</span> bin<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>        stat_class <span style="color:#f92672">=</span> bin
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    freq <span style="color:#f92672">=</span> zeros(<span style="color:#66d9ef">Int64</span>, bin)
+</span></span><span style="display:flex;"><span>    freq[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> sum(data <span style="color:#f92672">.≤</span> stat_class[<span style="color:#ae81ff">2</span>])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">:</span>bin
+</span></span><span style="display:flex;"><span>        freq[i] <span style="color:#f92672">=</span> sum(stat_class[i] <span style="color:#f92672">.&lt;</span> data <span style="color:#f92672">.≤</span> stat_class[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    pop!(stat_class)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> length(data) <span style="color:#f92672">==</span> sum(freq)
+</span></span><span style="display:flex;"><span>        well_defined <span style="color:#f92672">=</span> (freq <span style="color:#f92672">.&gt;</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> scatter(stat_class[well_defined], freq[well_defined],
+</span></span><span style="display:flex;"><span>        xaxis <span style="color:#f92672">=</span> xaxis, yaxis <span style="color:#f92672">=</span> yaxis, size <span style="color:#f92672">=</span> size, legend <span style="color:#f92672">=</span> legend,
+</span></span><span style="display:flex;"><span>        xlabel <span style="color:#f92672">=</span> xlabel, ylabel <span style="color:#f92672">=</span> ylabel,
+</span></span><span style="display:flex;"><span>        color <span style="color:#f92672">=</span> color) <span style="color:#75715e"># stat_class, freq</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>        error(<span style="color:#e6db74">&#34;something&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>G <span style="color:#f92672">=</span> barabasi_albert(<span style="color:#ae81ff">1000</span>,<span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>hiscatter(degree(G), bin <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>, size <span style="color:#f92672">=</span> (<span style="color:#ae81ff">400</span>,<span style="color:#ae81ff">400</span>)); png(<span style="color:#e6db74">&#34;logloghist&#34;</span>)
+</span></span></code></pre></div><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Barabási. (2016). Network Science: p10, 27 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Barabási. (2016). Network Science: p10, 27&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -885,7 +885,7 @@ hiscatter(degree(G), bin <span style="color:#f92672">=</span> <span style="color
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2299)</summary>
+    <summary>전체 포스트 (2300)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1033,7 +1033,7 @@ hiscatter(degree(G), bin <span style="color:#f92672">=</span> <span style="color
     const currentReply = document.querySelector('.current-reply');
     let html = '';
     rows.map(row => {
-      let link = 'https:\/\/freshrimpsushi.github.io';
+      let link = 'https:\/\/freshrimpsushi.github.io\/';
       if (row.board_idx > -1) {
         link += `/posts/${row.board_slug}#comment${row.cmt_idx}`;
       } else if (row.board_idx == -1) {
@@ -1093,6 +1093,7 @@ hiscatter(degree(G), bin <span style="color:#f92672">=</span> <span style="color
               {left: '$', right: '$', display: false},
           ],
 		  trust: true,
+		  diplayMode: true,
 		  trust: (context) => ['\\htmlId', '\\href', '\\includegraphics'].includes(context.command),
 		  macros: {
 		  "\\eqref": "\\href{###1}{(\\text{#1})}",
