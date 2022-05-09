@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-use-the-functions-for-time-or-date-in-julia\/",
-    "wordCount" : "787",
+    "wordCount" : "788",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -289,7 +289,7 @@
 <p><code>Dates</code>는 날짜 및 시간과 관련된 함수를 모아놓은 모듈이다. 일반적인 프로그래밍은 물론이고 시계열에 관련된, 아니 관련 없더라도 많은 데이터를 다루는 데에 있어서 유용할 수밖에 없다. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <h2 id="코드">코드</h2>
 <h3 id="전체코드">전체코드</h3>
-<pre tabindex="0"><code>using Dates
+<pre><code>using Dates
 
 오늘 = DateTime(2022,3,10)
 typeof(오늘)
@@ -297,8 +297,8 @@ typeof(오늘)
 propertynames(오늘)
 오늘.instant
 
-myformat = DateFormat(&#34;d-m-y&#34;)
-내일 = Date(&#34;11-3-2022&#34;, myformat)
+myformat = DateFormat(&quot;d-m-y&quot;)
+내일 = Date(&quot;11-3-2022&quot;, myformat)
 
 Dates.dayname(내일)
 
@@ -307,31 +307,31 @@ collect(일주일뒤까지)
 
 Dates.Day(일주일뒤까지[end]) - Dates.Day(오늘)
 </code></pre><h3 id="datetime-타입"><code>DateTime</code> 타입</h3>
-<pre tabindex="0"><code>julia&gt; 오늘 = DateTime(2022,3,10)
+<pre><code>julia&gt; 오늘 = DateTime(2022,3,10)
 2022-03-10T00:00:00
 
 julia&gt; typeof(오늘)
 DateTime
 </code></pre><p>가령 <code>DateTime()</code> 함수로 22년 3월 10일의 날짜를 위와 같이 <code>오늘</code>에 할당했다면, <code>오늘</code>은 <code>DateTime</code>이라는 타입을 가진다. <code>DateTime</code>은 <code>instant</code>라는 프로퍼티를 가지며, 밀리초로 환산된 수로써 시간을 기록하고 있다.</p>
-<pre tabindex="0"><code>julia&gt; propertynames(오늘)
+<pre><code>julia&gt; propertynames(오늘)
 (:instant,)
 
 julia&gt; 오늘.instant
 Dates.UTInstant{Millisecond}(Millisecond(63782553600000))
 </code></pre><h3 id="포맷-dateformat">포맷 <code>DateFormat()</code></h3>
-<pre tabindex="0"><code>julia&gt; myformat = DateFormat(&#34;d-m-y&#34;)
-dateformat&#34;d-m-y&#34;
+<pre><code>julia&gt; myformat = DateFormat(&quot;d-m-y&quot;)
+dateformat&quot;d-m-y&quot;
 
-julia&gt; 내일 = Date(&#34;11-3-2022&#34;, myformat)
+julia&gt; 내일 = Date(&quot;11-3-2022&quot;, myformat)
 2022-03-11
 </code></pre><p>흔히 동서양의 차이 때문에 날짜가 다르게 적힐 때 쓰인다.</p>
 <h3 id="요일-datesdayname">요일 <code>Dates.dayname()</code></h3>
-<pre tabindex="0"><code>julia&gt; Dates.dayname(내일)
-&#34;Friday&#34;
+<pre><code>julia&gt; Dates.dayname(내일)
+&quot;Friday&quot;
 </code></pre><p>해당 날짜의 요일을 리턴해준다. 양력의 부조리함 때문에 의외로 내가 짜려면 어려운 함수가 이런 것들이다.</p>
 <h3 id="날짜의-벡터">날짜의 벡터</h3>
-<pre tabindex="0"><code>julia&gt; 일주일뒤까지 = 오늘:Day(1):DateTime(2022,3,17)
-DateTime(&#34;2022-03-10T00:00:00&#34;):Day(1):DateTime(&#34;2022-03-17T00:00:00&#34;)
+<pre><code>julia&gt; 일주일뒤까지 = 오늘:Day(1):DateTime(2022,3,17)
+DateTime(&quot;2022-03-10T00:00:00&quot;):Day(1):DateTime(&quot;2022-03-17T00:00:00&quot;)
 
 julia&gt; collect(일주일뒤까지)
 8-element Vector{DateTime}:
@@ -345,7 +345,7 @@ julia&gt; collect(일주일뒤까지)
  2022-03-17T00:00:00
 </code></pre><p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 날짜 패키지에서 가장 유용한 부분이다. 특정 시점 사이의 구간을 위와 같이 네이티브한 줄리아 문법 그대로 벡터화하면 정말 상상하던대로의 결과가 나온다. 짜기 어려운 건 둘째치고 같은 기능을 하는 함수 정도는 다른 언어에도 있을지 모르겠지만, 이정도로 문법에 잘 녹아들어서 뛰어난 직관성을 가지는 경우는 흔치 않을 것이다.</p>
 <h3 id="날짜의-뺄셈--">날짜의 뺄셈 <code>-</code></h3>
-<pre tabindex="0"><code>julia&gt; Dates.Day(일주일뒤까지[end]) - Dates.Day(오늘)
+<pre><code>julia&gt; Dates.Day(일주일뒤까지[end]) - Dates.Day(오늘)
 7 days
 </code></pre><p>당연하다는 듯이 뺄셈으로 두 시점의 간격을 계산할 수 있다.</p>
 <h2 id="환경">환경</h2>
@@ -357,7 +357,7 @@ julia&gt; collect(일주일뒤까지)
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://docs.julialang.org/en/v1/stdlib/Dates/">https://docs.julialang.org/en/v1/stdlib/Dates/</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://docs.julialang.org/en/v1/stdlib/Dates/">https://docs.julialang.org/en/v1/stdlib/Dates/</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -366,7 +366,7 @@ julia&gt; collect(일주일뒤까지)
 <aside style="text-align: right;">
     1923-07-03&emsp;
     류대식&emsp;
-    <a href="../1340">🎲 2410</a>
+    <a href="../818">🎲 2410</a>
 </aside>
 
 <script>
@@ -922,7 +922,7 @@ julia&gt; collect(일주일뒤까지)
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2301)</summary>
+    <summary>전체 포스트 (2302)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -970,9 +970,9 @@ julia&gt; collect(일주일뒤까지)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EC%83%88%EC%9A%B0%EC%B4%88%EB%B0%A5%EC%A7%80/" style="color: black">생새우초밥지 (2)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (38)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (39)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%B8%EC%9D%B4%EB%B2%84%EB%A9%94%ED%8A%B8%EB%A6%AD%EC%8A%A4/" style="color: black">세이버메트릭스 (5)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%B8%EC%9D%B4%EB%B2%84%EB%A9%94%ED%8A%B8%EB%A6%AD%EC%8A%A4/" style="color: black">세이버메트릭스 (6)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/" style="color: black">소볼레프공간 (11)</a>
         </li><li>
