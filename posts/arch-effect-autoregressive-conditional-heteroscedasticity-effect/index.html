@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/arch-effect-autoregressive-conditional-heteroscedasticity-effect\/",
-    "wordCount" : "1228",
+    "wordCount" : "1227",
     "genre" : [ "R" ],
     "keywords" : [ "R" ]
 }
@@ -298,29 +298,29 @@
 <p>한편 이러한 방법 외에도 <a href="../1279">맥리어드-리 테스트</a> 역시 고려해볼 수 있다. p밸류가 빨간 점선 밑으로 깔리면 아치 이펙트가 있는 것으로 의심해본다. 이 경우 <code>DAX</code>의 리턴으로 테스트해본 것인데, 저러한 결과는 아주, 아주 강력하게 아치 이펙트가 있다는 것을 의미한다.</p>
 <p>이렇듯 아치 이펙트가 있다는 것이 가정되면 이제 <a href="../1280">가치 모델</a>로 <a href="../1282">분석하는 일</a>만 남았다.</p>
 <h2 id="코드">코드</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(TSA)
-returnize <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data) {<span style="color:#a6e22e">return</span>(<span style="color:#a6e22e">diff</span>(<span style="color:#a6e22e">log</span>(data)))}
-
-DAX <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ts</span>(EuStockMarkets[,<span style="color:#ae81ff">1</span>],start<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
-r.DAX <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">returnize</span>(DAX)
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">3</span>); <span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>))
-<span style="color:#a6e22e">acf</span>(r.DAX,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;리턴 ACF&#39;</span>)
-<span style="color:#a6e22e">pacf</span>(r.DAX,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;리턴 PACF&#39;</span>)
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>)
-<span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">abs</span>(r.DAX),type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;h&#39;</span>,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;DAX의 리턴의 절대값&#39;</span>)
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">3</span>); <span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>))
-<span style="color:#a6e22e">acf</span>(<span style="color:#a6e22e">abs</span>(r.DAX),main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;리턴의 절댓값 ACF&#39;</span>)
-<span style="color:#a6e22e">pacf</span>(<span style="color:#a6e22e">abs</span>(r.DAX),main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;리턴의 절댓값 PACF&#39;</span>)
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">3</span>); <span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>))
-<span style="color:#a6e22e">acf</span>(r.DAX^2,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;리턴의 제곱 ACF&#39;</span>)
-<span style="color:#a6e22e">pacf</span>(r.DAX^2,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;리턴의 제곱 PACF&#39;</span>)
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">3</span>)
-<span style="color:#a6e22e">McLeod.Li.test</span>(y<span style="color:#f92672">=</span>r.DAX)
-</code></pre></div><section class="footnotes" role="doc-endnotes">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(TSA)
+</span></span><span style="display:flex;"><span>returnize <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(data) {<span style="color:#a6e22e">return</span>(<span style="color:#a6e22e">diff</span>(<span style="color:#a6e22e">log</span>(data)))}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>DAX <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ts</span>(EuStockMarkets[,<span style="color:#ae81ff">1</span>],start<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>r.DAX <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">returnize</span>(DAX)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">3</span>); <span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">acf</span>(r.DAX,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;리턴 ACF&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">pacf</span>(r.DAX,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;리턴 PACF&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">abs</span>(r.DAX),type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;h&#39;</span>,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;DAX의 리턴의 절대값&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">3</span>); <span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">acf</span>(<span style="color:#a6e22e">abs</span>(r.DAX),main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;리턴의 절댓값 ACF&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">pacf</span>(<span style="color:#a6e22e">abs</span>(r.DAX),main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;리턴의 절댓값 PACF&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">3</span>); <span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">acf</span>(r.DAX^2,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;리턴의 제곱 ACF&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">pacf</span>(r.DAX^2,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;리턴의 제곱 PACF&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">McLeod.Li.test</span>(y<span style="color:#f92672">=</span>r.DAX)
+</span></span></code></pre></div><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Cryer. (2008). Time Series Analysis: With Applications in R(2nd Edition): p283. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Cryer. (2008). Time Series Analysis: With Applications in R(2nd Edition): p283.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -329,7 +329,7 @@ r.DAX <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">retur
 <aside style="text-align: right;">
     2019-09-06&emsp;
     류대식&emsp;
-    <a href="../1778">🎲 1278</a>
+    <a href="../455">🎲 1278</a>
 </aside>
 
 <script>
@@ -516,7 +516,7 @@ r.DAX <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">retur
       input: 'password',
       inputPlaceholder: '글 작성 시 입력했던 패스워드를 입력하세요',
       inputAttributes: {
-        maxlength: 10,
+        maxlength: 20,
         autocapitalize: 'off',
         autocorrect: 'off'
       }
@@ -574,7 +574,7 @@ r.DAX <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">retur
       cancelButtonColor: '#d33',
       inputPlaceholder: '글 작성 시 입력했던 패스워드를 입력하세요',
       inputAttributes: {
-        maxlength: 10,
+        maxlength: 20,
         autocapitalize: 'off',
         autocorrect: 'off'
       }
@@ -885,7 +885,7 @@ r.DAX <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">retur
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2309)</summary>
+    <summary>전체 포스트 (2310)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
