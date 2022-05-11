@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-radon-transform-in-a-julia-matlab-python\/",
-    "wordCount" : "546",
+    "wordCount" : "549",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -293,7 +293,7 @@
 <ul>
 <li><code>radon(f, θ)</code>: <code>f</code>는 이미지, <code>θ</code>는 프로젝션 각도이다. 입력하지 않으면 기본적으로 0도에서 $\pi$까지 계산한다.</li>
 </ul>
-<pre tabindex="0"><code>using Tomography
+<pre><code>using Tomography
 using Plots
 
 # 팬텀 생성
@@ -318,7 +318,7 @@ heatmap(h1, h2, size=(800,400))
 <li><code>radon(P, theta)</code>: <a href="../3089">팬텀</a> <code>P</code>의 <code>theta</code> 각도에 대한 라돈 변환을 반환한다. <code>theta</code>를 입력하지 않으면 <code>0:179</code>의 각도로 실행한다.</li>
 <li><code>iradon(R, theta)</code>: 라돈변환은 각도를 대입하지 않아도 쓸 수 있지만 역변환은 반드시 각도를 대입해야한다.</li>
 </ul>
-<pre tabindex="0"><code>p=phantom(); %팬텀 생성
+<pre><code>p=phantom(); %팬텀 생성
 Rp=radon(p); %라돈변환 계산
 IRp=iradon(Rp,0:179); %라돈역변환 계산
 
@@ -329,19 +329,19 @@ figure()
 subplot(2,2,1)
 imagesc(p)
 colorbar
-title(&#39;Phantom&#39;)
+title('Phantom')
 
 %두번째 그림 라돈변환
 subplot(2,2,2)
 imagesc(Rp)
 colorbar
-title(&#39;Radon Transform of p&#39;)
+title('Radon Transform of p')
 
 %세번째 그림 라돈역변환
 subplot(2,2,3)
 imagesc(IRp)
 colorbar
-title(&#39;Reconstruction Image&#39;)
+title('Reconstruction Image')
 </code></pre><p><img src="Matlab.png#center" alt="Matlab.png"></p>
 <h3 id="환경-1">환경</h3>
 <ul>
@@ -350,7 +350,7 @@ title(&#39;Reconstruction Image&#39;)
 </ul>
 <h2 id="파이썬3">파이썬<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></h2>
 <p>사이킷이미지 패키지 <code>skimage</code>의 <code>transform</code> 모듈에서 <code>radon</code>, <code>iradon</code> 매트랩과는 다르게 변환과 역변환 모두 각도를 대입하지 않으면 <code>0:179</code>로 실행한다.</p>
-<pre tabindex="0"><code>import matplotlib.pyplot as plt
+<pre><code>import matplotlib.pyplot as plt
 
 from skimage.data import shepp_logan_phantom
 from skimage.transform import radon, iradon
@@ -368,17 +368,17 @@ IRp = iradon(Rp)
 fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(12, 4.5))
 
 #첫번째 그림 Phantom
-ax1.set_title(&#34;Phantom&#34;)
+ax1.set_title(&quot;Phantom&quot;)
 ax1.imshow(p)
 
 #두번째 그림 라돈변환
-ax2.set_title(&#34;Radon transform of p&#34;)
-ax2.set_xlabel(&#34;Projection angle (deg)&#34;)
-ax2.set_ylabel(&#34;Projection position (pixels)&#34;)
+ax2.set_title(&quot;Radon transform of p&quot;)
+ax2.set_xlabel(&quot;Projection angle (deg)&quot;)
+ax2.set_ylabel(&quot;Projection position (pixels)&quot;)
 ax2.imshow(sinogram)
 
 #세번째 그림 라돈역변환
-ax3.set_title(&#34;Reconstruction Image&#34;)
+ax3.set_title(&quot;Reconstruction Image&quot;)
 ax3.imshow(IRp)
 
 #그림 출력
@@ -394,13 +394,13 @@ plt.show()
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://knu-math-ai.github.io/Tomography.jl/dev/radon/">https://knu-math-ai.github.io/Tomography.jl/dev/radon/</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://knu-math-ai.github.io/Tomography.jl/dev/radon/">https://knu-math-ai.github.io/Tomography.jl/dev/radon/</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p><a href="https://kr.mathworks.com/help/images/ref/radon.html?s_tid=doc_ta">https://kr.mathworks.com/help/images/ref/radon.html?s_tid=doc_ta</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://kr.mathworks.com/help/images/ref/radon.html?s_tid=doc_ta">https://kr.mathworks.com/help/images/ref/radon.html?s_tid=doc_ta</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:3" role="doc-endnote">
-<p><a href="https://scikit-image.org/docs/dev/api/skimage.transform.html?highlight=radon#radon">https://scikit-image.org/docs/dev/api/skimage.transform.html?highlight=radon#radon</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://scikit-image.org/docs/dev/api/skimage.transform.html?highlight=radon#radon">https://scikit-image.org/docs/dev/api/skimage.transform.html?highlight=radon#radon</a> <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -409,7 +409,7 @@ plt.show()
 <aside style="text-align: right;">
     2021-07-26&emsp;
     전기현&emsp;
-    <a href="../920">🎲 3088</a>
+    <a href="../1417">🎲 3088</a>
 </aside>
 
 <script>
@@ -965,7 +965,7 @@ plt.show()
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2310)</summary>
+    <summary>전체 포스트 (2315)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -981,7 +981,7 @@ plt.show()
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (93)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (99)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
         </li><li>

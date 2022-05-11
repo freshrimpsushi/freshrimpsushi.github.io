@@ -67,10 +67,10 @@
     </script>
 
     
-<meta name="title" content="줄리아에서 ==과 ===의 차이점">
+<meta name="title" content="미분 형식의 연산: 합과 쐐기곱">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="줄리아에서 ==과 ===의 차이점"/>
-<meta property="og:description" content="How different == and === in julia"/>
+<meta property="og:title" content="미분 형식의 연산: 합과 쐐기곱"/>
+<meta property="og:description" content="Operation of Differential Form: Sum and Exterior Product"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -81,34 +81,34 @@
 {
     "@context": "http://schema.org",
     "@type": "BlogPosting",
-    "articleSection": "r_",
-    "name": "줄리아에서 ==과 ===의 차이점",
-    "headline": "줄리아에서 ==과 ===의 차이점",
+    "articleSection": "j_",
+    "name": "미분 형식의 연산: 합과 쐐기곱",
+    "headline": "미분 형식의 연산: 합과 쐐기곱",
     "alternativeHeadline": "",
-    "description": "How different == and === in julia",
+    "description": "Operation of Differential Form: Sum and Exterior Product",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/how-different--and--in-julia\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/operation-of-differential-form-sum-and-exterior-product\/"
     },
     "author" : {
         "@type": "Person",
-        "name": "류대식"
+        "name": "전기현"
     },
     "creator" : {
         "@type": "Person",
-        "name": "류대식"
+        "name": "전기현"
     },
     "accountablePerson" : {
         "@type": "Person",
-        "name": "류대식"
+        "name": "전기현"
     },
     "copyrightHolder" : "생새우초밥집",
     "copyrightYear" : "2012",
-    "dateCreated": "2012-02-12T00:00:00.00Z",
-    "datePublished": "2012-02-12T00:00:00.00Z",
-    "dateModified": "2012-02-12T00:00:00.00Z",
+    "dateCreated": "2012-07-05T00:00:00.00Z",
+    "datePublished": "2012-07-05T00:00:00.00Z",
+    "dateModified": "2012-07-05T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -121,15 +121,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-different--and--in-julia\/",
-    "wordCount" : "656",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/operation-of-differential-form-sum-and-exterior-product\/",
+    "wordCount" : "1239",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>줄리아에서 ==과 ===의 차이점</title>
+    <title>미분 형식의 연산: 합과 쐐기곱</title>
 </head>
 
 <body class="main">
@@ -137,7 +137,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/%EC%A4%84%EB%A6%AC%EC%95%84.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/%EA%B8%B0%ED%95%98%ED%95%99.png style="max-height: 80px; width: auto;">
             
             
             
@@ -252,11 +252,11 @@
     <div class="content">
       <div class="content-box">
         
-<title>줄리아에서 ==과 ===의 차이점</title>
+<title>미분 형식의 연산: 합과 쐐기곱</title>
 
-<h1>줄리아에서 ==과 ===의 차이점</h1>
+<h1>미분 형식의 연산: 합과 쐐기곱</h1>
 <p style="margin-top: -20px; margin-bottom: 0px;">
-  <i>How different == and === in julia</i>
+  <i>Operation of Differential Form: Sum and Exterior Product</i>
 </p>
 <aside>
   <div class="innerheader">
@@ -267,84 +267,171 @@
       
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#코드-1">코드 </a></li>
-    <li><a href="#최적화">최적화</a></li>
-    <li><a href="#환경">환경</a></li>
+    <li><a href="#정의1">정의</a>
+      <ul>
+        <li><a href="#합-">합 $+$</a></li>
+        <li><a href="#쐐기곱-wedge">쐐기곱 $\wedge$</a></li>
+      </ul>
+    </li>
+    <li><a href="#설명">설명</a>
+      <ul>
+        <li><a href="#예시">예시</a></li>
+      </ul>
+    </li>
+    <li><a href="#성질">성질</a></li>
+    <li><a href="#증명">증명</a>
+      <ul>
+        <li><a href="#증명1">증명(1)</a></li>
+        <li><a href="#증명2">증명(2)</a></li>
+        <li><a href="#증명3">증명(3)</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
     </div>
   </div>
 </aside>
 
-<h2 id="코드-1">코드 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p><code>==</code>는 값이 같은지를 비교하고, <code>===</code>는 비교할 값이 가변<sup>Mutable</sup>인지 아닌지에 따라 다르게 작동한다.</p>
-<ul>
-<li>Mutable: 두 항이 같은 오브젝트인지 확인한다. 다시 말해, 프로그래밍적으로 두 변수가 구분될 수 있는지 없는지를 리턴한다.</li>
-<li>Immutable:
-<ul>
-<li>두 항의 타입이 같은지 체크하고,</li>
-<li>두 항의 스트럭쳐가 같은지 체크하고,</li>
-<li>그 각각의 요소가 <code>===</code>하게 같은지 재귀적으로 체크한다.</li>
-</ul>
-</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; Y <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">==</span> Y
-</span></span><span style="display:flex;"><span>true
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">===</span> Y
-</span></span><span style="display:flex;"><span>true
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>]; Y <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>];
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">==</span> Y
-</span></span><span style="display:flex;"><span>true
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">===</span> Y
-</span></span><span style="display:flex;"><span>false
-</span></span></code></pre></div><p>예로써 파이썬에서 흔히 볼 수 있는 위의 실행결과를 살펴보자. 정수 <code>1</code>은 Immutable하고 프로그래밍적으로 구분할 수 없어서 <code>==</code>과 <code>===</code>이 마찬가지로 참을 반환했지만, <code>1</code>만을 포함한 배열로 보았을 땐 <code>X</code>에 새로운 원소가 추가된다고 했을 때 <code>X</code>와 <code>Y</code>가 달라질 수 있기<sup>Mutable</sup>에 단순히 값을 비교한 <code>==</code>은 참을 반환하고 객체 자체를 비교한 <code>===</code>은 거짓을 반환했다.</p>
-<p>객체가 무슨 말인지 잘 몰라도 이 용법만 이해하면 충분하다.</p>
-<h2 id="최적화">최적화</h2>
-<p>객체지향성이 약한 줄리아에서 이러한 차이는 크게 와닿지 않는다. 코드 최적화의 측면에서 보았을 때 <code>==</code>와 <code>===</code>는 싱글톤<sup>Singtone</sup>의 비교에서 다음과 같은 정도의 성능 차이가 난다.</p>
-<pre tabindex="0"><code>N = 10^7
-x = rand(0:9, N)
-
-julia&gt; @time for t ∈ 1:N
-           x[t] == 0
-       end
-  1.292501 seconds (30.00 M allocations: 610.336 MiB, 2.63% gc time)
-
-julia&gt; @time for t ∈ 1:N
-           x[t] === 0
-       end
-  1.016211 seconds (30.00 M allocations: 610.336 MiB, 2.77% gc time)
-</code></pre><p>하나의 값은 보통 Immutable이기 때문에 <code>==</code>보다 <code>===</code>이 빠른 것으로 이해하면 된다.</p>
-<p>이 정도 차이는 대부분의 경우 별로 크지 않을 수 있다. 당연하지만 반복적<sup>Iterative</sup>이지 않은 작업은 다음과 같은 벡터 연산이 훨씬 빠르며, 이 때의 속도 차이는 없거나 무의미하다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> x <span style="color:#f92672">.==</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.009509</span> seconds (<span style="color:#ae81ff">6</span> allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">1.196</span> MiB)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> x <span style="color:#f92672">.===</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.009478</span> seconds (<span style="color:#ae81ff">6</span> allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">1.196</span> MiB)
-</span></span></code></pre></div><h2 id="환경">환경</h2>
-<ul>
-<li>OS: Windows</li>
-<li>julia: v1.6.1</li>
-</ul>
+<h2 id="정의1">정의<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<h3 id="합-">합 $+$</h3>
+<p>$\omega = \sum\limits_{I} a_{I} dx_{I}, \varphi = \sum\limits_{I} b_{I} dx_{I}$를 <a href="../3258">$k$형식</a>이라고 하자. 이 둘의 합을 다음과 같이 정의한다.</p>
+<p>$$
+\omega + \varphi := \sum\limits_{I}\left( a_{I} + b_{I} \right)dx_{I}
+$$</p>
+<h3 id="쐐기곱-wedge">쐐기곱 $\wedge$</h3>
+<p>$\omega = \sum\limits_{I} a_{I}dx_{I}$, $\varphi = \sum\limits_{J} b_{J}dx_{J}$를 각각 $k$형식, $s$형식이라고 하자. 그러면 이 둘의 <a href="../3256">쐐기곱</a>을 다음과 같이 정의한다.</p>
+<p>$$
+\omega \wedge \varphi = \sum \limits_{I,J} a_{I}b_{J} dx_{I} \wedge dx_{J}
+$$</p>
+<h2 id="설명">설명</h2>
+<p>$M$을 $n$차원 <a href="../3116">미분다양체</a>라고 하자. (미분다양체가 어렵다면 $M=\mathbb{R}^{n}$이라 생각해도 좋다.) 쐐기곱 $\wedge$는 $T_{p}^{\ast}M$의 두 원소 $\varphi_{1}, \varphi_{2}$를 <a href="../3256">교대함수 $\varphi_{1} \wedge \varphi_{2}$로 만들어준다.</a> 그런데 쐐기곱 자체도 <a href="../3137">교대함수</a>이다. 즉 다음이 성립한다. $\varphi_{i} \in T_{p}^{\ast}M$에 대해서,</p>
+<p>$$
+\varphi_{i} \wedge \varphi_{j} = - \varphi_{j} \wedge \varphi_{i} \quad \text{and} \quad \varphi_{i} \wedge \varphi_{i} = 0
+$$</p>
+<p>정의대로 계산하면 쉽게 보일 수 있다.</p>
+<p>$$
+\begin{align*}
+\left(\varphi_{1} \wedge \varphi_{2}\right)\left(v_{1}, v_{2}\right)
+=&amp;\ \det \left[\varphi_{i}\left(v_{j}\right)\right] \\ 
+=&amp;\ \begin{vmatrix}
+\varphi_{1}\left(v_{1}\right) &amp; \varphi_{1}\left(v_{2}\right) \\ 
+\varphi_{2}\left(v_{1}\right) &amp; \varphi_{2}\left(v_{2}\right)
+\end{vmatrix} \\ 
+=&amp;\ -\begin{vmatrix}
+\varphi_{2}\left(v_{1}\right) &amp; \varphi_{2}\left(v_{L}\right) \\ 
+\varphi_{1}\left(v_{1}\right) &amp; \varphi_{1}\left(v_{2}\right)
+\end{vmatrix}
+\\ =&amp;\ -\left(\varphi_{2} \wedge \varphi_{1}\right)\left(v_{1}, v_{1}\right) \\ 
+\end{align*}
+$$</p>
+<p>$$
+\begin{align*}
+\left(\varphi_{1}, \varphi_{1}\right)\left(v_{1}, v_{2}\right)
+=&amp;\ \det \left[\varphi_{1}\left(v_{i}\right)\right] \\ 
+=&amp;\ \begin{vmatrix}
+\varphi_{1}\left(v_{1}\right) &amp; \varphi_{1}\left(v_{2}\right) \\ 
+\varphi_{1}\left(v_{1}\right) &amp; \varphi_{1}\left(v_{2}\right)
+\end{vmatrix} \\ 
+=&amp;\ 0
+\end{align*}
+$$</p>
+<p>정의에 의해 $k$형식과 $s$형식의 쐐기곱은 $k+s$형식이다.</p>
+<p>또한 모든 $i$에 대해서 $dx_{i} \wedge dx_{i} = 0$이지만, $\omega \wedge \omega = 0$이 성립하는 것은 아니다. 예를 들어 $\omega = x_{1}dx_{1}\wedge dx_{2} + x2_{2} dx_{3} \wedge dx_{4}$라고 하면,</p>
+<p>$$
+\omega \wedge \omega = 2x_{1}x_{2} dx_{1} \wedge dx_{2} \wedge dx_{3} \wedge dx_{4}
+$$</p>
+<h3 id="예시">예시</h3>
+<p>$\omega = x_{1}dx_{1} + x_{2}dx_{2}$를 $\mathbb{R}^{3}$의 1차형식, $\varphi = x_{1}dx_{1}\wedge dx_{2} + x_{2} dx_{1}\wedge dx_{3} + dx_{2} \wedge dx_{3}$을 $\mathbb{R}^{3}$의 2차형식이라고 하자. 그러면</p>
+<p>$$
+\begin{align*}
+\omega \wedge \varphi
+=&amp;\ (x_{1}dx_{1} + x_{2}dx_{2}) \wedge (x_{1}dx_{1}\wedge dx_{2} + x_{2} dx_{1}\wedge dx_{3} + dx_{2} \wedge dx_{3}) \\ 
+=&amp;\ x_{1}^{2} \cancel{dx_{1} \wedge dx_{1}\wedge dx_{2}} + x_{1}x_{2}\cancel{dx_{1} \wedge dx_{1}\wedge dx_{3}} + x_{1}dx_{1} \wedge dx_{2} \wedge dx_{3} \\ 
+&amp; + \cancel{x_{1}x_{2}dx_{2} \wedge dx_{1}\wedge dx_{2}} + x_{2}^{2} dx_{2} \wedge  dx_{1}\wedge dx_{3} + x_{2}\cancel{dx_{2} \wedge  dx_{2} \wedge dx_{3}} \\ 
+=&amp;\ (x_{1}-x_{2}^{2}) dx_{1} \wedge dx_{2} \wedge dx_{3}
+\end{align*}
+$$</p>
+<h2 id="성질">성질</h2>
+<p>$\omega$를 $k$형식, $\varphi$를 $s$형식, $\theta$를 $r$형식이라고 하자. 그러면</p>
+<p>$$
+\begin{align}
+(\omega \wedge \varphi) \wedge \theta =&amp;\ \omega \wedge (\varphi \wedge \theta)
+\\ (\omega \wedge \varphi) =&amp;\ (-1)^{ks} (\varphi \wedge \omega)
+\\ \omega \wedge (\varphi + \theta) =&amp;\ \omega \wedge \varphi + \omega \wedge \theta,\quad \text{if } r=s
+\end{align}
+$$</p>
+<h2 id="증명">증명</h2>
+<h3 id="증명1">증명(1)</h3>
+<p>$\omega = \sum\limits_{I} a_{I} dx_{I}$, $\varphi = \sum\limits_{J} b_{J} dx_{J}$, $\vartheta = \sum\limits_{L} c_{L} dx_{L}$라고 하자.</p>
+<p>$$
+\begin{align*}
+(\omega \wedge \varphi) \wedge \vartheta
+=&amp;\ \left( \sum\limits_{I}a_{I}dx_{I} \wedge \sum\limits_{J}b_{J}dx_{J} \right) \wedge \sum\limits_{L} c_{L}dx_{L} \\ 
+=&amp;\ \left( \sum\limits_{I,J}a_{I}b_{J} dx_{I} \wedge dx_{J} \right) \wedge \sum\limits_{L} c_{L}dx_{L} &amp; \text{by definition of } \wedge\\ 
+=&amp;\ \sum\limits_{I,J,L} (a_{I}b_{J})c_{L} (dx_{I} \wedge dx_{J}) \wedge dx_{L} &amp; \text{by definition of } \wedge\\ 
+=&amp;\ \sum\limits_{I,J,L} (a_{I}b_{J})c_{L} dx_{I} \wedge (dx_{J} \wedge dx_{L}) &amp; \text{by property of } \wedge\\ 
+\end{align*}
+$$</p>
+<p>이때 $a, b, c$들은 각각 함숫값이 실수인 함수이므로 곱에 대한 결합법칙이 성립한다. 따라서</p>
+<p>$$
+\begin{align*}
+(\omega \wedge \varphi) \wedge \vartheta
+=&amp;\ \sum\limits_{I,J,L} a_{I}(b_{J}c_{L}) dx_{I} \wedge (dx_{J} \wedge dx_{L}) \\ 
+=&amp;\ \sum\limits_{I} a_{I} dx_{I} \wedge \sum\limits_{J,L} b_{J}c_{L} dx_{J} \wedge dx_{L} &amp; \text{by property of } \wedge\\ 
+=&amp;\ \omega \wedge ( \varphi \wedge \vartheta) &amp; \text{by property of } \wedge\\ 
+\end{align*}
+$$</p>
+<p style="text-align: right;">■</p>
+<h3 id="증명2">증명(2)</h3>
+<p>$\omega = \sum\limits_{I} a_{I} dx_{I}$, $\varphi = \sum\limits_{J} b_{J} dx_{J}$라고 하자.</p>
+<p>$$
+\begin{align*}
+\omega \wedge \varphi
+=&amp;\ \sum\limits_{I,J} a_{I}b_{J} dx_{I} \wedge dx_{J} \\ 
+=&amp;\ \sum\limits_{I,J} a_{I}b_{J} dx_{i_{1}} \wedge \dots \wedge dx_{i_{k}} \wedge dx_{j_{1}} \wedge \dots \wedge dx_{j_{s}} \\ 
+=&amp;\ \sum\limits_{I,J} a_{I}b_{J} (-1)^{k} dx_{j_{1}} \wedge dx_{i_{1}} \wedge \dots \wedge dx_{i_{k}} \wedge dx_{j_{2}} \wedge \dots \wedge dx_{j_{s}} \\ 
+=&amp;\ \sum\limits_{I,J} a_{I}b_{J} (-1)^{k}(-1)^{k} dx_{j_{1}} \wedge dx_{j_{2}} \wedge dx_{i_{1}} \wedge \dots \wedge dx_{i_{k}} \wedge dx_{j_{3}} \wedge \dots \wedge dx_{j_{s}} \\ 
+&amp;\ \vdots \\ 
+=&amp;\ \sum\limits_{I,J} a_{I}b_{J} (-1)^{ks} dx_{j_{1}} \wedge dx_{j_{2}} \wedge \cdots \wedge dx_{j_{s}} \wedge dx_{i_{1}} \wedge \dots \wedge dx_{i_{k}}\\ 
+=&amp;\ (-1)^{ks} \sum\limits_{I,J} a_{I}b_{J} dx_{I} \wedge dx_{J} \\ 
+=&amp;\ (-1)^{ks} \varphi \wedge \omega
+\end{align*}
+$$</p>
+<p style="text-align: right;">■</p>
+<h3 id="증명3">증명(3)</h3>
+<p>$\omega = \sum\limits_{I} a_{I} dx_{I}$, $\varphi = \sum\limits_{J} b_{J} dx_{J}$, $\vartheta = \sum\limits_{J} c_{J} dx_{J}$라고 하자.</p>
+<p>$$
+\begin{align*}
+\omega
+=&amp;\ \omega \wedge (\varphi + \vartheta) \\ 
+=&amp;\ \omega \wedge \left( \sum\limits_{J} (b_{J} + c_{J}) dx_{J} \right) &amp; \text{by definition of } + \\ 
+=&amp;\ \left( \sum\limits_{I} a_{I} dx_{I} \right)\wedge \left( \sum\limits_{J} (b_{J} + c_{J}) dx_{J} \right) \\ 
+=&amp;\ \sum\limits_{I,J} a_{I}(b_{J} + c_{J})dx_{I}\wedge dx_{J} &amp; \text{by definition of } \wedge\\ 
+\end{align*}
+$$</p>
+<p>이때 $a, b, c$들은 각각 함숫값이 실수인 함수이므로 분배법칙이 성립한다. 따라서</p>
+<p>$$
+\begin{align*}
+\omega
+=&amp;\ \sum\limits_{I,J} a_{I}b_{J}dx_{I}\wedge dx_{J} + \sum\limits_{I,J} a_{I}c_{J}dx_{I}\wedge dx_{J} \\ 
+=&amp;\ \omega \wedge \varphi + \omega \wedge \vartheta &amp; \text{by definition of } \wedge\\ 
+\end{align*}
+$$</p>
+<p style="text-align: right;">■</p>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://stackoverflow.com/a/38638838/12285249">https://stackoverflow.com/a/38638838/12285249</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Manfredo P. Do Carmo, <em>Differential Forms and Applications</em>, p4-5 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
 
 
 <aside style="text-align: right;">
-    2012-02-12&emsp;
-    류대식&emsp;
-    <a href="../2027">🎲 2157</a>
+    2012-07-05&emsp;
+    전기현&emsp;
+    <a href="../2170">🎲 3260</a>
 </aside>
 
 <script>
@@ -359,8 +446,8 @@ julia&gt; @time for t ∈ 1:N
       renderKaTex(tex);
     }
 
-    var title = '줄리아에서 ==과 ===의 차이점';
-    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/how-different--and--in-julia\/';
+    var title = '미분 형식의 연산: 합과 쐐기곱';
+    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/operation-of-differential-form-sum-and-exterior-product\/';
     var arr = new Array();
     var obj = {
       "title": title,
@@ -424,7 +511,7 @@ julia&gt; @time for t ∈ 1:N
   function get_all_comment() {
     const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
     postFetch(url, {
-      board_idx: '2157'
+      board_idx: '3260'
     })
       .then(res => res.json())
       .then(data => {
@@ -495,9 +582,9 @@ julia&gt; @time for t ∈ 1:N
       alert('빈칸을 채워주세요');
       return;
     }
-    const idx = '2157';
-    const board_slug = 'how-different-==-and-===-in-julia';
-    const board_title = '줄리아에서 ==과 ===의 차이점';
+    const idx = '3260';
+    const board_slug = 'operation-of-differential-form:-sum-and-exterior-product';
+    const board_title = '미분 형식의 연산: 합과 쐐기곱';
 
     const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeComment';
     postFetch(url, {
@@ -723,9 +810,9 @@ julia&gt; @time for t ∈ 1:N
       return;
     }
 
-    const board_idx = '2157';
-    const board_slug = 'how-different-==-and-===-in-julia';
-    const board_title = '줄리아에서 ==과 ===의 차이점';
+    const board_idx = '3260';
+    const board_slug = 'operation-of-differential-form:-sum-and-exterior-product';
+    const board_title = '미분 형식의 연산: 합과 쐐기곱';
 
     const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeReComment';
     postFetch(url, {
@@ -778,10 +865,10 @@ julia&gt; @time for t ∈ 1:N
 
 
         <p style="text-align: center;">
-        <a href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/"
+        <a href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/"
             style="background-color: rgba(0, 0, 0, 0.8); color: orange;
             border-radius:10px; padding: 5px;">
-            📂줄리아</a>
+            📂기하학</a>
         </p>
         
 
@@ -900,7 +987,7 @@ julia&gt; @time for t ∈ 1:N
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2310)</summary>
+    <summary>전체 포스트 (2315)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -916,7 +1003,7 @@ julia&gt; @time for t ∈ 1:N
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (93)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (99)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
         </li><li>
@@ -1139,10 +1226,6 @@ julia&gt; @time for t ∈ 1:N
     </div>
 
     
-    
-    <link rel="stylesheet" href=https://freshrimpsushi.github.io/css/atom-one-light.css>
-    <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
-    <script>hljs.initHighlightingOnLoad();</script>
     
 
     <script src=https://freshrimpsushi.github.io/js/fuse.js></script> 
