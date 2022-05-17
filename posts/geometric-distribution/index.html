@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/geometric-distribution\/",
-    "wordCount" : "727",
+    "wordCount" : "728",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -263,6 +263,20 @@
     <div class="innertic">
       
     
+    
+    <div style="text-align: center;">
+        <p height=80% style="
+            text-align: center;
+            color: black;
+            border-style: dashed;
+            padding: 1rem;"
+            >
+        
+            🔎F2키를 눌러 포스트를 퀵서치할 수 있습니다. <br>
+            한국어는 물론, 영어로도 검색을 시도해보세요!
+        
+        </p>
+    </div>
 
 
 
@@ -387,27 +401,27 @@ $$</p>
 <p style="text-align: right;">■</p>
 <h2 id="코드">코드</h2>
 <p>다음은 기하분포의 확률질량함수를 움짤로 보여주는 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> LaTeXStrings
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Distributions
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Plots
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>cd(<span style="color:#a6e22e">@__DIR__</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">20</span>
-</span></span><span style="display:flex;"><span>P <span style="color:#f92672">=</span> collect(<span style="color:#ae81ff">0.01</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.01</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.5</span>); append!(P, reverse(P))
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>animation <span style="color:#f92672">=</span> <span style="color:#a6e22e">@animate</span> <span style="color:#66d9ef">for</span> p <span style="color:#f92672">∈</span> P
-</span></span><span style="display:flex;"><span>    scatter(x, pdf<span style="color:#f92672">.</span>(Geometric(p), x),
-</span></span><span style="display:flex;"><span>     color <span style="color:#f92672">=</span> <span style="color:#e6db74">:black</span>, markerstrokecolor <span style="color:#f92672">=</span> <span style="color:#e6db74">:black</span>,
-</span></span><span style="display:flex;"><span>     label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;p = </span><span style="color:#e6db74">$</span>(rpad(p, <span style="color:#ae81ff">4</span>, <span style="color:#e6db74">&#39;0&#39;</span>))<span style="color:#e6db74">&#34;</span>, size <span style="color:#f92672">=</span> (<span style="color:#ae81ff">400</span>,<span style="color:#ae81ff">300</span>))
-</span></span><span style="display:flex;"><span>    xlims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">20</span>); ylims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0.3</span>); title!(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;\mathrm{pmf\,of\,Geo}(p)&#34;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
-</span></span><span style="display:flex;"><span>gif(animation, <span style="color:#e6db74">&#34;pmf.gif&#34;</span>)
-</span></span></code></pre></div><section class="footnotes" role="doc-endnotes">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> LaTeXStrings
+<span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Distributions
+<span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Plots
+
+cd(<span style="color:#a6e22e">@__DIR__</span>)
+
+x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">20</span>
+P <span style="color:#f92672">=</span> collect(<span style="color:#ae81ff">0.01</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.01</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.5</span>); append!(P, reverse(P))
+
+animation <span style="color:#f92672">=</span> <span style="color:#a6e22e">@animate</span> <span style="color:#66d9ef">for</span> p <span style="color:#f92672">∈</span> P
+    scatter(x, pdf<span style="color:#f92672">.</span>(Geometric(p), x),
+     color <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>black, markerstrokecolor <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>black,
+     label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;p = </span><span style="color:#e6db74">$</span>(rpad(p, <span style="color:#ae81ff">4</span>, <span style="color:#e6db74">&#39;0&#39;</span>))<span style="color:#e6db74">&#34;</span>, size <span style="color:#f92672">=</span> (<span style="color:#ae81ff">400</span>,<span style="color:#ae81ff">300</span>))
+    xlims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">20</span>); ylims!(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0.3</span>); title!(L<span style="color:#e6db74">&#34;\mathrm{pmf\,of\,Geo}(p)&#34;</span>)
+<span style="color:#66d9ef">end</span>
+gif(animation, <span style="color:#e6db74">&#34;pmf.gif&#34;</span>)
+</code></pre></div><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Hogg et al. (2013). Introduction to Mathematical Statistcs(7th Edition): p145.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Hogg et al. (2013). Introduction to Mathematical Statistcs(7th Edition): p145. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -416,7 +430,7 @@ $$</p>
 <aside style="text-align: right;">
     2020-02-16&emsp;
     류대식&emsp;
-    <a href="../1938">🎲 1486</a>
+    <a href="../397">🎲 1486</a>
 </aside>
 
 <script>
@@ -972,7 +986,7 @@ $$</p>
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2320)</summary>
+    <summary>전체 포스트 (2321)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1022,7 +1036,7 @@ $$</p>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%83%9D%EC%83%88%EC%9A%B0%EC%B4%88%EB%B0%A5%EC%A7%80/" style="color: black">생새우초밥지 (2)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (39)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (41)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%B8%EC%9D%B4%EB%B2%84%EB%A9%94%ED%8A%B8%EB%A6%AD%EC%8A%A4/" style="color: black">세이버메트릭스 (8)</a>
         </li><li>
