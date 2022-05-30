@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-use-the-functions-for-time-or-date-in-julia\/",
-    "wordCount" : "788",
+    "wordCount" : "787",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -263,21 +263,6 @@
     <div class="innertic">
       
     
-    
-    <div style="text-align: center;">
-        <p height=80% style="
-            text-align: center;
-            color: black;
-            border-style: dashed;
-            padding: 1rem;"
-            >
-        
-            $x^{2} = - 1$ 의 해가 <b>허수</b>면 $X^{2} = - I$ 는 <b>허행렬</b>일까요? <br>
-            <a href="https://freshrimpsushi.com/community/bbs/board.php?bo_table=research" target='_blank'>커뮤니티</a>에서 고민해봅시다.
-        
-        
-        </p>
-    </div>
 
 
 
@@ -308,7 +293,7 @@
 <p><code>Dates</code>는 날짜 및 시간과 관련된 함수를 모아놓은 모듈이다. 일반적인 프로그래밍은 물론이고 시계열에 관련된, 아니 관련 없더라도 많은 데이터를 다루는 데에 있어서 유용할 수밖에 없다. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <h2 id="코드">코드</h2>
 <h3 id="전체코드">전체코드</h3>
-<pre><code>using Dates
+<pre tabindex="0"><code>using Dates
 
 오늘 = DateTime(2022,3,10)
 typeof(오늘)
@@ -316,8 +301,8 @@ typeof(오늘)
 propertynames(오늘)
 오늘.instant
 
-myformat = DateFormat(&quot;d-m-y&quot;)
-내일 = Date(&quot;11-3-2022&quot;, myformat)
+myformat = DateFormat(&#34;d-m-y&#34;)
+내일 = Date(&#34;11-3-2022&#34;, myformat)
 
 Dates.dayname(내일)
 
@@ -326,31 +311,31 @@ collect(일주일뒤까지)
 
 Dates.Day(일주일뒤까지[end]) - Dates.Day(오늘)
 </code></pre><h3 id="datetime-타입"><code>DateTime</code> 타입</h3>
-<pre><code>julia&gt; 오늘 = DateTime(2022,3,10)
+<pre tabindex="0"><code>julia&gt; 오늘 = DateTime(2022,3,10)
 2022-03-10T00:00:00
 
 julia&gt; typeof(오늘)
 DateTime
 </code></pre><p>가령 <code>DateTime()</code> 함수로 22년 3월 10일의 날짜를 위와 같이 <code>오늘</code>에 할당했다면, <code>오늘</code>은 <code>DateTime</code>이라는 타입을 가진다. <code>DateTime</code>은 <code>instant</code>라는 프로퍼티를 가지며, 밀리초로 환산된 수로써 시간을 기록하고 있다.</p>
-<pre><code>julia&gt; propertynames(오늘)
+<pre tabindex="0"><code>julia&gt; propertynames(오늘)
 (:instant,)
 
 julia&gt; 오늘.instant
 Dates.UTInstant{Millisecond}(Millisecond(63782553600000))
 </code></pre><h3 id="포맷-dateformat">포맷 <code>DateFormat()</code></h3>
-<pre><code>julia&gt; myformat = DateFormat(&quot;d-m-y&quot;)
-dateformat&quot;d-m-y&quot;
+<pre tabindex="0"><code>julia&gt; myformat = DateFormat(&#34;d-m-y&#34;)
+dateformat&#34;d-m-y&#34;
 
-julia&gt; 내일 = Date(&quot;11-3-2022&quot;, myformat)
+julia&gt; 내일 = Date(&#34;11-3-2022&#34;, myformat)
 2022-03-11
 </code></pre><p>흔히 동서양의 차이 때문에 날짜가 다르게 적힐 때 쓰인다.</p>
 <h3 id="요일-datesdayname">요일 <code>Dates.dayname()</code></h3>
-<pre><code>julia&gt; Dates.dayname(내일)
-&quot;Friday&quot;
+<pre tabindex="0"><code>julia&gt; Dates.dayname(내일)
+&#34;Friday&#34;
 </code></pre><p>해당 날짜의 요일을 리턴해준다. 양력의 부조리함 때문에 의외로 내가 짜려면 어려운 함수가 이런 것들이다.</p>
 <h3 id="날짜의-벡터">날짜의 벡터</h3>
-<pre><code>julia&gt; 일주일뒤까지 = 오늘:Day(1):DateTime(2022,3,17)
-DateTime(&quot;2022-03-10T00:00:00&quot;):Day(1):DateTime(&quot;2022-03-17T00:00:00&quot;)
+<pre tabindex="0"><code>julia&gt; 일주일뒤까지 = 오늘:Day(1):DateTime(2022,3,17)
+DateTime(&#34;2022-03-10T00:00:00&#34;):Day(1):DateTime(&#34;2022-03-17T00:00:00&#34;)
 
 julia&gt; collect(일주일뒤까지)
 8-element Vector{DateTime}:
@@ -364,7 +349,7 @@ julia&gt; collect(일주일뒤까지)
  2022-03-17T00:00:00
 </code></pre><p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 날짜 패키지에서 가장 유용한 부분이다. 특정 시점 사이의 구간을 위와 같이 네이티브한 줄리아 문법 그대로 벡터화하면 정말 상상하던대로의 결과가 나온다. 짜기 어려운 건 둘째치고 같은 기능을 하는 함수 정도는 다른 언어에도 있을지 모르겠지만, 이정도로 문법에 잘 녹아들어서 뛰어난 직관성을 가지는 경우는 흔치 않을 것이다.</p>
 <h3 id="날짜의-뺄셈--">날짜의 뺄셈 <code>-</code></h3>
-<pre><code>julia&gt; Dates.Day(일주일뒤까지[end]) - Dates.Day(오늘)
+<pre tabindex="0"><code>julia&gt; Dates.Day(일주일뒤까지[end]) - Dates.Day(오늘)
 7 days
 </code></pre><p>당연하다는 듯이 뺄셈으로 두 시점의 간격을 계산할 수 있다.</p>
 <h2 id="환경">환경</h2>
@@ -376,7 +361,7 @@ julia&gt; collect(일주일뒤까지)
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://docs.julialang.org/en/v1/stdlib/Dates/">https://docs.julialang.org/en/v1/stdlib/Dates/</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://docs.julialang.org/en/v1/stdlib/Dates/">https://docs.julialang.org/en/v1/stdlib/Dates/</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -385,7 +370,7 @@ julia&gt; collect(일주일뒤까지)
 <aside style="text-align: right;">
     1923-07-03&emsp;
     류대식&emsp;
-    <a href="../1003">🎲 2410</a>
+    <a href="../1328">🎲 2410</a>
 </aside>
 
 <script>
@@ -941,7 +926,7 @@ julia&gt; collect(일주일뒤까지)
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2324)</summary>
+    <summary>전체 포스트 (2335)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -957,9 +942,9 @@ julia&gt; collect(일주일뒤까지)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (102)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (104)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (20)</a>
         </li><li>
@@ -993,7 +978,7 @@ julia&gt; collect(일주일뒤까지)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (41)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%B8%EC%9D%B4%EB%B2%84%EB%A9%94%ED%8A%B8%EB%A6%AD%EC%8A%A4/" style="color: black">세이버메트릭스 (8)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%B8%EC%9D%B4%EB%B2%84%EB%A9%94%ED%8A%B8%EB%A6%AD%EC%8A%A4/" style="color: black">세이버메트릭스 (10)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/" style="color: black">소볼레프공간 (11)</a>
         </li><li>
@@ -1011,7 +996,7 @@ julia&gt; collect(일주일뒤까지)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">열물리학 (28)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B6%84%EC%84%9D/" style="color: black">위상데이터분석 (1)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B6%84%EC%84%9D/" style="color: black">위상데이터분석 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/" style="color: black">위상수학 (62)</a>
         </li><li>
@@ -1027,13 +1012,13 @@ julia&gt; collect(일주일뒤까지)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (23)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/" style="color: black">최적화이론 (6)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/" style="color: black">최적화이론 (7)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/" style="color: black">추상대수 (78)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/" style="color: black">측도론 (50)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (16)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (17)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EA%B2%80%EC%A0%95/" style="color: black">통계적검정 (14)</a>
         </li><li>

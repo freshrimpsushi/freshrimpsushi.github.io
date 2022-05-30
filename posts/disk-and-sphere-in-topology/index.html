@@ -67,10 +67,10 @@
     </script>
 
     
-<meta name="title" content="줄리아에서 ==과 ===의 차이점">
+<meta name="title" content="위상수학에서 디스크와 스피어">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="줄리아에서 ==과 ===의 차이점"/>
-<meta property="og:description" content="How different == and === in julia"/>
+<meta property="og:title" content="위상수학에서 디스크와 스피어"/>
+<meta property="og:description" content="Disk and Sphere in Topology"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -82,15 +82,15 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "r_",
-    "name": "줄리아에서 ==과 ===의 차이점",
-    "headline": "줄리아에서 ==과 ===의 차이점",
+    "name": "위상수학에서 디스크와 스피어",
+    "headline": "위상수학에서 디스크와 스피어",
     "alternativeHeadline": "",
-    "description": "How different == and === in julia",
+    "description": "Disk and Sphere in Topology",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/how-different-and-in-julia\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/disk-and-sphere-in-topology\/"
     },
     "author" : {
         "@type": "Person",
@@ -105,10 +105,10 @@
         "name": "류대식"
     },
     "copyrightHolder" : "생새우초밥집",
-    "copyrightYear" : "2012",
-    "dateCreated": "2012-02-12T00:00:00.00Z",
-    "datePublished": "2012-02-12T00:00:00.00Z",
-    "dateModified": "2012-02-12T00:00:00.00Z",
+    "copyrightYear" : "1923",
+    "dateCreated": "1923-04-18T00:00:00.00Z",
+    "datePublished": "1923-04-18T00:00:00.00Z",
+    "dateModified": "1923-04-18T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -121,15 +121,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-different-and-in-julia\/",
-    "wordCount" : "657",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/disk-and-sphere-in-topology\/",
+    "wordCount" : "653",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>줄리아에서 ==과 ===의 차이점</title>
+    <title>위상수학에서 디스크와 스피어</title>
 </head>
 
 <body class="main">
@@ -137,7 +137,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/%EC%A4%84%EB%A6%AC%EC%95%84.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/basic.png style="max-height: 80px; width: auto;">
             
             
             
@@ -252,11 +252,11 @@
     <div class="content">
       <div class="content-box">
         
-<title>줄리아에서 ==과 ===의 차이점</title>
+<title>위상수학에서 디스크와 스피어</title>
 
-<h1>줄리아에서 ==과 ===의 차이점</h1>
+<h1>위상수학에서 디스크와 스피어</h1>
 <p style="margin-top: -20px; margin-bottom: 0px;">
-  <i>How different == and === in julia</i>
+  <i>Disk and Sphere in Topology</i>
 </p>
 <aside>
   <div class="innerheader">
@@ -271,84 +271,68 @@
       
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#코드-1">코드 </a></li>
-    <li><a href="#최적화">최적화</a></li>
-    <li><a href="#환경">환경</a></li>
+    <li><a href="#정의-1">정의 </a></li>
+    <li><a href="#성질">성질</a></li>
+    <li><a href="#설명">설명</a>
+      <ul>
+        <li><a href="#n0-일-때">$n=0$ 일 때</a></li>
+      </ul>
+    </li>
+    <li><a href="#같이보기">같이보기</a>
+      <ul>
+        <li><a href="#일반적인-구의-정의2042"><a href="../2042">일반적인 구의 정의</a></a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
     </div>
   </div>
 </aside>
 
-<h2 id="코드-1">코드 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p><code>==</code>는 값이 같은지를 비교하고, <code>===</code>는 비교할 값이 가변<sup>Mutable</sup>인지 아닌지에 따라 다르게 작동한다.</p>
-<ul>
-<li>Mutable: 두 항이 같은 오브젝트인지 확인한다. 다시 말해, 프로그래밍적으로 두 변수가 구분될 수 있는지 없는지를 리턴한다.</li>
-<li>Immutable:
-<ul>
-<li>두 항의 타입이 같은지 체크하고,</li>
-<li>두 항의 스트럭쳐가 같은지 체크하고,</li>
-<li>그 각각의 요소가 <code>===</code>하게 같은지 재귀적으로 체크한다.</li>
-</ul>
-</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; Y <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-
-julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">==</span> Y
-<span style="color:#66d9ef">true</span>
-
-julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">===</span> Y
-<span style="color:#66d9ef">true</span>
-
-julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>]; Y <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>];
-
-julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">==</span> Y
-<span style="color:#66d9ef">true</span>
-
-julia<span style="color:#f92672">&gt;</span> X <span style="color:#f92672">===</span> Y
-<span style="color:#66d9ef">false</span>
-</code></pre></div><p>예로써 파이썬에서 흔히 볼 수 있는 위의 실행결과를 살펴보자. 정수 <code>1</code>은 Immutable하고 프로그래밍적으로 구분할 수 없어서 <code>==</code>과 <code>===</code>이 마찬가지로 참을 반환했지만, <code>1</code>만을 포함한 배열로 보았을 땐 <code>X</code>에 새로운 원소가 추가된다고 했을 때 <code>X</code>와 <code>Y</code>가 달라질 수 있기<sup>Mutable</sup>에 단순히 값을 비교한 <code>==</code>은 참을 반환하고 객체 자체를 비교한 <code>===</code>은 거짓을 반환했다.</p>
-<p>객체가 무슨 말인지 잘 몰라도 이 용법만 이해하면 충분하다.</p>
-<h2 id="최적화">최적화</h2>
-<p>객체지향성이 약한 줄리아에서 이러한 차이는 크게 와닿지 않는다. 코드 최적화의 측면에서 보았을 때 <code>==</code>와 <code>===</code>는 싱글톤<sup>Singtone</sup>의 비교에서 다음과 같은 정도의 성능 차이가 난다.</p>
-<pre><code>N = 10^7
-x = rand(0:9, N)
-
-julia&gt; @time for t ∈ 1:N
-           x[t] == 0
-       end
-  1.292501 seconds (30.00 M allocations: 610.336 MiB, 2.63% gc time)
-
-julia&gt; @time for t ∈ 1:N
-           x[t] === 0
-       end
-  1.016211 seconds (30.00 M allocations: 610.336 MiB, 2.77% gc time)
-</code></pre><p>하나의 값은 보통 Immutable이기 때문에 <code>==</code>보다 <code>===</code>이 빠른 것으로 이해하면 된다.</p>
-<p>이 정도 차이는 대부분의 경우 별로 크지 않을 수 있다. 당연하지만 반복적<sup>Iterative</sup>이지 않은 작업은 다음과 같은 벡터 연산이 훨씬 빠르며, 이 때의 속도 차이는 없거나 무의미하다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> x <span style="color:#f92672">.==</span> <span style="color:#ae81ff">0</span>;
-  <span style="color:#ae81ff">0.009509</span> seconds (<span style="color:#ae81ff">6</span> allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">1.196</span> MiB)
-
-julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> x <span style="color:#f92672">.===</span> <span style="color:#ae81ff">0</span>;
-  <span style="color:#ae81ff">0.009478</span> seconds (<span style="color:#ae81ff">6</span> allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">1.196</span> MiB)
-</code></pre></div><h2 id="환경">환경</h2>
-<ul>
-<li>OS: Windows</li>
-<li>julia: v1.6.1</li>
-</ul>
+<h2 id="정의-1">정의 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p><a href="../205">유클리드 공간</a> $\left( \mathbb{R}^{n} , \left\| \cdot \right\| \right)$ 에서 다음과 같은 도형들을 정의한다.</p>
+<ol>
+<li>다음과 같이 정의된 $D^{n} \subset \mathbb{R}^{n}$ 를 $n$-<strong>유닛 디스크</strong><sup>Unit Disk</sup>라 한다.
+$$
+D^{n} := \left\{ \mathbf{x} \in \mathbb{R}^{n} : \left\| \mathbf{x} \right\| \le 1 \right\}
+$$</li>
+<li>다음과 같이 정의된 $S^{n} \subset \mathbb{R}^{n+1}$ 를 $n$-<strong>유닛 스피어</strong><sup>Unit Sphere</sup>라 한다.
+$$
+S^{n} := \left\{ \mathbf{x} \in \mathbb{R}^{n+1} : \left\| \mathbf{x} \right\| = 1 \right\}
+$$</li>
+<li>$D^{n} \setminus \partial D^{n}$ 과 <a href="../438">호메오멀픽</a>한 <a href="../398">개집합</a> $e^{n}$ 을 $n$-<strong>셀</strong><sup>Cell</sup>이라고도 한다.</li>
+</ol>
+<h2 id="성질">성질</h2>
+<p>$n$-디스크의 <a href="../405">바운더리</a>는 $n$-스피어다. 다시 말해, 다음이 성립한다.
+$$
+\partial D^{n} = S^{n-1}
+$$</p>
+<h2 id="설명">설명</h2>
+<p><img src="20220110_231810.png#center" alt="20220110_231810.png"></p>
+<p>디스크와 스피어는 $n=2$ 일 때 기준으로 봐야 이해하기가 편하다. 표현 상으로 $2$-디스크는 우리가 일상에서 접하는 디스크, 내부가 꽉 찬 원반 모양이 되고 $2$-스피어는 그보다 한 단계 높은 $2+1$차원에서 <a href="../1772">볼륨</a>을 가지지 않고 면적을 가지는 구 그 자체만을 나타낸다.</p>
+<p><img src="20220110_233248.png#center" alt="20220110_233248.png"></p>
+<p>정의에서 $D^{3}$ 가 그러하듯, $D^{1}$ 은 디스크처럼 생기지는 않았지만 엄연히 디스크다. 한편 셀이라는 것은 보다시피 <a href="../438">위상동형</a>을 통해서 정의되기 때문에 딱히 디스크와 스피어처럼 집합으로 정확하게 정의될 필요가 없다.</p>
+<p><img src="20220110_233917.png#center" alt="20220110_233917.png"></p>
+<p>이는 셀이 모양과 크기, 위치 등에 자유롭다는 의미로 받아들여도 무방하고, 이렇게 셀을 생각함으로써 대중들에게 널리 알려진 <a href="../../categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99">위상수학</a>의 모습이 드러나게 된다.</p>
+<h3 id="n0-일-때">$n=0$ 일 때</h3>
+<p>$n = 0$ 일 때는 $D^{0} = \left\{ 0 \right\}$ 이고 $e^{n}$ 은 그에 호메오멀픽한 단 하나의 점으로 이루어져있지만, $S^{0}$ 은 곧 $\partial D^{1}$ 이므로 두 개의 점을 갖는다.</p>
+<h2 id="같이보기">같이보기</h2>
+<h3 id="일반적인-구의-정의2042"><a href="../2042">일반적인 구의 정의</a></h3>
+<p>일반적인 구는 <a href="../1842">내적</a>을 통해서 더 수학답게 정의할 수 있으며, 사실 <a href="../1471">일립소이드</a>까지는 얼마든지 쉽게 일반화할 수 있다. 그러나 디스크와 스피어가 가장 많이 언급되는 것은 위상수학으로, 구체적인 좌표나 기하적인 성질이 딱히 필요 없다.</p>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://stackoverflow.com/a/38638838/12285249">https://stackoverflow.com/a/38638838/12285249</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Hatcher. (2002). Algebraic Topology: p xii.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
 
 
 <aside style="text-align: right;">
-    2012-02-12&emsp;
+    1923-04-18&emsp;
     류대식&emsp;
-    <a href="../1654">🎲 2157</a>
+    <a href="../1023">🎲 2372</a>
 </aside>
 
 <script>
@@ -363,8 +347,8 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
       renderKaTex(tex);
     }
 
-    var title = '줄리아에서 ==과 ===의 차이점';
-    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/how-different-and-in-julia\/';
+    var title = '위상수학에서 디스크와 스피어';
+    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/disk-and-sphere-in-topology\/';
     var arr = new Array();
     var obj = {
       "title": title,
@@ -428,7 +412,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
   function get_all_comment() {
     const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
     postFetch(url, {
-      board_idx: '2157'
+      board_idx: '2372'
     })
       .then(res => res.json())
       .then(data => {
@@ -499,9 +483,9 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
       alert('빈칸을 채워주세요');
       return;
     }
-    const idx = '2157';
-    const board_slug = 'how-different-==-and-===-in-julia';
-    const board_title = '줄리아에서 ==과 ===의 차이점';
+    const idx = '2372';
+    const board_slug = 'disk-and-sphere-in-topology';
+    const board_title = '위상수학에서 디스크와 스피어';
 
     const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeComment';
     postFetch(url, {
@@ -727,9 +711,9 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
       return;
     }
 
-    const board_idx = '2157';
-    const board_slug = 'how-different-==-and-===-in-julia';
-    const board_title = '줄리아에서 ==과 ===의 차이점';
+    const board_idx = '2372';
+    const board_slug = 'disk-and-sphere-in-topology';
+    const board_title = '위상수학에서 디스크와 스피어';
 
     const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeReComment';
     postFetch(url, {
@@ -782,10 +766,10 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
 
 
         <p style="text-align: center;">
-        <a href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/"
+        <a href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B6%84%EC%84%9D/"
             style="background-color: rgba(0, 0, 0, 0.8); color: orange;
             border-radius:10px; padding: 5px;">
-            📂줄리아</a>
+            📂위상데이터분석</a>
         </p>
         
 
@@ -904,7 +888,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2324)</summary>
+    <summary>전체 포스트 (2335)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -920,9 +904,9 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (102)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (104)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (20)</a>
         </li><li>
@@ -956,7 +940,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (41)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%B8%EC%9D%B4%EB%B2%84%EB%A9%94%ED%8A%B8%EB%A6%AD%EC%8A%A4/" style="color: black">세이버메트릭스 (8)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%B8%EC%9D%B4%EB%B2%84%EB%A9%94%ED%8A%B8%EB%A6%AD%EC%8A%A4/" style="color: black">세이버메트릭스 (10)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/" style="color: black">소볼레프공간 (11)</a>
         </li><li>
@@ -974,7 +958,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">열물리학 (28)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B6%84%EC%84%9D/" style="color: black">위상데이터분석 (1)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B6%84%EC%84%9D/" style="color: black">위상데이터분석 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/" style="color: black">위상수학 (62)</a>
         </li><li>
@@ -990,13 +974,13 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (23)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/" style="color: black">최적화이론 (6)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/" style="color: black">최적화이론 (7)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/" style="color: black">추상대수 (78)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/" style="color: black">측도론 (50)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (16)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (17)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EA%B2%80%EC%A0%95/" style="color: black">통계적검정 (14)</a>
         </li><li>
@@ -1129,10 +1113,6 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
     </div>
 
     
-    
-    <link rel="stylesheet" href=https://freshrimpsushi.github.io/css/atom-one-light.css>
-    <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
-    <script>hljs.initHighlightingOnLoad();</script>
     
 
     <script src=https://freshrimpsushi.github.io/js/fuse.js></script> 

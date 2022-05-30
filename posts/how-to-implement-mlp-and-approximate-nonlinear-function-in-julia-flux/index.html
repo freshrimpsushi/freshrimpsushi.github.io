@@ -263,6 +263,19 @@
     <div class="innertic">
       
     
+    
+    <div style="text-align: center;">
+        <p height=80% style="
+            text-align: center;
+            color: black;
+            border-style: dashed;
+            padding: 1rem;"
+            >
+        
+            곧 기말고사입니다. 다들 힘냅시다.
+        
+        </p>
+    </div>
 
 
 
@@ -285,7 +298,7 @@
 </aside>
 
 <h2 id="시작">시작</h2>
-<pre><code>using Flux
+<pre tabindex="0"><code>using Flux
 using Plots
 using Distributions
 using Flux: @epochs
@@ -311,19 +324,19 @@ plot(x_, y_)
 </code></pre><p>필요한 패키지를 불러오고, 우리가 근사하고 싶은 비선형함수를 정의하자.</p>
 <p><img src="nonlinear_function.png#center" alt="nonlinear_function.png"></p>
 <h2 id="학습집합-생성">학습집합 생성</h2>
-<pre><code>julia&gt; Data = convert.(Float32, rand(Uniform(-5,5), 1024))
+<pre tabindex="0"><code>julia&gt; Data = convert.(Float32, rand(Uniform(-5,5), 1024))
 1024-element Vector{Float32}:
 
 julia&gt; Data = convert(Matrix, reshape(Data, (1,1024)))
 1×1024 Matrix{Float32}:
 </code></pre><p>함수의 정의역인 $[-5, 5]$에서 임의의 점 1024개를 뽑았다. 이렇게 뽑으면 자료형이 <code>Float64</code>인데, 딥러닝에서는 기본적으로 <code>Float32</code> 자료형을 다루므로 바꿔주었다. 물론 자료형이 <code>Float64</code>나 <code>Int64</code>인 데이터를 모델에 인풋으로 써도 알아서 자료형을 바꾸고 실행하기는 한다.</p>
 <p>또한 각각의 열이 하나의 데이터를 의미하기 때문에(이해가 안된다면 행렬의 곱을 생각해보라) 1024-벡터를 1x1024 매트릭스로 바꿔주었다.</p>
-<pre><code>Label = f.(Data) 
+<pre tabindex="0"><code>Label = f.(Data) 
 
 Train_Set = Flux.DataLoader((Data, Label), batchsize=128)
 </code></pre><p>위에서 정의한 함수 $f$로 레이블을 만들고, <code>Flux.DataLoader</code>로 훈련에 사용할 수 있게 만들었다.</p>
 <h2 id="모델-정의">모델 정의</h2>
-<pre><code>model = Chain(
+<pre tabindex="0"><code>model = Chain(
             Dense(1,5, relu),
             Dense(5,5, relu),
             Dense(5,1)
@@ -338,22 +351,22 @@ plot(vec(x_input), vec(ŷ))
 </code></pre><p><a href="../3211"><code>Chain()</code>으로 MLP를 만들고</a>, 함수의 그래프를 그려보면 $f$와 전혀 다름을 확인할 수 있다.</p>
 <p><img src="initial_MLP.png#center" alt="initial_MLP.png"></p>
 <h2 id="손실함수와-옵티마이저-정의">손실함수와 옵티마이저 정의</h2>
-<pre><code>LOSS(x,y) = Flux.mse(model(x), y)
+<pre tabindex="0"><code>LOSS(x,y) = Flux.mse(model(x), y)
 opt = ADAM()
 </code></pre><p>손실함수는 <a href="../967">MSE</a>, 옵티마이저는 ADAM으로 정의했다.</p>
 <h2 id="훈련">훈련</h2>
-<pre><code>julia&gt; @epochs 5000 @time Flux.train!(LOSS, Flux.params(model), Train_Set, opt, 
+<pre tabindex="0"><code>julia&gt; @epochs 5000 @time Flux.train!(LOSS, Flux.params(model), Train_Set, opt, 
 cb = Flux.throttle(() -&gt; @show(LOSS(Data, Label)), 1))
 [ Info: Epoch 5000
 LOSS(Data, Label) = 1.3867694f-6
   0.001494 seconds (3.04 k allocations: 549.953 KiB)
 </code></pre><p>이제 <a href="example-of-mlp-implementation-and-mnist-learning-in-julia-flux/#%ED%9B%88%EB%A0%A8"><code>@epochs</code> 매크로</a>로 훈련시킬 수 있다. 5000 에포크를 반복한 후, 로스가 아주 작아진 것을 확인할 수 있다.</p>
 <p>MLP의 그래프를 그려보면 다음과 같다.</p>
-<pre><code>ŷ = model(x_input)
+<pre tabindex="0"><code>ŷ = model(x_input)
 plot(vec(x_input), vec(ŷ))
 </code></pre><p><img src="trained_MLP.png#center" alt="trained_MLP.png"></p>
 <h2 id="코드-전문">코드 전문</h2>
-<pre><code>using Flux
+<pre tabindex="0"><code>using Flux
 using Plots
 using Distributions
 using Flux: @epochs
@@ -376,7 +389,7 @@ end
 x_ = -5:0.01:5
 y_ = f.(x_)
 plot(x_, y_)
-savefig(&quot;nonlinear_function.png&quot;)
+savefig(&#34;nonlinear_function.png&#34;)
 
 Data = convert.(Float32, rand(Uniform(-5,5), 1024))
 Data = convert(Matrix, reshape(Data, (1,1024)))
@@ -393,7 +406,7 @@ x_input = reshape(x_, (1,1001))
 x_input = convert(Matrix{Float32}, x_input)
 ŷ = model(x_input)
 plot(vec(x_input), vec(ŷ))
-savefig(&quot;initial_MLP.png&quot;)
+savefig(&#34;initial_MLP.png&#34;)
 
 LOSS(x,y) = Flux.mse(model(x), y)
 opt = ADAM()
@@ -402,7 +415,7 @@ opt = ADAM()
 
 ŷ = model(x_input)
 plot(vec(x_input), vec(ŷ))
-savefig(&quot;trained_MLP.png&quot;)
+savefig(&#34;trained_MLP.png&#34;)
 </code></pre><h2 id="환경">환경</h2>
 <ul>
 <li>OS: Windows10</li>
@@ -413,7 +426,7 @@ savefig(&quot;trained_MLP.png&quot;)
 <aside style="text-align: right;">
     2012-04-30&emsp;
     전기현&emsp;
-    <a href="../480">🎲 3227</a>
+    <a href="../525">🎲 3227</a>
 </aside>
 
 <script>
@@ -969,7 +982,7 @@ savefig(&quot;trained_MLP.png&quot;)
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2324)</summary>
+    <summary>전체 포스트 (2335)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -985,9 +998,9 @@ savefig(&quot;trained_MLP.png&quot;)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (102)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (104)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (20)</a>
         </li><li>
@@ -1021,7 +1034,7 @@ savefig(&quot;trained_MLP.png&quot;)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (41)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%B8%EC%9D%B4%EB%B2%84%EB%A9%94%ED%8A%B8%EB%A6%AD%EC%8A%A4/" style="color: black">세이버메트릭스 (8)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%B8%EC%9D%B4%EB%B2%84%EB%A9%94%ED%8A%B8%EB%A6%AD%EC%8A%A4/" style="color: black">세이버메트릭스 (10)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/" style="color: black">소볼레프공간 (11)</a>
         </li><li>
@@ -1039,7 +1052,7 @@ savefig(&quot;trained_MLP.png&quot;)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">열물리학 (28)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B6%84%EC%84%9D/" style="color: black">위상데이터분석 (1)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B6%84%EC%84%9D/" style="color: black">위상데이터분석 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/" style="color: black">위상수학 (62)</a>
         </li><li>
@@ -1055,13 +1068,13 @@ savefig(&quot;trained_MLP.png&quot;)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (23)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/" style="color: black">최적화이론 (6)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/" style="color: black">최적화이론 (7)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/" style="color: black">추상대수 (78)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/" style="color: black">측도론 (50)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (16)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (17)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EA%B2%80%EC%A0%95/" style="color: black">통계적검정 (14)</a>
         </li><li>

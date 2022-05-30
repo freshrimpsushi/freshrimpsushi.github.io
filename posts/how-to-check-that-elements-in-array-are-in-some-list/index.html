@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-check-that-elements-in-array-are-in-some-list\/",
-    "wordCount" : "583",
+    "wordCount" : "582",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -272,6 +272,9 @@
             padding: 1rem;"
             >
         
+            $x^{2} = - 1$ 의 해가 <b>허수</b>면 $X^{2} = - I$ 는 <b>허행렬</b>일까요? <br>
+            <a href="https://freshrimpsushi.com/community/bbs/board.php?bo_table=research" target='_blank'>커뮤니티</a>에서 고민해봅시다.
+        
         </p>
     </div>
 
@@ -292,49 +295,49 @@
 </aside>
 
 <h2 id="가이드-1">가이드 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> x <span style="color:#f92672">=</span> rand(<span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;c&#39;</span>, <span style="color:#ae81ff">10</span>)
-<span style="color:#ae81ff">10</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Char</span>}<span style="color:#f92672">:</span>
- <span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">:</span> ASCII<span style="color:#f92672">/</span>Unicode U<span style="color:#f92672">+</span><span style="color:#ae81ff">0061</span> (category Ll<span style="color:#f92672">:</span> Letter, lowercase)
- <span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">:</span> ASCII<span style="color:#f92672">/</span>Unicode U<span style="color:#f92672">+</span><span style="color:#ae81ff">0061</span> (category Ll<span style="color:#f92672">:</span> Letter, lowercase)
- <span style="color:#e6db74">&#39;b&#39;</span><span style="color:#f92672">:</span> ASCII<span style="color:#f92672">/</span>Unicode U<span style="color:#f92672">+</span><span style="color:#ae81ff">0062</span> (category Ll<span style="color:#f92672">:</span> Letter, lowercase)
- <span style="color:#e6db74">&#39;c&#39;</span><span style="color:#f92672">:</span> ASCII<span style="color:#f92672">/</span>Unicode U<span style="color:#f92672">+</span><span style="color:#ae81ff">0063</span> (category Ll<span style="color:#f92672">:</span> Letter, lowercase)
- <span style="color:#e6db74">&#39;b&#39;</span><span style="color:#f92672">:</span> ASCII<span style="color:#f92672">/</span>Unicode U<span style="color:#f92672">+</span><span style="color:#ae81ff">0062</span> (category Ll<span style="color:#f92672">:</span> Letter, lowercase)
- <span style="color:#e6db74">&#39;c&#39;</span><span style="color:#f92672">:</span> ASCII<span style="color:#f92672">/</span>Unicode U<span style="color:#f92672">+</span><span style="color:#ae81ff">0063</span> (category Ll<span style="color:#f92672">:</span> Letter, lowercase)
- <span style="color:#e6db74">&#39;c&#39;</span><span style="color:#f92672">:</span> ASCII<span style="color:#f92672">/</span>Unicode U<span style="color:#f92672">+</span><span style="color:#ae81ff">0063</span> (category Ll<span style="color:#f92672">:</span> Letter, lowercase)
- <span style="color:#e6db74">&#39;c&#39;</span><span style="color:#f92672">:</span> ASCII<span style="color:#f92672">/</span>Unicode U<span style="color:#f92672">+</span><span style="color:#ae81ff">0063</span> (category Ll<span style="color:#f92672">:</span> Letter, lowercase)
- <span style="color:#e6db74">&#39;b&#39;</span><span style="color:#f92672">:</span> ASCII<span style="color:#f92672">/</span>Unicode U<span style="color:#f92672">+</span><span style="color:#ae81ff">0062</span> (category Ll<span style="color:#f92672">:</span> Letter, lowercase)
- <span style="color:#e6db74">&#39;b&#39;</span><span style="color:#f92672">:</span> ASCII<span style="color:#f92672">/</span>Unicode U<span style="color:#f92672">+</span><span style="color:#ae81ff">0062</span> (category Ll<span style="color:#f92672">:</span> Letter, lowercase)
-</code></pre></div><p>위와 같은 배열이 있다고 하자. 예제에서 우리의 목표는 <code>'a'</code> 와 <code>'b'</code> 를 모두 골라내는 것이라고 하자. 상식적으로는 <a href="../1442">포함기호 $\in$</a>로 브로드캐스트하면 될 것 같지만, 결과는 다음과 같다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> x <span style="color:#f92672">.∈</span> [<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;b&#39;</span>]
-ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">DimensionMismatch</span>(<span style="color:#e6db74">&#34;arrays could not be broadcast to a common size; got a dimension with lengths 10 and 2&#34;</span>)
-</code></pre></div><p><code>DimensionMismatch</code> 에러가 레이즈되었다. 이는 브로드캐스팅이 배열 <code>x</code> 와 범주 <code>['a', 'b']</code> 양쪽에 동시에 일어났기 때문에 발생한 에러다. 에러메세지를 해석해보자면 <code>x</code> 의 길이 10과 <code>['a', 'b']</code>의 길이 2가 동시에 들어와서 혼란스럽다는 것이다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> x <span style="color:#f92672">.∈</span> <span style="color:#66d9ef">Ref</span>([<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;b&#39;</span>])
-<span style="color:#ae81ff">10</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">BitVector</span><span style="color:#f92672">:</span>
- <span style="color:#ae81ff">1</span>
- <span style="color:#ae81ff">1</span>
- <span style="color:#ae81ff">1</span>
- <span style="color:#ae81ff">0</span>
- <span style="color:#ae81ff">1</span>
- <span style="color:#ae81ff">0</span>
- <span style="color:#ae81ff">0</span>
- <span style="color:#ae81ff">0</span>
- <span style="color:#ae81ff">1</span>
- <span style="color:#ae81ff">1</span>
-</code></pre></div><p>이럴떈 <code>Ref()</code> 함수를 통해 브로드캐스팅 문제를 해결할 수 있다. 이를 통해 <code>['a', 'b']</code> 속의 <code>'a'</code> 와 <code>'b'</code> 가 스칼라로 취급되고, 위와 같이 두 개의 캐릭터가 있는 곳만을 찾아낼 수 있었다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> x <span style="color:#f92672">=</span> rand(<span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;c&#39;</span>, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Char</span>}<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">:</span> ASCII<span style="color:#f92672">/</span>Unicode U<span style="color:#f92672">+</span><span style="color:#ae81ff">0061</span> (category Ll<span style="color:#f92672">:</span> Letter, lowercase)
+</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">:</span> ASCII<span style="color:#f92672">/</span>Unicode U<span style="color:#f92672">+</span><span style="color:#ae81ff">0061</span> (category Ll<span style="color:#f92672">:</span> Letter, lowercase)
+</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#39;b&#39;</span><span style="color:#f92672">:</span> ASCII<span style="color:#f92672">/</span>Unicode U<span style="color:#f92672">+</span><span style="color:#ae81ff">0062</span> (category Ll<span style="color:#f92672">:</span> Letter, lowercase)
+</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#39;c&#39;</span><span style="color:#f92672">:</span> ASCII<span style="color:#f92672">/</span>Unicode U<span style="color:#f92672">+</span><span style="color:#ae81ff">0063</span> (category Ll<span style="color:#f92672">:</span> Letter, lowercase)
+</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#39;b&#39;</span><span style="color:#f92672">:</span> ASCII<span style="color:#f92672">/</span>Unicode U<span style="color:#f92672">+</span><span style="color:#ae81ff">0062</span> (category Ll<span style="color:#f92672">:</span> Letter, lowercase)
+</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#39;c&#39;</span><span style="color:#f92672">:</span> ASCII<span style="color:#f92672">/</span>Unicode U<span style="color:#f92672">+</span><span style="color:#ae81ff">0063</span> (category Ll<span style="color:#f92672">:</span> Letter, lowercase)
+</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#39;c&#39;</span><span style="color:#f92672">:</span> ASCII<span style="color:#f92672">/</span>Unicode U<span style="color:#f92672">+</span><span style="color:#ae81ff">0063</span> (category Ll<span style="color:#f92672">:</span> Letter, lowercase)
+</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#39;c&#39;</span><span style="color:#f92672">:</span> ASCII<span style="color:#f92672">/</span>Unicode U<span style="color:#f92672">+</span><span style="color:#ae81ff">0063</span> (category Ll<span style="color:#f92672">:</span> Letter, lowercase)
+</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#39;b&#39;</span><span style="color:#f92672">:</span> ASCII<span style="color:#f92672">/</span>Unicode U<span style="color:#f92672">+</span><span style="color:#ae81ff">0062</span> (category Ll<span style="color:#f92672">:</span> Letter, lowercase)
+</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#39;b&#39;</span><span style="color:#f92672">:</span> ASCII<span style="color:#f92672">/</span>Unicode U<span style="color:#f92672">+</span><span style="color:#ae81ff">0062</span> (category Ll<span style="color:#f92672">:</span> Letter, lowercase)
+</span></span></code></pre></div><p>위와 같은 배열이 있다고 하자. 예제에서 우리의 목표는 <code>'a'</code> 와 <code>'b'</code> 를 모두 골라내는 것이라고 하자. 상식적으로는 <a href="../1442">포함기호 $\in$</a>로 브로드캐스트하면 될 것 같지만, 결과는 다음과 같다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> x <span style="color:#f92672">.∈</span> [<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;b&#39;</span>]
+</span></span><span style="display:flex;"><span>ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">DimensionMismatch</span>(<span style="color:#e6db74">&#34;arrays could not be broadcast to a common size; got a dimension with lengths 10 and 2&#34;</span>)
+</span></span></code></pre></div><p><code>DimensionMismatch</code> 에러가 레이즈되었다. 이는 브로드캐스팅이 배열 <code>x</code> 와 범주 <code>['a', 'b']</code> 양쪽에 동시에 일어났기 때문에 발생한 에러다. 에러메세지를 해석해보자면 <code>x</code> 의 길이 10과 <code>['a', 'b']</code>의 길이 2가 동시에 들어와서 혼란스럽다는 것이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> x <span style="color:#f92672">.∈</span> <span style="color:#66d9ef">Ref</span>([<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;b&#39;</span>])
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">BitVector</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><p>이럴떈 <code>Ref()</code> 함수를 통해 브로드캐스팅 문제를 해결할 수 있다. 이를 통해 <code>['a', 'b']</code> 속의 <code>'a'</code> 와 <code>'b'</code> 가 스칼라로 취급되고, 위와 같이 두 개의 캐릭터가 있는 곳만을 찾아낼 수 있었다.</p>
 <h2 id="주의사항">주의사항</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> y <span style="color:#f92672">=</span> rand(<span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;c&#39;</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">10</span>)
-<span style="color:#ae81ff">1</span>×10 <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Char</span>}<span style="color:#f92672">:</span>
- <span style="color:#e6db74">&#39;b&#39;</span>  <span style="color:#e6db74">&#39;a&#39;</span>  <span style="color:#e6db74">&#39;b&#39;</span>  <span style="color:#e6db74">&#39;b&#39;</span>  <span style="color:#e6db74">&#39;a&#39;</span>  <span style="color:#e6db74">&#39;c&#39;</span>  <span style="color:#e6db74">&#39;a&#39;</span>  <span style="color:#e6db74">&#39;b&#39;</span>  <span style="color:#e6db74">&#39;b&#39;</span>  <span style="color:#e6db74">&#39;c&#39;</span>
-</code></pre></div><p>위와 같이 $1 \times 10$ 행렬인 경우를 생각해보자. 언뜻보면 위 가이드에서 본 경우와 다를 게 없어야 할 것 같지만, <code>.∈</code> 가 전혀 다른 방식으로 사용된다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> y <span style="color:#f92672">.∈</span> [<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;b&#39;</span>]
-<span style="color:#ae81ff">2</span>×10 <span style="color:#66d9ef">BitMatrix</span><span style="color:#f92672">:</span>
- <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
- <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>
-</code></pre></div><p>보다시피 첫 행은  <code>'a'</code> 의 위치를, 둘째 행은 <code>'b'</code> 의 위치를 나타내주고 있다. 이는 벡터냐 행렬이냐의 차이에서 온 것이다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> y <span style="color:#f92672">.∈</span> <span style="color:#66d9ef">Ref</span>([<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;b&#39;</span>])
-<span style="color:#ae81ff">1</span>×10 <span style="color:#66d9ef">BitMatrix</span><span style="color:#f92672">:</span>
- <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>
-</code></pre></div><p><code>Ref()</code> 를 사용하는 경우에는 일관된 결과를 얻을 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> y <span style="color:#f92672">=</span> rand(<span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;c&#39;</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span><span style="color:#f92672">×</span><span style="color:#ae81ff">10</span> <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Char</span>}<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#39;b&#39;</span>  <span style="color:#e6db74">&#39;a&#39;</span>  <span style="color:#e6db74">&#39;b&#39;</span>  <span style="color:#e6db74">&#39;b&#39;</span>  <span style="color:#e6db74">&#39;a&#39;</span>  <span style="color:#e6db74">&#39;c&#39;</span>  <span style="color:#e6db74">&#39;a&#39;</span>  <span style="color:#e6db74">&#39;b&#39;</span>  <span style="color:#e6db74">&#39;b&#39;</span>  <span style="color:#e6db74">&#39;c&#39;</span>
+</span></span></code></pre></div><p>위와 같이 $1 \times 10$ 행렬인 경우를 생각해보자. 언뜻보면 위 가이드에서 본 경우와 다를 게 없어야 할 것 같지만, <code>.∈</code> 가 전혀 다른 방식으로 사용된다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> y <span style="color:#f92672">.∈</span> [<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;b&#39;</span>]
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span><span style="color:#f92672">×</span><span style="color:#ae81ff">10</span> <span style="color:#66d9ef">BitMatrix</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>
+</span></span></code></pre></div><p>보다시피 첫 행은  <code>'a'</code> 의 위치를, 둘째 행은 <code>'b'</code> 의 위치를 나타내주고 있다. 이는 벡터냐 행렬이냐의 차이에서 온 것이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> y <span style="color:#f92672">.∈</span> <span style="color:#66d9ef">Ref</span>([<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;b&#39;</span>])
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span><span style="color:#f92672">×</span><span style="color:#ae81ff">10</span> <span style="color:#66d9ef">BitMatrix</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>
+</span></span></code></pre></div><p><code>Ref()</code> 를 사용하는 경우에는 일관된 결과를 얻을 수 있다.</p>
 <h2 id="환경">환경</h2>
 <ul>
 <li>OS: Windows</li>
@@ -344,7 +347,7 @@ ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">DimensionM
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://stackoverflow.com/a/59978386/12285249">https://stackoverflow.com/a/59978386/12285249</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://stackoverflow.com/a/59978386/12285249">https://stackoverflow.com/a/59978386/12285249</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -353,7 +356,7 @@ ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">DimensionM
 <aside style="text-align: right;">
     2012-04-25&emsp;
     류대식&emsp;
-    <a href="../323">🎲 2193</a>
+    <a href="../1691">🎲 2193</a>
 </aside>
 
 <script>
@@ -909,7 +912,7 @@ ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">DimensionM
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2324)</summary>
+    <summary>전체 포스트 (2335)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -925,9 +928,9 @@ ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">DimensionM
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (102)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (104)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (11)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (12)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (20)</a>
         </li><li>
@@ -961,7 +964,7 @@ ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">DimensionM
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (41)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%B8%EC%9D%B4%EB%B2%84%EB%A9%94%ED%8A%B8%EB%A6%AD%EC%8A%A4/" style="color: black">세이버메트릭스 (8)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%B8%EC%9D%B4%EB%B2%84%EB%A9%94%ED%8A%B8%EB%A6%AD%EC%8A%A4/" style="color: black">세이버메트릭스 (10)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/" style="color: black">소볼레프공간 (11)</a>
         </li><li>
@@ -979,7 +982,7 @@ ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">DimensionM
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">열물리학 (28)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B6%84%EC%84%9D/" style="color: black">위상데이터분석 (1)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B6%84%EC%84%9D/" style="color: black">위상데이터분석 (4)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EC%88%98%ED%95%99/" style="color: black">위상수학 (62)</a>
         </li><li>
@@ -995,13 +998,13 @@ ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">DimensionM
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B4%88%ED%95%A8%EC%88%98%EB%A1%A0/" style="color: black">초함수론 (23)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/" style="color: black">최적화이론 (6)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/" style="color: black">최적화이론 (7)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B6%94%EC%83%81%EB%8C%80%EC%88%98/" style="color: black">추상대수 (78)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/" style="color: black">측도론 (50)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (16)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (17)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EA%B2%80%EC%A0%95/" style="color: black">통계적검정 (14)</a>
         </li><li>
