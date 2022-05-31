@@ -1,3 +1,6 @@
+// https://gist.github.com/cmod/5410eae147e4318164258742dd053993
+// 키보드 기반 퀵서치 기능
+
 var fuse; // holds our search engine
 var searchVisible = false; 
 var firstRun = true; // allow us to delay loading json data unless search activated
@@ -109,7 +112,8 @@ function loadSearch() {
       keys: [
         'title',
         'permalink',
-        'summary'
+        'contents',
+        // 'summary'
         ]
     };
     fuse = new Fuse(data, options); // build the index from the json file
