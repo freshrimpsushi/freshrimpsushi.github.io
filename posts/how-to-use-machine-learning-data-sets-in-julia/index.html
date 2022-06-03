@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-use-machine-learning-data-sets-in-julia\/",
-    "wordCount" : "452",
+    "wordCount" : "454",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -263,6 +263,19 @@
     <div class="innertic">
       
     
+    
+    <div style="text-align: center;">
+        <p height=80% style="
+            text-align: center;
+            color: black;
+            border-style: dashed;
+            padding: 1rem;"
+            >
+        
+            곧 기말고사입니다. 다들 힘냅시다.
+        
+        </p>
+    </div>
 
 
 
@@ -322,10 +335,10 @@
 <h2 id="예시">예시</h2>
 <h3 id="mnist">MNIST</h3>
 <p>데이터와 레이블을 한 번에 불러오려면 <code>.traindata()</code>를 사용한다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> Train_X, Train_Y <span style="color:#f92672">=</span> MLDatasets<span style="color:#f92672">.</span>MNIST<span style="color:#f92672">.</span>traindata()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> Train_X, Train_Y <span style="color:#f92672">=</span> MLDatasets<span style="color:#f92672">.</span>MNIST<span style="color:#f92672">.</span>traindata()
 
 julia<span style="color:#f92672">&gt;</span> typeof(Train_X)
-Base<span style="color:#f92672">.</span><span style="color:#66d9ef">ReinterpretArray</span>{<span style="color:#66d9ef">FixedPointNumbers</span><span style="color:#f92672">.</span><span style="color:#66d9ef">N0f8</span>, <span style="color:#ae81ff">3</span>, <span style="color:#66d9ef">UInt8</span>, <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">UInt8</span>, <span style="color:#ae81ff">3</span>}, <span style="color:#66d9ef">false</span>}
+Base<span style="color:#f92672">.</span>ReinterpretArray{FixedPointNumbers<span style="color:#f92672">.</span>N0f8, <span style="color:#ae81ff">3</span>, <span style="color:#66d9ef">UInt8</span>, <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">UInt8</span>, <span style="color:#ae81ff">3</span>}, <span style="color:#66d9ef">false</span>}
 
 julia<span style="color:#f92672">&gt;</span> size(Train_X)
 (<span style="color:#ae81ff">28</span>, <span style="color:#ae81ff">28</span>, <span style="color:#ae81ff">60000</span>)
@@ -348,7 +361,7 @@ julia<span style="color:#f92672">&gt;</span> Train_Y
  <span style="color:#ae81ff">3</span>
  <span style="color:#ae81ff">5</span>
  <span style="color:#ae81ff">3</span>
- <span style="color:#f92672">⋮</span>
+ ⋮
  <span style="color:#ae81ff">7</span>
  <span style="color:#ae81ff">8</span>
  <span style="color:#ae81ff">9</span>
@@ -362,13 +375,13 @@ julia<span style="color:#f92672">&gt;</span> Train_Y
  <span style="color:#ae81ff">6</span>
  <span style="color:#ae81ff">8</span>
 </code></pre></div><p>데이터와 레이블을 각각 불러오는 방법은 다음과 같다.</p>
-<pre tabindex="0"><code>julia&gt; Train_X = MLDatasets.MNIST.traintensor()
+<pre><code>julia&gt; Train_X = MLDatasets.MNIST.traintensor()
 28×28×60000 reinterpret(FixedPointNumbers.N0f8, ::Array{UInt8, 3}):
 
 julia&gt; Train_Y = MLDatasets.MNIST.trainlabels()
 60000-element Vector{Int64}:
 </code></pre><p>테스트 셋은 다음과 같이 불러온다.</p>
-<pre tabindex="0"><code>julia&gt; Test_X = MLDatasets.MNIST.testtensor()
+<pre><code>julia&gt; Test_X = MLDatasets.MNIST.testtensor()
 28×28×10000 reinterpret(FixedPointNumbers.N0f8, ::Array{UInt8, 3})
 
 
@@ -377,7 +390,7 @@ julia&gt; Test_Y = MLDatasets.MNIST.testlabels()
 
 julia&gt; Test_X, Test_Y = MLDatasets.MNIST.testdata()
 </code></pre><p>특이한 점은 <code>Train_Y</code>가 <a href="../3219">원-핫 인코딩 벡터</a>가 아니라 정수로 구성되어 있다는 점이다. 116번째는 4에 대한 데이터임을 다음과 같이 확인할 수 있다. 손글씨 사진은 90도만큼 회전된 사진임에 주의하자.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> fig <span style="color:#f92672">=</span> heatmap(imrotate(Train_X[<span style="color:#f92672">:</span>,<span style="color:#f92672">:</span>,<span style="color:#ae81ff">116</span>],<span style="color:#f92672">-</span>pi<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>))
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> fig <span style="color:#f92672">=</span> heatmap(imrotate(Train_X[<span style="color:#f92672">:</span>,<span style="color:#f92672">:</span>,<span style="color:#ae81ff">116</span>],<span style="color:#f92672">-</span>pi<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>))
 
 julia<span style="color:#f92672">&gt;</span> savefig(fig, <span style="color:#e6db74">&#34;MNIST116.png&#34;</span>)
 
@@ -385,13 +398,13 @@ julia<span style="color:#f92672">&gt;</span> Train_Y[<span style="color:#ae81ff"
 <span style="color:#ae81ff">4</span>
 </code></pre></div><p><img src="MNIST116.png#center" alt="MNIST116.png"></p>
 <h3 id="cifar10">CIFAR10</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> Train_X2, Train_Y2 <span style="color:#f92672">=</span> CIFAR10<span style="color:#f92672">.</span>traindata()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> Train_X2, Train_Y2 <span style="color:#f92672">=</span> CIFAR10<span style="color:#f92672">.</span>traindata()
 
 julia<span style="color:#f92672">&gt;</span> size(Train_X2)
 (<span style="color:#ae81ff">32</span>, <span style="color:#ae81ff">32</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">50000</span>)
 
 julia<span style="color:#f92672">&gt;</span>typeof(Train_X2)
-Base<span style="color:#f92672">.</span><span style="color:#66d9ef">ReinterpretArray</span>{<span style="color:#66d9ef">N0f8</span>, <span style="color:#ae81ff">4</span>, <span style="color:#66d9ef">UInt8</span>, <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">UInt8</span>, <span style="color:#ae81ff">4</span>}, <span style="color:#66d9ef">false</span>}
+Base<span style="color:#f92672">.</span>ReinterpretArray{N0f8, <span style="color:#ae81ff">4</span>, <span style="color:#66d9ef">UInt8</span>, <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">UInt8</span>, <span style="color:#ae81ff">4</span>}, <span style="color:#66d9ef">false</span>}
 
 julia<span style="color:#f92672">&gt;</span> size(Train_Y2)
 (<span style="color:#ae81ff">50000</span>,)
@@ -421,10 +434,10 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</sp
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://github.com/JuliaML/MLDatasets.jl">https://github.com/JuliaML/MLDatasets.jl</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://github.com/JuliaML/MLDatasets.jl">https://github.com/JuliaML/MLDatasets.jl</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p><a href="https://juliaml.github.io/MLDatasets.jl/dev/">https://juliaml.github.io/MLDatasets.jl/dev/</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://juliaml.github.io/MLDatasets.jl/dev/">https://juliaml.github.io/MLDatasets.jl/dev/</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -433,7 +446,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</sp
 <aside style="text-align: right;">
     2012-02-17&emsp;
     전기현&emsp;
-    <a href="../557">🎲 3191</a>
+    <a href="../448">🎲 3191</a>
 </aside>
 
 <script>
@@ -989,7 +1002,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</sp
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2336)</summary>
+    <summary>전체 포스트 (2338)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1005,9 +1018,9 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</sp
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (105)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (106)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (12)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (13)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (20)</a>
         </li><li>
@@ -1097,7 +1110,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</sp
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (96)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (65)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (66)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (65)</a>
         </li><li>

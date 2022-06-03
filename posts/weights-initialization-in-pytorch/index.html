@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/weights-initialization-in-pytorch\/",
-    "wordCount" : "422",
+    "wordCount" : "423",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -263,19 +263,6 @@
     <div class="innertic">
       
     
-    
-    <div style="text-align: center;">
-        <p height=80% style="
-            text-align: center;
-            color: black;
-            border-style: dashed;
-            padding: 1rem;"
-            >
-        
-            곧 기말고사입니다. 다들 힘냅시다.
-        
-        </p>
-    </div>
 
 
 
@@ -302,7 +289,7 @@
 
 <h2 id="코드1">코드<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
 <p>다음과 같이 뉴럴 네트워크를 정의했다고 하자. <code>forward</code> 부분은 생략하였다.</p>
-<pre tabindex="0"><code>import torch
+<pre><code>import torch
 import torch.nn as nn
 
 class Custom_Net(nn.Module):
@@ -345,7 +332,7 @@ class Custom_Net(nn.Module):
 </ul>
 <h3 id="직접지정">직접지정</h3>
 <p>내가 원하는 특정한 배열을 초기값으로 쓰고싶다면, 다음과 같이 설정하면 된다. $A$가  크기가 $m \times n$인 <code>torch.tensor()</code>일 때,</p>
-<pre tabindex="0"><code>class Custom_Net(nn.Module):
+<pre><code>class Custom_Net(nn.Module):
     def __init__(self):
         super(Custom_Net, self).__init__()
 
@@ -354,16 +341,16 @@ class Custom_Net(nn.Module):
         self.linear_1.weight.data = A 
 </code></pre><h3 id="반복문">반복문</h3>
 <p>또한 다음과 같이 반복문을 통해서 초기화할 수 있다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> torch
-<span style="color:#f92672">import</span> torch.nn <span style="color:#66d9ef">as</span> nn
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> torch
+<span style="color:#f92672">import</span> torch.nn <span style="color:#f92672">as</span> nn
 
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Custom_Net</span>(nn<span style="color:#f92672">.</span>Module):
     <span style="color:#66d9ef">def</span> __init__(self):
         super(Custom_Net, self)<span style="color:#f92672">.</span>__init__()
 
-        self<span style="color:#f92672">.</span>linear_1 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">1024</span>, <span style="color:#ae81ff">1024</span>, bias<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
-        self<span style="color:#f92672">.</span>linear_2 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">1024</span>, <span style="color:#ae81ff">512</span>, bias<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
-        self<span style="color:#f92672">.</span>linear_3 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">512</span>, <span style="color:#ae81ff">10</span>, bias<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+        self<span style="color:#f92672">.</span>linear_1 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">1024</span>, <span style="color:#ae81ff">1024</span>, bias<span style="color:#f92672">=</span>False)
+        self<span style="color:#f92672">.</span>linear_2 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">1024</span>, <span style="color:#ae81ff">512</span>, bias<span style="color:#f92672">=</span>False)
+        self<span style="color:#f92672">.</span>linear_3 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">512</span>, <span style="color:#ae81ff">10</span>, bias<span style="color:#f92672">=</span>True)
 
         <span style="color:#66d9ef">for</span> m <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>modules():
             <span style="color:#66d9ef">if</span> isinstance(m, nn<span style="color:#f92672">.</span>Linear):
@@ -372,7 +359,7 @@ class Custom_Net(nn.Module):
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, x):
         <span style="color:#f92672">...</span>
 </code></pre></div><p><code>nn.init</code>을 쓰지 않고 다음과 같이 할 수도 있다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> m <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>modules():
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> m <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>modules():
     <span style="color:#66d9ef">if</span> isinstance(m, nn<span style="color:#f92672">.</span>Linear):
         m<span style="color:#f92672">.</span>weight<span style="color:#f92672">.</span>data<span style="color:#f92672">.</span>zero_()
         m<span style="color:#f92672">.</span>bias<span style="color:#f92672">.</span>data<span style="color:#f92672">.</span>zero_()
@@ -385,7 +372,7 @@ class Custom_Net(nn.Module):
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://pytorch.org/docs/stable/nn.init.html">https://pytorch.org/docs/stable/nn.init.html</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://pytorch.org/docs/stable/nn.init.html">https://pytorch.org/docs/stable/nn.init.html</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -394,7 +381,7 @@ class Custom_Net(nn.Module):
 <aside style="text-align: right;">
     2021-08-27&emsp;
     전기현&emsp;
-    <a href="../411">🎲 3104</a>
+    <a href="../1273">🎲 3104</a>
 </aside>
 
 <script>
@@ -950,7 +937,7 @@ class Custom_Net(nn.Module):
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2336)</summary>
+    <summary>전체 포스트 (2338)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -966,9 +953,9 @@ class Custom_Net(nn.Module):
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (105)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (106)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (12)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (13)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">다변수벡터해석 (20)</a>
         </li><li>
@@ -1058,7 +1045,7 @@ class Custom_Net(nn.Module):
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (96)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (65)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (66)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (65)</a>
         </li><li>
