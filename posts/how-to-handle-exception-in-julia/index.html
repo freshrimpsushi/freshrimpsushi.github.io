@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-handle-exception-in-julia\/",
-    "wordCount" : "656",
+    "wordCount" : "655",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -263,20 +263,6 @@
     <div class="innertic">
       
     
-    
-    <div style="text-align: center;">
-        <p height=80% style="
-            text-align: center;
-            color: black;
-            border-style: dashed;
-            padding: 1rem;"
-            >
-        
-            생새우초밥집에 아쉬운 점이 있나요? <br>
-            이 버튼 <a href="https://forms.gle/sfCHw7YKj5zMHMpK7" target='_blank'>🚨</a> 을 눌러 의견을 전달해주세요.
-        
-        </p>
-    </div>
 
 
 
@@ -307,52 +293,52 @@
 <p>코딩을 하다가 알수없는 에러에 고생해본 사람은 알게된다, 프로그래밍에 있어서 에러가 정말 중요하다는 사실을&hellip;</p>
 <p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서는 <code>error()</code> 함수 혹은 <code>@error</code> <a href="../1454">매크로</a>를 통해 에러를 낼 수 있다. 내장 예외는 줄리아 v1.63을 기준으로 25가지가 정의되어 있다. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <h2 id="코드">코드</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> log(<span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>im)
-<span style="color:#ae81ff">0.8047189562170501</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.1071487177940904</span>im
-</code></pre></div><p>가령 프로그램에서 <a href="../2063">로그 함수 $\log$</a> 를 사용할 때, 입력으로 오직 실수만 허용되어야하는 경우를 생각해볼 수 있다. 그러나 줄리아에서는 위와 같이 기본적으로 <a href="../2063">복소수로 확장된 $\log_{\mathbb{C}}$</a> 를 제공한다. 프로그램은 에러 없이 돌아간다고 능사가 아니다. 의도하지 않은 계산은 예상치 못한 문제를 일으키기 때문에, 우리가 원하지 않는 계산이 일어난다면 애초부터 에러를 내고 돌아가질 않아야한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> log(<span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>im)
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0.8047189562170501</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.1071487177940904</span>im
+</span></span></code></pre></div><p>가령 프로그램에서 <a href="../2063">로그 함수 $\log$</a> 를 사용할 때, 입력으로 오직 실수만 허용되어야하는 경우를 생각해볼 수 있다. 그러나 줄리아에서는 위와 같이 기본적으로 <a href="../2063">복소수로 확장된 $\log_{\mathbb{C}}$</a> 를 제공한다. 프로그램은 에러 없이 돌아간다고 능사가 아니다. 의도하지 않은 계산은 예상치 못한 문제를 일으키기 때문에, 우리가 원하지 않는 계산이 일어난다면 애초부터 에러를 내고 돌아가질 않아야한다.</p>
 <p>원래의 <code>log</code>의 <a href="../3123">정의역을 실수 $\mathbb{R}$ 으로 제한</a>시키는 코드를 만들어보자.</p>
 <h3 id="error-함수"><code>error()</code> 함수</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">function</span> Rlog(x)
-           <span style="color:#66d9ef">if</span> typeof(<span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>im) <span style="color:#f92672">&lt;:</span> <span style="color:#66d9ef">Real</span>
-               <span style="color:#66d9ef">return</span> log(x)
-           <span style="color:#66d9ef">else</span>
-               error(<span style="color:#66d9ef">DomainError</span>, <span style="color:#e6db74">&#34;: Rlog allow real number only&#34;</span>)
-           <span style="color:#66d9ef">end</span>
-       <span style="color:#66d9ef">end</span>
-
-       Rlog(<span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>im)
-ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">LoadError</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">DomainError</span><span style="color:#f92672">:</span> Rlog allow real number only
-Stacktrace<span style="color:#f92672">:</span>
- [<span style="color:#ae81ff">1</span>] error(<span style="color:#f92672">::</span><span style="color:#66d9ef">Type</span>, <span style="color:#f92672">::</span>String)
-   <span style="color:#960050;background-color:#1e0010">@</span> Base <span style="color:#f92672">.\</span>error<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">42</span>
- [<span style="color:#ae81ff">2</span>] Rlog(x<span style="color:#f92672">::</span><span style="color:#66d9ef">Complex</span>{<span style="color:#66d9ef">Int64</span>})
-   <span style="color:#960050;background-color:#1e0010">@</span> Main c<span style="color:#f92672">:\</span>admin<span style="color:#f92672">\</span>REPL<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">7</span>
- [<span style="color:#ae81ff">3</span>] top<span style="color:#f92672">-</span>level scope
-   <span style="color:#960050;background-color:#1e0010">@</span> c<span style="color:#f92672">:\</span>admin<span style="color:#f92672">\</span>REPL<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">11</span>
-<span style="color:#66d9ef">in</span> expression starting at c<span style="color:#f92672">:\</span>admin<span style="color:#f92672">\</span>REPL<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">11</span>
-</code></pre></div><p>위의 <code>Rlog</code>에서는 입력값이 실수가 아니면 <code>DomainError</code>를 레이즈<sup>Raise</sup>하도록 제한했다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">function</span> Rlog(x)
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">if</span> typeof(<span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>im) <span style="color:#f92672">&lt;:</span> <span style="color:#66d9ef">Real</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">return</span> log(x)
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>               error(<span style="color:#66d9ef">DomainError</span>, <span style="color:#e6db74">&#34;: Rlog allow real number only&#34;</span>)
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       Rlog(<span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>im)
+</span></span><span style="display:flex;"><span>ERROR<span style="color:#f92672">:</span> <span style="color:#66d9ef">LoadError</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">DomainError</span><span style="color:#f92672">:</span> Rlog allow real number only
+</span></span><span style="display:flex;"><span>Stacktrace<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span> [<span style="color:#ae81ff">1</span>] error(<span style="color:#f92672">::</span><span style="color:#66d9ef">Type</span>, <span style="color:#f92672">::</span><span style="color:#66d9ef">String</span>)
+</span></span><span style="display:flex;"><span>   <span style="color:#960050;background-color:#1e0010">@</span> Base <span style="color:#f92672">.\</span>error<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">42</span>
+</span></span><span style="display:flex;"><span> [<span style="color:#ae81ff">2</span>] Rlog(x<span style="color:#f92672">::</span><span style="color:#66d9ef">Complex</span>{<span style="color:#66d9ef">Int64</span>})
+</span></span><span style="display:flex;"><span>   <span style="color:#960050;background-color:#1e0010">@</span> Main c<span style="color:#f92672">:\</span>admin<span style="color:#f92672">\</span>REPL<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span> [<span style="color:#ae81ff">3</span>] top<span style="color:#f92672">-</span>level scope
+</span></span><span style="display:flex;"><span>   <span style="color:#960050;background-color:#1e0010">@</span> c<span style="color:#f92672">:\</span>admin<span style="color:#f92672">\</span>REPL<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">11</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">in</span> expression starting at c<span style="color:#f92672">:\</span>admin<span style="color:#f92672">\</span>REPL<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">11</span>
+</span></span></code></pre></div><p>위의 <code>Rlog</code>에서는 입력값이 실수가 아니면 <code>DomainError</code>를 레이즈<sup>Raise</sup>하도록 제한했다.</p>
 <h3 id="error-매크로"><code>error()</code> 매크로</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">function</span> Rlog2(x)
-           <span style="color:#66d9ef">if</span> typeof(<span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>im) <span style="color:#f92672">&lt;:</span> <span style="color:#66d9ef">Real</span>
-               <span style="color:#66d9ef">return</span> log(x)
-           <span style="color:#66d9ef">else</span>
-               <span style="color:#a6e22e">@error</span> <span style="color:#e6db74">&#34;Rlog2 also allow Real number only&#34;</span>
-           <span style="color:#66d9ef">end</span>
-       <span style="color:#66d9ef">end</span>
-
-       Rlog2(<span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>im)
-┌ Error<span style="color:#f92672">:</span> Rlog2 also allow <span style="color:#66d9ef">Real</span> number only
-└ <span style="color:#960050;background-color:#1e0010">@</span> Main c<span style="color:#f92672">:\</span>admin<span style="color:#f92672">\</span>REPL<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">17</span>
-</code></pre></div><p>위의 <code>Rlog2</code>에서는 입력값이 실수가 아니면 일단 에러를 쓰로<sup>Throw</sup>하도록 제한했다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">function</span> Rlog2(x)
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">if</span> typeof(<span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>im) <span style="color:#f92672">&lt;:</span> <span style="color:#66d9ef">Real</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">return</span> log(x)
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#a6e22e">@error</span> <span style="color:#e6db74">&#34;Rlog2 also allow Real number only&#34;</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       Rlog2(<span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>im)
+</span></span><span style="display:flex;"><span>┌ Error<span style="color:#f92672">:</span> Rlog2 also allow <span style="color:#66d9ef">Real</span> number only
+</span></span><span style="display:flex;"><span>└ <span style="color:#960050;background-color:#1e0010">@</span> Main c<span style="color:#f92672">:\</span>admin<span style="color:#f92672">\</span>REPL<span style="color:#f92672">.</span>jl<span style="color:#f92672">:</span><span style="color:#ae81ff">17</span>
+</span></span></code></pre></div><p>위의 <code>Rlog2</code>에서는 입력값이 실수가 아니면 일단 에러를 쓰로<sup>Throw</sup>하도록 제한했다.</p>
 <p>레이즈<sup>Raise</sup>와 쓰로<sup>Throw</sup>는 똑같이 에러를 발생시킨다는 의미고 큰 맥락에서 차이가 없다. 레이즈는 파이썬 등에서 쓰이는 표현이고 쓰로는 자바 등에서 쓰이는 표현이다.</p>
 <h3 id="전체-코드">전체 코드</h3>
-<pre><code>log(1 + 2im)
+<pre tabindex="0"><code>log(1 + 2im)
 
 function Rlog(x)
     if typeof(1 + 2im) &lt;: Real
         return log(x)
     else
-        error(DomainError, &quot;: Rlog allow real number only&quot;)
+        error(DomainError, &#34;: Rlog allow real number only&#34;)
     end
 end
 
@@ -362,7 +348,7 @@ function Rlog2(x)
     if typeof(1 + 2im) &lt;: Real
         return log(x)
     else
-        @error &quot;Rlog2 also allow Real number only&quot;
+        @error &#34;Rlog2 also allow Real number only&#34;
     end
 end
 
@@ -376,7 +362,7 @@ Rlog2(1 + 2im)
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://docs.julialang.org/en/v1/manual/control-flow/#Built-in-Exceptions">https://docs.julialang.org/en/v1/manual/control-flow/#Built-in-Exceptions</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://docs.julialang.org/en/v1/manual/control-flow/#Built-in-Exceptions">https://docs.julialang.org/en/v1/manual/control-flow/#Built-in-Exceptions</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -385,7 +371,7 @@ Rlog2(1 + 2im)
 <aside style="text-align: right;">
     2012-12-13&emsp;
     류대식&emsp;
-    <a href="../467">🎲 2309</a>
+    <a href="../1783">🎲 2309</a>
 </aside>
 
 <script>
@@ -941,7 +927,7 @@ Rlog2(1 + 2im)
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2338)</summary>
+    <summary>전체 포스트 (2340)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1033,7 +1019,7 @@ Rlog2(1 + 2im)
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%B8%A1%EB%8F%84%EB%A1%A0/" style="color: black">측도론 (50)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (17)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%A0%EB%AA%A8%EA%B7%B8%EB%9E%98%ED%94%BC/" style="color: black">토모그래피 (18)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EA%B2%80%EC%A0%95/" style="color: black">통계적검정 (14)</a>
         </li><li>
