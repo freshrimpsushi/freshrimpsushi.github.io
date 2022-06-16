@@ -308,100 +308,100 @@
 </ul>
 <h3 id="코드-리뷰">코드 리뷰</h3>
 <p><strong>Step 1. 초기화 및 에이전트 생성</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> N0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">500</span> <span style="color:#75715e"># 초기 인구수</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">500</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> d <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.04</span> <span style="color:#75715e"># 사망률</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0.04</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> max<span style="color:#f92672">\</span>_iteration <span style="color:#f92672">=</span> <span style="color:#ae81ff">180</span> <span style="color:#75715e"># 시뮬레이션 기간</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">180</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> gaussian2 <span style="color:#f92672">=</span> MvNormal([<span style="color:#ae81ff">0.0</span>; <span style="color:#ae81ff">0.0</span>], <span style="color:#ae81ff">0.04</span>I) <span style="color:#75715e"># 2차원 정규분포</span>
-</span></span><span style="display:flex;"><span>IsoNormal(
-</span></span><span style="display:flex;"><span>dim<span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span>μ<span style="color:#f92672">:</span> [<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>]
-</span></span><span style="display:flex;"><span>Σ<span style="color:#f92672">:</span> [<span style="color:#ae81ff">0.04</span> <span style="color:#ae81ff">0.0</span>; <span style="color:#ae81ff">0.0</span> <span style="color:#ae81ff">0.04</span>]
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> Random<span style="color:#f92672">.</span>seed!(<span style="color:#ae81ff">0</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> Time<span style="color:#f92672">\</span>_evolution <span style="color:#f92672">=</span> [] <span style="color:#75715e"># 인구수를 기록하기 위한 스택</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Any</span>[]
-</span></span></code></pre></div><p><a href="../1875">에이전트 기반 시뮬레이션 튜토리얼</a>과 비슷하게 에이전트를 생성한다. 여기서 각 변수들은 위의 파라메터 세팅을 반영한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> N0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">500</span> <span style="color:#75715e"># 초기 인구수</span>
+<span style="color:#ae81ff">500</span>
+
+julia<span style="color:#f92672">&gt;</span> d <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.04</span> <span style="color:#75715e"># 사망률</span>
+<span style="color:#ae81ff">0.04</span>
+
+julia<span style="color:#f92672">&gt;</span> max<span style="color:#f92672">\</span>_iteration <span style="color:#f92672">=</span> <span style="color:#ae81ff">180</span> <span style="color:#75715e"># 시뮬레이션 기간</span>
+<span style="color:#ae81ff">180</span>
+
+julia<span style="color:#f92672">&gt;</span> gaussian2 <span style="color:#f92672">=</span> MvNormal([<span style="color:#ae81ff">0.0</span>; <span style="color:#ae81ff">0.0</span>], <span style="color:#ae81ff">0.04</span>I) <span style="color:#75715e"># 2차원 정규분포</span>
+IsoNormal(
+dim<span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>
+μ<span style="color:#f92672">:</span> [<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>]
+Σ<span style="color:#f92672">:</span> [<span style="color:#ae81ff">0.04</span> <span style="color:#ae81ff">0.0</span>; <span style="color:#ae81ff">0.0</span> <span style="color:#ae81ff">0.04</span>]
+)
+
+julia<span style="color:#f92672">&gt;</span> Random<span style="color:#f92672">.</span>seed!(<span style="color:#ae81ff">0</span>);
+
+julia<span style="color:#f92672">&gt;</span> Time<span style="color:#f92672">\</span>_evolution <span style="color:#f92672">=</span> [] <span style="color:#75715e"># 인구수를 기록하기 위한 스택</span>
+<span style="color:#66d9ef">Any</span>[]
+</code></pre></div><p><a href="../1875">에이전트 기반 시뮬레이션 튜토리얼</a>과 비슷하게 에이전트를 생성한다. 여기서 각 변수들은 위의 파라메터 세팅을 반영한다.</p>
 <ul>
 <li><code>N0</code> $\leftarrow N_{0} = 5$</li>
 <li><code>d</code> $\leftarrow d = 0.04$</li>
 <li><code>max\_iteration</code> $\leftarrow t_{\text{end}} = 180$</li>
 </ul>
 <p><code>Random.seed!(0)</code>은 결과를 재현하기 위한 시드넘버 설정,은 결과를 재현하기 위한 시드넘버 설정, <code>time\_evolutiond</code>는 개체수를 기록하기 위한 스택으로 시뮬레이션 자체에는 영향을 미치지 않으나 시뮬레이션을 반복하고 분석하기 위해 중요하게 쓰이는 테크닉이다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f92672">=</span> rand(gaussian2, N0)<span style="color:#f92672">&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">500</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">Adjoint</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}}<span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.135821</span>    <span style="color:#ae81ff">0.165683</span>
-</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0706015</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0269708</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.117323</span>    <span style="color:#ae81ff">0.0594672</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.0129895</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0218035</span>
-</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.102842</span>    <span style="color:#ae81ff">0.314866</span>
-</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.137781</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.152561</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.0794965</span>   <span style="color:#ae81ff">0.162326</span>
-</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0692709</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0375145</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">⋮</span>
-</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.22697</span>     <span style="color:#ae81ff">0.178074</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.036792</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.35028</span>
-</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.253518</span>    <span style="color:#ae81ff">0.418463</span>
-</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.226243</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.111246</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.120505</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0111552</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.0882067</span>   <span style="color:#ae81ff">0.0526977</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.398744</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.114504</span>
-</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.215111</span>    <span style="color:#ae81ff">0.259829</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> N <span style="color:#f92672">=</span> N0
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">500</span>
-</span></span></code></pre></div><p>$N$ 은 개체수를 나타내므로 우선 $N \leftarrow N_{0}$ 와 같이 초기 개체수를 받아 주어야한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f92672">=</span> rand(gaussian2, N0)<span style="color:#f92672">&#39;</span>
+<span style="color:#ae81ff">500</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">Adjoint</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}}<span style="color:#f92672">:</span>
+  <span style="color:#ae81ff">0.135821</span>    <span style="color:#ae81ff">0.165683</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0706015</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0269708</span>
+  <span style="color:#ae81ff">0.117323</span>    <span style="color:#ae81ff">0.0594672</span>
+  <span style="color:#ae81ff">0.0129895</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0218035</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.102842</span>    <span style="color:#ae81ff">0.314866</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.137781</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.152561</span>
+  <span style="color:#ae81ff">0.0794965</span>   <span style="color:#ae81ff">0.162326</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0692709</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0375145</span>
+  <span style="color:#f92672">⋮</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.22697</span>     <span style="color:#ae81ff">0.178074</span>
+  <span style="color:#ae81ff">0.036792</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.35028</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.253518</span>    <span style="color:#ae81ff">0.418463</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.226243</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.111246</span>
+  <span style="color:#ae81ff">0.120505</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0111552</span>
+  <span style="color:#ae81ff">0.0882067</span>   <span style="color:#ae81ff">0.0526977</span>
+  <span style="color:#ae81ff">0.398744</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.114504</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.215111</span>    <span style="color:#ae81ff">0.259829</span>
+
+julia<span style="color:#f92672">&gt;</span> N <span style="color:#f92672">=</span> N0
+<span style="color:#ae81ff">500</span>
+</code></pre></div><p>$N$ 은 개체수를 나타내므로 우선 $N \leftarrow N_{0}$ 와 같이 초기 개체수를 받아 주어야한다.</p>
 <hr>
 <p><strong>Step 2. 에이전트의 사망</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f92672">=</span> coordinate[(rand(N) <span style="color:#f92672">.&gt;</span> d),<span style="color:#f92672">:</span>]
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">481</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.135821</span>    <span style="color:#ae81ff">0.165683</span>
-</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0706015</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0269708</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.117323</span>    <span style="color:#ae81ff">0.0594672</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.0129895</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0218035</span>
-</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.102842</span>    <span style="color:#ae81ff">0.314866</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.0794965</span>   <span style="color:#ae81ff">0.162326</span>
-</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0692709</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0375145</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">⋮</span>
-</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.253518</span>    <span style="color:#ae81ff">0.418463</span>
-</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.226243</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.111246</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.120505</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0111552</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.0882067</span>   <span style="color:#ae81ff">0.0526977</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.398744</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.114504</span>
-</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.215111</span>    <span style="color:#ae81ff">0.259829</span>
-</span></span></code></pre></div><p>현재 에이전트의 수만큼 0과 1사이에서 난수를 뽑는다. 이것이 <code>d</code>보다 작다는 것은 <code>d</code>의 확률로 <strong>사망</strong> 이 일어났다는 뜻이다. 위 스크린샷에서는 19개의 에이전트가 사망해 481개의 에이전트가 남은 것을 볼 수 있다. 이는 기존 에이전트 500개 중 약 4%가 사망한 것으로, 우리의 파라메터 세팅이 거의 정확하게 반영된 것을 확인할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f92672">=</span> coordinate[(rand(N) <span style="color:#f92672">.&gt;</span> d),<span style="color:#f92672">:</span>]
+<span style="color:#ae81ff">481</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+  <span style="color:#ae81ff">0.135821</span>    <span style="color:#ae81ff">0.165683</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0706015</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0269708</span>
+  <span style="color:#ae81ff">0.117323</span>    <span style="color:#ae81ff">0.0594672</span>
+  <span style="color:#ae81ff">0.0129895</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0218035</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.102842</span>    <span style="color:#ae81ff">0.314866</span>
+  <span style="color:#ae81ff">0.0794965</span>   <span style="color:#ae81ff">0.162326</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0692709</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0375145</span>
+  <span style="color:#f92672">⋮</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.253518</span>    <span style="color:#ae81ff">0.418463</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.226243</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.111246</span>
+  <span style="color:#ae81ff">0.120505</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0111552</span>
+  <span style="color:#ae81ff">0.0882067</span>   <span style="color:#ae81ff">0.0526977</span>
+  <span style="color:#ae81ff">0.398744</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.114504</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.215111</span>    <span style="color:#ae81ff">0.259829</span>
+</code></pre></div><p>현재 에이전트의 수만큼 0과 1사이에서 난수를 뽑는다. 이것이 <code>d</code>보다 작다는 것은 <code>d</code>의 확률로 <strong>사망</strong> 이 일어났다는 뜻이다. 위 스크린샷에서는 19개의 에이전트가 사망해 481개의 에이전트가 남은 것을 볼 수 있다. 이는 기존 에이전트 500개 중 약 4%가 사망한 것으로, 우리의 파라메터 세팅이 거의 정확하게 반영된 것을 확인할 수 있다.</p>
 <hr>
 <p><strong>Step 3. 기록과 에이전트 이동</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> push!(time<span style="color:#f92672">\</span>_evolution, N)
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Any</span>,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">481</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f92672">=</span> coordinate <span style="color:#f92672">+</span> rand(gaussian2, N)<span style="color:#f92672">&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">481</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.399141</span>     <span style="color:#ae81ff">0.492689</span>
-</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.151015</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">0.00161691</span>
-</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.00843121</span>   <span style="color:#ae81ff">0.10119</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.111592</span>     <span style="color:#ae81ff">0.00865223</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.0591775</span>    <span style="color:#ae81ff">0.150437</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.0060825</span>    <span style="color:#ae81ff">0.0383255</span>
-</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0652535</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0688566</span>
-</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.702124</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">0.485473</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">⋮</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.437486</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">0.354416</span>
-</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.149827</span>     <span style="color:#ae81ff">0.156366</span>
-</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0737965</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.168831</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.344358</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">0.136392</span>
-</span></span><span style="display:flex;"><span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0.231089</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0695535</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.446688</span>     <span style="color:#ae81ff">0.143493</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.133667</span>     <span style="color:#ae81ff">0.156873</span>
-</span></span></code></pre></div><p>위의 <strong>Step 2.</strong> 에서 에이전트가 19개 줄었으므로 $N$ 역시 업데이트 해주었고, 이 때의 개체수를 기록했다. 각 에이전트의 좌표는 행렬로 표현되고 있으므로 이변수 정규분포를 $N$ 번 뽑아 쌓은 $N \times 2$ 행렬을 더하면 에이전트가 이동한 것을 구현할 수 있다. 이를 마치고 <strong>Step 2.</strong> 로 돌아간다. 계속해서 반복하다가, $t = t_{\text{end}}$ 가 되면 멈춘다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> push!(time<span style="color:#f92672">\</span>_evolution, N)
+<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Any</span>,<span style="color:#ae81ff">1</span>}<span style="color:#f92672">:</span>
+ <span style="color:#ae81ff">481</span>
+
+julia<span style="color:#f92672">&gt;</span> coordinate <span style="color:#f92672">=</span> coordinate <span style="color:#f92672">+</span> rand(gaussian2, N)<span style="color:#f92672">&#39;</span>
+<span style="color:#ae81ff">481</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Float64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+  <span style="color:#ae81ff">0.399141</span>     <span style="color:#ae81ff">0.492689</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.151015</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">0.00161691</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.00843121</span>   <span style="color:#ae81ff">0.10119</span>
+  <span style="color:#ae81ff">0.111592</span>     <span style="color:#ae81ff">0.00865223</span>
+  <span style="color:#ae81ff">0.0591775</span>    <span style="color:#ae81ff">0.150437</span>
+  <span style="color:#ae81ff">0.0060825</span>    <span style="color:#ae81ff">0.0383255</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0652535</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0688566</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.702124</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">0.485473</span>
+  <span style="color:#f92672">⋮</span>
+  <span style="color:#ae81ff">0.437486</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">0.354416</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.149827</span>     <span style="color:#ae81ff">0.156366</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0737965</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.168831</span>
+  <span style="color:#ae81ff">0.344358</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">0.136392</span>
+ <span style="color:#f92672">-</span><span style="color:#ae81ff">0.231089</span>    <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0695535</span>
+  <span style="color:#ae81ff">0.446688</span>     <span style="color:#ae81ff">0.143493</span>
+  <span style="color:#ae81ff">0.133667</span>     <span style="color:#ae81ff">0.156873</span>
+</code></pre></div><p>위의 <strong>Step 2.</strong> 에서 에이전트가 19개 줄었으므로 $N$ 역시 업데이트 해주었고, 이 때의 개체수를 기록했다. 각 에이전트의 좌표는 행렬로 표현되고 있으므로 이변수 정규분포를 $N$ 번 뽑아 쌓은 $N \times 2$ 행렬을 더하면 에이전트가 이동한 것을 구현할 수 있다. 이를 마치고 <strong>Step 2.</strong> 로 돌아간다. 계속해서 반복하다가, $t = t_{\text{end}}$ 가 되면 멈춘다.</p>
 <p>위 과정을 반복하기만하면 포스트 상단의 움짤과 같은 현상을 볼 수 있다.</p>
 <h3 id="전체-코드">전체 코드</h3>
 <p>다음은 이 포스트에 쓰인 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다.</p>
@@ -420,13 +420,13 @@ gaussian2 = MvNormal([0.0; 0.0], 0.04I) # 2차원 정규분포
 Random.seed!(0);
 time_evolution = [] # 인구수를 기록하기 위한 스택
 let
-  coordinate = rand(gaussian2, N0)&#39;
+  coordinate = rand(gaussian2, N0)'
   N = N0
 
   anim = @animate for t = (0:max_iteration)/100
     plot(coordinate[:,1], coordinate[:,2], Seriestype = :scatter,
       markercolor = RGB(1.,94/255,0.), markeralpha = 0.4, markerstrokewidth	= 0.1,
-      title = &#34;t = $t&#34;, aspect_ratio = 1, size = [400,400],
+      title = &quot;t = $t&quot;, aspect_ratio = 1, size = [400,400],
       xaxis=true,yaxis=true,axis=nothing, legend = false)
       xlims!(-10.,10.)
       ylims!(-10.,10.)
@@ -435,16 +435,16 @@ let
 
     N = size(coordinate, 1)
     push!(time_evolution, N)
-    coordinate = coordinate + rand(gaussian2, N)&#39;
+    coordinate = coordinate + rand(gaussian2, N)'
   end
-  gif(anim, &#34;malthusian_growth_simulation2.gif&#34;, fps = 18)
+  gif(anim, &quot;malthusian_growth_simulation2.gif&quot;, fps = 18)
 end
 </code></pre>
 
 <aside style="text-align: right;">
     2021-01-16&emsp;
     류대식&emsp;
-    <a href="../1566">🎲 1884</a>
+    <a href="../884">🎲 1884</a>
 </aside>
 
 <script>
@@ -1000,7 +1000,7 @@ end
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2344)</summary>
+    <summary>전체 포스트 (2347)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1016,7 +1016,7 @@ end
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (108)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (109)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (13)</a>
         </li><li>
@@ -1052,7 +1052,7 @@ end
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (41)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%B8%EC%9D%B4%EB%B2%84%EB%A9%94%ED%8A%B8%EB%A6%AD%EC%8A%A4/" style="color: black">세이버메트릭스 (10)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%B8%EC%9D%B4%EB%B2%84%EB%A9%94%ED%8A%B8%EB%A6%AD%EC%8A%A4/" style="color: black">세이버메트릭스 (11)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/" style="color: black">소볼레프공간 (11)</a>
         </li><li>
@@ -1100,7 +1100,7 @@ end
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (54)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (50)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (51)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (37)</a>
         </li><li>

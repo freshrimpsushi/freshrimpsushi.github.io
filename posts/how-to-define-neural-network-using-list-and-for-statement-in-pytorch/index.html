@@ -272,8 +272,8 @@
             padding: 1rem;"
             >
         
-            🔎F2키를 눌러 포스트를 퀵서치할 수 있습니다. <br>
-            한국어는 물론, 영어로도 검색을 시도해보세요.
+            $x^{2} = - 1$ 의 해가 <b>허수</b>면 $X^{2} = - I$ 는 <b>허행렬</b>일까요? <br>
+            <a href="https://freshrimpsushi.com/community/bbs/board.php?bo_table=research" target='_blank'>커뮤니티</a>에서 고민해봅시다.
         
         </p>
     </div>
@@ -296,40 +296,40 @@
 
 <h2 id="설명">설명</h2>
 <p>쌓아야할 층이 많거나, 신경망 구조를 자주 바꿔야하는 등의 이유로 인공 신경망의 정의를 자동화하고 싶은 경우가 있다. 이럴 때 다음과 같은 for문으로 정의하고 싶은 생각이 들 것이다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Model</span>(nn<span style="color:#f92672">.</span>Module):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
-</span></span><span style="display:flex;"><span>        super(Model, self)<span style="color:#f92672">.</span>__init__()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        fc_ <span style="color:#f92672">=</span> [nn<span style="color:#f92672">.</span>Linear(n,n) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(m)]
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, x):
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(m):
-</span></span><span style="display:flex;"><span>            x <span style="color:#f92672">=</span> fc_[m](x)
-</span></span><span style="display:flex;"><span>            x <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>relu(x)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> x
-</span></span></code></pre></div><p>하지만 이와 같이 파이썬 리스트로 신경망을 정의하게되면 각 <code>nn.Linear</code> 층의 파라매터를 인식하지 못한다. 따라서 파라매터가 옵티마이저로 제대로 전달되지 않고, 옵티마이저를 정의할 때 다음과 같은 에러가 발생한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Model</span>(nn<span style="color:#f92672">.</span>Module):
+    <span style="color:#66d9ef">def</span> __init__(self):
+        super(Model, self)<span style="color:#f92672">.</span>__init__()
+
+        fc_ <span style="color:#f92672">=</span> [nn<span style="color:#f92672">.</span>Linear(n,n) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(m)]
+        
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, x):
+        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(m):
+            x <span style="color:#f92672">=</span> fc_[m](x)
+            x <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>relu(x)
+
+        <span style="color:#66d9ef">return</span> x
+</code></pre></div><p>하지만 이와 같이 파이썬 리스트로 신경망을 정의하게되면 각 <code>nn.Linear</code> 층의 파라매터를 인식하지 못한다. 따라서 파라매터가 옵티마이저로 제대로 전달되지 않고, 옵티마이저를 정의할 때 다음과 같은 에러가 발생한다.</p>
 <pre tabindex="0"><code>ValueError: optimizer got an empty parameter list
 </code></pre><p>따라서 레이어들의 리스트를 이용하여 신경망을 구성하고 싶으면, <code>nn.ModuleList()</code>를 통해 <code>__init__()</code>에서 인스턴트 속성(<code>self.</code>)으로 정의해야 한다. 이렇게 정의해놓으면 일반적인 리스트처럼 인덱싱, 슬라이싱, 더하기 등이 가능해진다.</p>
 <p>다음은 신경망의 각 레이어와 forward를 리스트를 이용해 정의하고, <a href="../3104">가중치를 초기화</a>하는 코드이다.</p>
 <h2 id="코드1">코드<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">fx_Net</span>(nn<span style="color:#f92672">.</span>Module):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
-</span></span><span style="display:flex;"><span>        super(fx_Net, self)<span style="color:#f92672">.</span>__init__()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        fc_ <span style="color:#f92672">=</span> [nn<span style="color:#f92672">.</span>Linear(n,n) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(m)]
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>linears <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>ModuleList(fc_)
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> m <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>linears:  
-</span></span><span style="display:flex;"><span>          torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>init<span style="color:#f92672">.</span>zeros_(m<span style="color:#f92672">.</span>weight<span style="color:#f92672">.</span>data)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, x):
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(m):
-</span></span><span style="display:flex;"><span>            x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>linears[m](x)
-</span></span><span style="display:flex;"><span>            x <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>relu(x)
-</span></span><span style="display:flex;"><span>      
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> f
-</span></span></code></pre></div><h2 id="환경">환경</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">fx_Net</span>(nn<span style="color:#f92672">.</span>Module):
+    <span style="color:#66d9ef">def</span> __init__(self):
+        super(fx_Net, self)<span style="color:#f92672">.</span>__init__()
+
+        fc_ <span style="color:#f92672">=</span> [nn<span style="color:#f92672">.</span>Linear(n,n) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(m)]
+        self<span style="color:#f92672">.</span>linears <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>ModuleList(fc_)
+        
+        <span style="color:#66d9ef">for</span> m <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>linears:  
+          torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>init<span style="color:#f92672">.</span>zeros_(m<span style="color:#f92672">.</span>weight<span style="color:#f92672">.</span>data)
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, x):
+        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(m):
+            x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>linears[m](x)
+            x <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>relu(x)
+      
+        <span style="color:#66d9ef">return</span> f
+</code></pre></div><h2 id="환경">환경</h2>
 <ul>
 <li>OS: Windows10</li>
 <li>Version: Python 3.9.2, torch 1.8.1+cu111</li>
@@ -347,7 +347,7 @@
 <aside style="text-align: right;">
     2022-01-12&emsp;
     전기현&emsp;
-    <a href="../628">🎲 3173</a>
+    <a href="../1738">🎲 3173</a>
 </aside>
 
 <script>
@@ -903,7 +903,7 @@
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2344)</summary>
+    <summary>전체 포스트 (2347)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -919,7 +919,7 @@
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (108)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (109)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (13)</a>
         </li><li>
@@ -955,7 +955,7 @@
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (41)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%B8%EC%9D%B4%EB%B2%84%EB%A9%94%ED%8A%B8%EB%A6%AD%EC%8A%A4/" style="color: black">세이버메트릭스 (10)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%B8%EC%9D%B4%EB%B2%84%EB%A9%94%ED%8A%B8%EB%A6%AD%EC%8A%A4/" style="color: black">세이버메트릭스 (11)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/" style="color: black">소볼레프공간 (11)</a>
         </li><li>
@@ -1003,7 +1003,7 @@
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (54)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (50)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (51)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (37)</a>
         </li><li>

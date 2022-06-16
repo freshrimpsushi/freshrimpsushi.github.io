@@ -272,7 +272,8 @@
             padding: 1rem;"
             >
         
-            이번 여름방학엔 <a href="../../categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/">선형대수</a> 정주행 어때요?
+            생새우초밥집에 아쉬운 점이 있나요? <br>
+            이 버튼 <a href="https://forms.gle/sfCHw7YKj5zMHMpK7" target='_blank'>🚨</a> 을 눌러 의견을 전달해주세요.
         
         </p>
     </div>
@@ -354,29 +355,29 @@ class Custom_Net(nn.Module):
         self.linear_1.weight.data = A 
 </code></pre><h3 id="반복문">반복문</h3>
 <p>또한 다음과 같이 반복문을 통해서 초기화할 수 있다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.nn <span style="color:#66d9ef">as</span> nn
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Custom_Net</span>(nn<span style="color:#f92672">.</span>Module):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
-</span></span><span style="display:flex;"><span>        super(Custom_Net, self)<span style="color:#f92672">.</span>__init__()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>linear_1 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">1024</span>, <span style="color:#ae81ff">1024</span>, bias<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>linear_2 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">1024</span>, <span style="color:#ae81ff">512</span>, bias<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>linear_3 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">512</span>, <span style="color:#ae81ff">10</span>, bias<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> m <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>modules():
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> isinstance(m, nn<span style="color:#f92672">.</span>Linear):
-</span></span><span style="display:flex;"><span>                torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>init<span style="color:#f92672">.</span>uniform_(m<span style="color:#f92672">.</span>weight<span style="color:#f92672">.</span>data)
-</span></span><span style="display:flex;"><span>          
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, x):
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
-</span></span></code></pre></div><p><code>nn.init</code>을 쓰지 않고 다음과 같이 할 수도 있다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> m <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>modules():
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> isinstance(m, nn<span style="color:#f92672">.</span>Linear):
-</span></span><span style="display:flex;"><span>        m<span style="color:#f92672">.</span>weight<span style="color:#f92672">.</span>data<span style="color:#f92672">.</span>zero_()
-</span></span><span style="display:flex;"><span>        m<span style="color:#f92672">.</span>bias<span style="color:#f92672">.</span>data<span style="color:#f92672">.</span>zero_()
-</span></span></code></pre></div><h2 id="환경">환경</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> torch
+<span style="color:#f92672">import</span> torch.nn <span style="color:#66d9ef">as</span> nn
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Custom_Net</span>(nn<span style="color:#f92672">.</span>Module):
+    <span style="color:#66d9ef">def</span> __init__(self):
+        super(Custom_Net, self)<span style="color:#f92672">.</span>__init__()
+
+        self<span style="color:#f92672">.</span>linear_1 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">1024</span>, <span style="color:#ae81ff">1024</span>, bias<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+        self<span style="color:#f92672">.</span>linear_2 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">1024</span>, <span style="color:#ae81ff">512</span>, bias<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+        self<span style="color:#f92672">.</span>linear_3 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">512</span>, <span style="color:#ae81ff">10</span>, bias<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+
+        <span style="color:#66d9ef">for</span> m <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>modules():
+            <span style="color:#66d9ef">if</span> isinstance(m, nn<span style="color:#f92672">.</span>Linear):
+                torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>init<span style="color:#f92672">.</span>uniform_(m<span style="color:#f92672">.</span>weight<span style="color:#f92672">.</span>data)
+          
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, x):
+        <span style="color:#f92672">...</span>
+</code></pre></div><p><code>nn.init</code>을 쓰지 않고 다음과 같이 할 수도 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> m <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>modules():
+    <span style="color:#66d9ef">if</span> isinstance(m, nn<span style="color:#f92672">.</span>Linear):
+        m<span style="color:#f92672">.</span>weight<span style="color:#f92672">.</span>data<span style="color:#f92672">.</span>zero_()
+        m<span style="color:#f92672">.</span>bias<span style="color:#f92672">.</span>data<span style="color:#f92672">.</span>zero_()
+</code></pre></div><h2 id="환경">환경</h2>
 <ul>
 <li>OS: Windows10</li>
 <li>Version: Python 3.9.2, torch 1.8.1+cu111</li>
@@ -394,7 +395,7 @@ class Custom_Net(nn.Module):
 <aside style="text-align: right;">
     2021-08-27&emsp;
     전기현&emsp;
-    <a href="../1458">🎲 3104</a>
+    <a href="../364">🎲 3104</a>
 </aside>
 
 <script>
@@ -950,7 +951,7 @@ class Custom_Net(nn.Module):
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2344)</summary>
+    <summary>전체 포스트 (2347)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -966,7 +967,7 @@ class Custom_Net(nn.Module):
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (108)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (109)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (13)</a>
         </li><li>
@@ -1002,7 +1003,7 @@ class Custom_Net(nn.Module):
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/" style="color: black">선형대수 (41)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%B8%EC%9D%B4%EB%B2%84%EB%A9%94%ED%8A%B8%EB%A6%AD%EC%8A%A4/" style="color: black">세이버메트릭스 (10)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%84%B8%EC%9D%B4%EB%B2%84%EB%A9%94%ED%8A%B8%EB%A6%AD%EC%8A%A4/" style="color: black">세이버메트릭스 (11)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/" style="color: black">소볼레프공간 (11)</a>
         </li><li>
@@ -1050,7 +1051,7 @@ class Custom_Net(nn.Module):
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%8E%B8%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D/" style="color: black">편미분방정식 (54)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (50)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%91%B8%EB%A6%AC%EC%97%90%ED%95%B4%EC%84%9D/" style="color: black">푸리에해석 (51)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (37)</a>
         </li><li>
