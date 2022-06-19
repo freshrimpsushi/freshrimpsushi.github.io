@@ -263,6 +263,20 @@
     <div class="innertic">
       
     
+    
+    <div style="text-align: center;">
+        <p height=80% style="
+            text-align: center;
+            color: black;
+            border-style: dashed;
+            padding: 1rem;"
+            >
+        
+            $x^{2} = - 1$ 의 해가 <b>허수</b>면 $X^{2} = - I$ 는 <b>허행렬</b>일까요? <br>
+            <a href="https://freshrimpsushi.com/community/bbs/board.php?bo_table=research" target='_blank'>커뮤니티</a>에서 고민해봅시다.
+        
+        </p>
+    </div>
 
 
 
@@ -297,7 +311,7 @@
 <a href="../866">모델의 퍼포먼스를 확인</a>하기 위해 트레이닝 데이터와 테스트 데이터를 나누었다.</p>
 <p><img src="20190128_153114.png#center" alt="20190128\_153114.png">
 트레이닝 데이터를 통해 얻은 로지스틱 회귀모형은 위와 같다. 이제 이 모델에 테스트 데이터를 넣어서 유권자들이 찬성할 확률을 계산해보자. predict() 함수에 newdata=test 옵션을 주면 모델에 테스트 데이터를 넣어서 알아서 계산해준다. 이때 type=&ldquo;response&quot;를 넣어야 우리가 원하는 &lsquo;확률&rsquo;의 꼴로 반환하는 것에 주의하자.</p>
-<pre tabindex="0"><code>out0&lt;-glm(vote~.,family=binomial(),data=train); summary(out0)
+<pre><code>out0&lt;-glm(vote~.,family=binomial(),data=train); summary(out0)
 p &lt;- predict(out0, newdata=test, type=&quot;response&quot;); p
 </code></pre><p>출력 결과는 다음과 같다.</p>
 <p><img src="20190128_152826.png#center" alt="20190128\_152826.png">
@@ -306,7 +320,7 @@ p &lt;- predict(out0, newdata=test, type=&quot;response&quot;); p
 <p>이 컷오프를 어떻게 하느냐에 따라서 <a href="../571">정분류율</a>은 달라질 것이다. 극단적으로 0.99 이하를 전부 &lsquo;반대&rsquo;라고 예측해도 그냥 &lsquo;반대&rsquo;를 한 사람들만큼은 맞췄기 때문에 정분류율은 어느정도 나온다. 0.01 이상을 전부 &lsquo;찬성&rsquo;이라고 예측해도 마찬가지로 맞을 사람은 맞는다. 예를 들어 1년 365일 중에 120일 동안 비가 오는 나라가 있다면 1년 내내 다음날의 날씨를 &lsquo;맑음&rsquo;이라고 예측해도 정답률이 얼추 $67\%$ 는 나오게 되어있다.</p>
 <p>우리는 이 보다는 좋은 분석과 예측이 필요하기 때문에, 좋은 컷오프를 구하고 싶다. 그냥 간단하게 생각하기엔 0.5를 기준으로 높으면 &lsquo;찬성&rsquo; 낮으면 &lsquo;반대&rsquo;로 예측하면 될 것 같다. 하지만 계산해보면 그렇지 않은 경우가 훨씬 많다. (또 항상 정분류율만이 기준이 되는 것은 아니다. 사안에 따라 더 중요한 척도가 있을 수 있다.)해서 이 좋은 컷오프를 찾기 위해 하는 일이 바로 위에서 구한 p의 모든 확률을 컷오프로써 써보는 것이다. 0.89572040으로 오차행렬을 만들어서 False Positive Rate와 True Positive Rate를 계산해보고, 0.81810785로 또 계산해보고, 0.70215561로 또 계산해보고, &hellip; 이것을 반복해서 가로축을 False Positive Rate, 세로축을 True Positive Rate로 나타낸 그래프가 바로 <strong>ROC 커브</strong> 다.</p>
 <p>말은 어렵지만 코드상으로는 간단하니 걱정하지 말자.오차행렬을 만들고 필요한 수치들을 계산하기 위해서는 다음과 같은 코드를 실행시켜야한다. 확률과는 달리 실제로 출력 결과를 볼 필요는 없으므로 각 함수가 어떤 역할을 하는지만 대략적으로 설명하겠다. prediction() 함수는 위에서 계산한 확률 p와 실제 테스트 데이터의 test$vote를 비교해서 분류율을 계산해준다. performance() 함수는 위에서 계산한 오차행렬의 수치 pr에서 필요한 데이터를 뽑아 plot() 함수에 넣으면 ROC 곡선을 그릴 수 있도록 하는 데이터를 반환해준다.</p>
-<pre tabindex="0"><code>pr &lt;- prediction(p, test$vote)
+<pre><code>pr &lt;- prediction(p, test$vote)
 prf &lt;- performance(pr, measure = &quot;tpr&quot;, x.measure = &quot;fpr&quot;)
 win.graph(); plot(prf, main='ROC of Test Data')
 </code></pre><p>위의 코드를 실행하면 다음과 같이 ROC 커브를 그려준다.</p>
@@ -319,7 +333,7 @@ str() 함수로 뜯어보면 컷오프가 0.939 일 때 TPR이 0, FPR이 0.00556
 <p><img src="smallroc.png#center" alt="smallroc.png"></p>
 <h2 id="코드">코드</h2>
 <p>아래는 예제 코드 전체다.</p>
-<pre tabindex="0"><code>install.packages(&quot;car&quot;)
+<pre><code>install.packages(&quot;car&quot;)
 install.packages(&quot;ROCR&quot;)
  
 library(car)
@@ -361,7 +375,7 @@ win.graph(); plot(prf, main='ROC of Small Test Data')
 <aside style="text-align: right;">
     2019-02-20&emsp;
     류대식&emsp;
-    <a href="../864">🎲 868</a>
+    <a href="../348">🎲 868</a>
 </aside>
 
 <script>
@@ -917,7 +931,7 @@ win.graph(); plot(prf, main='ROC of Small Test Data')
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2347)</summary>
+    <summary>전체 포스트 (2348)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -933,7 +947,7 @@ win.graph(); plot(prf, main='ROC of Small Test Data')
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (109)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (110)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (13)</a>
         </li><li>
@@ -983,7 +997,7 @@ win.graph(); plot(prf, main='ROC of Small Test Data')
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (27)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (52)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (53)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">열물리학 (28)</a>
         </li><li>

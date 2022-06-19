@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/sysbols-in-julia\/",
-    "wordCount" : "662",
+    "wordCount" : "663",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -283,7 +283,7 @@
 <p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>를 처음 접하면서 적잖이 당황할 수 있는 것이 바로 <strong>심볼</strong><sup>Symbol</sup> 자료형이다. 심볼은 맨 앞에 <code>:</code>을 붙여서 사용하며, 어떤 내부 데이터도 없이 그 이름 그 자체로써 기능한다. 주로 이름이나 라벨, 딕셔너리 키 등으로 사용된다.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <h2 id="설명">설명</h2>
 <p>여타 프로그래밍 언어에서는 함수에 옵션을 줄 때 숫자로 주거나 의미를 정확히 하기 위해 문자열로 주곤 한다. 가령 다음과 같은 두 함수가 그러하다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">function</span> foo0(x, option <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">function</span> foo0(x, option <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>)
            <span style="color:#66d9ef">if</span> option <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>
                <span style="color:#66d9ef">return</span> string(x)
            <span style="color:#66d9ef">elseif</span> option <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>
@@ -317,10 +317,10 @@ julia<span style="color:#f92672">&gt;</span> foo1(<span style="color:#ae81ff">3.
 julia<span style="color:#f92672">&gt;</span> foo1(<span style="color:#ae81ff">3.0</span>, <span style="color:#e6db74">&#34;Int&#34;</span>)
 <span style="color:#ae81ff">3</span>
 </code></pre></div><p>반면 다음은 심볼을 사용한 정의다. 언뜻 보아서는 위 두 함수와 차이가 없어보인다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">function</span> foo2(x, option <span style="color:#f92672">=</span> <span style="color:#e6db74">:string</span>)
-           <span style="color:#66d9ef">if</span> option <span style="color:#f92672">==</span> <span style="color:#e6db74">:string</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">function</span> foo2(x, option <span style="color:#f92672">=</span> <span style="color:#f92672">:</span>string)
+           <span style="color:#66d9ef">if</span> option <span style="color:#f92672">==</span> <span style="color:#f92672">:</span>string
                <span style="color:#66d9ef">return</span> string(x)
-           <span style="color:#66d9ef">elseif</span> option <span style="color:#f92672">==</span> <span style="color:#e6db74">:Int</span>
+           <span style="color:#66d9ef">elseif</span> option <span style="color:#f92672">==</span> <span style="color:#f92672">:</span><span style="color:#66d9ef">Int</span>
                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">Int</span>(x)
            <span style="color:#66d9ef">else</span>
                error(<span style="color:#e6db74">&#34;wrong&#34;</span>)
@@ -328,10 +328,10 @@ julia<span style="color:#f92672">&gt;</span> foo1(<span style="color:#ae81ff">3.
        <span style="color:#66d9ef">end</span>
 foo2 (generic <span style="color:#66d9ef">function</span> with <span style="color:#ae81ff">2</span> methods)
 
-julia<span style="color:#f92672">&gt;</span> foo2(<span style="color:#ae81ff">3.0</span>, <span style="color:#e6db74">:string</span>)
+julia<span style="color:#f92672">&gt;</span> foo2(<span style="color:#ae81ff">3.0</span>, <span style="color:#f92672">:</span>string)
 <span style="color:#e6db74">&#34;3.0&#34;</span>
 
-julia<span style="color:#f92672">&gt;</span> foo2(<span style="color:#ae81ff">3.0</span>, <span style="color:#e6db74">:Int</span>)
+julia<span style="color:#f92672">&gt;</span> foo2(<span style="color:#ae81ff">3.0</span>, <span style="color:#f92672">:</span><span style="color:#66d9ef">Int</span>)
 <span style="color:#ae81ff">3</span>
 </code></pre></div><p>심볼을 사용하는 이유를 쉽게 설명하자면 프로그램 중간에 변할 일이 없어서다. 때로는 이 점이 불편함으로 다가올 수도 있지만, 정수나 문자열과 달리 예상치 못한 곳에서 변화할 가능성이 전혀 없다.</p>
 <p>또한 심볼은 진정한 의미에서의 지정, 명령이기도 하다. 인터페이스적인 관점에선 문자열이나 심볼이나 마찬가지지만, 위 예시에서 <code>&quot;Int&quot;</code> 이라는 문자열을 받고 그 문자열을 준 것이 정수를 반환하라는 의미이기 때문에 정수형으로 반환하는 것과 심볼 자체가 <code>:Int</code> 로 왔으니 묻거나 따지지 않고 정수형으로 반환하는 것 정도의 차이다. 이 차이가 와닿지 않는다고 해도 억지로 공감할 필요는 없다.</p>
@@ -340,7 +340,7 @@ julia<span style="color:#f92672">&gt;</span> foo2(<span style="color:#ae81ff">3.
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://docs.julialang.org/en/v1/base/base/#Core.Symbol">https://docs.julialang.org/en/v1/base/base/#Core.Symbol</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://docs.julialang.org/en/v1/base/base/#Core.Symbol">https://docs.julialang.org/en/v1/base/base/#Core.Symbol</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -349,7 +349,7 @@ julia<span style="color:#f92672">&gt;</span> foo2(<span style="color:#ae81ff">3.
 <aside style="text-align: right;">
     2012-04-29&emsp;
     류대식&emsp;
-    <a href="../1137">🎲 2195</a>
+    <a href="../564">🎲 2195</a>
 </aside>
 
 <script>
@@ -905,7 +905,7 @@ julia<span style="color:#f92672">&gt;</span> foo2(<span style="color:#ae81ff">3.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2347)</summary>
+    <summary>전체 포스트 (2348)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -921,7 +921,7 @@ julia<span style="color:#f92672">&gt;</span> foo2(<span style="color:#ae81ff">3.
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0/" style="color: black">그래프이론 (49)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (109)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EA%B8%B0%ED%95%98%ED%95%99/" style="color: black">기하학 (110)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/" style="color: black">논문작성 (13)</a>
         </li><li>
@@ -971,7 +971,7 @@ julia<span style="color:#f92672">&gt;</span> foo2(<span style="color:#ae81ff">3.
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" style="color: black">알고리즘 (27)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (52)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99/" style="color: black">양자역학 (53)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/" style="color: black">열물리학 (28)</a>
         </li><li>
