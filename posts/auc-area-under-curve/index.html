@@ -295,17 +295,17 @@
 <h2 id="실습">실습</h2>
 <p><strong>(<a href="../868">ROC 곡선 그리는 법</a>에 이어서)</strong></p>
 <p><img src="cxv.png#center" alt="cxv.png"></p>
-<pre tabindex="0"><code>prf &lt;- performance(pr, measure = &quot;tpr&quot;, x.measure = &quot;fpr&quot;)
-auc &lt;- performance(pr, measure = &quot;auc&quot;)
+<pre tabindex="0"><code>prf &lt;- performance(pr, measure = &#34;tpr&#34;, x.measure = &#34;fpr&#34;)
+auc &lt;- performance(pr, measure = &#34;auc&#34;)
 auc &lt;- auc@y.values[[1]]; auc
 </code></pre><p>위 코드를 실행시키면 다음과 같이 AUC를 구해준다.</p>
 <p><img src="20190210_235303.png#center" alt="20190210\_235303.png">
 AUC를 <a href="../826">변수선택기준</a>의 일종으로 본다면 $R^2$ 와 비슷하게 절대적인 수치도 의미 있는 척도다. 다시 말해, 다른 모형과의 비교에만 쓰이는 것이 아니라 그냥 모형의 퍼포먼스 자체를 평가할 때도 참고해봄직하다.</p>
 <h2 id="코드">코드</h2>
 <p>아래는 예제 코드다.</p>
-<pre tabindex="0"><code>install.packages(&quot;car&quot;)
-install.packages(&quot;ResourceSelection&quot;)
-install.packages(&quot;ROCR&quot;)
+<pre tabindex="0"><code>install.packages(&#34;car&#34;)
+install.packages(&#34;ResourceSelection&#34;)
+install.packages(&#34;ROCR&#34;)
  
 library(car)
 library(ResourceSelection)
@@ -320,7 +320,7 @@ head(Chile); tail(Chile)
  
 DATA&lt;-na.omit(Chile)
 DATA$vote[DATA
-          $vote!='Y']&lt;-'N'
+          $vote!=&#39;Y&#39;]&lt;-&#39;N&#39;
 DATA$vote&lt;-factor(DATA$vote)
 head(DATA); tail(DATA)
  
@@ -330,20 +330,20 @@ test&lt;-DATA[!train,]; head(test)
 train&lt;-DATA[train,]; head(train)
  
 out0&lt;-glm(vote~.,family=binomial(),data=train); summary(out0)
-p &lt;- predict(out0, newdata=test, type=&quot;response&quot;); p
+p &lt;- predict(out0, newdata=test, type=&#34;response&#34;); p
  
 pr &lt;- prediction(p, test$vote)
-win.graph(5,5); plot(prf, main='ROC')
+win.graph(5,5); plot(prf, main=&#39;ROC&#39;)
  
-prf &lt;- performance(pr, measure = &quot;tpr&quot;, x.measure = &quot;fpr&quot;)
-auc &lt;- performance(pr, measure = &quot;auc&quot;)
+prf &lt;- performance(pr, measure = &#34;tpr&#34;, x.measure = &#34;fpr&#34;)
+auc &lt;- performance(pr, measure = &#34;auc&#34;)
 auc &lt;- auc@y.values[[1]]; auc
 </code></pre>
 
 <aside style="text-align: right;">
     2019-02-26&emsp;
     류대식&emsp;
-    <a href="../2056">🎲 887</a>
+    <a href="../1077">🎲 887</a>
 </aside>
 
 <script>
@@ -844,7 +844,7 @@ auc &lt;- auc@y.values[[1]]; auc
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 수치해석 (53)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%B5%9C%EC%A0%81%ED%99%94%EC%9D%B4%EB%A1%A0/>
-        <span style="color:rgb(255,051,051);">●</span> 최적화이론 (27)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 최적화이론 (27)</a><br>
     <hr>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC/>
         <span style="color:rgb(255,051,051);">●</span> 수리물리 (50)</a><br>
@@ -888,7 +888,7 @@ auc &lt;- auc@y.values[[1]]; auc
     <a href=https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/>
         <span style="color:rgb(051,204,051);">●</span> 머신러닝 (50++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%84%B8%EC%9D%B4%EB%B2%84%EB%A9%94%ED%8A%B8%EB%A6%AD%EC%8A%A4/>
-        <span style="color:rgb(255,204,000);">●</span> 세이버메트릭스 (11)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 세이버메트릭스 (11)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%85%BC%EB%AC%B8%EC%9E%91%EC%84%B1/>
         <span style="color:rgb(051,204,051);">●</span> 논문작성 (13)</a><br>
     
