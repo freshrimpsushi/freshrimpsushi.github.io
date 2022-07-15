@@ -332,20 +332,20 @@ $$
 <li>$H_{1}$ : $AR(k) \iff \theta_{k} \ne 0$, 즉, $Y_{t}$ 는 시차 $k$ 의 편자기상관관계를 가진다.</li>
 </ul>
 <h3 id="해석">해석</h3>
-<p>귀무가설 하에서는 $p=0$ 과 동시에 $\widehat{\phi_{kk}} \sim N \left( 0 , {{ 1 } \over { n }} \right)$ 을 가정하고 표준오차는 $\displaystyle {{1} \over {\sqrt{n}}}$ 가 된다. 따라서 유의수준 $\alpha$ 에 대해서 가설검정을 하고 싶다면 $| \phi_{k} |$ 가 신뢰구간상한 $\displaystyle {{ z_{1 - \alpha/2} } \over { \sqrt{n} }}$ 을 넘기는지 확인하면 된다. 넘어가면 유의한 시차의 후보가 되고, 넘어가지 못하면 편자기상관관계가 없는 것으로 본다.</p>
+<p>귀무가설 하에서는 $p=0$ 과 동시에 $\widehat{\phi_{kk}} \sim N \left( 0 , {{ 1 } \over { n }} \right)$ 을 가정하고 <a href="../541">표준오차</a>는 $\displaystyle {{1} \over {\sqrt{n}}}$ 가 된다. 따라서 <a href="../509">유의수준</a> $\alpha$ 에 대해서 가설검정을 하고 싶다면 $| \phi_{k} |$ 가 신뢰구간상한 $\displaystyle {{ z_{1 - \alpha/2} } \over { \sqrt{n} }}$ 을 넘기는지 확인하면 된다. 넘어가면 유의한 시차의 후보가 되고, 넘어가지 못하면 편자기상관관계가 없는 것으로 본다.</p>
 <h2 id="실습">실습</h2>
 <p><img src="20190724_101017.png#center" alt="20190724\_101017.png"></p>
-<p><code>ar1.s</code> 데이터는 $AR(1)$ 모델에서 나온 <code>TSA</code> 패키지의 샘플 데이터다. 실제 <a href="../1200">아리마 모형</a>으로 분석할 때 역시 추정치의 절대값이 표준오차의 두 배가 넘는지를 기준으로 유의한 계수인지 파악한다.</p>
+<p><code>ar1.s</code> 데이터는 $AR(1)$ 모델에서 나온 <code>TSA</code> 패키지의 샘플 데이터다. 실제 <a href="../1200">아리마 모형</a>으로 분석할 때 역시 추정치의 절대값이 <a href="../541">표준오차</a>의 두 배가 넘는지를 기준으로 유의한 계수인지 파악한다.</p>
 <p><img src="3.png#center" alt="3.png"></p>
 <p>한편 <code>TSA</code> 패키지의 <code>acf()</code> 함수를 사용하면 위와 같이 여러 $k$ 에 대해 <strong>코릴로그램</strong><sup>Correlogram</sup>을 그려준다. 굳이 머릿속으로 계산할 것 없이, 선을 넘어가면 유의한 것으로 보고 넘어가지 않으면 유의하지 않은 것으로 보아도 좋다. 기본적으로 유의수준 $5 \%$ 에서 계산된다.</p>
 <p><img src="4.png#center" alt="4.png"></p>
-<p>편자기상관함수를 이용한 가설검정을 제대로 이해했는지 확인해보는 방법으로써 위와 같이 실제로 선을 직접 그어보는 것을 추천한다. R 에서는 고작 코드 한 줄이지만, 한 번이라도 직접 실행시켜봄으로써 $\widehat{\phi}_{kk}$ 가 정규분포를 따르며, 그 표준오차가 $\displaystyle \text{se} ( r_{k} ) =  {{1} \over {\sqrt{n}}}$ 으로 구해진다는 것을 받아들일 수 있다.</p>
+<p>편자기상관함수를 이용한 가설검정을 제대로 이해했는지 확인해보는 방법으로써 위와 같이 실제로 선을 직접 그어보는 것을 추천한다. R 에서는 고작 코드 한 줄이지만, 한 번이라도 직접 실행시켜봄으로써 $\widehat{\phi}_{kk}$ 가 정규분포를 따르며, 그 <a href="../541">표준오차</a>가 $\displaystyle \text{se} ( r_{k} ) =  {{1} \over {\sqrt{n}}}$ 으로 구해진다는 것을 받아들일 수 있다.</p>
 <h2 id="코드">코드</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(TSA)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">data</span>(ar1.s); <span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>); <span style="color:#a6e22e">pacf</span>(ar1.s)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arima</span>(ar1.s, order<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>))
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">abline</span>(h<span style="color:#f92672">=</span><span style="color:#ae81ff">1.96</span><span style="color:#f92672">*</span><span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#a6e22e">sqrt</span>(<span style="color:#a6e22e">length</span>(ar1.s)),col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
-</span></span></code></pre></div><h2 id="같이보기">같이보기</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(TSA)
+<span style="color:#a6e22e">data</span>(ar1.s); <span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>); <span style="color:#a6e22e">pacf</span>(ar1.s)
+<span style="color:#a6e22e">arima</span>(ar1.s, order<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>))
+<span style="color:#a6e22e">abline</span>(h<span style="color:#f92672">=</span><span style="color:#ae81ff">1.96</span><span style="color:#f92672">*</span><span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#a6e22e">sqrt</span>(<span style="color:#a6e22e">length</span>(ar1.s)),col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
+</code></pre></div><h2 id="같이보기">같이보기</h2>
 <ul>
 <li><a href="../1209">ACF : 자기상관함수</a></li>
 <li><a href="../1213">EACF : 확장자기상관함수</a></li>
@@ -364,7 +364,7 @@ $$
 <aside style="text-align: right;">
     2019-08-06&emsp;
     류대식&emsp;
-    <a href="../1330">🎲 1211</a>
+    <a href="../1917">🎲 1211</a>
 </aside>
 
 <script>
@@ -815,7 +815,7 @@ style="text-align: center; width: 100%; font-size: 1.5rem; border: 1px; border-r
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
-        <span style="color:rgb(051,204,051);">●</span> 보조정리 (20)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 보조정리 (21)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 집합론 (47)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/>
@@ -893,9 +893,9 @@ style="text-align: center; width: 100%; font-size: 1.5rem; border: 1px; border-r
     <a href=https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/>
         <span style="color:rgb(051,204,051);">●</span> 데이터확보 (22)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%EA%B3%BC%ED%95%99/>
-        <span style="color:rgb(255,051,051);">●</span> 데이터과학 (20)</a><br>
+        <span style="color:rgb(255,051,051);">●</span> 데이터과학 (21)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EA%B2%80%EC%A0%95/>
-        <span style="color:rgb(255,204,000);">●</span> 통계적검정 (14)</a><br>
+        <span style="color:rgb(255,204,000);">●</span> 통계적검정 (20++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (58)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
@@ -927,7 +927,7 @@ style="text-align: center; width: 100%; font-size: 1.5rem; border: 1px; border-r
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2352)</summary>
+    <summary>전체 포스트 (2353)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1035,7 +1035,7 @@ style="text-align: center; width: 100%; font-size: 1.5rem; border: 1px; border-r
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (96)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (66)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (67)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (65)</a>
         </li><li>

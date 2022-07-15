@@ -306,30 +306,30 @@
 <p><code>return()</code>을 보면 알겠지만 해당 함수가 돌려주는 것은 모델이나 요약 전체가 아니라 회귀계수로 이루어진 벡터 뿐이다. 이렇게 함수를 포멀하게 정의할 필요가 있다보니 R에 대한 기초가 부족하면 부트스트랩 함수를 이해하기 어려울 것이다. 부트스트랩을 쓸 정도로 통계학에 숙달된 학습자라면 큰 문제는 없겠지만, 조금 어렵게 느껴져도 정상이니 자책하지 말자.</p>
 <p><img src="20180507_202925.png#center" alt="20180507\_202925.png"></p>
 <p><code>boot()</code> 함수는 <code>data</code>에 데이터셋을 받고 R에 실행 횟수를 받는다.<code>statistiic</code> 옵션이 받아주는 것은 <code>boot.fn()</code>이 반환하는 &lsquo;벡터&rsquo;가 아니라 &lsquo;함수 그 자체&rsquo;인 <code>boot.fn</code>라는 부분에서 많이 실수한다.</p>
-<p>계속해서 에러가 난다면 대부분은 여기가 문제다. 실행 결과를 보면 첫번째 회귀계수부터 t1, t2, t3, t4로 나타나고 계수나 표준오차가 처음에 했던 로지스틱 회귀분석의 결과와 상당히 비슷하게 구해졌음을 확인할 수 있다. 여기서 부트스트랩을 통해 얻어내고자 하는 것은 <a href="../551">점추정값인 original이 아니라 std. error라는 점</a>에 주의하도록 하자. 잘 비교해보면 알겠지만 original이란 그냥 전체 데이터에서 얻은 회귀계수로써 부트스트랩 그 자체와는 하등 상관없고 필요없다.</p>
+<p>계속해서 에러가 난다면 대부분은 여기가 문제다. 실행 결과를 보면 첫번째 회귀계수부터 t1, t2, t3, t4로 나타나고 계수나 <a href="../541">표준오차</a>가 처음에 했던 로지스틱 회귀분석의 결과와 상당히 비슷하게 구해졌음을 확인할 수 있다. 여기서 부트스트랩을 통해 얻어내고자 하는 것은 <a href="../551">점추정값인 original이 아니라 std. error라는 점</a>에 주의하도록 하자. 잘 비교해보면 알겠지만 original이란 그냥 전체 데이터에서 얻은 회귀계수로써 부트스트랩 그 자체와는 하등 상관없고 필요없다.</p>
 <h2 id="코드">코드</h2>
 <p>아래는 예제코드다. 부트스트랩같은 경우엔 너무 사용법이 특이해서 이해가 잘 안가면 그냥 예제를 자기 케이스에 맞게 바꿔 쓰기만해도 된다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ISLR)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(boot)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">set.seed</span>(<span style="color:#ae81ff">150421</span>)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">data</span>(<span style="color:#e6db74">&#34;Default&#34;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">head</span>(Default)
-</span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">summary</span>(<span style="color:#a6e22e">glm</span>(default<span style="color:#f92672">~</span>.,family<span style="color:#f92672">=</span><span style="color:#a6e22e">binomial</span>(),data<span style="color:#f92672">=</span>Default))
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">coef</span>(<span style="color:#a6e22e">glm</span>(default<span style="color:#f92672">~</span>.,family<span style="color:#f92672">=</span><span style="color:#a6e22e">binomial</span>(),data<span style="color:#f92672">=</span>dataset,subset<span style="color:#f92672">=</span>index))
-</span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>boot.fn<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(dataset,index)
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">return</span>(<span style="color:#a6e22e">coef</span>(<span style="color:#a6e22e">glm</span>(default<span style="color:#f92672">~</span>.,family<span style="color:#f92672">=</span><span style="color:#a6e22e">binomial</span>(),data<span style="color:#f92672">=</span>dataset,subset<span style="color:#f92672">=</span>index)))
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>boot.result<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">boot</span>(data<span style="color:#f92672">=</span>Default,statistiic<span style="color:#f92672">=</span>boot.fn,R<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span>); boot.result
-</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(ISLR)
+<span style="color:#a6e22e">library</span>(boot)
+<span style="color:#a6e22e">set.seed</span>(<span style="color:#ae81ff">150421</span>)
+<span style="color:#a6e22e">data</span>(<span style="color:#e6db74">&#34;Default&#34;</span>)
+<span style="color:#a6e22e">head</span>(Default)
+ 
+<span style="color:#a6e22e">summary</span>(<span style="color:#a6e22e">glm</span>(default<span style="color:#f92672">~</span>.,family<span style="color:#f92672">=</span><span style="color:#a6e22e">binomial</span>(),data<span style="color:#f92672">=</span>Default))
+<span style="color:#a6e22e">coef</span>(<span style="color:#a6e22e">glm</span>(default<span style="color:#f92672">~</span>.,family<span style="color:#f92672">=</span><span style="color:#a6e22e">binomial</span>(),data<span style="color:#f92672">=</span>dataset,subset<span style="color:#f92672">=</span>index))
+ 
+boot.fn<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(dataset,index)
+{
+  <span style="color:#a6e22e">return</span>(<span style="color:#a6e22e">coef</span>(<span style="color:#a6e22e">glm</span>(default<span style="color:#f92672">~</span>.,family<span style="color:#f92672">=</span><span style="color:#a6e22e">binomial</span>(),data<span style="color:#f92672">=</span>dataset,subset<span style="color:#f92672">=</span>index)))
+}
+ 
+boot.result<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">boot</span>(data<span style="color:#f92672">=</span>Default,statistiic<span style="color:#f92672">=</span>boot.fn,R<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span>); boot.result
+</code></pre></div>
 
 <aside style="text-align: right;">
     2018-05-17&emsp;
     류대식&emsp;
-    <a href="../2097">🎲 558</a>
+    <a href="../2175">🎲 558</a>
 </aside>
 
 <script>
@@ -780,7 +780,7 @@ style="text-align: center; width: 100%; font-size: 1.5rem; border: 1px; border-r
     <a href=https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/>
         <span style="color:rgb(051,204,051);">●</span> 함수 (80)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/>
-        <span style="color:rgb(051,204,051);">●</span> 보조정리 (20)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 보조정리 (21)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%A7%91%ED%95%A9%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 집합론 (47)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%A0%95%EC%88%98%EB%A1%A0/>
@@ -858,9 +858,9 @@ style="text-align: center; width: 100%; font-size: 1.5rem; border: 1px; border-r
     <a href=https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/>
         <span style="color:rgb(051,204,051);">●</span> 데이터확보 (22)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%EA%B3%BC%ED%95%99/>
-        <span style="color:rgb(255,051,051);">●</span> 데이터과학 (20)</a><br>
+        <span style="color:rgb(255,051,051);">●</span> 데이터과학 (21)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EA%B2%80%EC%A0%95/>
-        <span style="color:rgb(255,204,000);">●</span> 통계적검정 (14)</a><br>
+        <span style="color:rgb(255,204,000);">●</span> 통계적검정 (20++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (58)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
@@ -892,7 +892,7 @@ style="text-align: center; width: 100%; font-size: 1.5rem; border: 1px; border-r
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2352)</summary>
+    <summary>전체 포스트 (2353)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1000,7 +1000,7 @@ style="text-align: center; width: 100%; font-size: 1.5rem; border: 1px; border-r
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (96)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (66)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98/" style="color: black">행렬대수 (67)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/" style="color: black">확률론 (65)</a>
         </li><li>
