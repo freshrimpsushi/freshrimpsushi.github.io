@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/zero-in-complex-analysis\/",
-    "wordCount" : "267",
+    "wordCount" : "426",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -282,14 +282,18 @@
 </aside>
 
 <h2 id="정의-1">정의 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p>$\alpha$ 가 함수 $f$ 의 <strong>$n$차 영점</strong><sup>Zero of Order $n$</sup>이라는 것은 $\displaystyle \lim_{z \to \alpha} g(z) \ne 0$ 인 어떤 함수 $g$ 에 대해 $f$ 가 다음과 같이 나타날 수 있다는 것과 동치다.
+<p>$\alpha \in \mathbb{C}$ 가 <a href="../470">함수</a> $f : \mathbb{C} \to \mathbb{C}$ 의 <strong>$n$차 영점</strong><sup>Zero of Order $n$</sup>이라는 것은 $\displaystyle \lim_{z \to \alpha} g(z) \ne 0$ 인 어떤 함수 $g$ 에 대해 $f$ 가 다음과 같이 나타날 수 있다는 것과 동치다.
 $$
 f(z) = (z-\alpha)^{n} g(z)
 $$</p>
 <h2 id="정리">정리</h2>
-<p>영점은 <a href="../281">고립점</a>이다.</p>
+<p>영점은 고립되어<sup>Isolated</sup> 있다:</p>
+<ul>
+<li>영점은 그 주변에 또 다른 영점이 존재하지 않게끔 하는 반경을 잡을 수 있다.</li>
+<li>$f$ 의 영점 $\alpha$ 에는 $z \in \mathcal{N} (\alpha) \setminus \left\{ \alpha \right\}$ 에서 $f (z) \ne 0$ 인 네이버후드 $\mathcal{N} (\alpha)$ 가 존재한다.</li>
+</ul>
 <h2 id="증명">증명</h2>
-<p>일반성을 잃지 않고, $g$ 가 $f$ 의 <a href="../2080">영점</a> $\alpha$ 에서 해석적이라고 가정하고 $g(\alpha) = 2 \beta \ne 0$ 라 적자.</p>
+<p>일반성을 잃지 않고, $g$ 가 $f$ 의 $n$차 <a href="../2080">영점</a> $\alpha$ 에서 <a href="../1929">해석적</a>이라고 가정하고 $g(\alpha) = 2 \beta \ne 0$ 라 적자.</p>
 <p>$g$ 가 $\alpha$ 에서 연속이므로 모든 $\beta$ 에 대해 다음을 만족하는 $\delta &gt; 0$ 가 존재해야한다.
 $$
 | z - \alpha | &lt; \delta \implies \left| g(z) - g(\alpha) \right| &lt; |\beta|
@@ -298,7 +302,13 @@ $$
 $$
 | z - \alpha | &lt; \delta \implies |g(z)| \ge \left| |g(\alpha)| - \left| g(z) - g(\alpha) \right|  \right| &gt; |\beta|
 $$
-즉 $|z-\alpha| &lt; \delta$ 에서 $|g(z)| &gt; |\beta|$ 이므로 <a href="../2080">영점</a>이 될 수 없고, $\alpha$ 는 고립점이다.</p>
+$|z-\alpha| &lt; \delta$ 에서 $|g(z)| &gt; |\beta|$ 이므로 $\alpha$ 는 $g$ 의 <a href="../2080">영점</a>이 될 수 없다. $f(z) = (z-\alpha)^{n} g(z)$ 이라 두었으므로, 구체적으로 이 <a href="../382">오픈 볼</a> $B \left( \alpha , \delta \right)$ 내부에서는 다음처럼 $\alpha$ 만 $f$ 의 영점이 된다.
+$$
+f(z) \begin{cases}
+= 0 &amp; , \text{if } z = \alpha
+\\ \ne 0 &amp; , \text{if } z \in B \left( \alpha , \delta \right) \setminus \left\{ \alpha \right\}
+\end{cases}
+$$</p>
 <p style="text-align: right;">■</p>
 <h2 id="같이보기">같이보기</h2>
 <ul>
@@ -317,7 +327,7 @@ $$
 <aside style="text-align: right;">
     2021-09-11&emsp;
     류대식&emsp;
-    <a href="../1776">🎲 2080</a>
+    <a href="../562">🎲 2080</a>
 </aside>
 
 <script>
@@ -401,6 +411,7 @@ $$
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data.rows);
         if (data.ok) {
           commentRows = data.rows;
           render_comment(commentRows);
@@ -410,12 +421,26 @@ $$
   }
 
   function render_comment(rows) {
+    const badgeExceptionArr = ['류대식', '전기현', 'ㅇㅇ', '질문'];
     render_blank();
     let html = '';
     rows.map(row => {
       html += `<div id="comment${row.cmt_idx}" class="parents">`;
       html += `<div class="content-info">`;
-      html += `<div class="list-author">${row.author}</div>`;
+      
+      let badge = '';
+      if (row.cmt_cnt > 5) {
+        badge = '🥉';
+      } else if (row.cmt_cnt > 25) {
+        badge = '🥈';
+      } else if (row.cmt_cnt > 125) {
+        badge = '🥇';
+      } else { }
+
+      if (badgeExceptionArr.includes(row.author)) {
+        badge = '';
+      }
+      html += `<div class="list-author">${badge} ${row.author}</div>`;
       html += `<div class="list-bridge">▶</div>`;
       html += `<div class="list-date">${row.datetime}</div>`;
       html += `<div class="list-button">`;
@@ -432,7 +457,20 @@ $$
       row.child.map(child => {
         html += `<div id="comment${child.cmt_idx}" class="child">`;
         html += `<div class="content-info">`;
-        html += `<div class="list-author">${child.author}</div>`;
+        
+        let badge = '';
+        if (child.cmt_cnt > 5) {
+          badge = '🥉';
+        } else if (child.cmt_cnt > 25) {
+          badge = '🥈';
+        } else if (child.cmt_cnt > 125) {
+          badge = '🥇';
+        } else { }
+
+        if (badgeExceptionArr.includes(child.author)) {
+          badge = '';
+        }
+        html += `<div class="list-author">${badge} ${child.author}</div>`;
         html += `<div class="list-bridge">▶</div>`;
         html += `<div class="list-date">${child.datetime}</div>`;
         html += `<div class="list-button">`;

@@ -263,6 +263,20 @@
     <div class="innertic">
       
     
+    
+    <div style="text-align: center;">
+        <p height=80% style="
+            text-align: center;
+            color: black;
+            border-style: dashed;
+            padding: 1rem;"
+            >
+        
+            $x^{2} = - 1$ 의 해가 <b>허수</b>면 $X^{2} = - I$ 는 <b>허행렬</b>일까요? <br>
+            <a href="https://freshrimpsushi.com/community/bbs/board.php?bo_table=research" target='_blank'>커뮤니티</a>에서 고민해봅시다.
+        
+        </p>
+    </div>
 
 
 
@@ -372,7 +386,7 @@ $$</p>
 <aside style="text-align: right;">
     1923-03-01&emsp;
     류대식&emsp;
-    <a href="../932">🎲 2348</a>
+    <a href="../347">🎲 2348</a>
 </aside>
 
 <script>
@@ -456,6 +470,7 @@ $$</p>
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data.rows);
         if (data.ok) {
           commentRows = data.rows;
           render_comment(commentRows);
@@ -465,12 +480,26 @@ $$</p>
   }
 
   function render_comment(rows) {
+    const badgeExceptionArr = ['류대식', '전기현', 'ㅇㅇ', '질문'];
     render_blank();
     let html = '';
     rows.map(row => {
       html += `<div id="comment${row.cmt_idx}" class="parents">`;
       html += `<div class="content-info">`;
-      html += `<div class="list-author">${row.author}</div>`;
+      
+      let badge = '';
+      if (row.cmt_cnt > 5) {
+        badge = '🥉';
+      } else if (row.cmt_cnt > 25) {
+        badge = '🥈';
+      } else if (row.cmt_cnt > 125) {
+        badge = '🥇';
+      } else { }
+
+      if (badgeExceptionArr.includes(row.author)) {
+        badge = '';
+      }
+      html += `<div class="list-author">${badge} ${row.author}</div>`;
       html += `<div class="list-bridge">▶</div>`;
       html += `<div class="list-date">${row.datetime}</div>`;
       html += `<div class="list-button">`;
@@ -487,7 +516,20 @@ $$</p>
       row.child.map(child => {
         html += `<div id="comment${child.cmt_idx}" class="child">`;
         html += `<div class="content-info">`;
-        html += `<div class="list-author">${child.author}</div>`;
+        
+        let badge = '';
+        if (child.cmt_cnt > 5) {
+          badge = '🥉';
+        } else if (child.cmt_cnt > 25) {
+          badge = '🥈';
+        } else if (child.cmt_cnt > 125) {
+          badge = '🥇';
+        } else { }
+
+        if (badgeExceptionArr.includes(child.author)) {
+          badge = '';
+        }
+        html += `<div class="list-author">${badge} ${child.author}</div>`;
         html += `<div class="list-bridge">▶</div>`;
         html += `<div class="list-date">${child.datetime}</div>`;
         html += `<div class="list-button">`;

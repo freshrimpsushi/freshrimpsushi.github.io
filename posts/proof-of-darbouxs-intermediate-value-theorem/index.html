@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/proof-of-darbouxs-intermediate-value-theorem\/",
-    "wordCount" : "384",
+    "wordCount" : "392",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -294,15 +294,15 @@ g(x) := y_{0} x - f(x)
 $$</p>
 <p>$g$ 는 $[a,b]$ 에서 <a href="../1210">미분가능하므로 연속</a>이고, <a href="../563">최대최소값 정리</a>에 따라 $[a,b]$ 에서 최댓값을 가진다. $f ' (a) &lt; y_{0}$ 이라 가정했으므로</p>
 <p>$$
-g'(a) = y_{0} - f '(a) &gt; 0
+g ' (a) = y_{0} - f '(a) &gt; 0
 $$</p>
 <p>인데 구간의 시점 $a$ 에서 미분계수가 양수라는 것은 $g(a)$ 가 최댓값은 아님을 함의한다. 마찬가지로 $y_{0} &lt; f '(b)$ 이라 가정했으므로</p>
 <p>$$
-g'(b) = y_{0} - f '(b) &lt; 0
+g ' (b) = y_{0} - f '(b) &lt; 0
 $$</p>
-<p>인데 구간의 종점 $b$ 에서 미분계수가 음수라는 것은 $g(b)$ 역시 최댓값이 아님을 함의한다. 따라서 $g$ 는 $[a,b]$ 사이의 어떤 극점 $c$ 에서 최대값을 가져야하는데, 극값 $g'(c) = 0$ 을 생각해보면</p>
+<p>인데 구간의 종점 $b$ 에서 미분계수가 음수라는 것은 $g(b)$ 역시 최댓값이 아님을 함의한다. 따라서 $g$ 는 $[a,b]$ 사이의 어떤 극점 $c$ 에서 최대값을 가져야하는데, 극값 $g ' (c) = 0$ 을 생각해보면</p>
 <p>$$
-g'(c) = y_{0} - f '(c) = 0
+g ' (c) = y_{0} - f '(c) = 0
 $$</p>
 <p>$f ' (c)$ 를 이항해서 정리하면 다음을 얻는다.</p>
 <p>$$
@@ -318,7 +318,7 @@ $$</p>
 <aside style="text-align: right;">
     2020-03-18&emsp;
     류대식&emsp;
-    <a href="../1278">🎲 1554</a>
+    <a href="../2126">🎲 1554</a>
 </aside>
 
 <script>
@@ -402,6 +402,7 @@ $$</p>
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data.rows);
         if (data.ok) {
           commentRows = data.rows;
           render_comment(commentRows);
@@ -411,12 +412,26 @@ $$</p>
   }
 
   function render_comment(rows) {
+    const badgeExceptionArr = ['류대식', '전기현', 'ㅇㅇ', '질문'];
     render_blank();
     let html = '';
     rows.map(row => {
       html += `<div id="comment${row.cmt_idx}" class="parents">`;
       html += `<div class="content-info">`;
-      html += `<div class="list-author">${row.author}</div>`;
+      
+      let badge = '';
+      if (row.cmt_cnt > 5) {
+        badge = '🥉';
+      } else if (row.cmt_cnt > 25) {
+        badge = '🥈';
+      } else if (row.cmt_cnt > 125) {
+        badge = '🥇';
+      } else { }
+
+      if (badgeExceptionArr.includes(row.author)) {
+        badge = '';
+      }
+      html += `<div class="list-author">${badge} ${row.author}</div>`;
       html += `<div class="list-bridge">▶</div>`;
       html += `<div class="list-date">${row.datetime}</div>`;
       html += `<div class="list-button">`;
@@ -433,7 +448,20 @@ $$</p>
       row.child.map(child => {
         html += `<div id="comment${child.cmt_idx}" class="child">`;
         html += `<div class="content-info">`;
-        html += `<div class="list-author">${child.author}</div>`;
+        
+        let badge = '';
+        if (child.cmt_cnt > 5) {
+          badge = '🥉';
+        } else if (child.cmt_cnt > 25) {
+          badge = '🥈';
+        } else if (child.cmt_cnt > 125) {
+          badge = '🥇';
+        } else { }
+
+        if (badgeExceptionArr.includes(child.author)) {
+          badge = '';
+        }
+        html += `<div class="list-author">${badge} ${child.author}</div>`;
         html += `<div class="list-bridge">▶</div>`;
         html += `<div class="list-date">${child.datetime}</div>`;
         html += `<div class="list-button">`;

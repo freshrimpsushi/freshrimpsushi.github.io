@@ -264,19 +264,6 @@
     <div class="innertic">
       
     
-    
-    <div style="text-align: center;">
-        <p height=80% style="
-            text-align: center;
-            color: black;
-            border-style: dashed;
-            padding: 1rem;"
-            >
-        
-            이번 여름방학엔 <a href="../../categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/">선형대수</a> 정주행 어때요?
-        
-        </p>
-    </div>
 
 
 
@@ -403,7 +390,7 @@ title(&#39;k--&#39;)
 <aside style="text-align: right;">
     2019-09-26&emsp;
     전기현&emsp;
-    <a href="../1680">🎲 1330</a>
+    <a href="../1412">🎲 1330</a>
 </aside>
 
 <script>
@@ -487,6 +474,7 @@ title(&#39;k--&#39;)
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data.rows);
         if (data.ok) {
           commentRows = data.rows;
           render_comment(commentRows);
@@ -496,12 +484,26 @@ title(&#39;k--&#39;)
   }
 
   function render_comment(rows) {
+    const badgeExceptionArr = ['류대식', '전기현', 'ㅇㅇ', '질문'];
     render_blank();
     let html = '';
     rows.map(row => {
       html += `<div id="comment${row.cmt_idx}" class="parents">`;
       html += `<div class="content-info">`;
-      html += `<div class="list-author">${row.author}</div>`;
+      
+      let badge = '';
+      if (row.cmt_cnt > 5) {
+        badge = '🥉';
+      } else if (row.cmt_cnt > 25) {
+        badge = '🥈';
+      } else if (row.cmt_cnt > 125) {
+        badge = '🥇';
+      } else { }
+
+      if (badgeExceptionArr.includes(row.author)) {
+        badge = '';
+      }
+      html += `<div class="list-author">${badge} ${row.author}</div>`;
       html += `<div class="list-bridge">▶</div>`;
       html += `<div class="list-date">${row.datetime}</div>`;
       html += `<div class="list-button">`;
@@ -518,7 +520,20 @@ title(&#39;k--&#39;)
       row.child.map(child => {
         html += `<div id="comment${child.cmt_idx}" class="child">`;
         html += `<div class="content-info">`;
-        html += `<div class="list-author">${child.author}</div>`;
+        
+        let badge = '';
+        if (child.cmt_cnt > 5) {
+          badge = '🥉';
+        } else if (child.cmt_cnt > 25) {
+          badge = '🥈';
+        } else if (child.cmt_cnt > 125) {
+          badge = '🥇';
+        } else { }
+
+        if (badgeExceptionArr.includes(child.author)) {
+          badge = '';
+        }
+        html += `<div class="list-author">${badge} ${child.author}</div>`;
         html += `<div class="list-bridge">▶</div>`;
         html += `<div class="list-date">${child.datetime}</div>`;
         html += `<div class="list-button">`;

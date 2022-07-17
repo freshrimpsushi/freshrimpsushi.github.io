@@ -263,6 +263,19 @@
     <div class="innertic">
       
     
+    
+    <div style="text-align: center;">
+        <p height=80% style="
+            text-align: center;
+            color: black;
+            border-style: dashed;
+            padding: 1rem;"
+            >
+        
+            이번 여름방학엔 <a href="../../categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/">선형대수</a> 정주행 어때요?
+        
+        </p>
+    </div>
 
 
 
@@ -286,7 +299,7 @@
 <li>두 집합이 <a href="../1381">대등하다</a>는 것은 두 집합 사이에 <a href="../471">전단사</a>가 존재한다는 것이다.</li>
 </ul>
 <h2 id="증명">증명</h2>
-<p>전략: $x$ 에 함수 $f$ 를 $k$ 번 취하는 것을 $f^{k}(x)$ 와 같이 나타내려고 한다. 그러면 모든 $k \in \mathbb{N}$ 에 대해 $f^{k}(x) = f \left( f^{k-1}(x) \right)$ 처럼 나타낼 수 있을 것이다. 이러한 관점에서 $f^{0}$ 는 함수 $f$ 를 한 번도 취하지 않은 함수, 하자면 항등함수로 둘 수 있다.</p>
+<p>전략: $x$ 에 <a href="../470">함수</a> $f$ 를 $k$ 번 취하는 것을 $f^{k}(x)$ 와 같이 나타내려고 한다. 그러면 모든 $k \in \mathbb{N}$ 에 대해 $f^{k}(x) = f \left( f^{k-1}(x) \right)$ 처럼 나타낼 수 있을 것이다. 이러한 관점에서 $f^{0}$ 는 함수 $f$ 를 한 번도 취하지 않은 함수, 하자면 항등함수로 둘 수 있다.</p>
 <p>우선 <a href="../1316">집합</a> $A$ 의 부분집합 $B$ 에 대해 단사 $f: A \to B$ 가 존재하면 전단사 $h : A \to B$ 도 존재함을 보이려고 한다. 만약 $B=A$ 면 단사 $f$ 가 무엇이든 항등함수 $h:=f^{0}$ 가 존재해서 더 이상 보일 것이 없으므로, $B \subsetneq A$ 인 경우만 생각하면 된다.</p>
 <hr>
 <p><strong>Part 1. $n \ne m$ 이면 $f^{n}(A \setminus B) \cap f^{m}(A \setminus B) = \emptyset$</strong></p>
@@ -345,7 +358,7 @@ $$
 <aside style="text-align: right;">
     2019-12-04&emsp;
     류대식&emsp;
-    <a href="../2176">🎲 1412</a>
+    <a href="../2166">🎲 1412</a>
 </aside>
 
 <script>
@@ -429,6 +442,7 @@ $$
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data.rows);
         if (data.ok) {
           commentRows = data.rows;
           render_comment(commentRows);
@@ -438,12 +452,26 @@ $$
   }
 
   function render_comment(rows) {
+    const badgeExceptionArr = ['류대식', '전기현', 'ㅇㅇ', '질문'];
     render_blank();
     let html = '';
     rows.map(row => {
       html += `<div id="comment${row.cmt_idx}" class="parents">`;
       html += `<div class="content-info">`;
-      html += `<div class="list-author">${row.author}</div>`;
+      
+      let badge = '';
+      if (row.cmt_cnt > 5) {
+        badge = '🥉';
+      } else if (row.cmt_cnt > 25) {
+        badge = '🥈';
+      } else if (row.cmt_cnt > 125) {
+        badge = '🥇';
+      } else { }
+
+      if (badgeExceptionArr.includes(row.author)) {
+        badge = '';
+      }
+      html += `<div class="list-author">${badge} ${row.author}</div>`;
       html += `<div class="list-bridge">▶</div>`;
       html += `<div class="list-date">${row.datetime}</div>`;
       html += `<div class="list-button">`;
@@ -460,7 +488,20 @@ $$
       row.child.map(child => {
         html += `<div id="comment${child.cmt_idx}" class="child">`;
         html += `<div class="content-info">`;
-        html += `<div class="list-author">${child.author}</div>`;
+        
+        let badge = '';
+        if (child.cmt_cnt > 5) {
+          badge = '🥉';
+        } else if (child.cmt_cnt > 25) {
+          badge = '🥈';
+        } else if (child.cmt_cnt > 125) {
+          badge = '🥇';
+        } else { }
+
+        if (badgeExceptionArr.includes(child.author)) {
+          badge = '';
+        }
+        html += `<div class="list-author">${badge} ${child.author}</div>`;
         html += `<div class="list-bridge">▶</div>`;
         html += `<div class="list-date">${child.datetime}</div>`;
         html += `<div class="list-button">`;

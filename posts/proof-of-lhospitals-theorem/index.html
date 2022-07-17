@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/proof-of-lhospitals-theorem\/",
-    "wordCount" : "539",
+    "wordCount" : "541",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -263,20 +263,6 @@
     <div class="innertic">
       
     
-    
-    <div style="text-align: center;">
-        <p height=80% style="
-            text-align: center;
-            color: black;
-            border-style: dashed;
-            padding: 1rem;"
-            >
-        
-            🔎F2키를 눌러 포스트를 퀵서치할 수 있습니다. <br>
-            한국어는 물론, 영어로도 검색을 시도해보세요.
-        
-        </p>
-    </div>
 
 
 
@@ -295,9 +281,9 @@
 </aside>
 
 <h2 id="정리1">정리<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p>$f(x)$ 와 $g(x)$ 가 $x=a$ 의 근방에서 미분가능하고 $g'(x) \ne 0$ 이며 $\displaystyle \lim _{x \to a} f(x) = \lim _{x \to a} g(x) = 0$ 이면</p>
+<p>$f(x)$ 와 $g(x)$ 가 $x=a$ 의 근방에서 미분가능하고 $g ' (x) \ne 0$ 이며 $\displaystyle \lim _{x \to a} f(x) = \lim _{x \to a} g(x) = 0$ 이면</p>
 <p>$$
-\lim _{x \to a} {{f(x)} \over {g(x)}} = \lim _{x \to a} {{f ' (x)} \over {g'(x)}}
+\lim _{x \to a} {{f(x)} \over {g(x)}} = \lim _{x \to a} {{f ' (x)} \over {g ' (x)}}
 $$</p>
 <h2 id="설명">설명</h2>
 <p>수험생들에게는 마검같은 정리로 이미 수 많은 고등학생들이 배워서 써먹고 있으나, 개인적으로 수능을 몇 달 앞두기 전엔 알아도 봉인해두고 가능한 정석대로 푸는 게 좋다고 생각한다.</p>
@@ -317,15 +303,15 @@ $$</p>
 <p>이므로 ${f(x)-f(a)}$와 ${g(x)-g(a)}$ 는 $[x,a]$ 혹은 $[a,x]$에서 연속, $(x,a)$ 혹은 $(a,x)$에서 미분가능하다.</p>
 <blockquote>
 <p><a href="../38">코시의 평균값 정리</a></p>
-<p>함수 $f(x), g(x)$가 $[a,b]$에서 연속이고 $(a,b)$에서 미분가능하고 $g'(x) \ne 0$이면 $\displaystyle {{f ' (c)}\over{g'(c)}}={{f(b)-f(a)}\over{g(b)-g(a)}}$를 만족하는 $c$ 가 $(a,b)$ 에 적어도 하나 존재한다.</p>
+<p>함수 $f(x), g(x)$가 $[a,b]$에서 연속이고 $(a,b)$에서 미분가능하고 $g ' (x) \ne 0$이면 $\displaystyle {{f ' (c)}\over{g ' (c)}}={{f(b)-f(a)}\over{g(b)-g(a)}}$를 만족하는 $c$ 가 $(a,b)$ 에 적어도 하나 존재한다.</p>
 </blockquote>
-<p>코시의 평균값 정리에 의해 $\displaystyle {{f ' (c)}\over{g'(c)}}={{f(x)-f(a)}\over{g(x)-g(a)}}$ 를 만족하는 $c$ 가 $(x,a)$ 혹은 $(a,x)$ 에 적어도 하나 존재한다.
+<p>코시의 평균값 정리에 의해 $\displaystyle {{f ' (c)}\over{g ' (c)}}={{f(x)-f(a)}\over{g(x)-g(a)}}$ 를 만족하는 $c$ 가 $(x,a)$ 혹은 $(a,x)$ 에 적어도 하나 존재한다.
 $c$가 $(x,a)$ 혹은 $(a,x)$ 에 존재하기 때문에 $x \to a$ 일 때 $c \to a$ 이고</p>
 <p>$$
 \begin{align*}
 \lim _{x \to a} {{f(x)} \over {g(x)}} =&amp; \lim _{x \to a} {{f(x)-f(a)}\over{g(x)-g(a)}} 
-\\ =&amp; \lim _{c \to a} {{f ' (c)}\over{g'(c)}} 
-\\ =&amp; \lim _{x \to a} {{f ' (x)}\over{g'(x)}} 
+\\ =&amp; \lim _{c \to a} {{f ' (c)}\over{g ' (c)}} 
+\\ =&amp; \lim _{x \to a} {{f ' (x)}\over{g ' (x)}} 
 \end{align*}
 $$</p>
 <p style="text-align: right;">■</p>
@@ -342,7 +328,7 @@ $$</p>
 <aside style="text-align: right;">
     2017-03-24&emsp;
     류대식&emsp;
-    <a href="../1013">🎲 39</a>
+    <a href="../537">🎲 39</a>
 </aside>
 
 <script>
@@ -426,6 +412,7 @@ $$</p>
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data.rows);
         if (data.ok) {
           commentRows = data.rows;
           render_comment(commentRows);
@@ -435,12 +422,26 @@ $$</p>
   }
 
   function render_comment(rows) {
+    const badgeExceptionArr = ['류대식', '전기현', 'ㅇㅇ', '질문'];
     render_blank();
     let html = '';
     rows.map(row => {
       html += `<div id="comment${row.cmt_idx}" class="parents">`;
       html += `<div class="content-info">`;
-      html += `<div class="list-author">${row.author}</div>`;
+      
+      let badge = '';
+      if (row.cmt_cnt > 5) {
+        badge = '🥉';
+      } else if (row.cmt_cnt > 25) {
+        badge = '🥈';
+      } else if (row.cmt_cnt > 125) {
+        badge = '🥇';
+      } else { }
+
+      if (badgeExceptionArr.includes(row.author)) {
+        badge = '';
+      }
+      html += `<div class="list-author">${badge} ${row.author}</div>`;
       html += `<div class="list-bridge">▶</div>`;
       html += `<div class="list-date">${row.datetime}</div>`;
       html += `<div class="list-button">`;
@@ -457,7 +458,20 @@ $$</p>
       row.child.map(child => {
         html += `<div id="comment${child.cmt_idx}" class="child">`;
         html += `<div class="content-info">`;
-        html += `<div class="list-author">${child.author}</div>`;
+        
+        let badge = '';
+        if (child.cmt_cnt > 5) {
+          badge = '🥉';
+        } else if (child.cmt_cnt > 25) {
+          badge = '🥈';
+        } else if (child.cmt_cnt > 125) {
+          badge = '🥇';
+        } else { }
+
+        if (badgeExceptionArr.includes(child.author)) {
+          badge = '';
+        }
+        html += `<div class="list-author">${badge} ${child.author}</div>`;
         html += `<div class="list-bridge">▶</div>`;
         html += `<div class="list-date">${child.datetime}</div>`;
         html += `<div class="list-button">`;

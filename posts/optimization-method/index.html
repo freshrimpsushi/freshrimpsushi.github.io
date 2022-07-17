@@ -263,20 +263,6 @@
     <div class="innertic">
       
     
-    
-    <div style="text-align: center;">
-        <p height=80% style="
-            text-align: center;
-            color: black;
-            border-style: dashed;
-            padding: 1rem;"
-            >
-        
-            $x^{2} = - 1$ 의 해가 <b>허수</b>면 $X^{2} = - I$ 는 <b>허행렬</b>일까요? <br>
-            <a href="https://freshrimpsushi.com/community/bbs/board.php?bo_table=research" target='_blank'>커뮤니티</a>에서 고민해봅시다.
-        
-        </p>
-    </div>
 
 
 
@@ -300,7 +286,7 @@
 
 <h2 id="정의">정의</h2>
 <ol>
-<li>함수 $f : \mathbb{R}^{n} \to \mathbb{R}$ 의 함수값이 최소가 되도록 하는 $x^{ \ast } = \argmin_{x} f(x)$ 를 구하는 문제를 <strong>최적화 문제</strong><sup>Optimization Problem</sup>라 하고, 그 문제를 푸는 알고리즘을 <strong>최적화 기법</strong>이라 부른다. 최적화 문제에서 주어진 함수 $f$ 를 특히 <strong>목적 함수</strong><sup>Objective Function</sup>라 한다.</li>
+<li>함수 $f : \mathbb{R}^{n} \to \mathbb{R}$ 의 함수값이 최소가 되도록 하는 $x^{ \ast } = \argmin_{x} f(x)$ 를 구하는 문제를 <strong>최적화 문제</strong><sup>Optimization Problem</sup>라 하고, 그 문제를 푸는 알고리즘을 <strong>최적화 기법</strong>이라 부른다. 최적화 문제에서 주어진 <a href="../470">함수</a> $f$ 를 특히 <strong>목적 함수</strong><sup>Objective Function</sup>라 한다.</li>
 <li>정의역의 모든 $x$ 에 대해 $f(x^{ \ast }) \le f(x)$ 를 만족하는 $x^{ \ast }$ 를 <strong>최적해</strong><sup>Global Optimizer</sup>라 부른다.</li>
 <li>모든 $x \in \mathcal{N}$ 에 대해 $f(x^{ \ast }) \le f(x)$ 를 만족하는 $x^{ \ast }$ 의 네이버 후드 $\mathcal{N}$ 이 존재하면 $x^{ \ast }$ 를 <strong>국소 최적해</strong><sup>Local Optimizer</sup>라 부른다.</li>
 </ol>
@@ -320,7 +306,7 @@
 <aside style="text-align: right;">
     2020-01-25&emsp;
     류대식&emsp;
-    <a href="../599">🎲 1463</a>
+    <a href="../1910">🎲 1463</a>
 </aside>
 
 <script>
@@ -404,6 +390,7 @@
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data.rows);
         if (data.ok) {
           commentRows = data.rows;
           render_comment(commentRows);
@@ -413,12 +400,26 @@
   }
 
   function render_comment(rows) {
+    const badgeExceptionArr = ['류대식', '전기현', 'ㅇㅇ', '질문'];
     render_blank();
     let html = '';
     rows.map(row => {
       html += `<div id="comment${row.cmt_idx}" class="parents">`;
       html += `<div class="content-info">`;
-      html += `<div class="list-author">${row.author}</div>`;
+      
+      let badge = '';
+      if (row.cmt_cnt > 5) {
+        badge = '🥉';
+      } else if (row.cmt_cnt > 25) {
+        badge = '🥈';
+      } else if (row.cmt_cnt > 125) {
+        badge = '🥇';
+      } else { }
+
+      if (badgeExceptionArr.includes(row.author)) {
+        badge = '';
+      }
+      html += `<div class="list-author">${badge} ${row.author}</div>`;
       html += `<div class="list-bridge">▶</div>`;
       html += `<div class="list-date">${row.datetime}</div>`;
       html += `<div class="list-button">`;
@@ -435,7 +436,20 @@
       row.child.map(child => {
         html += `<div id="comment${child.cmt_idx}" class="child">`;
         html += `<div class="content-info">`;
-        html += `<div class="list-author">${child.author}</div>`;
+        
+        let badge = '';
+        if (child.cmt_cnt > 5) {
+          badge = '🥉';
+        } else if (child.cmt_cnt > 25) {
+          badge = '🥈';
+        } else if (child.cmt_cnt > 125) {
+          badge = '🥇';
+        } else { }
+
+        if (badgeExceptionArr.includes(child.author)) {
+          badge = '';
+        }
+        html += `<div class="list-author">${badge} ${child.author}</div>`;
         html += `<div class="list-bridge">▶</div>`;
         html += `<div class="list-date">${child.datetime}</div>`;
         html += `<div class="list-button">`;

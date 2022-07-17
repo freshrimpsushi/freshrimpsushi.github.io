@@ -272,8 +272,8 @@
             padding: 1rem;"
             >
         
-            생새우초밥집에 아쉬운 점이 있나요? <br>
-            이 버튼 <a href="https://forms.gle/sfCHw7YKj5zMHMpK7" target='_blank'>🚨</a> 을 눌러 의견을 전달해주세요.
+            $x^{2} = - 1$ 의 해가 <b>허수</b>면 $X^{2} = - I$ 는 <b>허행렬</b>일까요? <br>
+            <a href="https://freshrimpsushi.com/community/bbs/board.php?bo_table=research" target='_blank'>커뮤니티</a>에서 고민해봅시다.
         
         </p>
     </div>
@@ -309,7 +309,7 @@ $$</p>
 <h2 id="증명">증명</h2>
 <p>우선 $\mathscr{C}$ 를 $m$ 개로 쪼개서 생각해보자.</p>
 <blockquote>
-<p><a href="../211">분할에 대해 일반화된 수축 보조정리</a>: <a href="../2082">단순폐경로</a> $\mathscr{C}$ 를 포함하는 단순연결영역에서 $f: A \subseteq \mathbb{C} \to \mathbb{C}$ 가 $\mathscr{C}$ <a href="../383">내부</a>에서 유한한 점 $z_{1} , z_{2}, \cdots z_{m}$ 을 제외한 모든 점에서 해석적이라고 하자. 그러면 $\mathscr{C}$ <a href="../383">내부</a>에서 $z_{k}$ 를 중심으로 하는 원 $\mathscr{C_k}$ 에 대해,
+<p><a href="../211">분할에 대해 일반화된 수축 보조정리</a>: <a href="../2082">단순폐경로</a> $\mathscr{C}$ 를 포함하는 단순연결영역에서 $f: A \subseteq \mathbb{C} \to \mathbb{C}$ 가 $\mathscr{C}$ <a href="../383">내부</a>에서 유한한 점 $z_{1} , z_{2}, \cdots z_{m}$ 을 제외한 모든 점에서 <a href="../1929">해석적</a>이라고 하자. 그러면 $\mathscr{C}$ <a href="../383">내부</a>에서 $z_{k}$ 를 중심으로 하는 원 $\mathscr{C_k}$ 에 대해,
 $$
 \int_{\mathscr{C}} f(z) dz = \sum_{k=1}^{m} \int_{\mathscr{C}_{k}} f(z) dz
 $$</p>
@@ -346,7 +346,7 @@ $$</p>
 <aside style="text-align: right;">
     2017-11-10&emsp;
     류대식&emsp;
-    <a href="../1393">🎲 308</a>
+    <a href="../1641">🎲 308</a>
 </aside>
 
 <script>
@@ -430,6 +430,7 @@ $$</p>
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data.rows);
         if (data.ok) {
           commentRows = data.rows;
           render_comment(commentRows);
@@ -439,12 +440,26 @@ $$</p>
   }
 
   function render_comment(rows) {
+    const badgeExceptionArr = ['류대식', '전기현', 'ㅇㅇ', '질문'];
     render_blank();
     let html = '';
     rows.map(row => {
       html += `<div id="comment${row.cmt_idx}" class="parents">`;
       html += `<div class="content-info">`;
-      html += `<div class="list-author">${row.author}</div>`;
+      
+      let badge = '';
+      if (row.cmt_cnt > 5) {
+        badge = '🥉';
+      } else if (row.cmt_cnt > 25) {
+        badge = '🥈';
+      } else if (row.cmt_cnt > 125) {
+        badge = '🥇';
+      } else { }
+
+      if (badgeExceptionArr.includes(row.author)) {
+        badge = '';
+      }
+      html += `<div class="list-author">${badge} ${row.author}</div>`;
       html += `<div class="list-bridge">▶</div>`;
       html += `<div class="list-date">${row.datetime}</div>`;
       html += `<div class="list-button">`;
@@ -461,7 +476,20 @@ $$</p>
       row.child.map(child => {
         html += `<div id="comment${child.cmt_idx}" class="child">`;
         html += `<div class="content-info">`;
-        html += `<div class="list-author">${child.author}</div>`;
+        
+        let badge = '';
+        if (child.cmt_cnt > 5) {
+          badge = '🥉';
+        } else if (child.cmt_cnt > 25) {
+          badge = '🥈';
+        } else if (child.cmt_cnt > 125) {
+          badge = '🥇';
+        } else { }
+
+        if (badgeExceptionArr.includes(child.author)) {
+          badge = '';
+        }
+        html += `<div class="list-author">${badge} ${child.author}</div>`;
         html += `<div class="list-bridge">▶</div>`;
         html += `<div class="list-date">${child.datetime}</div>`;
         html += `<div class="list-button">`;

@@ -306,7 +306,7 @@ $$
 <h2 id="설명">설명</h2>
 <p>명제함수 $p(x,y)$ 는 물론 함수지만 엄밀하게 말해 아직 함수로써 정의된 것은 아니며, 설령 함수로 정의되었다고 할지라도 위 공리에서 말하는 함수 그 자체는 아니다. 논리식 $p(x,y)$ 자체가 말하는 것은 $x \in X$ 가 주어졌을 때 $y \in Y$ 이 존재한다는 말이다:</p>
 <ul>
-<li>예컨대 $p$ 는 $p(x,y): y = 2x$ 와 같이 주어질 수 있으며, 이때 치역이 존재하는 그 함수는 $f(x) = 2x$ 지 $p(x,y)$ 가 아니다. 치환 공리꼴에 따라 함수 $f$ 에 대한 $X = [0,1]$ 의 상 $Y = f [ 0 ,1] = [0,2]$ 이 존재하는 것이다.</li>
+<li>예컨대 $p$ 는 $p(x,y): y = 2x$ 와 같이 주어질 수 있으며, 이때 치역이 존재하는 그 함수는 $f(x) = 2x$ 지 $p(x,y)$ 가 아니다. 치환 공리꼴에 따라 <a href="../470">함수</a> $f$ 에 대한 $X = [0,1]$ 의 상 $Y = f [ 0 ,1] = [0,2]$ 이 존재하는 것이다.</li>
 </ul>
 <p><strong>공리</strong>가 아니라 <strong>공리꼴</strong>인 이유는 이 공리가 무수히 많은 $p(x,y)$ 에 따라 무수히 많이 존재하기 때문이다. 서로 다른 두 명제함수 $p_{1}(x,y): y = \sin x$ 와 $p_{2}(x,y): y = 2x$ 가 있다고 하면 $Y = f_{2} [ 0,1] = [0,2]$ 의 존재성을 보장하는 것은 &lsquo;$p_{1}(x,y)$ 에 대한 치환 공리&rsquo;가 아니라 &lsquo;$p_{2}(x,y)$ 에 대한 치환 공리&rsquo;다.</p>
 
@@ -314,7 +314,7 @@ $$
 <aside style="text-align: right;">
     2019-10-27&emsp;
     류대식&emsp;
-    <a href="../976">🎲 1352</a>
+    <a href="../1911">🎲 1352</a>
 </aside>
 
 <script>
@@ -398,6 +398,7 @@ $$
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data.rows);
         if (data.ok) {
           commentRows = data.rows;
           render_comment(commentRows);
@@ -407,12 +408,26 @@ $$
   }
 
   function render_comment(rows) {
+    const badgeExceptionArr = ['류대식', '전기현', 'ㅇㅇ', '질문'];
     render_blank();
     let html = '';
     rows.map(row => {
       html += `<div id="comment${row.cmt_idx}" class="parents">`;
       html += `<div class="content-info">`;
-      html += `<div class="list-author">${row.author}</div>`;
+      
+      let badge = '';
+      if (row.cmt_cnt > 5) {
+        badge = '🥉';
+      } else if (row.cmt_cnt > 25) {
+        badge = '🥈';
+      } else if (row.cmt_cnt > 125) {
+        badge = '🥇';
+      } else { }
+
+      if (badgeExceptionArr.includes(row.author)) {
+        badge = '';
+      }
+      html += `<div class="list-author">${badge} ${row.author}</div>`;
       html += `<div class="list-bridge">▶</div>`;
       html += `<div class="list-date">${row.datetime}</div>`;
       html += `<div class="list-button">`;
@@ -429,7 +444,20 @@ $$
       row.child.map(child => {
         html += `<div id="comment${child.cmt_idx}" class="child">`;
         html += `<div class="content-info">`;
-        html += `<div class="list-author">${child.author}</div>`;
+        
+        let badge = '';
+        if (child.cmt_cnt > 5) {
+          badge = '🥉';
+        } else if (child.cmt_cnt > 25) {
+          badge = '🥈';
+        } else if (child.cmt_cnt > 125) {
+          badge = '🥇';
+        } else { }
+
+        if (badgeExceptionArr.includes(child.author)) {
+          badge = '';
+        }
+        html += `<div class="list-author">${badge} ${child.author}</div>`;
         html += `<div class="list-bridge">▶</div>`;
         html += `<div class="list-date">${child.datetime}</div>`;
         html += `<div class="list-button">`;

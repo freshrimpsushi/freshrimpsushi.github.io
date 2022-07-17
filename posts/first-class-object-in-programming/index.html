@@ -306,7 +306,7 @@
 <h2 id="예시">예시</h2>
 <p>쉽게 말해 보통 수처럼 다룰 수 있는 것을 일급 객체라고 하는데, 이는 자명하게도 &lsquo;보통 수&rsquo;라는 것이 일급 객체기 때문이다. 정수 $3$ 을 예로 들어보면</p>
 <ul>
-<li><strong>(i)</strong>  어떤 함수 $f$ 에 대해 $f(3)$ 과 같이 매개변수가 될 수 있으며</li>
+<li><strong>(i)</strong>  어떤 <a href="../470">함수</a> $f$ 에 대해 $f(3)$ 과 같이 매개변수가 될 수 있으며</li>
 <li><strong>(ii)</strong>: $n$ 번째 피보나치 수를 반환하는 함수 $\text{fibo}$ 에 대해 $\text{fibo}(4) = 3$ 과 같이 반환되며</li>
 <li><strong>(iii)</strong>: $x = 3$ 과 같이 할당될 수 있고</li>
 <li><strong>(iv)</strong> $3==4$ 와 같이 동일한지 동일하지 않은지 비교할 수 있다.</li>
@@ -339,7 +339,7 @@ $$
 <aside style="text-align: right;">
     2019-11-09&emsp;
     류대식&emsp;
-    <a href="../415">🎲 1368</a>
+    <a href="../1171">🎲 1368</a>
 </aside>
 
 <script>
@@ -423,6 +423,7 @@ $$
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data.rows);
         if (data.ok) {
           commentRows = data.rows;
           render_comment(commentRows);
@@ -432,12 +433,26 @@ $$
   }
 
   function render_comment(rows) {
+    const badgeExceptionArr = ['류대식', '전기현', 'ㅇㅇ', '질문'];
     render_blank();
     let html = '';
     rows.map(row => {
       html += `<div id="comment${row.cmt_idx}" class="parents">`;
       html += `<div class="content-info">`;
-      html += `<div class="list-author">${row.author}</div>`;
+      
+      let badge = '';
+      if (row.cmt_cnt > 5) {
+        badge = '🥉';
+      } else if (row.cmt_cnt > 25) {
+        badge = '🥈';
+      } else if (row.cmt_cnt > 125) {
+        badge = '🥇';
+      } else { }
+
+      if (badgeExceptionArr.includes(row.author)) {
+        badge = '';
+      }
+      html += `<div class="list-author">${badge} ${row.author}</div>`;
       html += `<div class="list-bridge">▶</div>`;
       html += `<div class="list-date">${row.datetime}</div>`;
       html += `<div class="list-button">`;
@@ -454,7 +469,20 @@ $$
       row.child.map(child => {
         html += `<div id="comment${child.cmt_idx}" class="child">`;
         html += `<div class="content-info">`;
-        html += `<div class="list-author">${child.author}</div>`;
+        
+        let badge = '';
+        if (child.cmt_cnt > 5) {
+          badge = '🥉';
+        } else if (child.cmt_cnt > 25) {
+          badge = '🥈';
+        } else if (child.cmt_cnt > 125) {
+          badge = '🥇';
+        } else { }
+
+        if (badgeExceptionArr.includes(child.author)) {
+          badge = '';
+        }
+        html += `<div class="list-author">${badge} ${child.author}</div>`;
         html += `<div class="list-bridge">▶</div>`;
         html += `<div class="list-date">${child.datetime}</div>`;
         html += `<div class="list-button">`;

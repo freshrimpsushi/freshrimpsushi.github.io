@@ -263,19 +263,6 @@
     <div class="innertic">
       
     
-    
-    <div style="text-align: center;">
-        <p height=80% style="
-            text-align: center;
-            color: black;
-            border-style: dashed;
-            padding: 1rem;"
-            >
-        
-            이번 여름방학엔 <a href="../../categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/">선형대수</a> 정주행 어때요?
-        
-        </p>
-    </div>
 
 
 
@@ -358,7 +345,7 @@ f[2,3,-1] =&amp; {{ \displaystyle {{ f(2) - f( 3) } \over { 2 - 3 }} - {{ f(3) -
 $$
 계차상은 물론 유한한 벡터에 대해서 늘 구할 수 있지만 보통은 위와 같이 $n=2$ 까지만 사용하며, 그 외엔 쓸 일이 거의 없다.</p>
 <h3 id="구현">구현</h3>
-<p>다음은 계차상을 <a href="../../categories/r">R</a> 코드로 구현한 것으로써, 함수 $f$ 와 벡터 $\mathbb{x} = ( x_{0} , \cdots , x_{n} )$ 을 받아 $f [ x_{0} , \cdots , x_{n} ]$ 을 반환한다.</p>
+<p>다음은 계차상을 <a href="../../categories/r">R</a> 코드로 구현한 것으로써, <a href="../470">함수</a> $f$ 와 벡터 $\mathbb{x} = ( x_{0} , \cdots , x_{n} )$ 을 받아 $f [ x_{0} , \cdots , x_{n} ]$ 을 반환한다.</p>
 <pre tabindex="0"><code>f&lt;-function(x) {x^2 + 1}
 dd&lt;-function(f,X){
   if(length(X)==1) {return(f(X))}
@@ -437,7 +424,7 @@ $$</p>
 <aside style="text-align: right;">
     2019-03-24&emsp;
     류대식&emsp;
-    <a href="../771">🎲 969</a>
+    <a href="../1454">🎲 969</a>
 </aside>
 
 <script>
@@ -521,6 +508,7 @@ $$</p>
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data.rows);
         if (data.ok) {
           commentRows = data.rows;
           render_comment(commentRows);
@@ -530,12 +518,26 @@ $$</p>
   }
 
   function render_comment(rows) {
+    const badgeExceptionArr = ['류대식', '전기현', 'ㅇㅇ', '질문'];
     render_blank();
     let html = '';
     rows.map(row => {
       html += `<div id="comment${row.cmt_idx}" class="parents">`;
       html += `<div class="content-info">`;
-      html += `<div class="list-author">${row.author}</div>`;
+      
+      let badge = '';
+      if (row.cmt_cnt > 5) {
+        badge = '🥉';
+      } else if (row.cmt_cnt > 25) {
+        badge = '🥈';
+      } else if (row.cmt_cnt > 125) {
+        badge = '🥇';
+      } else { }
+
+      if (badgeExceptionArr.includes(row.author)) {
+        badge = '';
+      }
+      html += `<div class="list-author">${badge} ${row.author}</div>`;
       html += `<div class="list-bridge">▶</div>`;
       html += `<div class="list-date">${row.datetime}</div>`;
       html += `<div class="list-button">`;
@@ -552,7 +554,20 @@ $$</p>
       row.child.map(child => {
         html += `<div id="comment${child.cmt_idx}" class="child">`;
         html += `<div class="content-info">`;
-        html += `<div class="list-author">${child.author}</div>`;
+        
+        let badge = '';
+        if (child.cmt_cnt > 5) {
+          badge = '🥉';
+        } else if (child.cmt_cnt > 25) {
+          badge = '🥈';
+        } else if (child.cmt_cnt > 125) {
+          badge = '🥇';
+        } else { }
+
+        if (badgeExceptionArr.includes(child.author)) {
+          badge = '';
+        }
+        html += `<div class="list-author">${badge} ${child.author}</div>`;
         html += `<div class="list-bridge">▶</div>`;
         html += `<div class="list-date">${child.datetime}</div>`;
         html += `<div class="list-button">`;

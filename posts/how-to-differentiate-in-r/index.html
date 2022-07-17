@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-differentiate-in-r\/",
-    "wordCount" : "166",
+    "wordCount" : "168",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -293,7 +293,7 @@ g&lt;-function(x) {exp(-x)}
 grad(f,2)
 grad(g,0)
 </code></pre><p><img src="20190320_151607.png#center" alt="20190320\_151607.png"></p>
-<p>실제로 계산해보면 $f ' (2) = 2 \cdot 2 + 4 = 8$ 이고 $g'(0) = - e^{0} = -1$ 인 것을 확인할 수 있다.</p>
+<p>실제로 계산해보면 $f ' (2) = 2 \cdot 2 + 4 = 8$ 이고 $g ' (0) = - e^{0} = -1$ 인 것을 확인할 수 있다.</p>
 <p>참고로 <a href="../970">스칼라 함수</a>의 경우에도 <code>x</code> 옵션에 벡터를 넣어주면 <a href="../1010">그래디언트</a>를 잘 계산해준다.</p>
 <h2 id="같이보기">같이보기</h2>
 <ul>
@@ -304,7 +304,7 @@ grad(g,0)
 <aside style="text-align: right;">
     2019-04-12&emsp;
     류대식&emsp;
-    <a href="../349">🎲 971</a>
+    <a href="../1252">🎲 971</a>
 </aside>
 
 <script>
@@ -388,6 +388,7 @@ grad(g,0)
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data.rows);
         if (data.ok) {
           commentRows = data.rows;
           render_comment(commentRows);
@@ -397,12 +398,26 @@ grad(g,0)
   }
 
   function render_comment(rows) {
+    const badgeExceptionArr = ['류대식', '전기현', 'ㅇㅇ', '질문'];
     render_blank();
     let html = '';
     rows.map(row => {
       html += `<div id="comment${row.cmt_idx}" class="parents">`;
       html += `<div class="content-info">`;
-      html += `<div class="list-author">${row.author}</div>`;
+      
+      let badge = '';
+      if (row.cmt_cnt > 5) {
+        badge = '🥉';
+      } else if (row.cmt_cnt > 25) {
+        badge = '🥈';
+      } else if (row.cmt_cnt > 125) {
+        badge = '🥇';
+      } else { }
+
+      if (badgeExceptionArr.includes(row.author)) {
+        badge = '';
+      }
+      html += `<div class="list-author">${badge} ${row.author}</div>`;
       html += `<div class="list-bridge">▶</div>`;
       html += `<div class="list-date">${row.datetime}</div>`;
       html += `<div class="list-button">`;
@@ -419,7 +434,20 @@ grad(g,0)
       row.child.map(child => {
         html += `<div id="comment${child.cmt_idx}" class="child">`;
         html += `<div class="content-info">`;
-        html += `<div class="list-author">${child.author}</div>`;
+        
+        let badge = '';
+        if (child.cmt_cnt > 5) {
+          badge = '🥉';
+        } else if (child.cmt_cnt > 25) {
+          badge = '🥈';
+        } else if (child.cmt_cnt > 125) {
+          badge = '🥇';
+        } else { }
+
+        if (badgeExceptionArr.includes(child.author)) {
+          badge = '';
+        }
+        html += `<div class="list-author">${badge} ${child.author}</div>`;
         html += `<div class="list-bridge">▶</div>`;
         html += `<div class="list-date">${child.datetime}</div>`;
         html += `<div class="list-button">`;

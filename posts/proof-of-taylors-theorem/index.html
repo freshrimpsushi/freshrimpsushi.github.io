@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/proof-of-taylors-theorem\/",
-    "wordCount" : "576",
+    "wordCount" : "578",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -263,20 +263,6 @@
     <div class="innertic">
       
     
-    
-    <div style="text-align: center;">
-        <p height=80% style="
-            text-align: center;
-            color: black;
-            border-style: dashed;
-            padding: 1rem;"
-            >
-        
-            생새우초밥집에 아쉬운 점이 있나요? <br>
-            이 버튼 <a href="https://forms.gle/sfCHw7YKj5zMHMpK7" target='_blank'>🚨</a> 을 눌러 의견을 전달해주세요.
-        
-        </p>
-    </div>
 
 
 
@@ -330,7 +316,7 @@ $$</p>
 <p>롤의 정리에 의해</p>
 <p>$$
 \begin{align*}
-g'(\xi) =&amp; \sum_{k=1}^{n-1} \left[ -{(b-\xi)^{k-1}\over{(k-1)!}}{f^{(k)}(\xi)} + {(b-\xi)^{k}\over{k!}}{f^{(k+1)}(\xi)} \right] - {(b-\xi)^{n-1}\over{(n-1)!}}c 
+g ' (\xi) =&amp; \sum_{k=1}^{n-1} \left[ -{(b-\xi)^{k-1}\over{(k-1)!}}{f^{(k)}(\xi)} + {(b-\xi)^{k}\over{k!}}{f^{(k+1)}(\xi)} \right] - {(b-\xi)^{n-1}\over{(n-1)!}}c 
 \\ =&amp; {(b-\xi)^{n-1}\over{(n-1)!}}{f^{(n)}(\xi)} - {(b-\xi)^{n-1}\over{(n-1)!}}c 
 \\ =&amp; 0 
 \end{align*}
@@ -363,7 +349,7 @@ $$</p>
 <aside style="text-align: right;">
     2017-03-24&emsp;
     류대식&emsp;
-    <a href="../628">🎲 41</a>
+    <a href="../2131">🎲 41</a>
 </aside>
 
 <script>
@@ -447,6 +433,7 @@ $$</p>
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data.rows);
         if (data.ok) {
           commentRows = data.rows;
           render_comment(commentRows);
@@ -456,12 +443,26 @@ $$</p>
   }
 
   function render_comment(rows) {
+    const badgeExceptionArr = ['류대식', '전기현', 'ㅇㅇ', '질문'];
     render_blank();
     let html = '';
     rows.map(row => {
       html += `<div id="comment${row.cmt_idx}" class="parents">`;
       html += `<div class="content-info">`;
-      html += `<div class="list-author">${row.author}</div>`;
+      
+      let badge = '';
+      if (row.cmt_cnt > 5) {
+        badge = '🥉';
+      } else if (row.cmt_cnt > 25) {
+        badge = '🥈';
+      } else if (row.cmt_cnt > 125) {
+        badge = '🥇';
+      } else { }
+
+      if (badgeExceptionArr.includes(row.author)) {
+        badge = '';
+      }
+      html += `<div class="list-author">${badge} ${row.author}</div>`;
       html += `<div class="list-bridge">▶</div>`;
       html += `<div class="list-date">${row.datetime}</div>`;
       html += `<div class="list-button">`;
@@ -478,7 +479,20 @@ $$</p>
       row.child.map(child => {
         html += `<div id="comment${child.cmt_idx}" class="child">`;
         html += `<div class="content-info">`;
-        html += `<div class="list-author">${child.author}</div>`;
+        
+        let badge = '';
+        if (child.cmt_cnt > 5) {
+          badge = '🥉';
+        } else if (child.cmt_cnt > 25) {
+          badge = '🥈';
+        } else if (child.cmt_cnt > 125) {
+          badge = '🥇';
+        } else { }
+
+        if (badgeExceptionArr.includes(child.author)) {
+          badge = '';
+        }
+        html += `<div class="list-author">${badge} ${child.author}</div>`;
         html += `<div class="list-bridge">▶</div>`;
         html += `<div class="list-date">${child.datetime}</div>`;
         html += `<div class="list-button">`;

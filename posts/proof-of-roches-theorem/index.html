@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/proof-of-roches-theorem\/",
-    "wordCount" : "769",
+    "wordCount" : "775",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -306,11 +306,11 @@ $$
 |f(z)| = |-tg(z)| = |tg(z)|
 $$
 인데 $t \in [0,1]$ 이므로 $|f(z)| \le |g(z)|$ 이다. 이는 가정에 모순이므로 $f(z) + t g(z) \ne 0$ 이어야한다.</p>
-<p>$f(z) + t g(z) \ne 0$ 이므로 함수 $\displaystyle Z(t) = {{1} \over {2 \pi i}} \int_{\mathscr{C}} {{f ' (z) + t g'(z) } \over {f(z) + t g (z) }} dz$ 를 정의할 수 있다.</p>
+<p>$f(z) + t g(z) \ne 0$ 이므로 함수 $\displaystyle Z(t) = {{1} \over {2 \pi i}} \int_{\mathscr{C}} {{f ' (z) + t g ' (z) } \over {f(z) + t g (z) }} dz$ 를 정의할 수 있다.</p>
 <p>$Z: [0,1] \to \mathbb{Z}$ 의 정의에 따르면 <a href="../228">$Z(t)$ 는 유리형함수 $f(z) + t g (z)$ 의 영점의 갯수</a>다. 여기서 $t=0$ 이면 $Z(0)$ 는 $f$ 의 <a href="../2080">영점</a>의 갯수고 $t=1$ 이면 $Z(1)$ 은 $f+g$ 의 <a href="../2080">영점</a>의 갯수가 될 것이다. 즉 $Z(0) = Z(1)$ 임을 보이면 증명은 끝난다.</p>
 <p>한편 $Z: [0,1] \to \mathbb{Z}$ 는 공역이 정수이므로 $Z$ 가 연속함수면 $Z$ 는 상수함수일 수 밖에 없다. $| Z(t) - Z(s)|$ 를 계산해보면 통분을 하게 되면서
 $$
-|Z(t) - Z(s)| = {{ |t-s| } \over {2 \pi}} \left| \int_{\mathscr{C}} {{f(z) g'(z) - f '(z) g(z)} \over { (f(z) + t g(z))(f(z) + s g(z)) }} dz \right| 
+|Z(t) - Z(s)| = {{ |t-s| } \over {2 \pi}} \left| \int_{\mathscr{C}} {{f(z) g ' (z) - f '(z) g(z)} \over { (f(z) + t g(z))(f(z) + s g(z)) }} dz \right| 
 $$
 를 얻는다. 한편
 $$
@@ -319,7 +319,7 @@ $$</p>
 <p>$$
 | f(z) + s g(z) | \ge |f(z)| - |g(z)| &gt; 0
 $$
-여기서 $\mathscr{C}$ 은 <a href="../563">컴팩트하므로</a> $\displaystyle \left| {{f(z) g'(z) - f '(z) g(z)} \over { (|f(z)| - |g(z)|)^2 }} \right| \le M$ 을 만족하는 $M&gt;0$ 이 존재한다.</p>
+여기서 $\mathscr{C}$ 은 <a href="../563">컴팩트하므로</a> $\displaystyle \left| {{f(z) g ' (z) - f '(z) g(z)} \over { (|f(z)| - |g(z)|)^2 }} \right| \le M$ 을 만족하는 $M&gt;0$ 이 존재한다.</p>
 <blockquote>
 <p><a href="../162">ML 보조정리</a>: $|f(z)| \le M$ 을 만족하는 양수 $M$과 $\mathscr{C}$ 의 길이 $L$ 에 대해
 $$
@@ -345,7 +345,7 @@ $$
 <aside style="text-align: right;">
     2017-08-16&emsp;
     류대식&emsp;
-    <a href="../1661">🎲 229</a>
+    <a href="../2063">🎲 229</a>
 </aside>
 
 <script>
@@ -429,6 +429,7 @@ $$
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data.rows);
         if (data.ok) {
           commentRows = data.rows;
           render_comment(commentRows);
@@ -438,12 +439,26 @@ $$
   }
 
   function render_comment(rows) {
+    const badgeExceptionArr = ['류대식', '전기현', 'ㅇㅇ', '질문'];
     render_blank();
     let html = '';
     rows.map(row => {
       html += `<div id="comment${row.cmt_idx}" class="parents">`;
       html += `<div class="content-info">`;
-      html += `<div class="list-author">${row.author}</div>`;
+      
+      let badge = '';
+      if (row.cmt_cnt > 5) {
+        badge = '🥉';
+      } else if (row.cmt_cnt > 25) {
+        badge = '🥈';
+      } else if (row.cmt_cnt > 125) {
+        badge = '🥇';
+      } else { }
+
+      if (badgeExceptionArr.includes(row.author)) {
+        badge = '';
+      }
+      html += `<div class="list-author">${badge} ${row.author}</div>`;
       html += `<div class="list-bridge">▶</div>`;
       html += `<div class="list-date">${row.datetime}</div>`;
       html += `<div class="list-button">`;
@@ -460,7 +475,20 @@ $$
       row.child.map(child => {
         html += `<div id="comment${child.cmt_idx}" class="child">`;
         html += `<div class="content-info">`;
-        html += `<div class="list-author">${child.author}</div>`;
+        
+        let badge = '';
+        if (child.cmt_cnt > 5) {
+          badge = '🥉';
+        } else if (child.cmt_cnt > 25) {
+          badge = '🥈';
+        } else if (child.cmt_cnt > 125) {
+          badge = '🥇';
+        } else { }
+
+        if (badgeExceptionArr.includes(child.author)) {
+          badge = '';
+        }
+        html += `<div class="list-author">${badge} ${child.author}</div>`;
         html += `<div class="list-bridge">▶</div>`;
         html += `<div class="list-date">${child.datetime}</div>`;
         html += `<div class="list-button">`;

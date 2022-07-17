@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/proof-of-mean-value-theorem\/",
-    "wordCount" : "377",
+    "wordCount" : "383",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -291,7 +291,7 @@
 <p><a href="../36">롤의 정리</a></p>
 <p>함수 $f(x)$ 가 $[a,b]$ 에서 연속이고 $(a,b)$ 에서 미분가능하며 $f(a)=f(b)$ 면 $f ' (c)=0$ 를 만족하는 $c$ 가 $(a,b)$ 에 적어도 하나 존재한다.</p>
 </blockquote>
-<p>롤의 정리에 의해 $g'(c)=0$ 를 만족하는 $c$ 가 $(a,b)$ 에 적어도 하나 존재하고, $g'(x)=f ' (x) - m$ 이므로 $g'(c) = f '(c) - m = 0$ 이다. $f ' (c) -m = 0$ 에서 $(-m)$ 을 이항하면 $\displaystyle f '(c) = m = {{f(b)-f(a)}\over{b-a}}$ 를 만족하는 $c$ 가 $(a,b)$ 에 적어도 하나 존재함을 알 수 있다.</p>
+<p>롤의 정리에 의해 $g ' (c)=0$ 를 만족하는 $c$ 가 $(a,b)$ 에 적어도 하나 존재하고, $g ' (x)=f ' (x) - m$ 이므로 $g ' (c) = f '(c) - m = 0$ 이다. $f ' (c) -m = 0$ 에서 $(-m)$ 을 이항하면 $\displaystyle f '(c) = m = {{f(b)-f(a)}\over{b-a}}$ 를 만족하는 $c$ 가 $(a,b)$ 에 적어도 하나 존재함을 알 수 있다.</p>
 <p style="text-align: right;">■</p>
 <h2 id="같이보기">같이보기</h2>
 <ul>
@@ -312,7 +312,7 @@
 <aside style="text-align: right;">
     2017-03-24&emsp;
     류대식&emsp;
-    <a href="../889">🎲 37</a>
+    <a href="../2148">🎲 37</a>
 </aside>
 
 <script>
@@ -396,6 +396,7 @@
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data.rows);
         if (data.ok) {
           commentRows = data.rows;
           render_comment(commentRows);
@@ -405,12 +406,26 @@
   }
 
   function render_comment(rows) {
+    const badgeExceptionArr = ['류대식', '전기현', 'ㅇㅇ', '질문'];
     render_blank();
     let html = '';
     rows.map(row => {
       html += `<div id="comment${row.cmt_idx}" class="parents">`;
       html += `<div class="content-info">`;
-      html += `<div class="list-author">${row.author}</div>`;
+      
+      let badge = '';
+      if (row.cmt_cnt > 5) {
+        badge = '🥉';
+      } else if (row.cmt_cnt > 25) {
+        badge = '🥈';
+      } else if (row.cmt_cnt > 125) {
+        badge = '🥇';
+      } else { }
+
+      if (badgeExceptionArr.includes(row.author)) {
+        badge = '';
+      }
+      html += `<div class="list-author">${badge} ${row.author}</div>`;
       html += `<div class="list-bridge">▶</div>`;
       html += `<div class="list-date">${row.datetime}</div>`;
       html += `<div class="list-button">`;
@@ -427,7 +442,20 @@
       row.child.map(child => {
         html += `<div id="comment${child.cmt_idx}" class="child">`;
         html += `<div class="content-info">`;
-        html += `<div class="list-author">${child.author}</div>`;
+        
+        let badge = '';
+        if (child.cmt_cnt > 5) {
+          badge = '🥉';
+        } else if (child.cmt_cnt > 25) {
+          badge = '🥈';
+        } else if (child.cmt_cnt > 125) {
+          badge = '🥇';
+        } else { }
+
+        if (badgeExceptionArr.includes(child.author)) {
+          badge = '';
+        }
+        html += `<div class="list-author">${badge} ${child.author}</div>`;
         html += `<div class="list-bridge">▶</div>`;
         html += `<div class="list-date">${child.datetime}</div>`;
         html += `<div class="list-button">`;

@@ -443,7 +443,7 @@ $$
 \\ \ge&amp; g \left( \left\| \sum_{i=1}^{m} \alpha_{i} \phi \left( x_{i} \right) \right\| \right) &amp; \because (2)
 \end{align*}
 $$
-를 얻는다. 보다시피 $v = 0$ 일 때 등식이 성립하며, $g$ 가 최소화되려면 $v=0$ 이어야 한다. 한편 Part 2에서 $v$ 는 $c$ 에 영향을 끼칠 수 없음을 확인했으므로 $v = 0$ 으로 두어도 무방하고, $L = c + g$ 를 최소화하는 함수 $f$ 는 다음과 같은 꼴로 나타날 수 있게 된다.
+를 얻는다. 보다시피 $v = 0$ 일 때 등식이 성립하며, $g$ 가 최소화되려면 $v=0$ 이어야 한다. 한편 Part 2에서 $v$ 는 $c$ 에 영향을 끼칠 수 없음을 확인했으므로 $v = 0$ 으로 두어도 무방하고, $L = c + g$ 를 최소화하는 <a href="../470">함수</a> $f$ 는 다음과 같은 꼴로 나타날 수 있게 된다.
 $$
 f (\cdot) = \sum_{i=1}^{m} \alpha_{i} k \left( \cdot , x_{i} \right)
 $$</p>
@@ -464,7 +464,7 @@ $$</p>
 <aside style="text-align: right;">
     2013-06-29&emsp;
     류대식&emsp;
-    <a href="../1019">🎲 2408</a>
+    <a href="../1188">🎲 2408</a>
 </aside>
 
 <script>
@@ -548,6 +548,7 @@ $$</p>
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data.rows);
         if (data.ok) {
           commentRows = data.rows;
           render_comment(commentRows);
@@ -557,12 +558,26 @@ $$</p>
   }
 
   function render_comment(rows) {
+    const badgeExceptionArr = ['류대식', '전기현', 'ㅇㅇ', '질문'];
     render_blank();
     let html = '';
     rows.map(row => {
       html += `<div id="comment${row.cmt_idx}" class="parents">`;
       html += `<div class="content-info">`;
-      html += `<div class="list-author">${row.author}</div>`;
+      
+      let badge = '';
+      if (row.cmt_cnt > 5) {
+        badge = '🥉';
+      } else if (row.cmt_cnt > 25) {
+        badge = '🥈';
+      } else if (row.cmt_cnt > 125) {
+        badge = '🥇';
+      } else { }
+
+      if (badgeExceptionArr.includes(row.author)) {
+        badge = '';
+      }
+      html += `<div class="list-author">${badge} ${row.author}</div>`;
       html += `<div class="list-bridge">▶</div>`;
       html += `<div class="list-date">${row.datetime}</div>`;
       html += `<div class="list-button">`;
@@ -579,7 +594,20 @@ $$</p>
       row.child.map(child => {
         html += `<div id="comment${child.cmt_idx}" class="child">`;
         html += `<div class="content-info">`;
-        html += `<div class="list-author">${child.author}</div>`;
+        
+        let badge = '';
+        if (child.cmt_cnt > 5) {
+          badge = '🥉';
+        } else if (child.cmt_cnt > 25) {
+          badge = '🥈';
+        } else if (child.cmt_cnt > 125) {
+          badge = '🥇';
+        } else { }
+
+        if (badgeExceptionArr.includes(child.author)) {
+          badge = '';
+        }
+        html += `<div class="list-author">${badge} ${child.author}</div>`;
         html += `<div class="list-bridge">▶</div>`;
         html += `<div class="list-date">${child.datetime}</div>`;
         html += `<div class="list-button">`;

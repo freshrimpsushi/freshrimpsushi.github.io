@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/polynomial-interpolation\/",
-    "wordCount" : "1972",
+    "wordCount" : "1978",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -332,7 +332,7 @@
 <h3 id="라그랑주-공식과-뉴턴-계차상-공식은-같다">라그랑주 공식과 뉴턴 계차상 공식은 같다</h3>
 <p>공식 [2]와 [3]은 생긴 모양은 달라도 사실 [1]에 의해서 서로 같음을 알 수 있다. 본질적으로 두 공식은 정말 말 그대로 $p_{n}$ 을 어떻게 나타내느냐의 차이밖에 없으며, 용도 상 다른 점은 뉴턴 계차상 공식은 새로운 데이터가 추가되었을 때 업데이트가 편하다는 이점이 있다는 정도 뿐이다.</p>
 <h3 id="실제-함수와의-오차">실제 함수와의 오차</h3>
-<p>정리 [4]는 어떤 함수 $f$ 를 인터폴레이션하는 $p_{n}$ 이 $f$ 와 얼마나 차이가 나느냐를 보여준다. 보통의 경우에 $(n+1)!$ 의 발산 속도는 아주 빠르기 때문에 데이터가 많이 주어질수록 인터폴레이션 $p_{n}$ 의 정확성은 올라간다. 다만 이 공식은 딱히 수렴성을 논하는 것은 아니라는 것에 주의해야한다. 쉬운 예로써 $t$ 가 $\mathscr{H} \left\{ x_{0} , \cdots , x_{n} \right\}$ 에서 정말, 정말 먼 곳에 있는 경우를 생각해볼 수 있다. 또한 $f$ 가 별로 좋지 못해서 미분할때마다 값이 커지고 그것이 심지어 $(n+1)!$ 의 발산속도보다 빠르다면 얼마든지 이상해질 수 있다.</p>
+<p>정리 [4]는 어떤 <a href="../470">함수</a> $f$ 를 인터폴레이션하는 $p_{n}$ 이 $f$ 와 얼마나 차이가 나느냐를 보여준다. 보통의 경우에 $(n+1)!$ 의 발산 속도는 아주 빠르기 때문에 데이터가 많이 주어질수록 인터폴레이션 $p_{n}$ 의 정확성은 올라간다. 다만 이 공식은 딱히 수렴성을 논하는 것은 아니라는 것에 주의해야한다. 쉬운 예로써 $t$ 가 $\mathscr{H} \left\{ x_{0} , \cdots , x_{n} \right\}$ 에서 정말, 정말 먼 곳에 있는 경우를 생각해볼 수 있다. 또한 $f$ 가 별로 좋지 못해서 미분할때마다 값이 커지고 그것이 심지어 $(n+1)!$ 의 발산속도보다 빠르다면 얼마든지 이상해질 수 있다.</p>
 <h2 id="증명">증명</h2>
 <h3 id="1">[1]</h3>
 <p>전략: $(n+1)$개의 연립방정식을 행렬로 나타낸 후 역행렬의 존재성과 유일성을 동시에 가져온다.</p>
@@ -425,9 +425,9 @@ $$
 $$
 G(x_{i}) = 0 = G(x_{i+1})
 $$
-이므로 롤의 정리에 의해  $G'( x&rsquo;_{i}) = 0$ 을 만족하는 $x'_{i} \in \mathscr{H} \left\{ x_{i} , x_{i+1} \right\}$ 가 존재하고, 마찬가지로 모든 $i=0, \cdots , (n-1)$ 에 대해<br>
+이므로 롤의 정리에 의해  $g ' ( x&rsquo;_{i}) = 0$ 을 만족하는 $x'_{i} \in \mathscr{H} \left\{ x_{i} , x_{i+1} \right\}$ 가 존재하고, 마찬가지로 모든 $i=0, \cdots , (n-1)$ 에 대해<br>
 $$
-G'(x&rsquo;_{i}) = 0 = G'(x&rsquo;_{i+1})
+g ' (x&rsquo;_{i}) = 0 = g ' (x&rsquo;_{i+1})
 $$
 이므로 롤의 정리에 의해  $G'&rsquo;( x&rsquo;&rsquo;_{i}) = 0$ 을 만족하는 $x'&rsquo;_{i} \in \mathscr{H} \left\{ x&rsquo;_{i} , x&rsquo;_{i+1} \right\}$ 가 존재한다. 이와 같이 귀납적으로 롤의 정리를 $(n+1)$ 번 반복해서 사용하면 
 $$
@@ -468,7 +468,7 @@ $$</p>
 <aside style="text-align: right;">
     2019-05-06&emsp;
     류대식&emsp;
-    <a href="../803">🎲 1021</a>
+    <a href="../2174">🎲 1021</a>
 </aside>
 
 <script>
@@ -552,6 +552,7 @@ $$</p>
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data.rows);
         if (data.ok) {
           commentRows = data.rows;
           render_comment(commentRows);
@@ -561,12 +562,26 @@ $$</p>
   }
 
   function render_comment(rows) {
+    const badgeExceptionArr = ['류대식', '전기현', 'ㅇㅇ', '질문'];
     render_blank();
     let html = '';
     rows.map(row => {
       html += `<div id="comment${row.cmt_idx}" class="parents">`;
       html += `<div class="content-info">`;
-      html += `<div class="list-author">${row.author}</div>`;
+      
+      let badge = '';
+      if (row.cmt_cnt > 5) {
+        badge = '🥉';
+      } else if (row.cmt_cnt > 25) {
+        badge = '🥈';
+      } else if (row.cmt_cnt > 125) {
+        badge = '🥇';
+      } else { }
+
+      if (badgeExceptionArr.includes(row.author)) {
+        badge = '';
+      }
+      html += `<div class="list-author">${badge} ${row.author}</div>`;
       html += `<div class="list-bridge">▶</div>`;
       html += `<div class="list-date">${row.datetime}</div>`;
       html += `<div class="list-button">`;
@@ -583,7 +598,20 @@ $$</p>
       row.child.map(child => {
         html += `<div id="comment${child.cmt_idx}" class="child">`;
         html += `<div class="content-info">`;
-        html += `<div class="list-author">${child.author}</div>`;
+        
+        let badge = '';
+        if (child.cmt_cnt > 5) {
+          badge = '🥉';
+        } else if (child.cmt_cnt > 25) {
+          badge = '🥈';
+        } else if (child.cmt_cnt > 125) {
+          badge = '🥇';
+        } else { }
+
+        if (badgeExceptionArr.includes(child.author)) {
+          badge = '';
+        }
+        html += `<div class="list-author">${badge} ${child.author}</div>`;
         html += `<div class="list-bridge">▶</div>`;
         html += `<div class="list-date">${child.datetime}</div>`;
         html += `<div class="list-button">`;

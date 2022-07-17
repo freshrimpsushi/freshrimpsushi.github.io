@@ -283,7 +283,7 @@
 <p><a href="../646">함수공간</a> $\mathbb{C}^{\mathbb{R}}$ 의 함수 $f : \mathbb{R} \to \mathbb{C}$ 를 생각해보자.</p>
 <ul>
 <li>
-<p>함수 $f$ 의 <strong>서포트</strong><sup>support</sup>란 다음과 같이 함수값이 $0$ 이 아닌 점들의 집합에 <a href="../383">클로져</a>를 취한 클로즈 셋이다.
+<p><a href="../470">함수</a> $f$ 의 <strong>서포트</strong><sup>support</sup>란 다음과 같이 함수값이 $0$ 이 아닌 점들의 집합에 <a href="../383">클로져</a>를 취한 클로즈 셋이다.
 $$
 \text{supp} f = \overline{\left\{ x \in \mathbb{R} : f(x) \ne 0 \right\}}
 $$</p>
@@ -346,7 +346,7 @@ $$</p>
 <aside style="text-align: right;">
     2020-07-24&emsp;
     류대식&emsp;
-    <a href="../908">🎲 1594</a>
+    <a href="../660">🎲 1594</a>
 </aside>
 
 <script>
@@ -430,6 +430,7 @@ $$</p>
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data.rows);
         if (data.ok) {
           commentRows = data.rows;
           render_comment(commentRows);
@@ -439,12 +440,26 @@ $$</p>
   }
 
   function render_comment(rows) {
+    const badgeExceptionArr = ['류대식', '전기현', 'ㅇㅇ', '질문'];
     render_blank();
     let html = '';
     rows.map(row => {
       html += `<div id="comment${row.cmt_idx}" class="parents">`;
       html += `<div class="content-info">`;
-      html += `<div class="list-author">${row.author}</div>`;
+      
+      let badge = '';
+      if (row.cmt_cnt > 5) {
+        badge = '🥉';
+      } else if (row.cmt_cnt > 25) {
+        badge = '🥈';
+      } else if (row.cmt_cnt > 125) {
+        badge = '🥇';
+      } else { }
+
+      if (badgeExceptionArr.includes(row.author)) {
+        badge = '';
+      }
+      html += `<div class="list-author">${badge} ${row.author}</div>`;
       html += `<div class="list-bridge">▶</div>`;
       html += `<div class="list-date">${row.datetime}</div>`;
       html += `<div class="list-button">`;
@@ -461,7 +476,20 @@ $$</p>
       row.child.map(child => {
         html += `<div id="comment${child.cmt_idx}" class="child">`;
         html += `<div class="content-info">`;
-        html += `<div class="list-author">${child.author}</div>`;
+        
+        let badge = '';
+        if (child.cmt_cnt > 5) {
+          badge = '🥉';
+        } else if (child.cmt_cnt > 25) {
+          badge = '🥈';
+        } else if (child.cmt_cnt > 125) {
+          badge = '🥇';
+        } else { }
+
+        if (badgeExceptionArr.includes(child.author)) {
+          badge = '';
+        }
+        html += `<div class="list-author">${badge} ${child.author}</div>`;
         html += `<div class="list-bridge">▶</div>`;
         html += `<div class="list-date">${child.datetime}</div>`;
         html += `<div class="list-button">`;

@@ -263,6 +263,19 @@
     <div class="innertic">
       
     
+    
+    <div style="text-align: center;">
+        <p height=80% style="
+            text-align: center;
+            color: black;
+            border-style: dashed;
+            padding: 1rem;"
+            >
+        
+            이번 여름방학엔 <a href="../../categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/">선형대수</a> 정주행 어때요?
+        
+        </p>
+    </div>
 
 
 
@@ -284,7 +297,7 @@
 <p>$$\pi \notin \mathbb{Q}$$</p>
 <p>$\mathbb{Q}$ 는 유리수의 집합을 나타낸다.</p>
 <h2 id="증명">증명</h2>
-<p><strong>Strategy:</strong> 정수가 조밀성을 갖지 않는다는 점을 이용한다. 함수 $f$, $F$ 를 아주 교묘하게 정의해서 갖가지 트릭을 사용한다. 이 방법은 이반 니븐Ivan Niven에 의해 고안된 것으로 $\pi$ 가 무리수라는 것을 보이는 증명 중에서는 가장 쉽지만, 아쉽게도 <a href="../1204">입실론-델타 논법</a>이 쓰이기 때문에 비약 없이는 고등학교 교과과정 내에서 증명할 수 없다.</p>
+<p><strong>Strategy:</strong> 정수가 조밀성을 갖지 않는다는 점을 이용한다. <a href="../470">함수</a> $f$, $F$ 를 아주 교묘하게 정의해서 갖가지 트릭을 사용한다. 이 방법은 이반 니븐Ivan Niven에 의해 고안된 것으로 $\pi$ 가 무리수라는 것을 보이는 증명 중에서는 가장 쉽지만, 아쉽게도 <a href="../1204">입실론-델타 논법</a>이 쓰이기 때문에 비약 없이는 고등학교 교과과정 내에서 증명할 수 없다.</p>
 <hr>
 <p>$\mathbb{N}$ 는 자연수의 집합, $\mathbb{Z}$ 는 정수의 집합을 나타낸다.</p>
 <ul>
@@ -390,7 +403,7 @@ $$</p>
 <aside style="text-align: right;">
     2019-06-30&emsp;
     류대식&emsp;
-    <a href="../1716">🎲 1139</a>
+    <a href="../1153">🎲 1139</a>
 </aside>
 
 <script>
@@ -474,6 +487,7 @@ $$</p>
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data.rows);
         if (data.ok) {
           commentRows = data.rows;
           render_comment(commentRows);
@@ -483,12 +497,26 @@ $$</p>
   }
 
   function render_comment(rows) {
+    const badgeExceptionArr = ['류대식', '전기현', 'ㅇㅇ', '질문'];
     render_blank();
     let html = '';
     rows.map(row => {
       html += `<div id="comment${row.cmt_idx}" class="parents">`;
       html += `<div class="content-info">`;
-      html += `<div class="list-author">${row.author}</div>`;
+      
+      let badge = '';
+      if (row.cmt_cnt > 5) {
+        badge = '🥉';
+      } else if (row.cmt_cnt > 25) {
+        badge = '🥈';
+      } else if (row.cmt_cnt > 125) {
+        badge = '🥇';
+      } else { }
+
+      if (badgeExceptionArr.includes(row.author)) {
+        badge = '';
+      }
+      html += `<div class="list-author">${badge} ${row.author}</div>`;
       html += `<div class="list-bridge">▶</div>`;
       html += `<div class="list-date">${row.datetime}</div>`;
       html += `<div class="list-button">`;
@@ -505,7 +533,20 @@ $$</p>
       row.child.map(child => {
         html += `<div id="comment${child.cmt_idx}" class="child">`;
         html += `<div class="content-info">`;
-        html += `<div class="list-author">${child.author}</div>`;
+        
+        let badge = '';
+        if (child.cmt_cnt > 5) {
+          badge = '🥉';
+        } else if (child.cmt_cnt > 25) {
+          badge = '🥈';
+        } else if (child.cmt_cnt > 125) {
+          badge = '🥇';
+        } else { }
+
+        if (badgeExceptionArr.includes(child.author)) {
+          badge = '';
+        }
+        html += `<div class="list-author">${badge} ${child.author}</div>`;
         html += `<div class="list-bridge">▶</div>`;
         html += `<div class="list-date">${child.datetime}</div>`;
         html += `<div class="list-button">`;

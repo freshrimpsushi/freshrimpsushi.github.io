@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/generating-function\/",
-    "wordCount" : "680",
+    "wordCount" : "682",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -263,20 +263,6 @@
     <div class="innertic">
       
     
-    
-    <div style="text-align: center;">
-        <p height=80% style="
-            text-align: center;
-            color: black;
-            border-style: dashed;
-            padding: 1rem;"
-            >
-        
-            🔎F2키를 눌러 포스트를 퀵서치할 수 있습니다. <br>
-            한국어는 물론, 영어로도 검색을 시도해보세요.
-        
-        </p>
-    </div>
 
 
 
@@ -312,7 +298,7 @@ $$
 $$
 가 된다. 한편 $a_{n} = n+1$, 즉 자연수의 수열인 경우는 $\displaystyle g(x) =  {{1} \over {1-x}}$ 의 양변을 $x$ 로 미분한 것과 같다. 그 결과는 물론 다음과 같다.
 $$
-\displaystyle g'(x) = 1 + 2 x + 3 x^2 + \cdots = {{1} \over {(1-x)^2 }} 
+\displaystyle g ' (x) = 1 + 2 x + 3 x^2 + \cdots = {{1} \over {(1-x)^2 }} 
 $$
 생성 함수에 대한 연구는 언뜻 보기에 전혀 쓸모가 없어 보이지만 멱함수로 일반화되어서 <a href="../248">통계학</a>을 위시한 여러 응용수학에 폭 넓게 사용되고 있다. (놀랍지도 않지만, 오일러는 이러한 이름이 붙기도 전부터 해석학과 수론의 문제를 풀기 위해 사용하고 있었다고 한다.)</p>
 
@@ -320,7 +306,7 @@ $$
 <aside style="text-align: right;">
     2017-08-30&emsp;
     류대식&emsp;
-    <a href="../1220">🎲 232</a>
+    <a href="../1894">🎲 232</a>
 </aside>
 
 <script>
@@ -404,6 +390,7 @@ $$
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data.rows);
         if (data.ok) {
           commentRows = data.rows;
           render_comment(commentRows);
@@ -413,12 +400,26 @@ $$
   }
 
   function render_comment(rows) {
+    const badgeExceptionArr = ['류대식', '전기현', 'ㅇㅇ', '질문'];
     render_blank();
     let html = '';
     rows.map(row => {
       html += `<div id="comment${row.cmt_idx}" class="parents">`;
       html += `<div class="content-info">`;
-      html += `<div class="list-author">${row.author}</div>`;
+      
+      let badge = '';
+      if (row.cmt_cnt > 5) {
+        badge = '🥉';
+      } else if (row.cmt_cnt > 25) {
+        badge = '🥈';
+      } else if (row.cmt_cnt > 125) {
+        badge = '🥇';
+      } else { }
+
+      if (badgeExceptionArr.includes(row.author)) {
+        badge = '';
+      }
+      html += `<div class="list-author">${badge} ${row.author}</div>`;
       html += `<div class="list-bridge">▶</div>`;
       html += `<div class="list-date">${row.datetime}</div>`;
       html += `<div class="list-button">`;
@@ -435,7 +436,20 @@ $$
       row.child.map(child => {
         html += `<div id="comment${child.cmt_idx}" class="child">`;
         html += `<div class="content-info">`;
-        html += `<div class="list-author">${child.author}</div>`;
+        
+        let badge = '';
+        if (child.cmt_cnt > 5) {
+          badge = '🥉';
+        } else if (child.cmt_cnt > 25) {
+          badge = '🥈';
+        } else if (child.cmt_cnt > 125) {
+          badge = '🥇';
+        } else { }
+
+        if (badgeExceptionArr.includes(child.author)) {
+          badge = '';
+        }
+        html += `<div class="list-author">${badge} ${child.author}</div>`;
         html += `<div class="list-bridge">▶</div>`;
         html += `<div class="list-date">${child.datetime}</div>`;
         html += `<div class="list-button">`;
