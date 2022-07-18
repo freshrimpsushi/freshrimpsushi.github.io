@@ -255,8 +255,8 @@
 <title>R 에서 부트스트랩 함수 사용하는 법</title>
 
 <h1>R 에서 부트스트랩 함수 사용하는 법</h1>
-<p style="margin-top: -20px; margin-bottom: 0px;">
-  <i>How to use boot in r</i>
+<p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px;">
+  How to use boot in r
 </p>
 <aside>
   <div class="innerheader">
@@ -300,13 +300,13 @@
 <p><code>Default</code>는 채무불이행 여부와 그에 대한 조건들의 데이터셋이다. 당연히 <code>default</code> 변수가 종속변수고, 실제로 채무불이행까지 이어지는지의 예측문제이므로 <a href="../832">로지스틱 회귀분석</a>이 적절하다.</p>
 <p><img src="20180507_202245.png#center" alt="20180507\_202245.png"></p>
 <p>로지스틱 회귀분석의 결과는 위와 같다.</p>
-<p>우리는 여기서 회귀계수에 대해 부트스트랩을 사용해볼 것이다.</p>
+<p>우리는 여기서 <a href="../2458">회귀계수</a>에 대해 부트스트랩을 사용해볼 것이다.</p>
 <p><img src="20180507_202409.png#center" alt="20180507\_202409.png"></p>
 <p>부트스트랩에 쓰이는 함수는 위와 같이 <code>dataset</code>과 <code>index</code>라는 두 개의 인수가 필수적이다. <code>dataset</code>은 오리지널 데이터를 받아주고, <code>index</code>는 부트스트랩을 통한 재표본추출의 튜플을 받아줄 것이다.</p>
-<p><code>return()</code>을 보면 알겠지만 해당 함수가 돌려주는 것은 모델이나 요약 전체가 아니라 회귀계수로 이루어진 벡터 뿐이다. 이렇게 함수를 포멀하게 정의할 필요가 있다보니 R에 대한 기초가 부족하면 부트스트랩 함수를 이해하기 어려울 것이다. 부트스트랩을 쓸 정도로 통계학에 숙달된 학습자라면 큰 문제는 없겠지만, 조금 어렵게 느껴져도 정상이니 자책하지 말자.</p>
+<p><code>return()</code>을 보면 알겠지만 해당 함수가 돌려주는 것은 모델이나 요약 전체가 아니라 <a href="../2458">회귀계수</a>로 이루어진 벡터 뿐이다. 이렇게 함수를 포멀하게 정의할 필요가 있다보니 R에 대한 기초가 부족하면 부트스트랩 함수를 이해하기 어려울 것이다. 부트스트랩을 쓸 정도로 통계학에 숙달된 학습자라면 큰 문제는 없겠지만, 조금 어렵게 느껴져도 정상이니 자책하지 말자.</p>
 <p><img src="20180507_202925.png#center" alt="20180507\_202925.png"></p>
 <p><code>boot()</code> 함수는 <code>data</code>에 데이터셋을 받고 R에 실행 횟수를 받는다.<code>statistiic</code> 옵션이 받아주는 것은 <code>boot.fn()</code>이 반환하는 &lsquo;벡터&rsquo;가 아니라 &lsquo;함수 그 자체&rsquo;인 <code>boot.fn</code>라는 부분에서 많이 실수한다.</p>
-<p>계속해서 에러가 난다면 대부분은 여기가 문제다. 실행 결과를 보면 첫번째 회귀계수부터 t1, t2, t3, t4로 나타나고 계수나 <a href="../541">표준오차</a>가 처음에 했던 로지스틱 회귀분석의 결과와 상당히 비슷하게 구해졌음을 확인할 수 있다. 여기서 부트스트랩을 통해 얻어내고자 하는 것은 <a href="../551">점추정값인 original이 아니라 std. error라는 점</a>에 주의하도록 하자. 잘 비교해보면 알겠지만 original이란 그냥 전체 데이터에서 얻은 회귀계수로써 부트스트랩 그 자체와는 하등 상관없고 필요없다.</p>
+<p>계속해서 에러가 난다면 대부분은 여기가 문제다. 실행 결과를 보면 첫번째 회귀계수부터 t1, t2, t3, t4로 나타나고 계수나 <a href="../541">표준오차</a>가 처음에 했던 로지스틱 회귀분석의 결과와 상당히 비슷하게 구해졌음을 확인할 수 있다. 여기서 부트스트랩을 통해 얻어내고자 하는 것은 <a href="../551">점추정값인 original이 아니라 std. error라는 점</a>에 주의하도록 하자. 잘 비교해보면 알겠지만 original이란 그냥 전체 데이터에서 얻은 <a href="../2458">회귀계수</a>로써 부트스트랩 그 자체와는 하등 상관없고 필요없다.</p>
 <h2 id="코드">코드</h2>
 <p>아래는 예제코드다. 부트스트랩같은 경우엔 너무 사용법이 특이해서 이해가 잘 안가면 그냥 예제를 자기 케이스에 맞게 바꿔 쓰기만해도 된다.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ISLR)
@@ -329,7 +329,7 @@
 <aside style="text-align: right;">
     2018-05-17&emsp;
     류대식&emsp;
-    <a href="../1606">🎲 558</a>
+    <a href="../807">🎲 558</a>
 </aside>
 
 <script>
@@ -778,8 +778,8 @@
 <form method="get" action="../../search" style="border: 1px;">
 <div class="field">
 
-<input type="text" id="searchtext" placeholder = "🔍통합검색" class="input_text" name="s"
-style="text-align: center; width: 100%; font-size: 1.5rem; border: 1px; border-radius: 0px;">
+<input type="text" id="searchtext" placeholder = "통합검색" class="input_text" name="s"
+style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.5rem; border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px;">
 </div>
 </form>
 
@@ -886,11 +886,11 @@ style="text-align: center; width: 100%; font-size: 1.5rem; border: 1px; border-r
     <a href=https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/>
         <span style="color:rgb(051,204,051);">●</span> 데이터확보 (22)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%EA%B3%BC%ED%95%99/>
-        <span style="color:rgb(255,051,051);">●</span> 데이터과학 (21)</a><br>
+        <span style="color:rgb(255,051,051);">●</span> 데이터과학 (22)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EA%B2%80%EC%A0%95/>
         <span style="color:rgb(255,204,000);">●</span> 통계적검정 (20++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
-        <span style="color:rgb(051,204,051);">●</span> 통계적분석 (58)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
         <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>

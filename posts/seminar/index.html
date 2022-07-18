@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/seminar\/",
-    "wordCount" : "3317",
+    "wordCount" : "23",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -255,8 +255,8 @@
 <title>세미나</title>
 
 <h1>세미나</h1>
-<p style="margin-top: -20px; margin-bottom: 0px;">
-  <i>Seminar</i>
+<p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px;">
+  Seminar
 </p>
 <aside>
   <div class="innerheader">
@@ -272,8 +272,7 @@
             padding: 1rem;"
             >
         
-            생새우초밥집에 아쉬운 점이 있나요? <br>
-            이 버튼 <a href="https://forms.gle/sfCHw7YKj5zMHMpK7" target='_blank'>🚨</a> 을 눌러 의견을 전달해주세요.
+            이번 여름방학엔 <a href="../../categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/">선형대수</a> 정주행 어때요?
         
         </p>
     </div>
@@ -289,37 +288,6 @@
     <li><a href="#google-drivehttpsdrivegooglecomdrivefolders18_uiq6uk_wqabzg6tkzjhlwz7nqvo8eq"><a href="https://drive.google.com/drive/folders/18_UiQ6UK_WQABZg6tKZJHlWZ7NqVo8eq">Google Drive</a></a></li>
     <li><a href="#원드라이브">원드라이브</a></li>
   </ul>
-
-  <ul>
-    <li><a href="#개요-1">개요 </a></li>
-    <li><a href="#코드">코드</a>
-      <ul>
-        <li><a href="#행렬을-2차원배열로">행렬을 2차원배열로</a></li>
-        <li><a href="#2차원배열을-행렬로">2차원배열을 행렬로</a></li>
-        <li><a href="#전체-코드">전체 코드</a></li>
-      </ul>
-    </li>
-    <li><a href="#환경">환경</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#정의-1">정의 </a></li>
-    <li><a href="#공식">공식</a></li>
-    <li><a href="#유도-2">유도 </a></li>
-    <li><a href="#같이보기">같이보기</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#용어">용어</a></li>
-    <li><a href="#설명">설명</a>
-      <ul>
-        <li><a href="#자유도를-설명하기-어려운-이유">자유도를 설명하기 어려운 이유</a></li>
-        <li><a href="#극단적인-예시-자유도라는-개념이-없다면">극단적인 예시: 자유도라는 개념이 없다면?</a></li>
-        <li><a href="#보고-또-보는-예시-s2">보고 또 보는 예시: $s^{2}$</a></li>
-      </ul>
-    </li>
-    <li><a href="#같이보기-1">같이보기</a></li>
-  </ul>
 </nav>
     </div>
   </div>
@@ -330,243 +298,12 @@
 <h2 id="google-drivehttpsdrivegooglecomdrivefolders18_uiq6uk_wqabzg6tkzjhlwz7nqvo8eq"><a href="https://drive.google.com/drive/folders/18_UiQ6UK_WQABZg6tKZJHlWZ7NqVo8eq">Google Drive</a></h2>
 <h2 id="원드라이브">원드라이브</h2>
 <iframe src="https://onedrive.live.com/embed?cid=65E5BA34F41E25E0&resid=65E5BA34F41E25E0%2124470&authkey=AHwIpnZ0BPkIO3g" width="165" height="128" frameborder="0" scrolling="no"></iframe> <iframe src="https://onedrive.live.com/embed?cid=65E5BA34F41E25E0&resid=65E5BA34F41E25E0%21533589&authkey=ACzYTsb9AS5OT6Y" width="165" height="128" frameborder="0" scrolling="no"></iframe>
-<hr>
-<hr>
-<h1 id="줄리아에서-2차원-배열과-행렬-간-전환하는-법-eachrowm-hcata">줄리아에서 2차원 배열과 행렬 간 전환하는 법 <code>[eachrow(M)...]</code>, <code>hcat(A...)</code></h1>
-<p>How to Convert between 2d Array and Matrix in julia</p>
-<h2 id="개요-1">개요 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서 2차원 배열과 행렬 사이를 전환하는 팁을 소개한다. 아마 줄리아 1.7 이하의 환경에서는 가장 줄리아다운 구현이면서 간단하고, 빠르고, 아름다운 방법일 것이다.</p>
-<h2 id="코드">코드</h2>
-<p>여기서 소개된 방법이 아니라도 행렬과 2차원 배열을 넘나드는 방법은 무수히 많다. 막코딩을 하든 뭘하든 목표자체가 어렵지 않기 때문이다. 글을 제대로 읽으려면 단순히 목표만 신경쓸 게 아니라 줄리아 특유의 문법이 어떻게 쓰였는지를 고민하면서 보는 게 좋다.</p>
-<h3 id="행렬을-2차원배열로">행렬을 2차원배열로</h3>
-<pre tabindex="0"><code>julia&gt; M = rand(0:9, 3, 10)
-3×10 Matrix{Int64}:
- 2  4  0  1  8  0  9  2  5  7
- 5  2  1  5  4  3  7  2  7  3
- 7  8  1  9  0  3  2  4  1  3
-</code></pre><p>위와 같은 행렬을 2차원 배열로 바꿔보자.</p>
-<pre tabindex="0"><code>julia&gt; [eachrow(M)...]
-3-element Vector{SubArray{Int64, 1, Matrix{Int64}, Tuple{Int64, Base.Slice{Base.OneTo{Int64}}}, true}}:
- [2, 4, 0, 1, 8, 0, 9, 2, 5, 7]
- [5, 2, 1, 5, 4, 3, 7, 2, 7, 3]
- [7, 8, 1, 9, 0, 3, 2, 4, 1, 3]
-
-julia&gt; [eachcol(M)...]
-10-element Vector{SubArray{Int64, 1, Matrix{Int64}, Tuple{Base.Slice{Base.OneTo{Int64}}, Int64}, true}}:
- [2, 5, 7]
- [4, 2, 8]
- [0, 1, 1]
- [1, 5, 9]
- [8, 4, 0]
- [0, 3, 3]
- [9, 7, 2]
- [2, 2, 4]
- [5, 7, 1]
- [7, 3, 3]
-</code></pre><p><code>eachrow()</code>와 <code>eachcol()</code>는 행렬의 행과 열 단위로 한 줄씩 뽑아주는 생성자<sup>Generator</sup>를 리턴하고<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> 스플랫 오퍼레이터를 통해 이들을 가변 배열로 취급해서<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> 각괄호 <code>[]</code> 안에 넣어주면 자연스럽게 배열이 된다.</p>
-<h3 id="2차원배열을-행렬로">2차원배열을 행렬로</h3>
-<pre tabindex="0"><code>julia&gt; A = [rand(0:9,3) for _ in 1:10]
-10-element Vector{Vector{Int64}}:
- [5, 4, 9]
- [9, 7, 6]
- [9, 9, 6]
- [5, 9, 0]
- [0, 2, 8]
- [3, 9, 5]
- [1, 6, 0]
- [5, 7, 7]
- [1, 3, 5]
- [5, 4, 1]
-</code></pre><p>위와 같은 2차원 배열을 행렬로 만들어보자.</p>
-<pre tabindex="0"><code>julia&gt; hcat(A...)
-3×10 Matrix{Int64}:
- 5  9  9  5  0  3  1  5  1  5
- 4  7  9  9  2  9  6  7  3  4
- 9  6  6  0  8  5  0  7  5  1
-
-julia&gt; hcat(A...)&#39;
-10×3 adjoint(::Matrix{Int64}) with eltype Int64:
- 5  4  9
- 9  7  6
- 9  9  6
- 5  9  0
- 0  2  8
- 3  9  5
- 1  6  0
- 5  7  7
- 1  3  5
- 5  4  1
-
-julia&gt; vcat(A...)
-30-element Vector{Int64}:
- 5
- 4
- 9
- 9
- 7
- 6
- 9
- 9
- ⋮
- 7
- 1
- 3
- 5
- 5
- 4
- 1
-</code></pre><p>배열을 병합하는 <code>hcat()</code> 함수를 사용하면 된다. <sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> 기본적으로 <code>hcat()</code>과 <code>vcat()</code>은 <a href="../3280">폴드 함수</a>이면서 <a href="../2266">가변 인자 함수</a>기 때문에 마찬가지로 스플랫 오퍼레이터를 통해 2차원 배열의 원소인 1차원 배열들을 직접 인자로써 전달해야한다.</p>
-<h3 id="전체-코드">전체 코드</h3>
-<pre tabindex="0"><code># matrix to 2d array
-
-M = rand(0:9, 3, 10)
-
-[eachrow(M)...]
-[eachcol(M)...]
-
-# 2d array to matrix
-
-A = [rand(0:9,3) for _ in 1:10]
-
-hcat(A...)
-hcat(A...)&#39;
-vcat(A...)
-</code></pre><h2 id="환경">환경</h2>
-<ul>
-<li>OS: Windows</li>
-<li>julia: v1.7.0</li>
-</ul>
-<hr>
-<h1 id="회귀계수의-정의와-추정량의-공식-유도">회귀계수의 정의와 추정량의 공식 유도</h1>
-<h2 id="정의-1">정의 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p>$$
-Y = \beta_{0} + \beta_{1} X_{1} + \cdots + \beta_{p} X_{p} + \varepsilon
-$$
-<a href="../666">다중회귀분석</a>에서 주어진 $p$ 개의 독립변수 $X_{1} , \cdots , X_{p}$ 에 대해 위와 같은 선형모델<sup>Linear Model</sup>을 세울 때, $\beta_{0} , \beta_{1} , \cdots , \beta_{p}$ 를 <strong>회귀계수</strong><sup>Regression Coefficient</sup>라 한다. $Y$ 는 종속변수, $\varepsilon$ 은 랜덤하게 분포된 에러를 의미한다.</p>
-<h2 id="공식">공식</h2>
-<p>$$\begin{bmatrix}
-y_{1} 
-\\  y_{2} 
-\\ \vdots 
-\\  y_{n} 
-\end{bmatrix} = \begin{bmatrix}
-1 &amp; x_{11} &amp; \cdots &amp; x_{p1} 
-\\  1 &amp; x_{12} &amp; \cdots &amp; x_{p2} 
-\\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots 
-\\  1 &amp; x_{1n} &amp; \cdots &amp; x_{pn} 
-\end{bmatrix} \begin{bmatrix}
-\beta_{0} 
-\\ \beta_{1} 
-\\ \vdots 
-\\ \beta_{p} 
-\end{bmatrix}  + \begin{bmatrix}
-\varepsilon_{1} 
-\\ \varepsilon_{2} 
-\\ \vdots 
-\\ \varepsilon_{n}
-\end{bmatrix}$$
-$n$ 개의 <a href="../2418">데이터</a>가 주어져 있을 때 선형다중회귀모델을 <a href="../550">계획행렬</a>로 나타내면 위와 같고, 간단히 $Y = X \beta + \varepsilon$ 라 나타내자. $\beta$ 에 대해 <a href="../356">최소제곱</a>인 <a href="../1730">추정량 벡터</a> $\hat{\beta}$ 는 다음과 같다.
-$$
-\hat{\beta} = \begin{bmatrix}
-\hat{\beta}_{0}
-\\ \hat{\beta}_{1}
-\\ \vdots
-\\ \hat{\beta}_{p}
-\end{bmatrix} = \left( X^{T} X \right)^{-1} X^{T} Y
-$$</p>
-<h2 id="유도-2">유도 <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h2>
-<p>우리의 목표는
-$$
-\left\| \varepsilon \right\|_{2}^{2} = \sum_{k=0}^{n} \varepsilon_{k} = \begin{bmatrix}
-\varepsilon_{0} &amp; \varepsilon_{1} &amp; \cdots &amp; \varepsilon_{n}
-\end{bmatrix} \begin{bmatrix}
-\varepsilon_{0}
-\\ \varepsilon_{1}
-\\ \vdots
-\\ \varepsilon_{p}
-\end{bmatrix} = \varepsilon^{T} \varepsilon
-$$
-을 최소화하는 것이다. $\varepsilon = Y - X \beta$ 이므로 $\varepsilon^{T} \varepsilon = \left( Y - X \beta \right)^{T} \left( Y - X \beta \right)$ 을 최소화하는 $\beta$ 를 찾으면 된다. 양변을 $\beta$ 로 미분한
-$$
-\begin{align*}
-{{ d } \over { d \beta }} \varepsilon^{T} \varepsilon =&amp; - 2 X^{T} \left( Y - X \beta \right)
-\\ = &amp; - 2 X^{T} \left( Y - X \beta \right)
-\\ = &amp; - 2 X^{T} Y + 2 X^{T} X \beta
-\end{align*}
-$$
-가 $0$ 이 되게끔 하는 $\hat{\beta}$ 는 다음의 꼴이 된다.
-$$
-\hat{\beta} = \argmin_{\beta} \varepsilon^{T} \varepsilon = \left( X^{T} X \right)^{-1} X^{T} Y
-$$</p>
-<p style="text-align: right;">■</p>
-<h2 id="같이보기">같이보기</h2>
-<ul>
-<li><a href="../648">단순회귀계수의 유도</a></li>
-</ul>
-<hr>
-<h1 id="통계학에서의-자유도">통계학에서의 자유도</h1>
-<p>Degree of Freedom in Statistics</p>
-<h2 id="용어">용어</h2>
-<p>어떤 <a href="../2440">통계량</a>을 산출할 때 그 값을 바꿀 수 있는 독립적인 <a href="../2418">데이터</a>의 수를 <strong>자유도</strong><sup>Degree of Freedom</sup>라 한다. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
-<h2 id="설명">설명</h2>
-<h3 id="자유도를-설명하기-어려운-이유">자유도를 설명하기 어려운 이유</h3>
-<p>신입생이 되어 <a href="../2424">통계학</a>을 공부 해보면 이 &lsquo;자유도&rsquo;라는 게 뭔지 참 짜증이 난다. 일단 어려운데다 자주 나오는 건 둘째치고, 도대체가, 어떤 교재에서도 그 정의를 명확하게 하는 걸 볼 수가 없기 때문이다. 이 포스트 역시 구체적으로 자유도를 정의하지 않고 그냥 &lsquo;용어&rsquo;라고만 소개하며, 그 말 자체도 &lsquo;산출할 때&rsquo;나 &lsquo;값을 바꿀 수 있는&rsquo; 등 엄밀한 수학적 진술이라고 볼 수 없는 표현들을 사용하고 있다.</p>
-<p>문제는 <strong>그럴만 하다</strong>는 것이다. 다들 귀찮아서 그냥 넘어가는 게 아니라, 진짜 자유도라는 개념 자체가 공부해서 &lsquo;이해&rsquo;하는 것보다는 경험이 쌓이면서 &lsquo;체득&rsquo;되는 느낌이 강하다. 2~3학년쯤 되면 이제 자유도가 뭔지 대충 감이 오고, 대학원에 갈 때쯤 되면 보통 그게 뭔지 설명도 곧잘 하지만 정의를 읊는 것은 역시 어렵다.</p>
-<p>우선 자유도라는 표현 자체가 주는 &lsquo;좋은 감정&rsquo;부터가 문제다. 그것이 패션이든, 오픈월드 게임이든, 민주주의든 자유도란 높을수록, 클수록 좋은 양으로 간주된다. 심지어 신입생이 되어 처음으로 접하는 자유도는 흔히 &lsquo;표본의 수가 $n$이니까 거기서 $1$을 뺀 $(n-1)$ 만큼의 자유도를 갖는다&rsquo;는 식으로 계산된다. 깊은 고찰 없이 들어보면 표본의 수 역시 적은 것보다는 많은 게 좋을법 하니 통계학에서의 자유도마저 뭔가 &lsquo;좋고 나쁨을 가지는 수&rsquo;라는 인식을 가질 수 있다. 그러나 정확히 수식으로써 그들을 다루고 탐구하는 맥락에서 자유도는 단지 어떤 수일 뿐이다.</p>
-<p>또 아무 맥락이나 너무 뜬금 없이, 심지어 자주 등장한다는 것도 문제다. 분산분석<sup>ANOVA</sup>이나 <a href="../548">회귀분석</a>을 배워보면 갑자기 $n-1$ 이니 $n-p-1$ 이니하는 &lsquo;어떻게 계산된건지 설명이 너무 부족한&rsquo; 자유도들이 쏟아진다. 그러다 수리통계학을 배우는데, 이젠 갑자기 <a href="../1667">t-분포</a>니 <a href="../1600">카이제곱분포</a>니 하는 것들의 모수를 자유도란다. 심지어 <a href="../1606">F-분포</a>는 자유도가 두개라고 하는데, 그것들의 의미가 뭔지 정확히 짚고 넘어가지 않아서 찝찝한 와중에 왠지 또 그냥저냥 알 것도 같은 신기한 기분을 느낄 수 있다. 이 때가 보통 2~3학년인데, 이제와서 자유도에 대해 굳이 질문하기도 민망한 동시에 새까맣게 모르는 정도는 아니라서 얼레벌레 넘어가게 되는 게 보통이다.</p>
-<p>실제 그 숫자들이 필요한 건 이해한다 치더라도 그들을 &lsquo;자유도&rsquo;라 부르는 것은 일견 무의미해 보이기까지 한다. 그렇다면 이제 왜 자유도라는 단어가 필요한지에 공감해보자.</p>
-<h3 id="극단적인-예시-자유도라는-개념이-없다면">극단적인 예시: 자유도라는 개념이 없다면?</h3>
-<p>어떤 쓸모없어 보이는 개념을 설명할 때 좋은 방법 중 하나는 그 개념이 없을 때 어떤 &lsquo;반칙&rsquo;이 허용되는가를 설명하는 것이다. 수식적으로 <a href="../1730">통계량</a>이 어떻니 뭐니 하는 설명은 제쳐두고 그냥 재미있는 상상 하나를 해보자. 다음과 같은 <a href="../1715">샘플</a> $A$ 가 주어져 있다고 하자.
-$$
-A = \left\{ 13, 7, 17, 3 \right\}
-$$
-이 경우 표본의 수는 $n = 4$ 다. 그런데 후배녀석이 자기가 샘플을 &lsquo;발전&rsquo; 시켰다면서 가져온 샘플 $B$ 를 보자.
-$$
-B = \left\{ 13, 7, 17, 3 , 14, 8, 18, 4 \right\}
-$$
-후배는 이 샘플의 수가 $8$개며, $A$ 에 비해서 무려 두배나 많다고 했다. 여기서 그치지 않고 &lsquo;자신은 원하는만큼 샘플을 늘릴 수 있으며 $n \to \infty$ 수준으로 반복이 가능하니 대표본에서 사용할 수 있는 모든 통계기법을 적용할 수 있을 것&rsquo;이라 주장한다. 그러나 한 눈에 보아도 이 샘플은 정교하지 않게 위조된 것이며, 그 방법은 단지 기존에 있던 <a href="../2418">데이터</a>들에 $1$ 을 더해서 표본의 수만 늘렸을 뿐이다.</p>
-<p>이 때 우리는 우리도 모르게 후배가 숫자로 현혹 시키는 $B$ 에 속지 않고 그 본질인 $A$ 에 집중했다는 사실을 깨달아야 한다. 후배의 생성한 데이터는 $A$ 의 모조품
-$$
-B = B(A) = A \cup (A+1)
-$$
-에 불과함을 알고 있다. 표본의 볼륨은 단순히 그 숫자가 아니라 실질적으로 우리가 통제할 수 없는, 자연스러운―달리 말해 &lsquo;자유로운&rsquo; 표본의 수로 세는 게 타당하며 그렇게 &lsquo;반칙&rsquo;이 통하지 않는 수를 <strong>자유도</strong>라 부르는 것이다.</p>
-<h3 id="보고-또-보는-예시-s2">보고 또 보는 예시: $s^{2}$</h3>
-<p>이제 자유도를 설명하는 어떤 문헌을 보든 꼭 예시로 나오는 <a href="../2448">표본분산</a> $s^{2}$ 을 생각해보자. 표본분산은 <a href="../2438">표본평균</a> $\overline{x}$ 가 주어져 있을 때 다음과 같이 계산된다.
-$$
-s^{2} = {{ 1 } \over { n-1 }} \sum_{k=1}^{n} \left( x_{k} - \overline{x} \right)^{2}
-$$
-여기서 중요한 건 이미 상수 $\overline{x} = \sum_{k} x_{k} / n$ 이 주어져 있다는 것이다. 어떤 $x_{k_{0}}$ 를 고르든 그 $x_{k_{0}}$ 는 그 외의 데이터에 의존하는 <a href="../470">함수</a>꼴
-$$
-x_{k_{0}} = x_{k_{0}} \left( \left\{ x_{k} : k \ne k_{0} \right\} \right) = n \overline{x} - \sum_{k \ne k_{0}} x_{k}
-$$
-으로 역산할 수 있다. 이는 윗문단에서 후배의 데이터가 $B = B(A)$ 꼴로 나타난 것과 비슷하다. 이 때 진정한 의미에서 $s^{2}$ 를 계산하기 위해 필요한 표본의 수는 $n$개가 아니라 $(n-1)$개가 되며, $x_{k_{0}}$ 만 고정되어 있다면 $(n-1)$개의 표본 $\left\{ x_{k} : k \ne k \right\}$ 는 $\overline{x}$ 의 값이 유지되는 제약조건 하에서 산출되는 $s^{2}$ 의 값을 얼마든지 바꿀 수 있으므로 $(n-1)$을 $s^{2}$ 의 <strong>자유도</strong>라 부르는 것이다.</p>
-<h2 id="같이보기-1">같이보기</h2>
-<ul>
-<li><a href="../1747">표본 분산을 n-1으로 나누는 이유</a></li>
-</ul>
-<section class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1" role="doc-endnote">
-<p><a href="https://discourse.julialang.org/t/plots-efficient-scatter-plot-of-a-2xn-array/31803/6">https://discourse.julialang.org/t/plots-efficient-scatter-plot-of-a-2xn-array/31803/6</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-<li id="fn:2" role="doc-endnote">
-<p><a href="https://docs.julialang.org/en/v1/base/arrays/#Base.eachcol">https://docs.julialang.org/en/v1/base/arrays/#Base.eachcol</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-<li id="fn:3" role="doc-endnote">
-<p><a href="https://docs.julialang.org/en/v1/base/base/#">https://docs.julialang.org/en/v1/base/base/#</a>&hellip;&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-<li id="fn:4" role="doc-endnote">
-<p><a href="https://docs.julialang.org/en/v1/base/arrays/#Base.cat">https://docs.julialang.org/en/v1/base/arrays/#Base.cat</a>&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-</ol>
-</section>
 
 
 <aside style="text-align: right;">
     2021-01-01&emsp;
     류대식&emsp;
-    <a href="../1000">🎲 2000</a>
+    <a href="../489">🎲 2000</a>
 </aside>
 
 <script>
@@ -1015,8 +752,8 @@ $$
 <form method="get" action="../../search" style="border: 1px;">
 <div class="field">
 
-<input type="text" id="searchtext" placeholder = "🔍통합검색" class="input_text" name="s"
-style="text-align: center; width: 100%; font-size: 1.5rem; border: 1px; border-radius: 0px;">
+<input type="text" id="searchtext" placeholder = "통합검색" class="input_text" name="s"
+style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.5rem; border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px;">
 </div>
 </form>
 
@@ -1115,11 +852,11 @@ style="text-align: center; width: 100%; font-size: 1.5rem; border: 1px; border-r
     <a href=https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/>
         <span style="color:rgb(051,204,051);">●</span> 데이터확보 (22)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%EA%B3%BC%ED%95%99/>
-        <span style="color:rgb(255,051,051);">●</span> 데이터과학 (21)</a><br>
+        <span style="color:rgb(255,051,051);">●</span> 데이터과학 (22)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EA%B2%80%EC%A0%95/>
         <span style="color:rgb(255,204,000);">●</span> 통계적검정 (20++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
-        <span style="color:rgb(051,204,051);">●</span> 통계적분석 (58)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
         <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>

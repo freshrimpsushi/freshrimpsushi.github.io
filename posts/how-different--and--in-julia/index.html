@@ -255,8 +255,8 @@
 <title>줄리아에서 ==과 ===의 차이점</title>
 
 <h1>줄리아에서 ==과 ===의 차이점</h1>
-<p style="margin-top: -20px; margin-bottom: 0px;">
-  <i>How different == and === in julia</i>
+<p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px;">
+  How different == and === in julia
 </p>
 <aside>
   <div class="innerheader">
@@ -272,8 +272,7 @@
             padding: 1rem;"
             >
         
-            생새우초밥집에 아쉬운 점이 있나요? <br>
-            이 버튼 <a href="https://forms.gle/sfCHw7YKj5zMHMpK7" target='_blank'>🚨</a> 을 눌러 의견을 전달해주세요.
+            이번 여름방학엔 <a href="../../categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/">선형대수</a> 정주행 어때요?
         
         </p>
     </div>
@@ -325,19 +324,19 @@
 <p>객체가 무슨 말인지 잘 몰라도 이 용법만 이해하면 충분하다.</p>
 <h2 id="최적화">최적화</h2>
 <p>객체지향성이 약한 줄리아에서 이러한 차이는 크게 와닿지 않는다. 코드 최적화의 측면에서 보았을 때 <code>==</code>와 <code>===</code>는 싱글톤<sup>Singtone</sup>의 비교에서 다음과 같은 정도의 성능 차이가 난다.</p>
-<pre tabindex="0"><code>N = 10^7
-x = rand(0:9, N)
-
-julia&gt; @time for t ∈ 1:N
-           x[t] == 0
-       end
-  1.292501 seconds (30.00 M allocations: 610.336 MiB, 2.63% gc time)
-
-julia&gt; @time for t ∈ 1:N
-           x[t] === 0
-       end
-  1.016211 seconds (30.00 M allocations: 610.336 MiB, 2.77% gc time)
-</code></pre><p>하나의 값은 보통 Immutable이기 때문에 <code>==</code>보다 <code>===</code>이 빠른 것으로 이해하면 된다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>N <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">^</span><span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> rand(<span style="color:#ae81ff">0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">9</span>, N)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">for</span> t <span style="color:#f92672">∈</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>N
+</span></span><span style="display:flex;"><span>           x[t] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">1.292501</span> seconds (<span style="color:#ae81ff">30.00</span> M allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">610.336</span> MiB, <span style="color:#ae81ff">2.63</span><span style="color:#f92672">%</span> gc time)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">for</span> t <span style="color:#f92672">∈</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>N
+</span></span><span style="display:flex;"><span>           x[t] <span style="color:#f92672">===</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">1.016211</span> seconds (<span style="color:#ae81ff">30.00</span> M allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">610.336</span> MiB, <span style="color:#ae81ff">2.77</span><span style="color:#f92672">%</span> gc time)
+</span></span></code></pre></div><p>하나의 값은 보통 Immutable이기 때문에 <code>==</code>보다 <code>===</code>이 빠른 것으로 이해하면 된다.</p>
 <p>이 정도 차이는 대부분의 경우 별로 크지 않을 수 있다. 당연하지만 반복적<sup>Iterative</sup>이지 않은 작업은 다음과 같은 벡터 연산이 훨씬 빠르며, 이 때의 속도 차이는 없거나 무의미하다.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> x <span style="color:#f92672">.==</span> <span style="color:#ae81ff">0</span>;
 </span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.009509</span> seconds (<span style="color:#ae81ff">6</span> allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">1.196</span> MiB)
@@ -362,7 +361,7 @@ julia&gt; @time for t ∈ 1:N
 <aside style="text-align: right;">
     2012-02-12&emsp;
     류대식&emsp;
-    <a href="../907">🎲 2157</a>
+    <a href="../469">🎲 2157</a>
 </aside>
 
 <script>
@@ -811,8 +810,8 @@ julia&gt; @time for t ∈ 1:N
 <form method="get" action="../../search" style="border: 1px;">
 <div class="field">
 
-<input type="text" id="searchtext" placeholder = "🔍통합검색" class="input_text" name="s"
-style="text-align: center; width: 100%; font-size: 1.5rem; border: 1px; border-radius: 0px;">
+<input type="text" id="searchtext" placeholder = "통합검색" class="input_text" name="s"
+style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.5rem; border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px;">
 </div>
 </form>
 
@@ -919,11 +918,11 @@ style="text-align: center; width: 100%; font-size: 1.5rem; border: 1px; border-r
     <a href=https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/>
         <span style="color:rgb(051,204,051);">●</span> 데이터확보 (22)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%EA%B3%BC%ED%95%99/>
-        <span style="color:rgb(255,051,051);">●</span> 데이터과학 (21)</a><br>
+        <span style="color:rgb(255,051,051);">●</span> 데이터과학 (22)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EA%B2%80%EC%A0%95/>
         <span style="color:rgb(255,204,000);">●</span> 통계적검정 (20++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
-        <span style="color:rgb(051,204,051);">●</span> 통계적분석 (58)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
         <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>

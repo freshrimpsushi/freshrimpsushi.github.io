@@ -255,28 +255,14 @@
 <title>줄리아에서 날짜 및 시간 관련 함수 사용하는 법</title>
 
 <h1>줄리아에서 날짜 및 시간 관련 함수 사용하는 법</h1>
-<p style="margin-top: -20px; margin-bottom: 0px;">
-  <i>How to Use the Functions for Time or Date in julia</i>
+<p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px;">
+  How to Use the Functions for Time or Date in julia
 </p>
 <aside>
   <div class="innerheader">
     <div class="innertic">
       
     
-    
-    <div style="text-align: center;">
-        <p height=80% style="
-            text-align: center;
-            color: black;
-            border-style: dashed;
-            padding: 1rem;"
-            >
-        
-            $x^{2} = - 1$ 의 해가 <b>허수</b>면 $X^{2} = - I$ 는 <b>허행렬</b>일까요? <br>
-            <a href="https://freshrimpsushi.com/community/bbs/board.php?bo_table=research" target='_blank'>커뮤니티</a>에서 고민해봅시다.
-        
-        </p>
-    </div>
 
 
 
@@ -307,65 +293,65 @@
 <p><code>Dates</code>는 날짜 및 시간과 관련된 함수를 모아놓은 모듈이다. 일반적인 프로그래밍은 물론이고 시계열에 관련된, 아니 관련 없더라도 많은 데이터를 다루는 데에 있어서 유용할 수밖에 없다. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <h2 id="코드">코드</h2>
 <h3 id="전체코드">전체코드</h3>
-<pre tabindex="0"><code>using Dates
-
-오늘 = DateTime(2022,3,10)
-typeof(오늘)
-
-propertynames(오늘)
-오늘.instant
-
-myformat = DateFormat(&#34;d-m-y&#34;)
-내일 = Date(&#34;11-3-2022&#34;, myformat)
-
-Dates.dayname(내일)
-
-일주일뒤까지 = 오늘:Day(1):DateTime(2022,3,17)
-collect(일주일뒤까지)
-
-Dates.Day(일주일뒤까지[end]) - Dates.Day(오늘)
-</code></pre><h3 id="datetime-타입"><code>DateTime</code> 타입</h3>
-<pre tabindex="0"><code>julia&gt; 오늘 = DateTime(2022,3,10)
-2022-03-10T00:00:00
-
-julia&gt; typeof(오늘)
-DateTime
-</code></pre><p>가령 <code>DateTime()</code> 함수로 22년 3월 10일의 날짜를 위와 같이 <code>오늘</code>에 할당했다면, <code>오늘</code>은 <code>DateTime</code>이라는 타입을 가진다. <code>DateTime</code>은 <code>instant</code>라는 프로퍼티를 가지며, 밀리초로 환산된 수로써 시간을 기록하고 있다.</p>
-<pre tabindex="0"><code>julia&gt; propertynames(오늘)
-(:instant,)
-
-julia&gt; 오늘.instant
-Dates.UTInstant{Millisecond}(Millisecond(63782553600000))
-</code></pre><h3 id="포맷-dateformat">포맷 <code>DateFormat()</code></h3>
-<pre tabindex="0"><code>julia&gt; myformat = DateFormat(&#34;d-m-y&#34;)
-dateformat&#34;d-m-y&#34;
-
-julia&gt; 내일 = Date(&#34;11-3-2022&#34;, myformat)
-2022-03-11
-</code></pre><p>흔히 동서양의 차이 때문에 날짜가 다르게 적힐 때 쓰인다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Dates
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>오늘 <span style="color:#f92672">=</span> DateTime(<span style="color:#ae81ff">2022</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>typeof(오늘)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>propertynames(오늘)
+</span></span><span style="display:flex;"><span>오늘<span style="color:#f92672">.</span>instant
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>myformat <span style="color:#f92672">=</span> DateFormat(<span style="color:#e6db74">&#34;d-m-y&#34;</span>)
+</span></span><span style="display:flex;"><span>내일 <span style="color:#f92672">=</span> Date(<span style="color:#e6db74">&#34;11-3-2022&#34;</span>, myformat)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Dates<span style="color:#f92672">.</span>dayname(내일)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>일주일뒤까지 <span style="color:#f92672">=</span> 오늘<span style="color:#f92672">:</span>Day(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">:</span>DateTime(<span style="color:#ae81ff">2022</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">17</span>)
+</span></span><span style="display:flex;"><span>collect(일주일뒤까지)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Dates<span style="color:#f92672">.</span>Day(일주일뒤까지[<span style="color:#66d9ef">end</span>]) <span style="color:#f92672">-</span> Dates<span style="color:#f92672">.</span>Day(오늘)
+</span></span></code></pre></div><h3 id="datetime-타입"><code>DateTime</code> 타입</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> 오늘 <span style="color:#f92672">=</span> DateTime(<span style="color:#ae81ff">2022</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2022</span><span style="color:#f92672">-</span><span style="color:#ae81ff">03</span><span style="color:#f92672">-</span><span style="color:#ae81ff">10</span>T00<span style="color:#f92672">:</span><span style="color:#ae81ff">00</span><span style="color:#f92672">:</span><span style="color:#ae81ff">00</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> typeof(오늘)
+</span></span><span style="display:flex;"><span>DateTime
+</span></span></code></pre></div><p>가령 <code>DateTime()</code> 함수로 22년 3월 10일의 날짜를 위와 같이 <code>오늘</code>에 할당했다면, <code>오늘</code>은 <code>DateTime</code>이라는 타입을 가진다. <code>DateTime</code>은 <code>instant</code>라는 프로퍼티를 가지며, 밀리초로 환산된 수로써 시간을 기록하고 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> propertynames(오늘)
+</span></span><span style="display:flex;"><span>(<span style="color:#e6db74">:instant</span>,)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> 오늘<span style="color:#f92672">.</span>instant
+</span></span><span style="display:flex;"><span>Dates<span style="color:#f92672">.</span><span style="color:#66d9ef">UTInstant</span>{<span style="color:#66d9ef">Millisecond</span>}(Millisecond(<span style="color:#ae81ff">63782553600000</span>))
+</span></span></code></pre></div><h3 id="포맷-dateformat">포맷 <code>DateFormat()</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> myformat <span style="color:#f92672">=</span> DateFormat(<span style="color:#e6db74">&#34;d-m-y&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">dateformat</span><span style="color:#e6db74">&#34;d-m-y&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> 내일 <span style="color:#f92672">=</span> Date(<span style="color:#e6db74">&#34;11-3-2022&#34;</span>, myformat)
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2022</span><span style="color:#f92672">-</span><span style="color:#ae81ff">03</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span>
+</span></span></code></pre></div><p>흔히 동서양의 차이 때문에 날짜가 다르게 적힐 때 쓰인다.</p>
 <h3 id="요일-datesdayname">요일 <code>Dates.dayname()</code></h3>
-<pre tabindex="0"><code>julia&gt; Dates.dayname(내일)
-&#34;Friday&#34;
-</code></pre><p>해당 날짜의 요일을 리턴해준다. 양력의 부조리함 때문에 의외로 내가 짜려면 어려운 함수가 이런 것들이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> Dates<span style="color:#f92672">.</span>dayname(내일)
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;Friday&#34;</span>
+</span></span></code></pre></div><p>해당 날짜의 요일을 리턴해준다. 양력의 부조리함 때문에 의외로 내가 짜려면 어려운 함수가 이런 것들이다.</p>
 <h3 id="날짜의-벡터">날짜의 벡터</h3>
-<pre tabindex="0"><code>julia&gt; 일주일뒤까지 = 오늘:Day(1):DateTime(2022,3,17)
-DateTime(&#34;2022-03-10T00:00:00&#34;):Day(1):DateTime(&#34;2022-03-17T00:00:00&#34;)
-
-julia&gt; collect(일주일뒤까지)
-8-element Vector{DateTime}:
- 2022-03-10T00:00:00
- 2022-03-11T00:00:00
- 2022-03-12T00:00:00
- 2022-03-13T00:00:00
- 2022-03-14T00:00:00
- 2022-03-15T00:00:00
- 2022-03-16T00:00:00
- 2022-03-17T00:00:00
-</code></pre><p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 날짜 패키지에서 가장 유용한 부분이다. 특정 시점 사이의 구간을 위와 같이 네이티브한 줄리아 문법 그대로 벡터화하면 정말 상상하던대로의 결과가 나온다. 짜기 어려운 건 둘째치고 같은 기능을 하는 함수 정도는 다른 언어에도 있을지 모르겠지만, 이정도로 문법에 잘 녹아들어서 뛰어난 직관성을 가지는 경우는 흔치 않을 것이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> 일주일뒤까지 <span style="color:#f92672">=</span> 오늘<span style="color:#f92672">:</span>Day(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">:</span>DateTime(<span style="color:#ae81ff">2022</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">17</span>)
+</span></span><span style="display:flex;"><span>DateTime(<span style="color:#e6db74">&#34;2022-03-10T00:00:00&#34;</span>)<span style="color:#f92672">:</span>Day(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">:</span>DateTime(<span style="color:#e6db74">&#34;2022-03-17T00:00:00&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> collect(일주일뒤까지)
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">8</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">DateTime</span>}<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">2022</span><span style="color:#f92672">-</span><span style="color:#ae81ff">03</span><span style="color:#f92672">-</span><span style="color:#ae81ff">10</span>T00<span style="color:#f92672">:</span><span style="color:#ae81ff">00</span><span style="color:#f92672">:</span><span style="color:#ae81ff">00</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">2022</span><span style="color:#f92672">-</span><span style="color:#ae81ff">03</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span>T00<span style="color:#f92672">:</span><span style="color:#ae81ff">00</span><span style="color:#f92672">:</span><span style="color:#ae81ff">00</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">2022</span><span style="color:#f92672">-</span><span style="color:#ae81ff">03</span><span style="color:#f92672">-</span><span style="color:#ae81ff">12</span>T00<span style="color:#f92672">:</span><span style="color:#ae81ff">00</span><span style="color:#f92672">:</span><span style="color:#ae81ff">00</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">2022</span><span style="color:#f92672">-</span><span style="color:#ae81ff">03</span><span style="color:#f92672">-</span><span style="color:#ae81ff">13</span>T00<span style="color:#f92672">:</span><span style="color:#ae81ff">00</span><span style="color:#f92672">:</span><span style="color:#ae81ff">00</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">2022</span><span style="color:#f92672">-</span><span style="color:#ae81ff">03</span><span style="color:#f92672">-</span><span style="color:#ae81ff">14</span>T00<span style="color:#f92672">:</span><span style="color:#ae81ff">00</span><span style="color:#f92672">:</span><span style="color:#ae81ff">00</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">2022</span><span style="color:#f92672">-</span><span style="color:#ae81ff">03</span><span style="color:#f92672">-</span><span style="color:#ae81ff">15</span>T00<span style="color:#f92672">:</span><span style="color:#ae81ff">00</span><span style="color:#f92672">:</span><span style="color:#ae81ff">00</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">2022</span><span style="color:#f92672">-</span><span style="color:#ae81ff">03</span><span style="color:#f92672">-</span><span style="color:#ae81ff">16</span>T00<span style="color:#f92672">:</span><span style="color:#ae81ff">00</span><span style="color:#f92672">:</span><span style="color:#ae81ff">00</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">2022</span><span style="color:#f92672">-</span><span style="color:#ae81ff">03</span><span style="color:#f92672">-</span><span style="color:#ae81ff">17</span>T00<span style="color:#f92672">:</span><span style="color:#ae81ff">00</span><span style="color:#f92672">:</span><span style="color:#ae81ff">00</span>
+</span></span></code></pre></div><p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 날짜 패키지에서 가장 유용한 부분이다. 특정 시점 사이의 구간을 위와 같이 네이티브한 줄리아 문법 그대로 벡터화하면 정말 상상하던대로의 결과가 나온다. 짜기 어려운 건 둘째치고 같은 기능을 하는 함수 정도는 다른 언어에도 있을지 모르겠지만, 이정도로 문법에 잘 녹아들어서 뛰어난 직관성을 가지는 경우는 흔치 않을 것이다.</p>
 <h3 id="날짜의-뺄셈--">날짜의 뺄셈 <code>-</code></h3>
-<pre tabindex="0"><code>julia&gt; Dates.Day(일주일뒤까지[end]) - Dates.Day(오늘)
-7 days
-</code></pre><p>당연하다는 듯이 뺄셈으로 두 시점의 간격을 계산할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> Dates<span style="color:#f92672">.</span>Day(일주일뒤까지[<span style="color:#66d9ef">end</span>]) <span style="color:#f92672">-</span> Dates<span style="color:#f92672">.</span>Day(오늘)
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span> days
+</span></span></code></pre></div><p>당연하다는 듯이 뺄셈으로 두 시점의 간격을 계산할 수 있다.</p>
 <h2 id="환경">환경</h2>
 <ul>
 <li>OS: Windows</li>
@@ -384,7 +370,7 @@ julia&gt; collect(일주일뒤까지)
 <aside style="text-align: right;">
     1923-07-03&emsp;
     류대식&emsp;
-    <a href="../1641">🎲 2410</a>
+    <a href="../2151">🎲 2410</a>
 </aside>
 
 <script>
@@ -833,8 +819,8 @@ julia&gt; collect(일주일뒤까지)
 <form method="get" action="../../search" style="border: 1px;">
 <div class="field">
 
-<input type="text" id="searchtext" placeholder = "🔍통합검색" class="input_text" name="s"
-style="text-align: center; width: 100%; font-size: 1.5rem; border: 1px; border-radius: 0px;">
+<input type="text" id="searchtext" placeholder = "통합검색" class="input_text" name="s"
+style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.5rem; border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px;">
 </div>
 </form>
 
@@ -941,11 +927,11 @@ style="text-align: center; width: 100%; font-size: 1.5rem; border: 1px; border-r
     <a href=https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/>
         <span style="color:rgb(051,204,051);">●</span> 데이터확보 (22)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%EA%B3%BC%ED%95%99/>
-        <span style="color:rgb(255,051,051);">●</span> 데이터과학 (21)</a><br>
+        <span style="color:rgb(255,051,051);">●</span> 데이터과학 (22)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EA%B2%80%EC%A0%95/>
         <span style="color:rgb(255,204,000);">●</span> 통계적검정 (20++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
-        <span style="color:rgb(051,204,051);">●</span> 통계적분석 (58)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
         <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>

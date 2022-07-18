@@ -255,14 +255,27 @@
 <title>줄리아에서 shp 파일 읽는 법</title>
 
 <h1>줄리아에서 shp 파일 읽는 법</h1>
-<p style="margin-top: -20px; margin-bottom: 0px;">
-  <i>How to Read shp file in Julia</i>
+<p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px;">
+  How to Read shp file in Julia
 </p>
 <aside>
   <div class="innerheader">
     <div class="innertic">
       
     
+    
+    <div style="text-align: center;">
+        <p height=80% style="
+            text-align: center;
+            color: black;
+            border-style: dashed;
+            padding: 1rem;"
+            >
+        
+            이번 여름방학엔 <a href="../../categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/">선형대수</a> 정주행 어때요?
+        
+        </p>
+    </div>
 
 
 
@@ -286,30 +299,30 @@
 <h2 id="코드">코드</h2>
 <p><img src="1.png#center" alt="screen"></p>
 <p>위와 같이 <code>XsDB_주거인구_100M_TM.shp</code>라는 shp 파일을 읽어들이는 코드는 다음과 같다.</p>
-<pre tabindex="0"><code>using Shapefile
-
-cd(@__DIR__)
-path = &#34;XsDB_주거인구_100M_TM.shp&#34;
-table = Shapefile.Table(path)
-
-using DataFrames
-df = DataFrame(table)
-</code></pre><p>물론 파일을 읽어들이는 것만으로는 할 수 있는 것이 제한적이고, 데이터를 살펴보기 위해 데이터프레임으로 변환해줄 필요가 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Shapefile
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cd(<span style="color:#a6e22e">@__DIR__</span>)
+</span></span><span style="display:flex;"><span>path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;XsDB_주거인구_100M_TM.shp&#34;</span>
+</span></span><span style="display:flex;"><span>table <span style="color:#f92672">=</span> Shapefile<span style="color:#f92672">.</span>Table(path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> DataFrames
+</span></span><span style="display:flex;"><span>df <span style="color:#f92672">=</span> DataFrame(table)
+</span></span></code></pre></div><p>물론 파일을 읽어들이는 것만으로는 할 수 있는 것이 제한적이고, 데이터를 살펴보기 위해 데이터프레임으로 변환해줄 필요가 있다.</p>
 <h3 id="실행결과">실행결과</h3>
-<pre tabindex="0"><code>959660×16 DataFrame
-    Row │ geometry                     MEGA_NM                            MEGA_CD  CTY_NM                    CTY_CD  X_AXIS  Y_AXIS  HOUS     POP      POP_10   POP_20   POP_30   POP_40   POP_50   POP_60_O  \xb9\xe8\xc6\xf7ó 
-        │ Point…?                      String                             String   String                    String  Int64   Int64   Float64  Float64  Float64  Float64  Float64  Float64  Float64  Float64   String
-────────┼─────────────────────────────────────────────────────────────────────────────────────────────────
-      1 │ Point(254298.0, 4.26549e5)   \xb0\xe6\xb1\u2d75                 41       \xbf\xa9\xc1ֱ\xba          41730   365950  526450    10.08    24.56     4.64     1.92     1.84     4.72     4.32      7.12  biz-gis.com
-      2 │ Point(2.59622e5, 4.24405e5)  \xb0\xe6\xb1\u2d75                 41       \xbf\xa9\xc1ֱ\xba          41730   371250  524250     1.42     3.47     0.81     0.29     0.52     0.52     0.59      0.74  biz-gis.com
-      3 │ Point(2.61134e5, 423221.0)   \xb0\xe6\xb1\u2d75                 41       \xbf\xa9\xc1ֱ\xba          41730   372750  523050     1.26     3.08     0.68     0.28     0.35     0.49     0.45      0.83  biz-gis.com
-      4 │ Point(2.50311e5, 4.15806e5)  \xb0\xe6\xb1\u2d75                 41       \xbf\xa9\xc1ֱ\xba          41730   361850  515750    10.08    25.2      3.68     2.96     1.68     4.4      6.0       6.48  biz-gis.com
-   ⋮    │              ⋮                               ⋮                     ⋮                ⋮                ⋮       ⋮       ⋮        ⋮        ⋮        ⋮        ⋮        ⋮        ⋮        ⋮        ⋮              ⋮
- 959658 │ Point(2.09955e5, 2.46768e5)  \xc0\xfc\xb6\xf3\xbaϵ\xb5          45       \xbf\xcf\xc1ֱ\xba          45710   319750  347150     1.83     4.53     1.92     0.24     0.45     0.72     0.69      0.51  biz-gis.com
- 959659 │ Point(215588.0, 4.55344e5)   \xb0\xe6\xb1\u2d75                 41       \xb3\xb2\xbe\xe7\xc1ֽ\xc3  41360   327550  555650     2.38     5.31     0.91     0.74     0.57     0.97     1.05      1.07  biz-gis.com
- 959660 │ Point(2.54717e5, 4.24754e5)  \xb0\xe6\xb1\u2d75                 41       \xbf\xa9\xc1ֱ\xba          41730   366350  524650     1.26     3.07     0.58     0.24     0.23     0.59     0.54      0.89  biz-gis.com
-                                                                                                                                                                                                             959653 rows omitted
-</code></pre><h2 id="환경">환경</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#ae81ff">959660</span><span style="color:#f92672">×</span><span style="color:#ae81ff">16</span> DataFrame
+</span></span><span style="display:flex;"><span>    Row │ geometry                     MEGA_NM                            MEGA_CD  CTY_NM                    CTY_CD  X_AXIS  Y_AXIS  HOUS     POP      POP_10   POP_20   POP_30   POP_40   POP_50   POP_60_O  <span style="color:#f92672">\</span>xb9<span style="color:#f92672">\</span>xe8<span style="color:#f92672">\</span>xc6<span style="color:#f92672">\</span>xf7ó 
+</span></span><span style="display:flex;"><span>        │ Point…<span style="color:#f92672">?</span>                      <span style="color:#66d9ef">String</span>                             <span style="color:#66d9ef">String</span>   <span style="color:#66d9ef">String</span>                    <span style="color:#66d9ef">String</span>  <span style="color:#66d9ef">Int64</span>   <span style="color:#66d9ef">Int64</span>   <span style="color:#66d9ef">Float64</span>  <span style="color:#66d9ef">Float64</span>  <span style="color:#66d9ef">Float64</span>  <span style="color:#66d9ef">Float64</span>  <span style="color:#66d9ef">Float64</span>  <span style="color:#66d9ef">Float64</span>  <span style="color:#66d9ef">Float64</span>  <span style="color:#66d9ef">Float64</span>   <span style="color:#66d9ef">String</span>
+</span></span><span style="display:flex;"><span>────────┼─────────────────────────────────────────────────────────────────────────────────────────────────
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">1</span> │ Point(<span style="color:#ae81ff">254298.0</span>, <span style="color:#ae81ff">4.26549e5</span>)   <span style="color:#f92672">\</span>xb0<span style="color:#f92672">\</span>xe6<span style="color:#f92672">\</span>xb1<span style="color:#f92672">\</span>u2d75                 <span style="color:#ae81ff">41</span>       <span style="color:#f92672">\</span>xbf<span style="color:#f92672">\</span>xa9<span style="color:#f92672">\</span>xc1ֱ<span style="color:#f92672">\</span>xba          <span style="color:#ae81ff">41730</span>   <span style="color:#ae81ff">365950</span>  <span style="color:#ae81ff">526450</span>    <span style="color:#ae81ff">10.08</span>    <span style="color:#ae81ff">24.56</span>     <span style="color:#ae81ff">4.64</span>     <span style="color:#ae81ff">1.92</span>     <span style="color:#ae81ff">1.84</span>     <span style="color:#ae81ff">4.72</span>     <span style="color:#ae81ff">4.32</span>      <span style="color:#ae81ff">7.12</span>  biz<span style="color:#f92672">-</span>gis<span style="color:#f92672">.</span>com
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">2</span> │ Point(<span style="color:#ae81ff">2.59622e5</span>, <span style="color:#ae81ff">4.24405e5</span>)  <span style="color:#f92672">\</span>xb0<span style="color:#f92672">\</span>xe6<span style="color:#f92672">\</span>xb1<span style="color:#f92672">\</span>u2d75                 <span style="color:#ae81ff">41</span>       <span style="color:#f92672">\</span>xbf<span style="color:#f92672">\</span>xa9<span style="color:#f92672">\</span>xc1ֱ<span style="color:#f92672">\</span>xba          <span style="color:#ae81ff">41730</span>   <span style="color:#ae81ff">371250</span>  <span style="color:#ae81ff">524250</span>     <span style="color:#ae81ff">1.42</span>     <span style="color:#ae81ff">3.47</span>     <span style="color:#ae81ff">0.81</span>     <span style="color:#ae81ff">0.29</span>     <span style="color:#ae81ff">0.52</span>     <span style="color:#ae81ff">0.52</span>     <span style="color:#ae81ff">0.59</span>      <span style="color:#ae81ff">0.74</span>  biz<span style="color:#f92672">-</span>gis<span style="color:#f92672">.</span>com
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">3</span> │ Point(<span style="color:#ae81ff">2.61134e5</span>, <span style="color:#ae81ff">423221.0</span>)   <span style="color:#f92672">\</span>xb0<span style="color:#f92672">\</span>xe6<span style="color:#f92672">\</span>xb1<span style="color:#f92672">\</span>u2d75                 <span style="color:#ae81ff">41</span>       <span style="color:#f92672">\</span>xbf<span style="color:#f92672">\</span>xa9<span style="color:#f92672">\</span>xc1ֱ<span style="color:#f92672">\</span>xba          <span style="color:#ae81ff">41730</span>   <span style="color:#ae81ff">372750</span>  <span style="color:#ae81ff">523050</span>     <span style="color:#ae81ff">1.26</span>     <span style="color:#ae81ff">3.08</span>     <span style="color:#ae81ff">0.68</span>     <span style="color:#ae81ff">0.28</span>     <span style="color:#ae81ff">0.35</span>     <span style="color:#ae81ff">0.49</span>     <span style="color:#ae81ff">0.45</span>      <span style="color:#ae81ff">0.83</span>  biz<span style="color:#f92672">-</span>gis<span style="color:#f92672">.</span>com
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">4</span> │ Point(<span style="color:#ae81ff">2.50311e5</span>, <span style="color:#ae81ff">4.15806e5</span>)  <span style="color:#f92672">\</span>xb0<span style="color:#f92672">\</span>xe6<span style="color:#f92672">\</span>xb1<span style="color:#f92672">\</span>u2d75                 <span style="color:#ae81ff">41</span>       <span style="color:#f92672">\</span>xbf<span style="color:#f92672">\</span>xa9<span style="color:#f92672">\</span>xc1ֱ<span style="color:#f92672">\</span>xba          <span style="color:#ae81ff">41730</span>   <span style="color:#ae81ff">361850</span>  <span style="color:#ae81ff">515750</span>    <span style="color:#ae81ff">10.08</span>    <span style="color:#ae81ff">25.2</span>      <span style="color:#ae81ff">3.68</span>     <span style="color:#ae81ff">2.96</span>     <span style="color:#ae81ff">1.68</span>     <span style="color:#ae81ff">4.4</span>      <span style="color:#ae81ff">6.0</span>       <span style="color:#ae81ff">6.48</span>  biz<span style="color:#f92672">-</span>gis<span style="color:#f92672">.</span>com
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">⋮</span>    │              <span style="color:#f92672">⋮</span>                               <span style="color:#f92672">⋮</span>                     <span style="color:#f92672">⋮</span>                <span style="color:#f92672">⋮</span>                <span style="color:#f92672">⋮</span>       <span style="color:#f92672">⋮</span>       <span style="color:#f92672">⋮</span>        <span style="color:#f92672">⋮</span>        <span style="color:#f92672">⋮</span>        <span style="color:#f92672">⋮</span>        <span style="color:#f92672">⋮</span>        <span style="color:#f92672">⋮</span>        <span style="color:#f92672">⋮</span>        <span style="color:#f92672">⋮</span>        <span style="color:#f92672">⋮</span>              <span style="color:#f92672">⋮</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">959658</span> │ Point(<span style="color:#ae81ff">2.09955e5</span>, <span style="color:#ae81ff">2.46768e5</span>)  <span style="color:#f92672">\</span>xc0<span style="color:#f92672">\</span>xfc<span style="color:#f92672">\</span>xb6<span style="color:#f92672">\</span>xf3<span style="color:#f92672">\</span>xbaϵ<span style="color:#f92672">\</span>xb5          <span style="color:#ae81ff">45</span>       <span style="color:#f92672">\</span>xbf<span style="color:#f92672">\</span>xcf<span style="color:#f92672">\</span>xc1ֱ<span style="color:#f92672">\</span>xba          <span style="color:#ae81ff">45710</span>   <span style="color:#ae81ff">319750</span>  <span style="color:#ae81ff">347150</span>     <span style="color:#ae81ff">1.83</span>     <span style="color:#ae81ff">4.53</span>     <span style="color:#ae81ff">1.92</span>     <span style="color:#ae81ff">0.24</span>     <span style="color:#ae81ff">0.45</span>     <span style="color:#ae81ff">0.72</span>     <span style="color:#ae81ff">0.69</span>      <span style="color:#ae81ff">0.51</span>  biz<span style="color:#f92672">-</span>gis<span style="color:#f92672">.</span>com
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">959659</span> │ Point(<span style="color:#ae81ff">215588.0</span>, <span style="color:#ae81ff">4.55344e5</span>)   <span style="color:#f92672">\</span>xb0<span style="color:#f92672">\</span>xe6<span style="color:#f92672">\</span>xb1<span style="color:#f92672">\</span>u2d75                 <span style="color:#ae81ff">41</span>       <span style="color:#f92672">\</span>xb3<span style="color:#f92672">\</span>xb2<span style="color:#f92672">\</span>xbe<span style="color:#f92672">\</span>xe7<span style="color:#f92672">\</span>xc1ֽ<span style="color:#f92672">\</span>xc3  <span style="color:#ae81ff">41360</span>   <span style="color:#ae81ff">327550</span>  <span style="color:#ae81ff">555650</span>     <span style="color:#ae81ff">2.38</span>     <span style="color:#ae81ff">5.31</span>     <span style="color:#ae81ff">0.91</span>     <span style="color:#ae81ff">0.74</span>     <span style="color:#ae81ff">0.57</span>     <span style="color:#ae81ff">0.97</span>     <span style="color:#ae81ff">1.05</span>      <span style="color:#ae81ff">1.07</span>  biz<span style="color:#f92672">-</span>gis<span style="color:#f92672">.</span>com
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">959660</span> │ Point(<span style="color:#ae81ff">2.54717e5</span>, <span style="color:#ae81ff">4.24754e5</span>)  <span style="color:#f92672">\</span>xb0<span style="color:#f92672">\</span>xe6<span style="color:#f92672">\</span>xb1<span style="color:#f92672">\</span>u2d75                 <span style="color:#ae81ff">41</span>       <span style="color:#f92672">\</span>xbf<span style="color:#f92672">\</span>xa9<span style="color:#f92672">\</span>xc1ֱ<span style="color:#f92672">\</span>xba          <span style="color:#ae81ff">41730</span>   <span style="color:#ae81ff">366350</span>  <span style="color:#ae81ff">524650</span>     <span style="color:#ae81ff">1.26</span>     <span style="color:#ae81ff">3.07</span>     <span style="color:#ae81ff">0.58</span>     <span style="color:#ae81ff">0.24</span>     <span style="color:#ae81ff">0.23</span>     <span style="color:#ae81ff">0.59</span>     <span style="color:#ae81ff">0.54</span>      <span style="color:#ae81ff">0.89</span>  biz<span style="color:#f92672">-</span>gis<span style="color:#f92672">.</span>com
+</span></span><span style="display:flex;"><span>                                                                                                                                                                                                             <span style="color:#ae81ff">959653</span> rows omitted
+</span></span></code></pre></div><h2 id="환경">환경</h2>
 <ul>
 <li>OS: Windows</li>
 <li>julia: v1.5.0</li>
@@ -319,7 +332,7 @@ df = DataFrame(table)
 <aside style="text-align: right;">
     2021-10-15&emsp;
     류대식&emsp;
-    <a href="../1756">🎲 2097</a>
+    <a href="../301">🎲 2097</a>
 </aside>
 
 <script>
@@ -768,8 +781,8 @@ df = DataFrame(table)
 <form method="get" action="../../search" style="border: 1px;">
 <div class="field">
 
-<input type="text" id="searchtext" placeholder = "🔍통합검색" class="input_text" name="s"
-style="text-align: center; width: 100%; font-size: 1.5rem; border: 1px; border-radius: 0px;">
+<input type="text" id="searchtext" placeholder = "통합검색" class="input_text" name="s"
+style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.5rem; border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px;">
 </div>
 </form>
 
@@ -876,11 +889,11 @@ style="text-align: center; width: 100%; font-size: 1.5rem; border: 1px; border-r
     <a href=https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/>
         <span style="color:rgb(051,204,051);">●</span> 데이터확보 (22)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%EA%B3%BC%ED%95%99/>
-        <span style="color:rgb(255,051,051);">●</span> 데이터과학 (21)</a><br>
+        <span style="color:rgb(255,051,051);">●</span> 데이터과학 (22)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EA%B2%80%EC%A0%95/>
         <span style="color:rgb(255,204,000);">●</span> 통계적검정 (20++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
-        <span style="color:rgb(051,204,051);">●</span> 통계적분석 (58)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
         <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
