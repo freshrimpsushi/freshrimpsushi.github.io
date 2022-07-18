@@ -263,20 +263,6 @@
     <div class="innertic">
       
     
-    
-    <div style="text-align: center;">
-        <p height=80% style="
-            text-align: center;
-            color: black;
-            border-style: dashed;
-            padding: 1rem;"
-            >
-        
-            생새우초밥집에 아쉬운 점이 있나요? <br>
-            이 버튼 <a href="https://forms.gle/sfCHw7YKj5zMHMpK7" target='_blank'>🚨</a> 을 눌러 의견을 전달해주세요.
-        
-        </p>
-    </div>
 
 
 
@@ -315,27 +301,27 @@
 $$</p>
 <p>간단한 예제로써 $x_{1} , x_{2} \ge 0$ 에서 위와 같은 최대화 문제를 풀어보자. 생새우초밥집에서는 이 문제를 <a href="../2336">심플렉스 메소드</a>를 써서 손으로 풀어보았고 그 답 $\left( x_{1}^{\ast}, x_{2}^{\ast} \right) = (3,2)$ 를 알고 있다. 이 <a href="../2207">선형계획문제</a>는 다음과 옮겨 적고 풀 수 있다.</p>
 <h3 id="전체코드">전체코드</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> JuMP
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> GLPK
-</span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> Model(GLPK<span style="color:#f92672">.</span>Optimizer)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@variable</span>(model, x₁ <span style="color:#f92672">≥</span> <span style="color:#ae81ff">0</span>)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@variable</span>(model, x₂ <span style="color:#f92672">≥</span> <span style="color:#ae81ff">0</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@objective</span>(model, Max, x₁ <span style="color:#f92672">+</span> x₂)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@constraint</span>(model, c1, <span style="color:#f92672">-</span> x₁ <span style="color:#f92672">+</span> x₂ <span style="color:#f92672">≤</span> <span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@constraint</span>(model, c2,   x₁       <span style="color:#f92672">≤</span> <span style="color:#ae81ff">3</span>)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@constraint</span>(model, c3,         x₂ <span style="color:#f92672">≤</span> <span style="color:#ae81ff">2</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>print(model)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>optimize!(model)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@show</span> objective_value(model)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@show</span> value(x₁)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@show</span> value(x₂)
-</span></span></code></pre></div><h3 id="model-glpkoptimizer"><code>Model()</code>, <code>GLPK.Optimizer</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> JuMP
+<span style="color:#66d9ef">using</span> GLPK
+model <span style="color:#f92672">=</span> Model(GLPK<span style="color:#f92672">.</span>Optimizer)
+
+<span style="color:#a6e22e">@variable</span>(model, x₁ <span style="color:#f92672">≥</span> <span style="color:#ae81ff">0</span>)
+<span style="color:#a6e22e">@variable</span>(model, x₂ <span style="color:#f92672">≥</span> <span style="color:#ae81ff">0</span>)
+
+<span style="color:#a6e22e">@objective</span>(model, Max, x₁ <span style="color:#f92672">+</span> x₂)
+
+<span style="color:#a6e22e">@constraint</span>(model, c1, <span style="color:#f92672">-</span> x₁ <span style="color:#f92672">+</span> x₂ <span style="color:#f92672">≤</span> <span style="color:#ae81ff">1</span>)
+<span style="color:#a6e22e">@constraint</span>(model, c2,   x₁       <span style="color:#f92672">≤</span> <span style="color:#ae81ff">3</span>)
+<span style="color:#a6e22e">@constraint</span>(model, c3,         x₂ <span style="color:#f92672">≤</span> <span style="color:#ae81ff">2</span>)
+
+print(model)
+
+optimize!(model)
+
+<span style="color:#a6e22e">@show</span> objective_value(model)
+<span style="color:#a6e22e">@show</span> value(x₁)
+<span style="color:#a6e22e">@show</span> value(x₂)
+</code></pre></div><h3 id="model-glpkoptimizer"><code>Model()</code>, <code>GLPK.Optimizer</code></h3>
 <pre tabindex="0"><code>julia&gt; using JuMP
 
 julia&gt; using GLPK
@@ -417,7 +403,7 @@ value(x₂) = 2.0
 <aside style="text-align: right;">
     1923-03-17&emsp;
     류대식&emsp;
-    <a href="../2008">🎲 2356</a>
+    <a href="../1014">🎲 2356</a>
 </aside>
 
 <script>
@@ -1234,7 +1220,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 
     
     
-    <link rel="stylesheet" href=https://freshrimpsushi.github.io/css/atom-one-light.css>
+    <link rel="stylesheet" href=https://freshrimpsushi.github.io/css/codefence.css>
     <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
     <script>hljs.initHighlightingOnLoad();</script>
     

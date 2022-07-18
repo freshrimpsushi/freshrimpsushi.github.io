@@ -263,6 +263,20 @@
     <div class="innertic">
       
     
+    
+    <div style="text-align: center;">
+        <p height=80% style="
+            text-align: center;
+            color: black;
+            border-style: dashed;
+            padding: 1rem;"
+            >
+        
+            $x^{2} = - 1$ 의 해가 <b>허수</b>면 $X^{2} = - I$ 는 <b>허행렬</b>일까요? <br>
+            <a href="https://freshrimpsushi.com/community/bbs/board.php?bo_table=research" target='_blank'>커뮤니티</a>에서 고민해봅시다.
+        
+        </p>
+    </div>
 
 
 
@@ -296,99 +310,99 @@
 <li><code>:colname =&gt; fun</code>은 계산할 값이 있는 열의 이름인 심볼 <code>:colname</code>과 계산할 함수 <code>fun</code>의 <a href="../2201">페어</a>다.</li>
 </ul>
 <h2 id="코드">코드</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> DataFrames
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> StatsBase
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>WJSN <span style="color:#f92672">=</span> DataFrame(
-</span></span><span style="display:flex;"><span>    member <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;다영&#34;</span>,<span style="color:#e6db74">&#34;다원&#34;</span>,<span style="color:#e6db74">&#34;루다&#34;</span>,<span style="color:#e6db74">&#34;소정&#34;</span>,<span style="color:#e6db74">&#34;수빈&#34;</span>,<span style="color:#e6db74">&#34;연정&#34;</span>,<span style="color:#e6db74">&#34;주연&#34;</span>,<span style="color:#e6db74">&#34;지연&#34;</span>,<span style="color:#e6db74">&#34;진숙&#34;</span>,<span style="color:#e6db74">&#34;현정&#34;</span>],
-</span></span><span style="display:flex;"><span>    birth <span style="color:#f92672">=</span> [<span style="color:#ae81ff">99</span>,<span style="color:#ae81ff">97</span>,<span style="color:#ae81ff">97</span>,<span style="color:#ae81ff">95</span>,<span style="color:#ae81ff">96</span>,<span style="color:#ae81ff">99</span>,<span style="color:#ae81ff">98</span>,<span style="color:#ae81ff">95</span>,<span style="color:#ae81ff">99</span>,<span style="color:#ae81ff">94</span>],
-</span></span><span style="display:flex;"><span>    height <span style="color:#f92672">=</span> [<span style="color:#ae81ff">161</span>,<span style="color:#ae81ff">167</span>,<span style="color:#ae81ff">157</span>,<span style="color:#ae81ff">166</span>,<span style="color:#ae81ff">159</span>,<span style="color:#ae81ff">165</span>,<span style="color:#ae81ff">172</span>,<span style="color:#ae81ff">163</span>,<span style="color:#ae81ff">162</span>,<span style="color:#ae81ff">165</span>],
-</span></span><span style="display:flex;"><span>    unit <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;쪼꼬미&#34;</span>,<span style="color:#e6db74">&#34;메보즈&#34;</span>,<span style="color:#e6db74">&#34;쪼꼬미&#34;</span>,<span style="color:#e6db74">&#34;더블랙&#34;</span>,<span style="color:#e6db74">&#34;쪼꼬미&#34;</span>,<span style="color:#e6db74">&#34;메보즈&#34;</span>,<span style="color:#e6db74">&#34;더블랙&#34;</span>,<span style="color:#e6db74">&#34;더블랙&#34;</span>,<span style="color:#e6db74">&#34;쪼꼬미&#34;</span>,<span style="color:#e6db74">&#34;더블랙&#34;</span>]
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>sort!(WJSN, <span style="color:#e6db74">:birth</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>unique(WJSN, <span style="color:#e6db74">:unit</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>units <span style="color:#f92672">=</span> groupby(WJSN, <span style="color:#e6db74">:unit</span>)
-</span></span><span style="display:flex;"><span>units[<span style="color:#ae81ff">1</span>]
-</span></span><span style="display:flex;"><span>units[<span style="color:#ae81ff">2</span>]
-</span></span><span style="display:flex;"><span>units[<span style="color:#ae81ff">3</span>]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>combine(units, <span style="color:#e6db74">:height</span> <span style="color:#f92672">=&gt;</span> mean)
-</span></span></code></pre></div><p>위의 예제 코드를 실행해보고 그 결과를 확인해보자.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> WJSN
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span><span style="color:#f92672">×</span><span style="color:#ae81ff">4</span> DataFrame
-</span></span><span style="display:flex;"><span> Row │ member  birth  height  unit   
-</span></span><span style="display:flex;"><span>     │ <span style="color:#66d9ef">String</span>  <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span>   <span style="color:#66d9ef">String</span> 
-</span></span><span style="display:flex;"><span>─────┼───────────────────────────────
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">1</span> │ 현정       <span style="color:#ae81ff">94</span>     <span style="color:#ae81ff">165</span>  더블랙
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">2</span> │ 소정       <span style="color:#ae81ff">95</span>     <span style="color:#ae81ff">166</span>  더블랙
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">3</span> │ 지연       <span style="color:#ae81ff">95</span>     <span style="color:#ae81ff">163</span>  더블랙
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">4</span> │ 수빈       <span style="color:#ae81ff">96</span>     <span style="color:#ae81ff">159</span>  쪼꼬미
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">5</span> │ 다원       <span style="color:#ae81ff">97</span>     <span style="color:#ae81ff">167</span>  메보즈
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">6</span> │ 루다       <span style="color:#ae81ff">97</span>     <span style="color:#ae81ff">157</span>  쪼꼬미
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">7</span> │ 주연       <span style="color:#ae81ff">98</span>     <span style="color:#ae81ff">172</span>  더블랙
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">8</span> │ 다영       <span style="color:#ae81ff">99</span>     <span style="color:#ae81ff">161</span>  쪼꼬미
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">9</span> │ 연정       <span style="color:#ae81ff">99</span>     <span style="color:#ae81ff">165</span>  메보즈
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">10</span> │ 진숙       <span style="color:#ae81ff">99</span>     <span style="color:#ae81ff">162</span>  쪼꼬미
-</span></span></code></pre></div><p><code>WJSN</code> 데이터프레임은 위와 같다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> DataFrames
+<span style="color:#66d9ef">using</span> StatsBase
+
+WJSN <span style="color:#f92672">=</span> DataFrame(
+    member <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;다영&#34;</span>,<span style="color:#e6db74">&#34;다원&#34;</span>,<span style="color:#e6db74">&#34;루다&#34;</span>,<span style="color:#e6db74">&#34;소정&#34;</span>,<span style="color:#e6db74">&#34;수빈&#34;</span>,<span style="color:#e6db74">&#34;연정&#34;</span>,<span style="color:#e6db74">&#34;주연&#34;</span>,<span style="color:#e6db74">&#34;지연&#34;</span>,<span style="color:#e6db74">&#34;진숙&#34;</span>,<span style="color:#e6db74">&#34;현정&#34;</span>],
+    birth <span style="color:#f92672">=</span> [<span style="color:#ae81ff">99</span>,<span style="color:#ae81ff">97</span>,<span style="color:#ae81ff">97</span>,<span style="color:#ae81ff">95</span>,<span style="color:#ae81ff">96</span>,<span style="color:#ae81ff">99</span>,<span style="color:#ae81ff">98</span>,<span style="color:#ae81ff">95</span>,<span style="color:#ae81ff">99</span>,<span style="color:#ae81ff">94</span>],
+    height <span style="color:#f92672">=</span> [<span style="color:#ae81ff">161</span>,<span style="color:#ae81ff">167</span>,<span style="color:#ae81ff">157</span>,<span style="color:#ae81ff">166</span>,<span style="color:#ae81ff">159</span>,<span style="color:#ae81ff">165</span>,<span style="color:#ae81ff">172</span>,<span style="color:#ae81ff">163</span>,<span style="color:#ae81ff">162</span>,<span style="color:#ae81ff">165</span>],
+    unit <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;쪼꼬미&#34;</span>,<span style="color:#e6db74">&#34;메보즈&#34;</span>,<span style="color:#e6db74">&#34;쪼꼬미&#34;</span>,<span style="color:#e6db74">&#34;더블랙&#34;</span>,<span style="color:#e6db74">&#34;쪼꼬미&#34;</span>,<span style="color:#e6db74">&#34;메보즈&#34;</span>,<span style="color:#e6db74">&#34;더블랙&#34;</span>,<span style="color:#e6db74">&#34;더블랙&#34;</span>,<span style="color:#e6db74">&#34;쪼꼬미&#34;</span>,<span style="color:#e6db74">&#34;더블랙&#34;</span>]
+)
+sort!(WJSN, <span style="color:#e6db74">:birth</span>)
+
+unique(WJSN, <span style="color:#e6db74">:unit</span>)
+
+units <span style="color:#f92672">=</span> groupby(WJSN, <span style="color:#e6db74">:unit</span>)
+units[<span style="color:#ae81ff">1</span>]
+units[<span style="color:#ae81ff">2</span>]
+units[<span style="color:#ae81ff">3</span>]
+
+combine(units, <span style="color:#e6db74">:height</span> <span style="color:#f92672">=&gt;</span> mean)
+</code></pre></div><p>위의 예제 코드를 실행해보고 그 결과를 확인해보자.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> WJSN
+<span style="color:#ae81ff">10</span><span style="color:#f92672">×</span><span style="color:#ae81ff">4</span> DataFrame
+ Row │ member  birth  height  unit   
+     │ <span style="color:#66d9ef">String</span>  <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span>   <span style="color:#66d9ef">String</span> 
+─────┼───────────────────────────────
+   <span style="color:#ae81ff">1</span> │ 현정       <span style="color:#ae81ff">94</span>     <span style="color:#ae81ff">165</span>  더블랙
+   <span style="color:#ae81ff">2</span> │ 소정       <span style="color:#ae81ff">95</span>     <span style="color:#ae81ff">166</span>  더블랙
+   <span style="color:#ae81ff">3</span> │ 지연       <span style="color:#ae81ff">95</span>     <span style="color:#ae81ff">163</span>  더블랙
+   <span style="color:#ae81ff">4</span> │ 수빈       <span style="color:#ae81ff">96</span>     <span style="color:#ae81ff">159</span>  쪼꼬미
+   <span style="color:#ae81ff">5</span> │ 다원       <span style="color:#ae81ff">97</span>     <span style="color:#ae81ff">167</span>  메보즈
+   <span style="color:#ae81ff">6</span> │ 루다       <span style="color:#ae81ff">97</span>     <span style="color:#ae81ff">157</span>  쪼꼬미
+   <span style="color:#ae81ff">7</span> │ 주연       <span style="color:#ae81ff">98</span>     <span style="color:#ae81ff">172</span>  더블랙
+   <span style="color:#ae81ff">8</span> │ 다영       <span style="color:#ae81ff">99</span>     <span style="color:#ae81ff">161</span>  쪼꼬미
+   <span style="color:#ae81ff">9</span> │ 연정       <span style="color:#ae81ff">99</span>     <span style="color:#ae81ff">165</span>  메보즈
+  <span style="color:#ae81ff">10</span> │ 진숙       <span style="color:#ae81ff">99</span>     <span style="color:#ae81ff">162</span>  쪼꼬미
+</code></pre></div><p><code>WJSN</code> 데이터프레임은 위와 같다.</p>
 <h3 id="그룹별로-나누기-groupby">그룹별로 나누기 <code>groupby()</code></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> units <span style="color:#f92672">=</span> groupby(WJSN, <span style="color:#e6db74">:unit</span>)
-</span></span><span style="display:flex;"><span>GroupedDataFrame with <span style="color:#ae81ff">3</span> groups based on key<span style="color:#f92672">:</span> unit
-</span></span><span style="display:flex;"><span>First Group (<span style="color:#ae81ff">4</span> rows)<span style="color:#f92672">:</span> unit <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;더블랙&#34;</span>
-</span></span><span style="display:flex;"><span> Row │ member  birth  height  unit   
-</span></span><span style="display:flex;"><span>     │ <span style="color:#66d9ef">String</span>  <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span>   <span style="color:#66d9ef">String</span> 
-</span></span><span style="display:flex;"><span>─────┼───────────────────────────────
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">1</span> │ 현정       <span style="color:#ae81ff">94</span>     <span style="color:#ae81ff">165</span>  더블랙
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">2</span> │ 소정       <span style="color:#ae81ff">95</span>     <span style="color:#ae81ff">166</span>  더블랙
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">3</span> │ 지연       <span style="color:#ae81ff">95</span>     <span style="color:#ae81ff">163</span>  더블랙
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">4</span> │ 주연       <span style="color:#ae81ff">98</span>     <span style="color:#ae81ff">172</span>  더블랙
-</span></span><span style="display:flex;"><span><span style="color:#f92672">⋮</span>
-</span></span><span style="display:flex;"><span>Last Group (<span style="color:#ae81ff">2</span> rows)<span style="color:#f92672">:</span> unit <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;메보즈&#34;</span>
-</span></span><span style="display:flex;"><span> Row │ member  birth  height  unit   
-</span></span><span style="display:flex;"><span>     │ <span style="color:#66d9ef">String</span>  <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span>   <span style="color:#66d9ef">String</span> 
-</span></span><span style="display:flex;"><span>─────┼───────────────────────────────
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">1</span> │ 다원       <span style="color:#ae81ff">97</span>     <span style="color:#ae81ff">167</span>  메보즈
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">2</span> │ 연정       <span style="color:#ae81ff">99</span>     <span style="color:#ae81ff">165</span>  메보즈
-</span></span></code></pre></div><p><code>:unit</code> 열을 기준으로 데이터프레임이 세 개의 그룹으로 나뉘었다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> units[<span style="color:#ae81ff">1</span>]
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span><span style="color:#f92672">×</span><span style="color:#ae81ff">4</span> SubDataFrame
-</span></span><span style="display:flex;"><span> Row │ member  birth  height  unit   
-</span></span><span style="display:flex;"><span>     │ <span style="color:#66d9ef">String</span>  <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span>   <span style="color:#66d9ef">String</span> 
-</span></span><span style="display:flex;"><span>─────┼───────────────────────────────
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">1</span> │ 현정       <span style="color:#ae81ff">94</span>     <span style="color:#ae81ff">165</span>  더블랙
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">2</span> │ 소정       <span style="color:#ae81ff">95</span>     <span style="color:#ae81ff">166</span>  더블랙
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">3</span> │ 지연       <span style="color:#ae81ff">95</span>     <span style="color:#ae81ff">163</span>  더블랙
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">4</span> │ 주연       <span style="color:#ae81ff">98</span>     <span style="color:#ae81ff">172</span>  더블랙
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> units[<span style="color:#ae81ff">2</span>]
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span><span style="color:#f92672">×</span><span style="color:#ae81ff">4</span> SubDataFrame
-</span></span><span style="display:flex;"><span> Row │ member  birth  height  unit   
-</span></span><span style="display:flex;"><span>     │ <span style="color:#66d9ef">String</span>  <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span>   <span style="color:#66d9ef">String</span> 
-</span></span><span style="display:flex;"><span>─────┼───────────────────────────────
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">1</span> │ 수빈       <span style="color:#ae81ff">96</span>     <span style="color:#ae81ff">159</span>  쪼꼬미
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">2</span> │ 루다       <span style="color:#ae81ff">97</span>     <span style="color:#ae81ff">157</span>  쪼꼬미
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">3</span> │ 다영       <span style="color:#ae81ff">99</span>     <span style="color:#ae81ff">161</span>  쪼꼬미
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">4</span> │ 진숙       <span style="color:#ae81ff">99</span>     <span style="color:#ae81ff">162</span>  쪼꼬미
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> units[<span style="color:#ae81ff">3</span>]
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span><span style="color:#f92672">×</span><span style="color:#ae81ff">4</span> SubDataFrame
-</span></span><span style="display:flex;"><span> Row │ member  birth  height  unit   
-</span></span><span style="display:flex;"><span>     │ <span style="color:#66d9ef">String</span>  <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span>   <span style="color:#66d9ef">String</span> 
-</span></span><span style="display:flex;"><span>─────┼───────────────────────────────
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">1</span> │ 다원       <span style="color:#ae81ff">97</span>     <span style="color:#ae81ff">167</span>  메보즈
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">2</span> │ 연정       <span style="color:#ae81ff">99</span>     <span style="color:#ae81ff">165</span>  메보즈
-</span></span></code></pre></div><p>위와 같이 <code>GroupedDataFrame</code>에 인덱싱을 함으로써 나뉘어진 데이터프레임에 접근할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> units <span style="color:#f92672">=</span> groupby(WJSN, <span style="color:#e6db74">:unit</span>)
+GroupedDataFrame with <span style="color:#ae81ff">3</span> groups based on key<span style="color:#f92672">:</span> unit
+First Group (<span style="color:#ae81ff">4</span> rows)<span style="color:#f92672">:</span> unit <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;더블랙&#34;</span>
+ Row │ member  birth  height  unit   
+     │ <span style="color:#66d9ef">String</span>  <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span>   <span style="color:#66d9ef">String</span> 
+─────┼───────────────────────────────
+   <span style="color:#ae81ff">1</span> │ 현정       <span style="color:#ae81ff">94</span>     <span style="color:#ae81ff">165</span>  더블랙
+   <span style="color:#ae81ff">2</span> │ 소정       <span style="color:#ae81ff">95</span>     <span style="color:#ae81ff">166</span>  더블랙
+   <span style="color:#ae81ff">3</span> │ 지연       <span style="color:#ae81ff">95</span>     <span style="color:#ae81ff">163</span>  더블랙
+   <span style="color:#ae81ff">4</span> │ 주연       <span style="color:#ae81ff">98</span>     <span style="color:#ae81ff">172</span>  더블랙
+<span style="color:#f92672">⋮</span>
+Last Group (<span style="color:#ae81ff">2</span> rows)<span style="color:#f92672">:</span> unit <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;메보즈&#34;</span>
+ Row │ member  birth  height  unit   
+     │ <span style="color:#66d9ef">String</span>  <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span>   <span style="color:#66d9ef">String</span> 
+─────┼───────────────────────────────
+   <span style="color:#ae81ff">1</span> │ 다원       <span style="color:#ae81ff">97</span>     <span style="color:#ae81ff">167</span>  메보즈
+   <span style="color:#ae81ff">2</span> │ 연정       <span style="color:#ae81ff">99</span>     <span style="color:#ae81ff">165</span>  메보즈
+</code></pre></div><p><code>:unit</code> 열을 기준으로 데이터프레임이 세 개의 그룹으로 나뉘었다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> units[<span style="color:#ae81ff">1</span>]
+<span style="color:#ae81ff">4</span><span style="color:#f92672">×</span><span style="color:#ae81ff">4</span> SubDataFrame
+ Row │ member  birth  height  unit   
+     │ <span style="color:#66d9ef">String</span>  <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span>   <span style="color:#66d9ef">String</span> 
+─────┼───────────────────────────────
+   <span style="color:#ae81ff">1</span> │ 현정       <span style="color:#ae81ff">94</span>     <span style="color:#ae81ff">165</span>  더블랙
+   <span style="color:#ae81ff">2</span> │ 소정       <span style="color:#ae81ff">95</span>     <span style="color:#ae81ff">166</span>  더블랙
+   <span style="color:#ae81ff">3</span> │ 지연       <span style="color:#ae81ff">95</span>     <span style="color:#ae81ff">163</span>  더블랙
+   <span style="color:#ae81ff">4</span> │ 주연       <span style="color:#ae81ff">98</span>     <span style="color:#ae81ff">172</span>  더블랙
+
+julia<span style="color:#f92672">&gt;</span> units[<span style="color:#ae81ff">2</span>]
+<span style="color:#ae81ff">4</span><span style="color:#f92672">×</span><span style="color:#ae81ff">4</span> SubDataFrame
+ Row │ member  birth  height  unit   
+     │ <span style="color:#66d9ef">String</span>  <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span>   <span style="color:#66d9ef">String</span> 
+─────┼───────────────────────────────
+   <span style="color:#ae81ff">1</span> │ 수빈       <span style="color:#ae81ff">96</span>     <span style="color:#ae81ff">159</span>  쪼꼬미
+   <span style="color:#ae81ff">2</span> │ 루다       <span style="color:#ae81ff">97</span>     <span style="color:#ae81ff">157</span>  쪼꼬미
+   <span style="color:#ae81ff">3</span> │ 다영       <span style="color:#ae81ff">99</span>     <span style="color:#ae81ff">161</span>  쪼꼬미
+   <span style="color:#ae81ff">4</span> │ 진숙       <span style="color:#ae81ff">99</span>     <span style="color:#ae81ff">162</span>  쪼꼬미
+
+julia<span style="color:#f92672">&gt;</span> units[<span style="color:#ae81ff">3</span>]
+<span style="color:#ae81ff">2</span><span style="color:#f92672">×</span><span style="color:#ae81ff">4</span> SubDataFrame
+ Row │ member  birth  height  unit   
+     │ <span style="color:#66d9ef">String</span>  <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span>   <span style="color:#66d9ef">String</span> 
+─────┼───────────────────────────────
+   <span style="color:#ae81ff">1</span> │ 다원       <span style="color:#ae81ff">97</span>     <span style="color:#ae81ff">167</span>  메보즈
+   <span style="color:#ae81ff">2</span> │ 연정       <span style="color:#ae81ff">99</span>     <span style="color:#ae81ff">165</span>  메보즈
+</code></pre></div><p>위와 같이 <code>GroupedDataFrame</code>에 인덱싱을 함으로써 나뉘어진 데이터프레임에 접근할 수 있다.</p>
 <h3 id="그룹별로-계산하기-combine">그룹별로 계산하기 <code>combine()</code></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> combine(units, <span style="color:#e6db74">:height</span> <span style="color:#f92672">=&gt;</span> mean)
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> DataFrame
-</span></span><span style="display:flex;"><span> Row │ unit    height_mean 
-</span></span><span style="display:flex;"><span>     │ <span style="color:#66d9ef">String</span>  <span style="color:#66d9ef">Float64</span>     
-</span></span><span style="display:flex;"><span>─────┼─────────────────────
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">1</span> │ 더블랙       <span style="color:#ae81ff">166.5</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">2</span> │ 쪼꼬미       <span style="color:#ae81ff">159.75</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">3</span> │ 메보즈       <span style="color:#ae81ff">166.0</span>
-</span></span></code></pre></div><p>위 코드는 <code>WJSN</code> 데이터프레임이 <code>:unit</code>을 기준으로 그룹화된 데이터프레임 <code>units</code>에서 <code>:height</code>의 평균 <code>mean</code>을 계산한 것이다. 개요에서 언급했듯 이 <code>StatBase.mean()</code>은 평균을 구하는 함수다. 이것을 <code>sum()</code>으로 바꾸면 합계, <code>min()</code>으로 바꾸면 그룹별로 최소값을 계산한다. 이 예제에서는 <code>:unit</code>별로 <code>:height</code>의 평균을 계산했고, <code>쪼꼬미</code> 그룹이 <code>159.75</code>로 가장 낮은 것을 확인할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> combine(units, <span style="color:#e6db74">:height</span> <span style="color:#f92672">=&gt;</span> mean)
+<span style="color:#ae81ff">3</span><span style="color:#f92672">×</span><span style="color:#ae81ff">2</span> DataFrame
+ Row │ unit    height_mean 
+     │ <span style="color:#66d9ef">String</span>  <span style="color:#66d9ef">Float64</span>     
+─────┼─────────────────────
+   <span style="color:#ae81ff">1</span> │ 더블랙       <span style="color:#ae81ff">166.5</span>
+   <span style="color:#ae81ff">2</span> │ 쪼꼬미       <span style="color:#ae81ff">159.75</span>
+   <span style="color:#ae81ff">3</span> │ 메보즈       <span style="color:#ae81ff">166.0</span>
+</code></pre></div><p>위 코드는 <code>WJSN</code> 데이터프레임이 <code>:unit</code>을 기준으로 그룹화된 데이터프레임 <code>units</code>에서 <code>:height</code>의 평균 <code>mean</code>을 계산한 것이다. 개요에서 언급했듯 이 <code>StatBase.mean()</code>은 평균을 구하는 함수다. 이것을 <code>sum()</code>으로 바꾸면 합계, <code>min()</code>으로 바꾸면 그룹별로 최소값을 계산한다. 이 예제에서는 <code>:unit</code>별로 <code>:height</code>의 평균을 계산했고, <code>쪼꼬미</code> 그룹이 <code>159.75</code>로 가장 낮은 것을 확인할 수 있다.</p>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -402,7 +416,7 @@
 <aside style="text-align: right;">
     2012-08-25&emsp;
     류대식&emsp;
-    <a href="../624">🎲 2254</a>
+    <a href="../667">🎲 2254</a>
 </aside>
 
 <script>
@@ -1219,7 +1233,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 
     
     
-    <link rel="stylesheet" href=https://freshrimpsushi.github.io/css/atom-one-light.css>
+    <link rel="stylesheet" href=https://freshrimpsushi.github.io/css/codefence.css>
     <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
     <script>hljs.initHighlightingOnLoad();</script>
     

@@ -300,18 +300,18 @@
 <p>실제로 IO가 반영되고나면 분석이 눈에 띄게 개선된다.</p>
 <h2 id="코드">코드</h2>
 <p>다음은 R 로 작성한 예제코드다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(TSA)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">data</span>(<span style="color:#e6db74">&#34;airmiles&#34;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">plot</span>(airmiles, main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;미국의 여객기 이용자 수&#34;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>out1<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.arima</span>(airmiles)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">detectIO</span>(out1)
-</span></span><span style="display:flex;"><span>out2<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">arima</span>(airmiles,order<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>),seasonal<span style="color:#f92672">=</span><span style="color:#a6e22e">list</span>(order<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>),period<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>),io<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">69</span>))
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>); <span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>))
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">plot</span>(airmiles,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;IO 미반영&#34;</span>,xlim<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2000</span>,<span style="color:#ae81ff">2003</span>),xaxt<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;n&#39;</span>); <span style="color:#a6e22e">lines</span>(<span style="color:#a6e22e">fitted</span>(out1),col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">plot</span>(airmiles,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;IO 반영&#34;</span>,xlim<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2000</span>,<span style="color:#ae81ff">2003</span>),xaxt<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;n&#39;</span>); <span style="color:#a6e22e">lines</span>(<span style="color:#a6e22e">fitted</span>(out2),col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
-</span></span></code></pre></div><section class="footnotes" role="doc-endnotes">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(TSA)
+<span style="color:#a6e22e">data</span>(<span style="color:#e6db74">&#34;airmiles&#34;</span>)
+<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>)
+<span style="color:#a6e22e">plot</span>(airmiles, main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;미국의 여객기 이용자 수&#34;</span>)
+
+out1<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.arima</span>(airmiles)
+<span style="color:#a6e22e">detectIO</span>(out1)
+out2<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">arima</span>(airmiles,order<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>),seasonal<span style="color:#f92672">=</span><span style="color:#a6e22e">list</span>(order<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>),period<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>),io<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">69</span>))
+<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>); <span style="color:#a6e22e">par</span>(mfrow<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>))
+<span style="color:#a6e22e">plot</span>(airmiles,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;IO 미반영&#34;</span>,xlim<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2000</span>,<span style="color:#ae81ff">2003</span>),xaxt<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;n&#39;</span>); <span style="color:#a6e22e">lines</span>(<span style="color:#a6e22e">fitted</span>(out1),col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
+<span style="color:#a6e22e">plot</span>(airmiles,main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;IO 반영&#34;</span>,xlim<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">2000</span>,<span style="color:#ae81ff">2003</span>),xaxt<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;n&#39;</span>); <span style="color:#a6e22e">lines</span>(<span style="color:#a6e22e">fitted</span>(out2),col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
+</code></pre></div><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
@@ -324,7 +324,7 @@
 <aside style="text-align: right;">
     2019-08-27&emsp;
     류대식&emsp;
-    <a href="../571">🎲 1260</a>
+    <a href="../394">🎲 1260</a>
 </aside>
 
 <script>
@@ -1141,7 +1141,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 
     
     
-    <link rel="stylesheet" href=https://freshrimpsushi.github.io/css/atom-one-light.css>
+    <link rel="stylesheet" href=https://freshrimpsushi.github.io/css/codefence.css>
     <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
     <script>hljs.initHighlightingOnLoad();</script>
     

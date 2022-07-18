@@ -263,6 +263,20 @@
     <div class="innertic">
       
     
+    
+    <div style="text-align: center;">
+        <p height=80% style="
+            text-align: center;
+            color: black;
+            border-style: dashed;
+            padding: 1rem;"
+            >
+        
+            🔎F2키를 눌러 포스트를 퀵서치할 수 있습니다. <br>
+            한국어는 물론, 영어로도 검색을 시도해보세요.
+        
+        </p>
+    </div>
 
 
 
@@ -289,61 +303,61 @@
 <p><code>rename!()</code> 함수로 바꾸면 된다. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <p>문자열의 리스트를 줘서 한번에 바꾸는 방법도 있고, 개별적으로 바꾸는 방법도 있다.</p>
 <h2 id="코드">코드</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> DataFrames
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>df <span style="color:#f92672">=</span> DataFrame(rand(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>), <span style="color:#e6db74">:auto</span>)
-</span></span><span style="display:flex;"><span>rename!(df, [<span style="color:#e6db74">&#34;X&#34;</span>, <span style="color:#e6db74">&#34;Y&#34;</span>, <span style="color:#e6db74">&#34;Z&#34;</span>])
-</span></span><span style="display:flex;"><span>rename!(df, <span style="color:#e6db74">:X</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">:A</span>)
-</span></span></code></pre></div><p>실행 시키면 가장 먼저 다음과 같은 데이터 프레임이 생성된다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> df <span style="color:#f92672">=</span> DataFrame(rand(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>), <span style="color:#e6db74">:auto</span>)
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> DataFrame
-</span></span><span style="display:flex;"><span> Row │ x1     x2     x3    
-</span></span><span style="display:flex;"><span>     │ <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span> 
-</span></span><span style="display:flex;"><span>─────┼─────────────────────
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">1</span> │     <span style="color:#ae81ff">2</span>      <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">6</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">2</span> │     <span style="color:#ae81ff">9</span>      <span style="color:#ae81ff">2</span>      <span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">3</span> │     <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">4</span> │     <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">5</span> │     <span style="color:#ae81ff">9</span>      <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">6</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">6</span> │     <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">7</span> │     <span style="color:#ae81ff">4</span>      <span style="color:#ae81ff">8</span>      <span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">8</span> │     <span style="color:#ae81ff">9</span>      <span style="color:#ae81ff">8</span>      <span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">9</span> │     <span style="color:#ae81ff">4</span>      <span style="color:#ae81ff">6</span>      <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">10</span> │     <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">9</span>      <span style="color:#ae81ff">7</span>
-</span></span></code></pre></div><h3 id="한번에-바꾸는-법">한번에 바꾸는 법</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> rename!(df, [<span style="color:#e6db74">&#34;X&#34;</span>, <span style="color:#e6db74">&#34;Y&#34;</span>, <span style="color:#e6db74">&#34;Z&#34;</span>])
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> DataFrame
-</span></span><span style="display:flex;"><span> Row │ X      Y      Z     
-</span></span><span style="display:flex;"><span>     │ <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span> 
-</span></span><span style="display:flex;"><span>─────┼─────────────────────
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">1</span> │     <span style="color:#ae81ff">2</span>      <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">6</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">2</span> │     <span style="color:#ae81ff">9</span>      <span style="color:#ae81ff">2</span>      <span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">3</span> │     <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">4</span> │     <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">5</span> │     <span style="color:#ae81ff">9</span>      <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">6</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">6</span> │     <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">7</span> │     <span style="color:#ae81ff">4</span>      <span style="color:#ae81ff">8</span>      <span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">8</span> │     <span style="color:#ae81ff">9</span>      <span style="color:#ae81ff">8</span>      <span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">9</span> │     <span style="color:#ae81ff">4</span>      <span style="color:#ae81ff">6</span>      <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">10</span> │     <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">9</span>      <span style="color:#ae81ff">7</span>
-</span></span></code></pre></div><p>문자열의 리스트를 주면 된다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> DataFrames
+
+df <span style="color:#f92672">=</span> DataFrame(rand(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>), <span style="color:#e6db74">:auto</span>)
+rename!(df, [<span style="color:#e6db74">&#34;X&#34;</span>, <span style="color:#e6db74">&#34;Y&#34;</span>, <span style="color:#e6db74">&#34;Z&#34;</span>])
+rename!(df, <span style="color:#e6db74">:X</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">:A</span>)
+</code></pre></div><p>실행 시키면 가장 먼저 다음과 같은 데이터 프레임이 생성된다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> df <span style="color:#f92672">=</span> DataFrame(rand(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>), <span style="color:#e6db74">:auto</span>)
+<span style="color:#ae81ff">10</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> DataFrame
+ Row │ x1     x2     x3    
+     │ <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span> 
+─────┼─────────────────────
+   <span style="color:#ae81ff">1</span> │     <span style="color:#ae81ff">2</span>      <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">6</span>
+   <span style="color:#ae81ff">2</span> │     <span style="color:#ae81ff">9</span>      <span style="color:#ae81ff">2</span>      <span style="color:#ae81ff">4</span>
+   <span style="color:#ae81ff">3</span> │     <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">4</span>
+   <span style="color:#ae81ff">4</span> │     <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">3</span>
+   <span style="color:#ae81ff">5</span> │     <span style="color:#ae81ff">9</span>      <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">6</span>
+   <span style="color:#ae81ff">6</span> │     <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">5</span>
+   <span style="color:#ae81ff">7</span> │     <span style="color:#ae81ff">4</span>      <span style="color:#ae81ff">8</span>      <span style="color:#ae81ff">4</span>
+   <span style="color:#ae81ff">8</span> │     <span style="color:#ae81ff">9</span>      <span style="color:#ae81ff">8</span>      <span style="color:#ae81ff">4</span>
+   <span style="color:#ae81ff">9</span> │     <span style="color:#ae81ff">4</span>      <span style="color:#ae81ff">6</span>      <span style="color:#ae81ff">1</span>
+  <span style="color:#ae81ff">10</span> │     <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">9</span>      <span style="color:#ae81ff">7</span>
+</code></pre></div><h3 id="한번에-바꾸는-법">한번에 바꾸는 법</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> rename!(df, [<span style="color:#e6db74">&#34;X&#34;</span>, <span style="color:#e6db74">&#34;Y&#34;</span>, <span style="color:#e6db74">&#34;Z&#34;</span>])
+<span style="color:#ae81ff">10</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> DataFrame
+ Row │ X      Y      Z     
+     │ <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span> 
+─────┼─────────────────────
+   <span style="color:#ae81ff">1</span> │     <span style="color:#ae81ff">2</span>      <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">6</span>
+   <span style="color:#ae81ff">2</span> │     <span style="color:#ae81ff">9</span>      <span style="color:#ae81ff">2</span>      <span style="color:#ae81ff">4</span>
+   <span style="color:#ae81ff">3</span> │     <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">4</span>
+   <span style="color:#ae81ff">4</span> │     <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">3</span>
+   <span style="color:#ae81ff">5</span> │     <span style="color:#ae81ff">9</span>      <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">6</span>
+   <span style="color:#ae81ff">6</span> │     <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">5</span>
+   <span style="color:#ae81ff">7</span> │     <span style="color:#ae81ff">4</span>      <span style="color:#ae81ff">8</span>      <span style="color:#ae81ff">4</span>
+   <span style="color:#ae81ff">8</span> │     <span style="color:#ae81ff">9</span>      <span style="color:#ae81ff">8</span>      <span style="color:#ae81ff">4</span>
+   <span style="color:#ae81ff">9</span> │     <span style="color:#ae81ff">4</span>      <span style="color:#ae81ff">6</span>      <span style="color:#ae81ff">1</span>
+  <span style="color:#ae81ff">10</span> │     <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">9</span>      <span style="color:#ae81ff">7</span>
+</code></pre></div><p>문자열의 리스트를 주면 된다.</p>
 <h3 id="하나씩-바꾸는-법">하나씩 바꾸는 법</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>julia<span style="color:#f92672">&gt;</span> rename!(df, <span style="color:#e6db74">:X</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">:A</span>)
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> DataFrame
-</span></span><span style="display:flex;"><span> Row │ A      Y      Z     
-</span></span><span style="display:flex;"><span>     │ <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span> 
-</span></span><span style="display:flex;"><span>─────┼─────────────────────
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">1</span> │     <span style="color:#ae81ff">2</span>      <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">6</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">2</span> │     <span style="color:#ae81ff">9</span>      <span style="color:#ae81ff">2</span>      <span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">3</span> │     <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">4</span> │     <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">5</span> │     <span style="color:#ae81ff">9</span>      <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">6</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">6</span> │     <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">7</span> │     <span style="color:#ae81ff">4</span>      <span style="color:#ae81ff">8</span>      <span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">8</span> │     <span style="color:#ae81ff">9</span>      <span style="color:#ae81ff">8</span>      <span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">9</span> │     <span style="color:#ae81ff">4</span>      <span style="color:#ae81ff">6</span>      <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">10</span> │     <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">9</span>      <span style="color:#ae81ff">7</span>
-</span></span></code></pre></div><p>다른 언어에서는 보기 어려운 방법인데, 열이름 앞에 <code>:</code> 를 붙이고 <code>=&gt;</code> 로 <a href="../2201">매핑</a> 시킨다. 줄리아에서 <code>:</code>로 시작하는 변수는 <a href="../2195">심볼</a><sup>Symbol</sup>이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> rename!(df, <span style="color:#e6db74">:X</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">:A</span>)
+<span style="color:#ae81ff">10</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> DataFrame
+ Row │ A      Y      Z     
+     │ <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span>  <span style="color:#66d9ef">Int64</span> 
+─────┼─────────────────────
+   <span style="color:#ae81ff">1</span> │     <span style="color:#ae81ff">2</span>      <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">6</span>
+   <span style="color:#ae81ff">2</span> │     <span style="color:#ae81ff">9</span>      <span style="color:#ae81ff">2</span>      <span style="color:#ae81ff">4</span>
+   <span style="color:#ae81ff">3</span> │     <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">4</span>
+   <span style="color:#ae81ff">4</span> │     <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">3</span>
+   <span style="color:#ae81ff">5</span> │     <span style="color:#ae81ff">9</span>      <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">6</span>
+   <span style="color:#ae81ff">6</span> │     <span style="color:#ae81ff">3</span>      <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">5</span>
+   <span style="color:#ae81ff">7</span> │     <span style="color:#ae81ff">4</span>      <span style="color:#ae81ff">8</span>      <span style="color:#ae81ff">4</span>
+   <span style="color:#ae81ff">8</span> │     <span style="color:#ae81ff">9</span>      <span style="color:#ae81ff">8</span>      <span style="color:#ae81ff">4</span>
+   <span style="color:#ae81ff">9</span> │     <span style="color:#ae81ff">4</span>      <span style="color:#ae81ff">6</span>      <span style="color:#ae81ff">1</span>
+  <span style="color:#ae81ff">10</span> │     <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">9</span>      <span style="color:#ae81ff">7</span>
+</code></pre></div><p>다른 언어에서는 보기 어려운 방법인데, 열이름 앞에 <code>:</code> 를 붙이고 <code>=&gt;</code> 로 <a href="../2201">매핑</a> 시킨다. 줄리아에서 <code>:</code>로 시작하는 변수는 <a href="../2195">심볼</a><sup>Symbol</sup>이다.</p>
 <h2 id="환경">환경</h2>
 <ul>
 <li>OS: Windows</li>
@@ -362,7 +376,7 @@
 <aside style="text-align: right;">
     2021-10-07&emsp;
     류대식&emsp;
-    <a href="../557">🎲 2093</a>
+    <a href="../687">🎲 2093</a>
 </aside>
 
 <script>
@@ -1179,7 +1193,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 
     
     
-    <link rel="stylesheet" href=https://freshrimpsushi.github.io/css/atom-one-light.css>
+    <link rel="stylesheet" href=https://freshrimpsushi.github.io/css/codefence.css>
     <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
     <script>hljs.initHighlightingOnLoad();</script>
     
