@@ -264,20 +264,6 @@
     <div class="innertic">
       
     
-    
-    <div style="text-align: center;">
-        <p height=80% style="
-            text-align: center;
-            color: black;
-            border-style: dashed;
-            padding: 1rem;"
-            >
-        
-            $x^{2} = - 1$ 의 해가 <b>허수</b>면 $X^{2} = - I$ 는 <b>허행렬</b>일까요? <br>
-            <a href="https://freshrimpsushi.com/community/bbs/board.php?bo_table=research" target='_blank'>커뮤니티</a>에서 고민해봅시다.
-        
-        </p>
-    </div>
 
 
 
@@ -323,22 +309,22 @@ $$
 이 확률이 의미하는 바는 바로 새로운 링크가 연결되는 이유 자체를 기존의 링크에서 찾는 것이다. 후발주자보다는 선발주자가 유리하며, 유리한 노드는 갈수록 유리해진다. 인기라는 개념이 네트워크로 태어난다면 그게 바로 바라바시 알버트 네트워크다. 이러한 이유로 가끔은 <strong>프리퍼런셜 어태치</strong><sup>Preferential Attachment</sup>라 불리기도 한다.</p>
 <h2 id="시각화">시각화</h2>
 <p>다음은 BA 네트워크을 생성하고 그 발달<sup>Evolving</sup> 과정을 시각화하는 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Graphs
-<span style="color:#a6e22e">@time</span> <span style="color:#66d9ef">using</span> Plots, GraphRecipes
+<pre tabindex="0"><code>@time using Graphs
+@time using Plots, GraphRecipes
 
-N <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span>
-X <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>N)<span style="color:#f92672">/</span>N <span style="color:#f92672">.*</span> cos<span style="color:#f92672">.</span>(<span style="color:#ae81ff">2</span>π <span style="color:#f92672">*</span> rand(N))
-Y <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>N)<span style="color:#f92672">/</span>N <span style="color:#f92672">.*</span> sin<span style="color:#f92672">.</span>(<span style="color:#ae81ff">2</span>π <span style="color:#f92672">*</span> rand(N))
+N = 200
+X = (1:N)/N .* cos.(2π * rand(N))
+Y = (1:N)/N .* sin.(2π * rand(N))
 
-G <span style="color:#f92672">=</span> barabasi_albert(N, <span style="color:#ae81ff">3</span>)
-graph_evolution <span style="color:#f92672">=</span> <span style="color:#a6e22e">@animate</span> <span style="color:#66d9ef">for</span> n <span style="color:#f92672">∈</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">:</span>N
-  graphplot(G[<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>n], x <span style="color:#f92672">=</span> X[<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>n], y <span style="color:#f92672">=</span> Y[<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>n],
-   curvature <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, linealpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.2</span>, markerstrokewidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, nodecolor <span style="color:#f92672">=</span> <span style="color:#e6db74">:gray</span>,
-   size <span style="color:#f92672">=</span> (<span style="color:#ae81ff">300</span>,<span style="color:#ae81ff">400</span>), nodesize <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.1</span>)
-  xlims!(<span style="color:#f92672">-</span>n<span style="color:#f92672">/</span>N,n<span style="color:#f92672">/</span>N); ylims!(<span style="color:#f92672">-</span>n<span style="color:#f92672">/</span>N,n<span style="color:#f92672">/</span>N)
-<span style="color:#66d9ef">end</span>
-gif(graph_evolution, <span style="color:#e6db74">&#34;zoomout.gif&#34;</span>, fps <span style="color:#f92672">=</span> <span style="color:#ae81ff">16</span>)
-</code></pre></div><section class="footnotes" role="doc-endnotes">
+G = barabasi_albert(N, 3)
+graph_evolution = @animate for n ∈ 4:N
+  graphplot(G[1:n], x = X[1:n], y = Y[1:n],
+   curvature = 0, linealpha = 0.2, markerstrokewidth = 0, nodecolor = :gray,
+   size = (300,400), nodesize = 0.1)
+  xlims!(-n/N,n/N); ylims!(-n/N,n/N)
+end
+gif(graph_evolution, &#34;zoomout.gif&#34;, fps = 16)
+</code></pre><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
@@ -354,7 +340,7 @@ gif(graph_evolution, <span style="color:#e6db74">&#34;zoomout.gif&#34;</span>, f
 <aside style="text-align: right;">
     2022-04-13&emsp;
     류대식&emsp;
-    <a href="../1635">🎲 2187</a>
+    <a href="../811">🎲 2187</a>
 </aside>
 
 <script>
@@ -945,7 +931,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2358)</summary>
+    <summary>전체 포스트 (2359)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1001,7 +987,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/" style="color: black">소볼레프공간 (11)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC/" style="color: black">수리물리 (83)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC/" style="color: black">수리물리 (84)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%EB%9F%89/" style="color: black">수리통계량 (1)</a>
         </li><li>
@@ -1169,6 +1155,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
       </p>
     </div>
 
+    
     
     
     <link rel="stylesheet" href=https://freshrimpsushi.github.io/css/codefence.css>

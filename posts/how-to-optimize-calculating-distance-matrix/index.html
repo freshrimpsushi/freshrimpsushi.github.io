@@ -272,7 +272,8 @@
             padding: 1rem;"
             >
         
-            이번 여름방학엔 <a href="../../categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/">선형대수</a> 정주행 어때요?
+            🔎F2키를 눌러 포스트를 퀵서치할 수 있습니다. <br>
+            한국어는 물론, 영어로도 검색을 시도해보세요.
         
         </p>
     </div>
@@ -302,41 +303,41 @@
 </ol>
 <h2 id="속도-비교">속도 비교</h2>
 <p>가령 SIR 모델에 대해 무빙 <a href="../1873">에이전트 기반 시뮬레이션</a>을 한다고 생각해보자. 원래의 <a href="../1283">시간복잡도</a>는 $O \left( n^{2} \right)$ 이지만, $S$ 와 $I$ 그룹으로 나누어 계산하면 시간 복잡도는 $O \left( n_{S} n_{I} \right)$ 로 뚝 떨어진다. 보통 질병의 전파는 $S$ 와 $I$ 간의 거리 행렬을 구해 일정한 반경 $\varepsilon$ 안에 들어오는지 판정한 다음, 얼마나 많이 접촉했는지로 구현한다. 이 작업으로 속도를 비교해보자.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> Distances
-<span style="color:#66d9ef">using</span> StatsBase
-<span style="color:#66d9ef">using</span> Random
+<pre tabindex="0"><code>using Distances
+using StatsBase
+using Random
 
-Random<span style="color:#f92672">.</span>seed!(<span style="color:#ae81ff">0</span>);
-N <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">^</span><span style="color:#ae81ff">4</span>
-location <span style="color:#f92672">=</span> rand(<span style="color:#ae81ff">2</span>, N);
-state <span style="color:#f92672">=</span> sample([<span style="color:#e6db74">&#39;S&#39;</span>, <span style="color:#e6db74">&#39;I&#39;</span>], Weights([<span style="color:#ae81ff">0.1</span>, <span style="color:#ae81ff">0.9</span>]), N);
-S <span style="color:#f92672">=</span> location[<span style="color:#f92672">:</span>, state <span style="color:#f92672">.==</span> <span style="color:#e6db74">&#39;S&#39;</span>]
-I <span style="color:#f92672">=</span> location[<span style="color:#f92672">:</span>, state <span style="color:#f92672">.==</span> <span style="color:#e6db74">&#39;I&#39;</span>]
+Random.seed!(0);
+N = 10^4
+location = rand(2, N);
+state = sample([&#39;S&#39;, &#39;I&#39;], Weights([0.1, 0.9]), N);
+S = location[:, state .== &#39;S&#39;]
+I = location[:, state .== &#39;I&#39;]
 
-<span style="color:#66d9ef">function</span> foo(S, I)
-    contact <span style="color:#f92672">=</span> <span style="color:#66d9ef">Int64</span>[]
-    <span style="color:#66d9ef">for</span> s <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">996</span>
-        push!(contact, sum(sum((I <span style="color:#f92672">.-</span> S[<span style="color:#f92672">:</span>,s])<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span>, dims <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">.&lt;</span> <span style="color:#ae81ff">0.1</span>))
-    <span style="color:#66d9ef">end</span>
-    <span style="color:#66d9ef">return</span> contact
-<span style="color:#66d9ef">end</span>
+function foo(S, I)
+    contact = Int64[]
+    for s in 1:996
+        push!(contact, sum(sum((I .- S[:,s]).^2, dims = 1) .&lt; 0.1))
+    end
+    return contact
+end
 
-<span style="color:#a6e22e">@time</span> foo(S, I)
-</code></pre></div><p>물론 그룹을 나누어 계산한다는 발상은 딱히 줄리아가 아니라 어떤 수단을 써도 뛰어난 성능 개선을 가져다준다. 요지는 그렇게 할 때 무식하게 반복문을 돌릴 필요 없이 <code>Distance</code> 패키지의 <code>pairwise()</code> 함수를 잘 쓰면 된다는 것이다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> foo(S, I);
-  <span style="color:#ae81ff">0.170835</span> seconds (<span style="color:#ae81ff">7.98</span> k allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">210.854</span> MiB, <span style="color:#ae81ff">12.56</span><span style="color:#f92672">%</span> gc Time)
+@time foo(S, I)
+</code></pre><p>물론 그룹을 나누어 계산한다는 발상은 딱히 줄리아가 아니라 어떤 수단을 써도 뛰어난 성능 개선을 가져다준다. 요지는 그렇게 할 때 무식하게 반복문을 돌릴 필요 없이 <code>Distance</code> 패키지의 <code>pairwise()</code> 함수를 잘 쓰면 된다는 것이다.</p>
+<pre tabindex="0"><code>julia&gt; @time foo(S, I);
+  0.170835 seconds (7.98 k allocations: 210.854 MiB, 12.56% gc Time)
 
-julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> sum(pairwise(Euclidean(),S,I) <span style="color:#f92672">.&lt;</span> <span style="color:#ae81ff">0.1</span>, dims <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>);
-  <span style="color:#ae81ff">0.087875</span> seconds (<span style="color:#ae81ff">14</span> allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">69.639</span> MiB, <span style="color:#ae81ff">4.15</span><span style="color:#f92672">%</span> gc Time)
-</code></pre></div><p>위 두가지 명령은 정확히 같은 역할을 하지만 속도 면에서 약 2배, allocation은 계산도 하기 싫을만큼 큰 차이가 나며 코딩 난이도 측면에서도 반복문보다 훨씬 쉽다.</p>
+julia&gt; @time sum(pairwise(Euclidean(),S,I) .&lt; 0.1, dims = 1);
+  0.087875 seconds (14 allocations: 69.639 MiB, 4.15% gc Time)
+</code></pre><p>위 두가지 명령은 정확히 같은 역할을 하지만 속도 면에서 약 2배, allocation은 계산도 하기 싫을만큼 큰 차이가 나며 코딩 난이도 측면에서도 반복문보다 훨씬 쉽다.</p>
 <h2 id="추가-연구-1">추가 연구 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
 <p>유클리드 거리가 거리함수일 때, <code>Euclidean()</code> 대신 <code>SqEuclidean()</code>를 사용하면 루트를 취하는 계산을 생략할 수 있어 속도가 더 빨라진다. 다음은 정확히 같은 결과를 내지만, 속도 측면에서는 1.5배 정도의 차이가 난다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> sum(pairwise(Euclidean(),S,I) <span style="color:#f92672">.&lt;</span> <span style="color:#ae81ff">0.1</span>, dims <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>);
-  <span style="color:#ae81ff">0.091917</span> seconds (<span style="color:#ae81ff">14</span> allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">69.639</span> MiB, <span style="color:#ae81ff">7.60</span><span style="color:#f92672">%</span> gc Time)
+<pre tabindex="0"><code>julia&gt; @time sum(pairwise(Euclidean(),S,I) .&lt; 0.1, dims = 1);
+  0.091917 seconds (14 allocations: 69.639 MiB, 7.60% gc Time)
 
-julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</span> sum(pairwise(SqEuclidean(),S,I) <span style="color:#f92672">.&lt;</span> <span style="color:#ae81ff">0.01</span>, dims <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>);
-  <span style="color:#ae81ff">0.061776</span> seconds (<span style="color:#ae81ff">14</span> allocations<span style="color:#f92672">:</span> <span style="color:#ae81ff">69.639</span> MiB, <span style="color:#ae81ff">11.37</span><span style="color:#f92672">%</span> gc Time)
-</code></pre></div><p>한편 여기서 더 빨라질 수도 있다. 이제 단순 코드 최적화로는 속도를 올리기 어렵고, 다차원 탐색에 유리한 자료구조인 k-d 트리<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>를 사용해야한다. <a href="../2088">NearstNeighbors.jl로 빠르게 거리 계산하는 법</a>을 참고하자.</p>
+julia&gt; @time sum(pairwise(SqEuclidean(),S,I) .&lt; 0.01, dims = 1);
+  0.061776 seconds (14 allocations: 69.639 MiB, 11.37% gc Time)
+</code></pre><p>한편 여기서 더 빨라질 수도 있다. 이제 단순 코드 최적화로는 속도를 올리기 어렵고, 다차원 탐색에 유리한 자료구조인 k-d 트리<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>를 사용해야한다. <a href="../2088">NearstNeighbors.jl로 빠르게 거리 계산하는 법</a>을 참고하자.</p>
 <h2 id="환경">환경</h2>
 <ul>
 <li>OS: Windows</li>
@@ -358,7 +359,7 @@ julia<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">@time</
 <aside style="text-align: right;">
     2021-05-14&emsp;
     류대식&emsp;
-    <a href="../1681">🎲 2020</a>
+    <a href="../1713">🎲 2020</a>
 </aside>
 
 <script>
@@ -949,7 +950,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2358)</summary>
+    <summary>전체 포스트 (2359)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1005,7 +1006,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/" style="color: black">소볼레프공간 (11)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC/" style="color: black">수리물리 (83)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC/" style="color: black">수리물리 (84)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%EB%9F%89/" style="color: black">수리통계량 (1)</a>
         </li><li>
@@ -1173,6 +1174,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
       </p>
     </div>
 
+    
     
     
     <link rel="stylesheet" href=https://freshrimpsushi.github.io/css/codefence.css>

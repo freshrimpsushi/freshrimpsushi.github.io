@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-use-linear-algebra-package-in-julia\/",
-    "wordCount" : "1004",
+    "wordCount" : "1000",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -299,6 +299,7 @@
         <li><a href="#전체-코드">전체 코드</a></li>
       </ul>
     </li>
+    <li><a href="#환경">환경</a></li>
   </ul>
 </nav>
     </div>
@@ -308,189 +309,189 @@
 <h2 id="개요">개요</h2>
 <p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>는 <a href="../../categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9">매트랩</a> 수준으로 <a href="../../categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98">선형대수</a>를 잘 지원한다. 오히려 매트랩 이상으로 발전된, 직관적이고 미려한 문법을 보면 줄리아가 만들어진 시점부터 잘 설계된 느낌을 받을 수 있다. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <h2 id="코드">코드</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> A <span style="color:#f92672">=</span> [    
-           <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">3</span>
-           <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">1</span>
-           <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">9</span>
+<pre tabindex="0"><code>julia&gt; A = [    
+           1 0 3
+           0 5 1
+           3 1 9
        ]        
-<span style="color:#ae81ff">3</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Int64</span>}<span style="color:#f92672">:</span>
- <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">3</span>
- <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">5</span>  <span style="color:#ae81ff">1</span>
- <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">9</span>
-</code></pre></div><p>보다시피 행렬을 정의하는 단계에서 이미 직관적이고 편하다. 이제 몇몇가지 상식적으로 있어야할 함수들에 대해 알아본다. 소제목에 관련 포스트를 링크하고 별도의 설명은 생략한다.</p>
+3×3 Matrix{Int64}:
+ 1  0  3
+ 0  5  1
+ 3  1  9
+</code></pre><p>보다시피 행렬을 정의하는 단계에서 이미 직관적이고 편하다. 이제 몇몇가지 상식적으로 있어야할 함수들에 대해 알아본다. 소제목에 관련 포스트를 링크하고 별도의 설명은 생략한다.</p>
 <h3 id="트레이스-tr1924"><a href="../1924">트레이스 <code>tr()</code></a></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> tr(A)
-<span style="color:#ae81ff">15</span>
-</code></pre></div><h3 id="행렬식-det252"><a href="../252">행렬식 <code>det()</code></a></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> det(A)
-<span style="color:#f92672">-</span><span style="color:#ae81ff">1.000000000000003</span>
-</code></pre></div><h3 id="역행렬-inv3003"><a href="../3003">역행렬 <code>inv()</code></a></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> inv(A)
-<span style="color:#ae81ff">3</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Float64</span>}<span style="color:#f92672">:</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">44.0</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">3.0</span>          <span style="color:#ae81ff">15.0</span>
-  <span style="color:#f92672">-</span><span style="color:#ae81ff">3.0</span>   <span style="color:#ae81ff">6.10623e-16</span>   <span style="color:#ae81ff">1.0</span>
-  <span style="color:#ae81ff">15.0</span>   <span style="color:#ae81ff">1.0</span>          <span style="color:#f92672">-</span><span style="color:#ae81ff">5.0</span>
+<pre tabindex="0"><code>julia&gt; tr(A)
+15
+</code></pre><h3 id="행렬식-det252"><a href="../252">행렬식 <code>det()</code></a></h3>
+<pre tabindex="0"><code>julia&gt; det(A)
+-1.000000000000003
+</code></pre><h3 id="역행렬-inv3003"><a href="../3003">역행렬 <code>inv()</code></a></h3>
+<pre tabindex="0"><code>julia&gt; inv(A)
+3×3 Matrix{Float64}:
+ -44.0  -3.0          15.0
+  -3.0   6.10623e-16   1.0
+  15.0   1.0          -5.0
 
-julia<span style="color:#f92672">&gt;</span> round<span style="color:#f92672">.</span>(<span style="color:#66d9ef">Int64</span>, inv(A))
-<span style="color:#ae81ff">3</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Int64</span>}<span style="color:#f92672">:</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">44</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">15</span>
-  <span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>   <span style="color:#ae81ff">0</span>   <span style="color:#ae81ff">1</span>
-  <span style="color:#ae81ff">15</span>   <span style="color:#ae81ff">1</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>
-</code></pre></div><h3 id="대각행렬과-대각성분-diag-diagm2048"><a href="../2048">대각행렬과 대각성분 <code>diag()</code>, <code>diagm()</code></a></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> diag(A)
-<span style="color:#ae81ff">3</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Int64</span>}<span style="color:#f92672">:</span>
- <span style="color:#ae81ff">1</span>
- <span style="color:#ae81ff">5</span>
- <span style="color:#ae81ff">9</span>
+julia&gt; round.(Int64, inv(A))
+3×3 Matrix{Int64}:
+ -44  -3  15
+  -3   0   1
+  15   1  -5
+</code></pre><h3 id="대각행렬과-대각성분-diag-diagm2048"><a href="../2048">대각행렬과 대각성분 <code>diag()</code>, <code>diagm()</code></a></h3>
+<pre tabindex="0"><code>julia&gt; diag(A)
+3-element Vector{Int64}:
+ 1
+ 5
+ 9
 
-julia<span style="color:#f92672">&gt;</span> diagm([<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">9</span>])
-<span style="color:#ae81ff">3</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Int64</span>}<span style="color:#f92672">:</span>
- <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
- <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">5</span>  <span style="color:#ae81ff">0</span>
- <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">9</span>
-</code></pre></div><h3 id="놈-norm257"><a href="../257">놈 <code>norm()</code></a></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> norm(A, <span style="color:#ae81ff">1</span>)
-<span style="color:#ae81ff">23.0</span>
-</code></pre></div><h3 id="고유값-eigvals319"><a href="../319">고유값 <code>eigvals()</code></a></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> eigvals(A)
-<span style="color:#ae81ff">3</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Float64</span>}<span style="color:#f92672">:</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">0.020282065792505244</span>
-  <span style="color:#ae81ff">4.846013411157458</span>
- <span style="color:#ae81ff">10.174268654635046</span>
+julia&gt; diagm([1,5,9])
+3×3 Matrix{Int64}:
+ 1  0  0
+ 0  5  0
+ 0  0  9
+</code></pre><h3 id="놈-norm257"><a href="../257">놈 <code>norm()</code></a></h3>
+<pre tabindex="0"><code>julia&gt; norm(A, 1)
+23.0
+</code></pre><h3 id="고유값-eigvals319"><a href="../319">고유값 <code>eigvals()</code></a></h3>
+<pre tabindex="0"><code>julia&gt; eigvals(A)
+3-element Vector{Float64}:
+ -0.020282065792505244
+  4.846013411157458
+ 10.174268654635046
 
-julia<span style="color:#f92672">&gt;</span> eigvecs(A)
-<span style="color:#ae81ff">3</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Float64</span>}<span style="color:#f92672">:</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">0.944804</span>    <span style="color:#ae81ff">0.117887</span>  <span style="color:#ae81ff">0.305692</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0640048</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.981459</span>  <span style="color:#ae81ff">0.180669</span>
-  <span style="color:#ae81ff">0.321322</span>    <span style="color:#ae81ff">0.151132</span>  <span style="color:#ae81ff">0.934832</span>
+julia&gt; eigvecs(A)
+3×3 Matrix{Float64}:
+ -0.944804    0.117887  0.305692
+ -0.0640048  -0.981459  0.180669
+  0.321322    0.151132  0.934832
 
-julia<span style="color:#f92672">&gt;</span> eigmax(A)
-<span style="color:#ae81ff">10.174268654635046</span>
-</code></pre></div><h3 id="행렬분해-factorize">행렬분해 <code>factorize()</code></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> factorize(A)
-<span style="color:#66d9ef">BunchKaufman</span>{<span style="color:#66d9ef">Float64</span>, <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Float64</span>}}
-D factor<span style="color:#f92672">:</span>
-<span style="color:#ae81ff">3</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> <span style="color:#66d9ef">Tridiagonal</span>{<span style="color:#66d9ef">Float64</span>, <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Float64</span>}}<span style="color:#f92672">:</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0227273</span>  <span style="color:#ae81ff">0.0</span>       <span style="color:#f92672">⋅</span> 
-  <span style="color:#ae81ff">0.0</span>        <span style="color:#ae81ff">4.88889</span>  <span style="color:#ae81ff">0.0</span>
-   <span style="color:#f92672">⋅</span>         <span style="color:#ae81ff">0.0</span>      <span style="color:#ae81ff">9.0</span>
-U factor<span style="color:#f92672">:</span>
-<span style="color:#ae81ff">3</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> <span style="color:#66d9ef">UnitUpperTriangular</span>{<span style="color:#66d9ef">Float64</span>, <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Float64</span>}}<span style="color:#f92672">:</span>
- <span style="color:#ae81ff">1.0</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0681818</span>  <span style="color:#ae81ff">0.333333</span>
-  <span style="color:#f92672">⋅</span>    <span style="color:#ae81ff">1.0</span>        <span style="color:#ae81ff">0.111111</span>
-  <span style="color:#f92672">⋅</span>     <span style="color:#f92672">⋅</span>         <span style="color:#ae81ff">1.0</span>
-permutation<span style="color:#f92672">:</span>
-<span style="color:#ae81ff">3</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Int64</span>}<span style="color:#f92672">:</span>
- <span style="color:#ae81ff">1</span>
- <span style="color:#ae81ff">2</span>
- <span style="color:#ae81ff">3</span>
+julia&gt; eigmax(A)
+10.174268654635046
+</code></pre><h3 id="행렬분해-factorize">행렬분해 <code>factorize()</code></h3>
+<pre tabindex="0"><code>julia&gt; factorize(A)
+BunchKaufman{Float64, Matrix{Float64}}
+D factor:
+3×3 Tridiagonal{Float64, Vector{Float64}}:
+ -0.0227273  0.0       ⋅ 
+  0.0        4.88889  0.0
+   ⋅         0.0      9.0
+U factor:
+3×3 UnitUpperTriangular{Float64, Matrix{Float64}}:
+ 1.0  -0.0681818  0.333333
+  ⋅    1.0        0.111111
+  ⋅     ⋅         1.0
+permutation:
+3-element Vector{Int64}:
+ 1
+ 2
+ 3
 
-julia<span style="color:#f92672">&gt;</span> svd(A)
-<span style="color:#66d9ef">SVD</span>{<span style="color:#66d9ef">Float64</span>, <span style="color:#66d9ef">Float64</span>, <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Float64</span>}}
-U factor<span style="color:#f92672">:</span>
-<span style="color:#ae81ff">3</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Float64</span>}<span style="color:#f92672">:</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">0.305692</span>   <span style="color:#ae81ff">0.117887</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.944804</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">0.180669</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.981459</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0640048</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">0.934832</span>   <span style="color:#ae81ff">0.151132</span>   <span style="color:#ae81ff">0.321322</span>
-singular values<span style="color:#f92672">:</span>
-<span style="color:#ae81ff">3</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Float64</span>}<span style="color:#f92672">:</span>
- <span style="color:#ae81ff">10.174268654635044</span>
-  <span style="color:#ae81ff">4.846013411157461</span>
-  <span style="color:#ae81ff">0.02028206579250516</span>
-Vt factor<span style="color:#f92672">:</span>
-<span style="color:#ae81ff">3</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Float64</span>}<span style="color:#f92672">:</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">0.305692</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.180669</span>   <span style="color:#f92672">-</span><span style="color:#ae81ff">0.934832</span>
-  <span style="color:#ae81ff">0.117887</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.981459</span>    <span style="color:#ae81ff">0.151132</span>
-  <span style="color:#ae81ff">0.944804</span>   <span style="color:#ae81ff">0.0640048</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">0.321322</span>
-</code></pre></div><p><a href="../../categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98">행렬대수</a> 카테고리의 <a href="../../categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98#%ED%96%89%EB%A0%AC-%EB%B6%84%ED%95%B4%EC%99%80-%EC%B5%9C%EC%86%8C%EC%A0%9C%EA%B3%B1%EB%B2%95">행렬분해</a>를 참고하라. 행렬의 형태에 따라 적절한 분해법을 알아서 골라서 분해를 해준다. 물론 원한다면, 조건을 만족한다면 구체적인 분해 함수를 그냥 써도 된다.</p>
+julia&gt; svd(A)
+SVD{Float64, Float64, Matrix{Float64}}
+U factor:
+3×3 Matrix{Float64}:
+ -0.305692   0.117887  -0.944804
+ -0.180669  -0.981459  -0.0640048
+ -0.934832   0.151132   0.321322
+singular values:
+3-element Vector{Float64}:
+ 10.174268654635044
+  4.846013411157461
+  0.02028206579250516
+Vt factor:
+3×3 Matrix{Float64}:
+ -0.305692  -0.180669   -0.934832
+  0.117887  -0.981459    0.151132
+  0.944804   0.0640048  -0.321322
+</code></pre><p><a href="../../categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98">행렬대수</a> 카테고리의 <a href="../../categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98#%ED%96%89%EB%A0%AC-%EB%B6%84%ED%95%B4%EC%99%80-%EC%B5%9C%EC%86%8C%EC%A0%9C%EA%B3%B1%EB%B2%95">행렬분해</a>를 참고하라. 행렬의 형태에 따라 적절한 분해법을 알아서 골라서 분해를 해준다. 물론 원한다면, 조건을 만족한다면 구체적인 분해 함수를 그냥 써도 된다.</p>
 <h3 id="행렬의-연산1957"><a href="../1957">행렬의 연산</a></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> B <span style="color:#f92672">=</span> [
-           <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span>
-           <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span>
-           <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>
+<pre tabindex="0"><code>julia&gt; B = [
+           1 0 1
+           1 1 0
+           2 1 1
        ]
-<span style="color:#ae81ff">3</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Int64</span>}<span style="color:#f92672">:</span>
- <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>
- <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>
- <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>
+3×3 Matrix{Int64}:
+ 1  0  1
+ 1  1  0
+ 2  1  1
 
-julia<span style="color:#f92672">&gt;</span> A <span style="color:#f92672">+</span> B
-<span style="color:#ae81ff">3</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Int64</span>}<span style="color:#f92672">:</span>
- <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span>   <span style="color:#ae81ff">4</span>
- <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">6</span>   <span style="color:#ae81ff">1</span>
- <span style="color:#ae81ff">5</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">10</span>
+julia&gt; A + B
+3×3 Matrix{Int64}:
+ 2  0   4
+ 1  6   1
+ 5  2  10
 
-julia<span style="color:#f92672">&gt;</span> A <span style="color:#f92672">-</span> B
-<span style="color:#ae81ff">3</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Int64</span>}<span style="color:#f92672">:</span>
-  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">2</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">1</span>
-  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">8</span>
+julia&gt; A - B
+3×3 Matrix{Int64}:
+  0  0  2
+ -1  4  1
+  1  0  8
 
-julia<span style="color:#f92672">&gt;</span> A <span style="color:#f92672">*</span> B
-<span style="color:#ae81ff">3</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Int64</span>}<span style="color:#f92672">:</span>
-  <span style="color:#ae81ff">7</span>   <span style="color:#ae81ff">3</span>   <span style="color:#ae81ff">4</span>
-  <span style="color:#ae81ff">7</span>   <span style="color:#ae81ff">6</span>   <span style="color:#ae81ff">1</span>
- <span style="color:#ae81ff">22</span>  <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">12</span>
+julia&gt; A * B
+3×3 Matrix{Int64}:
+  7   3   4
+  7   6   1
+ 22  10  12
 
-julia<span style="color:#f92672">&gt;</span> A <span style="color:#f92672">.*</span> B
-<span style="color:#ae81ff">3</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Int64</span>}<span style="color:#f92672">:</span>
- <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">3</span>
- <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">5</span>  <span style="color:#ae81ff">0</span>
- <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">9</span>
+julia&gt; A .* B
+3×3 Matrix{Int64}:
+ 1  0  3
+ 0  5  0
+ 6  1  9
 
-julia<span style="color:#f92672">&gt;</span> B <span style="color:#f92672">/</span> A
-<span style="color:#ae81ff">3</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Float64</span>}<span style="color:#f92672">:</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">29.0</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">2.0</span>  <span style="color:#ae81ff">10.0</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">47.0</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">3.0</span>  <span style="color:#ae81ff">16.0</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">76.0</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">5.0</span>  <span style="color:#ae81ff">26.0</span>
+julia&gt; B / A
+3×3 Matrix{Float64}:
+ -29.0  -2.0  10.0
+ -47.0  -3.0  16.0
+ -76.0  -5.0  26.0
 
-julia<span style="color:#f92672">&gt;</span> B <span style="color:#f92672">*</span> inv(A)
-<span style="color:#ae81ff">3</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Float64</span>}<span style="color:#f92672">:</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">29.0</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">2.0</span>  <span style="color:#ae81ff">10.0</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">47.0</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">3.0</span>  <span style="color:#ae81ff">16.0</span>
- <span style="color:#f92672">-</span><span style="color:#ae81ff">76.0</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">5.0</span>  <span style="color:#ae81ff">26.0</span>
+julia&gt; B * inv(A)
+3×3 Matrix{Float64}:
+ -29.0  -2.0  10.0
+ -47.0  -3.0  16.0
+ -76.0  -5.0  26.0
 
-julia<span style="color:#f92672">&gt;</span> A <span style="color:#f92672">/</span> B
-ERROR<span style="color:#f92672">:</span> SingularException(<span style="color:#ae81ff">3</span>)
-</code></pre></div><p>우리가 생각하는 상식적인 연산들이 모두 통한다. 나눗셈은 당연히 곱셉의 역원인 역행렬을 곱하는 것과 같고, <code>B</code>처럼 역행렬이 존재하지 않는 경우 싱귤러익셉션을 레이즈한다.</p>
+julia&gt; A / B
+ERROR: SingularException(3)
+</code></pre><p>우리가 생각하는 상식적인 연산들이 모두 통한다. 나눗셈은 당연히 곱셉의 역원인 역행렬을 곱하는 것과 같고, <code>B</code>처럼 역행렬이 존재하지 않는 경우 싱귤러익셉션을 레이즈한다.</p>
 <h3 id="블럭-행렬-">블럭 행렬 <code>[]</code></h3>
 <p>다른 언어들과 비교하면 너무나 편하게 블럭 행렬을 만들 수 있다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia">julia<span style="color:#f92672">&gt;</span> [A B]
-<span style="color:#ae81ff">3</span><span style="color:#f92672">×</span><span style="color:#ae81ff">6</span> <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Int64</span>}<span style="color:#f92672">:</span>
- <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>
- <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">5</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>
- <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">9</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>
+<pre tabindex="0"><code>julia&gt; [A B]
+3×6 Matrix{Int64}:
+ 1  0  3  1  0  1
+ 0  5  1  1  1  0
+ 3  1  9  2  1  1
 
-julia<span style="color:#f92672">&gt;</span> [A;B]
-<span style="color:#ae81ff">6</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> <span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Int64</span>}<span style="color:#f92672">:</span>
- <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">3</span>
- <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">5</span>  <span style="color:#ae81ff">1</span>
- <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">9</span>
- <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>
- <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>
- <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">1</span>
+julia&gt; [A;B]
+6×3 Matrix{Int64}:
+ 1  0  3
+ 0  5  1
+ 3  1  9
+ 1  0  1
+ 1  1  0
+ 2  1  1
 
-julia<span style="color:#f92672">&gt;</span> [A,B]
-<span style="color:#ae81ff">2</span><span style="color:#f92672">-</span>element <span style="color:#66d9ef">Vector</span>{<span style="color:#66d9ef">Matrix</span>{<span style="color:#66d9ef">Int64</span>}}<span style="color:#f92672">:</span>
- [<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">3</span>; <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">1</span>; <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">9</span>]
- [<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span>; <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span>; <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>]
-</code></pre></div><p>두 행렬 사이에 공백을 두면 가로로 행렬을 쌓고, 세미콜론을 두면 세로로 쌓는다. 쉼표는 행렬을 쌓는 것이 아니라 원래 배열에서 쓰던 문법 그대로 행렬의 배열이 된다.</p>
+julia&gt; [A,B]
+2-element Vector{Matrix{Int64}}:
+ [1 0 3; 0 5 1; 3 1 9]
+ [1 0 1; 1 1 0; 2 1 1]
+</code></pre><p>두 행렬 사이에 공백을 두면 가로로 행렬을 쌓고, 세미콜론을 두면 세로로 쌓는다. 쉼표는 행렬을 쌓는 것이 아니라 원래 배열에서 쓰던 문법 그대로 행렬의 배열이 된다.</p>
 <h3 id="전체-코드">전체 코드</h3>
 <p>복소행렬이나 내적에 관련된 내용은 생략했으나, 전체 코드에는 포함되어 있다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#66d9ef">using</span> LinearAlgebra
+<pre tabindex="0"><code>using LinearAlgebra
 
-A <span style="color:#f92672">=</span> [
-    <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">3</span>
-    <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">1</span>
-    <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">9</span>
+A = [
+    1 0 3
+    0 5 1
+    3 1 9
 ]
 tr(A)
 det(A)
 inv(A)
-round<span style="color:#f92672">.</span>(<span style="color:#66d9ef">Int64</span>, inv(A))
+round.(Int64, inv(A))
 diag(A)
-diagm([<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">9</span>])
-norm(A, <span style="color:#ae81ff">1</span>)
+diagm([1,5,9])
+norm(A, 1)
 
 eigvals(A)
 eigvecs(A)
@@ -499,52 +500,51 @@ eigmax(A)
 factorize(A)
 svd(A)
 
-B <span style="color:#f92672">=</span> [
-    <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span>
-    <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span>
-    <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>
+B = [
+    1 0 1
+    1 1 0
+    2 1 1
 ]
 
 det(B)
 rank(B)
 eigvals(B)
-Symmetric(B) <span style="color:#75715e"># |&gt; issymmetric</span>
+Symmetric(B) # |&gt; issymmetric
 transpose(B)
-B<span style="color:#f92672">&#39;</span>
-C <span style="color:#f92672">=</span> [
-    im im <span style="color:#ae81ff">1</span>
-    <span style="color:#ae81ff">2</span>  im <span style="color:#ae81ff">0</span>
-    im  <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span>
+B&#39;
+C = [
+    im im 1
+    2  im 0
+    im  1 2
 ]
-C<span style="color:#f92672">&#39;</span>
+C&#39;
 
-B<span style="color:#f92672">&#39;</span>B
+B&#39;B
 
-x <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>]
-y <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>]
-x<span style="color:#f92672">&#39;</span>y
+x = [1,2,3]
+y = [0,1,2]
+x&#39;y
 
-A <span style="color:#f92672">+</span> B
-A <span style="color:#f92672">-</span> B
-A <span style="color:#f92672">*</span> B
-A <span style="color:#f92672">.*</span> B
+A + B
+A - B
+A * B
+A .* B
 
-B <span style="color:#f92672">/</span> A
-B <span style="color:#f92672">*</span> inv(A)
+B / A
+B * inv(A)
 
 [A B]
 [A;B]
 [A,B]
 
-x<span style="color:#f92672">&#39;</span> <span style="color:#f92672">*</span> y
-y <span style="color:#f92672">*</span> x<span style="color:#f92672">&#39;</span>
-
-<span style="color:#e6db74">```julia
-</span><span style="color:#e6db74">
-</span><span style="color:#e6db74">## 환경
-</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"> - OS: Windows
-</span><span style="color:#e6db74"> - julia: v1.7.0</span></code></pre></div><section class="footnotes" role="doc-endnotes">
+x&#39; * y
+y * x&#39;
+</code></pre><h2 id="환경">환경</h2>
+<ul>
+<li>OS: Windows</li>
+<li>julia: v1.7.0</li>
+</ul>
+<section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
@@ -557,7 +557,7 @@ y <span style="color:#f92672">*</span> x<span style="color:#f92672">&#39;</span>
 <aside style="text-align: right;">
     1923-07-07&emsp;
     류대식&emsp;
-    <a href="../1719">🎲 2412</a>
+    <a href="../1522">🎲 2412</a>
 </aside>
 
 <script>
@@ -1148,7 +1148,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2358)</summary>
+    <summary>전체 포스트 (2359)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1204,7 +1204,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%86%8C%EB%B3%BC%EB%A0%88%ED%94%84%EA%B3%B5%EA%B0%84/" style="color: black">소볼레프공간 (11)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC/" style="color: black">수리물리 (83)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC/" style="color: black">수리물리 (84)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%EB%9F%89/" style="color: black">수리통계량 (1)</a>
         </li><li>
@@ -1372,6 +1372,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
       </p>
     </div>
 
+    
     
     
     <link rel="stylesheet" href=https://freshrimpsushi.github.io/css/codefence.css>
