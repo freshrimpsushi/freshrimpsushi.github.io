@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-create-random-permutation-and-shuffle-order-of-tensor-in-pytorch\/",
-    "wordCount" : "238",
+    "wordCount" : "239",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -150,102 +150,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -272,8 +176,7 @@
             padding: 1rem;"
             >
         
-            생새우초밥집에 아쉬운 점이 있나요? <br>
-            이 버튼 <a href="https://forms.gle/sfCHw7YKj5zMHMpK7" target='_blank'>🚨</a> 을 눌러 의견을 전달해주세요.
+            이번 여름방학엔 <a href="../../categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/">선형대수</a> 정주행 어때요?
         
         </p>
     </div>
@@ -297,7 +200,7 @@
 <ul>
 <li><code>torch.randperm(n)</code>: 은 0부터 n-1개의 랜덤한 정수 순열을 리턴한다. 당연하게도 정수형이 아니면 입력으로 쓸 수 없다.</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> torch<span style="color:#f92672">.</span>randperm(<span style="color:#ae81ff">4</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> torch<span style="color:#f92672">.</span>randperm(<span style="color:#ae81ff">4</span>)
 tensor([<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">3</span>])
 
 <span style="color:#f92672">&gt;&gt;&gt;</span> torch<span style="color:#f92672">.</span>randperm(<span style="color:#ae81ff">8</span>)
@@ -312,7 +215,7 @@ Traceback (most recent call last):
 <span style="color:#a6e22e">TypeError</span>: randperm(): argument <span style="color:#e6db74">&#39;n&#39;</span> (position <span style="color:#ae81ff">1</span>) must be int, <span style="color:#f92672">not</span> float
 </code></pre></div><h2 id="tensorindices"><code>tensor[indices]</code></h2>
 <p>인덱스 텐서를 인덱싱하면 그에 맞게 인덱스가 바뀐다. 기준은 <code>dim=0</code>이다. numpy array에 대해서도 같은 식으로 가능하다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> indices <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randperm(<span style="color:#ae81ff">4</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> indices <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randperm(<span style="color:#ae81ff">4</span>)
 <span style="color:#f92672">&gt;&gt;&gt;</span> indices
 tensor([<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>])
 
@@ -356,7 +259,7 @@ tensor([[[<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</s
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://pytorch.org/docs/stable/generated/torch.randperm.html">https://pytorch.org/docs/stable/generated/torch.randperm.html</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://pytorch.org/docs/stable/generated/torch.randperm.html">https://pytorch.org/docs/stable/generated/torch.randperm.html</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -365,7 +268,7 @@ tensor([[[<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</s
 <aside style="text-align: right;">
     2021-11-07&emsp;
     전기현&emsp;
-    <a href="../2067">🎲 3140</a>
+    <a href="../981">🎲 3140</a>
 </aside>
 
 <script>
@@ -928,7 +831,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -956,7 +859,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1172,8 +1075,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

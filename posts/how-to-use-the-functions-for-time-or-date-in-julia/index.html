@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-use-the-functions-for-time-or-date-in-julia\/",
-    "wordCount" : "787",
+    "wordCount" : "831",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -150,102 +150,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -272,7 +176,8 @@
             padding: 1rem;"
             >
         
-            이번 여름방학엔 <a href="../../categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/">선형대수</a> 정주행 어때요?
+            생새우초밥집에 아쉬운 점이 있나요? <br>
+            이 버튼 <a href="https://forms.gle/sfCHw7YKj5zMHMpK7" target='_blank'>🚨</a> 을 눌러 의견을 전달해주세요.
         
         </p>
     </div>
@@ -306,7 +211,7 @@
 <p><code>Dates</code>는 날짜 및 시간과 관련된 함수를 모아놓은 모듈이다. 일반적인 프로그래밍은 물론이고 시계열에 관련된, 아니 관련 없더라도 많은 데이터를 다루는 데에 있어서 유용할 수밖에 없다. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <h2 id="코드">코드</h2>
 <h3 id="전체코드">전체코드</h3>
-<pre tabindex="0"><code>using Dates
+<pre><code>using Dates
 
 오늘 = DateTime(2022,3,10)
 typeof(오늘)
@@ -324,30 +229,30 @@ collect(일주일뒤까지)
 
 Dates.Day(일주일뒤까지[end]) - Dates.Day(오늘)
 </code></pre><h3 id="datetime-타입"><code>DateTime</code> 타입</h3>
-<pre tabindex="0"><code>julia&gt; 오늘 = DateTime(2022,3,10)
+<pre><code>julia&gt; 오늘 = DateTime(2022,3,10)
 2022-03-10T00:00:00
 
 julia&gt; typeof(오늘)
 DateTime
 </code></pre><p>가령 <code>DateTime()</code> 함수로 22년 3월 10일의 날짜를 위와 같이 <code>오늘</code>에 할당했다면, <code>오늘</code>은 <code>DateTime</code>이라는 타입을 가진다. <code>DateTime</code>은 <code>instant</code>라는 프로퍼티를 가지며, 밀리초로 환산된 수로써 시간을 기록하고 있다.</p>
-<pre tabindex="0"><code>julia&gt; propertynames(오늘)
+<pre><code>julia&gt; propertynames(오늘)
 (:instant,)
 
 julia&gt; 오늘.instant
 Dates.UTInstant{Millisecond}(Millisecond(63782553600000))
 </code></pre><h3 id="포맷-dateformat">포맷 <code>DateFormat()</code></h3>
-<pre tabindex="0"><code>julia&gt; myformat = DateFormat(&quot;d-m-y&quot;)
+<pre><code>julia&gt; myformat = DateFormat(&quot;d-m-y&quot;)
 dateformat&quot;d-m-y&quot;
 
 julia&gt; 내일 = Date(&quot;11-3-2022&quot;, myformat)
 2022-03-11
 </code></pre><p>흔히 동서양의 차이 때문에 날짜가 다르게 적힐 때 쓰인다.</p>
 <h3 id="요일-datesdayname">요일 <code>Dates.dayname()</code></h3>
-<pre tabindex="0"><code>julia&gt; Dates.dayname(내일)
+<pre><code>julia&gt; Dates.dayname(내일)
 &quot;Friday&quot;
 </code></pre><p>해당 날짜의 요일을 리턴해준다. 양력의 부조리함 때문에 의외로 내가 짜려면 어려운 함수가 이런 것들이다.</p>
 <h3 id="날짜의-벡터">날짜의 벡터</h3>
-<pre tabindex="0"><code>julia&gt; 일주일뒤까지 = 오늘:Day(1):DateTime(2022,3,17)
+<pre><code>julia&gt; 일주일뒤까지 = 오늘:Day(1):DateTime(2022,3,17)
 DateTime(&quot;2022-03-10T00:00:00&quot;):Day(1):DateTime(&quot;2022-03-17T00:00:00&quot;)
 
 julia&gt; collect(일주일뒤까지)
@@ -362,9 +267,9 @@ julia&gt; collect(일주일뒤까지)
  2022-03-17T00:00:00
 </code></pre><p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 날짜 패키지에서 가장 유용한 부분이다. 특정 시점 사이의 구간을 위와 같이 네이티브한 줄리아 문법 그대로 벡터화하면 정말 상상하던대로의 결과가 나온다. 짜기 어려운 건 둘째치고 같은 기능을 하는 함수 정도는 다른 언어에도 있을지 모르겠지만, 이정도로 문법에 잘 녹아들어서 뛰어난 직관성을 가지는 경우는 흔치 않을 것이다.</p>
 <h3 id="날짜의-뺄셈--">날짜의 뺄셈 <code>-</code></h3>
-<pre tabindex="0"><code>julia&gt; Dates.Day(일주일뒤까지[end]) - Dates.Day(오늘)
+<pre><code>julia&gt; Dates.Day(일주일뒤까지[end]) - Dates.Day(오늘)
 7 days
-</code></pre><p>당연하다는 듯이 뺄셈으로 두 시점의 간격을 계산할 수 있다.</p>
+</code></pre><p>당연하다는 듯이 뺄셈으로 두 시점의 간격을 계산할 수 있다. <a href="../2461"><code>Dates.canonicalize()</code>를 사용하면 시,분,초 단위로 예쁘게 출력</a>할 수 있다.</p>
 <h2 id="환경">환경</h2>
 <ul>
 <li>OS: Windows</li>
@@ -374,7 +279,7 @@ julia&gt; collect(일주일뒤까지)
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://docs.julialang.org/en/v1/stdlib/Dates/">https://docs.julialang.org/en/v1/stdlib/Dates/</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://docs.julialang.org/en/v1/stdlib/Dates/">https://docs.julialang.org/en/v1/stdlib/Dates/</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -383,7 +288,7 @@ julia&gt; collect(일주일뒤까지)
 <aside style="text-align: right;">
     1923-07-03&emsp;
     류대식&emsp;
-    <a href="../1951">🎲 2410</a>
+    <a href="../817">🎲 2410</a>
 </aside>
 
 <script>
@@ -946,7 +851,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -974,7 +879,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1190,8 +1095,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

@@ -70,7 +70,7 @@
 <meta name="title" content="호스머-렘쇼 적합도 검정">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
 <meta property="og:title" content="호스머-렘쇼 적합도 검정"/>
-<meta property="og:description" content="Hosmer lemeshow gof test"/>
+<meta property="og:description" content="Hosmer lemeshow gof Test"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -85,7 +85,7 @@
     "name": "호스머-렘쇼 적합도 검정",
     "headline": "호스머-렘쇼 적합도 검정",
     "alternativeHeadline": "",
-    "description": "Hosmer lemeshow gof test",
+    "description": "Hosmer lemeshow gof Test",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/hosmer-lemeshow-gof-test\/",
-    "wordCount" : "440",
+    "wordCount" : "438",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -150,102 +150,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -256,7 +160,7 @@
 
 <h1>호스머-렘쇼 적합도 검정</h1>
 <p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px;">
-  Hosmer lemeshow gof test
+  Hosmer lemeshow gof Test
 </p>
 <aside>
   <div class="innerheader">
@@ -271,41 +175,50 @@
       
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#가설검정">가설검정</a></li>
+    <li><a href="#설명">설명</a>
+      <ul>
+        <li><a href="#주의사항">주의사항</a></li>
+      </ul>
+    </li>
+    <li><a href="#같이보기">같이보기</a></li>
   </ul>
 </nav>
     </div>
   </div>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-<a href="../832">로지스틱 회귀분석</a><a href="../850">R 에서 호스머-렘쇼 적합도 검정 하는 법</a></p>
-<p>로지스틱 회귀분석으로 얻은 모형을 $M$ 이라고 하자.</p>
+<h2 id="가설검정">가설검정</h2>
+<p><a href="../832">로지스틱 회귀분석</a>으로 얻은 모형을 $M$ 이라고 하자.</p>
 <ul>
 <li>$H_{0}$: $M$ 은 적합하다.</li>
 <li>$H_{1}$: $M$ 은 적합하지 않다.</li>
 </ul>
-<p>호스머-렘쇼 적합도 검정은 로지스틱 회귀모형의 적합성을 판별하는 대표적인 방법이다.</p>
-<p>아주 단순한 테스트지만 귀무가설과 대립가설이 헷갈릴 수 있다. <a href="../2446">가설검정에 좋고 나쁜 것은 없는</a> 것이 사실이나, 솔직히 회귀분석을 한다면 어떤 상관관계를 파악하기 위해 하는 것이 보통이기에 <a href="../672">F검정</a>을 통과하지 못하길 바란다. 이런 점은 <a href="../654">t검정</a>에서도 마찬가지라서, 로지스틱 회귀분석을 배울 정도로 회귀분석에 익숙해진 학습자는 &lsquo;p-값이 작은 게 성공이다&rsquo;라는 식의 직관 아닌 직관을 가지게 된다.</p>
-<p>그래서 분명히 제대로 된 분석이었는데 호스머-렘쇼 적합도 검정 결과가 &lsquo;그 직관&rsquo;과 달라서 당황하는 경우가 있다. 이 때문에 귀무가설이 무엇인지, 대립가설이 무엇인지 정확하게 체크할 필요가 있다.최근엔 <a href="../850">호스머-렘쇼 적합도 검정의 약점</a>이 지적되어 별로 권장되지는 않는다고 한다.</p>
+<h2 id="설명">설명</h2>
+<p>호스머-렘쇼 적합도 검정은 로지스틱 회귀모형의 적합성을 판별하는 대표적인 <a href="../2442">가설검정</a>이다.</p>
+<p>아주 단순한 테스트지만 귀무가설과 대립가설이 헷갈릴 수 있다. <a href="../2446">가설검정에 좋고 나쁜 것은 없는</a> 것이 사실이나, 솔직히 회귀분석을 한다면 어떤 상관관계를 파악하기 위해 하는 것이 보통이기에 <a href="../672">F검정</a>의 귀무가설을 기각하길 바란다. 이런 점은 <a href="../654">t검정</a>에서도 마찬가지라서, 로지스틱 회귀분석을 배울 정도로 회귀분석에 익숙해진 학습자는 &lsquo;p-값이 작은 게 성공이다&rsquo;라는 식의 직관 아닌 직관을 가지게 된다.</p>
+<p>그래서 분명히 제대로 된 분석이었는데 호스머-렘쇼 적합도 검정 결과가 &lsquo;그 직관&rsquo;과 달라서 당황하는 경우가 있다. 이 때문에 귀무가설이 무엇인지, 대립가설이 무엇인지 정확하게 체크할 필요가 있다.</p>
+<h3 id="주의사항">주의사항</h3>
+<p>최근엔 <a href="../850">호스머-렘쇼 적합도 검정의 약점</a>이 지적되어 별로 권장되지는 않는다고 한다.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<h2 id="같이보기">같이보기</h2>
+<ul>
+<li><a href="../832">로지스틱 회귀분석</a></li>
+<li><a href="../850">R 에서 호스머-렘쇼 적합도 검정 하는 법</a></li>
+</ul>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://twitter.com/f2harrell/status/1228423023834718208">https://twitter.com/f2harrell/status/1228423023834718208</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 <aside style="text-align: right;">
     2019-02-08&emsp;
     류대식&emsp;
-    <a href="../1780">🎲 852</a>
+    <a href="../1184">🎲 852</a>
 </aside>
 
 <script>
@@ -868,7 +781,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -896,7 +809,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1112,8 +1025,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

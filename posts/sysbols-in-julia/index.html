@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/sysbols-in-julia\/",
-    "wordCount" : "662",
+    "wordCount" : "663",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -150,102 +150,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -263,6 +167,20 @@
     <div class="innertic">
       
     
+    
+    <div style="text-align: center;">
+        <p height=80% style="
+            text-align: center;
+            color: black;
+            border-style: dashed;
+            padding: 1rem;"
+            >
+        
+            🔎F2키를 눌러 포스트를 퀵서치할 수 있습니다. <br>
+            한국어는 물론, 영어로도 검색을 시도해보세요.
+        
+        </p>
+    </div>
 
 
 
@@ -283,7 +201,7 @@
 <p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>를 처음 접하면서 적잖이 당황할 수 있는 것이 바로 <strong>심볼</strong><sup>Symbol</sup> 자료형이다. 심볼은 맨 앞에 <code>:</code>을 붙여서 사용하며, 어떤 내부 데이터도 없이 그 이름 그 자체로써 기능한다. 주로 이름이나 라벨, 딕셔너리 키 등으로 사용된다.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <h2 id="설명">설명</h2>
 <p>여타 프로그래밍 언어에서는 함수에 옵션을 줄 때 숫자로 주거나 의미를 정확히 하기 위해 문자열로 주곤 한다. 가령 다음과 같은 두 함수가 그러하다.</p>
-<pre tabindex="0"><code>julia&gt; function foo0(x, option = 0)
+<pre><code>julia&gt; function foo0(x, option = 0)
            if option == 0
                return string(x)
            elseif option == 1
@@ -317,7 +235,7 @@ julia&gt; foo1(3.0, &quot;string&quot;)
 julia&gt; foo1(3.0, &quot;Int&quot;)
 3
 </code></pre><p>반면 다음은 심볼을 사용한 정의다. 언뜻 보아서는 위 두 함수와 차이가 없어보인다.</p>
-<pre tabindex="0"><code>julia&gt; function foo2(x, option = :string)
+<pre><code>julia&gt; function foo2(x, option = :string)
            if option == :string
                return string(x)
            elseif option == :Int
@@ -340,7 +258,7 @@ julia&gt; foo2(3.0, :Int)
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://docs.julialang.org/en/v1/base/base/#Core.Symbol">https://docs.julialang.org/en/v1/base/base/#Core.Symbol</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://docs.julialang.org/en/v1/base/base/#Core.Symbol">https://docs.julialang.org/en/v1/base/base/#Core.Symbol</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -349,7 +267,7 @@ julia&gt; foo2(3.0, :Int)
 <aside style="text-align: right;">
     2012-04-29&emsp;
     류대식&emsp;
-    <a href="../1529">🎲 2195</a>
+    <a href="../422">🎲 2195</a>
 </aside>
 
 <script>
@@ -912,7 +830,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -940,7 +858,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1156,8 +1074,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

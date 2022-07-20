@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/barab%C3%A1si-albert-model\/",
-    "wordCount" : "704",
+    "wordCount" : "706",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -151,102 +151,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -264,6 +168,20 @@
     <div class="innertic">
       
     
+    
+    <div style="text-align: center;">
+        <p height=80% style="
+            text-align: center;
+            color: black;
+            border-style: dashed;
+            padding: 1rem;"
+            >
+        
+            🔎F2키를 눌러 포스트를 퀵서치할 수 있습니다. <br>
+            한국어는 물론, 영어로도 검색을 시도해보세요.
+        
+        </p>
+    </div>
 
 
 
@@ -309,7 +227,7 @@ $$
 이 확률이 의미하는 바는 바로 새로운 링크가 연결되는 이유 자체를 기존의 링크에서 찾는 것이다. 후발주자보다는 선발주자가 유리하며, 유리한 노드는 갈수록 유리해진다. 인기라는 개념이 네트워크로 태어난다면 그게 바로 바라바시 알버트 네트워크다. 이러한 이유로 가끔은 <strong>프리퍼런셜 어태치</strong><sup>Preferential Attachment</sup>라 불리기도 한다.</p>
 <h2 id="시각화">시각화</h2>
 <p>다음은 BA 네트워크을 생성하고 그 발달<sup>Evolving</sup> 과정을 시각화하는 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다.</p>
-<pre tabindex="0"><code>@time using Graphs
+<pre><code>@time using Graphs
 @time using Plots, GraphRecipes
 
 N = 200
@@ -328,10 +246,10 @@ gif(graph_evolution, &quot;zoomout.gif&quot;, fps = 16)
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Albert, Barabási. (2002). statistiical mechanics of complex networks. <a href="https://doi.org/10.1103/RevModPhys.74.47">https://doi.org/10.1103/RevModPhys.74.47</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Albert, Barabási. (2002). statistiical mechanics of complex networks. <a href="https://doi.org/10.1103/RevModPhys.74.47">https://doi.org/10.1103/RevModPhys.74.47</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p>Barabási, Albert. (1999) Emergence of Scaling in Random Networks. <a href="https://doi.org/10.1126/science.286.5439.509">https://doi.org/10.1126/science.286.5439.509</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Barabási, Albert. (1999) Emergence of Scaling in Random Networks. <a href="https://doi.org/10.1126/science.286.5439.509">https://doi.org/10.1126/science.286.5439.509</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -340,7 +258,7 @@ gif(graph_evolution, &quot;zoomout.gif&quot;, fps = 16)
 <aside style="text-align: right;">
     2022-04-13&emsp;
     류대식&emsp;
-    <a href="../2178">🎲 2187</a>
+    <a href="../1695">🎲 2187</a>
 </aside>
 
 <script>
@@ -903,7 +821,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -931,7 +849,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1147,8 +1065,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

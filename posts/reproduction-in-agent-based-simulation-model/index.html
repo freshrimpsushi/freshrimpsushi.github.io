@@ -150,102 +150,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -263,20 +167,6 @@
     <div class="innertic">
       
     
-    
-    <div style="text-align: center;">
-        <p height=80% style="
-            text-align: center;
-            color: black;
-            border-style: dashed;
-            padding: 1rem;"
-            >
-        
-            생새우초밥집에 아쉬운 점이 있나요? <br>
-            이 버튼 <a href="https://forms.gle/sfCHw7YKj5zMHMpK7" target='_blank'>🚨</a> 을 눌러 의견을 전달해주세요.
-        
-        </p>
-    </div>
 
 
 
@@ -322,7 +212,7 @@
 </ul>
 <h3 id="코드-리뷰">코드 리뷰</h3>
 <p><strong>Step 1. 초기화 및 에이전트 생성</strong></p>
-<pre tabindex="0"><code>julia&gt; N0 = 5 # 초기 인구수
+<pre><code>julia&gt; N0 = 5 # 초기 인구수
 5
 
 julia&gt; b = 0.05 # 번식률
@@ -349,7 +239,7 @@ Any[]
 <li><code>max\_iteration</code> $\leftarrow t_{\text{end}} = 180$</li>
 </ul>
 <p><code>Random.seed!(2)</code>은 결과를 재현하기 위한 시드넘버 설정, <code>time_evolution</code>은 개체수를 기록하기 위한 스택으로 시뮬레이션 자체에는 영향을 미치지 않으나 시뮬레이션을 반복하고 분석하기 위해 중요하게 쓰이는 테크닉이다.</p>
-<pre tabindex="0"><code>julia&gt; coordinate = rand(gaussian2, N0)'
+<pre><code>julia&gt; coordinate = rand(gaussian2, N0)'
 5×2 Adjoint{Float64,Array{Float64,2}}:
   0.104598   -0.105289
  -0.086056   -0.243734
@@ -364,7 +254,7 @@ julia&gt; N = N0
 <p>에이전트들의 위치를 산점도로 나타내보면 위와 같이 오밀조밀하게 모여있는 것을 확인할 수 있다.</p>
 <hr>
 <p><strong>Step 2. 에이전트의 번식</strong></p>
-<pre tabindex="0"><code>julia&gt; replicated = (rand(N) .&lt; b)
+<pre><code>julia&gt; replicated = (rand(N) .&lt; b)
 5-element BitArray{1}:
  0
  0
@@ -384,10 +274,10 @@ julia&gt; coordinate = cat(coordinate, new\_coordinate, dims = 1)
  -0.121846    0.0732683
   0.176526    0.165338
  -0.0955465   0.0787217
-</code></pre><p>현재 에이전트의 수만큼 0과 1사이에서 난수를 뽑는다. 이것이 <code>b</code>보다 작다는 것은 <code>b</code>의 확률로 <strong>번식</strong> 이 일어났다는 뜻이다. 위 스크린샷에서는 세번째 에이전트가 $5%$ 의 확률로 번식한 것으로 <strong>Step 1.</strong> 에서 확인했던 좌표 중 세번째 행이 그대로 새로운 행으로 추가되었다.</p>
+</code></pre><p>현재 에이전트의 수만큼 0과 1사이에서 난수를 뽑는다. 이것이 <code>b</code>보다 작다는 것은 <code>b</code>의 확률로 <strong>번식</strong> 이 일어났다는 뜻이다. 위 스크린샷에서는 세번째 에이전트가 $5\%$ 의 확률로 번식한 것으로 <strong>Step 1.</strong> 에서 확인했던 좌표 중 세번째 행이 그대로 새로운 행으로 추가되었다.</p>
 <hr>
 <p><strong>Step 3. 기록과 에이전트 이동</strong></p>
-<pre tabindex="0"><code>julia&gt; N = size(coordinate, 1)
+<pre><code>julia&gt; N = size(coordinate, 1)
 6
 
 julia&gt; push!(time\_evolution, N)
@@ -408,7 +298,7 @@ julia&gt; coordinate = coordinate + rand(gaussian2, N)'
 <p>위 과정을 반복하기만하면 포스트 상단의 움짤과 같은 현상을 볼 수 있다.</p>
 <h3 id="전체-코드">전체 코드</h3>
 <p>다음은 이 포스트에 쓰인 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다.</p>
-<pre tabindex="0"><code>cd(@__DIR__) # 파일 저장 경로
+<pre><code>cd(@__DIR__) # 파일 저장 경로
 
 @time using Plots
 @time using Random
@@ -449,7 +339,7 @@ end
 <aside style="text-align: right;">
     2021-01-12&emsp;
     류대식&emsp;
-    <a href="../1928">🎲 1880</a>
+    <a href="../1098">🎲 1880</a>
 </aside>
 
 <script>
@@ -1012,7 +902,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -1040,7 +930,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1256,8 +1146,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

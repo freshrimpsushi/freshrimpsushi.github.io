@@ -150,102 +150,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -263,6 +167,20 @@
     <div class="innertic">
       
     
+    
+    <div style="text-align: center;">
+        <p height=80% style="
+            text-align: center;
+            color: black;
+            border-style: dashed;
+            padding: 1rem;"
+            >
+        
+            생새우초밥집에 아쉬운 점이 있나요? <br>
+            이 버튼 <a href="https://forms.gle/sfCHw7YKj5zMHMpK7" target='_blank'>🚨</a> 을 눌러 의견을 전달해주세요.
+        
+        </p>
+    </div>
 
 
 
@@ -298,7 +216,7 @@
 <h3 id="nastrings">na.strings</h3>
 <p><img src="20180413_140116.png#center" alt="20180413\_140116.png">
 <img src="20180413_140107.png#center" alt="20180413\_140107.png"></p>
-<p>이럴 때는 파일을 불러들일 때 <code>na.strings</code> 옵션을 통해 결측값으로 취급할 문자열 벡터를 주면 된다.코드에서 &ldquo;?&ldquo;를 결측치로 지정하고 나면 데이터의 구조도 정상적으로 나타남을 확인할 수 있다. 한편 <code>X2</code>의 가장 아래를 보면 <code>-99</code>로 극단적으로 이상한 데이터가 있다. 이는 다른 관측치와 비교해보았을 때 눈에 띄게 이질적인 수치로, 이상치라고 보기도 어렵고 결측치를 의미할 가능성이 높다.</p>
+<p>이럴 때는 파일을 불러들일 때 <code>na.strings</code> 옵션을 통해 결측값으로 취급할 문자열 벡터를 주면 된다.코드에서 &ldquo;?&ldquo;를 결측치로 지정하고 나면 데이터의 구조도 정상적으로 나타남을 확인할 수 있다. 한편 <code>X2</code>의 가장 아래를 보면 <code>-99</code>로 극단적으로 이상한 데이터가 있다. 이는 다른 관측치와 비교해보았을 때 눈에 띄게 이질적인 수치로, <a href="../2452">이상치</a>라고 보기도 어렵고 결측치를 의미할 가능성이 높다.</p>
 <p>물론 앞서 한것과 같이 <code>na.strings</code>로 예외를 늘려 다시 불러오는 방법도 있지만, 그 수가 극히 적거나 종류가 많으면 불편하다.</p>
 <p><img src="20180413_141017.png#center" alt="20180413\_141017.png"></p>
 <p>따라서 위와 같이 특정 조건을 주고 거기에 직접 NA를 덮어씌우는 방법을 사용할 수 있다. -99처럼 음수이면서 극단적으로 큰 값은 없었기 때문에 0보다 작은 모든 값을 NA로 바꾼 것이다. 어찌보면 그 부분만 모면하는 땜빵이지만, 또 다르게 보면 필요한 부분만 처리하는 정밀 조정이다.</p>
@@ -314,7 +232,7 @@
 <p>그냥 <code>na.omit()</code> 함수에 넣으면 하나라도 NA가 포함된 관측치는 모두 깔끔하게 제거된다.6, 9, 10번 줄이 깔끔하게 사라졌다. 별로 대단한 팁들도 아니지만 잘 모르거나 잘 못쓰면 본격적인 분석을 시작하기도 전부터 엄청난 시간을 빼앗기게 된다. 반드시 자기 것으로 만들어 두고두고 유용하게 써먹도록 하자.</p>
 <h2 id="코드">코드</h2>
 <p>아래는 예제 코드다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">example526<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">read.csv</span>(file <span style="color:#f92672">=</span> <span style="color:#a6e22e">file.choose</span>()); example526
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">example526<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">read.csv</span>(file <span style="color:#f92672">=</span> <span style="color:#a6e22e">file.choose</span>()); example526
 <span style="color:#a6e22e">str</span>(example526)
  
 example526<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">read.csv</span>(file <span style="color:#f92672">=</span> <span style="color:#a6e22e">file.choose</span>(),na.strings <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;?&#34;</span>)); example526
@@ -331,7 +249,7 @@ example526
 <aside style="text-align: right;">
     2018-04-29&emsp;
     류대식&emsp;
-    <a href="../2164">🎲 526</a>
+    <a href="../436">🎲 526</a>
 </aside>
 
 <script>
@@ -894,7 +812,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -922,7 +840,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1138,8 +1056,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

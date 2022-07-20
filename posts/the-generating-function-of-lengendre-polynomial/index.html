@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/the-generating-function-of-lengendre-polynomial\/",
-    "wordCount" : "835",
+    "wordCount" : "839",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -150,102 +150,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -263,20 +167,6 @@
     <div class="innertic">
       
     
-    
-    <div style="text-align: center;">
-        <p height=80% style="
-            text-align: center;
-            color: black;
-            border-style: dashed;
-            padding: 1rem;"
-            >
-        
-            $x^{2} = - 1$ 의 해가 <b>허수</b>면 $X^{2} = - I$ 는 <b>허행렬</b>일까요? <br>
-            <a href="https://freshrimpsushi.com/community/bbs/board.php?bo_table=research" target='_blank'>커뮤니티</a>에서 고민해봅시다.
-        
-        </p>
-    </div>
 
 
 
@@ -345,10 +235,10 @@ $$
 \end{align*}
 $$
 <p style="text-align: right;">■</p>
-<em><em>본 내용 증명
+**본 내용 증명
 우선 $\Phi(x,t)$가 $\Phi(x,t)=f_{0}(x)+tf_{1}(x)+\cdots$꼴로 나타남을 보인 후 $f_{l}(x)$가 르장드르 다항식임을 보일 것이다. $2xt-t^{2}=y$라고 치환하여 급수전개를 하면
 $$
-\begin{align</em>}
+\begin{align*}
 \Phi(y) &amp;=(1-y)^{-\frac{1}{2}}
 \\  &amp;=1+\frac{1}{2}y+\frac{\frac{1}{2}\cdot \frac{3}{2} }{2!}y^{2}+\cdots
 \\  &amp;= 1+\frac{1}{2}(2xt-t^{2})+\frac{3}{8}(2xt-t^{2})^{2}+\cdots
@@ -356,7 +246,7 @@ $$
 \\  &amp;=  1+tx+t^{2}\left(\frac{3}{2}x^{2}-\frac{1}{2}\right)+\cdots
 \\  &amp;= f_{0}(x)+tf_{1}(x)+t^{2}f_{2}(x)+\cdots
 \\  &amp;= \sum\limits_{l=0}^{\infty}t^{l}f_{l}(x)
-\end{align</em>}
+\end{align*}
 $$
 이제 위의 급수를 보조정리의 $(1)$에 대입해보면
 $$
@@ -367,13 +257,13 @@ $$
 (1-x^{2})f^{\prime \prime}_{l}(x)-2xf^{\prime}_{l}(x)+l(l+1)f_{l}(x)=0
 $$
 위 미분 방정식은 <a href="../889">르장드르 미분 방정식</a>이고 그 해는 <a href="../889">르장드르 다항식</a>이다. 따라서 $f_{l}(x)=P_{l}(x)$이다.<p style="text-align: right;">■</p>
-<em><em>재귀관계 증명
+**재귀관계 증명
 우선 $\Phi(x,t)$를 $t$에 대해서 미분하면
 $$
-\begin{align</em>}
+\begin{align*}
 &amp;&amp;&amp; \frac{ \partial \Phi}{ \partial t }=-\frac{1}{2}(-2x+2t)(1-2xt+t^{2})^{-\frac{3}{2}}
 \\  \implies &amp;&amp;&amp; (1-2xt+t^{2})\frac{ \partial \Phi}{ \partial  t}=(x-t)\Phi
-\end{align</em>}
+\end{align*}
 $$
 이제 $\Phi(x,t)=\sum \limits_{l=0}^{\infty}t^{l}P_{l}(x)$를 위 식에 대입하면
 $$
@@ -407,7 +297,7 @@ $$
 <aside style="text-align: right;">
     2020-05-07&emsp;
     전기현&emsp;
-    <a href="../1857">🎲 1610</a>
+    <a href="../2025">🎲 1610</a>
 </aside>
 
 <script>
@@ -970,7 +860,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -998,7 +888,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1214,8 +1104,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

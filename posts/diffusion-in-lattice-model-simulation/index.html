@@ -150,102 +150,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -272,8 +176,7 @@
             padding: 1rem;"
             >
         
-            $x^{2} = - 1$ 의 해가 <b>허수</b>면 $X^{2} = - I$ 는 <b>허행렬</b>일까요? <br>
-            <a href="https://freshrimpsushi.com/community/bbs/board.php?bo_table=research" target='_blank'>커뮤니티</a>에서 고민해봅시다.
+            이번 여름방학엔 <a href="../../categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/">선형대수</a> 정주행 어때요?
         
         </p>
     </div>
@@ -320,7 +223,7 @@
 </ul>
 <h3 id="코드-리뷰">코드 리뷰</h3>
 <p><strong>Step 1. 초기화 및 격자공간 생성</strong></p>
-<pre tabindex="0"><code>julia&gt; row\_size = 10
+<pre><code>julia&gt; row\_size = 10
 10
 
 julia&gt; column\_size = 10
@@ -359,7 +262,7 @@ julia&gt; stage\_lattice[rand(1:row\_size), rand(1:column\_size)] = 'I'; stage\_
 </code></pre><p><a href="../1932">격자 기반 시뮬레이션 튜토리얼</a>과 비슷하게 격자 공간을 생성하고 랜덤한 위치에 성분을 넣는다. 위의 경우에에는 $6$행 $6$열에 생성된 것을 확인할 수 있다. 이를 <a href="../1459">히트맵</a>으로 시각화하면 다음과 같다.</p>
 <p><img src="06-01.png#center" alt="06-01.png"></p>
 <p><strong>Step 2. 계산</strong></p>
-<pre tabindex="0"><code>julia&gt; I\_lattice = (stage\_lattice .== 'I')
+<pre><code>julia&gt; I\_lattice = (stage\_lattice .== 'I')
 10×10 BitArray{2}:
  0  0  0  0  0  0  0  0  0  0
  0  0  0  0  0  0  0  0  0  0
@@ -390,7 +293,7 @@ julia&gt; count\_lattice =
  0  0  0  0  0  0  0  0  0  0
 </code></pre><p>주변에 성분이 얼마나 있는지 세어놓은 행렬 $(n_{ij})$ 을 만든다. 예제에선 벡터 연산을 이용해 구했지만 반드시 이렇게 계산할 필요는 없다.</p>
 <p><strong>Step 3. 확산</strong></p>
-<pre tabindex="0"><code>julia&gt; probability\_lattice = 1 .- (1-β).^count\_lattice
+<pre><code>julia&gt; probability\_lattice = 1 .- (1-β).^count\_lattice
 10×10 Array{Float64,2}:
  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0
  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0
@@ -416,7 +319,7 @@ julia&gt; hit\_lattice = probability\_lattice .&gt; rand(row\_size, column\_size
  0  0  0  0  0  0  0  0  0  0
  0  0  0  0  0  0  0  0  0  0
 </code></pre><p>각 칸 별로 확산 받을 확률을 계산해서 행렬 $\left( 1-(1-\beta)^{n_{ij}} \right)$ 를 만든다. 이렇게 계산하는 이유는 주변에 성분이 많을수록 확산률이 높아지는 것을 반영하기 위해서다. 빈 공간에서 성분을 받을 확률은 $\beta$, 받지 않을 확률은 $(1-\beta)$ 다. 빈 공간 $i$행 $j$열이 주변 $n_{ij}$개의 성분에게서 확산을 받지 않을 확률은 $(1-\beta)^{n_{ij}}$ 이고, 결국 그들 중 하나에게서라도 확산을 받았을 확률이 바로 $\left( 1-(1-\beta)^{n_{ij}} \right)$ 이다.</p>
-<pre tabindex="0"><code>julia&gt; probability\_lattice = 1 .- (1-β).^count\_lattice
+<pre><code>julia&gt; probability\_lattice = 1 .- (1-β).^count\_lattice
 10×10 Array{Float64,2}:
  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0
  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0
@@ -449,7 +352,7 @@ julia&gt; hit\_lattice = probability\_lattice .&gt; rand(row\_size, column\_size
 <aside style="text-align: right;">
     2021-02-02&emsp;
     류대식&emsp;
-    <a href="../358">🎲 1939</a>
+    <a href="../1593">🎲 1939</a>
 </aside>
 
 <script>
@@ -1012,7 +915,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -1040,7 +943,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1256,8 +1159,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

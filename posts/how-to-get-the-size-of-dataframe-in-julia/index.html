@@ -150,102 +150,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -263,19 +167,6 @@
     <div class="innertic">
       
     
-    
-    <div style="text-align: center;">
-        <p height=80% style="
-            text-align: center;
-            color: black;
-            border-style: dashed;
-            padding: 1rem;"
-            >
-        
-            이번 여름방학엔 <a href="../../categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/">선형대수</a> 정주행 어때요?
-        
-        </p>
-    </div>
 
 
 
@@ -301,7 +192,7 @@
 <h2 id="개요">개요</h2>
 <p><code>nrow()</code>, <code>ncol()</code>, <code>size()</code> 등을 사용할 수 있다. <a href="../../categories/r">R</a>과 달리 <code>length()</code>는 에러를 낸다.</p>
 <h2 id="코드">코드</h2>
-<pre tabindex="0"><code>julia&gt; df = DataFrame(rand(100000,5), :auto)
+<pre><code>julia&gt; df = DataFrame(rand(100000,5), :auto)
 100000×5 DataFrame
     Row │ x1         x2        x3         x4        x5        
         │ Float64    Float64   Float64    Float64   Float64
@@ -316,7 +207,7 @@
  100000 │ 0.628269   0.252583  0.985485   0.24541   0.942741
                                             99993 rows omitted
 </code></pre><p><code>df</code>는 행이 10만개고 열이 5개인 데이터프레임이다.</p>
-<pre tabindex="0"><code>julia&gt; nrow(df)
+<pre><code>julia&gt; nrow(df)
 100000
 
 julia&gt; ncol(df)
@@ -326,7 +217,7 @@ julia&gt; size(df)
 (100000, 5)
 </code></pre><p><code>nrow()</code>와 <code>ncol()</code>는 각각 행과 열의 수를 반환하고, <code>size()</code>는 행,열의 크기를 튜플로 반환해준다. 이를 행, 열 순서대로 참조하면 행과 열의 크기를 따로 알 수 있다. 언뜻 보기엔 <code>size()</code>가 훨씬 유용해보이지만, 그 성능을 비교해보자.</p>
 <h3 id="최적화">최적화</h3>
-<pre tabindex="0"><code>julia&gt; @time for i in 1:10^6
+<pre><code>julia&gt; @time for i in 1:10^6
            nrow(df)
        end
   0.051730 seconds (1000.00 k allocations: 15.259 MiB)
@@ -338,7 +229,7 @@ julia&gt; @time for i in 1:10^6
 </code></pre><p>위는 <code>nrow()</code>와 <code>size()</code>의 속도를 비교한 것이다. 당연하지만 하나의 기능만 하는 <code>nrow()</code>가 더 빠르다. 벤치마크를 위해 다소 억지스러울 정도로 많이 돌리긴 했는데, 데이터프레임이 훨씬 큰 경우―빅데이터를 다루거나 별로 차이가 나지 않을 줄 알고 <code>size()</code>를 사용하면 쓸데없는 시간을 낭비할 수 있다.</p>
 <p>또한 코드의 가독성 면에서도 큰 차이가 있다. <code>nrow()</code>와 <code>ncol()</code>는 다른 언어에서도 흔히 사용되는 함수명이고 의심의 여지 없이 행,열의 수지만 <code>size()</code>는 뒤에 붙는 인덱스 때문에 코드의 가독성을 크게 저하시킨다. 가능하다면 <code>nrow()</code>와 <code>ncol()</code>를 사용하도록 하자.</p>
 <h3 id="전체코드">전체코드</h3>
-<pre tabindex="0"><code>using DataFrames
+<pre><code>using DataFrames
 
 df = DataFrame(rand(100000,5), :auto)
 
@@ -363,7 +254,7 @@ end
 <aside style="text-align: right;">
     2012-12-09&emsp;
     류대식&emsp;
-    <a href="../314">🎲 2307</a>
+    <a href="../436">🎲 2307</a>
 </aside>
 
 <script>
@@ -926,7 +817,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -954,7 +845,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1170,8 +1061,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

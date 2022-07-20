@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/row-major-and-column-major\/",
-    "wordCount" : "997",
+    "wordCount" : "999",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -150,102 +150,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -272,8 +176,8 @@
             padding: 1rem;"
             >
         
-            🔎F2키를 눌러 포스트를 퀵서치할 수 있습니다. <br>
-            한국어는 물론, 영어로도 검색을 시도해보세요.
+            $x^{2} = - 1$ 의 해가 <b>허수</b>면 $X^{2} = - I$ 는 <b>허행렬</b>일까요? <br>
+            <a href="https://freshrimpsushi.com/community/bbs/board.php?bo_table=research" target='_blank'>커뮤니티</a>에서 고민해봅시다.
         
         </p>
     </div>
@@ -347,12 +251,12 @@ $$</p>
 <p>포트란, 매트랩, R, 줄리아&hellip;</p>
 <p>라인업이 기가 막힌다. 한 눈에 보아도 과학, 계산쪽의 언어들이 열우선을 채택한 것을 알 수 있다. 애초에 행렬이라는 것의 기원이 <a href="../279">연립방정식의 축약</a>임을 생각해보면 당연한 일이다. 세상에 행렬을 가로 방향으로 읽는 수학자는 없다. 당연히 행을 따라 위에서 아래로, 다시 말해 열우선으로 읽는게 정상이다.</p>
 <h2 id="퍼포먼스-비교">퍼포먼스 비교</h2>
-<pre tabindex="0"><code>julia&gt; size = 10^4
+<pre><code>julia&gt; size = 10^4
 10000
 
 julia&gt; M = rand(size, size);
 </code></pre><p>줄리아 언어를 기준으로 벤치마크를 해보았다. 아래의 두 코드 펜스를 보면 정확히 같은 코드에서 행/렬의 순서만 바꾸고 실행시간을 측정했는데 행을 먼저 읽었을 때 36초, 열우선인 줄리아는 열을 먼저 읽어들였을 때 20초가 걸려 거의 2배 수준의 극적인 성능 차이가 있음을 확인했다.</p>
-<pre tabindex="0"><code>julia&gt; X = zeros(size, size);
+<pre><code>julia&gt; X = zeros(size, size);
 
 julia&gt; @time for i in 1:size
            for j in 1:size
@@ -360,7 +264,7 @@ julia&gt; @time for i in 1:size
            end
        end
  36.088533 seconds (489.82 M allocations: 8.789 GiB, 4.64% gc Time)
-</code></pre><pre tabindex="0"><code>julia&gt; X = zeros(size, size);
+</code></pre><pre><code>julia&gt; X = zeros(size, size);
 
 julia&gt; @time for j in 1:size
            for i in 1:size
@@ -372,10 +276,10 @@ julia&gt; @time for j in 1:size
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://en.wikipedia.org/wiki/Row-_and_column-major_order">https://en.wikipedia.org/wiki/Row-_and_column-major_order</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Row-_and_column-major_order">https://en.wikipedia.org/wiki/Row-_and_column-major_order</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p><a href="https://velog.io/@kjh107704/row-major-%ED%96%89-%EC%9A%B0%EC%84%A0-column-major%EC%97%B4-%EC%9A%B0%EC%84%A0%EA%B0%80-%EC%99%9C-%EC%A4%91%EC%9A%94%ED%95%9C%EA%B0%80">https://velog.io/@kjh107704/row-major-%ED%96%89-%EC%9A%B0%EC%84%A0-column-major%EC%97%B4-%EC%9A%B0%EC%84%A0%EA%B0%80-%EC%99%9C-%EC%A4%91%EC%9A%94%ED%95%9C%EA%B0%80</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://velog.io/@kjh107704/row-major-%ED%96%89-%EC%9A%B0%EC%84%A0-column-major%EC%97%B4-%EC%9A%B0%EC%84%A0%EA%B0%80-%EC%99%9C-%EC%A4%91%EC%9A%94%ED%95%9C%EA%B0%80">https://velog.io/@kjh107704/row-major-%ED%96%89-%EC%9A%B0%EC%84%A0-column-major%EC%97%B4-%EC%9A%B0%EC%84%A0%EA%B0%80-%EC%99%9C-%EC%A4%91%EC%9A%94%ED%95%9C%EA%B0%80</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -384,7 +288,7 @@ julia&gt; @time for j in 1:size
 <aside style="text-align: right;">
     2021-05-02&emsp;
     류대식&emsp;
-    <a href="../947">🎲 2014</a>
+    <a href="../624">🎲 2014</a>
 </aside>
 
 <script>
@@ -947,7 +851,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -975,7 +879,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1191,8 +1095,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

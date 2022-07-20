@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-calculate-frequency-in-julia\/",
-    "wordCount" : "1068",
+    "wordCount" : "1069",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -150,102 +150,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -272,8 +176,7 @@
             padding: 1rem;"
             >
         
-            생새우초밥집에 아쉬운 점이 있나요? <br>
-            이 버튼 <a href="https://forms.gle/sfCHw7YKj5zMHMpK7" target='_blank'>🚨</a> 을 눌러 의견을 전달해주세요.
+            이번 여름방학엔 <a href="../../categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/">선형대수</a> 정주행 어때요?
         
         </p>
     </div>
@@ -305,7 +208,7 @@
 <p><code>FreqTables.jl</code> 패키지의 <code>freqtable()</code> 함수를 사용하면 된다. <a href="../../categories/r">R</a>에서의 <code>freq()</code> 함수와 유사한 기능을 한다.</p>
 <h2 id="코드">코드</h2>
 <h3 id="배열">배열</h3>
-<pre tabindex="0"><code>julia&gt; compartment = rand(['S','I','R'], 1000);
+<pre><code>julia&gt; compartment = rand(['S','I','R'], 1000);
 
 julia&gt; freqtable(compartment)
 3-element Named Vector{Int64}
@@ -317,7 +220,7 @@ Dim1  │
 </code></pre><p>위와 같이 그냥 배열을 넣으면 각 계급별로 카운트 해준다.</p>
 <h3 id="데이터프레임">데이터프레임</h3>
 <p><code>freqtable()</code>는 특히 데이터프레임에 유용하다. <a href="../686">R에서의 질적변수를 포함한 회귀분석 예제</a>와 마찬가지로 <a href="../2316">내장데이터</a> <code>ToothGrowth</code>를 불러와보자.</p>
-<pre tabindex="0"><code>julia&gt; ToothGrowth = dataset(&quot;datasets&quot;, &quot;ToothGrowth&quot;)
+<pre><code>julia&gt; ToothGrowth = dataset(&quot;datasets&quot;, &quot;ToothGrowth&quot;)
 60×3 DataFrame
  Row │ Len      Supp  Dose    
      │ Float64  Cat…  Float64
@@ -361,14 +264,14 @@ Dose  │
 1.0   │ 20
 2.0   │ 20
 </code></pre><p><code>ToothGrowth</code>는 기니피그에게 비타민 C 혹은 오렌지 주스 <code>:Supp</code>를 다른 양 <code>:Dose</code>로 먹이고 치아의 길이 <code>:Len</code>를 기록한 데이터다. 각 칼럼별로 빈도를 계산해보면 위와 같이 깔끔하게 정리해준다. 여기서 데이터가 반드시 <a href="../2318">범주형 데이터</a>일 필요는 없음을 확인할 수 있다.</p>
-<pre tabindex="0"><code>julia&gt; freqtable(ToothGrowth, :Supp, :Dose)
+<pre><code>julia&gt; freqtable(ToothGrowth, :Supp, :Dose)
 2×3 Named Matrix{Int64}
 Supp ╲ Dose │ 0.5  1.0  2.0
 ────────────┼──────────────
 &quot;OJ&quot;        │  10   10   10
 &quot;VC&quot;        │  10   10   10
 </code></pre><p>물론 이러한 테이블은 범주형 데이터를 다룰 때 가장 효과적이다. <code>:Supp</code>, <code>:Dose</code>에 대해 빈도수를 계산해보면 알아서 2차원으로 카테고리를 나누어 빈도수를 계산해주었다.</p>
-<pre tabindex="0"><code>julia&gt; freqtable(ToothGrowth, :Len, :Dose, :Supp)
+<pre><code>julia&gt; freqtable(ToothGrowth, :Len, :Dose, :Supp)
 43×3×2 Named Array{Int64, 3}
 
 [:, :, Supp=&quot;OJ&quot;] =
@@ -386,7 +289,7 @@ Len ╲ Dose │ 0.5  1.0  2.0
 33.9       │   0    0    1
 </code></pre><p>3개 이상의 칼럼에 대한 계산은 그냥 2차원 테이블을 계급의 수만큼 리턴한다. 이쯤되면 데이터를 탐색하거나 요약하는 의미는 거의 없다.</p>
 <h3 id="성능-비교">성능 비교</h3>
-<pre tabindex="0"><code>julia&gt; @time for t in 1:10^4
+<pre><code>julia&gt; @time for t in 1:10^4
            freqtable(compartment)
        end
        @time for t in 1:10^4
@@ -398,7 +301,7 @@ Len ╲ Dose │ 0.5  1.0  2.0
   0.059198 seconds (180.00 k allocations: 134.125 MiB, 36.71% gc time)
 </code></pre><p>테이블을 떠나서 빈도수를 측정하는 것 자체가 유용하다는 생각이 든다. 이에 직접 카운트하는 것과 <code>freqtable()</code>을 통해 한번에 빈도수를 계산하는 속도를 여러가지로 측정해봤는데, 어느 한 쪽이 반드시 빠르거나 하지는 않았다. 데이터의 수나 계급의 수에 따라서 엎치락뒤치락 하는데, 전반적으로 <code>freqtable()</code>가 느린 편이었다. 그렇다고 엄청나게 밀리지도 않으니, 속도를 떠나 잘 고민해서 쓸 땐 쓰자.</p>
 <h3 id="전체코드">전체코드</h3>
-<pre tabindex="0"><code>using FreqTables
+<pre><code>using FreqTables
 
 compartment = rand(['S','I','R'], 1000);
 freqtable(compartment)
@@ -431,7 +334,7 @@ end
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://github.com/nalimilan/FreqTables.jl">https://github.com/nalimilan/FreqTables.jl</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://github.com/nalimilan/FreqTables.jl">https://github.com/nalimilan/FreqTables.jl</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -440,7 +343,7 @@ end
 <aside style="text-align: right;">
     2013-01-12&emsp;
     류대식&emsp;
-    <a href="../1816">🎲 2324</a>
+    <a href="../2019">🎲 2324</a>
 </aside>
 
 <script>
@@ -1003,7 +906,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -1031,7 +934,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1247,8 +1150,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

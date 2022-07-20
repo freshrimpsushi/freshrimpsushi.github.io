@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/cheetsheet-os-module-in-python\/",
-    "wordCount" : "2354",
+    "wordCount" : "2356",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -150,102 +150,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -263,6 +167,19 @@
     <div class="innertic">
       
     
+    
+    <div style="text-align: center;">
+        <p height=80% style="
+            text-align: center;
+            color: black;
+            border-style: dashed;
+            padding: 1rem;"
+            >
+        
+            이번 여름방학엔 <a href="../../categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/">선형대수</a> 정주행 어때요?
+        
+        </p>
+    </div>
 
 
 
@@ -318,7 +235,7 @@
 <li><code>path</code>: 입력한 문자열대로의 경로에 있는 파일의 목록을 제공한다. 아무것도 입력하지 않으면 현재 작업 경로의 파일 리스트를 리턴한다.</li>
 </ul>
 <p>만약 현재 경로에서 확장자가 <code>.txt</code>인 파일의 목록만 얻고 싶다면 그 코드는 다음과 같다.<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
-<pre tabindex="0"><code>files = os.listdir()
+<pre><code>files = os.listdir()
 txt_files = [file for file in files if file.endswith(&quot;.txt&quot;)]
 </code></pre><h3 id="커맨드라인-명령-system">커맨드라인 명령 <code>system()</code></h3>
 <p><code>system(command)</code></p>
@@ -326,7 +243,7 @@ txt_files = [file for file in files if file.endswith(&quot;.txt&quot;)]
 <li><code>command</code>: 문자열로 주어지며, 해당 명령을 터미널에서 실행시킨다. 업무 자동화, 모니터링, 서버 순회등을 위한 쉘 스크립트 등에 요긴하게 쓰인다.</li>
 </ul>
 <p>그 외에 <a href="../2145">프로그램을 일시정지</a> 하고싶다면 그 코드는 다음과 같이 쓸 수 있다.</p>
-<pre tabindex="0"><code>import os
+<pre><code>import os
 os.system(&quot;pause&quot;)
 </code></pre><h3 id="새-폴더-생성-mkdirs-makedirs">새 폴더 생성 <code>mkdirs()</code>, <code>makedirs()</code></h3>
 <p><code>mkdir(path, mode=0o777, *, dir_fd=None)</code></p>
@@ -339,7 +256,7 @@ os.system(&quot;pause&quot;)
 <li><code>exist_ok</code>: 이미 해당 경로가 존재해도 되는지에 대한 여부다. 참이면 경로가 이미 존재해도 문제 없고, 거짓(디폴트)이면 <code>FileExistsError</code>를 레이즈한다.</li>
 </ul>
 <p>예를 들어, <code>./</code> 에서 <code>./main</code> 의 하위 폴더인 <code>sub</code> 폴더까지 한번에 <code>FileExistsError</code> 없이 생성하고 싶다면 그 코드는 다음과 같다.</p>
-<pre tabindex="0"><code>os.makedirs(&quot;main/sub&quot;, exist_ok=True)
+<pre><code>os.makedirs(&quot;main/sub&quot;, exist_ok=True)
 </code></pre><h3 id="삭제-remove-rmdir-removedirs">삭제 <code>remove()</code>, <code>rmdir()</code>, <code>removedirs()</code></h3>
 <p><code>remove()</code></p>
 <ul>
@@ -405,10 +322,10 @@ os.system(&quot;pause&quot;)
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://docs.python.org/ko/3/library/os.html">https://docs.python.org/ko/3/library/os.html</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://docs.python.org/ko/3/library/os.html">https://docs.python.org/ko/3/library/os.html</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p><a href="https://hyeshinoh.github.io/2018/10/12/python_09_OS%20&amp;%20shutil/">https://hyeshinoh.github.io/2018/10/12/python_09_OS%20&amp;%20shutil/</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://hyeshinoh.github.io/2018/10/12/python_09_OS%20&amp;%20shutil/">https://hyeshinoh.github.io/2018/10/12/python_09_OS%20&amp;%20shutil/</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -417,7 +334,7 @@ os.system(&quot;pause&quot;)
 <aside style="text-align: right;">
     2022-01-23&emsp;
     류대식&emsp;
-    <a href="../756">🎲 2147</a>
+    <a href="../374">🎲 2147</a>
 </aside>
 
 <script>
@@ -980,7 +897,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -1008,7 +925,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1224,8 +1141,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

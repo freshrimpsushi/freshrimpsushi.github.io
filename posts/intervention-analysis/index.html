@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/intervention-analysis\/",
-    "wordCount" : "716",
+    "wordCount" : "717",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -150,102 +150,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -263,19 +167,6 @@
     <div class="innertic">
       
     
-    
-    <div style="text-align: center;">
-        <p height=80% style="
-            text-align: center;
-            color: black;
-            border-style: dashed;
-            padding: 1rem;"
-            >
-        
-            이번 여름방학엔 <a href="../../categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/">선형대수</a> 정주행 어때요?
-        
-        </p>
-    </div>
 
 
 
@@ -298,7 +189,7 @@
 <p>위 그래프는 실제 2015년 서울의 미세먼지 농도를 나타낸 <a href="../900">시계열 데이터</a>다. 누가 보더라도 가장 먼저 눈에 띄는 것은 50번째쯤, 그러니까 2월 말에 미세먼지 농도가 500을 넘긴 날이 있다는 점일 것이다.</p>
 <p><img src="20190807_163906.png#center" alt="20190807\_163906.png"></p>
 <p>데이터를 다루는데에 어느정도 익숙한 사람이라면 가장 먼저 잘못 관측된 것이 아닐까 의심하겠지만, 놀랍게도 실제로 일어난 일이었다. 아예 이 날에 대해 연구한 <a href="http://j-komes.or.kr/xml/06677/06677.pdf">논문</a>도 있으며(당시에는 아직 &lsquo;미세먼지&rsquo;라는 용어를 그렇게 많이 쓰지 않아서 제목에도 &lsquo;황사&rsquo;라는 표현을 사용했다.) 아직도 이 날에 대해 언급한 문서들을 어렵지 않게 찾아볼 수 있다.</p>
-<p>문제는 대기과학 전공자의 입장이 아니라, 통계 분석자의 입장에서 이것을 어떻게 처리하냐는 것이다. <a href="../900">시계열 데이터</a>는 일반적인 데이터와 달리 순서가 있기 때문에 대충 봤을 때 이상치라고 제외해버리면 그냥 없던 셈 치는 게 아니라 결측치가 되어버린다. 그렇다고 저 어마무시한 이상치를 넣고 <a href="../941">아리마 모형</a>으로 피팅하려고 하면 분석 전반에 미치는 악영향이 꽤 클 것이다.</p>
+<p>문제는 대기과학 전공자의 입장이 아니라, 통계 분석자의 입장에서 이것을 어떻게 처리하냐는 것이다. <a href="../900">시계열 데이터</a>는 일반적인 데이터와 달리 순서가 있기 때문에 대충 봤을 때 <a href="../2452">이상치</a>라고 제외해버리면 그냥 없던 셈 치는 게 아니라 결측치가 되어버린다. 그렇다고 저 어마무시한 <a href="../2452">이상치</a>를 넣고 <a href="../941">아리마 모형</a>으로 피팅하려고 하면 분석 전반에 미치는 악영향이 꽤 클 것이다.</p>
 <h2 id="정의-1">정의 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
 <p>이를 해결하기 위한 하나의 방법이 바로 <strong>개입 분석</strong>이다. 개입 분석은 다음과 같은 수식으로 표현된다.</p>
 <p>$$
@@ -316,7 +207,7 @@ $$
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Cryer. (2008). Time Series Analysis: With Applications in R(2nd Edition): p250.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Cryer. (2008). Time Series Analysis: With Applications in R(2nd Edition): p250. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -325,7 +216,7 @@ $$
 <aside style="text-align: right;">
     2019-08-21&emsp;
     류대식&emsp;
-    <a href="../634">🎲 1243</a>
+    <a href="../1001">🎲 1243</a>
 </aside>
 
 <script>
@@ -888,7 +779,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -916,7 +807,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1132,8 +1023,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

@@ -97,102 +97,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -312,7 +216,11 @@
 <li><a href="../../posts/3152">단순 곡면 위의 매개변수 곡선</a></li>
 <li><a href="../../posts/3144">고유조각사상</a></li>
 <li><a href="../../posts/3146">$C^{k}$ 곡면</a></li>
-<li><a href="../../posts/3170">회전면</a></li>
+<li><a href="../../posts/3170">회전면</a>
+<ul>
+<li><a href="../../posts/3042">성질</a></li>
+</ul>
+</li>
 </ul>
 <h4 id="제1-기본형식과-제2-기본형식">제1 기본형식과 제2 기본형식</h4>
 <ul>
@@ -362,19 +270,23 @@
 <li><a href="../../posts/3196">오일러 정리</a></li>
 <li><a href="../../posts/3200">가우스 곡률과 평균 곡률 $K, H$</a></li>
 <li><a href="../../posts/3033">곡면의 넓이</a></li>
-<li>가우스 맵의 정의와 가우스 곡률과의 관계](../../posts/3202)</li>
-<li>리만 곡률 텐서 $R_{ijk}^{l}$, 가우스 방정식, 코다찌-마이나르디 방정식](../../posts/3206)</li>
-<li>가우스의 위대한 정리](../../posts/3208)</li>
-<li>회전면과 가우스 곡률](../../posts/3218)</li>
-<li>두 회전면이 국소 등거리일 조건](../../posts/3220)</li>
-<li>곡률이 0인 회전면](../../posts/3222)</li>
+<li><a href="../../posts/3202">가우스 맵의 정의와 가우스 곡률과의 관계</a></li>
+<li><a href="../../posts/3206">리만 곡률 텐서 $R_{ijk}^{l}$, 가우스 방정식, 코다찌-마이나르디 방정식</a></li>
+<li><a href="../../posts/3208">가우스의 위대한 정리</a></li>
 </ul>
 <h4 id="곡면의-기본-정리">곡면의 기본 정리</h4>
 <ul>
-<li>두 곡면 사이에서 미분가능한 함수](../../posts/3210)</li>
-<li>등거리 사상](../../posts/3212)</li>
-<li>국소 등거리 사상](../../posts/3214)</li>
+<li><a href="../../posts/3210">두 곡면 사이에서 미분가능한 함수</a></li>
+<li><a href="../../posts/3212">등거리 사상</a></li>
+<li><a href="../../posts/3214">국소 등거리 사상</a></li>
 <li>곡면의 기본 정리](../../posts/3216)</li>
+</ul>
+<h4 id="상수-곡률인-곡면들">상수 곡률인 곡면들</h4>
+<ul>
+<li><a href="../../posts/3034">가우스 곡률에 따른 회전면의 분류</a></li>
+<li><a href="../../posts/3218">$K &gt; a^{2}$인 회전면</a></li>
+<li>두 회전면이 국소 등거리일 조건](../../posts/3220)</li>
+<li>곡률이 0인 회전면](../../posts/3222)</li>
 </ul>
 <h3 id="전역-곡면-이론">전역 곡면 이론</h3>
 <h4 id="단순-곡률">단순 곡률</h4>
@@ -813,7 +725,7 @@
     
     <li><a href="https://freshrimpsushi.github.io/posts/differtentiable-function-between-surfaces/">두 곡면 사이에서 미분가능한 함수</a></li>
     
-    <li><a href="https://freshrimpsushi.github.io/posts/surface-of-revolution-and-gaussian-curvature/">회전면과 가우스 곡률</a></li>
+    <li><a href="https://freshrimpsushi.github.io/posts/surface-of-revolution-with-positive-gaussian-curvature/">가우스 곡률이 양수인 회전면</a></li>
     
     <li><a href="https://freshrimpsushi.github.io/posts/compact-surface-in-differentail-geometry/">미분기하에서 컴팩트 곡면</a></li>
     
@@ -1395,7 +1307,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -1423,7 +1335,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1639,8 +1551,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

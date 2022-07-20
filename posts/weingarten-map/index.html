@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/weingarten-map\/",
-    "wordCount" : "708",
+    "wordCount" : "794",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -150,102 +150,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -263,6 +167,20 @@
     <div class="innertic">
       
     
+    
+    <div style="text-align: center;">
+        <p height=80% style="
+            text-align: center;
+            color: black;
+            border-style: dashed;
+            padding: 1rem;"
+            >
+        
+            $x^{2} = - 1$ 의 해가 <b>허수</b>면 $X^{2} = - I$ 는 <b>허행렬</b>일까요? <br>
+            <a href="https://freshrimpsushi.com/community/bbs/board.php?bo_table=research" target='_blank'>커뮤니티</a>에서 고민해봅시다.
+        
+        </p>
+    </div>
 
 
 
@@ -292,9 +210,12 @@ $$</p>
 <p>$L$은 $L : T_{p}M \to T_{p}M$인 <a href="../3026">선형 변환</a>이다.</p>
 </li>
 <li>
-<p>${L^{l}}_{k} = \sum \limits_{i} L_{ik}g^{il}$이라고 정의하면, 다음이 성립한다.</p>
-<p>$$L(\mathbf{x}_{k}) = \sum_{l} {L^{l}}_{k}\mathbf{x}_{l}$$</p>
-<p>여기서 $L_{ij}$는 <a href="../3156">제2 기본형식의 계수</a>, $[g^{il}]$은 <a href="../3148">제1 기본형식 계수행렬의 역행렬</a>이다.</p>
+<p>$\left\{ \mathbf{x}_{1}, \mathbf{x}_{2} \right\}$가 $T_{p}M$의 기저이므로 $L(\mathbf{x}_{k}) = \sum\limits_{l}{L^{l}}_{k}\mathbf{x}_{l}$이라고 하면, 다음이 성립한다.</p>
+<p>$${L^{l}}_{k} = \sum_{i}L_{ik}g^{il} = \sum_{i}L_{ki}g^{il}$$</p>
+<p>여기서 $L_{ij}$는 <a href="../3156">제2 기본형식의 계수</a>, $[g^{kl}]$은 <a href="../3148">제1 기본형식 계수행렬의 역행렬</a>이다. 행렬로 표현하면,</p>
+<p>$$
+\begin{bmatrix} {L^{l}}_{k} \end{bmatrix} = \begin{bmatrix} {L^{1}}_{1} &amp; {L^{1}}_{2} \\ {L^{2}}_{1} &amp; {L^{2}}_{2} \end{bmatrix} = \begin{bmatrix} g^{li} \end{bmatrix} \begin{bmatrix} L_{ik} \end{bmatrix}
+$$</p>
 </li>
 </ol>
 <!-- 3.  **바인가르텡 방정식**<sup>Weingarten map</sup>이 문제인가? $dffs$ -->
@@ -319,7 +240,7 @@ $$
 $$
 또한 <a href="../3148">제1 기본형식</a>의 성질에 의해 다음이 성립한다.
 $$
-L_{jk} = \sum_{i}L_{ik}\delta_{ij} = \sum\limits_{i,l} L_{ik}g^{il}g_{lj} = \sum\limits_{l}{L^{l}}_{k}g_{lj}
+L_{ij} = \sum_{l}L_{il}\delta_{lj} = \sum\limits_{l,k} L_{il}g^{lk}g_{kj} = \sum\limits_{l,k} L_{li}g^{lk}g_{kj} = \sum\limits_{k}{L^{k}}_{i}g_{kj}
 $$</p>
 </li>
 </ol>
@@ -351,7 +272,7 @@ $$
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Richard S. Millman and George D. Parker, <em>Elements of Differential Geometry</em> (1977), p125&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Richard S. Millman and George D. Parker, <em>Elements of Differential Geometry</em> (1977), p125 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -360,7 +281,7 @@ $$
 <aside style="text-align: right;">
     2022-02-11&emsp;
     전기현&emsp;
-    <a href="../1410">🎲 3188</a>
+    <a href="../785">🎲 3188</a>
 </aside>
 
 <script>
@@ -923,7 +844,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -951,7 +872,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1167,8 +1088,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

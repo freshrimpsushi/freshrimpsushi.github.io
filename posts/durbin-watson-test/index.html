@@ -70,7 +70,7 @@
 <meta name="title" content="더빈-왓슨 테스트">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
 <meta property="og:title" content="더빈-왓슨 테스트"/>
-<meta property="og:description" content="Durbin watson test"/>
+<meta property="og:description" content="Durbin-Watson Test"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -85,7 +85,7 @@
     "name": "더빈-왓슨 테스트",
     "headline": "더빈-왓슨 테스트",
     "alternativeHeadline": "",
-    "description": "Durbin watson test",
+    "description": "Durbin-Watson Test",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/durbin-watson-test\/",
-    "wordCount" : "815",
+    "wordCount" : "798",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -150,102 +150,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -256,7 +160,7 @@
 
 <h1>더빈-왓슨 테스트</h1>
 <p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px;">
-  Durbin watson test
+  Durbin-Watson Test
 </p>
 <aside>
   <div class="innerheader">
@@ -272,8 +176,7 @@
             padding: 1rem;"
             >
         
-            $x^{2} = - 1$ 의 해가 <b>허수</b>면 $X^{2} = - I$ 는 <b>허행렬</b>일까요? <br>
-            <a href="https://freshrimpsushi.com/community/bbs/board.php?bo_table=research" target='_blank'>커뮤니티</a>에서 고민해봅시다.
+            이번 여름방학엔 <a href="../../categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/">선형대수</a> 정주행 어때요?
         
         </p>
     </div>
@@ -285,58 +188,71 @@
       
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
-    <li><a href="#개요">개요</a></li>
+    <li><a href="#가설검정">가설검정</a></li>
+    <li><a href="#설명">설명</a>
+      <ul>
+        <li><a href="#경험적-해석">경험적 해석</a></li>
+        <li><a href="#주의사항">주의사항</a></li>
+      </ul>
+    </li>
+    <li><a href="#코드">코드</a>
+      <ul>
+        <li><a href="#실습">실습</a></li>
+        <li><a href="#전체코드">전체코드</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
     </div>
   </div>
 </aside>
 
-<h2 id="heading"></h2>
-<p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-<h2 id="개요">개요</h2>
-<p><a href="../548">회귀분석</a>을 한 이후의 <a href="../650">잔차</a> $\left\{ e_{t} \right\}_{t=1}^{n}$ 가 주어져있다고 하고 $e_{t} := \rho e_{t-1} + \nu_{t}$ 이라 하자. - $H_{0}$: $\rho = 0$ 즉, 잔차끼리 <a href="../1209">자기상관성</a>을 가지지 않는다. - $H_{1}$: $\rho \ne 0$ 즉, 잔차끼리 <a href="../1209">자기상관성</a>을 가진다.</p>
-<p><strong>더빈-왓슨 테스트</strong>는 <a href="../548">회귀분석</a> 후 <a href="../679">잔차의 독립성</a>을 확인할 때 쓰이는 테스트로써, 잔차끼리 자기상관성이 있는지 없는지를 판단한다. 검정통계량은</p>
-<p>$$
+<h2 id="가설검정">가설검정</h2>
+<p><a href="../548">회귀분석</a>을 한 이후의 <a href="../650">잔차</a> $\left\{ e_{t} \right\}_{t=1}^{n}$ 가 주어져있다고 하고 $e_{t} := \rho e_{t-1} + \nu_{t}$ 꼴로 두자.</p>
+<ul>
+<li>$H_{0}$: $\rho = 0$ 즉, 잔차끼리 <a href="../1209">자기상관성</a>을 가지지 않는다.</li>
+<li>$H_{1}$: $\rho \ne 0$ 즉, 잔차끼리 <a href="../1209">자기상관성</a>을 가진다.</li>
+</ul>
+<h2 id="설명">설명</h2>
+<h3 id="경험적-해석">경험적 해석</h3>
+<p><strong>더빈-왓슨 테스트</strong>는 <a href="../548">회귀분석</a> 후 <a href="../679">잔차의 독립성</a>을 확인할 때 쓰이는 테스트로써, 잔차끼리 자기상관성이 있는지 없는지를 판단한다. 검정통계량은
+$$
 d := {{ \sum_{t=2}^{n} \left( e_{t} - e_{t-1} \right)^2 } \over {\sum_{t=1}^{n} e_{t}^{2} }}
-$$</p>
-<p>와 같이 구해지며, 항상 $0 \le d \le 4$ 다. $d$ 의 값은 다음과 같이 해석된다:
-$d \approx 0$ : 잔차끼리 양의 상관관계를 가진다.
-$d \approx 2$ : 잔차끼리 상관관계를 가지지 않는다.
-$d \approx 4$ : 잔차끼리 음의 상관관계를 가진다.
-물론 검정을 할 땐 <a href="../509">유의수준</a> $\alpha$ 가 주어져서 하한 $d_{L , \alpha}$ 과 상한 $d_{U , \alpha}$ 를 구해서 비교한다.
-더빈-왓슨 테스트는 보기보다 사용하기 까다로운 테스트인데, 주의사항은 다음과 같다: 
-<strong>(1)</strong> $e_{t}$ 와 $e_{t-1}$ 만의 상관관계를 파악할 뿐 $e_{t}$ 와 $e_{t-k}$ 에 대해서는 알 수 없다. 많은 시차 $k$ 에 대해 확인하기 위해서는 일반화된 더빈-왓슨 테스트를 사용해야한다.
-<strong>(2)</strong>  잔차끼리 자기상관성이 있다면 독립이 아니지만, <a href="../536">자기상관성이 없다고 독립은 아니다.</a>
-<strong>(3)</strong>  거의 필요 없다. 더빈-왓슨 테스트를 신뢰하지 않는 건 아니지만, **(1)**과 <strong>(2)</strong>  같은 단점들 때문에 정확해봤자 분석을 정당화하는데 별 도움이 안되기 때문이다.
-<strong>(4)</strong>  <a href="../941">아리마 모델</a>의 잔차에는 적용할 수 없다. 따라서 <a href="../1209">자기상관함수</a> 혹은 <a href="../1219">륭-박스 테스트</a>를 사용해야한다.
-물론 이러한 단점들이 있어도 테스트 자체는 쉽고 만만해서 아직도 많은 교과서에서 소개하고 쓰이고 있다. 단점들을 요약하자면 &lsquo;써도 되는데 너무 믿지는 마라&rsquo;정도가 되겠다. 아직 통계를 잘 모르는 학습자에게는 더더욱 그렇다. 쓰는 건 좋은데, 그 용도와 한계를 정확하게 알고 써야한다. 독립성은 고작 더빈-왓슨 테스트 하나 통과했다고 쉽게 증명할 수 있는 게 아니다.
-R 에서는 <code>lmtest</code> 패키지의 <code>dwtest()</code> 함수를 사용해서 간단하게 더빈-왓슨 테스트를 해볼 수 있다.
-<img src="Rplot.png#center" alt="Rplot.png"></p>
-<p>언뜻 보아도 잔차는 독립적인데, 다음과 같이 검정해보면 실제로 자기상관성이 없음을 확인할 수 있다.
-<img src="20190730_111316.png#center" alt="20190730\_111316.png"></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(lmtest)
+$$
+와 같이 구해지며, 항상 $0 \le d \le 4$ 다. $d$ 의 값은 다음과 같이 해석된다:</p>
+<ul>
+<li>$d \approx 0$ : 잔차끼리 양의 상관관계를 가진다.</li>
+<li>$d \approx 2$ : 잔차끼리 상관관계를 가지지 않는다.</li>
+<li>$d \approx 4$ : 잔차끼리 음의 상관관계를 가진다.</li>
+</ul>
+<p>물론 검정을 할 땐 <a href="../509">유의수준</a> $\alpha$ 가 주어져서 하한 $d_{L , \alpha}$ 과 상한 $d_{U , \alpha}$ 를 구해서 비교한다.</p>
+<h3 id="주의사항">주의사항</h3>
+<p>더빈-왓슨 테스트는 보기보다 사용하기 까다로운 테스트인데, 주의사항은 다음과 같다:</p>
+<ol>
+<li>$e_{t}$ 와 $e_{t-1}$ 만의 상관관계를 파악할 뿐 $e_{t}$ 와 $e_{t-k}$ 에 대해서는 알 수 없다. 많은 시차 $k$ 에 대해 확인하기 위해서는 일반화된 더빈-왓슨 테스트를 사용해야한다.</li>
+<li>잔차끼리 자기상관성이 있다면 독립이 아니지만, <a href="../536">자기상관성이 없다고 독립은 아니다.</a></li>
+<li>거의 필요 없다. 더빈-왓슨 테스트를 신뢰하지 않는 건 아니지만 1,2 같은 단점들 때문에 정확해봤자 분석을 정당화하는데 별 도움이 안되기 때문이다.</li>
+<li><a href="../941">아리마 모델</a>의 잔차에는 적용할 수 없다. 따라서 <a href="../1209">자기상관함수</a> 혹은 <a href="../1219">륭-박스 테스트</a>를 사용해야한다.</li>
+</ol>
+<p>물론 이러한 단점들이 있어도 테스트 자체는 쉽고 만만해서 아직도 많은 교과서에서 소개하고 쓰이고 있다. 단점들을 요약하자면 &lsquo;써도 되는데 너무 믿지는 마라&rsquo;정도가 되겠다. 아직 통계를 잘 모르는 학습자에게는 더더욱 그렇다. 쓰는 건 좋은데, 그 용도와 한계를 정확하게 알고 써야한다. 독립성은 고작 더빈-왓슨 테스트 하나 통과했다고 쉽게 증명할 수 있는 게 아니다.</p>
+<h2 id="코드">코드</h2>
+<h3 id="실습">실습</h3>
+<p><a href="../../categories/r">R</a>에서는 <code>lmtest</code> 패키지의 <code>dwtest()</code> 함수를 사용해서 간단하게 더빈-왓슨 테스트를 해볼 수 있다.</p>
+<p><img src="Rplot.png#center" alt="Rplot.png"></p>
+<p>언뜻 보아도 잔차는 독립적인데, 다음과 같이 검정해보면 실제로 자기상관성이 없음을 확인할 수 있다.</p>
+<p><img src="20190730_111316.png#center" alt="20190730\_111316.png"></p>
+<h3 id="전체코드">전체코드</h3>
+<pre><code>library(lmtest)
  
-out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">lm</span>(waiting<span style="color:#f92672">~</span>eruptions,data<span style="color:#f92672">=</span>faithful)
-<span style="color:#a6e22e">win.graph</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">3</span>); <span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">rstudent</span>(out),main<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;residuals&#34;</span>)
-<span style="color:#a6e22e">dwtest</span>(out)```</code></pre></div>
+out&lt;-lm(waiting~eruptions,data=faithful)
+win.graph(6,3); plot(rstudent(out),main=&quot;residuals&quot;)
+dwtest(out)
+</code></pre>
 
 <aside style="text-align: right;">
     2019-08-10&emsp;
     류대식&emsp;
-    <a href="../1411">🎲 1217</a>
+    <a href="../1713">🎲 1217</a>
 </aside>
 
 <script>
@@ -899,7 +815,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -927,7 +843,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1143,8 +1059,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

@@ -70,7 +70,7 @@
 <meta name="title" content="하르케-베라 테스트">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
 <meta property="og:title" content="하르케-베라 테스트"/>
-<meta property="og:description" content="jarque bera test"/>
+<meta property="og:description" content="jarque bera Test"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -85,7 +85,7 @@
     "name": "하르케-베라 테스트",
     "headline": "하르케-베라 테스트",
     "alternativeHeadline": "",
-    "description": "jarque bera test",
+    "description": "jarque bera Test",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/jarque-bera-test\/",
-    "wordCount" : "591",
+    "wordCount" : "590",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -150,102 +150,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -256,7 +160,7 @@
 
 <h1>하르케-베라 테스트</h1>
 <p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px;">
-  jarque bera test
+  jarque bera Test
 </p>
 <aside>
   <div class="innerheader">
@@ -271,46 +175,45 @@
       
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#가설검정">가설검정</a></li>
+    <li><a href="#설명">설명</a></li>
+    <li><a href="#코드">코드</a>
+      <ul>
+        <li><a href="#실습">실습</a></li>
+        <li><a href="#전체코드">전체코드</a></li>
+      </ul>
+    </li>
+    <li><a href="#같이보기">같이보기</a></li>
   </ul>
 </nav>
     </div>
   </div>
 </aside>
 
-<h2 id="heading"></h2>
-<p><p style="
-text-align: center;
-max-width: 80%;
-text-align:center;
-color: black;
-background: rgb(255, 196, 0);
-border-radius: 10px;
-margin-left: auto;
-margin-right: auto;">
-<br>🚧 이 포스트는 아직 이관 작업이 완료되지 않았습니다 🚧<br><br>
-</p>
-
-<a href="../939">샤피로-윌크 테스트</a></p>
-<p>데이터 $\left\{ x_{i} \right\}_{i = 1}^{n}$ 가 주어져 있다고 하자.</p>
+<h2 id="가설검정">가설검정</h2>
+<p><a href="../2420">양적 데이터</a> $\left\{ x_{i} \right\}_{i = 1}^{n}$ 가 주어져 있다고 하자.</p>
 <ul>
-<li>$H_{0}$: 데이터 $\left\{ x_{i} \right\}_{i = 1}^{n}$ 는 정규분포를 따른다.</li>
-<li>$H_{1}$: 데이터 $\left\{ x_{i} \right\}_{i = 1}^{n}$ 는 정규분포를 따르지 않는다.</li>
+<li>$H_{0}$: 데이터 $\left\{ x_{i} \right\}_{i = 1}^{n}$ 는 <a href="../1645">정규분포</a>를 따른다.</li>
+<li>$H_{1}$: 데이터 $\left\{ x_{i} \right\}_{i = 1}^{n}$ 는 <a href="../1645">정규분포</a>를 따르지 않는다.</li>
 </ul>
-<p>하르케-베라 테스트는 정규성을 검정하기 위해 사용하는 테스트로써, 보통은 정규성이 있음을 보이기 위해서 사용한다. <a href="../500">귀무가설이 채택되는 것이 &lsquo;분석자의 의도&rsquo;와 일치하는 드문 경우</a>기 때문에 가설을 정확하게 알고 있어야한다.샤피로-윌크 테스트와 다른 점은 <a href="../1268">왜도</a>와 <a href="../1271">첨도</a>를 이용해서 검정을 한다는 것밖에 없다. 정규분포는 모왜도와 모첨도가 모두 $0$ 이며, 표본왜도 $g_{1}$ 와 표본첨도 $g_{2}$ 에 대해 검정통계량 $JB$ 는 다음과 같이 구해지고 자유도 $2$ 의 카이제곱분포를 따른다.
+<h2 id="설명">설명</h2>
+<p>하르케-베라 테스트는 <a href="../1645">정규성</a>을 검정하기 위해 사용하는 <a href="../2442">가설검정</a>으로써, 보통은 정규성이 있음을 보이기 위해서 사용한다. <a href="../500">귀무가설이 채택되는 것이 &lsquo;분석자의 의도&rsquo;와 일치하는 드문 경우</a>기 때문에 가설을 정확하게 알고 있어야한다.</p>
+<p><a href="../939">샤피로-윌크 테스트</a>와 다른 점은 <a href="../1268">왜도</a>와 <a href="../1271">첨도</a>를 이용해서 검정을 한다는 것밖에 없다. 정규분포는 모왜도와 모첨도가 모두 $0$ 이며, 표본왜도 $g_{1}$ 와 표본첨도 $g_{2}$ 에 대해 검정통계량 $JB$ 는 다음과 같이 구해지고 <a href="../2456">자유도</a> $2$ 의 <a href="../1600">카이제곱분포</a>를 따른다.
 $$
 JB := {{n g_{1}^2} \over {6}} + {{n g_{2}^2} \over {24}} \sim \chi^{2} (2)
 $$
-이러나 저러나 정규성 검정이기 때문에 뭘 쓰든 딱히 상관은 없으나, 하르케-베라 테스트는 이상치에 민감한 왜도를 쓰는만큼 <a href="../939">샤피로-윌크 테스트</a>와 비교했을 땐 이상치를 제거했을 때 정규분포임이 드러나는 경우가 더 많다. 꼭 그 이유에서라고 장담은 할 수 없으나, 보통 <a href="../548">회귀 분석</a>보다는 <a href="../900">시계열 분석</a>에서 정규성을 입증하기 위해 쓰인다. 실제로 R 에서는 tseries 패키지의 jarque.bera.test() 함수로 하르케-베라 테스트를 한다.</p>
+이러나 저러나 정규성 검정이기 때문에 뭘 쓰든 딱히 상관은 없으나, 하르케-베라 테스트는 <a href="../2452">이상치</a>에 민감한 왜도를 쓰는만큼 <a href="../939">샤피로-윌크 테스트</a>와 비교했을 땐 <a href="../2452">이상치</a>를 제거했을 때 정규분포임이 드러나는 경우가 더 많다. 꼭 그 이유에서라고 장담은 할 수 없으나, 보통 <a href="../548">회귀 분석</a>보다는 <a href="../900">시계열 분석</a>에서 정규성을 입증하기 위해 쓰인다. 실제로 <a href="../../categories/r">R</a>에서도 <code>tseries</code> 패키지의 <code>jarque.bera.test()</code> 함수로 하르케-베라 테스트를 한다.</p>
+<h2 id="코드">코드</h2>
+<h3 id="실습">실습</h3>
 <p>다음의 두가지 랜덤샘플을 만들어내서 실제로 하르케-베라 테스트를 해보자.</p>
 <p><img src="992C753E5C7BD7AB1D.png#center" alt="992C753E5C7BD7AB1D.png">
-<img src="991D063E5C7BD7AB1E.png#center" alt="991D063E5C7BD7AB1E.png">
-N은 정규분포에서 나온 데이터고, geo는 기하분포에서 나온 데이터다.</p>
-<p><img src="20190310_121333.png#center" alt="20190310\_121333.png">
-테스트 결과는 정확하게 예상대로 나타난다.</p>
-<p>아래는 R 예제코드다.</p>
-<pre tabindex="0"><code>
-library(tseries)
+<img src="991D063E5C7BD7AB1E.png#center" alt="991D063E5C7BD7AB1E.png"></p>
+<p><code>N</code>은 정규분포에서 나온 데이터고, <code>geo</code>는 <a href="../1486">기하분포</a>에서 나온 데이터다.</p>
+<p><img src="20190310_121333.png#center" alt="20190310\_121333.png"></p>
+<p>테스트 결과는 정확하게 예상대로 나타난다.</p>
+<h3 id="전체코드">전체코드</h3>
+<p>아래는 <a href="../../categories/r">R</a> 예제코드다.</p>
+<pre><code>library(tseries)
 set.seed(150421)
 N&lt;-rnorm(100)
 
@@ -320,12 +223,16 @@ geo&lt;-rgeom(100,0.5)
 
 win.graph(4,4); hist(geo)
 jarque.bera.test(geo)
-</code></pre>
+</code></pre><h2 id="같이보기">같이보기</h2>
+<ul>
+<li><a href="../939">샤피로-윌크 테스트</a></li>
+</ul>
+
 
 <aside style="text-align: right;">
     2019-04-01&emsp;
     류대식&emsp;
-    <a href="../537">🎲 949</a>
+    <a href="../481">🎲 949</a>
 </aside>
 
 <script>
@@ -888,7 +795,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -916,7 +823,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1132,8 +1039,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

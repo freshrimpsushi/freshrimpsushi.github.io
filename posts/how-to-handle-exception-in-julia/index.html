@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-handle-exception-in-julia\/",
-    "wordCount" : "655",
+    "wordCount" : "656",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -150,102 +150,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -263,6 +167,20 @@
     <div class="innertic">
       
     
+    
+    <div style="text-align: center;">
+        <p height=80% style="
+            text-align: center;
+            color: black;
+            border-style: dashed;
+            padding: 1rem;"
+            >
+        
+            🔎F2키를 눌러 포스트를 퀵서치할 수 있습니다. <br>
+            한국어는 물론, 영어로도 검색을 시도해보세요.
+        
+        </p>
+    </div>
 
 
 
@@ -293,12 +211,12 @@
 <p>코딩을 하다가 알수없는 에러에 고생해본 사람은 알게된다, 프로그래밍에 있어서 에러가 정말 중요하다는 사실을&hellip;</p>
 <p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서는 <code>error()</code> 함수 혹은 <code>@error</code> <a href="../1454">매크로</a>를 통해 에러를 낼 수 있다. 내장 예외는 줄리아 v1.63을 기준으로 25가지가 정의되어 있다. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <h2 id="코드">코드</h2>
-<pre tabindex="0"><code>julia&gt; log(1 + 2im)
+<pre><code>julia&gt; log(1 + 2im)
 0.8047189562170501 + 1.1071487177940904im
 </code></pre><p>가령 프로그램에서 <a href="../2063">로그 함수 $\log$</a> 를 사용할 때, 입력으로 오직 실수만 허용되어야하는 경우를 생각해볼 수 있다. 그러나 줄리아에서는 위와 같이 기본적으로 <a href="../2063">복소수로 확장된 $\log_{\mathbb{C}}$</a> 를 제공한다. 프로그램은 에러 없이 돌아간다고 능사가 아니다. 의도하지 않은 계산은 예상치 못한 문제를 일으키기 때문에, 우리가 원하지 않는 계산이 일어난다면 애초부터 에러를 내고 돌아가질 않아야한다.</p>
 <p>원래의 <code>log</code>의 <a href="../3123">정의역을 실수 $\mathbb{R}$ 으로 제한</a>시키는 코드를 만들어보자.</p>
 <h3 id="error-함수"><code>error()</code> 함수</h3>
-<pre tabindex="0"><code>julia&gt; function Rlog(x)
+<pre><code>julia&gt; function Rlog(x)
            if typeof(1 + 2im) &lt;: Real
                return log(x)
            else
@@ -318,7 +236,7 @@ Stacktrace:
 in expression starting at c:\admin\REPL.jl:11
 </code></pre><p>위의 <code>Rlog</code>에서는 입력값이 실수가 아니면 <code>DomainError</code>를 레이즈<sup>Raise</sup>하도록 제한했다.</p>
 <h3 id="error-매크로"><code>error()</code> 매크로</h3>
-<pre tabindex="0"><code>julia&gt; function Rlog2(x)
+<pre><code>julia&gt; function Rlog2(x)
            if typeof(1 + 2im) &lt;: Real
                return log(x)
            else
@@ -332,7 +250,7 @@ in expression starting at c:\admin\REPL.jl:11
 </code></pre><p>위의 <code>Rlog2</code>에서는 입력값이 실수가 아니면 일단 에러를 쓰로<sup>Throw</sup>하도록 제한했다.</p>
 <p>레이즈<sup>Raise</sup>와 쓰로<sup>Throw</sup>는 똑같이 에러를 발생시킨다는 의미고 큰 맥락에서 차이가 없다. 레이즈는 파이썬 등에서 쓰이는 표현이고 쓰로는 자바 등에서 쓰이는 표현이다.</p>
 <h3 id="전체-코드">전체 코드</h3>
-<pre tabindex="0"><code>log(1 + 2im)
+<pre><code>log(1 + 2im)
 
 function Rlog(x)
     if typeof(1 + 2im) &lt;: Real
@@ -362,7 +280,7 @@ Rlog2(1 + 2im)
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://docs.julialang.org/en/v1/manual/control-flow/#Built-in-Exceptions">https://docs.julialang.org/en/v1/manual/control-flow/#Built-in-Exceptions</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://docs.julialang.org/en/v1/manual/control-flow/#Built-in-Exceptions">https://docs.julialang.org/en/v1/manual/control-flow/#Built-in-Exceptions</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -371,7 +289,7 @@ Rlog2(1 + 2im)
 <aside style="text-align: right;">
     2012-12-13&emsp;
     류대식&emsp;
-    <a href="../1622">🎲 2309</a>
+    <a href="../709">🎲 2309</a>
 </aside>
 
 <script>
@@ -934,7 +852,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -962,7 +880,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1178,8 +1096,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/needleman-wunsch-algorithm\/",
-    "wordCount" : "1356",
+    "wordCount" : "1357",
     "genre" : [ "줄리아" ],
     "keywords" : [ "줄리아" ]
 }
@@ -150,102 +150,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -263,6 +167,19 @@
     <div class="innertic">
       
     
+    
+    <div style="text-align: center;">
+        <p height=80% style="
+            text-align: center;
+            color: black;
+            border-style: dashed;
+            padding: 1rem;"
+            >
+        
+            이번 여름방학엔 <a href="../../categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/">선형대수</a> 정주행 어때요?
+        
+        </p>
+    </div>
 
 
 
@@ -313,11 +230,11 @@ s_{i,j} \leftarrow \max \begin{cases} s_{i-1,j} + \delta \left( v_{i}, -  \right
 <p>$s_{mn}$ 부터 행과 열이 오른쪽 아래에서 왼쪽 위로 따라가며 일치하는 원소를 고르면 두 문자열과 가장 유사한 전역 정렬을 얻는다. 그 점수는 $s_{mn}$ 이다.</p>
 <h2 id="예제">예제</h2>
 <p><strong>Input</strong></p>
-<pre tabindex="0"><code>julia&gt; s1 = &quot;ATTAGCTCAC&quot;;
+<pre><code>julia&gt; s1 = &quot;ATTAGCTCAC&quot;;
 
 julia&gt; s2 = &quot;ACTATAGCGCAG&quot;;
 </code></pre><p>위와 같은 두 <a href="../1828">염기서열</a>을 전역 정렬하자.</p>
-<pre tabindex="0"><code>julia&gt; EDNAFULL
+<pre><code>julia&gt; EDNAFULL
 SubstitutionMatrix{BioSymbols.DNA,Int64}:
      A  C  M  G  R  S  V  T  W  Y  H  K  D  B  N
   A  5 -4  1 -4  1 -4 -1 -4  1 -4 -1 -4 -1 -4 -2
@@ -344,7 +261,7 @@ SubstitutionMatrix{BioSymbols.DNA,Int64}:
 <p><strong>Step 2. 각 셀에서 스코어를 계산한다.</strong></p>
 <p><img src="step2.png#center" alt="step2"></p>
 <p>C3(3행 3열)에서 다음과 같이 함수를 입력하고 모든 칸으로 복사하면 된다.</p>
-<pre tabindex="0"><code>=MAX(B2+IF(C$1=$A3,5,-4), C2-5,B3-5)
+<pre><code>=MAX(B2+IF(C$1=$A3,5,-4), C2-5,B3-5)
 </code></pre><hr>
 <p><strong>Output. 우측 하단부터 트레이싱한다.</strong></p>
 <p><img src="step3.png#center" alt="step3"></p>
@@ -357,7 +274,7 @@ SubstitutionMatrix{BioSymbols.DNA,Int64}:
 <p>트레이싱 과정에서 알 수 있듯 최적의 서열 정렬은 딱히 유일하지 않을 수 있다. 이렇게 찾을 수 있는 최적의 전역 정렬은 <code>A-T-TAGCCAC</code> 혹은 <code>A-T-TAGCGAC</code> 심지어 <code>ACT-TAGCGAC</code>도 될 수 있다. 그러나 찾을 수 있는 서열정렬들의 점수는 모두 22점으로 동일하다.</p>
 <h2 id="코드">코드</h2>
 <p>다이내믹 프로그래밍인만큼 위와 같이 엑셀로도 간단하게 구현할 수 있다. <a href="#%EC%98%88%EC%A0%9C">예제</a>에서 보았듯 공부한다는 목적에는 괜찮지만 이걸 계속 재사용하는 것은 분명 미련한 짓이다. 다음은 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서 쉽고 빠르게 같은 작업을 수행하는 코드다.</p>
-<pre tabindex="0"><code>using BioAlignments
+<pre><code>using BioAlignments
 
 s1 = &quot;ATTAGCTCAC&quot;;
 s2 = &quot;ACTATAGCGCAG&quot;;
@@ -365,7 +282,7 @@ s2 = &quot;ACTATAGCGCAG&quot;;
 scoremodel = AffineGapScoreModel(EDNAFULL, gap_open=-5, gap_extend=0);
 global_result = pairalign(GlobalAlignment(), s1, s2, scoremodel)
 </code></pre><h3 id="실행-결과">실행 결과</h3>
-<pre tabindex="0"><code>using BioAlignments
+<pre><code>using BioAlignments
 
 julia&gt; s1 = &quot;ATTAGCTCAC&quot;;
 
@@ -383,7 +300,7 @@ PairwiseAlignmentResult{Int64,String,String}:
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Del C. Jones, Pavel A. Pevzner. (2009). An Introduction to Bioinformatics Algorithms (Computational Molecular Biology): p177.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Del C. Jones, Pavel A. Pevzner. (2009). An Introduction to Bioinformatics Algorithms (Computational Molecular Biology): p177. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -392,7 +309,7 @@ PairwiseAlignmentResult{Int64,String,String}:
 <aside style="text-align: right;">
     2021-04-26&emsp;
     류대식&emsp;
-    <a href="../300">🎲 2012</a>
+    <a href="../1085">🎲 2012</a>
 </aside>
 
 <script>
@@ -955,7 +872,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -983,7 +900,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1199,8 +1116,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

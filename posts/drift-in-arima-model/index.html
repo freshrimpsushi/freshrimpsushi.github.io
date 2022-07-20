@@ -150,102 +150,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -287,7 +191,7 @@
 <h2 id="설명">설명</h2>
 <p>시계열 분석을 하다보면 종종 다음과 같이 <strong>드리프트</strong><sup>Drift</sup>라는 계수를 보게 된다.</p>
 <p><img src="20190716_155512.png#center" alt="20190716\_155512.png"></p>
-<p>물론 위의 경우 <a href="../541">표준오차</a>에 비해서 계수의 크기가 너무 작기 때문에 무시해도 상관 없다. 그러나 실제로 유의한 계수인 동시에 수식으로도 써야할 일이 있다면 드리프트가 무엇인지 알아야한다. 아쉽게도 국내에는 드리프트가 도대체 무엇인지에 대한 좋은 설명이 없으며, 수식을 동원하지 않고서는 &lsquo;상수항 비슷한 것&rsquo;이라는 설명밖에 할 수 없다.</p>
+<p>물론 위의 경우 <a href="../2462">표준오차</a>에 비해서 계수의 크기가 너무 작기 때문에 무시해도 상관 없다. 그러나 실제로 유의한 계수인 동시에 수식으로도 써야할 일이 있다면 드리프트가 무엇인지 알아야한다. 아쉽게도 국내에는 드리프트가 도대체 무엇인지에 대한 좋은 설명이 없으며, 수식을 동원하지 않고서는 &lsquo;상수항 비슷한 것&rsquo;이라는 설명밖에 할 수 없다.</p>
 <p>수식을 읽을 생각이 없고 분석에 마땅히 중요한 것도 아니며 그래서 궁금하지도 않다면 그냥 상수항, 평균정도로 알고 넘어가도 상관 없다. 아래에 등장할 두 번째 분석만 보면 된다. 물론 전공자라면 적어도 한 번은 수식 전개를 따라가보는 것을 강력하게 권장한다.</p>
 <h3 id="수식적인-설명">수식적인 설명</h3>
 <p><a href="../941">아리마 모형</a>
@@ -335,16 +239,16 @@ $$</p>
 <p><img src="20190716_155837.png#center" alt="20190716\_155837.png">
 다시 분석으로 돌아와보자. 보다시피, 아니 보나마나 그냥 데이터의 $ARIMA(1,1,2)$ 와 <a href="../916">차분</a>을 취한 데이터의 $ARIMA(1,0,2)$ 은 당연히 똑같을 수밖에 없다. 단 한가지 달라진 게 있다면 $ARIMA(1,1,2)$ 에서 <code>drift</code>라고 적혀있던 계수의 이름이 $ARIMA(1,0,2)$ 에서는 <code>mean</code>으로 바뀐 것이다. 수식을 이해했으면 더 좋겠지만, 이해하지 못했더라도 드리프트가 &lsquo;상수항, 평균 비슷한 것&rsquo;이라는 정도는 짐작할 수 있을 것이다.</p>
 <h2 id="코드">코드</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(TSA)
-<span style="color:#a6e22e">data</span>(<span style="color:#e6db74">&#34;oil.price&#34;</span>)
-out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.arima</span>(oil.price); <span style="color:#a6e22e">summary</span>(out)
-out<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">auto.arima</span>(<span style="color:#a6e22e">diff</span>(oil.price)); <span style="color:#a6e22e">summary</span>(out)
-</code></pre></div>
+<pre><code>library(TSA)
+data(&quot;oil.price&quot;)
+out&lt;-auto.arima(oil.price); summary(out)
+out&lt;-auto.arima(diff(oil.price)); summary(out)
+</code></pre>
 
 <aside style="text-align: right;">
     2019-05-30&emsp;
     류대식&emsp;
-    <a href="../1429">🎲 1115</a>
+    <a href="../2182">🎲 1115</a>
 </aside>
 
 <script>
@@ -907,7 +811,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -935,7 +839,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1151,8 +1055,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

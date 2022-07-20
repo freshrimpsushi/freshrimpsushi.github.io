@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-view-subarray-in-julia\/",
-    "wordCount" : "926",
+    "wordCount" : "928",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -150,102 +150,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -291,7 +195,7 @@
 <h2 id="개요">개요</h2>
 <p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서 <code>view</code>는 배열<sup>Array</sup>의 부분배열<sup>Subarray</sup>를 빠르게 참조하게끔 해주는 데이터 구조다. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 실제로 쓰는 입장에서는 번거롭기만하고 차이가 없어보이지만 게으르게<sup>Lazily</sup> 참조되면서 더 가볍운 배열을 리턴한다. 따라서 아주 베이직한 수준에서까지 최적화된 줄리아 코드에서는 <code>@views</code>라는 매크로를 쉽게 찾아볼 수 있다. <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
 <h2 id="코드">코드</h2>
-<pre tabindex="0"><code>julia&gt; M = rand(0:1,10,10)
+<pre><code>julia&gt; M = rand(0:1,10,10)
 10×10 Matrix{Int64}:
  1  0  1  1  1  0  0  1  1  0
  1  0  1  1  0  0  0  1  1  1
@@ -305,7 +209,7 @@
  0  0  0  0  0  1  0  0  0  1
 </code></pre><p>위 행렬 <code>M</code>의 부분행렬을 참조해보자.</p>
 <h3 id="함수형-view">함수형: <code>view()</code></h3>
-<pre tabindex="0"><code>julia&gt; A = view(M, 3:4, :)
+<pre><code>julia&gt; A = view(M, 3:4, :)
 2×10 view(::Matrix{Int64}, 3:4, :) with eltype Int64:
  0  0  0  1  0  0  1  1  1  0
  1  0  1  1  1  1  1  1  0  1
@@ -315,13 +219,13 @@
 </ul>
 <p>그러나 이 형태는 일반적으로 코드를 보기 어렵게 만들기 때문에 선호되지 않는다. 다음의 매크로를 사용하면 <code>view</code>를 사용하면서도 기본적인 줄리아 문법과 큰 차이가 없다.</p>
 <h3 id="매크로-view">매크로: <code>@view</code></h3>
-<pre tabindex="0"><code>julia&gt; B = @view M[3:4,:]
+<pre><code>julia&gt; B = @view M[3:4,:]
 2×10 view(::Matrix{Int64}, 3:4, :) with eltype Int64:
  0  0  0  1  0  0  1  1  1  0
  1  0  1  1  1  1  1  1  0  1
 </code></pre><p><code>@view</code> 매크로는 일반적으로 부분배열을 참조하는 맥락의 코드에 <code>view</code>가 적용된 것처럼 바꿔주는 매크로다.</p>
 <h3 id="블럭-전체에-적용-views">블럭 전체에 적용: <code>@views</code></h3>
-<pre tabindex="0"><code>julia&gt; @views begin
+<pre><code>julia&gt; @views begin
            C = M[5:6,:];
            D = M[7:8,:];
        end
@@ -340,7 +244,7 @@ julia&gt; D
  1  1  0  1  1  1  0  0  1  1
 </code></pre><p><code>@views</code> 매크로는 <code>@view</code>를 이어지는 블럭 전체에 적용시켜준다. 이 덕에 <code>view</code> 없이 편하게 작성한 함수 앞에 <code>@views f(x) ... end</code>처럼 <code>@views</code>만 붙여주면 알아서 <code>view</code>를 적용시켜준다.</p>
 <h3 id="전체-코드">전체 코드</h3>
-<pre tabindex="0"><code>M = rand(0:1,10,10)
+<pre><code>M = rand(0:1,10,10)
 A = view(M, 3:4, :)
 B = @view M[3:4,:]
 @views begin
@@ -357,7 +261,7 @@ x = rand(10^6);
 @time fcopy(x);
 @time fview(x);
 </code></pre><h2 id="속도-비교">속도 비교</h2>
-<pre tabindex="0"><code>julia&gt; fcopy(x) = sum(x[2:end-1]);
+<pre><code>julia&gt; fcopy(x) = sum(x[2:end-1]);
 
 julia&gt; @views fview(x) = sum(x[2:end-1]);
 
@@ -369,7 +273,7 @@ julia&gt; @time fcopy(x);
 julia&gt; @time fview(x);
   0.016209 seconds (77.07 k allocations: 4.149 MiB, 96.49% compilation time)
 </code></pre><p><code>fcopy()</code>와 <code>fview()</code>는 정확히 같은 기능을 하는 함수지만 속도에서 차이가 난다. 위 결과만 보면 비슷비슷한 속도처럼 보이지만 대부분은 컴파일 시간<sup>Compilation Time</sup>이다. 이를 제외하고 당순 실행시간만 비교해보면 다음과 같이 약 4배 정도의 차이가 난다.</p>
-<pre tabindex="0"><code>julia&gt; @time fcopy(x);
+<pre><code>julia&gt; @time fcopy(x);
   0.002933 seconds (3 allocations: 7.629 MiB)
 
 julia&gt; @time fview(x);
@@ -383,10 +287,10 @@ julia&gt; @time fview(x);
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://docs.julialang.org/en/v1/base/arrays/#Views-(SubArrays-and-other-view-types)">https://docs.julialang.org/en/v1/base/arrays/#Views-(SubArrays-and-other-view-types)</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://docs.julialang.org/en/v1/base/arrays/#Views-(SubArrays-and-other-view-types)">https://docs.julialang.org/en/v1/base/arrays/#Views-(SubArrays-and-other-view-types)</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p><a href="https://docs.julialang.org/en/v1/manual/performance-tips/#man-performance-views">https://docs.julialang.org/en/v1/manual/performance-tips/#man-performance-views</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://docs.julialang.org/en/v1/manual/performance-tips/#man-performance-views">https://docs.julialang.org/en/v1/manual/performance-tips/#man-performance-views</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -395,7 +299,7 @@ julia&gt; @time fview(x);
 <aside style="text-align: right;">
     2013-05-12&emsp;
     류대식&emsp;
-    <a href="../1475">🎲 2384</a>
+    <a href="../1847">🎲 2384</a>
 </aside>
 
 <script>
@@ -958,7 +862,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -986,7 +890,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1202,8 +1106,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

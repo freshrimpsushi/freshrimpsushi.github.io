@@ -70,7 +70,7 @@
 <meta name="title" content="로지스틱 패밀리">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
 <meta property="og:title" content="로지스틱 패밀리"/>
-<meta property="og:description" content="logistic family"/>
+<meta property="og:description" content="Logistic family"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -85,7 +85,7 @@
     "name": "로지스틱 패밀리",
     "headline": "로지스틱 패밀리",
     "alternativeHeadline": "",
-    "description": "logistic family",
+    "description": "Logistic family",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/logistic-family\/",
-    "wordCount" : "1630",
+    "wordCount" : "1631",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -150,102 +150,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -256,27 +160,13 @@
 
 <h1>로지스틱 패밀리</h1>
 <p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px;">
-  logistic family
+  Logistic family
 </p>
 <aside>
   <div class="innerheader">
     <div class="innertic">
       
     
-    
-    <div style="text-align: center;">
-        <p height=80% style="
-            text-align: center;
-            color: black;
-            border-style: dashed;
-            padding: 1rem;"
-            >
-        
-            🔎F2키를 눌러 포스트를 퀵서치할 수 있습니다. <br>
-            한국어는 물론, 영어로도 검색을 시도해보세요.
-        
-        </p>
-    </div>
 
 
 
@@ -341,7 +231,7 @@ $$</li>
 <p>실제로 로지스틱 맵 $g_{4} = 4 x (1 - x )$ 의 $\rho(x)$ 를 그려보면 위와 같다. 물론 $\left\{ x_{1} , x_{2} , \cdots \right\}$ 은 <a href="../968">캐어릭하기 때문에</a> 정말로 $x_{N}$ 이 어디 있는지까지는 예측할 수 없지만 그래도 $0$ 과 $1$ 근처에 있을 확률이 제일 높은 건 알 수 있다.</p>
 <h2 id="코드">코드</h2>
 <p>아래는 바이퍼케이션 다이어그램을 그리는 코드를 R 로 작성한 것이다.</p>
-<pre tabindex="0"><code>ga&lt;-function(a,x,k=1) {
+<pre><code>ga&lt;-function(a,x,k=1) {
   tmp &lt;- a*x *(1 - x)
   if(k==1) {return( tmp ) }
   else {return(ga(a,tmp,k-1))}
@@ -359,7 +249,7 @@ plot(result,main='bifurcation diagram',xlim=c(1,4),ylim=c(0,1),pch=20, cex=0.1,
 abline(v=c(3,4),lty=2); abline(h=0)
 abline(v=3.45,col='red')
 </code></pre><p>아래는 네츄럴 인베리언트 덴서티의 개형을 그리는 코드를 R 로 작성한 것이다.</p>
-<pre tabindex="0"><code>set.seed(150421)
+<pre><code>set.seed(150421)
 logistic&lt;-function(x) {4*x*(1-x)}
  
 record&lt;-runif(1)
@@ -371,7 +261,7 @@ win.graph(4,4); plot(x=seq(0,1,len=20),out$density,type='l',
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Yorke. (1996). CHAOS: An Introduction to Dynamical Systems: p17~21.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Yorke. (1996). CHAOS: An Introduction to Dynamical Systems: p17~21. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -380,7 +270,7 @@ win.graph(4,4); plot(x=seq(0,1,len=20),out$density,type='l',
 <aside style="text-align: right;">
     2019-04-07&emsp;
     류대식&emsp;
-    <a href="../1389">🎲 860</a>
+    <a href="../355">🎲 860</a>
 </aside>
 
 <script>
@@ -943,7 +833,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -971,7 +861,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1187,8 +1077,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

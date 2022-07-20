@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-detect-multicollinearity\/",
-    "wordCount" : "2055",
+    "wordCount" : "2056",
     "genre" : [ "R" ],
     "keywords" : [ "R" ]
 }
@@ -150,102 +150,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -272,8 +176,8 @@
             padding: 1rem;"
             >
         
-            $x^{2} = - 1$ 의 해가 <b>허수</b>면 $X^{2} = - I$ 는 <b>허행렬</b>일까요? <br>
-            <a href="https://freshrimpsushi.com/community/bbs/board.php?bo_table=research" target='_blank'>커뮤니티</a>에서 고민해봅시다.
+            🔎F2키를 눌러 포스트를 퀵서치할 수 있습니다. <br>
+            한국어는 물론, 영어로도 검색을 시도해보세요.
         
         </p>
     </div>
@@ -327,7 +231,7 @@
 <ul>
 <li>**1.**의 경우엔 그래도 다중공선성을 발견해냈다는 측면에서는 다행스러운 일이다. 앞으로 데이터를 어떻게 핸들링해서 어떻게 문제를 해결하겠냐와는 별개로 다중공선성이 있다는 사실 자체는 파악이 되었기 때문이다.</li>
 <li>**2.**의 경우엔 말 그대로 직관과 다르니까 발견하기는 쉽지만, &lsquo;예상하던 것&rsquo;과 데이터에 따라서는 다중공선성을 파악하기에 아주 까다로울 수 있다. 가령 식물의 생장에 영향을 미치는 원인을 알아내고 있다면 햇빛과 물의 양, 토양의 질 등이 독립변수가 되어 생장에 도움을 주는지 안 주는지 대략 예측이 가능하다. 하지만 사회과학에서 미지의 문제를 풀어야한다면 분석자의 직관부터가 믿기 어려워진다. 다중공선성이 있더라도 분석은 제대로 된 것처럼 보이기 때문에 제대로 된 검토가 없다면 실제 현상을 전혀 설명하지 못하는 분석 결과를 내놓을지도 모른다.</li>
-<li>**3.**의 경우엔 독립변수가 아주 많은 경우 <a href="../2458">회귀계수</a> 하나하나에 신경쓰기가 어려워져서 눈으로 보고도 지나칠 수가 있다. 데이터라 함은 꼭 독립변수만이 아니라 어떤 이상치가 될 수도 있다.</li>
+<li>**3.**의 경우엔 독립변수가 아주 많은 경우 <a href="../2458">회귀계수</a> 하나하나에 신경쓰기가 어려워져서 눈으로 보고도 지나칠 수가 있다. 데이터라 함은 꼭 독립변수만이 아니라 어떤 <a href="../2452">이상치</a>가 될 수도 있다.</li>
 </ul>
 <p>물론 어떤 경우든간에 분석이 잘못되어서 문제가 발생했다는 것부터 <a href="../650">설명력 $R^2$</a> 가 낮아서 다중공선성을 의심해볼 수는 있다. 하지만 설명력이라는 것엔 어느정도부터 좋다는 기준도 없는데다가 틀린 분석이라도 얼마든지 설명력이 높게 나올 수 있으며, 그조차도 다분히 주관적이라서 참고가 되지 못할 수 있다. 애초에 현실 속에서 얻어지는 데이터는 모든 변수가 완전한 독립인 경우가 더 드물다. 다중공선성이라고 말할 정도는 아니지만 어느정도는 관계가 있어서 애매한 영향력을 미치는 게 보통이다.</p>
 <p>예제와 같이 산점도를 통해 그림으로 파악하는것도 만능이라고는 할 수 없다. 물론 산점도를 보면 두 변수간의 관계는 금방 알아낼 수 있지만, 가령 $X_{1}+ X_{2} + X_{3} = 1$ 과 같이 여러 변수가 복잡한 관계를 가지면 눈으로는 찾아내기 어렵다.</p>
@@ -336,7 +240,7 @@
 <p>VIF 외에도 <a href="../812">주성분분석을 통해 얻는 조건수</a> 같은 지표도 있지만, 잘 쓰이지는 않는다.</p>
 <h2 id="코드">코드</h2>
 <p>아래는 예제 코드다.</p>
-<pre tabindex="0"><code>install.packages('car')
+<pre><code>install.packages('car')
 library(car)
  
 DATA=MplsDemo; head(DATA)
@@ -356,7 +260,7 @@ summary(out1)
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Hadi. (2006). Regression Analysis by Example(4th Edition): p222.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Hadi. (2006). Regression Analysis by Example(4th Edition): p222. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -365,7 +269,7 @@ summary(out1)
 <aside style="text-align: right;">
     2019-01-16&emsp;
     류대식&emsp;
-    <a href="../1999">🎲 808</a>
+    <a href="../1633">🎲 808</a>
 </aside>
 
 <script>
@@ -928,7 +832,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -956,7 +860,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1172,8 +1076,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

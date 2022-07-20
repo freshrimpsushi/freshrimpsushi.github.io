@@ -150,102 +150,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -263,6 +167,20 @@
     <div class="innertic">
       
     
+    
+    <div style="text-align: center;">
+        <p height=80% style="
+            text-align: center;
+            color: black;
+            border-style: dashed;
+            padding: 1rem;"
+            >
+        
+            생새우초밥집에 아쉬운 점이 있나요? <br>
+            이 버튼 <a href="https://forms.gle/sfCHw7YKj5zMHMpK7" target='_blank'>🚨</a> 을 눌러 의견을 전달해주세요.
+        
+        </p>
+    </div>
 
 
 
@@ -279,7 +197,7 @@
 </aside>
 
 <h2 id="코드">코드</h2>
-<pre tabindex="0"><code>import pandas as pd
+<pre><code>import pandas as pd
 
 data = { '나이' : [26,23,22,22,21,21,20,20,20,20,18,17], '키' : [160, 163, 163, 162, 164, 163, 164, 150, 158, 162, 172, 173], '별명' : ['땡모', '김쿠라', '광배', '오리', '깃털', '쌈무', '밍구리', '나부키 야코', '월클토미', '쪼율', '안댕댕', '워뇨'],  '국적' : ['한국', '일본', '한국', '한국', '한국', '한국', '한국', '한국', '일본', '일본', '한국', '한국'] }
 indexName = ['권은비','미야와키 사쿠라','강혜원', '최예나', '이채연', '김채원', '김민주', '야부키 나코', '혼다 히토미', '조유리', '안유진', '장원영']
@@ -400,12 +318,12 @@ df = pd.DataFrame(data, index = indexName)
 </div>
 </div> -->
 <p>열의 레이블은 <code>.columns</code>로 얻는다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> df<span style="color:#f92672">.</span>columns
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> df<span style="color:#f92672">.</span>columns
 Index([<span style="color:#e6db74">&#39;나이&#39;</span>, <span style="color:#e6db74">&#39;키&#39;</span>, <span style="color:#e6db74">&#39;별명&#39;</span>, <span style="color:#e6db74">&#39;국적&#39;</span>], dtype<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;object&#39;</span>)
 <span style="color:#f92672">&gt;&gt;&gt;</span> df<span style="color:#f92672">.</span>columns[<span style="color:#ae81ff">2</span>]
 <span style="color:#e6db74">&#39;별명&#39;</span>
 </code></pre></div><p>행의 레이블은 <code>.index</code>로 얻는다. .rows가 아님에 주의하자.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> df<span style="color:#f92672">.</span>index
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> df<span style="color:#f92672">.</span>index
 Index([<span style="color:#e6db74">&#39;권은비&#39;</span>, <span style="color:#e6db74">&#39;미야와키 사쿠라&#39;</span>, <span style="color:#e6db74">&#39;강혜원&#39;</span>, <span style="color:#e6db74">&#39;최예나&#39;</span>, <span style="color:#e6db74">&#39;이채연&#39;</span>, <span style="color:#e6db74">&#39;김채원&#39;</span>, <span style="color:#e6db74">&#39;김민주&#39;</span>, <span style="color:#e6db74">&#39;야부키 나코&#39;</span>,
        <span style="color:#e6db74">&#39;혼다 히토미&#39;</span>, <span style="color:#e6db74">&#39;조유리&#39;</span>, <span style="color:#e6db74">&#39;안유진&#39;</span>, <span style="color:#e6db74">&#39;장원영&#39;</span>],
       dtype<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;object&#39;</span>)
@@ -416,7 +334,7 @@ Index([<span style="color:#e6db74">&#39;권은비&#39;</span>, <span style="colo
 <aside style="text-align: right;">
     2022-02-13&emsp;
     전기현&emsp;
-    <a href="../469">🎲 3189</a>
+    <a href="../1149">🎲 3189</a>
 </aside>
 
 <script>
@@ -979,7 +897,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -1007,7 +925,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1223,8 +1141,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

@@ -150,102 +150,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -272,7 +176,8 @@
             padding: 1rem;"
             >
         
-            이번 여름방학엔 <a href="../../categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/">선형대수</a> 정주행 어때요?
+            생새우초밥집에 아쉬운 점이 있나요? <br>
+            이 버튼 <a href="https://forms.gle/sfCHw7YKj5zMHMpK7" target='_blank'>🚨</a> 을 눌러 의견을 전달해주세요.
         
         </p>
     </div>
@@ -304,11 +209,11 @@
 <p><img src="20210714_154147.png#center" alt="20210714_154147.png"></p>
 <p>캐글에 있는 데이터는 그 용량이 만만치 않기 때문에 웹브라우저의 다운로드 기능에만 맡기기엔 조금 불안한 감이 있다. 그래서 고용량 데이터를 안정적으로 받을 수 있는 API를 제공하는데, 위 스크린샷에서 제일 상단에 있는 코드가 거기에 해당한다.</p>
 <p>터미널에서 <code>pip install kaggle</code>을 입력래 kaggle을 설치하고</p>
-<pre tabindex="0"><code>kaggle competitions download -c rsna-miccai-brain-tumor-radiogenomic-classification
+<pre><code>kaggle competitions download -c rsna-miccai-brain-tumor-radiogenomic-classification
 </code></pre><p>를 입력하면 작업경로에 예시 데이터가 다운로드 된다.</p>
 <h2 id="에러">에러</h2>
 <p>사실 안 될 것이다.</p>
-<pre tabindex="0"><code>PS D:\&gt; kaggle competitions download -c rsna-miccai-brain-tumor-radiogenomic-classification
+<pre><code>PS D:\&gt; kaggle competitions download -c rsna-miccai-brain-tumor-radiogenomic-classification
 Traceback (most recent call last):
   File &quot;c:\users\rmsms\appdata\local\programs\python\python39\lib\runpy.py&quot;, line 197, in _run_module_as_main
     return _run_code(code, main_globals, None,
@@ -336,12 +241,12 @@ OSError: Could not find kaggle.json. Make sure it's located in C:\Users\rmsms\.k
 <p>반드시 <strong>관리자 권한</strong>으로 powershell 혹은 터미널을 실행한다.</p>
 <p><img src="20210714_152031.png#center" alt="20210714_152031.png"></p>
 <p>위와 같이 <code>kaggle.json</code>이 있는 다운로드 폴더로 이동하고, <code>kaggle.json</code> 파일을 복사하는 커맨드는 다음 두 줄이다.</p>
-<pre tabindex="0"><code>cd C:\Users\rmsms\Downloads
+<pre><code>cd C:\Users\rmsms\Downloads
 cp kaggle.json ~/.kaggle/kaggle.json
 </code></pre><p>이때 복사에 권한이 필요할 수 있기 때문에 터미널도 관리자 권한으로 연 것이다.</p>
 <hr>
 <p><strong>Step 4. 다운로드 시도</strong></p>
-<pre tabindex="0"><code>kaggle competitions download -c rsna-miccai-brain-tumor-radiogenomic-classification
+<pre><code>kaggle competitions download -c rsna-miccai-brain-tumor-radiogenomic-classification
 </code></pre><p>다시 위의 커맨드를 입력하면 다음과 같이 잘 다운로드가 되는 것을 확인할 수 있다.</p>
 <p><img src="20210714_153104.png#center" alt="20210714_153104.png"></p>
 <p>사이트에서는 127.45GB이었는데 12.3GB만 다운로드 된 것으로 보이는데, 압축률이 너무 높아 그런 것이니 당황할 필요 없다. 압축을 풀면 원래의 방대한 데이터가 나타난다.</p>
@@ -351,7 +256,7 @@ cp kaggle.json ~/.kaggle/kaggle.json
 <aside style="text-align: right;">
     2022-02-18&emsp;
     류대식&emsp;
-    <a href="../1005">🎲 2160</a>
+    <a href="../2159">🎲 2160</a>
 </aside>
 
 <script>
@@ -914,7 +819,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -942,7 +847,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1158,8 +1063,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

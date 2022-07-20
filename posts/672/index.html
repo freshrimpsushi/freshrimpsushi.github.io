@@ -150,102 +150,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -263,20 +167,6 @@
     <div class="innertic">
       
     
-    
-    <div style="text-align: center;">
-        <p height=80% style="
-            text-align: center;
-            color: black;
-            border-style: dashed;
-            padding: 1rem;"
-            >
-        
-            🔎F2키를 눌러 포스트를 퀵서치할 수 있습니다. <br>
-            한국어는 물론, 영어로도 검색을 시도해보세요.
-        
-        </p>
-    </div>
 
 
 
@@ -311,7 +201,7 @@ margin-right: auto;">
 <li>$H_{0}$: $\beta_{1} = \beta_{2} = \cdots = \beta_{p} = 0$ 즉, 모든 독립변수가 종속변수과 관계 없다.</li>
 <li>$H_{1}$: $\beta_{1} , \beta_{2} , \cdots , \beta_{p}$ 중 적어도 하나는 $ 0$ 이 아니다. 즉, 종속변수와 관계 있는 독립변수가 존재한다.</li>
 </ul>
-<p>$\displaystyle F = {{ \text{SSR} / p } \over { \text{SSE} / (n-p-1 ) }}$ 는 자유도가 $(p , n-p-1)$ 인 F분포를 따른다.</p>
+<p>$\displaystyle F = {{ \text{SSR} / p } \over { \text{SSE} / (n-p-1 ) }}$ 는 <a href="../2456">자유도</a>가 $(p , n-p-1)$ 인 F분포를 따른다.</p>
 <p>수식으로 다시 나타내보면 $\displaystyle F = {{ \text{SSR} / p } \over { \text{SSE} / (n-p-1 ) }} \sim F(p, n-p-1)$ 인데, 이를 이용해 가설검정을 한다.</p>
 <p>다만 이 F검정은 <a href="../654">회귀계수 </a><a href="../654">각각의 t검정</a>을 볼 수 있다면 무의미하고, 진짜 진면목은 모형간의 비교에 있다.통계학에 숙명적으로 따라붙는 &lsquo;주관성&rsquo;이나 &lsquo;애매함&rsquo;을 떨쳐내고 통계적으로 의미 있는 결과를 낼 수 있게 되는것이다.(물론 실제 분석에서는 <a href="../826">이보다 편리하고 쉬운 통계량</a>을 이용해서 모델을 비교한다.)</p>
 <p>$n$ 개의 관측치와 $p$ 개의 독립변수에 대한 다중회귀분석에 대해 $i=0,1,\cdots,p$ 라고 하자. 이 때의 회귀모형을 <strong>전체모형</strong><sup>FM</sup>이라 하고, FM에서 $k$ 개의 독립변수가 제거된 모형을 <strong>축소모형</strong><sup>RM</sup>이라 한다.</p>
@@ -319,14 +209,14 @@ margin-right: auto;">
 <li>$H_{0}$: RM이면 충분하다. 즉, 굳이 많은 변수를 써서 FM을 사용할 필요가 없다.</li>
 <li>$H_{1}$: RM은 불충분하다. 즉, 변수를 늘려서라도 FM을 쓰는 게 낫다.</li>
 </ul>
-<p>$\displaystyle F = {{ [ \text{SSR} (RM) - \text{SSR} (FM) ] / (p +1 - k) } \over { \text{SSE} ( FM ) / (n-p-1 ) }}$ 는 자유도가 $(p + 1 - k , n-p-1)$ 인 F분포를 따른다.</p>
+<p>$\displaystyle F = {{ [ \text{SSR} (RM) - \text{SSR} (FM) ] / (p +1 - k) } \over { \text{SSE} ( FM ) / (n-p-1 ) }}$ 는 <a href="../2456">자유도</a>가 $(p + 1 - k , n-p-1)$ 인 F분포를 따른다.</p>
 <p>그렇다면 <a href="../509">유의수준</a> $\alpha$ 에서 $F \le F_{ ( p+1-k , n-p-1 ; \alpha ) }$ 이면 $H_{0}$ 가 채택되어 변수를 줄인 RM을 쓸 수 있게 된다.</p>
 
 
 <aside style="text-align: right;">
     2018-09-07&emsp;
     류대식&emsp;
-    <a href="../523">🎲 672</a>
+    <a href="../845">🎲 672</a>
 </aside>
 
 <script>
@@ -889,7 +779,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -917,7 +807,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1133,8 +1023,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

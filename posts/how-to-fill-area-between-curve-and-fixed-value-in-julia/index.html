@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-fill-area-between-curve-and-fixed-value-in-julia\/",
-    "wordCount" : "302",
+    "wordCount" : "303",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -150,102 +150,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -283,11 +187,11 @@
 
 <h2 id="특정한-값까지-칠하기1">특정한 값까지 칠하기<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
 <p><code>plot()</code>의 속성으로 <code>fillrange=a</code>, <code>fillalpha=b</code>, <code>fillcolor=:color</code>를 사용하면, 플랏된 곡선에서부터 값 <code>a</code>까지 <code>:color</code>색깔을 <code>b</code>의 투명도로 칠한다. <code>fill=(a,b,:color)</code>로 써도 같은 기능을 한다. 즉 다음의 두 코드는 같다.</p>
-<pre tabindex="0"><code>plot(x,y, fillrange=a, fillalpha=b, fillcolor=:color)
+<pre><code>plot(x,y, fillrange=a, fillalpha=b, fillcolor=:color)
 plot(x,y, fill=(a,b,:color))
 </code></pre><p>버그인 것 같은데 <code>fillrange</code>의 값을 $(0,1)$에서 선택하면 색칠이 되지 않는다.</p>
 <p><img src="1.svg#center" alt="1.svg"></p>
-<pre tabindex="0"><code>using Plots
+<pre><code>using Plots
 
 random_walk = cumsum(rand(20).-.5)
 
@@ -297,13 +201,13 @@ plot(p1, p2)
 </code></pre><h2 id="두-곡선-사이-칠하기">두 곡선 사이 칠하기</h2>
 <p><code>fillalpha</code>의 값으로 한 쪽 곡선의 함숫값을 넣으면 두 곡선 사이가 색칠된다.</p>
 <p><img src="2.svg#center" alt="2.svg"></p>
-<pre tabindex="0"><code>rw = random_walk
+<pre><code>rw = random_walk
 
 plot([rw rw.+1],fill=(rw.+1,0.2,:lime), lw=3, legend=:bottomright)
 </code></pre><h2 id="폐곡선-내부-칠하기">폐곡선 내부 칠하기</h2>
 <p><code>fillalpha</code>의 값을 $(0,1)$에서만 택하지 않으면 내부가 색칠된다.</p>
 <p><img src="3.svg#center" alt="3.svg"></p>
-<pre tabindex="0"><code>theta = range(0,2pi, length=40)
+<pre><code>theta = range(0,2pi, length=40)
 x = cos.(theta)
 y = sin.(theta)
 
@@ -317,7 +221,7 @@ plot(x, y, fill=(1,0.2,:lime), xlim=(-3,3), ylim=(-1.5,1.5), size=(800,400), lw=
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="http://docs.juliaplots.org/latest/attributes/#fill">http://docs.juliaplots.org/latest/attributes/#fill</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="http://docs.juliaplots.org/latest/attributes/#fill">http://docs.juliaplots.org/latest/attributes/#fill</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -326,7 +230,7 @@ plot(x, y, fill=(1,0.2,:lime), xlim=(-3,3), ylim=(-1.5,1.5), size=(800,400), lw=
 <aside style="text-align: right;">
     2012-03-13&emsp;
     전기현&emsp;
-    <a href="../415">🎲 3203</a>
+    <a href="../482">🎲 3203</a>
 </aside>
 
 <script>
@@ -889,7 +793,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -917,7 +821,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1133,8 +1037,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi

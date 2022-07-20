@@ -150,102 +150,6 @@
   <ul id="searchResults">
   </ul>
 </div>
-  <div class="mobile_search" style="display: none;">
-  <div class="search_box">
-    <input type="text" tabindex="0" name="text" value="" placeholder="검색 내용" />
-  </div>
-  <ul id="searchResultsMobile"></ul>
-</div>
-
-<script>
-  let firstRunFlag = true;
-  const mobileSearch = document.querySelector('.mobile_search');
-  const searchResultsMobile = document.querySelector('#searchResultsMobile');
-  let firstSearchResultsMobile = searchResultsMobile.firstChild;
-  let lastSearchResultsMobile = searchResultsMobile.lastChild;
-  let resultsAvailable_mobile = false;
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMobile()) {
-      mobileSearch.style.display = 'block';
-
-      if (firstRunFlag) {
-        loadSearchMobile();
-        firstRunFlag = false;
-      }
-
-      const searchBoxInput = document.querySelector('.search_box input');
-      searchBoxInput.addEventListener('keyup', (e) => {
-        const value = e.target.value;
-        executeSearchMobile(value);
-      });
-    }
-  });
-
-  function loadSearchMobile() {
-    fetchJSONFileMobile('/index.json', (data) => {
-      const options = {
-        shouldSort: true,
-        location: 0,
-        distance: 100,
-        threshold: 0.4,
-        minMatchCharLength: 2,
-        keys: [
-          'title',
-          'permalink',
-          'summary'
-        ]
-      };
-      fuse_mobile = new Fuse(data, options);
-    });
-  }
-
-  function fetchJSONFileMobile(path, callback) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 200) {
-          const data = JSON.parse(httpRequest.responseText);
-          if (callback) {
-            callback(data);
-          }
-        }
-      }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send();
-  }
-
-  function executeSearchMobile(term) {
-    const results = fuse_mobile.search(term);
-    let searchItems = '';
-
-    if (results.length === 0) {
-      mobileSearch.style.height = '30px';
-      mobileSearch.style.overflow = 'hidden';
-
-      resultsAvailable_mobile = false;
-      searchItems = '';
-    } else {
-      mobileSearch.style.height = '200px';
-      mobileSearch.style.overflow = 'auto';
-
-      for (let item in results.slice(0, 100)) {
-        searchItems += '<li>';
-        searchItems += `<a href="${results[item].item.permalink}" tabindex="0">`;
-        searchItems += `<span class="title">${results[item].item.title}</span>`;
-        searchItems += '</a>';
-        searchItems += '</li>';
-      }
-      resultsAvailable_mobile = true;
-    }
-
-    searchResultsMobile.innerHTML = searchItems;
-    if (results.length > 0) {
-      firstSearchResultsMobile = searchResultsMobile.firstChild.firstElementChild;
-      lastSearchResultsMobile = searchResultsMobile.lastChild.firstElementChild;
-    }
-  }
-</script>
 
   
   <div class="wrapper">
@@ -287,13 +191,13 @@
 <h2 id="가이드">가이드</h2>
 <h3 id="while">while</h3>
 <p><code>while</code> 문은 여타 언어들과 다를 게 없다.</p>
-<pre tabindex="0"><code>julia&gt; while x &lt; 10
+<pre><code>julia&gt; while x &lt; 10
            x += 1
            print(&quot;$x - &quot;)
        end
 1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 10 -
 </code></pre><h3 id="for">for</h3>
-<pre tabindex="0"><code>julia&gt; for i in 1:10
+<pre><code>julia&gt; for i in 1:10
            print(&quot;$i - &quot;)
        end
 1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 10 -
@@ -310,7 +214,7 @@ julia&gt; for i ∈ 1:10
 </code></pre><p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서 메이저하게 쓰이는 반복문 스타일은 위 세가지가 있다. 가장 위는 <a href="../../categories/r">R</a>과 <a href="../../categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D#python">파이썬</a>에서 쓰는 방법과 비슷하며, 두번째는 <a href="../../categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9">매트랩</a>과 비슷하다. 가장 우아한 표현은 세번째의 <a href="../1442">집합 포함 기호</a>를 사용한 방법이다.</p>
 <h3 id="중첩반복문">중첩반복문</h3>
 <p>다음에 나타나는 두 반복문은 기능적으로 완전히 같다.</p>
-<pre tabindex="0"><code>julia&gt; X = 1:4; Y = 8:(-1):5;
+<pre><code>julia&gt; X = 1:4; Y = 8:(-1):5;
 
 julia&gt; for x ∈ X
            for y ∈ Y
@@ -332,13 +236,13 @@ julia&gt; for x ∈ X, y ∈ Y
   (3 + 8) = 11  (3 + 7) = 10  (3 + 6) = 9  (3 + 5) = 8
   (4 + 8) = 12  (4 + 7) = 11  (4 + 6) = 10  (4 + 5) = 9
 </code></pre><p>마치 의사 코드<sup>Pseudo Code</sup>를 쓰듯 코드가 작성된 것을 볼 수 있다. 주의사항으로는 다음과 같이 반복자<sup>Iterator</sup>로써 튜플을 준 경우다.</p>
-<pre tabindex="0"><code>julia&gt; for (x,y) ∈ (X, Y)
+<pre><code>julia&gt; for (x,y) ∈ (X, Y)
            print(&quot;  ($x + $y) = $(x + y)&quot;)
            if y == 5 println() end
        end
   (1 + 2) = 3  (8 + 7) = 15
 </code></pre><p>직관적으로 생각했을 때 위 반복문은 <code>(X, Y)</code> 는 <code>X</code> 에서 <code>x</code> 를 뽑고 <code>Y</code> 에서 <code>y</code> 를 뽑으며 돌아야할 것 같지만, 실제로는 <code>X</code> 에서 두 개의 원소 <code>1,2</code> 와 <code>Y</code> 에서 두 개의 원소 <code>8,7</code> 을 뽑으며 돌았다. 만약 이렇게 순서를 맞춰서 뽑고 싶다면 다음과 같이 <code>zip()</code> 함수를 사용하면 된다.</p>
-<pre tabindex="0"><code>julia&gt; for (x,y) ∈ zip(X, Y)
+<pre><code>julia&gt; for (x,y) ∈ zip(X, Y)
            print(&quot;  ($x + $y) = $(x + y)&quot;)
            if y == 5 println() end
        end
@@ -348,7 +252,7 @@ julia&gt; for x ∈ X, y ∈ Y
 <aside style="text-align: right;">
     2012-04-21&emsp;
     류대식&emsp;
-    <a href="../1165">🎲 2191</a>
+    <a href="../1524">🎲 2191</a>
 </aside>
 
 <script>
@@ -911,7 +815,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
         <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
-        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (106)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
         <span style="color:rgb(051,204,051);">●</span> 분포이론 (57)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%99%95%EB%A5%A0%EB%A1%A0/>
@@ -939,7 +843,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2358)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
@@ -1155,8 +1059,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by <a href="https://gohugo.io"
-          target="_blank">Hugo</a></p>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
       <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         <img src=https://freshrimpsushi.github.io/logo/instagram.png width=16px> www.instagram.com/freshrimpsushi
