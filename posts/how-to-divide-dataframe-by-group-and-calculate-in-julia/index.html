@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-divide-dataframe-by-group-and-calculate-in-julia\/",
-    "wordCount" : "1483",
+    "wordCount" : "1438",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -213,14 +213,14 @@
 <li><code>:colname =&gt; fun</code>은 계산할 값이 있는 열의 이름인 심볼 <code>:colname</code>과 계산할 함수 <code>fun</code>의 <a href="../2201">페어</a>다.</li>
 </ul>
 <h2 id="코드">코드</h2>
-<pre><code>using DataFrames
+<pre tabindex="0"><code>using DataFrames
 using StatsBase
 
 WJSN = DataFrame(
-    member = [&quot;다영&quot;,&quot;다원&quot;,&quot;루다&quot;,&quot;소정&quot;,&quot;수빈&quot;,&quot;연정&quot;,&quot;주연&quot;,&quot;지연&quot;,&quot;진숙&quot;,&quot;현정&quot;],
+    member = [&#34;다영&#34;,&#34;다원&#34;,&#34;루다&#34;,&#34;소정&#34;,&#34;수빈&#34;,&#34;연정&#34;,&#34;주연&#34;,&#34;지연&#34;,&#34;진숙&#34;,&#34;현정&#34;],
     birth = [99,97,97,95,96,99,98,95,99,94],
     height = [161,167,157,166,159,165,172,163,162,165],
-    unit = [&quot;쪼꼬미&quot;,&quot;메보즈&quot;,&quot;쪼꼬미&quot;,&quot;더블랙&quot;,&quot;쪼꼬미&quot;,&quot;메보즈&quot;,&quot;더블랙&quot;,&quot;더블랙&quot;,&quot;쪼꼬미&quot;,&quot;더블랙&quot;]
+    unit = [&#34;쪼꼬미&#34;,&#34;메보즈&#34;,&#34;쪼꼬미&#34;,&#34;더블랙&#34;,&#34;쪼꼬미&#34;,&#34;메보즈&#34;,&#34;더블랙&#34;,&#34;더블랙&#34;,&#34;쪼꼬미&#34;,&#34;더블랙&#34;]
 )
 sort!(WJSN, :birth)
 
@@ -233,7 +233,7 @@ units[3]
 
 combine(units, :height =&gt; mean)
 </code></pre><p>위의 예제 코드를 실행해보고 그 결과를 확인해보자.</p>
-<pre><code>julia&gt; WJSN
+<pre tabindex="0"><code>julia&gt; WJSN
 10×4 DataFrame
  Row │ member  birth  height  unit   
      │ String  Int64  Int64   String 
@@ -250,9 +250,9 @@ combine(units, :height =&gt; mean)
   10 │ 진숙       99     162  쪼꼬미
 </code></pre><p><code>WJSN</code> 데이터프레임은 위와 같다.</p>
 <h3 id="그룹별로-나누기-groupby">그룹별로 나누기 <code>groupby()</code></h3>
-<pre><code>julia&gt; units = groupby(WJSN, :unit)
+<pre tabindex="0"><code>julia&gt; units = groupby(WJSN, :unit)
 GroupedDataFrame with 3 groups based on key: unit
-First Group (4 rows): unit = &quot;더블랙&quot;
+First Group (4 rows): unit = &#34;더블랙&#34;
  Row │ member  birth  height  unit   
      │ String  Int64  Int64   String 
 ─────┼───────────────────────────────
@@ -261,14 +261,14 @@ First Group (4 rows): unit = &quot;더블랙&quot;
    3 │ 지연       95     163  더블랙
    4 │ 주연       98     172  더블랙
 ⋮
-Last Group (2 rows): unit = &quot;메보즈&quot;
+Last Group (2 rows): unit = &#34;메보즈&#34;
  Row │ member  birth  height  unit   
      │ String  Int64  Int64   String 
 ─────┼───────────────────────────────
    1 │ 다원       97     167  메보즈
    2 │ 연정       99     165  메보즈
 </code></pre><p><code>:unit</code> 열을 기준으로 데이터프레임이 세 개의 그룹으로 나뉘었다.</p>
-<pre><code>julia&gt; units[1]
+<pre tabindex="0"><code>julia&gt; units[1]
 4×4 SubDataFrame
  Row │ member  birth  height  unit   
      │ String  Int64  Int64   String 
@@ -297,7 +297,7 @@ julia&gt; units[3]
    2 │ 연정       99     165  메보즈
 </code></pre><p>위와 같이 <code>GroupedDataFrame</code>에 인덱싱을 함으로써 나뉘어진 데이터프레임에 접근할 수 있다.</p>
 <h3 id="그룹별로-계산하기-combine">그룹별로 계산하기 <code>combine()</code></h3>
-<pre><code>julia&gt; combine(units, :height =&gt; mean)
+<pre tabindex="0"><code>julia&gt; combine(units, :height =&gt; mean)
 3×2 DataFrame
  Row │ unit    height_mean 
      │ String  Float64     
@@ -310,7 +310,7 @@ julia&gt; units[3]
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://stackoverflow.com/questions/64226866/groupby-with-sum-on-julia-dataframe">https://stackoverflow.com/questions/64226866/groupby-with-sum-on-julia-dataframe</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://stackoverflow.com/questions/64226866/groupby-with-sum-on-julia-dataframe">https://stackoverflow.com/questions/64226866/groupby-with-sum-on-julia-dataframe</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -319,7 +319,7 @@ julia&gt; units[3]
 <aside style="text-align: right;">
     2012-08-25&emsp;
     류대식&emsp;
-    <a href="../765">🎲 2254</a>
+    <a href="../1696">🎲 2254</a>
 </aside>
 
 <script>
@@ -910,7 +910,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2360)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>

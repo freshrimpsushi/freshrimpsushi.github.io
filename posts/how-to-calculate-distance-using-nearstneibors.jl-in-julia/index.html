@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-calculate-distance-using-nearstneibors.jl-in-julia\/",
-    "wordCount" : "430",
+    "wordCount" : "429",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -167,19 +167,6 @@
     <div class="innertic">
       
     
-    
-    <div style="text-align: center;">
-        <p height=80% style="
-            text-align: center;
-            color: black;
-            border-style: dashed;
-            padding: 1rem;"
-            >
-        
-            이번 여름방학엔 <a href="../../categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/">선형대수</a> 정주행 어때요?
-        
-        </p>
-    </div>
 
 
 
@@ -201,7 +188,7 @@
 <p>$n$ 개의 좌표끼리 거리를 계산하는데, 행렬을 만들 필요까지는 없고 단순히 거리만 계산하면 되는 경우 다차원 탐색에 유리한 자료구조인 k-d 트리<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>를 사용해 속도를 높일 수 있다. <code>NearestNeighbors.jl</code>에 관련 알고리즘이 모두 구현되어 있으니 <a href="https://github.com/KristofferC/NearestNeighbors.jl">공식 깃허브 페이지</a>를 참고하도록 하자.</p>
 <h2 id="속도-비교">속도 비교</h2>
 <p><code>pairwise()</code> 함수로 <a href="../2020">거리행렬 계산에 최적화된 기법</a>과 비교해보자.</p>
-<pre><code>using Distances
+<pre tabindex="0"><code>using Distances
 using StatsBase
 using Random
 using NearestNeighbors
@@ -210,14 +197,14 @@ Random.seed!(0);
 ε = 0.01
 N = 10^4
 coordinate = rand(2, N);
-state = sample(['S', 'I'], Weights([0.1, 0.9]), N);
-S = coordinate[:, state .== 'S']
-I = coordinate[:, state .== 'I']
+state = sample([&#39;S&#39;, &#39;I&#39;], Weights([0.1, 0.9]), N);
+S = coordinate[:, state .== &#39;S&#39;]
+I = coordinate[:, state .== &#39;I&#39;]
 
 @time sum(pairwise(Euclidean(),S,I) .&lt; ε, dims = 1)
 @time kdtree = KDTree(S); contact = length.(inrange(kdtree, I, ε, true))
 </code></pre><p>위 코드를 실행시킨 결과는 다음과 같다. 맨 아래의 두 커맨드라인은 같은 작업을 수행하지만 속도차이는 500배 정도가 난다. 실제로 k-d 트리에서 탐색할 때 <a href="../1283">시간복잡도</a>는 $\log n$ 으로 매우 효율적이다.</p>
-<pre><code>julia&gt; @time sum(pairwise(Euclidean(),S,I) .&lt; ε, dims = 1)
+<pre tabindex="0"><code>julia&gt; @time sum(pairwise(Euclidean(),S,I) .&lt; ε, dims = 1)
   0.098394 seconds (14 allocations: 69.639 MiB, 8.23% gc Time)
 1×9004 Array{Int64,2}:
  0  0  1  0  0  0  0  …  1  0  0  0  0  0
@@ -243,7 +230,7 @@ julia&gt; @time kdtree = KDTree(S); contact = length.(inrange(kdtree, I, ε, tru
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://en.wikipedia.org/wiki/K-d_tree">https://en.wikipedia.org/wiki/K-d_tree</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://en.wikipedia.org/wiki/K-d_tree">https://en.wikipedia.org/wiki/K-d_tree</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -252,7 +239,7 @@ julia&gt; @time kdtree = KDTree(S); contact = length.(inrange(kdtree, I, ε, tru
 <aside style="text-align: right;">
     2021-09-27&emsp;
     류대식&emsp;
-    <a href="../1806">🎲 2088</a>
+    <a href="../1365">🎲 2088</a>
 </aside>
 
 <script>
@@ -843,7 +830,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         <span>●</span> 생새우초밥지 (1)</a><br>
     <hr>
 <details>
-    <summary>전체 포스트 (2359)</summary>
+    <summary>전체 포스트 (2360)</summary>
     <ul><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/3%EC%B0%A8%EC%9B%90%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/" style="color: black">3차원벡터해석 (2)</a>
         </li><li>
