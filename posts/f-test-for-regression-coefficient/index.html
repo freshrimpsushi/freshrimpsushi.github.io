@@ -67,10 +67,10 @@
     </script>
 
     
-<meta name="title" content="유리함수의 정의">
+<meta name="title" content="회귀계수의 F-검정">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="유리함수의 정의"/>
-<meta property="og:description" content="Definition of Rational Function"/>
+<meta property="og:title" content="회귀계수의 F-검정"/>
+<meta property="og:description" content="F-test for Regression Coefficient"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -82,15 +82,15 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "r_",
-    "name": "유리함수의 정의",
-    "headline": "유리함수의 정의",
+    "name": "회귀계수의 F-검정",
+    "headline": "회귀계수의 F-검정",
     "alternativeHeadline": "",
-    "description": "Definition of Rational Function",
+    "description": "F-test for Regression Coefficient",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/definition-of-rational-function\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/f-test-for-regression-coefficient\/"
     },
     "author" : {
         "@type": "Person",
@@ -105,10 +105,10 @@
         "name": "류대식"
     },
     "copyrightHolder" : "생새우초밥집",
-    "copyrightYear" : "1923",
-    "dateCreated": "1923-10-17T00:00:00.00Z",
-    "datePublished": "1923-10-17T00:00:00.00Z",
-    "dateModified": "1923-10-17T00:00:00.00Z",
+    "copyrightYear" : "2018",
+    "dateCreated": "2018-09-07T00:00:00.00Z",
+    "datePublished": "2018-09-07T00:00:00.00Z",
+    "dateModified": "2018-09-07T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -121,15 +121,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/definition-of-rational-function\/",
-    "wordCount" : "117",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/f-test-for-regression-coefficient\/",
+    "wordCount" : "985",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>유리함수의 정의</title>
+    <title>회귀계수의 F-검정</title>
 </head>
 
 <body class="main">
@@ -137,7 +137,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/%ED%95%A8%EC%88%98.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/basic.png style="max-height: 80px; width: auto;">
             
             
             
@@ -156,31 +156,17 @@
     <div class="content">
       <div class="content-box">
         
-<title>유리함수의 정의</title>
+<title>회귀계수의 F-검정</title>
 
-<h1>유리함수의 정의</h1>
+<h1>회귀계수의 F-검정</h1>
 <p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px;">
-  Definition of Rational Function
+  F-test for Regression Coefficient
 </p>
 <aside>
   <div class="innerheader">
     <div class="innertic">
       
     
-    
-    <div style="text-align: center;">
-        <p height=80% style="
-            text-align: center;
-            color: black;
-            border-style: dashed;
-            padding: 1rem;"
-            >
-        
-            $x^{2} = - 1$ 의 해가 <b>허수</b>면 $X^{2} = - I$ 는 <b>허행렬</b>일까요? <br>
-            <a href="https://freshrimpsushi.com/community/bbs/board.php?bo_table=research" target='_blank'>커뮤니티</a>에서 고민해봅시다.
-        
-        </p>
-    </div>
 
 
 
@@ -189,32 +175,82 @@
       
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#정의-1">정의 </a></li>
+    <li><a href="#가설검정">가설검정</a></li>
+    <li><a href="#유도">유도</a>
+      <ul>
+        <li><a href="#축소모형에-대한-가설검정">축소모형에 대한 가설검정</a></li>
+      </ul>
+    </li>
+    <li><a href="#같이보기">같이보기</a></li>
   </ul>
 </nav>
     </div>
   </div>
 </aside>
 
-<h2 id="정의-1">정의 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p>두 <a href="../2058">다항함수</a> $P_{1}(z), P_{2}(z) : \mathbb{C} \to \mathbb{C}$ 에 대해 $P_{2} (z) \ne 0$ 인 모든 $z \in \mathbb{C}$ 를 $\left( p_{1} / p_{2} \right) (z)$ 로 대응시키는 다음의 함수 $Q$ 를 <strong>유리함수</strong><sup>Rational Function</sup> 혹은 <strong>대수적 분수</strong><sup>Algebraic Fraction</sup>라 한다.
+<h2 id="가설검정">가설검정</h2>
+<p><a href="../666">선형다중회귀모델</a>의 <a href="../675">모형진단</a>에서 <a href="../650">잔차</a>가 <a href="../677">선형성</a>과 <a href="../681">등분산성</a>과 <a href="../679">독립성</a>과 <a href="../683">정규성</a>을 만족시킨다고 하자. $n$ 개의 관측치와 $p$ 개의 독립변수에 대한 <a href="../666">다중회귀분석</a>에 대한 <a href="../2442">가설검정</a>은 다음과 같다.</p>
+<ul>
+<li>$H_{0}$: $\beta_{1} = \beta_{2} = \cdots = \beta_{p} = 0$ 즉, 모든 독립변수가 종속변수과 <a href="../57">상관관계</a>를 가지지 않는다.</li>
+<li>$H_{1}$: $\beta_{1} , \beta_{2} , \cdots , \beta_{p}$ 중 적어도 하나는 $ 0$ 이 아니다. 즉, 유의한 상관관계를 가지는 독립변수가 적어도 하나 존재한다.</li>
+</ul>
+<h2 id="유도">유도</h2>
+<blockquote>
+<p><a href="../650">SST, SSR, SSE</a>:
+6. TSS(Total Sum of Squares) 혹은 SST(Sum of Squares Total):
 $$
-Q (z) := {{ P_{1} (z) } \over { P_{2} (z) }} \qquad \text{where } P_{2} (z) \ne 0
+\text{TSS} =\text{SST} := \sum_{i=1}^{n} ( y_{i} - \overline{y} )^2
+$$
+7. ESS(Explained Sum of Squares) 혹은 SSR(Sum of Squares due to Regression):
+$$
+\text{ESS} = \text{SSR} := \sum_{i=1}^{n} ( \hat{y}_{i} - \overline{y} )^2
+$$
+8. RSS(Residual Sum of Squares) 혹은 SSE(Sum of squared Error):
+$$
+\text{RSS} = \text{SSE} := \sum_{i=1}^{n} ( y_{i} - \hat{y}_{i} )^2
 $$</p>
-<div class="footnotes" role="doc-endnotes">
+</blockquote>
+<p>SST는 평균 하나를 사용했으므로 <a href="../2456">자유도</a>가 $(n-1)$ 이고 SSE는 $p$개의 독립변수에 따라 계산되므로 상수항을 포함해 $(p+1)$개의 회귀계수가 사용되어 자유도가 $\left( n-(p-1) \right)$ 이다. 이들은 잔차의 등분산성과 독립성, 정규성에 따라 $\sigma^{2}$ 로 나누었을 때 각각의 자유도를 가지는 <a href="../1600">카이제곱분포</a>를 따른다. 한편
+$$
+SST = SSR + SSE \iff SSR = SST - SSE
+$$
+이므로 $SSR$ 의 자유도는 $p = (n-1) - (n-p-1)$ 이고, 카이제곱분포 $\chi^{2} (p)$ 를 따른다.</p>
+<blockquote>
+<p><a href="../1643">F-분포의 유도</a>: 두 <a href="../1433">확률 변수</a> $U,V$ 가 <a href="../1461">독립</a>이고 $U \sim \chi^{2} ( r_{1})$, $V \sim \chi^{2} ( r_{2})$ 이라 하면
+$$
+{{ U / r_{1} } \over { V / r_{2} }} \sim F \left( r_{1} , r_{2} \right)
+$$</p>
+</blockquote>
+<p><a href="../2440">검정통계량</a> $F$ 를
+$$
+F := {{ \text{SSR} / p } \over { \text{SSE} / (n-p-1 ) }}
+$$
+과 같이 정의하면 <a href="../2456">자유도</a>가 $(p , n-p-1)$ 인 <a href="../1606">F-분포</a>를 따른다.</p>
+<p>수식으로 다시 나타내보면 $\displaystyle F = {{ \text{SSR} / p } \over { \text{SSE} / (n-p-1 ) }} \sim F(p, n-p-1)$ 인데, 이를 이용해 가설검정을 한다.</p>
+<p style="text-align: right;">■</p>
+<p>다만 이 F검정은 <a href="../654">회귀계수 </a><a href="../654">각각의 t검정</a>을 볼 수 있다면 무의미하고, 진짜 진면목은 모형간의 비교에 있다.통계학에 숙명적으로 따라붙는 &lsquo;주관성&rsquo;이나 &lsquo;애매함&rsquo;을 떨쳐내고 통계적으로 의미 있는 결과를 낼 수 있게 되는것이다.(물론 실제 분석에서는 <a href="../826">이보다 편리하고 쉬운 통계량</a>을 이용해서 모델을 비교한다.)</p>
+<h3 id="축소모형에-대한-가설검정">축소모형에 대한 가설검정</h3>
+<p>$n$ 개의 관측치와 $p$ 개의 독립변수에 대한 다중회귀분석에 대해 $i=0,1,\cdots,p$ 라고 하자. 이 때의 회귀모형을 <strong>전체모형</strong><sup>FM</sup>이라 하고, FM에서 $k$ 개의 독립변수가 제거된 모형을 <strong>축소모형</strong><sup>RM</sup>이라 한다.</p>
+<ul>
+<li>$H_{0}$: RM이면 충분하다. 즉, 굳이 많은 변수를 써서 FM을 사용할 필요가 없다.</li>
+<li>$H_{1}$: RM은 불충분하다. 즉, 변수를 늘려서라도 FM을 쓰는 게 낫다.</li>
+</ul>
 <hr>
-<ol>
-<li id="fn:1">
-<p>Osborne (1999). Complex variables and their applications: p24.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-</ol>
-</div>
+<p>$$
+F = {{ [ \text{SSR} (RM) - \text{SSR} (FM) ] / (p +1 - k) } \over { \text{SSE} ( FM ) / (n-p-1 ) }}
+$$
+는 <a href="../2456">자유도</a>가 $(p + 1 - k , n-p-1)$ 인 F분포를 따른다. <a href="../509">유의수준</a> $\alpha$ 에서 $F \le F_{ ( p+1-k , n-p-1 ; \alpha ) }$ 이면 $H_{0}$ 가 채택되어 변수를 줄인 RM을 쓸 수 있게 된다.</p>
+<h2 id="같이보기">같이보기</h2>
+<ul>
+<li><a href="../666">다중회귀분석</a></li>
+<li><a href="../670">R 에서 다중회귀분석 결과</a></li>
+</ul>
 
 
 <aside style="text-align: right;">
-    1923-10-17&emsp;
+    2018-09-07&emsp;
     류대식&emsp;
-    <a href="../1633">🎲 2463</a>
+    <a href="../1750">🎲 672</a>
 </aside>
 
 <script>
@@ -229,8 +265,8 @@ $$</p>
       renderKaTex(tex);
     }
 
-    var title = '유리함수의 정의';
-    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/definition-of-rational-function\/';
+    var title = '회귀계수의 F-검정';
+    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/f-test-for-regression-coefficient\/';
     var arr = new Array();
     var obj = {
       "title": title,
@@ -294,7 +330,7 @@ $$</p>
   function get_all_comment() {
     const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
     postFetch(url, {
-      board_idx: '2463'
+      board_idx: '672'
     })
       .then(res => res.json())
       .then(data => {
@@ -393,9 +429,9 @@ $$</p>
       alert('빈칸을 채워주세요');
       return;
     }
-    const idx = '2463';
-    const board_slug = 'definition-of-rational-function';
-    const board_title = '유리함수의 정의';
+    const idx = '672';
+    const board_slug = 'F-test-for-regression-coefficient';
+    const board_title = '회귀계수의 F-검정';
 
     const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeComment';
     postFetch(url, {
@@ -621,9 +657,9 @@ $$</p>
       return;
     }
 
-    const board_idx = '2463';
-    const board_slug = 'definition-of-rational-function';
-    const board_title = '유리함수의 정의';
+    const board_idx = '672';
+    const board_slug = 'F-test-for-regression-coefficient';
+    const board_title = '회귀계수의 F-검정';
 
     const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeReComment';
     postFetch(url, {
@@ -683,10 +719,10 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 
 
         <p style="text-align: center;">
-        <a href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/"
+        <a href="https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EA%B2%80%EC%A0%95/"
             style="background-color: rgba(0, 0, 0, 0.8); color: orange;
             border-radius:10px; padding: 5px;">
-            📂함수</a>
+            📂통계적검정</a>
         </p>
         
 
@@ -775,7 +811,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EA%B2%80%EC%A0%95/>
         <span style="color:rgb(255,204,000);">●</span> 통계적검정 (20++)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/>
-        <span style="color:rgb(051,204,051);">●</span> 통계적분석 (59)</a><br>
+        <span style="color:rgb(051,204,051);">●</span> 통계적분석 (61)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/>
         <span style="color:rgb(051,204,051);">●</span> 수리통계학 (107)</a><br>
     <a href=https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/>
@@ -865,7 +901,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%EB%9F%89/" style="color: black">수리통계량 (1)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (105)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EB%A6%AC%ED%86%B5%EA%B3%84%ED%95%99/" style="color: black">수리통계학 (106)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/" style="color: black">수치해석 (50)</a>
         </li><li>
@@ -909,7 +945,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" style="color: black">프로그래밍 (37)</a>
         </li><li>
-            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (79)</a>
+            <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%A8%EC%88%98/" style="color: black">함수 (78)</a>
         </li><li>
             <a class = "in_sidebar" href="https://freshrimpsushi.github.io/categories/%ED%95%B4%EC%84%9D%EA%B0%9C%EB%A1%A0/" style="color: black">해석개론 (96)</a>
         </li><li>
