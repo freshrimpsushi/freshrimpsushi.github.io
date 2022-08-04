@@ -70,7 +70,7 @@
 <meta name="title" content="오프라인">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
 <meta property="og:title" content="오프라인"/>
-<meta property="og:description" content="Offline"/>
+<meta property="og:description" content="offline"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -85,7 +85,7 @@
     "name": "오프라인",
     "headline": "오프라인",
     "alternativeHeadline": "",
-    "description": "Offline",
+    "description": "offline",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
@@ -105,10 +105,10 @@
         "name": "류대식"
     },
     "copyrightHolder" : "생새우초밥집",
-    "copyrightYear" : "2022",
-    "dateCreated": "2022-01-01T00:00:00.00Z",
-    "datePublished": "2022-01-01T00:00:00.00Z",
-    "dateModified": "2022-01-01T00:00:00.00Z",
+    "copyrightYear" : "2021",
+    "dateCreated": "2021-01-01T00:00:00.00Z",
+    "datePublished": "2021-01-01T00:00:00.00Z",
+    "dateModified": "2021-01-01T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/offline\/",
-    "wordCount" : "0",
+    "wordCount" : "463",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -160,30 +160,100 @@
 
 <h1>오프라인</h1>
 <p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px;">
-  Offline
+  offline
 </p>
 <aside>
   <div class="innerheader">
     <div class="innertic">
       
     
+    
+    <div style="text-align: center;">
+        <p height=80% style="
+            text-align: center;
+            color: black;
+            border-style: dashed;
+            padding: 1rem;"
+            >
+        
+            
+            카테고리 옆에 있는 ● 를 클릭해보세요. <br>
+            관심있는 카테고리만 강조할 수 있습니다.
+        
+        </p>
+    </div>
 
 
 
     </div>
     <div class="innertoc">
       
-      <nav id="TableOfContents"></nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#코드">코드</a>
+      <ul>
+        <li><a href="#줄리아">줄리아</a></li>
+        <li><a href="#r과의-비교">R과의 비교</a></li>
+      </ul>
+    </li>
+    <li><a href="#환경">환경</a></li>
+  </ul>
+</nav>
     </div>
   </div>
 </aside>
 
+<!-- # 줄리아에서 회귀분석 하는 법 `GLM.jl` <img src="r.svg" alt="R" style="height: 1em;vertical-align:middle;">
+# How to Do Regression Analysis in julia
+#  -->
+<h2 id="개요">개요</h2>
+<p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서 <a href="../548">회귀분석</a>을 하기 위한 <code>GLM.jl</code> 패키지를 간략하게 소개한다. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> <a href="../../categories/r">R</a>에서의 인터페이스와 얼마나 흡사한지 강조하기 위해 세세한 설명은 생략한다.</p>
+<h2 id="코드">코드</h2>
+<h3 id="줄리아">줄리아</h3>
+<pre tabindex="0"><code>using GLM, RDatasets
+
+faithful = dataset(&quot;datasets&quot;, &quot;faithful&quot;)
+
+out1 = lm(@formula(Waiting ~ Eruptions), faithful)
+</code></pre><p>위 코드를 실행한 결과는 다음과 같다.</p>
+<pre tabindex="0"><code>julia&gt; out1 = lm(@formula(Waiting ~ Eruptions), faithful)
+StatsModels.TableRegressionModel{LinearModel{GLM.LmResp{Vector{Float64}}, GLM.DensePredChol{Float64, LinearAlgebra.CholeskyPivoted{Float64, Matrix{Float64}}}}, Matrix{Float64}}
+
+Waiting ~ 1 + Eruptions
+
+Coefficients:
+───────────────────────────────────────────────────────────────────────
+               Coef.  Std. Error      t  Pr(&gt;|t|)  Lower 95%  Upper 95%
+───────────────────────────────────────────────────────────────────────
+(Intercept)  33.4744    1.15487   28.99    &lt;1e-84    31.2007    35.7481
+Eruptions    10.7296    0.314753  34.09    &lt;1e-99    10.11      11.3493
+───────────────────────────────────────────────────────────────────────
+</code></pre><p><a href="../652">R 에서 회귀분석한 결과</a>와 비교해 보아라.</p>
+<h3 id="r과의-비교">R과의 비교</h3>
+<pre tabindex="0"><code>out1&lt;-lm(waiting~eruptions,data=faithful); summary(out1)
+</code></pre><pre tabindex="0"><code>out1 = lm(@formula(Waiting ~ Eruptions), faithful)
+</code></pre><p>위는 <a href="../../categories/r">R</a> 코드고, 아래는 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다. 변수를 넣기 위해 <code>@formula</code> 매크로를 사용했고, 그를 통해 R의 컨벤션을 거의 완벽하게 재현했음을 알 수 있다.</p>
+<h2 id="환경">환경</h2>
+<ul>
+<li>OS: Windows</li>
+<li>julia: v1.7.0</li>
+<li>GLM v1.8.0</li>
+</ul>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://juliastats.org/GLM.jl/v0.11/index.html">https://juliastats.org/GLM.jl/v0.11/index.html</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 <aside style="text-align: right;">
-    2022-01-01&emsp;
+    2021-01-01&emsp;
     류대식&emsp;
-    <a href="../331">🎲 1</a>
+    <a href="../356">🎲 1</a>
 </aside>
 
 <script>
@@ -683,7 +753,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     [
       { idx: 1, name: '해석개론', size: '96', color: color.green },
       { idx: 2, name: '다변수벡터해석', size: '21', color: color.green },
-      { idx: 3, name: '복소해석', size: '66', color: color.green },
+      { idx: 3, name: '복소해석', size: '71', color: color.green },
       { idx: 4, name: '측도론', size: '59', color: color.green },
       { idx: 5, name: '푸리에해석', size: '51', color: color.green },
       { idx: 6, name: '초함수론', size: '23', color: color.green },
@@ -719,7 +789,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
       { idx: 3, name: '데이터과학', size: '22', color: color.red },
       { idx: 4, name: '통계적검정', size: '20++', color: color.green },
       { idx: 5, name: '통계적분석', size: '61', color: color.yellow },
-      { idx: 6, name: '수리통계학', size: '107', color: color.green },
+      { idx: 6, name: '수리통계학', size: '109', color: color.green },
       { idx: 7, name: '분포이론', size: '57', color: color.green },
       { idx: 8, name: '확률론', size: '72', color: color.green },
       { idx: 9, name: '위상데이터분석', size: '38', color: color.red }
