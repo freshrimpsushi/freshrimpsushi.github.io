@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/seminar\/",
-    "wordCount" : "23",
+    "wordCount" : "593",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -176,9 +176,8 @@
             padding: 1rem;"
             >
         
-            
-            카테고리 옆에 있는 ● 를 클릭해보세요. <br>
-            관심있는 카테고리만 강조할 수 있습니다.
+            생새우초밥집에 아쉬운 점이 있나요? <br>
+            이 버튼 <a href="https://forms.gle/sfCHw7YKj5zMHMpK7" target='_blank'>🚨</a> 을 눌러 의견을 전달해주세요.
         
         </p>
     </div>
@@ -193,6 +192,15 @@
     <li><a href="#220404">220404</a></li>
     <li><a href="#google-drivehttpsdrivegooglecomdrivefolders18_uiq6uk_wqabzg6tkzjhlwz7nqvo8eq"><a href="https://drive.google.com/drive/folders/18_UiQ6UK_WQABZg6tKZJHlWZ7NqVo8eq">Google Drive</a></a></li>
     <li><a href="#원드라이브">원드라이브</a></li>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#코드">코드</a>
+      <ul>
+        <li><a href="#줄리아">줄리아</a></li>
+        <li><a href="#r과의-비교">R과의 비교</a></li>
+      </ul>
+    </li>
+    <li><a href="#환경">환경</a></li>
+    <li><a href="#개요-1">개요</a></li>
   </ul>
 </nav>
     </div>
@@ -204,12 +212,65 @@
 <h2 id="google-drivehttpsdrivegooglecomdrivefolders18_uiq6uk_wqabzg6tkzjhlwz7nqvo8eq"><a href="https://drive.google.com/drive/folders/18_UiQ6UK_WQABZg6tKZJHlWZ7NqVo8eq">Google Drive</a></h2>
 <h2 id="원드라이브">원드라이브</h2>
 <iframe src="https://onedrive.live.com/embed?cid=65E5BA34F41E25E0&resid=65E5BA34F41E25E0%2124470&authkey=AHwIpnZ0BPkIO3g" width="165" height="128" frameborder="0" scrolling="no"></iframe> <iframe src="https://onedrive.live.com/embed?cid=65E5BA34F41E25E0&resid=65E5BA34F41E25E0%21533589&authkey=ACzYTsb9AS5OT6Y" width="165" height="128" frameborder="0" scrolling="no"></iframe>
+<hr>
+<!-- # 줄리아에서 회귀분석 하는 법 `GLM.jl` <img src="r.svg" alt="R" style="height: 1em;vertical-align:middle;">
+# How to Do Regression Analysis in julia
+#  -->
+<h2 id="개요">개요</h2>
+<p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서 <a href="../548">회귀분석</a>을 하기 위한 <code>GLM.jl</code> 패키지를 간략하게 소개한다. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> <a href="../../categories/r">R</a>에서의 인터페이스와 얼마나 흡사한지 강조하기 위해 세세한 설명은 생략한다.</p>
+<h2 id="코드">코드</h2>
+<h3 id="줄리아">줄리아</h3>
+<pre tabindex="0"><code>using GLM, RDatasets
+
+faithful = dataset(&quot;datasets&quot;, &quot;faithful&quot;)
+
+out1 = lm(@formula(Waiting ~ Eruptions), faithful)
+</code></pre><p>위 코드를 실행한 결과는 다음과 같다.</p>
+<pre tabindex="0"><code>julia&gt; out1 = lm(@formula(Waiting ~ Eruptions), faithful)
+StatsModels.TableRegressionModel{LinearModel{GLM.LmResp{Vector{Float64}}, GLM.DensePredChol{Float64, LinearAlgebra.CholeskyPivoted{Float64, Matrix{Float64}}}}, Matrix{Float64}}
+
+Waiting ~ 1 + Eruptions
+
+Coefficients:
+───────────────────────────────────────────────────────────────────────
+               Coef.  Std. Error      t  Pr(&gt;|t|)  Lower 95%  Upper 95%
+───────────────────────────────────────────────────────────────────────
+(Intercept)  33.4744    1.15487   28.99    &lt;1e-84    31.2007    35.7481
+Eruptions    10.7296    0.314753  34.09    &lt;1e-99    10.11      11.3493
+───────────────────────────────────────────────────────────────────────
+</code></pre><p><a href="../652">R 에서 회귀분석한 결과</a>와 비교해 보아라.</p>
+<h3 id="r과의-비교">R과의 비교</h3>
+<pre tabindex="0"><code>out1&lt;-lm(waiting~eruptions,data=faithful); summary(out1)
+</code></pre><pre tabindex="0"><code>out1 = lm(@formula(Waiting ~ Eruptions), faithful)
+</code></pre><p>위는 <a href="../../categories/r">R</a> 코드고, 아래는 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다. 변수를 넣기 위해 <code>@formula</code> 매크로를 사용했고, 그를 통해 R의 컨벤션을 거의 완벽하게 재현했음을 알 수 있다.</p>
+<h2 id="환경">환경</h2>
+<ul>
+<li>OS: Windows</li>
+<li>julia: v1.7.0</li>
+<li>GLM v1.8.0</li>
+</ul>
+<hr>
+<p>줄리아에서 0이나 결측치를 제외한 평균 구하는 법</p>
+<h2 id="개요-1">개요</h2>
+<p><a href="../../categories/r">R 언어</a>의 합계나 평균에서는 함수 그 자체가 해당 결측치를 무시할 수 있는 옵션을 가지고 있는데, <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서는 그런 옵션이 없는 대신 <strong>함수형 프로그래밍</strong><sup>Functional Programming</sup></p>
+<pre tabindex="0"><code>data = [0,1,2,3,0]
+
+sum(data) / length(data)
+sum(data) / sum(!iszero, data)
+</code></pre><section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://juliastats.org/GLM.jl/v0.11/index.html">https://juliastats.org/GLM.jl/v0.11/index.html</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 <aside style="text-align: right;">
     2021-01-01&emsp;
     류대식&emsp;
-    <a href="../775">🎲 2000</a>
+    <a href="../379">🎲 2000</a>
 </aside>
 
 <script>
