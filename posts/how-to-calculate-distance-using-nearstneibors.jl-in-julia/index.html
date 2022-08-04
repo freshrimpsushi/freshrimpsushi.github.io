@@ -167,20 +167,6 @@
     <div class="innertic">
       
     
-    
-    <div style="text-align: center;">
-        <p height=80% style="
-            text-align: center;
-            color: black;
-            border-style: dashed;
-            padding: 1rem;"
-            >
-        
-            생새우초밥집에 아쉬운 점이 있나요? <br>
-            이 버튼 <a href="https://forms.gle/sfCHw7YKj5zMHMpK7" target='_blank'>🚨</a> 을 눌러 의견을 전달해주세요.
-        
-        </p>
-    </div>
 
 
 
@@ -211,9 +197,9 @@ Random.seed!(0);
 ε = 0.01
 N = 10^4
 coordinate = rand(2, N);
-state = sample(['S', 'I'], Weights([0.1, 0.9]), N);
-S = coordinate[:, state .== 'S']
-I = coordinate[:, state .== 'I']
+state = sample([&#39;S&#39;, &#39;I&#39;], Weights([0.1, 0.9]), N);
+S = coordinate[:, state .== &#39;S&#39;]
+I = coordinate[:, state .== &#39;I&#39;]
 
 @time sum(pairwise(Euclidean(),S,I) .&lt; ε, dims = 1)
 @time kdtree = KDTree(S); contact = length.(inrange(kdtree, I, ε, true))
@@ -240,20 +226,20 @@ julia&gt; @time kdtree = KDTree(S); contact = length.(inrange(kdtree, I, ε, tru
 <li>OS: Windows</li>
 <li>julia: v1.6.2</li>
 </ul>
-<section class="footnotes" role="doc-endnotes">
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
+<li id="fn:1">
 <p><a href="https://en.wikipedia.org/wiki/K-d_tree">https://en.wikipedia.org/wiki/K-d_tree</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
 
 <aside style="text-align: right;">
     2021-09-27&emsp;
     류대식&emsp;
-    <a href="../2146">🎲 2088</a>
+    <a href="../2061">🎲 2088</a>
 </aside>
 
 <script>
@@ -440,9 +426,9 @@ julia&gt; @time kdtree = KDTree(S); contact = length.(inrange(kdtree, I, ε, tru
       board_idx: idx,
       board_slug: board_slug,
       board_title: board_title,
-      author: author,
+      author: author.replace(/\+/g, "%2B"),
       password: password,
-      content: content
+      content: content.replace(/\+/g, "%2B")
     })
       .then(res => res.json())
       .then(data => {
@@ -583,9 +569,9 @@ julia&gt; @time kdtree = KDTree(S); contact = length.(inrange(kdtree, I, ε, tru
     const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=updateComment';
     postFetch(url, {
       cmt_idx: cmt_idx,
-      author: author,
+      author: author.replace(/\+/g, "%2B"),
       password: password,
-      content: content
+      content: content.replace(/\+/g, "%2B")
     })
       .then(res => res.json())
       .then(data => {
@@ -669,9 +655,9 @@ julia&gt; @time kdtree = KDTree(S); contact = length.(inrange(kdtree, I, ε, tru
       board_slug: board_slug,
       board_title: board_title,
       cmt_idx: cmt_idx,
-      author: author,
+      author: author.replace(/\+/g, "%2B"),
       password: password,
-      content: content
+      content: content.replace(/\+/g, "%2B")
     })
       .then(res => res.json())
       .then(data => {

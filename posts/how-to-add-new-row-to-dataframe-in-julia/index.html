@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-add-new-row-to-dataframe-in-julia\/",
-    "wordCount" : "938",
+    "wordCount" : "898",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -176,8 +176,8 @@
             padding: 1rem;"
             >
         
-            🔎F2키를 눌러 포스트를 퀵서치할 수 있습니다. <br>
-            한국어는 물론, 영어로도 검색을 시도해보세요.
+            생새우초밥집에 아쉬운 점이 있나요? <br>
+            이 버튼 <a href="https://forms.gle/sfCHw7YKj5zMHMpK7" target='_blank'>🚨</a> 을 눌러 의견을 전달해주세요.
         
         </p>
     </div>
@@ -206,24 +206,24 @@
 <pre tabindex="0"><code>using DataFrames
 
 Unit1 = DataFrame(
-    member = [&quot;다영&quot;,&quot;루다&quot;,&quot;수빈&quot;,&quot;진숙&quot;],
+    member = [&#34;다영&#34;,&#34;루다&#34;,&#34;수빈&#34;,&#34;진숙&#34;],
     birth = [99,97,96,99],
     height = [161,157,159,162]
 )
 
 Unit2 = DataFrame(
-    member = [&quot;소정&quot;,&quot;주연&quot;,&quot;지연&quot;,&quot;현정&quot;],
+    member = [&#34;소정&#34;,&#34;주연&#34;,&#34;지연&#34;,&#34;현정&#34;],
     birth = [95,98,95,94],
     height = [166,172,163,165]
 )
 WJSN = vcat(Unit1, Unit2)
 
-push!(WJSN, [&quot;다원&quot;,97,167])
-push!(WJSN, [&quot;연정&quot;,99,165])
+push!(WJSN, [&#34;다원&#34;,97,167])
+push!(WJSN, [&#34;연정&#34;,99,165])
 </code></pre><p>위의 예제 코드를 실행하고 그 결과를 확인해보자.</p>
 <h3 id="두-데이터-프레임-행병합-vcat">두 데이터 프레임 행병합 <code>vcat()</code></h3>
 <pre tabindex="0"><code>julia&gt; Unit1 = DataFrame(
-           member = [&quot;다영&quot;,&quot;루다&quot;,&quot;수빈&quot;,&quot;진숙&quot;],
+           member = [&#34;다영&#34;,&#34;루다&#34;,&#34;수빈&#34;,&#34;진숙&#34;],
                birth = [99,97,96,99],
            height = [161,157,159,162]
        )
@@ -237,7 +237,7 @@ push!(WJSN, [&quot;연정&quot;,99,165])
    4 │ 진숙       99     162 
 
 julia&gt; Unit2 = DataFrame(
-           member = [&quot;소정&quot;,&quot;주연&quot;,&quot;지연&quot;,&quot;현정&quot;],
+           member = [&#34;소정&#34;,&#34;주연&#34;,&#34;지연&#34;,&#34;현정&#34;],
            birth = [95,98,95,94],
            height = [166,172,163,165]
        )
@@ -265,7 +265,7 @@ julia&gt; WJSN = vcat(Unit1, Unit2)
    8 │ 현정       94     165
 </code></pre><p>당연하지만 두 데이터프레임의 열은 서로 같아야한다.</p>
 <h3 id="한-행-삽입-push">한 행 삽입 <code>push!()</code></h3>
-<pre tabindex="0"><code>julia&gt; push!(WJSN, [&quot;다원&quot;,97,167])
+<pre tabindex="0"><code>julia&gt; push!(WJSN, [&#34;다원&#34;,97,167])
 9×3 DataFrame
  Row │ member  birth  height 
      │ String  Int64  Int64  
@@ -280,7 +280,7 @@ julia&gt; WJSN = vcat(Unit1, Unit2)
    8 │ 현정       94     165
    9 │ 다원       97     167
 
-julia&gt; push!(WJSN, [&quot;연정&quot;,99,165])
+julia&gt; push!(WJSN, [&#34;연정&#34;,99,165])
 10×3 DataFrame
  Row │ member  birth  height 
      │ String  Int64  Int64  
@@ -306,7 +306,7 @@ julia&gt; push!(WJSN, [&quot;연정&quot;,99,165])
 <aside style="text-align: right;">
     2022-07-20&emsp;
     류대식&emsp;
-    <a href="../958">🎲 2236</a>
+    <a href="../310">🎲 2236</a>
 </aside>
 
 <script>
@@ -493,9 +493,9 @@ julia&gt; push!(WJSN, [&quot;연정&quot;,99,165])
       board_idx: idx,
       board_slug: board_slug,
       board_title: board_title,
-      author: author,
+      author: author.replace(/\+/g, "%2B"),
       password: password,
-      content: content
+      content: content.replace(/\+/g, "%2B")
     })
       .then(res => res.json())
       .then(data => {
@@ -636,9 +636,9 @@ julia&gt; push!(WJSN, [&quot;연정&quot;,99,165])
     const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=updateComment';
     postFetch(url, {
       cmt_idx: cmt_idx,
-      author: author,
+      author: author.replace(/\+/g, "%2B"),
       password: password,
-      content: content
+      content: content.replace(/\+/g, "%2B")
     })
       .then(res => res.json())
       .then(data => {
@@ -722,9 +722,9 @@ julia&gt; push!(WJSN, [&quot;연정&quot;,99,165])
       board_slug: board_slug,
       board_title: board_title,
       cmt_idx: cmt_idx,
-      author: author,
+      author: author.replace(/\+/g, "%2B"),
       password: password,
-      content: content
+      content: content.replace(/\+/g, "%2B")
     })
       .then(res => res.json())
       .then(data => {

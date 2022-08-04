@@ -167,6 +167,21 @@
     <div class="innertic">
       
     
+    
+    <div style="text-align: center;">
+        <p height=80% style="
+            text-align: center;
+            color: black;
+            border-style: dashed;
+            padding: 1rem;"
+            >
+        
+            
+            카테고리 옆에 있는 ● 를 클릭해보세요. <br>
+            관심있는 카테고리만 강조할 수 있습니다.
+        
+        </p>
+    </div>
 
 
 
@@ -195,19 +210,19 @@
 <p><code>FreqTables.jl</code> 패키지의 <code>freqtable()</code> 함수를 사용하면 된다. <a href="../../categories/r">R</a>에서의 <code>freq()</code> 함수와 유사한 기능을 한다.</p>
 <h2 id="코드">코드</h2>
 <h3 id="배열">배열</h3>
-<pre tabindex="0"><code>julia&gt; compartment = rand(['S','I','R'], 1000);
+<pre tabindex="0"><code>julia&gt; compartment = rand([&#39;S&#39;,&#39;I&#39;,&#39;R&#39;], 1000);
 
 julia&gt; freqtable(compartment)
 3-element Named Vector{Int64}
 Dim1  │
 ──────┼────
-'I'   │ 316
-'R'   │ 342
-'S'   │ 342
+&#39;I&#39;   │ 316
+&#39;R&#39;   │ 342
+&#39;S&#39;   │ 342
 </code></pre><p>위와 같이 그냥 배열을 넣으면 각 계급별로 카운트 해준다.</p>
 <h3 id="데이터프레임">데이터프레임</h3>
 <p><code>freqtable()</code>는 특히 데이터프레임에 유용하다. <a href="../686">R에서의 질적변수를 포함한 회귀분석 예제</a>와 마찬가지로 <a href="../2316">내장데이터</a> <code>ToothGrowth</code>를 불러와보자.</p>
-<pre tabindex="0"><code>julia&gt; ToothGrowth = dataset(&quot;datasets&quot;, &quot;ToothGrowth&quot;)
+<pre tabindex="0"><code>julia&gt; ToothGrowth = dataset(&#34;datasets&#34;, &#34;ToothGrowth&#34;)
 60×3 DataFrame
  Row │ Len      Supp  Dose    
      │ Float64  Cat…  Float64
@@ -240,8 +255,8 @@ julia&gt; freqtable(ToothGrowth, :Supp)
 2-element Named Vector{Int64}
 Supp  │
 ──────┼───
-&quot;OJ&quot;  │ 30
-&quot;VC&quot;  │ 30
+&#34;OJ&#34;  │ 30
+&#34;VC&#34;  │ 30
 
 julia&gt; freqtable(ToothGrowth, :Dose)
 3-element Named Vector{Int64}
@@ -255,20 +270,20 @@ Dose  │
 2×3 Named Matrix{Int64}
 Supp ╲ Dose │ 0.5  1.0  2.0
 ────────────┼──────────────
-&quot;OJ&quot;        │  10   10   10
-&quot;VC&quot;        │  10   10   10
+&#34;OJ&#34;        │  10   10   10
+&#34;VC&#34;        │  10   10   10
 </code></pre><p>물론 이러한 테이블은 범주형 데이터를 다룰 때 가장 효과적이다. <code>:Supp</code>, <code>:Dose</code>에 대해 빈도수를 계산해보면 알아서 2차원으로 카테고리를 나누어 빈도수를 계산해주었다.</p>
 <pre tabindex="0"><code>julia&gt; freqtable(ToothGrowth, :Len, :Dose, :Supp)
 43×3×2 Named Array{Int64, 3}
 
-[:, :, Supp=&quot;OJ&quot;] =
+[:, :, Supp=&#34;OJ&#34;] =
 Len ╲ Dose │ 0.5  1.0  2.0
 ───────────┼──────────────
 4.2        │   0    0    0
 ⋮              ⋮    ⋮    ⋮
 33.9       │   0    0    0
 
-[:, :, Supp=&quot;VC&quot;] =
+[:, :, Supp=&#34;VC&#34;] =
 Len ╲ Dose │ 0.5  1.0  2.0
 ───────────┼──────────────
 4.2        │   1    0    0
@@ -280,9 +295,9 @@ Len ╲ Dose │ 0.5  1.0  2.0
            freqtable(compartment)
        end
        @time for t in 1:10^4
-           count(compartment .== 'S')
-           count(compartment .== 'I')
-           count(compartment .== 'R')
+           count(compartment .== &#39;S&#39;)
+           count(compartment .== &#39;I&#39;)
+           count(compartment .== &#39;R&#39;)
        end
   0.068229 seconds (340.00 k allocations: 27.466 MiB)
   0.059198 seconds (180.00 k allocations: 134.125 MiB, 36.71% gc time)
@@ -290,11 +305,11 @@ Len ╲ Dose │ 0.5  1.0  2.0
 <h3 id="전체코드">전체코드</h3>
 <pre tabindex="0"><code>using FreqTables
 
-compartment = rand(['S','I','R'], 1000);
+compartment = rand([&#39;S&#39;,&#39;I&#39;,&#39;R&#39;], 1000);
 freqtable(compartment)
 
 using RDatasets
-ToothGrowth = dataset(&quot;datasets&quot;, &quot;ToothGrowth&quot;)
+ToothGrowth = dataset(&#34;datasets&#34;, &#34;ToothGrowth&#34;)
 
 freqtable(ToothGrowth, :Len)
 freqtable(ToothGrowth, :Supp)
@@ -307,9 +322,9 @@ freqtable(ToothGrowth, :Len, :Dose, :Supp)
     freqtable(compartment)
 end
 @time for t in 1:10^4
-    count(compartment .== 'S')
-    count(compartment .== 'I')
-    count(compartment .== 'R')
+    count(compartment .== &#39;S&#39;)
+    count(compartment .== &#39;I&#39;)
+    count(compartment .== &#39;R&#39;)
 end
 </code></pre><h2 id="환경">환경</h2>
 <ul>
@@ -317,20 +332,20 @@ end
 <li>julia: v1.6.3</li>
 <li>FreqTables v0.4.5</li>
 </ul>
-<section class="footnotes" role="doc-endnotes">
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
+<li id="fn:1">
 <p><a href="https://github.com/nalimilan/FreqTables.jl">https://github.com/nalimilan/FreqTables.jl</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
 
 <aside style="text-align: right;">
     1923-01-12&emsp;
     류대식&emsp;
-    <a href="../380">🎲 2324</a>
+    <a href="../2176">🎲 2324</a>
 </aside>
 
 <script>
@@ -517,9 +532,9 @@ end
       board_idx: idx,
       board_slug: board_slug,
       board_title: board_title,
-      author: author,
+      author: author.replace(/\+/g, "%2B"),
       password: password,
-      content: content
+      content: content.replace(/\+/g, "%2B")
     })
       .then(res => res.json())
       .then(data => {
@@ -660,9 +675,9 @@ end
     const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=updateComment';
     postFetch(url, {
       cmt_idx: cmt_idx,
-      author: author,
+      author: author.replace(/\+/g, "%2B"),
       password: password,
-      content: content
+      content: content.replace(/\+/g, "%2B")
     })
       .then(res => res.json())
       .then(data => {
@@ -746,9 +761,9 @@ end
       board_slug: board_slug,
       board_title: board_title,
       cmt_idx: cmt_idx,
-      author: author,
+      author: author.replace(/\+/g, "%2B"),
       password: password,
-      content: content
+      content: content.replace(/\+/g, "%2B")
     })
       .then(res => res.json())
       .then(data => {

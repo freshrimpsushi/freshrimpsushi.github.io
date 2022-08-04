@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/seminar\/",
-    "wordCount" : "593",
+    "wordCount" : "849",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -167,20 +167,6 @@
     <div class="innertic">
       
     
-    
-    <div style="text-align: center;">
-        <p height=80% style="
-            text-align: center;
-            color: black;
-            border-style: dashed;
-            padding: 1rem;"
-            >
-        
-            생새우초밥집에 아쉬운 점이 있나요? <br>
-            이 버튼 <a href="https://forms.gle/sfCHw7YKj5zMHMpK7" target='_blank'>🚨</a> 을 눌러 의견을 전달해주세요.
-        
-        </p>
-    </div>
 
 
 
@@ -201,6 +187,8 @@
     </li>
     <li><a href="#환경">환경</a></li>
     <li><a href="#개요-1">개요</a></li>
+    <li><a href="#코드-1">코드</a></li>
+    <li><a href="#환경-1">환경</a></li>
   </ul>
 </nav>
     </div>
@@ -222,7 +210,7 @@
 <h3 id="줄리아">줄리아</h3>
 <pre tabindex="0"><code>using GLM, RDatasets
 
-faithful = dataset(&quot;datasets&quot;, &quot;faithful&quot;)
+faithful = dataset(&#34;datasets&#34;, &#34;faithful&#34;)
 
 out1 = lm(@formula(Waiting ~ Eruptions), faithful)
 </code></pre><p>위 코드를 실행한 결과는 다음과 같다.</p>
@@ -252,25 +240,42 @@ Eruptions    10.7296    0.314753  34.09    &lt;1e-99    10.11      11.3493
 <hr>
 <p>줄리아에서 0이나 결측치를 제외한 평균 구하는 법</p>
 <h2 id="개요-1">개요</h2>
-<p><a href="../../categories/r">R 언어</a>의 합계나 평균에서는 함수 그 자체가 해당 결측치를 무시할 수 있는 옵션을 가지고 있는데, <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서는 그런 옵션이 없는 대신 <strong>함수형 프로그래밍</strong><sup>Functional Programming</sup></p>
-<pre tabindex="0"><code>data = [0,1,2,3,0]
+<p><a href="../../categories/r">R 언어</a>의 합계 <code>sum()</code>이나 평균 <code>mean()</code>에서는 함수 그 자체가 해당 결측치를 무시할 수 있는 옵션을 가지고 있는데, <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서는 그런 옵션이 없는 대신 <strong>함수형 프로그래밍</strong><sup>Functional Programming</sup>적인 방법을 적극적으로 사용한다.</p>
+<h2 id="코드-1">코드</h2>
+<pre tabindex="0"><code>julia&gt; data = [0,1,2,3,0]
+5-element Vector{Int64}:
+ 0
+ 1
+ 2
+ 3
+ 0
 
-sum(data) / length(data)
-sum(data) / sum(!iszero, data)
-</code></pre><section class="footnotes" role="doc-endnotes">
+julia&gt; sum(data) / length(data)
+1.2
+
+julia&gt; sum(data) / sum(!iszero, data)
+2.0
+</code></pre><p>위쪽은 $0$까지 포함해서 모든 표본의 수로 나눈 1.2, 아래쪽은 <code>!iszero</code>라는 함수를 인자로 주어서 $0$이 아닌 값만 카운트해서 얻은 표본의 수로 나눈 2.0을 얻었다. R보다 강력해진다고 할 수 있는 부분은, 함수 그 자체의 옵션에 의지하지 않고 같은 방법으로 <code>isnan()</code>, <code>isinf()</code>, <code>ismissing()</code> 등의 수많은 예외처리 함수들을 사용할 수 있으며 커스텀이 자유롭다는 것이다.</p>
+<p>퍼포먼스에서 큰 차이는 없지만, <code>is~</code> 계열의 함수처럼 그 리턴이 반드시 불리언이라면 분모의 <code>sum()</code>은 <code>count()</code>로 바뀌어도 상관없다.</p>
+<h2 id="환경-1">환경</h2>
+<ul>
+<li>OS: Windows</li>
+<li>julia: v1.7.0</li>
+</ul>
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
+<li id="fn:1">
 <p><a href="https://juliastats.org/GLM.jl/v0.11/index.html">https://juliastats.org/GLM.jl/v0.11/index.html</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
 
 <aside style="text-align: right;">
     2021-01-01&emsp;
     류대식&emsp;
-    <a href="../1395">🎲 2000</a>
+    <a href="../1944">🎲 2000</a>
 </aside>
 
 <script>
@@ -457,9 +462,9 @@ sum(data) / sum(!iszero, data)
       board_idx: idx,
       board_slug: board_slug,
       board_title: board_title,
-      author: author,
+      author: author.replace(/\+/g, "%2B"),
       password: password,
-      content: content
+      content: content.replace(/\+/g, "%2B")
     })
       .then(res => res.json())
       .then(data => {
@@ -600,9 +605,9 @@ sum(data) / sum(!iszero, data)
     const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=updateComment';
     postFetch(url, {
       cmt_idx: cmt_idx,
-      author: author,
+      author: author.replace(/\+/g, "%2B"),
       password: password,
-      content: content
+      content: content.replace(/\+/g, "%2B")
     })
       .then(res => res.json())
       .then(data => {
@@ -686,9 +691,9 @@ sum(data) / sum(!iszero, data)
       board_slug: board_slug,
       board_title: board_title,
       cmt_idx: cmt_idx,
-      author: author,
+      author: author.replace(/\+/g, "%2B"),
       password: password,
-      content: content
+      content: content.replace(/\+/g, "%2B")
     })
       .then(res => res.json())
       .then(data => {

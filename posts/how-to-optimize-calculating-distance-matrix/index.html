@@ -176,8 +176,9 @@
             padding: 1rem;"
             >
         
-            🔎F2키를 눌러 포스트를 퀵서치할 수 있습니다. <br>
-            한국어는 물론, 영어로도 검색을 시도해보세요.
+            
+            카테고리 옆에 있는 ● 를 클릭해보세요. <br>
+            관심있는 카테고리만 강조할 수 있습니다.
         
         </p>
     </div>
@@ -214,9 +215,9 @@ using Random
 Random.seed!(0);
 N = 10^4
 location = rand(2, N);
-state = sample(['S', 'I'], Weights([0.1, 0.9]), N);
-S = location[:, state .== 'S']
-I = location[:, state .== 'I']
+state = sample([&#39;S&#39;, &#39;I&#39;], Weights([0.1, 0.9]), N);
+S = location[:, state .== &#39;S&#39;]
+I = location[:, state .== &#39;I&#39;]
 
 function foo(S, I)
     contact = Int64[]
@@ -247,23 +248,23 @@ julia&gt; @time sum(pairwise(SqEuclidean(),S,I) .&lt; 0.01, dims = 1);
 <li>OS: Windows</li>
 <li>julia: v1.5.0</li>
 </ul>
-<section class="footnotes" role="doc-endnotes">
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
+<li id="fn:1">
 <p><a href="https://github.com/JuliaStats/Distances.jl#pairwise-benchmark">https://github.com/JuliaStats/Distances.jl#pairwise-benchmark</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:2" role="doc-endnote">
+<li id="fn:2">
 <p><a href="https://en.wikipedia.org/wiki/K-d_tree">https://en.wikipedia.org/wiki/K-d_tree</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
 
 <aside style="text-align: right;">
     2021-05-14&emsp;
     류대식&emsp;
-    <a href="../1785">🎲 2020</a>
+    <a href="../928">🎲 2020</a>
 </aside>
 
 <script>
@@ -450,9 +451,9 @@ julia&gt; @time sum(pairwise(SqEuclidean(),S,I) .&lt; 0.01, dims = 1);
       board_idx: idx,
       board_slug: board_slug,
       board_title: board_title,
-      author: author,
+      author: author.replace(/\+/g, "%2B"),
       password: password,
-      content: content
+      content: content.replace(/\+/g, "%2B")
     })
       .then(res => res.json())
       .then(data => {
@@ -593,9 +594,9 @@ julia&gt; @time sum(pairwise(SqEuclidean(),S,I) .&lt; 0.01, dims = 1);
     const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=updateComment';
     postFetch(url, {
       cmt_idx: cmt_idx,
-      author: author,
+      author: author.replace(/\+/g, "%2B"),
       password: password,
-      content: content
+      content: content.replace(/\+/g, "%2B")
     })
       .then(res => res.json())
       .then(data => {
@@ -679,9 +680,9 @@ julia&gt; @time sum(pairwise(SqEuclidean(),S,I) .&lt; 0.01, dims = 1);
       board_slug: board_slug,
       board_title: board_title,
       cmt_idx: cmt_idx,
-      author: author,
+      author: author.replace(/\+/g, "%2B"),
       password: password,
-      content: content
+      content: content.replace(/\+/g, "%2B")
     })
       .then(res => res.json())
       .then(data => {

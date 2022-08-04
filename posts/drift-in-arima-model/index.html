@@ -176,9 +176,8 @@
             padding: 1rem;"
             >
         
-            
-            카테고리 옆에 있는 ● 를 클릭해보세요. <br>
-            관심있는 카테고리만 강조할 수 있습니다.
+            생새우초밥집에 아쉬운 점이 있나요? <br>
+            이 버튼 <a href="https://forms.gle/sfCHw7YKj5zMHMpK7" target='_blank'>🚨</a> 을 눌러 의견을 전달해주세요.
         
         </p>
     </div>
@@ -255,7 +254,7 @@ $$</p>
 다시 분석으로 돌아와보자. 보다시피, 아니 보나마나 그냥 데이터의 $ARIMA(1,1,2)$ 와 <a href="../916">차분</a>을 취한 데이터의 $ARIMA(1,0,2)$ 은 당연히 똑같을 수밖에 없다. 단 한가지 달라진 게 있다면 $ARIMA(1,1,2)$ 에서 <code>drift</code>라고 적혀있던 계수의 이름이 $ARIMA(1,0,2)$ 에서는 <code>mean</code>으로 바뀐 것이다. 수식을 이해했으면 더 좋겠지만, 이해하지 못했더라도 드리프트가 &lsquo;상수항, 평균 비슷한 것&rsquo;이라는 정도는 짐작할 수 있을 것이다.</p>
 <h2 id="코드">코드</h2>
 <pre tabindex="0"><code>library(TSA)
-data(&quot;oil.price&quot;)
+data(&#34;oil.price&#34;)
 out&lt;-auto.arima(oil.price); summary(out)
 out&lt;-auto.arima(diff(oil.price)); summary(out)
 </code></pre>
@@ -263,7 +262,7 @@ out&lt;-auto.arima(diff(oil.price)); summary(out)
 <aside style="text-align: right;">
     2019-05-30&emsp;
     류대식&emsp;
-    <a href="../2084">🎲 1115</a>
+    <a href="../1387">🎲 1115</a>
 </aside>
 
 <script>
@@ -450,9 +449,9 @@ out&lt;-auto.arima(diff(oil.price)); summary(out)
       board_idx: idx,
       board_slug: board_slug,
       board_title: board_title,
-      author: author,
+      author: author.replace(/\+/g, "%2B"),
       password: password,
-      content: content
+      content: content.replace(/\+/g, "%2B")
     })
       .then(res => res.json())
       .then(data => {
@@ -593,9 +592,9 @@ out&lt;-auto.arima(diff(oil.price)); summary(out)
     const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=updateComment';
     postFetch(url, {
       cmt_idx: cmt_idx,
-      author: author,
+      author: author.replace(/\+/g, "%2B"),
       password: password,
-      content: content
+      content: content.replace(/\+/g, "%2B")
     })
       .then(res => res.json())
       .then(data => {
@@ -679,9 +678,9 @@ out&lt;-auto.arima(diff(oil.price)); summary(out)
       board_slug: board_slug,
       board_title: board_title,
       cmt_idx: cmt_idx,
-      author: author,
+      author: author.replace(/\+/g, "%2B"),
       password: password,
-      content: content
+      content: content.replace(/\+/g, "%2B")
     })
       .then(res => res.json())
       .then(data => {

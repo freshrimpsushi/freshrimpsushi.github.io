@@ -167,20 +167,6 @@
     <div class="innertic">
       
     
-    
-    <div style="text-align: center;">
-        <p height=80% style="
-            text-align: center;
-            color: black;
-            border-style: dashed;
-            padding: 1rem;"
-            >
-        
-            🔎F2키를 눌러 포스트를 퀵서치할 수 있습니다. <br>
-            한국어는 물론, 영어로도 검색을 시도해보세요.
-        
-        </p>
-    </div>
 
 
 
@@ -252,7 +238,7 @@ julia&gt; Flux.onehot(:c, [:a,:b,:c])
  ⋅  1  ⋅
  ⋅  ⋅  1
 
-julia&gt; Flux.onehotbatch(['a', 'b', 'c', 'h'], 'a':'c', 'c')
+julia&gt; Flux.onehotbatch([&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;h&#39;], &#39;a&#39;:&#39;c&#39;, &#39;c&#39;)
 3×4 OneHotMatrix(::Vector{UInt32}) with eltype Bool:
  1  ⋅  ⋅  ⋅
  ⋅  1  ⋅  ⋅
@@ -271,14 +257,14 @@ julia&gt; Flux.onehotbatch(['a', 'b', 'c', 'h'], 'a':'c', 'c')
 julia&gt; Flux.onecold(x1)
 2
 
-julia&gt; x2 = Flux.onehot('a', ['a', 'b', 'c'])
+julia&gt; x2 = Flux.onehot(&#39;a&#39;, [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;])
 3-element OneHotVector(::UInt32) with eltype Bool:
  1
  ⋅
  ⋅
 
-julia&gt; Flux.onecold(x2, 'a':'c')
-'a': ASCII/Unicode U+0061 (category Ll: Letter, lowercase)
+julia&gt; Flux.onecold(x2, &#39;a&#39;:&#39;c&#39;)
+&#39;a&#39;: ASCII/Unicode U+0061 (category Ll: Letter, lowercase)
 
 julia&gt; Flux.onecold([0.1, 0.2, 0.5], [:a, :b, :c])
 :c
@@ -304,20 +290,20 @@ julia&gt; Flux.onecold(x3)
 <li>OS: Windows10</li>
 <li>Version: Julia 1.7.1, Flux 0.12.8</li>
 </ul>
-<section class="footnotes" role="doc-endnotes">
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
+<li id="fn:1">
 <p><a href="https://fluxml.ai/Flux.jl/stable/data/onehot/">https://fluxml.ai/Flux.jl/stable/data/onehot/</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
 
 <aside style="text-align: right;">
     2012-04-14&emsp;
     전기현&emsp;
-    <a href="../752">🎲 3219</a>
+    <a href="../851">🎲 3219</a>
 </aside>
 
 <script>
@@ -504,9 +490,9 @@ julia&gt; Flux.onecold(x3)
       board_idx: idx,
       board_slug: board_slug,
       board_title: board_title,
-      author: author,
+      author: author.replace(/\+/g, "%2B"),
       password: password,
-      content: content
+      content: content.replace(/\+/g, "%2B")
     })
       .then(res => res.json())
       .then(data => {
@@ -647,9 +633,9 @@ julia&gt; Flux.onecold(x3)
     const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=updateComment';
     postFetch(url, {
       cmt_idx: cmt_idx,
-      author: author,
+      author: author.replace(/\+/g, "%2B"),
       password: password,
-      content: content
+      content: content.replace(/\+/g, "%2B")
     })
       .then(res => res.json())
       .then(data => {
@@ -733,9 +719,9 @@ julia&gt; Flux.onecold(x3)
       board_slug: board_slug,
       board_title: board_title,
       cmt_idx: cmt_idx,
-      author: author,
+      author: author.replace(/\+/g, "%2B"),
       password: password,
-      content: content
+      content: content.replace(/\+/g, "%2B")
     })
       .then(res => res.json())
       .then(data => {

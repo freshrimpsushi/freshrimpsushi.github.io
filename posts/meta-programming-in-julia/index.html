@@ -167,20 +167,6 @@
     <div class="innertic">
       
     
-    
-    <div style="text-align: center;">
-        <p height=80% style="
-            text-align: center;
-            color: black;
-            border-style: dashed;
-            padding: 1rem;"
-            >
-        
-            🔎F2키를 눌러 포스트를 퀵서치할 수 있습니다. <br>
-            한국어는 물론, 영어로도 검색을 시도해보세요.
-        
-        </p>
-    </div>
 
 
 
@@ -199,8 +185,8 @@
 
 <h2 id="코드-1">코드 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
 <p>줄리아에서는 <a href="../1457">메타 프로그래밍</a>을 언어 차원에서 지원한다. 다음은 문자열을 코드 그 자체로 읽고 실행한 결과다.</p>
-<pre tabindex="0"><code>julia&gt; text = &quot;f(x) = 2x + 1; f(2)&quot;
-&quot;f(x) = 2x + 1; f(2)&quot;
+<pre tabindex="0"><code>julia&gt; text = &#34;f(x) = 2x + 1; f(2)&#34;
+&#34;f(x) = 2x + 1; f(2)&#34;
 
 julia&gt; code = Meta.parse(text)
 :($(Expr(:toplevel, :(f(x) = begin
@@ -219,20 +205,20 @@ julia&gt; eval(code)
 <li>OS: Windows</li>
 <li>julia: v1.5.0</li>
 </ul>
-<section class="footnotes" role="doc-endnotes">
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
+<li id="fn:1">
 <p><a href="https://docs.julialang.org/en/v1/manual/metaprogramming/">https://docs.julialang.org/en/v1/manual/metaprogramming/</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
 
 <aside style="text-align: right;">
     2021-05-22&emsp;
     류대식&emsp;
-    <a href="../1297">🎲 2024</a>
+    <a href="../808">🎲 2024</a>
 </aside>
 
 <script>
@@ -419,9 +405,9 @@ julia&gt; eval(code)
       board_idx: idx,
       board_slug: board_slug,
       board_title: board_title,
-      author: author,
+      author: author.replace(/\+/g, "%2B"),
       password: password,
-      content: content
+      content: content.replace(/\+/g, "%2B")
     })
       .then(res => res.json())
       .then(data => {
@@ -562,9 +548,9 @@ julia&gt; eval(code)
     const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=updateComment';
     postFetch(url, {
       cmt_idx: cmt_idx,
-      author: author,
+      author: author.replace(/\+/g, "%2B"),
       password: password,
-      content: content
+      content: content.replace(/\+/g, "%2B")
     })
       .then(res => res.json())
       .then(data => {
@@ -648,9 +634,9 @@ julia&gt; eval(code)
       board_slug: board_slug,
       board_title: board_title,
       cmt_idx: cmt_idx,
-      author: author,
+      author: author.replace(/\+/g, "%2B"),
       password: password,
-      content: content
+      content: content.replace(/\+/g, "%2B")
     })
       .then(res => res.json())
       .then(data => {
