@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/short-circuit-in-julia\/",
-    "wordCount" : "449",
+    "wordCount" : "450",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -167,21 +167,6 @@
     <div class="innertic">
       
     
-    
-    <div style="text-align: center;">
-        <p height=80% style="
-            text-align: center;
-            color: black;
-            border-style: dashed;
-            padding: 1rem;"
-            >
-        
-            
-            카테고리 옆에 있는 ● 를 클릭해보세요. <br>
-            관심있는 카테고리만 강조할 수 있습니다.
-        
-        </p>
-    </div>
 
 
 
@@ -207,27 +192,27 @@
 <li><a href="../2341">조건문 짧게 쓰는 법</a></li>
 </ul>
 <h2 id="속도-비교">속도 비교</h2>
-<pre tabindex="0"><code>M = rand(0:2, 10^4, 10^4);
+<pre><code>M = rand(0:2, 10^4, 10^4);
 print(first(M))
 
 @time if first(M) == 2 &amp;&amp; sum(M) &lt; 1000
-    print(&#34;!!&#34;)
+    print(&quot;!!&quot;)
 end
 @time if sum(M) &lt; 1000 &amp;&amp; first(M) == 2
-    print(&#34;!!&#34;)
+    print(&quot;!!&quot;)
 end
 </code></pre><p>두 조건문은 <code>sum(M) &lt; 1000</code>와 <code>first(M) == 2</code>의 순서만 바뀌었을 뿐 정확히 같은 작업을 수행한다. 그러나 <code>first(M) == 2</code>는 행렬 <code>M</code>의 첫번째 원소가 <code>2</code>인지 체크만 하고, <code>sum(M)</code>은 모든 원소를 순회하며 덧셈을 하기 때문에 상대적으로 계산에 오래걸린다.</p>
-<pre tabindex="0"><code>julia&gt; M = rand(0:2, 10^4, 10^4);
+<pre><code>julia&gt; M = rand(0:2, 10^4, 10^4);
 julia&gt; print(first(M))
 0
 </code></pre><p>만약 <code>M</code>의 첫번째 원소가 위와 같이 <code>0</code>이라면, <code>sum(M) &lt; 1000</code>인지 확인하기 위해 <code>sum(M)</code>를 계산할 필요가 없다. 그 속도들은 다음과 같이 단지 순서만 바꿔도 유의미한 차이가 날 수도 있다.</p>
-<pre tabindex="0"><code>julia&gt; @time if first(M) == 2 &amp;&amp; sum(M) &lt; 1000
-           print(&#34;!!&#34;)
+<pre><code>julia&gt; @time if first(M) == 2 &amp;&amp; sum(M) &lt; 1000
+           print(&quot;!!&quot;)
        end
   0.000009 seconds
 
 julia&gt; @time if sum(M) &lt; 1000 &amp;&amp; first(M) == 2
-           print(&#34;!!&#34;)
+           print(&quot;!!&quot;)
        end
   0.040485 seconds (1 allocation: 16 bytes)
 </code></pre><h2 id="환경">환경</h2>
@@ -235,20 +220,20 @@ julia&gt; @time if sum(M) &lt; 1000 &amp;&amp; first(M) == 2
 <li>OS: Windows</li>
 <li>julia: v1.7.0</li>
 </ul>
-<div class="footnotes" role="doc-endnotes">
+<section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1">
-<p><a href="https://docs.julialang.org/en/v1/manual/control-flow/#Short-Circuit-Evaluation">https://docs.julialang.org/en/v1/manual/control-flow/#Short-Circuit-Evaluation</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://docs.julialang.org/en/v1/manual/control-flow/#Short-Circuit-Evaluation">https://docs.julialang.org/en/v1/manual/control-flow/#Short-Circuit-Evaluation</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</div>
+</section>
 
 
 <aside style="text-align: right;">
     1923-05-28&emsp;
     류대식&emsp;
-    <a href="../2186">🎲 2392</a>
+    <a href="../897">🎲 2392</a>
 </aside>
 
 <script>
