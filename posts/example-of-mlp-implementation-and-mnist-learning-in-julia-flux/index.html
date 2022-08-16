@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/example-of-mlp-implementation-and-mnist-learning-in-julia-flux\/",
-    "wordCount" : "999",
+    "wordCount" : "997",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -200,10 +200,10 @@
 
 <h2 id="mnist-데이터-셋-불러오기">MNIST 데이터 셋 불러오기</h2>
 <p>오래된 예제의 경우 이 부분에서 <code>Flux.Data</code>를 사용하는 코드를 볼 수 있는데, 이제는 플럭스에서 지원하지 않는다.</p>
-<pre><code>julia&gt; Flux.Data.MNIST.images()
+<pre tabindex="0"><code>julia&gt; Flux.Data.MNIST.images()
 ┌ Warning: Flux's datasets are deprecated, please use the package MLDatasets.jl
 </code></pre><p>공식 문서<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>에서 <a href="../3191">`MLDatasets.jl'</a> 패키지를 사용하라고 안내한다.</p>
-<pre><code>julia&gt; using Flux
+<pre tabindex="0"><code>julia&gt; using Flux
 
 julia&gt; using MLDatasets
 
@@ -213,7 +213,7 @@ julia&gt; imgs = MLDatasets.MNIST.traintensor()
 julia&gt; labs = MLDatasets.MNIST.trainlabels()
 60000-element Vector{Int64}
 </code></pre><p>이미지와 레이블을 이대로 쓸 수는 없다. 이미지는 자료형을 32비트 부동소수점으로 바꿔줘야하고, 레이블은 <a href="../3219">원-핫 인코딩</a>을 해주어야한다.</p>
-<pre><code>julia&gt; X = float.(imgs)
+<pre tabindex="0"><code>julia&gt; X = float.(imgs)
 28×28×60000 Array{Float32, 3}
 
 julia&gt; Y = Flux.onehotbatch(labs, 0:9)
@@ -222,18 +222,18 @@ julia&gt; Y = Flux.onehotbatch(labs, 0:9)
 <ol>
 <li><code>repeated((X, Y), n)</code></li>
 </ol>
-<pre><code>julia&gt; using Base.Iterators: repeated
+<pre tabindex="0"><code>julia&gt; using Base.Iterators: repeated
 
 julia&gt; Train_Data = repeated((X,Y), 1)
 </code></pre><p><code>(X, Y)</code>를 n번 반복해서 붙인다. 따라서 <code>n=10</code>으로 두고 데이터 셋을 만들어 학습시키면 10epoch만큼 학습하는 것과 같다.</p>
 <ol start="2">
 <li><code>Flux.DataLoader((X, Y); batchsize=1, shuffle=false, partial=true, rng=GLOBAL_RNG)</code></li>
 </ol>
-<pre><code>julia&gt; Train_Data = Flux.DataLoader((X,Y), batchsize=60000)
+<pre tabindex="0"><code>julia&gt; Train_Data = Flux.DataLoader((X,Y), batchsize=60000)
 </code></pre><p>데이터 60,000개를 한 번에 학습시킬거라 배치 사이즈를 60,000으로 뒀다.</p>
 <h2 id="mlp-구현">MLP 구현</h2>
 <p>MLP는 <a href="../3211"><code>Chain()</code></a> 함수로 구현할 수 있다. 우리는 데이터 $X$를 펼쳐놓지 않았으므로, 첫번째 층에 <code>Flux.flatten</code>을 추가해야 한다.</p>
-<pre><code>julia&gt; MLP = Chain(Flux.flatten,
+<pre tabindex="0"><code>julia&gt; MLP = Chain(Flux.flatten,
                    Dense(28*28, 28, relu),
                    Dense(28, 10),
                    softmax)
@@ -244,14 +244,14 @@ Chain(
   NNlib.softmax,
 )                   # Total: 4 arrays, 22_270 parameters, 87.242 KiB.
 </code></pre><p>참고로 <code>flatten()</code>을 데이터에 적용하려면, 나머지 부분은 같게 두고 <code>X</code>와 <code>Chain()</code>을 다음과 같이 수정하면 된다. 다만 속도에 별 차이는 없다.</p>
-<pre><code>X = flatten(float.(imgs))
+<pre tabindex="0"><code>X = flatten(float.(imgs))
 
 julia&gt; MLP = Chain(Dense(28*28, 28, relu),
                    Dense(28, 10),
                    softmax)
 </code></pre><h2 id="손실함수와-옵티마이저-정의">손실함수와 옵티마이저 정의</h2>
 <p><a href="../967">손실함수</a>는 <a href="../loss-function/#%ED%81%AC%EB%A1%9C%EC%8A%A4-%EC%97%94%ED%8A%B8%EB%A1%9C%ED%94%BC">크로스 엔트로피</a>로, 옵티마이저는 ADAM으로 정의하자.</p>
-<pre><code>julia&gt; LOSS(x,y) = Flux.crossentropy(MLP(x), y)
+<pre tabindex="0"><code>julia&gt; LOSS(x,y) = Flux.crossentropy(MLP(x), y)
 LOSS (generic function with 1 method)
 
 julia&gt; LOSS(X,Y)
@@ -261,14 +261,14 @@ julia&gt; opt = ADAM()
 ADAM(0.001, (0.9, 0.999), IdDict{Any, Any}())
 </code></pre><h2 id="훈련">훈련</h2>
 <p><code>train!()</code> 메서드로 모델을 훈련시킨다.</p>
-<pre><code>julia&gt; Flux.train!(LOSS, params(MLP), Train_Data, opt)
+<pre tabindex="0"><code>julia&gt; Flux.train!(LOSS, params(MLP), Train_Data, opt)
 </code></pre><h3 id="학습-과정-출력2">학습 과정 출력<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h3>
 <p>다만 이렇게하면 학습과정을 알 수 없다. 콜백을 다음과 같이 설정하면 1초에 한 번씩 로스를 출력한다.</p>
-<pre><code>julia&gt; Flux.train!(LOSS, params(MLP), Train_Data, opt, cb = Flux.throttle(() -&gt; @show(LOSS(X, Y)), 1))
+<pre tabindex="0"><code>julia&gt; Flux.train!(LOSS, params(MLP), Train_Data, opt, cb = Flux.throttle(() -&gt; @show(LOSS(X, Y)), 1))
 LOSS(X, Y) = 2.2364092f0
 </code></pre><h3 id="에포크-설정">에포크 설정</h3>
 <p><code>@epochs</code> <a href="../1454">매크로</a>로 에포크를 설정할 수 있다.</p>
-<pre><code>julia&gt; using Flux: @epochs
+<pre tabindex="0"><code>julia&gt; using Flux: @epochs
 
 julia&gt;  @epochs 5 Flux.train!(LOSS, params(MLP), Train_Data, opt, cb = Flux.throttle(() -&gt; @show(LOSS(X, Y)), 1))
 [ Info: Epoch 1
@@ -283,7 +283,7 @@ LOSS(X, Y) = 2.0359747f0
 LOSS(X, Y) = 1.9894044f0
 </code></pre><h3 id="훈련-시간-측정">훈련 시간 측정</h3>
 <p><code>@time</code> 매크로로 훈련 시간을 측정할 수 있다.</p>
-<pre><code>julia&gt; @epochs 5 @time Flux.train!(LOSS, params(MLP), Train_Data, opt, cb = Flux.throttle(() -&gt; @show(LOSS(X, Y)), 1))
+<pre tabindex="0"><code>julia&gt; @epochs 5 @time Flux.train!(LOSS, params(MLP), Train_Data, opt, cb = Flux.throttle(() -&gt; @show(LOSS(X, Y)), 1))
 [ Info: Epoch 1
 LOSS(X, Y) = 1.9431362f0
   0.366819 seconds (238.95 k allocations: 269.987 MiB, 33.97% compilation time)
@@ -300,7 +300,7 @@ LOSS(X, Y) = 1.8064859f0
 LOSS(X, Y) = 1.7620988f0
   0.258424 seconds (418 allocations: 257.373 MiB)
 </code></pre><h2 id="코드-전문">코드 전문</h2>
-<pre><code>using Flux
+<pre tabindex="0"><code>using Flux
 using MLDatasets
 
 using Base.Iterators: repeated
@@ -339,10 +339,10 @@ opt = ADAM()
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://fluxml.ai/Flux.jl/stable/datasets/">https://fluxml.ai/Flux.jl/stable/datasets/</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://fluxml.ai/Flux.jl/stable/datasets/">https://fluxml.ai/Flux.jl/stable/datasets/</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p><a href="https://fluxml.ai/Flux.jl/stable/training/training/#Callbacks">https://fluxml.ai/Flux.jl/stable/training/training/#Callbacks</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://fluxml.ai/Flux.jl/stable/training/training/#Callbacks">https://fluxml.ai/Flux.jl/stable/training/training/#Callbacks</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -351,7 +351,7 @@ opt = ADAM()
 <aside style="text-align: right;">
     2012-04-18&emsp;
     전기현&emsp;
-    <a href="../1766">🎲 3221</a>
+    <a href="../1530">🎲 3221</a>
 </aside>
 
 <script>
