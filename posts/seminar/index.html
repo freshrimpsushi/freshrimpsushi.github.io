@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/seminar\/",
-    "wordCount" : "933",
+    "wordCount" : "1389",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -177,6 +177,9 @@
     <li><a href="#220404">220404</a></li>
     <li><a href="#google-drivehttpsdrivegooglecomdrivefolders18_uiq6uk_wqabzg6tkzjhlwz7nqvo8eq"><a href="https://drive.google.com/drive/folders/18_UiQ6UK_WQABZg6tKZJHlWZ7NqVo8eq">Google Drive</a></a></li>
     <li><a href="#원드라이브">원드라이브</a></li>
+  </ul>
+
+  <ul>
     <li><a href="#개요">개요</a></li>
     <li><a href="#코드">코드</a>
       <ul>
@@ -189,6 +192,18 @@
     <li><a href="#코드-1">코드</a></li>
     <li><a href="#환경-1">환경</a></li>
   </ul>
+
+  <ul>
+    <li><a href="#개요-2">개요</a></li>
+    <li><a href="#코드-2">코드</a></li>
+    <li><a href="#환경-2">환경</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#개요-3">개요</a></li>
+    <li><a href="#코드-3">코드</a></li>
+    <li><a href="#환경-3">환경</a></li>
+  </ul>
 </nav>
     </div>
   </div>
@@ -200,20 +215,19 @@
 <h2 id="원드라이브">원드라이브</h2>
 <iframe src="https://onedrive.live.com/embed?cid=65E5BA34F41E25E0&resid=65E5BA34F41E25E0%2124470&authkey=AHwIpnZ0BPkIO3g" width="165" height="128" frameborder="0" scrolling="no"></iframe> <iframe src="https://onedrive.live.com/embed?cid=65E5BA34F41E25E0&resid=65E5BA34F41E25E0%21533589&authkey=ACzYTsb9AS5OT6Y" width="165" height="128" frameborder="0" scrolling="no"></iframe>
 <hr>
-<!-- # 줄리아에서 회귀분석 하는 법 `GLM.jl` <img src="r.svg" alt="R" style="height: 1em;vertical-align:middle;">
-# How to Do Regression Analysis in julia
-#  -->
+<h1 id="줄리아에서-회귀분석-하는-법-glmjl-hahahugoshortcode-s0-hbhb">줄리아에서 회귀분석 하는 법 <code>GLM.jl</code> <img src="r.svg" alt="R" style="height: 1em;vertical-align:middle;"></h1>
+<p>How to Do Regression Analysis in julia</p>
 <h2 id="개요">개요</h2>
 <p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서 <a href="../548">회귀분석</a>을 하기 위한 <code>GLM.jl</code> 패키지를 간략하게 소개한다. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> <a href="../../categories/r">R</a>에서의 인터페이스와 얼마나 흡사한지 강조하기 위해 세세한 설명은 생략한다.</p>
 <h2 id="코드">코드</h2>
 <h3 id="줄리아">줄리아</h3>
-<pre tabindex="0"><code>using GLM, RDatasets
+<pre><code>using GLM, RDatasets
 
-faithful = dataset(&#34;datasets&#34;, &#34;faithful&#34;)
+faithful = dataset(&quot;datasets&quot;, &quot;faithful&quot;)
 
 out1 = lm(@formula(Waiting ~ Eruptions), faithful)
 </code></pre><p>위 코드를 실행한 결과는 다음과 같다.</p>
-<pre tabindex="0"><code>julia&gt; out1 = lm(@formula(Waiting ~ Eruptions), faithful)
+<pre><code>julia&gt; out1 = lm(@formula(Waiting ~ Eruptions), faithful)
 StatsModels.TableRegressionModel{LinearModel{GLM.LmResp{Vector{Float64}}, GLM.DensePredChol{Float64, LinearAlgebra.CholeskyPivoted{Float64, Matrix{Float64}}}}, Matrix{Float64}}
 
 Waiting ~ 1 + Eruptions
@@ -227,8 +241,8 @@ Eruptions    10.7296    0.314753  34.09    &lt;1e-99    10.11      11.3493
 ───────────────────────────────────────────────────────────────────────
 </code></pre><p><a href="../652">R 에서 회귀분석한 결과</a>와 비교해 보아라.</p>
 <h3 id="r과의-비교">R과의 비교</h3>
-<pre tabindex="0"><code>out1&lt;-lm(waiting~eruptions,data=faithful); summary(out1)
-</code></pre><pre tabindex="0"><code>out1 = lm(@formula(Waiting ~ Eruptions), faithful)
+<pre><code>out1&lt;-lm(waiting~eruptions,data=faithful); summary(out1)
+</code></pre><pre><code>out1 = lm(@formula(Waiting ~ Eruptions), faithful)
 </code></pre><p>위는 <a href="../../categories/r">R</a> 코드고, 아래는 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다. 변수를 넣기 위해 <code>@formula</code> 매크로를 사용했고, 그를 통해 R의 컨벤션을 거의 완벽하게 재현했음을 알 수 있다.</p>
 <h2 id="환경">환경</h2>
 <ul>
@@ -241,7 +255,7 @@ Eruptions    10.7296    0.314753  34.09    &lt;1e-99    10.11      11.3493
 <h2 id="개요-1">개요</h2>
 <p><a href="../../categories/r">R 언어</a>의 합계 <code>sum()</code>이나 평균 <code>mean()</code>에서는 함수 그 자체가 해당 결측치를 무시할 수 있는 옵션을 가지고 있는데, <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서는 그런 옵션이 없는 대신 <strong>함수형 프로그래밍</strong><sup>Functional Programming</sup>적인 방법을 적극적으로 사용한다.</p>
 <h2 id="코드-1">코드</h2>
-<pre tabindex="0"><code>julia&gt; data = [0,1,2,3,0]
+<pre><code>julia&gt; data = [0,1,2,3,0]
 5-element Vector{Int64}:
  0
  1
@@ -263,37 +277,90 @@ julia&gt; sum(data) / sum(!iszero, data)
 </ul>
 <hr>
 <h1 id="줄리아에서-환경변수-참조하는-법">줄리아에서 환경변수 참조하는 법</h1>
-<h1 id="how-to-refer-to-enviroment-variables-in-julia">How to Refer to Enviroment Variables in julia</h1>
-<h1 id="httpsdocsjulialangorgenv1basebasebaseenv"><a href="https://docs.julialang.org/en/v1/base/base/#Base.ENV">https://docs.julialang.org/en/v1/base/base/#Base.ENV</a></h1>
-<p>Base.ENV
-Base.ENV[&ldquo;JULIA_NUM_THREADS&rdquo;]</p>
-<h1 id="------------------------------">&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</h1>
+<p>How to Refer to Enviroment Variables in julia</p>
+<h2 id="개요-2">개요</h2>
+<p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서 환경변수를 참조하는 법을 설명한다.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<h2 id="코드-2">코드</h2>
+<pre><code>Base.ENV
+Base.ENV[&quot;JULIA_NUM_THREADS&quot;]
+</code></pre><p>환경변수는 보다시피 별도의 패키지 로드가 필요하지 않고 <code>Base.ENV</code>를 통해 바로 접근할 수 있다. <a href="../2201">딕셔너리</a>로써 읽히기 때문에 원하는 환경변수의 이름을 키로 두면 해당 환경변수를 문자열로 얻는다. 위 코드 두 줄의 실행결과는 다음과 같다.</p>
+<pre><code>julia&gt; Base.ENV
+Base.EnvDict with 62 entries:
+  &quot;ALLUSERSPROFILE&quot;              =&gt; &quot;C:\\ProgramData&quot;
+  &quot;APPDATA&quot;                      =&gt; &quot;C:\\Users\\rmsms\\AppData\\Roaming&quot;
+  &quot;CHROME_CRASHPAD_PIPE_NAME&quot;    =&gt; &quot;\\\\.\\pipe\\crashpad_14984_WLSYYXMTXMJWXZQG&quot;
+  &quot;COMMONPROGRAMFILES&quot;           =&gt; &quot;C:\\Program Files\\Common Files&quot;
+  &quot;COMMONPROGRAMFILES(X86)&quot;      =&gt; &quot;C:\\Program Files (x86)\\Common Files&quot;
+  &quot;COMMONPROGRAMW6432&quot;           =&gt; &quot;C:\\Program Files\\Common Files&quot;
+  &quot;COMPUTERNAME&quot;                 =&gt; &quot;SICKRIGHT&quot;
+  &quot;COMSPEC&quot;                      =&gt; &quot;C:\\WINDOWS\\system32\\cmd.exe&quot;
+  &quot;CUDA_PATH&quot;                    =&gt; &quot;C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v11.5&quot;
+  &quot;CUDA_PATH_V11_5&quot;              =&gt; &quot;C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v11.5&quot;
+  &quot;DRIVERDATA&quot;                   =&gt; &quot;C:\\Windows\\System32\\Drivers\\DriverData&quot;
+  &quot;GOPATH&quot;                       =&gt; &quot;C:\\Users\\rmsms\\go&quot;
+  &quot;HOMEDRIVE&quot;                    =&gt; &quot;C:&quot;
+  &quot;HOMEPATH&quot;                     =&gt; &quot;\\Users\\rmsms&quot;
+  &quot;JULIA_NUM_THREADS&quot;            =&gt; &quot;16&quot;
+  &quot;LOCALAPPDATA&quot;                 =&gt; &quot;C:\\Users\\rmsms\\AppData\\Local&quot;
+  &quot;LOGONSERVER&quot;                  =&gt; &quot;\\\\SICKRIGHT&quot;
+  &quot;NAVER&quot;                        =&gt; &quot;e=2.718281&quot;
+  &quot;NUMBER_OF_PROCESSORS&quot;         =&gt; &quot;16&quot;
+  &quot;NVCUDASAMPLES11_5_ROOT&quot;       =&gt; &quot;C:\\ProgramData\\NVIDIA Corporation\\CUDA Samples\\v11.5&quot;
+  &quot;NVCUDASAMPLES_ROOT&quot;           =&gt; &quot;C:\\ProgramData\\NVIDIA Corporation\\CUDA Samples\\v11.5&quot;
+  &quot;NVTOOLSEXT_PATH&quot;              =&gt; &quot;C:\\Program Files\\NVIDIA Corporation\\NvToolsExt\\&quot;
+  &quot;ONEDRIVE&quot;                     =&gt; &quot;C:\\Users\\rmsms\\OneDrive - knu.ac.kr&quot;
+  &quot;ONEDRIVECOMMERCIAL&quot;           =&gt; &quot;C:\\Users\\rmsms\\OneDrive - knu.ac.kr&quot;
+  &quot;ONEDRIVECONSUMER&quot;             =&gt; &quot;C:\\Users\\rmsms\\OneDrive&quot;
+  &quot;OPENBLAS_MAIN_FREE&quot;           =&gt; &quot;1&quot;
+  &quot;OPENBLAS_NUM_THREADS&quot;         =&gt; &quot;8&quot;
+  ⋮                              =&gt; ⋮
+
+julia&gt; Base.ENV[&quot;JULIA_NUM_THREADS&quot;]
+&quot;16&quot;
+</code></pre><h2 id="환경-2">환경</h2>
+<ul>
+<li>OS: Windows</li>
+<li>julia: v1.7.0</li>
+</ul>
+<hr>
 <h1 id="줄리아에서-프로그레스바-사용하는-법">줄리아에서 프로그레스바 사용하는 법</h1>
-<h1 id="how-to-use-progress-bar-in-julia">How to Use Progress Bar in julia</h1>
-<h1 id="httpsgithubcomcloud-oakprogressbarsjl"><a href="https://github.com/cloud-oak/ProgressBars.jl">https://github.com/cloud-oak/ProgressBars.jl</a></h1>
-<p>using ProgressBars</p>
-<p>chi2 = []
+<p>How to Use Progress Bar in julia</p>
+<h2 id="개요-3">개요</h2>
+<p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서도 프로그램의 진행 상황을 알려주는 <strong>프로그래스바</strong>를 손쉽게 사용할 수 있다. <code>ProgressBars.jl</code> 패키지의 <code>ProgressBar()</code> 함수로 <code>for</code> 루프의 반복자<sup>Iterator</sup>를 감싸면 된다.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<h2 id="코드-3">코드</h2>
+<pre><code>using ProgressBars
+
+chi2 = []
 for n in ProgressBar(1:20000)
-push!(chi2, sum(randn(n) .^ 2))
-end</p>
-<p>using UnicodePlots
+    push!(chi2, sum(randn(n) .^ 2))
+end
+</code></pre><p>실제 작업 내용은 어찌되든 상관 없는데, 프로그램의 진행 상황은 다음과 같이 예쁘게 출력된다. 당연하지만 <code>for</code> 루프문에서 정확히 몇번째 반복이 되고있는지만 알 수 있으므로, 한 반복 당 평균 수행시간만 알려줄 뿐 정확한 소요시간을 예측할 수는 없다.</p>
+<p>움짤</p>
+<h2 id="환경-3">환경</h2>
+<ul>
+<li>OS: Windows</li>
+<li>julia: v1.7.0</li>
+</ul>
+<hr>
+<pre><code>using UnicodePlots
 p1 = lineplot(100 |&gt; randn |&gt; cumsum)
-p1 = lineplot!(p1, 100 |&gt; randn |&gt; cumsum); p1</p>
-<p>heatmap(cumsum(abs.(randn(100,100)), dims=2))</p>
-<div class="footnotes" role="doc-endnotes">
+p1 = lineplot!(p1, 100 |&gt; randn |&gt; cumsum); p1
+
+heatmap(cumsum(abs.(randn(100,100)), dims=2))
+</code></pre><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1">
-<p><a href="https://juliastats.org/GLM.jl/v0.11/index.html">https://juliastats.org/GLM.jl/v0.11/index.html</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://juliastats.org/GLM.jl/v0.11/index.html">https://juliastats.org/GLM.jl/v0.11/index.html</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</div>
+</section>
 
 
 <aside style="text-align: right;">
     2021-01-01&emsp;
     류대식&emsp;
-    <a href="../697">🎲 2000</a>
+    <a href="../619">🎲 2000</a>
 </aside>
 
 <script>
@@ -783,7 +850,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
       { idx: 4, name: '정수론', size: '89', color: color.green },
       { idx: 5, name: '기하학', size: '132++', color: color.yellow },
       { idx: 6, name: '행렬대수', size: '79', color: color.green },
-      { idx: 7, name: '선형대수', size: '47', color: color.green },
+      { idx: 7, name: '선형대수', size: '83', color: color.green },
       { idx: 8, name: '추상대수', size: '77', color: color.green },
       { idx: 9, name: '위상수학', size: '63', color: color.green },
       { idx: 10, name: '그래프이론', size: '50', color: color.green }
