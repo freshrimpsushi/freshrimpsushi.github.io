@@ -289,7 +289,7 @@ png(histogram_G_nm, &#34;histogram_G_nm.png&#34;)
 <aside style="text-align: right;">
     2021-11-22&emsp;
     류대식&emsp;
-    <a href="../1749">🎲 2116</a>
+    <a href="../2093">🎲 2116</a>
 </aside>
 
 <script>
@@ -367,10 +367,16 @@ png(histogram_G_nm, &#34;histogram_G_nm.png&#34;)
   });
 
   function get_all_comment() {
-    const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
-    postFetch(url, {
-      board_idx: '2116'
-    })
+    fetch('https://api.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => {return data.ip})
+      .then(ip => {
+        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
+        return postFetch(url, {
+                board_idx: '2116',
+                user_ip: ip
+              });
+      })
       .then(res => res.json())
       .then(data => {
         if (data.ok) {
@@ -416,11 +422,15 @@ png(histogram_G_nm, &#34;histogram_G_nm.png&#34;)
       
       html += `<div class="list-author">${badge} ${row.author} ${ipAddress}</div>`;
       html += `<div class="list-bridge">▶</div>`;
-      html += `<div class="list-date">${row.datetime}</div>`;
+      if(row.approve) {
+        html += `<div class="list-date">${row.datetime}</div>`;
+      } else {
+        html += `<div class="list-date">${row.datetime} - 관리자의 승인을 기다리고 있습니다</div>`;
+      }
       html += `<div class="list-button">`;
       html += `<div class="list-update-button" onclick="update_comment('${row.cmt_idx}', 'parents');">수정</div>`;
       html += `<div class="list-delete-button" onclick="delete_comment('${row.cmt_idx}', 'parents');">삭제</div>`;
-      html += `</div>`; 
+      html += `</div>`; // list-button
       html += `</div>`; // content-info
       let content = row.content;
       content = content.replace(/\n/g, '<br />');
@@ -458,11 +468,15 @@ png(histogram_G_nm, &#34;histogram_G_nm.png&#34;)
 
         html += `<div class="list-author">${badge} ${child.author} ${ipAddress}</div>`;
         html += `<div class="list-bridge">▶</div>`;
-        html += `<div class="list-date">${child.datetime}</div>`;
+        if(child.approve) {
+          html += `<div class="list-date">${child.datetime}</div>`;
+        } else {
+          html += `<div class="list-date">${child.datetime} - 관리자의 승인을 기다리고 있습니다</div>`;
+        }
         html += `<div class="list-button">`;
         html += `<div class="list-update-button" onclick="update_comment('${child.cmt_idx}', 'child');">수정</div>`;
         html += `<div class="list-delete-button" onclick="delete_comment('${child.cmt_idx}', 'child');">삭제</div>`;
-        html += `</div>`; 
+        html += `</div>`; // list-button
         html += `</div>`; // content-info
         let content = child.content;
         content = content.replace(/\n/g, '<br />');
@@ -744,7 +758,7 @@ png(histogram_G_nm, &#34;histogram_G_nm.png&#34;)
       .then(res => res.json())
       .then(data => {return data.ip})
       .then(ip => {
-        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeComment';
+        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeReComment';
         return postFetch(url, {
                 board_idx: board_idx,
                 board_slug: board_slug,

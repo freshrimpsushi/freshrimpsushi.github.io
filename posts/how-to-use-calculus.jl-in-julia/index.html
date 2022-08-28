@@ -509,7 +509,7 @@ julia&gt; Calculus.second_derivative(p)
 <aside style="text-align: right;">
     2021-10-28&emsp;
     전기현&emsp;
-    <a href="../967">🎲 3135</a>
+    <a href="../726">🎲 3135</a>
 </aside>
 
 <script>
@@ -587,10 +587,16 @@ julia&gt; Calculus.second_derivative(p)
   });
 
   function get_all_comment() {
-    const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
-    postFetch(url, {
-      board_idx: '3135'
-    })
+    fetch('https://api.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => {return data.ip})
+      .then(ip => {
+        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
+        return postFetch(url, {
+                board_idx: '3135',
+                user_ip: ip
+              });
+      })
       .then(res => res.json())
       .then(data => {
         if (data.ok) {
@@ -636,11 +642,15 @@ julia&gt; Calculus.second_derivative(p)
       
       html += `<div class="list-author">${badge} ${row.author} ${ipAddress}</div>`;
       html += `<div class="list-bridge">▶</div>`;
-      html += `<div class="list-date">${row.datetime}</div>`;
+      if(row.approve) {
+        html += `<div class="list-date">${row.datetime}</div>`;
+      } else {
+        html += `<div class="list-date">${row.datetime} - 관리자의 승인을 기다리고 있습니다</div>`;
+      }
       html += `<div class="list-button">`;
       html += `<div class="list-update-button" onclick="update_comment('${row.cmt_idx}', 'parents');">수정</div>`;
       html += `<div class="list-delete-button" onclick="delete_comment('${row.cmt_idx}', 'parents');">삭제</div>`;
-      html += `</div>`; 
+      html += `</div>`; // list-button
       html += `</div>`; // content-info
       let content = row.content;
       content = content.replace(/\n/g, '<br />');
@@ -678,11 +688,15 @@ julia&gt; Calculus.second_derivative(p)
 
         html += `<div class="list-author">${badge} ${child.author} ${ipAddress}</div>`;
         html += `<div class="list-bridge">▶</div>`;
-        html += `<div class="list-date">${child.datetime}</div>`;
+        if(child.approve) {
+          html += `<div class="list-date">${child.datetime}</div>`;
+        } else {
+          html += `<div class="list-date">${child.datetime} - 관리자의 승인을 기다리고 있습니다</div>`;
+        }
         html += `<div class="list-button">`;
         html += `<div class="list-update-button" onclick="update_comment('${child.cmt_idx}', 'child');">수정</div>`;
         html += `<div class="list-delete-button" onclick="delete_comment('${child.cmt_idx}', 'child');">삭제</div>`;
-        html += `</div>`; 
+        html += `</div>`; // list-button
         html += `</div>`; // content-info
         let content = child.content;
         content = content.replace(/\n/g, '<br />');
@@ -964,7 +978,7 @@ julia&gt; Calculus.second_derivative(p)
       .then(res => res.json())
       .then(data => {return data.ip})
       .then(ip => {
-        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeComment';
+        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeReComment';
         return postFetch(url, {
                 board_idx: board_idx,
                 board_slug: board_slug,
