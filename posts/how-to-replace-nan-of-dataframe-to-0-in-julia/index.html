@@ -219,7 +219,7 @@
 <h2 id="개요">개요</h2>
 <p><a href="../2326">특정 값으로 바꾸는 방법</a>은 한 열씩 바꾸기 때문에 불편하고, 데이터프레임 전체에서 <code>NaN</code>을 처리할 땐 더 좋은 트릭을 사용해봄직하다.</p>
 <h2 id="코드">코드</h2>
-<pre tabindex="0"><code>julia&gt; df = DataFrame(rand(1:9,3,3), :auto) ./ DataFrame(rand(0:1,3,3), :auto)
+<pre><code>julia&gt; df = DataFrame(rand(1:9,3,3), :auto) ./ DataFrame(rand(0:1,3,3), :auto)
 3×3 DataFrame
  Row │ x1       x2       x3      
      │ Float64  Float64  Float64
@@ -228,7 +228,7 @@
    2 │   Inf        8.0    Inf
    3 │     4.0      1.0      4.0
 </code></pre><p>가령 위의 데이터 프레임에서 <code>Inf</code>를 <code>0</code>으로 대체하고 싶다면 다음과 같이 단 한 줄로 바꿀 수 있다.</p>
-<pre tabindex="0"><code>julia&gt; ifelse.(isinf.(df), 0, df)
+<pre><code>julia&gt; ifelse.(isinf.(df), 0, df)
 3×3 DataFrame
  Row │ x1       x2       x3      
      │ Float64  Float64  Float64
@@ -238,7 +238,7 @@
    3 │     4.0      1.0      4.0
 </code></pre><p>당연하지만 <code>ifelse.(isinf.(df), 0, df)</code> 에서 <code>isinf</code>를 <code>isnan</code>으로 교체하면 <code>NaN</code>을 처리하고, <code>0</code>을 고쳐서 어떤 값으로 보낼지 바꿀 수 있다.</p>
 <h3 id="전체코드">전체코드</h3>
-<pre tabindex="0"><code>using DataFrames, Random
+<pre><code>using DataFrames, Random
 Random.seed!(0)
 
 df = DataFrame(rand(1:9,3,3), :auto) ./ DataFrame(rand(0:1,3,3), :auto)
@@ -257,7 +257,7 @@ ifelse.(isinf.(df), 0, df)
 <aside style="text-align: right;">
     1923-01-24&emsp;
     류대식&emsp;
-    <a href="../1411">🎲 2330</a>
+    <a href="../466">🎲 2330</a>
 </aside>
 
 <script>
@@ -501,9 +501,6 @@ ifelse.(isinf.(df), 0, df)
           inputAuthor.value = '';
           inputPassword.value = '';
           inputContent.value = '';
-
-          recentRows.splice(-1, 1);
-          render_recent_comment(recentRows);
         } else {
           if (data.status === 606) {
             Swal.fire('Warning!\n지속적인 도배 시도시\nIP가 차단될 수 있습니다.');
@@ -747,10 +744,6 @@ ifelse.(isinf.(df), 0, df)
             }
           });
           render_comment(commentRows);
-
-          recentRows.splice(-1, 1);
-          recentRows.unshift(data.row);
-          render_recent_comment(recentRows);
         } else {
           if (data.status == 606) {
             Swal.fire('Warning!\n지속적인 도배 시도시\nIP가 차단될 수 있습니다.');

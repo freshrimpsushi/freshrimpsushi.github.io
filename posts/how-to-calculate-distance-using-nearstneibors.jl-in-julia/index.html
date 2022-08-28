@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-calculate-distance-using-nearstneibors.jl-in-julia\/",
-    "wordCount" : "429",
+    "wordCount" : "430",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -215,7 +215,7 @@
 <p>$n$ 개의 좌표끼리 거리를 계산하는데, 행렬을 만들 필요까지는 없고 단순히 거리만 계산하면 되는 경우 다차원 탐색에 유리한 자료구조인 k-d 트리<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>를 사용해 속도를 높일 수 있다. <code>NearestNeighbors.jl</code>에 관련 알고리즘이 모두 구현되어 있으니 <a href="https://github.com/KristofferC/NearestNeighbors.jl">공식 깃허브 페이지</a>를 참고하도록 하자.</p>
 <h2 id="속도-비교">속도 비교</h2>
 <p><code>pairwise()</code> 함수로 <a href="../2020">거리행렬 계산에 최적화된 기법</a>과 비교해보자.</p>
-<pre tabindex="0"><code>using Distances
+<pre><code>using Distances
 using StatsBase
 using Random
 using NearestNeighbors
@@ -224,14 +224,14 @@ Random.seed!(0);
 ε = 0.01
 N = 10^4
 coordinate = rand(2, N);
-state = sample([&#39;S&#39;, &#39;I&#39;], Weights([0.1, 0.9]), N);
-S = coordinate[:, state .== &#39;S&#39;]
-I = coordinate[:, state .== &#39;I&#39;]
+state = sample(['S', 'I'], Weights([0.1, 0.9]), N);
+S = coordinate[:, state .== 'S']
+I = coordinate[:, state .== 'I']
 
 @time sum(pairwise(Euclidean(),S,I) .&lt; ε, dims = 1)
 @time kdtree = KDTree(S); contact = length.(inrange(kdtree, I, ε, true))
 </code></pre><p>위 코드를 실행시킨 결과는 다음과 같다. 맨 아래의 두 커맨드라인은 같은 작업을 수행하지만 속도차이는 500배 정도가 난다. 실제로 k-d 트리에서 탐색할 때 <a href="../1283">시간복잡도</a>는 $\log n$ 으로 매우 효율적이다.</p>
-<pre tabindex="0"><code>julia&gt; @time sum(pairwise(Euclidean(),S,I) .&lt; ε, dims = 1)
+<pre><code>julia&gt; @time sum(pairwise(Euclidean(),S,I) .&lt; ε, dims = 1)
   0.098394 seconds (14 allocations: 69.639 MiB, 8.23% gc Time)
 1×9004 Array{Int64,2}:
  0  0  1  0  0  0  0  …  1  0  0  0  0  0
@@ -253,20 +253,20 @@ julia&gt; @time kdtree = KDTree(S); contact = length.(inrange(kdtree, I, ε, tru
 <li>OS: Windows</li>
 <li>julia: v1.6.2</li>
 </ul>
-<div class="footnotes" role="doc-endnotes">
+<section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1">
-<p><a href="https://en.wikipedia.org/wiki/K-d_tree">https://en.wikipedia.org/wiki/K-d_tree</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://en.wikipedia.org/wiki/K-d_tree">https://en.wikipedia.org/wiki/K-d_tree</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</div>
+</section>
 
 
 <aside style="text-align: right;">
     2021-09-27&emsp;
     류대식&emsp;
-    <a href="../636">🎲 2088</a>
+    <a href="../788">🎲 2088</a>
 </aside>
 
 <script>
@@ -510,9 +510,6 @@ julia&gt; @time kdtree = KDTree(S); contact = length.(inrange(kdtree, I, ε, tru
           inputAuthor.value = '';
           inputPassword.value = '';
           inputContent.value = '';
-
-          recentRows.splice(-1, 1);
-          render_recent_comment(recentRows);
         } else {
           if (data.status === 606) {
             Swal.fire('Warning!\n지속적인 도배 시도시\nIP가 차단될 수 있습니다.');
@@ -756,10 +753,6 @@ julia&gt; @time kdtree = KDTree(S); contact = length.(inrange(kdtree, I, ε, tru
             }
           });
           render_comment(commentRows);
-
-          recentRows.splice(-1, 1);
-          recentRows.unshift(data.row);
-          render_recent_comment(recentRows);
         } else {
           if (data.status == 606) {
             Swal.fire('Warning!\n지속적인 도배 시도시\nIP가 차단될 수 있습니다.');

@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-use-polynomials.jl-in-julia\/",
-    "wordCount" : "807",
+    "wordCount" : "808",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -232,7 +232,7 @@
 <p>패키지의 모든 기능을 정리한 것은 아니고 유용할만한 것만 추렸으니 자세한 것은 리파지터리를 확인하자. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <h2 id="일반-다항-함수">일반 다항 함수</h2>
 <h3 id="계수로-다항함수-정의-polynomial">계수로 다항함수 정의 <code>Polynomial()</code></h3>
-<pre tabindex="0"><code>julia&gt; using Polynomials
+<pre><code>julia&gt; using Polynomials
 
 julia&gt; p = Polynomial([1,0,0,1])
 Polynomial(1 + x^3)
@@ -254,27 +254,27 @@ julia&gt; p(2)
 <li><code>var</code>에서는 다항함수의 변수를 준다. 위의 예처럼 <a href="../2195">심볼</a> <code>:t</code>를 넣으면 <code>t</code>에 대한 다항식이 된다.</li>
 </ul>
 <h3 id="데이터로-다항함수-정의-fit">데이터로 다항함수 정의 <code>fit()</code></h3>
-<pre tabindex="0"><code>julia&gt; fit([-1,0,1], [2,0,2])
+<pre><code>julia&gt; fit([-1,0,1], [2,0,2])
 Polynomial(2.0*x^2)
 </code></pre><p><code>fit(::Type{RationalFunction}, xs::AbstractVector{S}, ys::AbstractVector{T}, m, n; var=:x)</code></p>
 <ul>
 <li>$x$-좌표가 <code>xs</code>고 $y$-좌표가 <code>ys</code>인 점들을 지나는 다항 함수를 리턴한다.</li>
 </ul>
 <h3 id="근으로-다항함수-정의-roots">근으로 다항함수 정의 <code>roots()</code></h3>
-<pre tabindex="0"><code>julia&gt; fromroots([-2,2])
+<pre><code>julia&gt; fromroots([-2,2])
 Polynomial(-4 + x^2)
 </code></pre><p><code>fromroots(::AbstractVector{&lt;:Number}; var=:x)</code></p>
 <ul>
 <li>배열로 받은 데이터가 근이 되게끔 하는 다항 함수를 리턴한다.</li>
 </ul>
 <h3 id="연산-----">연산 <code>+</code>, <code>-</code>, <code>*</code>, <code>÷</code></h3>
-<pre tabindex="0"><code>julia&gt; p + 1
+<pre><code>julia&gt; p + 1
 Polynomial(2 + x^3)
 
 julia&gt; 2p
 Polynomial(2 + 2*x^3)
 </code></pre><p>스칼라를 더하거나 곱하면 위와 같이 직관적으로 연산된다.</p>
-<pre tabindex="0"><code>julia&gt; p + q
+<pre><code>julia&gt; p + q
 Polynomial(2 + x + x^3)
 
 julia&gt; p - q
@@ -287,7 +287,7 @@ julia&gt; p ÷ q
 Polynomial(1.0 - 1.0*x + 1.0*x^2)
 </code></pre><p>다항 함수 간의 사칙연산은 <code>+</code>, <code>-</code>, <code>*</code>, <code>÷</code>에 오버라이딩<sup>Overriding</sup>된다.</p>
 <h3 id="근-찾기-roots">근 찾기 <code>roots()</code></h3>
-<pre tabindex="0"><code>julia&gt; roots(p)
+<pre><code>julia&gt; roots(p)
 3-element Vector{ComplexF64}:
                -1.0 + 0.0im
  0.4999999999999998 - 0.8660254037844383im
@@ -297,14 +297,14 @@ Polynomial(1.0 - 1.0*x + 1.0*x^2)
 <li><code>f</code>의 <a href="../723">근</a>들을 <a href="../1947">벡터</a>로 리턴한다.</li>
 </ul>
 <h3 id="미분-derivative">미분 <code>derivative()</code></h3>
-<pre tabindex="0"><code>julia&gt; derivative(p, 3)
+<pre><code>julia&gt; derivative(p, 3)
 Polynomial(6)
 </code></pre><p><code>derivative(f::AbstractPolynomial, order::Int = 1)</code></p>
 <ul>
 <li><code>f</code>의 <code>order</code>계 도함수를 리턴한다.</li>
 </ul>
 <h3 id="적분-integrate">적분 <code>integrate()</code></h3>
-<pre tabindex="0"><code>julia&gt; integrate(p, 7)
+<pre><code>julia&gt; integrate(p, 7)
 Polynomial(7.0 + 1.0*x + 0.25*x^4)
 </code></pre><p><code>integrate(f::AbstractPolynomial, C = 0)</code></p>
 <ul>
@@ -312,7 +312,7 @@ Polynomial(7.0 + 1.0*x + 0.25*x^4)
 </ul>
 <h2 id="특수-다항-함수">특수 다항 함수</h2>
 <h3 id="로랑-다항-함수-laurentpolynomial">로랑 다항 함수 <code>LaurentPolynomial()</code></h3>
-<pre tabindex="0"><code>julia&gt; LaurentPolynomial([4,3,2,1], -1)
+<pre><code>julia&gt; LaurentPolynomial([4,3,2,1], -1)
 LaurentPolynomial(4*x⁻¹ + 3 + 2*x + x²)
 </code></pre><p><code>LaurentPolynomial{T,X}(coeffs::AbstractVector, [m::Integer = 0], [var = :x])</code></p>
 <ul>
@@ -320,7 +320,7 @@ LaurentPolynomial(4*x⁻¹ + 3 + 2*x + x²)
 <li>최소차항의 차수는 <code>m</code>으로 주어진다.</li>
 </ul>
 <h3 id="체비셰프-다항-함수-chebyshevt">체비셰프 다항 함수 <code>ChebyshevT()</code></h3>
-<pre tabindex="0"><code>julia&gt; ChebyshevT([3,2,1])
+<pre><code>julia&gt; ChebyshevT([3,2,1])
 ChebyshevT(3⋅T_0(x) + 2⋅T_1(x) + 1⋅T_2(x))
 </code></pre><p><code>ChebyshevT{T, X}(coeffs::AbstractVector)</code></p>
 <ul>
@@ -331,20 +331,20 @@ ChebyshevT(3⋅T_0(x) + 2⋅T_1(x) + 1⋅T_2(x))
 <li>OS: Windows</li>
 <li>julia: v1.6.2</li>
 </ul>
-<div class="footnotes" role="doc-endnotes">
+<section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1">
-<p><a href="https://juliamath.github.io/Polynomials.jl/stable/">https://juliamath.github.io/Polynomials.jl/stable/</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://juliamath.github.io/Polynomials.jl/stable/">https://juliamath.github.io/Polynomials.jl/stable/</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</div>
+</section>
 
 
 <aside style="text-align: right;">
     2022-06-18&emsp;
     류대식&emsp;
-    <a href="../1346">🎲 2220</a>
+    <a href="../2123">🎲 2220</a>
 </aside>
 
 <script>
@@ -588,9 +588,6 @@ ChebyshevT(3⋅T_0(x) + 2⋅T_1(x) + 1⋅T_2(x))
           inputAuthor.value = '';
           inputPassword.value = '';
           inputContent.value = '';
-
-          recentRows.splice(-1, 1);
-          render_recent_comment(recentRows);
         } else {
           if (data.status === 606) {
             Swal.fire('Warning!\n지속적인 도배 시도시\nIP가 차단될 수 있습니다.');
@@ -834,10 +831,6 @@ ChebyshevT(3⋅T_0(x) + 2⋅T_1(x) + 1⋅T_2(x))
             }
           });
           render_comment(commentRows);
-
-          recentRows.splice(-1, 1);
-          recentRows.unshift(data.row);
-          render_recent_comment(recentRows);
         } else {
           if (data.status == 606) {
             Swal.fire('Warning!\n지속적인 도배 시도시\nIP가 차단될 수 있습니다.');
