@@ -164,10 +164,8 @@
       })
       .then(res => res.json())
       .then(data => {
-        if (data.ok) {
-          console.log(data);
-        } else {
-          alert('지나친 댓글 도배를 확인하여\n접근을 차단합니다.')
+        if (!data.ok) {
+          alert('차단된 IP입니다.\nContact:\nfreshrimpsushi@gmail.com')
           window.location.href = 'https://google.com';
         }
       })
@@ -250,7 +248,7 @@ $L\_{A}$가 선형인 것은 [행렬의 연산](../1957)에 의해 자명하다.
 <aside style="text-align: right;">
     2012-11-22&emsp;
     전기현&emsp;
-    <a href="../614">🎲 3329</a>
+    <a href="../1367">🎲 3329</a>
 </aside>
 
 <script>
@@ -344,6 +342,7 @@ $L\_{A}$가 선형인 것은 [행렬의 연산](../1957)에 의해 자명하다.
 
   function render_comment(rows) {
     const badgeExceptionArr = ['류대식', '전기현', 'ㅇㅇ', '질문'];
+    const adminExceptionArr = ['류대식', '전기현'];
     render_blank();
     let html = '';
     rows.map(row => {
@@ -362,7 +361,19 @@ $L\_{A}$가 선형인 것은 [행렬의 연산](../1957)에 의해 자명하다.
       if (badgeExceptionArr.includes(row.author)) {
         badge = '';
       }
-      html += `<div class="list-author">${badge} ${row.author}</div>`;
+
+      let ipAddress = '';
+      if (row.ip_address == null) {
+        ipAddress = '(-)';
+      } else {
+        ipAddress = `(${row.ip_address})`;
+      }
+
+      if(adminExceptionArr.includes(row.author)) {
+        ipAddress = '';
+      }
+      
+      html += `<div class="list-author">${badge} ${row.author} ${ipAddress}</div>`;
       html += `<div class="list-bridge">▶</div>`;
       html += `<div class="list-date">${row.datetime}</div>`;
       html += `<div class="list-button">`;
@@ -392,7 +403,19 @@ $L\_{A}$가 선형인 것은 [행렬의 연산](../1957)에 의해 자명하다.
         if (badgeExceptionArr.includes(child.author)) {
           badge = '';
         }
-        html += `<div class="list-author">${badge} ${child.author}</div>`;
+
+        let ipAddress = '';
+        if (row.ip_address == null) {
+          ipAddress = '(-)';
+        } else {
+          ipAddress = `(${row.ip_address})`;
+        }
+
+        if(adminExceptionArr.includes(child.author)) {
+          ipAddress = '';
+        }
+
+        html += `<div class="list-author">${badge} ${child.author} ${ipAddress}</div>`;
         html += `<div class="list-bridge">▶</div>`;
         html += `<div class="list-date">${child.datetime}</div>`;
         html += `<div class="list-button">`;

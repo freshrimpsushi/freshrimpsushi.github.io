@@ -164,10 +164,8 @@
       })
       .then(res => res.json())
       .then(data => {
-        if (data.ok) {
-          console.log(data);
-        } else {
-          alert('지나친 댓글 도배를 확인하여\n접근을 차단합니다.')
+        if (!data.ok) {
+          alert('차단된 IP입니다.\nContact:\nfreshrimpsushi@gmail.com')
           window.location.href = 'https://google.com';
         }
       })
@@ -264,7 +262,7 @@ $$</p>
 <aside style="text-align: right;">
     2018-11-05&emsp;
     류대식&emsp;
-    <a href="../796">🎲 288</a>
+    <a href="../1958">🎲 288</a>
 </aside>
 
 <script>
@@ -358,6 +356,7 @@ $$</p>
 
   function render_comment(rows) {
     const badgeExceptionArr = ['류대식', '전기현', 'ㅇㅇ', '질문'];
+    const adminExceptionArr = ['류대식', '전기현'];
     render_blank();
     let html = '';
     rows.map(row => {
@@ -376,7 +375,19 @@ $$</p>
       if (badgeExceptionArr.includes(row.author)) {
         badge = '';
       }
-      html += `<div class="list-author">${badge} ${row.author}</div>`;
+
+      let ipAddress = '';
+      if (row.ip_address == null) {
+        ipAddress = '(-)';
+      } else {
+        ipAddress = `(${row.ip_address})`;
+      }
+
+      if(adminExceptionArr.includes(row.author)) {
+        ipAddress = '';
+      }
+      
+      html += `<div class="list-author">${badge} ${row.author} ${ipAddress}</div>`;
       html += `<div class="list-bridge">▶</div>`;
       html += `<div class="list-date">${row.datetime}</div>`;
       html += `<div class="list-button">`;
@@ -406,7 +417,19 @@ $$</p>
         if (badgeExceptionArr.includes(child.author)) {
           badge = '';
         }
-        html += `<div class="list-author">${badge} ${child.author}</div>`;
+
+        let ipAddress = '';
+        if (row.ip_address == null) {
+          ipAddress = '(-)';
+        } else {
+          ipAddress = `(${row.ip_address})`;
+        }
+
+        if(adminExceptionArr.includes(child.author)) {
+          ipAddress = '';
+        }
+
+        html += `<div class="list-author">${badge} ${child.author} ${ipAddress}</div>`;
         html += `<div class="list-bridge">▶</div>`;
         html += `<div class="list-date">${child.datetime}</div>`;
         html += `<div class="list-button">`;
