@@ -151,6 +151,30 @@
   </ul>
 </div>
 
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    fetch('https://api.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => {
+        return data.ip
+      })
+      .then(ip => {
+        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/ip_checker.php';
+        return postFetch(url, { user_ip: ip });
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.ok) {
+          console.log(data);
+        } else {
+          alert('지나친 댓글 도배를 확인하여\n접근을 차단합니다.')
+          window.location.href = 'https://google.com';
+        }
+      })
+      .catch(err => console.error(err));
+  });
+</script>
+
   
   <div class="wrapper">
     <div class="content">
@@ -312,7 +336,7 @@ $$</p>
 <aside style="text-align: right;">
     2018-10-25&emsp;
     류대식&emsp;
-    <a href="../311">🎲 703</a>
+    <a href="../1093">🎲 703</a>
 </aside>
 
 <script>
@@ -494,15 +518,21 @@ $$</p>
     const board_slug = 'banach-space';
     const board_title = '바나흐 공간';
 
-    const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeComment';
-    postFetch(url, {
-      board_idx: idx,
-      board_slug: board_slug,
-      board_title: board_title,
-      author: author.replace(/\+/g, "%2B"),
-      password: password,
-      content: content.replace(/\+/g, "%2B")
-    })
+    fetch('https://api.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => {return data.ip})
+      .then(ip => {
+        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeComment';
+        return postFetch(url, {
+                board_idx: idx,
+                board_slug: board_slug,
+                board_title: board_title,
+                author: author.replace(/\+/g, "%2B"),
+                password: password,
+                content: content.replace(/\+/g, "%2B"),
+                user_ip: ip
+              });
+      })
       .then(res => res.json())
       .then(data => {
         if (data.ok) {
@@ -514,6 +544,16 @@ $$</p>
 
           recentRows.splice(-1, 1);
           render_recent_comment(recentRows);
+        } else {
+          if (data.status === 606) {
+            Swal.fire('Warning!\n지속적인 도배 시도시\nIP가 차단될 수 있습니다.');
+            inputAuthor.value = '';
+            inputPassword.value = '';
+            inputContent.value = '';
+          } else if (data.status === 607) {
+            alert('지나친 댓글 도배를 확인하여\n접근을 차단합니다.');
+            window.location.href = 'https://google.com';
+          } else {}
         }
       })
       .catch(err => console.error(err));
@@ -722,16 +762,22 @@ $$</p>
     const board_slug = 'banach-space';
     const board_title = '바나흐 공간';
 
-    const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeReComment';
-    postFetch(url, {
-      board_idx: board_idx,
-      board_slug: board_slug,
-      board_title: board_title,
-      cmt_idx: cmt_idx,
-      author: author.replace(/\+/g, "%2B"),
-      password: password,
-      content: content.replace(/\+/g, "%2B")
-    })
+    fetch('https://api.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => {return data.ip})
+      .then(ip => {
+        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeComment';
+        return postFetch(url, {
+                board_idx: board_idx,
+                board_slug: board_slug,
+                board_title: board_title,
+                cmt_idx: cmt_idx,
+                author: author.replace(/\+/g, "%2B"),
+                password: password,
+                content: content.replace(/\+/g, "%2B"),
+                user_ip: ip
+              });
+      })
       .then(res => res.json())
       .then(data => {
         if (data.ok) {
@@ -745,6 +791,16 @@ $$</p>
           recentRows.splice(-1, 1);
           recentRows.unshift(data.row);
           render_recent_comment(recentRows);
+        } else {
+          if (data.status == 606) {
+            Swal.fire('Warning!\n지속적인 도배 시도시\nIP가 차단될 수 있습니다.');
+            inputAuthor.value = '';
+            inputPassword.value = '';
+            inputContent.value = '';
+          } else if (data.status === 607) {
+            alert('지나친 댓글 도배를 확인하여\n접근을 차단합니다.');
+            window.location.href = 'https://google.com';
+          } else {}
         }
       })
       .catch(err => console.error(err));

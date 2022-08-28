@@ -151,6 +151,30 @@
   </ul>
 </div>
 
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    fetch('https://api.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => {
+        return data.ip
+      })
+      .then(ip => {
+        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/ip_checker.php';
+        return postFetch(url, { user_ip: ip });
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.ok) {
+          console.log(data);
+        } else {
+          alert('지나친 댓글 도배를 확인하여\n접근을 차단합니다.')
+          window.location.href = 'https://google.com';
+        }
+      })
+      .catch(err => console.error(err));
+  });
+</script>
+
   
   <div class="wrapper">
     <div class="content">
@@ -337,7 +361,7 @@ $\lim \limits\_{x \rightarrow a^-}f(x) = f(a-)$
 <aside style="text-align: right;">
     2019-03-02&emsp;
     전기현&emsp;
-    <a href="../797">🎲 934</a>
+    <a href="../505">🎲 934</a>
 </aside>
 
 <script>
@@ -519,15 +543,21 @@ $\lim \limits\_{x \rightarrow a^-}f(x) = f(a-)$
     const board_slug = 'proof-of-that-fourier-series-of-f-converges-f';
     const board_title = '리만적분가능한 함수의 푸리에 급수는 수렴한다';
 
-    const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeComment';
-    postFetch(url, {
-      board_idx: idx,
-      board_slug: board_slug,
-      board_title: board_title,
-      author: author.replace(/\+/g, "%2B"),
-      password: password,
-      content: content.replace(/\+/g, "%2B")
-    })
+    fetch('https://api.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => {return data.ip})
+      .then(ip => {
+        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeComment';
+        return postFetch(url, {
+                board_idx: idx,
+                board_slug: board_slug,
+                board_title: board_title,
+                author: author.replace(/\+/g, "%2B"),
+                password: password,
+                content: content.replace(/\+/g, "%2B"),
+                user_ip: ip
+              });
+      })
       .then(res => res.json())
       .then(data => {
         if (data.ok) {
@@ -539,6 +569,16 @@ $\lim \limits\_{x \rightarrow a^-}f(x) = f(a-)$
 
           recentRows.splice(-1, 1);
           render_recent_comment(recentRows);
+        } else {
+          if (data.status === 606) {
+            Swal.fire('Warning!\n지속적인 도배 시도시\nIP가 차단될 수 있습니다.');
+            inputAuthor.value = '';
+            inputPassword.value = '';
+            inputContent.value = '';
+          } else if (data.status === 607) {
+            alert('지나친 댓글 도배를 확인하여\n접근을 차단합니다.');
+            window.location.href = 'https://google.com';
+          } else {}
         }
       })
       .catch(err => console.error(err));
@@ -747,16 +787,22 @@ $\lim \limits\_{x \rightarrow a^-}f(x) = f(a-)$
     const board_slug = 'proof-of-that-fourier-series-of-f-converges-f';
     const board_title = '리만적분가능한 함수의 푸리에 급수는 수렴한다';
 
-    const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeReComment';
-    postFetch(url, {
-      board_idx: board_idx,
-      board_slug: board_slug,
-      board_title: board_title,
-      cmt_idx: cmt_idx,
-      author: author.replace(/\+/g, "%2B"),
-      password: password,
-      content: content.replace(/\+/g, "%2B")
-    })
+    fetch('https://api.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => {return data.ip})
+      .then(ip => {
+        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeComment';
+        return postFetch(url, {
+                board_idx: board_idx,
+                board_slug: board_slug,
+                board_title: board_title,
+                cmt_idx: cmt_idx,
+                author: author.replace(/\+/g, "%2B"),
+                password: password,
+                content: content.replace(/\+/g, "%2B"),
+                user_ip: ip
+              });
+      })
       .then(res => res.json())
       .then(data => {
         if (data.ok) {
@@ -770,6 +816,16 @@ $\lim \limits\_{x \rightarrow a^-}f(x) = f(a-)$
           recentRows.splice(-1, 1);
           recentRows.unshift(data.row);
           render_recent_comment(recentRows);
+        } else {
+          if (data.status == 606) {
+            Swal.fire('Warning!\n지속적인 도배 시도시\nIP가 차단될 수 있습니다.');
+            inputAuthor.value = '';
+            inputPassword.value = '';
+            inputContent.value = '';
+          } else if (data.status === 607) {
+            alert('지나친 댓글 도배를 확인하여\n접근을 차단합니다.');
+            window.location.href = 'https://google.com';
+          } else {}
         }
       })
       .catch(err => console.error(err));
