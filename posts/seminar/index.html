@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/seminar\/",
-    "wordCount" : "1464",
+    "wordCount" : "1465",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -260,13 +260,13 @@ $$</p>
 <p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서 <a href="../548">회귀분석</a>을 하기 위한 <code>GLM.jl</code> 패키지를 간략하게 소개한다. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> <a href="../../categories/r">R</a>에서의 인터페이스와 얼마나 흡사한지 강조하기 위해 세세한 설명은 생략한다.</p>
 <h2 id="코드">코드</h2>
 <h3 id="줄리아">줄리아</h3>
-<pre tabindex="0"><code>using GLM, RDatasets
+<pre><code>using GLM, RDatasets
 
-faithful = dataset(&#34;datasets&#34;, &#34;faithful&#34;)
+faithful = dataset(&quot;datasets&quot;, &quot;faithful&quot;)
 
 out1 = lm(@formula(Waiting ~ Eruptions), faithful)
 </code></pre><p>위 코드를 실행한 결과는 다음과 같다.</p>
-<pre tabindex="0"><code>julia&gt; out1 = lm(@formula(Waiting ~ Eruptions), faithful)
+<pre><code>julia&gt; out1 = lm(@formula(Waiting ~ Eruptions), faithful)
 StatsModels.TableRegressionModel{LinearModel{GLM.LmResp{Vector{Float64}}, GLM.DensePredChol{Float64, LinearAlgebra.CholeskyPivoted{Float64, Matrix{Float64}}}}, Matrix{Float64}}
 
 Waiting ~ 1 + Eruptions
@@ -280,8 +280,8 @@ Eruptions    10.7296    0.314753  34.09    &lt;1e-99    10.11      11.3493
 ───────────────────────────────────────────────────────────────────────
 </code></pre><p><a href="../652">R 에서 회귀분석한 결과</a>와 비교해 보아라.</p>
 <h3 id="r과의-비교">R과의 비교</h3>
-<pre tabindex="0"><code>out1&lt;-lm(waiting~eruptions,data=faithful); summary(out1)
-</code></pre><pre tabindex="0"><code>out1 = lm(@formula(Waiting ~ Eruptions), faithful)
+<pre><code>out1&lt;-lm(waiting~eruptions,data=faithful); summary(out1)
+</code></pre><pre><code>out1 = lm(@formula(Waiting ~ Eruptions), faithful)
 </code></pre><p>위는 <a href="../../categories/r">R</a> 코드고, 아래는 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다. 변수를 넣기 위해 <code>@formula</code> 매크로를 사용했고, 그를 통해 R의 컨벤션을 거의 완벽하게 재현했음을 알 수 있다.</p>
 <h2 id="환경">환경</h2>
 <ul>
@@ -294,7 +294,7 @@ Eruptions    10.7296    0.314753  34.09    &lt;1e-99    10.11      11.3493
 <h2 id="개요-1">개요</h2>
 <p><a href="../../categories/r">R 언어</a>의 합계 <code>sum()</code>이나 평균 <code>mean()</code>에서는 함수 그 자체가 해당 결측치를 무시할 수 있는 옵션을 가지고 있는데, <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서는 그런 옵션이 없는 대신 <strong>함수형 프로그래밍</strong><sup>Functional Programming</sup>적인 방법을 적극적으로 사용한다.</p>
 <h2 id="코드-1">코드</h2>
-<pre tabindex="0"><code>julia&gt; data = [0,1,2,3,0]
+<pre><code>julia&gt; data = [0,1,2,3,0]
 5-element Vector{Int64}:
  0
  1
@@ -318,44 +318,44 @@ julia&gt; sum(data) / sum(!iszero, data)
 <h1 id="줄리아에서-환경변수-참조하는-법">줄리아에서 환경변수 참조하는 법</h1>
 <p>How to Refer to Enviroment Variables in julia</p>
 <h2 id="개요-2">개요</h2>
-<p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서 환경변수를 참조하는 법을 설명한다.<sup id="fnref1:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서 환경변수를 참조하는 법을 설명한다.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <h2 id="코드-2">코드</h2>
-<pre tabindex="0"><code>Base.ENV
-Base.ENV[&#34;JULIA_NUM_THREADS&#34;]
+<pre><code>Base.ENV
+Base.ENV[&quot;JULIA_NUM_THREADS&quot;]
 </code></pre><p>환경변수는 보다시피 별도의 패키지 로드가 필요하지 않고 <code>Base.ENV</code>를 통해 바로 접근할 수 있다. <a href="../2201">딕셔너리</a>로써 읽히기 때문에 원하는 환경변수의 이름을 키로 두면 해당 환경변수를 문자열로 얻는다. 위 코드 두 줄의 실행결과는 다음과 같다.</p>
-<pre tabindex="0"><code>julia&gt; Base.ENV
+<pre><code>julia&gt; Base.ENV
 Base.EnvDict with 62 entries:
-  &#34;ALLUSERSPROFILE&#34;              =&gt; &#34;C:\\ProgramData&#34;
-  &#34;APPDATA&#34;                      =&gt; &#34;C:\\Users\\rmsms\\AppData\\Roaming&#34;
-  &#34;CHROME_CRASHPAD_PIPE_NAME&#34;    =&gt; &#34;\\\\.\\pipe\\crashpad_14984_WLSYYXMTXMJWXZQG&#34;
-  &#34;COMMONPROGRAMFILES&#34;           =&gt; &#34;C:\\Program Files\\Common Files&#34;
-  &#34;COMMONPROGRAMFILES(X86)&#34;      =&gt; &#34;C:\\Program Files (x86)\\Common Files&#34;
-  &#34;COMMONPROGRAMW6432&#34;           =&gt; &#34;C:\\Program Files\\Common Files&#34;
-  &#34;COMPUTERNAME&#34;                 =&gt; &#34;SICKRIGHT&#34;
-  &#34;COMSPEC&#34;                      =&gt; &#34;C:\\WINDOWS\\system32\\cmd.exe&#34;
-  &#34;CUDA_PATH&#34;                    =&gt; &#34;C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v11.5&#34;
-  &#34;CUDA_PATH_V11_5&#34;              =&gt; &#34;C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v11.5&#34;
-  &#34;DRIVERDATA&#34;                   =&gt; &#34;C:\\Windows\\System32\\Drivers\\DriverData&#34;
-  &#34;GOPATH&#34;                       =&gt; &#34;C:\\Users\\rmsms\\go&#34;
-  &#34;HOMEDRIVE&#34;                    =&gt; &#34;C:&#34;
-  &#34;HOMEPATH&#34;                     =&gt; &#34;\\Users\\rmsms&#34;
-  &#34;JULIA_NUM_THREADS&#34;            =&gt; &#34;16&#34;
-  &#34;LOCALAPPDATA&#34;                 =&gt; &#34;C:\\Users\\rmsms\\AppData\\Local&#34;
-  &#34;LOGONSERVER&#34;                  =&gt; &#34;\\\\SICKRIGHT&#34;
-  &#34;NAVER&#34;                        =&gt; &#34;e=2.718281&#34;
-  &#34;NUMBER_OF_PROCESSORS&#34;         =&gt; &#34;16&#34;
-  &#34;NVCUDASAMPLES11_5_ROOT&#34;       =&gt; &#34;C:\\ProgramData\\NVIDIA Corporation\\CUDA Samples\\v11.5&#34;
-  &#34;NVCUDASAMPLES_ROOT&#34;           =&gt; &#34;C:\\ProgramData\\NVIDIA Corporation\\CUDA Samples\\v11.5&#34;
-  &#34;NVTOOLSEXT_PATH&#34;              =&gt; &#34;C:\\Program Files\\NVIDIA Corporation\\NvToolsExt\\&#34;
-  &#34;ONEDRIVE&#34;                     =&gt; &#34;C:\\Users\\rmsms\\OneDrive - knu.ac.kr&#34;
-  &#34;ONEDRIVECOMMERCIAL&#34;           =&gt; &#34;C:\\Users\\rmsms\\OneDrive - knu.ac.kr&#34;
-  &#34;ONEDRIVECONSUMER&#34;             =&gt; &#34;C:\\Users\\rmsms\\OneDrive&#34;
-  &#34;OPENBLAS_MAIN_FREE&#34;           =&gt; &#34;1&#34;
-  &#34;OPENBLAS_NUM_THREADS&#34;         =&gt; &#34;8&#34;
+  &quot;ALLUSERSPROFILE&quot;              =&gt; &quot;C:\\ProgramData&quot;
+  &quot;APPDATA&quot;                      =&gt; &quot;C:\\Users\\rmsms\\AppData\\Roaming&quot;
+  &quot;CHROME_CRASHPAD_PIPE_NAME&quot;    =&gt; &quot;\\\\.\\pipe\\crashpad_14984_WLSYYXMTXMJWXZQG&quot;
+  &quot;COMMONPROGRAMFILES&quot;           =&gt; &quot;C:\\Program Files\\Common Files&quot;
+  &quot;COMMONPROGRAMFILES(X86)&quot;      =&gt; &quot;C:\\Program Files (x86)\\Common Files&quot;
+  &quot;COMMONPROGRAMW6432&quot;           =&gt; &quot;C:\\Program Files\\Common Files&quot;
+  &quot;COMPUTERNAME&quot;                 =&gt; &quot;SICKRIGHT&quot;
+  &quot;COMSPEC&quot;                      =&gt; &quot;C:\\WINDOWS\\system32\\cmd.exe&quot;
+  &quot;CUDA_PATH&quot;                    =&gt; &quot;C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v11.5&quot;
+  &quot;CUDA_PATH_V11_5&quot;              =&gt; &quot;C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v11.5&quot;
+  &quot;DRIVERDATA&quot;                   =&gt; &quot;C:\\Windows\\System32\\Drivers\\DriverData&quot;
+  &quot;GOPATH&quot;                       =&gt; &quot;C:\\Users\\rmsms\\go&quot;
+  &quot;HOMEDRIVE&quot;                    =&gt; &quot;C:&quot;
+  &quot;HOMEPATH&quot;                     =&gt; &quot;\\Users\\rmsms&quot;
+  &quot;JULIA_NUM_THREADS&quot;            =&gt; &quot;16&quot;
+  &quot;LOCALAPPDATA&quot;                 =&gt; &quot;C:\\Users\\rmsms\\AppData\\Local&quot;
+  &quot;LOGONSERVER&quot;                  =&gt; &quot;\\\\SICKRIGHT&quot;
+  &quot;NAVER&quot;                        =&gt; &quot;e=2.718281&quot;
+  &quot;NUMBER_OF_PROCESSORS&quot;         =&gt; &quot;16&quot;
+  &quot;NVCUDASAMPLES11_5_ROOT&quot;       =&gt; &quot;C:\\ProgramData\\NVIDIA Corporation\\CUDA Samples\\v11.5&quot;
+  &quot;NVCUDASAMPLES_ROOT&quot;           =&gt; &quot;C:\\ProgramData\\NVIDIA Corporation\\CUDA Samples\\v11.5&quot;
+  &quot;NVTOOLSEXT_PATH&quot;              =&gt; &quot;C:\\Program Files\\NVIDIA Corporation\\NvToolsExt\\&quot;
+  &quot;ONEDRIVE&quot;                     =&gt; &quot;C:\\Users\\rmsms\\OneDrive - knu.ac.kr&quot;
+  &quot;ONEDRIVECOMMERCIAL&quot;           =&gt; &quot;C:\\Users\\rmsms\\OneDrive - knu.ac.kr&quot;
+  &quot;ONEDRIVECONSUMER&quot;             =&gt; &quot;C:\\Users\\rmsms\\OneDrive&quot;
+  &quot;OPENBLAS_MAIN_FREE&quot;           =&gt; &quot;1&quot;
+  &quot;OPENBLAS_NUM_THREADS&quot;         =&gt; &quot;8&quot;
   ⋮                              =&gt; ⋮
 
-julia&gt; Base.ENV[&#34;JULIA_NUM_THREADS&#34;]
-&#34;16&#34;
+julia&gt; Base.ENV[&quot;JULIA_NUM_THREADS&quot;]
+&quot;16&quot;
 </code></pre><h2 id="환경-2">환경</h2>
 <ul>
 <li>OS: Windows</li>
@@ -365,9 +365,9 @@ julia&gt; Base.ENV[&#34;JULIA_NUM_THREADS&#34;]
 <h1 id="줄리아에서-프로그레스바-사용하는-법">줄리아에서 프로그레스바 사용하는 법</h1>
 <p>How to Use Progress Bar in julia</p>
 <h2 id="개요-3">개요</h2>
-<p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서도 프로그램의 진행 상황을 알려주는 <strong>프로그래스바</strong>를 손쉽게 사용할 수 있다. <code>ProgressBars.jl</code> 패키지의 <code>ProgressBar()</code> 함수로 <code>for</code> 루프의 반복자<sup>Iterator</sup>를 감싸면 된다.<sup id="fnref2:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서도 프로그램의 진행 상황을 알려주는 <strong>프로그래스바</strong>를 손쉽게 사용할 수 있다. <code>ProgressBars.jl</code> 패키지의 <code>ProgressBar()</code> 함수로 <code>for</code> 루프의 반복자<sup>Iterator</sup>를 감싸면 된다.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <h2 id="코드-3">코드</h2>
-<pre tabindex="0"><code>using ProgressBars
+<pre><code>using ProgressBars
 
 chi2 = []
 for n in ProgressBar(1:20000)
@@ -381,25 +381,25 @@ end
 <li>julia: v1.7.0</li>
 </ul>
 <hr>
-<pre tabindex="0"><code>using UnicodePlots
+<pre><code>using UnicodePlots
 p1 = lineplot(100 |&gt; randn |&gt; cumsum)
 p1 = lineplot!(p1, 100 |&gt; randn |&gt; cumsum); p1
 
 heatmap(cumsum(abs.(randn(100,100)), dims=2))
-</code></pre><div class="footnotes" role="doc-endnotes">
+</code></pre><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1">
-<p><a href="https://juliastats.org/GLM.jl/v0.11/index.html">https://juliastats.org/GLM.jl/v0.11/index.html</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref2:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://juliastats.org/GLM.jl/v0.11/index.html">https://juliastats.org/GLM.jl/v0.11/index.html</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</div>
+</section>
 
 
 <aside style="text-align: right;">
     2021-01-01&emsp;
     류대식&emsp;
-    <a href="../1223">🎲 2000</a>
+    <a href="../2085">🎲 2000</a>
 </aside>
 
 <script>

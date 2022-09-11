@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/lorenz-attractor\/",
-    "wordCount" : "1431",
+    "wordCount" : "1432",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -262,7 +262,7 @@ $$</p>
 <h2 id="코드">코드</h2>
 <h3 id="매트랩">매트랩</h3>
 <p>다음은 <a href="../../categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9">매트랩</a>을 통해 로렌츠 어트랙터의 궤적을 그려주는 코드다.</p>
-<pre tabindex="0"><code>sigma = 10;
+<pre><code>sigma = 10;
 beta = 8/3;
 rho = 28;
 f = @(t,v) [-sigma*v(1) + sigma*v(2); rho*v(1) - v(2) - v(1)*v(3); -beta*v(3) + v(1)*v(2)];
@@ -274,7 +274,7 @@ plot3(x,y,z)
 %plot(x,z)
 </code></pre><h3 id="포트란">포트란</h3>
 <p>다음은 포트란을 통해 바이퍼케이션 다이어그램의 소스를 만들고 <code>OUTPUT.csv</code> 파일로 돌려주는 코드다. ODE를 풀기위해 사용된 메소드는 <a href="../796">RK4</a>다.</p>
-<pre tabindex="0"><code>program LorenzBifurcation
+<pre><code>program LorenzBifurcation
   implicit none
   double precision :: sigma=10.d0, rho=28.d0, beta=8.d0/3.d0
   Integer, parameter :: D = 3
@@ -287,11 +287,11 @@ plot3(x,y,z)
        double precision :: v(D), func(D)
      end function func
   end interface
-  open(UNIT=34,FILE=&#34;OUTPUT.csv&#34;,ACTION=&#34;WRITE&#34;)
+  open(UNIT=34,FILE=&quot;OUTPUT.csv&quot;,ACTION=&quot;WRITE&quot;)
   rho=5.d0
   h=0.01d0
   do while(rho&lt;325)
-    print &#39;(A,f6.4,A)&#39;, &#34;Now&#34;, (rho-5.d0)/320.d0, &#34;%&#34;
+    print '(A,f6.4,A)', &quot;Now&quot;, (rho-5.d0)/320.d0, &quot;%&quot;
     do i=1, preitr
        v = RK4(v,f)
     end do
@@ -304,7 +304,7 @@ plot3(x,y,z)
        z2 = z3
        z3 = v(3)
        if(z1&lt;z2 .and. z2&gt;z3) then
-         write (34,*) rho, &#34;,&#34;, z2
+         write (34,*) rho, &quot;,&quot;, z2
        end if
     end do
     v=1.d0
@@ -329,14 +329,14 @@ contains
   end function f
 end program LorenzBifurcation
 </code></pre><p>다음은 매트랩을 통해 위에서 얻은 <code>OUTPUT.csv</code> 파일을 이용해 바이퍼케이션 다이어그램을 그려주는 코드다.</p>
-<pre tabindex="0"><code>[file,path] = uigetfile(&#39;*.csv&#39;);
+<pre><code>[file,path] = uigetfile('*.csv');
 data = csvread([path,file]);
  
 sz = 0.6;
-scatter(data(:,1),data(:,2),sz,&#39;.&#39;);
+scatter(data(:,1),data(:,2),sz,'.');
 </code></pre><h3 id="줄리아">줄리아</h3>
 <p>다음은 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>로 로렌츠 어트랙터를 찾고 그림을 그려주는 코드다.</p>
-<pre tabindex="0"><code>using DifferentialEquations
+<pre><code>using DifferentialEquations
 using Plots
 
 function parameterized_lorenz!(du,u,p,t)
@@ -352,20 +352,20 @@ p = [10.0,28.0,8/3]
 prob = ODEProblem(parameterized_lorenz!,u0,tspan,p)
 solution = solve(prob)
 plot(solution, vars = (1,2,3))
-</code></pre><div class="footnotes" role="doc-endnotes">
+</code></pre><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1">
-<p><a href="https://en.wikipedia.org/wiki/Lorenz_system#Overview">https://en.wikipedia.org/wiki/Lorenz_system#Overview</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://en.wikipedia.org/wiki/Lorenz_system#Overview">https://en.wikipedia.org/wiki/Lorenz_system#Overview</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</div>
+</section>
 
 
 <aside style="text-align: right;">
     2019-02-19&emsp;
     류대식&emsp;
-    <a href="../1205">🎲 867</a>
+    <a href="../2050">🎲 867</a>
 </aside>
 
 <script>
