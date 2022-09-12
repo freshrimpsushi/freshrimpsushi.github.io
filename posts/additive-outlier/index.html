@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/additive-outlier\/",
-    "wordCount" : "778",
+    "wordCount" : "759",
     "genre" : [ "R" ],
     "keywords" : [ "R" ]
 }
@@ -231,32 +231,32 @@
 <p>실제로 AO가 반영되고나면 AO 그 지점은 물론, 다른 곳에서의 피팅도 더욱 개선되는 것을 알 수 있다.</p>
 <h2 id="코드">코드</h2>
 <p>다음은 <a href="../../categories/r">R</a>로 작성된 예제코드다. 적절한 예시가 없어서 <a href="example.csv">데이터</a>를 첨부했는데, 코드에 링크를 그대로 걸어두었으니 귀찮게 직접 다운 받을 필요는 없을 것이다.</p>
-<pre tabindex="0"><code>library(TSA)
+<pre><code>library(TSA)
 library(forecast)
-PM10&lt;-read.csv(&#34;https://freshrimpsushi.github.io/posts/additive-outlier/example.csv&#34;)
+PM10&lt;-read.csv(&quot;https://freshrimpsushi.github.io/posts/additive-outlier/example.csv&quot;)
 PM10 = ts(PM10[1:365,],start=2015,frequency = 365)
-win.graph(6,4); plot(PM10,main=&#34;한국의 미세먼지 농도&#34;,xaxt=&#39;n&#39;); axis(side=1,at=c(2015,2016))
+win.graph(6,4); plot(PM10,main=&quot;한국의 미세먼지 농도&quot;,xaxt='n'); axis(side=1,at=c(2015,2016))
 out1&lt;-auto.arima(PM10)
 detectAO(out1)
 ao=rep(0,365); ao[54]&lt;-1
 out2&lt;-auto.arima(PM10,xreg=ao)
 win.graph(6,4); par(mfrow=c(1,2))
-plot(PM10,main=&#34;AO 미반영&#34;,xlim=c(2015.1,2015.3),xaxt=&#39;n&#39;); lines(fitted(out1),col=&#39;red&#39;)
-plot(PM10,main=&#34;AO 반영&#34;,xlim=c(2015.1,2015.3),xaxt=&#39;n&#39;); lines(fitted(out2),col=&#39;red&#39;)
-</code></pre><div class="footnotes" role="doc-endnotes">
+plot(PM10,main=&quot;AO 미반영&quot;,xlim=c(2015.1,2015.3),xaxt='n'); lines(fitted(out1),col='red')
+plot(PM10,main=&quot;AO 반영&quot;,xlim=c(2015.1,2015.3),xaxt='n'); lines(fitted(out2),col='red')
+</code></pre><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1">
-<p>Cryer. (2008). Time Series Analysis: With Applications in R(2nd Edition): p257.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1" role="doc-endnote">
+<p>Cryer. (2008). Time Series Analysis: With Applications in R(2nd Edition): p257. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</div>
+</section>
 
 
 <aside style="text-align: right;">
     2019-08-25&emsp;
     류대식&emsp;
-    <a href="../430">🎲 1258</a>
+    <a href="../1941">🎲 1258</a>
 </aside>
 
 <script>

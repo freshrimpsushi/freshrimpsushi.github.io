@@ -229,7 +229,7 @@
 <h2 id="모델">모델</h2>
 <p><img src="01_malthusian_growth_integration.gif#center" alt="01\_malthusian\_growth\_integration.gif"></p>
 <p>$$
-N &rsquo; = rN
+N ' = rN
 $$</p>
 <h3 id="변수">변수</h3>
 <ul>
@@ -277,7 +277,7 @@ $$</p>
 <li>번식: <code>b</code>의 확률로 자신의 위치에 새로운 에이전트를 만든다.</li>
 <li>사망: <code>d</code>의 확률로 시뮬레이션에서 제외된다.</li>
 </ul>
-<pre tabindex="0"><code>b # 번식률
+<pre><code>b # 번식률
 d # 사망률
 replicated = (rand(N) .&lt; b) # 번식 판정
 new\_coordinate = coordinate[replicated,:]
@@ -286,19 +286,19 @@ coordinate = cat(coordinate, new\_coordinate, dims = 1);
 </code></pre><p>에이전트의 <a href="../1880">번식</a>과 <a href="../1884">사망</a>이라는 간단한 액션만을 사용했고 시스템에서 고유성장률 $r$ 에 해당하는 파라메터가 바뀜에 따라 시스템이 어떻게 변하는지 체크하면 충분하다.</p>
 <p>주의해야할 것은 시뮬레이션에 사용되는 번식확률 <code>b</code> 와 시스템의 번식률 $b$, 사망확률 <code>d</code> 와 시스템의 사망률 $d$ 는 대개 같지 않다는 것이다. 미분방정식으로 표현되는 <a href="../1505">자율 시스템</a>과는 정확히 일치하지 않아 시뮬레이션에 대한 피팅은 그럭저럭 적절한 파라메터를 직관적으로 찾는 식으로 이루어졌다.</p>
 <h3 id="r0-인-경우">$r&gt;0$ 인 경우</h3>
-<pre tabindex="0"><code>N0 = 50 # 초기 인구수
+<pre><code>N0 = 50 # 초기 인구수
 b = 0.05 # 번식률
 d = 0.02 # 사망률
 </code></pre><p><img src="malthusian_growth_integration1.gif#center" alt="malthusian\_growth\_integration1.gif"></p>
 <p>시뮬레이션인만큼 처음에는 살짝 주춤할수도 있지만 번식률이 사망률보다 크기 때문에 결국은 폭발적인 성장이 일어난다.</p>
 <h3 id="r0-인-경우-1">$r&lt;0$ 인 경우</h3>
-<pre tabindex="0"><code>N0 = 50 # 초기 인구수
+<pre><code>N0 = 50 # 초기 인구수
 b = 0.04 # 번식률
 d = 0.05 # 사망률
 </code></pre><p><img src="malthusian_growth_integration2.gif#center" alt="malthusian\_growth\_integration2.gif"></p>
 <p>이론적인 절멸 수순을 거의 정확하게 밟아가는 것을 볼 수 있다.</p>
 <h3 id="r0-인-경우-2">$r=0$ 인 경우</h3>
-<pre tabindex="0"><code>N0 = 50 # 초기 인구수
+<pre><code>N0 = 50 # 초기 인구수
 b = 0.05 # 번식률
 d = 0.05 # 사망률
 </code></pre><p><img src="malthusian_growth_integration3.gif#center" alt="malthusian\_growth\_integration3.gif"></p>
@@ -308,7 +308,7 @@ d = 0.05 # 사망률
 </ul>
 <h2 id="코드">코드</h2>
 <p>다음은 이 포스트에 쓰인 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다.</p>
-<pre tabindex="0"><code>cd(@__DIR__) # 파일 저장 경로
+<pre><code>cd(@__DIR__) # 파일 저장 경로
 
 @time using Plots
 @time using Random
@@ -333,7 +333,7 @@ sol = solve(prob; saveat=(0.0:0.1:1.8))
 
 compare = plot(sol,vars=(0,1),
   linestyle = :dash,  color = :black,
-  size = (400,300), label = &#34;Theoretical&#34;, legend=:topleft)
+  size = (400,300), label = &quot;Theoretical&quot;, legend=:topleft)
 
 #---
 
@@ -346,7 +346,7 @@ gaussian2 = MvNormal([0.0; 0.0], 0.03I) # 2차원 정규분포
 Random.seed!(0)
 time_evolution = [] # 인구수를 기록하기 위한
 let
-  coordinate = rand(gaussian2, N0)&#39;
+  coordinate = rand(gaussian2, N0)'
   N = N0
 
   anim = @animate for t = (0:max_iteration)/100
@@ -355,7 +355,7 @@ let
 
     plot!(figure[1], coordinate[:,1], coordinate[:,2], Seriestype = :scatter,
       markercolor = RGB(1.,94/255,0.), markeralpha = 0.4, markerstrokewidth	= 0.1,
-      aspect_ratio = 1, title = &#34;t = $t&#34;,
+      aspect_ratio = 1, title = &quot;t = $t&quot;,
       xaxis=true,yaxis=true,axis=nothing, legend = false)
       xlims!(figure[1], -10.,10.)
       ylims!(figure[1], -10.,10.)
@@ -367,23 +367,23 @@ let
 
     N = size(coordinate, 1)
     push!(time_evolution, N)
-    coordinate = coordinate + rand(gaussian2, N)&#39;
+    coordinate = coordinate + rand(gaussian2, N)'
 
     if t &lt; 0.9
       plot!(figure[2], sol,vars=(0,1),
         linestyle = :dash,  color = :black,
-        label = &#34;Theoretical&#34;, legend=:bottomright)
+        label = &quot;Theoretical&quot;, legend=:bottomright)
     else
       plot!(figure[2], sol,vars=(0,1),
         linestyle = :dash,  color = :black,
-        label = &#34;Theoretical&#34;, legend=:topleft)
+        label = &quot;Theoretical&quot;, legend=:topleft)
     end
     plot!(figure[2], 0.0:0.01:t, Time_evolution,
-      color = RGB(1.,94/255,0.), linewidth = 2, label = &#34;Simulation&#34;,
+      color = RGB(1.,94/255,0.), linewidth = 2, label = &quot;Simulation&quot;,
       yscale = :log10, yticks = 10 .^(1:4))
     ylims!(figure[2], 0.,min(time_evolution[end]*2,10000.))
   end
-  gif(anim, &#34;malthusian_growth_integration1.gif&#34;, fps = 18)
+  gif(anim, &quot;malthusian_growth_integration1.gif&quot;, fps = 18)
 end
 
 #---
@@ -403,7 +403,7 @@ sol = solve(prob; saveat=(0.0:0.1:1.8))
 
 compare = plot(sol,vars=(0,1),
   linestyle = :dash,  color = :black,
-  size = (400,300), label = &#34;Theoretical&#34;, legend=:topleft)
+  size = (400,300), label = &quot;Theoretical&quot;, legend=:topleft)
 
 
 #---
@@ -417,7 +417,7 @@ gaussian2 = MvNormal([0.0; 0.0], 0.03I) # 2차원 정규분포
 Random.seed!(0)
 time_evolution = [] # 인구수를 기록하기 위한
 let
-  coordinate = rand(gaussian2, N0)&#39;
+  coordinate = rand(gaussian2, N0)'
   N = N0
 
   anim = @animate for t = (0:max_iteration)/100
@@ -426,7 +426,7 @@ let
 
     plot!(figure[1], coordinate[:,1], coordinate[:,2], Seriestype = :scatter,
       markercolor = RGB(1.,94/255,0.), markeralpha = 0.4, markerstrokewidth	= 0.1,
-      aspect_ratio = 1, title = &#34;t = $t&#34;,
+      aspect_ratio = 1, title = &quot;t = $t&quot;,
       xaxis=true,yaxis=true,axis=nothing, legend = false)
       xlims!(figure[1], -10.,10.)
       ylims!(figure[1], -10.,10.)
@@ -438,18 +438,18 @@ let
 
     N = size(coordinate, 1)
     push!(time_evolution, N)
-    coordinate = coordinate + rand(gaussian2, N)&#39;
+    coordinate = coordinate + rand(gaussian2, N)'
 
 
     plot!(figure[2], sol,vars=(0,1),
       linestyle = :dash,  color = :black,
-      label = &#34;Theoretical&#34;, legend=:topright)
+      label = &quot;Theoretical&quot;, legend=:topright)
     plot!(figure[2], 0.0:0.01:t, Time_evolution,
-      color = RGB(1.,94/255,0.), linewidth = 2, label = &#34;Simulation&#34;,
+      color = RGB(1.,94/255,0.), linewidth = 2, label = &quot;Simulation&quot;,
       yscale = :log10, yticks = 10 .^(1:4))
     ylims!(figure[2], 0., 50.)
   end
-  gif(anim, &#34;malthusian_growth_integration2.gif&#34;, fps = 18)
+  gif(anim, &quot;malthusian_growth_integration2.gif&quot;, fps = 18)
 end
 
 
@@ -470,7 +470,7 @@ sol = solve(prob; saveat=(0.0:0.1:3.0))
 
 compare = plot(sol,vars=(0,1),
   linestyle = :dash,  color = :black,
-  size = (400,300), label = &#34;Theoretical&#34;, legend=:topleft)
+  size = (400,300), label = &quot;Theoretical&quot;, legend=:topleft)
 
 
 #---
@@ -484,7 +484,7 @@ gaussian2 = MvNormal([0.0; 0.0], 0.03I) # 2차원 정규분포
 Random.seed!(0)
 time_evolution = [] # 인구수를 기록하기 위한
 let
-  coordinate = rand(gaussian2, N0)&#39;
+  coordinate = rand(gaussian2, N0)'
   N = N0
 
   anim = @animate for t = (0:max_iteration)/100
@@ -493,7 +493,7 @@ let
 
     plot!(figure[1], coordinate[:,1], coordinate[:,2], Seriestype = :scatter,
       markercolor = RGB(1.,94/255,0.), markeralpha = 0.4, markerstrokewidth	= 0.1,
-      aspect_ratio = 1, title = &#34;t = $t&#34;,
+      aspect_ratio = 1, title = &quot;t = $t&quot;,
       xaxis=true,yaxis=true,axis=nothing, legend = false)
       xlims!(figure[1], -10.,10.)
       ylims!(figure[1], -10.,10.)
@@ -505,25 +505,25 @@ let
 
     N = size(coordinate, 1)
     push!(time_evolution, N)
-    coordinate = coordinate + rand(gaussian2, N)&#39;
+    coordinate = coordinate + rand(gaussian2, N)'
 
 
     plot!(figure[2], sol,vars=(0,1),
       linestyle = :dash,  color = :black,
-      label = &#34;Theoretical&#34;, legend=:topleft)
+      label = &quot;Theoretical&quot;, legend=:topleft)
     plot!(figure[2], 0.0:0.01:t, Time_evolution,
-      color = RGB(1.,94/255,0.), linewidth = 2, label = &#34;Simulation&#34;,
+      color = RGB(1.,94/255,0.), linewidth = 2, label = &quot;Simulation&quot;,
       yscale = :log10, yticks = 10 .^(1:4))
     ylims!(figure[2], 0., 100.)
   end
-  gif(anim, &#34;malthusian_growth_integration3.gif&#34;, fps = 18)
+  gif(anim, &quot;malthusian_growth_integration3.gif&quot;, fps = 18)
 end
 </code></pre>
 
 <aside style="text-align: right;">
     2020-12-31&emsp;
     류대식&emsp;
-    <a href="../2121">🎲 1871</a>
+    <a href="../308">🎲 1871</a>
 </aside>
 
 <script>

@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-use-calculus.jl-in-julia\/",
-    "wordCount" : "2462",
+    "wordCount" : "2467",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -249,7 +249,7 @@
 <li><code>derivative(f)</code> 혹은 <code>derivative(f, :x)</code>: 도함수 $f^{\prime}$을 리턴한다.</li>
 <li><code>derivative(f, a)</code>: 미분계수 $f^{\prime}(a)$를 리턴한다.</li>
 </ul>
-<pre tabindex="0"><code>julia&gt; f(x) = 1 + 2x + 3x^2
+<pre><code>julia&gt; f(x) = 1 + 2x + 3x^2
 f (generic function with 1 method)
 
 julia&gt; g(x) = sin(x)
@@ -267,15 +267,15 @@ julia&gt; Df = derivative(f)
 julia&gt; Dg = derivative(g)
 #1 (generic function with 1 method)
 
-#f&#39;(x) = 2 + 6x
+#f'(x) = 2 + 6x
 julia&gt; Df(1)
 7.99999999996842
 
-#g&#39;(x) = cos x
+#g'(x) = cos x
 julia&gt; Dg(pi)
 -0.9999999999441258
 </code></pre><p><a href="../1942">합성함수</a>도 미분할 수 있다.</p>
-<pre tabindex="0"><code>#f∘g(x) = (2 + 6 sin x)cos x
+<pre><code>#f∘g(x) = (2 + 6 sin x)cos x
 
 julia&gt; derivative(f∘g)
 #1 (generic function with 1 method)
@@ -288,7 +288,7 @@ julia&gt; (2+6sin(pi/4))cos(pi/4)
 </code></pre><h3 id="2계도함수-second_derivative">2계도함수 <code>second_derivative()</code></h3>
 <p>$f : \R \to \R$의 이계도함수를 구해준다.</p>
 <p><code>derivative()</code>로 반환된 함수는 정수를 입력값으로 쓸 수 있지만, <code>second_derivative()</code>는 정수형 타입을 쓸 수 없다. 무리수 타입도 쓸 수 없다.</p>
-<pre tabindex="0"><code>julia&gt; derivative(f, 1)
+<pre><code>julia&gt; derivative(f, 1)
 7.99999999996842
 
 julia&gt; second_derivative(f, 1)
@@ -317,7 +317,7 @@ julia&gt; second_derivative(g, 1pi)
 <h3 id="그래디언트-gradient">그래디언트 <code>gradient()</code></h3>
 <p>$f : \mathbb{R}^{n} \to \mathbb{R}$의 <a href="../1010">그래디언트</a>를 리턴한다.</p>
 <p>주의해야 할 점은 다변수 함수를 정의할 때 진짜 변수가 여러개인 함수로 정의하면 안된다는 것이다. 벡터를 입력으로 받는 일변수 함수로 정의해야 한다. 벡터를 입력으로 받는 함수가 아니면 미분은 할 수 있지만, 값을 계산할 수 없다는 것이다. 다음의 예에서 $f_{1}$과 같이 정의하면 안되고, $f_{2}$와 같이 정의해야한다는 말이다.</p>
-<pre tabindex="0"><code>julia&gt; f₁(x,y,z) = x*y + z^2
+<pre><code>julia&gt; f₁(x,y,z) = x*y + z^2
 f₁ (generic function with 1 method)
 
 julia&gt; Calculus.gradient(f₁)
@@ -327,7 +327,7 @@ julia&gt; ∇f₁ = Calculus.gradient(f₁)
 #2 (generic function with 1 method)
 
 julia&gt; ∇f₁(1,1,1)
-ERROR: MethodError: no method matching (::Calculus.var&#34;#2#4&#34;{typeof(f₁), Symbol})(::Int64, ::Int64, ::Int64)
+ERROR: MethodError: no method matching (::Calculus.var&quot;#2#4&quot;{typeof(f₁), Symbol})(::Int64, ::Int64, ::Int64)
 
 julia&gt; ∇f₁([1,1,1])
 ERROR: MethodError: no method matching f₁(::Vector{Float64})
@@ -352,7 +352,7 @@ julia&gt; ∇f₂ = Calculus.gradient(f₂)
 #2 (generic function with 1 method)
 
 julia&gt; ∇f₂(1,1,1)
-ERROR: MethodError: no method matching (::Calculus.var&#34;#2#4&#34;{typeof(f₂), Symbol})(::Int64, ::Int64, ::Int64)
+ERROR: MethodError: no method matching (::Calculus.var&quot;#2#4&quot;{typeof(f₂), Symbol})(::Int64, ::Int64, ::Int64)
 
 julia&gt; ∇f₂([1,1,1])
 3-element Vector{Float64}:
@@ -362,7 +362,7 @@ julia&gt; ∇f₂([1,1,1])
 </code></pre><h3 id="헤시안-hessian">헤시안 <code>hessian()</code></h3>
 <p>$f : \mathbb{R}^{n} \to \mathbb{R}$의 <a href="../992">헤시안</a>를 리턴한다.</p>
 <p><code>second_derivative()</code>와 마찬가지로 <code>Float</code> 자료형만 입력을 받을 수 있다. <code>gradient()</code>와 마찬가지로 벡터를 입력으로 받는 함수에 대해서만 값을 리턴받을 수 있다.</p>
-<pre tabindex="0"><code>julia&gt; hessian(f₂, [1.,1.,1.])
+<pre><code>julia&gt; hessian(f₂, [1.,1.,1.])
 3×3 Matrix{Float64}:
  3.88008e-7  1.0         0.0
  1.0         3.88008e-7  0.0
@@ -380,14 +380,14 @@ julia&gt; H([1.,1.,1.])
 <p>$f : \mathbb{R}^{m} \to \mathbb{R}^{n}$의 <a href="../989">자코비안</a>를 리턴한다.</p>
 <p><code>second_derivative()</code>와 마찬가지로 <code>Float</code> 자료형만 입력을 받을 수 있다. <code>gradient()</code>와 마찬가지로 벡터를 입력으로 받는 함수에 대해서만 값을 리턴받을 수 있다.</p>
 <p>다른 함수들과는 다르게 <code>jacobian(f, [x, y, z])</code>와 같이 사용하는 건 불가능하다.</p>
-<pre tabindex="0"><code>julia&gt; h(x) = [x[1], x[1]*x[2], x[1]*x[3]^2]
+<pre><code>julia&gt; h(x) = [x[1], x[1]*x[2], x[1]*x[3]^2]
 h (generic function with 2 methods)
 
 julia&gt; jacobian(h, [1.,1.,1.])
 ERROR: MethodError: no method matching jacobian(::typeof(h), ::Vector{Float64})
 
 julia&gt; Jh = jacobian(h)
-(::Calculus.var&#34;#g#5&#34;{typeof(h), Symbol}) (generic function with 1 method)
+(::Calculus.var&quot;#g#5&quot;{typeof(h), Symbol}) (generic function with 1 method)
 
 julia&gt; Jh([1.,1.,1.])
 3×3 Matrix{Float64}:
@@ -399,74 +399,75 @@ julia&gt; Jh([1.,1.,1.])
 <h3 id="differentiate"><code>differentiate()</code></h3>
 <p>심볼릭한 미분을 수행한다.</p>
 <p>상수항과 $x$는 깔끔하게 리턴하는 반면에, $ax$나 $x^{n}$과 같은 경우에는 <a href="../1821">곱의 미분법</a>의 꼴로 리턴한다. 가령 $3x^{2}$을 미분해보면 이를 $3$과 $x^{2}$의 곱으로 보고 $\dfrac{d 3}{dx} x^{2} + 3\dfrac{d x^{2}}{dx}$와 같이 리턴한다는 말이다. 심지어 $x^{2}$도 $1$과 $x^{2}$의 곱으로 본다.</p>
-<pre tabindex="0"><code>julia&gt; differentiate(&#34;1&#34;, :x)
+<pre><code>julia&gt; differentiate(&quot;1&quot;, :x)
 0
 
-julia&gt; differentiate(&#34;1 + x&#34;, :x)
+julia&gt; differentiate(&quot;1 + x&quot;, :x)
 1
 
-julia&gt; differentiate(&#34;x^2&#34;, :x)
+julia&gt; differentiate(&quot;x^2&quot;, :x)
 :(2 * 1 * x ^ (2 - 1))
 
-julia&gt; differentiate(&#34;x^3&#34;, :x)
+julia&gt; differentiate(&quot;x^3&quot;, :x)
 :(3 * 1 * x ^ (3 - 1))
 
-julia&gt; differentiate(&#34;1 + x + x^2&#34;, :x)
+julia&gt; differentiate(&quot;1 + x + x^2&quot;, :x)
 :(1 + 2 * 1 * x ^ (2 - 1))
 
-julia&gt; differentiate(&#34;1 + 2x + 3x^2 + 4x^3&#34;, :x)
+julia&gt; differentiate(&quot;1 + 2x + 3x^2 + 4x^3&quot;, :x)
 :((0 * x + 2 * 1) + (0 * x ^ 2 + 3 * (2 * 1 * x ^ (2 - 1))) + (0 * x ^ 3 + 4 * (3 * 1 * x ^ (3 - 1))))
 
-julia&gt; differentiate(&#34;x^2 * sin(x) + exp(x) * cos(x)&#34;, :x)
+julia&gt; differentiate(&quot;x^2 * sin(x) + exp(x) * cos(x)&quot;, :x)
 :(((2 * 1 * x ^ (2 - 1)) * sin(x) + x ^ 2 * (1 * cos(x))) + ((1 * exp(x)) * cos(x) + exp(x) * (1 * -(sin(x)))))
+
 </code></pre><p>입력한 심볼이 아닌 문자는 상수로 처리하고, 두 개 이상의 심볼을 입력한 경우에는 각 심볼에 대한 미분을 리턴한다. 이때, <code>&quot;3yx&quot;</code>라고 적으면 <code>xy</code> 자체를 하나의 변수로 보기 때문에 꼭 곱하기 기호를 넣어 <code>3x*y</code>와 같이 나타내야한다.</p>
-<pre tabindex="0"><code>julia&gt; differentiate(&#34;1 + x + 3yx + y^2&#34;, :x)
+<pre><code>julia&gt; differentiate(&quot;1 + x + 3yx + y^2&quot;, :x)
 :(1 + (0yx + 3 * 0))
 
-julia&gt; differentiate(&#34;1 + x + 3y*x + y^2&#34;, :x)
+julia&gt; differentiate(&quot;1 + x + 3y*x + y^2&quot;, :x)
 :(1 + ((0y + 3 * 0) * x + (3y) * 1))
 
-julia&gt; differentiate(&#34;1 + x + 3yx + y^2&#34;, [:x, :y])
+julia&gt; differentiate(&quot;1 + x + 3yx + y^2&quot;, [:x, :y])
 2-element Vector{Any}:
  :(1 + (0yx + 3 * 0))
  :((0yx + 3 * 0) + 2 * 1 * y ^ (2 - 1))
 
-julia&gt; differentiate(&#34;1 + x + 3x*y + y^2&#34;, [:x, :y])
+julia&gt; differentiate(&quot;1 + x + 3x*y + y^2&quot;, [:x, :y])
 2-element Vector{Any}:
  :(1 + ((0 * x + 3 * 1) * y + (3x) * 0))
  :(((0 * x + 3 * 0) * y + (3x) * 1) + 2 * 1 * y ^ (2 - 1))
 </code></pre><h3 id="simplify"><code>simplify()</code></h3>
 <p><code>differentiate()</code>의 리턴은 가독성이 떨어지는데, <code>simplify()</code>는 이를 깔끔하게 정리해준다. 단, 벡터를 입력으로 쓰면 제대로 수행하지 못한다.</p>
-<pre tabindex="0"><code>julia&gt; simplify(differentiate(&#34;1 + 2x + 3x^2 + 4x^3&#34;, :x))
+<pre><code>julia&gt; simplify(differentiate(&quot;1 + 2x + 3x^2 + 4x^3&quot;, :x))
 :(2 + 3 * (2x) + 4 * (3 * x ^ 2))
 
-julia&gt; simplify(differentiate(&#34;1 + x + 3x*y + y^2&#34;, :x))
+julia&gt; simplify(differentiate(&quot;1 + x + 3x*y + y^2&quot;, :x))
 :(1 + 3y)
 
-julia&gt; simplify(differentiate(&#34;1 + x + 3x*y + y^2&#34;, :y))
+julia&gt; simplify(differentiate(&quot;1 + x + 3x*y + y^2&quot;, :y))
 :(3x + 2y)
 
-julia&gt; simplify(differentiate(&#34;1 + x + 3x*y + y^2&#34;, [:x, :y]))
+julia&gt; simplify(differentiate(&quot;1 + x + 3x*y + y^2&quot;, [:x, :y]))
 2-element Vector{Any}:
  :(1 + ((0 * x + 3 * 1) * y + (3x) * 0))
  :(((0 * x + 3 * 0) * y + (3x) * 1) + 2 * 1 * y ^ (2 - 1))
 </code></pre><h3 id="deparse"><code>deparse()</code></h3>
 <p>심볼릭 미분의 리턴을 문자열로 바꿔준다.</p>
-<pre tabindex="0"><code>julia&gt; a = differentiate(&#34;1 + x + 3x*y + y^2&#34;, :x)
+<pre><code>julia&gt; a = differentiate(&quot;1 + x + 3x*y + y^2&quot;, :x)
 :(1 + ((0 * x + 3 * 1) * y + (3x) * 0))
 
 julia&gt; deparse(a)
-&#34;1 + ((0 * x + 3 * 1) * y + (3 * x) * 0)&#34;
+&quot;1 + ((0 * x + 3 * 1) * y + (3 * x) * 0)&quot;
 
 julia&gt; deparse(simplify(a))
-&#34;1 + 3 * y&#34;
+&quot;1 + 3 * y&quot;
 </code></pre><h2 id="검산">검산</h2>
 <h3 id="check_derivative"><code>check_derivative()</code></h3>
 <p><code>derivative()</code>로 구한 도함수가 진짜 도함수와 얼마나 차이가 나는지를 확인할 수 있다. <code>jacobian()</code>을 제외한 다른 4개의 도함수에 대해서 구현되어있다.</p>
 <ul>
 <li><code>check_derivative(f, Df, a)</code>: <code>derivative(f, a)</code>-<code>Df(a)</code>의 절댓값을 리턴한다.</li>
 </ul>
-<pre tabindex="0"><code>julia&gt; f(x) = 1 + x^2
+<pre><code>julia&gt; f(x) = 1 + x^2
 f (generic function with 1 method)
 
 julia&gt; Df(x) = 2x
@@ -477,7 +478,7 @@ julia&gt; Calculus.check_derivative(f, Df, 1)
 </code></pre><h2 id="응용">응용</h2>
 <h3 id="polynomialsjl"><code>Polynomials.jl</code></h3>
 <p><a href="../2220"><code>Polynomials.jl</code></a> 자체에도 <code>derivative</code>가 구현되어있기는 하지만 <code>Calculus.derivative()</code>로도 도함수를 구할 수 있다.</p>
-<pre tabindex="0"><code>julia&gt; p = Polynomial([1,2,4,1])
+<pre><code>julia&gt; p = Polynomial([1,2,4,1])
 Polynomial(1 + 2*x + 4*x^2 + x^3)
 
 julia&gt; Polynomials.derivative(p)
@@ -496,20 +497,20 @@ julia&gt; Calculus.second_derivative(p)
 <li>OS: Windows10</li>
 <li>Version: Julia 1.6.2, Calculus 0.5.1</li>
 </ul>
-<div class="footnotes" role="doc-endnotes">
+<section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1">
-<p><a href="https://github.com/JuliaMath/Calculus.jl">https://github.com/JuliaMath/Calculus.jl</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://github.com/JuliaMath/Calculus.jl">https://github.com/JuliaMath/Calculus.jl</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</div>
+</section>
 
 
 <aside style="text-align: right;">
     2021-10-28&emsp;
     전기현&emsp;
-    <a href="../988">🎲 3135</a>
+    <a href="../1134">🎲 3135</a>
 </aside>
 
 <script>

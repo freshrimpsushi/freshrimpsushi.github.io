@@ -223,24 +223,24 @@
 <p>실제 적합치를 파란 실선으로 나타내보면 완벽하지는 않아도 x가 y를 꽤 정확하게 예측할 수 있음을 확인할 수 있다. 물론 데이터에 딱맞는 분석법은 아니지만, 필요하다면 언제든지 사용할 수 있어야한다.</p>
 <h2 id="코드">코드</h2>
 <p>아래는 R 로 작성한 예제코드다.</p>
-<pre tabindex="0"><code>library(TSA)
+<pre><code>library(TSA)
 set.seed(150421)
-data(&#34;bluebird&#34;)
+data(&quot;bluebird&quot;)
 x&lt;-ts(c(scale(bluebird[-(1:10),1])))
 y&lt;-ts(c(scale(-zlag(bluebird[,2],d=10)[-(1:10)])))
 example=ts.intersect(x,y)
 win.graph(6,5); plot(example,yax.flip = T)
-win.graph(6,4); plot(example[,1]); lines(example[,2],col=&#39;red&#39;)
-legend(&#34;topright&#34;,pch=16,col=1:2,legend=c(&#34;x&#34;,&#34;y&#34;))
+win.graph(6,4); plot(example[,1]); lines(example[,2],col='red')
+legend(&quot;topright&quot;,pch=16,col=1:2,legend=c(&quot;x&quot;,&quot;y&quot;))
 out&lt;-lm(y~zlag(x,d=10)); summary(out);
-win.graph(6,4); plot(y); lines(c(rep(NA,10),fitted(out)),col=&#39;blue\&#39;)
-legend(&#34;topright&#34;,pch=16,col=c(1,4),legend=c(&#34;x&#34;,&#34;fitted&#34;))
+win.graph(6,4); plot(y); lines(c(rep(NA,10),fitted(out)),col='blue\')
+legend(&quot;topright&quot;,pch=16,col=c(1,4),legend=c(&quot;x&quot;,&quot;fitted&quot;))
 </code></pre>
 
 <aside style="text-align: right;">
     2019-08-13&emsp;
     류대식&emsp;
-    <a href="../466">🎲 1223</a>
+    <a href="../1902">🎲 1223</a>
 </aside>
 
 <script>
