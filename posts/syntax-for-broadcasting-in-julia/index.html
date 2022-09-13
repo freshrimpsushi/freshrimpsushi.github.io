@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/syntax-for-broadcasting-in-julia\/",
-    "wordCount" : "1421",
+    "wordCount" : "1420",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -223,7 +223,7 @@
 <h2 id="코드">코드</h2>
 <h3 id="이항-연산">이항 연산</h3>
 <p><a href="../275">이항연산</a>은 앞에 <code>.</code>을 찍어서 사용한다. 가령 <a href="../1955">행렬</a> $A \in \mathbb{Z}_{9}^{3 \times 4}$ 의 모든 원소에 스칼라 $a \in \mathbb{R}$ 을 더하는 코드는 다음과 같다.</p>
-<pre><code>julia&gt; A = rand(0:9, 3,4)
+<pre tabindex="0"><code>julia&gt; A = rand(0:9, 3,4)
 3×4 Matrix{Int64}:
  5  6  3  3
  7  4  8  8
@@ -238,16 +238,16 @@ julia&gt; A .+ a
  7.23234   4.23234  8.23234  8.23234
  0.232342  2.23234  2.23234  7.23234
 </code></pre><h3 id="일반-함수">일반 함수</h3>
-<pre><code>julia&gt; f(x) = x^2 - 1
+<pre tabindex="0"><code>julia&gt; f(x) = x^2 - 1
 f (generic function with 3 methods)
 
 julia&gt; f(a)
 -0.9460173573710713
 </code></pre><p>가령 위와 같은 함수 $f : \mathbb{R} \to \mathbb{R}$ 을 생각해보자. 이는 <a href="../970">스칼라 함수</a>이므로 $a \in \mathbb{R}$ 에 대해 위와 같이 잘 계산된다.</p>
-<pre><code>julia&gt; f(A)
+<pre tabindex="0"><code>julia&gt; f(A)
 ERROR: LoadError: DimensionMismatch
 </code></pre><p>그러나 행렬 $A$ 를 집어넣어보면 <code>LoadError</code>가 발생한다. 생각해보면 행렬의 제곱, 특히 $A \in \mathbb{Z}_{9}^{3 \times 4}$ 와 같은 직사각 행렬의 제곱이라는 것이 무엇인지부터가 애매모호하기 때문에 $f(x) = x^{2} - 1$ 와 같은 함수에 무작정 넣을 수 없는 것이다. 그러나 우리가 원하는 결과가 행렬 $A$ 의 모든 값 각각에 제곱을 취한 뒤 $1$ 을 빼서 얻는 행렬이라면, <code>f.</code>와 같이 점을 찍음으로써 행렬의 모든 원소에 함수 $f : \mathbb{R} \to \mathbb{R}$ 를 취할 수 있다.</p>
-<pre><code>julia&gt; f.(A)
+<pre tabindex="0"><code>julia&gt; f.(A)
 3×4 Matrix{Int64}:
  24  35   8   8
  48  15  63  63
@@ -255,7 +255,7 @@ ERROR: LoadError: DimensionMismatch
 </code></pre><h2 id="속도-비교">속도 비교</h2>
 <p>많은 경우 브로드캐스팅은 성능면에서도 우월하다. 그러나 속도를 성능의 기준으로 삼고 성능을 평가하는 부분에 있어서는 꽤 까다로운 점이 있으니 아래의 내용을 반드시 확인하길 바란다.</p>
 <p>예로써 다음은 1부터 10만까지의 수에 제곱근을 취하는 코드다.</p>
-<pre><code>julia&gt; @time for x in 1:100000
+<pre tabindex="0"><code>julia&gt; @time for x in 1:100000
            sqrt(x)
        end
   0.000001 seconds
@@ -263,7 +263,7 @@ ERROR: LoadError: DimensionMismatch
 julia&gt; @time sqrt.(1:100000);
   0.000583 seconds (2 allocations: 781.297 KiB)
 </code></pre><p>단순 속도만 비교했을때 브로드캐스팅은 <code>for</code> 루프문에 비해 약 500배 정도로 느린데, 이것이 단순 계산으로 얻어지는 벤치마크보다는 조금 더 실용적인―이를테면 제곱근을 리턴하는것에서 그치지 않고 저장하는 과정까지 포함한면 이야기가 달라진다.</p>
-<pre><code>julia&gt; z = []
+<pre tabindex="0"><code>julia&gt; z = []
 Any[]
 
 julia&gt; @time for x in 1:100000
@@ -274,27 +274,27 @@ julia&gt; @time for x in 1:100000
 julia&gt; @time y = sqrt.(1:100000);
   0.000448 seconds (2 allocations: 781.297 KiB)
 </code></pre><p>당연하지만 저장하는 과정까지 포함하든말든 브로드캐스팅을 적용한 코드엔 차이가 없지만 빈 배열에 그 값을 추가해야하는 반복문의 경우 벡터화된 코드에 비해 10배 가량 느린 것을 볼 수 있다. 이는 굳이 따지고 보면 <code>sqrt()</code> 자체보다는 <code>push!()</code>가 가변배열을 다루면서 소모하는 비용이 큰 것이 사실이나, 어찌됐든 결과적으로는 브로드캐스팅 쪽이 빠른 것이다. 당연히 반복문을 이보다 더 빠르게 하는 방법도 있겠지만(가령 <code>Any[]</code>가 <code>Float64[]</code>로만 바뀌어도 나아질 것이다) 현실적으로 접하게 되는 대부분의 코딩에서는 브로드캐스팅을 사용하는 편이 쓰기 편할 뿐만 아니라 속도 면에서도 우월하다.</p>
-<p>이는 단순히 개념적인 부분을 떠나서 일단은 줄리아가 인터프리터보단 컴파일러 언어에 가까운 것<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>과도 관련이 있다. 당신이 컴파일러의 입장에서 생각해봐도 다음 루프에 어떤 일이 벌어질지 모르는 <code>for</code> 반복문보다는 타입과 크기가 구체적으로 정해진 벡터에 대해 컴파일하는 게 편하지 않겠는가?</p>
+<p>이는 단순히 개념적인 부분을 떠나서 일단은 줄리아가 인터프리터보단 컴파일러 언어에 가까운 것<sup id="fnref1:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>과도 관련이 있다. 당신이 컴파일러의 입장에서 생각해봐도 다음 루프에 어떤 일이 벌어질지 모르는 <code>for</code> 반복문보다는 타입과 크기가 구체적으로 정해진 벡터에 대해 컴파일하는 게 편하지 않겠는가?</p>
 <p>장담컨대 99%정도의 함수에서는, 우리가 독창적으로 반복문을 쓰는 것보단 줄리아를 만든 사람들이 고안한 방식 그대로 쓰는 게 빠르다. 코드를 억지로 벡터화할 필요는 없지만, 벡터화할 수 있는 코드라면 대부분 벡터화한 경우가 압도적으로&hellip; 정말 압도적으로 빠르다. 사실 이는 줄리아만이 아니라 <a href="../../categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9">매트랩</a>, <a href="../../categories/r">R</a>과 같이 벡터 연산에 특화된 언어라면 누구나 가지고 있는 특징이기도 하다. 다만 줄리아가 그 중에서도 <a href="../1361">함수형 프로그래밍</a>의 패러다임을 가장 잘 받아들이고 있는 신생언어이면서 속도 측면에서 자신감을 내비친다는 점이 다를 뿐이다.</p>
 <h2 id="환경">환경</h2>
 <ul>
 <li>OS: Windows</li>
 <li>julia: v1.7.0</li>
 </ul>
-<section class="footnotes" role="doc-endnotes">
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
-<p><a href="https://docs.julialang.org/en/v1/manual/arrays/#Broadcasting">https://docs.julialang.org/en/v1/manual/arrays/#Broadcasting</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1">
+<p><a href="https://docs.julialang.org/en/v1/manual/arrays/#Broadcasting">https://docs.julialang.org/en/v1/manual/arrays/#Broadcasting</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
 
 <aside style="text-align: right;">
     1923-05-08&emsp;
     류대식&emsp;
-    <a href="../1698">🎲 2382</a>
+    <a href="../322">🎲 2382</a>
 </aside>
 
 <script>
