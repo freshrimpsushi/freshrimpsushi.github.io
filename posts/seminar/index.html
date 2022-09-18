@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/seminar\/",
-    "wordCount" : "992",
+    "wordCount" : "119",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -204,21 +204,6 @@
   <ul>
     <li><a href="#정의">정의</a></li>
     <li><a href="#설명">설명</a></li>
-    <li><a href="#개요">개요</a></li>
-    <li><a href="#코드">코드</a></li>
-    <li><a href="#환경">환경</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#개요-1">개요</a></li>
-    <li><a href="#코드-1">코드</a></li>
-    <li><a href="#환경-1">환경</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#개요-2">개요</a></li>
-    <li><a href="#코드-2">코드</a></li>
-    <li><a href="#환경-2">환경</a></li>
   </ul>
 </nav>
     </div>
@@ -243,116 +228,17 @@ B^{2} = A
 $$</p>
 <h2 id="설명">설명</h2>
 <hr>
-<p>줄리아에서 0이나 결측치를 제외한 평균 구하는 법</p>
-<h2 id="개요">개요</h2>
-<p><a href="../../categories/r">R 언어</a>의 합계 <code>sum()</code>이나 평균 <code>mean()</code>에서는 함수 그 자체가 해당 결측치를 무시할 수 있는 옵션을 가지고 있는데, <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서는 그런 옵션이 없는 대신 <strong>함수형 프로그래밍</strong><sup>Functional Programming</sup>적인 방법을 적극적으로 사용한다.</p>
-<h2 id="코드">코드</h2>
-<pre tabindex="0"><code>julia&gt; data = [0,1,2,3,0]
-5-element Vector{Int64}:
- 0
- 1
- 2
- 3
- 0
-
-julia&gt; sum(data) / length(data)
-1.2
-
-julia&gt; sum(data) / sum(!iszero, data)
-2.0
-</code></pre><p>위쪽은 $0$까지 포함해서 모든 표본의 수로 나눈 1.2, 아래쪽은 <code>!iszero</code>라는 함수를 인자로 주어서 $0$이 아닌 값만 카운트해서 얻은 표본의 수로 나눈 2.0을 얻었다. R보다 강력해진다고 할 수 있는 부분은, 함수 그 자체의 옵션에 의지하지 않고 같은 방법으로 <code>isnan()</code>, <code>isinf()</code>, <code>ismissing()</code> 등의 수많은 예외처리 함수들을 사용할 수 있으며 커스텀이 자유롭다는 것이다.</p>
-<p>퍼포먼스에서 큰 차이는 없지만, <code>is~</code> 계열의 함수처럼 그 리턴이 반드시 불리언이라면 분모의 <code>sum()</code>은 <code>count()</code>로 바뀌어도 상관없다.</p>
-<h2 id="환경">환경</h2>
-<ul>
-<li>OS: Windows</li>
-<li>julia: v1.7.0</li>
-</ul>
-<hr>
-<h1 id="줄리아에서-환경변수-참조하는-법">줄리아에서 환경변수 참조하는 법</h1>
-<p>How to Refer to Enviroment Variables in julia</p>
-<h2 id="개요-1">개요</h2>
-<p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서 환경변수를 참조하는 법을 설명한다.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
-<h2 id="코드-1">코드</h2>
-<pre tabindex="0"><code>Base.ENV
-Base.ENV[&#34;JULIA_NUM_THREADS&#34;]
-</code></pre><p>환경변수는 보다시피 별도의 패키지 로드가 필요하지 않고 <code>Base.ENV</code>를 통해 바로 접근할 수 있다. <a href="../2201">딕셔너리</a>로써 읽히기 때문에 원하는 환경변수의 이름을 키로 두면 해당 환경변수를 문자열로 얻는다. 위 코드 두 줄의 실행결과는 다음과 같다.</p>
-<pre tabindex="0"><code>julia&gt; Base.ENV
-Base.EnvDict with 62 entries:
-  &#34;ALLUSERSPROFILE&#34;              =&gt; &#34;C:\\ProgramData&#34;
-  &#34;APPDATA&#34;                      =&gt; &#34;C:\\Users\\rmsms\\AppData\\Roaming&#34;
-  &#34;CHROME_CRASHPAD_PIPE_NAME&#34;    =&gt; &#34;\\\\.\\pipe\\crashpad_14984_WLSYYXMTXMJWXZQG&#34;
-  &#34;COMMONPROGRAMFILES&#34;           =&gt; &#34;C:\\Program Files\\Common Files&#34;
-  &#34;COMMONPROGRAMFILES(X86)&#34;      =&gt; &#34;C:\\Program Files (x86)\\Common Files&#34;
-  &#34;COMMONPROGRAMW6432&#34;           =&gt; &#34;C:\\Program Files\\Common Files&#34;
-  &#34;COMPUTERNAME&#34;                 =&gt; &#34;SICKRIGHT&#34;
-  &#34;COMSPEC&#34;                      =&gt; &#34;C:\\WINDOWS\\system32\\cmd.exe&#34;
-  &#34;CUDA_PATH&#34;                    =&gt; &#34;C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v11.5&#34;
-  &#34;CUDA_PATH_V11_5&#34;              =&gt; &#34;C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v11.5&#34;
-  &#34;DRIVERDATA&#34;                   =&gt; &#34;C:\\Windows\\System32\\Drivers\\DriverData&#34;
-  &#34;GOPATH&#34;                       =&gt; &#34;C:\\Users\\rmsms\\go&#34;
-  &#34;HOMEDRIVE&#34;                    =&gt; &#34;C:&#34;
-  &#34;HOMEPATH&#34;                     =&gt; &#34;\\Users\\rmsms&#34;
-  &#34;JULIA_NUM_THREADS&#34;            =&gt; &#34;16&#34;
-  &#34;LOCALAPPDATA&#34;                 =&gt; &#34;C:\\Users\\rmsms\\AppData\\Local&#34;
-  &#34;LOGONSERVER&#34;                  =&gt; &#34;\\\\SICKRIGHT&#34;
-  &#34;NAVER&#34;                        =&gt; &#34;e=2.718281&#34;
-  &#34;NUMBER_OF_PROCESSORS&#34;         =&gt; &#34;16&#34;
-  &#34;NVCUDASAMPLES11_5_ROOT&#34;       =&gt; &#34;C:\\ProgramData\\NVIDIA Corporation\\CUDA Samples\\v11.5&#34;
-  &#34;NVCUDASAMPLES_ROOT&#34;           =&gt; &#34;C:\\ProgramData\\NVIDIA Corporation\\CUDA Samples\\v11.5&#34;
-  &#34;NVTOOLSEXT_PATH&#34;              =&gt; &#34;C:\\Program Files\\NVIDIA Corporation\\NvToolsExt\\&#34;
-  &#34;ONEDRIVE&#34;                     =&gt; &#34;C:\\Users\\rmsms\\OneDrive - knu.ac.kr&#34;
-  &#34;ONEDRIVECOMMERCIAL&#34;           =&gt; &#34;C:\\Users\\rmsms\\OneDrive - knu.ac.kr&#34;
-  &#34;ONEDRIVECONSUMER&#34;             =&gt; &#34;C:\\Users\\rmsms\\OneDrive&#34;
-  &#34;OPENBLAS_MAIN_FREE&#34;           =&gt; &#34;1&#34;
-  &#34;OPENBLAS_NUM_THREADS&#34;         =&gt; &#34;8&#34;
-  ⋮                              =&gt; ⋮
-
-julia&gt; Base.ENV[&#34;JULIA_NUM_THREADS&#34;]
-&#34;16&#34;
-</code></pre><h2 id="환경-1">환경</h2>
-<ul>
-<li>OS: Windows</li>
-<li>julia: v1.7.0</li>
-</ul>
-<hr>
-<h1 id="줄리아에서-프로그레스바-사용하는-법">줄리아에서 프로그레스바 사용하는 법</h1>
-<p>How to Use Progress Bar in julia</p>
-<h2 id="개요-2">개요</h2>
-<p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서도 프로그램의 진행 상황을 알려주는 <strong>프로그래스바</strong>를 손쉽게 사용할 수 있다. <code>ProgressBars.jl</code> 패키지의 <code>ProgressBar()</code> 함수로 <code>for</code> 루프의 반복자<sup>Iterator</sup>를 감싸면 된다.<sup id="fnref1:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
-<h2 id="코드-2">코드</h2>
-<pre tabindex="0"><code>using ProgressBars
-
-chi2 = []
-for n in ProgressBar(1:20000)
-    push!(chi2, sum(randn(n) .^ 2))
-end
-</code></pre><p>실제 작업 내용은 어찌되든 상관 없는데, 프로그램의 진행 상황은 다음과 같이 예쁘게 출력된다. 당연하지만 <code>for</code> 루프문에서 정확히 몇번째 반복이 되고있는지만 알 수 있으므로, 한 반복 당 평균 수행시간만 알려줄 뿐 정확한 소요시간을 예측할 수는 없다.</p>
-<p>움짤</p>
-<h2 id="환경-2">환경</h2>
-<ul>
-<li>OS: Windows</li>
-<li>julia: v1.7.0</li>
-</ul>
-<hr>
 <pre tabindex="0"><code>using UnicodePlots
 p1 = lineplot(100 |&gt; randn |&gt; cumsum)
 p1 = lineplot!(p1, 100 |&gt; randn |&gt; cumsum); p1
 
 heatmap(cumsum(abs.(randn(100,100)), dims=2))
-</code></pre><div class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1">
-<p><a href="https://docs.julialang.org/en/v1/base/base/#Base.ENV">https://docs.julialang.org/en/v1/base/base/#Base.ENV</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-</ol>
-</div>
-
+</code></pre>
 
 <aside style="text-align: right;">
     2021-01-01&emsp;
     류대식&emsp;
-    <a href="../1135">🎲 2000</a>
+    <a href="../557">🎲 2000</a>
 </aside>
 
 <script>
