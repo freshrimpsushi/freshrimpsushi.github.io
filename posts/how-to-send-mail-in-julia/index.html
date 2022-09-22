@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-send-mail-in-julia\/",
-    "wordCount" : "937",
+    "wordCount" : "915",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -224,7 +224,7 @@
 <p>어떤 언어로 구현하든 가장 먼저 다음과 같이 네이버 메일에서 SMTP를 &lsquo;사용함&rsquo;으로 설정해야한다.</p>
 <p><img src="20220717_231516.png#center" alt="20220717_231516.png"></p>
 <h3 id="줄리아">줄리아</h3>
-<pre><code>using Dates
+<pre tabindex="0"><code>using Dates
 
 tic = now()
 for t in 1:1000
@@ -235,42 +235,42 @@ toc = now()
 using SMTPClient
 opt = SendOptions(
   isSSL = true,
-  username = &quot;네이버아이디&quot;,
-  passwd = &quot;비밀번호&quot;)
+  username = &#34;네이버아이디&#34;,
+  passwd = &#34;비밀번호&#34;)
 #Provide the message body as RFC5322 within an IO
 body = IOBuffer(
-  &quot;Date: $now() \r\n&quot; *
-  &quot;From: you &lt;발신자@naver.com&gt;\r\n&quot; *
-  &quot;To: 수신자@kakao.com\r\n&quot; *
-  &quot;Subject: simulation over\r\n&quot; *
-  &quot;\r\n&quot; *
-  &quot;$tic\r\n&quot; *
-  &quot;$toc\r\n&quot; *
-  &quot;$(Dates.canonicalize(toc - tic))&quot; *
-  &quot;\r\n&quot;)
-url = &quot;smtps://smtp.naver.com:465&quot;
-rcpt = [&quot;&lt;수신자@kakao.com&gt;&quot;]
-from = &quot;&lt;발신자@naver.com&gt;&quot;
+  &#34;Date: $now() \r\n&#34; *
+  &#34;From: you &lt;발신자@naver.com&gt;\r\n&#34; *
+  &#34;To: 수신자@kakao.com\r\n&#34; *
+  &#34;Subject: simulation over\r\n&#34; *
+  &#34;\r\n&#34; *
+  &#34;$tic\r\n&#34; *
+  &#34;$toc\r\n&#34; *
+  &#34;$(Dates.canonicalize(toc - tic))&#34; *
+  &#34;\r\n&#34;)
+url = &#34;smtps://smtp.naver.com:465&#34;
+rcpt = [&#34;&lt;수신자@kakao.com&gt;&#34;]
+from = &#34;&lt;발신자@naver.com&gt;&#34;
 resp = send(url, rcpt, from, body, opt)
 </code></pre><p>위 예시에서 가장 중요한 부분은 <code>url = &quot;smtps://smtp.naver.com:465&quot;</code>이다. 꼭 네이버가 아니라도 어디 서버를 쓰든 여기를 그에 맞게 잘바꿔줘야한다. 송신 일시의 경우 <a href="../2410"><code>Dates</code> 모듈</a>의 <code>now()</code>를 사용해서 메일을 보내는 시점으로 픽스했는데, 이게 실제 시계랑 안 맞으면 한 10분 있다가 발송되는 문제를 경험했다.</p>
 <h3 id="파이썬">파이썬</h3>
 <p>다음은 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>로 시도하기 전에 먼저 파이썬으로 시도했던 코드다. 이상하게도 SSL을 쓰고 포트를 456로 했는데도 잘 안돼서 SSL을 끄고 587로 했더니 됐다. 참고한 블로그<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>에서는 구글을 기준으로 설명했었으나, 다음의 코드는 네이버를 기준으로 잘 작동하는 것을 확인했다.</p>
-<pre><code>import smtplib
+<pre tabindex="0"><code>import smtplib
 from email.mime.text import MIMEText
 
-sendEmail = &quot;발신자@naver.com&quot;
-recvEmail = &quot;수신자@kakao.com&quot;
-password = &quot;비밀번호&quot;
+sendEmail = &#34;발신자@naver.com&#34;
+recvEmail = &#34;수신자@kakao.com&#34;
+password = &#34;비밀번호&#34;
 
-smtpName = &quot;smtp.naver.com&quot; #smtp 서버 주소
+smtpName = &#34;smtp.naver.com&#34; #smtp 서버 주소
 smtpPort = 587 #smtp 포트 번호
 
-text = &quot;매일 내용&quot;
-msg = MIMEText(text) #MIMEText(text , _charset = &quot;utf8&quot;)
+text = &#34;매일 내용&#34;
+msg = MIMEText(text) #MIMEText(text , _charset = &#34;utf8&#34;)
 
-msg['Subject'] = &quot;시뮬레이션 종료&quot;
-msg['From'] = sendEmail
-msg['To'] = recvEmail
+msg[&#39;Subject&#39;] = &#34;시뮬레이션 종료&#34;
+msg[&#39;From&#39;] = sendEmail
+msg[&#39;To&#39;] = recvEmail
 print(msg.as_string())
 
 s=smtplib.SMTP( smtpName , smtpPort ) #메일 서버 연결
@@ -278,29 +278,28 @@ s.starttls() #TLS 보안 처리
 s.login( sendEmail , password ) #로그인
 s.sendmail( sendEmail, recvEmail, msg.as_string() ) #메일 전송, 문자열로 변환하여 보냅니다.
 s.close() #smtp 서버 연결을 종료합니다.
-
 </code></pre><h2 id="환경">환경</h2>
 <ul>
 <li>OS: Windows</li>
 <li>julia: v1.7.0</li>
 </ul>
-<section class="footnotes" role="doc-endnotes">
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
-<p><a href="https://github.com/aviks/SMTPClient.jl">https://github.com/aviks/SMTPClient.jl</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1">
+<p><a href="https://github.com/aviks/SMTPClient.jl">https://github.com/aviks/SMTPClient.jl</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:2" role="doc-endnote">
-<p><a href="https://gosmcom.tistory.com/72">https://gosmcom.tistory.com/72</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:2">
+<p><a href="https://gosmcom.tistory.com/72">https://gosmcom.tistory.com/72</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
 
 <aside style="text-align: right;">
     1923-10-05&emsp;
     류대식&emsp;
-    <a href="../1123">🎲 2457</a>
+    <a href="../1093">🎲 2457</a>
 </aside>
 
 <script>
