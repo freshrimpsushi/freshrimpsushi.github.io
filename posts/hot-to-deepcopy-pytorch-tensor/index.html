@@ -211,53 +211,53 @@
 
 <h2 id="설명">설명</h2>
 <p>파이토치 텐서도 다른 객체와 마찬가지로 <code>copy.deepcopy()</code>를 이용해 깊은 복사를 할 수 있다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> torch
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> copy
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> a <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>ones(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>)
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> b <span style="color:#f92672">=</span> a
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> c <span style="color:#f92672">=</span> copy<span style="color:#f92672">.</span>deepcopy(a)
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> a <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> a
-</span></span><span style="display:flex;"><span>tensor([[<span style="color:#ae81ff">2.</span>, <span style="color:#ae81ff">2.</span>],
-</span></span><span style="display:flex;"><span>        [<span style="color:#ae81ff">2.</span>, <span style="color:#ae81ff">2.</span>]])
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> b
-</span></span><span style="display:flex;"><span>tensor([[<span style="color:#ae81ff">2.</span>, <span style="color:#ae81ff">2.</span>],
-</span></span><span style="display:flex;"><span>        [<span style="color:#ae81ff">2.</span>, <span style="color:#ae81ff">2.</span>]])
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> c
-</span></span><span style="display:flex;"><span>tensor([[<span style="color:#ae81ff">1.</span>, <span style="color:#ae81ff">1.</span>],
-</span></span><span style="display:flex;"><span>        [<span style="color:#ae81ff">1.</span>, <span style="color:#ae81ff">1.</span>]])
-</span></span></code></pre></div><p>하지만 이는 사용자가 명시적으로 정의한 텐서에 한해서만 가능하다. 가령 딥러닝 모델의 아웃풋을 <code>copy.deepcopy()</code>로 복사하려고 하면 다음과 같은 오류가 발생한다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#a6e22e">RuntimeError</span>: Only Tensors created explicitly by the user (graph leaves) support the deepcopy protocol at the moment
-</span></span></code></pre></div><p>파이토치에서는 <code>.clone()</code><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>으로 텐서의 깊은 복사를 지원하니 이를 이용하면 직접 정의한 텐서인지 출력값으로 얻은 텐서인지에 관계없이 깊은 복사를 할 수 있다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> a <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>ones(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>)
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> b <span style="color:#f92672">=</span> a<span style="color:#f92672">.</span>clone()
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> a <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> a
-</span></span><span style="display:flex;"><span>tensor([[<span style="color:#ae81ff">2.</span>, <span style="color:#ae81ff">2.</span>],
-</span></span><span style="display:flex;"><span>        [<span style="color:#ae81ff">2.</span>, <span style="color:#ae81ff">2.</span>]])
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> b
-</span></span><span style="display:flex;"><span>tensor([[<span style="color:#ae81ff">1.</span>, <span style="color:#ae81ff">1.</span>],
-</span></span><span style="display:flex;"><span>        [<span style="color:#ae81ff">1.</span>, <span style="color:#ae81ff">1.</span>]])
-</span></span></code></pre></div><div class="footnotes" role="doc-endnotes">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> torch
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> copy
+
+<span style="color:#f92672">&gt;&gt;&gt;</span> a <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>ones(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> b <span style="color:#f92672">=</span> a
+<span style="color:#f92672">&gt;&gt;&gt;</span> c <span style="color:#f92672">=</span> copy<span style="color:#f92672">.</span>deepcopy(a)
+<span style="color:#f92672">&gt;&gt;&gt;</span> a <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+
+<span style="color:#f92672">&gt;&gt;&gt;</span> a
+tensor([[<span style="color:#ae81ff">2.</span>, <span style="color:#ae81ff">2.</span>],
+        [<span style="color:#ae81ff">2.</span>, <span style="color:#ae81ff">2.</span>]])
+
+<span style="color:#f92672">&gt;&gt;&gt;</span> b
+tensor([[<span style="color:#ae81ff">2.</span>, <span style="color:#ae81ff">2.</span>],
+        [<span style="color:#ae81ff">2.</span>, <span style="color:#ae81ff">2.</span>]])
+
+<span style="color:#f92672">&gt;&gt;&gt;</span> c
+tensor([[<span style="color:#ae81ff">1.</span>, <span style="color:#ae81ff">1.</span>],
+        [<span style="color:#ae81ff">1.</span>, <span style="color:#ae81ff">1.</span>]])
+</code></pre></div><p>하지만 이는 사용자가 명시적으로 정의한 텐서에 한해서만 가능하다. 가령 딥러닝 모델의 아웃풋을 <code>copy.deepcopy()</code>로 복사하려고 하면 다음과 같은 오류가 발생한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#a6e22e">RuntimeError</span>: Only Tensors created explicitly by the user (graph leaves) support the deepcopy protocol at the moment
+</code></pre></div><p>파이토치에서는 <code>.clone()</code><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>으로 텐서의 깊은 복사를 지원하니 이를 이용하면 직접 정의한 텐서인지 출력값으로 얻은 텐서인지에 관계없이 깊은 복사를 할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> a <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>ones(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> b <span style="color:#f92672">=</span> a<span style="color:#f92672">.</span>clone()
+<span style="color:#f92672">&gt;&gt;&gt;</span> a <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+
+<span style="color:#f92672">&gt;&gt;&gt;</span> a
+tensor([[<span style="color:#ae81ff">2.</span>, <span style="color:#ae81ff">2.</span>],
+        [<span style="color:#ae81ff">2.</span>, <span style="color:#ae81ff">2.</span>]])
+
+<span style="color:#f92672">&gt;&gt;&gt;</span> b
+tensor([[<span style="color:#ae81ff">1.</span>, <span style="color:#ae81ff">1.</span>],
+        [<span style="color:#ae81ff">1.</span>, <span style="color:#ae81ff">1.</span>]])
+</code></pre></div><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1">
+<li id="fn:1" role="doc-endnote">
 <p><a href="https://pytorch.org/docs/stable/generated/torch.clone.html">https://pytorch.org/docs/stable/generated/torch.clone.html</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</div>
+</section>
 
 
 <aside style="text-align: right;">
     2022-01-20&emsp;
     전기현&emsp;
-    <a href="../891">🎲 3177</a>
+    <a href="../1411">🎲 3177</a>
 </aside>
 
 <script>
