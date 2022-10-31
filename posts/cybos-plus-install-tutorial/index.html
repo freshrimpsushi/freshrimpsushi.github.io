@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/cybos-plus-install-tutorial\/",
-    "wordCount" : "1732",
+    "wordCount" : "1762",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -229,26 +229,26 @@
 <p><strong>Step 2. CYBOS Plus 연결 확인</strong></p>
 <p>다음은 CYBOS Plus가 연결되었는지 확인해주는 파이썬 코드로, <code>win32com.client</code>의 <code>Dispatch()</code> 모듈이 CYBOS를 사용할 수 있는 객체인 <code>instCpCybos</code>를 가져와준다. 연결된 경우 마지막에 <code>IsConnect</code> 프로퍼티가 1로 출력된다. 만약 <code>win32com.client</code>가 존재하지 않을 경우 <code>pip install pywin32</code>로 설치하면 된다.</p>
 <pre tabindex="0"><code>import win32com.client
-instCpCybos = win32com.client.Dispatch(&quot;CpUtil.CpCybos&quot;)
+instCpCybos = win32com.client.Dispatch(&#34;CpUtil.CpCybos&#34;)
 print(instCpCybos.IsConnect)
 </code></pre><p>물론 저대로 실행하면 당연히 다음과 같은 에러가 난다. CYBOS Plus를 설치만 했을 뿐 실행하지 않았기 때문이다.</p>
-<pre tabindex="0"><code>&gt;&gt;&gt; instCpCybos = win32com.client.Dispatch(&quot;CpUtil.CpCybos&quot;)
+<pre tabindex="0"><code>&gt;&gt;&gt; instCpCybos = win32com.client.Dispatch(&#34;CpUtil.CpCybos&#34;)
 Traceback (most recent call last):
-  File &quot;C:\Users\rmsms\AppData\Local\Programs\Python\Python37\lib\site-packages\win32com\client\dynamic.py&quot;, line 81, in _GetGoodDispatch
+  File &#34;C:\Users\rmsms\AppData\Local\Programs\Python\Python37\lib\site-packages\win32com\client\dynamic.py&#34;, line 81, in _GetGoodDispatch
     IDispatch = pythoncom.connect(IDispatch)
-pywintypes.com_error: (-2147221005, '잘못된 클래스 문자열입니다.', None, None)
+pywintypes.com_error: (-2147221005, &#39;잘못된 클래스 문자열입니다.&#39;, None, None)
 
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-  File &quot;C:\Users\rmsms\AppData\Local\Programs\Python\Python37\lib\site-packages\win32com\client\__init__.py&quot;, line 95, in Dispatch
+  File &#34;&lt;stdin&gt;&#34;, line 1, in &lt;module&gt;
+  File &#34;C:\Users\rmsms\AppData\Local\Programs\Python\Python37\lib\site-packages\win32com\client\__init__.py&#34;, line 95, in Dispatch
     dispatch, userName = dynamic._GetGoodDispatchAndUserName(dispatch,userName,clsctx)
-  File &quot;C:\Users\rmsms\AppData\Local\Programs\Python\Python37\lib\site-packages\win32com\client\dynamic.py&quot;, line 98, in _GetGoodDispatchAndUserName
+  File &#34;C:\Users\rmsms\AppData\Local\Programs\Python\Python37\lib\site-packages\win32com\client\dynamic.py&#34;, line 98, in _GetGoodDispatchAndUserName
     return (_GetGoodDispatch(IDispatch, clsctx), userName)
-  File &quot;C:\Users\rmsms\AppData\Local\Programs\Python\Python37\lib\site-packages\win32com\client\dynamic.py&quot;, line 83, in _GetGoodDispatch
+  File &#34;C:\Users\rmsms\AppData\Local\Programs\Python\Python37\lib\site-packages\win32com\client\dynamic.py&#34;, line 83, in _GetGoodDispatch
     IDispatch = pythoncom.CoCreateInstance(IDispatch, None, clsctx, pythoncom.IID_IDispatch)
-pywintypes.com_error: (-2147221005, '잘못된 클래스 문자열입니다.', None, None)
+pywintypes.com_error: (-2147221005, &#39;잘못된 클래스 문자열입니다.&#39;, None, None)
 </code></pre><p>이 외에도 에러가 일어났다면 그 이유는 다음 네가지 중 하나일 가능성이 높다:</p>
 <ul>
 <li><code>Dispatch(&quot;CpUtil.CpCybos&quot;)</code>에 들어간 문자열에 오타가 있다.</li>
@@ -265,23 +265,23 @@ pywintypes.com_error: (-2147221005, '잘못된 클래스 문자열입니다.', N
 <p>트레이에서 CYBOS Plus Start라는 프로그램이 실행되고 있는지 확인할 수 있다.</p>
 <p><img src="20210716_120758.png#center" alt="20210716_120758.png"></p>
 <p>이 상태에서 다시 연결여부를 확인해보면 아까와는 다르지만 여전히 에러가 뜬다.</p>
-<pre tabindex="0"><code>&gt;&gt;&gt; instCpCybos = win32com.client.Dispatch(&quot;CpUtil.CpCybos&quot;)
+<pre tabindex="0"><code>&gt;&gt;&gt; instCpCybos = win32com.client.Dispatch(&#34;CpUtil.CpCybos&#34;)
 Traceback (most recent call last):
-  File &quot;C:\Users\rmsms\AppData\Local\Programs\Python\Python37\lib\site-packages\win32com\client\dynamic.py&quot;, line 81, in _GetGoodDispatch
+  File &#34;C:\Users\rmsms\AppData\Local\Programs\Python\Python37\lib\site-packages\win32com\client\dynamic.py&#34;, line 81, in _GetGoodDispatch
     IDispatch = pythoncom.connect(IDispatch)
-pywintypes.com_error: (-2147221021, '작업을 사용할 수 없습니다.', None, None)
+pywintypes.com_error: (-2147221021, &#39;작업을 사용할 수 없습니다.&#39;, None, None)
 
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-  File &quot;C:\Users\rmsms\AppData\Local\Programs\Python\Python37\lib\site-packages\win32com\client\__init__.py&quot;, line 95, in Dispatch
+  File &#34;&lt;stdin&gt;&#34;, line 1, in &lt;module&gt;
+  File &#34;C:\Users\rmsms\AppData\Local\Programs\Python\Python37\lib\site-packages\win32com\client\__init__.py&#34;, line 95, in Dispatch
     dispatch, userName = dynamic._GetGoodDispatchAndUserName(dispatch,userName,clsctx)
-  File &quot;C:\Users\rmsms\AppData\Local\Programs\Python\Python37\lib\site-packages\win32com\client\dynamic.py&quot;, line 98, in _GetGoodDispatchAndUserName
+  File &#34;C:\Users\rmsms\AppData\Local\Programs\Python\Python37\lib\site-packages\win32com\client\dynamic.py&#34;, line 98, in _GetGoodDispatchAndUserName
     return (_GetGoodDispatch(IDispatch, clsctx), userName)
-  File &quot;C:\Users\rmsms\AppData\Local\Programs\Python\Python37\lib\site-packages\win32com\client\dynamic.py&quot;, line 83, in _GetGoodDispatch
+  File &#34;C:\Users\rmsms\AppData\Local\Programs\Python\Python37\lib\site-packages\win32com\client\dynamic.py&#34;, line 83, in _GetGoodDispatch
     IDispatch = pythoncom.CoCreateInstance(IDispatch, None, clsctx, pythoncom.IID_IDispatch)
-pywintypes.com_error: (-2147221164, '클래스가 등록되지 않았습니다.', None, None)
+pywintypes.com_error: (-2147221164, &#39;클래스가 등록되지 않았습니다.&#39;, None, None)
 </code></pre><hr>
 <p><strong>Step 4. Python 32-bit 설치</strong></p>
 <p>꼭 파이썬이 아니라도 CYBOS Plus는 32-bit로 개발되었기 때문에 사용하고 있는 환경이 어떻게 되든 CYBOS Plust를 불러올 응용 프로그램은 32-bit여야한다.</p>
@@ -292,9 +292,9 @@ pywintypes.com_error: (-2147221164, '클래스가 등록되지 않았습니다.'
 <pre tabindex="0"><code>C:\Users\rmsms\AppData\Local\Programs\Python\Python39-32\python.exe -m pip install pywin32
 </code></pre><p>이제 연결 상태를 확인해보면 다음과 같이 에러는 일으키지 않지만 연결이 되지 않아 0이 출력되는 것을 확인할 수 있다.</p>
 <pre tabindex="0"><code>Python 3.9.6 (tags/v3.9.6:db3ff76, Jun 28 2021, 15:04:37) [MSC v.1929 32 bit (Intel)] on win32
-Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+Type &#34;help&#34;, &#34;copyright&#34;, &#34;credits&#34; or &#34;license&#34; for more information.
 &gt;&gt;&gt; import win32com.client
-&gt;&gt;&gt; instCpCybos = win32com.client.Dispatch(&quot;CpUtil.CpCybos&quot;)
+&gt;&gt;&gt; instCpCybos = win32com.client.Dispatch(&#34;CpUtil.CpCybos&#34;)
 &gt;&gt;&gt; print(instCpCybos.IsConnect)
 0
 </code></pre><hr>
@@ -302,23 +302,23 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
 <p><img src="20210716_125142.png#center" alt="20210716_125142.png"></p>
 <p>관리자 권한으로 IDE를 실행시키고 다시 연결을 확인해보면 다음과 같이 1이 출력되는 것을 확인할 수 있다.</p>
 <pre tabindex="0"><code>Python 3.9.6 (tags/v3.9.6:db3ff76, Jun 28 2021, 15:04:37) [MSC v.1929 32 bit (Intel)] on win32
-Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+Type &#34;help&#34;, &#34;copyright&#34;, &#34;credits&#34; or &#34;license&#34; for more information.
 &gt;&gt;&gt; import win32com.client
-&gt;&gt;&gt; instCpCybos = win32com.client.Dispatch(&quot;CpUtil.CpCybos&quot;)
+&gt;&gt;&gt; instCpCybos = win32com.client.Dispatch(&#34;CpUtil.CpCybos&#34;)
 &gt;&gt;&gt; print(instCpCybos.IsConnect)
 1
 </code></pre><p><img src="20210716_125642.png#center" alt="20210716_125642.png"></p>
 <p>연결은 됐다는데 실제로 정보를 받아오는지 어떤지 알 수가 없으니 종목명으로 종목코드가 불러지는지를 확인해보자. 예를 들어 &lsquo;씨젠&rsquo;이면 다음과 같이 A096530을 잘 받아온다.</p>
-<pre tabindex="0"><code>&gt;&gt;&gt; instCpStockCode = win32com.client.Distpatch(&quot;CpUtil.CpStockCode&quot;)
-&gt;&gt;&gt; seegene = instCpStockCode.NameToCode(&quot;씨젠&quot;); seegene
-'A096530'
+<pre tabindex="0"><code>&gt;&gt;&gt; instCpStockCode = win32com.client.Distpatch(&#34;CpUtil.CpStockCode&#34;)
+&gt;&gt;&gt; seegene = instCpStockCode.NameToCode(&#34;씨젠&#34;); seegene
+&#39;A096530&#39;
 </code></pre><p>이러한 API의 응용 프로그램은 CYBOS Plus가 실행된 상태에서만 사용할 수 있다.</p>
 
 
 <aside style="text-align: right;">
     2022-03-02&emsp;
     류대식&emsp;
-    <a href="../1696">🎲 2166</a>
+    <a href="../779">🎲 2166</a>
 </aside>
 
 <script>
