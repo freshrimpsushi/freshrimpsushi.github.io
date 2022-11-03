@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-handle-exception-in-julia\/",
-    "wordCount" : "655",
+    "wordCount" : "656",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -224,16 +224,16 @@
 <p>코딩을 하다가 알수없는 에러에 고생해본 사람은 알게된다, 프로그래밍에 있어서 에러가 정말 중요하다는 사실을&hellip;</p>
 <p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서는 <code>error()</code> 함수 혹은 <code>@error</code> <a href="../1454">매크로</a>를 통해 에러를 낼 수 있다. 내장 예외는 줄리아 v1.63을 기준으로 25가지가 정의되어 있다. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <h2 id="코드">코드</h2>
-<pre tabindex="0"><code>julia&gt; log(1 + 2im)
+<pre><code>julia&gt; log(1 + 2im)
 0.8047189562170501 + 1.1071487177940904im
 </code></pre><p>가령 프로그램에서 <a href="../2063">로그 함수 $\log$</a> 를 사용할 때, 입력으로 오직 실수만 허용되어야하는 경우를 생각해볼 수 있다. 그러나 줄리아에서는 위와 같이 기본적으로 <a href="../2063">복소수로 확장된 $\log_{\mathbb{C}}$</a> 를 제공한다. 프로그램은 에러 없이 돌아간다고 능사가 아니다. 의도하지 않은 계산은 예상치 못한 문제를 일으키기 때문에, 우리가 원하지 않는 계산이 일어난다면 애초부터 에러를 내고 돌아가질 않아야한다.</p>
 <p>원래의 <code>log</code>의 <a href="../3123">정의역을 실수 $\mathbb{R}$ 으로 제한</a>시키는 코드를 만들어보자.</p>
 <h3 id="error-함수"><code>error()</code> 함수</h3>
-<pre tabindex="0"><code>julia&gt; function Rlog(x)
+<pre><code>julia&gt; function Rlog(x)
            if typeof(1 + 2im) &lt;: Real
                return log(x)
            else
-               error(DomainError, &#34;: Rlog allow real number only&#34;)
+               error(DomainError, &quot;: Rlog allow real number only&quot;)
            end
        end
 
@@ -249,11 +249,11 @@ Stacktrace:
 in expression starting at c:\admin\REPL.jl:11
 </code></pre><p>위의 <code>Rlog</code>에서는 입력값이 실수가 아니면 <code>DomainError</code>를 레이즈<sup>Raise</sup>하도록 제한했다.</p>
 <h3 id="error-매크로"><code>@error</code> 매크로</h3>
-<pre tabindex="0"><code>julia&gt; function Rlog2(x)
+<pre><code>julia&gt; function Rlog2(x)
            if typeof(1 + 2im) &lt;: Real
                return log(x)
            else
-               @error &#34;Rlog2 also allow Real number only&#34;
+               @error &quot;Rlog2 also allow Real number only&quot;
            end
        end
 
@@ -263,13 +263,13 @@ in expression starting at c:\admin\REPL.jl:11
 </code></pre><p>위의 <code>Rlog2</code>에서는 입력값이 실수가 아니면 일단 에러를 쓰로<sup>Throw</sup>하도록 제한했다.</p>
 <p>레이즈<sup>Raise</sup>와 쓰로<sup>Throw</sup>는 똑같이 에러를 발생시킨다는 의미고 큰 맥락에서 차이가 없다. 레이즈는 파이썬 등에서 쓰이는 표현이고 쓰로는 자바 등에서 쓰이는 표현이다.</p>
 <h3 id="전체-코드">전체 코드</h3>
-<pre tabindex="0"><code>log(1 + 2im)
+<pre><code>log(1 + 2im)
 
 function Rlog(x)
     if typeof(1 + 2im) &lt;: Real
         return log(x)
     else
-        error(DomainError, &#34;: Rlog allow real number only&#34;)
+        error(DomainError, &quot;: Rlog allow real number only&quot;)
     end
 end
 
@@ -279,7 +279,7 @@ function Rlog2(x)
     if typeof(1 + 2im) &lt;: Real
         return log(x)
     else
-        @error &#34;Rlog2 also allow Real number only&#34;
+        @error &quot;Rlog2 also allow Real number only&quot;
     end
 end
 
@@ -289,20 +289,20 @@ Rlog2(1 + 2im)
 <li>OS: Windows</li>
 <li>julia: v1.6.3</li>
 </ul>
-<div class="footnotes" role="doc-endnotes">
+<section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1">
-<p><a href="https://docs.julialang.org/en/v1/manual/control-flow/#Built-in-Exceptions">https://docs.julialang.org/en/v1/manual/control-flow/#Built-in-Exceptions</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://docs.julialang.org/en/v1/manual/control-flow/#Built-in-Exceptions">https://docs.julialang.org/en/v1/manual/control-flow/#Built-in-Exceptions</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</div>
+</section>
 
 
 <aside style="text-align: right;">
     1922-12-13&emsp;
     류대식&emsp;
-    <a href="../1116">🎲 2309</a>
+    <a href="../904">🎲 2309</a>
 </aside>
 
 <script>
