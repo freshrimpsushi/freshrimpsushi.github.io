@@ -67,10 +67,10 @@
     </script>
 
     
-<meta name="title" content="오프라인">
+<meta name="title" content="줄리아에서 ==과 ===의 차이점">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="오프라인"/>
-<meta property="og:description" content="offline"/>
+<meta property="og:title" content="줄리아에서 ==과 ===의 차이점"/>
+<meta property="og:description" content="How different == and === in julia"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -82,15 +82,15 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "r_",
-    "name": "오프라인",
-    "headline": "오프라인",
+    "name": "줄리아에서 ==과 ===의 차이점",
+    "headline": "줄리아에서 ==과 ===의 차이점",
     "alternativeHeadline": "",
-    "description": "offline",
+    "description": "How different == and === in julia",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/offline\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/how-different--and--in-julia\/"
     },
     "author" : {
         "@type": "Person",
@@ -105,10 +105,10 @@
         "name": "류대식"
     },
     "copyrightHolder" : "생새우초밥집",
-    "copyrightYear" : "2021",
-    "dateCreated": "2021-01-01T00:00:00.00Z",
-    "datePublished": "2021-01-01T00:00:00.00Z",
-    "dateModified": "2021-01-01T00:00:00.00Z",
+    "copyrightYear" : "2022",
+    "dateCreated": "2022-02-12T00:00:00.00Z",
+    "datePublished": "2022-02-12T00:00:00.00Z",
+    "dateModified": "2022-02-12T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -121,15 +121,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/offline\/",
-    "wordCount" : "0",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-different--and--in-julia\/",
+    "wordCount" : "656",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>오프라인</title>
+    <title>줄리아에서 ==과 ===의 차이점</title>
 </head>
 
 <body class="main">
@@ -137,7 +137,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/basic.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/%EC%A4%84%EB%A6%AC%EC%95%84.png style="max-height: 80px; width: auto;">
             
             
             
@@ -178,15 +178,21 @@
     <div class="content">
       <div class="content-box">
         
-<title>오프라인</title>
+<title>줄리아에서 ==과 ===의 차이점</title>
 
 
 
 
+        <a href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/"
+            style="background-color: rgba(0, 0, 0, 0.8); color: orange;
+            border-radius:10px; padding: 5px;">
+            📂줄리아</a>
+        
 
-<h1>오프라인</h1>
+
+<h1>줄리아에서 ==과 ===의 차이점</h1>
 <p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px; margin-left: 0px;">
-  offline
+  How different == and === in julia
 </p>
 
 <aside>
@@ -194,17 +200,86 @@
     
     <div class="innertoc">
       <b>목차</b>
-      <nav id="TableOfContents"></nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#코드-1">코드 </a></li>
+    <li><a href="#최적화">최적화</a></li>
+    <li><a href="#환경">환경</a></li>
+  </ul>
+</nav>
     </div>
   </div>
 </aside>
 
+<h2 id="코드-1">코드 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p><code>==</code>는 값이 같은지를 비교하고, <code>===</code>는 비교할 값이 가변<sup>Mutable</sup>인지 아닌지에 따라 다르게 작동한다.</p>
+<ul>
+<li>Mutable: 두 항이 같은 오브젝트인지 확인한다. 다시 말해, 프로그래밍적으로 두 변수가 구분될 수 있는지 없는지를 리턴한다.</li>
+<li>Immutable:
+<ul>
+<li>두 항의 타입이 같은지 체크하고,</li>
+<li>두 항의 스트럭쳐가 같은지 체크하고,</li>
+<li>그 각각의 요소가 <code>===</code>하게 같은지 재귀적으로 체크한다.</li>
+</ul>
+</li>
+</ul>
+<pre tabindex="0"><code>julia&gt; X = 1; Y = 1;
+
+julia&gt; X == Y
+true
+
+julia&gt; X === Y
+true
+
+julia&gt; X = [1]; Y = [1];
+
+julia&gt; X == Y
+true
+
+julia&gt; X === Y
+false
+</code></pre><p>예로써 파이썬에서 흔히 볼 수 있는 위의 실행결과를 살펴보자. 정수 <code>1</code>은 Immutable하고 프로그래밍적으로 구분할 수 없어서 <code>==</code>과 <code>===</code>이 마찬가지로 참을 반환했지만, <code>1</code>만을 포함한 배열로 보았을 땐 <code>X</code>에 새로운 원소가 추가된다고 했을 때 <code>X</code>와 <code>Y</code>가 달라질 수 있기<sup>Mutable</sup>에 단순히 값을 비교한 <code>==</code>은 참을 반환하고 객체 자체를 비교한 <code>===</code>은 거짓을 반환했다.</p>
+<p>객체가 무슨 말인지 잘 몰라도 이 용법만 이해하면 충분하다.</p>
+<h2 id="최적화">최적화</h2>
+<p>객체지향성이 약한 줄리아에서 이러한 차이는 크게 와닿지 않는다. 코드 최적화의 측면에서 보았을 때 <code>==</code>와 <code>===</code>는 싱글톤<sup>Singtone</sup>의 비교에서 다음과 같은 정도의 성능 차이가 난다.</p>
+<pre tabindex="0"><code>N = 10^7
+x = rand(0:9, N)
+
+julia&gt; @time for t ∈ 1:N
+           x[t] == 0
+       end
+  1.292501 seconds (30.00 M allocations: 610.336 MiB, 2.63% gc time)
+
+julia&gt; @time for t ∈ 1:N
+           x[t] === 0
+       end
+  1.016211 seconds (30.00 M allocations: 610.336 MiB, 2.77% gc time)
+</code></pre><p>하나의 값은 보통 Immutable이기 때문에 <code>==</code>보다 <code>===</code>이 빠른 것으로 이해하면 된다.</p>
+<p>이 정도 차이는 대부분의 경우 별로 크지 않을 수 있다. 당연하지만 반복적<sup>Iterative</sup>이지 않은 작업은 다음과 같은 벡터 연산이 훨씬 빠르며, 이 때의 속도 차이는 없거나 무의미하다.</p>
+<pre tabindex="0"><code>julia&gt; @time x .== 0;
+  0.009509 seconds (6 allocations: 1.196 MiB)
+
+julia&gt; @time x .=== 0;
+  0.009478 seconds (6 allocations: 1.196 MiB)
+</code></pre><h2 id="환경">환경</h2>
+<ul>
+<li>OS: Windows</li>
+<li>julia: v1.6.1</li>
+</ul>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://stackoverflow.com/a/38638838/12285249">https://stackoverflow.com/a/38638838/12285249</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
 
 
 <aside style="text-align: right;">
-    2021-01-01&emsp;
+    2022-02-12&emsp;
     류대식&emsp;
-    <a href="../1515">🎲 1</a>
+    <a href="../2089">🎲 2157</a>
 </aside>
 
 <script>
@@ -219,8 +294,8 @@
       renderKaTex(tex);
     }
 
-    var title = '오프라인';
-    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/offline\/';
+    var title = '줄리아에서 ==과 ===의 차이점';
+    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/how-different--and--in-julia\/';
     var arr = new Array();
     var obj = {
       "title": title,
@@ -288,7 +363,7 @@
       .then(ip => {
         const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
         return postFetch(url, {
-                board_idx: '1',
+                board_idx: '2157',
                 user_ip: ip
               });
       })
@@ -421,9 +496,9 @@
       alert('빈칸을 채워주세요');
       return;
     }
-    const idx = '1';
-    const board_slug = 'offline';
-    const board_title = '오프라인';
+    const idx = '2157';
+    const board_slug = 'how-different-==-and-===-in-julia';
+    const board_title = '줄리아에서 ==과 ===의 차이점';
 
     fetch('https://api.ipify.org?format=json')
       .then(res => res.json())
@@ -662,9 +737,9 @@
       return;
     }
 
-    const board_idx = '1';
-    const board_slug = 'offline';
-    const board_title = '오프라인';
+    const board_idx = '2157';
+    const board_slug = 'how-different-==-and-===-in-julia';
+    const board_title = '줄리아에서 ==과 ===의 차이점';
 
     fetch('https://api.ipify.org?format=json')
       .then(res => res.json())
