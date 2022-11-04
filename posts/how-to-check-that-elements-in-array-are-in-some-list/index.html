@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-check-that-elements-in-array-are-in-some-list\/",
-    "wordCount" : "583",
+    "wordCount" : "582",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -212,7 +212,7 @@
 </aside>
 
 <h2 id="가이드-1">가이드 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<pre><code>julia&gt; x = rand('a':'c', 10)
+<pre tabindex="0"><code>julia&gt; x = rand('a':'c', 10)
 10-element Vector{Char}:
  'a': ASCII/Unicode U+0061 (category Ll: Letter, lowercase)
  'a': ASCII/Unicode U+0061 (category Ll: Letter, lowercase)
@@ -225,10 +225,10 @@
  'b': ASCII/Unicode U+0062 (category Ll: Letter, lowercase)
  'b': ASCII/Unicode U+0062 (category Ll: Letter, lowercase)
 </code></pre><p>위와 같은 배열이 있다고 하자. 예제에서 우리의 목표는 <code>'a'</code> 와 <code>'b'</code> 를 모두 골라내는 것이라고 하자. 상식적으로는 <a href="../1442">포함기호 $\in$</a>로 브로드캐스트하면 될 것 같지만, 결과는 다음과 같다.</p>
-<pre><code>julia&gt; x .∈ ['a', 'b']
+<pre tabindex="0"><code>julia&gt; x .∈ ['a', 'b']
 ERROR: DimensionMismatch(&quot;arrays could not be broadcast to a common size; got a dimension with lengths 10 and 2&quot;)
 </code></pre><p><code>DimensionMismatch</code> 에러가 레이즈되었다. 이는 브로드캐스팅이 배열 <code>x</code> 와 범주 <code>['a', 'b']</code> 양쪽에 동시에 일어났기 때문에 발생한 에러다. 에러메세지를 해석해보자면 <code>x</code> 의 길이 10과 <code>['a', 'b']</code>의 길이 2가 동시에 들어와서 혼란스럽다는 것이다.</p>
-<pre><code>julia&gt; x .∈ Ref(['a', 'b'])
+<pre tabindex="0"><code>julia&gt; x .∈ Ref(['a', 'b'])
 10-element BitVector:
  1
  1
@@ -242,16 +242,16 @@ ERROR: DimensionMismatch(&quot;arrays could not be broadcast to a common size; g
  1
 </code></pre><p>이럴땐 <code>Ref()</code> 함수를 통해 브로드캐스팅 문제를 해결할 수 있다. 이를 통해 <code>['a', 'b']</code> 속의 <code>'a'</code> 와 <code>'b'</code> 가 스칼라로 취급되고, 위와 같이 두 개의 캐릭터가 있는 곳만을 찾아낼 수 있었다.</p>
 <h2 id="주의사항">주의사항</h2>
-<pre><code>julia&gt; y = rand('a':'c', 1, 10)
+<pre tabindex="0"><code>julia&gt; y = rand('a':'c', 1, 10)
 1×10 Matrix{Char}:
  'b'  'a'  'b'  'b'  'a'  'c'  'a'  'b'  'b'  'c'
 </code></pre><p>위와 같이 $1 \times 10$ 행렬인 경우를 생각해보자. 언뜻보면 위 가이드에서 본 경우와 다를 게 없어야 할 것 같지만, <code>.∈</code> 가 전혀 다른 방식으로 사용된다.</p>
-<pre><code>julia&gt; y .∈ ['a', 'b']
+<pre tabindex="0"><code>julia&gt; y .∈ ['a', 'b']
 2×10 BitMatrix:
  0  1  0  0  1  0  1  0  0  0
  1  0  1  1  0  0  0  1  1  0
 </code></pre><p>보다시피 첫 행은  <code>'a'</code> 의 위치를, 둘째 행은 <code>'b'</code> 의 위치를 나타내주고 있다. 이는 벡터냐 행렬이냐의 차이에서 온 것이다.</p>
-<pre><code>julia&gt; y .∈ Ref(['a', 'b'])
+<pre tabindex="0"><code>julia&gt; y .∈ Ref(['a', 'b'])
 1×10 BitMatrix:
  1  1  1  1  1  0  1  1  1  0
 </code></pre><p><code>Ref()</code> 를 사용하는 경우에는 일관된 결과를 얻을 수 있다.</p>
@@ -264,7 +264,7 @@ ERROR: DimensionMismatch(&quot;arrays could not be broadcast to a common size; g
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p><a href="https://stackoverflow.com/a/59978386/12285249">https://stackoverflow.com/a/59978386/12285249</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://stackoverflow.com/a/59978386/12285249">https://stackoverflow.com/a/59978386/12285249</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -273,7 +273,7 @@ ERROR: DimensionMismatch(&quot;arrays could not be broadcast to a common size; g
 <aside style="text-align: right;">
     2022-04-25&emsp;
     류대식&emsp;
-    <a href="../1386">🎲 2193</a>
+    <a href="../1096">🎲 2193</a>
 </aside>
 
 <script>
