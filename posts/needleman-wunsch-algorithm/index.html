@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/needleman-wunsch-algorithm\/",
-    "wordCount" : "1356",
+    "wordCount" : "1357",
     "genre" : [ "줄리아" ],
     "keywords" : [ "줄리아" ]
 }
@@ -244,11 +244,11 @@ s_{i,j} \leftarrow \max \begin{cases} s_{i-1,j} + \delta \left( v_{i}, -  \right
 <p>$s_{mn}$ 부터 행과 열이 오른쪽 아래에서 왼쪽 위로 따라가며 일치하는 원소를 고르면 두 문자열과 가장 유사한 전역 정렬을 얻는다. 그 점수는 $s_{mn}$ 이다.</p>
 <h2 id="예제">예제</h2>
 <p><strong>Input</strong></p>
-<pre tabindex="0"><code>julia&gt; s1 = &#34;ATTAGCTCAC&#34;;
+<pre><code>julia&gt; s1 = &quot;ATTAGCTCAC&quot;;
 
-julia&gt; s2 = &#34;ACTATAGCGCAG&#34;;
+julia&gt; s2 = &quot;ACTATAGCGCAG&quot;;
 </code></pre><p>위와 같은 두 <a href="../1828">염기서열</a>을 전역 정렬하자.</p>
-<pre tabindex="0"><code>julia&gt; EDNAFULL
+<pre><code>julia&gt; EDNAFULL
 SubstitutionMatrix{BioSymbols.DNA,Int64}:
      A  C  M  G  R  S  V  T  W  Y  H  K  D  B  N
   A  5 -4  1 -4  1 -4 -1 -4  1 -4 -1 -4 -1 -4 -2
@@ -275,7 +275,7 @@ SubstitutionMatrix{BioSymbols.DNA,Int64}:
 <p><strong>Step 2. 각 셀에서 스코어를 계산한다.</strong></p>
 <p><img src="step2.png#center" alt="step2"></p>
 <p>C3(3행 3열)에서 다음과 같이 함수를 입력하고 모든 칸으로 복사하면 된다.</p>
-<pre tabindex="0"><code>=MAX(B2+IF(C$1=$A3,5,-4), C2-5,B3-5)
+<pre><code>=MAX(B2+IF(C$1=$A3,5,-4), C2-5,B3-5)
 </code></pre><hr>
 <p><strong>Output. 우측 하단부터 트레이싱한다.</strong></p>
 <p><img src="step3.png#center" alt="step3"></p>
@@ -288,19 +288,19 @@ SubstitutionMatrix{BioSymbols.DNA,Int64}:
 <p>트레이싱 과정에서 알 수 있듯 최적의 서열 정렬은 딱히 유일하지 않을 수 있다. 이렇게 찾을 수 있는 최적의 전역 정렬은 <code>A-T-TAGCCAC</code> 혹은 <code>A-T-TAGCGAC</code> 심지어 <code>ACT-TAGCGAC</code>도 될 수 있다. 그러나 찾을 수 있는 서열정렬들의 점수는 모두 22점으로 동일하다.</p>
 <h2 id="코드">코드</h2>
 <p>다이내믹 프로그래밍인만큼 위와 같이 엑셀로도 간단하게 구현할 수 있다. <a href="#%EC%98%88%EC%A0%9C">예제</a>에서 보았듯 공부한다는 목적에는 괜찮지만 이걸 계속 재사용하는 것은 분명 미련한 짓이다. 다음은 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서 쉽고 빠르게 같은 작업을 수행하는 코드다.</p>
-<pre tabindex="0"><code>using BioAlignments
+<pre><code>using BioAlignments
 
-s1 = &#34;ATTAGCTCAC&#34;;
-s2 = &#34;ACTATAGCGCAG&#34;;
+s1 = &quot;ATTAGCTCAC&quot;;
+s2 = &quot;ACTATAGCGCAG&quot;;
 
 scoremodel = AffineGapScoreModel(EDNAFULL, gap_open=-5, gap_extend=0);
 global_result = pairalign(GlobalAlignment(), s1, s2, scoremodel)
 </code></pre><h3 id="실행-결과">실행 결과</h3>
-<pre tabindex="0"><code>using BioAlignments
+<pre><code>using BioAlignments
 
-julia&gt; s1 = &#34;ATTAGCTCAC&#34;;
+julia&gt; s1 = &quot;ATTAGCTCAC&quot;;
 
-julia&gt; s2 = &#34;ACTATAGCGCAG&#34;;
+julia&gt; s2 = &quot;ACTATAGCGCAG&quot;;
 
 julia&gt; scoremodel = AffineGapScoreModel(EDNAFULL, gap_open=-5, gap_extend=0);
 
@@ -310,20 +310,20 @@ PairwiseAlignmentResult{Int64,String,String}:
   seq:  1 A-T-TAGCTCAC 10
           | | |||| || 
   ref:  1 ACTATAGCGCAG 12
-</code></pre><div class="footnotes" role="doc-endnotes">
+</code></pre><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1">
-<p>Del C. Jones, Pavel A. Pevzner. (2009). An Introduction to Bioinformatics Algorithms (Computational Molecular Biology): p177.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1" role="doc-endnote">
+<p>Del C. Jones, Pavel A. Pevzner. (2009). An Introduction to Bioinformatics Algorithms (Computational Molecular Biology): p177. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</div>
+</section>
 
 
 <aside style="text-align: right;">
     2021-04-26&emsp;
     류대식&emsp;
-    <a href="../961">🎲 2012</a>
+    <a href="../1953">🎲 2012</a>
 </aside>
 
 <script>

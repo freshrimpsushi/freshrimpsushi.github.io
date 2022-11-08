@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/support-vector-machine\/",
-    "wordCount" : "4129",
+    "wordCount" : "4133",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -302,7 +302,7 @@ $$</p>
 <h2 id="파생모델">파생모델</h2>
 <p>어려운 정의에 따르면 SVM은 직선이든 초평면이든 어쨌든 <a href="../3037">선형함수</a>를 찾으므로 <a href="../1887">선형회귀모델</a>인데, 당연히 여기서 만족할 리가 없다.</p>
 <h3 id="소프트-마진-svm">소프트 마진 SVM</h3>
-<p>가령 다음과 같은 데이터가 들어왔다고 생각해보면 SVM은 데이터가 섞여있는 가운데 부분 떄문에 이를 완벽하게 이진분류 해낼 수 없다.</p>
+<p>가령 다음과 같은 데이터가 들어왔다고 생각해보면 SVM은 데이터가 섞여있는 가운데 부분 때문에 이를 완벽하게 이진분류 해낼 수 없다.</p>
 <p><img src="20220225_030646.png#center" alt="20220225_030646.png"></p>
 <p>여기서 서포트 벡터의 마진에 데이터가 존재할 수 없다는 제약 하에서 $\left| f \left( \mathbf{x}_{k} \right) \right| \ge 1$ 라는 조건을 만족시켜야 했음에 주목해보자. 이 부등식을 $1$ 보다 작은 값으로 허용해준다면 완벽한 이진분류는 아니라도 아예 포기하는 것보단 나은 결과를 줄 것이고, 그 허용을 각 데이터별로 $\xi_{k} \ge 0$ 라 둔다면 새로운 제약조건 $\left| f \left( \mathbf{x}_{k} \right) \right| \ge 1 - \xi_{k}$ 를 얻는다. 이렇게 조건이 약화된 마진을 <strong>소프트 마진</strong><sup>Soft Margin</sup>이라 한다.</p>
 <p>물론 제약이 조금 느슨해지긴 했지만 그렇다고 죄다 $\xi_{l} = \cdots = \xi_{n} = 1$ 로 풀어버리면 SVM 자체를 포기하게 된다. 이를 방지하기 위해서는 <a href="../1463">목적 함수</a>에 $\sum_{k} \xi_{k}$ 와 같은 항을 넣는 수가 있다. 이는 불가능한 이진분류를 가능하게 만든 것에 대한 대가<sup>Penalty</sup>다. 물론 이렇게 단순한 페널티는 데이터의 스케일에 따라 전혀 의미가 없거나 너무 민감할 수 있으니 $0 \le \sum_{k} \xi_{k} \le n$ 그대로 쓰는 게 아니라 적당한 양수 $\lambda &gt; 0$ 를 곱해서 추가해보자.
@@ -399,7 +399,7 @@ $$
 </ul>
 <h2 id="코드">코드</h2>
 <p>다음은 커널 트릭을 구현한 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다.</p>
-<pre tabindex="0"><code>struct Sphere
+<pre><code>struct Sphere
     d::Int64
 end
 Sphere(d) = Sphere(d)
@@ -415,38 +415,38 @@ using Plots
 A = 0.3rand(Sphere(2), 200) + 0.1randn(2, 200)
 B = rand(Sphere(2), 200) + 0.1randn(2, 200)
 
-scatter(A[1,:],A[2,:], ratio = :equal, label = &#34;+1&#34;)
-scatter!(B[1,:],B[2,:], ratio = :equal, label = &#34;-1&#34;)
-png(&#34;raw.png&#34;)
+scatter(A[1,:],A[2,:], ratio = :equal, label = &quot;+1&quot;)
+scatter!(B[1,:],B[2,:], ratio = :equal, label = &quot;-1&quot;)
+png(&quot;raw.png&quot;)
 
 Plots.plotly()
 ϕ(z) = z[1]^2 + z[2]^2
-scatter(A[1,:],A[2,:],ϕ.(eachcol(A)), ms = 1, label = &#34;+1&#34;)
-scatter!(B[1,:],B[2,:],ϕ.(eachcol(B)), ms = 1, label = &#34;-1&#34;)
-savefig(&#34;kernel.html&#34;)
-</code></pre><div class="footnotes" role="doc-endnotes">
+scatter(A[1,:],A[2,:],ϕ.(eachcol(A)), ms = 1, label = &quot;+1&quot;)
+scatter!(B[1,:],B[2,:],ϕ.(eachcol(B)), ms = 1, label = &quot;-1&quot;)
+savefig(&quot;kernel.html&quot;)
+</code></pre><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1">
-<p>Jakkula. (2006). Tutorial on Support Vector Machine (SVM). <a href="https://course.ccs.neu.edu/cs5100f11/resources/jakkula.pdf">https://course.ccs.neu.edu/cs5100f11/resources/jakkula.pdf</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1" role="doc-endnote">
+<p>Jakkula. (2006). Tutorial on Support Vector Machine (SVM). <a href="https://course.ccs.neu.edu/cs5100f11/resources/jakkula.pdf">https://course.ccs.neu.edu/cs5100f11/resources/jakkula.pdf</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:2">
-<p><a href="https://ratsgo.github.io/machine%20learning/2017/05/23/SVM/">https://ratsgo.github.io/machine%20learning/2017/05/23/SVM/</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:2" role="doc-endnote">
+<p><a href="https://ratsgo.github.io/machine%20learning/2017/05/23/SVM/">https://ratsgo.github.io/machine%20learning/2017/05/23/SVM/</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:3">
-<p><a href="https://bkshin.tistory.com/entry/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D-2%EC%84%9C%ED%8F%AC%ED%8A%B8-%EB%B2%A1%ED%84%B0-%EB%A8%B8%EC%8B%A0-SVM">https://bkshin.tistory.com/entry/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D-2%EC%84%9C%ED%8F%AC%ED%8A%B8-%EB%B2%A1%ED%84%B0-%EB%A8%B8%EC%8B%A0-SVM</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:3" role="doc-endnote">
+<p><a href="https://bkshin.tistory.com/entry/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D-2%EC%84%9C%ED%8F%AC%ED%8A%B8-%EB%B2%A1%ED%84%B0-%EB%A8%B8%EC%8B%A0-SVM">https://bkshin.tistory.com/entry/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D-2%EC%84%9C%ED%8F%AC%ED%8A%B8-%EB%B2%A1%ED%84%B0-%EB%A8%B8%EC%8B%A0-SVM</a> <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:4">
-<p><a href="https://hleecaster.com/ml-svm-concept/">https://hleecaster.com/ml-svm-concept/</a>&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:4" role="doc-endnote">
+<p><a href="https://hleecaster.com/ml-svm-concept/">https://hleecaster.com/ml-svm-concept/</a> <a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</div>
+</section>
 
 
 <aside style="text-align: right;">
     1923-06-17&emsp;
     류대식&emsp;
-    <a href="../982">🎲 2402</a>
+    <a href="../1872">🎲 2402</a>
 </aside>
 
 <script>
