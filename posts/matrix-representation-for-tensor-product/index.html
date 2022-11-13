@@ -67,10 +67,10 @@
     </script>
 
     
-<meta name="title" content="줄리아에서 ==과 ===의 차이점">
+<meta name="title" content="텐서곱의 행렬표현">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="줄리아에서 ==과 ===의 차이점"/>
-<meta property="og:description" content="How different == and === in julia"/>
+<meta property="og:title" content="텐서곱의 행렬표현"/>
+<meta property="og:description" content="Matrix Representation for Tensor Product"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -81,34 +81,34 @@
 {
     "@context": "http://schema.org",
     "@type": "BlogPosting",
-    "articleSection": "r_",
-    "name": "줄리아에서 ==과 ===의 차이점",
-    "headline": "줄리아에서 ==과 ===의 차이점",
+    "articleSection": "j_",
+    "name": "텐서곱의 행렬표현",
+    "headline": "텐서곱의 행렬표현",
     "alternativeHeadline": "",
-    "description": "How different == and === in julia",
+    "description": "Matrix Representation for Tensor Product",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/how-different-and-in-julia\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/matrix-representation-for-tensor-product\/"
     },
     "author" : {
         "@type": "Person",
-        "name": "류대식"
+        "name": "전기현"
     },
     "creator" : {
         "@type": "Person",
-        "name": "류대식"
+        "name": "전기현"
     },
     "accountablePerson" : {
         "@type": "Person",
-        "name": "류대식"
+        "name": "전기현"
     },
     "copyrightHolder" : "생새우초밥집",
-    "copyrightYear" : "2022",
-    "dateCreated": "2022-02-12T00:00:00.00Z",
-    "datePublished": "2022-02-12T00:00:00.00Z",
-    "dateModified": "2022-02-12T00:00:00.00Z",
+    "copyrightYear" : "2013",
+    "dateCreated": "2013-05-21T00:00:00.00Z",
+    "datePublished": "2013-05-21T00:00:00.00Z",
+    "dateModified": "2013-05-21T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -121,15 +121,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-different-and-in-julia\/",
-    "wordCount" : "657",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/matrix-representation-for-tensor-product\/",
+    "wordCount" : "1613",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>줄리아에서 ==과 ===의 차이점</title>
+    <title>텐서곱의 행렬표현</title>
 </head>
 
 <body class="main">
@@ -137,7 +137,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/%EC%A4%84%EB%A6%AC%EC%95%84.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98.png style="max-height: 80px; width: auto;">
             
             
             
@@ -178,21 +178,21 @@
     <div class="content">
       <div class="content-box">
         
-<title>줄리아에서 ==과 ===의 차이점</title>
+<title>텐서곱의 행렬표현</title>
 
 
 
 
-        <a href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/"
+        <a href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/"
             style="background-color: rgba(0, 0, 0, 0.8); color: orange;
             border-radius:10px; padding: 5px;">
-            📂줄리아</a>
+            📂선형대수</a>
         
 
 
-<h1>줄리아에서 ==과 ===의 차이점</h1>
+<h1>텐서곱의 행렬표현</h1>
 <p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px; margin-left: 0px;">
-  How different == and === in julia
+  Matrix Representation for Tensor Product
 </p>
 
 <aside>
@@ -202,84 +202,172 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#코드-1">코드 </a></li>
-    <li><a href="#최적화">최적화</a></li>
-    <li><a href="#환경">환경</a></li>
+    <li><a href="#빌드업1">빌드업</a></li>
+    <li><a href="#정리">정리</a></li>
+    <li><a href="#증명">증명</a></li>
   </ul>
 </nav>
     </div>
   </div>
 </aside>
 
-<h2 id="코드-1">코드 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p><code>==</code>는 값이 같은지를 비교하고, <code>===</code>는 비교할 값이 가변<sup>Mutable</sup>인지 아닌지에 따라 다르게 작동한다.</p>
-<ul>
-<li>Mutable: 두 항이 같은 오브젝트인지 확인한다. 다시 말해, 프로그래밍적으로 두 변수가 구분될 수 있는지 없는지를 리턴한다.</li>
-<li>Immutable:
-<ul>
-<li>두 항의 타입이 같은지 체크하고,</li>
-<li>두 항의 스트럭쳐가 같은지 체크하고,</li>
-<li>그 각각의 요소가 <code>===</code>하게 같은지 재귀적으로 체크한다.</li>
-</ul>
-</li>
-</ul>
-<pre><code>julia&gt; X = 1; Y = 1;
-
-julia&gt; X == Y
-true
-
-julia&gt; X === Y
-true
-
-julia&gt; X = [1]; Y = [1];
-
-julia&gt; X == Y
-true
-
-julia&gt; X === Y
-false
-</code></pre><p>예로써 파이썬에서 흔히 볼 수 있는 위의 실행결과를 살펴보자. 정수 <code>1</code>은 Immutable하고 프로그래밍적으로 구분할 수 없어서 <code>==</code>과 <code>===</code>이 마찬가지로 참을 반환했지만, <code>1</code>만을 포함한 배열로 보았을 땐 <code>X</code>에 새로운 원소가 추가된다고 했을 때 <code>X</code>와 <code>Y</code>가 달라질 수 있기<sup>Mutable</sup>에 단순히 값을 비교한 <code>==</code>은 참을 반환하고 객체 자체를 비교한 <code>===</code>은 거짓을 반환했다.</p>
-<p>객체가 무슨 말인지 잘 몰라도 이 용법만 이해하면 충분하다.</p>
-<h2 id="최적화">최적화</h2>
-<p>객체지향성이 약한 줄리아에서 이러한 차이는 크게 와닿지 않는다. 코드 최적화의 측면에서 보았을 때 <code>==</code>와 <code>===</code>는 싱글톤<sup>Singtone</sup>의 비교에서 다음과 같은 정도의 성능 차이가 난다.</p>
-<pre><code>N = 10^7
-x = rand(0:9, N)
-
-julia&gt; @time for t ∈ 1:N
-           x[t] == 0
-       end
-  1.292501 seconds (30.00 M allocations: 610.336 MiB, 2.63% gc time)
-
-julia&gt; @time for t ∈ 1:N
-           x[t] === 0
-       end
-  1.016211 seconds (30.00 M allocations: 610.336 MiB, 2.77% gc time)
-</code></pre><p>하나의 값은 보통 Immutable이기 때문에 <code>==</code>보다 <code>===</code>이 빠른 것으로 이해하면 된다.</p>
-<p>이 정도 차이는 대부분의 경우 별로 크지 않을 수 있다. 당연하지만 반복적<sup>Iterative</sup>이지 않은 작업은 다음과 같은 벡터 연산이 훨씬 빠르며, 이 때의 속도 차이는 없거나 무의미하다.</p>
-<pre><code>julia&gt; @time x .== 0;
-  0.009509 seconds (6 allocations: 1.196 MiB)
-
-julia&gt; @time x .=== 0;
-  0.009478 seconds (6 allocations: 1.196 MiB)
-</code></pre><h2 id="환경">환경</h2>
-<ul>
-<li>OS: Windows</li>
-<li>julia: v1.6.1</li>
-</ul>
-<section class="footnotes" role="doc-endnotes">
+<h2 id="빌드업1">빌드업<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p><a href="../3018">유한차원</a> <a href="../282">벡터공간</a> $V, V^{\prime}$에 대해서 각각 <a href="../3017">기저</a>저 $\mathcal{V}, {\mathcal{V}}^{\prime}$를 선택하자. 그러면 <a href="../3026">선형변환</a> $\phi : V \to V^{\prime}$과 동치인 행렬 $\begin{bmatrix} \phi \end{bmatrix}_{\mathcal{V}}^{{\mathcal{V}}^{\prime}}$이 존재하고, 이를 $\phi$의 <a href="../3078">행렬표현</a>이라 한다. 이제 유한차원 벡터공간 $V, V^{\prime}, W, W^{\prime}$와 이들의 <a href="../3279">순서기저</a> $\mathcal{V}, {\mathcal{V}}^{\prime}, \mathcal{W}, {\mathcal{W}}^{\prime}$, 그리고 두 선형변환 $\phi : V \to V^{\prime}$, $\psi : W \to W^{\prime}$가 주어졌다고 하자.</p>
+<p>$$
+n = \dim V,\quad m = \dim V^{\prime},\quad p = \dim W,\quad q = \dim W^{\prime}
+$$</p>
+<p>$$
+\mathcal{V} = \left\{ v_{i} \right\}_{i=1}^{n},\quad {\mathcal{V}}^{\prime} = \left\{ v_{j}^{\prime} \right\}_{j=1}^{m},\quad \mathcal{W} = \left\{ w_{k} \right\}_{k=1}^{p},\quad {\mathcal{W}}^{\prime} = \left\{ w_{l}^{\prime} \right\}_{l=1}^{q}
+$$</p>
+<p>그러면 두 선형변환 $\phi$, $\psi$의 행렬표현이 다음과 같이 존재한다.</p>
+<p>$$
+A = \begin{bmatrix} \phi \end{bmatrix}_{\mathcal{V}}^{{\mathcal{V}}^{\prime}}\in M_{m \times n} \qquad B = \begin{bmatrix} \psi \end{bmatrix}_{\mathcal{W}}^{{\mathcal{W}}^{\prime}} \in M_{q \times p}
+$$</p>
+<p><a href="../3414">텐서곱</a> $V \otimes W$의 <a href="../3279">순서기저</a>를 $\mathcal{V} \otimes \mathcal{W} = \left\{ v_{i} \otimes w_{k} \right\}$과 같이 표기하고, 순서를 다음과 같이 주자.</p>
+<p>$$
+v_{1} \otimes w_{1}, \dots, v_{1} \times w_{p}, \\ 
+v_{2}\otimes w_{1}, \dots, v_{2} \times w_{p}, \\ 
+\dots \\ 
+v_{n}\otimes w_{1}, \dots, v_{n} \times w_{p}
+$$</p>
+<p>$V^{\prime} \otimes W^{\prime}$의 기저 $\mathcal{V}^{\prime} \otimes \mathcal{W}^{\prime} = \left\{ v_{j}^{\prime} \otimes w_{l}^{\prime} \right\}$에도 같은 식으로 순서를 주자. 그러면 $\phi$와 $\psi$의 <a href="../3417">텐서곱</a> 또한 $\phi \otimes \psi : V \otimes W \to V^{\prime} \otimes W^{\prime}$인 선형변환이므로 다음과 같은 <a href="../3078">행렬표현</a><sup>matrix representation</sup>이 존재한다.</p>
+<p>$$
+\begin{bmatrix} \phi \otimes \psi \end{bmatrix}_{\mathcal{V} \otimes \mathcal{W}}^{{\mathcal{V}}^{\prime} \otimes \mathcal{W}^{\prime}}
+$$</p>
+<h2 id="정리">정리</h2>
+<p>두 선형변환 $\phi : V \to V^{\prime}$, $\psi : W \to W^{\prime}$의 행렬표현을 각각 $A = \begin{bmatrix} \phi \end{bmatrix}_{\mathcal{V}}^{{\mathcal{V}}^{\prime}}$, $B = \begin{bmatrix} \psi \end{bmatrix}_{\mathcal{W}}^{{\mathcal{W}}^{\prime}}$라 하자. <a href="../3417">텐서곱</a> $\phi \otimes \psi : V \otimes W \to V^{\prime} \otimes W^{\prime}$의 행렬표현은 $A$와 $B$의 <a href="../3418">크로네커 곱</a>과 같다.</p>
+<p>$$
+\begin{bmatrix} \phi \otimes \psi \end{bmatrix}_{\mathcal{V} \otimes \mathcal{W}}^{{\mathcal{V}}^{\prime} \otimes \mathcal{W}^{\prime}} = A \otimes B = \begin{bmatrix} \phi \end{bmatrix}_{\mathcal{V}}^{{\mathcal{V}}^{\prime}} \otimes \begin{bmatrix} \psi \end{bmatrix}_{\mathcal{W}}^{{\mathcal{W}}^{\prime}}
+$$</p>
+<h2 id="증명">증명</h2>
+<p>행렬표현 $\begin{bmatrix} \phi \otimes \psi \end{bmatrix}_{\mathcal{V} \otimes \mathcal{W}}^{{\mathcal{V}}^{\prime} \otimes \mathcal{W}^{\prime}}$를 찾기 위해서는 정의역의 <a href="../the-matrix-representation-of-a-linear-transformation/#%ED%96%89%EB%A0%AC-%EC%B0%BE%EA%B8%B0">기저 $\mathcal{V} \otimes \mathcal{W}$가 $\phi \otimes \psi$에 의해 어떻게 매핑되는지를 보면 된다.</a> 우선 두 선형변환의 행렬표현을 다음과 같다고 하자.</p>
+<p>$$
+\begin{bmatrix} \phi \end{bmatrix}_{\mathcal{V}}^{{\mathcal{V}}^{\prime}} = A = [ \alpha_{ji} ] \in M_{m \times n} \qquad \begin{bmatrix} \psi \end{bmatrix}_{\mathcal{W}}^{{\mathcal{W}}^{\prime}} = B = [ \beta_{lk} ] \in M_{q \times p}
+$$</p>
+<p>다시말해 $\phi(v_{i}) = \sum\limits_{j}\alpha_{ji}v_{j}^{\prime}$, $\psi(w_{k}) = \sum\limits_{l}\beta_{lk}w_{k}^{\prime}$이다. <a href="../3417">선형변환의 텐서곱</a>과 <a href="../3415">곱 벡터</a>의 정의에 의해 기저벡터 $v_{i} \otimes w_{k}$는 다음과 같이 매핑된다.</p>
+<p>$$
+\begin{align*}
+(\phi \otimes \psi)(v_{i} \otimes w_{k}) 
+&amp;= \phi(v_{i}) \otimes \psi(w_{k}) \\ 
+&amp;= \left( \sum\limits_{j}\alpha_{ji}v_{j}^{\prime} \right) \otimes \left( \sum\limits_{l}\beta_{lk}w_{l}^{\prime} \right) \\ 
+&amp;= \sum_{j,l} \alpha_{ji}\beta_{lk} v_{j}^{\prime} \otimes w_{l}^{\prime} \\ 
+\end{align*}
+$$</p>
+<p>$$
+\implies \left[ (\phi \otimes \psi)(v_{i} \otimes w_{k}) \right]_{{\mathcal{V}}^{\prime} \otimes \mathcal{W}^{\prime}} = \begin{bmatrix}
+\alpha_{1i}\beta_{1k} \\ 
+\alpha_{1i}\beta_{2k} \\ 
+\vdots \\ 
+\alpha_{1i}\beta_{qk} \\ 
+\alpha_{2i}\beta_{1k} \\ 
+\alpha_{2i}\beta_{2k} \\ 
+\vdots \\ 
+\alpha_{2i}\beta_{qk} \\ 
+\vdots \\ 
+\alpha_{mi}\beta_{1k} \\ 
+\alpha_{mi}\beta_{2k} \\ 
+\vdots \\ 
+\alpha_{mi}\beta_{qk} \\ 
+\end{bmatrix}
+$$</p>
+<p>따라서 정리하면 다음과 같다.</p>
+<p>$$
+\begin{align*}
+&amp; \begin{bmatrix} \phi \otimes \psi \end{bmatrix}_{\mathcal{V} \otimes \mathcal{W}}^{{\mathcal{V}}^{\prime} \otimes \mathcal{W}^{\prime}} \\ 
+&amp;= \begin{bmatrix}
+\left[ \phi(v_{1}) \otimes \psi(w_{1}) \right]_{{\mathcal{V}}^{\prime} \otimes \mathcal{W}^{\prime}} &amp;
+\left[ \phi(v_{1}) \otimes \psi(w_{2}) \right]_{{\mathcal{V}}^{\prime} \otimes \mathcal{W}^{\prime}} &amp;
+\cdots &amp;
+\left[ \phi(v_{n}) \otimes \psi(w_{p}) \right]_{{\mathcal{V}}^{\prime} \otimes \mathcal{W}^{\prime}}
+\end{bmatrix} \\ 
+&amp;=
+\left[ 
+\begin{array}{cccc|c|cccc}
+\alpha_{11}\beta_{11} &amp; \alpha_{11}\beta_{12} &amp; \cdots &amp; \alpha_{11}\beta_{1p} &amp; \cdots &amp; \alpha_{1n}\beta_{11} &amp; \alpha_{1n}\beta_{12} &amp; \cdots &amp; \alpha_{1n}\beta_{1p} &amp; \\ 
+\alpha_{11}\beta_{21} &amp; \alpha_{11}\beta_{22} &amp; \cdots &amp; \alpha_{11}\beta_{2p} &amp; \cdots &amp; \alpha_{1n}\beta_{21} &amp; \alpha_{1n}\beta_{22} &amp; \cdots &amp; \alpha_{1n}\beta_{2p} &amp; \\ 
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \cdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 
+\alpha_{11}\beta_{q1} &amp; \alpha_{11}\beta_{q2} &amp; \cdots &amp; \alpha_{11}\beta_{qp} &amp; \cdots &amp; \alpha_{1n}\beta_{q1} &amp; \alpha_{1n}\beta_{q2} &amp; \cdots &amp; \alpha_{1n}\beta_{qp} &amp; \\ \hline
+\alpha_{21}\beta_{11} &amp; \alpha_{21}\beta_{12} &amp; \cdots &amp; \alpha_{21}\beta_{1p} &amp; \cdots &amp; \alpha_{2n}\beta_{11} &amp; \alpha_{2n}\beta_{12} &amp; \cdots &amp; \alpha_{2n}\beta_{1p} &amp; \\ 
+\alpha_{21}\beta_{21} &amp; \alpha_{21}\beta_{22} &amp; \cdots &amp; \alpha_{21}\beta_{2p} &amp; \cdots &amp; \alpha_{2n}\beta_{21} &amp; \alpha_{2n}\beta_{22} &amp; \cdots &amp; \alpha_{2n}\beta_{2p} &amp; \\ 
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \cdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 
+\alpha_{21}\beta_{q1} &amp; \alpha_{21}\beta_{q2} &amp; \cdots &amp; \alpha_{21}\beta_{qp} &amp; \cdots &amp; \alpha_{2n}\beta_{q1} &amp; \alpha_{2n}\beta_{q2} &amp; \cdots &amp; \alpha_{2n}\beta_{qp} &amp; \\ \hline
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\ \hline
+\alpha_{m1}\beta_{11} &amp; \alpha_{m1}\beta_{12} &amp; \cdots &amp; \alpha_{m1}\beta_{1p} &amp; \cdots &amp; \alpha_{mn}\beta_{11} &amp; \alpha_{mn}\beta_{12} &amp; \cdots &amp; \alpha_{mn}\beta_{1p} &amp; \\ 
+\alpha_{m1}\beta_{21} &amp; \alpha_{m1}\beta_{22} &amp; \cdots &amp; \alpha_{m1}\beta_{2p} &amp; \cdots &amp; \alpha_{mn}\beta_{21} &amp; \alpha_{mn}\beta_{22} &amp; \cdots &amp; \alpha_{mn}\beta_{2p} &amp; \\ 
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \cdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 
+\alpha_{m1}\beta_{q1} &amp; \alpha_{m1}\beta_{q2} &amp; \cdots &amp; \alpha_{m1}\beta_{qp} &amp; \cdots &amp; \alpha_{mn}\beta_{q1} &amp; \alpha_{mn}\beta_{q2} &amp; \cdots &amp; \alpha_{mn}\beta_{qp} &amp; \\ 
+\end{array}
+\right] \\ 
+&amp;=
+\left[
+\begin{array}{c}
+\alpha_{11} \begin{bmatrix}
+\beta_{11} &amp; \beta_{12} &amp; \cdots &amp; \beta_{1p} \\ 
+\beta_{21} &amp; \beta_{22} &amp; \cdots &amp; \beta_{2p} \\ 
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 
+\beta_{q1} &amp; \beta_{q2} &amp; \cdots &amp; \beta_{qp}
+\end{bmatrix}
+&amp; \cdots &amp;
+\alpha_{1n}\begin{bmatrix}
+\beta_{11} &amp; \beta_{12} &amp; \cdots &amp; \beta_{1p} \\ 
+\beta_{21} &amp; \beta_{22} &amp; \cdots &amp; \beta_{2p} \\ 
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 
+\beta_{q1} &amp; \beta_{q2} &amp; \cdots &amp; \beta_{qp}
+\end{bmatrix} \\ 
+\alpha_{21} \begin{bmatrix}
+\beta_{11} &amp; \beta_{12} &amp; \cdots &amp; \beta_{1p} \\ 
+\beta_{21} &amp; \beta_{22} &amp; \cdots &amp; \beta_{2p} \\ 
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 
+\beta_{q1} &amp; \beta_{q2} &amp; \cdots &amp; \beta_{qp}
+\end{bmatrix}
+&amp; \cdots &amp;
+\alpha_{2n}\begin{bmatrix}
+\beta_{11} &amp; \beta_{12} &amp; \cdots &amp; \beta_{1p} \\ 
+\beta_{21} &amp; \beta_{22} &amp; \cdots &amp; \beta_{2p} \\ 
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 
+\beta_{q1} &amp; \beta_{q2} &amp; \cdots &amp; \beta_{qp}
+\end{bmatrix} \\ 
+\vdots &amp; \ddots &amp; \vdots \\ 
+\alpha_{m1} \begin{bmatrix}
+\beta_{11} &amp; \beta_{12} &amp; \cdots &amp; \beta_{1p} \\ 
+\beta_{21} &amp; \beta_{22} &amp; \cdots &amp; \beta_{2p} \\ 
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 
+\beta_{q1} &amp; \beta_{q2} &amp; \cdots &amp; \beta_{qp}
+\end{bmatrix}
+&amp; \cdots &amp;
+\alpha_{mn}\begin{bmatrix}
+\beta_{11} &amp; \beta_{12} &amp; \cdots &amp; \beta_{1p} \\ 
+\beta_{21} &amp; \beta_{22} &amp; \cdots &amp; \beta_{2p} \\ 
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 
+\beta_{q1} &amp; \beta_{q2} &amp; \cdots &amp; \beta_{qp}
+\end{bmatrix} \\ 
+\end{array}
+\right] \\ 
+&amp;=
+\begin{bmatrix}
+\alpha_{11} B &amp; \cdots &amp; \alpha_{1n} B \\ 
+\alpha_{21} B &amp; \cdots &amp; \alpha_{2n} B \\ 
+\vdots &amp; \ddots &amp; \vdots \\ 
+\alpha_{m1} B &amp; \cdots &amp; \alpha_{mn} B
+\end{bmatrix} \\ 
+&amp;= A \otimes B
+\end{align*}
+$$</p>
+<p style="text-align: right;">■</p>
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
-<p><a href="https://stackoverflow.com/a/38638838/12285249">https://stackoverflow.com/a/38638838/12285249</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1">
+<p>김영훈·허재성, <em>양자 정보 이론</em> (2020), p36&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
 
 <aside style="text-align: right;">
-    2022-02-12&emsp;
-    류대식&emsp;
-    <a href="../691">🎲 2157</a>
+    2013-05-21&emsp;
+    전기현&emsp;
+    <a href="../2088">🎲 3419</a>
 </aside>
 
 <script>
@@ -294,8 +382,8 @@ julia&gt; @time x .=== 0;
       renderKaTex(tex);
     }
 
-    var title = '줄리아에서 ==과 ===의 차이점';
-    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/how-different-and-in-julia\/';
+    var title = '텐서곱의 행렬표현';
+    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/matrix-representation-for-tensor-product\/';
     var arr = new Array();
     var obj = {
       "title": title,
@@ -363,7 +451,7 @@ julia&gt; @time x .=== 0;
       .then(ip => {
         const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
         return postFetch(url, {
-                board_idx: '2157',
+                board_idx: '3419',
                 user_ip: ip
               });
       })
@@ -496,9 +584,9 @@ julia&gt; @time x .=== 0;
       alert('빈칸을 채워주세요');
       return;
     }
-    const idx = '2157';
-    const board_slug = 'how-different-==-and-===-in-julia';
-    const board_title = '줄리아에서 ==과 ===의 차이점';
+    const idx = '3419';
+    const board_slug = 'matrix-representation-for-tensor-product';
+    const board_title = '텐서곱의 행렬표현';
 
     fetch('https://api.ipify.org?format=json')
       .then(res => res.json())
@@ -737,9 +825,9 @@ julia&gt; @time x .=== 0;
       return;
     }
 
-    const board_idx = '2157';
-    const board_slug = 'how-different-==-and-===-in-julia';
-    const board_title = '줄리아에서 ==과 ===의 차이점';
+    const board_idx = '3419';
+    const board_slug = 'matrix-representation-for-tensor-product';
+    const board_title = '텐서곱의 행렬표현';
 
     fetch('https://api.ipify.org?format=json')
       .then(res => res.json())
@@ -1092,11 +1180,6 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     </div>
 
     
-    
-    
-    <link rel="stylesheet" href=https://freshrimpsushi.github.io/css/codefence.css>
-    <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
-    <script>hljs.initHighlightingOnLoad();</script>
     
 
     <script src=https://freshrimpsushi.github.io/js/fuse.js></script> 
