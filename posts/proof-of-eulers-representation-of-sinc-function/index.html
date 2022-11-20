@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/proof-of-eulers-representation-of-sinc-function\/",
-    "wordCount" : "1276",
+    "wordCount" : "1271",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -202,32 +202,45 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#정의">정의</a></li>
-    <li><a href="#정리-오일러-표현">정리: 오일러 표현</a></li>
+    <li><a href="#정리">정리</a>
+      <ul>
+        <li><a href="#싱크함수의-정의">싱크함수의 정의</a></li>
+        <li><a href="#오일러-표현">오일러 표현</a></li>
+      </ul>
+    </li>
     <li><a href="#설명">설명</a></li>
-    <li><a href="#증명">증명</a></li>
+    <li><a href="#증명">증명</a>
+      <ul>
+        <li><a href="#따름정리">따름정리</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
     </div>
   </div>
 </aside>
 
-<h2 id="정의">정의</h2>
+<h2 id="정리">정리</h2>
+<h3 id="싱크함수의-정의">싱크함수의 정의</h3>
+<p>다음의 <a href="../470">함수</a> $\text{sinc} : \mathbb{R} \to \mathbb{R}$ 을 <strong>싱크 함수</strong><sup>Sinc Function</sup>라 한다.</p>
 <p>$$
-\text{sinc} x = {{\sin x} \over {x}}
+\text{sinc} x := \begin{cases} \displaystyle
+{{\sin x} \over {x}} &amp; , \text{if } x \ne 0
+\\ 1 &amp; , \text{if } x = 0
+\end{cases}
 $$</p>
-<h2 id="정리-오일러-표현">정리: 오일러 표현</h2>
+<h3 id="오일러-표현">오일러 표현</h3>
 <p>$$
 \text{sinc} x = \prod_{n=1}^{\infty} \left( 1 - {{x^2} \over { \pi^2 n^2}} \right)
 $$</p>
 <h2 id="설명">설명</h2>
 <p>싱크함수란 $\sin x$ 을 $x$로 나눈 함수로써, 별도의 이름이 붙은만큼 유용한 구석이 많은 함수다. 교과 과정부터 그 이름만 모를 뿐 극한이나 연속 파트에 종종 등장하기도 한다.</p>
-<p>물론 싱크함수는 $x=0$ 에서 정의되지 않지만 다들 잘 알듯 $\displaystyle \lim_{x \to 0} {{\sin x} \over {x}} = 1$ 이므로, 정말 엄밀하게 따지고 들 게 아니라면 별 말이 없어도 어련히 $\displaystyle \text{sinc} 0 = 1$로 알면 된다.</p>
-<p>한편 정규화된 싱크함수는 아래와 같이 정의된다고도 한다.
+<!-- 물론 싱크함수는 $x=0$ 에서 정의되지 않지만 다들 잘 알듯 $\displaystyle \lim\_{x \to 0} {{\sin x} \over {x}} = 1$ 이므로, 정말 엄밀하게 따지고 들 게 아니라면 별 말이 없어도 어련히 $\displaystyle \text{sinc} 0 = 1$로 알면 된다. -->
+<p>한편 <strong>정규화된 싱크함수</strong><sup>Normalized Sinc Function</sup>는 아래와 같이 정의된다.
 $$
 \text{sinc} x = {{\sin \pi x} \over {\pi x}} = \prod_{n=1}^{\infty} \left( 1 - {{x^2} \over { n^2}} \right)
 $$
-이런 경우 오히려 $\displaystyle \text{Sa}(x) = {{\sin x} \over {x}} $를 비정규화된 싱크함수로 부르기도 한다는데, 본질적으로 둘은 그냥 같은 함수기 때문에 엄격하게 구분하진 않고 보통 그 때 그 때 용도에 맞게 재정의한다. 본 블로그에서도 왔다갔다 그냥 편한대로 쓰이니까 너무 한 쪽에 목매달거나 하지 말자.</p>
+이런 경우 오히려 $\displaystyle \text{Sa}(x) := {{\sin x} \over {x}}$ 를 <strong>비정규화된 싱크함수</strong>로 부르기도 한다는데, 본질적으로 둘은 그냥 같은 함수기 때문에 엄격하게 구분하진 않고 보통 그 때 그 때 용도에 맞게 재정의한다고 보면 된다.</p>
 <p>참고로 <a href="../373">싱크함수의 이상적분</a>은 $\displaystyle \int_{- \infty}^{\infty} {{\sin x} \over {x} } dx = \pi$ 로 구해진다.</p>
 <h2 id="증명">증명</h2>
 <p>전략: 소개할 증명은 직관적이지 않고 테크니컬한 부분이 많아서 이해하기가 상당히 어렵다. 하지지만 개중에서 그나마 쉬운편인데다 복소해석을 쓰지 않는다는 장점이 있는 증명이다.</p>
@@ -255,7 +268,7 @@ I_{n} (c) =&amp; \int_{0}^{ { {\pi} \over {2} } } \cos ^{n} t \cos ct dt
 \\ =&amp; \left[ {1 \over c} \cos^{n} t \sin c t \right]_{0}^{{ {\pi} \over {2} }} - \int_{0}^{ { {\pi} \over {2} } } {1 \over c} n \cos ^{n-1} t (-\sin t) \sin ct dt 
 \\ =&amp; {n \over c} \int_{0}^{ { {\pi} \over {2} } } \cos ^{n-1} t \sin t \sin ct dt 
 \\ =&amp; {n \over c} \left[ {1 \over c} \cos^{n-1} t \sin t (-\cos c t ) \right]_{0}^{{ {\pi} \over {2} }} 
-\\ &amp;&amp; - {n \over c} \int_{0}^{ { {\pi} \over {2} } } {1 \over c} \left\{ (n-1) \cos ^{n-2} t (-\sin^2 t) + \cos ^{n} t \right\} (-\cos ct) dt 
+\\ &amp; - {n \over c} \int_{0}^{ { {\pi} \over {2} } } {1 \over c} \left\{ (n-1) \cos ^{n-2} t (-\sin^2 t) + \cos ^{n} t \right\} (-\cos ct) dt 
 \\ =&amp; {n \over {c^2} } \int_{0}^{ { {\pi} \over {2} } } \left\{ (n-1) \cos ^{n-2} t (\cos^2 t - 1) + \cos ^{n} t \right\} \cos ct dt 
 \\ =&amp; {n \over {c^2} } \int_{0}^{ { {\pi} \over {2} } } \left\{ n \cos ^{n} t  - (n-1) \cos^{n-2} t \right\} \cos ct dt 
 \\ =&amp; {n \over {c^2} } \left\{ n I_{n}(c) - (n-1) I_{n-2}(c) \right\} 
@@ -308,12 +321,16 @@ $$
 $$</p>
 <p style="text-align: right;">■</p>
 <p>실제 결과는 굉장히 유용하지만 증명 자체는 외워뒀다가 어디 다른데 써먹을만한 방법이 못 된다. 차근차근 이해하고 숙지하는 것보단 아 이런 증명도 있구나 하고 넘어가는 걸 추천한다.</p>
+<h3 id="따름정리">따름정리</h3>
+<ul>
+<li><a href="../391">오일러의 증명: 싱크함수를 이용한 제곱수의 역수의 합 구하기</a></li>
+</ul>
 
 
 <aside style="text-align: right;">
     2017-08-01&emsp;
     류대식&emsp;
-    <a href="../1275">🎲 187</a>
+    <a href="../1631">🎲 187</a>
 </aside>
 
 <script>
@@ -911,12 +928,12 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
       { idx: 4, name: '통계적검정', size: '20++', color: color.red },
       { idx: 5, name: '통계적분석', size: '61', color: color.green },
       { idx: 6, name: '수리통계학', size: '109', color: color.green },
-      { idx: 7, name: '분포이론', size: '58', color: color.green },
+      { idx: 7, name: '분포이론', size: '60++', color: color.green },
       { idx: 8, name: '확률론', size: '72', color: color.green },
       { idx: 9, name: '위상데이터분석', size: '38', color: color.red }
     ],
     [
-      { idx: 1, name: '줄리아', size: '120++', color: color.green },
+      { idx: 1, name: '줄리아', size: '150++', color: color.green },
       { idx: 2, name: '프로그래밍', size: '32', color: color.green },
       { idx: 3, name: '알고리즘', size: '28', color: color.green },
       { idx: 4, name: '머신러닝', size: '50++', color: color.green },

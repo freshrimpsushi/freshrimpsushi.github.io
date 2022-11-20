@@ -150,7 +150,8 @@
     <li><a href="#시각화">시각화</a>
       <ul>
         <li><a href="#히트맵">히트맵</a></li>
-        <li><a href="#statsplots">StatsPlots</a></li>
+        <li><a href="#statsplotsjl">StatsPlots.jl</a></li>
+        <li><a href="#백엔드">백엔드</a></li>
       </ul>
     </li>
     <li><a href="#계산">계산</a>
@@ -228,6 +229,8 @@
 </ul>
 </li>
 <li><a href="../../posts/2416">데이터 생략 없이 출력하는 법 <code>show(stdout, &quot;text/plain&quot;, foo)</code></a> <img src="julia.svg" alt="줄리아" style="height: 1em;vertical-align:middle;"></li>
+<li><a href="../../posts/2505">콘솔 초기화 하는 법 <kbd>Ctrl</kbd> + <kbd>L</kbd>,  <code>print(&quot;\033c&quot;)</code></a></li>
+<li><a href="../../posts/2509">*.mat 파일 읽고 쓰는 법 <code>MAT.jl</code></a> <img src="matlab.svg" alt="매트랩" style="height: 1em;vertical-align:middle;"></li>
 </ul>
 <h3 id="기초-문법">기초 문법</h3>
 <ul>
@@ -263,6 +266,7 @@
 <li><a href="../../posts/1799">거리 행렬 계산하는 법 <code>Distances.jl</code></a> <img src="julia.svg" alt="줄리아" style="height: 1em;vertical-align:middle;"></li>
 <li><a href="../../posts/3311">심볼릭 연산 사용하는 방법 <code>SymEngine.jl</code></a></li>
 <li><a href="../../posts/2493">회귀분석 하는 법 <code>GLM.jl</code></a> <img src="r.svg" alt="R" style="height: 1em;vertical-align:middle;"></li>
+<li><a href="../../posts/3440">푸리에 변환 패키지 <code>FFTW.jl</code></a></li>
 </ul>
 <!-- - 토모그래피 패키지 `Tomography.jl` -->
 <h3 id="io">I/O</h3>
@@ -309,6 +313,7 @@
 <li><a href="../../posts/2120">구조체 속성 확인하는 법 <code>propertynames()</code></a></li>
 <li><a href="../../posts/2303">네임드 튜플 <code>(; x, y)</code></a></li>
 <li><a href="../../posts/2264">컨테이너 내부 원소 타입 체크하는 법</a> <img src="julia.svg" alt="줄리아" style="height: 1em;vertical-align:middle;"></li>
+<li><a href="../../posts/3439">기본 자료형 변경하는 방법</a></li>
 </ul>
 <h3 id="배열">배열</h3>
 <ul>
@@ -391,13 +396,18 @@
 <li><a href="../../posts/1459">배열을 히트맵 이미지로 출력 저장하는 방법</a> <img src="matlab.svg" alt="매트랩" style="height: 1em;vertical-align:middle;"></li>
 <li><a href="../../posts/3213">히트맵 위에 플랏 겹쳐서 그리는 방법</a></li>
 </ul>
-<h3 id="statsplots">StatsPlots</h3>
+<h3 id="statsplotsjl">StatsPlots.jl</h3>
 <ul>
 <li><a href="../../posts/3257">덴드로그램 그리는 방법</a>
 <ul>
 <li><a href="../../posts/3259">계층적 군집화하는 방법 <code>hclust()</code></a></li>
 </ul>
 </li>
+</ul>
+<h3 id="백엔드">백엔드</h3>
+<p>줄리아는 여러가지 백엔드를 지원하는데, 이에 따라 같은 줄리아 시각화라도 목적과 취향에 맞는 백엔드 중 하나를 선택해서 더욱 생산성을 높일 수 있다. 이 위에 게시된 대부분의 포스트는 줄리아의 기본 백엔드인 GR 프레임웍을 기준으로 설명하고 있었다.</p>
+<ul>
+<li><a href="../../posts/2507">콘솔에서 간단한 그림 출력하는 법 <code>UnicodePlots.jl</code></a></li>
 </ul>
 <h2 id="계산">계산</h2>
 <ul>
@@ -528,7 +538,13 @@
     
     <li><a href="https://freshrimpsushi.github.io/posts/how-to-refer-to-enviroment-variables-in-julia/">줄리아에서 환경변수 참조하는 법</a></li>
     
+    <li><a href="https://freshrimpsushi.github.io/posts/how-to-clear-console-in-julia/">줄리아에서 콘솔 초기화 하는 법</a></li>
+    
+    <li><a href="https://freshrimpsushi.github.io/posts/how-to-show-simple-plot-in-julia-console/">줄리아 콘솔에서 간단한 그림 출력하는 법</a></li>
+    
     <li><a href="https://freshrimpsushi.github.io/posts/how-to-change-axis-style-of-figure-in-julia-with-polts/">줄리아 Plots에서 그림 축 스타일 변경하는 방법 `framestyle`</a></li>
+    
+    <li><a href="https://freshrimpsushi.github.io/posts/how-to-change-default-data-type-in-julia/">줄리아에서 기본 자료형 변경하는 방법</a></li>
     
     <li><a href="https://freshrimpsushi.github.io/posts/what-is-julia-language/">줄리아 프로그래밍 언어</a></li>
     
@@ -1333,12 +1349,12 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
       { idx: 4, name: '통계적검정', size: '20++', color: color.red },
       { idx: 5, name: '통계적분석', size: '61', color: color.green },
       { idx: 6, name: '수리통계학', size: '109', color: color.green },
-      { idx: 7, name: '분포이론', size: '58', color: color.green },
+      { idx: 7, name: '분포이론', size: '60++', color: color.green },
       { idx: 8, name: '확률론', size: '72', color: color.green },
       { idx: 9, name: '위상데이터분석', size: '38', color: color.red }
     ],
     [
-      { idx: 1, name: '줄리아', size: '120++', color: color.green },
+      { idx: 1, name: '줄리아', size: '150++', color: color.green },
       { idx: 2, name: '프로그래밍', size: '32', color: color.green },
       { idx: 3, name: '알고리즘', size: '28', color: color.green },
       { idx: 4, name: '머신러닝', size: '50++', color: color.green },
