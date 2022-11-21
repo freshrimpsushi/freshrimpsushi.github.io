@@ -67,10 +67,10 @@
     </script>
 
     
-<meta name="title" content="이상기체 방정식">
+<meta name="title" content="줄리아에서 mat 파일 읽고 쓰는 법">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="이상기체 방정식"/>
-<meta property="og:description" content="Pv = nrt"/>
+<meta property="og:title" content="줄리아에서 mat 파일 읽고 쓰는 법"/>
+<meta property="og:description" content="How to Read and Write mat file in julia"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -82,15 +82,15 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "r_",
-    "name": "이상기체 방정식",
-    "headline": "이상기체 방정식",
+    "name": "줄리아에서 mat 파일 읽고 쓰는 법",
+    "headline": "줄리아에서 mat 파일 읽고 쓰는 법",
     "alternativeHeadline": "",
-    "description": "Pv = nrt",
+    "description": "How to Read and Write mat file in julia",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/pv--nrt\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/how-to-read-and-write-mat-file-in-julia\/"
     },
     "author" : {
         "@type": "Person",
@@ -105,10 +105,10 @@
         "name": "류대식"
     },
     "copyrightHolder" : "생새우초밥집",
-    "copyrightYear" : "2018",
-    "dateCreated": "2018-07-05T00:00:00.00Z",
-    "datePublished": "2018-07-05T00:00:00.00Z",
-    "dateModified": "2018-07-05T00:00:00.00Z",
+    "copyrightYear" : "1924",
+    "dateCreated": "1924-01-17T00:00:00.00Z",
+    "datePublished": "1924-01-17T00:00:00.00Z",
+    "dateModified": "1924-01-17T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -121,15 +121,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/pv--nrt\/",
-    "wordCount" : "877",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-read-and-write-mat-file-in-julia\/",
+    "wordCount" : "449",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>이상기체 방정식</title>
+    <title>줄리아에서 mat 파일 읽고 쓰는 법</title>
 </head>
 
 <body class="main">
@@ -137,7 +137,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/%EC%A4%84%EB%A6%AC%EC%95%84.png style="max-height: 80px; width: auto;">
             
             
             
@@ -178,21 +178,21 @@
     <div class="content">
       <div class="content-box">
         
-<title>이상기체 방정식</title>
+<title>줄리아에서 mat 파일 읽고 쓰는 법</title>
 
 
 
 
-        <a href="https://freshrimpsushi.github.io/categories/%EC%97%B4%EB%AC%BC%EB%A6%AC%ED%95%99/"
+        <a href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/"
             style="background-color: rgba(0, 0, 0, 0.8); color: orange;
             border-radius:10px; padding: 5px;">
-            📂열물리학</a>
+            📂줄리아</a>
         
 
 
-<h1>이상기체 방정식</h1>
+<h1>줄리아에서 mat 파일 읽고 쓰는 법</h1>
 <p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px; margin-left: 0px;">
-  Pv = nrt
+  How to Read and Write mat file in julia
 </p>
 
 <aside>
@@ -202,64 +202,65 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#공식1">공식</a></li>
-    <li><a href="#설명">설명</a></li>
-    <li><a href="#유도">유도</a></li>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#코드">코드</a>
+      <ul>
+        <li><a href="#줄리아--매트랩">줄리아 → 매트랩</a></li>
+        <li><a href="#매트랩--줄리아">매트랩 → 줄리아</a></li>
+      </ul>
+    </li>
+    <li><a href="#환경">환경</a></li>
   </ul>
 </nav>
     </div>
   </div>
 </aside>
 
-<h2 id="공식1">공식<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p>기체의 분자 수를 $N$, 부피를 $V$, 압력을 $p$, <a href="../613">절대온도</a>를 $T$라고 하자. 그러면 다음의 식이 성립하며 이를 <strong>이상기체 방정식</strong><sup>ideal gas equation</sup>이라 한다.</p>
-<p>$$
-pV = N k_{B} T
-$$</p>
-<p>이때 $k_{B} = 1.3807 \times 10^{-23} J / K$를 <strong>볼츠만 상수</strong><sup>Boltzmann constant</sup>라 한다.</p>
-<h2 id="설명">설명</h2>
-<p>역사적으로 보면 실험법칙으로부터 유도되었다가 후에 <a href="../3060">기체운동론에서 수식적으로 유도</a>되었다. &lsquo;이상기체&rsquo; 방정식이라 부르는 이유는 수식을 유도하는 과정에서 다음과 같은 가정이 쓰였기 때문이다.</p>
+<h2 id="개요">개요</h2>
+<p><code>MAT.jl</code>은 <a href="../../categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9">매트랩</a>에서 사용하는 데이터 저장 형식인 <code>*.mat</code> 파일을 읽고 쓰는 라이브러리다.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 원래 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>가 그러하듯, 이 패키지는 <strong>기존에 쓰던 프로그래밍 언어와 습관들을 버리도록 강요하는 게 아니라 최대한 친숙한 환경을 제공함으로써 사용자를 확보하는 전략</strong>을 보여준다.</p>
 <ul>
-<li>각 분자 사이에 아무런 힘이 작용하지 않는다. 다시말해 서로 끌어당기지 않는다.</li>
-<li>각 분자는 크기가 없는 점입자이다.</li>
+<li>줄리아의 빠른 속도와 편의성은 큰 장점이지만, 매트랩은 연구 목적의 시각화에 독보적인 장점을 가지고 있다. 이미 매트랩으로 그림 그리는 작업에 숙련되어 있다면 &lsquo;줄리아로의 완전 이전&rsquo;은 너무 큰 희생이 따르기 때문에 매력적이지 않은 것인데, <code>MAT.jl</code>의 존재는 &ldquo;그런 걱정하지 말고, 계산만 줄리아로 빨리 돌린 후 그림은 매트랩으로 돌아가서 그리면 된다&quot;는 유혹 그 자체다.</li>
+<li>반대 방향으로, &lsquo;매트랩으로 이미 작업하고 구축해놓은 게 많지만 어떤 한계를 느껴서 줄리아로 넘어가고 싶은 상황&rsquo;에서도 도움이 된다.</li>
 </ul>
-<p>실제로는 당연히 분자들은 서로 상호작용을 하고, 크기가 있지만 이론의 단순함을 위해 위와 같이 가정한다. 지표면에서 <a href="../../categories/%EC%83%81%EB%8C%80%EC%84%B1%EC%9D%B4%EB%A1%A0/">상대성이론</a>을 고려하지 않고 <a href="../../categories/%EA%B3%A0%EC%A0%84%EC%97%AD%ED%95%99">뉴턴역학</a>만을 사용해도 많은 현상을 잘 설명하는 것처럼, 이상기체 방정식도 실제 기체를 잘 설명한다. 실제 기체는 계의 분자량이 적을수록, 온도가 높을수록, 압력이 낮을수록 이상기체와 가까워진다.</p>
-<p>이상기체 방정식이 모든 기체 현상을 설명할 수 있는 것은 아니다. 상대론적인 효과를 고려해야할 때는 상대론적 기체모델을, 양자 효과를 고려해야할 때는 양자기체모델을 사용해야한다.</p>
-<p>이상기체 방정식의 상수를 몰수 $n$ 에 대해 나타내면 $pV = nRT$ 의 꼴로 쓸 수 있다. 이 때 $R$ 을 기체상수라고 하는데, 열역학에선 대개 꼴과 거의 반반씩 쓰인다.</p>
-<h2 id="유도">유도</h2>
-<p>$$
-p \propto \dfrac{1}{V}
-$$</p>
-<p>일정한 온도에서 기체의 압력과 부피에 대해서 위와 같은 관계가 성립하며 이를 <strong>보일의 법칙</strong><sup>Boyle's law</sup>이라 한다. 후에 보일과 무관하게 <strong>에드메 매리어트</strong><sup>Edme Mariotte</sup>도 같은 사실을 발견하여 <strong>보일-매리어트 법칙</strong>이라고도 한다.</p>
-<p>$$
-V \propto T
-$$</p>
-<p>일정한 압력에서 기체의 부피와 온도에 대해서 위와 같은 관계가 성립하며 이를 <strong>샤를의 법칙</strong><sup>Charles&rsquo; law</sup>이라 한다.</p>
-<p>$$
-p \propto T
-$$</p>
-<p>기체의 부피가 일정할 때, 온도와 압력에 대해서 위와 같은 관계가 성립하며 이를 <strong>게이루삭의 법칙</strong>이라 한다. 위의 세 비례식으로부터 다음의 식을 얻는다.</p>
-<p>$$
-p^{2}V \propto T^{2}/V \implies p^{2}V^{2} \propto T^{2} \implies pV \propto T
-$$</p>
-<p>비례상수를 $Nk_{B}$라고 하면 아래의 결과를 얻는다.</p>
-<p>$$
-pV = Nk_{B}T
-$$</p>
-<div class="footnotes" role="doc-endnotes">
+<p>mat 형식보다 진보된 줄리아 고유의 저장방식은 <a href="../2199"><code>JLD2.jl</code> 패키지를 참고</a>하면 된다.</p>
+<h2 id="코드">코드</h2>
+<pre tabindex="0"><code>X = rand(0:9, 8, 3)
+
+using MAT
+matwrite(&quot;example.mat&quot;, Dict(&quot;Y&quot; =&gt; X))
+matfile = matopen(&quot;elpmaxe.mat&quot;)
+A = read(matfile, &quot;A&quot;)
+close(matfile)
+</code></pre><h3 id="줄리아--매트랩">줄리아 → 매트랩</h3>
+<p><img src="20221119_215945.png" alt="20221119_215945.png">
+<img src="20221119_215958.png" alt="20221119_215958.png"></p>
+<h3 id="매트랩--줄리아">매트랩 → 줄리아</h3>
+<p><img src="20221119_215018.png" alt="20221119_215018.png">
+<img src="20221119_214928.png" alt="20221119_214928.png"></p>
+<h2 id="환경">환경</h2>
+<ul>
+<li>OS: Windows</li>
+<li>julia: v1.7.3
+<ul>
+<li>MAT v0.10.3</li>
+</ul>
+</li>
+<li>MATLAB: R2022b</li>
+</ul>
+<section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1">
-<p>Stephen J. Blundell and Katherine M. Blundell, <em>열 물리학</em>(Concepts in Thermal Physics, 이재우 역) (2nd Edition, 2014), p8-10&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://github.com/JuliaIO/MAT.jl">https://github.com/JuliaIO/MAT.jl</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</div>
+</section>
 
 
 <aside style="text-align: right;">
-    2018-07-05&emsp;
+    1924-01-17&emsp;
     류대식&emsp;
-    <a href="../2103">🎲 602</a>
+    <a href="../1227">🎲 2509</a>
 </aside>
 
 <script>
@@ -274,8 +275,8 @@ $$</p>
       renderKaTex(tex);
     }
 
-    var title = '이상기체 방정식';
-    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/pv--nrt\/';
+    var title = '줄리아에서 mat 파일 읽고 쓰는 법';
+    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/how-to-read-and-write-mat-file-in-julia\/';
     var arr = new Array();
     var obj = {
       "title": title,
@@ -343,7 +344,7 @@ $$</p>
       .then(ip => {
         const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
         return postFetch(url, {
-                board_idx: '602',
+                board_idx: '2509',
                 user_ip: ip
               });
       })
@@ -476,9 +477,9 @@ $$</p>
       alert('빈칸을 채워주세요');
       return;
     }
-    const idx = '602';
-    const board_slug = 'pv-=-nrt';
-    const board_title = '이상기체 방정식';
+    const idx = '2509';
+    const board_slug = 'how-to-read-and-write-mat-file-in-julia';
+    const board_title = '줄리아에서 mat 파일 읽고 쓰는 법';
 
     fetch('https://api.ipify.org?format=json')
       .then(res => res.json())
@@ -717,9 +718,9 @@ $$</p>
       return;
     }
 
-    const board_idx = '602';
-    const board_slug = 'pv-=-nrt';
-    const board_title = '이상기체 방정식';
+    const board_idx = '2509';
+    const board_slug = 'how-to-read-and-write-mat-file-in-julia';
+    const board_title = '줄리아에서 mat 파일 읽고 쓰는 법';
 
     fetch('https://api.ipify.org?format=json')
       .then(res => res.json())
@@ -1072,6 +1073,11 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
     </div>
 
     
+    
+    
+    <link rel="stylesheet" href=https://freshrimpsushi.github.io/css/codefence.css>
+    <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
+    <script>hljs.initHighlightingOnLoad();</script>
     
 
     <script src=https://freshrimpsushi.github.io/js/fuse.js></script> 
