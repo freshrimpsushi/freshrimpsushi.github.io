@@ -67,10 +67,10 @@
     </script>
 
     
-<meta name="title" content="오프라인">
+<meta name="title" content="줄리아에서 고속 푸리에 변환(FFT) 사용하는 방법">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="오프라인"/>
-<meta property="og:description" content="Offline"/>
+<meta property="og:title" content="줄리아에서 고속 푸리에 변환(FFT) 사용하는 방법"/>
+<meta property="og:description" content="How to Use Fast Fourier Transform(FFT) in Julia"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -81,34 +81,34 @@
 {
     "@context": "http://schema.org",
     "@type": "BlogPosting",
-    "articleSection": "r_",
-    "name": "오프라인",
-    "headline": "오프라인",
+    "articleSection": "j_",
+    "name": "줄리아에서 고속 푸리에 변환(FFT) 사용하는 방법",
+    "headline": "줄리아에서 고속 푸리에 변환(FFT) 사용하는 방법",
     "alternativeHeadline": "",
-    "description": "Offline",
+    "description": "How to Use Fast Fourier Transform(FFT) in Julia",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/offline\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/how-to-use-fast-fourier-transformfft-in-julia\/"
     },
     "author" : {
         "@type": "Person",
-        "name": "류대식"
+        "name": "전기현"
     },
     "creator" : {
         "@type": "Person",
-        "name": "류대식"
+        "name": "전기현"
     },
     "accountablePerson" : {
         "@type": "Person",
-        "name": "류대식"
+        "name": "전기현"
     },
     "copyrightHolder" : "생새우초밥집",
-    "copyrightYear" : "2022",
-    "dateCreated": "2022-01-01T00:00:00.00Z",
-    "datePublished": "2022-01-01T00:00:00.00Z",
-    "dateModified": "2022-01-01T00:00:00.00Z",
+    "copyrightYear" : "2013",
+    "dateCreated": "2013-07-02T00:00:00.00Z",
+    "datePublished": "2013-07-02T00:00:00.00Z",
+    "dateModified": "2013-07-02T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -121,15 +121,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/offline\/",
-    "wordCount" : "0",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-use-fast-fourier-transformfft-in-julia\/",
+    "wordCount" : "1546",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>오프라인</title>
+    <title>줄리아에서 고속 푸리에 변환(FFT) 사용하는 방법</title>
 </head>
 
 <body class="main">
@@ -137,7 +137,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/basic.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/%EC%A4%84%EB%A6%AC%EC%95%84.png style="max-height: 80px; width: auto;">
             
             
             
@@ -178,15 +178,21 @@
     <div class="content">
       <div class="content-box">
         
-<title>오프라인</title>
+<title>줄리아에서 고속 푸리에 변환(FFT) 사용하는 방법</title>
 
 
 
 
+        <a href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/"
+            style="background-color: rgba(0, 0, 0, 0.8); color: orange;
+            border-radius:10px; padding: 5px;">
+            📂줄리아</a>
+        
 
-<h1>오프라인</h1>
+
+<h1>줄리아에서 고속 푸리에 변환(FFT) 사용하는 방법</h1>
 <p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px; margin-left: 0px;">
-  Offline
+  How to Use Fast Fourier Transform(FFT) in Julia
 </p>
 
 <aside>
@@ -194,17 +200,186 @@
     
     <div class="innertoc">
       <b>목차</b>
-      <nav id="TableOfContents"></nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#개요-1-2">개요  </a>
+      <ul>
+        <li><a href="#요약">요약</a></li>
+      </ul>
+    </li>
+    <li><a href="#코드">코드</a>
+      <ul>
+        <li><a href="#푸리에-변환">푸리에 변환</a></li>
+        <li><a href="#0-주파수-중앙-정렬">$0$ 주파수 중앙 정렬</a></li>
+        <li><a href="#고차원-푸리에-변환">고차원 푸리에 변환</a></li>
+        <li><a href="#주파수-샘플링">주파수 샘플링</a></li>
+      </ul>
+    </li>
+    <li><a href="#환경">환경</a></li>
+  </ul>
+</nav>
     </div>
   </div>
 </aside>
 
+<h2 id="개요-1-2">개요 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h2>
+<p>The Fastest Fourier Transform in the West(FFTW)는 매사추세츠 공과대학(MIT)에서 Matteo Frigo와 Steven G. Johnson에 의해 개발된 <a href="./1121">이산 푸리에 변환</a>을 계산하기 위한 소프트웨어 라이브러리이다. FFT 구현을 위한 줄리아 프레임워크로 <code>AbstractFFTs.jl</code>라는 패키지가 존재하지만, 이는 이 자체로 쓰기 위해 존재하는 것이 아니라 <code>FFTW.jl</code>과 같이 고속 푸리에 변환을 구현할 때 도움을 주기 위해 만들어진 것이다.</p>
+<blockquote>
+<p>This package is mainly not intended to be used directly. Instead, developers of packages that implement FFTs (such as FFTW.jl or FastTransforms.jl) extend the types/functions defined in AbstractFFTs. This allows multiple FFT packages to co-exist with the same underlying fft(x) and plan_fft(x) interface.<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></p>
+</blockquote>
+<h3 id="요약">요약</h3>
+<ul>
+<li><strong>푸리에 변환:</strong> <code>fft()</code>
+<ul>
+<li><strong>$2$차원 배열에서 열 단위로 변환:</strong> <code>fft( ,[1])</code></li>
+<li><strong>$2$차원 배열에서 행 단위로 변환:</strong> <code>fft( ,[2])</code></li>
+<li><strong>배열의 특정한 차원에 대해서만 변환:</strong> <code>fft( ,[n₁, n₂,...])</code></li>
+</ul>
+</li>
+<li><strong>푸리에 역변환:</strong> <code>ifft()</code></li>
+<li><strong>$0$ 주파수 중앙 정렬:</strong> <code>fftshift()</code>
+<ul>
+<li><strong>역변환:</strong> <code>ifftshift()</code></li>
+</ul>
+</li>
+<li><strong>주파수 샘플링:</strong> <code>fftfreq(n, fs=1)</code></li>
+</ul>
+<h2 id="코드">코드</h2>
+<h3 id="푸리에-변환">푸리에 변환</h3>
+<p><a href="../1898">푸리에 변환</a>의 표기로는 $\mathcal{F}[f]$, $\hat{f}$가 주요하게 쓰이는데, 줄리아에서는 이 표기를 코드에서 그대로 쓸 수 있다. 진동수가 $100$, $200$, $350$인 사인파를 $1/1000$ 간격으로 샘플링하고 이를 더하자.</p>
+<pre tabindex="0"><code>using FFTW
+using Plots
+using LaTeXStrings
+
+Fs = 1000 #진동수
+T = 1/1000 #샘플링 간격
+L = 1000 #신호의 길이
+x = [i for i in 0:L-1].*T #신호의 도메인
+
+f₁ = sin.(2π*100*x) #진동수가 100인 사인파
+f₂ = 0.5sin.(2π*200*x) #진동수가 100인 사인파
+f₃ = 2sin.(2π*350*x) #진동수가 100인 사인파
+f = f₁ + f₂ + f₃
+</code></pre><ul>
+<li><a href="../1086">푸리에 변환</a>: <code>fft()</code></li>
+<li><a href="../1086">푸리에 변환</a>: <code>ifft()</code></li>
+</ul>
+<p><a href="various-meanings-of-fourier-transforms/#%EC%8B%A0%ED%98%B8%EC%B2%98%EB%A6%AC%EC%97%90%EC%84%9C">정의에 따라</a> $f$의 푸리에 변환 $\mathcal{F}f$는 $50$, $100$, $200$에서만 값을 갖는다. 또한 이산 푸리에변환의 정의에 의해 $y$축 대칭인 값을 얻으나, 기본적으로는 주파수가 $0$일 때의 값이 첫번째 값으로 되어있다. 따라서 신호의 주파수와 진폭을 확인하기 위함이라면 앞의 절반만 plot해도 무관하다.</p>
+<pre tabindex="0"><code>Fs = 1000 # 샘플링 주파수
+ℱf = fft(f) # 푸리에 변환
+ξ = Fs*[i for i in 0:L/2-1]/L #주파수 도메인(절반)
+
+plot(ξ, abs.(ℱf[1:Int(L/2)])*2/L, title=L&#34;Fourier transform of $f$&#34;, label=&#34;&#34;) 
+xlabel!(&#34;frequency&#34;)
+ylabel!(&#34;amplitude&#34;)
+savefig(&#34;fft.png&#34;)
+</code></pre><p><img src="fft.png#center" alt="fft.png"></p>
+<h3 id="0-주파수-중앙-정렬">$0$ 주파수 중앙 정렬</h3>
+<p>푸리에 변환의 출력은 기본적으로 주파수가 $0$일 때의 값이 첫번째 값으로 오게끔 되어있다. 주파수가 $0$일 때의 값이 중앙에 오도록 하려면 <code>fftshift()</code>를 쓰면 된다. 이를 다시 되돌릴 때는 <code>ifftshift()</code>를 쓰면 된다. 참고로 <code>ifftshift</code>는 ifft + shift가 아니라, i(nverse) + fftshift이다. 즉 <code>fftshift()</code>의 역변환이므로 헷갈리지 말자.</p>
+<pre tabindex="0"><code>p1 = plot(ξ, abs.(ℱf), title=L&#34;$\mathcal{F}f$&#34;, label=&#34;&#34;, yticks=[], xticks=[0, 100, 200, 350, 500, 1000]) 
+p2 = plot(ξ.-500, abs.(fftshift(ℱf)), title=L&#34;$\mathrm{fftshift}(\mathcal{F}f)$&#34;, label=&#34;&#34;, yticks=[], xticks=[-500,-350,-200,-100,0,100,200,350,500]) 
+plot(p1, p2, size=(800,400))
+savefig(&#34;fftshift.png&#34;)
+</code></pre><p><img src="fftshift.png#center" alt="fftshift.png"></p>
+<h3 id="고차원-푸리에-변환">고차원 푸리에 변환</h3>
+<p>2차원 푸리에 변환의 값과 비교하기 위해 $x = [1\ 2\ 3\ 4]^{T}$의 푸리에 변환 값을 먼저 계산해두자.</p>
+<pre tabindex="0"><code>julia&gt; x = [1.0; 2; 3; 4]
+4-element Vector{Float64}:
+ 1.0
+ 2.0
+ 3.0
+ 4.0
+
+julia&gt; fft(x)
+4-element Vector{ComplexF64}:
+ 10.0 + 0.0im
+ -2.0 + 2.0im
+ -2.0 + 0.0im
+ -2.0 - 2.0im
+</code></pre><p><code>fft()</code>는 2차원 배열을 입력으로 받으면 알아서 2차원 푸리에 변환을 반환한다. 혹은 첫번째와 두번째 차원에서 변환을 계산한다는 의미에서 <code>fft(, [1,2])</code>도 같은 결과를 반환한다.</p>
+<pre tabindex="0"><code>julia&gt; y = [x x x x]
+4×4 Matrix{Float64}:
+ 1.0  1.0  1.0  1.0
+ 2.0  2.0  2.0  2.0
+ 3.0  3.0  3.0  3.0
+ 4.0  4.0  4.0  4.0
+
+
+julia&gt; fft(y)
+4×4 Matrix{ComplexF64}:
+ 40.0+0.0im  0.0+0.0im  0.0+0.0im  0.0+0.0im
+ -8.0+8.0im  0.0+0.0im  0.0+0.0im  0.0+0.0im
+ -8.0+0.0im  0.0+0.0im  0.0+0.0im  0.0+0.0im
+ -8.0-8.0im  0.0+0.0im  0.0+0.0im  0.0+0.0im
+
+
+julia&gt; fft(y, [1,2])
+4×4 Matrix{ComplexF64}:
+ 40.0+0.0im  0.0+0.0im  0.0+0.0im  0.0+0.0im
+ -8.0+8.0im  0.0+0.0im  0.0+0.0im  0.0+0.0im
+ -8.0+0.0im  0.0+0.0im  0.0+0.0im  0.0+0.0im
+ -8.0-8.0im  0.0+0.0im  0.0+0.0im  0.0+0.0im
+</code></pre><p>따라서 각 열마다 변환을 하고 싶으면 <code>fft(, [1])</code>, 각 행마다 변환을 하고 싶으면 <code>fft(, [2])</code>를 쓰면 된다.</p>
+<pre tabindex="0"><code>julia&gt; fft(y, [1])
+4×4 Matrix{ComplexF64}:
+ 10.0+0.0im  10.0+0.0im  10.0+0.0im  10.0+0.0im
+ -2.0+2.0im  -2.0+2.0im  -2.0+2.0im  -2.0+2.0im
+ -2.0+0.0im  -2.0+0.0im  -2.0+0.0im  -2.0+0.0im
+ -2.0-2.0im  -2.0-2.0im  -2.0-2.0im  -2.0-2.0im
+
+julia&gt; fft(y, [2])
+4×4 Matrix{ComplexF64}:
+  4.0+0.0im  0.0+0.0im  0.0+0.0im  0.0+0.0im
+  8.0+0.0im  0.0+0.0im  0.0+0.0im  0.0+0.0im
+ 12.0+0.0im  0.0+0.0im  0.0+0.0im  0.0+0.0im
+ 16.0+0.0im  0.0+0.0im  0.0+0.0im  0.0+0.0im
+</code></pre><h3 id="주파수-샘플링">주파수 샘플링</h3>
+<ul>
+<li><code>fftfreq(n, fs=1)</code></li>
+</ul>
+<p>길이가 $n$이고 간격이 $fs/n$인 주파수 도메인을 반환한다. 앞서 설명했듯이 푸리에 변환은 $0$ 주파수 값이 가장 처오기 때문에 <code>fftfreq()</code>로 샘플링한 주파수의 첫번째 값은 $0$이다. 또한 앞의 절반이 양수, 뒤의 절반이 음수이다. 따라서 <code>fftshift()</code>를 쓰면 인덱스에 따른 오른차순으로 정렬된다.</p>
+<pre tabindex="0"><code>julia&gt; fftfreq(4, 1)
+4-element Frequencies{Float64}:
+  0.0
+  0.25
+ -0.5
+ -0.25
+
+julia&gt; fftfreq(5, 1)
+5-element Frequencies{Float64}:
+  0.0
+  0.2
+  0.4
+ -0.4
+ -0.2
+
+julia&gt; fftshift(fftfreq(4, 1))
+-0.5:0.25:0.25
+</code></pre><h2 id="환경">환경</h2>
+<ul>
+<li>OS: Windows11</li>
+<li>Version: Julia 1.8.2, FFTW 1.5.0</li>
+</ul>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="http://www.fftw.org/">http://www.fftw.org/</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p><a href="https://github.com/JuliaMath/FFTW.jl">https://github.com/JuliaMath/FFTW.jl</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3">
+<p><a href="https://github.com/JuliaMath/AbstractFFTs.jl">https://github.com/JuliaMath/AbstractFFTs.jl</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
 
 
 <aside style="text-align: right;">
-    2022-01-01&emsp;
-    류대식&emsp;
-    <a href="../484">🎲 1</a>
+    2013-07-02&emsp;
+    전기현&emsp;
+    <a href="../1488">🎲 3440</a>
 </aside>
 
 <script>
@@ -219,8 +394,8 @@
       renderKaTex(tex);
     }
 
-    var title = '오프라인';
-    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/offline\/';
+    var title = '줄리아에서 고속 푸리에 변환(FFT) 사용하는 방법';
+    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/how-to-use-fast-fourier-transformfft-in-julia\/';
     var arr = new Array();
     var obj = {
       "title": title,
@@ -288,7 +463,7 @@
       .then(ip => {
         const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
         return postFetch(url, {
-                board_idx: '1',
+                board_idx: '3440',
                 user_ip: ip
               });
       })
@@ -421,9 +596,9 @@
       alert('빈칸을 채워주세요');
       return;
     }
-    const idx = '1';
-    const board_slug = 'offline';
-    const board_title = '오프라인';
+    const idx = '3440';
+    const board_slug = 'how-to-use-fast-fourier-transform(fft)-in-julia';
+    const board_title = '줄리아에서 고속 푸리에 변환(FFT) 사용하는 방법';
 
     fetch('https://api.ipify.org?format=json')
       .then(res => res.json())
@@ -662,9 +837,9 @@
       return;
     }
 
-    const board_idx = '1';
-    const board_slug = 'offline';
-    const board_title = '오프라인';
+    const board_idx = '3440';
+    const board_slug = 'how-to-use-fast-fourier-transform(fft)-in-julia';
+    const board_title = '줄리아에서 고속 푸리에 변환(FFT) 사용하는 방법';
 
     fetch('https://api.ipify.org?format=json')
       .then(res => res.json())
