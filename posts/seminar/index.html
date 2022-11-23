@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/seminar\/",
-    "wordCount" : "1196",
+    "wordCount" : "317",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -202,22 +202,12 @@
   </ul>
 
   <ul>
-    <li><a href="#정의">정의</a></li>
-    <li><a href="#설명">설명</a>
+    <li><a href="#알고리즘">알고리즘</a>
       <ul>
-        <li><a href="#자료구조">자료구조</a></li>
-        <li><a href="#응용">응용</a></li>
+        <li><a href="#예시">예시</a></li>
       </ul>
     </li>
-  </ul>
-
-  <ul>
-    <li><a href="#정의-1">정의 </a></li>
-    <li><a href="#설명-1">설명</a>
-      <ul>
-        <li><a href="#상상행렬">상상행렬</a></li>
-      </ul>
-    </li>
+    <li><a href="#코드">코드</a></li>
   </ul>
 </nav>
     </div>
@@ -230,67 +220,39 @@
 <h2 id="원드라이브">원드라이브</h2>
 <iframe src="https://onedrive.live.com/embed?cid=65E5BA34F41E25E0&resid=65E5BA34F41E25E0%2124470&authkey=AHwIpnZ0BPkIO3g" width="165" height="128" frameborder="0" scrolling="no"></iframe> <iframe src="https://onedrive.live.com/embed?cid=65E5BA34F41E25E0&resid=65E5BA34F41E25E0%21533589&authkey=ACzYTsb9AS5OT6Y" width="165" height="128" frameborder="0" scrolling="no"></iframe>
 <hr>
-<h1 id="희박-행렬">희박 행렬</h1>
-<h1 id="sparse-matrix">Sparse Matrix</h1>
-<h2 id="정의">정의</h2>
-<p>그 성분이 대부분 $0$ 인 <a href="../1955">행렬</a>을 <strong>희박행렬</strong><sup>Sparse Matrix</sup>이라 한다.</p>
-<h2 id="설명">설명</h2>
-<p>또 다른 순화로는 <strong>희소행렬</strong>이 있는데, 당연하지만 보통은 둘 다 안 쓰고 영어 발음 그대로 [스파스 매트릭스]라 읽는다. 희박행렬은 단어 그대로 행렬에 &lsquo;의미 있는&rsquo; 정보가 희박한 행렬로 정의되는데, &lsquo;대부분&rsquo;이라는 단어가 쓰인 것에서 짐작할 수 있듯 수학적으로 엄밀한 정의는 아니다.</p>
-<h3 id="자료구조">자료구조</h3>
-<p>실전적인 영역에서 희박행렬은 자료구조에 가깝다. 가령 마지막 성분만 $\sqrt{2}$ 이고 나머지는 모두 $0$ 인 $X,Y \in \mathbb{R}^{10^{6} \times 10^{6}}$ 를 생각해보면 이 행렬을 저장하기 위해서는 부동소수점으로 채워진 $2 \cdot 10^{12}$ 칸짜리 배열이 필요한데, 이것이 희박행렬이라는 정보만 확실하다면 굳이 쓰지도 않을 $0$ 을 다 저장해둘 게 아니라 마지막칸 하나만 있으면 된다. 단순히 저장만 편리한 게 아니라 연산에서도 효율적인데, 이 두 행렬은 어마어마하게 크지만 사실 그 곱은 간단하게도
-$$
-X Y = \begin{bmatrix}
-0 &amp; 0 &amp; \cdots &amp; 0
-\\ 0 &amp; 0 &amp; \cdots &amp; 0
-\\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots
-\\ 0 &amp; 0 &amp; \cdots &amp; 2
+<h1 id="가우스-소거법으로-역행렬-구하는-알고리즘">가우스 소거법으로 역행렬 구하는 알고리즘</h1>
+<h1 id="algorithm-to-get-inverse-matrix-using-gaussian-elimination">Algorithm to Get Inverse Matrix using Gaussian Elimination</h1>
+<h2 id="알고리즘">알고리즘</h2>
+<h3 id="예시">예시</h3>
+<p>$$
+\begin{align*}
+&amp; \begin{bmatrix}
+-2&amp; 3 &amp; 4 &amp; 0
+\\ 2 &amp; 0 &amp; 1 &amp; 0
+\\ -5&amp; 5 &amp; 6 &amp; 0
+\\ 1 &amp; 0 &amp; 1 &amp; 1
+\end{bmatrix} &amp; \cdots \begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0
+\\ 0 &amp; 1 &amp; 0 &amp; 0
+\\ 0 &amp; 0 &amp; 1 &amp; 0
+\\ 0 &amp; 0 &amp; 0 &amp; 1
 \end{bmatrix}
-$$
-와 같이 구할 수 있다. 이 곱셈을 <a href="../1284">슈트라센 알고리즘</a>으로 계산했다고 할지라도 그걸 현명하다고 할 수는 없을 것이다. &lsquo;컴퓨터로 희박행렬을 계산한다&rsquo;는 것은 이 행렬들을 적은 용량으로 읽고 쓸 수 있으며 그 계산도 $0$ 이 있는 부분은 생략해서 아주 빠르게 수행한다는 뜻이다. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
-<h3 id="응용">응용</h3>
-<p>희박행렬은 <a href="../966">네트워크</a>의 <a href="../1499">인접행렬</a>과 같은 응용수학의 영역에서 쉽게 접할 수 있다. 가령 <a href="../2116">에르되시-레니 모델</a>로 만들어진 <a href="../2114">랜덤 네트워크</a>가 $10^{6}$ 개의 노드와 $4$ 개의 인접노드를 가진다고 해보자. 언뜻 링크의 수는 $2 \cdot 10^{6}$ 으로 꽤 많아 보이지만, 이를 인접행렬로 나타냈을 때는 $10^{12}$ 칸짜리 배열에서 $2 \cdot 10^{6}$ 칸밖에 차지하지 못했으니 전체적으로 약 $0.000002 \%$ 정도를 제외하곤 의미 없는 $0$으로 가득 채워져있는 것이다. 이는 희박행렬의 아주 좋은 예시로써, 이러한 가정이 있을 때는 그에 맞춰서 뛰어난 성능을 내는 &lsquo;알고리즘을 고르는 것 자체&rsquo;가 중요하다.</p>
-<h1 id="제곱근-행렬-sqrta">제곱근 행렬 $\sqrt{A}$</h1>
-<h1 id="square-root-matrix">Square Root Matrix</h1>
-<h2 id="정의-1">정의 <sup id="fnref1:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p><a href="../1955">행렬</a> $A$ 에 대해 다음을 만족하는 행렬 $B$ 를 $A$ 의 <strong>제곱근 행렬</strong><sup>Square Root Matrix</sup>이라 하고 $\sqrt{A} := B$ 와 같이 나타낸다.
-$$
-B^{2} = A
-$$</p>
-<h2 id="설명-1">설명</h2>
-<p>행렬이라는 점에서 제곱근이라는 개념은 조금 더 흥미로워진다. 에를 들어
-$$
-A = \begin{bmatrix}
-2 &amp; 2
-\\ 2 &amp; 2
-\end{bmatrix}
-$$
-와 같은 행렬이 있다면 그 제곱근행렬은 각각의 성분에 제곱근을 취한
-$$
+\\ \to &amp;
 \begin{bmatrix}
-\sqrt{2} &amp; \sqrt{2}
-\\ \sqrt{2} &amp; \sqrt{2}
+-2&amp; 3 &amp; 4 &amp; 0
+\\ 2 &amp; 0 &amp; 1 &amp; 0
+\\ -5&amp; 5 &amp; 6 &amp; 0
+\\ 1 &amp; 0 &amp; 1 &amp; 1
+\end{bmatrix} &amp; \cdots \begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0
+\\ 0 &amp; 1 &amp; 0 &amp; 0
+\\ 0 &amp; 0 &amp; 1 &amp; 0
+\\ 0 &amp; 0 &amp; 0 &amp; 1
 \end{bmatrix}
-$$
-이 아니라 다음과 같이 모든 성분이 $1$ 인 행렬이다.
-$$
-\begin{bmatrix}
-1 &amp; 1
-\\ 1 &amp; 1
-\end{bmatrix} \begin{bmatrix}
-1 &amp; 1
-\\ 1 &amp; 1
-\end{bmatrix} = \begin{bmatrix}
-2 &amp; 2
-\\ 2 &amp; 2
-\end{bmatrix}
+\end{align*}
 $$</p>
-<h3 id="상상행렬">상상행렬</h3>
-<p>진짜 수학의 세계에서 중요한 건 아니지만 생새우초밥집에서는 $-E$ 의 제곱근 행렬, 즉
-$$
-X^{2} = - E_{p}
-$$
-을 만족하는 $X$ 를 <a href="../2501">상상행렬<sup>Imaginary Matrix</sup>라 부르고 대해 연구하는 대회</a>를 한 적이 있다.</p>
-<hr>
+<h2 id="코드">코드</h2>
+<p>다음은 <a href="../2159">가우스 소거법</a>으로 역행렬을 구하는 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다.</p>
 <pre tabindex="0"><code>using LinearAlgebra
 
 M = [-2 3 4 0
@@ -329,20 +291,12 @@ end
 M
 X
 inv_M
-</code></pre><div class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1">
-<p><a href="https://ko.wikipedia.org/wiki/%ED%9D%AC%EC%86%8C%ED%96%89%EB%A0%AC">https://ko.wikipedia.org/wiki/%ED%9D%AC%EC%86%8C%ED%96%89%EB%A0%AC</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-</ol>
-</div>
-
+</code></pre>
 
 <aside style="text-align: right;">
     2021-01-01&emsp;
     류대식&emsp;
-    <a href="../1544">🎲 2000</a>
+    <a href="../923">🎲 2000</a>
 </aside>
 
 <script>
@@ -895,7 +849,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
       { idx: 3, name: '집합론', size: '47', color: color.green },
       { idx: 4, name: '정수론', size: '89', color: color.green },
       { idx: 5, name: '기하학', size: '132++', color: color.yellow },
-      { idx: 6, name: '행렬대수', size: '79', color: color.green },
+      { idx: 6, name: '행렬대수', size: '86', color: color.green },
       { idx: 7, name: '선형대수', size: '83', color: color.green },
       { idx: 8, name: '추상대수', size: '77', color: color.green },
       { idx: 9, name: '위상수학', size: '63', color: color.green },
@@ -949,7 +903,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
       { idx: 2, name: '프로그래밍', size: '32', color: color.green },
       { idx: 3, name: '알고리즘', size: '28', color: color.green },
       { idx: 4, name: '머신러닝', size: '50++', color: color.green },
-      { idx: 5, name: '세이버메트릭스', size: '11', color: color.green },
+      { idx: 5, name: '세이버메트릭스', size: '12', color: color.green },
       { idx: 6, name: '논문작성', size: '13', color: color.green },
       { idx: 7, name: '교과과정', size: '53', color: color.green },
       { idx: 8, name: '생새우초밥지', size: '3', color: color.black }
