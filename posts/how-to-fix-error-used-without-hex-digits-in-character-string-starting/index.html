@@ -221,8 +221,8 @@
 <h3 id="진단">진단</h3>
 <p><img src="9912273A5FA0E1B928B123.png#center" alt="img">
 가령 바탕화면에 위와 같이 exampe.csv 파일을 읽고싶다고 할 때, 다음과 같은 에러가 뜨는 경우가 있다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">Error<span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;\U&#39;</span> used without hex digits in character string starting <span style="color:#e6db74">&#34;&#34;</span>C<span style="color:#f92672">:</span>\U<span style="color:#e6db74">&#34;</span>
-</code></pre></div><p><img src="9950B03B5FA0E59D28876E.png#center" alt="img"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>Error<span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;\U&#39;</span> used without hex digits in character string starting <span style="color:#e6db74">&#34;&#34;</span>C<span style="color:#f92672">:</span>\U<span style="color:#e6db74">&#34;</span>
+</span></span></code></pre></div><p><img src="9950B03B5FA0E59D28876E.png#center" alt="img"></p>
 <p>아무리 봐도 모든 경로에 문제가 없기 때문에 이런 저런 시도를 하다가 &lsquo;바탕 화면&rsquo;이라는 한글이 문제인 것 같아 경로를 바꿔보기도 했을 것이다. 그러나 <code>C:</code>나 <code>D:</code> 드라이브 바로 밑으로 가지 않는 이상 이와 비슷한 문제는 계속해서 일어난다.</p>
 <h3 id="원인">원인</h3>
 <p>문제의 간접적인 원인은 바탕화면에 파일을 두면서 Users(사용자) 폴더로 들어간 것이다. 아마 탐색기에서 주소창을 바로 긁어서 붙여넣었을텐데, 그때 <code>\U</code>가 16진법으로 읽히면서 에러가 났다. 꼭 사용자 폴더가 아니라도 <code>\</code> 뒤에 뭔가 붙게 되면 <a href="https://ko.wikipedia.org/wiki/%EC%9D%B4%EC%8A%A4%EC%BC%80%EC%9D%B4%ED%94%84_%EB%AC%B8%EC%9E%90">이스케이프 문자</a>라는 걸로 인식하기 때문에 문제가 생긴다. 이 포스트 제목에서 하필 <code>\U</code>를 저격한 이유는 정말 많은 R 초보자들이 별 생각 없이 바탕화면에서 작업을 시작해서 이런 메세지를 보게될 확률이 높기 때문이다.</p>
@@ -230,17 +230,17 @@
 <p>아이러니하게도 백슬래쉬가 그런 용도로 많이 쓰이다보니 실제 백슬래시로 쓰는 것인지 이스케이프문자로 쓰고 싶은지가 헷갈릴 수 있게 되었고, 현재 백슬래시를 쓰고 싶다면 <code>\\</code> 와 같이 <code>\</code> 앞에 <code>\</code>를 써서 이스케이프 문자가 아니라 백슬래시 자체를 원한다고 입력해주어야한다.</p>
 <h3 id="해결법">해결법</h3>
 <p>따라서, 만약 내가 읽고 싶은 파일의 경로가</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#e6db74">&#34;C:\Users\rmsms\OneDrive\바탕 화면\example.csv&#34;</span>
-</code></pre></div><p>라면, 이스케이프 문자를 피하기 위해 \를 \로 다음과 같이 바꿔줘야한다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#e6db74">&#34;C:\\Users\\rmsms\\OneDrive\\바탕 화면\\example.csv&#34;</span>
-</code></pre></div><p><img src="99A6904D5FA0E6272B464A.png#center" alt="img"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#e6db74">&#34;C:\Users\rmsms\OneDrive\바탕 화면\example.csv&#34;</span>
+</span></span></code></pre></div><p>라면, 이스케이프 문자를 피하기 위해 \를 \로 다음과 같이 바꿔줘야한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#e6db74">&#34;C:\\Users\\rmsms\\OneDrive\\바탕 화면\\example.csv&#34;</span>
+</span></span></code></pre></div><p><img src="99A6904D5FA0E6272B464A.png#center" alt="img"></p>
 <p>그러면 위와 같이 잘 읽어지는 것을 확인할 수 있다.</p>
 <h3 id="왜--이-아니라-인가">왜 <code>\</code> 이 아니라 <code>/</code>인가</h3>
 <p>한편 외국 사이트에서 검색하다보면</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#e6db74">&#34;C:\Users\rmsms\OneDrive\바탕 화면\example.csv&#34;</span>
-</code></pre></div><p>의 <code>\</code>를 <code>/</code>로 바꿔주라는 도움말을 볼 때도 있다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#e6db74">&#34;C:/Users/rmsms/OneDrive/바탕 화면/example.csv&#34;</span>
-</code></pre></div><p>처음에는 백슬래시가 슬래시로 바뀌는 부조리함에 몸서리 치게 되겠지만, 사실 이는 대부분의 프로그래밍 언어가 그러하듯 리눅스 환경에 맞게 슬래시로도 경로를 구분하기 때문에 일어나는 일이다. R이 이상한 게 아니라 대부분 슬래시로도 경로를 입력할 수 있기 때문에 너무 억울하게 생각하지 말자.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#e6db74">&#34;C:\Users\rmsms\OneDrive\바탕 화면\example.csv&#34;</span>
+</span></span></code></pre></div><p>의 <code>\</code>를 <code>/</code>로 바꿔주라는 도움말을 볼 때도 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#e6db74">&#34;C:/Users/rmsms/OneDrive/바탕 화면/example.csv&#34;</span>
+</span></span></code></pre></div><p>처음에는 백슬래시가 슬래시로 바뀌는 부조리함에 몸서리 치게 되겠지만, 사실 이는 대부분의 프로그래밍 언어가 그러하듯 리눅스 환경에 맞게 슬래시로도 경로를 구분하기 때문에 일어나는 일이다. R이 이상한 게 아니라 대부분 슬래시로도 경로를 입력할 수 있기 때문에 너무 억울하게 생각하지 말자.</p>
 <p><img src="999587505FA0E66E2C33E0.png#center" alt="img"></p>
 <p>실제로 슬래시로 바꿔서 읽어보면 문제 없이 데이터를 읽어들인 것을 확인할 수 있다.</p>
 
@@ -248,7 +248,7 @@
 <aside style="text-align: right;">
     2020-12-23&emsp;
     류대식&emsp;
-    <a href="../704">🎲 1860</a>
+    <a href="../510">🎲 1860</a>
 </aside>
 
 <script>
@@ -846,7 +846,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
       { idx: 4, name: '통계적검정', size: '20++', color: color.red },
       { idx: 5, name: '통계적분석', size: '61', color: color.green },
       { idx: 6, name: '수리통계학', size: '109', color: color.green },
-      { idx: 7, name: '분포이론', size: '60++', color: color.green },
+      { idx: 7, name: '분포이론', size: '68+', color: color.green },
       { idx: 8, name: '확률론', size: '72', color: color.green },
       { idx: 9, name: '위상데이터분석', size: '38', color: color.red }
     ],
