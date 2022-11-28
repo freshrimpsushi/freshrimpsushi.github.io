@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/seminar\/",
-    "wordCount" : "317",
+    "wordCount" : "23",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -200,15 +200,6 @@
     <li><a href="#google-drivehttpsdrivegooglecomdrivefolders18_uiq6uk_wqabzg6tkzjhlwz7nqvo8eq"><a href="https://drive.google.com/drive/folders/18_UiQ6UK_WQABZg6tKZJHlWZ7NqVo8eq">Google Drive</a></a></li>
     <li><a href="#원드라이브">원드라이브</a></li>
   </ul>
-
-  <ul>
-    <li><a href="#알고리즘">알고리즘</a>
-      <ul>
-        <li><a href="#예시">예시</a></li>
-      </ul>
-    </li>
-    <li><a href="#코드">코드</a></li>
-  </ul>
 </nav>
     </div>
   </div>
@@ -219,84 +210,11 @@
 <h2 id="google-drivehttpsdrivegooglecomdrivefolders18_uiq6uk_wqabzg6tkzjhlwz7nqvo8eq"><a href="https://drive.google.com/drive/folders/18_UiQ6UK_WQABZg6tKZJHlWZ7NqVo8eq">Google Drive</a></h2>
 <h2 id="원드라이브">원드라이브</h2>
 <iframe src="https://onedrive.live.com/embed?cid=65E5BA34F41E25E0&resid=65E5BA34F41E25E0%2124470&authkey=AHwIpnZ0BPkIO3g" width="165" height="128" frameborder="0" scrolling="no"></iframe> <iframe src="https://onedrive.live.com/embed?cid=65E5BA34F41E25E0&resid=65E5BA34F41E25E0%21533589&authkey=ACzYTsb9AS5OT6Y" width="165" height="128" frameborder="0" scrolling="no"></iframe>
-<hr>
-<h1 id="가우스-소거법으로-역행렬-구하는-알고리즘">가우스 소거법으로 역행렬 구하는 알고리즘</h1>
-<h1 id="algorithm-to-get-inverse-matrix-using-gaussian-elimination">Algorithm to Get Inverse Matrix using Gaussian Elimination</h1>
-<h2 id="알고리즘">알고리즘</h2>
-<h3 id="예시">예시</h3>
-<p>$$
-\begin{align*}
-&amp; \begin{bmatrix}
--2&amp; 3 &amp; 4 &amp; 0
-\\ 2 &amp; 0 &amp; 1 &amp; 0
-\\ -5&amp; 5 &amp; 6 &amp; 0
-\\ 1 &amp; 0 &amp; 1 &amp; 1
-\end{bmatrix} &amp; \cdots \begin{bmatrix}
-1 &amp; 0 &amp; 0 &amp; 0
-\\ 0 &amp; 1 &amp; 0 &amp; 0
-\\ 0 &amp; 0 &amp; 1 &amp; 0
-\\ 0 &amp; 0 &amp; 0 &amp; 1
-\end{bmatrix}
-\\ \to &amp;
-\begin{bmatrix}
--2&amp; 3 &amp; 4 &amp; 0
-\\ 2 &amp; 0 &amp; 1 &amp; 0
-\\ -5&amp; 5 &amp; 6 &amp; 0
-\\ 1 &amp; 0 &amp; 1 &amp; 1
-\end{bmatrix} &amp; \cdots \begin{bmatrix}
-1 &amp; 0 &amp; 0 &amp; 0
-\\ 0 &amp; 1 &amp; 0 &amp; 0
-\\ 0 &amp; 0 &amp; 1 &amp; 0
-\\ 0 &amp; 0 &amp; 0 &amp; 1
-\end{bmatrix}
-\end{align*}
-$$</p>
-<h2 id="코드">코드</h2>
-<p>다음은 <a href="../2159">가우스 소거법</a>으로 역행렬을 구하는 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다.</p>
-<pre tabindex="0"><code>using LinearAlgebra
-
-M = [-2 3 4 0
-      2 0 1 0
-     -5 5 6 0
-      1 0 1 1]
-inv_M = inv(M)
-
-n = size(M)[1]
-M = Float64.(M)
-X = Matrix(1.0I,n,n)
-for j = 1:n
-    if iszero(M[j,j])
-        for i = j:n
-            if !iszero(M[i,i])
-                M[[j,i],:] = M[[i,j],:]
-                break
-            end
-        end
-    end
-
-    pivot = M[j,j]
-    for i = 1:n
-        if i == j continue end
-        r = (- M[i,j] / pivot)
-        M[i,:] += r*M[j,:]
-        X[i,:] += r*X[j,:]
-    end
-end
-
-for i = 1:n
-    pivot = M[i,i]
-    M[i,:] /= pivot
-    X[i,:] /= pivot
-end
-M
-X
-inv_M
-</code></pre>
 
 <aside style="text-align: right;">
     2021-01-01&emsp;
     류대식&emsp;
-    <a href="../923">🎲 2000</a>
+    <a href="../1616">🎲 2000</a>
 </aside>
 
 <script>
