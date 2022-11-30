@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-use-machine-learning-data-sets-in-julia\/",
-    "wordCount" : "452",
+    "wordCount" : "210",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -205,7 +205,6 @@
     <li><a href="#설명">설명</a></li>
     <li><a href="#예시">예시</a>
       <ul>
-        <li><a href="#mnist">MNIST</a></li>
         <li><a href="#cifar10">CIFAR10</a></li>
       </ul>
     </li>
@@ -217,33 +216,49 @@
 </aside>
 
 <h2 id="설명">설명</h2>
-<p><code>MLDatasets.jl</code><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> 패키지로 아래와 같은 데이터 셋을 사용할 수 있다.</p>
+<p><code>MLDatasets.jl</code><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> 패키지로 아래와 같은 데이터 셋을 사용할 수 있다. 링크가 있는 데이터셋은 각 문서에서 사용법을 설명한다.</p>
 <p><strong>Vision</strong></p>
 <ul>
 <li>CIFAR10</li>
 <li>CIFAR100</li>
 <li>EMNIST</li>
 <li>FashionMNIST</li>
-<li>MNIST</li>
+<li><a href="../3444">MNIST</a></li>
+<li>Omniglot</li>
 <li>SVHN2</li>
+<li>convert2image</li>
+</ul>
+<p><strong>Mesh</strong></p>
+<ul>
+<li>FAUST</li>
 </ul>
 <p><strong>Miscellaneous</strong></p>
 <ul>
 <li>BostonHousing</li>
-<li>Iris</li>
+<li><a href="../3445">Iris</a></li>
 <li>Mutagenesis</li>
+<li>Titanic</li>
 </ul>
 <p><strong>Text</strong></p>
 <ul>
 <li>PTBLM</li>
+<li>SMSSpamCollection</li>
 <li>UD_English</li>
 </ul>
 <p><strong>Graphs</strong></p>
 <ul>
 <li>CiteSeer</li>
 <li>Cora</li>
+<li>Graph</li>
+<li>HeteroGraph</li>
+<li>KarateClub</li>
+<li>MovieLens</li>
+<li>OGBDataset</li>
+<li>OrganicMaterialsDB</li>
+<li>PolBlogs</li>
 <li>PubMed</li>
-<li>TUDatasets</li>
+<li>Reddit</li>
+<li>TUDataset</li>
 </ul>
 <p>이 데이터를 원-핫 인코딩하거나, 학습시키는 방법은 다음을 참고하라.</p>
 <ul>
@@ -251,20 +266,24 @@
 <li><a href="../3221">MLP 구현해서 MNIST 데이터 셋 학습시키는 방법</a></li>
 </ul>
 <h2 id="예시">예시</h2>
-<h3 id="mnist">MNIST</h3>
-<p>데이터와 레이블을 한 번에 불러오려면 <code>.traindata()</code>를 사용한다.</p>
-<pre tabindex="0"><code>julia&gt; Train_X, Train_Y = MLDatasets.MNIST.traindata()
+<!-- 
+### MNIST
 
-julia&gt; typeof(Train_X)
+데이터와 레이블을 한 번에 불러오려면 `.traindata()`를 사용한다.
+
+```
+julia> Train_X, Train_Y = MLDatasets.MNIST.traindata()
+
+julia> typeof(Train_X)
 Base.ReinterpretArray{FixedPointNumbers.N0f8, 3, UInt8, Array{UInt8, 3}, false}
 
-julia&gt; size(Train_X)
+julia> size(Train_X)
 (28, 28, 60000)
 
-julia&gt; typeof(Train_Y)
+julia> typeof(Train_Y)
 Vector{Int64} (alias for Array{Int64, 1})
 
-julia&gt; Train_Y
+julia> Train_Y
 60000-element Vector{Int64}:
  5
  0
@@ -292,29 +311,42 @@ julia&gt; Train_Y
  5
  6
  8
-</code></pre><p>데이터와 레이블을 각각 불러오는 방법은 다음과 같다.</p>
-<pre tabindex="0"><code>julia&gt; Train_X = MLDatasets.MNIST.traintensor()
+```
+
+데이터와 레이블을 각각 불러오는 방법은 다음과 같다.
+
+```
+julia> Train_X = MLDatasets.MNIST.traintensor()
 28×28×60000 reinterpret(FixedPointNumbers.N0f8, ::Array{UInt8, 3}):
 
-julia&gt; Train_Y = MLDatasets.MNIST.trainlabels()
+julia> Train_Y = MLDatasets.MNIST.trainlabels()
 60000-element Vector{Int64}:
-</code></pre><p>테스트 셋은 다음과 같이 불러온다.</p>
-<pre tabindex="0"><code>julia&gt; Test_X = MLDatasets.MNIST.testtensor()
+```
+
+테스트 셋은 다음과 같이 불러온다.
+```
+julia> Test_X = MLDatasets.MNIST.testtensor()
 28×28×10000 reinterpret(FixedPointNumbers.N0f8, ::Array{UInt8, 3})
 
 
-julia&gt; Test_Y = MLDatasets.MNIST.testlabels()
+julia> Test_Y = MLDatasets.MNIST.testlabels()
 10000-element Vector{Int64}:
 
-julia&gt; Test_X, Test_Y = MLDatasets.MNIST.testdata()
-</code></pre><p>특이한 점은 <code>Train_Y</code>가 <a href="../3219">원-핫 인코딩 벡터</a>가 아니라 정수로 구성되어 있다는 점이다. 116번째는 4에 대한 데이터임을 다음과 같이 확인할 수 있다. 손글씨 사진은 90도만큼 회전된 사진임에 주의하자.</p>
-<pre tabindex="0"><code>julia&gt; fig = heatmap(imrotate(Train_X[:,:,116],-pi/2))
+julia> Test_X, Test_Y = MLDatasets.MNIST.testdata()
+```
 
-julia&gt; savefig(fig, &quot;MNIST116.png&quot;)
+특이한 점은 `Train_Y`가 [원-핫 인코딩 벡터](../3219)가 아니라 정수로 구성되어 있다는 점이다. 116번째는 4에 대한 데이터임을 다음과 같이 확인할 수 있다. 손글씨 사진은 90도만큼 회전된 사진임에 주의하자.
 
-julia&gt; Train_Y[116]
+```
+julia> fig = heatmap(imrotate(Train_X[:,:,116],-pi/2))
+
+julia> savefig(fig, "MNIST116.png")
+
+julia> Train_Y[116]
 4
-</code></pre><p><img src="MNIST116.png#center" alt="MNIST116.png"></p>
+```
+
+![MNIST116.png](MNIST116.png#center) -->
 <h3 id="cifar10">CIFAR10</h3>
 <pre tabindex="0"><code>julia&gt; Train_X2, Train_Y2 = CIFAR10.traindata()
 
@@ -331,7 +363,7 @@ julia&gt;typeof(Train_Y2)
 Vector{Int64} (alias for Array{Int64, 1})
 
 julia&gt; for i in 1:7
-        save(&quot;CIFAR10_$i.png&quot;, colorview(RGB, CIFAR10.convert2image(CIFAR10.traintensor(i))))
+        save(&#34;CIFAR10_$i.png&#34;, colorview(RGB, CIFAR10.convert2image(CIFAR10.traintensor(i))))
         end
 </code></pre><p>처음 7개 사진을 뽑아보면 다음과 같다.</p>
 <p align='middle'>
@@ -345,26 +377,26 @@ julia&gt; for i in 1:7
 </p>
 <h2 id="환경">환경</h2>
 <ul>
-<li>OS: Windows10</li>
-<li>Version: Julia 1.6.2, MLDatasets 0.5.14</li>
+<li>OS: Windows11</li>
+<li>Version: Julia v1.8.2, MLDatasets v0.7.6</li>
 </ul>
-<section class="footnotes" role="doc-endnotes">
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
+<li id="fn:1">
 <p><a href="https://github.com/JuliaML/MLDatasets.jl">https://github.com/JuliaML/MLDatasets.jl</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:2" role="doc-endnote">
-<p><a href="https://juliaml.github.io/MLDatasets.jl/dev/">https://juliaml.github.io/MLDatasets.jl/dev/</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:2">
+<p><a href="https://juliaml.github.io/MLDatasets.jl/stable/">https://juliaml.github.io/MLDatasets.jl/stable/</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
 
 <aside style="text-align: right;">
     2022-02-17&emsp;
     전기현&emsp;
-    <a href="../343">🎲 3191</a>
+    <a href="../610">🎲 3191</a>
 </aside>
 
 <script>

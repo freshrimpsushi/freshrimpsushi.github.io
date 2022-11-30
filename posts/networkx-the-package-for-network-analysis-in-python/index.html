@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/networkx-the-package-for-network-analysis-in-python\/",
-    "wordCount" : "1102",
+    "wordCount" : "1400",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -235,48 +235,48 @@
 <p>networkx는 nx로 줄여 쓴다.</p>
 <pre tabindex="0"><code>&gt;&gt;&gt; import networkx as nx
 &gt;&gt;&gt; nx.__version__
-'2.8.6'
+&#39;2.8.6&#39;
 </code></pre><h3 id="그래프-생성">그래프 생성</h3>
 <p>다음의 코드로 <a href="../1520">널 그래프</a>를 생성한다.</p>
 <pre tabindex="0"><code>&gt;&gt;&gt; G = nx.Graph()
 &gt;&gt;&gt; nx.info(G)
-'Graph with 0 nodes and 0 edges'
+&#39;Graph with 0 nodes and 0 edges&#39;
 </code></pre><p>다음의 코드로 널 <a href="../966">유향그래프</a>를 생성한다.</p>
 <pre tabindex="0"><code>&gt;&gt;&gt; DG = nx.DiGraph()
 &gt;&gt;&gt; nx.info(DG)
-'DiGraph with 0 nodes and 0 edges'
+&#39;DiGraph with 0 nodes and 0 edges&#39;
 </code></pre><h3 id="노드-추가-및-제거">노드 추가 및 제거</h3>
 <p><code>.add_node()</code>로 <a href="../966">노드</a>를 추가한다. <code>.nodes()</code>를 사용하면 그래프의 노드 목록을 볼 수 있다.</p>
 <pre tabindex="0"><code>&gt;&gt;&gt; G = nx.Graph()
-&gt;&gt;&gt; G.add_node(&quot;권은비&quot;)
+&gt;&gt;&gt; G.add_node(&#34;권은비&#34;)
 &gt;&gt;&gt; G.nodes()
-NodeView(('권은비',))
+NodeView((&#39;권은비&#39;,))
 </code></pre><p>노드의 속성을 부여하면서 추가할 수 있다. <code>.nodes.data()</code>를 사용하면 속성이 같이 표기된 노드 목록을 볼 수 있다.</p>
-<pre tabindex="0"><code>&gt;&gt;&gt; G.add_node(&quot;사쿠라&quot;, 회사=&quot;쏘스뮤직&quot;, 그룹=&quot;르세라핌&quot;)
+<pre tabindex="0"><code>&gt;&gt;&gt; G.add_node(&#34;사쿠라&#34;, 회사=&#34;쏘스뮤직&#34;, 그룹=&#34;르세라핌&#34;)
 &gt;&gt;&gt; G.nodes()
-NodeView(('권은비', '사쿠라'))
+NodeView((&#39;권은비&#39;, &#39;사쿠라&#39;))
 &gt;&gt;&gt; G.nodes.data()
-NodeDataView({'권은비': {}, '사쿠라': {'회사': '쏘스뮤직', '그룹': '르세라핌'}})
+NodeDataView({&#39;권은비&#39;: {}, &#39;사쿠라&#39;: {&#39;회사&#39;: &#39;쏘스뮤직&#39;, &#39;그룹&#39;: &#39;르세라핌&#39;}})
 </code></pre><p>리스트로 여러개의 노드를 추가할 수 있다.</p>
-<pre tabindex="0"><code>&gt;&gt;&gt; G.add_nodes_from([&quot;강혜원&quot;, &quot;최예나&quot;, &quot;이채연&quot;])
+<pre tabindex="0"><code>&gt;&gt;&gt; G.add_nodes_from([&#34;강혜원&#34;, &#34;최예나&#34;, &#34;이채연&#34;])
 &gt;&gt;&gt; G.nodes()
-NodeView(('권은비', '사쿠라', '강혜원', '최예나', '이채연'))
+NodeView((&#39;권은비&#39;, &#39;사쿠라&#39;, &#39;강혜원&#39;, &#39;최예나&#39;, &#39;이채연&#39;))
 </code></pre><p><code>.remove_node()</code>, <code>remove_nodes_from()</code>으로 그래프의 노드를 제거할 수 있으며, 해당 노드에 연결된 에지도 같이 제거된다. <code>.clear()</code>는 그래프의 모든 노드와 에지를 제거한다.</p>
 <h3 id="에지-추가-및-제거">에지 추가 및 제거</h3>
 <p>두 노드 사이의 <a href="../996">에지</a>는 <code>.add_edge()</code>, <code>.add_edges_from()</code>로 추가한다.</p>
-<pre tabindex="0"><code>&gt;&gt;&gt; G.add_edge('사쿠라', '이채연')
+<pre tabindex="0"><code>&gt;&gt;&gt; G.add_edge(&#39;사쿠라&#39;, &#39;이채연&#39;)
 &gt;&gt;&gt; nx.info(G)
-'Graph with 5 nodes and 1 edges'
+&#39;Graph with 5 nodes and 1 edges&#39;
 &gt;&gt;&gt; G.edges()
-EdgeView([('사쿠라', '이채연')])
+EdgeView([(&#39;사쿠라&#39;, &#39;이채연&#39;)])
 </code></pre><p>존재하지 않는 노드 사이의 에지를 추가하면, 노드도 자동으로 추가된다.</p>
-<pre tabindex="0"><code>&gt;&gt;&gt; G.add_edge('김채원', '조유리')
-&gt;&gt;&gt; G.add_edge('최예나', '조유리')
-&gt;&gt;&gt; G.add_edge('최예나', '김채원')
+<pre tabindex="0"><code>&gt;&gt;&gt; G.add_edge(&#39;김채원&#39;, &#39;조유리&#39;)
+&gt;&gt;&gt; G.add_edge(&#39;최예나&#39;, &#39;조유리&#39;)
+&gt;&gt;&gt; G.add_edge(&#39;최예나&#39;, &#39;김채원&#39;)
 &gt;&gt;&gt; G.nodes()
-NodeView(('권은비', '사쿠라', '강혜원', '최예나', '이채연', '김채원', '조유리'))
+NodeView((&#39;권은비&#39;, &#39;사쿠라&#39;, &#39;강혜원&#39;, &#39;최예나&#39;, &#39;이채연&#39;, &#39;김채원&#39;, &#39;조유리&#39;))
 &gt;&gt;&gt; G.edges()
-EdgeView([('사쿠라', '이채연'), ('최예나', '조유리'), ('최예나', '김채원'), ('김채원', '조유리')])
+EdgeView([(&#39;사쿠라&#39;, &#39;이채연&#39;), (&#39;최예나&#39;, &#39;조유리&#39;), (&#39;최예나&#39;, &#39;김채원&#39;), (&#39;김채원&#39;, &#39;조유리&#39;)])
 </code></pre><p><code>.remove_node()</code>, <code>remove_nodes_from()</code>으로 그래프의 특정 에지를 제거할 수 있다. <code>.clear_edges()</code>는 그래프의 모든 에지를 제거한다.</p>
 <h3 id="그-외">그 외</h3>
 <ul>
@@ -292,7 +292,7 @@ EdgeView([('사쿠라', '이채연'), ('최예나', '조유리'), ('최예나', 
 <aside style="text-align: right;">
     2012-12-30&emsp;
     전기현&emsp;
-    <a href="../1695">🎲 3348</a>
+    <a href="../425">🎲 3348</a>
 </aside>
 
 <script>
