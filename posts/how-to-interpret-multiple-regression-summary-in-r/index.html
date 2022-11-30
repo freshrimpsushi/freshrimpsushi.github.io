@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-interpret-multiple-regression-summary-in-r\/",
-    "wordCount" : "1698",
+    "wordCount" : "1825",
     "genre" : [ "R" ],
     "keywords" : [ "R" ]
 }
@@ -203,7 +203,17 @@
       <nav id="TableOfContents">
   <ul>
     <li><a href="#데이터-탐색">데이터 탐색</a></li>
-    <li><a href="#결과-해석">결과 해석</a></li>
+    <li><a href="#결과-해석">결과 해석</a>
+      <ul>
+        <li><a href="#1-잔차supresidualssup">(1) 잔차<sup>Residuals</sup></a></li>
+        <li><a href="#2-추정치supestimatesup">(2) 추정치<sup>Estimate</sup></a></li>
+        <li><a href="#3-표준오차2462supstd-errorsup">(3) <a href="../2462">표준오차</a><sup>Std. Error</sup></a></li>
+        <li><a href="#4-t-value">(4) t-value</a></li>
+        <li><a href="#5-p값-prt2446">(5) <a href="../2446">p값 pr(&gt;|t|)</a></a></li>
+        <li><a href="#6-수정설명력826supadjusted-r-squaredsup">(6) <a href="../826">수정설명력</a><sup>Adjusted R-squared</sup></a></li>
+        <li><a href="#7-f-statistiic">(7) F-statistiic</a></li>
+      </ul>
+    </li>
     <li><a href="#코드">코드</a></li>
     <li><a href="#같이보기">같이보기</a></li>
   </ul>
@@ -214,7 +224,7 @@
 
 <h2 id="데이터-탐색">데이터 탐색</h2>
 <pre tabindex="0"><code>tail(attitude)
-</code></pre><p>R에서 <a href="../331">내장데이터 attitude를 불러와</a> <code>tail()</code> 함수를 통해 확인해보자.</p>
+</code></pre><p><a href="../../categories/r">R</a>에서 <a href="../331">내장데이터 <code>attitude</code>를 불러와</a> <code>tail()</code> 함수를 통해 확인해보자. 우리는 이 데이터에서 <a href="../666">다중회귀분석</a>을 실시하려 한다.</p>
 <p><img src="20180825_144319.png#center" alt="20180825\_144319.png"></p>
 <p>우리는 <code>rating</code>을 종속변수로 두고 다른 독립변수들이 <code>rating</code>에 어떤 영향을 얼마나 미치는지에 관심이 있다. 데이터만 봐서는 <code>rating</code>과 다른 변수들 사이에 선형관계가 있는지 확인하기 어려우므로 그림을 그려 확인해보자.</p>
 <pre tabindex="0"><code>win.graph()
@@ -231,24 +241,36 @@ out&lt;-lm(rating~.,data=attitude)
 summary(out)
 </code></pre><p><img src="20180825_150719.png#center" alt="20180825\_150719.png"></p>
 <ul>
-<li>(1) 잔차<sup>Residuals</sup>: median을 가운데로 두고 다른 분위수가 대칭적으로 나타나는지 정도만 봐도 무방하다. 분위수만으로는 제대로 된 모형진단을 할 수 없기 때문에 보나 마나 큰 의미가 없다.</li>
-<li>(2) 추정치<sup>Estimate</sup>: 각 변수에 따른 <a href="../2458">회귀계수</a>로, (Intercept)는 회귀직선의 $y$ 절편, 나머지는 변수마다의 단위변화율을 나타낸다. <a href="../652">단순회귀분석과 달리</a> 여러가지 독립변수가 있기 때문에 <a href="../2446">유의수준</a>에 따라 결과가 달라진다. 유의수준 $5 \%$ 에서는 learning의 회귀계수가 $0$ 이라는 귀무가설이 기각되지 못하므로
+<li>아래 설명에서 &lsquo;몰라도 된다&rsquo;는 것은 진짜 몰라도 된다는 게 아니라 급하게 공부하고 결과를 읽어내야하는 입장에서 당장 참고해야할 지표는 아니라는 의미다.</li>
+</ul>
+<h3 id="1-잔차supresidualssup">(1) 잔차<sup>Residuals</sup></h3>
+<p>median(<a href="../2444">중위수</a>)을 가운데로 두고 다른 분위수가 대칭적으로 나타나는지 정도만 봐도 무방하다. 분위수만으로는 제대로 된 모형진단을 할 수 없기 때문에 보나 마나 큰 의미가 없다.</p>
+<h3 id="2-추정치supestimatesup">(2) 추정치<sup>Estimate</sup></h3>
+<p>각 변수에 따른 <a href="../2458">회귀계수</a>로, (Intercept)는 회귀직선의 $y$ 절편, 나머지는 변수마다의 단위변화율을 나타낸다. <a href="../652">단순회귀분석과 달리</a> 여러가지 독립변수가 있기 때문에 <a href="../2446">유의수준</a>에 따라 결과가 달라진다. 유의수준 $5 \%$ 에서는 <code>learning</code>의 회귀계수가 $0$ 이라는 귀무가설이 기각되지 못하므로
 $$
 \text{(rating)} = 0.61319 \cdot \text{(complaints)} + \varepsilon 
 $$
-반면 유의수준 $10 %$ 에서는
+이고, 반면 유의수준 $10 %$ 에서는 다음과 같이 <a href="../821">모델을 축소</a>시킬 수도 있다.
 $$
 \text{(rating)} = 0.61319 \cdot \text{(complaints)} + 0.32033 \cdot \text{(learning)} + \varepsilon 
-$$</li>
-<li>(3) <a href="../2462">표준오차</a><sup>Std. Error</sup>: 몰라도 된다. 추정치의 <a href="../2462">표준오차</a>로써, 이를 사용해서 회귀계수의 신뢰구간을 구할 수 있다.</li>
-<li>(4) t value: 몰라도 된다. 추정치를 <a href="../2462">표준오차</a>로 나눈 값으로써, 자유도 $n-p-1$ 의 <a href="../1667">t-분포</a>를 따르는 <a href="../2442">검정통계량</a>이 된다. 이를 통해 <a href="../2458">회귀계수</a>가 통계적으로 유의한지 <a href="../654">가설검정</a>을 할 수 있다.</li>
-<li>(5) <a href="../2446">p값pr(&gt;|t|)</a>: 이게 작다는 것은 회귀계수가 유의하다는 뜻이고, 상관관계가 있다는 것을 보이고 싶다면 값이 작을수록 좋다. 이 값이 얼마나 작은지에 따라 바로 아래에 있는 Signif. codes대로 점이 찍히게 된다. 보통 유의수준은 5%로 잡으므로, 점 하나만 찍혀도 상관관계는 있다고 봐도 무방하다. 만약 이 값이 커서 회귀관계가 없는 것으로 밝혀진다면 <a href="../2458">회귀계수</a>가 어떻게 구해지든 통계적으로는 의미가 없다. 이 p값은 <a href="../1667">t-분포</a>에서 나온 것이므로 pr(&gt;|t|) 라는 표현이 적절함을 알 수 있다.</li>
-<li>(6) <a href="../826">수정설명력</a><sup>Adjusted R-squared</sup>: 이 분석이 변수의 갯수에 비해 데이터를 얼마나 잘 설명하는가를 나타내는 척도로써, 높을수록 좋다. 회귀분석에서 변수의 갯수가 늘어난다는 것은 그만큼 쓸수있는 데이터가 늘어난다는 것이고, 그 때 설명력 $R^{2}$ 는 무조건 증가한다. 수정설명력이 <a href="../650">설명력</a>과 다른 점은 $\displaystyle R^2 = 1 - {{ \text{ SSE } } \over { \text{ SST} }}$ 와 달리 $\displaystyle R^{2}_{a} = 1 - {{ \text{ SSE } / (n - p - 1) } \over { \text{ SST} / (n - 1) }}$ 로 계산되어 변수의 갯수가 반영된다는 것이다. 실제로 쓰이는 응용수학에서 변수의 갯수를 늘린다는 것은 비용의 증대를 의미하고, 당연히 이를 줄이는 방법을 강구해야한다. 수정설명력 $R^{2}_{a}$ 는 변수의 갯수에 대해 페널티를 적용함으로써 설명력을 보정하고, 모형과 모형을 비교하는데 쓰이게 된다. 모형을 비교해 보았을 때 변수를 잔뜩 늘렸는데도 수정설명력이 별로 증가하지 않는다면 그만큼 쓸데없는 낭비를 한 것으로 본다.</li>
-<li>(7) F-statistiic : 이것의 p-value가 작다는 것은 유의한 회귀계수가 있다는 뜻이고, 상관관계가 있다는 것을 보이고 싶다면 값이 작을수록 좋다. 회귀계수의 t검정이 <a href="../2458">회귀계수</a> 하나하나에 대한 검정이라면, F검정은 회귀분석 자체에 대한 검정이다. p-값을 논외로 놓고 F통계량만 이야기해보자면 모형을 비교하는데에 요긴하게 쓰이게 된다.</li>
-</ul>
-<p>주의할 것은 이렇게 결과를 볼 수 있게 되었다고 끝난 게 아니라는 점이다. 다중회귀분석이 단순회귀보다 훨씬 어려운 것은 독립변수가 늘어나면서 단순회귀분석에는 <a href="../696">없었던</a> <a href="../808">문제</a>가 생기기 때문이다. 수치적인 계산만으로는 <a href="../810">설명하기 어려운</a> <a href="../675">여러가지 확인 절차</a>가 남아있으며, 사실 이것을 잘 하는 게 통계를 잘 하는 것이다.</p>
+$$</p>
+<h3 id="3-표준오차2462supstd-errorsup">(3) <a href="../2462">표준오차</a><sup>Std. Error</sup></h3>
+<p>몰라도 된다. 추정치의 <a href="../2462">표준오차</a>로써, 이를 사용해서 회귀계수의 신뢰구간을 구할 수 있다.</p>
+<h3 id="4-t-value">(4) t-value</h3>
+<p>몰라도 된다. 추정치를 <a href="../2462">표준오차</a>로 나눈 값으로써, <a href="../2456">자유도</a> $n-p-1$ 의 <a href="../1667">t-분포</a>를 따르는 <a href="../2442">검정통계량</a>이 된다. 이를 통해 <a href="../2458">회귀계수</a>가 통계적으로 유의한지 <a href="../654">가설검정</a>을 할 수 있다.</p>
+<h3 id="5-p값-prt2446">(5) <a href="../2446">p값 pr(&gt;|t|)</a></h3>
+<p>이게 작다는 것은 회귀계수가 유의하다는 뜻이고, 상관관계가 있다는 것을 보이고 싶다면 값이 작을수록 좋다. 이 값이 얼마나 작은지에 따라 바로 아래에 있는 Signif. codes대로 점이 찍히게 된다. 보통 유의수준은 5%로 잡으므로, 점 하나만 찍혀도 상관관계는 있다고 봐도 무방하다. 만약 이 값이 커서 회귀관계가 없는 것으로 밝혀진다면 <a href="../2458">회귀계수</a>가 어떻게 구해지든 통계적으로는 의미가 없다. 이 p값은 <a href="../1667">t-분포</a>에서 나온 것이므로 pr(&gt;|t|) 라는 표현이 적절함을 알 수 있다.</p>
+<h3 id="6-수정설명력826supadjusted-r-squaredsup">(6) <a href="../826">수정설명력</a><sup>Adjusted R-squared</sup></h3>
+<p>이 분석이 변수의 갯수에 비해 데이터를 얼마나 잘 설명하는가를 나타내는 척도로써, 높을수록 좋다. 회귀분석에서 변수의 갯수가 늘어난다는 것은 그만큼 쓸수있는 데이터가 늘어난다는 것이고, 그 때 설명력 $R^{2}$ 는 무조건 증가한다. 수정설명력이 <a href="../650">설명력</a>과 다른 점은 $\displaystyle R^2 = 1 - {{ \text{ SSE } } \over { \text{ SST} }}$ 와 달리
+$$
+\displaystyle R^{2}_{a} = 1 - {{ \text{ SSE } / (n - p - 1) } \over { \text{ SST} / (n - 1) }}
+$$
+로 계산되어 변수의 갯수가 반영된다는 것이다. 실제로 쓰이는 응용수학에서 변수의 갯수를 늘린다는 것은 비용의 증대를 의미하고, 당연히 이를 줄이는 방법을 강구해야한다. 수정설명력 $R^{2}_{a}$ 는 변수의 갯수에 대해 페널티를 적용함으로써 설명력을 보정하고, 모형과 모형을 비교하는데 쓰이게 된다. 모형을 비교해 보았을 때 변수를 잔뜩 늘렸는데도 수정설명력이 별로 증가하지 않는다면 그만큼 쓸데없는 낭비를 한 것으로 본다.</p>
+<h3 id="7-f-statistiic">(7) F-statistiic</h3>
+<p>이것의 p-value가 작다는 것은 유의한 회귀계수가 있다는 뜻이고, 상관관계가 있다는 것을 보이고 싶다면 값이 작을수록 좋다. <a href="../654">회귀계수의 t검정</a>이 <a href="../2458">회귀계수</a> 하나하나에 대한 검정이라면, <a href="../672">F검정은 회귀분석 자체에 대한 검정</a>이다. p-값을 논외로 놓고 F통계량만 이야기해보자면 모형을 비교하는데에 요긴하게 쓰이게 된다.</p>
+<p>주의할 것은 이렇게 결과를 볼 수 있게 되었다고 끝난 게 아니라는 점이다. 다중회귀분석이 단순회귀분석보다 훨씬 어려운 것은 독립변수가 늘어나면서 단순회귀분석에는 <a href="../696">없었던</a> <a href="../808">문제</a>가 생기기 때문이다. 수치적인 계산만으로는 <a href="../810">설명하기 어려운</a> 여러가지 <a href="../675">확인 절차</a>가 남아있으며, 사실 이것을 잘 하는 게 학부 수준의 <a href="../548">회귀분석</a>을 잘하는 것이다.</p>
 <h2 id="코드">코드</h2>
-<p>아래는 전체 예제코드다.</p>
+<p>아래는 <a href="../../categories/r">R</a>로 작성된 전체 예제코드다.</p>
 <pre tabindex="0"><code>tail(attitude)
  
 win.graph()
@@ -263,14 +285,14 @@ summary(out)
 <ul>
 <li><a href="../666">다중회귀분석</a></li>
 <li><a href="../672">회귀계수의 F검정</a></li>
-<li><a href="../3311">줄리아에서 회귀분석 하는 법</a></li>
+<li><a href="../2493">줄리아에서 회귀분석 하는 법</a></li>
 </ul>
 
 
 <aside style="text-align: right;">
     2018-09-05&emsp;
     류대식&emsp;
-    <a href="../851">🎲 670</a>
+    <a href="../1201">🎲 670</a>
 </aside>
 
 <script>
@@ -823,7 +845,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
       { idx: 3, name: '집합론', size: '47', color: color.green },
       { idx: 4, name: '정수론', size: '89', color: color.green },
       { idx: 5, name: '기하학', size: '132++', color: color.yellow },
-      { idx: 6, name: '행렬대수', size: '86', color: color.green },
+      { idx: 6, name: '행렬대수', size: '87', color: color.green },
       { idx: 7, name: '선형대수', size: '83', color: color.green },
       { idx: 8, name: '추상대수', size: '77', color: color.green },
       { idx: 9, name: '위상수학', size: '63', color: color.green },
@@ -868,7 +890,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
       { idx: 4, name: '통계적검정', size: '20++', color: color.red },
       { idx: 5, name: '통계적분석', size: '61', color: color.green },
       { idx: 6, name: '수리통계학', size: '109', color: color.green },
-      { idx: 7, name: '분포이론', size: '68+', color: color.green },
+      { idx: 7, name: '분포이론', size: '70', color: color.green },
       { idx: 8, name: '확률론', size: '72', color: color.green },
       { idx: 9, name: '위상데이터분석', size: '38', color: color.red }
     ],
