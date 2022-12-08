@@ -67,10 +67,10 @@
     </script>
 
     
-<meta name="title" content="퍼셉트론의 정의">
+<meta name="title" content="선형변환의 텐서 곱">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="퍼셉트론의 정의"/>
-<meta property="og:description" content="Definition of Perceptron"/>
+<meta property="og:title" content="선형변환의 텐서 곱"/>
+<meta property="og:description" content="Tensor Product of Linear Transformations"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -82,15 +82,15 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "j_",
-    "name": "퍼셉트론의 정의",
-    "headline": "퍼셉트론의 정의",
+    "name": "선형변환의 텐서 곱",
+    "headline": "선형변환의 텐서 곱",
     "alternativeHeadline": "",
-    "description": "Definition of Perceptron",
+    "description": "Tensor Product of Linear Transformations",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/definition-of--perceptron\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/tensor-product-of-linear-transformations\/"
     },
     "author" : {
         "@type": "Person",
@@ -105,10 +105,10 @@
         "name": "전기현"
     },
     "copyrightHolder" : "생새우초밥집",
-    "copyrightYear" : "2020",
-    "dateCreated": "2020-10-29T00:00:00.00Z",
-    "datePublished": "2020-10-29T00:00:00.00Z",
-    "dateModified": "2020-10-29T00:00:00.00Z",
+    "copyrightYear" : "2013",
+    "dateCreated": "2013-05-17T00:00:00.00Z",
+    "datePublished": "2013-05-17T00:00:00.00Z",
+    "dateModified": "2013-05-17T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -121,15 +121,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/definition-of--perceptron\/",
-    "wordCount" : "1329",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/tensor-product-of-linear-transformations\/",
+    "wordCount" : "1526",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>퍼셉트론의 정의</title>
+    <title>선형변환의 텐서 곱</title>
 </head>
 
 <body class="main">
@@ -137,7 +137,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98.png style="max-height: 80px; width: auto;">
             
             
             
@@ -178,21 +178,21 @@
     <div class="content">
       <div class="content-box">
         
-<title>퍼셉트론의 정의</title>
+<title>선형변환의 텐서 곱</title>
 
 
 
 
-        <a href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/"
+        <a href="https://freshrimpsushi.github.io/categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98/"
             style="background-color: rgba(0, 0, 0, 0.8); color: orange;
             border-radius:10px; padding: 5px;">
-            📂머신러닝</a>
+            📂선형대수</a>
         
 
 
-<h1>퍼셉트론의 정의</h1>
+<h1>선형변환의 텐서 곱</h1>
 <p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px; margin-left: 0px;">
-  Definition of Perceptron
+  Tensor Product of Linear Transformations
 </p>
 
 <aside>
@@ -202,109 +202,371 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#정의">정의</a></li>
-    <li><a href="#설명">설명</a></li>
-    <li><a href="#학습-방법">학습 방법</a></li>
+    <li><a href="#빌드업1">빌드업</a></li>
+    <li><a href="#정의">정의</a>
+      <ul>
+        <li><a href="#일반화">일반화</a></li>
+      </ul>
+    </li>
+    <li><a href="#성질">성질</a>
+      <ul>
+        <li><a href="#일반화-1">일반화</a></li>
+      </ul>
+    </li>
+    <li><a href="#증명">증명</a></li>
   </ul>
 </nav>
     </div>
   </div>
 </aside>
 
+<table style="margin-left: auto; margin-right: auto; border: 3px solid #3366FF;">
+    <tbody>
+    <tr>
+        <td style="background-color: #3366FF; text-align: center;"><span style="color: white;"><strong>선형대수</strong></span></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <details>
+                <summary oncontextmenu="return false" ondragstart="return false" onselectstart="return false" style="outline: none; cursor: pointer;">
+                    <strong>
+                        <span style="color: black;">[ 펼치기 · 접기 ]</span>
+                    </strong>
+                </summary>
+                <div style="margin: 5px -2px -18px;">
+                    <table style="width: 100%; table-layout: fixed;">
+                        <tbody>
+                            <tr><td width="12%" style="background-color: #3366FF" rowspan="3"><span style="color: white;">벡터공간</span></td>
+                                <td width="12%" style="background-color: #3366FF"><span style="color: white;">벡터공간</span></td>
+                                    <td align="left" style="border: 1px" fontsize="8pt"><span style="color: black;">
+                                        <a href="../282">벡터공간</a>
+                                        · <a href="../285">부분공간</a>
+                                        · <a href="../3371">합$+$</a>
+                                        · <a href="../2353">직합$\oplus$</a>
+                                        · <a href="../512">선형결합</a>
+                                        · <a href="../512">생성</a>
+                                        · <a href="../253">선형 독립/종속</a>
+                                        · <a href="../501">론스키안</a>
+                                    </span></td>
+                            </tr>
+                            <tr><td style="background-color: #3366FF"><span style="color: white;">기저</span></td>
+                                    <td align="left"><span style="color: black;">
+                                        <a href="../3017">기저</a>
+                                        · <a href="../3279">순서기저</a>
+                                        · <a href="../3018">차원</a>
+                                        · <a href="../3279">좌표벡터</a>
+                                        · <a href="../3331">벡터의 좌표변환</a>
+                                        · <a href="../3333">선형변환의 좌표변환</a>
+                                    </span></td>
+                            </tr>        
+                            <tr><td style="background-color: #3366FF"><span style="color: white;">잉여류</span></td>
+                                    <td align="left"><span style="color: black;">
+                                        <a href="../3359">잉여류와 몫공간</a>
+                                        · <a href="../3361">몫공간의 기저</a>
+                                        · <a href="../3363">몫공간으로의 사상</a>
+                                        · <a href="../3365">몫공간 위의 작용소</a>
+                                    </span></td>
+                            </tr>
+                            <tr><td style="background-color: #3366FF" colspan="2"><span style="color: white;">선형변환</span></td>
+                                <td align="left"><span style="color: black;">
+                                    <a href="../3026">내용</a>
+                                    · <a href="../3026">내용</a>
+                                    · <a href="../3026">내용</a>
+                                </span></td>
+                            </tr>
+                            <tr><td style="background-color: #3366FF" colspan="2"><span style="color: white;">고유값</span></td>
+                                    <td align="left"><span style="color: black;">
+                                        <a href="../3026">내용</a>
+                                        · <a href="../3026">내용</a>
+                                        · <a href="../3026">내용</a>
+                                    </span></td>
+                            </tr>
+                            <tr><td style="background-color: #3366FF" colspan="2"><span style="color: white;">쌍대공간</span></td>
+                                    <td align="left"><span style="color: black;">
+                                        <a href="../3026">내용</a>
+                                        · <a href="../3026">내용</a>
+                                        · <a href="../3026">내용</a>
+                                    </span></td>
+                            </tr>
+                            <tr><td style="background-color: #3366FF" colspan="2"><span style="color: white;">텐서</span></td>
+                                    <td align="left"><span style="color: black;">
+                                        <a href="../3414">벡터공간의 텐서곱</a>
+                                        · <a href="../3415">곱 벡터</a>
+                                        · <a href="../3416">보편성질</a>
+                                        · <a href="../3417">선형변환의 텐서곱</a>(<a href="../3419">행렬표현</a>)
+                                        · <a href="../3421">쌍대공간</a>
+                                        · <a href="../3420">전치</a>
+                                    </span></td>
+                            </tr>
+                            <tr><td width="100" style="background-color: #3366FF; border-bottom:none" colspan="2"><span style="color: white;">내적공간</span></td>
+                                    <td align="left" style="border-bottom:none"><span style="color: black;">
+                                        <a href="../3026">내용</a>
+                                        · <a href="../3026">내용</a>
+                                        · <a href="../3026">내용</a>
+                                    </span></td>
+                            </tr>
+                            <tr><td style="background-color: #8C8C8C; border:none" colspan="3" ><span style="color: white;">관련 분야</span></td>
+                            </tr>
+                            <tr><td align="middle" style="border:none" colspan="3"><span style="color: black;">
+                                        <a href="../../categories/행렬대수">행렬대수</a>
+                                        · <a href="../../categories/바나흐공간">바나흐 공간</a>
+                                        · <a href="../../categories/힐베르트공간">힐베르트 공간</a>
+                                    </span></td>
+                            </tr>
+                        </tbody>
+                </table>
+                </div>
+            </details>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<table style="margin-left: auto; margin-right: auto; border: 3px solid #3366FF;">
+    <tbody>
+    <tr>
+        <td style="background-color: #3366FF; text-align: center;"><span style="color: white;"><strong>제목</strong></span></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <details>
+                <summary oncontextmenu="return false" ondragstart="return false" onselectstart="return false" style="outline: none; cursor: pointer;">
+                    <strong>
+                        <span style="color: black;">[ 펼치기 · 접기 ]</span>
+                    </strong>
+                </summary>
+                <div style="margin: 5px -2px -18px;">
+                    <table style="width: 100%; table-layout: fixed;">
+                        <tbody>
+                            <tr><td width="24%" style="background-color: #3366FF" colspan="2"><span style="color: white;">대분류</span></td>
+                                <td align="left"><span style="color: black;">
+                                    <a href="../">내용</a>
+                                    · <a href="../">내용</a>
+                                    · <a href="../">내용</a>
+                                </span></td>
+                            </tr>
+                            <tr><td width="12%" style="background-color: #3366FF" rowspan="3"><span style="color: white;">대분류</span></td>
+                                <td width="12%" style="background-color: #3366FF"><span style="color: white;">중분류</span></td>
+                                    <td align="left" style="border: 1px"><span style="color: black;">
+                                        <a href="../">내용</a>
+                                        · <a href="../">내용</a>
+                                        · <a href="../">내용</a>
+                                    </span></td>
+                            </tr>
+                            <tr><td style="background-color: #3366FF"><span style="color: white;">중분류</span></td>
+                                    <td align="left"><span style="color: black;">
+                                        <a href="../">내용</a>
+                                        · <a href="../">내용</a>(<a href="../">내용</a>
+                                        · <a href="../">내용</a>
+                                        · <a href="../">내용</a>)
+                                        · <a href="../">내용</a>
+                                    </span></td>
+                            </tr>        
+                            <tr><td style="background-color: #3366FF"><span style="color: white;">중분류</span></td>
+                                <td align="left"><span style="color: black;">
+                                    <a href="../">내용</a>
+                                    · <a href="../">내용</a>
+                                    · <a href="../">내용</a>
+                                </span></td>
+                            </tr>
+                            <tr><td style="background-color: #3366FF" colspan="2"><span style="color: white;">대분류</span></td>
+                                <td align="left"><span style="color: black;">
+                                    <a href="../">내용</a>
+                                    · <a href="../">내용</a>
+                                    · <a href="../">내용</a>
+                                </span></td>
+                            </tr>
+                            <tr><td style="background-color: #3366FF; border-bottom:none" colspan="2"><span style="color: white;">대분류</span></td>
+                                <td align="left" style="border-bottom:none"><span style="color: black;">
+                                    <a style="color: black;">TBD</a>
+                                    · <a style="color: black;">TBD</a>
+                                    · <a style="color: black;">TBD</a>
+                                </span></td>
+                            </tr>
+                            <tr><td style="background-color: #8C8C8C; border:none" colspan="3" ><span style="color: white;">관련 분야</span></td>
+                            </tr>
+                            <tr><td align="middle" style="border:none" colspan="3"><span style="color: black;">
+                                        <a href="../../categories/">내용</a>
+                                        · <a href="../../categories/">내용</a>
+                                        · <a href="../../categories/">내용</a>
+                                    </span></td>
+                            </tr>
+                        </tbody>
+                </table>
+                </div>
+            </details>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<h2 id="빌드업1">빌드업<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p><a href="../3018">유한차원</a> <a href="../282">벡터공간</a> $V_{1}, V_{2}, W_{1}, W_{2}$과 <a href="../3026">선형변환</a> $\phi_{1} : V_{1} \to W_{1}$, $\phi_{2} : V_{2} \to W_{2}$가 주어졌다고 하자. 그러면 다음과 같은 <a href="../3037">이중선형</a>변환을 생각할 수 있다.</p>
+<p>$$
+V_{1} \times V_{2} \to W_{1} \otimes W_{2}
+$$</p>
+<p>$$
+(v_{1}, v_{2}) \mapsto \phi_{1}(v_{1}) \otimes \phi_{2}(v_{2})
+$$</p>
+<p>$\phi_{1}, \phi_{2}$가 선형변환이고, <a href="../3415">곱벡터</a>의 정의에 의해 위 함수가 이중선형인 것은 쉽게 알 수 있다.</p>
+<p>$$
+\begin{align*}
+\phi_{1}(\alpha v_{1} + \beta v_{1}^{\prime}) \otimes \phi_{2}(v_{2})
+&amp;= \big( \alpha \phi_{1}(v_{1}) + \beta \phi_{1}(v_{1}^{\prime}) \big) \otimes \phi_{2}(v_{2}) \\ 
+&amp;= \alpha \phi_{1}(v_{1}) \otimes \phi_{2}(v_{2}) + \beta \phi_{1}(v_{1}^{\prime}) \otimes \phi_{2}(v_{2}) \\ 
+\end{align*}
+$$</p>
+<p>$$
+\begin{align*}
+\phi_{1}(v_{1}) \otimes \phi_{2}(\alpha w_{1} + \beta w_{1}^{\prime})
+&amp;= \phi_{1}(v_{1}) \otimes \big( \alpha \phi_{2}(w_{1}) + \beta \phi_{2}(w_{1}^{\prime}) \big) \\ 
+&amp;= \alpha  \phi_{1}(v_{1}) \otimes \phi_{2}(w_{1}) + \beta \phi_{1}(v_{1}) \otimes \phi_{2}(w_{1}^{\prime})
+\end{align*}
+$$</p>
+<blockquote>
+<p><a href="../3416">텐서곱의 보편성질</a></p>
+<p>벡터공간 $V_{1}, \dots, V_{r}$, $W$에 대해, 다음과 같은 다중선형변환 $\phi$가 주어졌다고 하자.
+$$
+\phi : V_{1} \times \cdots \times V_{r} \to W
+$$
+그러면 다음을 만족하는 선형변환 $\psi$가 유일하게 존재한다.
+$$
+\psi : V_{1} \otimes \cdots \otimes V_{r} \to W
+$$
+$$
+\phi(v_{1}, \dots, v_{r}) = \psi(v_{1} \otimes \cdots \otimes v_{r}),\quad \forall v_{i} \in V_{i}, \forall i 
+$$</p>
+</blockquote>
+<p>그러면 위의 정리에 따라 유일한 선형변환 $V_{1} \otimes V_{2} \to W_{1} \otimes W_{2}$이 존재한다.</p>
 <h2 id="정의">정의</h2>
-<p><a href="../3037">선형 함수</a> $f(x) = wx + b$와 <a href="../757">단위 계단 함수</a> $H$의 <a href="../3048">합성</a>을 <strong>퍼셉트론</strong><sup>perceptron</sup>이라 정의한다.</p>
+<p>두 선형변환 $\phi_{1} : V_{1} \to W_{1}$, $\phi_{2} : V_{2} \to W_{2}$의 <strong>텐서곱</strong><sup>tensor product of two linear transformations</sup> $\phi_{1} \otimes \phi_{2}$를 다음과 같이 정의한다.</p>
 <p>$$
-\text{Perceptron} := H \circ f (x) = H(wx + b)
+\begin{equation}
+\begin{aligned}
+\phi_{1} \otimes \phi_{2} : V_{1} \otimes V_{2} &amp;\to W_{1} \otimes W_{2} \\ 
+(v_{1} \otimes v_{2}) &amp;\mapsto \phi_{1}(v_{1}) \otimes \phi_{2}(v_{2}),\quad \forall v_{1} \in V_{1}, \forall v_{2} \in V_{2}
+\end{aligned}
+\end{equation}
 $$</p>
-<p>다변수 함수의 경우, $f(\mathbf{x}) = \mathbf{w}\cdot \mathbf{x} + b = w_{1}x_{1} + \cdots w_{n}x_{n} + b$이고,</p>
 <p>$$
-\text{Perceptron} := H \circ f (\mathbf{x}) = H(\mathbf{w} \cdot \mathbf{x} + b)
+(\phi_{1} \otimes \phi_{2})(v_{1} \otimes v_{2}) = \phi_{1}(v_{1}) \otimes \phi_{2}(v_{2})
 $$</p>
-<p>특히나 이를 <strong>단층 퍼셉트론</strong><sup>single layer perceptron</sup>이라 부르기도 한다.</p>
-<h2 id="설명">설명</h2>
-<p>퍼셉트론은 1957년 로젠블렛에 의해 고안됐으며 최초의 <a href="../1013">지도 학습</a> 모델이다. 기계 학습에선 이를 가중치니, 바이어스니, 활성화함수니 하며 입문자가 알아듣기 어렵게 설명하지만, 그냥 선형함수와 계단함수의 합성일 뿐이다. 가중치는 선형항의 계수, 바이어스는 상수항을 의미한다.</p>
-<p>여기서 단위 계단 함수는 편의에 따라서 정의하기 나름이다.</p>
+<h3 id="일반화">일반화</h3>
+<p>$1 \le i \le n$에 대해서, 선형변환 $\phi_{i} : V_{i} \to W_{i}$들의 텐서곱이란 다음을 만족하는 유일한 선형변환이다.</p>
 <p>$$
-H(x) = \begin{cases} 1 &amp; x \gt 0 \\ 0 &amp; x \lt 0\end{cases} \quad \text{or} \quad H(x) = \begin{cases} 1 &amp; x \gt 0 \\ -1 &amp; x \lt 0\end{cases}
+\phi_{1} \otimes \cdots \otimes \phi_{n} : V_{1} \otimes \cdots \otimes V_{n} \to W_{1} \otimes \cdots \otimes W_{n}
 $$</p>
-<p>또한 $H$의 자리에 꼭 단위 계단함수가 들어가야하는 것은 아니며, 활성화함수로 쓰이는 것들이면 문제없다. 따라서 일반적으로 정의하자면, 퍼셉트론이란 선형함수와 활성화함수의 합성이다.</p>
-<!-- ![2020-10-29181504.png](2020-10-29181504.png#center)
-
-위 그림[^1]과 같이 단일 층으로 구성돼있고 [활성화 함수](../991) $\varphi$는 입력 데이터와 가중치의 곱을 $+1$ 혹은 $-1$로 반환한다. $-1$대신 $0$이라 두기도 하는데 본질적으로 차이는 없다. 간단한 예로 아래 그림과 같은 $m=2$인 2차원 데이터를 생각해보자. 입력 데이터를 $x=(x\_{1},x\_{2})$, 가중치를 $w=(w\_{1},w\_{2})$, 편향을 $b$라고 하면 퍼셉트론은 다음과 같이 작동하여 예측값 $\hat{y}$를 반환한다.
+<p>$$
+(\phi_{1} \otimes \cdots \otimes \phi_{n}) (v_{1} \otimes \cdots \otimes v_{n}) = \phi_{1}(v_{1}) \otimes \cdots \otimes \phi_{n}(v_{n}), \forall\quad v_{i} \in V_{i}
+$$</p>
+<!-- 
+[유한차원](../3018) [벡터공간](../282) $V, V^{\prime}, W, W^{\prime}$과 [선형변환](../3026) $\phi : V \to V^{\prime}$, $\psi : W \to W^{\prime}$가 주어졌다고 하자. 그러면 다음과 같이 [곱공간](../1360)에서 [텐서곱](../3416)으로의 이중선형변환이 [잘 정의된다.](../3416)
 
 $$
-\hat{y}=\varphi\_{w,b}(x)=\varphi( w\_{1}x\_{1}+w\_{2}x\_{2}+b) =\begin{cases} +1, & \text{if } w\_{1}x\_{1}+w\_{2}x\_{2}+b>0
-\\\  -1, & \text{if } w\_{1}x\_{1}+w\_{2}x\_{2}+b <0 \end{cases}
-$$
-
-<!--
-$$
-b + w\_{1} x\_{1} + w\_{2} x\_{2} + \cdots w\_{n} x\_{n} =(b, w\_{1}, \dots, w\_{n}) \cdot (1, x\_{1}, \dots, x\_{n}) = \mathbf{w} \cdot \mathbf{x}
+V \times W \to V^{\prime} \otimes W^{\prime}
 $$
 
 $$
-\hat{y} = \varphi( \mathbf{w} ^{T} \mathbf{x} ) = \begin{cases} +1, & \text{if } \mathbf{w}^{T} \mathbf{x} > 0
-\\\  -1, & \text{if } \mathbf{w}^{T} \mathbf{x} < 0 \end{cases}
+(v,w) \mapsto \phi(v) \otimes \psi(w)
 $$
+
+그러면 아래의 정리에 따라 유일한 선형변환 $V \otimes W \to V^{\prime} \otimes W^{\prime}$이 존재한다. 이를 두 선형변환 $\phi$, $\psi$의 텐서곱이라 정의한다.
+
+> [정리](../3416)
+> 
+> 벡터공간 $V\_{1}, \dots, V\_{r}$, $W$에 대해, 다음과 같은 다중선형변환 $\phi$가 주어졌다고 하자.
+> $$
+> \phi : V\_{1} \times \cdots \times V\_{r} \to W
+> $$
+> 그러면 다음을 만족하는 선형변환 $\psi$가 유일하게 존재한다.
+> $$
+> \psi : V\_{1} \otimes \cdots \otimes V\_{r} \to W
+> $$
+> $$
+> \phi(v\_{1}, \dots, v\_{r}) = \psi(v\_{1} \otimes \cdots \otimes v\_{r}),\quad \forall v\_{i} \in V\_{i}, \forall i 
+> $$
 -->
-<p>위의 값이 $0$보다 큰지, 작은지에 따라 분류 하므로 기준이 되는 곳을 찾으면 된다. 그러면 식을 정리하여 다음과 같은 결과를 얻는다.</p>
+<!-- ## 정의
+
+선형변환 $\phi : V \to V$, $\psi : W \to W$의 **텐서곱**<sup>tensor product of linear transformations</sup>이란, 다음과 같이 정의되는 유일한 선형변환이다.
+
+$$
+\phi \otimes \psi : V \otimes W \to V \otimes W
+$$
+
+$$
+\left( \phi \otimes \psi \right) (v \otimes w) = \phi(v) \otimes \psi(w),\quad \forall v \in V, \forall w \in W
+$$ -->
+<h2 id="성질">성질</h2>
+<p><a href="../3026">선형작용소</a> $\phi_{1}, \phi_{2} : V \to V$, $\psi_{1}, \psi_{2} : W \to W$에 대해서, 두 텐서곱 $(\phi_{1} \otimes \psi_{1})$, $(\phi_{2} \otimes \psi_{2})$의 합성은 다음과 같다.</p>
+<p>$$
+(\phi_{1} \otimes \psi_{1}) \circ (\phi_{2} \otimes \psi_{2}) = (\phi_{1} \circ \phi_{2}) \otimes (\psi_{1} \circ \psi_{2})
+$$</p>
+<h3 id="일반화-1">일반화</h3>
+<p>$$
+\begin{align*} &amp;\phi_{1} \otimes \cdots \otimes (\alpha \phi_{k} + \beta \psi_{k}) \otimes \cdots \otimes \phi_{n} \\ 
+&amp;= \alpha(\phi_{1} \otimes \cdots \otimes \phi_{k} \otimes \cdots \otimes \phi_{n}) + \beta(\phi_{1} \otimes \cdots \otimes \psi_{k} \otimes \cdots \otimes \phi_{n})\end{align*}
+$$</p>
+<p>$$
+(\phi_{1} \otimes \cdots \otimes \phi_{n}) \circ (\psi_{1} \otimes \cdots \otimes \psi_{n}) = (\phi_{1} \circ \psi_{1}) \otimes \cdots \otimes (\phi_{n} \circ \psi_{n})
+$$</p>
+<h2 id="증명">증명</h2>
+<p><strong>선형성</strong></p>
+<p>정의 $(1)$과 곱벡터의 정의로 쉽게 보일 수 있다. $\phi : V \to V^{\prime}$, $\psi_{1}, \psi_{2} : W \to W^{\prime}$와 $v \in V, w \in W$에 대해서,</p>
 <p>$$
 \begin{align*}
-&amp;&amp; w_{1}x_{1} +w_{2}x_{2}+b &amp;= 0
-\\  \implies &amp;&amp; w_{2}x_{2} &amp;= -w_{1}x_{1}-b
-\\  \implies &amp;&amp; x_{2} &amp;= -\frac{w_{1}}{w_{2}}x_{1}-\frac{b}{w_{2}}
+\left[ \phi \otimes (\alpha \psi_{1} + \beta \psi_{2}) \right] (v \otimes w)
+&amp;= \phi (v) \otimes \left[(\alpha \psi_{1} + \beta \psi_{2})(w)\right] \\ 
+&amp;= \phi (v) \otimes \left[\alpha \psi_{1}(w) + \beta \psi_{2}(w)\right] \\ 
+&amp;= \alpha [\phi (v) \otimes \psi_{1}(w)] + \beta [\phi (v) \otimes \psi_{2}(w)] \\ 
+&amp;= [\alpha (\phi \otimes \psi_{1})] (v \otimes w) + [\beta (\phi \otimes \psi_{2})] (v \otimes w) \\ 
+&amp;= \left[ \alpha (\phi \otimes \psi_{1}) + \beta (\phi \otimes \psi_{2}) \right] (v \otimes w) \\ 
 \end{align*}
 $$</p>
-<p>이는 2차원 평면에서 직선의 방정식과 같다. 입력 데이터가 $N$차원인 경우는 다음과 같이 나타낼 수 있다.</p>
+<p>$$
+\implies \phi \otimes (\alpha \psi_{1} + \beta \psi_{2}) = \alpha (\phi \otimes \psi_{1}) + \beta(\phi \otimes \psi_{2})
+$$</p>
+<p style="text-align: right;">■</p>
+<p><strong>합성</strong></p>
+<p>정의 $(1)$과 곱벡터의 정의로 쉽게 계산할 수 있다. $v \in V$, $w \in W$에 대해서,</p>
+<!-- 우선 각 변환들이 어떻게 매핑되는지를 정리하면 다음과 같다.
+
+$$
+\phi\_{1} \otimes \psi\_{1} : V\_{1} \otimes W\_{1} \to V\_{2} \otimes W\_{2} \\\ 
+\phi\_{2} \otimes \psi\_{2} : V\_{2} \otimes W\_{2} \to V\_{3} \otimes W\_{3} \\\
+\phi\_{2} \circ \phi\_{1} : V\_{1} \to V\_{3} \\\ 
+\psi\_{2} \circ \psi\_{1} : W\_{1} \to W\_{3} \\\ 
+$$ -->
 <p>$$
 \begin{align*}
-\hat{y}&amp;=\varphi \left( \begin{bmatrix}
-b &amp; w_{1} &amp; \dots &amp;w_{N}
-\end{bmatrix} ^{T} \begin{bmatrix}
-1&amp; x_{1} &amp; \dots &amp; x_{N}
-\end{bmatrix} \right)
-\\  &amp;= \varphi \left( \bf{w}^T \bf{x} \right)
+\left[ (\phi_{2} \otimes \psi_{2}) \circ (\phi_{1} \otimes \psi_{1}) \right] (v \otimes w)
+&amp;= (\phi_{2} \otimes \psi_{2}) \left[ (\phi_{1} \otimes \psi_{1})  (v \otimes w) \right] \\ 
+&amp;= (\phi_{2} \otimes \psi_{2}) (\phi_{1}(v) \otimes \psi_{1}(w)) \\ 
+&amp;= [\phi_{2} (\phi_{1}(v))] \otimes [\psi_{2}(\psi_{1}(w))] \\ 
+&amp;= [(\phi_{2} \circ \phi_{1})(v)] \otimes [(\psi_{2} \circ \psi_{1})(w)] \\ 
+&amp;= \left[ (\phi_{2} \circ \phi_{1}) \otimes (\psi_{2} \circ \psi_{1})\right] (v \otimes w) 
 \end{align*}
-$$
-따라서 퍼셉트론의 학습 목표는 아래 그림과 같이 두 종류의 데이터를 구분지을 수 있는 선을 그을 수 있도록 하는 것이다.
-<img src="1.PNG#center" alt="1.PNG"></p>
-<p>그러면 가중치 벡터 $\mathbf{w}$는 다음 그림과 같이 나타난다.
-<img src="3.PNG#center" alt="3.PNG"></p>
-<p>위 그림과 같은 $\mathbf{w}$를 구하면 모든 파란색 점과의 각도가 90도 이내이므로 내적의 값이 양수이고, 모든 초록색 점과의 각도가 90도보다 크므로 내적의 값이 음수가 된다. 따라서 이러한 조건을 만족하는 $\mathbf{w}$가 유일하지는 않다. 이런식으로 퍼셉트론이 아래의 그림<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>처럼 데이터를 구분짓는 선을 그릴 수 있는 경우를 선형 분리가능linearly separable하다고 한다.
-<img src="2.PNG#center" alt="2.PNG"></p>
-<h2 id="학습-방법">학습 방법</h2>
-<p>학습 방법은 단순하다. $n$번째 입력 데이터 $\mathbf{x} (n)$이 $-1$로 분류되어야하는데 $\hat{y}(n)=\varphi \left( \mathbf{w}^{T}(n)\mathbf{x}(n) \right)=1$의 결과가 나왔다고 해보자. 이는 현재의 가중치에 대해서 $\mathbf{w}^{T}(n)\mathbf{x}(n)$이 양수라는 뜻이고 퍼셉트론이 올바르게 예측하려면 $\mathbf{w}^{T}(n)\mathbf{x}(n)$의 값이 음수가 되어야 한다. 따라서 $\mathbf{w}^T(n)\mathbf{x}(n)$에 어떤 값을 빼는 식으로 업데이트 하면 된다. 이를 입력 데이터 $\mathbf{x}(n)$에 의존하도록 하면 가중치의 업데이트를 다음과 같이 나타낼 수 있다.
-$$
-\begin{align*}
-&amp;&amp; \mathbf{w}^T(n+1)\mathbf{x}(n) &amp;=\mathbf{w}^T(n)\mathbf{x}(n)-\eta\mathbf{x}^T(n)\mathbf{x}(n)
-\\  \implies &amp;&amp; \mathbf{w}(n+1) &amp;= \mathbf{w}(n) -\eta \mathbf{x}(n)
-\end{align*}
-$$
-이때 $\eta&gt;0$는 학습률learning rate라 불리는 상수이다. 같은 방법으로 $+1$인 $\mathbf{x}$를 $-1$로 예측한 반대의 경우 다음과 같이 가중치를 업데이트하면 된다.
-$$
-\mathbf{w}(n+1) = \mathbf{w}(n) +\eta \mathbf{x} 
-$$
-위의 두 가지 경우를 다음과 같이 한 번에 나타낼 수 있다.
-$$
-\mathbf{w}(n+1) = \mathbf{w}(n) +\eta y(n) \mathbf{x}(n) 
-$$
-이때 $y(n)$는 $\mathbf{x}(n)$의 라벨(정답)이다. 실제로 퍼셉트론이 2차원, 3차원 데이터에 대해서 학습하는 과정을 움짤로 보면 다음과 같다.</p>
-<p><img src="perceptron3.gif#center" alt="perceptron3.gif"></p>
-<p><img src="perceptron3d10.gif#center" alt="perceptron3d10.gif"></p>
-<div class="footnotes" role="doc-endnotes">
+$$</p>
+<p>$$
+\implies (\phi_{2} \otimes \psi_{2}) \circ (\phi_{1} \otimes \psi_{1}) = (\phi_{2} \circ \phi_{1}) \otimes (\psi_{2} \circ \psi_{1})
+$$</p>
+<p style="text-align: right;">■</p>
+<section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1">
-<p>Simon Haykin. (2009). Neural Network and Learning Machines(3rd Edition) &ndash;&gt;&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1" role="doc-endnote">
+<p>김영훈·허재성, <em>양자 정보 이론</em> (2020), p35-36&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</div>
+</section>
 
 
 <aside style="text-align: right;">
-    2020-10-29&emsp;
+    2013-05-17&emsp;
     전기현&emsp;
-    <a href="../1642">🎲 1846</a>
+    <a href="../434">🎲 3417</a>
 </aside>
 
 <script>
@@ -319,8 +581,8 @@ $$
       renderKaTex(tex);
     }
 
-    var title = '퍼셉트론의 정의';
-    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/definition-of--perceptron\/';
+    var title = '선형변환의 텐서 곱';
+    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/tensor-product-of-linear-transformations\/';
     var arr = new Array();
     var obj = {
       "title": title,
@@ -388,7 +650,7 @@ $$
       .then(ip => {
         const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
         return postFetch(url, {
-                board_idx: '1846',
+                board_idx: '3417',
                 user_ip: ip
               });
       })
@@ -521,9 +783,9 @@ $$
       alert('빈칸을 채워주세요');
       return;
     }
-    const idx = '1846';
-    const board_slug = 'definition-of--perceptron';
-    const board_title = '퍼셉트론의 정의';
+    const idx = '3417';
+    const board_slug = 'tensor-product-of-linear-transformations';
+    const board_title = '선형변환의 텐서 곱';
 
     fetch('https://api.ipify.org?format=json')
       .then(res => res.json())
@@ -762,9 +1024,9 @@ $$
       return;
     }
 
-    const board_idx = '1846';
-    const board_slug = 'definition-of--perceptron';
-    const board_title = '퍼셉트론의 정의';
+    const board_idx = '3417';
+    const board_slug = 'tensor-product-of-linear-transformations';
+    const board_title = '선형변환의 텐서 곱';
 
     fetch('https://api.ipify.org?format=json')
       .then(res => res.json())

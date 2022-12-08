@@ -244,7 +244,7 @@ $$</li>
 <p>자기상관함수란 <a href="../900">시계열 데이터</a>의 자기상관성을 파악하기 위한 함수로, 같은 변수라도 어떤 시차를 가지고 스스로와 비슷한지에 관심을 둔다. 서로 다른 변수의 상관관계에 관심을 가지는 <a href="../548">회귀분석</a>의 아이디어와는 달리, 그 스스로가 시차 $k$ 를 두고 $Y_{t}$ 와 $Y_{t-k}$ 로 나뉘어 두 변수와 같이 취급된다.</p>
 <h3 id="수식적-설명">수식적 설명</h3>
 <p>수식적으로는 $Y_{t}$ 가 $MA(q)$ 에서 나왔다고 생각해봤을 때 $\displaystyle Y_{t} = e_{t} - \sum_{k=1}^{q} \theta_{k} e_{t-k}$ 이므로 $Y_{t}$ 를 여러 정규분포의 합으로 볼 수 있고, $\rho_{k}$ 가 곧 $\theta_{k}$ 이므로 $MA(q)$ 모형을 찾는데에 유용하다.</p>
-<p>sACF $r_{k}$ 는 ACF $\rho_{k}$ 의 추정치고, $Y_{t}$ 가 $MA(q)$ 모형에서 나왔다면 $k &gt; q$ 일 때 정규분포 $\displaystyle N \left( \rho_{k} , {{1} \over {n}} \left[ 1 + 2 \sum_{j=1}^{q} \rho_{j}^{2} \right]^2 \right)$ 를 따른다. 수식으로 나타내보면
+<p>sACF $r_{k}$ 는 ACF $\rho_{k}$ 의 추정치고, $Y_{t}$ 가 $MA(q)$ 모형에서 나왔다면 $k &gt; q$ 일 때 <a href="../1645">정규분포</a> $\displaystyle N \left( \rho_{k} , {{1} \over {n}} \left[ 1 + 2 \sum_{j=1}^{q} \rho_{j}^{2} \right]^2 \right)$ 를 따른다. 수식으로 나타내보면
 $$
 r_{k} \sim N \left( \rho_{k} , {{1} \over {n}} \left[ 1 + 2 \sum_{j=1}^{q} \rho_{j}^{2} \right]^2 \right)
 $$
@@ -256,7 +256,7 @@ $$
 <li>$H_{1}$ : $MA(k) \iff \theta_{k} \ne 0$, 즉, $Y_{t}$ 는 시차 $k$ 의 자기상관관계를 가진다.</li>
 </ul>
 <h2 id="해석">해석</h2>
-<p>귀무가설 하에서는 모든 $k$ 에 대해 $\rho_{k} = \theta_{k} = 0$ 이므로 $q = 0$ 과 $\displaystyle r_{k} \sim N \left( 0 , {{1} \over {N }} \right)$ 을 가정하고 <a href="../2462">표준오차</a>는 $\displaystyle {{1} \over {\sqrt{n} }}$ 가 된다. 따라서 <a href="../509">유의수준</a> $\alpha$ 에 대해서 가설검정을 하고 싶다면 $| \theta_{k} |$ 가 신뢰구간상한 $\displaystyle {{ z_{1 - \alpha/2} } \over { \sqrt{n} }}$ 을 넘기는지 확인하면 된다. 넘어가면 유의한 시차의 후보가 되고, 넘어가지 못하면 자기상관관계가 없는 것으로 본다.</p>
+<p><a href="../2442">귀무가설</a> 하에서는 모든 $k$ 에 대해 $\rho_{k} = \theta_{k} = 0$ 이므로 $q = 0$ 과 $\displaystyle r_{k} \sim N \left( 0 , {{1} \over {N }} \right)$ 을 가정하고 <a href="../2462">표준오차</a>는 $\displaystyle {{1} \over {\sqrt{n} }}$ 가 된다. 따라서 <a href="../509">유의수준</a> $\alpha$ 에 대해서 가설검정을 하고 싶다면 $| \theta_{k} |$ 가 신뢰구간상한 $\displaystyle {{ z_{1 - \alpha/2} } \over { \sqrt{n} }}$ 을 넘기는지 확인하면 된다. 넘어가면 유의한 시차의 후보가 되고, 넘어가지 못하면 자기상관관계가 없는 것으로 본다.</p>
 <h2 id="실습">실습</h2>
 <p><img src="20190723_125305.png#center" alt="20190723\_125305.png"></p>
 <p><code>ma1.2.s</code> 데이터는 $MA(1)$ 모델에서 나온 <code>TSA</code> 패키지의 샘플 데이터다. 실제 <a href="../1200">아리마 모형</a>으로 분석할 때 역시 추정치의 절대값이 <a href="../2462">표준오차</a>의 두 배가 넘는지를 기준으로 유의한 계수인지 파악한다.</p>
@@ -269,27 +269,27 @@ $$
 <pre tabindex="0"><code>library(TSA)
 data(ma1.2.s); win.graph(6,4); acf(ma1.2.s)
 arima(ma1.2.s, order=c(0,0,1))
-abline(h=1.96*1/sqrt(length(ma1.2.s)),col=&#39;red&#39;)
+abline(h=1.96*1/sqrt(length(ma1.2.s)),col='red')
 </code></pre><h2 id="같이보기">같이보기</h2>
 <ul>
 <li><a href="../1211">PACF : 편자기상관함수</a></li>
 <li><a href="../1213">EACF : 확장자기상관함수</a></li>
 <li><a href="../1227">CCF : 교차상관함수</a></li>
 </ul>
-<div class="footnotes" role="doc-endnotes">
+<section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1">
+<li id="fn:1" role="doc-endnote">
 <p>Cryer. (2008). Time Series Analysis: With Applications in R(2nd Edition): p11, 109.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</div>
+</section>
 
 
 <aside style="text-align: right;">
     2019-08-04&emsp;
     류대식&emsp;
-    <a href="../1584">🎲 1209</a>
+    <a href="../1570">🎲 1209</a>
 </aside>
 
 <script>

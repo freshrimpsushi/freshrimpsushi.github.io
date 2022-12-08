@@ -214,31 +214,31 @@
 <p><a href="../1467">매트랩</a>R 은 분명 통계 분석에 특화되어 있는 프로그래밍 언어지만, 모든 언어가 그러하듯 속도에 관심이 없는 것은 아니다. 속도가 강점이 아니라고 해도 벤치마킹은 할 수 있어야한다. R 에서는 간단하게도 코드 전문을 <code>system.time({})</code>에 넣어서 시간을 잴 수 있다.</p>
 <h2 id="예시">예시</h2>
 <p>다음은 <a href="../775">에라토스테네스의 체</a>를 R 로 구현하고 $2*10^{5}$ 이하의 홀수를 30개 뽑아 소수인지 아닌지 확인한 후 그 실행 시간을 재는 코드다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>eratosthenes<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(n){
-</span></span><span style="display:flex;"><span>  residue<span style="color:#f92672">&lt;-</span><span style="color:#ae81ff">2</span><span style="color:#f92672">:</span>n
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">while</span>(n <span style="color:#f92672">%in%</span> residue){
-</span></span><span style="display:flex;"><span>    p<span style="color:#f92672">&lt;-</span>residue[1]
-</span></span><span style="display:flex;"><span>    residue<span style="color:#f92672">&lt;-</span>residue<span style="color:#a6e22e">[as.logical</span>(residue<span style="color:#f92672">%%</span>p)]
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">return</span>(p)
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">set.seed</span>(<span style="color:#ae81ff">150421</span>)
-</span></span><span style="display:flex;"><span>test <span style="color:#f92672">=</span> <span style="color:#a6e22e">sample</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>^5<span style="color:#ae81ff">+1</span>,<span style="color:#ae81ff">30</span>)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">system.time</span>({
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">for</span>(n in test){
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">print</span>(<span style="color:#a6e22e">paste0</span>(<span style="color:#e6db74">&#34;eratosthenes(&#34;</span>,n,<span style="color:#e6db74">&#34;) = &#34;</span>,<span style="color:#a6e22e">eratosthenes</span>(n)))
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;계산 끝&#34;</span>)
-</span></span><span style="display:flex;"><span>})
-</span></span></code></pre></div><p>그 실행결과는 다음과 같다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">eratosthenes<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(n){
+  residue<span style="color:#f92672">&lt;-</span><span style="color:#ae81ff">2</span><span style="color:#f92672">:</span>n
+  <span style="color:#a6e22e">while</span>(n <span style="color:#f92672">%in%</span> residue){
+    p<span style="color:#f92672">&lt;-</span>residue[1]
+    residue<span style="color:#f92672">&lt;-</span>residue<span style="color:#a6e22e">[as.logical</span>(residue<span style="color:#f92672">%%</span>p)]
+  }
+  <span style="color:#a6e22e">return</span>(p)
+}
+ 
+<span style="color:#a6e22e">set.seed</span>(<span style="color:#ae81ff">150421</span>)
+test <span style="color:#f92672">=</span> <span style="color:#a6e22e">sample</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span>^5<span style="color:#ae81ff">+1</span>,<span style="color:#ae81ff">30</span>)
+<span style="color:#a6e22e">system.time</span>({
+  <span style="color:#a6e22e">for</span>(n in test){
+    <span style="color:#a6e22e">print</span>(<span style="color:#a6e22e">paste0</span>(<span style="color:#e6db74">&#34;eratosthenes(&#34;</span>,n,<span style="color:#e6db74">&#34;) = &#34;</span>,<span style="color:#a6e22e">eratosthenes</span>(n)))
+  }
+  <span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;계산 끝&#34;</span>)
+})
+</code></pre></div><p>그 실행결과는 다음과 같다.</p>
 <p><img src="20190816_144557.png#center" alt="20190816\_144557.png"></p>
 
 
 <aside style="text-align: right;">
     2019-08-22&emsp;
     류대식&emsp;
-    <a href="../911">🎲 1246</a>
+    <a href="../988">🎲 1246</a>
 </aside>
 
 <script>

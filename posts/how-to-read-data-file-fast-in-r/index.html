@@ -214,17 +214,17 @@
 <p>R 은 기본적으로 <a href="../496">csv 데이터를 읽는 함수</a>로써 <code>read.csv()</code>를 제공하지만, 그냥 간편하게 쓰는 정도가 아니라 실전적인 분석을 하고 있다면 성능이 너무 떨어져서 써먹을 것이 못 된다. 그 대안으로써, readr 패키지에서 제공하는 <code>read\_csv()</code>를 사용할 것을 강력하게 권장한다. <code>read\_csv()</code>는 c++로 작성되었으며, 매우 빠른 속도로 csv 파일을 읽어들일 수 있다.</p>
 <h2 id="코드">코드</h2>
 <p>다음은 <code>read.csv()</code>와 <code>read\_csv()</code>의 <a href="../1246">소요시간을 측정</a>한 것이다:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>link <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;../attachment/cfile1.uf@992EC4385D6B6D21123DAE.csv&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">system.time</span>({
-</span></span><span style="display:flex;"><span>  x<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">read.csv</span>(link,header<span style="color:#f92672">=</span>F)
-</span></span><span style="display:flex;"><span>})
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(readr)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">system.time</span>({
-</span></span><span style="display:flex;"><span>  y<span style="color:#f92672">&lt;-</span>read<span style="color:#a6e22e">\_csv</span>(link)
-</span></span><span style="display:flex;"><span>})
-</span></span></code></pre></div><p><img src="20190901_162033.png#center" alt="20190901\_162033.png">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">
+link <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;../attachment/cfile1.uf@992EC4385D6B6D21123DAE.csv&#34;</span>
+<span style="color:#a6e22e">system.time</span>({
+  x<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">read.csv</span>(link,header<span style="color:#f92672">=</span>F)
+})
+
+<span style="color:#a6e22e">library</span>(readr)
+<span style="color:#a6e22e">system.time</span>({
+  y<span style="color:#f92672">&lt;-</span>read<span style="color:#a6e22e">\_csv</span>(link)
+})
+</code></pre></div><p><img src="20190901_162033.png#center" alt="20190901\_162033.png">
 다운로드를 하는 시간까지 포함해도 10배 이상의 속도차를 확인할 수 있다. 예시에 쓰인 파일 <a href="../attachment/cfile1.uf@992EC4385D6B6D21123DAE.csv"><img src="61f91d438#center" alt="61f91d438">
 dummy.csv</a> 은 고작 1만줄에 용량도 1.1MB밖에 안하는데, 사실은 80MB짜리 원본 데이터를 줄이고 줄인 것이다. <code>read.csv()</code>가 너무 느려서 중간에 뻗었는지 어떤지 확인할 방법도 없었기 때문이다. 기다리다보면 결국엔 원본 데이터도 읽을 수 있을지도 모르지만, 그만큼 기다릴 인내심이 없어서 아주 작게 줄였다.</p>
 <p><img src="20190901_155859.png#center" alt="20190901\_155859.png"></p>
@@ -233,7 +233,7 @@ dummy.csv</a> 은 고작 1만줄에 용량도 1.1MB밖에 안하는데, 사실�
 <aside style="text-align: right;">
     2019-09-02&emsp;
     류대식&emsp;
-    <a href="../1660">🎲 1270</a>
+    <a href="../930">🎲 1270</a>
 </aside>
 
 <script>
