@@ -199,6 +199,16 @@
   <div class="innerheader">
     
     <div class="innertoc">
+       
+      <script type="text/javascript">
+        var goIndex = function(){
+            var idx = document.getElementsByName("idx")[0].value;
+            var local_idx = "http://localhost:1313/posts/" + idx;
+            location.replace(local_idx)
+        }
+      </script>
+      </p>
+      
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
@@ -212,6 +222,7 @@
   </ul>
 </nav>
     </div>
+    
   </div>
 </aside>
 
@@ -220,22 +231,22 @@
 <p><code>while</code> 문은 여타 언어들과 다를 게 없다.</p>
 <pre tabindex="0"><code>julia&gt; while x &lt; 10
            x += 1
-           print(&quot;$x - &quot;)
+           print(&#34;$x - &#34;)
        end
 1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 10 -
 </code></pre><h3 id="for">for</h3>
 <pre tabindex="0"><code>julia&gt; for i in 1:10
-           print(&quot;$i - &quot;)
+           print(&#34;$i - &#34;)
        end
 1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 10 -
 
 julia&gt; for i = 1:10
-           print(&quot;$i - &quot;)
+           print(&#34;$i - &#34;)
        end
 1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 10 - 
 
 julia&gt; for i ∈ 1:10
-           print(&quot;$i - &quot;)
+           print(&#34;$i - &#34;)
        end
 1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 10 -
 </code></pre><p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서 메이저하게 쓰이는 반복문 스타일은 위 세가지가 있다. 가장 위는 <a href="../../categories/r">R</a>과 <a href="../../categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D#python">파이썬</a>에서 쓰는 방법과 비슷하며, 두번째는 <a href="../../categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9">매트랩</a>과 비슷하다. 가장 우아한 표현은 세번째의 <a href="../1442">집합 포함 기호</a>를 사용한 방법이다.</p>
@@ -245,7 +256,7 @@ julia&gt; for i ∈ 1:10
 
 julia&gt; for x ∈ X
            for y ∈ Y
-               print(&quot;  ($x + $y) = $(x + y)&quot;)
+               print(&#34;  ($x + $y) = $(x + y)&#34;)
                if y == 5 println() end
            end
        end
@@ -255,7 +266,7 @@ julia&gt; for x ∈ X
   (4 + 8) = 12  (4 + 7) = 11  (4 + 6) = 10  (4 + 5) = 9
 
 julia&gt; for x ∈ X, y ∈ Y
-           print(&quot;  ($x + $y) = $(x + y)&quot;)
+           print(&#34;  ($x + $y) = $(x + y)&#34;)
            if y == 5 println() end
        end
   (1 + 8) = 9  (1 + 7) = 8  (1 + 6) = 7  (1 + 5) = 6
@@ -264,13 +275,13 @@ julia&gt; for x ∈ X, y ∈ Y
   (4 + 8) = 12  (4 + 7) = 11  (4 + 6) = 10  (4 + 5) = 9
 </code></pre><p>마치 의사 코드<sup>Pseudo Code</sup>를 쓰듯 코드가 작성된 것을 볼 수 있다. 주의사항으로는 다음과 같이 반복자<sup>Iterator</sup>로써 튜플을 준 경우다.</p>
 <pre tabindex="0"><code>julia&gt; for (x,y) ∈ (X, Y)
-           print(&quot;  ($x + $y) = $(x + y)&quot;)
+           print(&#34;  ($x + $y) = $(x + y)&#34;)
            if y == 5 println() end
        end
   (1 + 2) = 3  (8 + 7) = 15
 </code></pre><p>직관적으로 생각했을 때 위 반복문은 <code>(X, Y)</code> 는 <code>X</code> 에서 <code>x</code> 를 뽑고 <code>Y</code> 에서 <code>y</code> 를 뽑으며 돌아야할 것 같지만, 실제로는 <code>X</code> 에서 두 개의 원소 <code>1,2</code> 와 <code>Y</code> 에서 두 개의 원소 <code>8,7</code> 을 뽑으며 돌았다. 만약 이렇게 순서를 맞춰서 뽑고 싶다면 다음과 같이 <code>zip()</code> 함수를 사용하면 된다.</p>
 <pre tabindex="0"><code>julia&gt; for (x,y) ∈ zip(X, Y)
-           print(&quot;  ($x + $y) = $(x + y)&quot;)
+           print(&#34;  ($x + $y) = $(x + y)&#34;)
            if y == 5 println() end
        end
   (1 + 8) = 9  (2 + 7) = 9  (3 + 6) = 9  (4 + 5) = 9
@@ -279,7 +290,7 @@ julia&gt; for x ∈ X, y ∈ Y
 <aside style="text-align: right;">
     2022-04-21&emsp;
     류대식&emsp;
-    <a href="../687">🎲 2191</a>
+    <a href="../895">🎲 2191</a>
 </aside>
 
 <script>
@@ -792,18 +803,13 @@ julia&gt; for x ∈ X, y ∈ Y
 <div class="field">
 
 <input type="text" id="searchtext" placeholder = "통합검색" class="input_text" name="s"
-style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.5rem; border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px;">
+style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.5rem;
+border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
 
-<script type="text/javascript">
-    var goIndex = function(){
-        var idx = document.getElementsByName("idx")[0].value;
-        var local_idx = "http://localhost:1313/posts/" + idx;
-        location.replace(local_idx)
-    }
-</script>
-</p>
+  
+
 
 
 

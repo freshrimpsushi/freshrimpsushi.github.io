@@ -199,6 +199,16 @@
   <div class="innerheader">
     
     <div class="innertoc">
+       
+      <script type="text/javascript">
+        var goIndex = function(){
+            var idx = document.getElementsByName("idx")[0].value;
+            var local_idx = "http://localhost:1313/posts/" + idx;
+            location.replace(local_idx)
+        }
+      </script>
+      </p>
+      
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
@@ -208,13 +218,14 @@
   </ul>
 </nav>
     </div>
+    
   </div>
 </aside>
 
 <h2 id="에러">에러</h2>
-<pre tabindex="0"><code>TypeError: can't convert cuda:0 device type tensor to numpy. Use Tensor.cpu() to copy the tensor to host memory first.
+<pre tabindex="0"><code>TypeError: can&#39;t convert cuda:0 device type tensor to numpy. Use Tensor.cpu() to copy the tensor to host memory first.
 </code></pre><p>분명히 파이토치 텐서나 넘파이 배열이 아니라 리스트를 다루고 있음에도 불구하고 위와 같은 에러가 나올 수 있다. 시키는대로 <code>.cpu()</code>나 <code>.numpy()</code> 메서드를 쓰면 다음과 같은 에러를 만난다.</p>
-<pre tabindex="0"><code>AttributeError: 'list' object has no attribute 'cpu'
+<pre tabindex="0"><code>AttributeError: &#39;list&#39; object has no attribute &#39;cpu&#39;
 </code></pre><h2 id="해결법">해결법</h2>
 <p>이러한 에러가 뜨는 원인은 리스트의 원소가 파이토치 텐서이기 때문이다. 따라서 에러를 해결하기 위해서는 <code>torch.stack()</code>을 사용해서 리스트를 1차원 텐서로 바꿔주면 된다.</p>
 <p>이 문제는 윈도우10/<code>Python 3.9.2</code>/<code>torch==1.8.1+cu111</code> 환경에서는 일어나지 않는데, 리눅스/<code>Python 3.9.7</code>/<code>torch==1.10.1+cu113</code> 환경에서는 발생해서 사람을 개빡치게 만든다.</p>
@@ -228,7 +239,7 @@
 <aside style="text-align: right;">
     2022-04-26&emsp;
     전기현&emsp;
-    <a href="../520">🎲 3225</a>
+    <a href="../459">🎲 3225</a>
 </aside>
 
 <script>
@@ -741,18 +752,13 @@
 <div class="field">
 
 <input type="text" id="searchtext" placeholder = "통합검색" class="input_text" name="s"
-style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.5rem; border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px;">
+style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.5rem;
+border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
 
-<script type="text/javascript">
-    var goIndex = function(){
-        var idx = document.getElementsByName("idx")[0].value;
-        var local_idx = "http://localhost:1313/posts/" + idx;
-        location.replace(local_idx)
-    }
-</script>
-</p>
+  
+
 
 
 

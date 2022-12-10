@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/seminar\/",
-    "wordCount" : "2565",
+    "wordCount" : "3024",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -193,6 +193,16 @@
   <div class="innerheader">
     
     <div class="innertoc">
+       
+      <script type="text/javascript">
+        var goIndex = function(){
+            var idx = document.getElementsByName("idx")[0].value;
+            var local_idx = "http://localhost:1313/posts/" + idx;
+            location.replace(local_idx)
+        }
+      </script>
+      </p>
+      
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
@@ -218,6 +228,7 @@
   </ul>
 </nav>
     </div>
+    
   </div>
 </aside>
 
@@ -247,22 +258,29 @@ $$
 <p>$$
 \mathbf{Y} = \mu \mathbf{1} + \varepsilon \qquad , \text{where } \varepsilon \sim N_{n} \left( 0, \Sigma \right)
 $$
-모델의 수식을 보면 <a href="../548">회귀분석</a>이나 <a href="../900">시계열분석</a> 등에서 그러는 것과 달리 $\varepsilon$ 이야말로 우리의 관심사다. $\Sigma$ 가 <a href="../1958">대각행렬</a>, 즉 관측치마다의 종속성이 없다면 애초에 공간적인 구조가 없다는 의미고 딱히 크리깅이라는 걸 할 이유가 없다. 실제 분석이서 이 $\Sigma$ 는 <a href="../2502">세미배리오그램의 모형</a>을 통해 다음과 같이 정해진다.
+모델의 수식을 보면 <a href="../548">회귀분석</a>이나 <a href="../900">시계열분석</a>과 달리 $\varepsilon$ 이야말로 우리의 관심사다. $\Sigma$ 가 <a href="../1958">대각행렬</a>, 즉 관측치마다의 종속성이 없다면 애초에 공간적인 구조가 없다는 의미고 딱히 크리깅이라는 걸 할 이유가 없다. 실제 분석이서 이 $\Sigma$ 는 <a href="../2502">세미배리오그램의 모형</a>을 통해 다음과 같이 정해진다.
 $$
 \Sigma = \sigma^{2} H \left( \phi \right) + \tau^{2} I
 $$
 여기서 $\tau^{2}$ 는 <strong>너겟 이펙트 분산</strong>(이론과 달리 실제 데이터에서 거리에 상관없이 기본적으로 보게 되는 공분산성)고, $I$ 는 <a href="../3001">항등행렬</a>이다.</p>
 <h2 id="공식">공식</h2>
-<p>$l = \left( l_{1} , \cdots , l_{n} \right)$</p>
+<p><a href="../2494">랜덤필드</a> $\left\{ Y (s_{k}) \right\}_{k=1}^{n}$ 가 <a href="../2496">내재적 정상 공간과정</a>이라고 하고 새롭계 예측하고 싶은 지점을 $s_{0}$ 이라 하자. <a href="../1955">행렬</a> $\Gamma \in \mathbb{R}^{n \times n}$ 를 $\left( \Gamma \right)_{ij} := \gamma \left( s_{i} - s_{j} \right)$ 와 같이 정의하고 <a href="../1947">벡터</a> $\gamma_{0} \in \mathbb{R}^{n}$ 을 $\left( \gamma_{0} \right)_{i} := \left( \Gamma \left( s_{0} - s_{i} \right) \right)$ 와 같이 정의하자. 어떤 벡터 $l = \left( l_{1} , \cdots , l_{n} \right)$ 에 대해 $Y \left( s_{0} \right)$ 의 <a href="../2273">최선선형불편예측량<sup>BLUP, Best Linear Unbiased Predictor</sup></a>은 $l$ 과 $\mathbf{Y}$ 의 <a href="../1842">내적</a>인
+$$
+l^{T} \mathbf{Y} = \begin{bmatrix} l_{1} &amp; \cdots &amp; l^{n} \end{bmatrix} \begin{bmatrix} Y \left( s_{1} \right)\\ Y \left( s_{2} \right)\\ \vdots\\ Y \left( s_{n} \right) \end{bmatrix} = \sum_{k=1}^{n} l_{k} Y \left( s_{k} \right)
+$$
+이며, 벡터 $l$ 은 구체적으로 다음과 같이 구해진다.
+$$
+l = \Gamma^{-1} \left( \gamma_{0} + {{ 1 - \mathbf{1}^T \Gamma^{-1} \gamma_{0} } \over { \mathbf{1}^T \Gamma^{-1} \mathbf{1} }} \mathbf{1} \right)
+$$</p>
 <h3 id="유도-1">유도 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h3>
-<p>구체적으로 크리깅이 어떻게 이루어지는지 수식으로 알아보자.</p>
+<p>구체적으로 크리깅이 어떻게 이루어지는지 수식으로 알아보는 과정이다. 이 공식의 가정에서 <a href="../2159">가우시안 프로세스</a>라는 가정까지 추가되면 오디너리 크리깅이 된다.</p>
 <hr>
 <p><strong>Part 1. 최적화 문제</strong></p>
 <p>어떤 상수 $l_{1} , \cdots , l_{n} , \delta_{0} \in \mathbb{R}$ 들에 대해 새로운 $Y \left( s_{0} \right)$ 를 기존 데이터의 <a href="../512">선형결합</a>
 $$
 \hat{y} \left( s_{0} \right) = l_{1} y_{1} + \cdots + l_{n} y_{n} + \delta_{0}
 $$
-으로 나타내고 싶다고 하자. 이는 다시 말해 <a href="../1463">목적 함수</a>
+으로 예측하고 싶다고 하자. 이는 다시 말해 <a href="../1463">목적 함수</a>
 $$
 E \left[ Y \left( s_{0} \right) - \left( \sum_{k} l_{k} Y \left( s_{k} \right) + \delta_{0} \right) \right]^{2}
 $$
@@ -306,7 +324,7 @@ $$
 $$</p>
 <hr>
 <p><strong>Part 2. 세미배리오그램 $\gamma$</strong></p>
-<p>이제 $E \left[ \sum_{k=0}^{n} a_{k} Y \left( s_{k} \right) \right]^{2}$ 를 세미배리오그램의 꼴로 나타내보자.</p>
+<p>이제 $E \left[ \sum_{k=0}^{n} a_{k} Y \left( s_{k} \right) \right]^{2}$ 를 &lsquo;우리가 데이터에서 계산할 수 있을 것으로 가정할 수 있는&rsquo;**** 세미배리오그램에 종속된 꼴로 나타내보자.</p>
 <blockquote>
 <p><a href="../2498">세미배리오그램의 정의</a>: <a href="../205">유클리드 공간</a>의 픽스된 <a href="../1329">부분집합</a> $D \subset \mathbb{R}^{r}$ 에서 <a href="../1433">확률변수</a> $Y(s) : \Omega \to \mathbb{R}^{1}$ 의 <a href="../1316">집합</a>인 <a href="../2494">공간과정</a> $\left\{ Y(s) \right\}_{s \in D}$ 와 방향벡터 $\mathbf{h} \in \mathbb{R}^{r}$ 를 생각해보자. 구체적으로 $n \in \mathbb{N}$ 개의 사이트를 $\left\{ s_{1} , \cdots , s_{n} \right\} \subset D$ 과 같이 나타내고, $Y(s)$ 는 모든 $s \in D$ 에 대해 <a href="../2440">분산</a>이 존재하는 것으로 가정한다. 다음과 같이 정의되는 $2 \gamma ( \mathbf{h} )$ 를 <strong>배리오그램</strong><sup>Variogram</sup>이라 한다.
 $$
@@ -329,7 +347,6 @@ $$
 \\ =&amp; - E \sum_{i} \sum_{j} a_{i} a_{j} Y \left( s_{i} \right) Y \left( s_{j} \right)
 \\ =&amp; - E \sum_{i} a_{i} Y \left( s_{i} \right) \sum_{j} a_{j} Y \left( s_{j} \right)
 \\ =&amp; - E \left[ \sum_{i} a_{i} Y \left( s_{i} \right) \right]^{2}
-\\ \le &amp; 0
 \end{align*}
 $$
 에서 확인할 수 있다. 이제 $\gamma_{ij} = \gamma \left( s_{i} - s_{j} \right)$ 라 하고 $\gamma_{0j} = \gamma \left( s_{0} - s_{j} \right)$ 라 두면 우리의 목적함수는
@@ -361,24 +378,45 @@ $$
 $$
 한편 제약조건에서
 $$
-\sum_{i} l_{i} = 1 \iff \left[ 1 \cdots 1 \right] \begin{bmatrix} l_{1} \\ \vdots \\ l_{n} \end{bmatrix} = 1 \iff \mathbf{1}^{T} l = 1
+\sum_{i} l_{i} = 1 \iff \begin{bmatrix} 1 &amp; \cdots &amp; 1 \end{bmatrix} \begin{bmatrix} l_{1} \\ \vdots \\ l_{n} \end{bmatrix} = 1 \iff \mathbf{1}^{T} l = 1
 $$
-이므로 $\mathbf{1}^{T} l = 1$ 도 얻을 수 있다. 여기서 $\mathbf{x}^{T}$ 는 $\mathbf{x}$ 의 <a href="../3002">트랜스포즈</a>다.</p>
+이므로 $\mathbf{1}^{T} l = 1$ 도 얻을 수 있다. 여기서 $\mathbf{x}^{T}$ 는 $\mathbf{x}$ 의 <a href="../3002">트랜스포즈</a>를 나타낸다. 우선 단독으로 $\lambda$ 는
+$$
+\begin{align*}
+1 =&amp; \mathbf{1}^T l
+\\   =&amp; \mathbf{1}^T \Gamma^{-1} \Gamma l
+\\   =&amp; \mathbf{1}^T \Gamma^{-1} \left( \gamma_{0} - \lambda \mathbf{1} \right)
+\\   =&amp; \mathbf{1}^T \Gamma^{-1} \gamma_{0} - \lambda \mathbf{1}^T \Gamma^{-1} \mathbf{1}
+\end{align*}
+$$
+이고, 정리하면
+$$
+\ - \lambda = {{ 1 - \mathbf{1}^T \Gamma^{-1} \gamma_{0} } \over { \mathbf{1}^T \Gamma^{-1} \mathbf{1} }}
+$$
+와 같이 나타낼 수 있다. 이제 $l$ 은 다 구한 것이나 마찬가지다.
+$$
+\begin{align*}
+&amp; \Gamma l + \lambda \mathbf{1} = \gamma_{0} 
+\\ \implies &amp; \Gamma l = \gamma_{0} - \lambda \mathbf{1}
+\\ \implies &amp; \Gamma l = \gamma_{0} + {{ 1 - \mathbf{1}^T \Gamma^{-1} \gamma_{0} } \over { \mathbf{1}^T \Gamma^{-1} \mathbf{1} }} \mathbf{1}
+\\ \implies &amp; l = \Gamma^{-1} \left( \gamma_{0} + {{ 1 - \mathbf{1}^T \Gamma^{-1} \gamma_{0} } \over { \mathbf{1}^T \Gamma^{-1} \mathbf{1} }} \mathbf{1} \right)
+\end{align*}
+$$</p>
 <p style="text-align: right;">■</p>
-<section class="footnotes" role="doc-endnotes">
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
+<li id="fn:1">
 <p>Banerjee. (2015). Hierarchical Modeling and Analysis for Spatial Data(2nd Edition): p25, 40~41.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
 
 <aside style="text-align: right;">
     2021-01-01&emsp;
     류대식&emsp;
-    <a href="../2192">🎲 2000</a>
+    <a href="../1662">🎲 2000</a>
 </aside>
 
 <script>
@@ -891,18 +929,13 @@ $$
 <div class="field">
 
 <input type="text" id="searchtext" placeholder = "통합검색" class="input_text" name="s"
-style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.5rem; border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px;">
+style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.5rem;
+border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
 
-<script type="text/javascript">
-    var goIndex = function(){
-        var idx = document.getElementsByName("idx")[0].value;
-        var local_idx = "http://localhost:1313/posts/" + idx;
-        location.replace(local_idx)
-    }
-</script>
-</p>
+  
+
 
 
 
