@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/home\/",
-    "wordCount" : "1",
+    "wordCount" : "423",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -207,19 +207,124 @@
         
       
       <b>목차</b>
-      <nav id="TableOfContents"></nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#정리">정리</a>
+      <ul>
+        <li><a href="#선형변환의-정규성">선형변환의 정규성</a></li>
+        <li><a href="#마지널-분포의-정규성">마지널 분포의 정규성</a></li>
+      </ul>
+    </li>
+    <li><a href="#증명">증명</a>
+      <ul>
+        <li><a href="#선형변환">선형변환</a></li>
+        <li><a href="#마지널-분포">마지널 분포</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
     </div>
     
   </div>
 </aside>
 
-<h1 id="home">home</h1>
+<h1 id="다변량정규분포의-선형변환은-여전히-다변량정규분포다">다변량정규분포의 선형변환은 여전히 다변량정규분포다</h1>
+<p>Linear Transform of Multinormal Distribution is Still Multinormal Distribution</p>
+<h2 id="정리">정리</h2>
+<h3 id="선형변환의-정규성">선형변환의 정규성</h3>
+<p><a href="../1955">행렬</a> $A \in \mathbb{R}^{m \times n}$ 과 <a href="../1947">벡터</a> $\mathbf{b} \in \mathbb{R}^{m}$ 에 대해 <a href="../1954">다변량정규분포</a>를 따르는 <a href="../1449">랜덤벡터</a> $\mathbf{X} \sim N_{n} \left( \mu , \Sigma \right)$ 의 <a href="../3026">선형변환</a> $\mathbf{Y} = A \mathbf{X} + \mathbf{b}$ 는 여전히 다변량정규분포 $N_{m} \left( A \mu + \mathbf{b} , A \Sigma A^{T} \right)$ 를 따른다.</p>
+<h3 id="마지널-분포의-정규성">마지널 분포의 정규성</h3>
+<p>$$
+\mathbf{X} = \begin{bmatrix} \mathbf{X}_{1} \\ \mathbf{X}_{2} \end{bmatrix}
+\\ \mu = \begin{bmatrix} \mu_{1} \\ \mu_{2} \end{bmatrix}
+\\ \Sigma = \begin{bmatrix}
+\Sigma_{11} &amp; \Sigma_{12}
+\\ \Sigma_{21} &amp; \Sigma_{22}
+\end{bmatrix}
+$$
+위와 같이 $\mathbf{X}$, $\mu$, $\Sigma$ 를 <a href="../3323">조던블럭폼</a>으로 나타냈다고 하자. 만약 $\mathbf{X} \sim N_{n} \left( \mu, \Sigma \right)$ 이라면, 그 <a href="../1449">마지널 분포</a> 중 하나인 $X_{1}$ 는 다변량정규분포 $N_{m} \left( \mu_{1} , \Sigma_{11} \right)$ 를 따른다.</p>
+<h2 id="증명">증명</h2>
+<h3 id="선형변환">선형변환</h3>
+<p>다변량정규분포의 적률생성함수에서 직접연역할 것이다. $\mathbf{Y}$ 의 적률생성함수는 다음과 같다.
+$$
+\begin{align*}
+M_{\mathbf{Y}} \left( \mathbf{t} \right) =&amp; E \left[ \exp \left( \mathbf{t}^{T} \mathbf{Y} \right) \right]
+\\ =&amp; E \left[ \exp \left( \mathbf{t}^{T} \left( A \mathbf{X} + \mathbf{b} \right) \right) \right]
+\end{align*}
+$$</p>
+<blockquote>
+<p><a href="../1954">다변량정규분포의 적률생성함수</a>: $X \sim N_{p} \left( \mu , \Sigma \right)$ 의 <a href="../248">적률생성함수</a>는 다음과 같다.
+$$
+M_{X} \left( \mathbf{t} \right) = \exp \left( \mathbf{t}^{T} + {{ 1 } \over { 2 }} \mathbf{t}^{T} \Sigma \mathbf{t} \right) \qquad , \mathbf{t} \in \mathbb{R}^{p}
+$$</p>
+</blockquote>
+<p style="text-align: right;">■</p>
+<h3 id="마지널-분포">마지널 분포</h3>
+<p>위 정리의 따름정리로써 자명하다. <a href="../3001">항등행렬</a> $I_{m} \in \mathbb{R}^{m \times m}$ 과 <a href="../3001">영행렬</a> $O_{mp} \in in \mathbb{R}^{m \times p}$ 에 대해 행렬 $A \in 
+$$
+A = \begin{bmatrix}
+I_{m} &amp; O_{mp}
+\end{bmatrix}
+$$</p>
+<p style="text-align: right;">■</p>
+<hr>
+<!-- # 데이터과학에서 독립변수와 종속변수
+Independent Variable and Dependent Variable in Data Science
 
+## 용어
+
+[통계학](../2424)이나 [머신러닝](../../categories/머신러닝) 등 [데이터과학](../../categories/데이터과학)의 분야의 모델<sup>Model</sup>에서 [데이터의 변수](../2418)는 크게 다음의 두가지 부류로 나뉜다.
+
+### 종속변수
+
+**종속변수**<sup>Dependent Variable</sup>란 대개 모델의 결과, 출력으로 기대되는 변수를 말하며 **출력**<sup>Output</sup>, **예측변수**<sup>Predictor Variable</sup>라 부르기도 한다.
+
+### 독립변수
+
+**독립변수**<sup>Independent Variable</sup>란 종속변수에 영향을 미치는 입력 변수를 말하며 **입력**<sup>Input</sup>, **설명변수**<sup>Explanatory Variable</sup>라 부르기도 한다.
+
+## 설명
+
+### 예시
+
+한국 여성의 평균 신장이 159.6cm, 한국 남성의 평균신장이 172.5cm이고 그 비율은 $\displaystyle 1.081 \approx {{ 172.5 } \over { 159.6 }}$ 정도쯤 된다.
+$$
+y = y \left( x\_{1} , x\_{2} \right) = {{ 1.08 } \over { 2 }} x\_{1} + {{ 1.00 } \over { 2 }} x\_{2}
+$$
+아주 간단한 예시로 아들의 키 $y$ 를 어머니의 키 $x\_{1}$ 과 아버지의 키 $x\_{2}$ 만으로 예측하는 위의 모델을 생각해보자. 모델은 단순히 평균만 가지고 어머니들의 평균키를 아버지들의 평균키만큼 스케일링한 후 평균을 취해서 얻은 것이다. 딸의 키를 예측하고 싶다면 아버지의 키를 어머니의 키에 맞춰서 스케일링하면 될 것이다.
+ - $y$ 는 모델에서 우리가 예측하고 싶은 **예측변수**고, 아들의 키를 설명하는게 부모님들의 키 $x\_{1} , x\_{2}$ 니까 이들을 **설명변수**라 부른다.
+ - $y$ 가 $x\_{1}, x\_{2}$ 에 종속되어 있다는 가정이 없다면 이 모델은 아무 의미가 없고, 그래서 **종속변수**라 부른다. **독립변수**는 그냥 이와 대비되는 용어로 보아도 무방한데, 꼭 $x\_{1}, x\_{2}$ 끼리 [서로 독립](../1461)인 것은 아니기 때문이다.
+ - 자세한 의미를 이해하지 못하더라도, 그냥 수식에다가 $x\_{1} = 169$ 이랑 $x\_{2} = 174$ 을 **입력**하면 아들의 키가 $y = 178.26$ 로 **출력**되는 것은 확실하다.
+
+### 노테이션
+
+보통 아무 설명도 없다면 독립변수는 $X$, 종속변수는 $Y$ 로 두며 $Y$ 가 좌변에 오는 편이다.
+$$
+\begin{align*}
+    Y \leftarrow & X\_{1} , \cdots , X\_{p}
+\\\ Y =& X \beta + \varepsilon
+\\\ y =& f \left( x\_{1} , \cdots , x\_{p} \right)
+\end{align*}
+$$
+예외도 있다. [시계열 분석](../900) 등에서는 보통 종속변수 스스로가 시차<sup>Lag</sup>를 두고 독립변수가 되기도 하므로 표기를 구분하지 않고 모든 데이터를 $Y$ 로 표현하기도 한다.
+
+---
+
+# 데이터과학에서 분류문제의 정의
+Classification Problem in Data Science
+
+## 용어
+
+[종속변수]가 [질적변수](../2420)인 문제를 **분류**<sup>Classification</sup> 문제라 한다. 특히 질적변수의 계급이 두 개 뿐일 때, 이를 **이진분류**<sup>Binary Classification</sup> 문제라 한다.
+
+## 설명
+
+분류문제와 대비되는 표현으로써 종속변수가 양적변수면 **회귀**<sup>Regression</sup> 문제라 하고, 이는 당연히 [회귀분석](../548)에서 유래했다. -->
 
 <aside style="text-align: right;">
     2021-01-01&emsp;
     류대식&emsp;
-    <a href="../1085">🎲 1999</a>
+    <a href="../1037">🎲 1999</a>
 </aside>
 
 <script>
