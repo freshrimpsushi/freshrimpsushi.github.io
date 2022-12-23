@@ -283,17 +283,18 @@ f = f₁ + f₂ + f₃
 ℱf = fft(f) # 푸리에 변환
 ξ = Fs*[i for i in 0:L/2-1]/L #주파수 도메인(절반)
 
-plot(ξ, abs.(ℱf[1:Int(L/2)])*2/L, title=L&#34;Fourier transform of $f$&#34;, label=&#34;&#34;) 
-xlabel!(&#34;frequency&#34;)
-ylabel!(&#34;amplitude&#34;)
-savefig(&#34;fft.png&#34;)
+plot(ξ, abs.(ℱf[1:Int(L/2)])*2/L, title=L&quot;Fourier transform of $f$&quot;, label=&quot;&quot;) 
+xlabel!(&quot;frequency&quot;)
+ylabel!(&quot;amplitude&quot;)
+savefig(&quot;fft.png&quot;)
+
 </code></pre><p><img src="fft.png#center" alt="fft.png"></p>
 <h3 id="0-주파수-중앙-정렬">$0$ 주파수 중앙 정렬</h3>
 <p>푸리에 변환의 출력은 기본적으로 주파수가 $0$일 때의 값이 첫번째 값으로 오게끔 되어있다. 주파수가 $0$일 때의 값이 중앙에 오도록 하려면 <code>fftshift()</code>를 쓰면 된다. 이를 다시 되돌릴 때는 <code>ifftshift()</code>를 쓰면 된다. 참고로 <code>ifftshift</code>는 ifft + shift가 아니라, i(nverse) + fftshift이다. 즉 <code>fftshift()</code>의 역변환이므로 헷갈리지 말자.</p>
-<pre tabindex="0"><code>p1 = plot(ξ, abs.(ℱf), title=L&#34;$\mathcal{F}f$&#34;, label=&#34;&#34;, yticks=[], xticks=[0, 100, 200, 350, 500, 1000]) 
-p2 = plot(ξ.-500, abs.(fftshift(ℱf)), title=L&#34;$\mathrm{fftshift}(\mathcal{F}f)$&#34;, label=&#34;&#34;, yticks=[], xticks=[-500,-350,-200,-100,0,100,200,350,500]) 
+<pre tabindex="0"><code>p1 = plot(ξ, abs.(ℱf), title=L&quot;$\mathcal{F}f$&quot;, label=&quot;&quot;, yticks=[], xticks=[0, 100, 200, 350, 500, 1000]) 
+p2 = plot(ξ.-500, abs.(fftshift(ℱf)), title=L&quot;$\mathrm{fftshift}(\mathcal{F}f)$&quot;, label=&quot;&quot;, yticks=[], xticks=[-500,-350,-200,-100,0,100,200,350,500]) 
 plot(p1, p2, size=(800,400))
-savefig(&#34;fftshift.png&#34;)
+savefig(&quot;fftshift.png&quot;)
 </code></pre><p><img src="fftshift.png#center" alt="fftshift.png"></p>
 <h3 id="고차원-푸리에-변환">고차원 푸리에 변환</h3>
 <p>2차원 푸리에 변환의 값과 비교하기 위해 $x = [1\ 2\ 3\ 4]^{T}$의 푸리에 변환 값을 먼저 계산해두자.</p>
@@ -374,26 +375,26 @@ julia&gt; fftshift(fftfreq(4, 1))
 <li>OS: Windows11</li>
 <li>Version: Julia 1.8.2, FFTW 1.5.0</li>
 </ul>
-<div class="footnotes" role="doc-endnotes">
+<section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1">
+<li id="fn:1" role="doc-endnote">
 <p><a href="http://www.fftw.org/">http://www.fftw.org/</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:2">
+<li id="fn:2" role="doc-endnote">
 <p><a href="https://github.com/JuliaMath/FFTW.jl">https://github.com/JuliaMath/FFTW.jl</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:3">
+<li id="fn:3" role="doc-endnote">
 <p><a href="https://github.com/JuliaMath/AbstractFFTs.jl">https://github.com/JuliaMath/AbstractFFTs.jl</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</div>
+</section>
 
 
 <aside style="text-align: right;">
     2013-07-02&emsp;
     전기현&emsp;
-    <a href="../1581">🎲 3440</a>
+    <a href="../2015">🎲 3440</a>
 </aside>
 
 <script>
