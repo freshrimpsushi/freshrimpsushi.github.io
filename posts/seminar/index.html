@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/seminar\/",
-    "wordCount" : "94",
+    "wordCount" : "831",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -215,7 +215,7 @@
   </ul>
 
   <ul>
-    <li><a href="#정리">정리</a></li>
+    <li><a href="#정리-1">정리 </a></li>
     <li><a href="#증명">증명</a></li>
   </ul>
 </nav>
@@ -230,23 +230,82 @@
 <h2 id="원드라이브">원드라이브</h2>
 <iframe src="https://onedrive.live.com/embed?cid=65E5BA34F41E25E0&resid=65E5BA34F41E25E0%2124470&authkey=AHwIpnZ0BPkIO3g" width="165" height="128" frameborder="0" scrolling="no"></iframe> <iframe src="https://onedrive.live.com/embed?cid=65E5BA34F41E25E0&resid=65E5BA34F41E25E0%21533589&authkey=ACzYTsb9AS5OT6Y" width="165" height="128" frameborder="0" scrolling="no"></iframe>
 <hr>
+<pre tabindex="0"><code>data = as.data.frame(matrix(runif(60),20,3))
+names(data) &lt;- c(&#34;감기확률&#34;, &#34;최고기온&#34;, &#34;최저기온&#34;)
+
+lm(감기확률 ~ 최고기온 + 최저기온, data = data)
+
+data$일교차 &lt;- (data$최고기온 - data$최저기온)
+out &lt;- lm(감기확률 ~ 최고기온 + 최저기온 + 일교차, data = data)
+summary(out)
+</code></pre><hr>
 <h1 id="브룩의-보조정리-증명-proof-of-brooks-leamm">브룩의 보조정리 증명 Proof of Brook&rsquo;s Leamm</h1>
-<h2 id="정리">정리</h2>
+<h2 id="정리-1">정리 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p><a href="../1449">랜덤벡터</a> $Z : \Omega \to \mathbb{R}^{n}$ 의 <a href="../1433">확률질량함수</a> $p : \mathbb{R}^{n} \to \mathbb{R}$ 에 대해 $Z$ 의 <a href="../1433">서포트</a>를 다음과 같이 나타내자.
+$$
+S_{Z} = \left\{ \left( z_{1} , \cdots , z_{n} \right) \in \mathbb{R}^{n} : p \left( z_{1} , \cdots , z_{n} \right) &gt; 0 \right\} \subset \Omega
+$$
+모든 $\mathbf{x} := \left( x_{1} , \cdots , x_{n} \right) \in S_{Z}$ 와 $\mathbf{y} := \left( y_{1} , \cdots , y_{n} \right) \in S_{Z}$ 에 대해 다음이 성립한다.
+$$
+{{ p \left( \mathbf{x} \right) } \over { p \left( \mathbf{y} \right) }} = \prod_{k=1}^{n} {{ p \left( x_{k} | x_{1} , \cdots , x_{k-1} , y_{k+1} , \cdots , y_{n} \right) } \over { p \left( y_{k} | x_{1} , \cdots , x_{k-1} , y_{k+1} , \cdots , y_{n} \right) }}
+$$
+혹은 $p \left( \mathbf{x} \right)$ 에 대해 다음과 같이 정리할 수 있다.
+$$
+p \left( \mathbf{x} \right) = p \left( \mathbf{y} \right) \prod_{k=1}^{n} {{ p \left( x_{k} | x_{1} , \cdots , x_{k-1} , y_{k+1} , \cdots , y_{n} \right) } \over { p \left( y_{k} | x_{1} , \cdots , x_{k-1} , y_{k+1} , \cdots , y_{n} \right) }}
+$$</p>
 <h2 id="증명">증명</h2>
-<p>$$
+<p><strong>Part 1. 일변량분포</strong></p>
+<p>$\displaystyle p \left( x | y \right) = {{ p \left( x , y \right) } \over { p \left( y \right) }}$ 이므로
+$$
+\begin{align*}
+p \left( x , y \right) =&amp; p \left( x | y \right) p (y)
+\\ =&amp; p \left( y | x \right) p (x)
+\end{align*}
+$$
+에서 다음을 얻는다.
+$$
+{{ p(x) } \over { p(y) }} = {{ p \left( x | y \right) } \over { p \left( y | x \right) }}
+$$
+혹은 $p (x)$ 에 대해 다음과 같이 정리할 수 있다.
+$$
+p(x) = {{ p \left( x | y \right) } \over { p \left( y | x \right) }} p(y)
+$$</p>
+<hr>
+<p><strong>Part 2. 다변량분포</strong> <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
+<p>본질적으로 이변량분포에 대해서 한 번만 하면 $n$변량에서도 마찬가지로 반복할 수 있다.
+$$
 \begin{align*}
 p \left( x_{1} , x_{2} \right) =&amp; p \left( x_{1} | x_{2} \right) p \left( x_{2} \right)
-\\ =&amp; p \left( x_{1} | x_{2} \right) {{ p \left( x_{2} | y_{1} \right) p \left( y_{1} \right) } \over { p \left( y_{1} | x_{2} \right) }}
-\\ =&amp; ◆
+\\ =&amp; p \left( x_{1} | x_{2} \right) {{ p \left( x_{2} | y_{1} \right) } \over { p \left( y_{1} | x_{2} \right) }} p \left( y_{1} \right)
+\\ =&amp; p \left( x_{1} | x_{2} \right) {{ p \left( x_{2} | y_{1} \right) } \over { p \left( y_{1} | x_{2} \right) }} {{ p \left( y_{2} | y_{1} \right) } \over { p \left( y_{2} | y_{1} \right) }} p \left( y_{1} \right)
+\\ =&amp; {{ p \left( x_{1} | x_{2} \right) } \over { p \left( y_{1} | x_{2} \right) }} {{ p \left( x_{2} | y_{1} \right) } \over { p \left( y_{2} | y_{1} \right) }} p \left( y_{2} | y_{1} \right) p \left( y_{1} \right)
+\\ =&amp; {{ p \left( x_{1} | x_{2} \right) } \over { p \left( y_{1} | x_{2} \right) }} {{ p \left( x_{2} | y_{1} \right) } \over { p \left( y_{2} | y_{1} \right) }} p \left( y_{1} , y_{2} \right)
+\\ =&amp; p \left( y_{1} , y_{2} \right) \prod_{k=1}^{2} {{ p \left( x_{k} | x_{1} , \cdots , x_{k-1} , y_{k+1} , \cdots , y_{n} \right) } \over { p \left( y_{k} | x_{1} , \cdots , x_{k-1} , y_{k+1} , \cdots , y_{n} \right) }}
 \end{align*}
 $$</p>
 <p style="text-align: right;">■</p>
+<hr>
+<p>줄리아 StatsPlot @df</p>
+<hr>
+<p>줄리아 마커 목록</p>
+<hr>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="http://www.math.chalmers.se/~bodavid/GMRF2015/Lectures/F2slides.pdf">http://www.math.chalmers.se/~bodavid/GMRF2015/Lectures/F2slides.pdf</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p><a href="http://www.people.vcu.edu/~dbandyop/pubh7440/Areal_7440.pdf">http://www.people.vcu.edu/~dbandyop/pubh7440/Areal_7440.pdf</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
 
 
 <aside style="text-align: right;">
     2021-01-01&emsp;
     류대식&emsp;
-    <a href="../2039">🎲 2000</a>
+    <a href="../1891">🎲 2000</a>
 </aside>
 
 <script>
@@ -790,7 +849,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
   const categoryRows = [
     [
       { idx: 1, name: '함수', size: '81', color: color.green },
-      { idx: 2, name: '보조정리', size: '22', color: color.green },
+      { idx: 2, name: '보조정리', size: '24', color: color.green },
       { idx: 3, name: '집합론', size: '47', color: color.green },
       { idx: 4, name: '정수론', size: '89', color: color.green },
       { idx: 5, name: '기하학', size: '132++', color: color.yellow },

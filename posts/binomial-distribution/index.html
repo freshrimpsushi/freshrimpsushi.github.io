@@ -267,7 +267,7 @@ $$</p>
 <li>[2]: $X \sim \text{Bin}(n,p)$ 면
 $$
 \begin{align*}
-E(X) =&amp; np 
+E(X) =&amp; np
 \\ \text{Var}(X) =&amp; np(1-p)
 \end{align*}
 $$</li>
@@ -277,7 +277,7 @@ $$</li>
 <ul>
 <li>[a]: $X_{n} \sim B(n,p)$이라고 하자. $\mu \approx np$ 이면
 $$
-X_{n} \overset{D}{\to} \text{Poi} (\mu) 
+X_{n} \overset{D}{\to} \text{Poi} (\mu)
 $$</li>
 </ul>
 <h3 id="이항분포의-극한분포로써-표준정규분포-유도196"><a href="../196">이항분포의 극한분포로써 표준정규분포 유도</a></h3>
@@ -299,14 +299,14 @@ $$</p>
 <h3 id="1">[1]</h3>
 <p>$$
 \begin{align*}
-M(t) =&amp; \sum_{x=0}^{n} e^{tx} p(x) 
-\\ =&amp; \sum_{x=0}^{n} e^{tx} \binom{n}{x} p^{x} (1-p)^{n-x} 
-\\ =&amp; \sum_{x=0}^{n} \binom{n}{x} \left( pe^{t} \right)^{x} (1-p)^{n-x} 
+M(t) =&amp; \sum_{x=0}^{n} e^{tx} p(x)
+\\ =&amp; \sum_{x=0}^{n} e^{tx} \binom{n}{x} p^{x} (1-p)^{n-x}
+\\ =&amp; \sum_{x=0}^{n} \binom{n}{x} \left( pe^{t} \right)^{x} (1-p)^{n-x}
 \end{align*}
 $$
 <a href="../218">이항 정리</a>에 따라
 $$
-\sum_{x=0}^{n} \binom{n}{x} \left( pe^{t} \right)^{x} (1-p)^{n-x} = \left[ pe^{t} + (1-p) \right]^{n} 
+\sum_{x=0}^{n} \binom{n}{x} \left( pe^{t} \right)^{x} (1-p)^{n-x} = \left[ pe^{t} + (1-p) \right]^{n}
 $$</p>
 <p style="text-align: right;">■</p>
 <h3 id="2">[2]</h3>
@@ -314,23 +314,23 @@ $$</p>
 <hr>
 <p>$M$ 의 도함수는
 $$
-M'(t) = n \left[ (1-p) + pe^{t} \right]^{n-1} \left( pe^{t} \right)
+M&rsquo;(t) = n \left[ (1-p) + pe^{t} \right]^{n-1} \left( pe^{t} \right)
 $$
-<a href="../248">적률 생성 함수의 정의</a>에서 $ E(X) = M'(0):$ 이므로
+<a href="../248">적률 생성 함수의 정의</a>에서 $ E(X) = M&rsquo;(0):$ 이므로
 $$
-\mu := E(X) = M'(0) = np
+\mu := E(X) = M&rsquo;(0) = np
 $$
 $M$ 의 이계도함수는
 $$
-M''(t) = n \left[ (1-p) + pe^{t} \right]^{n-1} \left( pe^{t} \right) + n(n-1) \left[ (1-p) + pe^{t} \right]^{n-2} \left( pe^{t} \right)^{2} 
+M&rsquo;&rsquo;(t) = n \left[ (1-p) + pe^{t} \right]^{n-1} \left( pe^{t} \right) + n(n-1) \left[ (1-p) + pe^{t} \right]^{n-2} \left( pe^{t} \right)^{2}
 $$
-$M''(0) = np + n(n-1)p^{2}$ 이므로
+$M&rsquo;&rsquo;(0) = np + n(n-1)p^{2}$ 이므로
 $$
 \begin{align*}
-\text{Var}(X) =&amp; E \left( X^{2} \right) - \mu^{2} 
-\\ =&amp; M''(0) - (np)^{2} 
-\\ =&amp; np + n(n-1)p^{2} - n^{2}p^{2} 
-\\ =&amp; np(1-p) 
+\text{Var}(X) =&amp; E \left( X^{2} \right) - \mu^{2}
+\\ =&amp; M&rsquo;&rsquo;(0) - (np)^{2}
+\\ =&amp; np + n(n-1)p^{2} - n^{2}p^{2}
+\\ =&amp; np(1-p)
 \end{align*}
 $$</p>
 <p style="text-align: right;">■</p>
@@ -354,32 +354,32 @@ P = collect(0.0:0.01:1.0); append!(P, reverse(P))
 animation = @animate for p ∈ P
     scatter(x, pdf.(Binomial(10, p), x),
      color = :black, markerstrokecolor = :black,
-     label = &quot;n = 10, p = $(rpad(p, 4, '0'))&quot;, size = (400,300))
-    xlims!(0,20); ylims!(0,0.5); title!(L&quot;\mathrm{pmf\,of\,Bin}(10, p)&quot;)
+     label = &#34;n = 10, p = $(rpad(p, 4, &#39;0&#39;))&#34;, size = (400,300))
+    xlims!(0,20); ylims!(0,0.5); title!(L&#34;\mathrm{pmf\,of\,Bin}(10, p)&#34;)
 end
-gif(animation, &quot;pmf10.gif&quot;)
+gif(animation, &#34;pmf10.gif&#34;)
 
 animation = @animate for p ∈ P
     scatter(x, pdf.(Binomial(20, p), x),
      color = :black, markerstrokecolor = :black,
-     label = &quot;n = 20, p = $(rpad(p, 4, '0'))&quot;, size = (400,300))
-    xlims!(0,20); ylims!(0,0.5); title!(L&quot;\mathrm{pmf\,of\,Bin}(20, p)&quot;)
+     label = &#34;n = 20, p = $(rpad(p, 4, &#39;0&#39;))&#34;, size = (400,300))
+    xlims!(0,20); ylims!(0,0.5); title!(L&#34;\mathrm{pmf\,of\,Bin}(20, p)&#34;)
 end
-gif(animation, &quot;pmf20.gif&quot;)
-</code></pre><section class="footnotes" role="doc-endnotes">
+gif(animation, &#34;pmf20.gif&#34;)
+</code></pre><div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
+<li id="fn:1">
 <p>Hogg et al. (2013). Introduction to Mathematical Statistcs(7th Edition): p142.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
 
 <aside style="text-align: right;">
     2020-02-12&emsp;
     류대식&emsp;
-    <a href="../1734">🎲 1480</a>
+    <a href="../1198">🎲 1480</a>
 </aside>
 
 <script>
@@ -923,7 +923,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
   const categoryRows = [
     [
       { idx: 1, name: '함수', size: '81', color: color.green },
-      { idx: 2, name: '보조정리', size: '22', color: color.green },
+      { idx: 2, name: '보조정리', size: '24', color: color.green },
       { idx: 3, name: '집합론', size: '47', color: color.green },
       { idx: 4, name: '정수론', size: '89', color: color.green },
       { idx: 5, name: '기하학', size: '132++', color: color.yellow },
