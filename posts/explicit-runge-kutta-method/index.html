@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/explicit-runge-kutta-method\/",
-    "wordCount" : "1097",
+    "wordCount" : "1194",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -230,11 +230,15 @@
 <h2 id="개요">개요</h2>
 <p>상미분 방정식 솔버<sup>ODE solver</sup>인 룽게-쿠타 메소드를 소개한다. 흔히 사용되는 <a href="../796">4차 룽게-쿠타 메소드</a>인 RK4에 대한 구체적인 설명은 글이 따로 발행되어있다.</p>
 <h2 id="빌드업1">빌드업<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p>다음과 같이 주어진 상미분 방정식을 생각하자.</p>
+<p>다음과 같이 주어진 상미분 방정식을 생각하자. $y$는 $t$에 대한 함수이며, $^{\prime}$은 $t$에 대한 미분을 의미한다.</p>
 <p>$$
 y^{\prime} = f(t,y),\quad t \ge t_{0},\quad y(t_{0}) = y_{0}
 $$</p>
-<p>이를 $t_{n}$부터 $t_{n+1} = t_{n} + h$까지 적분하고, $\tau \equiv t_{n} + h\tau$로 치환하면 다음의 식을 얻는다.</p>
+<p>이를 $t_{n}$부터 $t_{n+1} = t_{n} + h$까지 적분하면(헷갈리므로 적분 변수는 $t$ 대신 $\tau$로 두자),</p>
+<p>$$
+\int_{t_{n}}^{t_{n+1}}y^{\prime}d\tau = \int_{t_{n}}^{t_{n+1}} f(\tau,y)d\tau
+$$</p>
+<p>좌변을 정리하고 $\tau \equiv t_{n} + h\tau$로 치환하면 다음의 식을 얻는다.</p>
 <p>$$
 y(t_{n+1}) = y(t_{n}) + \int_{t_{n}}^{t_{n+1}} f(\tau,y)d\tau =  y(t_{n}) + h\int_{0}^{1} f(t_{n} + h\tau,y(t_{n} + h\tau))d\tau
 $$</p>
@@ -246,7 +250,8 @@ $$</p>
 <p>$$
 \xi_{j} = y(t_{n} + c_{j}h)
 $$</p>
-<p>우선 $c_{1} = 0$이라 두자. 그러면 $\xi_{1} = y_{n}$이므로 아는 값이다. <strong>명시적 룽게-쿠타</strong><sup>explicit Runge-Kutta, ERK</sup> 메소드는 $f(t_{n}, \xi_{1}), f(t_{n} + c_{2}h, \xi_{2}), \dots, f(t_{n} + c_{j-1}h, \xi_{j-1})$들의 선형결합으로 $y_{n}$을 업데이트하여 각각의 $\xi_{j}, j=2,3,\dots,\nu$를 표현한다.</p>
+<p>우선 $c_{1} = 0$이라 두자. 그러면 $\xi_{1} = y_{n}$이므로 아는 값이다. <strong>명시적 룽게-쿠타</strong><sup>explicit Runge-Kutta, ERK</sup> 메소드는 $f(t_{n}, \xi_{1}), f(t_{n} + c_{2}h, \xi_{2}), \dots, f(t_{n} + c_{j-1}h, \xi_{j-1})$들의 선형결합과 $y_{n}$을 더하여 $y_{n+1}$을 근사하여 얻는 방법을 말한다.</p>
+<!-- 데이트하여 각각의 $\xi\_{j}, j=2,3,\dots,\nu$를 표현한다. -->
 <h2 id="정의">정의</h2>
 <p>명시적 룽게-쿠타 메소드란, 주어진 $y_{n}$에 대해서 $y_{n+1}$을 다음과 같이 근사하는 방법이다.</p>
 <p>$$
@@ -288,8 +293,8 @@ $$</p>
 <p>또한 식 $(1)$이 <strong>$\nu$ 스테이지</strong><sup>$\nu$ stages</sup>를 가진다고 말하며, 이러한 방법을 $\nu$ 스테이지(혹은 $\nu$ 차) 룽게-쿠타 메소드라 한다.</p>
 <h2 id="설명">설명</h2>
 <p>정의에 따라 자명하게도 RK 행렬은 <a href="../3305">하삼각행렬</a>이다.</p>
-<p>위의 방법에 따라서, $\xi_{j}$는 $\xi_{1}$부터 $\xi_{\nu}$까지 순차적으로 계산할 수 있다. 그러면 최종적으로 $(1)$을 계산할 수 있고, $y_{n+1}$을 얻는다.</p>
-<p>RK 메소드에서 계수들 $a_{j,i}$ $b_{j}$ $c_{j}$들은 구하는 것이 아니라 선택하여 사용하는 것이다. 계수는 $\begin{array}{c|c} \mathbf{c} &amp; A \\ \hline &amp; \mathbf{b}^{T} \end{array}$와 같은 꼴로 표기하는데 이를 <strong>RK 테이블</strong><sup>RK tableaux</sup>라 한다. 흔히 사용되는 <a href="../796">RK4</a>의 RK 테이블은 다음과 같다.</p>
+<p>위의 방법에 따라서, $\xi_{j}$는 $\xi_{1}$부터 $\xi_{\nu}$까지 순차적으로 계산할 수 있다. 그러면 최종적으로 $(1)$을 계산할 수 있고, $y_{n+1}$을 얻는다. 이를 반복하여 다음 스텝에서의 $y$ 값 $y_{n+2}$, $y_{n+3}$, $\dots$ 들을 구할 수 있다.</p>
+<p>RK 메소드에서 계수들 $a_{j,i}$, $b_{j}$, $c_{j}$들은 <strong>구하는 것이 아니라 선택하여 사용하는 것</strong>이다. 계수는 $\begin{array}{c|c} \mathbf{c} &amp; A \\ \hline &amp; \mathbf{b}^{t} \end{array}$와 같은 꼴로 표기하는데 이를 <strong>RK 테이블</strong><sup>RK tableaux</sup>라 한다. 흔히 사용되는 <a href="../796">RK4</a>의 RK 테이블은 다음과 같다.</p>
 <p>$$
 \begin{array}{c|cccc}
 0 &amp;  \\[0.5em]
@@ -317,7 +322,7 @@ $$</p>
 <aside style="text-align: right;">
     2022-10-29&emsp;
     전기현&emsp;
-    <a href="../1420">🎲 3317</a>
+    <a href="../827">🎲 3317</a>
 </aside>
 
 <script>
