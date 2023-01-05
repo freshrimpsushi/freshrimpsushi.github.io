@@ -235,7 +235,7 @@
 <p><img src="20180903_131323.png#center" alt="20180903\_131323.png">
 <img src="20180903_131333.png#center" alt="20180903\_131333.png">
 <img src="20180903_131343.png#center" alt="20180903\_131343.png"></p>
-<p>$f,f&rsquo;,f&rsquo;&rsquo;$ 가 $\alpha$ 의 근방에서 <a href="../1206">연속</a>이고 $f(\alpha) = 0, f '(\alpha) \ne 0$ 이라고 하자.</p>
+<p>$f,f',f''$ 가 $\alpha$ 의 근방에서 <a href="../1206">연속</a>이고 $f(\alpha) = 0, f '(\alpha) \ne 0$ 이라고 하자.</p>
 <p>$\alpha$ 와 충분히 가까운 초기값 $x_{0} , x_{1}$ 에 대해 
 $$
 x_{n+1} := x_{n} - f ( x_{n} ) {{ x_{n} - x_{n-1} } \over { f ( x_{n} ) - f ( x_{n-1} ) }}
@@ -259,7 +259,7 @@ f [ x_{0} , x_{1} ] :=&amp; {{ f ( x_{1} ) - f ( x_{0} ) } \over { x_{1} - x_{0}
 \\ f [ x_{0} , x_{1} , x_{2} ] :=&amp; {{ f [ x_{1} , x_{2} ]  - f [ x_{0} , x_{1} ] } \over { x_{2} - x_{0} }}
 \end{align*}
 $$
-을 정의하자. 이들을 <a href="../969">계차상</a>이라 부르며, $f &rsquo; ( \xi ) = f [ x_{0} , x_{1} ]$ 와 $\displaystyle {{1} \over {2}} f &rsquo;&rsquo; ( \zeta ) = f [ x_{0} , x_{1} , x_{2} ]$ 를 만족하는
+을 정의하자. 이들을 <a href="../969">계차상</a>이라 부르며, $f ' ( \xi ) = f [ x_{0} , x_{1} ]$ 와 $\displaystyle {{1} \over {2}} f '' ( \zeta ) = f [ x_{0} , x_{1} , x_{2} ]$ 를 만족하는
 $$
 \begin{align*}
 \xi \in&amp; \mathscr{H} \left\{ x_{0} , x_{1} \right\}
@@ -268,7 +268,7 @@ $$
 $$
 가 존재한다.</p>
 <hr>
-<p><strong>Part 2. $\displaystyle \alpha - x_{n+1} =  - ( \alpha - x_{n-1} ) ( \alpha - x_{n} ) {{ f '&rsquo;( \zeta _{n} ) } \over { 2 f &rsquo; ( \xi_{n} ) }}$</strong></p>
+<p><strong>Part 2. $\displaystyle \alpha - x_{n+1} =  - ( \alpha - x_{n-1} ) ( \alpha - x_{n} ) {{ f ''( \zeta _{n} ) } \over { 2 f ' ( \xi_{n} ) }}$</strong></p>
 <p>$x_{n+1} = x_{n} - f ( x_{n} ) {{ x_{n} - x_{n-1} } \over { f ( x_{n} ) - f ( x_{n-1} ) }}$ 의 양변에 $-1$ 을 곱하고 $\alpha$ 를 더하면
 $$
 \alpha - x_{n+1} = \alpha - x_{n} + f ( x_{n} ) {{ x_{n} - x_{n-1} } \over { f ( x_{n} ) - f ( x_{n-1} ) }} 
@@ -293,7 +293,7 @@ $$
 $$
 이고, 계차상의 성질에 의해 다음을 얻는다.
 $$
-\alpha - x_{n+1} =  - ( \alpha - x_{n-1} ) ( \alpha - x_{n} ) {{ f '&rsquo;( \zeta _{n} ) } \over { 2 f &rsquo; ( \xi_{n} ) }}
+\alpha - x_{n+1} =  - ( \alpha - x_{n-1} ) ( \alpha - x_{n} ) {{ f ''( \zeta _{n} ) } \over { 2 f ' ( \xi_{n} ) }}
 $$</p>
 <hr>
 <p><strong>Part 3. 수렴성</strong></p>
@@ -348,46 +348,46 @@ $$
 <h2 id="구현">구현</h2>
 <p>아래는 <a href="../../categories/r">R</a>로 작성된 코드다.</p>
 <p><code>itmax</code> 옵션은 최대로 반복할 횟수인데, 디폴트로 $1000$ 번을 반복해도 원하는만큼의 정밀한 해가 구해지지 않으면 계산을 포기한다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>Secant<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(f,x0,x1,itmax<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>^3,tol<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span><span style="color:#a6e22e">^</span>(<span style="color:#ae81ff">-8</span>))
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">f</span>(x0)<span style="color:#f92672">==</span><span style="color:#a6e22e">f</span>(x1)){<span style="color:#a6e22e">stop</span>(<span style="color:#e6db74">&#39;Wrong Initial Values&#39;</span>)}
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  x2 <span style="color:#f92672">=</span> x1 <span style="color:#f92672">-</span> <span style="color:#a6e22e">f</span>(x1) <span style="color:#a6e22e">\ast </span>( ( x1  <span style="color:#f92672">-</span> x0 ) <span style="color:#f92672">/</span> ( <span style="color:#a6e22e">f</span>(x1) <span style="color:#f92672">-</span> <span style="color:#a6e22e">f</span>(x0) ) )
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">for</span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>itmax)
-</span></span><span style="display:flex;"><span>  {
-</span></span><span style="display:flex;"><span>    x0 <span style="color:#f92672">=</span> x1
-</span></span><span style="display:flex;"><span>    x1 <span style="color:#f92672">=</span> x2
-</span></span><span style="display:flex;"><span>    x2 <span style="color:#f92672">=</span> x1 <span style="color:#f92672">-</span> <span style="color:#a6e22e">f</span>(x1) <span style="color:#a6e22e">\ast </span>( ( x1  <span style="color:#f92672">-</span> x0 ) <span style="color:#f92672">/</span> ( <span style="color:#a6e22e">f</span>(x1) <span style="color:#f92672">-</span> <span style="color:#a6e22e">f</span>(x0) ) )
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">abs</span>(x2<span style="color:#f92672">-</span>x1)<span style="color:#f92672">&lt;</span>tol) {<span style="color:#a6e22e">return</span>(x2)}
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">stop</span>(<span style="color:#e6db74">&#39;Maybe Wrong Initial Point&#39;</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>f<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(x) {x^3 <span style="color:#f92672">+</span> <span style="color:#ae81ff">8</span>}
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Secant</span>(f,<span style="color:#ae81ff">-7</span>,<span style="color:#ae81ff">7</span>)
-</span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>g<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(x) {x^6 <span style="color:#f92672">-</span> x <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>}
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Secant</span>(g,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">3</span>)
-</span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>h<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(x) {<span style="color:#a6e22e">exp</span>(x)<span style="color:#ae81ff">-1</span>}
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Secant</span>(h,<span style="color:#ae81ff">-2</span>,<span style="color:#ae81ff">-1</span>)
-</span></span></code></pre></div><p>위 코드를 실행시킨 결과는 다음과 같다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">Secant<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(f,x0,x1,itmax<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>^3,tol<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span><span style="color:#a6e22e">^</span>(<span style="color:#ae81ff">-8</span>))
+{
+  <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">f</span>(x0)<span style="color:#f92672">==</span><span style="color:#a6e22e">f</span>(x1)){<span style="color:#a6e22e">stop</span>(<span style="color:#e6db74">&#39;Wrong Initial Values&#39;</span>)}
+  
+  x2 <span style="color:#f92672">=</span> x1 <span style="color:#f92672">-</span> <span style="color:#a6e22e">f</span>(x1) <span style="color:#a6e22e">\ast </span>( ( x1  <span style="color:#f92672">-</span> x0 ) <span style="color:#f92672">/</span> ( <span style="color:#a6e22e">f</span>(x1) <span style="color:#f92672">-</span> <span style="color:#a6e22e">f</span>(x0) ) )
+  <span style="color:#a6e22e">for</span>(i in <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>itmax)
+  {
+    x0 <span style="color:#f92672">=</span> x1
+    x1 <span style="color:#f92672">=</span> x2
+    x2 <span style="color:#f92672">=</span> x1 <span style="color:#f92672">-</span> <span style="color:#a6e22e">f</span>(x1) <span style="color:#a6e22e">\ast </span>( ( x1  <span style="color:#f92672">-</span> x0 ) <span style="color:#f92672">/</span> ( <span style="color:#a6e22e">f</span>(x1) <span style="color:#f92672">-</span> <span style="color:#a6e22e">f</span>(x0) ) )
+    <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">abs</span>(x2<span style="color:#f92672">-</span>x1)<span style="color:#f92672">&lt;</span>tol) {<span style="color:#a6e22e">return</span>(x2)}
+  }
+  
+  <span style="color:#a6e22e">stop</span>(<span style="color:#e6db74">&#39;Maybe Wrong Initial Point&#39;</span>)
+}
+ 
+f<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(x) {x^3 <span style="color:#f92672">+</span> <span style="color:#ae81ff">8</span>}
+<span style="color:#a6e22e">Secant</span>(f,<span style="color:#ae81ff">-7</span>,<span style="color:#ae81ff">7</span>)
+ 
+g<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(x) {x^6 <span style="color:#f92672">-</span> x <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>}
+<span style="color:#a6e22e">Secant</span>(g,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">3</span>)
+ 
+h<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">function</span>(x) {<span style="color:#a6e22e">exp</span>(x)<span style="color:#ae81ff">-1</span>}
+<span style="color:#a6e22e">Secant</span>(h,<span style="color:#ae81ff">-2</span>,<span style="color:#ae81ff">-1</span>)
+</code></pre></div><p>위 코드를 실행시킨 결과는 다음과 같다.</p>
 <p><img src="20180903_125940.png#center" alt="20180903\_125940.png"></p>
-<div class="footnotes" role="doc-endnotes">
+<section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1">
+<li id="fn:1" role="doc-endnote">
 <p>Atkinson. (1989). An Introduction to Numerical Analysis(2nd Edition): p68~69.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</div>
+</section>
 
 
 <aside style="text-align: right;">
     2019-03-25&emsp;
     류대식&emsp;
-    <a href="../1448">🎲 682</a>
+    <a href="../1248">🎲 682</a>
 </aside>
 
 <script>

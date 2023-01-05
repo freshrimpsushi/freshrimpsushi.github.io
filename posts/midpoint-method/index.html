@@ -237,23 +237,23 @@ $$
 y_{n+1} := y_{n-1} + 2 h f ( x_{n} , y_{n} ) 
 $$</p>
 <h2 id="유도-1">유도 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p>$Y&rsquo;(t)$ 를 $x_{n}$ 에 대해 <a href="../42">테일러 전개</a>하면
+<p>$Y'(t)$ 를 $x_{n}$ 에 대해 <a href="../42">테일러 전개</a>하면
 $$
-Y&rsquo;(t) = y ' ( x_{n} ) + ( t - x_{n} ) Y&rsquo;&rsquo; (x_{n} ) + {{( t - x_{n} )^2} \over {2}} Y^{(3)} ( \xi_{n} )
+Y'(t) = y ' ( x_{n} ) + ( t - x_{n} ) Y'' (x_{n} ) + {{( t - x_{n} )^2} \over {2}} Y^{(3)} ( \xi_{n} )
 $$
 를 만족하는 $\xi_{n} \in [ x_{n-1} , x_{n} ]$ 이 존재한다. 양변에 $t= x_{n-1}$ 부터 $x_{n+1}$ 까지의 정적분을 취하면
 $$
-\int_{x_{n-1} }^{ x_{n+1} } Y&rsquo;(t) dt = \int_{x_{n-1} }^{ x_{n+1} }  \left[ y ' ( x_{n} ) + ( t - x_{n} ) Y&rsquo;&rsquo; (x_{n} ) + {{( t - x_{n} )^2} \over {2}} Y^{(3)} ( \xi_{n} ) \right] dt 
+\int_{x_{n-1} }^{ x_{n+1} } Y'(t) dt = \int_{x_{n-1} }^{ x_{n+1} }  \left[ y ' ( x_{n} ) + ( t - x_{n} ) Y'' (x_{n} ) + {{( t - x_{n} )^2} \over {2}} Y^{(3)} ( \xi_{n} ) \right] dt 
 $$
 $x_{n-1} = x_{n} - h$ 이고 $x_{n+1} = x_{n} + h$ 이므로
 $$
-\int_{x_{n-1} }^{ x_{n+1} } Y&rsquo;(t) dt = ( x_{n} + h - (x_{n} - h) ) y ' ( x_{n} ) + {{ h^3 - ( -  h^3 ) } \over {6}} Y^{(3)} ( \xi_{n} ) 
+\int_{x_{n-1} }^{ x_{n+1} } Y'(t) dt = ( x_{n} + h - (x_{n} - h) ) y ' ( x_{n} ) + {{ h^3 - ( -  h^3 ) } \over {6}} Y^{(3)} ( \xi_{n} ) 
 $$
 <a href="../213">미적분학의 기본정리</a>에 의해
 $$
 Y(x_{n+1}) - Y(x_{n-1})= 2h y ' ( x_{n} ) + {{ h^3  } \over {3}} Y^{(3)} ( \xi_{n} ) 
 $$
-가정에서 $Y&rsquo; = f$ 고, $\displaystyle  {{ h^3  } \over {3}} Y^{(3)} ( \xi_{n} )$ 을 탈락시키면
+가정에서 $Y' = f$ 고, $\displaystyle  {{ h^3  } \over {3}} Y^{(3)} ( \xi_{n} )$ 을 탈락시키면
 $$
 y_{n+1} = y_{n-1} + 2 h f ( x_{n} , y_{n} ) 
 $$</p>
@@ -267,11 +267,11 @@ $$
 $$
 여기서 초기오차는 $\displaystyle \eta (h) = \max \left\{ |Y_{0} - y_{0}| , | Y(x_{1}) - y_{h} (x_{1}) |  \right\}$ 인데, $y_{0} =Y_{0}$ 이므로 사실 $ \eta (h) = | Y(x_{1}) - y_{h} (x_{1}) |$ 이 된다. $Y$ 를 테일러 전개하면
 $$
-Y (x_{1}) = Y(x_{0})  + h Y(x_{0})  + {{h^{2} } \over {2}} Y&rsquo;&rsquo; (\zeta) =  y_{0}  + h f(x_{0} , y_{0})  + {{h^{2} } \over {2}} Y&rsquo;&rsquo; (\zeta)
+Y (x_{1}) = Y(x_{0})  + h Y(x_{0})  + {{h^{2} } \over {2}} Y'' (\zeta) =  y_{0}  + h f(x_{0} , y_{0})  + {{h^{2} } \over {2}} Y'' (\zeta)
 $$
 이때 <a href="../687">오일러 메소드</a>에 따라 $ y_{0} + h f(x_{0} , y_{0}) = y_{1}$ 이므로,
 $$
-Y(x_{1}) - y_{h} (x_{1}) = {{h^{2} } \over {2}} Y&rsquo;&rsquo; (\zeta) = O(h^{2} ) 
+Y(x_{1}) - y_{h} (x_{1}) = {{h^{2} } \over {2}} Y'' (\zeta) = O(h^{2} ) 
 $$
 결과적으로 미드포인트 메소드는 $O (h^2)$ 에 바운드되어 <a href="../687">오일러 메소드</a>보다 정확도 면에서 나은 점이 있다고 말할 수 있다.</p>
 <h3 id="안정성-이슈">안정성 이슈</h3>
@@ -306,20 +306,20 @@ out&lt;-Midpoint(g,seq(0,0,len=1),0,3.25,h=0.25)
 out[,1]
 </code></pre><p>실행시켜보면 함수 <code>f()</code>와 달리 <code>g()</code>는 솔루션이 제대로 구해지지 않는데, 이는 <a href="../701">미드포인트 메소드의 안정성Stability에 문제가 있음</a>을 보여주는 예시다.</p>
 <p><img src="20190412_165014.png#center" alt="20190412\_165014.png"></p>
-<div class="footnotes" role="doc-endnotes">
+<section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1">
+<li id="fn:1" role="doc-endnote">
 <p>Atkinson. (1989). An Introduction to Numerical Analysis(2nd Edition): p362.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</div>
+</section>
 
 
 <aside style="text-align: right;">
     2019-08-01&emsp;
     류대식&emsp;
-    <a href="../1154">🎲 700</a>
+    <a href="../832">🎲 700</a>
 </aside>
 
 <script>
