@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/seminar\/",
-    "wordCount" : "837",
+    "wordCount" : "1688",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -218,6 +218,15 @@
     <li><a href="#정리-1">정리 </a></li>
     <li><a href="#증명">증명</a></li>
   </ul>
+
+  <ul>
+    <li><a href="#가이드">가이드</a>
+      <ul>
+        <li><a href="#윈도-서버에서의-주의사항">윈도 서버에서의 주의사항</a></li>
+        <li><a href="#다른-포트로-접속">다른 포트로 접속</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
     </div>
     
@@ -231,7 +240,7 @@
 <iframe src="https://onedrive.live.com/embed?cid=65E5BA34F41E25E0&resid=65E5BA34F41E25E0%2124470&authkey=AHwIpnZ0BPkIO3g" width="165" height="128" frameborder="0" scrolling="no"></iframe> <iframe src="https://onedrive.live.com/embed?cid=65E5BA34F41E25E0&resid=65E5BA34F41E25E0%21533589&authkey=ACzYTsb9AS5OT6Y" width="165" height="128" frameborder="0" scrolling="no"></iframe>
 <hr>
 <pre tabindex="0"><code>data = as.data.frame(matrix(runif(60),20,3))
-names(data) &lt;- c(&quot;감기확률&quot;, &quot;최고기온&quot;, &quot;최저기온&quot;)
+names(data) &lt;- c(&#34;감기확률&#34;, &#34;최고기온&#34;, &#34;최저기온&#34;)
 
 lm(감기확률 ~ 최고기온 + 최저기온, data = data)
 
@@ -285,27 +294,64 @@ p \left( x_{1} , x_{2} \right) =&amp; p \left( x_{1} | x_{2} \right) p \left( x_
 $$</p>
 <p style="text-align: right;">■</p>
 <hr>
+<h1 id="줄리아-산점도-마크에-색-넣는-법">줄리아 산점도 마크에 색 넣는 법</h1>
+<h1 id="how-to-colorize-markers-of-scatter-plot-in-julia">How to Colorize Markers of Scatter Plot in julia</h1>
+<pre tabindex="0"><code>x, y = rand(100), rand(100)
+
+z = x + y
+scatter(x, y, marker_z = z)
+
+# https://stackoverflow.com/a/60846501/12285249
+team = rand(&#39;A&#39;:&#39;C&#39;, 100)
+scatter(x, y, group = team)
+</code></pre><hr>
 <p>줄리아 StatsPlot @df</p>
 <hr>
 <p>줄리아 마커 목록</p>
 <hr>
-<section class="footnotes" role="doc-endnotes">
+<p>줄리아에서 문자열의 일부만 슬라이싱하는 법
+성능상의 이유가 있다
+<a href="https://discourse.julialang.org/t/weird-string-slicing-in-korean/92252/2">https://discourse.julialang.org/t/weird-string-slicing-in-korean/92252/2</a></p>
+<hr>
+<p>줄리아 데이터프레임에서 String7, String15 등 없애는 법
+<a href="https://discourse.julialang.org/t/new-string7-type-from-result-of-csv-file-dataframe-makes-my-function-failing-which-takes-a-string-as-input/68985/2">https://discourse.julialang.org/t/new-string7-type-from-result-of-csv-file-dataframe-makes-my-function-failing-which-takes-a-string-as-input/68985/2</a></p>
+<p>많이 불편해보이지만 사실 성능상의 이유로 있는거니까 이해 좀 해줘</p>
+<hr>
+<h1 id="ssh-서버-접속하는-법">SSH 서버 접속하는 법</h1>
+<h2 id="가이드">가이드</h2>
+<p>접속하려는 서버의 IP가 <code>192.168.1.1</code>이라고 하자.</p>
+<pre tabindex="0"><code>ssh user@192.168.1.1
+</code></pre><p>터미널에서 위와 같은 커맨드를 입력하면 된다. <sup id="fnref1:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<h3 id="윈도-서버에서의-주의사항">윈도 서버에서의 주의사항</h3>
+<p>윈도를 서버로 쓸 땐 리눅스와 달리 조금 짜증나고 신경쓰이는 부분이 있다.</p>
+<ul>
+<li><code>user</code>: 서버에 접속할 권한이 있는 계정의 이름을 의미한다. 해당 컴퓨터에 있는 계정의 앞 다섯글자<strong>일 수도</strong> 있다(반드시 그렇다는 게 아니다). 윈도가 리눅스랑 가장 다른 부분은 마이크로소프트 계정을 통해 동기화 같은 게 편리하다는 건데, 커맨드 라인 인터페이스를 사용할 땐 이 때문에 무척헷갈린다. <strong>컴퓨터 이름이 아니라 유저명</strong>이고, 가령 내가 서버에서 연동시켜놓은 계정이 &lsquo;<a href="mailto:rmsmsgood@gmail.com">rmsmsgood@gmail.com</a>&rsquo;이고 한글로 된 닉네임을 가지고 있다면 계정명이 알아서 &lsquo;rmsms&rsquo; 와 같이 잘려있을 확률이 높다. 가장 확실한 방법은 다음과 같이 <code>C:\Users</code>에 직접 들어가서 내가 접속할 계정이름을 찾는 것이다.
+<img src="2023-01-09-11-16-02.png#center" alt="">
+기본적으로 접속하려는 클라이언트와 서버가 모두 윈도고 같은 계정으로 연동되어있다면 유저 이름도 같을 것이기에 그냥 <code>ssh 192.168.1.1</code>만 입력해도 된다.</li>
+<li>비밀번호: 해당 컴퓨터의 PIN 번호가 아니라 실제로 연동한 &lsquo;<a href="mailto:rmsmsgood@gmail.com">rmsmsgood@gmail.com</a>&rsquo;의 비밀번호를 입력해야한다. 예를 들어 IP가 <code>192.168.1.1</code>이고 서버 컴퓨터 이름이 <code>server7</code>에 연동된 계정의 PIN이 &lsquo;1234&rsquo;고 &lsquo;<a href="mailto:rmsmsgood@gmail.com">rmsmsgood@gmail.com</a>&rsquo;의 비밀번호가 &lsquo;asdf77&rsquo;이라면 서버에 접속하기 위한 커맨드는 다음 둘 중 하나를 사용하면 되고, 비밀번호는 &lsquo;asdf77&rsquo;를 입력해야한다.</li>
+</ul>
+<pre tabindex="0"><code>ssh rmsms@server7
+ssh rmsms@192.168.1.1
+</code></pre><h3 id="다른-포트로-접속">다른 포트로 접속</h3>
+<pre tabindex="0"><code>ssh user@192.168.1.1 -p 22
+</code></pre><p><code>-p</code> 옵션 뒤에 포트번호를 적으면 된다. <sup id="fnref1:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
-<p><a href="http://www.math.chalmers.se/~bodavid/GMRF2015/Lectures/F2slides.pdf">http://www.math.chalmers.se/~bodavid/GMRF2015/Lectures/F2slides.pdf</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1">
+<p><a href="http://www.math.chalmers.se/~bodavid/GMRF2015/Lectures/F2slides.pdf">http://www.math.chalmers.se/~bodavid/GMRF2015/Lectures/F2slides.pdf</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:2" role="doc-endnote">
-<p><a href="http://www.people.vcu.edu/~dbandyop/pubh7440/Areal_7440.pdf">http://www.people.vcu.edu/~dbandyop/pubh7440/Areal_7440.pdf</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:2">
+<p><a href="http://www.people.vcu.edu/~dbandyop/pubh7440/Areal_7440.pdf">http://www.people.vcu.edu/~dbandyop/pubh7440/Areal_7440.pdf</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
 
 <aside style="text-align: right;">
     2021-01-01&emsp;
     류대식&emsp;
-    <a href="../972">🎲 2000</a>
+    <a href="../490">🎲 2000</a>
 </aside>
 
 <script>

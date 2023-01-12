@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-construct-ssh-server-in-windows\/",
-    "wordCount" : "279",
+    "wordCount" : "412",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -216,8 +216,12 @@
       <nav id="TableOfContents">
   <ul>
     <li><a href="#개요">개요</a></li>
-    <li><a href="#가이드">가이드</a></li>
-    <li><a href="#자동-오픈">자동 오픈</a></li>
+    <li><a href="#가이드">가이드</a>
+      <ul>
+        <li><a href="#자동-오픈">자동 오픈</a></li>
+        <li><a href="#포트-변경">포트 변경</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
     </div>
@@ -246,15 +250,27 @@
 <li><code>Stop-Service sshd</code>를 실행하면 서버가 닫힌다.</li>
 <li><code>Get-Service sshd</code>를 통해 현재 서버의 상태를 확인할 수 있다.</li>
 </ul>
-<h2 id="자동-오픈">자동 오픈</h2>
+<h3 id="자동-오픈">자동 오픈</h3>
 <p>컴퓨터를 끄면 서버도 닫히는데, 다음과 같은 명령어로 부팅될 때 자동으로 서버가 열리도록 세팅할 수 있다.</p>
 <p><code>Set-Service -Name sshd -StartupType 'Automatic'</code></p>
+<h3 id="포트-변경">포트 변경</h3>
+<p>터미널을 관리자모드로 실행한 후 다음의 커맨드를 입력한다.</p>
+<p><code>Invoke-Item C:\ProgramData\ssh\sshd_config</code></p>
+<p>메모장으로 <code>C:\ProgramData\ssh\sshd_config</code>를 연 후 <code># Port 22</code>를 찾아 <code>Port 1234</code>라 바꾸고 저장하면 포트가 기본설정인 <code>22</code>에서 <code>1234</code>로 변경된다. 이후 ssh를 재시작하면 포트가 변경된다. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://www.lainyzine.com/ko/article/how-to-change-port-number-of-openssh-server-on-windosw-10/">https://www.lainyzine.com/ko/article/how-to-change-port-number-of-openssh-server-on-windosw-10/</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
 
 
 <aside style="text-align: right;">
     2020-01-01&emsp;
     류대식&emsp;
-    <a href="../351">🎲 1445</a>
+    <a href="../2156">🎲 1445</a>
 </aside>
 
 <script>
