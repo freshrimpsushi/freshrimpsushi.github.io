@@ -280,7 +280,7 @@ Any[]
 <li><code>max\_iteration</code> $\leftarrow t_{\text{end}} = 180$</li>
 </ul>
 <p><code>Random.seed!(0)</code>은 결과를 재현하기 위한 시드넘버 설정,은 결과를 재현하기 위한 시드넘버 설정, <code>time\_evolutiond</code>는 개체수를 기록하기 위한 스택으로 시뮬레이션 자체에는 영향을 미치지 않으나 시뮬레이션을 반복하고 분석하기 위해 중요하게 쓰이는 테크닉이다.</p>
-<pre tabindex="0"><code>julia&gt; coordinate = rand(gaussian2, N0)'
+<pre tabindex="0"><code>julia&gt; coordinate = rand(gaussian2, N0)&#39;
 500×2 Adjoint{Float64,Array{Float64,2}}:
   0.135821    0.165683
  -0.0706015  -0.0269708
@@ -328,7 +328,7 @@ julia&gt; N = N0
 1-element Array{Any,1}:
  481
 
-julia&gt; coordinate = coordinate + rand(gaussian2, N)'
+julia&gt; coordinate = coordinate + rand(gaussian2, N)&#39;
 481×2 Array{Float64,2}:
   0.399141     0.492689
  -0.151015    -0.00161691
@@ -365,13 +365,13 @@ gaussian2 = MvNormal([0.0; 0.0], 0.04I) # 2차원 정규분포
 Random.seed!(0);
 time_evolution = [] # 인구수를 기록하기 위한 스택
 let
-  coordinate = rand(gaussian2, N0)'
+  coordinate = rand(gaussian2, N0)&#39;
   N = N0
 
   anim = @animate for t = (0:max_iteration)/100
     plot(coordinate[:,1], coordinate[:,2], Seriestype = :scatter,
       markercolor = RGB(1.,94/255,0.), markeralpha = 0.4, markerstrokewidth	= 0.1,
-      title = &quot;t = $t&quot;, aspect_ratio = 1, size = [400,400],
+      title = &#34;t = $t&#34;, aspect_ratio = 1, size = [400,400],
       xaxis=true,yaxis=true,axis=nothing, legend = false)
       xlims!(-10.,10.)
       ylims!(-10.,10.)
@@ -380,16 +380,16 @@ let
 
     N = size(coordinate, 1)
     push!(time_evolution, N)
-    coordinate = coordinate + rand(gaussian2, N)'
+    coordinate = coordinate + rand(gaussian2, N)&#39;
   end
-  gif(anim, &quot;malthusian_growth_simulation2.gif&quot;, fps = 18)
+  gif(anim, &#34;malthusian_growth_simulation2.gif&#34;, fps = 18)
 end
 </code></pre>
 
 <aside style="text-align: right;">
     2021-01-16&emsp;
     류대식&emsp;
-    <a href="../388">🎲 1884</a>
+    <a href="../1878">🎲 1884</a>
 </aside>
 
 <script>

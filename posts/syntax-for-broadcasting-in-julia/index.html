@@ -288,27 +288,27 @@ julia&gt; @time for x in 1:100000
 julia&gt; @time y = sqrt.(1:100000);
   0.000448 seconds (2 allocations: 781.297 KiB)
 </code></pre><p>저장하는 과정까지 포함하든말든 브로드캐스팅을 적용한 코드엔 차이가 없지만 빈 배열에 그 값을 추가해야하는 반복문의 경우 벡터화된 코드에 비해 10배 가량 느린 것을 볼 수 있다. 이는 굳이 따지고 보면 <code>sqrt()</code> 자체보다는 <code>push!()</code>가 가변배열을 다루면서 소모하는 비용이 큰 것이 사실이나, 어찌됐든 결과적으로는 브로드캐스팅 쪽이 빠른 것이다. 당연히 반복문을 이보다 더 빠르게 하는 방법도 있겠지만(가령 <code>Any[]</code>가 <code>Float64[]</code>로만 바뀌어도 나아질 것이다) 현실적으로 접하게 되는 대부분의 코딩에서는 브로드캐스팅을 사용하는 편이 쓰기 편할 뿐만 아니라 속도 면에서도 우월하다.</p>
-<p>이는 단순히 개념적인 부분을 떠나서 일단은 줄리아가 인터프리터보단 컴파일러 언어에 가까운 것<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>과도 관련이 있다. 당신이 컴파일러의 입장에서 생각해봐도 다음 루프에 어떤 일이 벌어질지 모르는 <code>for</code> 반복문보다는 타입과 크기가 구체적으로 정해진 벡터에 대해 컴파일하는 게 편하지 않겠는가?</p>
+<p>이는 단순히 개념적인 부분을 떠나서 일단은 줄리아가 인터프리터보단 컴파일러 언어에 가까운 것<sup id="fnref1:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>과도 관련이 있다. 당신이 컴파일러의 입장에서 생각해봐도 다음 루프에 어떤 일이 벌어질지 모르는 <code>for</code> 반복문보다는 타입과 크기가 구체적으로 정해진 벡터에 대해 컴파일하는 게 편하지 않겠는가?</p>
 <p>장담컨대 99%정도의 함수에서는, 우리가 독창적으로 반복문을 쓰는 것보단 줄리아를 만든 사람들이 고안한 방식 그대로 쓰는 게 빠르다. 코드를 억지로 벡터화할 필요는 없지만, 벡터화할 수 있는 코드라면 대부분 벡터화한 경우가 압도적으로&hellip; 정말 압도적으로 빠르다. 사실 이는 줄리아만이 아니라 <a href="../../categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9">매트랩</a>, <a href="../../categories/r">R</a>과 같이 벡터 연산에 특화된 언어라면 누구나 가지고 있는 특징이기도 하다. 다만 줄리아가 그 중에서도 <a href="../1361">함수형 프로그래밍</a>의 패러다임을 가장 잘 받아들이고 있는 신생언어이면서 속도 측면에서 자신감을 내비친다는 점이 다를 뿐이다.</p>
 <h2 id="환경">환경</h2>
 <ul>
 <li>OS: Windows</li>
 <li>julia: v1.7.0</li>
 </ul>
-<section class="footnotes" role="doc-endnotes">
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
-<p><a href="https://docs.julialang.org/en/v1/manual/arrays/#Broadcasting">https://docs.julialang.org/en/v1/manual/arrays/#Broadcasting</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1">
+<p><a href="https://docs.julialang.org/en/v1/manual/arrays/#Broadcasting">https://docs.julialang.org/en/v1/manual/arrays/#Broadcasting</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
 
 <aside style="text-align: right;">
     1923-05-08&emsp;
     류대식&emsp;
-    <a href="../1150">🎲 2382</a>
+    <a href="../1740">🎲 2382</a>
 </aside>
 
 <script>
