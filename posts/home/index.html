@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/home\/",
-    "wordCount" : "1468",
+    "wordCount" : "949",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -209,9 +209,23 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#정리">정리</a></li>
-    <li><a href="#설명">설명</a></li>
-    <li><a href="#증명-1">증명 </a></li>
+    <li><a href="#용어">용어</a>
+      <ul>
+        <li><a href="#종속변수">종속변수</a></li>
+        <li><a href="#독립변수">독립변수</a></li>
+      </ul>
+    </li>
+    <li><a href="#설명">설명</a>
+      <ul>
+        <li><a href="#예시">예시</a></li>
+        <li><a href="#노테이션">노테이션</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#용어-1">용어</a></li>
+    <li><a href="#설명-1">설명</a></li>
   </ul>
 </nav>
     </div>
@@ -219,121 +233,49 @@
   </div>
 </aside>
 
-<h1 id="xt-x-의-역행렬이-존재하는-필요충분조건">X^T X 의 역행렬이 존재하는 필요충분조건</h1>
-<p>X^T X is Invertible when X has Full Rank</p>
-<h2 id="정리">정리</h2>
-<p>$m \ge n$ 일 때, <a href="../1955">행렬</a> $X \in \mathbb{R}^{m \times n}$ 의 <a href="../3003">역행렬</a>이 존재하는 것은 $X$ 가 <a href="../3021">풀 랭크</a>를 가지는 것이다.
-$$
-\exists \left( X^{T} X \right)^{-1} \iff \text{rank} X = n
-$$</p>
-<hr>
-<ul>
-<li>$X^{T}$ 는 $X$ 의 <a href="../3002">트랜스포즈</a>다.</li>
-</ul>
+<h1 id="데이터과학에서-독립변수와-종속변수">데이터과학에서 독립변수와 종속변수</h1>
+<p>Independent Variable and Dependent Variable in Data Science</p>
+<h2 id="용어">용어</h2>
+<p><a href="../2424">통계학</a>이나 <a href="../../categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D">머신러닝</a> 등 <a href="../../categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%EA%B3%BC%ED%95%99">데이터과학</a>의 분야의 모델<sup>Model</sup>에서 <a href="../2418">데이터의 변수</a>는 크게 다음의 두가지 부류로 나뉜다.</p>
+<h3 id="종속변수">종속변수</h3>
+<p><strong>종속변수</strong><sup>Dependent Variable</sup>란 대개 모델의 결과, 출력으로 기대되는 변수를 말하며 <strong>출력</strong><sup>Output</sup>, <strong>예측변수</strong><sup>Predictor Variable</sup>라 부르기도 한다.</p>
+<h3 id="독립변수">독립변수</h3>
+<p><strong>독립변수</strong><sup>Independent Variable</sup>란 종속변수에 영향을 미치는 입력 변수를 말하며 <strong>입력</strong><sup>Input</sup>, <strong>설명변수</strong><sup>Explanatory Variable</sup>라 부르기도 한다.</p>
 <h2 id="설명">설명</h2>
-<p>이러한 팩트가 중요한 이유는 <a href="../666">다중회귀분석</a>의 $\mathbf{y} = X \beta$ 같은 <a href="../3265">과도결정계</a>에는 <a href="../356">최소제곱법</a>을 통해
+<h3 id="예시">예시</h3>
+<p>한국 여성의 평균 신장이 159.6cm, 한국 남성의 평균신장이 172.5cm이고 그 비율은 $\displaystyle 1.081 \approx {{ 172.5 } \over { 159.6 }}$ 정도쯤 된다.
 $$
-\beta = \left( X^{T} X \right)^{-1} X^{T} \mathbf{y}
+y = y \left( x_{1} , x_{2} \right) = {{ 1.08 } \over { 2 }} x_{1} + {{ 1.00 } \over { 2 }} x_{2}
 $$
-과 같은 계산을 할 일이 있기 때문&hellip; 아니 정말 많기 때문이다.</p>
-<h2 id="증명-1">증명 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p>$(\implies)$</p>
-<p>$X^{T} X \in \mathbb{R}^{n \times n}$ 의 역행렬이 존재한다면 $\text{rank} X^{T} X = n$ 이다.
-$$
-\begin{align*}
-n =&amp; \text{rank} X^{T} X
-\\ \le &amp; \text{rank} X
-\\ \le &amp; \min \left\{ n , m \right\}
-\\ \le &amp; n
-\end{align*}
-$$
-위 부등식이 성립하려면 $\text{rank} X = n$ 이어야한다.</p>
-<hr>
-<p>$(\impliedby)$</p>
-<p>어떤 $\mathbf{u} \in \mathbb{R}^{n}$ 에 대해
-$$
-X^{T} X \mathbf{u} = \mathbf{0}
-$$
-라 두자. $\mathbf{u} = \mathbf{0}$ 면 $\left( X^{T} X \right)^{-1}$ 가 존재하는 것과 동치이므로, $\mathbf{u}$ 가 <a href="../282">영벡터</a>임을 보일 것이다. $\mathbb{R}^{n}$ 은 <a href="../1842">내적공간</a>이므로 $X^{T} X \mathbf{u}$ 와 $\mathbf{0}$ 의 <a href="../3011">벡터내적</a> $\left&lt; \cdot , \cdot \right&gt;$ 을 구해볼 수 있다. 영벡터끼리의 내적이므로 당연히 그 값은 $0$ 이고,
+아주 간단한 예시로 아들의 키 $y$ 를 어머니의 키 $x_{1}$ 과 아버지의 키 $x_{2}$ 만으로 예측하는 위의 모델을 생각해보자. 모델은 단순히 평균만 가지고 어머니들의 평균키를 아버지들의 평균키만큼 스케일링한 후 평균을 취해서 얻은 것이다. 딸의 키를 예측하고 싶다면 아버지의 키를 어머니의 키에 맞춰서 스케일링하면 될 것이다.</p>
+<ul>
+<li>$y$ 는 모델에서 우리가 예측하고 싶은 <strong>예측변수</strong>고, 아들의 키를 설명하는게 부모님들의 키 $x_{1} , x_{2}$ 니까 이들을 <strong>설명변수</strong>라 부른다.</li>
+<li>$y$ 가 $x_{1}, x_{2}$ 에 종속되어 있다는 가정이 없다면 이 모델은 아무 의미가 없고, 그래서 <strong>종속변수</strong>라 부른다. <strong>독립변수</strong>는 그냥 이와 대비되는 용어로 보아도 무방한데, 꼭 $x_{1}, x_{2}$ 끼리 <a href="../1461">서로 독립</a>인 것은 아니기 때문이다.</li>
+<li>자세한 의미를 이해하지 못하더라도, 그냥 수식에다가 $x_{1} = 169$ 이랑 $x_{2} = 174$ 을 <strong>입력</strong>하면 아들의 키가 $y = 178.26$ 로 <strong>출력</strong>되는 것은 확실하다.</li>
+</ul>
+<h3 id="노테이션">노테이션</h3>
+<p>보통 아무 설명도 없다면 독립변수는 $X$, 종속변수는 $Y$ 로 두며 $Y$ 가 좌변에 오는 편이다.
 $$
 \begin{align*}
-0 =&amp; \left&lt; X^{T} X \mathbf{u} , \mathbf{u} \right&gt;
-\\ =&amp; \left( X^{T} X \mathbf{u} \right)^{T} \mathbf{u}
-\\ =&amp; \mathbf{u}^{T} X^{T} X \mathbf{u}
-\\ =&amp; \left( X \mathbf{u} \right)^{T} X \mathbf{u}
-\\ =&amp; \left&lt; X \mathbf{u} , X \mathbf{u} \right&gt;
+Y \leftarrow &amp; X_{1} , \cdots , X_{p}
+\\ Y =&amp; X \beta + \varepsilon
+\\ y =&amp; f \left( x_{1} , \cdots , x_{p} \right)
 \end{align*}
 $$
-을 얻는다. 이는 곧 $X \mathbf{u} = \mathbf{0}$ 인데, $X$ 가 풀 랭크를 가진다고 가정했으므로 $\mathbf{u} = \mathbf{0}$ 이어야한다.</p>
-<p style="text-align: right;">■</p>
+예외도 있다. <a href="../900">시계열 분석</a> 등에서는 보통 종속변수 스스로가 시차<sup>Lag</sup>를 두고 독립변수가 되기도 하므로 표기를 구분하지 않고 모든 데이터를 $Y$ 로 표현하기도 한다.</p>
 <hr>
-<!-- # 데이터과학에서 독립변수와 종속변수
-Independent Variable and Dependent Variable in Data Science
-
-## 용어
-
-[통계학](../2424)이나 [머신러닝](../../categories/머신러닝) 등 [데이터과학](../../categories/데이터과학)의 분야의 모델<sup>Model</sup>에서 [데이터의 변수](../2418)는 크게 다음의 두가지 부류로 나뉜다.
-
-### 종속변수
-
-**종속변수**<sup>Dependent Variable</sup>란 대개 모델의 결과, 출력으로 기대되는 변수를 말하며 **출력**<sup>Output</sup>, **예측변수**<sup>Predictor Variable</sup>라 부르기도 한다.
-
-### 독립변수
-
-**독립변수**<sup>Independent Variable</sup>란 종속변수에 영향을 미치는 입력 변수를 말하며 **입력**<sup>Input</sup>, **설명변수**<sup>Explanatory Variable</sup>라 부르기도 한다.
-
-## 설명
-
-### 예시
-
-한국 여성의 평균 신장이 159.6cm, 한국 남성의 평균신장이 172.5cm이고 그 비율은 $\displaystyle 1.081 \approx {{ 172.5 } \over { 159.6 }}$ 정도쯤 된다.
-$$
-y = y \left( x\_{1} , x\_{2} \right) = {{ 1.08 } \over { 2 }} x\_{1} + {{ 1.00 } \over { 2 }} x\_{2}
-$$
-아주 간단한 예시로 아들의 키 $y$ 를 어머니의 키 $x\_{1}$ 과 아버지의 키 $x\_{2}$ 만으로 예측하는 위의 모델을 생각해보자. 모델은 단순히 평균만 가지고 어머니들의 평균키를 아버지들의 평균키만큼 스케일링한 후 평균을 취해서 얻은 것이다. 딸의 키를 예측하고 싶다면 아버지의 키를 어머니의 키에 맞춰서 스케일링하면 될 것이다.
- - $y$ 는 모델에서 우리가 예측하고 싶은 **예측변수**고, 아들의 키를 설명하는게 부모님들의 키 $x\_{1} , x\_{2}$ 니까 이들을 **설명변수**라 부른다.
- - $y$ 가 $x\_{1}, x\_{2}$ 에 종속되어 있다는 가정이 없다면 이 모델은 아무 의미가 없고, 그래서 **종속변수**라 부른다. **독립변수**는 그냥 이와 대비되는 용어로 보아도 무방한데, 꼭 $x\_{1}, x\_{2}$ 끼리 [서로 독립](../1461)인 것은 아니기 때문이다.
- - 자세한 의미를 이해하지 못하더라도, 그냥 수식에다가 $x\_{1} = 169$ 이랑 $x\_{2} = 174$ 을 **입력**하면 아들의 키가 $y = 178.26$ 로 **출력**되는 것은 확실하다.
-
-### 노테이션
-
-보통 아무 설명도 없다면 독립변수는 $X$, 종속변수는 $Y$ 로 두며 $Y$ 가 좌변에 오는 편이다.
-$$
-\begin{align*}
-    Y \leftarrow & X\_{1} , \cdots , X\_{p}
-\\\ Y =& X \beta + \varepsilon
-\\\ y =& f \left( x\_{1} , \cdots , x\_{p} \right)
-\end{align*}
-$$
-예외도 있다. [시계열 분석](../900) 등에서는 보통 종속변수 스스로가 시차<sup>Lag</sup>를 두고 독립변수가 되기도 하므로 표기를 구분하지 않고 모든 데이터를 $Y$ 로 표현하기도 한다.
-
----
-
-# 데이터과학에서 분류문제의 정의
-Classification Problem in Data Science
-
-## 용어
-
-[종속변수]가 [질적변수](../2420)인 문제를 **분류**<sup>Classification</sup> 문제라 한다. 특히 질적변수의 계급이 두 개 뿐일 때, 이를 **이진분류**<sup>Binary Classification</sup> 문제라 한다.
-
-## 설명
-
-분류문제와 대비되는 표현으로써 종속변수가 양적변수면 **회귀**<sup>Regression</sup> 문제라 하고, 이는 당연히 [회귀분석](../548)에서 유래했다. --><blockquote>
-</blockquote>
-<section class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1" role="doc-endnote">
-<p><a href="https://math.stackexchange.com/a/691832/459895">https://math.stackexchange.com/a/691832/459895</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-</ol>
-</section>
+<h1 id="데이터과학에서-분류문제의-정의">데이터과학에서 분류문제의 정의</h1>
+<p>Classification Problem in Data Science</p>
+<h2 id="용어-1">용어</h2>
+<p>[종속변수]가 <a href="../2420">질적변수</a>인 문제를 <strong>분류</strong><sup>Classification</sup> 문제라 한다. 특히 질적변수의 계급이 두 개 뿐일 때, 이를 <strong>이진분류</strong><sup>Binary Classification</sup> 문제라 한다.</p>
+<h2 id="설명-1">설명</h2>
+<p>분류문제와 대비되는 표현으로써 종속변수가 양적변수면 <strong>회귀</strong><sup>Regression</sup> 문제라 하고, 이는 당연히 <a href="../548">회귀분석</a>에서 유래했다.</p>
 
 
 <aside style="text-align: right;">
     2021-01-01&emsp;
     류대식&emsp;
-    <a href="../494">🎲 1999</a>
+    <a href="../747">🎲 1999</a>
 </aside>
 
 <script>
