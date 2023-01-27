@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/shannon-entropy-in-information-theory\/",
-    "wordCount" : "1135",
+    "wordCount" : "1514",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -217,7 +217,11 @@
   <ul>
     <li><a href="#정의1-2">정의 </a></li>
     <li><a href="#설명">설명</a></li>
-    <li><a href="#성질">성질</a></li>
+    <li><a href="#성질">성질</a>
+      <ul>
+        <li><a href="#정규분포">정규분포</a></li>
+      </ul>
+    </li>
     <li><a href="#같이보기">같이보기</a></li>
   </ul>
 </nav>
@@ -281,7 +285,11 @@
                                 <td style="background-color: #0000aa"><span style="color: white;">고전정보이론</span></td>
                                     <td align="left"><span style="color: black;">
                                         <a href="../3398">정보량</a>
-                                        · <a href="../3400">엔트로피</a>
+                                        · <a href="../3400">엔트로피</a>(<a href="../3464">결합 엔트로피</a>
+                                        · <a href="../3465">조건부 엔트로피</a>
+                                        · <a href="../3466">상대적 엔트로피</a>
+                                        · <a href="../3467">상호 정보</a>
+                                        )
                                         · <a href="../3437">부호화</a>
                                         · <a href="../3437">복호화</a>
                                     </span></td>
@@ -310,14 +318,16 @@
 </table>
 
 <h2 id="정의1-2">정의<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h2>
-<!-- [확률질량함수](../1433)가 $p$일 때, $X$의  -->
-<p><a href="../1433">확률변수</a> $X$의 <strong>엔트로피</strong><sup>Shannon entropy</sup> $H$를 다음과 같이 정의한다.</p>
+<p><a href="../1433">이산확률변수</a> $X$가 $n$개의 값 $x_{1}, x_{2}, \dots, x_{n}$을 취할 수 있다고 하자. $X$의 <a href="../1433">확률질량함수</a>를 $p$라고 하자. 그러면 $X$ 혹은 $p$의 <strong>엔트로피</strong><sup>Shannon entropy</sup> $H$를 다음과 같이 정의한다.</p>
 <p>$$
 \begin{equation}
-H(X) := \sum_{i=1}^{N} P(x_{i}) I(x_{i}) = -\sum_{i=1}^{N} P(x_{i}) \log_{2}P(x_{i})
+H(X) = H(p) := E\left[ I(x_{i}) \right] = \sum_{i=1}^{n} p(x_{i}) I(x_{i}) = -\sum_{i=1}^{n} p(x_{i}) \log_{2}p(x_{i})
 \end{equation}
 $$</p>
-<p>이때 $I$는 <a href="../3398">정보량</a>이고, $P(x_{i}) = P(X=x_{i})$이다.</p>
+<p>이때 $I$는 <a href="../3398">정보량</a>, $E$는 기댓값이다. $X$가 연속확률변수라면,</p>
+<p>$$
+H(X) = H(p) = - \int_{-\infty}^{\infty} p(x)\log_{2}p(x) dx
+$$</p>
 <h2 id="설명">설명</h2>
 <p>쉽게 말해서 엔트로피란 정보의 <a href="../246">기대값(평균)</a>이다. 엔트로피를 통해 <a href="../3437">부호화의 효율</a>과 통신의 한계에 대해서 수학적으로 다룰 수 있다.</p>
 <p>엔트로피는 흔히 <strong>무질서도</strong>라고 설명되는데 여기서 말하는 질서란 규칙, 경향, 패턴 등의 의미로 생각하면 된다. 따라서 엔트로피가 높다는 것은 무질서도가 높다는 것이고, 이는 확률변수 $X$에 대해서 규칙이나 패턴을 파악하기가 어렵다는 얘기이다.</p>
@@ -337,9 +347,34 @@ $$</p>
 <p>확률변수 $X$가 $n$개의 값 $x_{1}, x_{2}, \dots, x_{n}$을 취할 수 있다고 하자. $(1)$과 같이 정의되는 엔트로피 $H$는 다음과 같은 성질을 갖는다.</p>
 <ul>
 <li>$H$는 <a href="../262">오목</a><sup>concave</sup> 함수이다.</li>
-<li>어떤 $x_{i}$에 대해 $P(x_{i}) = 1$이면, $H(X) = 0$이다.</li>
-<li>모든 확률이 $P(x_{i}) = \dfrac{1}{n}$로 같을 때, 엔트로피는 최대이며 그 값은 $\log_{2} = n$이다.</li>
+<li>어떤 $x_{i}$에 대해 $p(x_{i}) = 1$이면, $H(X) = 0$이다.</li>
+<li>모든 확률이 $p(x_{i}) = \dfrac{1}{n}$로 같을 때, 엔트로피는 최대이며 그 값은 $\log_{2}n$이다.</li>
 </ul>
+<h3 id="정규분포">정규분포</h3>
+<p><a href="../1645">정규분포</a> $N(\mu, \sigma^{2})$의 엔트로피는 (자연로그를 택했을 때) 다음과 같다.</p>
+<p>$$
+H = \dfrac{1}{2} \ln (2\pi e \sigma^{2}) = \ln \sqrt{2\pi e \sigma^{2}}
+$$</p>
+<p>평균 $\mu$는 엔트로피에 영향을 미치지 않는다. 이를 보일 때 $p(x) = \dfrac{1}{\sqrt{2\pi\sigma^{2}}}\exp\left( - \dfrac{(x-\mu)^{2}}{2\sigma^{2}} \right)$의 적분이 $1$이라는 것을 이용한다.</p>
+<p>$$
+\begin{align*}
+H
+&amp;= - \int_{-\infty}^{\infty} p(x) \ln p(x) dx \\ 
+&amp;= - \int_{-\infty}^{\infty} p(x) \ln \left[ \dfrac{1}{\sqrt{2\pi\sigma^{2}}}\exp\left( - \dfrac{(x-\mu)^{2}}{2\sigma^{2}} \right) \right] dx \\ 
+&amp;= - \int_{-\infty}^{\infty} p(x) \ln \dfrac{1}{\sqrt{2\pi\sigma^{2}}} dx - \int_{-\infty}^{\infty} p(x) \ln \exp\left( - \dfrac{(x-\mu)^{2}}{2\sigma^{2}} \right) dx \\ 
+&amp;= -\ln \dfrac{1}{\sqrt{2\pi\sigma^{2}}} + \int_{-\infty}^{\infty} p(x) \dfrac{(x-\mu)^{2}}{2\sigma^{2}} dx \\ 
+&amp;= \ln \sqrt{2\pi\sigma^{2}} + \dfrac{1}{2\sigma^{2}}\int_{-\infty}^{\infty} p(x) (x-\mu)^{2} dx \\ 
+&amp;= \ln \sqrt{2\pi\sigma^{2}} + \dfrac{1}{2\sigma^{2}} E[(X-\mu)^{2}] \\ 
+&amp;= \ln \sqrt{2\pi\sigma^{2}} + \dfrac{1}{2\sigma^{2}}\sigma^{2} \\ 
+&amp;= \ln \sqrt{2\pi\sigma^{2}} + \dfrac{1}{2} \\ 
+&amp;= \ln \sqrt{2\pi\sigma^{2}} + \ln \sqrt{e} \\ 
+&amp;= \ln \sqrt{2\pi e \sigma^{2}}
+\end{align*}
+$$</p>
+<p>$n$차원에 대해 일반화하면 다음과 같다. 이때 $\left| K \right|$는 <a href="../1950">공분산 행렬</a> $K$의 <a href="../252">행렬식</a>이다.</p>
+<p>$$
+H = \dfrac{1}{2}\ln (2 \pi e)^{n} \left| K \right|
+$$</p>
 <h2 id="같이보기">같이보기</h2>
 <ul>
 <li><a href="../2035">확률론으로 정의되는 샤넌 엔트로피</a></li>
@@ -362,7 +397,7 @@ $$</p>
 <aside style="text-align: right;">
     2013-04-13&emsp;
     전기현&emsp;
-    <a href="../884">🎲 3400</a>
+    <a href="../1515">🎲 3400</a>
 </aside>
 
 <script>
