@@ -227,73 +227,73 @@
 <h2 id="공식">공식</h2>
 <p><a href="../1449">다변량 확률 변수</a> $X = ( X_{1} , \cdots , X_{n} )$ 의 조인트 확률밀도<a href="../470">함수</a> $f$ 가 $f(x_{1} , \cdots , x_{n})$ 와 같이 주어져있다고 하고 다음과 같은 변환을 생각해보자.
 $$
-y_{1} = u_{1} (x_{1} , \cdots , x_{n}) 
-\\ \vdots 
-\\  y_{n} = u_{n} (x_{1} , \cdots , x_{n}) 
+y_{1} = u_{1} (x_{1} , \cdots , x_{n})
+\\ \vdots
+\\  y_{n} = u_{n} (x_{1} , \cdots , x_{n})
 $$
-이러한 변환 $u_{1} , \cdots , u_{n}$ 는 <a href="../471">단사</a>가 아닐 수 있다. 따라서 $X$ 의 서포트 $S_{X}$ 는 $k$ 개의 <a href="../1049">파티션</a> $A_{1} , \cdots , A_{i} , \cdots , A_{k}$ 으로 나누어지고, 다음과 같은 역변환 $w_{ji} \mid_{i=1,\cdots,k 
+이러한 변환 $u_{1} , \cdots , u_{n}$ 는 <a href="../471">단사</a>가 아닐 수 있다. 따라서 $X$ 의 서포트 $S_{X}$ 는 $k$ 개의 <a href="../1049">파티션</a> $A_{1} , \cdots , A_{i} , \cdots , A_{k}$ 으로 나누어지고, 다음과 같은 역변환 $w_{ji} \mid_{i=1,\cdots,k
 \\  j=1,\cdots,n}$ 들을 생각할 수 있다.
 $$
-x_{1} = w_{1i} ( y_{1} , \cdots , y_{n} ) 
-\\ \vdots 
+x_{1} = w_{1i} ( y_{1} , \cdots , y_{n} )
+\\ \vdots
 \\  x_{n} = w_{ni} ( y_{1} , \cdots , y_{n} )
 $$
 이러한 변환에 따라
 $$
-Y_{1} = u_{1} (X_{1} , \cdots, X_{n}) 
-\\ \vdots 
+Y_{1} = u_{1} (X_{1} , \cdots, X_{n})
+\\ \vdots
 \\  Y_{n} = u_{n} (X_{1} , \cdots, X_{n})
 $$
 과 변환된 다변량 확률 변수 $Y = ( Y_{1} , \cdots , Y_{n} )$ 의 조인트 확률밀도함수 $g$ 는 다음과 같다.
 $$
-g(y_{1},\cdots,y_{n}) = \sum_{i=1}^{k} f \left[ w_{1i}(y_{1},\cdots , y_{n}) , \cdots , w_{ni}(y_{1},\cdots , y_{n}) \right] \left| J_{i} \right| 
+g(y_{1},\cdots,y_{n}) = \sum_{i=1}^{k} f \left[ w_{1i}(y_{1},\cdots , y_{n}) , \cdots , w_{ni}(y_{1},\cdots , y_{n}) \right] \left| J_{i} \right|
 $$</p>
 <hr>
 <ul>
 <li>$J_{i}$ 는 $i=1,\cdots , k$ 번째 <a href="../989">자코비안</a> $J_{i} := \begin{bmatrix}
-{{ \partial w_{1i} } \over { \partial y_{1} }} &amp; \cdots &amp; {{ \partial w_{1i} } \over { \partial y_{n} }} 
-\\ \vdots &amp; \ddots &amp; \vdots 
-\\  {{ \partial w_{ni} } \over { \partial y_{1} }} &amp; \cdots &amp; {{ \partial w_{ni} } \over { \partial y_{n} }} 
+{{ \partial w_{1i} } \over { \partial y_{1} }} &amp; \cdots &amp; {{ \partial w_{1i} } \over { \partial y_{n} }}
+\\ \vdots &amp; \ddots &amp; \vdots
+\\  {{ \partial w_{ni} } \over { \partial y_{1} }} &amp; \cdots &amp; {{ \partial w_{ni} } \over { \partial y_{n} }}
 \end{bmatrix}$ 이다.</li>
 <li>주의사항으로, 이산 확률 변수에 대해서는 자코비안을 계산할 필요가 없다. 초보적인 실수지만 의외로 많은 사람들이 가지고 있는 오개념이다.</li>
 </ul>
 <h2 id="예시">예시</h2>
 <p>확률 변수의 변환은 사실 말만 어려울 뿐 아니라 정직하고 복잡한 계산이 필요한 일이다. 변환이 단사가 아닌 경우를 나누어서 각자 자코비언을 계산해야하는데, 이게 얼마나 어려운 일일지는 문제에 따라 다르다. 이 어려움이 어떤 것인지 느껴보기 위해 다음의 예를 생각해보자:
 $$
-f(x_{1} , x_{2}) = \begin{cases} {{ 1 } \over { \pi }} &amp;, 0 &lt; x_{1}^{2} + x_{2}^{2} &lt; 1 
+f(x_{1} , x_{2}) = \begin{cases} {{ 1 } \over { \pi }} &amp;, 0 &lt; x_{1}^{2} + x_{2}^{2} &lt; 1
 \\  0 &amp;, \text{otherwise} \end{cases}
 $$
 위와 같은 확률 밀도 함수를 가지는 확률 변수는 원 안의 점을 유니폼한 확률로 샘플링한다. 자연스러운 변환은 직교좌표를 극좌표로 바꾸는 것이겠지만, 이해를 돕기 위해 다소 작위적인 변환 $Y_{1} = X_{1}^{2} + X_{2}^{2}$, $Y_{2} = X_{1}^{2} / (X_{1}^{2} + X_{2}^{2})$ 을 생각해보자. 식에 제곱이 있기 때문에 이 변환은 단사가 아니고, 다음과 같은 네 가지의 경우로 나누어서 생각을 해야한다.
 $$
-x_{1} = \sqrt{y_{1} y_{2}} \land x_{2} = \sqrt{y_{1} (1 - y_{2}) } 
+x_{1} = \sqrt{y_{1} y_{2}} \land x_{2} = \sqrt{y_{1} (1 - y_{2}) }
 \\  x_{1} = \sqrt{y_{1} y_{2}} \land x_{2} = - \sqrt{y_{1} (1 - y_{2}) }
-\\  x_{1} = -\sqrt{y_{1} y_{2}} \land x_{2} = \sqrt{y_{1} (1 - y_{2}) } 
+\\  x_{1} = -\sqrt{y_{1} y_{2}} \land x_{2} = \sqrt{y_{1} (1 - y_{2}) }
 \\  x_{1} = - \sqrt{y_{1} y_{2}} \land x_{2} = - \sqrt{y_{1} (1 - y_{2}) }
 $$
 이들의 $i = 1, 2, 3, 4$ 번째 자코비언은 각각 다음과 같이 계산된다.
 $$
 J_{1} = \begin{bmatrix}
-{{ 1 } \over { 2 }} \sqrt{{ y_{2} } \over { y_{1} }} &amp;  {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { y_{2} }} 
-\\  {{ 1 } \over { 2 }} \sqrt{{ 1 - y_{2} } \over { y_{1} }} &amp;  - {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { 1 - y_{2} }} 
-\end{bmatrix} = - {{ 1 } \over { 4 \sqrt{y_{2} (1 - y_{2})} }} 
+{{ 1 } \over { 2 }} \sqrt{{ y_{2} } \over { y_{1} }} &amp;  {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { y_{2} }}
+\\  {{ 1 } \over { 2 }} \sqrt{{ 1 - y_{2} } \over { y_{1} }} &amp;  - {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { 1 - y_{2} }}
+\end{bmatrix} = - {{ 1 } \over { 4 \sqrt{y_{2} (1 - y_{2})} }}
 $$</p>
 <p>$$
 J_{2} = \begin{bmatrix}
-{{ 1 } \over { 2 }} \sqrt{{ y_{2} } \over { y_{1} }} &amp; - {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { y_{2} }} 
-\\  {{ 1 } \over { 2 }} \sqrt{{ 1 - y_{2} } \over { y_{1} }} &amp;  {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { 1 - y_{2} }} 
-\end{bmatrix} = - {{ 1 } \over { 4 \sqrt{y_{2} (1 - y_{2})} }} 
+{{ 1 } \over { 2 }} \sqrt{{ y_{2} } \over { y_{1} }} &amp; - {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { y_{2} }}
+\\  {{ 1 } \over { 2 }} \sqrt{{ 1 - y_{2} } \over { y_{1} }} &amp;  {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { 1 - y_{2} }}
+\end{bmatrix} = - {{ 1 } \over { 4 \sqrt{y_{2} (1 - y_{2})} }}
 $$</p>
 <p>$$
 J_{3} = \begin{bmatrix}
-- {{ 1 } \over { 2 }} \sqrt{{ y_{2} } \over { y_{1} }} &amp; {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { y_{2} }} 
-\\  - {{ 1 } \over { 2 }} \sqrt{{ 1 - y_{2} } \over { y_{1} }} &amp;  - {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { 1 - y_{2} }} 
-\end{bmatrix} = {{ 1 } \over { 4 \sqrt{y_{2} (1 - y_{2})} }} 
+- {{ 1 } \over { 2 }} \sqrt{{ y_{2} } \over { y_{1} }} &amp; {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { y_{2} }}
+\\  - {{ 1 } \over { 2 }} \sqrt{{ 1 - y_{2} } \over { y_{1} }} &amp;  - {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { 1 - y_{2} }}
+\end{bmatrix} = {{ 1 } \over { 4 \sqrt{y_{2} (1 - y_{2})} }}
 $$</p>
 <p>$$
 J_{4} = \begin{bmatrix}
-- {{ 1 } \over { 2 }} \sqrt{{ y_{2} } \over { y_{1} }} &amp; - {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { y_{2} }} 
-\\  - {{ 1 } \over { 2 }} \sqrt{{ 1 - y_{2} } \over { y_{1} }} &amp; {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { 1 - y_{2} }} 
-\end{bmatrix} = {{ 1 } \over { 4 \sqrt{y_{2} (1 - y_{2})} }} 
+- {{ 1 } \over { 2 }} \sqrt{{ y_{2} } \over { y_{1} }} &amp; - {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { y_{2} }}
+\\  - {{ 1 } \over { 2 }} \sqrt{{ 1 - y_{2} } \over { y_{1} }} &amp; {{ 1 } \over { 2 }} \sqrt{{ y_{1} } \over { 1 - y_{2} }}
+\end{bmatrix} = {{ 1 } \over { 4 \sqrt{y_{2} (1 - y_{2})} }}
 $$
 따라서 $y_{1} , y_{2}$ 으로 구해지는 새로운 조인트 확률 밀도 함수 $g$ 는 다음과 같다.
 $$
@@ -305,7 +305,7 @@ $$</p>
 <aside style="text-align: right;">
     2020-01-17&emsp;
     류대식&emsp;
-    <a href="../1926">🎲 1455</a>
+    <a href="../1221">🎲 1455</a>
 </aside>
 
 <script>
@@ -894,10 +894,10 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     [
       { idx: 1, name: 'R', size: '53', color: color.green },
       { idx: 2, name: '데이터확보', size: '22', color: color.green },
-      { idx: 3, name: '데이터과학', size: '22', color: color.red },
+      { idx: 3, name: '데이터과학', size: '30++', color: color.red },
       { idx: 4, name: '통계적검정', size: '20++', color: color.red },
-      { idx: 5, name: '통계적분석', size: '61', color: color.green },
-      { idx: 6, name: '수리통계학', size: '109', color: color.green },
+      { idx: 5, name: '통계적분석', size: '67', color: color.green },
+      { idx: 6, name: '수리통계학', size: '110', color: color.green },
       { idx: 7, name: '분포이론', size: '70', color: color.green },
       { idx: 8, name: '확률론', size: '72', color: color.green },
       { idx: 9, name: '위상데이터분석', size: '38', color: color.red }
@@ -906,7 +906,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       { idx: 1, name: '줄리아', size: '150++', color: color.green },
       { idx: 2, name: '프로그래밍', size: '32', color: color.green },
       { idx: 3, name: '알고리즘', size: '28', color: color.green },
-      { idx: 4, name: '머신러닝', size: '50++', color: color.green },
+      { idx: 4, name: '머신러닝', size: '61', color: color.green },
       { idx: 5, name: '세이버메트릭스', size: '12', color: color.green },
       { idx: 6, name: '논문작성', size: '13', color: color.green },
       { idx: 7, name: '교과과정', size: '53', color: color.green },
