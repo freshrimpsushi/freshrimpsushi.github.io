@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/reinforcement-learning-in-machine-learning\/",
-    "wordCount" : "2967",
+    "wordCount" : "3982",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -215,17 +215,24 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#정의">정의</a></li>
-    <li><a href="#설명1">설명</a>
+    <li><a href="#강화학습">강화학습</a>
       <ul>
-        <li><a href="#상태">상태</a></li>
-        <li><a href="#행동">행동</a></li>
-        <li><a href="#정책">정책</a></li>
-        <li><a href="#보상">보상</a></li>
-        <li><a href="#환경">환경</a></li>
-        <li><a href="#에피소드">에피소드</a></li>
+        <li><a href="#정의">정의</a></li>
+        <li><a href="#설명1">설명</a></li>
+        <li><a href="#강화학습의-문제-격자-모델">강화학습의 문제: 격자 모델</a></li>
       </ul>
     </li>
+    <li><a href="#에이전트">에이전트</a></li>
+    <li><a href="#스테이트">스테이트</a></li>
+    <li><a href="#액션">액션</a></li>
+    <li><a href="#폴리시">폴리시</a></li>
+    <li><a href="#리워드">리워드</a></li>
+    <li><a href="#환경">환경</a></li>
+    <li><a href="#에피소드">에피소드</a></li>
+    <li><a href="#major-components-of-an-rl-agent">Major Components of an RL Agent</a></li>
+    <li><a href="#그-외">그 외</a></li>
+    <li><a href="#러닝과-플래닝">러닝과 플래닝</a></li>
+    <li><a href="#모험과-활용">모험과 활용</a></li>
   </ul>
 </nav>
     </div>
@@ -233,16 +240,17 @@
   </div>
 </aside>
 
-<h2 id="정의">정의</h2>
+<h2 id="강화학습">강화학습</h2>
+<h3 id="정의">정의</h3>
 <p>강화학습이란, <strong>에이전트</strong>가 <strong>환경</strong>과 상호작용하여 <strong>누적 보상</strong>을 최대화하는 <strong>정책</strong>을 찾을 수 있도록 하는 것이다.</p>
-<h2 id="설명1">설명<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<h3 id="설명1">설명<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h3>
 <p>강화학습을 이루고 있는 요소들은 다음과 같다.</p>
 <ul>
 <li><strong>에이전트<sup>agent</sup></strong>: 주어진 상태에 대해서, 정책에 따라 행동을 결정한다.</li>
-<li><strong>상태<sup>state</sup></strong>: 에이전트가 처한 상황을 말한다.</li>
-<li><strong>행동<sup>action</sup></strong>: 에이전트가 주어진 상태에서 취할 수 있는 선택지를 말한다.</li>
-<li><strong>정책<sup>policy</sup></strong>: 에이전트가 주어진 상태에서 행동을 결정하는 전략을 말한다.</li>
-<li><strong>보상<sup>reward</sup></strong>: 에이전트가 주어진 상태에서 선택한 행동에 따라서 받는 점수를 말한다.</li>
+<li><strong>스테이트<sup>state, 상태</sup></strong>: 에이전트가 처한 상황을 말한다.</li>
+<li><strong>액션<sup>action, 행동</sup></strong>: 에이전트가 주어진 상태에서 취할 수 있는 선택지를 말한다.</li>
+<li><strong>폴리시<sup>policy, 정책</sup></strong>: 에이전트가 주어진 상태에서 행동을 결정하는 전략을 말한다.</li>
+<li><strong>리워드<sup>reward, 보상</sup></strong>: 에이전트가 주어진 상태에서 선택한 행동에 따라서 받는 점수를 말한다. 에이전트가 달성해야할 목표라고 볼 수 있다.</li>
 <li><strong>환경<sup>environment</sup></strong>: 에이전트가 주어진 상태에서 어떠한 행동을 결정하면, MDP에 따라 다음 상태와 그에 따른 보상을 결정한다.</li>
 <li><strong>에피소드<sup>episode</sup></strong>: 에이전트와 환경의 상호작용이 시작된 때부터 끝날 때까지를 말한다.</li>
 </ul>
@@ -262,22 +270,22 @@
 <td style="text-align:center">바둑기사</td>
 </tr>
 <tr>
-<td style="text-align:center">상태</td>
+<td style="text-align:center">스테이트</td>
 <td style="text-align:center">시험까지남은날짜</td>
 <td style="text-align:center">바둑판</td>
 </tr>
 <tr>
-<td style="text-align:center">행동</td>
+<td style="text-align:center">액션</td>
 <td style="text-align:center">공부, 음주, 게임 등</td>
 <td style="text-align:center">수 놓기</td>
 </tr>
 <tr>
-<td style="text-align:center">정책</td>
-<td style="text-align:center">벼락치기 등 여러가지 공부법</td>
-<td style="text-align:center">상보다 집을 많이 만들기</td>
+<td style="text-align:center">폴리시</td>
+<td style="text-align:center">날짜별 공부 계획</td>
+<td style="text-align:center">전략</td>
 </tr>
 <tr>
-<td style="text-align:center">보상</td>
+<td style="text-align:center">리워드</td>
 <td style="text-align:center">시험점수</td>
 <td style="text-align:center">승패</td>
 </tr>
@@ -288,12 +296,25 @@
 </tr>
 </tbody>
 </table>
-<p>이제 다음의 격자 모델을 예시로 들어 각 요소들을 구체적으로 설명하겠다. 한 번에 상하좌우 네 방향 중 하나로 한 칸씩 움직일 수 있는 로봇이 아래와 같은 격자칸에 서있는 경우를 생각해보자. 시작칸은 $\boxed{2}$부터 $\boxed{15}$까지 임의로 정해지고, 로봇이 $\fcolorbox{black}{darkgray}{1}$ 혹은 $\fcolorbox{black}{darkgray}{16}$으로 이동하면 에피소드가 끝난다고 하자.</p>
+<h3 id="강화학습의-문제-격자-모델">강화학습의 문제: 격자 모델</h3>
+<p>강화학습을 설명하기 위한 대표적인 예시로 격자 모델<sup>grid world</sup>이 있다(영어로 말할 땐 보통 grid world라 하고, 한국어로 말할 땐 격자 모델이라는 표현을 많이 쓴다). 이제 다음의 격자 모델을 예시로 들어 각 요소들을 구체적으로 설명하겠다. 한 번에 상하좌우 네 방향 중 하나로 한 칸씩 움직일 수 있는 로봇이 아래와 같은 $4 \times 4$ 격자에서 움직이는 경우를 생각해보자. 시작칸은 $\boxed{\ 2\ }$부터 $\boxed{15}$까지 임의로 정해지고, 로봇이 $\fcolorbox{black}{darkgray}{\ 1\ }$ 혹은 $\fcolorbox{black}{darkgray}{16}$까지 최단거리로 가는 것이 목표라고 하자.</p>
+<h2 id="에이전트">에이전트</h2>
+<p>강화학습에서 에이전트란 학습을 하는 주체로 설명되지만, 실재하지는 않는다. 후술할 다른 개념들이 확률변수 등으로 정의되는 것과는 달리, 에이전트는 명확한 수학적인 정의가 없다. 따라서 강화학습에 대한 이론 공부는 에이전트라는 대상이 없이도 가능하고, 실제로도 그렇다. 강화학습 이론에서 본질적으로 에이전트를 의미하는 것은 정책이다. 다만 직관적으로는 학습을 하는 대상이 있다고 생각하는 것이 편하므로, &ldquo;에이전트가 행동한다&rdquo;, &ldquo;에이전트의 상태가 바뀌었다&rdquo; 등과 같이 표현한다. 에이전트는 단지 컴퓨터 시뮬레이션(특히 게임)에서 캐릭터와 같이 <strong>학습하는 것처럼 보이는 것</strong>일 뿐이다. 가령 격자 모델에서 에이전트가 아래의 오른쪽 그림과 같이 이동하는 것은 단순히 상태의 나열으로도 표현할 수 있다.
+$$
+\boxed{\ 3\ } \to \boxed{\ 2\ } \to \fcolorbox{black}{darkgray}{\ 1\ }
+$$
+$3, 2, 1$을 순서대로 <code>print</code>하기만 해도 된다. 강화학습의 끝에 결국 우리가 얻고자 하는 것은 본질적으로 정책이니까, 에이전트라는 것을 정의하지 않아도 학습할 수 있다. 한마디로 에이전트란 <b>정책의 시각화(실재화)</b>라고 할 수 있다.</p>
+<p>물론 위의 얘기는 이론과 컴퓨터 시뮬레이션에서 그렇다는거고, 자율주행과 같은 실제 응용에서는 정책에 따라 실제로 움직이는 드론이나 자동차가 필요하다. 이 때 드론, 자동차와 같은 로봇이나 기계들이 에이전트가 되고, 없으면 정책의 학습이 불가능하다.</p>
+<h2 id="스테이트">스테이트</h2>
+<p>$\boxed{\ 2\ }$</p>
+<p>$\boxed{15}$</p>
+<p>$\fcolorbox{black}{darkgray}{\ 1\ }$</p>
+<p>$\fcolorbox{black}{darkgray}{16}$</p>
 <p><img src="1.PNG#center" alt="1.PNG"></p>
-<h3 id="상태">상태</h3>
-<p><strong>상태</strong>는 <a href="../1433">확률변수</a>이며 state의 앞글자를 따서 $S$라고 표기한다. 에피소드는 시간에 따라 순차적으로 진행되기 때문에 인덱스로 $t$를 쓴다. 따라서 타임스텝이 $t$일 때의 상태함수를 $S_{t}$라고 표기한다. 처음 상태는 보통 $t=0$으로 나타낸다. 정리하면 $S_{t}$는 시간이 $t$일 때 각각의 격자들에 대해서 다음과 같이 함숫값을 주는 함수이다.</p>
+<p>수학적인 정의를 얘기하기 전에
+<strong>스테이트</strong>는 <a href="../1433">확률변수</a>이며 state의 앞글자를 따서 $S$라고 표기한다. 에피소드는 시간에 따라 순차적으로 진행되기 때문에 인덱스로 $t$를 쓴다. 따라서 타임스텝이 $t$일 때의 스테이트 함수를 $S_{t}$라고 표기한다. 처음 스테이트는 보통 $t=0$으로 나타낸다. 정리하면 $S_{t}$는 시간이 $t$일 때 각각의 격자들에 대해서 다음과 같이 함숫값을 주는 함수이다.</p>
 <p>$$
-S_{t} \left( \boxed{n} \right) = n,\quad 1\le n \le 16
+S_{t} \left( \boxed{ N } \right) = n,\quad 1\le n \le 16
 $$</p>
 <p>이때 가능한 모든 상태값(상태함수의 함숫값)들의 집합을 $\mathcal{S}\subset \mathbb{R}$라고 표기하고, 이의 원소를 $s$로 표기한다.</p>
 <p>$$
@@ -301,16 +322,20 @@ $$</p>
 $$</p>
 <p>그러면 위 격자모델에 대한 상태함수는 다음과 같다.</p>
 <p>$$
-S_{t} : \left\{ \fcolorbox{black}{darkgray}{1}, \boxed{2}, \dots, \boxed{15}, \fcolorbox{black}{darkgray}{16} \right\} \to \mathcal{S}
-\\ S_{t} \left( \boxed{n} \right) = s_{n} = n,\quad 1\le n \le 16
+S_{t} : \left\{ \fcolorbox{black}{darkgray}{\ 1\ } , \boxed{\ 2\ }, \dots, \boxed{15}, \fcolorbox{black}{darkgray}{16} \right\} \to \mathcal{S}
+\\ S_{t} \left( \boxed{\ n\ } \right) = s_{n} = n,\quad 1\le n \le 16
 $$</p>
 <p>그러면 시간이 $t$일 때 상태값이 $s_{6}$였다가 다음 타임스텝에서 상태값이 $s_{10}$으로 바뀔 <a href="../1431">확률</a>은 다음과 같다.</p>
 <p>$$
 P \left( S_{t+1} = s_{10} | S_{t} = s_{6}  \right)
 $$</p>
 <p>도달한 순간 에피소드가 끝나게 되는 상태를 <strong>터미널 스테이트</strong><sup>terminal state</sup>라고 한다. 위 격자 모델에서 터미널 스테이트는 $\fcolorbox{black}{darkgray}{1}, \fcolorbox{black}{darkgray}{16}$이다.</p>
-<h3 id="행동">행동</h3>
-<p><strong>행동</strong>이란 에이전트가 현재 상태에서 취할 수 있는 선택지를 말하며 이 또한 확률변수이다. action의 앞글자를 따와서 $A_{t}$로 표기한다. 위의 격자모델 예시에서는 $\boxed{2}$ ~ $\boxed{15}$에서 각각 상하좌우를 선택할 수 있다. 가능한 모든 행동값(행동함수의 함숫값)들의 집합을 $\mathcal{A}\subset \mathbb{R}$라고 표기하고, 이의 원소를 $a$라고 표기한다.</p>
+<p>$\fcolorbox{black}{darkgray}{\ 1\ }$</p>
+<p>$\fcolorbox{black}{darkgray}{16}$</p>
+<p>$\fcolorbox{black}{darkgray}{N}$</p>
+<p>$\boxed{N}$</p>
+<h2 id="액션">액션</h2>
+<p><strong>액션</strong>이란 에이전트가 현재 상태에서 취할 수 있는 선택지를 말하며 이 또한 확률변수이다. action의 앞글자를 따와서 $A_{t}$로 표기한다. 위의 격자모델 예시에서는 $\boxed{2}$ ~ $\boxed{15}$에서 각각 상하좌우를 선택할 수 있다. 가능한 모든 행동값(행동함수의 함숫값)들의 집합을 $\mathcal{A}\subset \mathbb{R}$라고 표기하고, 이의 원소를 $a$라고 표기한다.</p>
 <p>$$
 \mathcal{A} = \left\{ a_{1}, a_{2}, \dots \right\}
 $$</p>
@@ -328,8 +353,8 @@ $$</p>
 <p>$$
 P(A_{t} = a_{1} | S_{t} = s_{6})
 $$</p>
-<h3 id="정책">정책</h3>
-<p>정책은 상태 $s$에서 행동 $a$를 결정할 확률을 모든 $s$와 $a$에 대해서 명시한 것을 말하며 $\pi$로 표기한다. 격자모델 예시에서 행동을 결정할 확률이 $\dfrac{1}{4}$로 모두 같다고 하면 정책 $\pi$는 다음과 같다.</p>
+<h2 id="폴리시">폴리시</h2>
+<p>폴리시은 상태 $s$에서 행동 $a$를 결정할 확률을 모든 $s$와 $a$에 대해서 명시한 것을 말하며 $\pi$로 표기한다. 게임이나 전쟁으로 비유하자면 전략이다. 격자모델 예시에서 행동을 결정할 확률이 $\dfrac{1}{4}$로 모두 같다고 하면 정책 $\pi$는 다음과 같다.</p>
 <p>$$
 \pi
 \begin{cases}
@@ -346,7 +371,7 @@ $$</p>
 <p>물론 이는 최적화된 정책은 아니다. 간단히 $\boxed{2}$의 경우만 생각해봐도 위쪽으로 가면 격자 밖으로 벗어난 것이므로 위쪽으로 갈 확률 자체가 아예 없는 것이 더 나은 정책이다. 따라서 아래의 그림에서 $\pi_{1}$보다 $\pi_{2}$가 더 좋은 정책이라고 말할 수 있다.</p>
 <p><img src="2.PNG#center" alt="2.PNG"></p>
 <p>강화학습 알고리즘의 목표는 최적의 정책을 찾는 것이다. 그러면 최적의 정책은 어떻게 찾느냐 하는건데, 정책의 좋은 정도를 평가하는 <strong>가치함수</strong><sup>value function</sup>를 통해서 찾을 수 있다.</p>
-<h3 id="보상">보상</h3>
+<h2 id="리워드">리워드</h2>
 <p>보상이란 주어진 상태에서 에이전트가 선택한 행동에 따라 실수를 매핑하는 함수이며 reward의 앞글자를 따서 $R_{t}$라 표기한다. 모든 보상값(보상함수의 함숫값)들의 집합을 $\mathcal{R} \subset \mathbb{R}$이라 표기하며, 이의 원소를 $r$으로 표기한다.</p>
 <p>$$
 \mathcal{R} = \left\{ r_{1}, r_{2}, \dots \right\}
@@ -355,7 +380,7 @@ $$</p>
 <p>보상은 한 번의 타임스텝마다 한 번씩 받게 되며 한 번의 에피소드에서 받은 총 보상, 그러니까 누적된 보상이 가장 크게 끔 하는 정책을 찾는 것이 강화학습의 궁극적인 목표이다.</p>
 <p>그렇다면 왜 각각의 타임스텝에서의 보상보다 누적 보상이 커지도록 하는 것인지 궁금할 수 있다. 이는 시험공부로 비유하면 쉽게 이해가 갈 것이다. 시험기간동안 매일 저녁에 공부 대신 술 마시고 놀거나 게임을 하면 당장은 공부를 하는 것보다 더 즐거울 것이다. 하지만 누적보상, 그러니까 시험 성적은 개판일 것이다. 따라서 당장은 공부를 하는 것이 지치고 힘들지라도 미래의 큰 보상을 위해서 공부를 하는 것이 낫다고 판단하여 시험공부를 하는 것이다.</p>
 <p>보상은 사람이 정하는 하이퍼 파라매터이다. 따라서 에이전트가 수행해야할 일에 따라서 적절하게 정해야한다. 가령 격자모델 예시에서 격자가 미로이고 에이전트가 미로를 탈출하는 로봇이라면 한 칸을 이동할 때마다 $-1$의 보상, 터미널 스테이트에 도착하면 $+10$의 보상을 주는 식으로 정할 수 있다. 격자가 공원이고 에이전트가 애완동물을 산책시키는 로봇이라면 한 칸을 이동할 때 마다 $0$의 보상, 터미널 스테이트에 도착하면 $+10$의 보상을 주는 식으로 정할 수 있다.</p>
-<h3 id="환경">환경</h3>
+<h2 id="환경">환경</h2>
 <p><strong>환경</strong>은 에이전트가 주어진 상태에서 선택한 행동에 따라 다음 상태와 보상을 결정하는 함수, 즉 $f : (s,a) \mapsto (s&rsquo;,r)$이다. 따라서 항상 현실에 딱 들어맞는 비유를 찾기는 어렵다.</p>
 <p>타임스텝이 $t$일 때의 상태를 $s_{t}$, $s_{t}$에서 선택한 행동을 $a_{t}$라고 하자. 이에 따라 환경이 결정한 다음 상태를 $s_{t+1}$, 보상을 $r_{t+1}$라고 하면 다음과 같이 나타낸다.</p>
 <p>$$
@@ -367,7 +392,7 @@ f(s_{7}, a_{1}) = (s_{3}, -1)
 $$</p>
 <p>에이전트가 행동을 결정하는 전략을 <strong>정책</strong>이라고 부른다면, 환경이 다음 상태와 보상을 결정하는 것을 <strong>MDP</strong><sup>markov decision process, 마코프 결정 과정</sup>라 한다. 에이전트와 환경의 상호작용을 그림으로 나타내면 다음과 같다.</p>
 <p><img src="3.PNG#center" alt="3.PNG"></p>
-<h3 id="에피소드">에피소드</h3>
+<h2 id="에피소드">에피소드</h2>
 <p>에이전트와 환경이 상호작용하면서 결정된 상태, 행동, 보상의 수열을 <strong>경로</strong><sup>trajectory, 궤적</sup> 혹은 <strong>히스토리</strong><sup>history</sup> 이라고 한다. 경로가 유한한 경우를 <strong>episode task</strong>라고 한다. 위에서 예로든 시험기간, 바둑, 격자모델 모두 이에 해당한다.</p>
 <p>$$
 s_{0}, a_{0}, s_{1}, r_{1}, a_{1}, s_{2}, r_{2}, \dots, a_{T-1}, s_{T}, r_{T}
@@ -380,6 +405,31 @@ s_{0}, a_{0}, s_{1}, r_{1}, a_{1}, s_{2}, r_{2}, \dots, a_{t-1}, s_{t}, r_{t}, a
 \\ \text{or}
 \\ (s_{0},) \overset{a_{0}}{\to} (s_{1}, r_{1}) \overset{a_{1}}{\to} (s_{2}, r_{2}) \overset{a_{2}}{\to} \cdots \overset{a_{t-1}}{\to} (s_{t}, r_{t}) \overset{a_{t}}{\to} (s_{t+1}, r_{t+1}) \overset{a_{t+1}}{\to} \cdots
 $$</p>
+<p>$$
+P(X_{n})
+$$</p>
+<h2 id="major-components-of-an-rl-agent">Major Components of an RL Agent</h2>
+<ul>
+<li>Policy: 강화학습의 궁극적인 목표. 최적의 policy를 찾는 것이 강화학습에서 하는 일이다.
+<ul>
+<li>notaiton $\pi$</li>
+<li>결정적 정책 $a = \pi(s)$: 최적의 정책은 이렇게 생김</li>
+<li>확률적 정책 $\pi(a | s) = P(A_{t} = a | S_{t} = s)$: 실제 강화학습에서 사용하는 모델</li>
+</ul>
+</li>
+<li>Value function: 최적의 policy라는 것은, Value function을 최대화하는 폴리시를 말하는 것. &ldquo;장기적인 관점에서&rdquo; 어떻게 하는게 좋은가?
+<ul>
+<li>강화학습에서의 cost function</li>
+<li>$v_{\pi}(s) = E_{\pi}(R_{t+1} + \gamma R_{t+2} + \gamma^{2} R_{t+3} + \cdots | S_{t} = s)$ $s$마다 취할 수 있는 $a$가 랜덤이기 때문에 expectation으로 나타난다. deterministic이면 $E$가 필요없다.</li>
+<li></li>
+</ul>
+</li>
+</ul>
+<h2 id="그-외">그 외</h2>
+<p>가치 함수</p>
+<h2 id="러닝과-플래닝">러닝과 플래닝</h2>
+<h2 id="모험과-활용">모험과 활용</h2>
+<p>exploration vs exploitation</p>
 <div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -393,7 +443,7 @@ $$</p>
 <aside style="text-align: right;">
     2021-02-04&emsp;
     전기현&emsp;
-    <a href="../1631">🎲 3029</a>
+    <a href="../2156">🎲 3029</a>
 </aside>
 
 <script>

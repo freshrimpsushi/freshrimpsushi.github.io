@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/seminar\/",
-    "wordCount" : "2456",
+    "wordCount" : "139",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -213,16 +213,6 @@
     <li><a href="#google-drivehttpsdrivegooglecomdrivefolders18_uiq6uk_wqabzg6tkzjhlwz7nqvo8eq"><a href="https://drive.google.com/drive/folders/18_UiQ6UK_WQABZg6tKZJHlWZ7NqVo8eq">Google Drive</a></a></li>
     <li><a href="#원드라이브">원드라이브</a></li>
   </ul>
-
-  <ul>
-    <li><a href="#빌드업">빌드업</a></li>
-    <li><a href="#소개">소개</a>
-      <ul>
-        <li><a href="#예시">예시</a></li>
-        <li><a href="#한국-주요-좌표계">한국 주요 좌표계</a></li>
-      </ul>
-    </li>
-  </ul>
 </nav>
     </div>
     
@@ -236,6 +226,7 @@
 <iframe src="https://onedrive.live.com/embed?cid=65E5BA34F41E25E0&resid=65E5BA34F41E25E0%2124470&authkey=AHwIpnZ0BPkIO3g" width="165" height="128" frameborder="0" scrolling="no"></iframe> <iframe src="https://onedrive.live.com/embed?cid=65E5BA34F41E25E0&resid=65E5BA34F41E25E0%21533589&authkey=ACzYTsb9AS5OT6Y" width="165" height="128" frameborder="0" scrolling="no"></iframe>
 <hr>
 <p>줄리아 StatsPlot @df</p>
+<p><a href="https://github.com/JuliaPlots/StatsPlots.jl">https://github.com/JuliaPlots/StatsPlots.jl</a></p>
 <hr>
 <p>줄리아 마커 목록</p>
 <hr>
@@ -253,206 +244,12 @@ NaN
 
 julia&gt; 1/0
 Inf
-</code></pre><hr>
-<h1 id="지구통계학에서의-proj-소개">지구통계학에서의 PROJ 소개</h1>
-<p>Introduction to PROJ in Geostatistics</p>
-<h2 id="빌드업">빌드업</h2>
-<p>지구는 둥글며, 더 자세하게는 <a href="../1471">타원구</a>로 보고 있다. 지구를 단순히 축소시켜놓은 &lsquo;지구본&rsquo;은 정확한 모형일 뿐 쓰임새가 그다지 많지 못한데, 아무래도 인류는 아직 평면에 놓인 그림이 편하다. 이에 따라 다양한 <a href="../1404">좌표계</a>가 고안되었는데, 그 종류가 좀&hellip; 심하게 다양하다.</p>
-<p><img src="proj.jpg#center" alt="proj.jpg"> <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
-<p>예를 들어 우리가 흔히 보는 세계지도는 면적이 왜곡되는 대신 <strong>경도</strong><sup>Longitude</sup>와 <strong>위도</strong><sup>Latitude</sup>가 정확한 <strong>머케이터 프로젝션</strong><sup>Mercator Projection</sup>을 사용하고 있고,<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> 다른 여러 방식이 나름의 장점과 이유를 가지고 고안되었다.</p>
-<p><img src="2023-01-27-17-23-09.png#center" alt=""></p>
-<p>이러한 프로젝션들이 &lsquo;곡면을 평면 속에 가두는 일&rsquo;인 이상 어떤 부분에선, 어느 정도는 왜곡과 손실이 있을 수밖에 없다. 혹은 정확하지만 도저히 쓸 수 없을 정도로 복잡할 수도 있고, 전세계적으로는 잘 맞는 편이지만 아주 작은 특정 지역에선 그 정교함이 무뎌지는 상황도 상정할 수 있다.</p>
-<p>이는 지구만의 문제도 아니고, 우리가 행성<sup>Planet</sup>이라 부를 수 있는 천체에 관심을 가지는 이상 어떻게 하나로 통일하고 표준화 시킬 수가 없는 문제다. 대세와 주류는 있겠지만, 결국 다양한 좌표계가 난립하게 된다. 이제 관건은 그 좌표계들 사이를 어떻게 왔다갔다 하는 것이냐다.</p>
-<h2 id="소개">소개</h2>
-<p align="center">
-<a href=https://proj.org/index.html>공식 다큐멘테이션 링크</a>
-</p>
-<p><strong>PROJ</strong>는 어떤 <strong>CRS</strong><sup>Coordinate Reference System</sup>에서 다른 CRS로 바꿔주는 작업을 수행하며 <a href="../2492">공간통계학</a>을 한다면 모르기가 어려운, 못해도 한 번은 접할 수 밖에 없는 지리공간 좌표변환 소프트웨어다. 그 구현이나 래핑<sup>Wrapping</sup> 자체는 프로그래밍 언어나 워크프레임에 상관 없이 쉽게 찾아볼 수 있다:</p>
-<ul>
-<li><a href="../../categories/r">R</a>에서의 <a href="https://cran.r-project.org/web/packages/PROJ/index.html">PROJ</a> 패키지</li>
-<li><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서의 <a href="https://github.com/JuliaGeo/Proj.jl">Proj.jl</a> 패키지</li>
-</ul>
-<h3 id="예시">예시</h3>
-<p>PROJ를 구체적으로 어떻게 쓰는지는 그 구현마다 달라서 하나하나 설명하는 의미도 없고 애초에 가능하지도 않다. 언어에 괘념치 말고 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서는 어떻게 쓰이는지 살펴보자.</p>
-<pre tabindex="0"><code>using Proj
-
-trans = Proj.Transformation(&#34;EPSG:4326&#34;, &#34;+proj=utm +zone=32 +datum=WGS84&#34;)
-trans(55, 12)
-# -&gt; (691875.632137542, 6.098907825129169e6)
-</code></pre><p>줄리아에서는 <code>Proj.Transformation</code> 함수를 통해</p>
-<ul>
-<li>EPSG:4326 좌표계의 좌표를</li>
-<li>UTM 도법을 사용하고, zone 32에 datum이 WGS84인 좌표계의 좌표로</li>
-<li>매핑해주는 변환(함수 자체)을 리턴해서</li>
-<li>EPSG:4326의 좌표 (55, 12)를 넣으니 (691875.632137542, 6.098907825129169e6)로 변환된 결과를 얻었다.</li>
-</ul>
-<p>여기서 +proj나 +zone, +datum이 실제로 무엇을 의미하는지는 공식 다큐멘테이션에서 찾으며 알아가야한다. 이러한 좌표계의 정의는 문자열을 통해 이루어지며, 지리통계학이라는 분야에서 통용되는 고유의 문법으로 보아야한다.</p>
-<h3 id="한국-주요-좌표계">한국 주요 좌표계</h3>
-<p><a href="https://www.osgeo.kr/17">OSGeo 한국어지부 공식사이트</a>에서 주요 좌표계 목록을 확인할 수 있다.</p>
-<details>
-    <summary>23년 01월 27일 아카이브</summary>
-<h4 id="전지구-좌표계">전지구 좌표계</h4>
-<p>전세계를 한번에 나타내야 할 때 많이 쓰이는 좌표계들입니다.</p>
-<ul>
-<li>WGS84 경위도: GPS가 사용하는 좌표계</li>
-</ul>
-<pre tabindex="0"><code>EPSG:4326, EPSG:4166 (Korean 1995)
-+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs 
-</code></pre><ul>
-<li>Bessel 1841 경위도: 한국과 일본에 잘 맞는 지역타원체를 사용한 좌표계</li>
-</ul>
-<pre tabindex="0"><code>EPSG:4004, EPSG:4162 (Korean 1985)
-+proj=longlat +ellps=bessel +no_defs +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43
-</code></pre><ul>
-<li>GRS80 경위도: WGS84와 거의 유사</li>
-</ul>
-<pre tabindex="0"><code>EPSG:4019, EPSG:4737 (Korean 2000)
-+proj=longlat +ellps=GRS80 +no_defs
-</code></pre><ul>
-<li>Google Mercator: 구글지도/빙지도/야후지도/OSM 등 에서 사용중인 좌표계</li>
-</ul>
-<pre tabindex="0"><code>EPSG:3857(공식), EPSG:900913(통칭)
-+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs
-</code></pre><h4 id="utm">UTM</h4>
-<p>전세계를 6도 단위로 나누는 표준적인 TM으로 군사지도에서 많이 사용합니다.</p>
-<ul>
-<li>UTM52N (WGS84): 경도 120~126도 사이에서 사용</li>
-</ul>
-<pre tabindex="0"><code>EPSG:32652
-+proj=utm +zone=52 +ellps=WGS84 +datum=WGS84 +units=m +no_defs 
-</code></pre><ul>
-<li>UTM51N (WGS84): 경도 126~132도 사이에서 사용</li>
-</ul>
-<pre tabindex="0"><code>EPSG:32651
-+proj=utm +zone=51 +ellps=WGS84 +datum=WGS84 +units=m +no_defs 
-</code></pre><h4 id="보정안된-오래된-지리원-표준">보정안된 오래된 지리원 표준</h4>
-<p>이 좌표계들은 EPSG에 등록되어 있지만, lon_0값의 문제로 실제로는 거의 사용되지 않습니다. <strong>오래된 지리원 표준</strong>이 현업에서 실제 사용된 좌표계입니다</p>
-<ul>
-<li>동부원점(Bessel): 강원도 등 동부지역</li>
-</ul>
-<pre tabindex="0"><code>EPSG:2096
-+projtmerc +lat_0=38 +lon_0=129 +k=1 +x_0=200000 +y_0=500000 +ellps=bessel +units=m +no_defs +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43
-</code></pre><ul>
-<li>중부원점(Bessel): 서울 등 중부지역</li>
-</ul>
-<pre tabindex="0"><code>EPSG:2097
-+proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=500000 +ellps=bessel +units=m +no_defs +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43
-</code></pre><ul>
-<li>서부원점(Bessel): 서해5도 등 서부지역</li>
-</ul>
-<pre tabindex="0"><code>EPSG:2098
-+proj=tmerc +lat_0=38 +lon_0=125 +k=1 +x_0=200000 +y_0=500000 +ellps=bessel +units=m +no_defs +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43
-</code></pre><h4 id="오래된-지리원-표준">오래된 지리원 표준</h4>
-<p>2002년 이전에 지리원의 지형도와 KLIS 등 국가 시스템에서 사용되었던 좌표계입니다.</p>
-<ul>
-<li>보정된 서부원점(Bessel) - KLIS에서 서부지역에 사용중</li>
-</ul>
-<pre tabindex="0"><code>EPSG:5173
-+projtmerc +lat_0=38 +lon_0=125.0028902777778 +k=1 +x_0=200000 +y_0=500000 +ellps=bessel +units=m +no_defs +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43
-</code></pre><ul>
-<li>보정된 중부원점(Bessel): KLIS에서 중부지역에 사용중</li>
-</ul>
-<pre tabindex="0"><code>EPSG:5174
-+proj=tmerc +lat_0=38 +lon_0=127.0028902777778 +k=1 +x_0=200000 +y_0=500000 +ellps=bessel +units=m +no_defs +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43
-</code></pre><ul>
-<li>보정된 제주원점(Bessel): KLIS에서 제주지역에 사용중</li>
-</ul>
-<pre tabindex="0"><code>EPSG:5175
-+proj=tmerc +lat_0=38 +lon_0=127.0028902777778 +k=1 +x_0=200000 +y_0=550000 +ellps=bessel +units=m +no_defs  +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43
-</code></pre><ul>
-<li>보정된 동부원점(Bessel): KLIS에서 동부지역에 사용중</li>
-</ul>
-<pre tabindex="0"><code>EPSG:5176
-+proj=tmerc +lat_0=38 +lon_0=129.0028902777778 +k=1 +x_0=200000 +y_0=500000 +ellps=bessel +units=m +no_defs +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43
-</code></pre><ul>
-<li>보정된 동해(울릉)원점(Bessel): KLIS에서 울릉지역에 사용중</li>
-</ul>
-<pre tabindex="0"><code>EPSG:5177
-+proj=tmerc +lat_0=38 +lon_0=131.0028902777778 +k=1 +x_0=200000 +y_0=500000 +ellps=bessel +units=m +no_defs  +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43
-</code></pre><h4 id="katec-계열">KATEC 계열</h4>
-<p>한반도 전체를 하나의 좌표계로 나타낼 때 많이 사용하는 좌표계입니다.</p>
-<ul>
-<li>UTM-K (Bessel): 새주소지도에서 사용 중</li>
-</ul>
-<pre tabindex="0"><code>EPSG:5178
-+proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=bessel +units=m +no_defs +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43
-</code></pre><ul>
-<li>UTM-K (GRS80): 네이버지도에서 사용중인 좌표계</li>
-</ul>
-<pre tabindex="0"><code>EPSG:5179
-+proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=GRS80 +units=m +no_defs 
-</code></pre><p>// 2014년 1월 21일 신상희 추가</p>
-<ul>
-<li>네비게이션용 KATEC 좌표계(KOTI-KATEC)</li>
-</ul>
-<pre tabindex="0"><code>EPSG 없음. 비공식 좌표계임. 
-+proj=tmerc +lat_0=38 +lon_0=128 +k=0.9999 +x_0=400000 +y_0=600000 +ellps=bessel +units=m +no_defs +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43
-</code></pre><h4 id="타원체-바꾼-지리원-표준">타원체 바꾼 지리원 표준</h4>
-<p>과거 지리원 좌표계에서 타원체와 lon_0 문제를 수정한 좌표계로 2000년대 초반에 잠시 많이 사용되었습니다.</p>
-<ul>
-<li>서부원점(GRS80)-falseY:50000</li>
-</ul>
-<pre tabindex="0"><code>EPSG:5180
-+projtmerc +lat_0=38 +lon_0=125 +k=1 +x_0=200000 +y_0=500000 +ellps=GRS80 +units=m +no_defs
-</code></pre><ul>
-<li>중부원점(GRS80)-falseY:50000: 다음지도에서 사용중인 좌표계</li>
-</ul>
-<pre tabindex="0"><code>EPSG:5181
-+proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=500000 +ellps=GRS80 +units=m +no_defs
-</code></pre><ul>
-<li>제주원점(GRS80)-falseY:55000</li>
-</ul>
-<pre tabindex="0"><code>EPSG:5182
-+proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=550000 +ellps=GRS80 +units=m +no_defs
-</code></pre><ul>
-<li>동부원점(GRS80)-falseY:50000</li>
-</ul>
-<pre tabindex="0"><code>EPSG:5183
-+proj=tmerc +lat_0=38 +lon_0=129 +k=1 +x_0=200000 +y_0=500000 +ellps=GRS80 +units=m +no_defs
-</code></pre><ul>
-<li>동해(울릉)원점(GRS80)-falseY:50000</li>
-</ul>
-<pre tabindex="0"><code>EPSG:5184
-+proj=tmerc +lat_0=38 +lon_0=131 +k=1 +x_0=200000 +y_0=500000 +ellps=GRS80 +units=m +no_defs
-</code></pre><h4 id="현재-국토지리정보원-표준">현재 국토지리정보원 표준</h4>
-<p>2002년 이후에 국토지리정보원 지형도에서 사용중인 좌표계입니다.</p>
-<ul>
-<li>서부원점(GRS80)-falseY:60000</li>
-</ul>
-<pre tabindex="0"><code>EPSG:5185
-+proj=tmerc +lat_0=38 +lon_0=125 +k=1 +x_0=200000 +y_0=600000 +ellps=GRS80 +units=m +no_defs
-</code></pre><ul>
-<li>중부원점(GRS80)-falseY:60000</li>
-</ul>
-<pre tabindex="0"><code>EPSG:5186
-+proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=600000 +ellps=GRS80 +units=m +no_defs
-</code></pre><ul>
-<li>동부원점(GRS80)-falseY:60000</li>
-</ul>
-<pre tabindex="0"><code>EPSG:5187
-+proj=tmerc +lat_0=38 +lon_0=129 +k=1 +x_0=200000 +y_0=600000 +ellps=GRS80 +units=m +no_defs
-</code></pre><ul>
-<li>동해(울릉)원점(GRS80)-falseY:60000</li>
-</ul>
-<pre tabindex="0"><code>EPSG:5188
-+proj=tmerc +lat_0=38 +lon_0=131 +k=1 +x_0=200000 +y_0=600000 +ellps=GRS80 +units=m +no_defs
-</code></pre></details><div class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1">
-<p>흥미롭게도 이 근사한 짤은 지구 평평론자가 만들었다: <a href="https://flatearth.ws/map-projection">https://flatearth.ws/map-projection</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-<li id="fn:2">
-<p><a href="https://www.britannica.com/science/Mercator-projection">https://www.britannica.com/science/Mercator-projection</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-</ol>
-</div>
-
+</code></pre>
 
 <aside style="text-align: right;">
     2021-01-01&emsp;
     류대식&emsp;
-    <a href="../1343">🎲 2000</a>
+    <a href="../753">🎲 2000</a>
 </aside>
 
 <script>

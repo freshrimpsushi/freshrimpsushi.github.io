@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/find-functions-in-julia\/",
-    "wordCount" : "501",
+    "wordCount" : "635",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -258,7 +258,18 @@ julia&gt; argmin(x)
 
 julia&gt; argmax(x)
 7
-</code></pre><p><code>argmin()</code>,<code>argmax()</code> 는 그냥 정확히 <a href="../1463">최적해</a>, 즉 값이 가장 크고 작은 곳의 인덱스를 리턴한다.</p>
+
+y = [7, 8, 9, 9, 7, 9]
+
+julia&gt; argmax(y)
+3
+
+julia&gt; findall(y.==maximum(y))
+3-element Vector{Int64}:
+ 3
+ 4
+ 6
+</code></pre><p><code>argmin()</code>,<code>argmax()</code> 는 그냥 정확히 <a href="../1463">최적해</a>, 즉 값이 가장 크고 작은 곳의 인덱스를 리턴한다. 그러한 인덱스가 여러개라면 가장 작은 것을 리턴한다. 그러니까 사실은 <code>argmax(x)</code> $= \min(\argmax(x))$이다. 진짜 $\argmax$는 <code>maximum()</code>과 아래의 <a href="find-functions-in-julia/#%EC%A1%B0%EA%B1%B4%EC%9D%84-%EB%A7%8C%EC%A1%B1%ED%95%9C-%EB%AA%A8%EB%93%A0-%EC%9D%B8%EB%8D%B1%EC%8A%A4-findall"><code>findall()</code></a>함수와 같이 사용하면 된다.</p>
 <pre tabindex="0"><code>x = [3, 7, 4, 5, 10, 3, 12, 3, 2, 4]
 
 julia&gt; findmin(x)
@@ -289,7 +300,7 @@ julia&gt; findall(x .== 3)
  1
  6
  8
-</code></pre><p>막 쓰기 가장 편하고, 일반적인 프로그래밍에서 가장 쓸모있는 함수다.</p>
+</code></pre><p>막 쓰기 가장 편하고, 일반적인 프로그래밍에서 가장 쓸모있는 함수다. <code>maximum()</code>, <code>minimum()</code>과 같이 쓰면 모든 $\text{argmin}</p>
 <h3 id="조건을-만족한-특정-범위의-인덱스-findnext-findprev">조건을 만족한 특정 범위의 인덱스 <code>findnext()</code>, <code>findprev()</code></h3>
 <pre tabindex="0"><code>julia&gt; findnext(x .== 3, 5)
 6
@@ -315,7 +326,7 @@ julia&gt; findprev(x .== 3, 5)
 <aside style="text-align: right;">
     1923-05-24&emsp;
     류대식&emsp;
-    <a href="../1495">🎲 2390</a>
+    <a href="../2096">🎲 2390</a>
 </aside>
 
 <script>

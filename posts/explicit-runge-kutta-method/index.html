@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/explicit-runge-kutta-method\/",
-    "wordCount" : "1194",
+    "wordCount" : "1202",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -230,17 +230,21 @@
 <h2 id="개요">개요</h2>
 <p>상미분 방정식 솔버<sup>ODE solver</sup>인 룽게-쿠타 메소드를 소개한다. 흔히 사용되는 <a href="../796">4차 룽게-쿠타 메소드</a>인 RK4에 대한 구체적인 설명은 글이 따로 발행되어있다.</p>
 <h2 id="빌드업1">빌드업<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p>다음과 같이 주어진 상미분 방정식을 생각하자. $y$는 $t$에 대한 함수이며, $^{\prime}$은 $t$에 대한 미분을 의미한다.</p>
-<p>$$
+<p>다음과 같이 주어진 상미분 방정식을 생각하자. $y$는 $t$에 대한 함수이며, $^{\prime}$은 $t$에 대한 미분을 의미한다.
+$$
 y^{\prime} = f(t,y),\quad t \ge t_{0},\quad y(t_{0}) = y_{0}
-$$</p>
-<p>이를 $t_{n}$부터 $t_{n+1} = t_{n} + h$까지 적분하면(헷갈리므로 적분 변수는 $t$ 대신 $\tau$로 두자),</p>
-<p>$$
+$$
+이를 $t_{n}$부터 $t_{n+1} = t_{n} + h$까지 적분하면(헷갈리므로 적분 변수는 $t$ 대신 $\tau$로 두자),
+$$
 \int_{t_{n}}^{t_{n+1}}y^{\prime}d\tau = \int_{t_{n}}^{t_{n+1}} f(\tau,y)d\tau
-$$</p>
-<p>좌변을 정리하고 $\tau \equiv t_{n} + h\tau$로 치환하면 다음의 식을 얻는다.</p>
-<p>$$
-y(t_{n+1}) = y(t_{n}) + \int_{t_{n}}^{t_{n+1}} f(\tau,y)d\tau =  y(t_{n}) + h\int_{0}^{1} f(t_{n} + h\tau,y(t_{n} + h\tau))d\tau
+$$
+좌변을 정리하고 $\tau \equiv t_{n} + h\tau$로 치환하면 다음의 식을 얻는다.
+$$
+\big[y(\tau)\big]_{t_{n}}^{t_{n+1}} = \int_{t_{n}}^{t_{n+1}} f(\tau,y)d\tau
+$$
+$$
+\Downarrow \\
+y(t_{n+1}) = y(t_{n}) + \int_{t_{n}}^{t_{n+1}} f(\tau,y)d\tau =  y(t_{n}) + h\int_{0}^{1} f\big(t_{n} + h\tau,y(t_{n} + h\tau)\big)d\tau
 $$</p>
 <p>이제 뒤의 적분을 합으로 근사하여 다음의 식을 얻는다.</p>
 <p>$$
@@ -322,7 +326,7 @@ $$</p>
 <aside style="text-align: right;">
     2022-10-29&emsp;
     전기현&emsp;
-    <a href="../523">🎲 3317</a>
+    <a href="../610">🎲 3317</a>
 </aside>
 
 <script>
