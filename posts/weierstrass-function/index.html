@@ -234,7 +234,7 @@
 <li>
 <p><strong>Part 1. $F$ 의 연속성</strong></p>
 <p>$$
-f_{0} (x) := \begin{cases} x &amp;, 0 \le x &lt; {{ 1 } \over { 2 }}
+f_{0} (x) := \begin{cases} x &amp;, 0 \le x &lt; {{ 1 } \over { 2 }} 
 \\ 1 - x &amp;, {{1} \over {2}} \le x &lt; 1 \end{cases}
 $$</p>
 <p>$$
@@ -245,7 +245,7 @@ $$</p>
 f_{k} (x) := {{ f_{0} ( 2_{k} x ) } \over { 2^{k} }}
 $$</p>
 <p>$$
-F (x) := \sum_{k=0}^{\infty} f_{k} (x)
+F (x) := \sum_{k=0}^{\infty} f_{k} (x) 
 $$</p>
 <p><img src="20190701_145128.png#center" alt="20190701\_145128.png"></p>
 <p>$f_{k}$ 는 위 그림과 같이 $\mathbb{R}$ 에서 연속이다.</p>
@@ -301,18 +301,18 @@ F ' (x_{0}) = \lim_{n \to \infty} {{ F ( \beta_{n} ) - F ( \alpha_{n} ) } \over 
 $$</p>
 <p>한편 $k \ge n$ 에 대해 $f_{k} ( \alpha_{n} ) = f_{k} ( \beta_{n} ) = 0$ 이므로</p>
 <p>$$
-F ( \alpha_{n} ) = \sum_{k=0}^{\infty} f_{k} ( \alpha_{n} ) = \sum_{k=0}^{n-1} f_{k} ( \alpha_{n} )
+F ( \alpha_{n} ) = \sum_{k=0}^{\infty} f_{k} ( \alpha_{n} ) = \sum_{k=0}^{n-1} f_{k} ( \alpha_{n} ) 
 $$</p>
 <p>$$
-F ( \beta_{n} ) = \sum_{k=0}^{\infty} f_{k} ( \beta_{n} ) = \sum_{k=0}^{n-1} f_{k} ( \beta_{n} )
+F ( \beta_{n} ) = \sum_{k=0}^{\infty} f_{k} ( \beta_{n} ) = \sum_{k=0}^{n-1} f_{k} ( \beta_{n} ) 
 $$</p>
 <p>과 같이 $F$ 를 유한급수로 나타낼 수 있다. 그러면</p>
 <p>$$
 \begin{align*}
-\sum_{k=0}^{\infty} c_{k} =&amp; \lim_{n \to \infty} \sum_{k=0}^{n-1} c_{k}
-\\ =&amp; \lim_{n \to \infty} {{ \sum_{k=0}^{n-1} f_{k} ( \beta_{n} ) - \sum_{k=0}^{n-1} f_{k} ( \alpha_{n} ) } \over { \beta_{n} - \alpha_{n} }}
-\\ =&amp; \lim_{n \to \infty} {{ F ( \beta_{n} ) - F ( \alpha_{n} ) } \over { \beta_{n} - \alpha_{n} }}
-\\ =&amp; F ' ( x_{0} )
+\sum_{k=0}^{\infty} c_{k} =&amp; \lim_{n \to \infty} \sum_{k=0}^{n-1} c_{k} 
+\\ =&amp; \lim_{n \to \infty} {{ \sum_{k=0}^{n-1} f_{k} ( \beta_{n} ) - \sum_{k=0}^{n-1} f_{k} ( \alpha_{n} ) } \over { \beta_{n} - \alpha_{n} }} 
+\\ =&amp; \lim_{n \to \infty} {{ F ( \beta_{n} ) - F ( \alpha_{n} ) } \over { \beta_{n} - \alpha_{n} }} 
+\\ =&amp; F ' ( x_{0} ) 
 \end{align*}
 $$</p>
 </li>
@@ -326,7 +326,7 @@ $$</p>
 <aside style="text-align: right;">
     2019-07-16&emsp;
     류대식&emsp;
-    <a href="../2079">🎲 1169</a>
+    <a href="../2166">🎲 1169</a>
 </aside>
 
 <script>
@@ -843,6 +843,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -971,11 +972,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1161,7 +1163,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1172,12 +1174,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

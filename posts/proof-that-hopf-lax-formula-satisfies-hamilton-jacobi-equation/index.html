@@ -251,7 +251,7 @@ $$</p>
 <p>$$
 \begin{align*}
 u(x+hv, t+h) &amp;= \min \limits_{y \in \mathbb{R}^n} \left\{ hL\left( \dfrac{x+hv-y}{h} \right) +u(y, t) \right\}
-\\  &amp; \le  hL(v)+u(x, t)
+\\  &amp; \le  hL(v)+u(x, t) 
 \end{align*}
 $$</p>
 <p>보조정리의 공식에서 $t$ 대신 $t+h$를, $s$ 대신 $t$를 대입한 것이다. 부등식이 성립하는 이유는 모든 $y \in \mathbb{R}^n$에 대해서 최솟값이므로 $y$자리에 임의의 $x$를 대입하면 당연히 그 값은 같거나 크기 때문이다. 우변의 $u$를 이항하고 $h$로 나누면 다음을 얻는다.</p>
@@ -294,8 +294,8 @@ $$</p>
 <p>그러면</p>
 <p>$$
 \begin{align*}
-u(x, t)-u(y, s) &amp; \ge  tL\left( \dfrac{x-z}{t} \right) +g(z) -\left[ sL\left(\frac{y-z}{s}\right) + g(z) \right]
-\\  &amp;= (t-s)L\left( \dfrac{x-z}{t} \right)
+u(x, t)-u(y, s) &amp; \ge  tL\left( \dfrac{x-z}{t} \right) +g(z) -\left[ sL\left(\frac{y-z}{s}\right) + g(z) \right] 
+\\  &amp;= (t-s)L\left( \dfrac{x-z}{t} \right) 
 \end{align*}
 $$</p>
 <p>첫째줄은 $\eqref{eq2}$와 호프-락스 공식에 의해서 성립하고, 둘째줄은 $\eqref{eq3}$에 의해서 성립한다. 이때 $s=t-h$이므로 다음이 성립한다.</p>
@@ -305,13 +305,13 @@ $$</p>
 <p>따라서 위의 부등식은 아래와 같다.</p>
 <p>$$
 \begin{align*}
-u(x, t)-u(y, s) &amp;= u(x, t)-u\bigg( \left( 1-\dfrac{h}{t}\right )x + \dfrac{h}{t}z, t-h \bigg)
-\\  &amp; \ge &amp; hL\left(\dfrac{x-z}{t}\right) =(t-s)L\left( \dfrac{x-z}{t} \right)
+u(x, t)-u(y, s) &amp;= u(x, t)-u\bigg( \left( 1-\dfrac{h}{t}\right )x + \dfrac{h}{t}z, t-h \bigg) 
+\\  &amp; \ge &amp; hL\left(\dfrac{x-z}{t}\right) =(t-s)L\left( \dfrac{x-z}{t} \right) 
 \end{align*}
 $$</p>
 <p>양 변을 $h$로 나누고, 좌변의 분자, 분모에 $-1$을 곱한 뒤 미분을 위한 꼴로 정리하면 다음과 같다.</p>
 <p>$$
-\dfrac{ u\left( (x, t)-h\left( \dfrac{x-z}{t}, 1 \right) \right) - u(x, t)  }{-h} \ge L\left(\dfrac{x-z}{t}\right)
+\dfrac{ u\left( (x, t)-h\left( \dfrac{x-z}{t}, 1 \right) \right) - u(x, t)  }{-h} \ge L\left(\dfrac{x-z}{t}\right) 
 $$</p>
 <p>위의 부등식에 $h \rightarrow 0^+$ 극한을 취하면 아래와 같다.</p>
 <p>$$
@@ -349,7 +349,7 @@ $$</p>
 <aside style="text-align: right;">
     2019-07-12&emsp;
     전기현&emsp;
-    <a href="../1040">🎲 1178</a>
+    <a href="../1545">🎲 1178</a>
 </aside>
 
 <script>
@@ -866,6 +866,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -994,11 +995,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1184,7 +1186,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1195,12 +1197,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

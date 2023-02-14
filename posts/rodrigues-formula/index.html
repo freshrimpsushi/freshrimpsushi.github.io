@@ -270,7 +270,7 @@ $$
 P_l(x) &amp;= \dfrac{d^l}{dx^l} \left[ (x-1)^l (x+1)^l \right]
 \\   &amp;= \sum\limits_{k=0}^l {}_{l}\mathrm{C}_k \dfrac{d^{l-k}}{dx^{l-k}}(x-1)^l \dfrac{d^k}{dx^k}(x+1)^l
 \\  &amp;= {}_{l}\mathrm{C}_0 l! (x+1)^l + {}_{l}\mathrm{C}_1 l!(x-1) l(x+1)^{l-1}+{}_{l}\mathrm{C}_2\dfrac{l!}{2}(x-1)^2l(l-1)(x+1)^{l-2}+\cdots
-\end{align*}
+\end{align*} 
 $$
 2번째 항부터는 인수로 $(x-1)$을 포함하기 때문에 $x=1$일 때 $0$이다. $P_l(1)=l! 2^l$이고 이 값이 $1$이 되기 위해선 $\dfrac{1}{2^l l!}$만큼 나눠주면 된다. 따라서 최종적으로 구한 로드리게스 공식은
 $$
@@ -281,7 +281,7 @@ $$</p>
 <aside style="text-align: right;">
     2019-02-13&emsp;
     전기현&emsp;
-    <a href="../772">🎲 895</a>
+    <a href="../1371">🎲 895</a>
 </aside>
 
 <script>
@@ -798,6 +798,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -926,11 +927,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1116,7 +1118,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1127,12 +1129,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

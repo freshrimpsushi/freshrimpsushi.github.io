@@ -461,7 +461,7 @@ $$</p>
 <p>우변의 편미분을 연쇄법칙으로 풀어내면 다음과 같다.</p>
 <p>$$
 \begin{align*}
-&amp;\quad \delta_{j}^{l}
+&amp;\quad \delta_{j}^{l} 
 \\ &amp;= -\phi ^{\prime} (v_{j}^{l}) \dfrac{\partial E(\hat{\mathbf{y}})}{\partial y_{j}^{l}}
 \\ &amp;= -\phi ^{\prime} (v_{j}^{l}) \sum_{i_{(1)}} \frac{\partial E(\hat{\mathbf{y}})}{\partial \hat{y}_{i_{(1)}}} \frac{\partial \hat{y}_{i_{(1)}}}{\partial y_{j}^{l}}
 \\ &amp;= -\phi ^{\prime} (v_{j}^{l}) \sum_{i_{(1)}} \frac{\partial E(\hat{\mathbf{y}})}{\partial \hat{y}_{i_{(1)}}} \frac{d \hat{y}_{i_{(1)}}}{d v_{i_{(1)}}^{L}} \frac{\partial v_{i_{(1)}}^{L}}{\partial   y_{j}^{l}}
@@ -475,7 +475,7 @@ $$</p>
 \\ &amp;= -\phi ^{\prime} (v_{j}^{l}) \sum_{i_{(3)}} \sum_{i_{(2)}} \sum_{i_{(1)}} \frac{\partial E(\hat{\mathbf{y}})}{\partial \hat{y}_{i_{(1)}}} \frac{d \hat{y}_{i_{(1)}}}{d v_{i_{(1)}}^{L}}
 \frac{\partial v_{i_{(1)}}^{L}}{\partial y_{i_{(2)}}^{L}} \frac{d y_{i_{(2)}}^{L}}{d v_{i_{(2)}}^{L-1}}
 \frac{\partial v_{i_{(2)}}^{L-1}}{\partial y_{i_{(3)}}^{L-1} } \frac{d y_{i_{(3)}}^{L-1} }{d v_{i_{(3)}}^{L-2} } \frac{\partial v_{i_{(3)}}^{L-2} }{ \partial y_{j}^{l}}
-\\ &amp; \quad \vdots
+\\ &amp; \quad \vdots 
 \\ &amp;= -\phi ^{\prime} (v_{j}^{l}) \sum_{i_{(L-l)}} \cdots \sum_{i_{(3)}} \sum_{i_{(2)}} \sum_{i_{(1)}} \frac{\partial E(\hat{\mathbf{y}})}{\partial \hat{y}_{i_{(1)}}} \frac{d \hat{y}_{i_{(1)}}}{d   v_{i_{(1)}}^{L}}
 \frac{\partial v_{i_{(1)}}^{L}}{\partial y_{i_{(2)}}^{L}} \frac{d y_{i_{(2)}}^{L}}{d v_{i_{(2)}}^{L-1}}
 \frac{\partial v_{i_{(2)}}^{L-1}}{\partial y_{i_{(3)}}^{L-1} } \frac{d y_{i_{(3)}}^{L-1} }{d v_{i_{(3)}}^{L-2} } \frac{\partial v_{i_{(3)}}^{L-2} }{ \partial y_{i_{(4)}}^{L-2}} \cdots \frac{d y_{i_{(L-l+1)}}^{l+1} }{d v_{i_{(L-l+1)}}^{l} } \frac{\partial v_  {i_{(L-l+1)}}^{l} }{ \partial y_{j}^{l}}
@@ -498,7 +498,7 @@ $$</p>
 <aside style="text-align: right;">
     2021-07-02&emsp;
     전기현&emsp;
-    <a href="../2036">🎲 3077</a>
+    <a href="../623">🎲 3077</a>
 </aside>
 
 <script>
@@ -1015,6 +1015,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -1143,11 +1144,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1333,7 +1335,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1344,12 +1346,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

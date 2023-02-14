@@ -236,8 +236,8 @@ julia&gt; (g ∘ f)(3)
 </code></pre><h2 id="설명">설명</h2>
 <p>줄리아에서 함수의 합성은 프로그래밍적으로는 <a href="../1450">파이프 오퍼레이터</a>와 흡사하다. 이러한 합성이 가능함으로써 가장 큰 이점은 수학자의 입장에서 수식을 코드로 표현하기가 쉬워진다는 것이다. 위 예시는 단지 다음의 수식을 코드로 옮긴 것에 불과하다.</p>
 <p>$$
-f(x) := 2x + 1
-\\  g(x) := x^2
+f(x) := 2x + 1 
+\\  g(x) := x^2 
 \\  (g \circ f) (3)
 $$</p>
 <p>요즘은 많은 언어들이 그러하듯 함수를 <a href="../1368">일급 객체</a>로 다루는 것은 똑같지만, 순수수학에서 <a href="../646">함수 공간</a>을 다루는 것처럼 조금 더 극단적인 철학을 거쳐 문법으로까지 발전한 것으로 볼 수 있다. 참고로 함수합성 연산자는 tex 문법 그대로 <code>\circ</code>를 입력함으로써 사용할 수 있다.</p>
@@ -246,7 +246,7 @@ $$</p>
 <aside style="text-align: right;">
     2021-01-20&emsp;
     류대식&emsp;
-    <a href="../648">🎲 1942</a>
+    <a href="../2182">🎲 1942</a>
 </aside>
 
 <script>
@@ -763,6 +763,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -891,11 +892,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1086,7 +1088,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1097,12 +1099,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

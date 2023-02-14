@@ -238,7 +238,7 @@
 <p>$\lambda$를 $A$의 고유값이라 가정하자. 그러면,</p>
 <p>$$
 \begin{align*}
-\lambda \text{ is eigenvalue of } A &amp;\iff \exist \text{non-zero } v \text{ such that } Av = \lambda v \\
+\lambda \text{ is eigenvalue of } A &amp;\iff \exist \text{non-zero } v \text{ such that } Av = \lambda v \\ 
 &amp;\iff \exist \text{non-zero } v \text{ such that } (A - \lambda I)v = 0
 \end{align*}
 $$</p>
@@ -267,10 +267,10 @@ $$</p>
 <p>확인해보자. $\beta$, $\beta^{\prime}$를 $V$의 순서기저, $Q$를 $\beta$-좌표를 $\beta^{\prime}$-좌표로 변환시키는 <a href="../3331">좌표변환행렬</a>이라고 하면,</p>
 <p>$$
 \begin{align*}
-\det( \begin{bmatrix} T \end{bmatrix}_{\beta} - tI) &amp;= \det( \begin{bmatrix} T \end{bmatrix}_{\beta} - tI ) \det Q^{-1} \det Q \\
-&amp;= \det Q^{-1} \det( \begin{bmatrix} T \end{bmatrix}_{\beta} - tI ) \det Q \\
-&amp;= \det \left( Q^{-1} (\begin{bmatrix} T \end{bmatrix}_{\beta} - tI) Q \right) \\
-&amp;= \det \left( Q^{-1}\begin{bmatrix} T \end{bmatrix}_{\beta}Q - tI \right) \\
+\det( \begin{bmatrix} T \end{bmatrix}_{\beta} - tI) &amp;= \det( \begin{bmatrix} T \end{bmatrix}_{\beta} - tI ) \det Q^{-1} \det Q \\ 
+&amp;= \det Q^{-1} \det( \begin{bmatrix} T \end{bmatrix}_{\beta} - tI ) \det Q \\ 
+&amp;= \det \left( Q^{-1} (\begin{bmatrix} T \end{bmatrix}_{\beta} - tI) Q \right) \\ 
+&amp;= \det \left( Q^{-1}\begin{bmatrix} T \end{bmatrix}_{\beta}Q - tI \right) \\ 
 &amp;= \det \left( \begin{bmatrix} T \end{bmatrix}_{\beta^{\prime}} - tI \right)
 \end{align*}
 $$</p>
@@ -287,7 +287,7 @@ $$</p>
 <aside style="text-align: right;">
     2022-12-12&emsp;
     전기현&emsp;
-    <a href="../340">🎲 3339</a>
+    <a href="../419">🎲 3339</a>
 </aside>
 
 <script>
@@ -804,6 +804,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -932,11 +933,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1122,7 +1124,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1133,12 +1135,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

@@ -235,17 +235,17 @@
 <p>$$
 \begin{align*}
 \sum\limits_{l} R_{ijk}^{l} g_{lm}
-&amp;= \sum\limits_{l} ( L_{ik}L_{j}^{l} - L_{ij}L_{k}^{l} ) g_{lm} \\
-&amp;= \sum\limits_{l} ( L_{ik}L_{j}^{l}g_{lm} - L_{ij}L_{k}^{l}g_{lm} ) \\
+&amp;= \sum\limits_{l} ( L_{ik}L_{j}^{l} - L_{ij}L_{k}^{l} ) g_{lm} \\ 
+&amp;= \sum\limits_{l} ( L_{ik}L_{j}^{l}g_{lm} - L_{ij}L_{k}^{l}g_{lm} ) \\ 
 &amp;= L_{ik}\sum\limits_{l}L_{j}^{l}g_{lm} - L_{ij}\sum\limits_{l}L_{k}^{l}g_{lm}
 \end{align*}
 $$</p>
 <p>여기서 <a href="../3148">$g_{lm}$</a>은 제1 기본형식의 계수이다. 이때 <a href="../3188">$L_{j}^{l} = \sum\limits_{i} L_{ij}g^{il}$</a>이고, <a href="../3148">$\sum\limits_{k}g_{ik}g^{kj} = \delta_{i}^{j}$</a>이므로 다음을 얻는다.</p>
 <p>$$
 \begin{align*}
-&amp;&amp; L_{j}^{l} &amp;= \sum_{i} L_{ij}g^{il} \\
-\implies &amp;&amp; \sum\limits_{l} L_{j}^{l}g_{lm} &amp;= \sum\limits_{l} \sum\limits_{i} L_{ij}g^{il}g_{lm} \\
-&amp;&amp; &amp;= \sum\limits_{i} L_{ij}\delta_{m}^{i} \\
+&amp;&amp; L_{j}^{l} &amp;= \sum_{i} L_{ij}g^{il} \\ 
+\implies &amp;&amp; \sum\limits_{l} L_{j}^{l}g_{lm} &amp;= \sum\limits_{l} \sum\limits_{i} L_{ij}g^{il}g_{lm} \\ 
+&amp;&amp; &amp;= \sum\limits_{i} L_{ij}\delta_{m}^{i} \\ 
 &amp;&amp; &amp;= L_{mj}
 \end{align*}
 $$</p>
@@ -256,7 +256,7 @@ $$</p>
 <p>$i = k = 1$ 그리고 $j = m = 2$라고 두면,</p>
 <p>$$
 \begin{align*}
-\sum\limits_{l} R_{121}^{l}g_{l2} &amp;= L_{22}L_{22} - L_{12}L_{12} = \det ([L_{ij}]) = \det ([(L_{j}^{k}) (g_{ik})]) \\
+\sum\limits_{l} R_{121}^{l}g_{l2} &amp;= L_{22}L_{22} - L_{12}L_{12} = \det ([L_{ij}]) = \det ([(L_{j}^{k}) (g_{ik})]) \\ 
 &amp;= \det ([L_{j}^{k}]) \det([g_{ik}]) = Kg
 \end{align*}
 $$</p>
@@ -282,7 +282,7 @@ $$</p>
 <aside style="text-align: right;">
     2022-03-23&emsp;
     전기현&emsp;
-    <a href="../912">🎲 3208</a>
+    <a href="../2008">🎲 3208</a>
 </aside>
 
 <script>
@@ -799,6 +799,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -927,11 +928,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1117,7 +1119,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1128,12 +1130,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

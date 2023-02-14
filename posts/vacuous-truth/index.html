@@ -257,10 +257,10 @@ $$
 <p>모든 $x \in X$ 에 대해 $\displaystyle x \notin \bigcup_{\alpha \in \emptyset} A_{\alpha}$ 임을 보이면 된다.
 $$
 \begin{align*}
-x \notin \bigcup_{\alpha \in \emptyset} A_{\alpha} \iff &amp; \lnot \left( x \in \bigcup_{\alpha \in \emptyset} A_{\alpha} \right)
-\\  \iff &amp; \lnot ( x \in A_{\alpha_{0}} \text{ for some } \alpha_{0} \in \emptyset )
-\\ \iff &amp;x \notin A_{\alpha} \text{ for all }  \alpha \in \emptyset
-\\  \iff &amp; \alpha \in \emptyset \to x \notin A_{\alpha}
+x \notin \bigcup_{\alpha \in \emptyset} A_{\alpha} \iff &amp; \lnot \left( x \in \bigcup_{\alpha \in \emptyset} A_{\alpha} \right) 
+\\  \iff &amp; \lnot ( x \in A_{\alpha_{0}} \text{ for some } \alpha_{0} \in \emptyset ) 
+\\ \iff &amp;x \notin A_{\alpha} \text{ for all }  \alpha \in \emptyset 
+\\  \iff &amp; \alpha \in \emptyset \to x \notin A_{\alpha} 
 \end{align*}
 $$
 <a href="../1316">집합</a> $\emptyset$ 이 원소를 가진다는 것은 공집합의 정의에 모순이므로, $\alpha \in \emptyset$ 은 거짓이다. [1] 공진리에 따라 $\alpha \in \emptyset \to x \notin A_{\alpha}$ 은 참이고 그와 동치인 $\displaystyle x \notin \bigcup_{\alpha \in \emptyset} A_{\alpha}$ 도 참이다.</p>
@@ -269,8 +269,8 @@ $$
 <p>모든 $x \in X$ 에 대해 $\displaystyle x \in \bigcap_{\alpha \in \emptyset} A_{\alpha}$ 임을 보이면 된다.
 $$
 \begin{align*}
-x \in \bigcap_{\alpha \in \emptyset} A_{\alpha} \iff &amp; x \in A_{\alpha} \text{ for all } \alpha \in \emptyset
-\\ \iff &amp;\alpha \in \emptyset \to x \in A_{\alpha}
+x \in \bigcap_{\alpha \in \emptyset} A_{\alpha} \iff &amp; x \in A_{\alpha} \text{ for all } \alpha \in \emptyset 
+\\ \iff &amp;\alpha \in \emptyset \to x \in A_{\alpha} 
 \end{align*}
 $$
 이 역시 집합 $\emptyset$ 이 원소를 가진다는 것은 공집합의 정의에 모순이므로, $\alpha \in \emptyset$ 은 거짓이다. [1] 공진리에 따라 $\alpha \in \emptyset \to x \in A_{\alpha}$ 은 참이고 그와 동치인 $\displaystyle x \in \bigcap_{\alpha \in \emptyset} A_{\alpha} $ 도 참이다.</p>
@@ -280,7 +280,7 @@ $$
 <aside style="text-align: right;">
     2019-11-14&emsp;
     류대식&emsp;
-    <a href="../1510">🎲 399</a>
+    <a href="../338">🎲 399</a>
 </aside>
 
 <script>
@@ -797,6 +797,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -925,11 +926,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1115,7 +1117,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1126,12 +1128,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

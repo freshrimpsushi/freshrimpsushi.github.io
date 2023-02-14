@@ -248,9 +248,9 @@ $$</p>
 <p>$X_{n} \sim \text{Poi} (n)$ 이므로
 $$
 \begin{align*}
-M_Y (t) =&amp; E \left[ \text{exp} \left( Y_{n} t \right) \right]
-\\ =&amp; E \left[ \text{exp} \left( {{ X_{n} - n } \over { \sqrt{n} }}  t \right) \right]
-\\ =&amp; E \left[ \text{exp} \left( {{ X_{n} } \over { \sqrt{n} }} t  \right)  \text{exp} ( -t \sqrt{n} ) \right]
+M_Y (t) =&amp; E \left[ \text{exp} \left( Y_{n} t \right) \right] 
+\\ =&amp; E \left[ \text{exp} \left( {{ X_{n} - n } \over { \sqrt{n} }}  t \right) \right] 
+\\ =&amp; E \left[ \text{exp} \left( {{ X_{n} } \over { \sqrt{n} }} t  \right)  \text{exp} ( -t \sqrt{n} ) \right] 
 \\ =&amp; \text{exp} ( -t \sqrt{n} ) E \left[ \text{exp} \left( X_{n} {{ t } \over { \sqrt{n} }} \right) \right]
 \\ =&amp; \text{exp} ( -t \sqrt{n} ) \exp \left( n \left( e^{t/\sqrt{n}} - 1 \right) \right)
 \end{align*}
@@ -258,15 +258,15 @@ $$
 두번째 인수의 <a href="../42">테일러 전개</a>를 통해
 $$
 \begin{align*}
-&amp; \text{exp} \left( -t \sqrt{n} + n \left( 1 + {{t} \over {\sqrt{n}}}  + {{1} \over {2!}} {{t^2} \over {n}} + {{1} \over {3!}} {{t^3} \over {n \sqrt{n} }} + \cdots - 1 \right) \right)
-\\ =&amp; \text{exp} \left( -t \sqrt{n} + n \left( {{t} \over {\sqrt{n}}}  + {{1} \over {2!}} {{t^2} \over {n}} + {{1} \over {3!}} {{t^3} \over {n \sqrt{n} }} + \cdots \right) \right)
+&amp; \text{exp} \left( -t \sqrt{n} + n \left( 1 + {{t} \over {\sqrt{n}}}  + {{1} \over {2!}} {{t^2} \over {n}} + {{1} \over {3!}} {{t^3} \over {n \sqrt{n} }} + \cdots - 1 \right) \right) 
+\\ =&amp; \text{exp} \left( -t \sqrt{n} + n \left( {{t} \over {\sqrt{n}}}  + {{1} \over {2!}} {{t^2} \over {n}} + {{1} \over {3!}} {{t^3} \over {n \sqrt{n} }} + \cdots \right) \right) 
 \\ =&amp; \text{exp} \left( -t \sqrt{n} + t \sqrt{n}  + {{t^2} \over {2!}} + {{1} \over {3!}} {{t^3} \over { \sqrt{n} }} + \cdots \right)
-\\ =&amp; \text{exp} \left( {{t^2} \over {2!}} + {{1} \over {3!}} {{t^3} \over { \sqrt{n} }} + \cdots \right)
+\\ =&amp; \text{exp} \left( {{t^2} \over {2!}} + {{1} \over {3!}} {{t^3} \over { \sqrt{n} }} + \cdots \right) 
 \end{align*}
 $$
 따라서
 $$
-\lim_{n \to \infty} M_{Y_{n}} = e^{ t^2 \over 2 }
+\lim_{n \to \infty} M_{Y_{n}} = e^{ t^2 \over 2 } 
 $$</p>
 <p style="text-align: right;">■</p>
 <div class="footnotes" role="doc-endnotes">
@@ -282,7 +282,7 @@ $$</p>
 <aside style="text-align: right;">
     2021-01-25&emsp;
     류대식&emsp;
-    <a href="../1519">🎲 197</a>
+    <a href="../1931">🎲 197</a>
 </aside>
 
 <script>
@@ -799,6 +799,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -927,11 +928,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1117,7 +1119,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1128,12 +1130,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

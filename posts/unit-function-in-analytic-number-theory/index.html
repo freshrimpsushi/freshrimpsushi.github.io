@@ -240,16 +240,16 @@ $$</p>
 <ul>
 <li>[1] 유닛 급수: <a href="../1527">약수의 갯수</a> $\sigma_{0}$ 다. 다시 말해,
 $$
-\sum_{d \mid n} u(d) = \sigma_{0} (n)
+\sum_{d \mid n} u(d) = \sigma_{0} (n) 
 $$</li>
 <li>[2] 완전 승법성: 모든 $m,n \in \mathbb{N}$ 에 대해 $u(mn) = u(m) u(n)$</li>
 </ul>
 <h2 id="설명">설명</h2>
 <p>$$
 \begin{matrix}
-n &amp; 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 &amp; 6 &amp; 7 &amp; 8 &amp; 9 &amp; 10
-\\  u (n) &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1
-\\ \sum_{d \mid n} u(d) &amp; 1 &amp; 2 &amp; 2 &amp; 3 &amp; 2 &amp; 4 &amp; 2 &amp; 4 &amp; 3 &amp; 4
+n &amp; 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 &amp; 6 &amp; 7 &amp; 8 &amp; 9 &amp; 10 
+\\  u (n) &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 
+\\ \sum_{d \mid n} u(d) &amp; 1 &amp; 2 &amp; 2 &amp; 3 &amp; 2 &amp; 4 &amp; 2 &amp; 4 &amp; 3 &amp; 4 
 \end{matrix}
 $$
 유닛 함수라는 그 이름에서 알 수 있듯 아주 중요한 함수다. <a href="../1488">컨볼루션</a>을 생각해보면 임의의 <a href="../1487">산술 함수</a> $f$ 의 급수 $F$ 는 사실상 다음과 같이 표현된다.
@@ -281,7 +281,7 @@ $$</p>
 <aside style="text-align: right;">
     2020-05-12&emsp;
     류대식&emsp;
-    <a href="../1603">🎲 1547</a>
+    <a href="../1229">🎲 1547</a>
 </aside>
 
 <script>
@@ -798,6 +798,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -926,11 +927,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1116,7 +1118,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1127,12 +1129,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

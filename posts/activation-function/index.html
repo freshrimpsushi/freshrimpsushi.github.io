@@ -238,7 +238,7 @@
 <p>역치란 생물이 자극에 대해 어떤 반응을 일으키는 데 필요한 최소한의 자극의 세기로써, <a href="../996">딥러닝</a>은 이를 모방하기 위해 각 노드의 계산 결과에 활성화 함수를 취해 다음 레이어로 넘긴다. 이러한 비선형적 보정이 없다면 딥러닝에서 히든 레이어를 두며 계산을 여러번 하는 의미가 없다.활성화 함수는 여러 종류가 있는데, 어떤게 좋은지는 말 그대로 케이스 바이 케이스다. 무슨 활성화 함수를 쓰면 퍼포먼스가 어떻게 달라진다는 식의 이론은 거의 없고, 그냥 시도해 보고 결과가 좋으면 채택하는 식이다.</p>
 <h2 id="예시">예시</h2>
 <h3 id="계단-함수">계단 함수</h3>
-<p>$$u (x) := \begin{cases} 0 &amp; , x&lt;0
+<p>$$u (x) := \begin{cases} 0 &amp; , x&lt;0 
 \\  1 &amp; x \ge 0 \end{cases} $$</p>
 <p>계단 함수는 역치라는 이름에 가장 잘 맞는 함수지만 계산 결과를 너무 단순하게 축약시키기 때문에 실제로 쓰기엔 어려운 측면이 있다. 다른 활성화 함수들도 계단 함수는 아니지만 마치 계단 함수처럼 작용하기 위해서 고안되었다고 생각하면 좋다.</p>
 <h3 id="시그모이드-함수1769"><a href="../1769">시그모이드 함수</a></h3>
@@ -252,7 +252,7 @@
 <aside style="text-align: right;">
     2019-04-19&emsp;
     류대식&emsp;
-    <a href="../2040">🎲 991</a>
+    <a href="../2193">🎲 991</a>
 </aside>
 
 <script>
@@ -769,6 +769,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -897,11 +898,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1087,7 +1089,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1098,12 +1100,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

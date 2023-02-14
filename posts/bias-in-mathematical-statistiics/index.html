@@ -227,7 +227,7 @@
 <h2 id="정의">정의</h2>
 <p>모수 $\theta$ 에 대한 <a href="../1730">추정량</a> $\widehat{\theta}$ 에 대해 다음과 같이 정의된 $\text{Bias}$ 를 <strong>편의</strong>라 한다.
 $$
-\text{Bias} ( \theta ) = E(\widehat{\theta}) - \theta
+\text{Bias} ( \theta ) = E(\widehat{\theta}) - \theta 
 $$</p>
 <h2 id="설명">설명</h2>
 <p>Bias는 편의 또는 편향으로 순화되지만, 역시 가장 많이 쓰이는 말은 발음 그대로 읽은 [바이어스]다. 한국어에서 편의는 Convenience인 경우가 압도적으로 많고 수식적으로나 실제 쓰임새로나 &lsquo;편향&rsquo;으로 순화하는 것이 적절해보이지만, 오히려 통계 분석이나 머신 러닝의 맥락에선 편의가 편리함을 의미하는 경우가 현저히 적으며 &lsquo;편향&rsquo;이라는 말이 너무 쓸모있다보니 &lsquo;편의&rsquo;로 쓰는 경우가 덜 헷갈린다. 하지만 언급했듯, 보통은 그냥 바이어스라고 한다.편의는 수식 그대로 추정량의 기댓값과 참값과의 차를 나타내며, 분산과는 <a href="../1739">트레이드 오프 관계</a>가 있어 다음과 같은 제곱 꼴로 자주 쓰인다.
@@ -240,7 +240,7 @@ $$
 <aside style="text-align: right;">
     2020-10-12&emsp;
     류대식&emsp;
-    <a href="../654">🎲 1735</a>
+    <a href="../1196">🎲 1735</a>
 </aside>
 
 <script>
@@ -757,6 +757,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -885,11 +886,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1075,7 +1077,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1086,12 +1088,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

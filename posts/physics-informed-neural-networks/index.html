@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="ko" class="blog">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    
+    
+
+    
+    <meta name="NaverBot" content="All" />
+    <meta name="NaverBot" content="index,follow" />
+    <meta name="Yeti" content="All" />
+    <meta name="Yeti" content="index,follow" />
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.1/katex.min.css"
+        integrity="sha512-vJqxkZ+Sugf/6WRlpcxN01qVfX/29hF6qc33eHF1va3NgoV+U+wCi+uTAsQ10sDoGyBxHLdaHvGwDlV3yVYboA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <link href=https://freshrimpsushi.github.io/css/comment.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript>
+        <link rel='stylesheet' href=https://freshrimpsushi.github.io/css/custum.css>
+    </noscript>
+
+    
+    <link rel="canonical" href="https://freshrimpsushi.github.io/">
+
+    
+    <link rel="icon" href="https://freshrimpsushi.github.io/logo/favicon.ico">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta name="msapplication-TileImage" content="logo/basic.png">
+
+    
+    <style type="text/css">
+        .thmbox {
+            background: rgb(245, 245, 245);
+             
+            border-radius: 20px;
+            padding: 20px;
+        }
+    </style>
+
+    
+    <script data-ad-client="ca-pub-4751085325232621" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
+    <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
+
+    
+    
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NLV8Y9PRK1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-NLV8Y9PRK1');
+    </script>
+
+    
+<meta name="title" content="물리정보기반 신경망(PINN) 논문 리뷰">
+<meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
+<meta property="og:title" content="물리정보기반 신경망(PINN) 논문 리뷰"/>
+<meta property="og:description" content="[Review]Physics-Informed Neural Networks"/>
+<meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
+
+
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "articleSection": "j_",
+    "name": "물리정보기반 신경망(PINN) 논문 리뷰",
+    "headline": "물리정보기반 신경망(PINN) 논문 리뷰",
+    "alternativeHeadline": "",
+    "description": "[Review]Physics-Informed Neural Networks",
+    "inLanguage": "ko",
+    "isFamilyFriendly": "true",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/physics-informed-neural-networks\/"
+    },
+    "author" : {
+        "@type": "Person",
+        "name": "전기현"
+    },
+    "creator" : {
+        "@type": "Person",
+        "name": "전기현"
+    },
+    "accountablePerson" : {
+        "@type": "Person",
+        "name": "전기현"
+    },
+    "copyrightHolder" : "생새우초밥집",
+    "copyrightYear" : "2022",
+    "dateCreated": "2022-10-19T00:00:00.00Z",
+    "datePublished": "2022-10-19T00:00:00.00Z",
+    "dateModified": "2022-10-19T00:00:00.00Z",
+    "publisher":{
+        "@type":"Organization",
+        "name": "생새우초밥집",
+        "url": "https://freshrimpsushi.github.io/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https:\/\/freshrimpsushi.github.io\/logo\/basic.png",
+            "width":"32",
+            "height":"32"
+        }
+    },
+    "image": "https://freshrimpsushi.github.io/logo/basic.png",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/physics-informed-neural-networks\/",
+    "wordCount" : "8325",
+    "genre" : [ ],
+    "keywords" : [ ]
+}
+</script>
+
+
+    <title>물리정보기반 신경망(PINN) 논문 리뷰</title>
+</head>
+
+<body class="main">
+  <header>
+    <a href="../../" rel="home">
+        <p style="text-align:center; font-size: 1rem; color: black;">
+            
+                <img src=https://freshrimpsushi.github.io/logo/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D.png style="max-height: 80px; width: auto;">
+            
+            
+            
+        </p>
+    </a>
+</header>
+
+  <div id="fastSearch">
+  <input id="searchInput" tabindex="0">
+  <ul id="searchResults">
+  </ul>
+</div>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    fetch('https://api.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => {
+        return data.ip
+      })
+      .then(ip => {
+        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/ip_checker.php';
+        return postFetch(url, { user_ip: ip });
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (!data.ok) {
+          alert('차단된 IP입니다.\nContact:\nfreshrimpsushi@gmail.com')
+          window.location.href = 'https://google.com';
+        }
+      })
+      .catch(err => console.error(err));
+  });
+</script>
+
+  
+     
+    <script type="text/javascript">
+      var goIndex = function(){
+          var idx = document.getElementsByName("idx")[0].value;
+          var local_idx = "http://localhost:1313/posts/" + idx;
+          location.replace(local_idx)
+      }
+    </script>
+    </p>
+    
+  <div class="wrapper">
+    <div class="content">
+      <div class="content-box">
+        
+<title>물리정보기반 신경망(PINN) 논문 리뷰</title>
+
+
+
+
+        <a href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/"
+            style="background-color: rgba(0, 0, 0, 0.8); color: orange;
+            border-radius:10px; padding: 5px;">
+            📂머신러닝</a>
+        
+
+
+<h1>물리정보기반 신경망(PINN) 논문 리뷰</h1>
+<p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px; margin-left: 0px;">
+  [Review]Physics-Informed Neural Networks
+</p>
+
+<aside>
+  <div class="innerheader">
+    
+    <div class="innertoc">
+       
+        
+      
+      <b>목차</b>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#0-abstract">0. Abstract</a></li>
+    <li><a href="#1-introduction">1. Introduction</a></li>
+    <li><a href="#2-problem-setup">2. Problem setup</a></li>
+    <li><a href="#3-data-driven-solutions-of-partial-differential-equations">3. Data-driven solutions of partial differential equations</a>
+      <ul>
+        <li><a href="#31-continuous-time-models">3.1. Continuous time models</a></li>
+        <li><a href="#32-discrete-time-models">3.2. Discrete time models</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-data-driven-discovery-of-partial-differential-equations">4. Data-driven discovery of partial differential equations</a>
+      <ul>
+        <li><a href="#41-continuous-time-models">4.1. Continuous time models</a></li>
+      </ul>
+    </li>
+    <li><a href="#5-conclusions">5. Conclusions</a></li>
+  </ul>
+</nav>
+    </div>
+    
+  </div>
+</aside>
+
+<h2 id="개요">개요</h2>
+<ul>
+<li>레퍼런스와 수식의 번호와 표기법은 논문을 그대로 따른다.</li>
+</ul>
+<p>Physics-informed neural networks (PINN<sup>[핀]이라 읽는다</sup>)는 미분 방정식을 <a href="../../categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/">수치적으로 풀기 위해</a> 고안된 인공신경망으로, 2018년 Journal of Computational Physics에 공개된 논문 <a href="https://www.sciencedirect.com/science/article/pii/S0021999118307125">Physics-informed neural networks: A deep learning framework for solving forward and inverse problems involving nonlinear partial differential equations</a>에서 소개되었다. 논문의 저자는 응용수학과, 기계공학과 소속의 M. Raissi, P. Perdikaris, G.E. Karniadakis이다.</p>
+<p>이 논문에서 말하는 <strong>물리 정보</strong><sup>physics information</sup>란, 거창해보이지만 사실은 주어진 <strong>미분 방정식</strong> 그 자체를 의미한다고 생각하면 된다. 다시 말해, &lsquo;미분방정식을 인공신경망으로 풀 때 주어진 미분방정식을 이용하겠습니다&rsquo;를 &lsquo;미분방정식을 인공신경망으로 풀 때 물리정보를 이용하겠습니다&rsquo;라고 말한 것과 같다. 머신러닝 논문을 읽을 때는 이런식으로 <strong>있어보이게</strong> 지은 이름에 정신을 빼앗기지 않도록 주의해야한다.</p>
+<p>미분방정식의 수치적 풀이에서 PINN을 많이 주목하는 이유는 손실 함수에 대한 아이디어가 단순하고 이해하기 쉬우며, 구현 또한 간단하기 때문인 것 같다. 실제로 논문의 예시에서도 아주 간단한 DNN이 소개된다.</p>
+<p>흔히 말하는 PINN은 Section 3.1에서 소개되는 모델을 말한다.</p>
+<h2 id="0-abstract">0. Abstract</h2>
+<p>저자는 PINN을 &lsquo;주어진 비선형 편미분방정식을 만족하면서, 지도학습문제를 풀기 위해 훈련된 인공신경망&rsquo;이라 소개한다. 이 논문에서 주요하게 다루는 두 문제는 &lsquo;data-driven solution and data-driven discovery of partial differential equatios&rsquo;이다. 성능 평가를 위해 유체 역학, 양자 역학, 확산 방정식등의 문제를 풀어보았다.</p>
+<h2 id="1-introduction">1. Introduction</h2>
+<p>최근 들어 발전한 기계학습과 데이터 분석은 이미지 인식<sup>image recognition</sup>, 인지과학<sup>congnitive science</sup>, 유전체학<sup>genomics</sup> 등의 과학 분야에서 혁신적인 결과를 이끌어냈지만 복잡한 물리적, 생물학적, 공학적 시스템에 대해서는 (데이터 수집 비용이 크기 때문에) 적은 정보만으로 원하는 결과를 이끌어내야하는 어려움이 있다. 이러한 <em>작은 데이터 세계<sup>small data regime</sup></em> 에서는 DNN, CNN, RNN 등의 첨단 기술의 수렴성이 보장되지 않는다.</p>
+<p>[4-6]에서 데이터 효율적이고(=적은 데이터로) 물리 정보를 학습할 수 있는(=미분방정식을 풀 수 있는) 방법에 대한 연구가 진행되었다. 비선형 문제로의 확장은 이 논문의 저자인 Raissi의 후속 연구 [8,9]에서 제안되었다.</p>
+<h2 id="2-problem-setup">2. Problem setup</h2>
+<p>인공신경망으로 표현되는 함수는 입력값(편미분방정식에서 솔루션 $u$의 좌표 $x, t$를 말한다)과 파라매터에 따라 함숫값이 결정되는데, 이 두 종류의 변수에 대해서 미분을 취하기 위해서 <strong>자동 미분</strong><sup>automatic differentiation</sup>을 활용한다.</p>
+<blockquote>
+<p>Such neural networks are constrained to respect any symmetries, invariances, or conservation principles originating from the physical laws that govern the observed data, as modeled by general time-dependent and nonlinear partial differential equations.</p>
+</blockquote>
+<p>논문에서 이 문장이 어렵게 느껴질 수 있는데, 내 생각에 이는 쉽게 말해서 제안하는 인공신경망인 PINN이 주어진 미분방정식을 만족해야한다는 말이다. 후술하겠지만 미분방정식을 만족해야한다는 조건을 손실함수로 사용하기 때문이다.</p>
+<p>이 논문의 목표는 수리물리학에서의 딥러닝을 발전시킬 새로운 패러다임의 모델링과 계산 패러다임을 제시하는 것이다. 이를 위해서, 앞서 말했듯이, 이 논문에서는 크게 두가지의 문제를 다룬다. 하나는 편미분 방정식의 <strong>데이터 기반 솔루션</strong><sup>data-driven solution</sup>이고 다른 하나는 편미분 방정식의 <strong>데이터 기반 발견</strong><sup>data-driven discovery</sup>이다. 사용된 모든 코드와 데이터 셋은 <a href="https://github.com/maziarraissi/PINNs">https://github.com/maziarraissi/PINNs</a>에서 확인할 수 있다. 이 논문에서는, $L1$, $L2$, <a href="../1004">드롭아웃</a> 등의 <a href="../1807">정규화</a>없이, 하이퍼볼릭 탄젠트를 <a href="../991">활성화 함수</a>로 쓴 간단한 MLP가 사용되었다. 각 예제에서는 신경망의 구조, 옵티마이저, <a href="../987">러닝 레이트</a> 등이 구체적으로 소개된다.</p>
+<p>이 논문에서는 아래와 같은 매개변수화된 비선형 편미분방정식의 일반적인 형태<sup>parameterized and nonlinear partial differential equations of the general form</sup>를 다룬다.</p>
+<p>$$
+\begin{equation}\label{1}
+u_{t} + \mathcal{N}[u; \lambda] = 0,\quad x \in \Omega,\quad t \in [0,T]
+\end{equation}
+$$</p>
+<p>여기서 $u=u(t,x)$는 $(1)$을 만족하는 숨겨진<sup>(=주어지지 않은=알지 못하는)</sup> 함수, 그러니까 찾고자하는 $(1)$의 솔루션이며, $\mathcal{N}[\cdot; \lambda]$는 $\lambda$로 매개변수화된 비선형 연산자(Nonlinear의 N을 따왔다)이고, $\Omega \subset \mathbb{R}^{D}$이다. 많은 수리물리학의 문제<sup>problems in mathematical physics</sup>가 위와 같은 꼴로 나타난다. 예를 들어 1차원 점성 <a href="../532">버거스 방정식</a>을 보자.</p>
+<p>$$
+u_{t} + uu_{x} = \nu u_{xx}
+$$</p>
+<p>이는 $(1)$에서 $\mathcal{N}[u; \lambda] = \lambda_{1} uu_{x} - \lambda_{2}u_{xx}$, $\lambda = (\lambda_{1}, \lambda_{2})$인 경우이다. 주어진 방정식 $(1)$에 대해서 다루고자하는 두 문제는 각각 다음과 같다.</p>
+<ul>
+<li><strong>data-driven solution of PDEs:</strong> 고정된 $\lambda$에 대해서, 시스템의 솔루션 $u(t,x)$는 무엇인가?</li>
+<li><strong>data-driven discovery of PDEs:</strong> 관찰된 데이터를 가장 잘 묘사하는 파라매터 $\lambda$는 무엇인가?</li>
+</ul>
+<h2 id="3-data-driven-solutions-of-partial-differential-equations">3. Data-driven solutions of partial differential equations</h2>
+<p>Section 3.에서 다룰 것은 다음과 같은 꼴의 편미분방정식에서 데이터를 기반으로한 솔루션 찾기 문제이다.</p>
+<p>$$
+\begin{equation}
+u_{t} + \mathcal{N}[u] = 0,\quad x \in \Omega,\quad t \in [0,T]
+\end{equation}
+$$</p>
+<p>즉 $(1)$에서 파라매터 $\lambda$가 고정된 상황이다. Section 3.1.과 Section 3.2.에서 각각 연속간모델과 이산시간모델을 다룬다. 방정식을 찾는 문제는  Section 4.에서 다룬다. 여기서 말하는 '데이터'의 의미는 아래에서 자세히 설명한다.</p>
+<h3 id="31-continuous-time-models">3.1. Continuous time models</h3>
+<p>$(t,x) \in \mathbb{R} \times \mathbb{R}$라고 하면, $u : \mathbb{R}^{2} \to \mathbb{R}$이다. 이를 인공신경망으로 근사할 것인데, 다음과 같이 구현되는 간단한 MLP를 사용한다. 줄리아에서라면,</p>
+<pre tabindex="0"><code>using Flux
+
+u = Chain(
+    Dense(2, 10, relu),
+    Dense(10, 10, relu),
+    Dense(10, 1)
+    )
+</code></pre><p>파이토치에서라면,</p>
+<pre tabindex="0"><code>import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+layers = [2, 10, 10, 1]
+
+class network(nn.Module):
+    def __init__(self):
+        super(network, self).__init__()
+        layer_list = [nn.Linear(layers[i], layers[i+1]) for i in range(len(layers)-1)]
+        self.linears = nn.ModuleList(layer_list)
+        
+    def forward(self, tx):
+        u = tx
+
+        for i in range(len(layers)-2):
+            u = self.linears[i](u)
+            u = F.relu(u)
+
+        u = self.linears[-1](u)
+        
+        return u
+
+u = network()
+</code></pre><p>이제 $u$는 우리가 정의한 입력 노드가 $2$개, 출력 노드가 $1$개인 인공신경망이다. $(2)$의 좌변을 다음과 같은 함수 $f = f(t,x; u)$라고 정의하자.</p>
+<p>$$
+\begin{equation}\label{3}
+f := u_{t} + \mathcal{N}[u]
+\end{equation}
+$$</p>
+<p>여기서 $u$는 인공신경망이기 때문에 $f$도 은닉층의 파라매터를 갖고있는 일종의 인공신경망이다. 위와 같은 $f$를 <strong>물리정보기반 신경망</strong><sup>physics-informed neural network, PINN</sup>이라 부른다. 다시말해 <strong>주어진 편미분방정식 그 자체</strong>이다. $f$에 포함된 미분은 자동미분으로 구현되며, $u$와 같은 파라매터를 공유한다. 인공신경망 $u$가 $(2)$의 솔루션을 제대로 근사한다면 $f$의 함숫값은 어디에서나 $0$이어야 한다. 우리는 여기서 $ f \to 0$이 되도록 하는 방향으로 인공신경망을 학습시킬 것이라는 걸 짐작할 수 있다.</p>
+<p>$(t_{u}^{i}, x_{u}^{i})$를 초기값, 경계값이 정의된 영역의 점이라고 하자. 
+$$
+(t_{u}^{i}, x_{u}^{i}) \in( \Omega \times \left\{ 0 \right\}) \cup (\partial \Omega \times [0, T])
+$$
+$u_{\ast}$를 실제 솔루션이라고 하면, 초기 조건과 경계 조건이 주어졌다는 말은 다음과 같은 값이 주어졌다는 말과 같다.</p>
+<p>$$
+\left\{ t_{u}^{i}, x_{u}^{i}, u^{i} \right\}_{i=1}^{N_{u}},\quad u^{i} = u_{\ast}(t_{u}^{i}, x_{u}^{i})
+$$</p>
+<p>이론상으로는 이러한 값들을 무수히 많이 가지고 있는 것이겠지만, 수치 문제에서는 유한한 점만을 다룰 수 있으므로 $N_{u}$개를 갖고 있다고 하자. 인공신경망 $u$는 $(t_{u}^{i}, x_{u}^{i})$를 입력으로 받았을 때, $u^{i}$를 출력해야하므로 이들이 각각 입력과 그에 해당하는 레이블이 된다.</p>
+<p>$$
+\text{input} = (t_{u}^{i}, x_{u}^{i}),\qquad \text{label} = u^{i}
+$$</p>
+<p>이것이 곧 PINN에서 학습할 <b>'데이터'</b>인 것이다. 그러면 이제 우리는 손실함수를 다음과 같이 둘 수 있다.</p>
+<p>$$
+MSE_{u} = \dfrac{1}{N_{u}} \sum\limits_{i=1}^{N_{u}} \left| u(t_{u}^{i},x_{u}^{i}) - u^{i} \right|^{2}
+$$</p>
+<p>또한 $f$는 적당한 점들(솔루션 $u_{\ast}$가 정의된 모든 점에서 만족해야하지만 수치적으로 다룰 땐 유한한 점만을 다룰 수 있다) $\left\{ t_{f}^{i}, x_{f}^{i} \right\}_{i=1}^{N_{f}}$에서 $(2)$를 만족해야한다. 이때 이러한 적당한 점들을 논문에서는 <strong>콜로케이션 포인트</strong><sup>collocation points</sup>라고 한다. 콜로케이션 포인트에 대해서 다음을 손실함수로 둔다.</p>
+<p>$$
+MSE_{f} = \dfrac{1}{N_{f}}\sum\limits_{i=1}^{N_{f}} \left| f(t_{f}^{i}, x_{f}^{i}) \right|^{2}
+$$</p>
+<p>다시말해 $MSE_{f}$가 $0$에 가까워지는 것이 물리적 정보(편미분방정식)를 만족하는 것이다. 그러므로 인공신경망 $u$를 훈련시키기 위한 최종 손실함수는 다음과 같다.</p>
+<p>$$
+MSE = MSE_{u} + MSE_{f}
+$$</p>
+<p>논문에서 설명하기를, $MSE_{f}$를 사용하는 것과 같이 물리적 정보를 제약으로 두는 것은 [15, 16]에서 먼저 연구되었지만 PINN 논문에서는 이를 현대적인 계산 도구로 검토하고 보다 어려운 다이나믹 시스템에 적용했다고 한다.</p>
+<p><strong>물리정보기반 기계 학습</strong><sup>physics-informed machine learning</sup>이라는 용어 자체는 난류 모델링<sup>turbulence modeling</sup>에 관한 Wang의 연구 [17]에서 먼저 사용되었다고 한다. 하지만 PINN 이전의 연구에서는 <a href="../2402">서포트 벡터 머신</a>, 랜덤 포레스트, FNN 등과 같은 기계학습 알고리즘을 단순히 사용하였다고 설명한다. PINN이 이들과 차별화되는 점은, 일반적으로 기계학습에 사용되는 파라매터에 대한 미분 뿐만 아니라, 솔루션의 좌표 $x, t$에 관한 미분까지도 고려하였다는 점이다. 즉 파라매터 $w$를 가지는 인공신경망으로 근사한 솔루션을 $u(t,x; w)$라고 할 때, 기존에 제안된 방법들은 편미분 $u_{w}$만 활용한 반면에 PINN은 $u_{t}$와 $u_{x}$등을 활용하여 솔루션을 구한다는 것이다. 이러한 접근법으로 소량의 데이터로도 솔루션을 잘 찾을 수 있다고 설명한다.</p>
+<blockquote>
+<p>Despite the fact that there is no theoretical guarantee that this procedure converges to a global minimum, our empirical evidence indicates that, if the given partial differential equation is well-posed and its solution is unique, our method is capable of achieving good prediction accuracy given a sufficiently expressive neural network architecture and a sufficient number of collocation points $N_{f}$.</p>
+</blockquote>
+<p>이 논문에서 제안하는 방법의 수렴성에 대하여 이론적인 보장은 없지만 주어진 편미분방정식이 잘 정의되고 솔루션이 유일하고, 충분한 포인트가 주어져있으면 높은 정확도<sup>good prediction accuracy</sup>를 달성할 수 있음을 경험적으로 확인했다고 한다.</p>
+<h4 id="311-example-schrodinger-equation">3.1.1. Example (Schrodinger equation)</h4>
+<p>이 예시에서는 주기성이 있는 경계조건, 복소수값을 가지는 솔루션에 대해서 제안하는 방법이 잘 작동하는지를 확인하는 것에 중점을 두고 있다. 그 예시로 다음과 같은 초기&amp;경계 조건이 주어지는 <a href="../1598">슈뢰딩거 방정식</a>을 다룬다.</p>
+<p>$$
+\begin{align*}
+ih_{t} + 0.5h_{xx} + \left| h \right|^{2}h &amp;= 0,\quad x\in [-5, 5], t\in[0, \pi/2], \\ 
+h(0,x) &amp;= 2\operatorname{sech} (x), \\ 
+h(t,-5) &amp;= h(t,5), \\ 
+h_{x}(t,-5) &amp;= h_{x}(t,5)
+\end{align*}
+$$</p>
+<p>문제의 솔루션 $h_{\ast}(t,x)$는 $h_{\ast} : [0, \pi/2] \times [-5, 5] \to \mathbb{C}$와 같이 복소 함숫값을 갖는 함수이다. 하지만 함수의 출력이 복소수가 되도록 인공신경망을 정의하는 것은 아니고, 실수부를 담당하는 $u(t,x)$와 허수부를 담당하는 $v(t,x)$의 2차원 벡터가 출력이 되도록 정의한다. 쉽게 말해서 입력과 출력의 노드가 각각 2개인 MLP로 정의한다는 것이다.</p>
+<p>$$
+h(t,x) = \begin{bmatrix} u(t,x) \\[0.5em] v(t,x) \end{bmatrix}
+$$</p>
+<p>이 문제에서 PINN $f$는 다음과 같다.</p>
+<p>$$
+f := ih_{t} + 0.5h_{xx} + \left| h \right|^{2} h
+$$</p>
+<p>$h(t,x)$와 $f(t,x)$의 파라매터는 초기값에 대한 손실 $MSE_{0}$, 경계값에 대한 손실 $MSE_{b}$, 물리정보에 대한 손실 $MSE_{f}$를 최소화하도록 학습된다.</p>
+<p>$$
+MSE = MSE_{0} + MSE_{b} + MSE_{f}
+$$</p>
+<p>$$
+\begin{align*}
+\text{where } MSE_{0} &amp;= \dfrac{1}{N_{0}}\sum_{i=1}^{N_{0}} \left| h(0, x_{0}^{i}) - h_{0}^{i} \right|^{2} \qquad (h_{0}^{i} = 2\operatorname{sech} (x_{0}^{i})) \\ 
+MSE_{b} &amp;= \dfrac{1}{N_{b}}\sum_{i=1}^{N_{b}} \left( \left| h(t_{b}^{i}, -5) - h(t_{b}^{i}, 5) \right|^{2} + \left| h_{x}(t_{b}^{i},-5) - h_{x}(t_{b}^{i},5) \right|^{2} \right) \\ 
+MSE_{f} &amp;= \dfrac{1}{N_{f}} \sum\limits_{i=1}^{N_{f}} \left| f(t_{f}^{i}, x_{f}^{i}) \right|^{2}
+\end{align*}
+$$</p>
+<ul>
+<li>논문에서 $MSE_{b}$의 수식에 오타가 있으니 주의하자.</li>
+</ul>
+<p>여기서 $\left\{ x_{0}^{i}, h_{0}^{i} \right\}_{i=1}^{N_{0}}$는 초기값 데이터, $\left\{ t_{b}^{i} \right\}_{i=1}^{N_{b}}$는 경계에서의 콜로케이션 포인트, $\left\{ t_{f}^{i}, x_{f}^{i} \right\}_{i=1}^{N_{f}}$는 $f$에 대한 콜로케이션 포인트이다.</p>
+<p>데이터 셋을 생성하기 위해, 기존의 스펙트럴 메소드<sup>spectral methods</sup>를 사용하였다. $h(0,x)$에서의 초기값 데이터의 수는 $N_{0} = 50$, 경계값 데이터의 수는 $N_{b} = 50$으로 두고 무작위로 뽑았다. 또한 $f$의 콜로케이션 포인트 수는 $N_{f} = 20,000$개이다. 인공신경망은 100개의 노드를 가지는 선형층을 5개, 층 사이의 활성화 함수로는 하이퍼볼릭 탄젠트 $\tanh$를 쌓아 만들었다.</p>
+<p><img src="figure1.png#center" alt="figure1.png"></p>
+<p align=middle> Figure 1.</p>
+<p>Figure 1.에서 위 그림은 예측된 솔루션 $\left| h(t, x) \right|$의 <a href="../3233">히트맵</a>을 나타낸 것이다. 아래의 그림은 시간이 각각 $t = 0.59, 0.79, 0.98$일 때의 예측된 솔루션과 실제의 솔루션이 얼마나 일치하는지를 나타낸 것이다. 상대적 $L_{2}$ 놈<sup>relative $L_{2}$-norm</sup> 은 $0.00197 = 1.97 \cdot 10^{-3}$로 예측된 솔루션이 정확한 솔루션과 비교했을 때 $0.02\%$ 정도의 차이를 가진다는 것을 의미한다. 따라서 PINN은 적은 초기값 데이터로 슈뢰딩거 방정식의 nonlinear behavior를 정확하게 포착할 수 있다.</p>
+<p>지금 다루고있는 continuous time model은 초기값이 적어도 잘 작동하지만 콜로케이션 포인트의 수 $N_{f}$가 충분히 많아야한다는 잠재적인 한계점이 있다. 이는 공간의 차원이 2이하일 때는 크게 문제되지않지만, 고차원에서는 필요한 콜로케이션 포인트가 기하급수적으로 늘어날 수 있기 때문에 문제가 될 수 있다. 따라서 다음 섹션에서 the classical Runge–Kutta time-stepping schemes을 활용하여 많은 콜로케이션 포인트를 필요로하지 않도록하는 더 구조화된 신경망을 제시한다.</p>
+<h3 id="32-discrete-time-models">3.2. Discrete time models</h3>
+<p>Section 3.1.에서는 솔루션을 연속 시간에 대해서 근사했다. 이 경우에 인공신경망은 전체 도메인에 대해서 동시에 학습되고, 임의의 점 $(x,t)$에 대해서 출력이 있다. 이번 섹션에서는 Section 3.1.에서와는 달리 이산 시간에 대해서 다룬다. 다시말해 $t_{n}$에서의 값을 알 때, $t_{n+1}$에서의 값을 인공신경망으로 근사하는 방법에 대해 설명한다. $(2)$에 $q$ 스테이지 <a href="../3319">룽게-쿠타 메소드</a>를 적용하면 다음과 같다.
+$$
+u(t_{n+1}, x) = u(t_{n}, x) - \Delta t \sum_{j=1}^{q} b_{j}\mathcal{N}\left[ u(t_{n}+c_{j} \Delta t, x) \right]
+$$</p>
+<p>여기서 $u^{n}(x) = u(t_{n}, x)$, $u^{n+c_{j}} = u(t_{n} + c_{j}\Delta t, x)$라고 표기하면,</p>
+<p>$$
+\begin{equation}
+\begin{aligned}
+u^{n+1} &amp;= u^{n} - \Delta t \sum_{j=1}^{q} b_{j}\mathcal{N}\left[ u^{n+c_{j}}\right] \\ 
+\text{where } u^{n+c_{j}} &amp;= u^{n} - \Delta t \sum_{i=1}^{q} a_{j,i}\mathcal{N}\left[ u^{n+c_{i}}\right] \quad j=1,\dots,q
+\end{aligned}\tag{7}
+\end{equation}
+$$</p>
+<p>위 $q+1$개의 수식에서, 우변의 $\sum$항을 모두 좌변으로 이항하자. 그리고 좌변을 $u_{i}^{n}$과 같이 표기하자.</p>
+<p>$$
+\begin{equation}
+\begin{aligned}
+u_{q+1}^{n} &amp;:= u^{n+1} + \Delta t \sum_{j=1}^{q} b_{j}\mathcal{N}\left[ u^{n+c_{j}}\right] = u^{n} \\ 
+\\
+u_{1}^{n} &amp;:= u^{n+c_{1}} + \Delta t \sum_{i=1}^{q} a_{1,i}\mathcal{N}\left[ u^{n+c_{i}}\right] = u^{n} \\ 
+u_{2}^{n} &amp;:= u^{n+c_{2}} + \Delta t \sum_{i=1}^{q} a_{2,i}\mathcal{N}\left[ u^{n+c_{i}}\right] = u^{n} \\ 
+&amp;\vdots \\ 
+u_{q}^{n} &amp;:= u^{n+c_{q}} + \Delta t \sum_{i=1}^{q} a_{q,i}\mathcal{N}\left[ u^{n+c_{i}}\right] = u^{n}
+\end{aligned}\tag{9}
+\end{equation}
+$$</p>
+<p>그러면 이 모든 값들이 $u^{n}$으로 같아야함을 알 수 있다.</p>
+<p>$$
+u^{n} = u_{1}^{n} = u_{2}^{n} = \cdots = u_{q+1}^{n}
+\tag{8}
+$$</p>
+<p>따라서 Section 3.2.에서 말하는 물리정보란, 주어진 초기&amp;경계 조건과 $(8)$을 말한다. 이제 $u(t_{n+1}, x)$를 구하기 위해 두 인공신경망을 정의한다. Section 3.1.에서 사용한 인공신경망은 exact solution $u_{\ast}$로 수렴하기를 기대하는 $u$와 $u$가 만족해야할 미분방정식 $f$이었는데 여기에서는 조금 다르다. 우선 인공신경망 $U$를 다음과 같은 함수로 정의하자.</p>
+<p>$$
+U : \mathbb{R} \to \mathbb{R}^{q+1} 
+$$</p>
+<p>즉 입력층의 노드가 $1$개이고, 출력층의 노드가 $q+1$개인 신경망이다. 이 신경망의 출력을 다음의 값이라 가정한다.</p>
+<p>$$
+U(x) = \begin{bmatrix}
+u^{n+c_{1}}(x) \\[0.5em] 
+u^{n+c_{2}}(x) \\ 
+\vdots \\[0.5em]
+u^{n+c_{q}}(x) \\[0.5em] 
+u^{n+1}(x)
+\end{bmatrix}
+\tag{10}
+$$</p>
+<p>이 신경망은 첨부된 코드에서 <code>PhysicsInformedNN</code> 클래스 안에서 정의된 <code>neural_net</code>에 해당한다.</p>
+<p>즉 아래의 학습 과정에서 $U$의 출력의 마지막 성분이 $u(t_{n+1}, x)$로 수렴하기를 바라는 것이다. 두번째 신경망은 $U$의 출력과 $(7)$의 정의를 이용하여 다음과 같이 정의되는 함수이다.</p>
+<h4 id="321-example-allencahn-equation">3.2.1. Example (Allen–Cahn equation)</h4>
+<p>이산 시간 모델에 대해서 살펴볼 예제는 다음과 같은 초기조건 &amp; 주기적인 경계조건이 주어지는 Allen-Cahn 방정식이다.</p>
+<p>$$
+\begin{equation}
+\begin{aligned}
+&amp;u_{t} - 0.0001u_{xx} + 5 u^{3} - 5u = 0,\qquad x\in [-1, 1], t\in[0, 1], \\ 
+&amp;u(0,x) = x^{2} \cos (\pi x), \\ 
+&amp;u(t,-1) = u(t,1), \\ 
+&amp;u_{x}(t,-1) = u_{x}(t,1)
+\end{aligned}\tag{12}
+\end{equation}
+$$</p>
+<p>이 예제에서 $(9)$에 포함된 nonlinear operator는 다음과 같다.</p>
+<p>$$
+\mathcal{N}[u^{n+c_{j}}] = -0.0001u_{xx}^{n+c_{j}} + 5(u^{n+c_{j}})^{3} - 5u^{n+c_{j}}
+$$</p>
+<p>타임 스텝 $t^{n}$에서 $u$의 값을 $u^{n,i}$라고 표기하자.</p>
+<p>$$
+u^{n,i} = u^{n}(x^{n,i}) = u(t^{n}, x^{n,i}),\qquad i=1,\dots,N_{n}
+$$</p>
+<p>우리가 풀려는 문제는 $u^{n}$이 주어져있을 때, $u^{n+1}$를 계산하는 것이므로 $\left\{ x^{n,i}, u^{n,i} \right\}_{i=1}^{N_{n}}$은 주어진 데이터 셋이다. $(8)$에 의해서, 이 데이터 셋에 대해서 다음이 성립해야한다.</p>
+<p>$$
+u^{n,i} = u_{1}^{n}(x^{n,i}) = \cdots = u_{q+1}^{n}(x^{n,i})
+$$</p>
+<p>따라서 이에 대해 다음과 같은 손실함수<sup>sum of squared error (SSE)</sup>를 두자.</p>
+<ul>
+<li>여기선 왜 $MSE$가 아닌 $SSE$인지는 잘 모르겠다. 논문에서 연속시간모델에는 $MSE$를 쓰고, 이산시간모델에는 $SSE$를 쓴 것을 보아 (실험적인 이유일지라도)이유는 있는 것 같다.</li>
+</ul>
+<p>$$
+SSE_{n} = \sum\limits_{j=1}^{q+1} \sum\limits_{i=1}^{N_{n}} \left| u_{j}^{n} (x^{n,i}) - u^{n,i} \right|^{2}
+$$</p>
+<p>각각의 $u_{j}^{n}$은 $(9)$에 의해서 계산되는데, 이때 계산에 사용되는 $u^{n+1}$과 $u^{n+c_{j}}$들이 바로 신경망 $U$의 출력이다. 이 로스는 첨부된 코드에서 <code>PhysicsInformedNN</code> 클래스 안에서 정의된 <code>net_U0</code>에 해당한다. 그리고 $U$의 출력은 $(12)$의 경계조건을 만족해야하므로, 다음과 같은 손실함수를 둔다.</p>
+<p>$$
+\begin{align*}
+SSE_{b}
+&amp;= \sum\limits_{i=1}^{q} \left| u^{n+c_{i}}(-1) - u^{n+c_{i}}(1) \right|^{2} + \left| u^{n+1}(-1) - u^{n+1}(1) \right|^{2} \\ 
+&amp;\quad+ \sum\limits_{i=1}^{q} \left| u_{x}^{n+c_{i}}(-1) - u_{x}^{n+c_{i}}(1) \right|^{2} + \left| u_{x}^{n+1}(-1) - u_{x}^{n+1}(1) \right|^{2} \\
+\end{align*}
+$$</p>
+<p>이 둘을 합한 것이 최종 로스다.</p>
+<p>$$
+SSE = SSE_{n} + SSE_{b}
+$$</p>
+<p><img src="figure2.png#center" alt="figure2.png"></p>
+<p align=middle> Figure 2.</p>
+<p>Fig. 2.에서 위의 그림은 exact solution의 히트맵이다. 아래 그림에서는 $t=0.1$에서의 $u$를 알 때 $t=0.9$에서의 값을 예측한 결과이다. 아래의 왼쪽 그림에서 파란색 선이 exact solution이고 $\color{red}\mathsf{X}$가 데이터로 사용한 점이다. 아래의 오른쪽 그림에서 파란색 선은 exact solution이고 빨간색 선은 예측한 솔루션이다.</p>
+<p><a href="../3319">암시적 룽게-쿠타 메소드 (IRK)</a>에서는 $u^{n+c_{j}}$를 계산하기 위해서 모든 $j$에 대한 연립방정식을 풀어야하기 때문에 $q$가 클수록 계산 비용이 크게 증가하지만, 이 논문에서 제안하는 방법에서는 $q$가 커져도 그에 따른 추가 비용이 매우 적다고 설명한다. 또한 $q$가 작을 때에는 IRK의 경우 타임 스텝 $\Delta t$가 크면 정확한 예측을 할 수 없지만, PINN의 경우에는 $\Delta t$가 크더라도 정확하게 예측할 수 있다고 설명한다.</p>
+<h2 id="4-data-driven-discovery-of-partial-differential-equations">4. Data-driven discovery of partial differential equations</h2>
+<p>이 장에서는 관측 데이터가 있을 때, 편미분방정식 $(1)$의 파라매터 $\lambda$를 찾는 문제에 대해서 다룬다. 자세한 것은 아래에서 예제와 함께 설명한다.</p>
+<h3 id="41-continuous-time-models">4.1. Continuous time models</h3>
+<p>$f$를 아래와 같이 $(1)$의 좌변으로 정의하자.</p>
+<p>$$
+f = u_{t} + \mathcal{N}[u; \lambda]
+$$</p>
+<p>Section 3.의 $\eqref{3}$과 다른 점은, $\lambda$가 고정된 상수가 아니라 학습해야할 unknown parameter가 되었다는 것이다.</p>
+<h4 id="411-example-navierstokes-equation">4.1.1. Example (Navier–Stokes equation)</h4>
+<p>Section 4.1.1에서는 나비에-스토크스 방정식으로 묘사되는 비압축성<sup>incompressible</sup> 유체의 실제 데이터에 관한 예를 소개한다. 다음과 같은 2차원 나비에-스토크스 방정식을 생각하자.</p>
+<p>$$
+\begin{equation}\label{15}
+\begin{aligned}
+u_{t} + \lambda_{1}(uu_{x} + vu_{y}) &amp;= -p_{x} + \lambda_{2}(u_{xx} + u_{yy}) \\ 
+v_{t} + \lambda_{1}(uv_{x} + vv_{y}) &amp;= -p_{y} + \lambda_{2}(v_{xx} + v_{yy})
+\end{aligned}
+\tag{15}
+\end{equation}
+$$</p>
+<p>여기서 $u(t,x,y)$는 유체의 속도 벡터의 $x$성분, $v(t,x,y)$는 $y$성분이다. 그리고 $p(t,x,y)$는 압력, $\lambda = (\lambda_{1}, \lambda_{2})$는 unknown parameter이다. 나비에-스토크스 방정식의 솔루션은 <a href="../1777">다이벌전스</a>가 $0$이라는 조건을 만족하므로, 다음이 성립한다.</p>
+<p>$$
+\begin{equation}\label{17}
+u_{x} + v_{y} = 0 \tag{17}
+\end{equation}
+$$</p>
+<p>어떤 잠재 함수<sup>latent function</sup> $\psi(t, x, y)$에 대해서 다음과 같이 가정하자.</p>
+<p>$$
+u = \psi_{y},\quad v = -\psi_{x}
+$$</p>
+<p>즉 유체의 속도 벡터를 $\begin{bmatrix} \psi_{y} &amp; -\psi_{x}\end{bmatrix}$라고 둔다는 것인데, 그러면 $u_{x} + v_{y} = \psi_{yx} - \psi_{xy} = 0$이므로 $(17)$을 자연스럽게 만족한다. $u$와 $v$를 각각 구하는 것이 아닌, $\psi$를 인공신경망으로 근사하여 이의 편미분으로서 $u, v$를 얻는다. 실제 속도 벡터 필드에 대해서 다음과 같이 측정된 정보가 주어졌다고 하자.</p>
+<p>$$
+\left\{ t^{i}, x^{i}, y^{i}, u^{i}, v^{i} \right\}_{i=1}^{N}
+$$</p>
+<p>이로부터 손실함수를 다음과 같이 둔다. 여기서 $u = \phi_{y}$, $v = -\psi_{x}$임을 기억하자.</p>
+<p>$$
+\dfrac{1}{N} \sum\limits_{i=1}^{N} \left( \left| u(t^{i}, x^{i}, y^{i}) - u^{i} \right|^{2} + \left| v(t^{i}, x^{i}, y^{i}) - v^{i} \right|^{2} \right)
+$$</p>
+<p>그리고 $(15)$의 우변을 좌변으로 정리하여 이를 각각 $f$와 $g$라 정의하자.</p>
+<p>$$
+\begin{equation}
+\begin{aligned}
+f &amp;:= u_{t} + \lambda_{1}(uu_{x} + vu_{y}) + p_{x} - \lambda_{2}(u_{xx} + u_{yy}) \\ 
+g &amp;:= v_{t} + \lambda_{1}(uv_{x} + vv_{y}) + p_{y} - \lambda_{2}(v_{xx} + v_{yy})
+\end{aligned}\tag{18}
+\end{equation}
+$$</p>
+<p>그러면 $f, g$의 값은 $\psi$로 다음과 같이 표현된다. ($p$도 신경망으로 근사할 것이다)</p>
+<p>$$
+\begin{align*}
+f &amp;= \phi_{yt} + \lambda_{1}(\psi_{y} \psi_{yx} - \psi_{x}\psi_{yy}) + p_{x} -\lambda_{2}(\psi_{yxx} + \psi_{yyy}) \\ 
+g &amp;= -\phi_{xt} + \lambda_{1}(-\psi_{y} \psi_{xx} + \psi_{x}\psi_{xy}) + p_{y} + \lambda_{2}(\psi_{xxx} + \psi_{xyy}) \\ 
+\end{align*}
+$$</p>
+<p>손실함수에 $f(t^{i}, x^{i}, y^{i}) = 0 = g(t^{i}, x^{i}, y^{i})$이라는 정보를 추가하여 최종적으로 다음과 같이 둔다.</p>
+<p>$$
+\begin{aligned}
+MSE &amp;:= \dfrac{1}{N} \sum\limits_{i=1}^{N} \left( \left| u(t^{i}, x^{i}, y^{i}) - u^{i} \right|^{2} + \left| v(t^{i}, x^{i}, y^{i}) - v^{i} \right|^{2} \right) \\ 
+&amp;\qquad + \dfrac{1}{N} \sum\limits_{i=1}^{N} \left( \left| f(t^{i}, x^{i}, y^{i}) \right|^{2} + \left| g(t^{i}, x^{i}, y^{i}) \right|^{2} \right) 
+\end{aligned} \tag{19}
+$$</p>
+<p>이제 입력 노드가 $3$개, 출력 노드가 $2$개인 인공신경망을 정의하자. 이의 출력을 $\begin{bmatrix} \psi(t, x, y) &amp; p(t, x, y) \end{bmatrix}$라고 가정한다. 그러면 위의 손실함수를 계산할 수 있다.</p>
+<p>데이터에 노이즈가 있는 경우와 없는 경우에 대해서 실험을 진행하였는데 두 경우 모두 높은 정확도로 $\lambda_{1}, \lambda_{2}$를 예측할 수 있었다고 한다. 또한 압력 $p$에 대한 데이터가 주어지지 않아도, 인공신경망이 파라매터와 더불어 $p$까지 상당히 정확하게 근사할 수 있다는 것을 보여주었다. 구체적인 실험 세팅, 결과 그리고 레퍼런스 솔루션을 어떻게 구햇는지에 대한 내용은 논문에 자세히 나와있다.</p>
+<h2 id="5-conclusions">5. Conclusions</h2>
+<p>이 논문에서는 주어진 데이터가 만족하는 물리 법칙을 인코딩할 수 있고<sup>is capable of encoding</sup>, 편미분방정식으로 설명될 수 있는 신경망의 새로운 구조인 물리정보기반 신경망을 소개하였다. 이 결과로 물리 모델에 대해서 딥러닝이 학습할 수 있음을 알게되었다. 이는 여러 물리적 시뮬레이션에 응용될 수 있을 것이다.</p>
+<p>그러나 저자는 제안된 방법이 편미분 방정식을 풀기 위한 기존의 방법들, 예를 들어 유한요소법<sup>finite element method</sup>, 스펙트럴방법<sup>spectral methods</sup> 등을 대체한다고 생각해서는 안된다고 말한다. 실제로 <a href="#32-discrete-time-models">Section 3.2.</a>에서는 <a href="../796">룽게-쿠타 메서드</a>를 PINN에 활용하기도 했다.</p>
+<p>PINN을 구현하기 위해 신경망은 얼마나 깊어야하는지, 데이터는 얼마나 필요한지 등의 하이퍼 파라매터에 관한 문제에도 저자는 답을 하려고 했다. 하지만 한 방정식에서 효과적인 설정이 다른 방정식에서는 그렇지 못하다는 것을 관측했다고 한다.</p>
+
+
+<aside style="text-align: right;">
+    2022-10-19&emsp;
+    전기현&emsp;
+    <a href="../331">🎲 3313</a>
+</aside>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    
+    const contentBox = document.querySelector('.content-box');
+    if (contentBox) {
+      renderKaTex(contentBox);
+    }
+    const tex = document.querySelector('.tex');
+    if (tex) {
+      renderKaTex(tex);
+    }
+
+    var title = '물리정보기반 신경망(PINN) 논문 리뷰';
+    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/physics-informed-neural-networks\/';
+    var arr = new Array();
+    var obj = {
+      "title": title,
+      "link": link
+    };
+    var postList = JSON.parse(localStorage.getItem('latelyViewPostList'));
+    if (postList == '' || postList == null || postList == undefined || postList == 0 || postList == NaN) {
+      arr.push(obj);
+      localStorage.setItem('latelyViewPostList', JSON.stringify(arr));
+    } else {
+      var listSize = postList.length;
+      for (var i = 0; i < listSize; i++) {
+        if (title == postList[i].title) {
+          postList.splice(i, 1);
+          break;
+        }
+      }
+      arr = postList;
+      arr.push(obj);
+      if (arr.length > 5) {
+        arr.shift();
+      }
+      localStorage.setItem('latelyViewPostList', JSON.stringify(arr));
+    }
+  });
+</script>
+
+      </div>
+      <div style="margin-bottom: 10px;">댓글</div>
+<div class="area-reply">
+  <div class="list-reply">
+  </div>
+</div>
+
+<hr />
+
+
+<div class="write-box">
+  <div class="write-author-info box-account">
+    <input type="hidden" name="cmt_idx" />
+    <input class="ai-author" type="text" value="" placeholder="이름" />
+    <input class="ai-password" type="password" value="" maxlength="20" placeholder="20자 이내 비밀번호를 입력하세요" />
+  </div>
+  <div class="write-content">
+    <textarea class="ai-content" value="" placeholder="내용" style="IME-MODE:active;"></textarea>
+  </div>
+  <div class="write-button">
+    <input class="write_comment" type="submit" value="등록" onclick="write_comment();" />
+  </div>
+  <aside class="tex" style="text-align: center;">댓글에도 $\TeX$이 적용됩니다.</aside>
+</div>
+
+<script>
+  let commentRows = [];
+  const listReply = document.querySelector('.list-reply');
+
+  document.addEventListener('DOMContentLoaded', () => {
+    get_all_comment();
+  });
+
+  function get_all_comment() {
+    fetch('https://api.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => {return data.ip})
+      .then(ip => {
+        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
+        return postFetch(url, {
+                board_idx: '3313',
+                user_ip: ip
+              });
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.ok) {
+          commentRows = data.rows;
+          render_comment(commentRows);
+        }
+      })
+      .catch(err => console.error(err));
+  }
+
+  function render_comment(rows) {
+    const badgeExceptionArr = ['류대식', '전기현', 'ㅇㅇ', '질문'];
+    const adminExceptionArr = ['류대식', '전기현'];
+    render_blank();
+    let html = '';
+    rows.map(row => {
+      html += `<div id="comment${row.cmt_idx}" class="parents">`;
+      html += `<div class="content-info">`;
+      
+      let badge = '';
+      if (row.cmt_cnt > 125) {
+        badge = '🥇';
+      } else if (row.cmt_cnt > 25) {
+        badge = '🥈';
+      } else if (row.cmt_cnt > 5) {
+        badge = '🥉';
+      } else { }
+
+      if (badgeExceptionArr.includes(row.author)) {
+        badge = '';
+      }
+
+      let ipAddress = '';
+      if (row.ip_address == null) {
+        ipAddress = '(-)';
+      } else {
+        ipAddress = `(${row.ip_address})`;
+      }
+
+      if(adminExceptionArr.includes(row.author)) {
+        ipAddress = '';
+      }
+      
+      html += `<div class="list-author">${badge} ${row.author} ${ipAddress}</div>`;
+      html += `<div class="list-bridge">▶</div>`;
+      if(row.approve) {
+        html += `<div class="list-date">${row.datetime}</div>`;
+      } else {
+        html += `<div class="list-date">${row.datetime} - 관리자의 승인을 기다리고 있습니다</div>`;
+      }
+      html += `<div class="list-button">`;
+      html += `<div class="list-update-button" onclick="update_comment('${row.cmt_idx}', 'parents');">수정</div>`;
+      html += `<div class="list-delete-button" onclick="delete_comment('${row.cmt_idx}', 'parents');">삭제</div>`;
+      html += `</div>`; // list-button
+      html += `</div>`; // content-info
+      let content = row.content;
+      content = content.replace(/\n/g, '<br />');
+      html += `<div class="content-text">${content}</div>`;
+      html += `<div class="re-comment"><span class="re-comment-button" onclick="re_comment('${row.cmt_idx}');">답글</span></div>`;
+      html += `</div>`;
+
+      row.child.map(child => {
+        html += `<div id="comment${child.cmt_idx}" class="child">`;
+        html += `<div class="content-info">`;
+        
+        let badge = '';
+        if (child.cmt_cnt > 5) {
+          badge = '🥉';
+        } else if (child.cmt_cnt > 25) {
+          badge = '🥈';
+        } else if (child.cmt_cnt > 125) {
+          badge = '🥇';
+        } else { }
+
+        if (badgeExceptionArr.includes(child.author)) {
+          badge = '';
+        }
+
+        let ipAddress = '';
+        if (child.ip_address == null) {
+          ipAddress = '(-)';
+        } else {
+          ipAddress = `(${child.ip_address})`;
+        }
+
+        if(adminExceptionArr.includes(child.author)) {
+          ipAddress = '';
+        }
+
+        html += `<div class="list-author">${badge} ${child.author} ${ipAddress}</div>`;
+        html += `<div class="list-bridge">▶</div>`;
+        if(child.approve) {
+          html += `<div class="list-date">${child.datetime}</div>`;
+        } else {
+          html += `<div class="list-date">${child.datetime} - 관리자의 승인을 기다리고 있습니다</div>`;
+        }
+        html += `<div class="list-button">`;
+        html += `<div class="list-update-button" onclick="update_comment('${child.cmt_idx}', 'child');">수정</div>`;
+        html += `<div class="list-delete-button" onclick="delete_comment('${child.cmt_idx}', 'child');">삭제</div>`;
+        html += `</div>`; // list-button
+        html += `</div>`; // content-info
+        let content = child.content;
+        content = content.replace(/\n/g, '<br />');
+        html += `<div class="content-text">${content}</div>`;
+        html += `</div>`;
+      });
+    });
+    listReply.innerHTML = html;
+    renderKaTex(listReply);
+  }
+
+  function render_blank() {
+    listReply.innerHTML = '';
+  }
+
+  
+  function write_comment() {
+    const inputAuthor = document.querySelector('.ai-author');
+    const inputPassword = document.querySelector('.ai-password');
+    const inputContent = document.querySelector('.ai-content');
+
+    const author = inputAuthor.value;
+    const password = inputPassword.value;
+    const content = inputContent.value;
+
+    if (author === '' || password === '' || content === '') {
+      alert('빈칸을 채워주세요');
+      return;
+    }
+    const idx = '3313';
+    const board_slug = 'physics-informed-neural-networks';
+    const board_title = '물리정보기반 신경망(PINN) 논문 리뷰';
+
+    fetch('https://api.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => {return data.ip})
+      .then(ip => {
+        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeComment';
+        return postFetch(url, {
+                board_idx: idx,
+                board_slug: board_slug,
+                board_title: board_title,
+                author: author.replace(/\+/g, "%2B"),
+                password: password,
+                content: content.replace(/\+/g, "%2B"),
+                user_ip: ip
+              });
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.ok) {
+          commentRows.push(data.row);
+          render_comment(commentRows);
+          inputAuthor.value = '';
+          inputPassword.value = '';
+          inputContent.value = '';
+        } else {
+          if (data.status === 606) {
+            Swal.fire('Warning!\n지속적인 도배 시도시\nIP가 차단될 수 있습니다.');
+            inputAuthor.value = '';
+            inputPassword.value = '';
+            inputContent.value = '';
+          } else if (data.status === 607) {
+            alert('지나친 댓글 도배를 확인하여\n접근을 차단합니다.');
+            window.location.href = 'https://google.com';
+          } else {}
+        }
+      })
+      .catch(err => console.error(err));
+  }
+
+  
+  async function update_comment(cmt_idx, type) {
+    const { value: password } = await Swal.fire({
+      title: '댓글 수정',
+      input: 'password',
+      inputPlaceholder: '글 작성 시 입력했던 패스워드를 입력하세요',
+      inputAttributes: {
+        maxlength: 20,
+        autocapitalize: 'off',
+        autocorrect: 'off'
+      }
+    });
+
+    if (password) {
+      const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=checkPassword';
+      postFetch(url, {
+        cmt_idx: cmt_idx,
+        password: password
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.ok) {
+            const commnetHtml = document.querySelector(`#comment${cmt_idx}`);
+            const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getComment';
+            postFetch(url, {
+              cmt_idx: cmt_idx
+            })
+              .then(res => res.json())
+              .then(data => {
+                if (data.ok) {
+                  const row = data.row;
+                  const author = row.author;
+                  const content = row.content;
+                  let html = '';
+                  html += `<div class="update-author-info">`;
+                  html += `<input class="update-author" type="text" value="${author}" placeholder="이름" />`;
+                  html += `<input class="update-password" type="password" value="${password}" placeholder="비밀번호" disabled />`;
+                  html += '</div>';
+                  html += `<textarea class="update-content" value="" style="IME-MODE:active;">${content}</textarea>`;
+                  html += `<input class="update_comment-button" type="submit" value="수정" onclick="update_comment_click(${cmt_idx}, '${type}')" />`;
+                  html += `<input class="update_comment-button" type="submit" value="취소" onclick="cancel_click(${cmt_idx})" />`;
+                  commnetHtml.innerHTML = html;
+                }
+              })
+              .catch(err => console.error(err));
+          } else {
+            Swal.fire('패스워드 일치 오류');
+          }
+        })
+        .catch(err => console.error(err));
+    }
+  }
+
+  
+  async function delete_comment(cmt_idx, type) {
+    const { value: password } = await Swal.fire({
+      title: '댓글 삭제',
+      text: "삭제하면 되돌릴 수 없습니다.",
+      input: 'password',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      inputPlaceholder: '글 작성 시 입력했던 패스워드를 입력하세요',
+      inputAttributes: {
+        maxlength: 20,
+        autocapitalize: 'off',
+        autocorrect: 'off'
+      }
+    });
+
+    if (password) {
+      const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=checkPassword';
+      postFetch(url, {
+        cmt_idx: cmt_idx,
+        password: password
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.ok) {
+            const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=deleteComment';
+            postFetch(url, {
+              cmt_idx: cmt_idx
+            })
+              .then(res => res.json())
+              .then(data => {
+                Swal.fire('삭제되었습니다.');
+                if (type === 'parents') {
+                  commentRows = commentRows.filter((row) => row.cmt_idx !== cmt_idx);
+                } else if (type === 'child') {
+                  commentRows.map((row) => {
+                    row.child = row.child.filter((childRow) => childRow.cmt_idx !== cmt_idx);
+                    row.child_cnt = row.child.length;
+                  });
+                } else { }
+                render_comment(commentRows);
+              })
+              .catch(err => console.error(err));
+          } else {
+            Swal.fire('패스워드 일치 오류');
+          }
+        })
+        .catch(err => console.error(err));
+    }
+  }
+
+  
+  function update_comment_click(cmt_idx, type) {
+    const inputAuthor = document.querySelector(`#comment${cmt_idx} .update-author`);
+    const inputPassword = document.querySelector(`#comment${cmt_idx} .update-password`);
+    const inputContent = document.querySelector(`#comment${cmt_idx} .update-content`);
+
+    const author = inputAuthor.value;
+    const password = inputPassword.value;
+    const content = inputContent.value;
+
+    if (author === '' || password === '' || content === '') {
+      alert('빈칸을 채워주세요');
+    }
+
+    const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=updateComment';
+    postFetch(url, {
+      cmt_idx: cmt_idx,
+      author: author.replace(/\+/g, "%2B"),
+      password: password,
+      content: content.replace(/\+/g, "%2B")
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.ok) {
+          Swal.fire('수정되었습니다.');
+          if (type === 'parents') {
+            commentRows.map((row) => {
+              if (row.cmt_idx == cmt_idx) {
+                row.author = data.author;
+                row.content = data.content;
+              }
+            });
+          } else if (type === 'child') {
+            commentRows.map((row) => {
+              if (row.cmt_idx == data.parent_cmt_idx) {
+                row.child.map((child) => {
+                  if (child.cmt_idx == cmt_idx) {
+                    child.author = data.author;
+                    child.content = data.content;
+                  }
+                });
+              }
+            });
+          } else { }
+          render_comment(commentRows);
+          recentRows.map((row) => {
+            if (row.cmt_idx == cmt_idx) {
+              row.author = data.author;
+              row.content = data.content;
+            }
+          });
+          render_recent_comment(recentRows);
+        }
+      })
+      .catch(err => console.error(err));
+  }
+
+  
+  function cancel_click() {
+    render_comment(commentRows);
+  }
+
+  
+  function re_comment(cmt_idx) {
+    const reComment = document.querySelector(`#comment${cmt_idx} .re-comment`);
+    let html = '';
+    html += '<div class="re-comment-box">';
+    html += '<div class="re-comment-author-info">';
+    html += '<input class="re-comment-author" type="text" value="" placeholder="이름" />';
+    html += '<input class="re-comment-password" type="password" value="" placeholder="비밀번호" />';
+    html += '</div>';
+    html += '<textarea class="re-comment-content" placeholder="내용" value="" style="IME-MODE:active;"></textarea>';
+    html += `<input class="re-comment-btn" type="submit" value="등록" onclick="re_comment_click(${cmt_idx})" />`;
+    html += `<input class="re-comment-btn" type="submit" value="취소" onclick="cancel_click(${cmt_idx})" />`;
+    html += '</div>';
+
+    reComment.innerHTML = html;
+  }
+
+  function re_comment_click(cmt_idx) {
+    const inputAuthor = document.querySelector(`#comment${cmt_idx} .re-comment-author`);
+    const inputPassword = document.querySelector(`#comment${cmt_idx} .re-comment-password`);
+    const inputContent = document.querySelector(`#comment${cmt_idx} .re-comment-content`);
+
+    const author = inputAuthor.value;
+    const password = inputPassword.value;
+    const content = inputContent.value;
+
+    if (author === '' || password === '' || content === '') {
+      alert('빈칸을 채워주세요');
+      return;
+    }
+
+    const board_idx = '3313';
+    const board_slug = 'physics-informed-neural-networks';
+    const board_title = '물리정보기반 신경망(PINN) 논문 리뷰';
+
+    fetch('https://api.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => {return data.ip})
+      .then(ip => {
+        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeReComment';
+        return postFetch(url, {
+                board_idx: board_idx,
+                board_slug: board_slug,
+                board_title: board_title,
+                cmt_idx: cmt_idx,
+                author: author.replace(/\+/g, "%2B"),
+                password: password,
+                content: content.replace(/\+/g, "%2B"),
+                user_ip: ip
+              });
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.ok) {
+          commentRows.map((row) => {
+            if (row.cmt_idx == cmt_idx) {
+              row.child.push(data.row);
+            }
+          });
+          render_comment(commentRows);
+        } else {
+          if (data.status == 606) {
+            Swal.fire('Warning!\n지속적인 도배 시도시\nIP가 차단될 수 있습니다.');
+            inputAuthor.value = '';
+            inputPassword.value = '';
+            inputContent.value = '';
+          } else if (data.status === 607) {
+            alert('지나친 댓글 도배를 확인하여\n접근을 차단합니다.');
+            window.location.href = 'https://google.com';
+          } else {}
+        }
+      })
+      .catch(err => console.error(err));
+  }
+
+</script>
+    </div>
+
+    <div class="sidebar">
+      
+
+<aside>
+<form method="get" action="../../search" style="border: 1px;">
+<div class="field">
+
+<input type="text" id="searchtext" placeholder = "통합검색" class="input_text" name="s"
+style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.5rem;
+border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
+</div>
+</form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
+
+  
+
+
+
+
+
+
+<div class="category">
+
+</div>
+
+<aside style="display:flex;">
+  ● 를 클릭해서 관심있는 분야만 강조해보세요.
+      <div class="resetmute">
+        <button class="sb-btn btnReset"
+          style = "border-radius:5px; border:0px">reset</button>
+        <button class="sb-btn btnMute"
+          style = "border-radius:5px; border:0px">mute</button>
+      </div>
+  </aside>
+
+<script>
+  const color = {green: '#33cc33', yellow: '#ffcc00', red: '#ff3333', black: '#000000'};
+  const categoryRows = [
+    [
+      { idx: 1, name: '함수', size: '81', color: color.green },
+      { idx: 2, name: '보조정리', size: '24', color: color.green },
+      { idx: 3, name: '집합론', size: '47', color: color.green },
+      { idx: 4, name: '정수론', size: '89', color: color.green },
+      { idx: 5, name: '기하학', size: '132++', color: color.yellow },
+      { idx: 6, name: '행렬대수', size: '87', color: color.green },
+      { idx: 7, name: '선형대수', size: '83', color: color.green },
+      { idx: 8, name: '추상대수', size: '77', color: color.green },
+      { idx: 9, name: '위상수학', size: '63', color: color.green },
+      { idx: 10, name: '그래프이론', size: '50', color: color.green }
+    ],
+    [
+      { idx: 1, name: '해석개론', size: '96', color: color.green },
+      { idx: 2, name: '다변수벡터해석', size: '21', color: color.green },
+      { idx: 3, name: '복소해석', size: '71', color: color.green },
+      { idx: 4, name: '측도론', size: '59', color: color.green },
+      { idx: 5, name: '푸리에해석', size: '51', color: color.green },
+      { idx: 6, name: '초함수론', size: '23', color: color.green },
+      { idx: 7, name: '단층촬영', size: '19', color: color.green },
+    ],
+    [
+      { idx: 1, name: '거리공간', size: '33', color: color.green },
+      { idx: 2, name: '바나흐공간', size: '32', color: color.green },
+      { idx: 3, name: '힐베르트공간', size: '30', color: color.green },
+      { idx: 4, name: '르벡공간', size: '30', color: color.green }
+    ],
+    [
+      { idx: 1, name: '상미분방정식', size: '57', color: color.green },
+      { idx: 2, name: '편미분방정식', size: '50', color: color.green },
+      { idx: 3, name: '확률미분방정식', size: '25', color: color.green }
+    ],
+    [
+      { idx: 1, name: '매트랩', size: '16', color: color.green },
+      { idx: 2, name: '수치해석', size: '53', color: color.green },
+      { idx: 3, name: '최적화이론', size: '27', color: color.green }
+    ],
+    [
+      { idx: 1, name: '수리물리', size: '50', color: color.red },
+      { idx: 2, name: '고전역학', size: '38', color: color.green },
+      { idx: 3, name: '전자기학', size: '49', color: color.green },
+      { idx: 4, name: '양자역학', size: '52', color: color.yellow },
+      { idx: 5, name: '열물리학', size: '24', color: color.green }
+    ],
+    [
+      { idx: 1, name: 'R', size: '53', color: color.green },
+      { idx: 2, name: '데이터확보', size: '22', color: color.green },
+      { idx: 3, name: '데이터과학', size: '30++', color: color.red },
+      { idx: 4, name: '통계적검정', size: '20++', color: color.red },
+      { idx: 5, name: '통계적분석', size: '67', color: color.green },
+      { idx: 6, name: '수리통계학', size: '110', color: color.green },
+      { idx: 7, name: '분포이론', size: '70', color: color.green },
+      { idx: 8, name: '확률론', size: '72', color: color.green },
+      { idx: 9, name: '위상데이터분석', size: '38', color: color.red }
+    ],
+    [
+      { idx: 1, name: '줄리아', size: '150++', color: color.green },
+      { idx: 2, name: '프로그래밍', size: '32', color: color.green },
+      { idx: 3, name: '알고리즘', size: '28', color: color.green },
+      { idx: 4, name: '머신러닝', size: '61', color: color.green },
+      { idx: 5, name: '세이버메트릭스', size: '12', color: color.green },
+      { idx: 6, name: '논문작성', size: '13', color: color.green },
+      { idx: 7, name: '교과과정', size: '53', color: color.green },
+      { idx: 8, name: '생새우초밥지', size: '3', color: color.black }
+    ]
+  ];
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const blindList = JSON.parse(localStorage.getItem('blindList'));
+    if (blindList == '' || blindList == null || blindList == undefined || blindList == 0 || blindList == NaN) {
+      localStorage.setItem('blindList', null);
+    }
+    render_category(categoryRows);
+
+    blind_category(blindList);
+
+    const btnReset = document.querySelector('.btnReset');
+    btnReset.addEventListener('click', () => {
+      let arr = new Array();
+      localStorage.setItem('blindList', JSON.stringify(arr));
+      blind_category(arr);
+    });
+
+    const btnMute = document.querySelector('.btnMute');
+    btnMute.addEventListener('click', () => {
+      let arr = new Array();
+      for(let i = 0; i < categoryRows.length; i++) {
+        categoryRows[i].map(row => {
+          const data = {mainIdx: i, subIdx: row.idx};
+          arr.push(data);
+        });
+      }
+      localStorage.setItem('blindList', JSON.stringify(arr));
+      blind_category(arr);
+    });
+  });
+
+  function render_category(rows)
+  {
+    const category = document.querySelector('.category');
+    let html = '';
+    for(let i = 0; i < rows.length; i++) {
+      rows[i].map(row => {
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
+        html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
+      });
+      html += '<hr>';
+    }
+
+    category.innerHTML = html;
+  }
+
+  /* 좌측 버튼 클릭시 블라인드 되는 함수 */
+  function check_blind(mainIdx, subIdx)
+  {
+    const cateDiv = document.querySelector(`#cate${mainIdx}-${subIdx}`);
+    let arr = new Array();
+    const data = {mainIdx, subIdx};
+    let blindList = JSON.parse(localStorage.getItem('blindList'));
+    if (blindList == '' || blindList == null || blindList == undefined || blindList == 0 || blindList == NaN) {
+      arr.push(data);
+      localStorage.setItem('blindList', JSON.stringify(arr));
+      cateDiv.className += ' blind';
+    } else {
+      arr = blindList;
+      let tempArr = null;
+      for(let i = 0; i < arr.length; i++) {
+        if(arr[i].mainIdx == mainIdx && arr[i].subIdx == subIdx) {
+          tempArr = arr.filter(a => a.mainIdx != mainIdx || a.subIdx != subIdx);
+          break;
+        }
+      }
+      
+      if(tempArr === null) {
+        arr.push(data);
+        localStorage.setItem('blindList', JSON.stringify(arr));
+        cateDiv.className += ' blind';
+      } else {
+        localStorage.setItem('blindList', JSON.stringify(tempArr));
+        cateDiv.className = 'cate';
+      }
+    }
+  }
+
+  /* blind되도록 랜더링하는 함수 */
+  function blind_category(blindList)
+  {
+    const cateDiv = document.querySelectorAll('.cate');
+    cateDiv.forEach(div => {
+      div.className = 'cate';
+    });
+    if(blindList !== null) {
+      blindList.map(list => {
+        const blindDiv = document.querySelector(`#cate${list.mainIdx}-${list.subIdx}`);
+        blindDiv.className += ' blind';
+      });
+    }
+  }
+</script>
+
+</aside>
+
+<aside>
+<p><b>최근에 본 포스트</b></p>
+<aside>
+  <div class="lately-viewed-list" style="padding-left: 4px;">
+  </div>
+</aside>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const postList = JSON.parse(localStorage.getItem('latelyViewPostList'));
+
+    const list = document.querySelector('.lately-viewed-list');
+    let html = '';
+    if (postList == '' || postList == null || postList == undefined || postList == 0 || postList == NaN) {
+      localStorage.setItem('latelyViewPostList', null);
+      html += '<div class="lv-list">';
+      html += ' · 열람한 포스트가 없습니다.';
+      html += '</div>';
+      list.innerHTML = html;
+    } else {
+      for (let i = (postList.length - 1); i >= 0; i--) {
+        html += '<div class="lv-list">';
+        html += `<a href="${postList[i].link}"> · ${postList[i].title}</a>`;
+        html += '</div>';
+      }
+      list.innerHTML = html;
+    }
+  });
+</script>
+</aside>
+
+<aside>
+    <h2></h2>
+    <ul>
+    </ul>
+</aside>
+
+<aside>
+  <p><b>최근 댓글</b></p>
+  <div class="current-reply">
+  </div>
+</aside>
+
+<script>
+  const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/recent_comment.php?action=getCurrentComment';
+  let recentRows = []; 
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      if (data.ok) {
+        recentRows = data.rows;
+        render_recent_comment(recentRows);
+      }
+    })
+    .catch(err => console.error(err));
+
+  
+  function render_recent_comment(rows) {
+    const currentReply = document.querySelector('.current-reply');
+    let html = '';
+    rows.map(row => {
+      let link = 'https:\/\/freshrimpsushi.github.io\/';
+      if (row.board_idx > -1) {
+        link += `/posts/${row.board_slug}#comment${row.cmt_idx}`;
+      } else if (row.board_idx == -1) {
+        link += `#comment${row.cmt_idx}`;
+      } else {
+        link += `/categories/${row.board_title}#comment${row.cmt_idx}`;
+      }
+      html += `<div class="current-reply-list">`;
+      html += `<a href="${link}">`;
+      html += `<b> - ${row.author}</b>: `;
+      html += `${row.content}`;
+      html += `</a>`;
+      html += `</div>`;
+    });
+    currentReply.innerHTML = html;
+    renderKaTex(currentReply);
+  }
+</script>
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+  <footer>
+  <aside>
+    <div>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
+      <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
+        freshrimpsushi@gmail.com<br>
+        
+      </p>
+    </div>
+
+    
+    
+    
+    <link rel="stylesheet" href=https://freshrimpsushi.github.io/css/codefence.css>
+    <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script src=https://freshrimpsushi.github.io/js/fuse.js></script> 
+<script src=https://freshrimpsushi.github.io/js/fastsearch.js></script>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.1/katex.min.js"
+  integrity="sha512-5ufNcHqOYgilGEHPfuRIQ5B/vDS1M8+UC+DESZ5CwVgGTg+b2Ol/15rYL/GiCWJ/Sx8oVo0FPFok1dPk8U9INQ=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.1/contrib/auto-render.min.js"
+  integrity="sha512-ZA/RPrAo88DlwRnnoNVqKINnQNcWERzRK03PDaA4GIJiVZvGFIWQbdWCsUebMZfkWohnfngsDjXzU6PokO4jGw=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+  
+  function renderKaTex(target) {
+    renderMathInElement(target, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+      ],
+      trust: true,
+      trust: (context) =>
+        ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
+      macros: {
+        "\\eqref": "(\\text{#1})",
+        "\\ref": "\\href{###1}{\\text{#1}}",
+        "\\label": "\\htmlId{#1}{}",
+        "\\for": "\\text{ for }",
+        "\\and": "\\text{ and }",
+        "\\or": "\\text{ or }",
+        "\\st": "\\text{ s.t. }",
+        "\\by": "\\text{ by }",
+        "\\on": "\\text{ on }",
+        "\\if": "\\text{ if }",
+        "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
+        "\\sgn": "\\operatorname{sgn}",
+        "\\sign": "\\operatorname{sign}",
+        "\\sinc": "\\operatorname{sinc}",
+        "\\diag": "\\operatorname{diag}",
+        "\\diam": "\\operatorname{diam}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
+        "\\Re": "\\operatorname{Re}",
+        "\\Im": "\\operatorname{Im}",
+        "\\Poi": "\\operatorname{Poi}",
+        "\\span": "\\operatorname{span}",
+        "\\supp": "\\operatorname{supp}",
+        "\\rank": "\\operatorname{rank}",
+        "\\nullity": "\\operatorname{nullity}",
+        "\\Ric": "\\operatorname{Ric}",
+        "\\rcurs":
+        "\\includegraphics[height=0.4em, width=0.45em, alt=KA logo]{https://upload.wikimedia.org/wikipedia/commons/a/a9/Script-r.png}",
+      },
+      throwOnError: false,
+    });
+  }
+</script>
+
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src=https://freshrimpsushi.github.io/js/common.js></script>
+  </aside>
+</footer>
+</body>
+
+</html>

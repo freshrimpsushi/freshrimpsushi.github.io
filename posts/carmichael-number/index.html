@@ -245,7 +245,7 @@ $$
 $n$ 이 $2$ 를 제외한 <a href="../2163">소수</a> $p_{1}, \cdots , p_{m}$ 에 대해 $n = p_{1}^{r_{1} + 1} \cdots p_{m}^{r_{m} + 1}$ 으로 나타난다고 하자. 여기서 $\displaystyle r : = \max \left\{ r_{1}, \cdots , r_{m} \right\}$ 이라고 두고 $r=0$ 임을 보이면 증명은 끝난다. 이 $r$ 에 대응되는 소수를 $p$ 라 두자.</p>
 <p>$n$ 은 카마이클 수이므로 $p^{rn} \equiv p^{r} \pmod{n}$ 이고, $n$ 은 $\left( p^{rn} - p^{r} \right)$ 을 나누어야한다. 또한 $n$ 의 <a href="../2137">약수</a> 중엔 $p^{r+1}$ 도 있었으므로 $p^{r+1}$ 은 $\left( p^{rn} - p^{r} \right)$ 을 나누어야한다. 즉
 $$
-{{ p^{rn} - p^{r}  } \over { p^{r+1} }} = {{ p^{rn - r} - 1  } \over { p }}
+{{ p^{rn} - p^{r}  } \over { p^{r+1} }} = {{ p^{rn - r} - 1  } \over { p }} 
 $$
 은 정수라는 말인데, 이게 가능한 경우는 분자가 $0$ 이 되도록 하는 $r=0$ 뿐이다.</p>
 <p style="text-align: right;">■</p>
@@ -262,7 +262,7 @@ $$
 <aside style="text-align: right;">
     2019-01-02&emsp;
     류대식&emsp;
-    <a href="../537">🎲 794</a>
+    <a href="../1574">🎲 794</a>
 </aside>
 
 <script>
@@ -779,6 +779,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -907,11 +908,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1097,7 +1099,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1108,12 +1110,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

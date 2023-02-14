@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/explicit-runge-kutta-method\/",
-    "wordCount" : "1202",
+    "wordCount" : "1388",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -228,7 +228,7 @@
 </aside>
 
 <h2 id="개요">개요</h2>
-<p>상미분 방정식 솔버<sup>ODE solver</sup>인 룽게-쿠타 메소드를 소개한다. 흔히 사용되는 <a href="../796">4차 룽게-쿠타 메소드</a>인 RK4에 대한 구체적인 설명은 글이 따로 발행되어있다.</p>
+<p>상미분 방정식 솔버<sup>ODE solver</sup>인 룽게-쿠타 메소드를 소개한다. 흔히 사용되는 <a href="../796">4차 룽게-쿠타 메소드</a> RK4에 대한 구체적인 설명은 글이 따로 발행되어있다.</p>
 <h2 id="빌드업1">빌드업<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
 <p>다음과 같이 주어진 상미분 방정식을 생각하자. $y$는 $t$에 대한 함수이며, $^{\prime}$은 $t$에 대한 미분을 의미한다.
 $$
@@ -243,33 +243,49 @@ $$
 \big[y(\tau)\big]_{t_{n}}^{t_{n+1}} = \int_{t_{n}}^{t_{n+1}} f(\tau,y)d\tau
 $$
 $$
-\Downarrow \\
+\Downarrow \\ 
 y(t_{n+1}) = y(t_{n}) + \int_{t_{n}}^{t_{n+1}} f(\tau,y)d\tau =  y(t_{n}) + h\int_{0}^{1} f\big(t_{n} + h\tau,y(t_{n} + h\tau)\big)d\tau
 $$</p>
 <p>이제 뒤의 적분을 합으로 근사하여 다음의 식을 얻는다.</p>
 <p>$$
-y(t_{n+1}) = y(t_{n}) + h\sum_{j=1}^{\nu} b_{j} f(t_{n} + c_{j}h,y(t_{n} + c_{j}h)),\quad n=0,1,2,\cdots
+y(t_{n+1}) = y(t_{n}) + h\sum_{j=1}^{\nu} b_{j} f\big(t_{n} + c_{j}h,y(t_{n} + c_{j}h)\big),\quad n=0,1,2,\cdots
+\tag{1}
 $$</p>
-<p>이는 $y_{n} = y(t_{n})$을 알 때, $y_{n+1} = y(t_{n+1})$을 알 수 있는 근사식이다. 물론 $y(t_{n} + c_{j}h)$도 알 수 없으니 이도 근사해야한다. 식이 복잡하므로 $j = 1,2,\dots,\nu$에 대해서 다음과 같이 표기하자.</p>
+<p>이는 $y_{n} = y(t_{n})$을 알 때, $y_{n+1} = y(t_{n+1})$을 알 수 있는 근사식이다. 물론 우변에 모르는 값인 $y(t_{n} + c_{j}h)$가 포함되어 있으니 이도 근사해야한다. 식이 복잡하므로 $j = 1,2,\dots,\nu$에 대해서 다음과 같이 표기하자.</p>
 <p>$$
 \xi_{j} = y(t_{n} + c_{j}h)
 $$</p>
-<p>우선 $c_{1} = 0$이라 두자. 그러면 $\xi_{1} = y_{n}$이므로 아는 값이다. <strong>명시적 룽게-쿠타</strong><sup>explicit Runge-Kutta, ERK</sup> 메소드는 $f(t_{n}, \xi_{1}), f(t_{n} + c_{2}h, \xi_{2}), \dots, f(t_{n} + c_{j-1}h, \xi_{j-1})$들의 선형결합과 $y_{n}$을 더하여 $y_{n+1}$을 근사하여 얻는 방법을 말한다.</p>
+<p>우선 $c_{1} = 0$이라 두자. 그러면 $\xi_{1} = y_{n}$이므로 아는 값이다. 이제 <a href="../693">멀티스텝 메소드</a>를 적용하여 $\xi_{j}$들을 다음과 같이 순차적으로 근사한다고 하자.</p>
+<p>$$
+\begin{align*}
+\xi_{2}
+&amp;= y(t_{n} + c_{2}h) \\ 
+&amp;= y_{n} + h a_{2,1}f(t_{n} + c_{1}h, y_{n} + c_{1}h) \\ 
+&amp;= y_{n} + h a_{2,1}f(t_{n}, y_{n}) &amp; (\because c_{1} = 0)\\ 
+&amp;= y_{n} + h a_{2,1}f(t_{n}, \xi_{1}) &amp; (\because \xi_{1}=y_{n}) \\[2em] 
+\xi_{3}
+&amp;= y(t_{n} + c_{3}h) \\ 
+&amp;= y_{n} + h a_{3,1}f(t_{n} + c_{1}h, y_{n} + c_{1}h) + h a_{3,2}f(t_{n} + c_{2}h, y_{n} + c_{2}h) \\ 
+&amp;= y_{n} + h a_{3,1}f(t_{n}, \xi_{1}) + h a_{3,2}f(t_{n} + c_{2}h, \xi_{2}) \\ 
+&amp;\vdots \\ 
+\xi_{\nu} &amp;= y_{n} + h\sum_{j=1}^{n-1}a_{\nu,j} f(t_{n} + c_{j}h, \xi_{j})
+\end{align*}
+$$</p>
+<p>이제 $(1)$의 우변의 값 $y_{n}$, $f(t_{n}, \xi_{1})$, $f(t_{n} + c_{2}h, \xi_{2})$, $\dots$, $f(t_{n} + c_{j-1}h, \xi_{j-1})$들을 모두 구한 셈이다. <strong>명시적 룽게-쿠타</strong><sup>explicit Runge-Kutta, ERK</sup> 메소드는 $y_{n+1}$의 값을 $y_{n}$, $f(t_{n}, \xi_{1})$, $f(t_{n} + c_{2}h, \xi_{2})$, $\dots$, $f(t_{n} + c_{j-1}h, \xi_{j-1})$의 선형결합으로 근사하여 얻는 방법을 말한다.</p>
 <!-- 데이트하여 각각의 $\xi\_{j}, j=2,3,\dots,\nu$를 표현한다. -->
 <h2 id="정의">정의</h2>
 <p>명시적 룽게-쿠타 메소드란, 주어진 $y_{n}$에 대해서 $y_{n+1}$을 다음과 같이 근사하는 방법이다.</p>
 <p>$$
-\begin{equation}
-y_{n+1} = y_{n} + h\sum_{j=1}^{\nu} b_{j} f(t_{n} + c_{j}h,y(t_{n} + c_{j}h)),\quad n=0,1,2,\cdots
-\end{equation}
+y_{n+1} = y_{n} + h\sum_{j=1}^{\nu} b_{j} f(t_{n} + c_{j}h, \xi_{j}),\quad n=0,1,2,\cdots
+\tag{2}
 $$</p>
-<p>이때</p>
+<p>여기서 각각의 $\xi_{j}$는,</p>
 <p>$$
 \begin{align*}
-\xi_{1} &amp;= y_{n} \\
-\xi_{2} &amp;= y_{n} + ha_{2,1}f(t_{n}, \xi_{1}) \\
-\xi_{3} &amp;= y_{n} + ha_{3,1}f(t_{n}, \xi_{1}) + ha_{3,2}f(t_{n} + c_{2}h, \xi_{2}) \\
-\vdots &amp; \\
+\xi_{1} &amp;= y_{n} \\ 
+\xi_{2} &amp;= y_{n} + ha_{2,1}f(t_{n}, \xi_{1}) \\ 
+\xi_{3} &amp;= y_{n} + ha_{3,1}f(t_{n}, \xi_{1}) + ha_{3,2}f(t_{n} + c_{2}h, \xi_{2}) \\ 
+\vdots &amp; \\ 
 \xi_{\nu} &amp;= y_{n} + h\sum_{i=1}^{\nu-1}a_{\nu, i}f(t_{n} + c_{i}h, \xi_{i})
 \end{align*}
 $$</p>
@@ -277,10 +293,10 @@ $$</p>
 <p>$$
 A = [a_{j,i}]
 = \begin{bmatrix}
-\\
-a_{2,1} &amp; \\
-a_{3,1} &amp; a_{3,2} \\
-\vdots &amp; \\
+\\ 
+a_{2,1} &amp; \\ 
+a_{3,1} &amp; a_{3,2} \\ 
+\vdots &amp; \\ 
 a_{\nu,1} &amp; a_{\nu,2} &amp; \cdots &amp; a_{\nu,\nu-1} &amp;
 \end{bmatrix}
 $$</p>
@@ -294,10 +310,10 @@ b_{1} \\ b_{2} \\ \vdots \\ b_{\nu}
 c_{1} \\ c_{2} \\ \vdots \\ c_{\nu}
 \end{bmatrix}
 $$</p>
-<p>또한 식 $(1)$이 <strong>$\nu$ 스테이지</strong><sup>$\nu$ stages</sup>를 가진다고 말하며, 이러한 방법을 $\nu$ 스테이지(혹은 $\nu$ 차) 룽게-쿠타 메소드라 한다.</p>
+<p>또한 $(2)$가 <strong>$\nu$ 스테이지</strong><sup>$\nu$ stages</sup>를 가진다고 말하며, 이러한 방법을 $\nu$ 스테이지(혹은 $\nu$ 차) 룽게-쿠타 메소드라 한다.</p>
 <h2 id="설명">설명</h2>
 <p>정의에 따라 자명하게도 RK 행렬은 <a href="../3305">하삼각행렬</a>이다.</p>
-<p>위의 방법에 따라서, $\xi_{j}$는 $\xi_{1}$부터 $\xi_{\nu}$까지 순차적으로 계산할 수 있다. 그러면 최종적으로 $(1)$을 계산할 수 있고, $y_{n+1}$을 얻는다. 이를 반복하여 다음 스텝에서의 $y$ 값 $y_{n+2}$, $y_{n+3}$, $\dots$ 들을 구할 수 있다.</p>
+<p>위의 방법에 따라서, $\xi_{j}$는 $\xi_{1}$부터 $\xi_{\nu}$까지 순차적으로 계산할 수 있다. 그러면 결과적으로 $(2)$를 계산할 수 있고, $y_{n+1}$을 얻는다. 이를 반복하여 다음 스텝에서의 $y$값 $y_{n+2}$, $y_{n+3}$, $\dots$ 들을 구할 수 있다.</p>
 <p>RK 메소드에서 계수들 $a_{j,i}$, $b_{j}$, $c_{j}$들은 <strong>구하는 것이 아니라 선택하여 사용하는 것</strong>이다. 계수는 $\begin{array}{c|c} \mathbf{c} &amp; A \\ \hline &amp; \mathbf{b}^{t} \end{array}$와 같은 꼴로 표기하는데 이를 <strong>RK 테이블</strong><sup>RK tableaux</sup>라 한다. 흔히 사용되는 <a href="../796">RK4</a>의 RK 테이블은 다음과 같다.</p>
 <p>$$
 \begin{array}{c|cccc}
@@ -311,7 +327,7 @@ $$</p>
 <h2 id="같이보기">같이보기</h2>
 <ul>
 <li><a href="../796">4차 룽게-쿠타 메소드</a></li>
-<li>🔒(11/02)<a href="../3319">암시적 룽게-쿠타 메소드</a></li>
+<li><a href="../3319">암시적 룽게-쿠타 메소드</a></li>
 </ul>
 <div class="footnotes" role="doc-endnotes">
 <hr>
@@ -326,7 +342,7 @@ $$</p>
 <aside style="text-align: right;">
     2022-10-29&emsp;
     전기현&emsp;
-    <a href="../610">🎲 3317</a>
+    <a href="../494">🎲 3317</a>
 </aside>
 
 <script>
@@ -843,6 +859,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -971,11 +988,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1161,7 +1179,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1172,12 +1190,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

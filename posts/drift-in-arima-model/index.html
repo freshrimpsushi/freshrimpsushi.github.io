@@ -242,8 +242,8 @@ $$
 에서 시작해보자. 아니, <a href="../916">차분</a>이 없어서 그보다 단순한 <a href="../914">아르마 모형</a>에서 시작해보자.
 $$
 \begin{align}
-\displaystyle Y_{t} - \sum_{i = 1}^{p} \phi_{i} Y_{t-i} = e_{t} - \sum_{i = 1}^{q} \theta_{i} e_{t-i}
-\end{align}
+\displaystyle Y_{t} - \sum_{i = 1}^{p} \phi_{i} Y_{t-i} = e_{t} - \sum_{i = 1}^{q} \theta_{i} e_{t-i} 
+\end{align} 
 $$
 간략하게 나타내기 위해 <a href="../916">백쉬프트 $B$</a> 를 쓴 다음의 표현을 사용해보자.
 $$
@@ -263,7 +263,7 @@ $$
 식 $(1)$ 의 $c$ 가 다름아닌 <strong>드리프트</strong> 다. 수식을 보면 드리프트를 왜 &lsquo;상수항&rsquo; 혹은 &lsquo;평균&rsquo;으로 설명하는지 납득이 갈 것이다. 물론 이것은 <a href="../914">아르마 모형</a>이고, <a href="../916">차분</a>이 포함된 <a href="../941">아리마 모형</a>에 대해서는 다른 모습으로 나타난다. 편의를 위해 <a href="../916">차분</a>은 $d=1$ 번만 취하는 $ARIMA(p,1,q)$ 를 생각해보자.
 $$
 \begin{align}
-\phi(B) \nabla \left( Y_{t} - a - b t \right) = \theta(B) e_{t}
+\phi(B) \nabla \left( Y_{t} - a - b t \right) = \theta(B) e_{t} 
 \end{align}
 $$
 식 $(2)$ 에서 $a$ 를 <strong>절편</strong><sup>Intercept</sup> , $b$ 를 <strong>드리프트</strong><sup>Drift</sup>라 부른다. <a href="../916">차분</a>을 풀어헤쳐보면
@@ -289,7 +289,7 @@ out&lt;-auto.arima(diff(oil.price)); summary(out)
 <aside style="text-align: right;">
     2019-05-30&emsp;
     류대식&emsp;
-    <a href="../1657">🎲 1115</a>
+    <a href="../2008">🎲 1115</a>
 </aside>
 
 <script>
@@ -806,6 +806,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -934,11 +935,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1129,7 +1131,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1140,12 +1142,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

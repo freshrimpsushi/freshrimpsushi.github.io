@@ -227,9 +227,9 @@
 </aside>
 
 <h2 id="정의">정의</h2>
-<p>다음과 같이 정의된 함수 $\Gamma$ 를 <strong>감마 함수</strong>라고 한다.
+<p>다음과 같이 정의된 함수 $\Gamma$ 를 <strong>감마 함수</strong>라고 한다. 
 $$
-\Gamma(x) := \int_{0}^{\infty} t^{x-1} e^{-t} dt
+\Gamma(x) := \int_{0}^{\infty} t^{x-1} e^{-t} dt 
 $$</p>
 <p>위 수식에서 적분에 초점을 두면 <a href="../1483">오일러 적분</a>이라고도 부른다. 감마함수는 순수수학 뿐만 아니라 <a href="../608">물리학</a>, <a href="../1517">통계학</a> 등지에서 무척 중요한 함수로도 유명하다. 흥미로운 성질들을 매우 풍부하게 가지고 있으나 가장 대표적인 것은 팩토리얼을 실수에 대해 일반화하는 개념이라는 점이다.</p>
 <h2 id="정리-팩토리얼의-일반화로써의-감마함수">정리: 팩토리얼의 일반화로써의 감마함수</h2>
@@ -239,7 +239,7 @@ $$</p>
 <hr>
 <p>감마함수의 정의에 의해
 $$
-\Gamma(n) = \int_{0}^{\infty} t^{n-1} e^{-t} dt
+\Gamma(n) = \int_{0}^{\infty} t^{n-1} e^{-t} dt 
 $$</p>
 <hr>
 <p><strong>Case 1. $n=1$</strong>
@@ -252,11 +252,11 @@ $$
 <p>부분적분법에 의해
 $$
 \begin{align*}
-\Gamma(n) =&amp; \int_{0}^{\infty} t^{n-1} e^{-t} dt
-\\ =&amp; \left[ -t^{n-1} e^{-t} \right] _{0} ^{\infty} - \int_{0}^{\infty} -(n-1)t^{n-2} e^{-t} dt
-\\ =&amp; (n-1) \int_{0}^{\infty} t^{n-2} e^{-t}
-\\ =&amp; (n-1) \Gamma(n-1)
-\end{align*}
+\Gamma(n) =&amp; \int_{0}^{\infty} t^{n-1} e^{-t} dt 
+\\ =&amp; \left[ -t^{n-1} e^{-t} \right] _{0} ^{\infty} - \int_{0}^{\infty} -(n-1)t^{n-2} e^{-t} dt 
+\\ =&amp; (n-1) \int_{0}^{\infty} t^{n-2} e^{-t} 
+\\ =&amp; (n-1) \Gamma(n-1) 
+\end{align*} 
 $$</p>
 <hr>
 <p>두 케이스에 대해서 정리하면
@@ -281,7 +281,7 @@ $$</p>
 <aside style="text-align: right;">
     2017-04-30&emsp;
     류대식&emsp;
-    <a href="../2173">🎲 95</a>
+    <a href="../1756">🎲 95</a>
 </aside>
 
 <script>
@@ -798,6 +798,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -926,11 +927,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1116,7 +1118,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1127,12 +1129,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

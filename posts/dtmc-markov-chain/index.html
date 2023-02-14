@@ -243,17 +243,17 @@ $$</p>
 <p><strong>마코프 체인</strong>이란 이제까지의 역사를 다 알 때 다음 스텝의 확률과 현재만 알고 있을 때 다음 스텝의 확률이 같은 확률 과정을 말한다. 쉽게 말해, 현재 상태만 정확히 알고 있다면 과거가 미래에 영향을 미치지 못하는 확률과정이다. 흔히 이런 성질을 <strong>무기억성</strong><sup>Memorylessness</sup>이라고 부른다. 당연히 이러한 가정이 있다면 계산이든 무엇이든 굉장히 편해진다.</p>
 <p>예를들어 강수확률에 대한 모형을 마코프 체인으로 나타낸다고 생각해보자. 어제 비가 왔든 오지 않았든 내일의 강수확률은 오늘 비가 왔는지 오지 않았는지에만 영향을 받는다고 가정해보자. 비가 온 상태를 $0$, 비가 오지 않은 상태를 $1$ 이라 하고
 $$\begin{matrix}
-p_{00} = 0.7 &amp; p_{01} = 0.3
-\\  p_{10} = 0.4 &amp; p_{11} = 0.6
+p_{00} = 0.7 &amp; p_{01} = 0.3 
+\\  p_{10} = 0.4 &amp; p_{11} = 0.6 
 \end{matrix}$$
 이라 하자. 이는 오늘 비가 왔다면 내일도 비가 올 확률이 $70 %$ 이고 비가 안 올 확률이 $30 %$, 오늘 비가 안 왔다면 내일도 비가 안 올 확률이 $60 %$ 이고 비가 올 확률이 $40 %$ 라는 뜻이다.</p>
 <p>이제
 $$P:= \begin{bmatrix}
-p_{00} &amp; p_{01}
-\\  p_{10} &amp; p_{11}
+p_{00} &amp; p_{01} 
+\\  p_{10} &amp; p_{11} 
 \end{bmatrix} = \begin{bmatrix}
-0.7 &amp; 0.3
-\\  0.4 &amp; 0.6
+0.7 &amp; 0.3 
+\\  0.4 &amp; 0.6 
 \end{bmatrix}$$
 와 같은 <a href="../1955">행렬</a>을 통해서 이러한 확률계산을 간단하게 해보도록 하자. 이러한 행렬을 <strong>전이 확률 행렬</strong>이라 부르고, $k$ 스텝 뒤의 전이 확률 행렬을 $P^{(k)}:= \left( p_{ij}^{ ( k ) } \right)$ 와 같이 나타낸다. 전이 확률 행렬의 유용한 성질로써 $P^{(n)} = P^{n}$ 임을 <a href="../47">채프만-콜모고로프 방정식</a>을 통해 증명해낼 수 있다.</p>
 <p>만약 오늘 비가 왔다면 이틀 뒤의 강수 확률은
@@ -261,15 +261,15 @@ $$
 \begin{align*}
 P^{ (2) } =&amp; P^{2}
 \\ =&amp; \begin{bmatrix}
-0.7 &amp; 0.3
-\\  0.4 &amp; 0.6
+0.7 &amp; 0.3 
+\\  0.4 &amp; 0.6 
 \end{bmatrix} \begin{bmatrix}
-0.7 &amp; 0.3
-\\  0.4 &amp; 0.6
+0.7 &amp; 0.3 
+\\  0.4 &amp; 0.6 
 \end{bmatrix}
 \\ =&amp; \begin{bmatrix}
-0.61 &amp; 0.39
-\\  0.52 &amp; 0.48
+0.61 &amp; 0.39 
+\\  0.52 &amp; 0.48 
 \end{bmatrix}
 \end{align*}
 $$
@@ -281,7 +281,7 @@ $$
 <aside style="text-align: right;">
     2019-02-12&emsp;
     류대식&emsp;
-    <a href="../865">🎲 859</a>
+    <a href="../492">🎲 859</a>
 </aside>
 
 <script>
@@ -798,6 +798,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -926,11 +927,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1116,7 +1118,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1127,12 +1129,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

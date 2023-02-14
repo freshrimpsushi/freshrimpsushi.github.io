@@ -243,7 +243,7 @@ $$</p>
 <p>이제 집합 $\left\{ \mathbf{x}_{1}, \mathbf{x}_{2}, \mathbf{n} \right\}$을 생각해보자. $\mathbf{x}_{1}$와 $\mathbf{x}_{2}$는 <a href="../3142">탄젠트 공간</a>을 생성하고 $\mathbf{n}$은 이 둘과 수직이므로, 이 집합도 $\mathbb{R}^{3}$의 기저가 된다. 그러면 이제 <a href="../3160">가우스 공식</a>과 바인가르텡 방정식으로부터, 곡면 $M$에 대해서 프레네-세레 공식과 비슷한 역할을 하는 다음의 공식을 얻을 수 있다.</p>
 <p>$$
 \begin{align*}
-\mathbf{x}_{ij} &amp;= L_{ij}\mathbf{n} + \sum_{k} \Gamma_{ij}^{k}\mathbf{x}_{k} \\
+\mathbf{x}_{ij} &amp;= L_{ij}\mathbf{n} + \sum_{k} \Gamma_{ij}^{k}\mathbf{x}_{k} \\ 
 \mathbf{n}_{j} &amp;= - \sum_{k} {L^{k}}_{j}\mathbf{x}_{k}
 \end{align*}
 $$</p>
@@ -266,7 +266,7 @@ $$</p>
 <aside style="text-align: right;">
     2022-02-15&emsp;
     전기현&emsp;
-    <a href="../530">🎲 3190</a>
+    <a href="../436">🎲 3190</a>
 </aside>
 
 <script>
@@ -783,6 +783,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -911,11 +912,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1101,7 +1103,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1112,12 +1114,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

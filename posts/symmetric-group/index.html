@@ -237,24 +237,24 @@
 <p>순열은 고등학교에서 배우는 것과 본질적으로 다르지 않은데, $A = \left\{ 1,2,3 \right\}$ 을 생각해보자. 원소의 갯수가 $3$ 개이므로 대칭군 $S_{3}$ 의 위수는 $3! = 6$ 이다. 별로 많지 않으므로 일일이 다 나열해보자. 표현은 행렬과 비슷한데, $1$ 행에 있는 원소를 $2$ 행에 있는 원소로 대응시킨다고 보면 된다.
 $$
 \rho_{0} = \begin{bmatrix}
-1 &amp; 2 &amp; 3
-\\  1 &amp; 2 &amp; 3
+1 &amp; 2 &amp; 3 
+\\  1 &amp; 2 &amp; 3 
 \end{bmatrix} \qquad \rho_{1} = \begin{bmatrix}
-1 &amp; 2 &amp; 3
-\\  2 &amp; 3 &amp; 1
+1 &amp; 2 &amp; 3 
+\\  2 &amp; 3 &amp; 1 
 \end{bmatrix} \qquad \rho_{2} = \begin{bmatrix}
-1 &amp; 2 &amp; 3
-\\  3 &amp; 1 &amp; 2
-\end{bmatrix}
+1 &amp; 2 &amp; 3 
+\\  3 &amp; 1 &amp; 2 
+\end{bmatrix} 
 \\ \mu_{1} = \begin{bmatrix}
-1 &amp; 2 &amp; 3
-\\  1 &amp; 3 &amp; 2
+1 &amp; 2 &amp; 3 
+\\  1 &amp; 3 &amp; 2 
 \end{bmatrix} \qquad \mu_{2} = \begin{bmatrix}
-1 &amp; 2 &amp; 3
-\\  3 &amp; 2 &amp; 1
+1 &amp; 2 &amp; 3 
+\\  3 &amp; 2 &amp; 1 
 \end{bmatrix} \qquad \mu_{3} = \begin{bmatrix}
-1 &amp; 2 &amp; 3
-\\  2 &amp; 1 &amp; 3
+1 &amp; 2 &amp; 3 
+\\  2 &amp; 1 &amp; 3 
 \end{bmatrix}
 $$</p>
 <p>이를 그림으로 나타내보면 다음과 같다:</p>
@@ -270,7 +270,7 @@ $$</p>
 </blockquote>
 <p>대칭군의 흥미로운 성질 중 하나로, <a href="../309">가환군</a>이 아니라는 것이 있다.</p>
 <p><img src="20180204_134311.png#center" alt="20180204\_134311.png"></p>
-<p>위의 표는 $S_{3}$ 의 모든 연산을 나타낸 것인데, 예를 들어 $\rho_{1} \circ \mu_{1} = \mu_{3}$ 인데 $\mu_{1} \circ \rho_{1} = \mu_{2}$ 이다. 즉
+<p>위의 표는 $S_{3}$ 의 모든 연산을 나타낸 것인데, 예를 들어 $\rho_{1} \circ \mu_{1} = \mu_{3}$ 인데 $\mu_{1} \circ \rho_{1} = \mu_{2}$ 이다. 즉 
 $$
 \rho_{1} \circ \mu_{1} \ne \mu_{1} \circ \rho_{1}
 $$
@@ -288,7 +288,7 @@ $$
 <aside style="text-align: right;">
     2018-02-04&emsp;
     류대식&emsp;
-    <a href="../1295">🎲 421</a>
+    <a href="../2031">🎲 421</a>
 </aside>
 
 <script>
@@ -805,6 +805,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -933,11 +934,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1123,7 +1125,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1134,12 +1136,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

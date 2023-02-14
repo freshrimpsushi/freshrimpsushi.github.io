@@ -235,13 +235,13 @@
 <p>수소 결합이 가능한 두 염기가 연결된 것을 <strong>염기쌍</strong><sup>Base Pair</sup>이라 한다. 퓨린 염기와 피리미딘 염기에서 각각 하나씩만 선택되며, 그 중 가능한 케이스는 $A-T, A-U, G-C$ 세가지가 있다.</p>
 <p>$A-T$ 와 $A-U$ 는 2개의 수소 결합, $G-C$ 는 3개의 수소 결합으로 연결된다.DNA는 염기쌍에 의해 이중나선의 구조를 취하고 있다. 이에 따라 가닥 중 한쪽에 $A$ 가 있다면 반대쪽 가닥에는 $T$ 이 있음을 알 수 있다.
 $$
-A-T
-\\  C-G
-\\  C-G
-\\  G-C
-\\  T-A
-\\  T-A
-\\  A-T
+A-T 
+\\  C-G 
+\\  C-G 
+\\  G-C 
+\\  T-A 
+\\  T-A 
+\\  A-T 
 \\  C-G
 $$
 가령 위와 같은 DNA 샘플이 있다면 우리는 한쪽 가닥만 알면 된다. 따라서 데이터로 취득할 때는 왼쪽만 읽어서 다음과 같이 기록해도 된다:ACCGTTAC이중나선 구조의 의의는 바로 &lsquo;백업&rsquo;이다. 실제로 RNA의 경우에는 한가닥으로 이루어진 불안정한 구조를 갖추고 있기 때문에 문제를 일으키는 경우가 많으나, DNA는 한 가닥에 문제가 생겨도 반대편 가닥을 참고할 수 있어 안정적으로 유전 정보를 후대로 물려줄 수 있다.</p>
@@ -250,7 +250,7 @@ $$
 <aside style="text-align: right;">
     2020-12-07&emsp;
     류대식&emsp;
-    <a href="../1044">🎲 1832</a>
+    <a href="../1021">🎲 1832</a>
 </aside>
 
 <script>
@@ -767,6 +767,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -895,11 +896,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1085,7 +1087,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1096,12 +1098,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

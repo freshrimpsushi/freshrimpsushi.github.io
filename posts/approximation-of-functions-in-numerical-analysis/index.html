@@ -231,7 +231,7 @@
 <p><a href="../1117">스톤-바이어슈트라스 정리</a>: $f$ 가 $[a,b]$ 상에서 연속이면 주어진 $\epsilon &gt; 0$ 에 대해 $\displaystyle \max_{x \in [a,b]} | f(x) - p (x) | &lt; \epsilon$ 을 만족하는 <a href="../2058">다항함수</a> $p(x)$ 가 존재한다.</p>
 </blockquote>
 <p>그런데 &lsquo;컴퓨터의 입장&rsquo; 이야기가 나온김에 생각을 해보자면 $\displaystyle {{\pi^{31} } \over {31!}}$ 과 같은 수의 계산은 컴퓨터 입장에서도 상당히 어려움을 알 수 있다. 우선 분자와 분모 둘 다 꽤 길어서 계산 이전에 큰 숫자를 저장하는 것부터가 일인데, 사람과는 달리 계산 순서를 바꾸는 식으로 계산 소요를 줄일 수 있다는 발상도 없기 때문이다. [ <strong>NOTE</strong>: 사실은 이러한 기교도 암호론 등의 응용수학 분야에서 <a href="../621">연속제곱법</a>과 같은 알고리즘으로 구현되어 있긴 하다. ] 거기다 &lsquo;인간의 입장&rsquo;에서 봤을 때도 테일러 급수는 충분히 작은 $(-h, h)$ 에서만 수렴성이 보장됨을 알고 있다. 이는 사실상 테일러 공식을 이용한 계산이 포인트와이즈<sup>Pointwise</sup>하다는 말이다.</p>
-<p>물론 <a href="../41">테일러전개</a>는 이론적인 접근에 있어 수학 역사상 최고로 손꼽힐만큼 강력한 툴이지만, 위의 고찰에서 수치적 계산을 위한 공식으로는 별로 좋지 않을 수 있음을 알 수 있다. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 다른 말로, $f(x)$ 를
+<p>물론 <a href="../41">테일러전개</a>는 이론적인 접근에 있어 수학 역사상 최고로 손꼽힐만큼 강력한 툴이지만, 위의 고찰에서 수치적 계산을 위한 공식으로는 별로 좋지 않을 수 있음을 알 수 있다. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 다른 말로, $f(x)$ 를 
 $$
 f(x) \approx \sum_{k=0}^{n} a_{k} \varphi_{n} (x)
 $$
@@ -260,7 +260,7 @@ $$
 <aside style="text-align: right;">
     2019-06-10&emsp;
     류대식&emsp;
-    <a href="../556">🎲 1107</a>
+    <a href="../509">🎲 1107</a>
 </aside>
 
 <script>
@@ -777,6 +777,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -905,11 +906,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1095,7 +1097,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1106,12 +1108,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

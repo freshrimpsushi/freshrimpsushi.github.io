@@ -245,7 +245,7 @@ C^{m}_{B}\left( \Omega \right) := \left\{ \phi \in C^{m}(\Omega) : D^{\alpha} \p
 $$</p>
 <p>그러면 정의에 의해 자연스럽게 $C^{m}_{B}\left( \Omega \right) \subset C^{m}\left( \Omega \right)$가 성립한다. 또한 $C^m_B(\Omega)$는 아래와 같은 <a href="../1225">놈</a>이 주어진 <a href="../703">바나흐 공간</a>이다.</p>
 <p>$$
-\left\| \phi\ ;\ C^m_B( \Omega )\right\| := \max \limits_{0 \le \left| \alpha \right| \le m } \sup \limits_{x\ \in \Omega} | D^{\alpha}\phi(x) |
+\left\| \phi\ ;\ C^m_B( \Omega )\right\| := \max \limits_{0 \le \left| \alpha \right| \le m } \sup \limits_{x\ \in \Omega} | D^{\alpha}\phi(x) | 
 $$</p>
 <h3 id="유계-균등연속함수-공간">유계 균등연속함수 공간</h3>
 <p>모든 $0 \le |\alpha| \le m$에 대해 $D^\alpha \phi$가 $\Omega$ 위에서 유계이고 <a href="../384">균등연속</a>인 $\phi \in C^{m}(\Omega)$들의 집합을 <strong>유계 균등연속함수 공간</strong><sup>space of bounded, uniformly continuous functions</sup>이라 한다.</p>
@@ -255,7 +255,7 @@ $$</p>
 <!-- $\phi \in C(\Omega)$가 $\Omega$ 위에서 유계이고 균등하게 연속이라고하자. 그러면 $\Omega$의 **[클로저](../383)$(\mathrm{closure})$**  $\overline{\Omega}$에서도 유계이고 연속이다.  -->
 <p>그러면 $C^{m}\left( \overline{\Omega} \right)$는 $C^{m}_{B}\left( \Omega \right)$의 닫힌 부분공간이고, 다음과 같은 놈이 주어진 바나흐 공간이다.</p>
 <p>$$
-\left\| \phi\ ;\ C^m(\overline{\Omega} )\right\| := \max \limits_{0 \le |\alpha | m } \sup \limits_{x\ \in \Omega} | D^{\alpha}\phi(x) |
+\left\| \phi\ ;\ C^m(\overline{\Omega} )\right\| := \max \limits_{0 \le |\alpha | m } \sup \limits_{x\ \in \Omega} | D^{\alpha}\phi(x) | 
 $$</p>
 <h3 id="횔더-연속함수-공간">횔더 연속함수 공간</h3>
 <h4 id="횔더-조건">횔더 조건</h4>
@@ -274,7 +274,7 @@ $$</p>
 $$</p>
 <p>$0 \lt \nu \lt \lambda \le 1$에 대해서 아래의 관계가 성립한다.</p>
 <p>$$
-C^{m,\lambda}\left( \overline{\Omega} \right) \subsetneq C^{m,\nu}\left( \overline{\Omega} \right) \subsetneq C^{m}\left( \overline{\Omega} \right)
+C^{m,\lambda}\left( \overline{\Omega} \right) \subsetneq C^{m,\nu}\left( \overline{\Omega} \right) \subsetneq C^{m}\left( \overline{\Omega} \right) 
 $$</p>
 <h2 id="설명">설명</h2>
 <p><a href="../684">립시츠 조건</a>는 $\lambda = 1$일 때의 횔더 조건이라고 볼 수 있다.</p>
@@ -291,7 +291,7 @@ $$</p>
 <aside style="text-align: right;">
     2019-05-18&emsp;
     전기현&emsp;
-    <a href="../1848">🎲 1087</a>
+    <a href="../494">🎲 1087</a>
 </aside>
 
 <script>
@@ -808,6 +808,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -936,11 +937,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1126,7 +1128,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1137,12 +1139,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

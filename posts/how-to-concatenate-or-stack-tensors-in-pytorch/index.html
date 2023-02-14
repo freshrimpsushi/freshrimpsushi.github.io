@@ -236,7 +236,7 @@
 <h2 id="텐서-붙이기-cat1">텐서 붙이기 <code>cat()</code><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
 <p><code>cat(tensors, dim=0)</code>는 2개 이상의 텐서들을 지정한 차원을 기준으로 붙인다. 기준이 된다는 말은 지정한 차원의 크기가 늘어나도록 붙인다는 뜻이다. 따라서 당연하게도 지정한 차원 외의 나머지 부분의 크기가 같아야한다. 예를 들어 $(2,2)$ 텐서와 $(2,3)$ 텐서가 있다면 0번째 차원으로는 붙일 수 없고, 1번째 차원으로는 붙일 수 있다.</p>
 <p>$$
-\text{cat} \Big( [(a,b),(a,b)], \dim=0 \Big) = (2a,b) \\
+\text{cat} \Big( [(a,b),(a,b)], \dim=0 \Big) = (2a,b) \\ 
 \text{cat} \Big( [(a,b),(a,b)], \dim=1 \Big) = (a,2b)
 $$</p>
 <p>아래의 <code>stack()</code>과 비교하면 텐서를 <strong>'붙이는'</strong> 것이므로 <strong>'전체 차원의 수는 변하지 않는다.'</strong></p>
@@ -264,8 +264,8 @@ tensor([[1., 1., 1., 2., 2., 2.],
 <h2 id="텐서-쌓기-stack2">텐서 쌓기 <code>stack()</code><sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h2>
 <p><code>stack(tensors, dim=0)</code>는 2개 이상의 텐서들을 지정한 차원을 기준으로 쌓는다. 위의 <code>cat()</code>과 비교하면 텐서를 <strong>'쌓는'</strong> 것 이므로 <strong>'새로운 차원이 추가되고'</strong>, 지정해준 차원의 자리에 새로운 차원이 생긴다.</p>
 <p>$$
-\text{cat} \Big( [(a,b),(a,b)], \dim=0 \Big) = (2,a,b) \\
-\text{cat} \Big( [(a,b),(a,b)], \dim=1 \Big) = (a,2,b) \\
+\text{cat} \Big( [(a,b),(a,b)], \dim=0 \Big) = (2,a,b) \\ 
+\text{cat} \Big( [(a,b),(a,b)], \dim=1 \Big) = (a,2,b) \\ 
 \text{cat} \Big( [(a,b),(a,b)], \dim=2 \Big) = (a,b,2)
 $$</p>
 <h3 id="예제-코드-1">예제 코드</h3>
@@ -335,7 +335,7 @@ tensor([[[1., 2.],
 <aside style="text-align: right;">
     2022-02-09&emsp;
     전기현&emsp;
-    <a href="../563">🎲 3187</a>
+    <a href="../680">🎲 3187</a>
 </aside>
 
 <script>
@@ -852,6 +852,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -980,11 +981,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1175,7 +1177,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1186,12 +1188,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

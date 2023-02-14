@@ -262,7 +262,7 @@ $$</p>
 <p>재귀적으로 풀어내면</p>
 <p>$$
 \begin{align*}
-\| x_{n} - x_{n-1} \| =&amp; r \| x_{n-1} - x_{n-2} \|
+\| x_{n} - x_{n-1} \| =&amp; r \| x_{n-1} - x_{n-2} \| 
 \\ =&amp; r^2 \| x_{n-2} - x_{n-3} \|
 \\ \vdots&amp;
 \\ =&amp; r^{n-1} \| x_{1} - x_{0} \|
@@ -271,7 +271,7 @@ $$</p>
 <p>이제 $n, m, k \in \mathbb{N}$ 에 대해 $n = m + k$ 라고 하면 삼각부등식에 의해</p>
 <p>$$
 \begin{align*}
-\| x_{n} - x_{m} \| =&amp; \| x_{m+k} - x_{m} \|
+\| x_{n} - x_{m} \| =&amp; \| x_{m+k} - x_{m} \| 
 \\ \le &amp; \| x_{m+k} - x_{m+(k-1) } \| + \cdots + \| x_{m+k} - x_{m+(k-1) } \|
 \\ \le &amp; \| x_{m+1} - x_{m } \| \left( 1 + r + \cdots + r^{k} \right)
 \\ \le &amp; \| x_{m+1} - x_{m } \| {{1 - r^{k}} \over {1 - r}}
@@ -282,7 +282,7 @@ $$</p>
 <p>따라서 $\left\{ x_{n} \right\}_{n \in \mathbb{N}}$ 는 코시 시퀀스다. $X$ 는 바나흐 공간이므로, $n \to \infty$ 일 때 $x_{n}$ 는 어떤 $\alpha \in X$ 로 수렴함을 알 수 있다. 위의 <strong>Part 1.</strong> 에서 $T$ 는 연속이므로</p>
 <p>$$
 \begin{align*}
-T ( \alpha ) =&amp; T \left( \lim_{n \to \infty } x_{n} \right) = \lim_{n \to \infty } T(x_{n} )
+T ( \alpha ) =&amp; T \left( \lim_{n \to \infty } x_{n} \right) = \lim_{n \to \infty } T(x_{n} ) 
 \\ =&amp; \lim_{n \to \infty } x_{n+1}
 \\ =&amp; \alpha
 \end{align*}
@@ -322,7 +322,7 @@ $$</p>
 <aside style="text-align: right;">
     2019-03-31&emsp;
     류대식&emsp;
-    <a href="../1795">🎲 948</a>
+    <a href="../1029">🎲 948</a>
 </aside>
 
 <script>
@@ -839,6 +839,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -967,11 +968,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1157,7 +1159,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1168,12 +1170,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

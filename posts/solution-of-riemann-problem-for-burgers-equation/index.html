@@ -227,7 +227,7 @@
 <h2 id="설명">설명</h2>
 <p>$$
 \begin{cases} u_{t} + u u_{x} = 0 &amp; , t&gt;0
-\\  u(t,x) = \begin{cases} a &amp; ,x&lt;0
+\\  u(t,x) = \begin{cases} a &amp; ,x&lt;0 
 \\  b &amp; ,x&gt;0 \end{cases} &amp; , t=0 \end{cases}
 $$</p>
 <p>리만 문제란 초기값이 주어진 <a href="../532">버거스 방정식</a> 중에서도 그 해를 <a href="../757">계단 함수</a><sup>step function</sup> 로 갖는 경우를 말한다. 이 때 $a \ne b$ 면 그냥 구한 해의 함숫값이 특정 구간에서 여러개 존재하거나 아예 존재하지 않거나 하게 된다. 따라서 <a href="../569">등적률</a>을 적용시키거나 <strong>평활화</strong><sup>smoothing</sup> 된 해를 구한다.</p>
@@ -260,7 +260,7 @@ $$</p>
 <aside style="text-align: right;">
     2018-06-04&emsp;
     류대식&emsp;
-    <a href="../1096">🎲 575</a>
+    <a href="../2018">🎲 575</a>
 </aside>
 
 <script>
@@ -777,6 +777,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -905,11 +906,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1095,7 +1097,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1106,12 +1108,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

@@ -236,7 +236,7 @@
 <h2 id="정의">정의</h2>
 <p>$\left\{ x_{n } \right\}_{n = 1}^{\infty}$ 이 실수의 수열이라고 하자. 모든 $\varepsilon &gt; 0$ 에 대해 $n \ge N \implies | x_{n} - a | &lt; \varepsilon$ 을 만족하는 $N \in \mathbb{N}$ 이 존재하면 $\left\{ x_{n } \right\}$ 이 $a \in \mathbb{R}$ 로 <strong>수렴한다</strong>고 한다.</p>
 <p>$$
-\lim_{n \to \infty} x_{n} = a \iff \forall \varepsilon &gt; 0 , \exists N \in \mathbb{N} : n \ge N \implies | x_{n} - a | &lt; \varepsilon
+\lim_{n \to \infty} x_{n} = a \iff \forall \varepsilon &gt; 0 , \exists N \in \mathbb{N} : n \ge N \implies | x_{n} - a | &lt; \varepsilon 
 $$</p>
 <h2 id="설명">설명</h2>
 <p>이러한 정의를 사용한 전개를 흔히 <a href="../1204">입실론-델타 논법</a>이라 부른다. 직관을 버리고 <a href="../1184">수열의 극한을 엄밀하게 재정의하는 이유</a>는 납득이 되든 안 되든 &lsquo;필요하니까&rsquo;라는 말로 넘어갈 수 있지만, 처음 배우는 입장에서는 별 도움이 되지 않는 조언임이 분명하다.</p>
@@ -273,7 +273,7 @@ $$</p>
 <aside style="text-align: right;">
     2019-07-21&emsp;
     류대식&emsp;
-    <a href="../603">🎲 1186</a>
+    <a href="../615">🎲 1186</a>
 </aside>
 
 <script>
@@ -790,6 +790,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -918,11 +919,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1108,7 +1110,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1119,12 +1121,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

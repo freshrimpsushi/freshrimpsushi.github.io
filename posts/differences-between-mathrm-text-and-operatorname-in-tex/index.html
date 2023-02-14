@@ -235,14 +235,14 @@
 </code></pre><p>$$
 \begin{array}{cc}
 \mathrm{sin}(\mathrm{mathrm}) &amp; \text{sin}(\text{text})
-\end{array} \\[1em]
+\end{array} \\[1em] 
 \text{basic font: abcdefghijklmnopqrstuvwxyz}
 $$</p>
 <p>기본 설정에서 보면 \mathrm과 \text의 렌더링에는 별 차이가 없어 보인다. 그것은 기본 글씨체가 \mathrm과 똑같이 때문이다. \mathrm은 정확하게 로만체로 렌더링하고, \text는 설정한 폰트를 따라간다. 따라서 폰트를 바꿔주면 렌더링 결과는 다음과 같다.</p>
 <p>$$
 \begin{array}{cc}
 \mathrm{sin}(\mathrm{mathrm}) &amp; \textsf{sin}(\textsf{text})
-\end{array} \\[1em]
+\end{array} \\[1em] 
 \textsf{basic font: abcdefghijklmnopqrstuvwxyz}
 $$</p>
 <h2 id="operatorname">\operatorname</h2>
@@ -253,7 +253,7 @@ a\mathrm{sin}x &amp; a\text{sin}x &amp; a\operatorname{sin}x &amp; a\sin x \\
 \end{array}
 </code></pre><p>$$
 \begin{array}{cccc}
-a\mathrm{sin}x &amp; a\text{sin}x &amp; a\operatorname{sin}x &amp; a\sin x \\
+a\mathrm{sin}x &amp; a\text{sin}x &amp; a\operatorname{sin}x &amp; a\sin x \\ 
 (\text{mathrm}) &amp; (\text{text}) &amp; (\text{operatorname}) &amp; (\text{sin})
 \end{array}
 $$</p>
@@ -272,7 +272,7 @@ $$</p>
 <aside style="text-align: right;">
     2022-01-16&emsp;
     전기현&emsp;
-    <a href="../1887">🎲 3175</a>
+    <a href="../457">🎲 3175</a>
 </aside>
 
 <script>
@@ -789,6 +789,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -917,11 +918,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1112,7 +1114,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1123,12 +1125,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

@@ -230,7 +230,7 @@
 <p>움직이는 점전하가 만드는 전자기장은 다음과 같다.</p>
 <p>$$
 \begin{align*}
-\mathbf{E}(\mathbf{r}, t) &amp;= \frac{q}{4\pi\epsilon_0} \frac{\eta} {( \boldsymbol{\eta}\cdot \mathbf{u} )^3 } \left[(c^2-v^2)\mathbf{u} +\boldsymbol{\eta}\times (\mathbf{u} \times \mathbf{a} ) \right] \\
+\mathbf{E}(\mathbf{r}, t) &amp;= \frac{q}{4\pi\epsilon_0} \frac{\eta} {( \boldsymbol{\eta}\cdot \mathbf{u} )^3 } \left[(c^2-v^2)\mathbf{u} +\boldsymbol{\eta}\times (\mathbf{u} \times \mathbf{a} ) \right] \\ 
 \mathbf{B} (\mathbf{ r}, t) &amp;=\frac{1}{c} \hat{\boldsymbol{\eta}}\times \mathbf{ E } (\mathbf{ r}, t)
 \end{align*}
 $$</p>
@@ -249,7 +249,7 @@ $$
 $$ -->
 <p><a href="../1269">리에나르-비케르트 전위</a>는 움직이는 점전하가 만드는 전위를 나타낸다.</p>
 <p>$$
-V(\mathbf{r}, t)= \frac{1}{4\pi \epsilon_0} \frac{qc}{ (\eta c -\boldsymbol{\eta}\cdot \mathbf{v})} ,\quad \mathbf{A}(\mathbf{r}, t) = \frac{ \mathbf{v} } {c^2} V(\mathbf{r}, t)
+V(\mathbf{r}, t)= \frac{1}{4\pi \epsilon_0} \frac{qc}{ (\eta c -\boldsymbol{\eta}\cdot \mathbf{v})} ,\quad \mathbf{A}(\mathbf{r}, t) = \frac{ \mathbf{v} } {c^2} V(\mathbf{r}, t) 
 $$</p>
 <p>자기장은 다음과 같이 계산한다.</p>
 <p><a href="../1263">
@@ -289,7 +289,7 @@ $$</p>
 <p>같은 벡터끼리의 외적은 $0$이므로</p>
 <p>$$
 \begin{align}
-\mathbf{v}\times \nabla V &amp;= \frac{qc}{4\pi\epsilon_0} \frac{1}{ (\eta c -\boldsymbol{\eta} \cdot \mathbf{v} )^3}\mathbf{v}\times \Big[ - (c^2 -v^2+\boldsymbol{\eta} \cdot \mathbf{a} ) \boldsymbol{\eta} \Big] \nonumber \\
+\mathbf{v}\times \nabla V &amp;= \frac{qc}{4\pi\epsilon_0} \frac{1}{ (\eta c -\boldsymbol{\eta} \cdot \mathbf{v} )^3}\mathbf{v}\times \Big[ - (c^2 -v^2+\boldsymbol{\eta} \cdot \mathbf{a} ) \boldsymbol{\eta} \Big] \nonumber \\ 
 &amp;= \frac{qc}{4\pi\epsilon_0} \frac{1}{ (\mathbf{u}\cdot \boldsymbol{\eta})^3}\left[ -(c^{2}-v^{2})\mathbf{v}\times \boldsymbol{\eta} -(\boldsymbol{\eta}\cdot \mathbf{a})\mathbf{v}\times \boldsymbol{\eta}  \right]
 \end{align}
 $$</p>
@@ -328,7 +328,7 @@ $$</p>
 <aside style="text-align: right;">
     2020-04-22&emsp;
     전기현&emsp;
-    <a href="../705">🎲 1577</a>
+    <a href="../917">🎲 1577</a>
 </aside>
 
 <script>
@@ -845,6 +845,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -973,11 +974,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1163,7 +1165,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1174,12 +1176,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

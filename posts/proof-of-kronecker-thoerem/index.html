@@ -233,7 +233,7 @@
 <h2 id="설명">설명</h2>
 <p>확대체의 예로써 $\mathbb{C}$ 는 $\mathbb{R}$ 의 확대체다. <strong>크로네커의 정리</strong>는 당장 $F$ 에서는 다항함수의 근이 존재하지 않을지라도 정의역을 $E$ 로 키울 수 있고, 키우면 근이 존재함을 함의한다. $F$ 가 어떻게 생겼는지도 모르면서 무작정 확장하면 근이 존재할 것이라는 스테이트먼트 자체가 너무나 수학다운 정리다.</p>
 <h2 id="증명">증명</h2>
-<p><strong>Part 1.</strong>
+<p><strong>Part 1.</strong> 
 $f(x)$ 는 상수함수가 아니므로 $F$ 상에서의 <a href="../735">기약원들로 유일하게 인수분해</a>되고, 그 기약원 중 하나를 $p(x)$ 라고 하자.
 그러면 <a href="../793">주 아이디얼 $\left&lt; p(x) \right&gt;$ 은 $F [ x ]$ 의 극대 아이디얼</a>이고, <a href="../789">$F [ x ]  / \left&lt; p(x) \right&gt;$ 은 체</a>가 된다.</p>
 <hr>
@@ -253,12 +253,12 @@ $$
 위에서 기약원으로 정했던 $p(x) \in F [ x ]$ 를 구체적으로 $p(x) := a_{0} + a_{1} x + \cdots + a_{n} x^{n}$ 이라고 나타내보면</p>
 <p>$$
 \begin{align*}
-p ( \alpha) =&amp; \phi_{\alpha} ( p(x) )
-\\ =&amp; a_{0} + a_{1} ( x +  \left&lt; p(x) \right&gt; ) + \cdots + a_{n} ( x +  \left&lt; p(x) \right&gt; )^n
-\\ =&amp; a_{0} + a_{1} ( x +  \left&lt; p(x) \right&gt; ) + \cdots + a_{n} ( x^n +  \left&lt; p(x) \right&gt; )
-\\ =&amp; \left( a_{0} + a_{1} x + \cdots + a_{n} x^n \right) + \left&lt; p(x) \right&gt;
-\\ =&amp; p(x) + \left&lt; p(x) \right&gt;
-\\ =&amp; 0 + \left&lt; p(x) \right&gt;
+p ( \alpha) =&amp; \phi_{\alpha} ( p(x) ) 
+\\ =&amp; a_{0} + a_{1} ( x +  \left&lt; p(x) \right&gt; ) + \cdots + a_{n} ( x +  \left&lt; p(x) \right&gt; )^n 
+\\ =&amp; a_{0} + a_{1} ( x +  \left&lt; p(x) \right&gt; ) + \cdots + a_{n} ( x^n +  \left&lt; p(x) \right&gt; ) 
+\\ =&amp; \left( a_{0} + a_{1} x + \cdots + a_{n} x^n \right) + \left&lt; p(x) \right&gt; 
+\\ =&amp; p(x) + \left&lt; p(x) \right&gt; 
+\\ =&amp; 0 + \left&lt; p(x) \right&gt; 
 \end{align*}
 $$</p>
 <p>따라서 $F [ x ]  / \left&lt; p(x) \right&gt;$ 에서 $p( \alpha ) = 0$ 이고 $\alpha$ 는 $f ( \alpha ) = 0$ 를 만족한다.
@@ -276,7 +276,7 @@ $$</p>
 <aside style="text-align: right;">
     2019-01-05&emsp;
     류대식&emsp;
-    <a href="../1843">🎲 797</a>
+    <a href="../381">🎲 797</a>
 </aside>
 
 <script>
@@ -793,6 +793,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -921,11 +922,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1111,7 +1113,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1122,12 +1124,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

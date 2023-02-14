@@ -237,8 +237,8 @@ $$</p>
 <p>이른바 <strong>뉴턴의 이항 정리</strong> 로써, 이항 전개가 무한대와 복소수에 대해서 일반화된 것으로 볼 수 있다. 한편 $x,y$ 를 써서 우리에게 익숙한 꼴은 다음과 같은 방법으로 간단하게 유도할 수 있다.</p>
 <p>$$
 \begin{align*}
-&amp;&amp; \left( 1 + {{y} \over {x}} \right)^{\alpha} =&amp; \sum_{k=0}^{\infty} \binom{\alpha}{k} \left( \dfrac{y}{x} \right)^{k}
-\\ \implies &amp;&amp; x^{-\alpha} \left( x + y \right)^{\alpha} =&amp; \sum_{k=0}^{\infty} \binom{\alpha}{k} y^{k} x^{-k}
+&amp;&amp; \left( 1 + {{y} \over {x}} \right)^{\alpha} =&amp; \sum_{k=0}^{\infty} \binom{\alpha}{k} \left( \dfrac{y}{x} \right)^{k} 
+\\ \implies &amp;&amp; x^{-\alpha} \left( x + y \right)^{\alpha} =&amp; \sum_{k=0}^{\infty} \binom{\alpha}{k} y^{k} x^{-k} 
 \\ \implies &amp;&amp; \left( x + y \right)^{\alpha} =&amp; \sum_{k=0}^{\infty} \binom{\alpha}{k} x^{\alpha-k} y^{k}
 \end{align*}
 $$</p>
@@ -247,7 +247,7 @@ $$</p>
 <hr>
 <p>$g$ 를 $g ( \alpha ) := \sum_{k=0}^{\infty} \binom{\alpha}{k} x^{k}$ 과 같이 정의하자.</p>
 <p>$$
-\lim_{k \to \infty} \left| {{ \binom{\alpha}{k+1} x^{k+1} } \over { \binom{\alpha}{k} x^{k} }} \right| = \lim_{k \to \infty} \left| {{ \alpha - k } \over { k + 1 }} \right| | x | = | x | &lt; 1
+\lim_{k \to \infty} \left| {{ \binom{\alpha}{k+1} x^{k+1} } \over { \binom{\alpha}{k} x^{k} }} \right| = \lim_{k \to \infty} \left| {{ \alpha - k } \over { k + 1 }} \right| | x | = | x | &lt; 1 
 $$</p>
 <p><a href="../186">비 판정법</a>에 의해 $F$ 는 $\mathbb{C}$ 상에서 절대수렴하면서 균등수렴하고, 따라서 $\mathbb{C}$ 상에서 연속함수다.</p>
 <blockquote>
@@ -258,10 +258,10 @@ $$</p>
 </blockquote>
 <p>$$
 \begin{align*}
-g(\alpha) g(\beta) =&amp; \sum_{k=0}^{\infty} \binom{\alpha}{k} x^{k} \sum_{k=0}^{\infty} \binom{\beta}{k} x^{k}
-\\ =&amp; \sum_{k=0}^{\infty} \sum_{j=0}^{k} \binom{\alpha}{k-j} \binom{\beta}{j} x^{k}
-\\ =&amp; \sum_{k=0}^{\infty} \binom{ \alpha + \beta}{k} x^{k}
-\\ =&amp; g (\alpha + \beta )
+g(\alpha) g(\beta) =&amp; \sum_{k=0}^{\infty} \binom{\alpha}{k} x^{k} \sum_{k=0}^{\infty} \binom{\beta}{k} x^{k} 
+\\ =&amp; \sum_{k=0}^{\infty} \sum_{j=0}^{k} \binom{\alpha}{k-j} \binom{\beta}{j} x^{k} 
+\\ =&amp; \sum_{k=0}^{\infty} \binom{ \alpha + \beta}{k} x^{k} 
+\\ =&amp; g (\alpha + \beta ) 
 \end{align*}
 $$</p>
 <blockquote>
@@ -277,7 +277,7 @@ $$</p>
 <aside style="text-align: right;">
     2019-06-09&emsp;
     류대식&emsp;
-    <a href="../2164">🎲 1103</a>
+    <a href="../698">🎲 1103</a>
 </aside>
 
 <script>
@@ -794,6 +794,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -922,11 +923,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1112,7 +1114,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1123,12 +1125,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

@@ -240,11 +240,11 @@ $$</p>
 $$
 \begin{align*}
 &amp; r^2 - r - 1
-\\ =&amp; \left( r - {{1 + \sqrt{5} } \over {2}} \right) \left( r - {{1 - \sqrt{5} } \over {2}} \right)
+\\ =&amp; \left( r - {{1 + \sqrt{5} } \over {2}} \right) \left( r - {{1 - \sqrt{5} } \over {2}} \right) 
 \\ =&amp; ( r - r_{0} ) ( r - r_{1} )
 \end{align*}
 $$
-을 생각해보자. 위 방정식에 따르면
+을 생각해보자. 위 방정식에 따르면 
 $$
 {r_{0}}^2 - {r_{0}} - 1 = 0
 \\ {r_{1}}^2 - {r_{1}} - 1 = 0
@@ -279,8 +279,8 @@ $$
 \begin{align*}
 F_{k+1} =&amp; F_{k} + F_{k-1}
 \\ =&amp; {{ {r_{0}}^{k+1} - {r_{1}}^{k+1} } \over { r_{0} - r_{1} }} + {{ {r_{0}}^{k} - {r_{1}}^{k} } \over { r_{0} - r_{1} }}
-\\ =&amp; {{ {r_{0}}^{k} ( r_{0} + 1 ) - {r_{1}}^{k} ( r_{1} + 1 ) } \over { r_{0} - r_{1} }}
-\\ =&amp; {{ {r_{0}}^{k} \cdot { r_{0} }^{2}  - {r_{1}}^{k} \cdot { r_{1} }^{2} } \over { r_{0} - r_{1} }} ( \because {r_{0}}^2 = {r_{0}} + 1, {r_{1}}^2 = {r_{1}} + 1 )
+\\ =&amp; {{ {r_{0}}^{k} ( r_{0} + 1 ) - {r_{1}}^{k} ( r_{1} + 1 ) } \over { r_{0} - r_{1} }} 
+\\ =&amp; {{ {r_{0}}^{k} \cdot { r_{0} }^{2}  - {r_{1}}^{k} \cdot { r_{1} }^{2} } \over { r_{0} - r_{1} }} ( \because {r_{0}}^2 = {r_{0}} + 1, {r_{1}}^2 = {r_{1}} + 1 ) 
 \\ =&amp; {{ {r_{0}}^{k+2} - {r_{1}}^{k+2} } \over { r_{0} - r_{1} }}
 \end{align*}
 $$
@@ -299,7 +299,7 @@ $$
 <aside style="text-align: right;">
     2018-09-15&emsp;
     류대식&emsp;
-    <a href="../2047">🎲 680</a>
+    <a href="../1839">🎲 680</a>
 </aside>
 
 <script>
@@ -816,6 +816,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -944,11 +945,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1134,7 +1136,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1145,12 +1147,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

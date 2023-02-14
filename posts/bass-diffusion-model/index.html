@@ -261,9 +261,9 @@ $$</p>
 <p>바스 확산 모델은 사실 보편적으로 사용하는 선형 로지스틱 성장 모델의 완전한 일반화다. 단순히 $\displaystyle r := {{ q } \over { K }}$ 로 치환해보면</p>
 <p>$$
 \begin{align*}
-&amp; N ' = {{ r } \over { K }} N ( K - N)
-\\ \implies&amp; N ' = r N \left( 1 - {{ N } \over { K }} \right)
-\\ \implies&amp; N ' = \left( q {{ N } \over { K }} \right) \left( 1 - {{ N } \over { K }} \right)
+&amp; N ' = {{ r } \over { K }} N ( K - N) 
+\\ \implies&amp; N ' = r N \left( 1 - {{ N } \over { K }} \right) 
+\\ \implies&amp; N ' = \left( q {{ N } \over { K }} \right) \left( 1 - {{ N } \over { K }} \right) 
 \end{align*}
 $$</p>
 <p>여기까지는 사실 수식적으로 아무것도 변한 게 없고, 정확히 $p = 0$ 인 경우인 바스 확산 모델 그 자체다. 여기에 첫번째 항 $\displaystyle \left( q {{ N } \over { K }} \right)$ 을 고치자. 집단이 개체수와 상관 없이 최소한의 성장률을 가지게 하려면 간단하게도 이 항에 상수항 $p \ne 0$ 을 더해주면 된다.</p>
@@ -292,7 +292,7 @@ $$</p>
 <aside style="text-align: right;">
     2021-02-06&emsp;
     류대식&emsp;
-    <a href="../2104">🎲 1946</a>
+    <a href="../1028">🎲 1946</a>
 </aside>
 
 <script>
@@ -809,6 +809,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -937,11 +938,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1127,7 +1129,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1138,12 +1140,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

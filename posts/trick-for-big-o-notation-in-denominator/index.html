@@ -240,7 +240,7 @@ $$
 에 대해 $\displaystyle q := {{1} \over {p}}$ 라 두고 함수 $\displaystyle f(h) :=  (a + b h^n )^{-q}$ 를 정의하자.</p>
 <p>$f$ 에 대해 <a href="../42">매클로린 전개</a>를 하면
 $$
-f(h) = f(0) + h f '(0) + {{h^2} \over {2}} f '&rsquo;(0) + {{h^3} \over {6}} f^{(3)}(0) + \cdots
+f(h) = f(0) + h f '(0) + {{h^2} \over {2}} f '&rsquo;(0) + {{h^3} \over {6}} f^{(3)}(0) + \cdots 
 $$
 $\displaystyle f(h) =  (a + b h^n )^{-q}$ 이므로
 $$
@@ -254,7 +254,7 @@ $$
 $$
 f '' (h) = -qbn(n-1)h^{n-2} (a+  bh^{n})^{-q-1} + bnh^{n-1} (-q-1) bnh^{n-1} (a+  bh^{n})^{-q-2}
 $$
-이므로 $f '' (0) = 0$ 다. 이런 식으로 $k$계 도함수 $f^{(k)}$ 을 구해보면 $k=2,3, \cdots, (n-1)$ 에 대해 $f^{(k)}(0) = 0$ 임을 알 수 있다. 어떤 $g(h)$ 에 대해
+이므로 $f '' (0) = 0$ 다. 이런 식으로 $k$계 도함수 $f^{(k)}$ 을 구해보면 $k=2,3, \cdots, (n-1)$ 에 대해 $f^{(k)}(0) = 0$ 임을 알 수 있다. 어떤 $g(h)$ 에 대해 
 $$
 f^{(n)}(h) = -qbn!h^{n-n}  (a+  bh^{n})^{-q-1} + h g(h)
 $$
@@ -264,7 +264,7 @@ f^{(n)} (h) = -qbn! {{1} \over { \sqrt[q+1]{a } }}
 $$
 다. 따라서
 $$
-f(h) ={{1} \over { \sqrt[p]{a } }} + 0 + \cdots + 0 - {{h^n} \over {n!}} qbn! {{1} \over { \sqrt[q+1]{a } }} + {{h^{ (n+1) } } \over {(n+1)! }} f^{(n+1)}(0) + \cdots
+f(h) ={{1} \over { \sqrt[p]{a } }} + 0 + \cdots + 0 - {{h^n} \over {n!}} qbn! {{1} \over { \sqrt[q+1]{a } }} + {{h^{ (n+1) } } \over {(n+1)! }} f^{(n+1)}(0) + \cdots 
 $$
 다. $0$ 이후에 등장하는 모든 항들을 $h^n$ 으로 묶어내면 다음을 얻는다.
 $$
@@ -276,7 +276,7 @@ $$</p>
 <aside style="text-align: right;">
     2018-11-19&emsp;
     류대식&emsp;
-    <a href="../1613">🎲 727</a>
+    <a href="../939">🎲 727</a>
 </aside>
 
 <script>
@@ -793,6 +793,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -921,11 +922,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1111,7 +1113,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1122,12 +1124,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

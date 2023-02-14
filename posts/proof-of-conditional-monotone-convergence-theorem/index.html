@@ -230,7 +230,7 @@
 <p><a href="../498">확률 공간</a> $( \Omega , \mathcal{F} , P)$ 이 주어져 있다고 하자.</p>
 <p>확률 변수의 <a href="../470">시퀀스</a> $\left\{ X_{n} \right\}_{n \in \mathbb{N}}$ 과 <a href="../592">$X \in \mathcal{L}^{1} (\Omega)$</a>에 대해
 $$
-X_{1} \le X_{2} \le \cdots \le X
+X_{1} \le X_{2} \le \cdots \le X 
 \\  X_{n} \to X \text{ a.s.}
 $$
 이면
@@ -245,10 +245,10 @@ $$</p>
 <p><a href="../535">단조 수렴 정리</a>에 따라 모든 $A \in \mathcal{G}$ 에 대해
 $$
 \begin{align*}
-\int_{A} \lim_{n \to \infty} E( X_{n} | \mathcal{G} ) dP &amp;\color{red}{=}&amp; \lim_{n \to \infty} \int_{A} E( X_{n} | \mathcal{G} ) dP
-\\ =&amp; \lim_{n \to \infty} \int_{A} X_{n} dP
-\\ &amp;\color{red}{=}&amp; \int_{A} \lim_{n \to \infty} X_{n} dP
-\\ =&amp; \int_{A} E( \lim_{n \to \infty} X_{n} | \mathcal{G} ) d P
+\int_{A} \lim_{n \to \infty} E( X_{n} | \mathcal{G} ) dP &amp;\color{red}{=}&amp; \lim_{n \to \infty} \int_{A} E( X_{n} | \mathcal{G} ) dP 
+\\ =&amp; \lim_{n \to \infty} \int_{A} X_{n} dP 
+\\ &amp;\color{red}{=}&amp; \int_{A} \lim_{n \to \infty} X_{n} dP 
+\\ =&amp; \int_{A} E( \lim_{n \to \infty} X_{n} | \mathcal{G} ) d P 
 \end{align*}
 $$
 <a href="../527">$\displaystyle \forall A \in \mathcal{F}, \int_{A} f dm = 0 \iff f = 0 \text{ a.e.}$</a> 이므로
@@ -264,11 +264,11 @@ $$
 이다. 그러면 <a href="../1322">조건부 기대값의 리니어러티</a>에 의해
 $$
 \begin{align*}
-\lim_{n \to \infty} E( X_{n} | \mathcal{G} ) =&amp; \lim_{n \to \infty} E( Y_{n} + X_{1} | \mathcal{G} )
-\\ =&amp; \lim_{n \to \infty} E( Y_{n} | \mathcal{G} ) + E( X_{1} | \mathcal{G} )
+\lim_{n \to \infty} E( X_{n} | \mathcal{G} ) =&amp; \lim_{n \to \infty} E( Y_{n} + X_{1} | \mathcal{G} ) 
+\\ =&amp; \lim_{n \to \infty} E( Y_{n} | \mathcal{G} ) + E( X_{1} | \mathcal{G} ) 
 \\ =&amp; E( X - X_{1} | \mathcal{G} ) + E( X_{1} | \mathcal{G} )
-\\ =&amp; E( X - X_{1} + X_{1} | \mathcal{G} )
-\\ =&amp; E( \lim_{n \to \infty} X_{n} | \mathcal{G} ) \text{ a.s.}
+\\ =&amp; E( X - X_{1} + X_{1} | \mathcal{G} ) 
+\\ =&amp; E( \lim_{n \to \infty} X_{n} | \mathcal{G} ) \text{ a.s.} 
 \end{align*}
 $$</p>
 <p style="text-align: right;">■</p>
@@ -281,7 +281,7 @@ $$</p>
 <aside style="text-align: right;">
     2019-10-10&emsp;
     류대식&emsp;
-    <a href="../840">🎲 1331</a>
+    <a href="../2033">🎲 1331</a>
 </aside>
 
 <script>
@@ -798,6 +798,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -926,11 +927,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1116,7 +1118,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1127,12 +1129,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

@@ -271,13 +271,13 @@ $$</p>
 <p>행렬 꼴로 바꾸면</p>
 <p>$$
 f \left( x_{0} + h \mathbb{d} \right) - f ( \mathbb{x}_{0} ) = h \begin{bmatrix}
-{{ \partial f ( \mathbb{x}_{0} ) } \over { \partial x_{1} }}
-\\ \vdots
-\\  {{ \partial f ( \mathbb{x}_{0} ) } \over { \partial x_{n} }}
+{{ \partial f ( \mathbb{x}_{0} ) } \over { \partial x_{1} }} 
+\\ \vdots 
+\\  {{ \partial f ( \mathbb{x}_{0} ) } \over { \partial x_{n} }} 
 \end{bmatrix} \cdot \begin{bmatrix}
-d_{1}
-\\ \vdots
-\\  d_{n}
+d_{1} 
+\\ \vdots 
+\\  d_{n} 
 \end{bmatrix} + O (h^2)
 $$</p>
 <p>벡터 꼴로 바꾸면</p>
@@ -286,15 +286,15 @@ $$</p>
 $$</p>
 <p>$h \to 0$ 일 때</p>
 <p>$$
-\nabla f \left( \mathbb{x}_{0} \right) \cdot \mathbb{d} = \lim_{h \to 0} {{ f \left( x_{0} + h \mathbb{d} \right) - f ( \mathbb{x}_{0} )} \over {h}}
+\nabla f \left( \mathbb{x}_{0} \right) \cdot \mathbb{d} = \lim_{h \to 0} {{ f \left( x_{0} + h \mathbb{d} \right) - f ( \mathbb{x}_{0} )} \over {h}} 
 $$</p>
 <p>$\mathbb{b}$ 가 $\mathbb{x}_{0}$ 에서 $f$ 의 기울기와 같은 방향이라는 것은 $\mathbb{d}$ 가</p>
 <p>$$
-\lim_{h \to 0} {{ f \left( x_{0} + h \mathbb{d} \right) - f ( \mathbb{x}_{0} )} \over {h}}
+\lim_{h \to 0} {{ f \left( x_{0} + h \mathbb{d} \right) - f ( \mathbb{x}_{0} )} \over {h}} 
 $$</p>
 <p>이 가장 커지도록 하는 단위벡터라는 뜻이다. 이를 만족하는 경우는 $\displaystyle \mathbb{d} = {{\nabla f \left( \mathbb{x}_{0} \right) } \over { \left\| \nabla f \left( \mathbb{x}_{0} \right) \right\| }}$뿐이고, 따라서</p>
 <p>$$
-\nabla f \left( \mathbb{x}_{0} \right) = \left\| \nabla f \left( \mathbb{x}_{0} \right) \right\| \mathbb{d}
+\nabla f \left( \mathbb{x}_{0} \right) = \left\| \nabla f \left( \mathbb{x}_{0} \right) \right\| \mathbb{d} 
 $$</p>
 <p>은 $\mathbb{x}_{0}$ 에서 $f$ 의 그래디언트가 된다.</p>
 <p style="text-align: right;">■</p>
@@ -308,7 +308,7 @@ $$</p>
 <aside style="text-align: right;">
     2019-04-28&emsp;
     류대식&emsp;
-    <a href="../2178">🎲 1010</a>
+    <a href="../1465">🎲 1010</a>
 </aside>
 
 <script>
@@ -825,6 +825,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -953,11 +954,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1143,7 +1145,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1154,12 +1156,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

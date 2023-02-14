@@ -238,7 +238,7 @@
 <p>움직이는 점전하가 만드는 전자기장은 다음과 같다.</p>
 <p>$$
 \begin{align*}
-\mathbf{E}(\mathbf{r}, t) &amp;= \frac{q}{4\pi\epsilon_0} \frac{\eta} {( \boldsymbol{\eta}\cdot \mathbf{u} )^3 } \left[(c^2-v^2)\mathbf{u} +\boldsymbol{\eta}\times (\mathbf{u} \times \mathbf{a} ) \right] \\
+\mathbf{E}(\mathbf{r}, t) &amp;= \frac{q}{4\pi\epsilon_0} \frac{\eta} {( \boldsymbol{\eta}\cdot \mathbf{u} )^3 } \left[(c^2-v^2)\mathbf{u} +\boldsymbol{\eta}\times (\mathbf{u} \times \mathbf{a} ) \right] \\ 
 \mathbf{B} (\mathbf{ r}, t) &amp;=\frac{1}{c} \hat{\boldsymbol{\eta}}\times \mathbf{ E } (\mathbf{ r}, t)
 \end{align*}
 $$</p>
@@ -247,7 +247,7 @@ $$</p>
 <h2 id="유도">유도</h2>
 <p>움직이는 점전하가 만드는 전기장, 자기장은 <a href="../1269">리에나르-비케르트 전위</a>를 사용하여 구할 수 있다.</p>
 <p>$$
-V(\mathbf{r}, t)= \frac{1}{4\pi \epsilon_0} \frac{qc}{ (\eta c -\boldsymbol{\eta}\cdot \mathbf{v})}  ,\quad \mathbf{A}(\mathbf{r}, t) = \frac{ \mathbf{v} } {c^2} V(\mathbf{r}, t)
+V(\mathbf{r}, t)= \frac{1}{4\pi \epsilon_0} \frac{qc}{ (\eta c -\boldsymbol{\eta}\cdot \mathbf{v})}  ,\quad \mathbf{A}(\mathbf{r}, t) = \frac{ \mathbf{v} } {c^2} V(\mathbf{r}, t) 
 $$</p>
 <p>또한 전자기장은 아래의 식으로 구할 수 있다.</p>
 <p><a href="../1263">
@@ -323,7 +323,7 @@ $$</p>
 $$</p>
 <p>따라서</p>
 <p>$$
-\boldsymbol{\eta} \times ( \nabla \times \mathbf{v} )= -\boldsymbol{\eta}\times (\mathbf{a} \times \nabla t_r)
+\boldsymbol{\eta} \times ( \nabla \times \mathbf{v} )= -\boldsymbol{\eta}\times (\mathbf{a} \times \nabla t_r) 
 $$</p>
 <h3 id="네-번째-항">네 번째 항</h3>
 <p>$\boldsymbol{\eta}=\mathbf{r}-\mathbf{w}$이고, $\nabla \times \mathbf{r}=0$이므로</p>
@@ -392,7 +392,7 @@ $$</p>
 <aside style="text-align: right;">
     2020-04-17&emsp;
     전기현&emsp;
-    <a href="../397">🎲 1273</a>
+    <a href="../493">🎲 1273</a>
 </aside>
 
 <script>
@@ -909,6 +909,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -1037,11 +1038,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1227,7 +1229,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1238,12 +1240,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

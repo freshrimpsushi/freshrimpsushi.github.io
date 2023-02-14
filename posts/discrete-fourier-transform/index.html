@@ -231,7 +231,7 @@
 <p><a href="../3054">주파수 샘플링 정리</a></p>
 <p>$\hat{f} \in L^{2}$이고 $f (t) = 0\ \text{for } t \in [0, 2\Omega]$라고 가정하자. 그러면 $\hat{f}(\omega)$는 $m\pi / \Omega(m=0, \pm 1, \pm 2, \dots)$에서의 값들로 결정된다. 즉 다음이 성립한다.</p>
 <p>$$
-\hat{f}(\omega) = \sum \limits_{m = -\infty}^{\infty} \hat{f} \left( \dfrac{m\pi}{\Omega}\right) \dfrac{\sin (\Omega \omega -m\pi )}{\Omega \omega - m\pi}
+\hat{f}(\omega) = \sum \limits_{m = -\infty}^{\infty} \hat{f} \left( \dfrac{m\pi}{\Omega}\right) \dfrac{\sin (\Omega \omega -m\pi )}{\Omega \omega - m\pi} 
 $$</p>
 </blockquote>
 <p>그러면 $f$의 값이 길이가 $\Omega$인 구간 $[0,\Omega]$에만 존재하므로, 샘플링 정리에 의해서 $\hat{f}$의 값은 이산 간격의 $\hat{f} \left( \dfrac{\pi m}{\Omega/2} \right) = \hat{f} \left( \dfrac{2\pi m}{\Omega} \right)$들에 의해 결정된다는 것을 알 수 있다. 이 값을 계산해보면, <a href="../1898">푸리에 변환</a>의 정의에 의해서 다음과 같다.</p>
@@ -240,7 +240,7 @@ $$</p>
 $$</p>
 <p>여기서 $[0, \Omega]$를 $N$개의 구간들로 쪼갠다고 생각해보자. 그러면 쪼갠 구간의 왼쪽 끝점들은 다음과 같다.</p>
 <p>$$
-0, \dfrac{1\Omega}{N}, \dfrac{2\Omega}{N}, \dots, \dfrac{n\Omega}{N}, \dots, \dfrac{(N-1)\Omega}{N}
+0, \dfrac{1\Omega}{N}, \dfrac{2\Omega}{N}, \dots, \dfrac{n\Omega}{N}, \dots, \dfrac{(N-1)\Omega}{N} 
 $$</p>
 <p>구분구적법을 생각해보면 위의 점들에서의 함숫값과 각 구간의 길이 $\dfrac{\Omega}{N}$를 곱해서 모두 더하면 적분값과 비슷할거라는 것을 알 수 있다.</p>
 <p>$$
@@ -832,6 +832,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -960,11 +961,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1150,7 +1152,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1161,12 +1163,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

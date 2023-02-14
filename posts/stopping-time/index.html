@@ -236,16 +236,16 @@
 <p>$Y_{1}, Y_{2} , \cdots \overset{iid}{\sim} B(1,p)$ 라고 하자. 다시 말해, 각각의 $Y_{n}$ 이 확률 $p$ 의 베르누이 분포를 따른다고 하고, $Y_{5}$ 까지의 결과가 다음과 같다고 하자.
 $$
 \begin{matrix}
-Y_{1} &amp; Y_{2} &amp; Y_{3} &amp; Y_{4} &amp; Y_{5}
-\\  0 &amp; 0 &amp; 1 &amp; 0 &amp; 1
+Y_{1} &amp; Y_{2} &amp; Y_{3} &amp; Y_{4} &amp; Y_{5} 
+\\  0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 
 \end{matrix}
 $$</p>
 <p><strong>(1) 정지 시간이 아닌 경우</strong>: $\tau$ 를 $\tau:= \max \left\{ k: Y_{k} = 0 \right\}$ 라 두면 위의 경우에는 다음과 같이 $\tau$ 가 계산 된다.
 $$
 \begin{matrix}
-Y_{1} &amp; Y_{2} &amp; Y_{3} &amp; Y_{4} &amp; Y_{5}
-\\  0 &amp; 0 &amp; 1 &amp; 0 &amp; 1
-\\ \tau = 1 &amp; \tau = 2 &amp; \tau = 2 &amp; \tau = 4 &amp; \tau = 5
+Y_{1} &amp; Y_{2} &amp; Y_{3} &amp; Y_{4} &amp; Y_{5} 
+\\  0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 
+\\ \tau = 1 &amp; \tau = 2 &amp; \tau = 2 &amp; \tau = 4 &amp; \tau = 5 
 \end{matrix}
 $$
 여기서 $\tau$ 는 $\left\{ Y_{k} \right\}_{1 \le k &lt; n}$ 이 어떻게 되든 다음을 만족해야 정지 시간이 될 수 있다.
@@ -256,9 +256,9 @@ $$
 <p><strong>(2) 정지 시간이 되는 경우</strong>: $\tau$ 를 $\tau:= \min \left\{ k: Y_{k} = 1 \right\}$ 라 두면 위의 경우에는 다음과 같이 $\tau$ 가 계산 된다.
 $$
 \begin{matrix}
-Y_{1} &amp; Y_{2} &amp; Y_{3} &amp; Y_{4} &amp; Y_{5}
-\\  0 &amp; 0 &amp; 1 &amp; 0 &amp; 1
-\\ \tau = 0 &amp; \tau = 0 &amp; \tau = 3 &amp; \tau = 3 &amp; \tau = 3
+Y_{1} &amp; Y_{2} &amp; Y_{3} &amp; Y_{4} &amp; Y_{5} 
+\\  0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 
+\\ \tau = 0 &amp; \tau = 0 &amp; \tau = 3 &amp; \tau = 3 &amp; \tau = 3 
 \end{matrix}
 $$
 $\tau$ 는 이미 $n=3$ 에 관심 있는 사건이 일어나서 미래에 무엇이 나오든 상관 없어졌고 정지 시간이 된다.</p>
@@ -273,7 +273,7 @@ $$
 <aside style="text-align: right;">
     2019-10-26&emsp;
     류대식&emsp;
-    <a href="../1509">🎲 1351</a>
+    <a href="../2133">🎲 1351</a>
 </aside>
 
 <script>
@@ -790,6 +790,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -918,11 +919,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1108,7 +1110,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1119,12 +1121,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

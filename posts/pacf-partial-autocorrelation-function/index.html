@@ -246,7 +246,7 @@ $$</li>
 <li>다음과 같이 정의된 $\phi_{kk}$ 를 시차 $k$ 의 <strong>표본편자기공분산함수</strong>라고 한다.
 $$
 \widehat{ \phi_{kk} } := {{ r_{k} - \sum_{j=1}^{k-1} \phi_{(k-1),j} r_{k-j} } \over { 1 - \sum_{j=1}^{k-1} \phi_{(k-1),j} r_{j} }}
-\\ \phi_{k,j} := \phi_{(k-1),j} - \phi_{kk} \phi_{(k-1),(k-j)}
+\\ \phi_{k,j} := \phi_{(k-1),j} - \phi_{kk} \phi_{(k-1),(k-j)} 
 $$</li>
 </ol>
 <hr>
@@ -258,7 +258,7 @@ $$</li>
 $$
 Y_{t} = \beta_{1} Y_{t-1} + \cdots \beta_{k-1} Y_{t-(k-1)} + \widehat{e_{t}}
 $$
-다시 적어보면
+다시 적어보면 
 $$
 \widehat{e_{t}} = Y_{t} - \left( \beta_{1} Y_{t-1} + \cdots \beta_{k-1} Y_{t-(k-1)} \right)
 $$
@@ -309,7 +309,7 @@ abline(h=1.96*1/sqrt(length(ar1.s)),col=&#39;red&#39;)
 <aside style="text-align: right;">
     2019-08-06&emsp;
     류대식&emsp;
-    <a href="../999">🎲 1211</a>
+    <a href="../473">🎲 1211</a>
 </aside>
 
 <script>
@@ -826,6 +826,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -954,11 +955,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1149,7 +1151,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1160,12 +1162,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

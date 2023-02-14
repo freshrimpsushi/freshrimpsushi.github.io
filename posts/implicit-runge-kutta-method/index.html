@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/implicit-runge-kutta-method\/",
-    "wordCount" : "1021",
+    "wordCount" : "1118",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -228,9 +228,12 @@
 </aside>
 
 <h2 id="개요">개요</h2>
-<p>상미분 방정식 솔버<sup>ODE solver</sup>인 룽게-쿠타 메소드를 소개한다. 흔히 사용되는 <a href="../796">4차 룽게-쿠타 메소드</a>인 RK4는 <a href="../3317">명시적 룽게-쿠타 메소드</a>의 한 종류이다. 본 문서에서는 <strong>암시적 룽게-쿠타 메소드</strong>에 대해서 설명한다.</p>
+<p>상미분 방정식 솔버<sup>ODE solver</sup>인 룽게-쿠타 메소드를 소개한다. 흔히 사용되는 <a href="../796">4차 룽게-쿠타 메소드</a> RK4는 <a href="../3317">명시적 룽게-쿠타 메소드</a>의 한 종류이다. 본 문서에서는 <strong>암시적 룽게-쿠타 메소드</strong><sup>implicit Runge-Kutta method</sup>에 대해서 설명한다.</p>
 <h2 id="빌드업1">빌드업<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p>명시적 룽게-쿠타 메소드란, 주어진 $y_{n}$에 대해서 $y_{n+1}$을 다음과 같이 근사하는 방법이다.</p>
+<p>$$
+y^{\prime} = f(t,y),\quad t \ge t_{0},\quad y(t_{0}) = y_{0}
+$$</p>
+<p>위와 같이 주어진 상미분 방정식을 생각하자. $y$는 $t$에 대한 함수이며, $^{\prime}$은 $t$에 대한 미분을 의미한다. $y_{n} = y(t_{n})$과 같이 표기할 때, 명시적 룽게-쿠타 메소드란 주어진 $y_{n}$에 대해서 $y_{n+1}$을 다음과 같이 근사하는 방법이다.</p>
 <blockquote>
 <p>$$
 \begin{equation}
@@ -240,10 +243,10 @@ $$</p>
 <p>이때</p>
 <p>$$
 \begin{align*}
-\xi_{1} &amp;= y_{n} \\
-\xi_{2} &amp;= y_{n} + ha_{2,1}f(t_{n}, \xi_{1}) \\
-\xi_{3} &amp;= y_{n} + ha_{3,1}f(t_{n}, \xi_{1}) + ha_{3,2}f(t_{n} + c_{2}h, \xi_{2}) \\
-\vdots &amp; \\
+\xi_{1} &amp;= y_{n} \\ 
+\xi_{2} &amp;= y_{n} + ha_{2,1}f(t_{n}, \xi_{1}) \\ 
+\xi_{3} &amp;= y_{n} + ha_{3,1}f(t_{n}, \xi_{1}) + ha_{3,2}f(t_{n} + c_{2}h, \xi_{2}) \\ 
+\vdots &amp; \\ 
 \xi_{\nu} &amp;= y_{n} + h\sum_{i=1}^{\nu-1}a_{\nu, i}f(t_{n} + c_{i}h, \xi_{i})
 \end{align*}
 $$</p>
@@ -277,7 +280,7 @@ $$</p>
 <h2 id="설명">설명</h2>
 <p>명시적 메소드에서 행렬 $A = [a_{j,i}]$가 <a href="../3305">하삼각행렬</a>이었던 것에 반해 암시적 메소드에서 $A$는 임의의 행렬이다.</p>
 <p>RK 메소드에서 계수들 $a_{j,i}$, $b_{j}$, $c_{j}$들은 <strong>구하는 것이 아니라 선택하여 사용하는 것</strong>이다. 계수는 $\begin{array}{c|c} \mathbf{c} &amp; A \\ \hline &amp; \mathbf{b}^{t} \end{array}$와 같은 꼴로 표기하는데 이를 <strong>RK 테이블</strong><sup>RK tableaux</sup>라 한다.</p>
-<p>명시적 메소드와 비교하면 당연하게도 푸는데 훨씬 더 많은 시간이 소요된다. 하지만 암시적 메소드의 장점은 빠른 속도가 아니라 해의 안정성에 있다. 명시적 메소드는 해가 불안정성을 갖는다는 단점이 있는데, 이를 위한 대안으로 암시적 메소드가 사용된다고 한다.</p>
+<p>명시적 메소드와 비교하면 당연하게도 푸는데 훨씬 더 많은 시간이 소요된다. 하지만 암시적 메소드의 장점은 빠른 속도가 아니라 해의 안정성에 있다. 명시적 메소드의 단점은 해의 불안정성인데, 이를 위한 대안으로 암시적 메소드가 사용된다고 한다.</p>
 <h2 id="같이보기">같이보기</h2>
 <ul>
 <li><a href="../3317">명시적 룽게-쿠타 메소드</a></li>
@@ -296,7 +299,7 @@ $$</p>
 <aside style="text-align: right;">
     2022-11-02&emsp;
     전기현&emsp;
-    <a href="../653">🎲 3319</a>
+    <a href="../446">🎲 3319</a>
 </aside>
 
 <script>
@@ -813,6 +816,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -941,11 +945,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1131,7 +1136,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1142,12 +1147,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

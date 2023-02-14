@@ -286,9 +286,9 @@ $$</p>
 <p>이제 $\boldsymbol{\alpha}(t) = \mathbf{x}(\alpha^{1}(t), \alpha^{2}(t))$라고 하자. 그러면 $\mathbf{X}$는, <a href="../3134">연쇄법칙</a>에 의해,</p>
 <p>$$
 \begin{align*}
-\mathbf{X} = \dot{\boldsymbol{\alpha}}(0) &amp;= \dfrac{d \boldsymbol{\alpha}}{d t} (0) \\
-&amp;= \dfrac{d \mathbf{x}(\alpha^{1}(t), \alpha^{2}(t))}{d t} (0) \\
-&amp;= \dfrac{\partial \mathbf{x}}{\partial \alpha^{1}} \dfrac{d \alpha^{1}}{d t}(0) + \dfrac{\partial \mathbf{x}}{\partial \alpha^{2}} \dfrac{d \alpha^{2}}{d t}(0)\\
+\mathbf{X} = \dot{\boldsymbol{\alpha}}(0) &amp;= \dfrac{d \boldsymbol{\alpha}}{d t} (0) \\ 
+&amp;= \dfrac{d \mathbf{x}(\alpha^{1}(t), \alpha^{2}(t))}{d t} (0) \\ 
+&amp;= \dfrac{\partial \mathbf{x}}{\partial \alpha^{1}} \dfrac{d \alpha^{1}}{d t}(0) + \dfrac{\partial \mathbf{x}}{\partial \alpha^{2}} \dfrac{d \alpha^{2}}{d t}(0)\\ 
 \end{align*}
 $$</p>
 <p>$U$의 좌표를 $(u^{1}, u^{2})$라고 하면,</p>
@@ -302,7 +302,7 @@ $$</p>
 <p>이제 또다른 곡선 $\boldsymbol{\gamma}(t) = \mathbf{x}(\alpha^{1}(t)+\beta^{1}(t)-a, \alpha^{2}(t)+\beta^{2}(t)-b)$를 생각하자. 이제 $\dot{\boldsymbol{\gamma}}(0) = \mathbf{X} + \mathbf{Y}$임을 보일 것이다.</p>
 <p>$$
 \begin{align*}
-\dot{\boldsymbol{\gamma}} = \dfrac{d \boldsymbol{\gamma}}{d t} &amp;= \dfrac{\partial \mathbf{x}}{\partial u^{1}}\left( \dfrac{d \alpha^{1}}{d t} + \dfrac{d \beta^{1}}{d t} \right) + \dfrac{\partial \mathbf{x}}{\partial u^{1}}\left( \dfrac{d \alpha^{2}}{d t} + \dfrac{d \beta^{2}}{d t} \right) \\
+\dot{\boldsymbol{\gamma}} = \dfrac{d \boldsymbol{\gamma}}{d t} &amp;= \dfrac{\partial \mathbf{x}}{\partial u^{1}}\left( \dfrac{d \alpha^{1}}{d t} + \dfrac{d \beta^{1}}{d t} \right) + \dfrac{\partial \mathbf{x}}{\partial u^{1}}\left( \dfrac{d \alpha^{2}}{d t} + \dfrac{d \beta^{2}}{d t} \right) \\ 
 &amp;= \left( \dfrac{\partial \mathbf{x}}{\partial u^{1}} \dfrac{d \alpha^{1}}{d t} + \dfrac{\partial \mathbf{x}}{\partial u^{2}} \dfrac{d \alpha^{2}}{d t} \right) + \left( \dfrac{\partial \mathbf{x}}{\partial u^{1}} \dfrac{d \beta^{1}}{d t} + \dfrac{\partial \mathbf{x}}{\partial u^{2}} \dfrac{d \beta^{2}}{d t} \right)
 \end{align*}
 $$</p>
@@ -335,7 +335,7 @@ $$ -->
 <aside style="text-align: right;">
     2021-11-11&emsp;
     전기현&emsp;
-    <a href="../687">🎲 3142</a>
+    <a href="../435">🎲 3142</a>
 </aside>
 
 <script>
@@ -852,6 +852,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -980,11 +981,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1170,7 +1172,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1181,12 +1183,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

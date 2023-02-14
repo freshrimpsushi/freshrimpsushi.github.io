@@ -243,7 +243,7 @@ $$
 를 만족시키는 다른 모든 솔루션 $y(t)$ 에 대해 $\delta ( \varepsilon ) &gt; 0$ 가 존재하면 $\overline{x}(t)$ 를 <strong>랴푸노프 스테이블</strong><sup>Liapunov Stable</sup>하다고 말한다.</li>
 <li>$\overline{x}(t)$ 가 랴푸노프 스테이블하고
 $$
-\left\| \overline{x} \left( t_{0} \right) - y \left( t_{0} \right) \right\| &lt; b \implies \lim_{t \to \infty} \left\| \overline{x}(t) - y(t) \right\| = 0
+\left\| \overline{x} \left( t_{0} \right) - y \left( t_{0} \right) \right\| &lt; b \implies \lim_{t \to \infty} \left\| \overline{x}(t) - y(t) \right\| = 0 
 $$
 를 만족시키는 다른 모든 솔루션 $y(t)$ 에 대해 상수 $b &gt; 0$ 가 존재하면 $\overline{x}(t)$ 를 <strong>점근적 랴푸노프 스테이블</strong><sup>Asymtotic Liapunov Stable</sup>하다고 말한다.</li>
 </ol>
@@ -256,7 +256,7 @@ $$
 를 만족시키는 다른 모든 솔루션 $y(t)$ 에 대해 $\delta ( \varepsilon ) &gt; 0$ 가 존재하면 $\overline{x}(t)$ 를 <strong>오비탈리 스테이블</strong><sup>Orbitally Stable</sup>하다고 말한다.</li>
 <li>$\overline{x}(t)$ 가 오비탈리 스테이블하고
 $$
-\left\| \overline{x} \left( t_{0} \right) - y \left( t_{0} \right) \right\| &lt; b \implies \lim_{t \to \infty} d \left( y(t) , O^{+} \left( x_{0} , t_{0} \right) \right) = 0
+\left\| \overline{x} \left( t_{0} \right) - y \left( t_{0} \right) \right\| &lt; b \implies \lim_{t \to \infty} d \left( y(t) , O^{+} \left( x_{0} , t_{0} \right) \right) = 0 
 $$
 를 만족시키는 다른 모든 솔루션 $y(t)$ 에 대해 상수 $b &gt; 0$ 가 존재하면 $\overline{x}(t)$ 를 <strong>점근적 오비탈리 스테이블</strong><sup>Asymtotic Orbitally Stable</sup>하다고 말한다.</li>
 </ol>
@@ -267,7 +267,7 @@ O^{+} \left( x_{0} , t_{0} \right) := \left\{ x \in X : x = \overline{x} (t) , t
 $$</li>
 <li>$d \left( p, S \right)$ 는 한 점 $p \in X$ 과 부분 공간 $S \subset X$ 사이의 최단거리로, 다음과 같이 정의된다.
 $$
-d \left( p, S \right) := \inf_{x \in S} \left\| p - x \right\|
+d \left( p, S \right) := \inf_{x \in S} \left\| p - x \right\| 
 $$</li>
 </ul>
 <h2 id="설명">설명</h2>
@@ -293,7 +293,7 @@ $$</li>
 <aside style="text-align: right;">
     2020-10-02&emsp;
     류대식&emsp;
-    <a href="../852">🎲 1716</a>
+    <a href="../1181">🎲 1716</a>
 </aside>
 
 <script>
@@ -810,6 +810,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -938,11 +939,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1128,7 +1130,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1139,12 +1141,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",

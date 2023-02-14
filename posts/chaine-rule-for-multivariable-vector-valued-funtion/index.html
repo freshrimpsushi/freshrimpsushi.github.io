@@ -261,7 +261,7 @@ $$</p>
 $$</p>
 <p><a href="../90">아인슈타인 표기법</a>으로 간단히 나타내면, $1 \le i \le n$, $1 \le j \le m$에 대해서</p>
 <p>$$
-\mathbf{F}^{\prime} = \left[ F_{ij}^{\prime} \right] =
+\mathbf{F}^{\prime} = \left[ F_{ij}^{\prime} \right] = 
 \begin{bmatrix}
 \dfrac{\partial f_{1}}{\partial g_{\ell}} \dfrac{\partial g_{\ell}}{\partial x_{1}} &amp; \dots &amp; \dfrac{\partial f_{1}}{\partial g_{\ell}} \dfrac{\partial g_{\ell}}{\partial x_{m}}
 \\[1em] \vdots &amp; \ddots &amp; \vdots
@@ -367,7 +367,7 @@ $$</p>
 <p><strong>Case 7.</strong> $g : \mathbb{R}^{m} \to \mathbb{R}$, $\mathbf{f} : \mathbb{R} \to \mathbb{R}^{n}$, $\mathbf{F} = \mathbf{f} \circ g : \mathbb{R}^{m} \to \mathbb{R}^{n}$</p>
 <p>$\mathbf{x} = (x_{1}, \dots, x_{n}) \in \mathbb{R}^{n}$, $g = g(\mathbf{x})$, $\mathbf{f}(g(\mathbf{x})) = (f_{1}, \dots, f_{n})$일 때,</p>
 <p>$$
-\mathbf{F}^{\prime} = \dfrac{d \mathbf{F}}{d \mathbf{x}} =
+\mathbf{F}^{\prime} = \dfrac{d \mathbf{F}}{d \mathbf{x}} = 
 \begin{bmatrix}
 \dfrac{d f_{1}}{d g} \dfrac{\partial g}{\partial x_{1}} &amp; \dots &amp; \dfrac{d f_{1}}{d g} \dfrac{\partial g}{\partial x_{m}}
 \\[1em] \vdots &amp; \ddots &amp; \vdots
@@ -385,7 +385,7 @@ $$</p>
 <p><strong>Case 8.</strong> $\mathbf{g} : \mathbb{R}^{m} \to \mathbb{R}^{k}$, $\mathbf{f} : \mathbb{R}^{k} \to \mathbb{R}^{n}$, $\mathbf{F} = \mathbf{f} \circ \mathbf{g} : \mathbb{R}^{m} \to \mathbb{R}^{n}$</p>
 <p>$\mathbf{x} = (x_{1}, \dots, x_{n}) \in \mathbb{R}^{n}$, $g(\mathbf{x}) = (g_{1}, \dots, g_{k})$, $\mathbf{f}(g_{1}, \dots, g_{k}) = (f_{1}, \dots, f_{n})$일 때,</p>
 <p>$$
-\mathbf{F}^{\prime} = \dfrac{d \mathbf{F}}{d \mathbf{x}} =
+\mathbf{F}^{\prime} = \dfrac{d \mathbf{F}}{d \mathbf{x}} = 
 \begin{bmatrix}
 \sum \limits_{\ell=1}^{k} \dfrac{\partial f_{1}}{\partial g_{\ell}} \dfrac{\partial g_{\ell}}{\partial x_{1}} &amp; \dots &amp; \sum \limits_{\ell=1}^{k} \dfrac{\partial f_{1}}{\partial g_{\ell}} \dfrac{\partial g_{\ell}}{\partial x_{m}}
 \\[1em] \vdots &amp; \ddots &amp; \vdots
@@ -402,7 +402,7 @@ $$</p>
 <aside style="text-align: right;">
     2021-10-26&emsp;
     전기현&emsp;
-    <a href="../2059">🎲 3134</a>
+    <a href="../1443">🎲 3134</a>
 </aside>
 
 <script>
@@ -919,6 +919,7 @@ style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.
 border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
 </div>
 </form>
+<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -1047,11 +1048,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     let html = '';
     for(let i = 0; i < rows.length; i++) {
       rows[i].map(row => {
-        html += `<div id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
         html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
-        html += ` ${row.name} (${row.size})</a><br>`;
-        html += '</div>';
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
       });
       html += '<hr>';
     }
@@ -1237,7 +1239,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       trust: (context) =>
         ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
       macros: {
-        "\\eqref": "\\href{###1}{(\\text{#1})}",
+        "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
         "\\for": "\\text{ for }",
@@ -1248,12 +1250,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\on": "\\text{ on }",
         "\\if": "\\text{ if }",
         "\\with": "\\text{ with }",
+        "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\trace": "\\operatorname{Tr}",
+        "\\Trace": "\\operatorname{Tr}",
+        "\\trace": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",
