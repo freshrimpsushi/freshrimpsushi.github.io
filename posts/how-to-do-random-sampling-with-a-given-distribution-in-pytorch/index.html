@@ -67,10 +67,10 @@
     </script>
 
     
-<meta name="title" content="기하분포의 충분통계량과 최소우도추정량">
+<meta name="title" content="파이토치에서 주어진 분포로 랜덤 샘플링하는 법">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="기하분포의 충분통계량과 최소우도추정량"/>
-<meta property="og:description" content="Sufficient Statistic and MLE of Geometric Distribution"/>
+<meta property="og:title" content="파이토치에서 주어진 분포로 랜덤 샘플링하는 법"/>
+<meta property="og:description" content="How to Do Random Sampling with a Given Distribution in PyTorch"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -81,34 +81,34 @@
 {
     "@context": "http://schema.org",
     "@type": "BlogPosting",
-    "articleSection": "r_",
-    "name": "기하분포의 충분통계량과 최소우도추정량",
-    "headline": "기하분포의 충분통계량과 최소우도추정량",
+    "articleSection": "j_",
+    "name": "파이토치에서 주어진 분포로 랜덤 샘플링하는 법",
+    "headline": "파이토치에서 주어진 분포로 랜덤 샘플링하는 법",
     "alternativeHeadline": "",
-    "description": "Sufficient Statistic and MLE of Geometric Distribution",
+    "description": "How to Do Random Sampling with a Given Distribution in PyTorch",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/sufficient-statistic-and-mle-of-geometric-distribution\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/how-to-do-random-sampling-with-a-given-distribution-in-pytorch\/"
     },
     "author" : {
         "@type": "Person",
-        "name": "류대식"
+        "name": "전기현"
     },
     "creator" : {
         "@type": "Person",
-        "name": "류대식"
+        "name": "전기현"
     },
     "accountablePerson" : {
         "@type": "Person",
-        "name": "류대식"
+        "name": "전기현"
     },
     "copyrightHolder" : "생새우초밥집",
-    "copyrightYear" : "1923",
-    "dateCreated": "1923-02-23T00:00:00.00Z",
-    "datePublished": "1923-02-23T00:00:00.00Z",
-    "dateModified": "1923-02-23T00:00:00.00Z",
+    "copyrightYear" : "2013",
+    "dateCreated": "2013-10-02T00:00:00.00Z",
+    "datePublished": "2013-10-02T00:00:00.00Z",
+    "dateModified": "2013-10-02T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -121,15 +121,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/sufficient-statistic-and-mle-of-geometric-distribution\/",
-    "wordCount" : "565",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-do-random-sampling-with-a-given-distribution-in-pytorch\/",
+    "wordCount" : "266",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>기하분포의 충분통계량과 최소우도추정량</title>
+    <title>파이토치에서 주어진 분포로 랜덤 샘플링하는 법</title>
 </head>
 
 <body class="main">
@@ -137,7 +137,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D.png style="max-height: 80px; width: auto;">
             
             
             
@@ -188,21 +188,21 @@
     <div class="content">
       <div class="content-box">
         
-<title>기하분포의 충분통계량과 최소우도추정량</title>
+<title>파이토치에서 주어진 분포로 랜덤 샘플링하는 법</title>
 
 
 
 
-        <a href="https://freshrimpsushi.github.io/categories/%EB%B6%84%ED%8F%AC%EC%9D%B4%EB%A1%A0/"
+        <a href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/"
             style="background-color: rgba(0, 0, 0, 0.8); color: orange;
             border-radius:10px; padding: 5px;">
-            📂분포이론</a>
+            📂머신러닝</a>
         
 
 
-<h1>기하분포의 충분통계량과 최소우도추정량</h1>
+<h1>파이토치에서 주어진 분포로 랜덤 샘플링하는 법</h1>
 <p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px; margin-left: 0px;">
-  Sufficient Statistic and MLE of Geometric Distribution
+  How to Do Random Sampling with a Given Distribution in PyTorch
 </p>
 
 <aside>
@@ -215,13 +215,9 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#정리">정리</a></li>
-    <li><a href="#증명">증명</a>
-      <ul>
-        <li><a href="#충분통계량">충분통계량</a></li>
-        <li><a href="#최대우도추정량">최대우도추정량</a></li>
-      </ul>
-    </li>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#코드1">코드</a></li>
+    <li><a href="#환경">환경</a></li>
   </ul>
 </nav>
     </div>
@@ -229,60 +225,41 @@
   </div>
 </aside>
 
-<h2 id="정리">정리</h2>
-<p><a href="../1486">기하분포</a>를 따르는 <a href="../1715">랜덤샘플</a> $\mathbf{X} := \left( X_{1} , \cdots , X_{n} \right) \sim \text{Geo} \left( p \right)$ 이 주어져 있다고 하자. $p$ 에 대한 <a href="../2061">충분통계량</a> $T$ 와 <a href="../2026">최대우도추정량</a> $\hat{p}$ 는 다음과 같다.
-$$
-\begin{align*}
-T =&amp; \sum_{k=1}^{n} X_{k}
-\\ \hat{p} =&amp; {{ n } \over { \sum_{k=1}^{n} X_{k} }}
-\end{align*}
-$$</p>
-<h2 id="증명">증명</h2>
-<h3 id="충분통계량">충분통계량</h3>
-<p>$$
-\begin{align*}
-f \left( \mathbf{x} ; p \right) =&amp; \prod_{k=1}^{n} f \left( x_{k} ; p \right)
-\\ =&amp; \prod_{k=1}^{n} p \left( 1 - p \right)^{x_{k} - 1}
-\\ =&amp; p^{n} \left( 1 - p \right)^{\sum_{k} x_{k} - n}
-\\ =&amp; p^{n} \left( 1 - p \right)^{\sum_{k} x_{k} - n} \cdot 1
-\end{align*}
-$$</p>
-<blockquote>
-<p><a href="../2084">네이만 인수분해 정리</a>: <a href="../1715">랜덤 샘플</a> $X_{1} , \cdots , X_{n}$ 이 모수 $\theta \in \Theta$ 에 대해 같은 확률질량/밀도함수 $f \left( x ; \theta \right)$ 를 가진다고 하자. <a href="../1730">통계량</a> $Y = u_{1} \left( X_{1} , \cdots , X_{n} \right)$ 이 $\theta$ 의 <a href="../2061">충분통계량</a>인 것은 다음을 만족하는 음이 아닌 두 함수 $k_{1} , k_{2} \ge 0$ 이 존재하는 것이다.
-$$
-f \left( x_{1} ; \theta \right) \cdots f \left( x_{n} ; \theta \right) = k_{1} \left[ u_{1} \left( x_{1} , \cdots , x_{n} \right) ; \theta \right] k_{2} \left( x_{1} , \cdots , x_{n} \right)
-$$
-단, $k_{2}$ 는 $\theta$ 에 종속되지 않아야한다.</p>
-</blockquote>
-<p><a href="../2084">네이만 인수분해 정리</a>에 따라 $T := \sum_{k} X_{k}$ 는 $p$ 에 대한 충분통계량이다.</p>
-<h3 id="최대우도추정량">최대우도추정량</h3>
-<p>$$
-\begin{align*}
-\log L \left( p ; \mathbf{x} \right) =&amp; \log f \left( \mathbf{x} ; p \right)
-\\ =&amp; \log p^{n} \left( 1 - p \right)^{\sum_{k} x_{k} - n}
-\\ =&amp; n \log p + \sum_{k=1}^{n} x_{k} \log \left( 1 - p \right)
-\end{align*}
-$$</p>
-<p>랜덤샘플의 <a href="../2239">로그우도함수</a>는 위와 같고, 우도함수가 최대값이 되려면 $p$ 에 대한 <a href="../3036">편미분</a>이 $0$ 이 되는 것이므로
-$$
-\begin{align*}
-&amp; 0 = n {{ 1 } \over { p }} - {{ 1 } \over { 1 - p }} \left( \sum_{k=1}^{n} x_{k} - n \right)
-\\ \implies &amp; {{ n } \over { p }} + {{ n } \over { 1 - p }} = {{ 1 } \over { 1 - p }} \sum_{k=1}^{n} x_{k}
-\\ \implies &amp; {{ n } \over { p(1-p) }} = {{ 1 } \over { 1 - p }}  \sum_{k=1}^{n} x_{k}
-\\ \implies &amp; {{ 1 } \over { p }} = {{ 1 } \over { n }} \sum_{k=1}^{n} x_{k}
-\end{align*}
-$$</p>
-<p>따라서 $p$ 의 <a href="../2026">최대우도추정량</a> $\hat{p}$ 는 다음과 같다.
-$$
-\hat{p} = {{ n } \over { \sum_{k=1}^{n} X_{k} }}
-$$</p>
-<p style="text-align: right;">■</p>
+<h2 id="개요">개요</h2>
+<p>파이토치에서 주어진 분포로 랜덤 샘플링하는 방법을 소개한다. 베타, 베르누이, 코시, 감마, 파레토, 푸아송 등 여러 분포가 구현되어있다. 본 글에서는 균등분포를 예로 설명한다.</p>
+<h2 id="코드1">코드<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>파이토치에서 $0$부터 $5$까지 <a href="../443">균등 분포</a>로 랜덤 샘플링하는 코드는 다음과 같다.</p>
+<pre tabindex="0"><code>&gt;&gt;&gt; m = torch.distributions.Uniform(0.0, 5)
+&gt;&gt;&gt; m.sample()
+tensor(1.6371)
+</code></pre><p>$2 \times 4$ 크기의 텐서로 샘플링하려면,</p>
+<pre tabindex="0"><code>&gt;&gt;&gt; torch.distributions.Uniform(0.0, 5).sample((2,4))
+tensor([[0.8507, 4.6457, 3.2871, 3.2514],
+        [1.5863, 3.3836, 1.0727, 2.7350]])
+</code></pre><p>이는 넘파이에서 <code>np.random.uniform(0.0, 5, (2,4))</code>, <a href="../3463">줄리아에서</a> <code>rand(Uniform(0.0, 5), 2,4)</code>와 같다.</p>
+<p>여러 범위를 주고 뽑는 것도 가능한데, 이 경우에는 범위를 반드시 텐서로 입력해야한다. $[0,2]$사이에서 하나, $[5, 6]$사이에서 하나를 뽑으려면,</p>
+<pre tabindex="0"><code>&gt;&gt;&gt; m = torch.distributions.Uniform(torch.tensor([0.0, 5.0]), torch.tensor([2.0, 6.0]))
+&gt;&gt;&gt; m.sample()
+tensor([1.0503, 5.5265])
+</code></pre><h2 id="환경">환경</h2>
+<ul>
+<li>Colab</li>
+<li>Version: Python 3.8.10, PyTorch1.13.1+cu116</li>
+</ul>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://pytorch.org/docs/stable/distributions#uniform">https://pytorch.org/docs/stable/distributions#uniform</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
 
 
 <aside style="text-align: right;">
-    1923-02-23&emsp;
-    류대식&emsp;
-    <a href="../1650">🎲 2345</a>
+    2013-10-02&emsp;
+    전기현&emsp;
+    <a href="../348">🎲 3485</a>
 </aside>
 
 <script>
@@ -297,8 +274,8 @@ $$</p>
       renderKaTex(tex);
     }
 
-    var title = '기하분포의 충분통계량과 최소우도추정량';
-    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/sufficient-statistic-and-mle-of-geometric-distribution\/';
+    var title = '파이토치에서 주어진 분포로 랜덤 샘플링하는 법';
+    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/how-to-do-random-sampling-with-a-given-distribution-in-pytorch\/';
     var arr = new Array();
     var obj = {
       "title": title,
@@ -366,7 +343,7 @@ $$</p>
       .then(ip => {
         const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
         return postFetch(url, {
-                board_idx: '2345',
+                board_idx: '3485',
                 user_ip: ip
               });
       })
@@ -499,9 +476,9 @@ $$</p>
       alert('빈칸을 채워주세요');
       return;
     }
-    const idx = '2345';
-    const board_slug = 'sufficient-statistic-and-mle-of-geometric-distribution';
-    const board_title = '기하분포의 충분통계량과 최소우도추정량';
+    const idx = '3485';
+    const board_slug = 'how-to-do-random-sampling-with-a-given-distribution-in-pytorch';
+    const board_title = '파이토치에서 주어진 분포로 랜덤 샘플링하는 법';
 
     fetch('https://api.ipify.org?format=json')
       .then(res => res.json())
@@ -740,9 +717,9 @@ $$</p>
       return;
     }
 
-    const board_idx = '2345';
-    const board_slug = 'sufficient-statistic-and-mle-of-geometric-distribution';
-    const board_title = '기하분포의 충분통계량과 최소우도추정량';
+    const board_idx = '3485';
+    const board_slug = 'how-to-do-random-sampling-with-a-given-distribution-in-pytorch';
+    const board_title = '파이토치에서 주어진 분포로 랜덤 샘플링하는 법';
 
     fetch('https://api.ipify.org?format=json')
       .then(res => res.json())
@@ -1092,6 +1069,11 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     </div>
 
     
+    
+    
+    <link rel="stylesheet" href=https://freshrimpsushi.github.io/css/codefence.css>
+    <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
+    <script>hljs.initHighlightingOnLoad();</script>
     
 
     <script src=https://freshrimpsushi.github.io/js/fuse.js></script> 
