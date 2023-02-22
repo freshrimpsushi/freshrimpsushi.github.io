@@ -67,10 +67,10 @@
     </script>
 
     
-<meta name="title" content="줄리아로 멀티암드밴딧의 입실론-그리디 알고리즘 구현하기">
+<meta name="title" content="파이토치에서 &#39;RuntimeError: Boolean value of Tensor with more than one value is ambiguous&#39; 에러 해결 방법">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="줄리아로 멀티암드밴딧의 입실론-그리디 알고리즘 구현하기"/>
-<meta property="og:description" content="Implementation of Epsilon-Greedy Algorithm for Multi Armed Bandit in Julia"/>
+<meta property="og:title" content="파이토치에서 &#39;RuntimeError: Boolean value of Tensor with more than one value is ambiguous&#39; 에러 해결 방법"/>
+<meta property="og:description" content="How to resolve PyTorch Error &#39;RuntimeError: Boolean value of Tensor with more than one value is ambiguous&#39;"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -82,15 +82,15 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "j_",
-    "name": "줄리아로 멀티암드밴딧의 입실론-그리디 알고리즘 구현하기",
-    "headline": "줄리아로 멀티암드밴딧의 입실론-그리디 알고리즘 구현하기",
+    "name": "파이토치에서 \u0027RuntimeError: Boolean value of Tensor with more than one value is ambiguous\u0027 에러 해결 방법",
+    "headline": "파이토치에서 \u0027RuntimeError: Boolean value of Tensor with more than one value is ambiguous\u0027 에러 해결 방법",
     "alternativeHeadline": "",
-    "description": "Implementation of Epsilon-Greedy Algorithm for Multi Armed Bandit in Julia",
+    "description": "How to resolve PyTorch Error \u0027RuntimeError: Boolean value of Tensor with more than one value is ambiguous\u0027",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/implementation-of-epsilon-greedy-algorithm-for-multi-armed-bandit-in-julia\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/boolean-value-of-tensor-with-more-than-one-value-is-ambiguous\/"
     },
     "author" : {
         "@type": "Person",
@@ -106,9 +106,9 @@
     },
     "copyrightHolder" : "생새우초밥집",
     "copyrightYear" : "2013",
-    "dateCreated": "2013-09-26T00:00:00.00Z",
-    "datePublished": "2013-09-26T00:00:00.00Z",
-    "dateModified": "2013-09-26T00:00:00.00Z",
+    "dateCreated": "2013-10-04T00:00:00.00Z",
+    "datePublished": "2013-10-04T00:00:00.00Z",
+    "dateModified": "2013-10-04T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -121,15 +121,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/implementation-of-epsilon-greedy-algorithm-for-multi-armed-bandit-in-julia\/",
-    "wordCount" : "2289",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/boolean-value-of-tensor-with-more-than-one-value-is-ambiguous\/",
+    "wordCount" : "121",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>줄리아로 멀티암드밴딧의 입실론-그리디 알고리즘 구현하기</title>
+    <title>파이토치에서 &#39;RuntimeError: Boolean value of Tensor with more than one value is ambiguous&#39; 에러 해결 방법</title>
 </head>
 
 <body class="main">
@@ -188,7 +188,7 @@
     <div class="content">
       <div class="content-box">
         
-<title>줄리아로 멀티암드밴딧의 입실론-그리디 알고리즘 구현하기</title>
+<title>파이토치에서 &#39;RuntimeError: Boolean value of Tensor with more than one value is ambiguous&#39; 에러 해결 방법</title>
 
 
 
@@ -200,9 +200,9 @@
         
 
 
-<h1>줄리아로 멀티암드밴딧의 입실론-그리디 알고리즘 구현하기</h1>
+<h1>파이토치에서 &#39;RuntimeError: Boolean value of Tensor with more than one value is ambiguous&#39; 에러 해결 방법</h1>
 <p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px; margin-left: 0px;">
-  Implementation of Epsilon-Greedy Algorithm for Multi Armed Bandit in Julia
+  How to resolve PyTorch Error &#39;RuntimeError: Boolean value of Tensor with more than one value is ambiguous&#39;
 </p>
 
 <aside>
@@ -215,15 +215,8 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#코드">코드</a>
-      <ul>
-        <li><a href="#입실론-그리디-액션">입실론-그리디 액션</a></li>
-        <li><a href="#리워드">리워드</a></li>
-        <li><a href="#학습">학습</a></li>
-      </ul>
-    </li>
-    <li><a href="#시뮬레이션1">시뮬레이션</a></li>
-    <li><a href="#코드-전문">코드 전문</a></li>
+    <li><a href="#에러">에러</a></li>
+    <li><a href="#해결1">해결</a></li>
     <li><a href="#환경">환경</a></li>
   </ul>
 </nav>
@@ -232,231 +225,43 @@
   </div>
 </aside>
 
-<h2 id="코드">코드</h2>
-<p><a href="../3476">멀티암드밴딧</a>과 <a href="../multi-armed-bandit-problem-in-reinforcement-learning/#%EC%9E%85%EC%8B%A4%EB%A1%A0-%EA%B7%B8%EB%A6%AC%EB%94%94-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98">입실론-그리디 알고리즘</a> 자체에 대한 설명은 각 문서를 참고하자.</p>
-<p>우선 필요한 패키지를 불러오고, 편의를 위한 함수를 정의한다.</p>
-<pre tabindex="0"><code>using Distributions
-using Plots 
+<h2 id="에러">에러</h2>
+<p>손실함수인 <code>nn.MESLoss()</code>를 사용했을 때 다음과 같은 에러가 발생했다.</p>
+<pre tabindex="0"><code>RuntimeError                              Traceback (most recent call last)
+&lt;ipython-input-75-8c6e9ea829d4&gt; in &lt;module&gt;
+----&gt; 1 nn.MSELoss(y_pred, y)
 
-function allargmax(x)
-    return findall(x .== maximum(x))
-end
-</code></pre><h3 id="입실론-그리디-액션">입실론-그리디 액션</h3>
-<pre tabindex="0"><code>function ϵ_greedy_Action(Q::Matrix{Float64}, ϵ::Float64)
-    
-    if rand(Uniform()) &gt;= ϵ        # 활용: (1-ϵ)의 확률로 argmax(Q)인 액션 선택 
-        a = allargmax(Q[:,1])          # Q가 제일 높은 a를 선택
-        if size(a) == 1                # a가 유일하면,
-            return a                       # 그대로 출력
-        else                           # a가 여럿이면,
-            return rand(a)                 # 무작위 선택
-        end
-    else                           # 탐험: ϵ의 확률로 무작위 선택
-        return rand(1:size(Q)[1])
-    end
-end
-</code></pre><p>추정한 행동-가치함수 $Q$와 [탐험]을 선택할 확률 $\epsilon$을 입력하면, 그에 따른 액션 $a$를 출력하는 함수를 정의한다. 액션의 수가 $k$일 때, $Q$는 $k \times 2$ 행렬이다. 첫번째 열은 각 액션마다의 가치 $Q(a_{i})$를 나타낸다. 두번째 열은 각 액션이 선택된 횟수를 나타낸다. $Q$를 업데이트할 때 필요하다.
-$$
-\mathsf{Q} =
-\begin{bmatrix}
-Q(a_{1}) &amp; \text{number of times $a_{1}$ has been taken}  \\
-Q(a_{2}) &amp; \text{number of times $a_{2}$ has been taken}  \\
-\vdots &amp; \\
-Q(a_{k}) &amp; \text{number of times $a_{k}$ has been taken}
-\end{bmatrix}
-$$</p>
-<h3 id="리워드">리워드</h3>
-<pre tabindex="0"><code>function Reward(a::Int64, q_true::Vector{Float64})
-# 액션 a가 선택되면, 행동-가치함수의 참값 q_true로 보상 결성
-    return rand(Normal(q_true[a], 1))
-end
-</code></pre><p><code>ϵ_greedy_Action()</code>으로부터 출력된 액션과 각 액션에 대한 가치의 참값 $q_{\ast}=\mathsf{q\_ true}$를 입력하면, 그에 따른 리워드를 출력하는 함수이다. 리워드는 평균이 $q_{\ast}(a)$이고, 분산이 $1$인 <a href="../3463">정규분포로 무작위 추출</a>된다. 아래에서 다시 설명하겠지만, 각각의 $q_{\ast}(a)$는 <a href="../1645">정규분포</a> $N(0,1)$로 추출된다. <code>q_true</code>는 $k$차원 벡터이다.
-$$
-q_{\ast}(a) \backsim N(0, 1),\quad
-R(a) \backsim N(q_{\ast}(a), 1),\quad
-\mathsf{q\_ true} =
-\begin{bmatrix}
-q_{\ast}(a_{1}) \\
-q_{\ast}(a_{2}) \\
-\vdots \\
-q_{\ast}(a_{k})
-\end{bmatrix}
-$$</p>
-<h3 id="학습">학습</h3>
-<pre tabindex="0"><code>function k_armed_Bandit(k::Int64, N_t::Int64, ϵ::Float64, q_true::Vector{Float64})
-# k=액션의 수, N_t=타입스텝, ϵ=모험을 선택할 확률, q_true= 액션-가치함수의 참값
-    
-    # Q의 초기값을 영행렬로 둠
-    Q = zeros(k, 2)    # Q[:,1] = k번째 액션의 추정된 가치
-                        # Q[:,2] = k번째 액션이 선택된 횟수
-    
-    # 액션과 리워드를 기록할 벡터
-    A = zeros(Int64, t)    # 각 타임 스텝에서 선택된 액션
-    R = zeros(t)           # 각 타임 스텝에서 받은 리워드
+2 frames
+/usr/local/lib/python3.8/dist-packages/torch/nn/_reduction.py in legacy_get_string(size_average, reduce, emit_warning)
+     33         reduce = True
+     34 
+---&gt; 35     if size_average and reduce:
+     36         ret = &#39;mean&#39;
+     37     elif reduce:
 
-    for t ∈ 1:N_t
-        a = ϵ_greedy_Action(Q, ϵ)    # Q와 ϵ을 기반으로 액션 결정
-        r = Reward(a, q_true)        # a와 q_true를 기반으로 리워드 결정
-
-        A[t] = a    # 선택된 액션 기록
-        R[t] = r    # 결정된 리워드 기록
-
-        Q[a,2] += 1                      # 액션 a가 선택된 횟수 업데이트
-        Q[a,1] += (r - Q[a,1])/Q[a,2]    # 추정 가치 Q(a) 업데이트
-    end
-
-    return A, R    # 알고리즘 비교를 위해 필요한 A, R 출력
-end
-</code></pre><p>$Q$를 업데이트하면서 지정한 타임스텝 $N_{t}$만큼 반복한다. $A$와 $R$ 학습자체에는 사용되지 않지만, 성능 측정을 위해서 필요하다.</p>
-<h2 id="시뮬레이션1">시뮬레이션<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<pre tabindex="0"><code>k = 10                   # 액션의 가짓수
-t = 1000                 # 타임스텝
-iter = 2000              # 각 ϵ에 대한 시뮬레이션 횟수
-q_true = randn(k)        # 각 액션의 행동-가치함수 참값
-opt_A = argmax(q_true)   # 최적의 액션 (optimal Action)
-
-ϵ = [0.0, 0.01, 0.1]
-l_ϵ = length(ϵ)
-</code></pre><p>액션의 가짓수 <code>k</code>, 타임스텝 <code>t</code>, 각 $\epsilon$마다 시행할 시뮬레이션 횟수 <code>iter</code> 등을 정한다. 하이퍼 파라매터의 세팅은 참고문헌의 것을 그대로 따랐다.</p>
-<pre tabindex="0"><code># 각 ϵ에 대해서, iter만큼 시뮬레이션 했을 때             
-R = zeros(t, iter, l_ϵ)              # 각 타임스텝에서 받은 평균 리워드의 계산을 위함
-ratio_opt_A = zeros(t, iter, l_ϵ)    # 각 타임스텝까지 최적의 액션을 선택한 평균 비율의 계산을 위함
-</code></pre><p>각 $\epsilon$마다의 성능을 측정하기 위해 사용할 행렬을 미리 정의한다.</p>
-<pre tabindex="0"><code>for j ∈ 1:l_ϵ
-    for i ∈ 1:iter
-        A_t, R_t = k_armed_Bandit(k, t, ϵ[j], q_true)
-        R[:, i, j] = R_t
-        ratio_opt_A[:, i, j] = cumsum(A_t .== opt_A)./(1:t)
-    end
-end
-</code></pre><p>세가지의 $\epsilon$에 대해서, 각각 2,000번씩 실행하고 결과를 저장한다.</p>
-<pre tabindex="0"><code># 평균 계산
-ave_R = sum(R, dims=2)./iter 
-ave_ratio_opt_A = sum(ratio_opt_A, dims=2)./iter
-
-# 시각화
-label = [&#34;ϵ=0&#34;, &#34;ϵ=0.01&#34;, &#34;ϵ=0.1&#34;]
-p1 = plot(ave_R[:,:,1], label=label[1], title=&#34;Average reward at each time step&#34;)
-plot!(ave_R[:,:,2], label=label[2])
-plot!(ave_R[:,:,3], label=label[3])
-
-p2 = plot(ave_ratio_opt_A[:,:,1], label=label[1], ylims=(0,1), title=&#34;Average ratio of optimal action &#34;)
-plot!(ave_ratio_opt_A[:,:,2], label=label[2])
-plot!(ave_ratio_opt_A[:,:,3], label=label[3])
-
-plot(p1, p2, size=(1200,400))
-</code></pre><p>평균 계산하고 결과를 시각화한다. 결과는 다음과 같다.</p>
-<p><img src="result.png#center" alt="result.png"></p>
-<h2 id="코드-전문">코드 전문</h2>
-<pre tabindex="0"><code>using Distributions
-using Plots 
-
-function allargmax(x)
-    return findall(x.==maximum(x))
-end
-
-function ϵ_greedy_Action(Q::Matrix{Float64}, ϵ::Float64)
-    
-    if rand(Uniform()) &gt;= ϵ        # 활용: (1-ϵ)의 확률로 argmax(Q)인 액션 선택 
-        a = allargmax(Q[:,1])          # Q가 제일 높은 a를 선택
-        if size(a) == 1                # a가 유일하면,
-            return a                       # 그대로 출력
-        else                           # a가 여럿이면,
-            return rand(a)                 # 무작위 선택
-        end
-    else                           # 탐험: ϵ의 확률로 무작위 선택
-        return rand(1:size(Q)[1])
-    end
-end
-
-function Reward(a::Int64, q_true::Vector{Float64})    # 액션 a가 선택되면, 행동-가치함수의 참값으로 보상 결성
-    return rand(Normal(q_true[a], 1))
-end
-
-function k_armed_Bandit(k::Int64, N_t::Int64, ϵ::Float64, q_true::Vector{Float64})
-# k=액션의 수, N_t=타입스텝, ϵ=모험을 선택할 확률, q_true= 액션-가치함수의 참값
-    
-    # Q의 초기값을 영행렬로 둠
-    Q = zeros(k, 2)    # Q[:,1] = k번째 액션의 추정된 가치
-                        # Q[:,2] = k번째 액션이 선택된 횟수
-    
-    # 액션과 리워드를 기록할 벡터
-    A = zeros(Int64, t)    # 각 타임 스텝에서 선택된 액션
-    R = zeros(t)           # 각 타임 스텝에서 받은 리워드
-
-    for t ∈ 1:N_t
-        a = ϵ_greedy_Action(Q, ϵ)    # Q와 ϵ을 기반으로 액션 결정
-        r = Reward(a, q_true)        # a와 q_true를 기반으로 리워드 결정
-
-        A[t] = a    # 선택된 액션 기록
-        R[t] = r    # 결정된 리워드 기록
-
-        Q[a,2] += 1                      # 액션 a가 선택된 횟수 업데이트
-        Q[a,1] += (r - Q[a,1])/Q[a,2]    # 추정 가치 Q(a) 업데이트
-    end
-
-    return A, R    # 알고리즘 비교를 위해 필요한 A, R 출력
-end
-
-
-k = 10                   # 액션의 가짓수
-t = 1000                 # 타임스텝
-iter = 2000              # 각 ϵ에 대한 시뮬레이션 횟수
-q_true = randn(k)        # 각 액션의 행동-가치함수 참값
-opt_A = argmax(q_true)   # 최적의 액션 (optimal Action)
-
-ϵ = [0.0, 0.01, 0.1]
-l_ϵ = length(ϵ)
-
-# 각 ϵ에 대해서, iter만큼 시뮬레이션 했을 때             
-R = zeros(t, iter, l_ϵ)              # 각 타임스텝에서 받은 평균 리워드의 계산을 위함
-ratio_opt_A = zeros(t, iter, l_ϵ)    # 각 타임스텝까지 최적의 액션을 선택한 평균 비율의 계산을 위함
-
-for j ∈ 1:l_ϵ
-    for i ∈ 1:iter
-        A_t, R_t = k_armed_Bandit(k, t, ϵ[j], q_true)
-        R[:, i, j] = R_t
-        ratio_opt_A[:, i, j] = cumsum(A_t .== opt_A)./(1:t)
-    end
-end
-
-# 평균 계산
-ave_R = sum(R, dims=2)./iter 
-ave_ratio_opt_A = sum(ratio_opt_A, dims=2)./iter
-
-# 시각화
-label = [&#34;ϵ=0&#34;, &#34;ϵ=0.01&#34;, &#34;ϵ=0.1&#34;]
-p1 = plot(ave_R[:,:,1], label=label[1], title=&#34;Average reward at each time step&#34;)
-plot!(ave_R[:,:,2], label=label[2])
-plot!(ave_R[:,:,3], label=label[3])
-
-p2 = plot(ave_ratio_opt_A[:,:,1], label=label[1], ylims=(0,1), title=&#34;Average ratio of optimal action &#34;)
-plot!(ave_ratio_opt_A[:,:,2], label=label[2])
-plot!(ave_ratio_opt_A[:,:,3], label=label[3])
-
-plot(p1, p2, size=(1200,400))
-
-dir = @__DIR__
-savefig(dir*&#34;/result.png&#34;)
-</code></pre><h2 id="환경">환경</h2>
+RuntimeError: Boolean value of Tensor with more than one value is ambiguous
+</code></pre><h2 id="해결1">해결<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>코드를 다음과 같이 수정하면 해결된다.</p>
+<p><code>nn.MSELoss(y_pred, y)</code> $\to$ <code>nn.MSELoss()(y_pred, y)</code></p>
+<h2 id="환경">환경</h2>
 <ul>
-<li>OS: Windows11</li>
-<li>Version: Julia 1.8.3 Distributions 0.25.80, Plots 1.38.4</li>
+<li>Colab</li>
+<li>Version: Python 3.8.10, PyTorch1.13.1+cu116</li>
 </ul>
 <div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1">
-<p>Richard S. Sutton, <em>Reinforcement Learning: An Introduction</em> (2nd Edition, 2018), p28-39&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://discuss.pytorch.org/t/bool-value-of-tensor-with-more-than-one-value-is-ambiguous/48049/6">https://discuss.pytorch.org/t/bool-value-of-tensor-with-more-than-one-value-is-ambiguous/48049/6</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </div>
 
 
 <aside style="text-align: right;">
-    2013-09-26&emsp;
+    2013-10-04&emsp;
     전기현&emsp;
-    <a href="../685">🎲 3482</a>
+    <a href="../1438">🎲 3486</a>
 </aside>
 
 <script>
@@ -471,8 +276,8 @@ savefig(dir*&#34;/result.png&#34;)
       renderKaTex(tex);
     }
 
-    var title = '줄리아로 멀티암드밴딧의 입실론-그리디 알고리즘 구현하기';
-    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/implementation-of-epsilon-greedy-algorithm-for-multi-armed-bandit-in-julia\/';
+    var title = '파이토치에서 \u0027RuntimeError: Boolean value of Tensor with more than one value is ambiguous\u0027 에러 해결 방법';
+    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/boolean-value-of-tensor-with-more-than-one-value-is-ambiguous\/';
     var arr = new Array();
     var obj = {
       "title": title,
@@ -540,7 +345,7 @@ savefig(dir*&#34;/result.png&#34;)
       .then(ip => {
         const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
         return postFetch(url, {
-                board_idx: '3482',
+                board_idx: '3486',
                 user_ip: ip
               });
       })
@@ -673,9 +478,9 @@ savefig(dir*&#34;/result.png&#34;)
       alert('빈칸을 채워주세요');
       return;
     }
-    const idx = '3482';
-    const board_slug = 'implementation-of-epsilon-greedy-algorithm-for-multi-armed-bandit-in-julia';
-    const board_title = '줄리아로 멀티암드밴딧의 입실론-그리디 알고리즘 구현하기';
+    const idx = '3486';
+    const board_slug = 'boolean-value-of-tensor-with-more-than-one-value-is-ambiguous';
+    const board_title = '파이토치에서 \u0027RuntimeError: Boolean value of Tensor with more than one value is ambiguous\u0027 에러 해결 방법';
 
     fetch('https://api.ipify.org?format=json')
       .then(res => res.json())
@@ -914,9 +719,9 @@ savefig(dir*&#34;/result.png&#34;)
       return;
     }
 
-    const board_idx = '3482';
-    const board_slug = 'implementation-of-epsilon-greedy-algorithm-for-multi-armed-bandit-in-julia';
-    const board_title = '줄리아로 멀티암드밴딧의 입실론-그리디 알고리즘 구현하기';
+    const board_idx = '3486';
+    const board_slug = 'boolean-value-of-tensor-with-more-than-one-value-is-ambiguous';
+    const board_title = '파이토치에서 \u0027RuntimeError: Boolean value of Tensor with more than one value is ambiguous\u0027 에러 해결 방법';
 
     fetch('https://api.ipify.org?format=json')
       .then(res => res.json())
