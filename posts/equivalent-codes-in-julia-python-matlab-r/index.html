@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/equivalent-codes-in-julia-python-matlab-r\/",
-    "wordCount" : "694",
+    "wordCount" : "983",
     "genre" : [ "줄리아" ],
     "keywords" : [ "줄리아" ]
 }
@@ -217,6 +217,7 @@
   <ul>
     <li><a href="#개요">개요</a></li>
     <li><a href="#일반supcommonsup">일반<sup>Common</sup></a></li>
+    <li><a href="#타입suptypesup">타입<sup>Type</sup></a></li>
     <li><a href="#벡터supvectorsup">벡터<sup>Vector</sup></a></li>
     <li><a href="#행렬supmatrixsup">행렬<sup>Matrix</sup></a></li>
     <li><a href="#무작위-추출suprandom-samplingsup">무작위 추출<sup>Random sampling</sup></a></li>
@@ -261,6 +262,42 @@
     <td>  </td> <!--- R --->
 </tr>
 </table>
+<h2 id="타입suptypesup">타입<sup>Type</sup></h2>
+<table width="728px" cellpadding="5px">
+<tr class="firstrow">
+    <td width="182">줄리아<sup>Julia</sup></td>
+    <td width="182">매트랩<sup>Matlab</sup></td>
+    <td width="182">파이썬<sup>Python</td>
+    <td width="182">R</td>
+</tr>
+<tr>
+    <td class="titlerow" colspan=4>성분의 타입<sup>type of elements</sup></td>
+</tr>
+<tr class="items">
+    <td> eltype(x) </td> <!--- Julia --->
+    <td>  </td> <!--- Matlab --->
+    <td> x.dtype </td> <!--- Python --->
+    <td>  </td> <!--- R --->
+</tr>
+<tr>
+    <td class="titlerow" colspan=4>성분의 타입 변경<sup>changing type of elements</sup></td>
+</tr>
+<tr class="items">
+    <td> convert(Array{Float64},x) </td> <!--- Julia --->
+    <td>  </td> <!--- Matlab --->
+    <td> x.astype("float64") </td> <!--- Python --->
+    <td>  </td> <!--- R --->
+</tr>
+<tr>
+    <td class="titlerow" colspan=4>x의 타입<sup>type of x</sup></td>
+</tr>
+<tr class="items">
+    <td> typeof(x) </td> <!--- Julia --->
+    <td>  </td> <!--- Matlab --->
+    <td> type(x)</br><span>#class of x</span> </td> <!--- Python --->
+    <td>  </td> <!--- R --->
+</tr>
+</table>
 <h2 id="벡터supvectorsup">벡터<sup>Vector</sup></h2>
 <table width="728px" cellpadding="5px">
 <tr class="firstrow">
@@ -274,7 +311,7 @@
 </tr>
 <tr class="items">
     <td> [1 4 -1 2] </td> <!--- Julia --->
-    <td>  </td> <!--- Matlab --->
+    <td> [1;4;-1;2] </td> <!--- Matlab --->
     <td> np.array([1,4,-1,2]).reshape(-1,1) </td> <!--- Python --->
     <td>  </td> <!--- R --->
 </tr>
@@ -283,7 +320,7 @@
 </tr>
 <tr class="items">
     <td> [1;; 4;; -1;; 2]</br>or</br>[1 4 -1 2]' </td> <!--- Julia --->
-    <td>  </td> <!--- Matlab --->
+    <td> [1 4 -1 2]</br>or</br>[1,4,-1,2] </td> <!--- Matlab --->
     <td> np.array([1,4,-1,2]) </td> <!--- Python --->
     <td>  </td> <!--- R --->
 </tr>
@@ -291,18 +328,36 @@
     <td class="titlerow" colspan=4>영 벡터 Zero vector</td>
 </tr>
 <tr class="items">
-    <td> zeros(n)</br><span class="comment"># column vector</span> </td> <!--- Julia --->
-    <td> zeros(n) </td> <!--- Matlab --->
-    <td> np.zeros(n)</br><span class="comment"># row vector</span> </td> <!--- Python --->
+    <td> zeros(n)</br><span class="comment">#column vector</span> </td> <!--- Julia --->
+    <td> zeros(n,1)</br><span class="comment">#not zeros(n)</span></br><span class="comment">#zeros(n)=zeros(n,n)</span> </td> <!--- Matlab --->
+    <td> np.zeros(n)</br><span class="comment">#row vector</span> </td> <!--- Python --->
     <td> matrix(0,n) </td> <!--- R --->
 </tr>
 <tr>
-    <td class="titlerow" colspan=4><a href=../3388>1 벡터</a> Vector with only ones</td>
+    <td class="titlerow" colspan=4><a href=../3388>1 벡터</a><sup>Vector with only ones</sup></td>
 </tr>
 <tr class="items">
-    <td> ones(n)</br><span class="comment"># column vector</span> </td> <!--- Julia --->
-    <td> ones(n) </td> <!--- Matlab --->
-    <td> np.ones(n)</br><span class="comment"># row vector</span> </td> <!--- Python --->
+    <td> ones(n)</br><span class="comment">#column vector</span> </td> <!--- Julia --->
+    <td> ones(n,1)</br><span class="comment">#not ones(n)</span></br><span class="comment">#ones(n)=ones(n,n)</span> </td> <!--- Matlab --->
+    <td> np.ones(n)</br><span class="comment">#row vector</span> </td> <!--- Python --->
+    <td>  </td> <!--- R --->
+</tr>
+<tr>
+    <td class="titlerow" colspan=4>선형 간격의 샘플<sup>n equally spaced sample</sup></td>
+</tr>
+<tr class="items">
+    <td> range(0,stop=1,length=10)</br>or</br>LinRange(0,1,10)   </td> <!--- Julia --->
+    <td> linspace(0,1,10)</br><span class="comment">#row vector</span> </td> <!--- Matlab --->
+    <td> np.linspace(0,stop=1,num=10)</br><span class="comment">#row vector</span> </td> <!--- Python --->
+    <td>  </td> <!--- R --->
+</tr>
+<tr>
+    <td class="titlerow" colspan=4>로그 간격의 샘플<sup>n logarithmically spaced sample</sup></td>
+</tr>
+<tr class="items">
+    <td> 10 .^range(0,1,10) </td> <!--- Julia --->
+    <td> logspace(0,1,10)</br><span class="comment">#row vector</span> </td> <!--- Matlab --->
+    <td> np.logspace(0,stop=1,num=10,base=10)</br><span class="comment">#row vector</span> </td> <!--- Python --->
     <td>  </td> <!--- R --->
 </tr>
 </table>
@@ -332,6 +387,60 @@
     <td> np.ravel(x) </td> <!--- Python --->
     <td>  </td> <!--- R --->
 </tr>
+<tr>
+    <td class="titlerow" colspan=4>x와 같은 크기, 데이터타입의 zeros 반환<sup>return zeros with the same shape and dtype as a given x</sup></td>
+</tr>
+<tr class="items">
+    <td> zero(x) </td> <!--- Julia --->
+    <td>  </td> <!--- Matlab --->
+    <td> np.zeros_like(x) </td> <!--- Python --->
+    <td>  </td> <!--- R --->
+</tr>
+<tr>
+    <td class="titlerow" colspan=4>x와 같은 크기, 데이터타입의 ones 반환<sup>return ones with the same shape and dtype as a given x</sup></td>
+</tr>
+<tr class="items">
+    <td> fill!(similar(x), 1) </td> <!--- Julia --->
+    <td>  </td> <!--- Matlab --->
+    <td> np.ones_like(x) </td> <!--- Python --->
+    <td>  </td> <!--- R --->
+</tr>
+<tr>
+    <td class="titlerow" colspan=4>차원<sup>dimensions</sup></td>
+</tr>
+<tr class="items">
+    <td> ndims(x) </td> <!--- Julia --->
+    <td> ndims(x) </td> <!--- Matlab --->
+    <td> x.ndim </td> <!--- Python --->
+    <td>  </td> <!--- R --->
+</tr>
+<tr>
+    <td class="titlerow" colspan=4>크기<sup>size of matrix</sup></td>
+</tr>
+<tr class="items">
+    <td> size(x) </td> <!--- Julia --->
+    <td> size(x) </td> <!--- Matlab --->
+    <td> x.shape </td> <!--- Python --->
+    <td>  </td> <!--- R --->
+</tr>
+<tr>
+    <td class="titlerow" colspan=4>성분의 수<sup>number of elements</sup></td>
+</tr>
+<tr class="items">
+    <td> length(x) </td> <!--- Julia --->
+    <td> numel(x) </td> <!--- Matlab --->
+    <td> x.size </td> <!--- Python --->
+    <td>  </td> <!--- R --->
+</tr>
+<tr>
+    <td class="titlerow" colspan=4>가장 큰 차원의 길이<sup>length of largest dimension</sup></td>
+</tr>
+<tr class="items">
+    <td> maximum(size(x)) </td> <!--- Julia --->
+    <td> length(x) </td> <!--- Matlab --->
+    <td> max(x.shape) </td> <!--- Python --->
+    <td>  </td> <!--- R --->
+</tr>
 </table>
 <h2 id="무작위-추출suprandom-samplingsup">무작위 추출<sup>Random sampling</sup></h2>
 <table width="728px" cellpadding="5px">
@@ -342,20 +451,29 @@
     <td width="182">R</td>
 </tr>
 <tr>
-    <td class="titlerow" colspan=4>(0부터 1까지 균등분포로) 무작위 추출 Random sampling</td>
+    <td class="titlerow" colspan=4>균등분포 랜덤 벡터<sup>Uniformly distributed random vector</sup> </td>
+</tr>
+<tr class="items">
+    <td> rand(n)</br><span class="comment">#column vector</span> </td> <!--- Julia --->
+    <td> rand(n,1)</br><span class="comment">#not rand(n)</span></br><span class="comment">#rand(n)=rand(n,n)</span> </td> <!--- Matlab --->
+    <td> np.random.rand(n)</br><span class="comment">#row vector</span> </td> <!--- Python --->
+    <td>  </td> <!--- R --->
+</tr>
+<tr>
+    <td class="titlerow" colspan=4>균등분포 랜덤 행렬<sup>Uniformly distributed random matrix</sup> </td>
 </tr>
 <tr class="items">
     <td> rand(m,n) </td> <!--- Julia --->
-    <td>  </td> <!--- Matlab --->
+    <td> rand(m,n) </td> <!--- Matlab --->
     <td> np.random.rand(m,n) </td> <!--- Python --->
     <td>  </td> <!--- R --->
 </tr>
 <tr>
-    <td class="titlerow" colspan=4>표준정규분포 Standard normal distribution</td>
+    <td class="titlerow" colspan=4>표준정규분포<sup>Normally distributed random numbers</sup> </td>
 </tr>
 <tr class="items">
     <td> randn(m,n) </td> <!--- Julia --->
-    <td>  </td> <!--- Matlab --->
+    <td> randn(m,n) </td> <!--- Matlab --->
     <td> np.random.randn(m,n) </td> <!--- Python --->
     <td>  </td> <!--- R --->
 </tr>
@@ -455,7 +573,7 @@
 <aside style="text-align: right;">
     2021-02-18&emsp;
     전기현&emsp;
-    <a href="../819">🎲 3031</a>
+    <a href="../1692">🎲 3031</a>
 </aside>
 
 <script>
