@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/flux-pytorch-tensorflow-cheat-sheet\/",
-    "wordCount" : "408",
+    "wordCount" : "187",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -215,7 +215,8 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#머신러닝supmachine-learningsup">머신러닝<sup>Machine Learning</sup></a></li>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#1차원-텐서">1차원 텐서</a></li>
   </ul>
 </nav>
     </div>
@@ -223,7 +224,11 @@
   </div>
 </aside>
 
-<h2 id="머신러닝supmachine-learningsup">머신러닝<sup>Machine Learning</sup></h2>
+<h2 id="개요">개요</h2>
+<p>플럭스, 파이토치, 텐서플로우에서 같은 기능을 하는 코드를 정리한다.</p>
+<ul>
+<li><a href="../3031">줄리아-매트랩-파이썬-R 치트시트</a></li>
+</ul>
 <p>플럭스에 대해서 다음과 같은 환경이라고 하자.</p>
 <pre tabindex="0"><code>using Flux
 </code></pre><p>파이토치에 대해서 다음과 같은 환경이라고 하자.</p>
@@ -233,44 +238,71 @@ import torch.nn.functional as F
 </code></pre><p>텐서플로우에 대해서 다음과 같은 환경이라고 하자.</p>
 <pre tabindex="0"><code>import tensorflow as tf
 from tensorflow import keras
-</code></pre><table width="728px" cellpadding="5px">
+</code></pre><h2 id="1차원-텐서">1차원 텐서</h2>
+<table width="726px" cellpadding="5px">
+<tr class="firstrow">
+    <td width="242">줄리아<sup>Julia</sup></td>
+    <td width="242">파이토치<sup>PyTorch</td>
+    <td width="242">텐서플로우<sup>TensorFlow</sup></td>
+</tr>
+<tr>
+    <td class="titlerow" colspan=4>열 벡터<sup>column vector</sup></td>
+</tr>
+<tr class="items">
+    <td> [1 4 -1 2] </td> 
+    <td> [1;4;-1;2] </td> 
+    <td> </td>
+</tr>
+<!-- 
+<table width="728px" cellpadding="5px">
 <tr bgcolor="#FEAB99" align='middle'>
     <th colspan=2><b>배열/텐서 Array/Tensor</b></td>
 </tr>
+
 <tr align=middle>
     <td width=150>플럭스<sup>Flux</sup></td>
     <td align = "left" leftpadding=2> <code>A = [1 2 3]</code></td>
 </tr>
+
 <tr align=middle>
     <td width=150>파이토치<sup>PyTorch</sup></td>
     <td align = "left"><code>A = torch.tensor([1, 2, 3])</code></td>
 </tr>
+
 <tr align=middle>
     <td width=150>텐서플로우<sup>TensorFlow</sup></td>
     <td align = "left"> <code>A = tf.constant([1, 1, 1])</code></td>
 </tr>
 </table>
+
+
 <table width="728px" cellpadding="5px">
 <tr bgcolor="#FEAB99" align='middle'>
     <th colspan=2><b>덴스 레이어 Dense layer</b></td>
 </tr>
+
 <tr align=middle>
     <td width=150>플럭스<sup>Flux</sup></td>
     <td align = "left" leftpadding=2> <code>Dense(in, out, bias=true, relu)</code></td>
 </tr>
+
 <tr align=middle>
     <td width=150>파이토치<sup>PyTorch</sup></td>
     <td align = "left"><code>torch.nn.Linear(in, out, bias=True)</code></td>
 </tr>
+
 <tr align=middle>
     <td width=150>텐서플로우<sup>TensorFlow</sup></td>
     <td align = "left"> <code>keras.layers.Dense(out, activation="relu")</code></td>
 </tr>
 </table>
+
+
 <table width="728px" cellpadding="5px">
 <tr bgcolor="#FEAB99" align='middle'>
     <th colspan=2><b>시퀀셜 모델 Sequential model</b></td>
 </tr>
+
 <tr align=middle>
     <td width=150>플럭스<sup>Flux</sup></td>
     <td align = "left" leftpadding=2><code>model = Chain(
@@ -279,6 +311,7 @@ from tensorflow import keras
         <br>Dense(10, 2, relu)
         <br>)</code></td>
 </tr>
+
 <tr align=middle>
     <td width=150>파이토치<sup>PyTorch</sup></td>
     <td align = "left"><code>model = nn.Sequential(
@@ -290,6 +323,7 @@ from tensorflow import keras
         <br>nn.Relu()
         <br>)</code></td>
 </tr>
+
 <tr align=middle>
     <td width=150>텐서플로우<sup>TensorFlow</sup></td>
     <td align = "left"> <code>model = keras.models.Sequential([
@@ -300,10 +334,13 @@ from tensorflow import keras
         <br>])</code></td>
 </tr>
 </table>
+
+
 <table width="728px" cellpadding="5px">
 <tr bgcolor="#FEAB99" align='middle'>
     <th colspan=2><b>모델 요약 Model summary</b></td>
 </tr>
+
 <tr align=middle>
     <td width=150>플럭스<sup>Flux</sup></td>
     <td align = "left" leftpadding=2><code>julia> model
@@ -315,6 +352,7 @@ from tensorflow import keras
     <br>)                   # Total: 6 arrays, 192 parameters, 1.125 KiB.
     </code></td>
 </tr>
+
 <tr align=middle>
     <td width=150>파이토치<sup>PyTorch</sup></td>
     <td align = "left"><code>>>>model
@@ -328,6 +366,7 @@ from tensorflow import keras
         <br>  (5): ReLU()
         <br>)</code></td>
 </tr>
+
 <tr align=middle>
     <td width=150>텐서플로우<sup>TensorFlow</sup></td>
     <td align = "left">
@@ -354,12 +393,12 @@ from tensorflow import keras
         <br>_________________________________________________________________</code>
     </td>
 </tr>
-</table>
+</table> -->
 
 <aside style="text-align: right;">
     2013-10-10&emsp;
     전기현&emsp;
-    <a href="../1278">🎲 3489</a>
+    <a href="../1485">🎲 3489</a>
 </aside>
 
 <script>

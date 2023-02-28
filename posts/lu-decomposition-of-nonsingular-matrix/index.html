@@ -228,36 +228,36 @@
 
 <h2 id="빌드업">빌드업</h2>
 <p>행렬 $A \in \mathbb{R}^{m \times m}$ 의 왼쪽에 곱해졌을 때 $(i, j)$ 성분을 $0$ 이 되도록 하는 행렬 $E_{ij}$ 를 <strong>$A$ 에 대한 $ij$-소거연산자</strong>라고 정의해보자.</p>
-<p>구체적으로 정방행렬 $(a_{ij}) \in \mathbb{R}^{m \times m}$ 에 대한 $E_{ij}$ 는 대각성분이 $1$ 이고 $(i,j)$ 성분이
+<p>구체적으로 정방행렬 $(a_{ij}) \in \mathbb{R}^{m \times m}$ 에 대한 $E_{ij}$ 는 대각성분이 $1$ 이고 $(i,j)$ 성분이 
 $\displaystyle -m_{ij} = -{{a_{ij}} \over {a_{jj}}}$, 나머지 성분이 $0$으로 구해진다. 이는 연립 방정식의 풀이에서 같은 변수끼리 계수를 맞춰서 소거하는 연산을 행렬로 나타낸 것이다. 이러한 소거는 연립 방정식의 해가 단 하나만 존재할 때 의미가 있으므로, 우리가 다룰 $A$ 는 정칙행렬로 가정한다.</p>
 <h2 id="예시">예시</h2>
 <p>간단한 예로써</p>
 <p>$$
 B := \begin{bmatrix}
-2 &amp; 1 &amp; 0
-\\  1 &amp; 2 &amp; 1
-\\  0 &amp; 1 &amp; 2
+2 &amp; 1 &amp; 0 
+\\  1 &amp; 2 &amp; 1 
+\\  0 &amp; 1 &amp; 2 
 \end{bmatrix}
 $$</p>
 <p>라고 하면 $E_{21} B = \begin{bmatrix} 2 &amp; 1 &amp; 0 \\  0 &amp; 2 &amp; 1 \\  0 &amp; 1 &amp; 2 \end{bmatrix}$가 된다. 그리고 $B = \begin{bmatrix} 2 &amp; 1 &amp; 0 \\  1 &amp; 2 &amp; 1 \\  0 &amp; 1 &amp; 2 \end{bmatrix}$이므로 $B$ 에 대한 $21$-소거연산자는</p>
 <p>$$
 E_{21} = \begin{bmatrix}
-1 &amp; 0 &amp; 0
-\\  -m_{ij} &amp; 1 &amp; 0
-\\  0 &amp; 0 &amp; 1
+1 &amp; 0 &amp; 0 
+\\  -m_{ij} &amp; 1 &amp; 0 
+\\  0 &amp; 0 &amp; 1 
 \end{bmatrix}
 = \begin{bmatrix}
-1 &amp; 0 &amp; 0
-\\  -{{1} \over {2}} &amp; 1 &amp; 0
-\\  0 &amp; 0 &amp; 1
+1 &amp; 0 &amp; 0 
+\\  -{{1} \over {2}} &amp; 1 &amp; 0 
+\\  0 &amp; 0 &amp; 1 
 \end{bmatrix}
 $$</p>
 <p>으로 구할 수 있다. 한편 이러한 연산을 여러번 취한</p>
 <p>$$
 U_{B} : = E_{32} E_{31} E_{21} B = \begin{bmatrix}
-2 &amp; 1 &amp; 0
-\\  0 &amp; 2 &amp; 1
-\\  0 &amp; 0 &amp; 2
+2 &amp; 1 &amp; 0 
+\\  0 &amp; 2 &amp; 1 
+\\  0 &amp; 0 &amp; 2 
 \end{bmatrix}
 $$</p>
 <p>는 상삼각행렬이고, $E_{21} , E_{31} , E_{32}$ 은 모두 하삼각행렬이다. 하삼각행렬끼리의 곱은 하삼각행렬이므로 $L_{B} : = E_{21} E_{31} E_{32}$ 도 하삼각행렬이고 $L^{-1} B = U$ 으로 나타낼 수 있다. 다시 $B$ 에 대해 정리하면 $B = L_{B} U_{B}$ 즉 하<sup>Lower</sup>삼각행렬과 상<sup>Upper</sup>삼각행렬의 곱으로 분해한 꼴이 된다.</p>
@@ -265,18 +265,18 @@ $$</p>
 <p>한편 $L (U \mathbb{x} ) = L \mathbb{y} = \mathbb{b}$에서 $L$ 이 하삼각행렬이므로 $\mathbb{b}$ 는 전진대입법을 통해 쉽게 구할 수 있다. 따라서 LU 분해를 실제로 구할 수 있다는 것은 상당히 많은 문제를 상당히 쉽고 빠르게 풀 수 있다는 뜻이 된다. 직접적으로 $L$ 과 $U$ 를 찾아내기 위해, $A := L U$ 를 만족하는 하삼각행렬 $L$ 과 상삼각행렬 $U$ 를 다음과 같이 정의하자.</p>
 <p>$$
 L : = \begin{bmatrix}
-1 &amp; 0 &amp; 0 &amp; \cdots &amp; 0
-\\  l_{21} &amp; 1 &amp; 0 &amp; \cdots &amp; 0
+1 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 
+\\  l_{21} &amp; 1 &amp; 0 &amp; \cdots &amp; 0 
 \\  l_{31} &amp; l_{32} &amp; 1 &amp; \cdots &amp; 0
-\\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots
-\\  l_{n1} &amp; l_{n2} &amp; l_{n3} &amp; \cdots &amp; 1
+\\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots 
+\\  l_{n1} &amp; l_{n2} &amp; l_{n3} &amp; \cdots &amp; 1 
 \end{bmatrix}
 \\ U : = \begin{bmatrix}
-u_{11} &amp; u_{12} &amp; u_{13} &amp; \cdots &amp; u_{1n}
-\\  0 &amp; u_{22} &amp; u_{23} &amp; \cdots &amp; u_{2n}
+u_{11} &amp; u_{12} &amp; u_{13} &amp; \cdots &amp; u_{1n} 
+\\  0 &amp; u_{22} &amp; u_{23} &amp; \cdots &amp; u_{2n} 
 \\  0 &amp; 0 &amp; u_{33} &amp; \cdots &amp; u_{3n}
-\\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots
-\\  0 &amp; 0 &amp; 0 &amp; \cdots &amp; u_{nn}
+\\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots 
+\\  0 &amp; 0 &amp; 0 &amp; \cdots &amp; u_{nn} 
 \end{bmatrix}$$</p>
 <p>여기서 $L$ 은 소거연산자들의 곱이므로 대각성분들이 모두 $1$ 임을 쉽게 확인할 수 있다. 위 정의에 따라 직접 $A = (a_{ij})$ 의 성분 $a_{ij}$ 를 계산해보면</p>
 <p>$$
@@ -382,7 +382,7 @@ expand(lu(B))
 <aside style="text-align: right;">
     2017-12-28&emsp;
     류대식&emsp;
-    <a href="../356">🎲 345</a>
+    <a href="../465">🎲 345</a>
 </aside>
 
 <script>
