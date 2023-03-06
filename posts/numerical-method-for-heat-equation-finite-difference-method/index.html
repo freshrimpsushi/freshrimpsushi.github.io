@@ -67,10 +67,10 @@
     </script>
 
     
-<meta name="title" content="스칼라 함수와 벡터 함수">
+<meta name="title" content="열 방정식의 수치적 풀이: 유한차분법">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="스칼라 함수와 벡터 함수"/>
-<meta property="og:description" content="Scalar Function and Vector Function"/>
+<meta property="og:title" content="열 방정식의 수치적 풀이: 유한차분법"/>
+<meta property="og:description" content="Numerical Method for Heat Equation: Finite Difference Method"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -81,34 +81,34 @@
 {
     "@context": "http://schema.org",
     "@type": "BlogPosting",
-    "articleSection": "r_",
-    "name": "스칼라 함수와 벡터 함수",
-    "headline": "스칼라 함수와 벡터 함수",
+    "articleSection": "j_",
+    "name": "열 방정식의 수치적 풀이: 유한차분법",
+    "headline": "열 방정식의 수치적 풀이: 유한차분법",
     "alternativeHeadline": "",
-    "description": "Scalar Function and Vector Function",
+    "description": "Numerical Method for Heat Equation: Finite Difference Method",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/scalar-function-and-vector-function\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/numerical-method-for-heat-equation-finite-difference-method\/"
     },
     "author" : {
         "@type": "Person",
-        "name": "류대식"
+        "name": "전기현"
     },
     "creator" : {
         "@type": "Person",
-        "name": "류대식"
+        "name": "전기현"
     },
     "accountablePerson" : {
         "@type": "Person",
-        "name": "류대식"
+        "name": "전기현"
     },
     "copyrightHolder" : "생새우초밥집",
-    "copyrightYear" : "2019",
-    "dateCreated": "2019-04-11T00:00:00.00Z",
-    "datePublished": "2019-04-11T00:00:00.00Z",
-    "dateModified": "2019-04-11T00:00:00.00Z",
+    "copyrightYear" : "2013",
+    "dateCreated": "2013-10-22T00:00:00.00Z",
+    "datePublished": "2013-10-22T00:00:00.00Z",
+    "dateModified": "2013-10-22T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -121,15 +121,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/scalar-function-and-vector-function\/",
-    "wordCount" : "624",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/numerical-method-for-heat-equation-finite-difference-method\/",
+    "wordCount" : "1195",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>스칼라 함수와 벡터 함수</title>
+    <title>열 방정식의 수치적 풀이: 유한차분법</title>
 </head>
 
 <body class="main">
@@ -188,21 +188,21 @@
     <div class="content">
       <div class="content-box">
         
-<title>스칼라 함수와 벡터 함수</title>
+<title>열 방정식의 수치적 풀이: 유한차분법</title>
 
 
 
 
-        <a href="https://freshrimpsushi.github.io/categories/%EB%8B%A4%EB%B3%80%EC%88%98%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D/"
+        <a href="https://freshrimpsushi.github.io/categories/%EC%88%98%EC%B9%98%ED%95%B4%EC%84%9D/"
             style="background-color: rgba(0, 0, 0, 0.8); color: orange;
             border-radius:10px; padding: 5px;">
-            📂다변수벡터해석</a>
+            📂수치해석</a>
         
 
 
-<h1>스칼라 함수와 벡터 함수</h1>
+<h1>열 방정식의 수치적 풀이: 유한차분법</h1>
 <p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px; margin-left: 0px;">
-  Scalar Function and Vector Function
+  Numerical Method for Heat Equation: Finite Difference Method
 </p>
 
 <aside>
@@ -215,12 +215,10 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#정의">정의</a></li>
-    <li><a href="#설명">설명</a>
+    <li><a href="#열-방정식의-수치적-풀이1">열 방정식의 수치적 풀이</a></li>
+    <li><a href="#수렴성">수렴성</a>
       <ul>
-        <li><a href="#다변수-함수">다변수 함수</a></li>
-        <li><a href="#스칼라-함수">스칼라 함수</a></li>
-        <li><a href="#벡터-함수">벡터 함수</a></li>
+        <li><a href="#증명">증명</a></li>
       </ul>
     </li>
   </ul>
@@ -230,41 +228,119 @@
   </div>
 </aside>
 
-<h2 id="정의">정의</h2>
-<p><a href="../1316">집합</a> $D$ 를 $n$차원 <a href="../205">유클리드 공간</a>의 <a href="../1329">부분집합</a> $D\subset \mathbb{R}^{n}$ 이라 하자.</p>
+<h2 id="열-방정식의-수치적-풀이1">열 방정식의 수치적 풀이<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>아래와 같은 1차원 <a href="../1001">열 방정식</a>이 주어졌다고 하자.</p>
+<p>$$
+\dfrac{\partial u}{\partial t} = \dfrac{\partial^{2} u}{\partial x^{2}},\qquad 0\le x \le 1,\quad t \ge 0 \tag{1}
+$$</p>
+<p>우리의 목적은 유한한 점으로 위의 솔루션을 근사하는 것이다. 시공간 도메인을 다음과 같이 쪼개자.</p>
+<p>$$
+\left\{ (\ell \Delta x, n\Delta t) : \ell=0,1,\dots,d+1,\ n\ge 0 \right\}\quad \text{ where } \Delta x = \frac{1}{d+1}
+$$</p>
+<p>$u(\ell \Delta x, n\Delta t)$의 근사를 $u_{\ell}^{n}$이라 표기하자. 윗첨자 ${}^{n}$이 거듭제곱이 아닌 시간의 인덱스라는 것에 주의하자. $(1)$의 우변과 좌변은 각각 <a href="../3494">다음과 같이 근사된다.</a></p>
+<p>$$
+\dfrac{\partial^{2} u(x,t)}{\partial x^{2}} = \dfrac{1}{(\Delta x)^{2}} \big[ u(x-\Delta x, t) - 2u(x,t) + u(x+\Delta x, t) \big] + \mathcal{O}\left( (\Delta x)^{2} \right)
+$$
+$$
+\dfrac{\partial u(x,t)}{\partial t} = \dfrac{1}{\Delta t} \big[ u(x,t+\Delta t) - u(x,t) \big] + \mathcal{O}(\Delta t)
+$$</p>
+<p>이제 $\mu = \dfrac{\Delta t}{(\Delta x)^{2}}$라고 두자. 두 식을 $(1)$에 대입 후, $\Delta t = \mu(\Delta x)^{2}$를 곱하면 다음을 얻는다.</p>
+<p>$$
+\dfrac{u(x,t+\Delta t) - u(x,t)}{\Delta t} = \dfrac{1}{(\Delta x)^{2}} \big[ u(x-\Delta x, t) - 2u(x,t) + u(x+\Delta x, t) \big] + \mathcal{O}\left( (\Delta x)^{2} \right)
+$$
+$$
+\implies u(x,t+\Delta t) = u(x,t) + \dfrac{\mu(\Delta x)^{2}}{(\Delta x)^{2}} \big[ u(x-\Delta x, t) - 2u(x,t) + u(x+\Delta x, t) \big] + \mathcal{O}\left( (\Delta x)^{4} \right)
+$$
+$$
+\implies u(x,t+\Delta t) = u(x,t) + \mu \big[ u(x-\Delta x, t) - 2u(x,t) + u(x+\Delta x, t) \big] + \mathcal{O}\left( (\Delta x)^{4} \right)
+$$
+$$
+\implies u_{\ell}^{n+1} = u_{\ell}^{n} + \mu \left( u_{\ell-1}^{n} - 2u_{\ell}^{n} + u_{\ell+1}^{n} \right),\quad \ell=1,2,\dots,d,\ n=0,1,\dots \tag{2}
+$$</p>
+<p>여기서 공간간격과 시간간격의 비율 $\mu = \dfrac{\Delta t}{(\Delta x)^{2}}$는 <strong>커런트 수</strong><sup>Courant number</sup>라 불리는 중요한 상수이며, $(2)$의 수렴여부를 결정한다.</p>
+<h2 id="수렴성">수렴성</h2>
+<p>$\mu \le \dfrac{1}{2}$이면, 수치적 해법 $(2)$는 수렴한다.</p>
+<h3 id="증명">증명</h3>
+<p>$t^{\ast} \gt 0$을 임의의 상수하고 하자. 각 점에서의 근사값과 실제 솔루션과의 에러를 다음과 같이 정의하자.</p>
+<p>$$
+e_{\ell}^{n} := u_{\ell}^{n} - u(\ell\Delta x, n\Delta t),\qquad \ell = 0,1,\dots,d+1,\quad n=0,1,\dots,n_{\Delta t}
+$$</p>
+<p>여기서 $n_{\Delta t} = \lfloor t^{\ast}/{\Delta t} \rfloor = \lfloor t^{\ast} / (\mu(\Delta x)^{2}) \rfloor$는 $n$의 끝점이다. 메서드가 수렴한다는 것은 에러 $e_{\ell}^{n}$에 대해서 다음의 식이 성립하는 것으로 표현될 수 있다.</p>
+<p>$$
+\lim\limits_{\Delta x \to 0} \left[ \max\limits_{n=0,1,\dots,n_{\Delta t}} \left( \max\limits_{\ell=0,1,\dots,d+1} \left| e_{\ell}^{n} \right| \right) \right] = 0
+$$</p>
+<p>괄호안의 값을 다음과 같이 두자.</p>
+<p>$$
+\eta^{n} := \max\limits_{\ell=0,1,\dots,d+1} \left| e_{\ell}^{n} \right|,\quad n=0,1,\dots,n_{\Delta t} \tag{3}
+$$</p>
+<p>그러면 수렴에 대한 표현은,</p>
+<p>$$
+\lim\limits_{\Delta x \to 0} \left( \max\limits_{n=0,1,\dots,n_{\Delta t}} \eta^{n} \right) = 0 \tag{4}
+$$</p>
+<p>이제 $\tilde{u}_{\ell}^{n} = u(\ell\Delta x, n\Delta t)$를 근삿값 $u_{\ell}^{n}$의 참값이라고 하자.</p>
+<p>$$
+\begin{align*}
+u_{\ell}^{n+1} &amp;= u_{\ell}^{n} + \mu \left( u_{\ell-1}^{n} - 2u_{\ell}^{n} + u_{\ell+1}^{n} \right) \\
+\tilde{u}_{\ell}^{n+1} &amp;= \tilde{u}_{\ell}^{n} + \mu \left( \tilde{u}_{\ell-1}^{n} - 2\tilde{u}_{\ell}^{n} + \tilde{u}_{\ell+1}^{n} \right) + \mathcal{O}\left( (\Delta x)^{4} \right)
+\end{align*}
+\qquad \begin{array}{l}
+\ell = 0,1,\dots,d+1 \\
+n=0,1,\dots,n_{\Delta t}
+\end{array}
+$$</p>
+<p>이 둘을 빼면 다음을 얻는다.</p>
+<p>$$
+\begin{align*}
+e_{\ell}^{n+1}
+&amp;= e_{\ell}^{n} + \mu \left( e_{\ell-1}^{n} - 2e_{\ell}^{n} + e_{\ell+1}^{n} \right) + \mathcal{O}\left( (\Delta x)^{4} \right) \\[1em]
+&amp;\le e_{\ell}^{n} + \mu \left( e_{\ell-1}^{n} - 2e_{\ell}^{n} + e_{\ell+1}^{n} \right) + c (\Delta x)^{4},\qquad c \gt 0
+\end{align*}
+$$</p>
+<p>부등호는 <a href="../1281">점근 표기법</a>의 정의에 의해 성립한다. <a href="../1225">삼각 부등식</a>에 의해 다음을 얻는다.</p>
+<p>$$
+\begin{align*}
+\left| e_{\ell}^{n+1} \right|
+&amp;\le \left| e_{\ell}^{n} + \mu \left( e_{\ell-1}^{n} - 2e_{\ell}^{n} + e_{\ell+1}^{n} \right) + c (\Delta x)^{4} \right| \\
+&amp;\le \left| e_{\ell}^{n} + \mu \left( e_{\ell-1}^{n} - 2e_{\ell}^{n} + e_{\ell+1}^{n} \right) \right| + c (\Delta x)^{4} \\
+&amp;\le \mu \left| e_{\ell-1}^{n} \right| + \left| 1 - 2\mu \right| \left| e_{\ell}^{n} \right| + \mu \left| e_{\ell+1}^{n} \right| + c (\Delta x)^{4} \\
+&amp;\le (2\mu + \left| 1 - 2\mu \right|)\eta^{n} + c (\Delta x)^{4},\qquad n=0,1,\dots,n_{\Delta t}-1
+\end{align*}
+$$</p>
+<p>마지막 부등식은 $(3)$에 의해 성립한다. $\mu \le 1/2$이므로, $(2\mu + \left| 1 - 2\mu \right|)=1$이고, 다시 $(3)$에 다음을 얻는다.</p>
+<p>$$
+\eta^{n+1} = \max\limits_{\ell=0,1,\dots,d+1} \left| e_{\ell}^{n+1} \right| \le \eta^{n} + c (\Delta x)^{4},\qquad n=0,1,\dots,n_{\Delta t}-1
+$$</p>
+<p>이를 귀납적으로 반복하면,</p>
+<p>$$
+\eta^{n+1} \le \eta^{n} + c (\Delta x)^{4} \le \eta^{n-1} + 2c (\Delta x)^{4} \le \eta^{n-2} + 3 c (\Delta x)^{4} \le \cdots
+$$
+$$
+\implies \eta^{n} \le \eta^{0} + n c (\Delta x)^{4},\qquad n=0,1,\dots,n_{\Delta t}
+$$</p>
+<p>초기값은 주어져있으므로 $\eta^{0} = 0$이고, $n(\Delta x)^{2} = n\Delta t / \mu = t^{\ast} / \mu$이므로,</p>
+<p>$$
+\eta^{n} \le \dfrac{ct^{\ast}}{\mu}(\Delta x)^{2},\qquad n=0,1,\dots,n_{\Delta t}
+$$</p>
+<p>따라서 모든 $n$에 대하여,</p>
+<p>$$
+\eta^{n} \to 0\quad \text{ as } \Delta x \to 0
+$$</p>
+<p>이와 $(4)$를 결합하면 증명 끝.</p>
+<p style="text-align: right;">■</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
 <ol>
-<li>$D$ 를 정의역으로 갖는 함수를 <strong>다변수 함수</strong>라 한다.</li>
-<li>$f : D \to \mathbb{R}$ 을 <strong>스칼라 함수</strong>라 한다.</li>
-<li>스칼라 함수 $f_{1} , \cdots , f_{m} : D \to \mathbb{R}$ 에 대해 다음과 같이 정의된 $\mathbb{f} : D \to \mathbb{R}^{m}$ 를 <strong>벡터 함수</strong>라 한다.
-$$
-\mathbb{f} ( x_{1} , \cdots , x_{n} ) : = \begin{bmatrix}
-f_{1} ( x_{1} , \cdots , x_{n} )
-\\ \vdots
-\\  f_{m} ( x_{1} , \cdots , x_{n} )
-\end{bmatrix}
-$$</li>
+<li id="fn:1">
+<p>A. Iserles, <em>A First Course in the Numerical Analysis of Differential Equations</em> (2nd, 2009), p349-353&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
 </ol>
-<h2 id="설명">설명</h2>
-<h3 id="다변수-함수">다변수 함수</h3>
-<p>다변수 함수라는 표현은 특히 미적분학을 위시한 해석학에서 쓰는 표현이다. 애초에 스칼라 함수든 벡터 함수든 그냥 함수는 함수일 뿐인데, 그 공역을 쉽게 구분하기 위해 사용하는 단어에 지나지 않는다. 선형대수학의 관점으로 보자면 벡터 함수가 $m=1$ 이면 스칼라 함수가 된다고 말할 수 있으므로 개념적인 차이는 전혀 없다고 할 수 있다.</p>
-<h3 id="스칼라-함수">스칼라 함수</h3>
-<p>스칼라 함수의 예로써 $ F ( m , a ) := ma$ 를 생각해볼 수 있다. $m$ 이 질량이든 $a$ 가 가속도든 수학도의 눈에는 $(m , a) \in \left( [0,\infty) \times \mathbb{R} \right) \subset \mathbb{R}^2$ 와 같은 $2$차원 벡터로 보여야한다. $ma$ 는 단순히 두 실수 $m$ 과 $a$ 의 곱이고, $ma \in \mathbb{R}$ 이므로 스칼라 함수의 조건을 잘 만족시킨다. 한편 벡터 미적분학에서는 주어진 공간상의 모든 점마다 스칼라 값이 하나씩 대응된다는 점에서 <strong>스칼라장</strong><sup>Scalar Field</sup>라 부르기도 한다.</p>
-<h3 id="벡터-함수">벡터 함수</h3>
-<p>벡터 함수의 예로써<br>
-$$
-\mathbb{q} ( m , v , a ) : = \begin{bmatrix}
-ma
-\\  mv
-\\  {{1} \over {2}} m v^2
-\end{bmatrix}
-$$
-를 생각해볼 수 있다. 물리학도의 눈에는 첫번째 성분부터 차례로 힘, 운동량, 운동에너지겠지만 벡터 함수라는 점만 생각해보면 그저 $\mathbb{q} : D \to \mathbb{R}^3$ 에 지나지 않는다. 한편 벡터 미적분학에서는 주어진 공간상의 모든 점마다 벡터가 하나씩 대응된다는 점에서 <strong>벡터장</strong><sup>Vector Field</sup>라 부르기도 한다.</p>
+</div>
 
 
 <aside style="text-align: right;">
-    2019-04-11&emsp;
-    류대식&emsp;
-    <a href="../1390">🎲 970</a>
+    2013-10-22&emsp;
+    전기현&emsp;
+    <a href="../572">🎲 3495</a>
 </aside>
 
 <script>
@@ -279,8 +355,8 @@ $$
       renderKaTex(tex);
     }
 
-    var title = '스칼라 함수와 벡터 함수';
-    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/scalar-function-and-vector-function\/';
+    var title = '열 방정식의 수치적 풀이: 유한차분법';
+    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/numerical-method-for-heat-equation-finite-difference-method\/';
     var arr = new Array();
     var obj = {
       "title": title,
@@ -348,7 +424,7 @@ $$
       .then(ip => {
         const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
         return postFetch(url, {
-                board_idx: '970',
+                board_idx: '3495',
                 user_ip: ip
               });
       })
@@ -481,9 +557,9 @@ $$
       alert('빈칸을 채워주세요');
       return;
     }
-    const idx = '970';
-    const board_slug = 'scalar-function-and-vector-function';
-    const board_title = '스칼라 함수와 벡터 함수';
+    const idx = '3495';
+    const board_slug = 'numerical-method-for-heat-equation:-finite-difference-method';
+    const board_title = '열 방정식의 수치적 풀이: 유한차분법';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -722,9 +798,9 @@ $$
       return;
     }
 
-    const board_idx = '970';
-    const board_slug = 'scalar-function-and-vector-function';
-    const board_title = '스칼라 함수와 벡터 함수';
+    const board_idx = '3495';
+    const board_slug = 'numerical-method-for-heat-equation:-finite-difference-method';
+    const board_title = '열 방정식의 수치적 풀이: 유한차분법';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
