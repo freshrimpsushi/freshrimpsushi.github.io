@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/numerical-method-for-heat-equation-finite-difference-method\/",
-    "wordCount" : "1195",
+    "wordCount" : "1527",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -216,9 +216,15 @@
       <nav id="TableOfContents">
   <ul>
     <li><a href="#열-방정식의-수치적-풀이1">열 방정식의 수치적 풀이</a></li>
+    <li><a href="#설명">설명</a></li>
     <li><a href="#수렴성">수렴성</a>
       <ul>
         <li><a href="#증명">증명</a></li>
+      </ul>
+    </li>
+    <li><a href="#예제">예제</a>
+      <ul>
+        <li><a href="#1차원">1차원</a></li>
       </ul>
     </li>
   </ul>
@@ -258,6 +264,8 @@ $$
 \implies u_{\ell}^{n+1} = u_{\ell}^{n} + \mu \left( u_{\ell-1}^{n} - 2u_{\ell}^{n} + u_{\ell+1}^{n} \right),\quad \ell=1,2,\dots,d,\ n=0,1,\dots \tag{2}
 $$</p>
 <p>여기서 공간간격과 시간간격의 비율 $\mu = \dfrac{\Delta t}{(\Delta x)^{2}}$는 <strong>커런트 수</strong><sup>Courant number</sup>라 불리는 중요한 상수이며, $(2)$의 수렴여부를 결정한다.</p>
+<h2 id="설명">설명</h2>
+<p>아래의 정리로부터, $(2)$는 $\mu \le \frac{1}{2}$일 때 수렴한다. 이는 한 번에 전진할 수 있는 타임 스텝의 upper bound가 존재함을 말해준다. 간단한 예제에서라면 문제 없겠지만, 시간 도메인의 길이가 길다면 계산 시간이 오래걸리는 원인이 될 수 있다. 아래의 예제에서만 봐도 공간 도메인을 크기가 100인 벡터로 쪼갰을 때, 시간 도메인은 무려 1733개로 쪼개진다.</p>
 <h2 id="수렴성">수렴성</h2>
 <p>$\mu \le \dfrac{1}{2}$이면, 수치적 해법 $(2)$는 수렴한다.</p>
 <h3 id="증명">증명</h3>
@@ -280,11 +288,11 @@ $$</p>
 <p>이제 $\tilde{u}_{\ell}^{n} = u(\ell\Delta x, n\Delta t)$를 근삿값 $u_{\ell}^{n}$의 참값이라고 하자.</p>
 <p>$$
 \begin{align*}
-u_{\ell}^{n+1} &amp;= u_{\ell}^{n} + \mu \left( u_{\ell-1}^{n} - 2u_{\ell}^{n} + u_{\ell+1}^{n} \right) \\
+u_{\ell}^{n+1} &amp;= u_{\ell}^{n} + \mu \left( u_{\ell-1}^{n} - 2u_{\ell}^{n} + u_{\ell+1}^{n} \right) \\ 
 \tilde{u}_{\ell}^{n+1} &amp;= \tilde{u}_{\ell}^{n} + \mu \left( \tilde{u}_{\ell-1}^{n} - 2\tilde{u}_{\ell}^{n} + \tilde{u}_{\ell+1}^{n} \right) + \mathcal{O}\left( (\Delta x)^{4} \right)
 \end{align*}
 \qquad \begin{array}{l}
-\ell = 0,1,\dots,d+1 \\
+\ell = 0,1,\dots,d+1 \\ 
 n=0,1,\dots,n_{\Delta t}
 \end{array}
 $$</p>
@@ -300,9 +308,9 @@ $$</p>
 <p>$$
 \begin{align*}
 \left| e_{\ell}^{n+1} \right|
-&amp;\le \left| e_{\ell}^{n} + \mu \left( e_{\ell-1}^{n} - 2e_{\ell}^{n} + e_{\ell+1}^{n} \right) + c (\Delta x)^{4} \right| \\
-&amp;\le \left| e_{\ell}^{n} + \mu \left( e_{\ell-1}^{n} - 2e_{\ell}^{n} + e_{\ell+1}^{n} \right) \right| + c (\Delta x)^{4} \\
-&amp;\le \mu \left| e_{\ell-1}^{n} \right| + \left| 1 - 2\mu \right| \left| e_{\ell}^{n} \right| + \mu \left| e_{\ell+1}^{n} \right| + c (\Delta x)^{4} \\
+&amp;\le \left| e_{\ell}^{n} + \mu \left( e_{\ell-1}^{n} - 2e_{\ell}^{n} + e_{\ell+1}^{n} \right) + c (\Delta x)^{4} \right| \\ 
+&amp;\le \left| e_{\ell}^{n} + \mu \left( e_{\ell-1}^{n} - 2e_{\ell}^{n} + e_{\ell+1}^{n} \right) \right| + c (\Delta x)^{4} \\ 
+&amp;\le \mu \left| e_{\ell-1}^{n} \right| + \left| 1 - 2\mu \right| \left| e_{\ell}^{n} \right| + \mu \left| e_{\ell+1}^{n} \right| + c (\Delta x)^{4} \\ 
 &amp;\le (2\mu + \left| 1 - 2\mu \right|)\eta^{n} + c (\Delta x)^{4},\qquad n=0,1,\dots,n_{\Delta t}-1
 \end{align*}
 $$</p>
@@ -327,6 +335,25 @@ $$</p>
 $$</p>
 <p>이와 $(4)$를 결합하면 증명 끝.</p>
 <p style="text-align: right;">■</p>
+<h2 id="예제">예제</h2>
+<h3 id="1차원">1차원</h3>
+<p>이제 다음과 같은 1차원 열 방정식을 생각해보자.</p>
+<p>$$
+\begin{array}{lc}
+\text{Domain:} &amp; \\ 
+&amp; \Omega = [-1,1]\times [0,0.35] \\ 
+\text{Heat equation:} &amp; \\ 
+&amp; u_{t} - u_{xx} = 0 \\[0.5em] 
+&amp; u(x,0) = \sin (\pi x) \\[0.5em] 
+&amp; u(-1, t) = 0,\quad u(1, t) = 0 \\[0.5em] 
+\text{Exact solution:}&amp; \\ 
+&amp; u(x,t) = \sin(\pi x) e^{-\pi^2 t}
+\end{array}
+$$</p>
+<p>여기서 $\Delta x = \dfrac{1-(-1)}{99}$ 그리고 $\Delta t = \mu (\Delta)^{2} = 0.5(\Delta x)^{2}$라고 두고 $(2)$로 풀면 다음과 같은 결과를 얻는다.</p>
+<p><img src="mu=0.500.png#center" alt="mu=0.500.png"></p>
+<p>반면 $\Delta t = \mu (\Delta)^{2} = 0.51(\Delta x)^{2}$로 두고 풀면 솔루션이 제대로 구해지지 않는 것을 볼 수 있다.</p>
+<p><img src="mu=0.510.png#center" alt="mu=0.510.png"></p>
 <div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -340,7 +367,7 @@ $$</p>
 <aside style="text-align: right;">
     2013-10-22&emsp;
     전기현&emsp;
-    <a href="../1759">🎲 3495</a>
+    <a href="../1673">🎲 3495</a>
 </aside>
 
 <script>
