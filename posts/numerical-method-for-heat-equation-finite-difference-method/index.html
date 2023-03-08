@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/numerical-method-for-heat-equation-finite-difference-method\/",
-    "wordCount" : "1565",
+    "wordCount" : "2280",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -225,6 +225,8 @@
     <li><a href="#예제">예제</a>
       <ul>
         <li><a href="#1차원">1차원</a></li>
+        <li><a href="#2차원">2차원</a></li>
+        <li><a href="#환경">환경</a></li>
       </ul>
     </li>
   </ul>
@@ -354,6 +356,129 @@ $$</p>
 <p><img src="mu=0.500.png#center" alt="mu=0.500.png"></p>
 <p>반면 $\Delta t = \mu (\Delta)^{2} = 0.51(\Delta x)^{2}$로 두고 풀면 솔루션이 제대로 구해지지 않는 것을 볼 수 있다.</p>
 <p><img src="mu=0.510.png#center" alt="mu=0.510.png"></p>
+<pre tabindex="0"><code>using Plots
+using LinearAlgebra
+
+function Solver_Heat_1d(Δt, T, x, f, g)
+    # Δt: time step,    T: last time,   x: space vector
+    # f: initial value,  g: boundary value
+    
+    t = Vector(0:Δt:T)
+    n = length(t)
+    ℓ = length(x)
+    Δx = x[2]-x[1]
+    μ = Δt/((Δx)^2)
+    μ = Δt/((Δx)^2)
+
+    U = zeros(ℓ,n)
+    U[1,:] .= g[1]
+    U[end,:] .= g[end]
+
+    U[:,1] = f
+
+    for i ∈ 2:n
+        U[2:end-1, i] = (1-2μ)*U[2:end-1, i-1] + μ*(U[1:end-2, i-1] + U[3:end, i-1])                     
+    end
+    return U
+end
+
+function ref_sol(x, t, exact_sol)
+    xt =[kron(ones(length(t)),x);; kron(t,ones(length(x)))]
+    ref_U = reshape(exact_sol(xt),length(x),length(t))
+    return ref_U
+end
+
+function results(t, x, U, ref_U, μ)
+    h1 = heatmap(t, x, U, colormap=:viridis, clim=(-1,1))
+    # xlabel!(&#34;time [0, $(round(t[end], digits=2)) ]&#34;)
+    # ylabel!(&#34;space [$(x[1]),  $(x[end])]&#34;)
+    title!(&#34;FDM solution&#34;)
+
+    h2 = heatmap(t, x, ref_U, colormap=:viridis, clim=(-1,1))
+    title!(&#34;exact solution&#34;)
+
+    h3 = heatmap(t, x, U - ref_U, colormap=:viridis)
+    title!(&#34;error&#34;)
+
+    h4 = heatmap(framestyle=:none)
+    annotate!([0.5],[0.5], text(&#34;μ = $(round(μ, digits=3))&#34;, 30))
+
+    plot(h1, h2, h3, h4, size=(1500,750))
+end
+
+for μ ∈ [0.5, 0.51]
+    x = Vector(LinRange(-1., 1, 100))
+    Δx = x[2]-x[1]
+    initial_f = sin.(π*x)
+    Δt = μ*((Δx)^2)
+    T = 0.35
+    bdry_g = [0.0, 0.0]
+    t = Vector(0:Δt:T)
+
+    exact_sol(xt) = sin.(π*xt[:,1]) .* exp.(- (π)^2 * xt[:,2])
+    ref_u = ref_sol(x, t, exact_sol)
+    U = Solver_Heat_1d(Δt, T, x, initial_f, bdry_g)
+    results(t, x, U, ref_u, μ)
+    savefig(&#34;mu=&#34; * string(μ) * &#34;.png&#34;) 
+end
+</code></pre><h3 id="2차원">2차원</h3>
+<p>$$
+\begin{array}{lc}
+\text{Domain:} &amp; \\ 
+&amp; \Omega = [-2,2] \times [-2,2] \times [0,1] \\ 
+\text{Heat equation:} &amp; \\ 
+&amp; u_{t} - u_{xx} = 0 \\[0.5em] 
+&amp; u(x,y,0) = \frac{1}{4} e^{-x^{2} -y^{2}} \\[0.5em] 
+&amp; u(x, y, t) = 0\qquad \text{ on } \partial \left( [-2,2] \times [-2,2] \right)
+\end{array}
+$$</p>
+<p>같은 방법으로 위의 미분방정식을 풀면,</p>
+<p><img src="2d.gif#center" alt="2d.gif"></p>
+<pre tabindex="0"><code>using Plots
+
+cd = @__DIR__
+
+function Solver_Heat_2d(Δt, T, x, f)
+    # Δt: time step,    T: last time,   x: space vector
+    # f: initial value
+    
+    t = Vector(0:Δt:T)
+    n = length(t)
+    ℓ = length(x)
+    Δx = x[2]-x[1]
+    μ = Δt/((Δx)^2)
+
+    U = zeros(ℓ,ℓ,n)
+    U[:,:,1] = f
+
+    for i ∈ 2:n
+        U[2:end-1, 2:end-1, i] = (1-4μ)*U[2:end-1, 2:end-1, i-1] + μ*(U[1:end-2, 2:end-1, i-1] + U[3:end, 2:end-1, i-1] + U[2:end-1, 1:end-2, i-1] + U[2:end-1, 3:end, i-1])                     
+    end
+
+    return U
+end
+
+x = range(-2., stop=2, length=100)&#39;
+y = range(-2., stop=2, length=100)
+
+initial_f = @. (1/4)exp(-x^2) * exp(-y^2) 
+
+Δx = x[2]-x[1]
+Δt = 0.49*((Δx)^2)/2
+T = 1.0
+
+U = Solver_Heat_2d(Δt, T, x, initial_f)
+
+anim = @animate for i ∈ range(1, stop=size(U)[3], step=100)
+    surface(U[:,:,i], zlims=(0,0.5), camera=(30,30), colorbar=:none, showaxis = false, grid=false, size=(500,500))
+end
+
+gif(anim, cd*&#34;/2d.gif&#34;, fps=10)
+</code></pre><h3 id="환경">환경</h3>
+<ul>
+<li>OS: Windows11</li>
+<li>Version: Julia v1.8.3, Plots v1.38.6</li>
+</ul>
 <div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -367,7 +492,7 @@ $$</p>
 <aside style="text-align: right;">
     2013-10-22&emsp;
     전기현&emsp;
-    <a href="../2040">🎲 3495</a>
+    <a href="../925">🎲 3495</a>
 </aside>
 
 <script>
@@ -1177,6 +1302,11 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     </div>
 
     
+    
+    
+    <link rel="stylesheet" href=https://freshrimpsushi.github.io/css/codefence.css>
+    <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
+    <script>hljs.initHighlightingOnLoad();</script>
     
 
     <script src=https://freshrimpsushi.github.io/js/fuse.js></script> 
