@@ -246,7 +246,7 @@ $$</li>
 <li>다음과 같이 정의된 $\phi_{kk}$ 를 시차 $k$ 의 <strong>표본편자기공분산함수</strong>라고 한다.
 $$
 \widehat{ \phi_{kk} } := {{ r_{k} - \sum_{j=1}^{k-1} \phi_{(k-1),j} r_{k-j} } \over { 1 - \sum_{j=1}^{k-1} \phi_{(k-1),j} r_{j} }}
-\\ \phi_{k,j} := \phi_{(k-1),j} - \phi_{kk} \phi_{(k-1),(k-j)}
+\\ \phi_{k,j} := \phi_{(k-1),j} - \phi_{kk} \phi_{(k-1),(k-j)} 
 $$</li>
 </ol>
 <hr>
@@ -258,11 +258,11 @@ $$</li>
 $$
 Y_{t} = \beta_{1} Y_{t-1} + \cdots \beta_{k-1} Y_{t-(k-1)} + \widehat{e_{t}}
 $$
-다시 적어보면
+다시 적어보면 
 $$
 \widehat{e_{t}} = Y_{t} - \left( \beta_{1} Y_{t-1} + \cdots \beta_{k-1} Y_{t-(k-1)} \right)
 $$
-이는 $\widehat{e_{t}}$ 이 $Y_{t-1}, \cdots , Y_{t-(k-1)}$ 으로 설명될 부분들이 제거되었다는 뜻이다. 마찬가지로 $\widehat{e_{t-k}}$ 역시 $Y_{t-1}, \cdots , Y_{t-(k-1)}$ 으로 설명할 수 있을만한 부분은 다 제거되었기 때문에, $\text{cor} ( \widehat{e_{t}} , \widehat{e_{t-k}} )$ 을 계산한다는 것은 $Y_{t-1}, \cdots , Y_{t-(k-1)}$ 이 없어진 $Y_{t}$ 와 $Y_{t-k}$ 만의 상관관계를 보려고 하는 것이다. 다른 변수는 제쳐놓고 관심 있는 변수만을 신경쓴다는 점에서 &lsquo;편&rsquo;자기상관함수라는 이름은 적절함을 알 수 있다. [ <strong>NOTE</strong>: 아무리 개념이 단순하다고 해도 sPACF를 실제로 계산하는 건 꽤 어려웠는데, 레빈슨Levinson과 더빈Durbin이 제안한 메소드 덕에 그나마 $\widehat{ \phi_{kk} }$ 를 재귀적으로 계산할 수 있게 된 것이다. ]</p>
+이는 $\widehat{e_{t}}$ 이 $Y_{t-1}, \cdots , Y_{t-(k-1)}$ 으로 설명될 부분들이 제거되었다는 뜻이다. 마찬가지로 $\widehat{e_{t-k}}$ 역시 $Y_{t-1}, \cdots , Y_{t-(k-1)}$ 으로 설명할 수 있을만한 부분은 다 제거되었기 때문에, $\text{cor} ( \widehat{e_{t}} , \widehat{e_{t-k}} )$ 을 계산한다는 것은 $Y_{t-1}, \cdots , Y_{t-(k-1)}$ 이 없어진 $Y_{t}$ 와 $Y_{t-k}$ 만의 <a href="../57">상관관계</a>를 보려고 하는 것이다. 다른 변수는 제쳐놓고 관심 있는 변수만을 신경쓴다는 점에서 &lsquo;편&rsquo;자기상관함수라는 이름은 적절함을 알 수 있다. [ <strong>NOTE</strong>: 아무리 개념이 단순하다고 해도 sPACF를 실제로 계산하는 건 꽤 어려웠는데, 레빈슨Levinson과 더빈Durbin이 제안한 메소드 덕에 그나마 $\widehat{ \phi_{kk} }$ 를 재귀적으로 계산할 수 있게 된 것이다. ]</p>
 <h3 id="수식적-설명">수식적 설명</h3>
 <p>수식적으로는 $Y_{t}$ 가 $AR(p)$ 에서 나왔다고 생각해봤을 때 $\displaystyle Y_{t} = \sum_{k=1}^{p} \phi_{k} Y_{t-k} + e_{t}$ 이므로 $Y_{t-k}$ 의 계수 $\phi_{k}$ 를 계산하기 위해 나머지 변수를 배제할 수 있어 $AR(p)$ 모형을 찾는데에 유용하다.</p>
 <p>sPACF $\widehat{\phi_{kk}}$ 는 PACF $\phi_{kk}$ 의 추정치고, $Y_{t}$ 가 $AR(p)$ 모형에서 나왔다면 $k&gt;p$ 일 때 <a href="../1645">정규분포</a> $\displaystyle N \left( 0 , {{ 1 } \over { n }} \right)$ 을 따른다. 수식으로 나타내보면
@@ -309,7 +309,7 @@ abline(h=1.96*1/sqrt(length(ar1.s)),col=&#39;red&#39;)
 <aside style="text-align: right;">
     2019-08-06&emsp;
     류대식&emsp;
-    <a href="../2130">🎲 1211</a>
+    <a href="../1590">🎲 1211</a>
 </aside>
 
 <script>
