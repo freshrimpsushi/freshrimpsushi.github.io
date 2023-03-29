@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/poisson-distribution\/",
-    "wordCount" : "1229",
+    "wordCount" : "1231",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -257,7 +257,7 @@
 <p><img src="pmf.gif#center" alt="pmf.gif"></p>
 <p>$\lambda &gt; 0$ 에 대해 다음과 같은 확률 질량 함수를 가지는 <a href="../1433">이산 확률 분포</a> $\text{Poi} ( \lambda )$ 를 <strong>푸아송 분포</strong><sup>Poisson Distribution</sup>라고 한다.
 $$
-p(x) = {{ e^{-\lambda} \lambda^{x} } \over { x! }} \qquad , x = 0 , 1 , 2, \cdots
+p(x) = {{ e^{-\lambda} \lambda^{x} } \over { x! }} \qquad , x = 0 , 1 , 2, \cdots 
 $$</p>
 <h2 id="기초-성질">기초 성질</h2>
 <h3 id="적률-생성-함수">적률 생성 함수</h3>
@@ -269,7 +269,7 @@ $$</p>
 <li>[2]: $X \sim \text{Poi}(\lambda)$ 면
 $$
 \begin{align*}
-E(X) =&amp; \lambda
+E(X) =&amp; \lambda 
 \\ \text{Var}(X) =&amp; \lambda
 \end{align*}
 $$</li>
@@ -292,7 +292,7 @@ $$</p>
 </ul>
 <p>$\mu \approx np$ 이면
 $$
-X_{n} \overset{D}{\to} \text{Poi} (\mu)
+X_{n} \overset{D}{\to} \text{Poi} (\mu) 
 $$</p>
 <h3 id="푸아송분포의-극한분포로써-표준정규분포-유도197"><a href="../197">푸아송분포의 극한분포로써 표준정규분포 유도</a></h3>
 <ul>
@@ -305,7 +305,7 @@ $$</li>
 <h3 id="명명">명명</h3>
 <p>푸아송 분포의 확률 질량 질량함수는 언뜻 복잡해 보이지만 사실 우리에게 친숙한 <a href="../59">지수 함수의 급수 전개</a>에서 나온 것이다.
 $$
-e^{x} = 1 + {{ x } \over { 1 ! }} + {{ x^{2} } \over { 2! }} + {{ x^{3} } \over { 3! }} + \cdots
+e^{x} = 1 + {{ x } \over { 1 ! }} + {{ x^{2} } \over { 2! }} + {{ x^{3} } \over { 3! }} + \cdots 
 $$
 모수 $x = \lambda$ 는 보통 고정되어있다고 가정되므로 양변을 상수 $e^{\lambda}$ 로 나누면
 $$
@@ -321,12 +321,12 @@ $$
 <h3 id="1">[1]</h3>
 <p>$$
 \begin{align*}
-m(t) =&amp; \sum_{x=0}^{n} e^{tx} p(x)
-\\ =&amp; \sum_{x=0}^{n} e^{tx} {{ \lambda^{x} e^{-\lambda} } \over { x! }}
-\\ =&amp;  e^{-\lambda} \sum_{x=0}^{n} {{ \left( e^{t}\lambda \right)^{x} } \over { x! }}
-\\ =&amp; e^{-\lambda} e^{\lambda e^{t}}
-\\ =&amp; \exp \left[ -\lambda + \lambda e^{t} \right]
-\\ =&amp; \exp \left[ \lambda ( e^{t} - 1) \right]
+m(t) =&amp; \sum_{x=0}^{n} e^{tx} p(x) 
+\\ =&amp; \sum_{x=0}^{n} e^{tx} {{ \lambda^{x} e^{-\lambda} } \over { x! }} 
+\\ =&amp;  e^{-\lambda} \sum_{x=0}^{n} {{ \left( e^{t}\lambda \right)^{x} } \over { x! }} 
+\\ =&amp; e^{-\lambda} e^{\lambda e^{t}} 
+\\ =&amp; \exp \left[ -\lambda + \lambda e^{t} \right] 
+\\ =&amp; \exp \left[ \lambda ( e^{t} - 1) \right] 
 \end{align*}
 $$</p>
 <p style="text-align: right;">■</p>
@@ -344,7 +344,7 @@ $$</p>
 <p style="text-align: right;">■</p>
 <h2 id="코드">코드</h2>
 <p>다음은 푸아송분포의 확률질량함수를 움짤로 보여주는 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다.</p>
-<pre tabindex="0"><code>@time using LaTeXStrings
+<pre><code>@time using LaTeXStrings
 @time using Distributions
 @time using Plots
 
@@ -356,24 +356,24 @@ x = 0:20
 animation = @animate for λ ∈ Λ
     scatter(x, pdf.(Poisson(λ), x),
      color = :black,
-     label = &#34;λ = $(round(λ, digits = 2))&#34;, size = (400,300))
-    xlims!(0,10); ylims!(0,0.5); title!(L&#34;\mathrm{pmf\,of\,Poi}(\lambda)&#34;)
+     label = &quot;λ = $(round(λ, digits = 2))&quot;, size = (400,300))
+    xlims!(0,10); ylims!(0,0.5); title!(L&quot;\mathrm{pmf\,of\,Poi}(\lambda)&quot;)
 end
-gif(animation, &#34;pmf.gif&#34;)
-</code></pre><div class="footnotes" role="doc-endnotes">
+gif(animation, &quot;pmf.gif&quot;)
+</code></pre><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1">
-<p>Hogg et al. (2013). Introduction to Mathematical Statistcs(7th Edition): p152.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1" role="doc-endnote">
+<p>Hogg et al. (2013). Introduction to Mathematical Statistcs(7th Edition): p152. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</div>
+</section>
 
 
 <aside style="text-align: right;">
     2020-02-26&emsp;
     류대식&emsp;
-    <a href="../1829">🎲 1491</a>
+    <a href="../819">🎲 1491</a>
 </aside>
 
 <script>

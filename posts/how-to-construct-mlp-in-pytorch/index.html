@@ -229,13 +229,13 @@
 </aside>
 
 <h2 id="라이브러리">라이브러리</h2>
-<pre tabindex="0"><code>import torch
+<pre><code>import torch
 import torch.nn as nn
 import torch.nn.functional as F
 </code></pre><p><code>nn</code>와 <code>nn.functional</code>에는 뉴럴 네트워크를 구성하는 여러가지 레이어, 손실함수, 활성화 함수 등이 포함되어있다.</p>
 <h2 id="인공신경망-정의">인공신경망 정의</h2>
 <p>fully connected layer 3개를, relu <a href="../991">활성화 함수</a>를 써서 쌓은 MLP<sup>multi layer perceptron</sup>를 만들고 싶다면 다음과 같은 코드로 구현할 수 있다.</p>
-<pre tabindex="0"><code>class Custom_Net(nn.Module):
+<pre><code>class Custom_Net(nn.Module):
     def __init__(self):
         super(Custom_Net, self).__init__()
 
@@ -259,12 +259,12 @@ import torch.nn.functional as F
 <p>만약 MLP에서 이미지 등의 2차원 배열을 입력으로 사용할거라면 <code>x = x.view(-1,m)</code>을 사용하여 입력 데이터를 한 줄로 펴주어야 한다. -1은 나머지 값을 알아서 처리하라는 의미이며, 배치 학습을 시킬 경우 배치 사이즈와 같아진다.</p>
 <h2 id="옵티마이저와-손실함수-정의">옵티마이저와 손실함수 정의</h2>
 <p>위에서 만든 모델, 옵티마이저, 손실함수 등을 다음과 같이 정의한다. 만약 GPU를 사용한다면 <code>.to(DEVICE)</code>를 써서 GPU에 올려야한다. 당연히 DEVICE는 사용할 GPU로 위에서 미리 정의해야한다. <code>lr</code>은 <a href="../987">러닝 레이트</a>를 의미한다.</p>
-<pre tabindex="0"><code>model = Custom_Net().to(DEVICE)
+<pre><code>model = Custom_Net().to(DEVICE)
 
 optimizer = torch.optim.Adam(model.parameters()), lr = 0.0001)
 criterion = nn.MSELoss()
 </code></pre><p><code>print</code>로 뉴럴 네트워크가 어떻게 구성됐는지 확인할 수 있다.</p>
-<pre tabindex="0"><code>&gt;&gt;&gt; print(model)
+<pre><code>&gt;&gt;&gt; print(model)
 Custom_Net(
   (fully_cnnected_1): Linear(in_features=1024, out_features=1024, bias=False)
   (fully_cnnected_2): Linear(in_features=1024, out_features=512, bias=False)
@@ -272,7 +272,7 @@ Custom_Net(
 )
 </code></pre><h2 id="학습">학습</h2>
 <p>입력 $X$와 출력 $Y$로 구성된 적당한 <a href="../3108">데이터 셋</a> <code>Data_set</code>이 주어졌다고 하자. 그러면 정의한 모델을 학습시키는 함수를 다음과 같이 구현할 수 있다.</p>
-<pre tabindex="0"><code>def train():
+<pre><code>def train():
     model.train()
             
     for batch_idx, (X, Y) in enumerate(Data_set):
@@ -294,7 +294,7 @@ Custom_Net(
 <li><code>optimizer.step()</code>: 계산한 $\delta$를 바탕으로 옵티마이저를 최적화 한다.</li>
 </ul>
 <h2 id="전체코드">전체코드</h2>
-<pre tabindex="0"><code>#필요한 라이브러리 import
+<pre><code>#필요한 라이브러리 import
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -359,7 +359,7 @@ for epoch in range(1, EPOCHS):
 <aside style="text-align: right;">
     2021-08-25&emsp;
     전기현&emsp;
-    <a href="../2011">🎲 3103</a>
+    <a href="../1913">🎲 3103</a>
 </aside>
 
 <script>

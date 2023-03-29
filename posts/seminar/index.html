@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/seminar\/",
-    "wordCount" : "2677",
+    "wordCount" : "4261",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -242,6 +242,18 @@
     </li>
     <li><a href="#같이보기">같이보기</a></li>
   </ul>
+
+  <ul>
+    <li><a href="#정의-2">정의</a></li>
+    <li><a href="#설명-2">설명</a>
+      <ul>
+        <li><a href="#중학생-수준">중학생 수준</a></li>
+        <li><a href="#고등학생-수준-1">고등학생 수준 </a></li>
+        <li><a href="#대학생-수준">대학생 수준</a></li>
+        <li><a href="#개발자-조크">개발자 조크</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
     </div>
     
@@ -272,7 +284,7 @@ How to Load Functions in Other File in julia</p>
 <p>많이 불편해보이지만 사실 성능상의 이유로 있는거니까 이해 좀 해줘</p>
 <hr>
 <p>줄리아 0으로 나누었을 때 Inf와 NaN의 차이</p>
-<pre tabindex="0"><code>julia&gt; 0/0
+<pre><code>julia&gt; 0/0
 NaN
 
 julia&gt; 1/0
@@ -345,12 +357,115 @@ $$</p>
 <ul>
 <li><a href="../571">오류행렬과 민감도, 특이도</a></li>
 </ul>
+<hr>
+<h1 id="팩토리얼-0이-01-으로-정의되는-이유">팩토리얼 0이 0!=1 으로 정의되는 이유</h1>
+<h1 id="why-is-factorial-0-defined-as-0--1">Why is factorial 0 defined as 0! = 1?</h1>
+<h2 id="정의-2">정의</h2>
+<p>$0 \notin \mathbb{N}$ 에 대한 <a href="../1477">팩토리얼</a> $0!$ 을 다음과 같이 정의한다.
+$$
+0! := 1
+$$</p>
+<h2 id="설명-2">설명</h2>
+<p>$0!$ 은 왜 $0$ 이 아니라 $1$ 일까? 본래 $0! := 1$ 은 정의기 때문에 증명할 필요가 없고, 왜 그런 정의가 타당한지를 알아가는 과정은 &lsquo;어떠한 이유로 이러한 정의를 내렸으니 납득해달라는 요청&rsquo;에 가깝다. 수준에 맞게 단계별로 이해해보자.</p>
+<h3 id="중학생-수준">중학생 수준</h3>
+<p>자연수 $n$ 에 대해 $n!$ 은 다음과 같이 정의할 수 있다.
+$$
+n! := n \times (n-1) \times \cdots \times 2 \times 1
+$$
+쉽게 말해 팩토리얼은 $n$ 부터 $1$씩 빼가면서 곱한 수로써 그다지 어렵지도 않고 왜 이런 게 필요한지도 곧바로 알게 된다. (교과과정보다 조금 앞서나간다면) 중학교부터 순열과 조합로 팩토리얼을 접할 수 있으며, 순열 $_{n} P _{r}$ 과 <a href="../218">이항계수</a> $_{n} C_{r}$ 에서 바로 등장한다.
+$$
+\begin{align*}
+_{n}P_{r} &amp;:=&amp; n ( n - 1 ) \cdots ( r + 1 ) r &amp;=&amp; {{ n! } \over { (n-r)! }}
+\\ _{n}C_{r} &amp;:=&amp; {{ _{n}P_{r} } \over { r! }} &amp;=&amp; {{ n! } \over { r! (n-r)! }}
+\end{align*}
+$$
+여기서 $r = n$ 이라 둔다는 것은 $n$ 개의 아이템 중 $n$ 개 전부를 뽑아서 순열과 조합을 계산한다는 것이데, $_{n} P _{n} = n! / 0!$ 은 $n$ 개의 아이템을 순서를 가지고 나열하는 경우의 수 $n!$ 과 같으며 $_{n} C _{n} = n! / n! 0!$ 역시 $n$ 개의 아이템을 모두 뽑는 경우의 수 $1$ 과 같아야한다. 이 때 $x = 0!$ 은 형식적으로는 다음의 방정식을 만족하는 수여야한다.
+$$
+\begin{cases}
+\displaystyle{{ n! } \over { x }} =&amp; n!
+\\ \displaystyle {{ n! } \over { n! x }} =&amp; 1
+\end{cases}
+$$
+딱히 <a href="../3014">연립방정식</a>일 이유는 없지만, 어쨌든 두 방정식을 동시에 만족시키는 해는 $x = 1$ 이다. 이는 $_{n}P_{r}$ 과 $_{n}C_{r}$ 이 팩토리얼로 정의된 꼴이 타당하다고 받아들인 상태에서, $0!$ 을 $1$ 로 정의했을 때 수식적으로 깔끔하고 편리함을 보인 것이다. 넓고 깊은 수학의 세계에서 팩토리얼이 어떤 의미인지 모를지라도, 당장 실용적인 정의임은 분명해 보인다.</p>
+<h3 id="고등학생-수준-1">고등학생 수준 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h3>
+<p>고등학생 정도면 <a href="../2060">지수함수</a>를 배우면서 $a$ 의 거듭제곱이 어떻게 음수에 대해 확장되는지를 알게 된다. 먼저 자연수에 대한 $2$ 의 거듭제곱은 다음과 같이 상식적으로 전개된다.
+$$
+\begin{align*}
+2^{2} =&amp; 4
+\\ 2^{3} =&amp; 8
+\\ 2^{4} =&amp; 16
+\\ 2^{5} =&amp; 32
+\\ \vdots &amp;
+\end{align*}
+$$
+보다시피 $2^{x}$ 는 한 줄 한 줄 내려올 때 $x$ 가 $1$씩 증가하며 $2$배로 증가하고 있다. 이건 아무리 수학에 약해도 상식적으로 바로 이해할 수 있는 거듭제곱의 개념이다. 한편 이를 정수 전체에 대해 일반화하는 과정은 책을 보고 그 패턴을 봐야 이해하기 쉽다.
+$$
+\begin{align*}
+2^{2} =&amp; 4
+\\ 2^{1} =&amp; 2
+\\ 2^{0} =&amp; 1
+\\ 2^{-1} =&amp; 0.5
+\\ \vdots &amp;
+\end{align*}
+$$
+역시 $2^{x}$ 는 한 줄 한 줄 내려올 때 $x$ 가 $1$씩 감소하며 $2$씩 나뉘고 있다. 이는 $2^{0}, 2^{-1}$ 이라는 표현이 올바른지, 그런 게 가능한지를 떠나 형식적으로 말이 되는 패턴을 보여주고 있다. $2^{x}$ 의 예시에서 배울 수 있는 건, $2^{x}$ 이라는 표현이 $x$ 가 증가할 땐 2배로 늘고 $x$ 가 감소할 땐 절반이 된다는 걸 기가 막히게 잘 나타낸다는 것이다.</p>
+<p>이제 팩토리얼로 돌아와보자. $n!$ 은 다음과 같이 $(n-1)!$ 에 $n$ 을 곱하는 방식으로 전개된다.
+$$
+\begin{align*}
+1! =&amp; 1
+\\ 2! =&amp; 1! \times 2
+\\ 3! =&amp; 2! \times 3
+\\ 4! =&amp; 3! \times 4
+\\ \vdots &amp;
+\end{align*}
+$$
+지수함수의 예시에서 그랬던 것처럼, 이걸 &lsquo;말이 되는 방식으로&rsquo; 뒤집어보자. $n!$ 는 $n$ 이 커지면서 곱해졌으니 이제는 $n$ 이 작아지면서 나뉘면 된다.
+$$
+\begin{align*}
+\vdots &amp;
+\\ 4! =&amp; 5! \div 5
+\\ 3! =&amp; 4! \div 4
+\\ 2! =&amp; 3! \div 3
+\\ 1! =&amp; 2! \div 2
+\\ 0! =&amp; 1! \div 1
+\end{align*}
+$$
+$1! = \prod_{k=1}^{1} 1$ 이니 이걸 $1$ 로 나눈 $1! \div 1 = 0!$ 은 $1$ 이 되는 게 &lsquo;상식적&rsquo;이다. 주목할만한 점은 이러한 설득이 $0! = 1$ 이 어떻게 유용한지에 대해 전혀 알려주지 않는다는 것이다. 단지 수학적인 직관으로 이게 말이 되기 때문에, 그 아름다움만으로 이 정의를 밀어붙이고 있다.</p>
+<h3 id="대학생-수준">대학생 수준</h3>
+<p>대학생이 되면 <a href="../../categories/%EB%AF%B8%EC%A0%81%EB%B6%84%ED%95%99">미적분학</a>에서 적분범위가 <a href="../180">바운드</a> 되지 않은 <a href="../3094">이상적분</a>을 배우고, 각종 전공책에서 <a href="../95">감마함수</a>라는 걸 배우게 된다.</p>
+<blockquote>
+<p><a href="../95">팩토리얼의 일반화로써의 감마함수</a>: <a href="../1348">자연수</a> $n \in \mathbb{N}$ 에 대해 $\Gamma(n) = (n-1)!$ 이 성립한다.</p>
+</blockquote>
+<p><a href="../1477">팩토리얼</a>이 <a href="../95">감마함수</a>의 특수한 케이스가 되려면 $0! = 1$ 이어야 한다. 감마함수는
+$$
+\Gamma (x) = \int_{0}^{\int} t^{x-1} e^{-t} dt
+$$
+와 같이 정의되는데, $x=1$ 을 대입하면
+$$
+\begin{align*}
+\Gamma (1) =&amp; \int_{0}^{\infty} t^{1-1} e^{-t} dt
+\\ =&amp; \int_{0}^{\infty} e^{-t} dt
+\\ =&amp; \left[ - e^{-t} \right]_{0}^{\infty}
+\\ =&amp; - 0 - (-1) = 1
+\end{align*}
+$$
+이고 $0! = \Gamma (1)$ 이므로 $n!$ 을 $0$에 대해 확장하려면 $0! = 1$ 이라 정의하는 게 타당하다.</p>
+<h3 id="개발자-조크">개발자 조크</h3>
+<p>대부분의 <a href="../../categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D">프로그래밍</a> 언어에서 <code>0!=1</code>은 참(True)을 반환한다.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://youtu.be/X32dce7_D48">https://youtu.be/X32dce7_D48</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
 <aside style="text-align: right;">
     2021-01-01&emsp;
     류대식&emsp;
-    <a href="../752">🎲 2000</a>
+    <a href="../417">🎲 2000</a>
 </aside>
 
 <script>

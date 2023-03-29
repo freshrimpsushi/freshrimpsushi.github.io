@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/substitution-trick-to-calculate-numerically-improper-integration\/",
-    "wordCount" : "1311",
+    "wordCount" : "1312",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -254,9 +254,9 @@ $$
 $\displaystyle m(x) := \int_{0}^{x} {{1} \over {\sqrt{t} }} dt = 2 \sqrt{x}$ 으로 두면 $\displaystyle \sqrt{x} dm = dx$ 이므로
 $$
 \begin{align*}
-\int_{0}^{1} {{e^{-x}} \over {\sqrt{x}}} dx =&amp; \int_{m=0}^{2} {{e^{-x}} \over {\sqrt{x}}} \sqrt{x} dm
-\\ =&amp; \int_{0}^{2} e^{-x} dm
-\\ =&amp; \int_{0}^{2} e^{- m^2 / 4} dm
+\int_{0}^{1} {{e^{-x}} \over {\sqrt{x}}} dx =&amp; \int_{m=0}^{2} {{e^{-x}} \over {\sqrt{x}}} \sqrt{x} dm 
+\\ =&amp; \int_{0}^{2} e^{-x} dm 
+\\ =&amp; \int_{0}^{2} e^{- m^2 / 4} dm 
 \end{align*}
 $$
 이와 같은 트릭을 통해 폐구간에 대한 적분을 만들었다면 적분 기법을 적용할 수 있다. 실제로 <a href="../1130">사다리꼴 룰</a>을 통해 수치를 계산해보면 다음과 같은 결과를 얻을 수 있다.</p>
@@ -269,9 +269,9 @@ $$
 가장 먼저 드는 생각은 &lsquo;딱히 치환이 필요없다&rsquo;는 점일 것이다. $e^{-x} \sqrt{x}$ 는 $[0,1]$ 에서 싱귤래러티를 갖지 않기 때문에 있는 그대로 <a href="../1130">사다리꼴 룰</a>을 적용시킬 수 있다. 하지만 $x=0$ 에서 미분가능하지 않은데, 이 점 때문에 에러의 바운드가 없어지고 수렴 속도가 느려진다. 위와 마찬가지로 $\displaystyle m(x) := \int_{0}^{x} {{1} \over {\sqrt{t} }} dt = 2 \sqrt{x}$ 으로 두면 $\displaystyle \sqrt{x} dm = dx$ 이므로
 $$
 \begin{align*}
-\int_{0}^{1} e^{-x} \sqrt{x} dx =&amp; \int_{m=0}^{2} e^{-x} \sqrt{x} \sqrt{x} dm
-\\ =&amp; \int_{0}^{2} e^{-x} x dm
-\\ =&amp; \int_{0}^{2} e^{- m^2 / 4} {{m^2} \over {4}} dm
+\int_{0}^{1} e^{-x} \sqrt{x} dx =&amp; \int_{m=0}^{2} e^{-x} \sqrt{x} \sqrt{x} dm 
+\\ =&amp; \int_{0}^{2} e^{-x} x dm 
+\\ =&amp; \int_{0}^{2} e^{- m^2 / 4} {{m^2} \over {4}} dm 
 \end{align*}
 $$
 보다시피 치환적분을 하고 나면 $m=0$ 에서의 싱귤래러티가 없어진다. 마찬가지로 <a href="../1130">사다리꼴 룰</a>을 통해 수치를 계산해보면 다음과 같은 결과를 얻을 수 있다. 왼쪽이 그냥 계산한 것이고 오른쪽이 치환을 거치고 계산한 것이다.</p>
@@ -282,31 +282,31 @@ $$
 <p>전략: 실제 계산은 컴퓨터에게 맡길 것이기 때문에 폐구간에서의 적분으로만 바꾸면 된다. 방법은 본질적으로 같다.</p>
 <h3 id="1">[1]</h3>
 <p>$$
-m := \int_{0}^{x} {{ 1 } \over { t^{p} }} dt = {{ 1 } \over { 1-p }} x^{1-p}
+m := \int_{0}^{x} {{ 1 } \over { t^{p} }} dt = {{ 1 } \over { 1-p }} x^{1-p} 
 $$
 와 같이 두면 $\displaystyle {{ dm } \over { dx }} = x^{-p} \iff x^{p} dm = dx$ 이므로
 $$
 \begin{align*}
-\int_{0}^{b} {{ f(x) } \over {x^{p} }} dx =&amp; \int_{m=0}^{{{ 1 } \over { 1-p }} b^{1-p}} {{ f(x) } \over {x^{p} }} x^{p} dm
-\\ =&amp; \int_{0}^{{{ 1 } \over { 1-p }} b^{1-p}}f \left( \left[ ( 1- p ) m \right]^{{{ 1 } \over { 1-p }}} \right)  dm
+\int_{0}^{b} {{ f(x) } \over {x^{p} }} dx =&amp; \int_{m=0}^{{{ 1 } \over { 1-p }} b^{1-p}} {{ f(x) } \over {x^{p} }} x^{p} dm 
+\\ =&amp; \int_{0}^{{{ 1 } \over { 1-p }} b^{1-p}}f \left( \left[ ( 1- p ) m \right]^{{{ 1 } \over { 1-p }}} \right)  dm 
 \end{align*}
 $$</p>
 <p style="text-align: right;">■</p>
 <h3 id="2">[2]</h3>
 <p>$$
-m := \int_{x}^{\infty} {{ 1 } \over { t^{p} }} dt = - {{ 1 } \over { 1-p }} x^{1-p}
+m := \int_{x}^{\infty} {{ 1 } \over { t^{p} }} dt = - {{ 1 } \over { 1-p }} x^{1-p} 
 $$
 와 같이 두면 $\displaystyle {{ dm } \over { dx }} = - x^{-p} \iff - x^{p} dm = dx$ 이므로
 $$
 \begin{align*}
-\int_{a}^{ \infty } {{ f(x) } \over {x^{p} }} dx =&amp; \int_{m= - {{ 1 } \over { 1-p }} a^{1-p}}^{0} {{ f(x) } \over {x^{p} }} ( - x^{p} ) dm
-\\ =&amp; \int_{0}^{{{ 1 } \over { p-1 }} a^{1-p}}f \left( \left[ ( p-1 ) m \right]^{{{ 1 } \over { 1-p }}} \right)  dm
+\int_{a}^{ \infty } {{ f(x) } \over {x^{p} }} dx =&amp; \int_{m= - {{ 1 } \over { 1-p }} a^{1-p}}^{0} {{ f(x) } \over {x^{p} }} ( - x^{p} ) dm 
+\\ =&amp; \int_{0}^{{{ 1 } \over { p-1 }} a^{1-p}}f \left( \left[ ( p-1 ) m \right]^{{{ 1 } \over { 1-p }}} \right)  dm 
 \end{align*}
 $$</p>
 <p style="text-align: right;">■</p>
 <h2 id="구현">구현</h2>
 <p>다음은 예제들을 수치적으로 푼 파이썬 코드다.</p>
-<pre tabindex="0"><code>import numpy as np
+<pre><code>import numpy as np
  
 def f1(x) :
     return np.exp(-x)
@@ -338,52 +338,52 @@ def CVI(f,a,b,n) :
 TV1=1.49364826562485405079
 TV2=0.37894469164098470380
  
-print(&#34;&#34;)
+print(&quot;&quot;)
  
-print(&#34;True Value 1 : %2.12f&#34; % TV1) 
-print(&#34;|   n |  In       |  I-In      |&#34;)
-print(&#34;=&#34;*32)
+print(&quot;True Value 1 : %2.12f&quot; % TV1) 
+print(&quot;|   n |  In       |  I-In      |&quot;)
+print(&quot;=&quot;*32)
 for n in range(3,10) :
-    print(&#34;| %3d |  %8.6f |  %9.2e |&#34; % (
+    print(&quot;| %3d |  %8.6f |  %9.2e |&quot; % (
         2**n,
         CVI(f1,0,1,2**n),
         TV1-CVI(f1,0,1,2**n)))
-print(&#34;&#34;)
+print(&quot;&quot;)
  
-print(&#34;True Value 2 : %2.12f&#34; % TV2)
-print(&#34;|   n |  In       |  I-In      |&#34;)
-print(&#34;=&#34;*32)
+print(&quot;True Value 2 : %2.12f&quot; % TV2)
+print(&quot;|   n |  In       |  I-In      |&quot;)
+print(&quot;=&quot;*32)
 for n in range(3,10) :
-    print(&#34;| %3d |  %8.6f |  %9.2e |&#34; % (
+    print(&quot;| %3d |  %8.6f |  %9.2e |&quot; % (
         2**n,
         I(f2,0,1,2**n),
         TV2-I(f2,0,1,2**n)))
-print(&#34;&#34;)
+print(&quot;&quot;)
  
-print(&#34;True Value 2 : %2.12f&#34; % TV2)
-print(&#34;|   n |  In       |  I-In      |&#34;)
-print(&#34;=&#34;*32)
+print(&quot;True Value 2 : %2.12f&quot; % TV2)
+print(&quot;|   n |  In       |  I-In      |&quot;)
+print(&quot;=&quot;*32)
 for n in range(3,10) :
-    print(&#34;| %3d |  %8.6f |  %9.2e |&#34; % (
+    print(&quot;| %3d |  %8.6f |  %9.2e |&quot; % (
         2**n,
         CVI(f3,0,1,2**n),
         TV2-CVI(f3,0,1,2**n)))
  
-print(&#34;&#34;)
-</code></pre><div class="footnotes" role="doc-endnotes">
+print(&quot;&quot;)
+</code></pre><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1">
-<p>Atkinson. (1989). An Introduction to Numerical Analysis(2nd Edition): p305~306.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1" role="doc-endnote">
+<p>Atkinson. (1989). An Introduction to Numerical Analysis(2nd Edition): p305~306. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</div>
+</section>
 
 
 <aside style="text-align: right;">
     2019-07-06&emsp;
     류대식&emsp;
-    <a href="../1129">🎲 1147</a>
+    <a href="../912">🎲 1147</a>
 </aside>
 
 <script>

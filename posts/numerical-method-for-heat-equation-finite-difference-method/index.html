@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/numerical-method-for-heat-equation-finite-difference-method\/",
-    "wordCount" : "2298",
+    "wordCount" : "2300",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -290,11 +290,11 @@ $$</p>
 <p>이제 $\tilde{u}_{\ell}^{n} = u(\ell\Delta x, n\Delta t)$를 근삿값 $u_{\ell}^{n}$의 참값이라고 하자.</p>
 <p>$$
 \begin{align*}
-u_{\ell}^{n+1} &amp;= u_{\ell}^{n} + \mu \left( u_{\ell-1}^{n} - 2u_{\ell}^{n} + u_{\ell+1}^{n} \right) \\
+u_{\ell}^{n+1} &amp;= u_{\ell}^{n} + \mu \left( u_{\ell-1}^{n} - 2u_{\ell}^{n} + u_{\ell+1}^{n} \right) \\ 
 \tilde{u}_{\ell}^{n+1} &amp;= \tilde{u}_{\ell}^{n} + \mu \left( \tilde{u}_{\ell-1}^{n} - 2\tilde{u}_{\ell}^{n} + \tilde{u}_{\ell+1}^{n} \right) + \mathcal{O}\left( (\Delta x)^{4} \right)
 \end{align*}
 \qquad \begin{array}{l}
-\ell = 0,1,\dots,d+1 \\
+\ell = 0,1,\dots,d+1 \\ 
 n=0,1,\dots,n_{\Delta t}
 \end{array}
 $$</p>
@@ -310,9 +310,9 @@ $$</p>
 <p>$$
 \begin{align*}
 \left| e_{\ell}^{n+1} \right|
-&amp;\le \left| e_{\ell}^{n} + \mu \left( e_{\ell-1}^{n} - 2e_{\ell}^{n} + e_{\ell+1}^{n} \right) + c (\Delta x)^{4} \right| \\
-&amp;\le \left| e_{\ell}^{n} + \mu \left( e_{\ell-1}^{n} - 2e_{\ell}^{n} + e_{\ell+1}^{n} \right) \right| + c (\Delta x)^{4} \\
-&amp;\le \mu \left| e_{\ell-1}^{n} \right| + \left| 1 - 2\mu \right| \left| e_{\ell}^{n} \right| + \mu \left| e_{\ell+1}^{n} \right| + c (\Delta x)^{4} \\
+&amp;\le \left| e_{\ell}^{n} + \mu \left( e_{\ell-1}^{n} - 2e_{\ell}^{n} + e_{\ell+1}^{n} \right) + c (\Delta x)^{4} \right| \\ 
+&amp;\le \left| e_{\ell}^{n} + \mu \left( e_{\ell-1}^{n} - 2e_{\ell}^{n} + e_{\ell+1}^{n} \right) \right| + c (\Delta x)^{4} \\ 
+&amp;\le \mu \left| e_{\ell-1}^{n} \right| + \left| 1 - 2\mu \right| \left| e_{\ell}^{n} \right| + \mu \left| e_{\ell+1}^{n} \right| + c (\Delta x)^{4} \\ 
 &amp;\le (2\mu + \left| 1 - 2\mu \right|)\eta^{n} + c (\Delta x)^{4},\qquad n=0,1,\dots,n_{\Delta t}-1
 \end{align*}
 $$</p>
@@ -343,13 +343,13 @@ $$</p>
 <p>이제 다음과 같은 1차원 열 방정식을 생각해보자.</p>
 <p>$$
 \begin{array}{lc}
-\text{Domain:} &amp; \\
-&amp; \Omega = [-1,1]\times [0,0.35] \\
-\text{Heat equation:} &amp; \\
-&amp; u_{t} - u_{xx} = 0 \\[0.5em]
-&amp; u(x,0) = \sin (\pi x) \\[0.5em]
-&amp; u(-1, t) = 0,\quad u(1, t) = 0 \\[0.5em]
-\text{Exact solution:}&amp; \\
+\text{Domain:} &amp; \\ 
+&amp; \Omega = [-1,1]\times [0,0.35] \\ 
+\text{Heat equation:} &amp; \\ 
+&amp; u_{t} - u_{xx} = 0 \\[0.5em] 
+&amp; u(x,0) = \sin (\pi x) \\[0.5em] 
+&amp; u(-1, t) = 0,\quad u(1, t) = 0 \\[0.5em] 
+\text{Exact solution:}&amp; \\ 
 &amp; u(x,t) = \sin(\pi x) e^{-\pi^2 t}
 \end{array}
 $$</p>
@@ -357,7 +357,7 @@ $$</p>
 <p><img src="mu=0.500.png#center" alt="mu=0.500.png"></p>
 <p>반면 $\Delta t = \mu (\Delta)^{2} = 0.51(\Delta x)^{2}$로 두고 풀면 솔루션이 제대로 구해지지 않는 것을 볼 수 있다.</p>
 <p><img src="mu=0.510.png#center" alt="mu=0.510.png"></p>
-<pre tabindex="0"><code>using Plots
+<pre><code>using Plots
 using LinearAlgebra
 
 function Solver_Heat_1d(Δt, T, x, f, g)
@@ -391,18 +391,18 @@ end
 
 function results(t, x, U, ref_U, μ)
     h1 = heatmap(t, x, U, colormap=:viridis, clim=(-1,1))
-    # xlabel!(&#34;time [0, $(round(t[end], digits=2)) ]&#34;)
-    # ylabel!(&#34;space [$(x[1]),  $(x[end])]&#34;)
-    title!(&#34;FDM solution&#34;)
+    # xlabel!(&quot;time [0, $(round(t[end], digits=2)) ]&quot;)
+    # ylabel!(&quot;space [$(x[1]),  $(x[end])]&quot;)
+    title!(&quot;FDM solution&quot;)
 
     h2 = heatmap(t, x, ref_U, colormap=:viridis, clim=(-1,1))
-    title!(&#34;exact solution&#34;)
+    title!(&quot;exact solution&quot;)
 
     h3 = heatmap(t, x, U - ref_U, colormap=:viridis)
-    title!(&#34;error&#34;)
+    title!(&quot;error&quot;)
 
     h4 = heatmap(framestyle=:none)
-    annotate!([0.5],[0.5], text(&#34;μ = $(round(μ, digits=3))&#34;, 30))
+    annotate!([0.5],[0.5], text(&quot;μ = $(round(μ, digits=3))&quot;, 30))
 
     plot(h1, h2, h3, h4, size=(1500,750))
 end
@@ -420,22 +420,22 @@ for μ ∈ [0.5, 0.51]
     ref_u = ref_sol(x, t, exact_sol)
     U = Solver_Heat_1d(Δt, T, x, initial_f, bdry_g)
     results(t, x, U, ref_u, μ)
-    savefig(&#34;mu=&#34; * string(μ) * &#34;.png&#34;) 
+    savefig(&quot;mu=&quot; * string(μ) * &quot;.png&quot;) 
 end
 </code></pre><h3 id="2차원">2차원</h3>
 <p>$$
 \begin{array}{lc}
-\text{Domain:} &amp; \\
-&amp; \Omega = [-2,2] \times [-2,2] \times [0,1] \\
-\text{Heat equation:} &amp; \\
-&amp; u_{t} - u_{xx} = 0 \\[0.5em]
-&amp; u(x,y,0) = \frac{1}{4} e^{-x^{2} -y^{2}} \\[0.5em]
+\text{Domain:} &amp; \\ 
+&amp; \Omega = [-2,2] \times [-2,2] \times [0,1] \\ 
+\text{Heat equation:} &amp; \\ 
+&amp; u_{t} - u_{xx} = 0 \\[0.5em] 
+&amp; u(x,y,0) = \frac{1}{4} e^{-x^{2} -y^{2}} \\[0.5em] 
 &amp; u(x, y, t) = 0\qquad \text{ on } \partial \left( [-2,2] \times [-2,2] \right)
 \end{array}
 $$</p>
 <p>같은 방법으로 위의 미분방정식을 풀면,</p>
 <p><img src="2d.gif#center" alt="2d.gif"></p>
-<pre tabindex="0"><code>using Plots
+<pre><code>using Plots
 
 cd = @__DIR__
 
@@ -459,7 +459,7 @@ function Solver_Heat_2d(Δt, T, x, f)
     return U
 end
 
-x = range(-2., stop=2, length=100)&#39;
+x = range(-2., stop=2, length=100)'
 y = range(-2., stop=2, length=100)
 
 initial_f = @. (1/4)exp(-x^2) * exp(-y^2) 
@@ -474,26 +474,26 @@ anim = @animate for i ∈ range(1, stop=size(U)[3], step=100)
     surface(U[:,:,i], zlims=(0,0.5), camera=(30,30), colorbar=:none, showaxis = false, grid=false, size=(500,500))
 end
 
-gif(anim, cd*&#34;/2d.gif&#34;, fps=10)
+gif(anim, cd*&quot;/2d.gif&quot;, fps=10)
 </code></pre><h3 id="환경">환경</h3>
 <ul>
 <li>OS: Windows11</li>
 <li>Version: Julia v1.8.3, Plots v1.38.6</li>
 </ul>
-<div class="footnotes" role="doc-endnotes">
+<section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1">
-<p>A. Iserles, <em>A First Course in the Numerical Analysis of Differential Equations</em> (2nd, 2009), p349-353&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1" role="doc-endnote">
+<p>A. Iserles, <em>A First Course in the Numerical Analysis of Differential Equations</em> (2nd, 2009), p349-353 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</div>
+</section>
 
 
 <aside style="text-align: right;">
     2013-10-22&emsp;
     전기현&emsp;
-    <a href="../1100">🎲 3495</a>
+    <a href="../1669">🎲 3495</a>
 </aside>
 
 <script>

@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-use-fast-fourier-transformfft-in-julia\/",
-    "wordCount" : "1546",
+    "wordCount" : "1549",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -261,7 +261,7 @@
 <h2 id="코드">코드</h2>
 <h3 id="푸리에-변환">푸리에 변환</h3>
 <p><a href="../1898">푸리에 변환</a>의 표기로는 $\mathcal{F}[f]$, $\hat{f}$가 주요하게 쓰이는데, 줄리아에서는 이 표기를 코드에서 그대로 쓸 수 있다. 진동수가 $100$, $200$, $350$인 사인파를 $1/1000$ 간격으로 샘플링하고 이를 더하자.</p>
-<pre tabindex="0"><code>using FFTW
+<pre><code>using FFTW
 using Plots
 using LaTeXStrings
 
@@ -279,25 +279,26 @@ f = f₁ + f₂ + f₃
 <li><a href="../1086">푸리에 변환</a>: <code>ifft()</code></li>
 </ul>
 <p><a href="various-meanings-of-fourier-transforms/#%EC%8B%A0%ED%98%B8%EC%B2%98%EB%A6%AC%EC%97%90%EC%84%9C">정의에 따라</a> $f$의 푸리에 변환 $\mathcal{F}f$는 $50$, $100$, $200$에서만 값을 갖는다. 또한 이산 푸리에변환의 정의에 의해 $y$축 대칭인 값을 얻으나, 기본적으로는 주파수가 $0$일 때의 값이 첫번째 값으로 되어있다. 따라서 신호의 주파수와 진폭을 확인하기 위함이라면 앞의 절반만 plot해도 무관하다.</p>
-<pre tabindex="0"><code>Fs = 1000 # 샘플링 주파수
+<pre><code>Fs = 1000 # 샘플링 주파수
 ℱf = fft(f) # 푸리에 변환
 ξ = Fs*[i for i in 0:L/2-1]/L #주파수 도메인(절반)
 
-plot(ξ, abs.(ℱf[1:Int(L/2)])*2/L, title=L&#34;Fourier transform of $f$&#34;, label=&#34;&#34;) 
-xlabel!(&#34;frequency&#34;)
-ylabel!(&#34;amplitude&#34;)
-savefig(&#34;fft.png&#34;)
+plot(ξ, abs.(ℱf[1:Int(L/2)])*2/L, title=L&quot;Fourier transform of $f$&quot;, label=&quot;&quot;) 
+xlabel!(&quot;frequency&quot;)
+ylabel!(&quot;amplitude&quot;)
+savefig(&quot;fft.png&quot;)
+
 </code></pre><p><img src="fft.png#center" alt="fft.png"></p>
 <h3 id="0-주파수-중앙-정렬">$0$ 주파수 중앙 정렬</h3>
 <p>푸리에 변환의 출력은 기본적으로 주파수가 $0$일 때의 값이 첫번째 값으로 오게끔 되어있다. 주파수가 $0$일 때의 값이 중앙에 오도록 하려면 <code>fftshift()</code>를 쓰면 된다. 이를 다시 되돌릴 때는 <code>ifftshift()</code>를 쓰면 된다. 참고로 <code>ifftshift</code>는 ifft + shift가 아니라, i(nverse) + fftshift이다. 즉 <code>fftshift()</code>의 역변환이므로 헷갈리지 말자.</p>
-<pre tabindex="0"><code>p1 = plot(ξ, abs.(ℱf), title=L&#34;$\mathcal{F}f$&#34;, label=&#34;&#34;, yticks=[], xticks=[0, 100, 200, 350, 500, 1000]) 
-p2 = plot(ξ.-500, abs.(fftshift(ℱf)), title=L&#34;$\mathrm{fftshift}(\mathcal{F}f)$&#34;, label=&#34;&#34;, yticks=[], xticks=[-500,-350,-200,-100,0,100,200,350,500]) 
+<pre><code>p1 = plot(ξ, abs.(ℱf), title=L&quot;$\mathcal{F}f$&quot;, label=&quot;&quot;, yticks=[], xticks=[0, 100, 200, 350, 500, 1000]) 
+p2 = plot(ξ.-500, abs.(fftshift(ℱf)), title=L&quot;$\mathrm{fftshift}(\mathcal{F}f)$&quot;, label=&quot;&quot;, yticks=[], xticks=[-500,-350,-200,-100,0,100,200,350,500]) 
 plot(p1, p2, size=(800,400))
-savefig(&#34;fftshift.png&#34;)
+savefig(&quot;fftshift.png&quot;)
 </code></pre><p><img src="fftshift.png#center" alt="fftshift.png"></p>
 <h3 id="고차원-푸리에-변환">고차원 푸리에 변환</h3>
 <p>2차원 푸리에 변환의 값과 비교하기 위해 $x = [1\ 2\ 3\ 4]^{T}$의 푸리에 변환 값을 먼저 계산해두자.</p>
-<pre tabindex="0"><code>julia&gt; x = [1.0; 2; 3; 4]
+<pre><code>julia&gt; x = [1.0; 2; 3; 4]
 4-element Vector{Float64}:
  1.0
  2.0
@@ -311,7 +312,7 @@ julia&gt; fft(x)
  -2.0 + 0.0im
  -2.0 - 2.0im
 </code></pre><p><code>fft()</code>는 2차원 배열을 입력으로 받으면 알아서 2차원 푸리에 변환을 반환한다. 혹은 첫번째와 두번째 차원에서 변환을 계산한다는 의미에서 <code>fft(, [1,2])</code>도 같은 결과를 반환한다.</p>
-<pre tabindex="0"><code>julia&gt; y = [x x x x]
+<pre><code>julia&gt; y = [x x x x]
 4×4 Matrix{Float64}:
  1.0  1.0  1.0  1.0
  2.0  2.0  2.0  2.0
@@ -334,7 +335,7 @@ julia&gt; fft(y, [1,2])
  -8.0+0.0im  0.0+0.0im  0.0+0.0im  0.0+0.0im
  -8.0-8.0im  0.0+0.0im  0.0+0.0im  0.0+0.0im
 </code></pre><p>따라서 각 열마다 변환을 하고 싶으면 <code>fft(, [1])</code>, 각 행마다 변환을 하고 싶으면 <code>fft(, [2])</code>를 쓰면 된다.</p>
-<pre tabindex="0"><code>julia&gt; fft(y, [1])
+<pre><code>julia&gt; fft(y, [1])
 4×4 Matrix{ComplexF64}:
  10.0+0.0im  10.0+0.0im  10.0+0.0im  10.0+0.0im
  -2.0+2.0im  -2.0+2.0im  -2.0+2.0im  -2.0+2.0im
@@ -352,7 +353,7 @@ julia&gt; fft(y, [2])
 <li><code>fftfreq(n, fs=1)</code></li>
 </ul>
 <p>길이가 $n$이고 간격이 $fs/n$인 주파수 도메인을 반환한다. 앞서 설명했듯이 푸리에 변환은 $0$ 주파수 값이 가장 처오기 때문에 <code>fftfreq()</code>로 샘플링한 주파수의 첫번째 값은 $0$이다. 또한 앞의 절반이 양수, 뒤의 절반이 음수이다. 따라서 <code>fftshift()</code>를 쓰면 인덱스에 따른 오른차순으로 정렬된다.</p>
-<pre tabindex="0"><code>julia&gt; fftfreq(4, 1)
+<pre><code>julia&gt; fftfreq(4, 1)
 4-element Frequencies{Float64}:
   0.0
   0.25
@@ -374,26 +375,26 @@ julia&gt; fftshift(fftfreq(4, 1))
 <li>OS: Windows11</li>
 <li>Version: Julia 1.8.2, FFTW 1.5.0</li>
 </ul>
-<div class="footnotes" role="doc-endnotes">
+<section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1">
-<p><a href="http://www.fftw.org/">http://www.fftw.org/</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1" role="doc-endnote">
+<p><a href="http://www.fftw.org/">http://www.fftw.org/</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:2">
-<p><a href="https://github.com/JuliaMath/FFTW.jl">https://github.com/JuliaMath/FFTW.jl</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:2" role="doc-endnote">
+<p><a href="https://github.com/JuliaMath/FFTW.jl">https://github.com/JuliaMath/FFTW.jl</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:3">
-<p><a href="https://github.com/JuliaMath/AbstractFFTs.jl">https://github.com/JuliaMath/AbstractFFTs.jl</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:3" role="doc-endnote">
+<p><a href="https://github.com/JuliaMath/AbstractFFTs.jl">https://github.com/JuliaMath/AbstractFFTs.jl</a> <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</div>
+</section>
 
 
 <aside style="text-align: right;">
     2013-07-02&emsp;
     전기현&emsp;
-    <a href="../564">🎲 3440</a>
+    <a href="../817">🎲 3440</a>
 </aside>
 
 <script>
