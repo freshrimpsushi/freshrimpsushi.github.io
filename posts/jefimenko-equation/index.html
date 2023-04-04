@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/jefimenko-equation\/",
-    "wordCount" : "1202",
+    "wordCount" : "1326",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -231,7 +231,7 @@
 $$</p>
 <p>연속전류분포가 시간에 따라 변할 때의 자기장은 다음과 같다.</p>
 <p>$$
-\mathbf{B}( \mathbf{r}, t) = \dfrac{\mu_0}{4\pi} \int \left[ \frac{\mathbf{J}(\mathbf{r}^{\prime},t_r)}{\cR^2} + \dfrac{ \dot{\mathbf{J}}(\mathbf{r}^{\prime}, t_r) } {c\cR} \right]\times \crHd\tau^{\prime}
+\mathbf{B}( \mathbf{r}, t) = \dfrac{\mu_0}{4\pi} \int \left[ \frac{\mathbf{J}(\mathbf{r}^{\prime},t_r)}{\cR^2} + \dfrac{ \dot{\mathbf{J}}(\mathbf{r}^{\prime}, t_r) } {c\cR} \right]\times \crH d\tau^{\prime}
 $$</p>
 <p>이 두 식을 묶어 <strong>제피멩코 방정식</strong><sup>Jefimenko equation</sup>이라 한다. 이때 $t_r$은 <a href="../1075">지연시각</a>, $\bcR$는 <a href="../141">분리벡터</a>이다.</p>
 <h2 id="유도">유도</h2>
@@ -246,11 +246,15 @@ $$</p>
 <p>$$
 V(\mathbf{r},\ t)=\dfrac{1}{4\pi\epsilon_0} \int \dfrac{ \rho(\mathbf{r}^{\prime},\ t_r) }{ \cR } d\tau^{\prime},\quad \mathbf{A}( \mathbf{r},\ t) = \dfrac{\mu_0}{4\pi} \int \dfrac{\mathbf{J}(\mathbf{r}^{\prime},\ t_r)}{\cR}d\tau^{\prime}
 $$</p>
-<p>$\cR$와 $t_r$이 $\mathbf{r}^{\prime}$을 포함하고 있기 때문에 계산이 마냥 쉬운 것은 아니다. $V$의 기울기는</p>
+<p>$\cR$와 $t_r$이 $\mathbf{r}^{\prime}$을 포함하고 있기 때문에 계산이 마냥 쉬운 것은 아니다. $V$의 기울기는, <a href="../1274">지연시각의 그래디언트</a>가 $\nabla t_r=-\dfrac{1}{c} \crH$이고 <a href="../142">분리벡터의 크기의 그래디언트</a>가 $\dfrac{1}{\cR} = -\dfrac{1}{\cR^{2}}\crH$이므로 연쇄법칙에 의해,</p>
 <p>$$
-\begin{equation}
-\nabla V = \frac{1}{4\pi\epsilon_0} \int \left[ -\dfrac{\dot{\rho}(\mathbf{r}^{\prime}, t_r)}{c} \dfrac{ \hat {\bcR} }{\cR} -\rho(\mathbf{r}^{\prime},t_r) \dfrac { \crH} {\cR ^2} \right] d\tau^{\prime}
-\end{equation}
+\begin{align}
+\nabla V
+&amp;= \dfrac{1}{4\pi\epsilon_0} \int \nabla \left( \dfrac{  \rho(\mathbf{r}^{\prime},\ t_r) }{ \cR } \right) d\tau^{\prime} \nonumber \\ 
+&amp;= \dfrac{1}{4\pi\epsilon_0} \int \left[ \dfrac{1}{\cR}\nabla \rho(\mathbf{r}^{\prime},\ t_r) + \rho(\mathbf{r}^{\prime},\ t_r) \nabla \left( \dfrac{1}{\cR} \right) \right] d\tau^{\prime} \nonumber \\ 
+&amp;= \frac{1}{4\pi\epsilon_0} \int \left[ -\dfrac{1}{\cR}\dfrac{\partial \rho(\mathbf{r}^{\prime}, t_r)}{\partial t_{r}} \nabla t_{r}  -\rho(\mathbf{r}^{\prime},t_r) \dfrac { \crH} {\cR ^2} \right] d\tau^{\prime} \nonumber \\ 
+&amp;= \frac{1}{4\pi\epsilon_0} \int \left[ -\dfrac{\dot{\rho}(\mathbf{r}^{\prime}, t_r)}{c \cR} {\crH} - \dfrac{\rho(\mathbf{r}^{\prime},t_r)}{\cR ^2} \crH \right] d\tau^{\prime} \\ 
+\end{align}
 $$</p>
 <p>이고 벡터 지연 전위의 시간 도함수를 구하면</p>
 <p>$$
@@ -263,9 +267,9 @@ $$</p>
 <p>시간에 대한 변수와 공간에 대한 변수는 서로 독립적이므로 미적분 순서를 바꿀 수 있다. $(3)$, $(4)$를 $(1)$에 대입하면</p>
 <p>$$
 \begin{align*}
-\mathbf{E} (\mathbf{r},t) &amp;= \dfrac{1}{4\pi\epsilon_0} \int \left[ \dfrac { \rho(\mathbf{r}^{\prime},t_r)} {\cR ^2}\crH +\dfrac{\dot{\rho}(\mathbf{r}^{\prime}, t_r)}{c\cR} \hat {\bcR} \right]d\tau^{\prime} -\dfrac{\mu_0}{4\pi} \int \dfrac{\dot{ \mathbf{J}}(\mathbf{r}^{\prime},\ t_r)}{\cR} d\tau^{\prime}
-\\ &amp;= \dfrac{1}{4\pi\epsilon_0} \int \left[ \dfrac { \rho(\mathbf{r}^{\prime},t_r)} {\cR ^2}\crH +\dfrac{\dot{\rho}(\mathbf{r}^{\prime}, t_r)}{c\cR} \hat {\bcR} -\mu_0\epsilon_0\dfrac{\dot{ \mathbf{J}}(\mathbf{r}^{\prime},\ t_r)}{\cR} \right]d\tau^{\prime}
-\\ &amp;= \dfrac{1}{4\pi\epsilon_0} \int \left[ \dfrac { \rho(\mathbf{r}^{\prime},t_r)} {\cR ^2}\crH +\dfrac{\dot{\rho}(\mathbf{r}^{\prime}, t_r)}{c\cR} \hat {\bcR} -\dfrac{\dot{ \mathbf{J}}(\mathbf{r}^{\prime},\ t_r)}{c^2\cR} \right]d\tau^{\prime}
+\mathbf{E} (\mathbf{r},t) &amp;= \dfrac{1}{4\pi\epsilon_0} \int \left[ \dfrac { \rho(\mathbf{r}^{\prime},t_r)} {\cR ^2}\crH +\dfrac{\dot{\rho}(\mathbf{r}^{\prime}, t_r)}{c\cR} \crH \right]d\tau^{\prime} -\dfrac{\mu_0}{4\pi} \int \dfrac{\dot{ \mathbf{J}}(\mathbf{r}^{\prime},\ t_r)}{\cR} d\tau^{\prime}
+\\ &amp;= \dfrac{1}{4\pi\epsilon_0} \int \left[ \dfrac { \rho(\mathbf{r}^{\prime},t_r)} {\cR ^2}\crH +\dfrac{\dot{\rho}(\mathbf{r}^{\prime}, t_r)}{c\cR} \crH -\mu_0\epsilon_0\dfrac{\dot{ \mathbf{J}}(\mathbf{r}^{\prime},\ t_r)}{\cR} \right]d\tau^{\prime}
+\\ &amp;= \dfrac{1}{4\pi\epsilon_0} \int \left[ \dfrac { \rho(\mathbf{r}^{\prime},t_r)} {\cR ^2}\crH +\dfrac{\dot{\rho}(\mathbf{r}^{\prime}, t_r)}{c\cR} \crH -\dfrac{\dot{ \mathbf{J}}(\mathbf{r}^{\prime},\ t_r)}{c^2\cR} \right]d\tau^{\prime}
 \end{align*}
 $$</p>
 <p>마지막 등호는<a href="../207">$\dfrac{1}{c^2}=\mu_0 \epsilon_0$</a>에 의해서 성립한다. 이는 전하밀도가 시간에 따라 변할 때의 <a href="../836">쿨롱법칙</a>이다. 만약 전하분포가 시간에 대해서 일정하면 정전기학에서 배운 쿨롱법칙과 같다.</p>
@@ -300,13 +304,13 @@ $$</p>
 \\ &amp;= \frac{1}{c} \left[ \dot{\mathbf{J}} \times (\nabla \cR) \right]_{x}
 \end{align*}
 $$</p>
-<p>또한 <a href="../142">$\nabla ( \cR)=\crH$</a>이므로</p>
+<p>또한 <a href="../142">$\nabla ( \acR)=\acrH$</a>이므로</p>
 <p>$$
 \begin{equation}
 \nabla \times \mathbf{J} = \frac{1}{c} \left( \dot {\mathbf{J}} \times \crH \right)
 \end{equation}
 $$</p>
-<p>그리고 <a href="../142">$\nabla \left( \frac{1}{\cR} \right)=-\frac{1}{\cR^2}\crH$</a>이므로 $(6)$과 함께 $(5)$에 대입하면</p>
+<p>그리고 <a href="../142">$\nabla \left( \frac{1}{\acR} \right)=-\frac{1}{\acR^2}\acrH$</a>이므로 $(6)$과 함께 $(5)$에 대입하면</p>
 <p>$$
 \begin{align*}
 \mathbf{B}(\mathbf{r},t)=\nabla \times \mathbf{A} &amp;= \dfrac{\mu_0}{4\pi} \int \left[ \dfrac{1}{\cR} \frac{1}{c} \left( \dot {\mathbf{J}} \times \crH \right) + \mathbf{J} \times \frac{1}{\cR^2}\crH\right]d\tau^{\prime}
@@ -327,7 +331,7 @@ $$</p>
 <aside style="text-align: right;">
     2019-08-28&emsp;
     전기현&emsp;
-    <a href="../1551">🎲 1264</a>
+    <a href="../827">🎲 1264</a>
 </aside>
 
 <script>
@@ -1167,22 +1171,14 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\eqref": "(\\text{#1})",
         "\\ref": "\\href{###1}{\\text{#1}}",
         "\\label": "\\htmlId{#1}{}",
-        "\\for": "\\text{ for }",
-        "\\and": "\\text{ and }",
-        "\\or": "\\text{ or }",
-        "\\st": "\\text{ s.t. }",
-        "\\by": "\\text{ by }",
-        "\\on": "\\text{ on }",
-        "\\if": "\\text{ if }",
-        "\\with": "\\text{ with }",
         "\\sech": "\\operatorname{sech}",
         "\\sgn": "\\operatorname{sgn}",
         "\\sign": "\\operatorname{sign}",
         "\\sinc": "\\operatorname{sinc}",
         "\\diag": "\\operatorname{diag}",
         "\\diam": "\\operatorname{diam}",
-        "\\Trace": "\\operatorname{Tr}",
-        "\\trace": "\\operatorname{tr}",
+        "\\Tr": "\\operatorname{Tr}",
+        "\\tr": "\\operatorname{tr}",
         "\\Re": "\\operatorname{Re}",
         "\\Im": "\\operatorname{Im}",
         "\\Poi": "\\operatorname{Poi}",
@@ -1192,11 +1188,13 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\nullity": "\\operatorname{nullity}",
         "\\Ric": "\\operatorname{Ric}",
         "\\cR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2202/2615581243_1645770096.5863.png}",
-        "\\acR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680622615.1046.png}",
+        "\\acR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680634690.4371.png}",
         "\\bcR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2202/2615581243_1645770096.5899.png}",
-        "\\abcR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680622625.8523.png}",
+        "\\abcR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680634690.0596.png}",
         "\\crH": "\\includegraphics[height=0.8em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680622958.7632.png}",
-        "\\acrH": "\\includegraphics[height=0.8em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680622958.7525.png}"
+        "\\smallcrH": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680622958.7632.png}",
+        "\\acrH": "\\includegraphics[height=0.8em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680634690.8386.png}",
+        "\\smallacrH": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680634690.8386.png}",
       },
       throwOnError: false,
     });
