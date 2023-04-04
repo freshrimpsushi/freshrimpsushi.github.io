@@ -231,7 +231,7 @@
 <h2 id="시뮬레이션">시뮬레이션</h2>
 <h3 id="코드-리뷰">코드 리뷰</h3>
 <p><strong>Step 1. 패키지 로드, 초기값 설정</strong></p>
-<pre><code>julia&gt; cd(@\_\_DIR\_\_) # 파일 저장 경로cd(@\_\_DIR\_\_) # 파일 저장 경로
+<pre tabindex="0"><code>julia&gt; cd(@\_\_DIR\_\_) # 파일 저장 경로cd(@\_\_DIR\_\_) # 파일 저장 경로
 
 julia&gt; @time using Plots
  19.989912 seconds (31.16 M allocations: 1.628 GiB, 4.49% gc Time)
@@ -264,9 +264,9 @@ $$</p>
 <hr>
 <p><strong>Step 2. 에이전트 생성</strong></p>
 <p>말은 에이전트 생성이라고 거창하게 포장했지만 사실 별 거 없다. 2차원 정규분포에서 에이전트의 수만큼 샘플을 뽑으면 그 좌표 자체가 에이전트를 표현하게 된다.</p>
-<pre><code>julia&gt; Random.seed!(0);
+<pre tabindex="0"><code>julia&gt; Random.seed!(0);
 
-julia&gt; coordinate = rand(gaussian2, N0)'
+julia&gt; coordinate = rand(gaussian2, N0)&#39;
 10×2 Adjoint{Float64,Array{Float64,2}}:
   0.0960403    0.117155
  -0.0499228   -0.0190712
@@ -281,18 +281,18 @@ julia&gt; coordinate = rand(gaussian2, N0)'
 </code></pre><p>위의 좌표들이 곧 에이전트의 위치를 나타낸다. 각 행은 에이전트 하나씩을 가리키며 첫 열은 x 좌표, 두번째 열은 y 좌표다. 당장은 에이전트들이 어떤 행동 규칙을 가질 필요가 없어 이것으로 충분하다.</p>
 <hr>
 <p><strong>Step 3.  점도표(Scatter plot) 그리기</strong></p>
-<pre><code>julia&gt; p = plot(coordinate[:,1], coordinate[:,2], Seriestype = :scatter,
+<pre tabindex="0"><code>julia&gt; p = plot(coordinate[:,1], coordinate[:,2], Seriestype = :scatter,
          markercolor = RGB(1.,94/255,0.), markeralpha = 0.4, markerstrokewidth= 0.1,
          aspect\_ratio = 1, size = [400,400],
          xaxis=true,yaxis=true,axis=nothing, legend = false)
 
-julia&gt; png(p, &quot;agent\_tutorial.png&quot;); p
+julia&gt; png(p, &#34;agent\_tutorial.png&#34;); p
 </code></pre><p><code>plot()</code> 함수에 옵션 <code>seriestype = :scatter</code>을 넣으면 위와 같이 에이전트의 좌표를 점으로 찍어준다. 그리고 첫번째 줄에서 입력한 경로에서 다음과 같이 <code>&quot;agent\_tutorial.png&quot;</code>라는 파일이 생성되었을 것이다.</p>
 <p><img src="agent_tutorial.png#center" alt="agent\_tutorial.png"></p>
 <p><code>&quot;agent\_tutorial.png&quot;</code>의 실제 모습은 위와 같다. 이로써 에이전트를 생성하고 산점도로 시각화해본 것이다.</p>
 <h3 id="전체-코드">전체 코드</h3>
 <p>다음은 이 포스트에 쓰인 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다.</p>
-<pre><code>cd(@__DIR__) # 파일 저장 경로
+<pre tabindex="0"><code>cd(@__DIR__) # 파일 저장 경로
 
 @time using Plots
 @time using Random
@@ -303,19 +303,19 @@ N0 = 10 # 초기 인구수
 gaussian2 = MvNormal([0.0; 0.0], 0.02I) # 2차원 정규분포
 
 Random.seed!(0);
-coordinate = rand(gaussian2, N0)'
+coordinate = rand(gaussian2, N0)&#39;
 
 p = plot(coordinate[:,1], coordinate[:,2], Seriestype = :scatter,
   markercolor = RGB(1.,94/255,0.), markeralpha = 0.4, markerstrokewidth	= 0.1,
   aspect_ratio = 1, size = [400,400],
   xaxis=true,yaxis=true,axis=nothing, legend = false)
-png(p, &quot;agent_tutorial.png&quot;); p
+png(p, &#34;agent_tutorial.png&#34;); p
 </code></pre>
 
 <aside style="text-align: right;">
     2021-01-08&emsp;
     류대식&emsp;
-    <a href="../1533">🎲 1875</a>
+    <a href="../1918">🎲 1875</a>
 </aside>
 
 <script>
@@ -1184,8 +1184,9 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\rank": "\\operatorname{rank}",
         "\\nullity": "\\operatorname{nullity}",
         "\\Ric": "\\operatorname{Ric}",
-        "\\rcurs":
-        "\\includegraphics[height=0.4em, width=0.45em, alt=KA logo]{https://upload.wikimedia.org/wikipedia/commons/a/a9/Script-r.png}",
+        "\\cR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2202/2615581243_1645770096.5863.png}",
+        "\\bcR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2202/2615581243_1645770096.5899.png}",
+        "\\crH": "\\includegraphics[height=0.8em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680620038.6073.png}"
       },
       throwOnError: false,
     });

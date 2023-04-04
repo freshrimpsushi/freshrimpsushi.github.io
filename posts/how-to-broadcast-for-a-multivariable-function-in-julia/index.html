@@ -234,22 +234,22 @@
 u(t,x) = \sin(\pi x) e^{-\pi^{2}t}
 $$</p>
 <p>위와 같은 함수를 $(t,x) \in [0, 0.35] \times [-1,1]$ 위에서 플랏하고 싶다면, 다음과 같이 함숫값을 계산할 수 있다.</p>
-<pre><code>x = LinRange(-1., 1, 100)
-t = LinRange(0., 0.35, 200)'
+<pre tabindex="0"><code>x = LinRange(-1., 1, 100)
+t = LinRange(0., 0.35, 200)&#39;
 
 u1 = @. sin(π*x)*exp(- π^2 * t)
-heatmap(t', x, u1, xlabel=&quot;t&quot;, ylabel=&quot;x&quot;, title=&quot;Fig. 1&quot;)
+heatmap(t&#39;, x, u1, xlabel=&#34;t&#34;, ylabel=&#34;x&#34;, title=&#34;Fig. 1&#34;)
 </code></pre><p><img src="fig1.png#center" alt="fig1.png"></p>
 <p>함수 자체를 정의하고, 다음과 같이 2차원 그리드를 만들어서 같은 결과를 얻을 수 있다.</p>
-<pre><code>U(t,x) = sin(π*x)*exp(- π^2 * t)
+<pre tabindex="0"><code>U(t,x) = sin(π*x)*exp(- π^2 * t)
 x = LinRange(-1., 1, 100)
-t = LinRange(0., 0.35, 200)'
+t = LinRange(0., 0.35, 200)&#39;
 
 X = x * fill!(similar(t), 1)
 T = fill!(similar(x), 1) * t
 
 u2 = U.(T,X)
-heatmap(t', x, u2, xlabel=&quot;t&quot;, ylabel=&quot;x&quot;, title=&quot;Fig. 2&quot;)
+heatmap(t&#39;, x, u2, xlabel=&#34;t&#34;, ylabel=&#34;x&#34;, title=&#34;Fig. 2&#34;)
 </code></pre><p><img src="fig2.png#center" alt="fig2.png"></p>
 <h2 id="3변수함수">3변수함수</h2>
 <p>$$
@@ -257,7 +257,7 @@ u(x,y,t) = e^{-x^{2} - 2y^{2}}e^{-\pi^{2}t}
 $$</p>
 <p>시공간도메인 $(x,y,t) \in [-1,1] \times [-1,1] \times [0, 0.35]$ 위에서 $u$의 함숫값을 얻고 싶다면, 다음과 같이 각 변수의 차원에만 크기가 있도록 벡터를 만들어서 브로드캐스팅하면 된다.</p>
 <p>3차원 메쉬를 만들어서 브로드캐스팅하기를 원한다면 <a href="../3500">여기</a>를 참고하자.</p>
-<pre><code>julia&gt; x = reshape(LinRange(-1., 1, 100), (100,1,1))
+<pre tabindex="0"><code>julia&gt; x = reshape(LinRange(-1., 1, 100), (100,1,1))
     100×1×1 reshape(::LinRange{Float64, Int64}, 100, 1, 1) with eltype Float64:
 julia&gt; y = reshape(LinRange(-1., 1, 100), (1,100,1))
     1×100×1 reshape(::LinRange{Float64, Int64}, 1, 100, 1) with eltype Float64:
@@ -272,28 +272,28 @@ anim = @animate for i ∈ 1:200
 end
 </code></pre><p><img src="anim1.gif#center" alt="anim1.gif"></p>
 <h2 id="코드-전문">코드 전문</h2>
-<pre><code>using Plots
+<pre tabindex="0"><code>using Plots
 cd = @__DIR__
 
 # Fig. 1
 x = LinRange(-1., 1, 100)
-t = LinRange(0., 0.35, 200)'
+t = LinRange(0., 0.35, 200)&#39;
 
 u1 = @. sin(π*x)*exp(- π^2 * t)
-heatmap(t', x, u1, xlabel=&quot;t&quot;, ylabel=&quot;x&quot;, title=&quot;Fig. 1&quot;)
-savefig(cd*&quot;/fig1.png&quot;)
+heatmap(t&#39;, x, u1, xlabel=&#34;t&#34;, ylabel=&#34;x&#34;, title=&#34;Fig. 1&#34;)
+savefig(cd*&#34;/fig1.png&#34;)
 
 # Fig. 2
 U(t,x) = sin(π*x)*exp(- π^2 * t)
 x = LinRange(-1., 1, 100)
-t = LinRange(0., 0.35, 200)'
+t = LinRange(0., 0.35, 200)&#39;
 
 X = x * fill!(similar(t), 1)
 T = fill!(similar(x), 1) * t
 
 u2 = U.(T,X)
-heatmap(t', x, u2, xlabel=&quot;t&quot;, ylabel=&quot;x&quot;, title=&quot;Fig. 2&quot;)
-savefig(cd*&quot;/fig2.png&quot;)
+heatmap(t&#39;, x, u2, xlabel=&#34;t&#34;, ylabel=&#34;x&#34;, title=&#34;Fig. 2&#34;)
+savefig(cd*&#34;/fig2.png&#34;)
 
 # gif 1
 x = reshape(LinRange(-1., 1, 100), (100,1,1))
@@ -302,9 +302,9 @@ t = reshape(LinRange(0.,0.35, 200), (1,1,200))
 
 u3 = @. exp(-x^2) * exp(-2y^2) * exp(- π^2 * t)
 anim = @animate for i ∈ 1:200
-    surface(u3[:,:,i], zlims=(0,1), clim=(-1,1), title=&quot;Anim. 1&quot;)
+    surface(u3[:,:,i], zlims=(0,1), clim=(-1,1), title=&#34;Anim. 1&#34;)
 end
-gif(anim, cd*&quot;/anim1.gif&quot;, fps=30)
+gif(anim, cd*&#34;/anim1.gif&#34;, fps=30)
 </code></pre><h2 id="환경">환경</h2>
 <ul>
 <li>OS: Windows11</li>
@@ -315,7 +315,7 @@ gif(anim, cd*&quot;/anim1.gif&quot;, fps=30)
 <aside style="text-align: right;">
     2013-10-30&emsp;
     전기현&emsp;
-    <a href="../898">🎲 3499</a>
+    <a href="../2019">🎲 3499</a>
 </aside>
 
 <script>
@@ -1184,8 +1184,9 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\rank": "\\operatorname{rank}",
         "\\nullity": "\\operatorname{nullity}",
         "\\Ric": "\\operatorname{Ric}",
-        "\\rcurs":
-        "\\includegraphics[height=0.4em, width=0.45em, alt=KA logo]{https://upload.wikimedia.org/wikipedia/commons/a/a9/Script-r.png}",
+        "\\cR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2202/2615581243_1645770096.5863.png}",
+        "\\bcR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2202/2615581243_1645770096.5899.png}",
+        "\\crH": "\\includegraphics[height=0.8em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680620038.6073.png}"
       },
       throwOnError: false,
     });

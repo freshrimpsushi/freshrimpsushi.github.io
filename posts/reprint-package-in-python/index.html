@@ -232,28 +232,28 @@
 
 <h2 id="한-줄">한 줄</h2>
 <p>코드가 실행될 때 진행 상황을 알고싶어 <code>print()</code> 함수를 쓰면 다음과 같이 출력된다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">6</span>):
-    <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;진행 경과[{i}/5]&#34;</span>)
-</code></pre></div><p><img src="3507_one_line_1.webp#center" alt="3507_one_line_1.webp"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">6</span>):
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;진행 경과[</span><span style="color:#e6db74">{</span>i<span style="color:#e6db74">}</span><span style="color:#e6db74">/5]&#34;</span>)
+</span></span></code></pre></div><p><img src="3507_one_line_1.webp#center" alt="3507_one_line_1.webp"></p>
 <p>이때 다음과 같이 문자열의 앞에 <code>\r</code>와 <code>print()</code>의 옵션으로 <code>end=&quot;&quot;</code>를 추가해주면 된다. <code>\r</code>은 커서를 맨 앞으로 이동시키는 것이고, <code>end=&quot;&quot;</code>는 <code>print()</code>의 기본 옵션인 개행을 꺼주는 것이다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">6</span>):
-    <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r</span><span style="color:#e6db74">진행 경과[{i}/5]&#34;</span>, end<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
-</code></pre></div><p><img src="3507_one_line_2.webp#center" alt="3507_one_line_2.webp"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">6</span>):
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r</span><span style="color:#e6db74">진행 경과[</span><span style="color:#e6db74">{</span>i<span style="color:#e6db74">}</span><span style="color:#e6db74">/5]&#34;</span>, end<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
+</span></span></code></pre></div><p><img src="3507_one_line_2.webp#center" alt="3507_one_line_2.webp"></p>
 <h2 id="여러-줄">여러 줄</h2>
 <p>여러 줄로 진행 상황을 출력하고 싶을 땐 <code>reprint</code> 라이브러리를 이용하면 쉽게 구현할 수 있다. 아래의 예제 코드와 같이 with 문 안에서 output_lines[i]에 따라서 결과가 출력된다.</p>
 <h3 id="설치">설치</h3>
 <p>cmd 창에서 다음의 명령줄로 설치한다.</p>
-<pre><code>&gt;&gt;&gt;pip install reprint
+<pre tabindex="0"><code>&gt;&gt;&gt;pip install reprint
 </code></pre><h3 id="코드">코드</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> reprint <span style="color:#f92672">import</span> output
-
-<span style="color:#66d9ef">with</span> output(initial_len<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, interval<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">as</span> output_lines:
-    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">6</span>):
-        output_lines[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> f<span style="color:#e6db74">&#34;진행 경과[{i}/5]&#34;</span>
-        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>):
-            output_lines[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> f<span style="color:#e6db74">&#34;j = {j}&#34;</span>
-            output_lines[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> f<span style="color:#e6db74">&#34;j^2 = {j**2}&#34;</span>
-</code></pre></div><p><img src="3507_multilines.webp#center" alt="3507_multilines.webp"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> reprint <span style="color:#f92672">import</span> output
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> output(initial_len<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, interval<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">as</span> output_lines:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">6</span>):
+</span></span><span style="display:flex;"><span>        output_lines[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;진행 경과[</span><span style="color:#e6db74">{</span>i<span style="color:#e6db74">}</span><span style="color:#e6db74">/5]&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>):
+</span></span><span style="display:flex;"><span>            output_lines[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;j = </span><span style="color:#e6db74">{</span>j<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>            output_lines[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;j^2 = </span><span style="color:#e6db74">{</span>j<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span></code></pre></div><p><img src="3507_multilines.webp#center" alt="3507_multilines.webp"></p>
 <h2 id="환경">환경</h2>
 <ul>
 <li>OS: Windows11</li>
@@ -264,7 +264,7 @@
 <aside style="text-align: right;">
     2013-11-15&emsp;
     전기현&emsp;
-    <a href="../2125">🎲 3507</a>
+    <a href="../1046">🎲 3507</a>
 </aside>
 
 <script>
@@ -1133,8 +1133,9 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\rank": "\\operatorname{rank}",
         "\\nullity": "\\operatorname{nullity}",
         "\\Ric": "\\operatorname{Ric}",
-        "\\rcurs":
-        "\\includegraphics[height=0.4em, width=0.45em, alt=KA logo]{https://upload.wikimedia.org/wikipedia/commons/a/a9/Script-r.png}",
+        "\\cR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2202/2615581243_1645770096.5863.png}",
+        "\\bcR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2202/2615581243_1645770096.5899.png}",
+        "\\crH": "\\includegraphics[height=0.8em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680620038.6073.png}"
       },
       throwOnError: false,
     });

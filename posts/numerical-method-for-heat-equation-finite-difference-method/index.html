@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/numerical-method-for-heat-equation-finite-difference-method\/",
-    "wordCount" : "2300",
+    "wordCount" : "2298",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -357,7 +357,7 @@ $$</p>
 <p><img src="mu=0.500.png#center" alt="mu=0.500.png"></p>
 <p>반면 $\Delta t = \mu (\Delta)^{2} = 0.51(\Delta x)^{2}$로 두고 풀면 솔루션이 제대로 구해지지 않는 것을 볼 수 있다.</p>
 <p><img src="mu=0.510.png#center" alt="mu=0.510.png"></p>
-<pre><code>using Plots
+<pre tabindex="0"><code>using Plots
 using LinearAlgebra
 
 function Solver_Heat_1d(Δt, T, x, f, g)
@@ -391,18 +391,18 @@ end
 
 function results(t, x, U, ref_U, μ)
     h1 = heatmap(t, x, U, colormap=:viridis, clim=(-1,1))
-    # xlabel!(&quot;time [0, $(round(t[end], digits=2)) ]&quot;)
-    # ylabel!(&quot;space [$(x[1]),  $(x[end])]&quot;)
-    title!(&quot;FDM solution&quot;)
+    # xlabel!(&#34;time [0, $(round(t[end], digits=2)) ]&#34;)
+    # ylabel!(&#34;space [$(x[1]),  $(x[end])]&#34;)
+    title!(&#34;FDM solution&#34;)
 
     h2 = heatmap(t, x, ref_U, colormap=:viridis, clim=(-1,1))
-    title!(&quot;exact solution&quot;)
+    title!(&#34;exact solution&#34;)
 
     h3 = heatmap(t, x, U - ref_U, colormap=:viridis)
-    title!(&quot;error&quot;)
+    title!(&#34;error&#34;)
 
     h4 = heatmap(framestyle=:none)
-    annotate!([0.5],[0.5], text(&quot;μ = $(round(μ, digits=3))&quot;, 30))
+    annotate!([0.5],[0.5], text(&#34;μ = $(round(μ, digits=3))&#34;, 30))
 
     plot(h1, h2, h3, h4, size=(1500,750))
 end
@@ -420,7 +420,7 @@ for μ ∈ [0.5, 0.51]
     ref_u = ref_sol(x, t, exact_sol)
     U = Solver_Heat_1d(Δt, T, x, initial_f, bdry_g)
     results(t, x, U, ref_u, μ)
-    savefig(&quot;mu=&quot; * string(μ) * &quot;.png&quot;) 
+    savefig(&#34;mu=&#34; * string(μ) * &#34;.png&#34;) 
 end
 </code></pre><h3 id="2차원">2차원</h3>
 <p>$$
@@ -435,7 +435,7 @@ end
 $$</p>
 <p>같은 방법으로 위의 미분방정식을 풀면,</p>
 <p><img src="2d.gif#center" alt="2d.gif"></p>
-<pre><code>using Plots
+<pre tabindex="0"><code>using Plots
 
 cd = @__DIR__
 
@@ -459,7 +459,7 @@ function Solver_Heat_2d(Δt, T, x, f)
     return U
 end
 
-x = range(-2., stop=2, length=100)'
+x = range(-2., stop=2, length=100)&#39;
 y = range(-2., stop=2, length=100)
 
 initial_f = @. (1/4)exp(-x^2) * exp(-y^2) 
@@ -474,26 +474,26 @@ anim = @animate for i ∈ range(1, stop=size(U)[3], step=100)
     surface(U[:,:,i], zlims=(0,0.5), camera=(30,30), colorbar=:none, showaxis = false, grid=false, size=(500,500))
 end
 
-gif(anim, cd*&quot;/2d.gif&quot;, fps=10)
+gif(anim, cd*&#34;/2d.gif&#34;, fps=10)
 </code></pre><h3 id="환경">환경</h3>
 <ul>
 <li>OS: Windows11</li>
 <li>Version: Julia v1.8.3, Plots v1.38.6</li>
 </ul>
-<section class="footnotes" role="doc-endnotes">
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
-<p>A. Iserles, <em>A First Course in the Numerical Analysis of Differential Equations</em> (2nd, 2009), p349-353 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1">
+<p>A. Iserles, <em>A First Course in the Numerical Analysis of Differential Equations</em> (2nd, 2009), p349-353&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
 
 <aside style="text-align: right;">
     2013-10-22&emsp;
     전기현&emsp;
-    <a href="../1489">🎲 3495</a>
+    <a href="../1398">🎲 3495</a>
 </aside>
 
 <script>
@@ -1362,8 +1362,9 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\rank": "\\operatorname{rank}",
         "\\nullity": "\\operatorname{nullity}",
         "\\Ric": "\\operatorname{Ric}",
-        "\\rcurs":
-        "\\includegraphics[height=0.4em, width=0.45em, alt=KA logo]{https://upload.wikimedia.org/wikipedia/commons/a/a9/Script-r.png}",
+        "\\cR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2202/2615581243_1645770096.5863.png}",
+        "\\bcR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2202/2615581243_1645770096.5899.png}",
+        "\\crH": "\\includegraphics[height=0.8em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680620038.6073.png}"
       },
       throwOnError: false,
     });

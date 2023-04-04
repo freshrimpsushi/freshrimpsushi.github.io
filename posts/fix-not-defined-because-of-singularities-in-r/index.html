@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/fix-not-defined-because-of-singularities-in-r\/",
-    "wordCount" : "1233",
+    "wordCount" : "1221",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -234,7 +234,7 @@
 <p><strong>당신이 통계나 수학 전공자라면 원인을 대강 파악하고 직면한 문제를 해결하는 것에서 그치지 않고, <a href="../2533">수리적인 증명</a>까지 이해하는 것을 강하게 권한다.</strong></p>
 <h2 id="에러">에러</h2>
 <h3 id="진단">진단</h3>
-<pre><code>Coefficients: (1 not defined because of singularities)
+<pre tabindex="0"><code>Coefficients: (1 not defined because of singularities)
             Estimate Std. Error t value Pr(&gt;|t|)    
 (Intercept)   0.5723     0.1064   5.381 4.98e-05 ***
 최고기온     -0.3528     0.1490  -2.368    0.030 *
@@ -257,8 +257,8 @@ $$</p>
 <p><img src="2023-01-17-10-09-07.png#center" alt=""></p>
 <p>당신만이 겪은 실수가 아니라 이 사람들도 겪었고, 나도 겪었다. 중요한 것은 이제 이 문제를 해결한 뒤 수학―특히 <a href="../../categories/%ED%96%89%EB%A0%AC%EB%8C%80%EC%88%98">행렬대수</a> 및 <a href="../../categories/%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98">선형대수</a>가 중요하다는 팩트에 공감하고 철저한 이론 공부의 동기로 삼는 것이다.</p>
 <p>전형적인 상황은 다음과 같은 예시를 상상해볼 수 있다.</p>
-<pre><code>&gt; data = as.data.frame(matrix(runif(60),20,3))
-&gt; names(data) &lt;- c(&quot;감기확률&quot;, &quot;최고기온&quot;, &quot;최저기온&quot;)
+<pre tabindex="0"><code>&gt; data = as.data.frame(matrix(runif(60),20,3))
+&gt; names(data) &lt;- c(&#34;감기확률&#34;, &#34;최고기온&#34;, &#34;최저기온&#34;)
 &gt; lm(감기확률 ~ 최고기온 + 최저기온, data = data)
 
 Call:
@@ -268,10 +268,10 @@ Coefficients:
 (Intercept)     최고기온     최저기온
      0.5723      -0.3528       0.2982
 </code></pre><p>가령 감기가 걸릴 확률을 설명할 데이터로써 기온에 관련된 데이터가 있다고 하자.</p>
-<pre><code>&gt; data$일교차 &lt;- (data$최고기온 - data$최저기온)
+<pre tabindex="0"><code>&gt; data$일교차 &lt;- (data$최고기온 - data$최저기온)
 &gt; out &lt;- lm(감기확률 ~ 최고기온 + 최저기온 + 일교차, data = data)
 </code></pre><p>그러나 상식으로써 널리 알려져있듯 감기가 유행하는 시기는 단순히 기온이 낮은 것보다 일교차가 클 때와 더 관련이 있다. 그래서 위와 같이 파생변수로써 일교차를 넣어주면 다음의 결과를 얻는다.</p>
-<pre><code>&gt; summary(out)
+<pre tabindex="0"><code>&gt; summary(out)
 
 Call:
 lm(formula = 감기확률 ~ 최고기온 + 최저기온 + 일교차, data = data)
@@ -287,7 +287,7 @@ Coefficients: (1 not defined because of singularities)
 최저기온      0.2982     0.1955   1.525    0.146
 일교차            NA         NA      NA       NA
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
 Residual standard error: 0.1988 on 17 degrees of freedom
 Multiple R-squared:  0.2779,    Adjusted R-squared:  0.193
@@ -295,8 +295,8 @@ F-statistic: 3.271 on 2 and 17 DF,  p-value: 0.06281
 </code></pre><h3 id="해결법">해결법</h3>
 <p>가능하면 새로운 파생변수를 빼고, 정 남기고 싶다면 그 파생변수를 만들 때 사용했던 원래의 독립변수를 제거해야한다. 직관적으로 말이 된다면 비선형 함수를 취하는 등 파생변수를 만드는 방법 자체를 바꿔보는 것도 가능하다.</p>
 <h2 id="코드">코드</h2>
-<pre><code>data = as.data.frame(matrix(runif(60),20,3))
-names(data) &lt;- c(&quot;감기확률&quot;, &quot;최고기온&quot;, &quot;최저기온&quot;)
+<pre tabindex="0"><code>data = as.data.frame(matrix(runif(60),20,3))
+names(data) &lt;- c(&#34;감기확률&#34;, &#34;최고기온&#34;, &#34;최저기온&#34;)
 
 lm(감기확률 ~ 최고기온 + 최저기온, data = data)
 
@@ -313,7 +313,7 @@ summary(out)
 <aside style="text-align: right;">
     1924-03-07&emsp;
     류대식&emsp;
-    <a href="../1685">🎲 2534</a>
+    <a href="../1217">🎲 2534</a>
 </aside>
 
 <script>
@@ -1182,8 +1182,9 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\rank": "\\operatorname{rank}",
         "\\nullity": "\\operatorname{nullity}",
         "\\Ric": "\\operatorname{Ric}",
-        "\\rcurs":
-        "\\includegraphics[height=0.4em, width=0.45em, alt=KA logo]{https://upload.wikimedia.org/wikipedia/commons/a/a9/Script-r.png}",
+        "\\cR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2202/2615581243_1645770096.5863.png}",
+        "\\bcR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2202/2615581243_1645770096.5899.png}",
+        "\\crH": "\\includegraphics[height=0.8em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680620038.6073.png}"
       },
       throwOnError: false,
     });
