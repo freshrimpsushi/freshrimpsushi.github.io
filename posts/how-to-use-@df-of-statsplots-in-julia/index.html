@@ -67,10 +67,10 @@
     </script>
 
     
-<meta name="title" content="자율 시스템의 오빗">
+<meta name="title" content="줄리아 StatsPlots에서 데이터프레임 이름을 생략하는 매크로 @df">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="자율 시스템의 오빗"/>
-<meta property="og:description" content="Orbit of autonomous System"/>
+<meta property="og:title" content="줄리아 StatsPlots에서 데이터프레임 이름을 생략하는 매크로 @df"/>
+<meta property="og:description" content="How to Use @df of StatsPlots in julia"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -82,15 +82,15 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "r_",
-    "name": "자율 시스템의 오빗",
-    "headline": "자율 시스템의 오빗",
+    "name": "줄리아 StatsPlots에서 데이터프레임 이름을 생략하는 매크로 @df",
+    "headline": "줄리아 StatsPlots에서 데이터프레임 이름을 생략하는 매크로 @df",
     "alternativeHeadline": "",
-    "description": "Orbit of autonomous System",
+    "description": "How to Use @df of StatsPlots in julia",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/orbit-of-autonomous-system\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/how-to-use-@df-of-statsplots-in-julia\/"
     },
     "author" : {
         "@type": "Person",
@@ -105,10 +105,10 @@
         "name": "류대식"
     },
     "copyrightHolder" : "생새우초밥집",
-    "copyrightYear" : "2020",
-    "dateCreated": "2020-09-22T00:00:00.00Z",
-    "datePublished": "2020-09-22T00:00:00.00Z",
-    "dateModified": "2020-09-22T00:00:00.00Z",
+    "copyrightYear" : "1924",
+    "dateCreated": "1924-04-04T00:00:00.00Z",
+    "datePublished": "1924-04-04T00:00:00.00Z",
+    "dateModified": "1924-04-04T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -121,15 +121,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/orbit-of-autonomous-system\/",
-    "wordCount" : "452",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-use-@df-of-statsplots-in-julia\/",
+    "wordCount" : "280",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>자율 시스템의 오빗</title>
+    <title>줄리아 StatsPlots에서 데이터프레임 이름을 생략하는 매크로 @df</title>
 </head>
 
 <body class="main">
@@ -137,7 +137,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/%EB%8F%99%EC%97%AD%ED%95%99.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/%EC%A4%84%EB%A6%AC%EC%95%84.png style="max-height: 80px; width: auto;">
             
             
             
@@ -188,21 +188,21 @@
     <div class="content">
       <div class="content-box">
         
-<title>자율 시스템의 오빗</title>
+<title>줄리아 StatsPlots에서 데이터프레임 이름을 생략하는 매크로 @df</title>
 
 
 
 
-        <a href="https://freshrimpsushi.github.io/categories/%EB%8F%99%EC%97%AD%ED%95%99/"
+        <a href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/"
             style="background-color: rgba(0, 0, 0, 0.8); color: orange;
             border-radius:10px; padding: 5px;">
-            📂동역학</a>
+            📂줄리아</a>
         
 
 
-<h1>자율 시스템의 오빗</h1>
+<h1>줄리아 StatsPlots에서 데이터프레임 이름을 생략하는 매크로 @df</h1>
 <p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px; margin-left: 0px;">
-  Orbit of autonomous System
+  How to Use @df of StatsPlots in julia
 </p>
 
 <aside>
@@ -215,8 +215,9 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#정의">정의</a></li>
-    <li><a href="#예시">예시</a></li>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#코드">코드</a></li>
+    <li><a href="#환경">환경</a></li>
   </ul>
 </nav>
     </div>
@@ -224,56 +225,38 @@
   </div>
 </aside>
 
-<h2 id="정의">정의</h2>
-<p>공간 $X$ 와 함수 $f : X \to X$ 에 대해 다음과 같은 <a href="../970">벡터 필드</a>가 <a href="../../categories/%EB%AF%B8%EB%B6%84%EB%B0%A9%EC%A0%95%EC%8B%9D">미분 방정식</a>으로 주어져 있다고 하자.
-$$
-x' = f(x)
-$$
-위와 같은 <a href="../1505">자율 시스템</a>의 <a href="../1507">플로우</a>를 $x(t,t_{0},x_{0})$ 와 같이 나타낸다고 하자.</p>
-<ol>
-<li>그러면 $x_{0} \in X$ 를 지나는 <strong>오빗</strong><sup>Orbit</sup>$O(x_{0})$ 을 다음과 같이 나타낸다.</li>
-</ol>
-<p><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>
-$$
-O(x_{0}) := \left\{ x \in X : x = x(t, t_{0} , x_{0}) \right\}
-$$
-2.  오빗이 모든 $t \in \mathbb{R}$ 에 대해 다음을 만족시키는 $T &gt; 0$ 이 존재하면 <strong>$T$-피리어딕</strong>하다고 하고, 그 오빗을 <strong>피리어딕 오빗</strong><sup>Periodic Orbit</sup>이라 한다. <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>
-$$
-x(t,t_0) = x(t + T,t_0)
-$$</p>
-<p>물론 모든 시점 $T \in I$ 에 대해서 $O\left( x (T , t_{0} , x_{0}) \right) = O (x_{0})$ 이다.</p>
-<h2 id="예시">예시</h2>
-<p>예로써 다음과 같은 간단한 자율 시스템을 생각해보자:
-$$
-x' = -y 
-\\  y ' = x
-$$
-이 미분 방정식의 솔루션은 시간 $t$ 에 대해
-$$
-(x,y) = \left( \cos t , \sin t \right)
-$$
-와 같이 나타낼 수 있으므로, 초기값이 $p_{0} = (1,0)$ 이라고 하면 그 플로우는 반지름 $1$ 인 단위원 위를 도는 형태가 될 것이다. 따라서 $p_{0}$ 을 지나는 오빗은 다음과 같이 나타낼 수 있다.
-$$
-O(p_{0}) := \left\{ (x,y) \in \mathbb{R}^{2} : x^{2} + y^{2} = 1 \right\}
-$$
-이 오빗은 특히 주기성을 가지고 플로우가 같은 점을 지나므로 <strong>$2 \pi$-피리어딕</strong> 하기도 하다.</p>
+<h2 id="개요">개요</h2>
+<p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>의 <code>StatsPlots</code> 패키지에서는 그림을 그릴 때 <code>@df</code> 매크로를 통해 여러번 반복되는 데이터프레임의 이름을 생략할 수 있다. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 매크로를 사용하는 문법은 데이터프레임 <code>X</code>의 <code>a</code> 칼럼을 사용한다고 할 때, <code>@df X</code> 와 같이 어떤 데이터프레임을 사용할 지 명시한 뒤 바로 이어지는 스코프에서 <code>a</code>를 <a href="../2195">심볼</a>인 <code>:a</code>로 인자를 전달해 <code>plot (:a)</code>와 같이 쓰는 것이다. 코드로 요약하면 <code>@df X plot(:a)</code>과 같이 쓴다.</p>
+<h2 id="코드">코드</h2>
+<p>다음은 <a href="../2316">아이리스 데이터</a>의 SepalLength과 SepalWidth로 <a href="../2436">점도표</a>를 그린 것이다.</p>
+<p><img src="plot.svg#center" alt="plot.svg"></p>
+<p>다음 코드에서 <code>scatter(iris.SepalLength, iris.SepalWidth)</code>와 <code>@df iris scatter(:SepalLength, :SepalWidth)</code>는 서로 같다.</p>
+<pre tabindex="0"><code>using RDatasets
+iris = dataset(&#34;datasets&#34;, &#34;iris&#34;)
+
+using StatsPlots
+scatter(iris.SepalLength, iris.SepalWidth)
+@df iris scatter(:SepalLength, :SepalWidth)
+</code></pre><h2 id="환경">환경</h2>
+<ul>
+<li>OS: Windows</li>
+<li>julia: v1.8.3</li>
+<li>StatsPlots v0.15.4</li>
+</ul>
 <div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1">
-<p>Wiggins. (2003). Introduction to Applied Nonlinear Dynamical Systems and Chaos Second Edition(2nd Edition): p3.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-<li id="fn:2">
-<p>Wiggins. (2003). Introduction to Applied Nonlinear Dynamical Systems and Chaos Second Edition(2nd Edition): p71.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://github.com/JuliaPlots/StatsPlots.jl#original-author-thomas-breloff-tbreloff-maintained-by-the-juliaplots-members">https://github.com/JuliaPlots/StatsPlots.jl#original-author-thomas-breloff-tbreloff-maintained-by-the-juliaplots-members</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </div>
 
 
 <aside style="text-align: right;">
-    2020-09-22&emsp;
+    1924-04-04&emsp;
     류대식&emsp;
-    <a href="../942">🎲 1693</a>
+    <a href="../1588">🎲 2548</a>
 </aside>
 
 <script>
@@ -288,8 +271,8 @@ $$
       renderKaTex(tex);
     }
 
-    var title = '자율 시스템의 오빗';
-    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/orbit-of-autonomous-system\/';
+    var title = '줄리아 StatsPlots에서 데이터프레임 이름을 생략하는 매크로 @df';
+    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/how-to-use-@df-of-statsplots-in-julia\/';
     var arr = new Array();
     var obj = {
       "title": title,
@@ -357,7 +340,7 @@ $$
       .then(ip => {
         const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
         return postFetch(url, {
-                board_idx: '1693',
+                board_idx: '2548',
                 user_ip: ip
               });
       })
@@ -490,9 +473,9 @@ $$
       alert('빈칸을 채워주세요');
       return;
     }
-    const idx = '1693';
-    const board_slug = 'orbit-of-autonomous-system';
-    const board_title = '자율 시스템의 오빗';
+    const idx = '2548';
+    const board_slug = 'how-to-use-@df-of-statsplots-in-julia';
+    const board_title = '줄리아 StatsPlots에서 데이터프레임 이름을 생략하는 매크로 @df';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -731,9 +714,9 @@ $$
       return;
     }
 
-    const board_idx = '1693';
-    const board_slug = 'orbit-of-autonomous-system';
-    const board_title = '자율 시스템의 오빗';
+    const board_idx = '2548';
+    const board_slug = 'how-to-use-@df-of-statsplots-in-julia';
+    const board_title = '줄리아 StatsPlots에서 데이터프레임 이름을 생략하는 매크로 @df';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -817,12 +800,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
   const color = {green: '#33cc33', yellow: '#ffcc00', red: '#ff3333', black: '#000000'};
   const categoryRows = [
     [
-      { idx: 1, name: '함수', size: '81', color: color.green },
+      { idx: 1, name: '함수', size: '90', color: color.green },
       { idx: 2, name: '보조정리', size: '24', color: color.green },
       { idx: 3, name: '집합론', size: '47', color: color.green },
       { idx: 4, name: '정수론', size: '89', color: color.green },
       { idx: 5, name: '기하학', size: '132++', color: color.yellow },
-      { idx: 6, name: '행렬대수', size: '87', color: color.green },
+      { idx: 6, name: '행렬대수', size: '89', color: color.green },
       { idx: 7, name: '선형대수', size: '83', color: color.green },
       { idx: 8, name: '추상대수', size: '77', color: color.green },
       { idx: 9, name: '위상수학', size: '63', color: color.green },
@@ -1083,6 +1066,11 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     </div>
 
     
+    
+    
+    <link rel="stylesheet" href=https://freshrimpsushi.github.io/css/codefence.css>
+    <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
+    <script>hljs.initHighlightingOnLoad();</script>
     
 
     <script src=https://freshrimpsushi.github.io/js/fuse.js></script> 

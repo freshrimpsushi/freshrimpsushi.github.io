@@ -67,10 +67,10 @@
     </script>
 
     
-<meta name="title" content="줄리아 StatsPlots에서 데이터프레임 이름을 생략하는 매크로 @df">
+<meta name="title" content="조건부 기대값은 편차제곱합을 최소화한다">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="줄리아 StatsPlots에서 데이터프레임 이름을 생략하는 매크로 @df"/>
-<meta property="og:description" content="How to Use @df of StatsPlots in julia"/>
+<meta property="og:title" content="조건부 기대값은 편차제곱합을 최소화한다"/>
+<meta property="og:description" content="Conditional Expectation Minimizes the Sum of Squares Deviation"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -81,34 +81,34 @@
 {
     "@context": "http://schema.org",
     "@type": "BlogPosting",
-    "articleSection": "r_",
-    "name": "줄리아 StatsPlots에서 데이터프레임 이름을 생략하는 매크로 @df",
-    "headline": "줄리아 StatsPlots에서 데이터프레임 이름을 생략하는 매크로 @df",
+    "articleSection": "j_",
+    "name": "조건부 기대값은 편차제곱합을 최소화한다",
+    "headline": "조건부 기대값은 편차제곱합을 최소화한다",
     "alternativeHeadline": "",
-    "description": "How to Use @df of StatsPlots in julia",
+    "description": "Conditional Expectation Minimizes the Sum of Squares Deviation",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/how-to-use-df-of-statsplots-in-julia\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/conditional-expectation-minimizes-the-sum-of-squares-deviation\/"
     },
     "author" : {
         "@type": "Person",
-        "name": "류대식"
+        "name": "전기현"
     },
     "creator" : {
         "@type": "Person",
-        "name": "류대식"
+        "name": "전기현"
     },
     "accountablePerson" : {
         "@type": "Person",
-        "name": "류대식"
+        "name": "전기현"
     },
     "copyrightHolder" : "생새우초밥집",
-    "copyrightYear" : "1924",
-    "dateCreated": "1924-04-04T00:00:00.00Z",
-    "datePublished": "1924-04-04T00:00:00.00Z",
-    "dateModified": "1924-04-04T00:00:00.00Z",
+    "copyrightYear" : "2013",
+    "dateCreated": "2013-11-29T00:00:00.00Z",
+    "datePublished": "2013-11-29T00:00:00.00Z",
+    "dateModified": "2013-11-29T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -121,15 +121,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-use-df-of-statsplots-in-julia\/",
-    "wordCount" : "280",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/conditional-expectation-minimizes-the-sum-of-squares-deviation\/",
+    "wordCount" : "924",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>줄리아 StatsPlots에서 데이터프레임 이름을 생략하는 매크로 @df</title>
+    <title>조건부 기대값은 편차제곱합을 최소화한다</title>
 </head>
 
 <body class="main">
@@ -137,7 +137,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/%EC%A4%84%EB%A6%AC%EC%95%84.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/basic.png style="max-height: 80px; width: auto;">
             
             
             
@@ -188,21 +188,15 @@
     <div class="content">
       <div class="content-box">
         
-<title>줄리아 StatsPlots에서 데이터프레임 이름을 생략하는 매크로 @df</title>
+<title>조건부 기대값은 편차제곱합을 최소화한다</title>
 
 
 
 
-        <a href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/"
-            style="background-color: rgba(0, 0, 0, 0.8); color: orange;
-            border-radius:10px; padding: 5px;">
-            📂줄리아</a>
-        
 
-
-<h1>줄리아 StatsPlots에서 데이터프레임 이름을 생략하는 매크로 @df</h1>
+<h1>조건부 기대값은 편차제곱합을 최소화한다</h1>
 <p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px; margin-left: 0px;">
-  How to Use @df of StatsPlots in julia
+  Conditional Expectation Minimizes the Sum of Squares Deviation
 </p>
 
 <aside>
@@ -215,9 +209,13 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#개요">개요</a></li>
-    <li><a href="#코드">코드</a></li>
-    <li><a href="#환경">환경</a></li>
+    <li><a href="#정리">정리</a></li>
+    <li><a href="#증명">증명</a>
+      <ul>
+        <li><a href="#1">(1)</a></li>
+        <li><a href="#21">(2)</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
     </div>
@@ -225,38 +223,123 @@
   </div>
 </aside>
 
-<h2 id="개요">개요</h2>
-<p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>의 <code>StatsPlots</code> 패키지에서는 그림을 그릴 때 <code>@df</code> 매크로를 통해 여러번 반복되는 데이터프레임의 이름을 생략할 수 있다. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 매크로를 사용하는 문법은 데이터프레임 <code>X</code>의 <code>a</code> 칼럼을 사용한다고 할 때, <code>@df X</code> 와 같이 어떤 데이터프레임을 사용할 지 명시한 뒤 바로 이어지는 스코프에서 <code>a</code>를 <a href="../2195">심볼</a>인 <code>:a</code>로 인자를 전달해 <code>plot (:a)</code>와 같이 쓰는 것이다. 코드로 요약하면 <code>@df X plot(:a)</code>과 같이 쓴다.</p>
-<h2 id="코드">코드</h2>
-<p>다음은 <a href="../2316">아이리스 데이터</a>의 SepalLength과 SepalWidth로 <a href="../2436">점도표</a>를 그린 것이다.</p>
-<p><img src="plot.svg#center" alt="plot.svg"></p>
-<p>다음 코드에서 <code>scatter(iris.SepalLength, iris.SepalWidth)</code>와 <code>@df iris scatter(:SepalLength, :SepalWidth)</code>는 서로 같다.</p>
-<pre tabindex="0"><code>using RDatasets
-iris = dataset(&#34;datasets&#34;, &#34;iris&#34;)
-
-using StatsPlots
-scatter(iris.SepalLength, iris.SepalWidth)
-@df iris scatter(:SepalLength, :SepalWidth)
-</code></pre><h2 id="환경">환경</h2>
-<ul>
-<li>OS: Windows</li>
-<li>julia: v1.8.3</li>
-<li>StatsPlots v0.15.4</li>
-</ul>
+<h2 id="정리">정리</h2>
+<p>다음이 성립한다.</p>
+<p>$$
+\begin{equation}
+E\left[ Y | X \right] = \argmin_{f(X)} E\left[ (Y - f(X))^{2} | X \right]
+\end{equation}
+$$</p>
+<p>$$
+\begin{equation}
+E\left[ Y | X \right] = \argmin_{f(X)} E\left[ (Y - f(X))^{2} \right]
+\end{equation}
+$$</p>
+<h2 id="증명">증명</h2>
+<h3 id="1">(1)</h3>
+<p>$$
+\begin{align*}
+&amp; \argmin_{f(X)} E\left[ (Y - f(X))^{2} | X \right] \\
+&amp;= \argmin_{f(X)} E\left[ Y^{2} - 2Yf(X) + f(X)^{2} | X \right] \\
+&amp;= \argmin_{f(X)} \left( E\left[ Y^{2} | X \right] - 2E\left[ Yf(X) | X \right] + E\left[ f(X)^{2} | X \right] \right) \\
+&amp;= \argmin_{f(X)} \left( - 2E\left[ Yf(X) | X \right] + E\left[ f(X)^{2} | X \right] \right) \\
+\end{align*}
+$$</p>
+<p>네번째 등호는 첫번째 항이 $f(X)$와 무관하기 때문에 성립한다.</p>
+<blockquote>
+<p><a href="../1340">조건부 기댓값의 스무딩 성질</a> $(\text{Pulling out known factors})$</p>
+<p>[a] $E[f(X)Y | X] = f(X) E[Y | X]$</p>
+</blockquote>
+<p>조건부 기댓값의 성질에 의해 위 식은 다시 다음과 같이 정리된다.</p>
+<p>$$
+\begin{align*}
+&amp; \argmin_{f(X)} \left( - 2E\left[ Yf(X) | X \right] + E\left[ f(X)^{2} | X \right] \right) \\
+&amp;\overset{[a]}{=} \argmin_{f(X)} \left( - 2f(X) E\left[ Y| X \right] + f(X)^{2}E\left[ 1 | X \right] \right) \\
+&amp;= \argmin_{f(X)} \left( - 2f(X) E\left[ Y| X \right] + f(X)^{2} \right) \\
+\end{align*}
+$$</p>
+<p>최솟값이 되는 $f(X)$를 찾기 위해 미분하면,</p>
+<p>$$
+\dfrac{d (- 2f(X) E\left[ Y| X \right] + f(X)^{2})}{d f(X)} = -2E\left[ Y | X \right] + 2f(X) = 0
+$$
+$$
+\implies f(X) = E[Y | X]
+$$</p>
+<p style="text-align: right;">■</p>
+<h3 id="21">(2)<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h3>
+<p>$E\left[ Y | X \right]$를 빼고 더해준 뒤 앞뒤로 묶자.</p>
+<p>$$
+\begin{align*}
+\argmin_{f(X)} E\left[ (Y - f(X))^{2} \right]
+&amp;= \argmin_{f(X)} E\left[ (Y - E\left[ Y | X \right] + E\left[ Y | X \right] - f(X))^{2} \right] \\
+&amp;= \argmin_{f(X)} E\left[ \Big( (Y - E\left[ Y | X \right]) + (E\left[ Y | X \right] - f(X)) \Big)^{2} \right]
+\end{align*}
+$$</p>
+<p>이는 완전제곱꼴 $(a + b)^{2} = a^{2} + b^{2} + 2ab$과 같으므로, 기댓값의 선형성에 의해,</p>
+<p>$$
+\begin{align*}
+&amp; \argmin_{f(X)} E\left[ (Y - f(X))^{2} \right] \\
+&amp;= \argmin_{f(X)} E\left[ \Big( (Y - E\left[ Y | X \right]) + (E\left[ Y | X \right] - f(X)) \Big)^{2} \right] \\
+&amp;= \argmin_{f(X)} \Big( E\left[ (Y - E\left[ Y | X \right])^{2} \right] + E\left[ (E\left[ Y | X \right] - f(X))^{2} \right] \\
+&amp;\qquad\qquad\qquad + 2 E\Big[ (Y - E\left[ Y | X \right])(E\left[ Y | X \right] - f(X)) \Big] \Big)
+\end{align*}
+$$</p>
+<p>첫번째 항은 $f(X)$와 무관하므로 다시 다음과 같이 정리된다.</p>
+<p>$$
+\begin{align}
+&amp; \argmin_{f(X)} E\left[ (Y - f(X))^{2} \right] \nonumber \\
+&amp;= \argmin_{f(X)} \Big( E\left[ (E\left[ Y | X \right] - f(X))^{2} \right] - 2 E\Big[ (Y - E\left[ Y | X \right])(E\left[ Y | X \right] - f(X)) \Big] \Big)
+\end{align}
+$$</p>
+<p>두번째 항을 계산해보자.</p>
+<blockquote>
+<p><a href="../1340">조건부 기댓값의 스무딩 성질</a> $(\text{Pulling out known factors})$</p>
+<p>[a] $E[f(X)Y | X] = f(X) E[Y | X]$</p>
+<p><a href="../1322">조건부 기댓값의 성질</a> $(\text{Law of total expectation})$</p>
+<p>[b] $E_{X}\left[  E_{Y}\left[ Y | X = x \right] \right] = E_{Y}\left[ Y \right]$</p>
+</blockquote>
+<p>위의 성질을 $(3)$의 두번째 항에 적용하면,</p>
+<p>$$
+\begin{align*}
+&amp; E\Big[ (Y - E\left[ Y | X \right])(E\left[ Y | X \right] - f(X)) \Big] \\
+&amp;\overset{[b]}{=} E \left[ E\Big[ (Y - E\left[ Y | X \right])(E\left[ Y | X \right] - f(X)) \Big| X \Big] \right] \\
+&amp;\overset{[a]}{=} E \left[ (E\left[ Y | X \right] - f(X)) E\Big[ (Y - E\left[ Y | X \right]) \Big| X \Big] \right] \\
+&amp;\overset{\text{linearity}}{=} E \left[ (E\left[ Y | X \right] - f(X)) \left( E[ Y | X ] -  E \left[ E\left[ Y | X \right] \Big| X \right] \right) \right]
+\end{align*}
+$$</p>
+<p>바로 위의 수식에서 마지막항은 $E \left[ E\left[ Y | X \right] \Big| X \right] \overset{[a]}{=} E\left[ Y | X \right] E \left[ 1 | X \right] = E\left[ Y | X \right]
+$와 같이 계산되므로,</p>
+<p>$$
+\begin{align*}
+&amp; E\Big[ (Y - E\left[ Y | X \right])(E\left[ Y | X \right] - f(X)) \Big] \\
+&amp;= E \Big[ (E\left[ Y | X \right] - f(X)) \left( E[ Y | X ] - E\left[ Y | X \right] \right) \Big] \\
+&amp;= E \Big[ (E\left[ Y | X \right] - f(X)) \cdot 0 \Big] \\
+&amp;= 0
+\end{align*}
+$$</p>
+<p>따라서 $(3)$의 두번째항은 $0$이고 다음과 같이 정리된다.</p>
+<p>$$
+\argmin_{f(X)} E\Big[ (E\left[ Y | X \right] - f(X))^{2} \Big]
+$$</p>
+<p>그러므로,</p>
+<p>$$
+\argmin_{f(X)} E\left[ (Y - f(X))^{2} \right] = \argmin_{f(X)} E\Big[ (E\left[ Y | X \right] - f(X))^{2} \Big] = E\left[ Y | X \right]
+$$</p>
+<p style="text-align: right;">■</p>
 <div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1">
-<p><a href="https://github.com/JuliaPlots/StatsPlots.jl#original-author-thomas-breloff-tbreloff-maintained-by-the-juliaplots-members">https://github.com/JuliaPlots/StatsPlots.jl#original-author-thomas-breloff-tbreloff-maintained-by-the-juliaplots-members</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://gregorygundersen.com/blog/2019/10/04/expectation-median-opt/">https://gregorygundersen.com/blog/2019/10/04/expectation-median-opt/</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </div>
 
 
 <aside style="text-align: right;">
-    1924-04-04&emsp;
-    류대식&emsp;
-    <a href="../1859">🎲 2548</a>
+    2013-11-29&emsp;
+    전기현&emsp;
+    <a href="../947">🎲 3514</a>
 </aside>
 
 <script>
@@ -271,8 +354,8 @@ scatter(iris.SepalLength, iris.SepalWidth)
       renderKaTex(tex);
     }
 
-    var title = '줄리아 StatsPlots에서 데이터프레임 이름을 생략하는 매크로 @df';
-    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/how-to-use-df-of-statsplots-in-julia\/';
+    var title = '조건부 기대값은 편차제곱합을 최소화한다';
+    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/conditional-expectation-minimizes-the-sum-of-squares-deviation\/';
     var arr = new Array();
     var obj = {
       "title": title,
@@ -340,7 +423,7 @@ scatter(iris.SepalLength, iris.SepalWidth)
       .then(ip => {
         const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
         return postFetch(url, {
-                board_idx: '2548',
+                board_idx: '3514',
                 user_ip: ip
               });
       })
@@ -473,9 +556,9 @@ scatter(iris.SepalLength, iris.SepalWidth)
       alert('빈칸을 채워주세요');
       return;
     }
-    const idx = '2548';
-    const board_slug = 'how-to-use-@df-of-statsplots-in-julia';
-    const board_title = '줄리아 StatsPlots에서 데이터프레임 이름을 생략하는 매크로 @df';
+    const idx = '3514';
+    const board_slug = 'conditional-expectation-minimizes-the-sum-of-squares-deviation';
+    const board_title = '조건부 기대값은 편차제곱합을 최소화한다';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -714,9 +797,9 @@ scatter(iris.SepalLength, iris.SepalWidth)
       return;
     }
 
-    const board_idx = '2548';
-    const board_slug = 'how-to-use-@df-of-statsplots-in-julia';
-    const board_title = '줄리아 StatsPlots에서 데이터프레임 이름을 생략하는 매크로 @df';
+    const board_idx = '3514';
+    const board_slug = 'conditional-expectation-minimizes-the-sum-of-squares-deviation';
+    const board_title = '조건부 기대값은 편차제곱합을 최소화한다';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -800,12 +883,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
   const color = {green: '#33cc33', yellow: '#ffcc00', red: '#ff3333', black: '#000000'};
   const categoryRows = [
     [
-      { idx: 1, name: '함수', size: '81', color: color.green },
+      { idx: 1, name: '함수', size: '90', color: color.green },
       { idx: 2, name: '보조정리', size: '24', color: color.green },
       { idx: 3, name: '집합론', size: '47', color: color.green },
       { idx: 4, name: '정수론', size: '89', color: color.green },
       { idx: 5, name: '기하학', size: '132++', color: color.yellow },
-      { idx: 6, name: '행렬대수', size: '87', color: color.green },
+      { idx: 6, name: '행렬대수', size: '89', color: color.green },
       { idx: 7, name: '선형대수', size: '83', color: color.green },
       { idx: 8, name: '추상대수', size: '77', color: color.green },
       { idx: 9, name: '위상수학', size: '63', color: color.green },
@@ -1066,11 +1149,6 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     </div>
 
     
-    
-    
-    <link rel="stylesheet" href=https://freshrimpsushi.github.io/css/codefence.css>
-    <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
-    <script>hljs.initHighlightingOnLoad();</script>
     
 
     <script src=https://freshrimpsushi.github.io/js/fuse.js></script> 
