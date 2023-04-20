@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/lab\/",
-    "wordCount" : "2776",
+    "wordCount" : "4490",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -215,12 +215,41 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#코드">코드</a>
+      <ul>
+        <li><a href="#기본적인-사용법">기본적인 사용법</a></li>
+        <li><a href="#다차원-배열">다차원 배열</a></li>
+        <li><a href="#전체코드">전체코드</a></li>
+      </ul>
+    </li>
+    <li><a href="#환경">환경</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#정의">정의</a></li>
+    <li><a href="#설명">설명</a>
+      <ul>
+        <li><a href="#통계학의-관점">통계학의 관점</a></li>
+        <li><a href="#머신러닝의-관점">머신러닝의 관점</a></li>
+        <li><a href="#라쏘-회귀와의-차이점">라쏘 회귀와의 차이점</a></li>
+      </ul>
+    </li>
+    <li><a href="#공식">공식</a>
+      <ul>
+        <li><a href="#최적해-2">최적해 </a></li>
+        <li><a href="#유도">유도</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
     <li><a href="#정의-1-2">정의  </a>
       <ul>
         <li><a href="#로컬과-글로벌-3">로컬과 글로벌 </a></li>
       </ul>
     </li>
-    <li><a href="#설명">설명</a>
+    <li><a href="#설명-1">설명</a>
       <ul>
         <li><a href="#직관적인-예시">직관적인 예시</a></li>
         <li><a href="#종류">종류</a></li>
@@ -229,8 +258,8 @@
   </ul>
 
   <ul>
-    <li><a href="#정의">정의</a></li>
-    <li><a href="#설명-1">설명</a>
+    <li><a href="#정의-1">정의</a></li>
+    <li><a href="#설명-2">설명</a>
       <ul>
         <li><a href="#예시-1">예시 </a></li>
       </ul>
@@ -242,12 +271,195 @@
   </div>
 </aside>
 
+<h1 id="줄리아에서-배열의-차분-계산하는-법-diff-r-matlab">줄리아에서 배열의 차분 계산하는 법 <code>diff()</code> {{R}} {{matlab}}</h1>
+<h2 id="개요">개요</h2>
+<p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서는 <a href="../722">차분</a>을 계산하기 위해 <code>diff()</code> 함수를 제공한다. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> <a href="../2562"><code>circshift()</code> 함수</a>를 사용해도 쉽게 짤 수는 있는데 끝 점의 처리 같은 부분에서 은근히 불편하다보니 알아두면 훨씬 편하다. <a href="../../categories/r">R</a>과 <a href="../../categories/%EB%A7%A4%ED%8A%B8%EB%9E%A9">매트랩</a>에서의 <code>diff()</code> 함수와 거의 똑같은 방식으로 사용할 수는 있으나, 이들과 달리 2계 차분(차분을 두 번 취하는 것) 같은 건 굳이 구현해놓지 않았다.</p>
+<h2 id="코드">코드</h2>
+<h3 id="기본적인-사용법">기본적인 사용법</h3>
+<pre tabindex="0"><code>julia&gt; x = rand(0:9, 12)
+12-element Vector{Int64}:
+ 3
+ 1
+ 9
+ 7
+ 1
+ 0
+ 6
+ 5
+ 3
+ 2
+ 9
+ 9
+</code></pre><p>예를 들어 위와 같은 배열이 있다면, 그냥 <code>diff()</code>를 취해서 앞 원소와 뒤 원소의 차를 계산한 다음의 결과를 얻을 수 있다. 결과에서 배열의 사이즈가 정확히 1만큼 줄어든 것을 확인할 수 있다.</p>
+<pre tabindex="0"><code>julia&gt; diff(x)
+11-element Vector{Int64}:
+ -2
+  8
+ -2
+ -6
+ -1
+  6
+ -1
+ -2
+ -1
+  7
+  0
+</code></pre><h3 id="다차원-배열">다차원 배열</h3>
+<pre tabindex="0"><code>julia&gt; X = reshape(x, 3, :)
+3×4 Matrix{Int64}:
+ 3  7  6  2
+ 1  1  5  9
+ 9  0  3  9
+
+julia&gt; diff(X)
+ERROR: UndefKeywordError: keyword argument dims not assigned
+Stacktrace:
+ [1] diff(a::Matrix{Int64})
+   @ Base .\multidimensional.jl:997
+ [2] top-level scope
+   @ c:\Users\rmsms\OneDrive\lab\DataDrivenModel\REPL.jl:7
+</code></pre><p>예를 들어 위와 같은 다차원 배열이 있다면 그냥 <code>diff()</code>를 취했을 때 에러가 나게 된다. 이는 배열을 미는 방향이 주어져 있지 않기 때문이며, 다음과 같이 <code>dims</code>를 인자로 주어서 어떤 차원으로 차분을 계산할지 정해주어야 한다. 1차원에서와 마찬가지로 차분을 했던 방향으로 길이가 1씩 짧아진 것에 주의하라.</p>
+<pre tabindex="0"><code>julia&gt; diff(X, dims = 1)
+2×4 Matrix{Int64}:
+ -2  -6  -1  7
+  8  -1  -2  0
+
+julia&gt; diff(X, dims = 2)
+3×3 Matrix{Int64}:
+  4  -1  -4
+  0   4   4
+ -9   3   6
+</code></pre><h3 id="전체코드">전체코드</h3>
+<pre tabindex="0"><code>x = rand(0:9, 12)
+diff(x)
+
+X = reshape(x, 3, :)
+diff(X)
+diff(X, dims = 1)
+diff(X, dims = 2)
+</code></pre><h2 id="환경">환경</h2>
+<ul>
+<li>OS: Windows</li>
+<li>julia: v1.8.5</li>
+</ul>
+<hr>
+<p>FiniteDifferences</p>
+<hr>
+<p>Interpolations</p>
+<hr>
+<p>Remove only axis values in plot Julia
+<a href="https://stackoverflow.com/questions/74842089/remove-only-axis-values-in-plot-julia">https://stackoverflow.com/questions/74842089/remove-only-axis-values-in-plot-julia</a></p>
+<hr>
+<p>줄리아에서 축과 틱에 색상 지정하는 법
+<a href="https://discourse.julialang.org/t/plots-how-to-set-color-of-y-axis-border-and-ticks/58730/2">https://discourse.julialang.org/t/plots-how-to-set-color-of-y-axis-border-and-ticks/58730/2</a></p>
+<hr>
+<p>줄리아 데이터프레임에서 String7, String15 등 없애는 법
+<a href="https://discourse.julialang.org/t/new-string7-type-from-result-of-csv-file-dataframe-makes-my-function-failing-which-takes-a-string-as-input/68985/2">https://discourse.julialang.org/t/new-string7-type-from-result-of-csv-file-dataframe-makes-my-function-failing-which-takes-a-string-as-input/68985/2</a></p>
+<p>많이 불편해보이지만 사실 성능상의 이유로 있는거니까 이해 좀 해줘</p>
+<hr>
+<h1 id="리지-회귀란-what-is-ridge-regression">리지 회귀란? What is Ridge Regression?</h1>
+<h2 id="정의">정의</h2>
+<p>$$\begin{bmatrix}
+y_{1}
+\\  y_{2}
+\\ \vdots
+\\  y_{n}
+\end{bmatrix} = \begin{bmatrix}
+1 &amp; x_{11} &amp; \cdots &amp; x_{p1}
+\\  1 &amp; x_{12} &amp; \cdots &amp; x_{p2}
+\\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots
+\\  1 &amp; x_{1n} &amp; \cdots &amp; x_{pn}
+\end{bmatrix} \begin{bmatrix}
+\beta_{0}
+\\ \beta_{1}
+\\ \vdots
+\\ \beta_{p}
+\end{bmatrix}  + \begin{bmatrix}
+\varepsilon_{1}
+\\ \varepsilon_{2}
+\\ \vdots
+\\ \varepsilon_{n}
+\end{bmatrix}$$
+$n$ 개의 <a href="../2418">데이터</a>가 주어져 있을 때 <a href="../666">선형다중회귀모델</a>을 <a href="../550">계획행렬</a>로 나타내면 위와 같고, 간단히 $Y = X \beta + \varepsilon$ 라 나타내자. 이 때 다음의 <a href="../1463">최적화 문제</a>를 푸는 것을 <strong>리지 회귀</strong><sup>Ridge Regression</sup>라고 한다.
+$$
+\argmin_{\beta} \left( \left\| Y - X \beta \right\|_{2}^{2} + \lambda \left\| \beta \right\|_{2}^{2} \right)
+$$
+여기서 $\lambda \ge 0$ 을 <strong>튜닝 파라메터</strong><sup>Tuning Parameter</sup>라 한다.</p>
+<hr>
+<ul>
+<li>$\left\| \cdot \right\|_{2}$ 은 <a href="../1225">유클리드 놈</a>이다.</li>
+</ul>
+<h2 id="설명">설명</h2>
+<p>리지 회귀는 <strong>능형 회귀</strong>라고 순화되기도 하는 것 같은데, 기본적으로는 영단어가 별로 길지 않아 그대로 읽는 경우가 많다. 읽을 때의 음가는 [릳지]가 아니라 리지[rɪdʒ]인데, Edge를 [엗지]가 아닌 에지[edʒ]라 읽는 것과 비슷하다. Ridge는 <strong>산등성이</strong>라는 뜻으로, <strong>능형</strong>이라는 것도 &lsquo;산등성이에서 산등성이로 이어지는 선&rsquo;을 의미하는 <strong>능선</strong>에서 나온 말이다. 이는 기하적으로 보았을 때, 보통의 <a href="../666">다중회귀분석</a>에서 $\beta$ 의 <a href="../1463">목적 함수</a>인 <a href="../650">RSS</a>가 이루는 초곡면<sup>Hyper Surface</sup>에 $\lambda \left\| \beta \right\|_{2}$ 때문에 능선이 생겨나기 때문이다.</p>
+<p>한편 <a href="../../categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D">머신러닝</a>에서는 $\lambda \left\| \beta \right\|_{2}$ 를 추가하는 식의 <a href="../1807">레귤러라이제이션</a><sup>Regularization</sup>을 <strong>티코노프 정칙화</strong><sup>Tikhonov -</sup>라고도 한다. <sup id="fnref1:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<h3 id="통계학의-관점">통계학의 관점</h3>
+<h3 id="머신러닝의-관점">머신러닝의 관점</h3>
+<h3 id="라쏘-회귀와의-차이점">라쏘 회귀와의 차이점</h3>
+<h2 id="공식">공식</h2>
+<h3 id="최적해-2">최적해 <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h3>
+<p>$$
+L \left( \beta \right) = \left\| Y - X \beta \right\|_{2}^{2} + \lambda \left\| \beta \right\|_{2}^{2}
+$$
+$\lambda$ 가 <a href="../2465">상수</a>로 주어져 있을 때, 리지 회귀의 <a href="../1463">목적 함수</a> $L$ 을 다음과 같이 나타내자. 리지 회귀의 최적해 $\hat{\beta} = \argmin_{\beta} L \left( \beta \right)$ 는 다음과 같다.
+$$
+\hat{\beta} = \left( X^{T} X + \lambda I \right)^{-1} X^{T} Y
+$$
+여기서 $A^{T}$ 는 $A$ 의 <a href="../3002">전치행렬</a>, $I$ 는 <a href="../3001">항등행렬</a>, $A^{-1}$ 는 $A$ 의 <a href="../3003">역행렬</a>이다.</p>
+<h3 id="유도">유도</h3>
+<blockquote>
+<p><a href="../3002">전치행렬의 성질</a>: $r,s\in \mathbb{R}$이고 $A,B$는 각각의 경우에서 행렬 연산이 잘 정의되도록하는 크기를 갖는다고 하자. 그러면 다음이 성립한다.</p>
+<ul>
+<li><strong>(a) 선형성:</strong> $$\left(  rA + sB\right)^{T}=r A^{T} + s B^{T}$$</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><a href="../1926">벡터, 행렬의 그래디언트</a>:
+$$
+\frac{ \partial \mathbf{x}^{T}\mathbf{w}}{ \partial \mathbf{w} } = \mathbf{x}
+$$
+만약 $\mathbf{R}$이 대칭행렬이면
+$$
+\frac{ \partial }{ \partial \mathbf{w} }\left( \mathbf{w}^{T}\mathbf{R}\mathbf{w} \right)=2\mathbf{R}\mathbf{w}
+$$</p>
+</blockquote>
+<p>우선 <a href="../3011">행렬내적</a>은 <a href="../1842">내적의 대칭성</a>에 따라
+$$
+\mathbf{x}^{T} \mathbf{y} = \mathbf{y}^{T} \mathbf{x} \iff \left&lt; \mathbf{x} , \mathbf{y} \right&gt; = \left&lt; \mathbf{y} , \mathbf{x} \right&gt; \qquad \cdots \left( \ast \right)
+$$
+이 성립한다.
+$$
+\begin{align*}
+{{ \partial } \over { \partial \beta }} L \left( \beta \right) =&amp; {{ \partial } \over { \partial \beta }} \left\| Y - X \beta \right\|_{2}^{2} + {{ \partial } \over { \partial \beta }} \lambda \left\| \beta \right\|_{2}^{2}
+\\   =&amp; {{ \partial } \over { \partial \beta }} \left( Y - X \beta \right)^{T} \left( Y - X \beta \right) + \lambda {{ \partial } \over { \partial \beta }} \beta^{T} \beta
+\\   =&amp; {{ \partial } \over { \partial \beta }} \left( Y^{T} - \beta^{T} X^{T} \right) \left( Y - X \beta \right) + \lambda {{ \partial } \over { \partial \beta }} \beta^{T} I \beta
+\\   =&amp; {{ \partial } \over { \partial \beta }} \left( - \beta^{T} X^{T} Y - Y^{T} X \beta + \beta^{T} X^{T} X \beta \right) + 2 \lambda \beta
+\\   =&amp; {{ \partial } \over { \partial \beta }} \left( - \beta^{T} X^{T} Y \right) - X^{T} Y + 2 X^{T} X \beta + 2 \lambda \beta
+\\   =&amp; {{ \partial } \over { \partial \beta }} \left( - Y^{T} X \beta \right) - X^{T} Y + 2 X^{T} X \beta + 2 \lambda \beta &amp; \because ( \ast )
+\\   =&amp; - X^{T} Y - X^{T} Y + 2 X^{T} X \beta + 2 \lambda \beta
+\\   =&amp; - 2 X^{T} Y + 2 X^{T} X \beta + 2 \lambda \beta
+\end{align*}
+$$
+이므로 $\beta = \hat{\beta}$ 는 ${{ \partial } \over { \partial \beta }} L  = 0$ 을 만족시킨다. 정리하면 다음을 얻는다.
+$$
+\begin{align*}
+&amp; X^{T} X \hat{\beta} + \lambda \hat{\beta} = X^{T} Y
+\\ \implies &amp; \left( X^{T} X + \lambda I \right) \hat{\beta} = X^{T} Y
+\\ \implies &amp; \hat{\beta} = \left( X^{T} X + \lambda I \right)^{-1} X^{T} Y
+\end{align*}
+$$</p>
+<p style="text-align: right;">■</p>
+<hr>
+<h1 id="라쏘-회귀란-what-is-lasso-regression">라쏘 회귀란? What is LASSO Regression?</h1>
+<hr>
+<p>리지 회귀와 라쏘 회귀의 차이점
+Difference between Ridge and LASSO Regressions</p>
+<hr>
 <h1 id="동역학에서의-바이퍼케이션-bifurcation-in-dynamics">동역학에서의 바이퍼케이션 Bifurcation in Dynamics</h1>
-<h2 id="정의-1-2">정의 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h2>
+<h2 id="정의-1-2">정의 <sup id="fnref2:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> <sup id="fnref1:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h2>
 <p><a href="../2071">동역학계</a>에서 파라메터들의 변화 하에서 <a href="../2074">페이즈 포트레이트</a>의 <a href="../2105">위상적 불일치</a><sup>Topological Nonequivalent</sup>가 나타나는 것을 <strong>바이퍼케이션</strong><sup>Bifurcation</sup>이라 한다. 파라메터 공간<sup>Parameter Space</sup>에서 시스템의 위상적 타입이 변하는 점, 즉 바이퍼케이션이 일어나는 점을 <strong>바이퍼케이션 포인트</strong><sup>Bifurcation Point</sup>라 한다.</p>
 <h3 id="로컬과-글로벌-3">로컬과 글로벌 <sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></h3>
 <p><a href="../2477">고정점</a>의 작은 근방에서 발견되는 바이퍼케이션은 <strong>로컬</strong><sup>Local</sup>하다고 말하고, 꼭 고정점이 아니더라도 <a href="../2044">푸앙카레 맵</a>의 로컬 바이퍼케이션에 대응되는 <a href="../1693">리미트 사이클</a>의 바이퍼케이션도 <strong>사이클의 로컬 바이퍼케이션</strong><sup>Local Bifurcation of Cycles</sup>이라고 한다. 이렇게 작은 근방에서 볼 수 없는 바이퍼케이션을 <strong>글로벌</strong><sup>Global</sup>하다고 말한다.</p>
-<h2 id="설명">설명</h2>
+<h2 id="설명-1">설명</h2>
 <p>보통 바이퍼케이션이라는 개념은 이해하는 게 아니라 받아들이게 되는데, 아무래도 직관적으로 무슨 말인지는 알기 쉽지만 그것을 수학적인 스테이트먼트로 나타내는 것은 쉽지 않기 때문이다. 위에서 소개한 정의는 비교적 수학스럽긴 하나, <strong>위상적 불일치가 &lsquo;나타나는&rsquo; 것</strong>이라는 설명에서 &lsquo;나타난다&rsquo;는 표현은 여전히 자연어에 기대고 있다.</p>
 <p><a href="../../categories/%EB%8F%99%EC%97%AD%ED%95%99">비선형 동역학</a>의 관심사는 보통 시스템에 대한 분석이고, 시간의 흐름에 따라서 미래가 어떻게 될지 예측할 수 있는지가 자연스러운 질문이 된다. 그 시스템이 현실을 잘 반영하고 있다면 동역학적인 분석만으로도 실용적인 쓰임새가 생기는 것이다. 한편 주어진 시스템의 <a href="../1507">트래젝터리</a><sup>Trajectory</sup>를 보고 스테이트<sup>State</sup>가 어떻게 변하는지가 궁금했던 것이라면, 바이퍼케이션을 본다는 것은 시스템 자체가 어떻게 변하는지에 관심을 두는 것이다. 적어도 한 차원 높은 곳에서 시스템의 <a href="../1316">집합</a>을 다루는 것이고, 다이내믹스의 세계에선 너무나 당연하게 알고 있어야하는 지식들이다.</p>
 <h3 id="직관적인-예시">직관적인 예시</h3>
@@ -261,16 +473,16 @@
 <p>바이퍼케이션은 많은 학자들의 관심을 받은만큼 정말 많은 종류가 발견되었다. 그 중 몇가지 유명한 것들로는 다음과 같은 것들이 있다:</p>
 <hr>
 <h1 id="동역학에서-벡터필드의-노멀-폼-normal-form-of-vector-field-in-dynamics">동역학에서 벡터필드의 노멀 폼 Normal Form of Vector Field in Dynamics</h1>
-<h2 id="정의">정의</h2>
+<h2 id="정의-1">정의</h2>
 <p>$p(x;r)$ 가 어떤 <a href="../2058">다항함수</a>라 하자.
 $$
 \dot{x} = p(x; r)
 $$
 <a href="../2071">동역학계</a>의 성질을 설명하기 위해 위와 같이 간략화된 <a href="../970">벡터필드</a>를 <strong>노멀 폼</strong><sup>Normal Form</sup>이라 한다.</p>
-<h2 id="설명-1">설명</h2>
-<p><a href="../../categories/%EB%8F%99%EC%97%AD%ED%95%99">동역학</a>을 공부할 때, 이를테면 <a href="../1497">카오스</a>, 바이퍼케이션, 프랙탈 등에 대해 공부하면서 난처한 것 중 하나는 수학적 엄밀함과 일반성이 부족한 것처럼 느껴진다는 것이다. 그게 공부하는 자신이 배운 게 없어서 그렇게 보일 뿐인지, 실제로 그런 모호함이 있는지랑은 별개로 &lsquo;예제&rsquo; 위주로 &lsquo;현상&rsquo;부터 익혀나간다는 점이 적잖이 당황스러울 수 있다. 보통 수학책이라면 정의부터 나오고, 관련된 정리가 나오고, 그 증명을 보고, 예제를 보고, 연습 문제를 풀어보는 식인데 그 순서가 엉켜있어 당황스럽게 느껴진다.</p>
+<h2 id="설명-2">설명</h2>
+<p><a href="../../categories/%EB%8F%99%EC%97%AD%ED%95%99">동역학</a>을 공부할 때, 이를테면 <a href="../1497">카오스</a>, [바이퍼케이션][../-], 프랙탈 등에 대해 공부하면서 난처한 것 중 하나는 수학적 엄밀함과 일반성이 부족한 것처럼 느껴진다는 것이다. 그게 공부하는 자신이 배운 게 없어서 그렇게 보일 뿐인지, 실제로 그런 모호함이 있는지랑은 별개로 &lsquo;예제&rsquo; 위주로 &lsquo;현상&rsquo;부터 익혀나간다는 점이 적잖이 당황스러울 수 있다. 보통 수학책이라면 정의부터 나오고, 관련된 정리가 나오고, 그 증명을 보고, 예제를 보고, 연습 문제를 풀어보는 식인데 그 순서가 엉켜있어 당황스럽게 느껴진다.</p>
 <p>노멀 폼은 결코 어렵지도 않고, 목적에 따르면 사실 일련의 탐구를 쉽게 만들어주는 요소임에도 &lsquo;공부를 하는 입장&rsquo;에서는 오히려 위에서 언급한 혼란을 가중시키는 원인 중 하나다.</p>
-<h3 id="예시-1">예시 <sup id="fnref1:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h3>
+<h3 id="예시-1">예시 <sup id="fnref3:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h3>
 <p>$$
 \dot{x} = r - x^{2}
 $$
@@ -289,32 +501,15 @@ $$
 \\ =&amp; (r - 1) - {{ x^{2} } \over { 2 }} + O \left( x^{3} \right)
 \end{align*}
 $$
-와 같이 나타낼 수 있다. 이렇듯 $\dot{x} = (r-x) - e^{-x}$ 와 같이 새들-노드 바이퍼케이션의 예시가 얼마나 있든 가장 간단한 꼴로 나타낸 것을 <strong>바이퍼케이션에 대한 노멀 폼</strong><sup>Normal Form for Bifurcation</sup>이라 하고, 이 때 우리는 $\dot{x} = r - x^{2}$ 을 단 하나의 예시로 보는 것이 아니다.</p>
-<hr>
-<p>줄리아 데이터프레임에서 String7, String15 등 없애는 법
-<a href="https://discourse.julialang.org/t/new-string7-type-from-result-of-csv-file-dataframe-makes-my-function-failing-which-takes-a-string-as-input/68985/2">https://discourse.julialang.org/t/new-string7-type-from-result-of-csv-file-dataframe-makes-my-function-failing-which-takes-a-string-as-input/68985/2</a></p>
-<p>많이 불편해보이지만 사실 성능상의 이유로 있는거니까 이해 좀 해줘</p>
-<hr>
-<p>circshift
-<a href="https://docs.julialang.org/en/v1/base/arrays/#Base.circshift">https://docs.julialang.org/en/v1/base/arrays/#Base.circshift</a></p>
-<hr>
-<p>diff</p>
-<hr>
-<p>Remove only axis values in plot Julia
-<a href="https://stackoverflow.com/questions/74842089/remove-only-axis-values-in-plot-julia">https://stackoverflow.com/questions/74842089/remove-only-axis-values-in-plot-julia</a></p>
-<hr>
-<p>줄리아에서 축과 틱에 색상 지정하는 법
-<a href="https://discourse.julialang.org/t/plots-how-to-set-color-of-y-axis-border-and-ticks/58730/2">https://discourse.julialang.org/t/plots-how-to-set-color-of-y-axis-border-and-ticks/58730/2</a></p>
-<hr>
-<p>Hankel Matrix</p>
+와 같이 나타낼 수 있다. 이렇듯 $\dot{x} = (r-x) - e^{-x}$ 와 같이 새들-노드 바이퍼케이션의 예시가 얼마나 있든 가장 간단한 꼴로 나타낸 것을 <strong>바이퍼케이션에 대한 노멀 폼</strong><sup>Normal Form for Bifurcation</sup>이라 하고, 이 때 우리는 $\dot{x} = r - x^{2}$ 을 그저 단 하나의 예시로 보는 것이 아닌 것이다.</p>
 <div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1">
-<p>Kuznetsov. (1998). Elements of Applied Bifurcation Theory(2nd Edition): p57.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://docs.julialang.org/en/v1/base/arrays/#Base.diff">https://docs.julialang.org/en/v1/base/arrays/#Base.diff</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref2:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref3:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2">
-<p>Strogatz. (2015). Nonlinear Dynamics And Chaos: With Applications To Physics, Biology, Chemistry, And Engineering(2nd Edition): p43.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://stats.stackexchange.com/questions/69205/how-to-derive-the-ridge-regression-solution">https://stats.stackexchange.com/questions/69205/how-to-derive-the-ridge-regression-solution</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:3">
 <p>Kuznetsov. (1998). Elements of Applied Bifurcation Theory(2nd Edition): p58.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
@@ -326,7 +521,7 @@ $$
 <aside style="text-align: right;">
     2021-01-01&emsp;
     류대식&emsp;
-    <a href="../1556">🎲 1998</a>
+    <a href="../1507">🎲 1998</a>
 </aside>
 
 <script>
