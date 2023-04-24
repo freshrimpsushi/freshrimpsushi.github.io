@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/importance-sampling\/",
-    "wordCount" : "1244",
+    "wordCount" : "1647",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -137,7 +137,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/basic.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D.png style="max-height: 80px; width: auto;">
             
             
             
@@ -193,6 +193,12 @@
 
 
 
+        <a href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/"
+            style="background-color: rgba(0, 0, 0, 0.8); color: orange;
+            border-radius:10px; padding: 5px;">
+            📂머신러닝</a>
+        
+
 
 <h1>중요도 샘플링</h1>
 <p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px; margin-left: 0px;">
@@ -214,8 +220,8 @@
     <li><a href="#정의">정의</a></li>
     <li><a href="#설명">설명</a>
       <ul>
+        <li><a href="#불편추정량">불편추정량</a></li>
         <li><a href="#분산">분산</a></li>
-        <li><a href="#alternative-form">alternative form</a></li>
       </ul>
     </li>
   </ul>
@@ -226,11 +232,14 @@
 </aside>
 
 <h2 id="개요1">개요<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p>중요도 샘플링은 <a href="../3515">유한합으로 적분(기댓값)을 근사</a>할 때, 낮은 확률의 샘플로 인해 근사값의 정확도가 떨어지는 경우에 사용할 수 있는 일종의 샘플링 트릭이다.</p>
+<!-- YoonSang Lee Math106 Data-driven Uncertainty Quantification -->
+<p>중요도 샘플링은 <a href="../3515">유한합으로 적분(기댓값)을 근사</a>할 때 사용할 수 있는 일종의 샘플링 트릭이다.</p>
 <h2 id="빌드업">빌드업</h2>
 <p>표준정규분포에서 $z$ 값이 $4$이상일 확륙은 약 $3.167 \times 10^{-5}$이다.</p>
 <p>$$
+\begin{equation}
 \int_{4}^{\infty} \dfrac{1}{\sqrt{2\pi}} e^{-z^{2}/2}dz \approx 3.167 \times 10^{-5}
+\end{equation}
 $$</p>
 <p>이 적분을 <a href="../3515">몬테카를로적분</a>으로 계산하는 줄리아 코드는 다음과 같다.</p>
 <pre tabindex="0"><code>using Distributions
@@ -249,36 +258,73 @@ end
 0.0
 4.0e-5
 4.0e-5
-</code></pre><p>다섯번 정도 해보면 계산된 값이 비슷하지 않고, 심지어는 $0$으로 계산될 때도 있다. 이런 부정확함은 표준정규분포의 꼬리가 너무 얇기 때문에 생긴다. 종이 위에서 적분할 때는 꼬리가 아무리 얇아도 그에 대한 계산이 적분에 포함되지만, 컴퓨터로 샘플링할 때는 유한한 샘플만을 다루기 때문에 너무 발생확률이 낮은 사건은 계산에 포함되지 않을 수 있다. 물론 $n$을 늘리면 더 정확해질테지만 이는 너무 당연한 말이고, 이런걸 해결방법이라고 부르지는 않는다.</p>
+</code></pre><p>다섯번 정도 해보면 계산된 값이 참값과 비슷하지 않고, 심지어는 $0$으로 계산될 때도 있다. 이런 부정확함은 표준정규분포의 꼬리가 너무 얇기 때문에 생긴다. 종이 위에서 적분할 때는 꼬리가 아무리 얇아도 그에 대한 계산이 적분에 포함되지만, 컴퓨터로 샘플링할 때는 유한한 샘플만을 다루기 때문에 너무 발생확률이 낮은 사건은 계산에 포함되지 않을 수 있다. 물론 $n$을 늘리면 더 정확해질테지만 이는 너무 당연한 말이고, 이런걸 해결방법이라고 부르지는 않는다.</p>
 <p>$$
 \int f(x)p(x) dx = \int f(x)\dfrac{p(x)}{q(x)} q(x) dx = \int \left[ f(x)\dfrac{p(x)}{q(x)} \right] q(x) dx
 $$</p>
-<p>이제 <a href="../1433">확률밀도함수</a> $p$인 확률변수 $X$에 대해서, $f(X)$의 기댓값을 계산하는 상황을 생각해보자. 이는 위 식의 좌변과 같이 계산할 수 있는데, 여기서 어떤 $q(x)$를 나눠주고 곱해줘도 여전히 같은 값이다. 식의 우변은 좌변과 같은 값을 갖지만, 의미는 '확률밀도함수가 $q$인 확률변수 $X$에 대해서 $f(X)\dfrac{p(X)}{q(X)}$의 기댓값'이 된다. 여기서 $q$를 $p$보다 꼬리가 두꺼운 확률밀함수로 선택한다면, 발생확률이 너무 낮은 사건에 의한 부정확함을 줄일 수 있다.</p>
+<p>이제 <a href="../1433">확률밀도함수</a>가 $p$인 확률변수 $X$에 대해서, $f(X)$의 기댓값을 계산하는 상황을 생각해보자. 이는 위 식의 좌변과 같이 계산할 수 있는데, 여기서 어떤 $q(x)$를 나눠주고 곱해줘도 여전히 같은 값이다. 식의 우변은 좌변과 같은 값을 갖지만, 의미는 '확률밀도함수가 $q$인 확률변수 $X$에 대해서 $f(X)\dfrac{p(X)}{q(X)}$의 기댓값'이 된다. 여기서 $q$를 $p$보다 꼬리가 두꺼운 확률밀함수로 선택한다면, 발생확률이 너무 낮은 사건에 의한 부정확함을 줄일 수 있다.</p>
 <h2 id="정의">정의</h2>
 <p>$X$를 확률밀도함수가 $p$인 확률변수라고 하자. $q$를 다음을 만족하는 또 다른 확률밀도함수라고 하자.</p>
 <p>$$
 \supp p \subset \supp q \qquad (\iff q\ne 0 \text{ if } p \ne 0)
 $$</p>
-<p><strong>중요도 샘플링</strong><sup>importance sampling</sup>이란 $f(X)$의 기댓값 $E_{p}[f(X)]$을 $E_{q}[f(X)\frac{p(X)}{q(X)}]$로 계산하는 방법이다. 이때 $\supp$는 함수의 <a href="../1594">서포트</a>이다.</p>
+<p><strong>중요도 샘플링</strong><sup>importance sampling</sup>이란 $f(X)$의 기댓값 $E_{p}[f(X)]$를 $E_{q}[f(X)\frac{p(X)}{q(X)}]$로 계산하여 구하는 방법을 말한다. 이때 $\supp$는 함수의 <a href="../1594">서포트</a>이다.</p>
 <p>$$
 E_{p}[f] = \int f(x)p(x) dx = \int \left[ f(x)\dfrac{p(x)}{q(x)} \right] q(x) dx = E_{q}[fp/q]
 $$</p>
 <p>여기서 $q$를 <strong>제안 분포</strong><sup>proposal distribution</sup>, $w = \frac{p}{q}$를 <strong>중요도 가중치</strong><sup>importance weight</sup>라고 한다.</p>
 <h2 id="설명">설명</h2>
-<p>다시말해 중요도 샘플링이란 몬테카를로 적분을 다음과 같이 계산하는 것을 말한다.</p>
+<p>다시말해 중요도 샘플링이란 몬테카를로 적분을 다음과 같이 계산하는 것이다.</p>
 <p>$$
-\dfrac{1}{n}\sum f(x_{i})\dfrac{p(x_{i})}{q(x_{i})}, X_{i} \sim q(x) \quad \left( \text{ instead of } \dfrac{1}{n}\sum f(x_{i}), X_{i} \sim p(x) \right)
+\dfrac{1}{n}\sum f(x_{i})\dfrac{p(x_{i})}{q(x_{i})}, X_{i} \sim q(x) \quad \left( \text{instead of } \dfrac{1}{n}\sum f(x_{i}), X_{i} \sim p(x) \right)
 $$</p>
-<p>빌드업에서의 예제와 같이 $p(x)$의 꼬리가 너무 얇을 때 서포트가 큰 분포를 제안함수로 두거나, $p(x)$의 분포로 샘플링 하기 어려울 때 샘플링하기 쉬운 분포를 제안함수를 $q(x)$로 두는 식으로 사용할 수 있다.</p>
+<p>다음과 같이 사용하면 도움이 된다.</p>
+<ul>
+<li>빌드업에서의 예제와 같이 $p(x)$의 꼬리가 너무 얇을 때 서포트가 더 큰 분포를 제안함수로 둔다.</li>
+<li>$p(x)$의 분포로 샘플링 하기 어려울 때 샘플링하기 쉬운 분포를 제안함수를 $q(x)$로 둔다.</li>
+</ul>
 <p>$q$가 $p$의 분모로 곱해지기 때문에 $\supp q$는 $\supp p$를 포함해야한다.</p>
+<p>빌드업의 적분 $(1)$을 <a href="../147">코시분포</a>를 제안분포로 두고 중요도 샘플링으로 다시 계산한 결과는 다음과 같다.</p>
+<p><img src="3516_IS.png#center" alt="3516_IS.png"></p>
+<pre tabindex="0"><code># Julia code
+
+using Distributions
+
+n = 50000                      # sample size
+z₀ = 4.0
+
+for i in 1:5
+    z = rand(Cauchy(), n)                       # n-samples drawn from a Cauchy distribution 
+    w = pdf.(Normal(), z) ./ pdf.(Cauchy(), z)
+    est_IS = sum(w[z .&gt; z₀])/n                  # estmiates using Importance Sampling
+    println(est_IS)
+end
+
+3.0330744703037005e-5
+3.1808448538011614e-5
+3.049259883894785e-5
+3.305423127141489e-5
+3.1807695818207125e-5
+</code></pre><h3 id="불편추정량">불편추정량</h3>
+<p>$\dfrac{1}{n}\sum\limits f(x_{i})\dfrac{p(x_{i})}{q(x_{i})}$는 $E_{p}[f(X)]$의 <a href="../1745">불편추정량</a>이다.</p>
+<h4 id="증명">증명</h4>
+<p>$$
+\begin{align*}
+E_{q}\left[ \frac{1}{n}\sum_{i}^{n}f(X_{i})\dfrac{p(X_{i})}{q(X_{i})} \right]
+&amp;= \frac{1}{n}\sum_{i}^{n} E_{q}\left[ f(X_{i})\dfrac{p(X_{i})}{q(X_{i})} \right] &amp;\text{by linearity of $E$} \\
+&amp;= E_{q}\left[ f(X)\dfrac{p(X)}{q(X)} \right] \\
+&amp;= E_{p}\left[ f(X) \right]
+\end{align*}
+$$</p>
+<p style="text-align: right;">■</p>
 <h3 id="분산">분산</h3>
 <p>중요도샘플링에서의 분산은</p>
 <p>$$
-\begin{align*}
+\begin{align}
 \Var \left[ \frac{fp}{q} \right]
-&amp;= E_{q}\left[ \left( \frac{fp}{q} \right)^{2} \right] - E_{q}\left[ \frac{fp}{q} \right]^{2} \\
-&amp;= \int \frac{f(x)^{2}p(x)^{2}}{q(x)} dx - \left( \int f(x)p(x) dx \right)^{2} \\
-\end{align*}
+&amp;= E_{q}\left[ \left( \frac{fp}{q} \right)^{2} \right] - \left( E_{q}\left[ \frac{fp}{q} \right] \right)^{2} \\
+&amp;= \int \frac{f(x)^{2}p(x)^{2}}{q(x)} dx - \left( \int f(x)p(x) dx \right)^{2} \nonumber
+\end{align}
 $$</p>
 <p>이므로, 유한한 분산을 갖기 위해선 다음이 성립해야한다.</p>
 <p>$$
@@ -286,9 +332,29 @@ $$</p>
 $$</p>
 <p>이는 $p(x)/q(x)$가 <a href="../3517">유계</a>여야한다는 말이고, 이는 다시 $q(x)$의 꼬리가 $p(x)$의 꼬리보다 두꺼워야한다는 말과 같다. 분산을 최소화하는 $q$는 다음과 같다.</p>
 <p>$$
-q^{\ast} = \argmin\limits_{q} \Var
+q^{\ast} = \argmin\limits_{q} \Var [fp/q] = \frac{ \left| f(x) \right| p(x)}{ \int \left| f(x) \right| p(x) dx}
 $$</p>
-<h3 id="alternative-form">alternative form</h3>
+<h4 id="증명-1">증명</h4>
+<p>$(2)$에서 두번째 항은 $q$에 의존하는 것처럼 보여도, $E_{q}\left[ \frac{fp}{q} \right] = {\displaystyle \int} f(x)p(x)dx$이므로 $q$와는 무관한 값이다.</p>
+<p>$$
+\argmin\limits_{q} \Var [fp/q] = \argmin\limits_{q} E_{q}\left[ \left( \frac{fp}{q} \right)^{2} \right]
+$$</p>
+<blockquote>
+<p><a href="../266">옌센 부등식</a></p>
+<p>개구간 $I$ 에서 함수 $\phi$ 가 컨벡스하고 두 번 미분가능, 확률변수 $X$ 의 기댓값 $\mu$ 가 존재하며 $X \subset I $ 면
+$$
+\phi [ E(X) ] \le E [ \phi(X)]
+$$</p>
+</blockquote>
+<p>그런데 이차함수는 컨벡스이므로,</p>
+<p>$$
+\begin{align*}
+&amp;&amp; \left( E_{q}\left[ \frac{fp}{q} \right] \right)^{2} &amp;\le E_{q}\left[ \left( \frac{fp}{q} \right)^{2} \right] \\
+\implies &amp;&amp; \left( \int f(x)p(x) dx \right)^{2} &amp;\le \int \frac{f(x)^{2} p(x)^{2}}{q(x)} dx
+\end{align*}
+$$</p>
+<p>여기서 $q(x) =  \frac{ \left| f(x) \right| p(x)}{ \int \left| f(x) \right| p(x) dx}$이면 등호가 성립한다.</p>
+<p style="text-align: right;">■</p>
 <div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -302,7 +368,7 @@ $$</p>
 <aside style="text-align: right;">
     2013-12-03&emsp;
     전기현&emsp;
-    <a href="../1648">🎲 3516</a>
+    <a href="../1179">🎲 3516</a>
 </aside>
 
 <script>
