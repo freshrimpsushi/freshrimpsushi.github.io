@@ -33,8 +33,8 @@ accepted = Array{Float64}[]
 rejected = Array{Float64}[]
 for i ∈ 1:N
     x = rand(proposal)
-    y = rand(Uniform(0,1))
-    if y < target(x)/4.2pdf(proposal, x)
+    y = rand(Uniform(0,4.2pdf(proposal, x)))
+    if y < target(x)
         push!(samples, x)
         push!(accepted, [x, y])
     else
@@ -46,9 +46,9 @@ rejected = hcat(rejected...)
 
 scatter(accepted[1,:], accepted[2,:], label="accepted", color=:blue, markerstrokewidth=0, markersize=2, dpi=300, size=(728,300), legend=:topright)
 scatter!(rejected[1,:], rejected[2,:], label="rejected", color=:red, markerstrokewidth=0, markersize=2)
-savefig("C:/Users/rydbr/Desktop/바탕화면/admin/content/j_/0_recent/3518_리젝션샘플링/3518_RS3.png")
+savefig("C:/Users/rydbr/Desktop/바탕화면/admin/content/j_/0_recent/3518_기각샘플링/3518_RS3.png")
 
 x = range(-15, 15, length=1000)
 plot(x, target(x), label="target "*L"p(x)", framestyle=:none)
 histogram!(samples, label="accepted samples", color=:blue, alpha=0.5, bins=100, normed=true, dpi=300, size=(728,300), legend=:topright)
-savefig("C:/Users/rydbr/Desktop/바탕화면/admin/content/j_/0_recent/3518_리젝션샘플링/3518_RS4.png")
+savefig("C:/Users/rydbr/Desktop/바탕화면/admin/content/j_/0_recent/3518_기각샘플링/3518_RS4.png")

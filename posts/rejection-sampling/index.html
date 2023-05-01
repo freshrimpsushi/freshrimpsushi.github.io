@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/rejection-sampling\/",
-    "wordCount" : "959",
+    "wordCount" : "1232",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -232,14 +232,14 @@
 </aside>
 
 <h2 id="개요-1">개요 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p>기각 샘플링은 몬테 카를로 방법<sup>Monte-Carlo method</sup> 중 하나로, 샘플링하기 어려운 분포를 샘플링하는 방법이다.</p>
+<p>기각 샘플링은 <a href="../3521">몬테카를로 방법</a> 중 하나로, 주어진 분포 $p$로 샘플링하기 어려울 때 샘플링하기 쉬운 제안분포 $q$를 이용하여 $p$를 따르는 샘플을 얻는 방법이다.</p>
 <h2 id="빌드업">빌드업</h2>
 <p><a href="../1433">확률변수</a> $X$의 <a href="../1433">확률밀도함수</a> $p$가 주어졌다고 하자. 우리는 $p$의 분포로 샘플링을 하고 싶지만, 이것이 어려운 상황이라고 하자. (가령 $X$의 누적분포함수의 역함수를 구하는 것이 어렵다면, <a href="../2294">샘플링을 구현하기 힘들다.</a>) 그리고 모든 $x$에 대해서, $kq(x) \ge p(x)$를 만족하는 상수 $k$와 다른 분포 $q$를 선택하자. 이때 $q$는 균등분포나 정규분포와 같이 샘플링하기 쉬운 분포여야하며, 타겟 분포와 비슷할 수록 좋다.</p>
 <p><img src="3518_RS.png#center" alt="3518_RS.png"></p>
-<p>이제 두 확률변수 $X \sim q$, $Y \sim U(0,1)$에 대해서 샘플링을 실시하여 각각 $x, y$를 얻었다고 하자. 여기서 $U$는 <a href="../443">균등분포</a>이다. $x, y$에 대해서 두 값 $\frac{p(x)}{kq(x)}, y$를 비교하여,</p>
+<p>이제 확률변수 $X \sim q$에 대한 샘플링으로 $x$를 얻고, $Y \sim U(0,kq(x))$에 대한 샘플링으로 $y$를 얻었다고 하자. 여기서 $U$는 <a href="../443">균등분포</a>이다. $x, y$에 대해서 두 값 $p(x), y$를 비교하여,</p>
 <ul>
-<li>$\dfrac{p(x)}{kq(x)} \gt y$이면, $x$를 <strong>수용</strong><sup>accept</sup>하여 샘플에 추가한다.</li>
-<li>$\dfrac{p(x)}{kq(x)} \le y$이면, $x$를 <strong>기각</strong><sup>reject</sup>하여 샘플에 추가하지 않는다.</li>
+<li>$p(x) \gt y$이면, $x$를 <strong>채택</strong><sup>accept</sup>하여 샘플에 추가한다.</li>
+<li>$p(x) \le y$이면, $x$를 <strong>기각</strong><sup>reject</sup>하여 샘플에 추가하지 않는다.</li>
 </ul>
 <h2 id="정의">정의</h2>
 <p>$X$를 확률밀도함수가 $p$인 확률변수라고 하자. 다음을 만족하는 또 다른 확률밀도함수 $q$와 상수 $k$를 선택하자.</p>
@@ -248,15 +248,20 @@ p(x) \le k q(x),\quad \forall x
 $$</p>
 <p><strong>기각 샘플링</strong><sup>rejection sampling</sup>이란 샘플 $\left\{ x_{i} \right\}$를 다음과 같이 추출하는 방법을 말한다.</p>
 <p>$$
-\left\{ x_{i} \Big| \dfrac{p(x_{i})}{kq(x_{i})} \gt y_{i},\quad X_{i} \sim q, Y_{i} \sim U(0,1) \right\}
+\left\{ x_{i} \Big| \dfrac{p(x_{i})}{kq(x_{i})} \gt y_{i},\quad X_{i} \sim q, Y_{i} \sim U(0,kq(x_{i})) \right\}
 $$</p>
 <p>여기서 $p$를 <strong>타겟 분포</strong><sup>target distribution</sup>, $q$를 <strong>제안 분포</strong><sup>proposal distribution</sup>라고 한다.</p>
 <h2 id="설명">설명</h2>
 <p><img src="3518_RS2.png#center" alt="3518_RS.png"></p>
-<p>이 방법은 $p(x)$는 구체적으로 알고 있지만, 이로부터 샘플링을 하기 어려울 때 사용할 수 있다. 기각 샘플링이란, 풀어서 말하자면, $kq(x) \ge p(x)$를 만족하며 샘플링하기 쉬운 $q$를 선택하여, $q$로부터 $x$를 샘플링하고 $kq(x)$와 $p(x)$의 차이(비율)에 따라 $x$를 확률적으로 기각하는 것이다. 아래의 그림을 보면 타겟 $p$와 제안 $q$의 차이가 클 수록 기각될 확률이 높다는 것을 알 수 있다. 그러니까 $\frac{p(x)}{kq(x)}$ 자체가 $x$가 수용될 확률이다. $0 \le p/kq \le 1$이므로 $y$는 $Y \sim U(0,1)$으로 샘플링한다.</p>
-<p>줄리아로 구현하여 산점도와 히스토그램을 그려보면 다음과 같다.</p>
-<p><img src="3518_RS3.png#center" alt="3518_RS.png">
-<img src="3518_RS4.png#center" alt="3518_RS.png"></p>
+<p>이 방법은 $p(x)$는 구체적으로 알고 있지만, 이로부터 샘플링을 하기 어려울 때 사용할 수 있다. 기각 샘플링이란, 풀어서 말하자면, $kq(x) \ge p(x)$를 만족하며 샘플링하기 쉬운 $q$를 선택하여, $q$로부터 $x_{i}$를 샘플링하고 $kq(x_{i})$와 $p(x_{i})$의 차이(비율)에 따라 $x_{i}$를 확률적으로 기각하는 것이다. 위의 그림을 보면 타겟 $p$와 제안 $q$의 차이가 클 수록 기각될 확률이 높다는 것을 알 수 있다. 그러니까 원래 $x_{i}$가 추출될 확률을 의미했던 $p(x_{i})$에 약간의 수식적인 조작을 통해 $x_{i}$가 채택될 확률 $\frac{p(x_{i})}{kq(x_{i})}$로 바꾼 것이다. 혹은 분포를 $p$에서 $kq$로 바꿨으니 그 차이 만큼 샘플링될 확률에 패널티를 준다고 이해할 수 있다.</p>
+<p>제안 분포 $q$와 상수 $k$를 선택했을 때 샘플의 채택 비율은 다음과 같이 계산된다.
+$$
+\text{acceptance rate} = \int \frac{p(x)}{kq(x)} q(x) dx = \dfrac{1}{k}\int p(x)dx = \dfrac{1}{k}
+$$
+따라서 충분한 양의 샘플을 모으는데 걸리는 시간은 $k$에 의존하고, 이를 최적화하기 위해선 $p(x) \le k q(x)$를 만족하는 가장 작은 $k$를 선택해야 한다.</p>
+<p>기각 샘플링을 줄리아로 구현하여 산점도와 히스토그램을 그려보면 다음과 같다.</p>
+<p><img src="3518_RS3.png#center" alt="3518_RS.png"></p>
+<p><img src="3518_RS4.png#center" alt="3518_RS.png"></p>
 <h2 id="코드">코드</h2>
 <pre tabindex="0"><code>using Distributions
 using Plots
@@ -265,13 +270,14 @@ using LaTeXStrings
 N = 20000
 target(x) = 0.5*pdf.(Normal(-3, 0.8), x) + pdf.(Normal(3, 3), x)
 proposal = Normal(0, 5)
-samples = Float64[]
+samples = Float64[]ㅌ
+
 accepted = Array{Float64}[]
 rejected = Array{Float64}[]
 for i ∈ 1:N
     x = rand(proposal)
-    y = rand(Uniform(0,1))
-    if y &lt; target(x)/4.2pdf(proposal, x)
+    y = rand(Uniform(0,4.2pdf(proposal, x)))
+    if y &lt; target(x)
         push!(samples, x)
         push!(accepted, [x, y])
     else
@@ -307,7 +313,7 @@ savefig(&#34;RS4.png&#34;)
 <aside style="text-align: right;">
     2013-12-07&emsp;
     전기현&emsp;
-    <a href="../441">🎲 3518</a>
+    <a href="../1338">🎲 3518</a>
 </aside>
 
 <script>

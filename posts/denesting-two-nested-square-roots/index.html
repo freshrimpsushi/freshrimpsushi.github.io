@@ -67,10 +67,10 @@
     </script>
 
     
-<meta name="title" content="머신러닝에서 레귤러라이제이션이란">
+<meta name="title" content="이중 근호 전개 공식">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="머신러닝에서 레귤러라이제이션이란"/>
-<meta property="og:description" content="regularization in machine learning"/>
+<meta property="og:title" content="이중 근호 전개 공식"/>
+<meta property="og:description" content="Denesting Two Nested Square Roots"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -82,15 +82,15 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "j_",
-    "name": "머신러닝에서 레귤러라이제이션이란",
-    "headline": "머신러닝에서 레귤러라이제이션이란",
+    "name": "이중 근호 전개 공식",
+    "headline": "이중 근호 전개 공식",
     "alternativeHeadline": "",
-    "description": "regularization in machine learning",
+    "description": "Denesting Two Nested Square Roots",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/regularization-in-machine-learning\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/denesting-two-nested-square-roots\/"
     },
     "author" : {
         "@type": "Person",
@@ -105,10 +105,10 @@
         "name": "전기현"
     },
     "copyrightHolder" : "생새우초밥집",
-    "copyrightYear" : "2020",
-    "dateCreated": "2020-09-29T00:00:00.00Z",
-    "datePublished": "2020-09-29T00:00:00.00Z",
-    "dateModified": "2020-09-29T00:00:00.00Z",
+    "copyrightYear" : "2013",
+    "dateCreated": "2013-12-09T00:00:00.00Z",
+    "datePublished": "2013-12-09T00:00:00.00Z",
+    "dateModified": "2013-12-09T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -121,15 +121,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/regularization-in-machine-learning\/",
-    "wordCount" : "179",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/denesting-two-nested-square-roots\/",
+    "wordCount" : "152",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>머신러닝에서 레귤러라이제이션이란</title>
+    <title>이중 근호 전개 공식</title>
 </head>
 
 <body class="main">
@@ -137,7 +137,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D.png style="max-height: 80px; width: auto;">
+                <img src=https://freshrimpsushi.github.io/logo/basic.png style="max-height: 80px; width: auto;">
             
             
             
@@ -188,21 +188,21 @@
     <div class="content">
       <div class="content-box">
         
-<title>머신러닝에서 레귤러라이제이션이란</title>
+<title>이중 근호 전개 공식</title>
 
 
 
 
-        <a href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/"
+        <a href="https://freshrimpsushi.github.io/categories/%EA%B5%90%EA%B3%BC%EA%B3%BC%EC%A0%95/"
             style="background-color: rgba(0, 0, 0, 0.8); color: orange;
             border-radius:10px; padding: 5px;">
-            📂머신러닝</a>
+            📂교과과정</a>
         
 
 
-<h1>머신러닝에서 레귤러라이제이션이란</h1>
+<h1>이중 근호 전개 공식</h1>
 <p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px; margin-left: 0px;">
-  regularization in machine learning
+  Denesting Two Nested Square Roots
 </p>
 
 <aside>
@@ -215,8 +215,13 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#정의">정의</a></li>
-    <li><a href="#종류">종류</a></li>
+    <li><a href="#공식">공식</a></li>
+    <li><a href="#설명">설명</a>
+      <ul>
+        <li><a href="#예제">예제</a></li>
+      </ul>
+    </li>
+    <li><a href="#증명">증명</a></li>
   </ul>
 </nav>
     </div>
@@ -224,39 +229,41 @@
   </div>
 </aside>
 
-<h2 id="정의">정의</h2>
-<p>트레이닝 로스가 아닌 테스트 로스를 줄이기 위해 알고리즘을 수정하는 모든 방법을 <strong>레귤러라이제이션</strong> 이라 한다.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
-<blockquote>
-<p>Goodfellow defines regularization as &ldquo;any modification we make to a learning algorithm that is intended to reduce its generalization error but not its training error.&rdquo;</p>
-</blockquote>
-<p>즉, <a href="../866">오버피팅</a>을 막기 위한 모든 방법을 묶어서 레귤러라이제이션이라 한다. 머신러닝, 딥러닝 교재에서 흔히 소개되는 기법으로는 드롭 아웃이 있다.</p>
-<h2 id="종류">종류</h2>
-<ul>
-<li>$l_{2}$ regularization</li>
-<li>$l_{1}$ regularization</li>
-<li>Weight decay</li>
-<li>Early stopping</li>
-<li><a href="../1004">드롭 아웃</a><sup>dropout</sup></li>
-<li>Batch normalization</li>
-<li>Label smoothing</li>
-<li>Mixup</li>
-<li>Image augment</li>
-<li><a href="../1809">Flooding</a></li>
-</ul>
-<div class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1">
-<p>Ian Goodfellow, Yoshua Bengio, and Aaron Courville. (2016) Deep Learning. MIT Press&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-</ol>
-</div>
+<h2 id="공식">공식</h2>
+<p>$a \gt b$일 때,</p>
+<p>$$
+\sqrt{a + b \pm 2\sqrt{a b}} = \sqrt{a} \pm \sqrt{b}
+$$</p>
+<h2 id="설명">설명</h2>
+<p>루트가 두 개라 풀기 엄청 어려울 것 같지만, 완전제곱꼴로 바로 풀린다.</p>
+<h3 id="예제">예제</h3>
+<p>$$
+\begin{align*}
+\sqrt{13 - 2\sqrt{12}}
+&amp;= \sqrt{12 + 1 - 2\sqrt{12 \cdot 1}} \\
+&amp;= \sqrt{(\sqrt{12})^{2} + (\sqrt{1})^{2} - 2\sqrt{12}\sqrt{1}} \\
+&amp;= \sqrt{(\sqrt{12} - \sqrt{1})^{2}} \\
+&amp;= \sqrt{12} - \sqrt{1} \\
+&amp;= 2\sqrt{3} - 1 \\
+\end{align*}
+$$</p>
+<h2 id="증명">증명</h2>
+<p>$$
+\begin{align*}
+\sqrt{a + b \pm 2\sqrt{a b}}
+&amp;= \sqrt{(\sqrt{a})^{2} + (\sqrt{b})^{2} \pm 2\sqrt{a}\sqrt{b}} \\
+&amp;= \sqrt{(\sqrt{a} \pm \sqrt{b})^{2}} \\
+&amp;= \sqrt{a} \pm \sqrt{b}
+\end{align*}
+$$</p>
+<p>두번째 등호에서 <a href="../171">곱셈공식</a> $(a \pm b)^{2} = a^{2} + b^{2} \pm 2 ab$가 사용되었다.</p>
+<p style="text-align: right;">■</p>
 
 
 <aside style="text-align: right;">
-    2020-09-29&emsp;
+    2013-12-09&emsp;
     전기현&emsp;
-    <a href="../1610">🎲 1807</a>
+    <a href="../1270">🎲 3519</a>
 </aside>
 
 <script>
@@ -271,8 +278,8 @@
       renderKaTex(tex);
     }
 
-    var title = '머신러닝에서 레귤러라이제이션이란';
-    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/regularization-in-machine-learning\/';
+    var title = '이중 근호 전개 공식';
+    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/denesting-two-nested-square-roots\/';
     var arr = new Array();
     var obj = {
       "title": title,
@@ -340,7 +347,7 @@
       .then(ip => {
         const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
         return postFetch(url, {
-                board_idx: '1807',
+                board_idx: '3519',
                 user_ip: ip
               });
       })
@@ -473,9 +480,9 @@
       alert('빈칸을 채워주세요');
       return;
     }
-    const idx = '1807';
-    const board_slug = 'regularization-in-machine-learning';
-    const board_title = '머신러닝에서 레귤러라이제이션이란';
+    const idx = '3519';
+    const board_slug = 'denesting-two-nested-square-roots';
+    const board_title = '이중 근호 전개 공식';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -714,9 +721,9 @@
       return;
     }
 
-    const board_idx = '1807';
-    const board_slug = 'regularization-in-machine-learning';
-    const board_title = '머신러닝에서 레귤러라이제이션이란';
+    const board_idx = '3519';
+    const board_slug = 'denesting-two-nested-square-roots';
+    const board_title = '이중 근호 전개 공식';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())

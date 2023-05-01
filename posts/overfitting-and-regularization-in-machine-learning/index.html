@@ -67,10 +67,10 @@
     </script>
 
     
-<meta name="title" content="머신 러닝에서 자주 쓰이는 벡터, 행렬의 그래디언트 계산표">
+<meta name="title" content="머신러닝에서 오버피팅과 레귤러라이제이션이란?">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="머신 러닝에서 자주 쓰이는 벡터, 행렬의 그래디언트 계산표"/>
-<meta property="og:description" content="gradient for vector and matrix in machine learning"/>
+<meta property="og:title" content="머신러닝에서 오버피팅과 레귤러라이제이션이란?"/>
+<meta property="og:description" content="Overfitting and Regularization in Machine Learning"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -82,15 +82,15 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "j_",
-    "name": "머신 러닝에서 자주 쓰이는 벡터, 행렬의 그래디언트 계산표",
-    "headline": "머신 러닝에서 자주 쓰이는 벡터, 행렬의 그래디언트 계산표",
+    "name": "머신러닝에서 오버피팅과 레귤러라이제이션이란?",
+    "headline": "머신러닝에서 오버피팅과 레귤러라이제이션이란?",
     "alternativeHeadline": "",
-    "description": "gradient for vector and matrix in machine learning",
+    "description": "Overfitting and Regularization in Machine Learning",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/gradient-for-vector-and-matrix-in-machine-learning\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/overfitting-and-regularization-in-machine-learning\/"
     },
     "author" : {
         "@type": "Person",
@@ -106,9 +106,9 @@
     },
     "copyrightHolder" : "생새우초밥집",
     "copyrightYear" : "2020",
-    "dateCreated": "2020-12-26T00:00:00.00Z",
-    "datePublished": "2020-12-26T00:00:00.00Z",
-    "dateModified": "2020-12-26T00:00:00.00Z",
+    "dateCreated": "2020-09-29T00:00:00.00Z",
+    "datePublished": "2020-09-29T00:00:00.00Z",
+    "dateModified": "2020-09-29T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -121,15 +121,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/gradient-for-vector-and-matrix-in-machine-learning\/",
-    "wordCount" : "674",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/overfitting-and-regularization-in-machine-learning\/",
+    "wordCount" : "539",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>머신 러닝에서 자주 쓰이는 벡터, 행렬의 그래디언트 계산표</title>
+    <title>머신러닝에서 오버피팅과 레귤러라이제이션이란?</title>
 </head>
 
 <body class="main">
@@ -188,7 +188,7 @@
     <div class="content">
       <div class="content-box">
         
-<title>머신 러닝에서 자주 쓰이는 벡터, 행렬의 그래디언트 계산표</title>
+<title>머신러닝에서 오버피팅과 레귤러라이제이션이란?</title>
 
 
 
@@ -200,9 +200,9 @@
         
 
 
-<h1>머신 러닝에서 자주 쓰이는 벡터, 행렬의 그래디언트 계산표</h1>
+<h1>머신러닝에서 오버피팅과 레귤러라이제이션이란?</h1>
 <p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px; margin-left: 0px;">
-  gradient for vector and matrix in machine learning
+  Overfitting and Regularization in Machine Learning
 </p>
 
 <aside>
@@ -215,14 +215,14 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#스칼라-함수970의-그래디언트1778"><a href="../970">스칼라 함수</a>의 <a href="../1778">그래디언트</a>:</a>
+    <li><a href="#오버피팅">오버피팅</a>
       <ul>
-        <li><a href="#내적의-그래디언트">내적의 그래디언트</a></li>
+        <li><a href="#설명">설명</a></li>
       </ul>
     </li>
-    <li><a href="#놈의-그래디언트">놈의 그래디언트</a>
+    <li><a href="#레귤러라이제이션">레귤러라이제이션</a>
       <ul>
-        <li><a href="#이차형식의-그래디언트">이차형식의 그래디언트</a></li>
+        <li><a href="#종류">종류</a></li>
       </ul>
     </li>
   </ul>
@@ -232,88 +232,44 @@
   </div>
 </aside>
 
-<h2 id="스칼라-함수970의-그래디언트1778"><a href="../970">스칼라 함수</a>의 <a href="../1778">그래디언트</a>:</h2>
-<p>$$
-\frac{ \partial f(\mathbf{w})}{ \partial \mathbf{w} } :=\nabla f(\mathbf{w})=\begin{bmatrix}
-\dfrac{ \partial f(\mathbf{w})}{ \partial w_{1} } &amp; \dfrac{ \partial f(\mathbf{w})}{ \partial w_{2} } &amp; \cdots &amp; \dfrac{ \partial f(\mathbf{w})}{ \partial w_{n} }
-\end{bmatrix}^{T}
-$$</p>
-<h3 id="내적의-그래디언트">내적의 그래디언트</h3>
-<p>$f(\mathbf{w})=\mathbf{w}^{T}\mathbf{x}$라고 하면</p>
-<p>$$
-\begin{align*}
-\frac{ \partial f(\mathbf{w})}{ \partial \mathbf{w} } =\frac{ \partial (\mathbf{w}^{T}\mathbf{x})}{ \partial \mathbf{w} } &amp;=\begin{bmatrix}
-\dfrac{ \partial \left( \sum _{i=1} ^{n} w_{i}x_{i}\right)}{ \partial w_{1} } &amp; \dfrac{ \partial \left( \sum _{i=1} ^{n} w_{i}x_{i}\right)}{ \partial w_{2} } &amp; \cdots &amp; \dfrac{ \partial \left( \sum _{i=1} ^{n} w_{i}x_{i}\right)}{ \partial w_{n} }
-\end{bmatrix}^{T}
-\\ &amp;= \begin{bmatrix}
-x_{1} &amp; x_{2} &amp; \cdots &amp; x_{n}
-\end{bmatrix}^{T}
-\\ &amp;= \mathbf{x}
-\end{align*}
-$$</p>
-<p>또한 $\mathbf{w}^{T}\mathbf{x} = \mathbf{x}^{T}\mathbf{w}$이므로,</p>
-<p>$$
-\frac{ \partial \mathbf{x}^{T}\mathbf{w}}{ \partial \mathbf{w} } = \mathbf{x}
-$$</p>
-<h2 id="놈의-그래디언트">놈의 그래디언트</h2>
-<p><a href="../1886">놈</a>은 $\left\| \mathbf{w} \right\|^{2} = \mathbf{w}^{T} \mathbf{w}$이므로,</p>
-<p>$$
-\dfrac{\partial \left\| \mathbf{w} \right\|^{2}}{\partial \mathbf{w}} = \dfrac{\partial (\mathbf{w}^{T}\mathbf{w})}{\partial \mathbf{w}} = \mathbf{w}
-$$</p>
-<h3 id="이차형식의-그래디언트">이차형식의 그래디언트</h3>
-<p>미분 계산이 쉽도록 먼저 계산을 다음과 같이 해준다. 임의의 $k\in\left\{1,\dots,n\right\}$에 대해서 다음의 식을 얻는다.</p>
-<p>$$
-\begin{align*}
-f(\mathbf{w}) &amp;= \mathbf{w}^{T}\mathbf{R}\mathbf{w} =\sum \limits _{j=1} ^{n} w_{j} \sum \limits _{i=1} ^{n}r_{ji}w_{i}
-\\ &amp; = w_{k} \sum \limits _{i=1} ^{n}r_{ki}w_{i} +\sum \limits _{j\ne k}w_{j} \sum \limits _{i=1} ^{n}r_{ji}w_{i}
-\\ &amp;= w_{k}\left(r_{kk}w_{k} + \sum \limits _{i\ne k} r_{ki}w_{i}\right) +\sum \limits _{j\ne k}w_{j} \left(r_{jk}w_{k}+ \sum \limits _{i \ne k} r_{ji}w_{i} \right)
-\\ &amp;= w_{k}^{2}r_{kk} + w_{k}\sum \limits _{i\ne k} r_{ki}w_{i} + \sum \limits _{j\ne k}w_{j}r_{jk}w_{k}+ \sum \limits _{j\ne k}\sum \limits _{i \ne k}w_{j} r_{ji}w_{i}
-\end{align*}
-$$</p>
-<p>따라서 $\dfrac{ \partial f(\mathbf{w})}{ \partial w_{k}}$를 계산하면 다음과 같다.</p>
-<p>$$
-\begin{align*}
-\frac{ \partial f(\mathbf{w})}{ \partial w_{k} }&amp;=\frac{ \partial }{ \partial w_{k} } \left( w_{k}^{2}r_{kk} + w_{k}\sum \limits _{i\ne k} r_{ki}w_{i} + \sum \limits _{j\ne k}w_{j}r_{jk}w_{k}+ \sum \limits _{j\ne k}\sum \limits _{i \ne k}w_{j} r_{ji}w_{i} \right)
-\\ &amp;=2w_{k}r_{kk} + \sum \limits _{i\ne k} r_{ki}w_{i} + \sum \limits _{j\ne k}w_{j}r_{jk}
-\\ &amp;=\sum \limits _{i=1}^{n} r_{ki}w_{i} + \sum \limits _{j=1}^{n}r_{jk}w_{j}
-\end{align*}
-$$</p>
-<p>따라서 $f$의 그래디언트를 계산하면 다음과 같다.</p>
-<p>$$
-\begin{align*}
-\frac{ \partial f(\mathbf{w})}{ \partial \mathbf{w} } = \mathbf{w}^{T}\mathbf{R}\mathbf{w} &amp;= \begin{bmatrix}
-\dfrac{ \partial f (\mathbf{w})}{ \partial w_{1} } &amp; \dfrac{ \partial f (\mathbf{w})}{ \partial w_{2} } &amp; \dots &amp; \dfrac{ \partial f (\mathbf{w})}{ \partial w_{n} }
-\end{bmatrix}^{T}
-\\[1em] &amp;= \begin{bmatrix}
-\sum _{i=1} ^{n} r_{1i}w_{i} + \sum _{j=1}^{n} r_{j1}w_{j}
-\\[0.5em] \sum _{i=1} ^{n} r_{2i}w_{i} + \sum _{j=1}^{n} r_{j2}w_{j}
-\\[0.5em] \vdots
-\\[0.5em] \sum _{i=1} ^{n} r_{ni}w_{i} + \sum _{j=1}^{n} r_{jn}w_{j}
-\end{bmatrix}
-\\[3.5em] &amp;= \begin{bmatrix}
-\sum _{i=1} ^{n} r_{1i}w_{i}
-\\[0.5em] \sum _{i=1} ^{n} r_{2i}w_{i}
-\\[0.5em] \vdots
-\\[0.5em] \sum _{i=1} ^{n} r_{ni}w_{i}
-\end{bmatrix} + \begin{bmatrix}
-\sum _{j=1}^{n} r_{j1}w_{j}
-\\[0.5em] \sum _{j=1}^{n} r_{j2}w_{j}
-\\[0.5em] \vdots
-\\[0.5em] \sum _{j=1}^{n} r_{jn}w_{j}
-\end{bmatrix}
-\\[3.5em] &amp;=\mathbf{R} \mathbf{w} + \mathbf{R}^{T}\mathbf{w}=\left( \mathbf{R}+\mathbf{R}^{T} \right)\mathbf{w}
-\end{align*}
-$$</p>
-<p>마지막 줄은 $(1)$에 의해 성립한다. 만약 $\mathbf{R}$이 대칭행렬이면</p>
-<p>$$
-\frac{ \partial }{ \partial \mathbf{w} }\left( \mathbf{w}^{T}\mathbf{R}\mathbf{w} \right)=2\mathbf{R}\mathbf{w}
-$$</p>
+<h2 id="오버피팅">오버피팅</h2>
+<p><img src="overfitting.png#center" alt="overfitting.png"></p>
+<p><a href="../3382">트레이닝 로스</a>는 줄어들지만, <a href="../3382">테스트 로스</a>가 줄어들지 않거나 오히려 증가하는 현상을 <strong>오버 피팅</strong><sup>over fitting, 과적합</sup>이라 한다.</p>
+<h3 id="설명">설명</h3>
+<p>이와 반대되는 언더 피팅이라는 말도 있으나 솔직히 의미 없는 말이고, 경험상 잘 쓰이지도 않는다.</p>
+<p>머신 러닝에서 중요한 점은 가지고 있는 데이터로 학습시킨 함수가 새로운 데이터에 대해서도 잘 작동해야한다는 것이다. 그래서 학습에 사용하지 않은 데이터에 대한 성능을 칭하는 <strong>일반화 성능</strong>이라는 말이 있으며, 오버 피팅이 일어났다는 것은 일반화 성능이 낮다는 말과 같다. 입시에서 모의고사를 풀어보는 것은 결국 수능을 잘보기 위함인데, 모의고사는 만점을 받고 수능을 망친 학생은 모의고사 문제에 대해서 오버피팅된 학생이라고 볼 수 있다. 모의고사에서 만점까지는 아니지라도 좋은 성적을 받고, 수능에서도 비슷하게 좋은 성적을 받은 학생은 일반화 성능이 좋은 것이다.</p>
+<h2 id="레귤러라이제이션">레귤러라이제이션</h2>
+<p>(트레이닝 로스가 아니라) 테스트 로스를 줄이기 위해 알고리즘을 수정하는 모든 방법을 <strong>레귤러라이제이션</strong> 이라 한다.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<blockquote>
+<p>Goodfellow defines regularization as &ldquo;any modification we make to a learning algorithm that is intended to reduce its generalization error but not its training error.&rdquo;</p>
+</blockquote>
+<p>즉, 오버피팅을 막기 위한 모든 방법을 묶어서 레귤러라이제이션이라 한다. 머신러닝, 딥러닝 교재에서 흔히 소개되는 기법으로는 드롭 아웃이 있다.</p>
+<h3 id="종류">종류</h3>
+<ul>
+<li>$l_{2}$ regularization</li>
+<li>$l_{1}$ regularization</li>
+<li>Weight decay</li>
+<li>Early stopping</li>
+<li><a href="../1004">드롭 아웃</a><sup>dropout</sup></li>
+<li>Batch normalization</li>
+<li>Label smoothing</li>
+<li><a href="../3522">데이터 어그멘테이션</a><sup>data augmentation</sup></li>
+<li><a href="../1809">Flooding</a></li>
+</ul>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Ian Goodfellow, Yoshua Bengio, and Aaron Courville. (2016) Deep Learning. MIT Press&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
 
 
 <aside style="text-align: right;">
-    2020-12-26&emsp;
+    2020-09-29&emsp;
     전기현&emsp;
-    <a href="../2077">🎲 1926</a>
+    <a href="../2128">🎲 1807</a>
 </aside>
 
 <script>
@@ -328,8 +284,8 @@ $$</p>
       renderKaTex(tex);
     }
 
-    var title = '머신 러닝에서 자주 쓰이는 벡터, 행렬의 그래디언트 계산표';
-    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/gradient-for-vector-and-matrix-in-machine-learning\/';
+    var title = '머신러닝에서 오버피팅과 레귤러라이제이션이란?';
+    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/overfitting-and-regularization-in-machine-learning\/';
     var arr = new Array();
     var obj = {
       "title": title,
@@ -397,7 +353,7 @@ $$</p>
       .then(ip => {
         const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
         return postFetch(url, {
-                board_idx: '1926',
+                board_idx: '1807',
                 user_ip: ip
               });
       })
@@ -530,9 +486,9 @@ $$</p>
       alert('빈칸을 채워주세요');
       return;
     }
-    const idx = '1926';
-    const board_slug = 'gradient-for-vector-and-matrix-in-machine-learning';
-    const board_title = '머신 러닝에서 자주 쓰이는 벡터, 행렬의 그래디언트 계산표';
+    const idx = '1807';
+    const board_slug = 'overfitting-and-regularization-in-machine-learning';
+    const board_title = '머신러닝에서 오버피팅과 레귤러라이제이션이란?';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -771,9 +727,9 @@ $$</p>
       return;
     }
 
-    const board_idx = '1926';
-    const board_slug = 'gradient-for-vector-and-matrix-in-machine-learning';
-    const board_title = '머신 러닝에서 자주 쓰이는 벡터, 행렬의 그래디언트 계산표';
+    const board_idx = '1807';
+    const board_slug = 'overfitting-and-regularization-in-machine-learning';
+    const board_title = '머신러닝에서 오버피팅과 레귤러라이제이션이란?';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
