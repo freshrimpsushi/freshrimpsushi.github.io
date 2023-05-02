@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-use-finite-difference-in-julia\/",
-    "wordCount" : "0",
+    "wordCount" : "714",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -215,7 +215,15 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#코드">코드</a>
+      <ul>
+        <li><a href="#finitedifferencemethod"><code>FiniteDifferenceMethod()</code></a></li>
+        <li><a href="#_fdm"><code>_fdm()</code></a></li>
+        <li><a href="#전체코드">전체코드</a></li>
+      </ul>
+    </li>
+    <li><a href="#환경">환경</a></li>
   </ul>
 </nav>
     </div>
@@ -223,13 +231,83 @@
   </div>
 </aside>
 
-<h2 id="heading"></h2>
+<h2 id="개요">개요</h2>
+<p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서 <a href="../3494">유한차분법</a>을 사용하려면, 더 정확히 <a href="../2553">유한차분의 계수</a>를 구하기 위해서는 <code>FiniteDifferences.jl</code>를 써봄직하다. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 노이즈에 취약한 경우에는 <strong>TVDiff</strong>으로 알려진 Total Variation Regularized Numerical Differentiation를 사용해볼 수 있고, <a href="https://github.com/adrhill/NoiseRobustDifferentiation.jl"><code>NoiseRobustDifferentiation.jl</code></a>에 구현되어있다.</p>
+<h2 id="코드">코드</h2>
+<h3 id="finitedifferencemethod"><code>FiniteDifferenceMethod()</code></h3>
+<pre tabindex="0"><code>julia&gt; f′ = FiniteDifferenceMethod([-2, 0, 5], 1)
+FiniteDifferenceMethod:
+  order of method:       3
+  order of derivative:   1
+  grid:                  [-2, 0, 5]
+  coefficients:          [-0.35714285714285715, 0.3, 0.05714285714285714]
+
+
+julia&gt; typeof(f′)
+FiniteDifferences.UnadaptedFiniteDifferenceMethod{3, 1}
+</code></pre><p>위 예시는 함수의 가운데 점, 왼쪽 두번째 점, 오른쪽 다섯번째 점을 사용해 1계도함수를 계산할 때 세 점의 가중치를 구해준다. 기본적으로 <code>FiniteDifferenceMethod()</code>를 통해 얻을 수 있는 건 이 계수들이다.</p>
+<pre tabindex="0"><code>julia&gt; propertynames(f′)
+(:grid, :coefs, :coefs_neighbourhood, :condition, :factor, :max_range, :∇f_magnitude_mult, :f_error_mult)
+
+julia&gt; f′.grid
+3-element StaticArraysCore.SVector{3, Int64} with indices SOneTo(3):
+ -2
+  0
+  5
+
+julia&gt; f′.coefs
+3-element StaticArraysCore.SVector{3, Float64} with indices SOneTo(3):
+ -0.35714285714285715
+  0.3
+  0.05714285714285714
+</code></pre><p>스트럭쳐에서 사용하게 될 프로퍼티는 대표적으로 <code>.grid</code>와 <code>.coefs</code> 이 두가지다.</p>
+<pre tabindex="0"><code>julia&gt; f′(sin, π/2)
+-1.2376571459669071e-11
+
+julia&gt; f′(cos, π/2)
+-1.0000000000076525
+</code></pre><p>데이터가 아니라 함수 자체가 주어져 있을 땐 위와 같이 그냥 함수 꼴로 바로 써도 무방하다.</p>
+<h3 id="_fdm"><code>_fdm()</code></h3>
+<pre tabindex="0"><code>central_fdm(2, 1)
+central_fdm(3, 2)
+backward_fdm(4, 1)
+forward_fdm(5, 1)
+</code></pre><p>굳이 커스텀을 하지 않고 널리 알려진 FDM이 필요하다면 위와 같이 이미 만들어둔 함수를 쓰는 게 더 편하다. 첫번째 인수는 함수의 종류에 따라서 몇 개의 점을 사용할지, 두번째 인수 $n$ 은 $n$계도함수를 구할 것임을 정한다. 당연하지만 <code>central_fdm()</code>의 첫번째 인수는 홀수로 주어졌을 때 정중앙에 있는 점의 계수가 반드시 0이다.</p>
+<h3 id="전체코드">전체코드</h3>
+<pre tabindex="0"><code>using FiniteDifferences
+
+f′ = FiniteDifferenceMethod([-2, 0, 5], 1)
+typeof(f′)
+propertynames(f′)
+f′.grid
+f′.coefs
+
+f′(sin, π/2)
+f′(cos, π/2)
+
+central_fdm(2, 1)
+central_fdm(3, 2)
+backward_fdm(4, 1)
+forward_fdm(5, 1)
+</code></pre><h2 id="환경">환경</h2>
+<ul>
+<li>OS: Windows</li>
+<li>julia: v1.8.5</li>
+</ul>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://github.com/JuliaDiff/FiniteDifferences.jl">https://github.com/JuliaDiff/FiniteDifferences.jl</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
 
 
 <aside style="text-align: right;">
     1924-05-14&emsp;
     류대식&emsp;
-    <a href="../1798">🎲 2568</a>
+    <a href="../683">🎲 2568</a>
 </aside>
 
 <script>
