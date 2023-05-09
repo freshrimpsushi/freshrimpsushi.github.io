@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-remove-only-axis-values-in-julia-plot\/",
-    "wordCount" : "0",
+    "wordCount" : "402",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -215,7 +215,14 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#코드">코드</a>
+      <ul>
+        <li><a href="#formatter--_---"><code>formatter = (_...) -&gt; &quot;&quot;</code></a></li>
+        <li><a href="#xformatter-yformatter"><code>xformatter</code>, <code>yformatter</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#환경">환경</a></li>
   </ul>
 </nav>
     </div>
@@ -223,13 +230,42 @@
   </div>
 </aside>
 
-<h2 id="heading"></h2>
+<h2 id="개요">개요</h2>
+<p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서 그림의 <a href="../3501">컬러바, 축, 눈금, 그리드 등을 지우는 방법</a>은 있지만 그래픽적인 요소를 건드리기 때문에 숫자만 깔끔하게 지울 수가 없고, <code>formatter</code>라고 하는 옵션을 응용해야한다.</p>
+<h2 id="코드">코드</h2>
+<h3 id="formatter--_---"><code>formatter = (_...) -&gt; &quot;&quot;</code></h3>
+<p><code>plot()</code> 함수의 옵션으로 <code>formatter = (_...) -&gt; &quot;&quot;</code>을 주면 된다.</p>
+<pre tabindex="0"><code>using Plots
+
+x = rand(10)
+y = rand(10)
+plot(
+    plot(x,y)
+    ,plot(x,y, formatter = (_...) -&gt; &#34;&#34;)
+)
+</code></pre><p><img src="plot.png#center" alt="Alt text"></p>
+<p>위 그림에서 왼쪽은 그냥 그림, 오른쪽은 값을 모두 제거한 그림이다. 원래 <code>formatter</code>는 이렇게만 쓰는 게 아니라 훨씬 더 풍부한 기능을 가지는데, 원리를 간단하게 설명하자면 원래 그림에 출력되었어야할 값에 주어진 함수를 취하는 방식이다. 위 예시에선 <code>(_...) -&gt; &quot;&quot;</code>라는 <a href="../1448">람다식</a>을 받아서 어떤 수치가 들어오든 빈 공백 문자열을 리턴해서 축의 값을 지웠다. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<h3 id="xformatter-yformatter"><code>xformatter</code>, <code>yformatter</code></h3>
+<p>당연히 <code>xformatter</code>, <code>yformatter</code>가 있어서 축별로 지정도 가능하다. x축만 지우고 싶다면 <code>yformatter</code>에, y축만 지우고싶다면 <code>xformatter</code>에 <code>(_...) -&gt; &quot;&quot;</code>를 전달하면 된다.</p>
+<h2 id="환경">환경</h2>
+<ul>
+<li>OS: Windows</li>
+<li>julia: v1.8.5</li>
+</ul>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://stackoverflow.com/questions/74842089/remove-only-axis-values-in-plot-julia">https://stackoverflow.com/questions/74842089/remove-only-axis-values-in-plot-julia</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
 
 
 <aside style="text-align: right;">
     1924-05-18&emsp;
     류대식&emsp;
-    <a href="../1835">🎲 2570</a>
+    <a href="../715">🎲 2570</a>
 </aside>
 
 <script>

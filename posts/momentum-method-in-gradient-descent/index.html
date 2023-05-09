@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/momentum-method-in-gradient-descent\/",
-    "wordCount" : "1742",
+    "wordCount" : "2046",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -215,7 +215,7 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#개요">개요</a></li>
+    <li><a href="#개요1-2">개요 </a></li>
     <li><a href="#빌드업">빌드업</a></li>
     <li><a href="#정의">정의</a></li>
     <li><a href="#설명">설명</a></li>
@@ -228,7 +228,7 @@
   </div>
 </aside>
 
-<h2 id="개요">개요</h2>
+<h2 id="개요1-2">개요<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h2>
 <p>경사하강법에서 모멘텀 기법이란, 파라매터를 업데이트할 때 이전의 그래디언트도 모두 사용하는 것이다. 이것이 본질이며 이것만이 설명의 끝이다. 그런데 이상한 업데이트 수식과 물리학의 운동량이 동기가 됐다느니, 질량을 $1$로 두고 초기 속도를 $0$으로 둔다느니하는 설명들은 이해를 어렵게만 할 뿐이다. 본 글에서는 모멘텀 기법을 최대한 담백하게 설명한다.</p>
 <h2 id="빌드업">빌드업</h2>
 <p>파라매터를 $\boldsymbol{\theta}$, <a href="../967">손실함수</a>를 $L$이라할 때, 표준적인 <a href="../987">경사하강법</a>은 다음과 같이 반복적으로 파라매터를 업데이트하는 방법을 말한다.</p>
@@ -251,34 +251,44 @@ $$</p>
 <p>$(1)$과 같이 파라매터를 업데이트하는 것을 <strong>모멘텀 기법</strong><sup>momentum method</sup>이라 부르고, 더해지는 항 $\alpha\sum\limits_{j=0}^{i} \beta^{j} \nabla L_{i-j}$을 <strong>모멘텀</strong><sup>momentum</sup>이라 부른다.</p>
 <h2 id="설명">설명</h2>
 <p>위의 정의에 따르면 모멘텀 기법은 일반화된 경사하강법이며, 오히려 경사하강법이 모멘텀 기법에서 $\beta = 0$인 특별한 케이스에 지나지 않는다고 볼 수 있다. $\beta$가 $1$에 가까울수록 이전의 그래디언트들을 많이 반영하고, $0$에 가까울수록 적게 반영한다.</p>
-<p>경사하강법은 지금 당장의 기울기가 가장 큰 방향으로 파라매터를 업데이트하기 때문에 <a href="../1434">그리디 알고리즘</a>이다. 모멘텀 기법은 경사하강법의 탐욕적인<sup>greedy</sup> 부분을 조금 덜어준다고도 볼 수 있으며, 그래디언트의 방향이 갑자기 너무 많이 바뀌는 것을 방지할 수 있다.</p>
+<p>경사하강법은 지금 당장의 기울기가 가장 큰 방향으로 파라매터를 업데이트하기 때문에 <a href="../1434">그리디 알고리즘</a>이다. 모멘텀 기법은 경사하강법의 탐욕적인<sup>greedy</sup> 부분을 조금 덜어주어 지금 당장 최선의 선택은 아니지만 장기적으로는 더 도움이 되는 선택을 할 수 있게 도와줄 수 있다. 또한 그래디언트의 방향이 갑자기 너무 많이 바뀌는 것을 방지할 수 있다.</p>
 <p>당연하게도 파라매터를 업데이트하는 그래디언트의 크기가 경사하강법에 비해 크므로, 경사하강법보다 수렴속도가 빠르다는 장점이 있다. 또한 경험적으로 로컬 미니마<sup>local minima</sup>를 비교적 잘 벗어난다고 알려져있는데, 언덕을 내려가는 공의 속도가 충분히 빠르면 내려가는 중간에 만나는 작은 언덕 정도는 넘고 지나갈 수 있는 것과 같다고 설명한다.</p>
+<p>여기에서 중요한 사실은 <a href="../3529">적응적 학습률</a> 기법을 포함한 이러한 옵티마이저들 사이에 절대적 우위는 없다는 것이다. 분야마다, 작업마다 최적의 옵티마이저가 다르므로, &quot;무엇이 제일 좋은지&quot;에 대한 판단이나 질문은 좋지 않다. 본인이 속한 필드에서 주로 사용하는 것이 무엇인지를 알아보는 것이 도움이 되며, 그런게 없거나 잘 모르겠다면 <a href="../987">SGD</a>+모멘텀 혹은 <a href="../3529">Adam</a>을 써보는 것이 무난하다.</p>
 <h2 id="네스테로프-모멘텀">네스테로프 모멘텀</h2>
 <p>모멘텀 기법을 다시 정리하면, 다음 파라매터 $\boldsymbol{\theta}_{i+1}$를 얻기위해 현재의 파라매터 $\boldsymbol{\theta}_{i}$에 현재의 파라매터로 계산한 그래디언트 $\alpha \nabla L(\boldsymbol{\theta}_{i})$를 누적시켜가며 더한다.</p>
 <p><strong>네스테로프 모멘텀</strong><sup>Nesterov momentum</sup> 혹은 <strong>네스테로프 가속 그래디언트</strong><sup>Nesterov accerlerated gradient, NAG</sup>라 불리는 기법은, &quot;현재의 파라매터에 이전의 그래디언트를 더한 값&quot;으로 그래디언트를 구해 이를 현재의 파라매터에 더하여 다음 파라매터를 구한다. 말로는 좀 복잡한데, 모멘텀 기법을 이해했다면 아래의 알고리즘을 보는 것이 네스테로프 모멘텀의 이해가 더 쉬울 수 있다.</p>
 <h2 id="알고리즘">알고리즘</h2>
-<p>모멘텀항을 $\mathbf{p}$로 표기한다.</p>
+<p><a href="../1673">모멘텀</a>항을 $\mathbf{p}$로 표기한다.</p>
 <table class="algorithm-table">
-<tr class="algorithm-title"> <td style="border-top: 2pt;", colspan=4><b><font size=5>알고리즘: 모멘텀 기법</font></b></td></tr>
-<tr> <td width=30>0.</td> <td colspan=2> 학습률 $\alpha$, 모멘텀 파라매터 $\beta$, 에포크 $N$</td></tr>
-<tr> <td>1.</td> <td colspan=2>$\boldsymbol{\theta}$를 초기화한다.</td></tr>
-<tr> <td>2.</td> <td colspan=2>모멘텀을 $\mathbf{p} = 0$로 초기화한다.</td></tr>
-<tr> <td>3.</td> <td colspan=2><b>for $i = 1, \dots, N$ do</b> </td></tr>
-<tr> <td>4.</td> <td width=30></td> <td>$\mathbf{p} \leftarrow \beta \mathbf{p} - \alpha \nabla L(\boldsymbol{\theta})$</td> <td><font color=gray><i># 그래디언트를 계산하여 모멘텀 업데이트</i></font></td></tr>
-<tr> <td>5.</td> <td width=30></td> <td width=250> $\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} + \mathbf{p}$ </td> <td><font color=gray><i># 파라매터 업데이트</i></font></td></tr>
-<tr> <td>7.</td> <td colspan=2> <b>end for</b> </td></tr>
+    <thead>
+        <tr> <td colspan=4><b><font size=5>알고리즘: 모멘텀 기법</font></b></td> </tr>
+    </thead>
+    <tbody>
+        <tr> <td>0.</td> <td colspan=2> 학습률 $\alpha$, 모멘텀 파라매터 $\beta$, 에포크 $N$</td></tr>
+        <tr> <td>1.</td> <td colspan=2>파라매터 $\boldsymbol{\theta}$를 임의의 값으로 초기화한다.</td></tr>
+        <tr> <td>2.</td> <td colspan=2>모멘텀을 $\mathbf{p} = \mathbf{0}$로 초기화한다.</td></tr>
+        <tr> <td>3.</td> <td colspan=2><b>for $i = 1, \dots, N$ do</b> </td></tr>
+        <tr> <td>4.</td> <td></td> <td>$\mathbf{p} \leftarrow \beta \mathbf{p} - \alpha \nabla L(\boldsymbol{\theta})$</td> <td><font color=gray><i># 그래디언트를 계산하여 모멘텀 업데이트</i></font></td></tr>
+        <tr> <td>5.</td> <td></td> <td> $\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} + \mathbf{p}$ </td> <td><font color=gray><i># 파라매터 업데이트</i></font></td></tr>
+        <tr> <td>6.</td> <td colspan=2> <b>end for</b> </td></tr>
+    </tbody>
+</table>
 <table class="algorithm-table">
-<tr class="algorithm-title"> <td style="border-top: 2pt;", colspan=4><b><font size=5>알고리즘: 네스테로프 모멘텀</font></b></td></tr>
-<tr> <td width=30>0.</td> <td colspan=2> 학습률 $\alpha$, 모멘텀 파라매터 $\beta$, 에포크 $N$</td></tr>
-<tr> <td>1.</td> <td colspan=2>$\boldsymbol{\theta}$를 초기화한다.</td></tr>
-<tr> <td>2.</td> <td colspan=2>모멘텀을 $\mathbf{p} = 0$로 초기화한다.</td></tr>
-<tr> <td>3.</td> <td colspan=2><b>for $i = 1, \dots, N$ do</b> </td></tr>
-<tr> <td>4.</td> <td width=30></td> <td>$\mathbf{p} \leftarrow \beta \mathbf{p} - \alpha \nabla L(\boldsymbol{\theta} + \beta \mathbf{p})$</td> <td><font color=gray><i># 그래디언트를 계산하여 모멘텀 업데이트</i></font></td></tr>
-<tr> <td>5.</td> <td width=30></td> <td width=250> $\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} + \mathbf{p}$ </td> <td><font color=gray><i># 파라매터 업데이트</i></font></td></tr>
-<tr> <td>7.</td> <td colspan=2> <b>end for</b> </td></tr>
+    <thead>
+        <tr><td colspan=4><b><font size=5>알고리즘: 네스테로프 모멘텀</font></b></td></tr>
+    </thead>
+    <tbody>
+        <tr> <td>0.</td> <td colspan=2> 학습률 $\alpha$, 모멘텀 파라매터 $\beta$, 에포크 $N$</td></tr>
+        <tr> <td>1.</td> <td colspan=2>파라매터 $\boldsymbol{\theta}$를 임의의 값으로 초기화한다.</td></tr>
+        <tr> <td>2.</td> <td colspan=2>모멘텀을 $\mathbf{p} = \mathbf{0}$로 초기화한다.</td></tr>
+        <tr> <td>3.</td> <td colspan=2><b>for $i = 1, \dots, N$ do</b> </td></tr>
+        <tr> <td>4.</td> <td ></td> <td>$\mathbf{p} \leftarrow \beta \mathbf{p} - \alpha \nabla L(\boldsymbol{\theta} + \beta \mathbf{p})$</td> <td><font color=gray><i># 그래디언트를 계산하여 모멘텀 업데이트</i></font></td></tr>
+        <tr> <td>5.</td> <td></td> <td> $\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} + \mathbf{p}$ </td> <td><font color=gray><i># 파라매터 업데이트</i></font></td></tr>
+        <tr> <td>6.</td> <td colspan=2> <b>end for</b> </td></tr>
+    </tbody>
 </table>
 <p>두 방법에 대해서 처음 몇 번의 계산을 살펴보면 다음과 같다. 간단히 $\mathbf{p}_{i} = \alpha \nabla L_{i}$, 그리고 $\mathbf{p}^{i} = \alpha \nabla L(\boldsymbol{\theta}_{i} - \beta^{1}\mathbf{p}^{i-1} - \beta^{2}\mathbf{p}^{i-2} - \cdots - \beta^{i}\mathbf{p}^{0})$ (이때 $\mathbf{p}^{0} = \mathbf{p}_{0}$)이라 표기하면,</p>
-<table >
+<table>
     <tr>
         <td width=300, align=middle> 모멘텀           </td>
         <td width=424, align=middle> 네스테로프 모멘텀 </td>
@@ -308,12 +318,23 @@ $$</p>
         <td style="padding-left: 10px"> $\boldsymbol{\theta}_{i+1} = \boldsymbol{\theta}_{i} - \sum\limits_{j=0}^{i}\beta^{j}\mathbf{p}_{i-j}$</td>
         <td style="padding-left: 10px"> $\boldsymbol{\theta}_{i+1} = \boldsymbol{\theta}_{i} - \sum\limits_{j=0}^{i}\beta^{j}\mathbf{p}^{i-j}$</td>
     </tr>
-</table>
+</table><div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Ian Goodfellow, <em>Deep Learning</em>, Ch 8.3.2 Momentum, 8.3.3 Nesterov Momentum&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>오일석, <em>기계 학습(MACHINE LEARNING)</em> (2017), Ch 5.3 모멘텀&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
 
 <aside style="text-align: right;">
     2013-12-27&emsp;
     전기현&emsp;
-    <a href="../1623">🎲 3528</a>
+    <a href="../2186">🎲 3528</a>
 </aside>
 
 <script>
