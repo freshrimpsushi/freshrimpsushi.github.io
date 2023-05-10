@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/definition-of-weighted-mean\/",
-    "wordCount" : "508",
+    "wordCount" : "840",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -216,7 +216,11 @@
       <nav id="TableOfContents">
   <ul>
     <li><a href="#정의">정의</a></li>
-    <li><a href="#설명">설명</a></li>
+    <li><a href="#설명">설명</a>
+      <ul>
+        <li><a href="#지수가중평균">지수가중평균</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
     </div>
@@ -243,12 +247,32 @@ $$
 $$
 s_{p}^{2} = {{ \left( n_{1} - 1 \right) s_{1}^{2} + \cdots + \left( n_{m} - 1 \right) s_{m}^{2} } \over { \left( n_{1} - 1 \right) + \cdots + \left( n_{m} - 1 \right) }} = {{ \sum_{i=1}^{m} \left( n_{i} - 1 \right) s_{i}^{2} } \over { \sum_{i=1}^{m} \left( n_{i} - 1 \right) }}
 $$</p>
+<h3 id="지수가중평균">지수가중평균</h3>
+<p><a href="../900">시계열 데이터</a> $\left\{ x_{t} \right\}_{t=1}^{n}$에 대해서, 다음의 값을 $\left\{ x_{t} \right\}_{t=1}^{n}$의 <strong>지수 가중평균</strong><sup>exponentially weighted average</sup>이라 한다. $\beta \in (0,1)$에 대해서,</p>
+<p>$$
+\begin{align*}
+\dfrac{\beta^{n-1}x_{1} + \beta^{n-2}x_{2} + \cdots + \beta^{0}x_{n}}{\beta^{n-1} + \beta^{n-2} + \cdots + \beta^{0}} 
+&amp;= (1 - \beta) \dfrac{\beta^{n-1}x_{1} + \beta^{n-2}x_{2} + \cdots + \beta^{0}x_{n}}{1 - \beta^{n}} \\ 
+&amp;= \dfrac{ (1 - \beta) \sum\limits_{t=1}^{n}\beta^{n-t}x_{t} }{1 - \beta^{n}} 
+\end{align*}
+$$</p>
+<p>첫번째 등호는 <a href="../170">등비수열의 합</a> 공식에 의해 성립한다. 이는 $x_{t}$들을 더할 때 과거시간의 데이터일수록 비중을 지수적으로 감소시켜 더하는 것이다. 다음과 같이 재귀적<sup>recursive</sup>으로 정의되기도 한다.</p>
+<p>$$
+\begin{align*}
+y_{0} &amp;= 0 \\ 
+y_{t} &amp;= \beta y_{t-1} + (1-\beta) x_{t} = (1-\beta) \sum\limits_{j=1}^{t} \beta^{t-j}  x_{j}
+\end{align*}
+$$</p>
+<p>이 경우엔 가중합<sup>weighted sum</sup>이므로 $(1 - \beta^{t})$로 나눠주면 가중평균<sup>weighted average</sup>이 된다.</p>
+<p>$$
+\hat{y}_{t} = \dfrac{y_{t}}{1 - \beta^{t}}
+$$</p>
 
 
 <aside style="text-align: right;">
     1923-10-31&emsp;
     류대식&emsp;
-    <a href="../1812">🎲 2470</a>
+    <a href="../1876">🎲 2470</a>
 </aside>
 
 <script>
