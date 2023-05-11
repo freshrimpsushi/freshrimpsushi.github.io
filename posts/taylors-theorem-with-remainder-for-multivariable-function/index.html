@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/taylors-theorem-with-remainder-for-multivariable-function\/",
-    "wordCount" : "505",
+    "wordCount" : "585",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -227,9 +227,9 @@
 </aside>
 
 <h2 id="정리1">정리<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p>$F : \mathbb{R}^{n} \to \mathbb{R}$를 <a href="../1594">$C^{k}$ 함수</a>, $\mathbf{a} = (a_{1}, \dots, a_{n}) \in \mathbb{R}^{n}$라고 하자. 그러면 다음을 만족하는 $C^{k-2}$ 함수 $h_{ij}$가 존재한다.</p>
+<p>$f : \mathbb{R}^{n} \to \mathbb{R}$를 <a href="../1594">$C^{k}$ 함수</a>, $\mathbf{a} = (a_{1}, \dots, a_{n}) \in \mathbb{R}^{n}$라고 하자. 그러면 다음을 만족하는 $C^{k-2}$ 함수 $h_{ij}$가 존재한다.</p>
 <p>$$
-F(\mathbf{x}) = F(\mathbf{a}) + \sum_{i} (x_{i} - a_{i})\dfrac{\partial F}{\partial x_{i}}(\mathbf{a}) + \sum_{i,j}h_{ij}(\mathbf{x})(x_{i} - a_{i}) (x_{j} - a_{j})
+f(\mathbf{x}) = f(\mathbf{a}) + \sum_{i} (x_{i} - a_{i})\dfrac{\partial f}{\partial x_{i}}(\mathbf{a}) + \sum_{i,j}h_{ij}(\mathbf{x})(x_{i} - a_{i}) (x_{j} - a_{j})
 $$</p>
 <h2 id="설명">설명</h2>
 <p><a href="../41">테일러 정리</a>를 다변수함수로 일반화한 것이다.</p>
@@ -238,32 +238,39 @@ $$</p>
 <p><strong>secon-order</strong></p>
 <p>$$
 \begin{align*}
-F(\mathbf{x})
-&amp;= F(\mathbf{a}) + \sum\limits_{i=1}^{n} (x_{i} - a_{i}) \dfrac{\partial F}{\partial x_{i}}(\mathbf{a}) + \dfrac{1}{2!}\sum\limits_{i,j=1}^{n} (x_{i} - a_{i})^{2} \dfrac{\partial^{2} F}{\partial x_{i} \partial x_{j}}(\mathbf{a}) + \text{Remainder} \\ 
-&amp;= F(\mathbf{a}) + (\mathbf{x} - \mathbf{a})^{T} \nabla F (\mathbf{a}) + 
+f(\mathbf{x})
+&amp;= f(\mathbf{a}) + \sum\limits_{i=1}^{n} (x_{i} - a_{i}) \dfrac{\partial f}{\partial x_{i}}(\mathbf{a}) + \dfrac{1}{2!}\sum\limits_{i,j=1}^{n} (x_{i} - a_{i})^{2} \dfrac{\partial^{2} f}{\partial x_{i} \partial x_{j}}(\mathbf{a}) + \text{Remainder} \\ 
+&amp;= f(\mathbf{a}) + (\mathbf{x} - \mathbf{a})^{T} \nabla f (\mathbf{a}) + 
 \dfrac{1}{2!}(\mathbf{x} - \mathbf{a})^{T} (H(\mathbf{a})) (\mathbf{x} - \mathbf{a}) + \text{Remainder}
 \end{align*}
 $$</p>
 </li>
 </ul>
-<p>여기서 $\nabla F$는 $F$ <a href="../1010">그래디언트</a>, $H$는 $F$의 <a href="../992">헤시안</a>이다.</p>
+<p>여기서 $\nabla f$는 $f$ <a href="../1010">그래디언트</a>, $H$는 $f$의 <a href="../992">헤시안</a>이다.</p>
+<p>나머지 항<sup>remainder term</sup>에 대해서 <a href="../taylors-theorem-with-the-remainder-term/#%EB%9D%BC%EA%B7%B8%EB%9E%91%EC%A3%BC-%ED%98%95%EC%8B%9D">다음과 같은 꼴</a>도 유용하게 쓰인다.</p>
+<p>$$
+f(\mathbf{x} + \mathbf{p}) = f(\mathbf{x}) + \mathbf{p}^{T}\nabla f(\mathbf{x} + t \mathbf{p}) \quad \text{for some } t \in (0,1)
+$$
+$$
+f(\mathbf{x} + \mathbf{p}) = f(\mathbf{x}) + \mathbf{p}^{T}\nabla f(\mathbf{x}) + \dfrac{1}{2!}\mathbf{p}^{T} H(\mathbf{x} + t \mathbf{p}) \mathbf{p} \quad \text{for some } t \in (0,1)
+$$</p>
 <h2 id="증명">증명</h2>
 <p>$$
 \begin{align*}
-F(\mathbf{x}) - F(\mathbf{a}) =&amp;\ \int_{0}^{1} \dfrac{d}{dt} \left[ F(t(\mathbf{x} - \mathbf{a}) + \mathbf{a}) \right]dt
-\\ =&amp;\ \int_{0}^{1} \left( \sum_{i} \dfrac{\partial F}{\partial x_{i}}\left( t(\mathbf{x} - \mathbf{a}) + \mathbf{a} \right)(x_{i}-a_{i}) \right) dt &amp; \text{by } \href{https://freshrimpsushi.github.io/posts/3134}{\text{chain rule}}
-\\ =&amp;\ \sum_{i}(x_{i} - a_{i}) \int_{0}^{1} \left( \dfrac{\partial F}{\partial x_{i}}\left( t(\mathbf{x} - \mathbf{a}) + \mathbf{a} \right) \right) dt
+f(\mathbf{x}) - f(\mathbf{a}) =&amp;\ \int_{0}^{1} \dfrac{d}{dt} \left[ f(t(\mathbf{x} - \mathbf{a}) + \mathbf{a}) \right]dt
+\\ =&amp;\ \int_{0}^{1} \left( \sum_{i} \dfrac{\partial f}{\partial x_{i}}\left( t(\mathbf{x} - \mathbf{a}) + \mathbf{a} \right)(x_{i}-a_{i}) \right) dt &amp; \text{by } \href{https://freshrimpsushi.github.io/posts/3134}{\text{chain rule}}
+\\ =&amp;\ \sum_{i}(x_{i} - a_{i}) \int_{0}^{1} \left( \dfrac{\partial f}{\partial x_{i}}\left( t(\mathbf{x} - \mathbf{a}) + \mathbf{a} \right) \right) dt
 \end{align*}
 $$</p>
-<p>적분부분을 $g_{i}(\mathbf{x})$라고 표기하자. $g_{i}(\mathbf{x}) = \displaystyle \int_{0}^{1} \left( \dfrac{\partial F}{\partial x_{i}}\left( t(\mathbf{x} - \mathbf{a}) + \mathbf{a} \right) \right) dt$라고 하면,</p>
+<p>적분부분을 $g_{i}(\mathbf{x})$라고 표기하자. $g_{i}(\mathbf{x}) = \displaystyle \int_{0}^{1} \left( \dfrac{\partial f}{\partial x_{i}}\left( t(\mathbf{x} - \mathbf{a}) + \mathbf{a} \right) \right) dt$라고 하면,</p>
 <p>$$
 \begin{equation}
-F(\mathbf{x}) - F(\mathbf{a}) = \sum_{i}(x_{i} - a_{i}) \int_{0}^{1} \left( \dfrac{\partial F}{\partial x_{i}}\left( t(\mathbf{x} - \mathbf{a}) + \mathbf{a} \right) \right) dt = \sum_{i} g_{i}(\mathbf{x}) (x_{i} - a_{i})
+f(\mathbf{x}) - f(\mathbf{a}) = \sum_{i}(x_{i} - a_{i}) \int_{0}^{1} \left( \dfrac{\partial f}{\partial x_{i}}\left( t(\mathbf{x} - \mathbf{a}) + \mathbf{a} \right) \right) dt = \sum_{i} g_{i}(\mathbf{x}) (x_{i} - a_{i})
 \end{equation}
 $$</p>
 <p>$g_{i}(\mathbf{a})$의 값은 다음과 같다.</p>
 <p>$$
-g_{i}(\mathbf{a}) = \int_{0}^{1} \dfrac{\partial F}{\partial x_{i}} \left(t(\mathbf{a} - \mathbf{a}) + \mathbf{a} \right) dt = \int_{0}^{1} \dfrac{\partial F}{\partial x_{i}}\left( \mathbf{a} \right) dt = \dfrac{\partial F}{\partial x_{i}}\left( \mathbf{a} \right)
+g_{i}(\mathbf{a}) = \int_{0}^{1} \dfrac{\partial f}{\partial x_{i}} \left(t(\mathbf{a} - \mathbf{a}) + \mathbf{a} \right) dt = \int_{0}^{1} \dfrac{\partial f}{\partial x_{i}}\left( \mathbf{a} \right) dt = \dfrac{\partial f}{\partial x_{i}}\left( \mathbf{a} \right)
 $$</p>
 <p>그러면 $(1)$을 이끌어냈던 것과 같은 방법으로 다음의 식을 얻을 수 있다.</p>
 <p>$$
@@ -272,10 +279,10 @@ $$</p>
 <p>이제 정리하면</p>
 <p>$$
 \begin{align*}
-F(\mathbf{x}) =&amp;\ F(\mathbf{a}) + \sum_{i}g_{i}(\mathbf{x})(x_{i}-a_{i})
-\\ =&amp;\ F(\mathbf{a}) + \sum_{i}\left( g_{i}(\mathbf{a}) + \sum_{j} h_{ij}(\mathbf{x}) (x_{j}-a_{j}) \right)(x_{i}-a_{i})
-\\ =&amp;\ F(\mathbf{a}) + \sum_{i} g_{i}(\mathbf{a})(x_{i}-a_{i}) + \sum_{i,j} h_{ij}(\mathbf{x})(x_{i}-a_{i})(x_{j}-a_{j})
-\\ =&amp;\ F(\mathbf{a}) + \sum_{i} \dfrac{\partial F}{\partial x_{i}}\left( \mathbf{a} \right)(x_{i}-a_{i}) + \sum_{i,j} h_{ij}(\mathbf{x})(x_{i}-a_{i})(x_{j}-a_{j})
+f(\mathbf{x}) =&amp;\ f(\mathbf{a}) + \sum_{i}g_{i}(\mathbf{x})(x_{i}-a_{i})
+\\ =&amp;\ f(\mathbf{a}) + \sum_{i}\left( g_{i}(\mathbf{a}) + \sum_{j} h_{ij}(\mathbf{x}) (x_{j}-a_{j}) \right)(x_{i}-a_{i})
+\\ =&amp;\ f(\mathbf{a}) + \sum_{i} g_{i}(\mathbf{a})(x_{i}-a_{i}) + \sum_{i,j} h_{ij}(\mathbf{x})(x_{i}-a_{i})(x_{j}-a_{j})
+\\ =&amp;\ f(\mathbf{a}) + \sum_{i} \dfrac{\partial f}{\partial x_{i}}\left( \mathbf{a} \right)(x_{i}-a_{i}) + \sum_{i,j} h_{ij}(\mathbf{x})(x_{i}-a_{i})(x_{j}-a_{j})
 \end{align*}
 $$</p>
 <p style="text-align: right; margin: 0px; margin-top: -2em;">■</p>
@@ -296,7 +303,7 @@ $$</p>
 <aside style="text-align: right;">
     2021-12-23&emsp;
     전기현&emsp;
-    <a href="../724">🎲 3163</a>
+    <a href="../727">🎲 3163</a>
 </aside>
 
 <script>
