@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/curl-of-vector-function-in-cartesian-coordinate-system\/",
-    "wordCount" : "1573",
+    "wordCount" : "2013",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -216,12 +216,14 @@
       <nav id="TableOfContents">
   <ul>
     <li><a href="#정의">정의</a></li>
-    <li><a href="#설명">설명</a>
+    <li><a href="#설명">설명</a></li>
+    <li><a href="#주의할-점">주의할 점</a>
       <ul>
-        <li><a href="#주의할-점">주의할 점</a></li>
-        <li><a href="#정의-유도">정의 유도</a></li>
+        <li><a href="#nabla-times-mathbff는-nabla와-mathbff의-외적이-아니다">$\nabla \times \mathbf{F}$는 $\nabla$와 $\mathbf{F}$의 외적이 아니다</a></li>
       </ul>
     </li>
+    <li><a href="#유도">유도</a></li>
+    <li><a href="#같이보기">같이보기</a></li>
   </ul>
 </nav>
     </div>
@@ -230,7 +232,7 @@
 </aside>
 
 <h2 id="정의">정의</h2>
-<p>3차원 벡터 $\mathbf{F}(x,y,z)=(F_{x},F_{y},F_{z})=F_{x}\hat{\mathbf{x}} + F_{y}\hat{\mathbf{y}} + F_{z}\hat{\mathbf{z}}$에 대해서 다음과 같은 벡터를 $\mathbf{F}$의 <strong>컬</strong><sup>curl</sup>이라 정의하고 $\nabla \times \mathbf{F}$라고 표기한다.</p>
+<p><a href="../../categories/%EC%88%98%EB%A6%AC%EB%AC%BC%EB%A6%AC/#%EB%B2%A1%ED%84%B0%ED%95%B4%EC%84%9D">벡터 함수</a>  $\mathbf{F}(x,y,z)=(F_{x},F_{y},F_{z})=F_{x}\hat{\mathbf{x}} + F_{y}\hat{\mathbf{y}} + F_{z}\hat{\mathbf{z}}$에 대해서 다음과 같은 벡터를 $\mathbf{F}$의 <strong>컬</strong><sup>curl</sup>이라 정의하고 $\nabla \times \mathbf{F}$라고 표기한다.</p>
 <p>$$
 \begin{align}
 \nabla \times \mathbf{F} &amp;= \left( \dfrac{ \partial  F_{z}}{ \partial y }-\dfrac{ \partial F_{y}}{ \partial  z} \right)\hat{\mathbf{x}}+ \left( \dfrac{ \partial  F_{x}}{ \partial z }-\dfrac{ \partial F_{z}}{ \partial  x} \right)\hat{\mathbf{y}}+ \left( \dfrac{ \partial  F_{y}}{ \partial x }-\dfrac{ \partial F_{x}}{ \partial  y} \right)\hat{\mathbf{z}} \label{def1}
@@ -239,31 +241,36 @@
 \\ F_{x} &amp; F_{y} &amp;F_{z}\end{vmatrix} \label{def2}
 \end{align}
 $$</p>
-<hr>
-<p>$\nabla \times \mathbf{F}$를 축(엄지)으로 두고 오른손 법칙을 적용하면 오른손이 감싸는 방향과 $\mathbf{F}$가 회전하는 방향이 같다. $\eqref{def2}$는 $\mathbf{F}$의 컬을 쉽게 계산하는 공식이다.</p>
+<ul>
+<li>$(2)$는 $\mathbf{F}$의 컬을 쉽게 계산하는 공식이다. <a href="../252">행렬식</a>이라고 생각하고 그대로 전개하면 된다.</li>
+</ul>
 <h2 id="설명">설명</h2>
 <p>curl은 회전으로 번역된다. 그런데 회전이라는 말은 너무 일상적이기도 하고, curl이 아니라 rotation으로 오해할 여지가 있으므로 생새우초밥집에서는 회전 대신 컬을 사용한다.</p>
-<h3 id="주의할-점">주의할 점</h3>
-<p>$\nabla \times \mathbf{F}$는 절대로 $\nabla$와 $\mathbf{F}$의 외적이 아니다. 그저 $\nabla \times \mathbf{F}$는 $\mathbf{F}$에 대한 어떤 정보를 담고 있는 벡터이다. $\nabla$를 $\nabla = \dfrac{ \partial  }{ \partial  x}\hat{\mathbf{x}} + \dfrac{ \partial  }{ \partial  y}\hat{\mathbf{y}} + \dfrac{ \partial  }{ \partial  z}\hat{\mathbf{z}}$과 같은 벡터라고 생각하면 $\eqref{def1}$과 계산이 찰떡같이 맞아떨어지는 것처럼 보이므로 편의를 위해 $\nabla \times \mathbf{F}$와 같이 표기하는 것일 뿐이다. 만약 $\nabla$가 실제로 벡터라고 가정하면 이상한 결과를 얻는다.</p>
+<p>$\nabla \times \mathbf{F}$는 $\mathbf{F}$라는 물리량이 어느 방향으로 회전하고있는지는 말해주는 벡터이다. $\nabla \times \mathbf{F}$의 방향을 축(엄지)으로 두고 오른손 법칙을 적용하면 오른손이 감싸는 방향과 $\mathbf{F}$가 회전하는 방향이 같다. 벡터 $\nabla \times \mathbf{F}$의 크기는 회전하는 정도를 나타낸다.</p>
+<p>한편 정의에서 $(1)$이라는 값을 $\nabla \times \mathbf{F}$로 <strong>표기한다</strong>고 한 것에 주의하자. $\nabla$를 <a href="../1575">델 연산자</a>라 부르기는 하지만, 이것 자체로 어떤 의미를 가진다고 생각하면 <a href="../1796">$\nabla \cdot \mathbf{F}$</a>나 $\nabla \times \mathbf{F}$를 <a href="../3504">내적</a>과 <a href="../256">외적</a>으로 오해하기 딱 좋다. 따라서 $\nabla$는 그저 편리한 표기법 정도로만 이해해야하며, <a href="../1778">그래디언트</a>, 다이벌전스, 컬을 묶어 델 연산자들이라고 부른다고 하거나, 차라리 델 연산자=그래디언트라고 생각하는게 더 나을 수 있다. 자세한 내용은 아래에서 이어진다.</p>
+<h2 id="주의할-점">주의할 점</h2>
+<h3 id="nabla-times-mathbff는-nabla와-mathbff의-외적이-아니다">$\nabla \times \mathbf{F}$는 $\nabla$와 $\mathbf{F}$의 외적이 아니다</h3>
+<div style="color:red" align=middle>$\nabla \times \mathbf{F}$는 절대로 $\nabla$와 $\mathbf{F}$의 외적이 아니다.</div>
+<p>그저 $\nabla \times \mathbf{F}$는 $\mathbf{F}$에 대한 어떤 정보를 담고 있는 벡터이다. $\nabla$를 $\nabla = \dfrac{ \partial  }{ \partial  x}\hat{\mathbf{x}} + \dfrac{ \partial  }{ \partial  y}\hat{\mathbf{y}} + \dfrac{ \partial  }{ \partial  z}\hat{\mathbf{z}}$과 같은 벡터라고 생각하고 계산한 결과가 $(1)$과 찰떡같이 맞아떨어지므로, 편의를 위해 $\nabla \times \mathbf{F}$와 같이 표기하는 것일 뿐이다. 만약 $\nabla$가 실제로 벡터라고 가정하면 이상한 결과를 얻는다.</p>
 <blockquote>
 <p>두 벡터 $\mathbf{A}, \mathbf{B}$에 대해서 다음의 식이 성립한다.</p>
 <p><a href="../93">$$
 \nabla \times (\mathbf{A} \times \mathbf{B}) = (\mathbf{B} \cdot \nabla)\mathbf{A} - (\mathbf{A} \cdot \nabla)\mathbf{B} + \mathbf{A} (\nabla \cdot \mathbf{B}) - \mathbf{B} (\nabla \cdot \mathbf{A})
 $$</a></p>
 </blockquote>
-<p>위 공식에 따라서 $\nabla$를 벡터라고 취급하면 다음의 결과를 얻는다.</p>
+<p>$\nabla$를 벡터라고 취급하고 위 공식에 대입하면 다음의 결과를 얻는다.</p>
 <p>$$
 \nabla \times (\nabla \times \mathbf{F})=(\mathbf{F} \cdot \nabla)\nabla - (\nabla \cdot \nabla)\mathbf{F} + \nabla (\nabla \cdot \mathbf{F}) - \mathbf{F} (\nabla \cdot \nabla)
 $$</p>
-<p>하지만 계산을 해보면 실제로 맞는 식은 다음과 같다.</p>
+<p>하지만 올바른 결과는 <a href="../209">다음과 같다.</a></p>
 <p>$$
 \nabla \times (\nabla \times \mathbf{F})=\nabla(\nabla \cdot \mathbf{F})-\nabla ^{2} \mathbf{F}
 $$</p>
-<p>따라서 $\nabla \times \mathbf{F}$를 $\nabla$와 $\mathbf{F}$의 외적으로 이해하면 안되고, $\nabla \times$ 자체를 하나의 함수처럼 생각하여 다음과 같이 이해하는 것이 옳다.</p>
+<p>따라서 $\nabla \times \mathbf{F}$를 $\nabla$와 $\mathbf{F}$의 외적으로 이해하면 안되고, $\nabla \times$ 자체를 하나의 함수라고 생각해야한다. 이와 같이 함수를 변수로갖는 함수를 물리학에선 <a href="../301">연산자</a>라고 한다. $\nabla \times$는 벡터함수를 변수로 갖는, 다음과 같이 정의되는 연산자이다.</p>
 <p>$$
 \nabla \times (\mathbf{F}) = \left( \dfrac{ \partial  F_{z}}{ \partial y }-\dfrac{ \partial F_{y}}{ \partial  z} \right)\hat{\mathbf{x}}+ \left( \dfrac{ \partial  F_{x}}{ \partial z }-\dfrac{ \partial F_{z}}{ \partial  x} \right)\hat{\mathbf{y}}+ \left( \dfrac{ \partial  F_{y}}{ \partial x }-\dfrac{ \partial F_{x}}{ \partial  y} \right)\hat{\mathbf{z}}
 $$</p>
-<h3 id="정의-유도">정의 유도</h3>
+<h2 id="유도">유도</h2>
 <p>이제 회전의 이해를 위해 3차원 벡터 $\mathbf{F}$를 어떤 힘이라고 생각해보자. $\nabla \times$의 이름이 회전인 이유는 $\nabla \times \mathbf{F}$의 값에 따라서 $\mathbf{F}$가 물체를 회전시키는 힘인지 아닌지 알 수 있기 때문이다. 오른손 법칙에서 엄지를 $z$축이라고 하자. 그러면 $\mathbf{F}$가 물체를 회전시키는 방향에 따라서 아래 그림과 같이 $\left( \nabla \times \mathbf{F} \right)_{z}$의 부호가 결정된다. 이를 다르게 말하면 $\left( \nabla \times \mathbf{F} \right)_{z}$의 부호를 알면 $\mathbf{F}$가 $xy$-평면에 대해서 물체를 어떤 방향으로 회전시키는지 알 수 있다는 말이다.</p>
 <p><img src="1.PNG#center" alt="1.PNG"></p>
 <p>이제 $xy$-평면에 대해서만 보자. 힘 $\mathbf{F}$가 $xy$평면에서 물체를 반시계 방향으로 회전시키려면 아래 그림과 같은 경향이 있어야한다.</p>
@@ -272,12 +279,20 @@ $$</p>
 <p><img src="5F51F9C02.png#center" alt="5F51F9C02.png"></p>
 <p>따라서 $\nabla \times \mathbf{F}$의 $\hat{\mathbf{z}}$성분의 부호에 따라서 힘이 물체를 $xy$평면에 대해서 어느 방향으로 회전시키는지 판별할 수 있게 된다.</p>
 <p style="text-align: right; margin: 0px; margin-top: -2em;">■</p>
+<h2 id="같이보기">같이보기</h2>
+<ul>
+<li><a href="../1575">델 연산자 $\nabla$</a></li>
+<li><a href="../1778">그래디언트 $\nabla f$</a></li>
+<li><a href="../1796">다이벌전스 $\nabla \times \mathbf{F}$</a></li>
+<li><a href="../1752">컬 $\nabla \times \mathbf{F}$</a></li>
+<li><a href="../1879">라플라시안 $\nabla^{2} f$</a></li>
+</ul>
 
 
 <aside style="text-align: right;">
     2020-09-03&emsp;
     전기현&emsp;
-    <a href="../884">🎲 1752</a>
+    <a href="../990">🎲 1752</a>
 </aside>
 
 <script>
