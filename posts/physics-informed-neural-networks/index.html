@@ -322,7 +322,7 @@ f := u_{t} + \mathcal{N}[u]
 \end{equation}
 $$</p>
 <p>여기서 $u$는 인공신경망이기 때문에 $f$도 은닉층의 파라매터를 갖고있는 일종의 인공신경망이다. 위와 같은 $f$를 <strong>물리정보기반 신경망</strong><sup>physics-informed neural network, PINN</sup>이라 부른다. 다시말해 <strong>주어진 편미분방정식 그 자체</strong>이다. $f$에 포함된 미분은 자동미분으로 구현되며, $u$와 같은 파라매터를 공유한다. 인공신경망 $u$가 $(2)$의 솔루션을 제대로 근사한다면 $f$의 함숫값은 어디에서나 $0$이어야 한다. 우리는 여기서 $ f \to 0$이 되도록 하는 방향으로 인공신경망을 학습시킬 것이라는 걸 짐작할 수 있다.</p>
-<p>$(t_{u}^{i}, x_{u}^{i})$를 초기값, 경계값이 정의된 영역의 점이라고 하자.
+<p>$(t_{u}^{i}, x_{u}^{i})$를 초기값, 경계값이 정의된 영역의 점이라고 하자. 
 $$
 (t_{u}^{i}, x_{u}^{i}) \in( \Omega \times \left\{ 0 \right\}) \cup (\partial \Omega \times [0, T])
 $$
@@ -356,9 +356,9 @@ $$</p>
 <p>이 예시에서는 주기성이 있는 경계조건, 복소수값을 가지는 솔루션에 대해서 제안하는 방법이 잘 작동하는지를 확인하는 것에 중점을 두고 있다. 그 예시로 다음과 같은 초기&amp;경계 조건이 주어지는 <a href="../1598">슈뢰딩거 방정식</a>을 다룬다.</p>
 <p>$$
 \begin{align*}
-ih_{t} + 0.5h_{xx} + \left| h \right|^{2}h &amp;= 0,\quad x\in [-5, 5], t\in[0, \pi/2], \\
-h(0,x) &amp;= 2\operatorname{sech} (x), \\
-h(t,-5) &amp;= h(t,5), \\
+ih_{t} + 0.5h_{xx} + \left| h \right|^{2}h &amp;= 0,\quad x\in [-5, 5], t\in[0, \pi/2], \\ 
+h(0,x) &amp;= 2\operatorname{sech} (x), \\ 
+h(t,-5) &amp;= h(t,5), \\ 
 h_{x}(t,-5) &amp;= h_{x}(t,5)
 \end{align*}
 $$</p>
@@ -376,8 +376,8 @@ MSE = MSE_{0} + MSE_{b} + MSE_{f}
 $$</p>
 <p>$$
 \begin{align*}
-\text{where } MSE_{0} &amp;= \dfrac{1}{N_{0}}\sum_{i=1}^{N_{0}} \left| h(0, x_{0}^{i}) - h_{0}^{i} \right|^{2} \qquad (h_{0}^{i} = 2\operatorname{sech} (x_{0}^{i})) \\
-MSE_{b} &amp;= \dfrac{1}{N_{b}}\sum_{i=1}^{N_{b}} \left( \left| h(t_{b}^{i}, -5) - h(t_{b}^{i}, 5) \right|^{2} + \left| h_{x}(t_{b}^{i},-5) - h_{x}(t_{b}^{i},5) \right|^{2} \right) \\
+\text{where } MSE_{0} &amp;= \dfrac{1}{N_{0}}\sum_{i=1}^{N_{0}} \left| h(0, x_{0}^{i}) - h_{0}^{i} \right|^{2} \qquad (h_{0}^{i} = 2\operatorname{sech} (x_{0}^{i})) \\ 
+MSE_{b} &amp;= \dfrac{1}{N_{b}}\sum_{i=1}^{N_{b}} \left( \left| h(t_{b}^{i}, -5) - h(t_{b}^{i}, 5) \right|^{2} + \left| h_{x}(t_{b}^{i},-5) - h_{x}(t_{b}^{i},5) \right|^{2} \right) \\ 
 MSE_{f} &amp;= \dfrac{1}{N_{f}} \sum\limits_{i=1}^{N_{f}} \left| f(t_{f}^{i}, x_{f}^{i}) \right|^{2}
 \end{align*}
 $$</p>
@@ -399,7 +399,7 @@ $$</p>
 <p>$$
 \begin{equation}
 \begin{aligned}
-u^{n+1} &amp;= u^{n} - \Delta t \sum_{j=1}^{q} b_{j}\mathcal{N}\left[ u^{n+c_{j}}\right] \\
+u^{n+1} &amp;= u^{n} - \Delta t \sum_{j=1}^{q} b_{j}\mathcal{N}\left[ u^{n+c_{j}}\right] \\ 
 \text{where } u^{n+c_{j}} &amp;= u^{n} - \Delta t \sum_{i=1}^{q} a_{j,i}\mathcal{N}\left[ u^{n+c_{i}}\right] \quad j=1,\dots,q
 \end{aligned}\tag{7}
 \end{equation}
@@ -408,11 +408,11 @@ $$</p>
 <p>$$
 \begin{equation}
 \begin{aligned}
-u_{q+1}^{n} &amp;:= u^{n+1} + \Delta t \sum_{j=1}^{q} b_{j}\mathcal{N}\left[ u^{n+c_{j}}\right] = u^{n} \\
+u_{q+1}^{n} &amp;:= u^{n+1} + \Delta t \sum_{j=1}^{q} b_{j}\mathcal{N}\left[ u^{n+c_{j}}\right] = u^{n} \\ 
 \\
-u_{1}^{n} &amp;:= u^{n+c_{1}} + \Delta t \sum_{i=1}^{q} a_{1,i}\mathcal{N}\left[ u^{n+c_{i}}\right] = u^{n} \\
-u_{2}^{n} &amp;:= u^{n+c_{2}} + \Delta t \sum_{i=1}^{q} a_{2,i}\mathcal{N}\left[ u^{n+c_{i}}\right] = u^{n} \\
-&amp;\vdots \\
+u_{1}^{n} &amp;:= u^{n+c_{1}} + \Delta t \sum_{i=1}^{q} a_{1,i}\mathcal{N}\left[ u^{n+c_{i}}\right] = u^{n} \\ 
+u_{2}^{n} &amp;:= u^{n+c_{2}} + \Delta t \sum_{i=1}^{q} a_{2,i}\mathcal{N}\left[ u^{n+c_{i}}\right] = u^{n} \\ 
+&amp;\vdots \\ 
 u_{q}^{n} &amp;:= u^{n+c_{q}} + \Delta t \sum_{i=1}^{q} a_{q,i}\mathcal{N}\left[ u^{n+c_{i}}\right] = u^{n}
 \end{aligned}\tag{9}
 \end{equation}
@@ -424,15 +424,15 @@ u^{n} = u_{1}^{n} = u_{2}^{n} = \cdots = u_{q+1}^{n}
 $$</p>
 <p>따라서 Section 3.2.에서 말하는 물리정보란, 주어진 초기&amp;경계 조건과 $(8)$을 말한다. 이제 $u(t_{n+1}, x)$를 구하기 위해 두 인공신경망을 정의한다. Section 3.1.에서 사용한 인공신경망은 exact solution $u_{\ast}$로 수렴하기를 기대하는 $u$와 $u$가 만족해야할 미분방정식 $f$이었는데 여기에서는 조금 다르다. 우선 인공신경망 $U$를 다음과 같은 함수로 정의하자.</p>
 <p>$$
-U : \mathbb{R} \to \mathbb{R}^{q+1}
+U : \mathbb{R} \to \mathbb{R}^{q+1} 
 $$</p>
 <p>즉 입력층의 노드가 $1$개이고, 출력층의 노드가 $q+1$개인 신경망이다. 이 신경망의 출력을 다음의 값이라 가정한다.</p>
 <p>$$
 U(x) = \begin{bmatrix}
-u^{n+c_{1}}(x) \\[0.5em]
-u^{n+c_{2}}(x) \\
+u^{n+c_{1}}(x) \\[0.5em] 
+u^{n+c_{2}}(x) \\ 
 \vdots \\[0.5em]
-u^{n+c_{q}}(x) \\[0.5em]
+u^{n+c_{q}}(x) \\[0.5em] 
 u^{n+1}(x)
 \end{bmatrix}
 \tag{10}
@@ -444,9 +444,9 @@ $$</p>
 <p>$$
 \begin{equation}
 \begin{aligned}
-&amp;u_{t} - 0.0001u_{xx} + 5 u^{3} - 5u = 0,\qquad x\in [-1, 1], t\in[0, 1], \\
-&amp;u(0,x) = x^{2} \cos (\pi x), \\
-&amp;u(t,-1) = u(t,1), \\
+&amp;u_{t} - 0.0001u_{xx} + 5 u^{3} - 5u = 0,\qquad x\in [-1, 1], t\in[0, 1], \\ 
+&amp;u(0,x) = x^{2} \cos (\pi x), \\ 
+&amp;u(t,-1) = u(t,1), \\ 
 &amp;u_{x}(t,-1) = u_{x}(t,1)
 \end{aligned}\tag{12}
 \end{equation}
@@ -474,7 +474,7 @@ $$</p>
 <p>$$
 \begin{align*}
 SSE_{b}
-&amp;= \sum\limits_{i=1}^{q} \left| u^{n+c_{i}}(-1) - u^{n+c_{i}}(1) \right|^{2} + \left| u^{n+1}(-1) - u^{n+1}(1) \right|^{2} \\
+&amp;= \sum\limits_{i=1}^{q} \left| u^{n+c_{i}}(-1) - u^{n+c_{i}}(1) \right|^{2} + \left| u^{n+1}(-1) - u^{n+1}(1) \right|^{2} \\ 
 &amp;\quad+ \sum\limits_{i=1}^{q} \left| u_{x}^{n+c_{i}}(-1) - u_{x}^{n+c_{i}}(1) \right|^{2} + \left| u_{x}^{n+1}(-1) - u_{x}^{n+1}(1) \right|^{2} \\
 \end{align*}
 $$</p>
@@ -499,7 +499,7 @@ $$</p>
 <p>$$
 \begin{equation}\label{15}
 \begin{aligned}
-u_{t} + \lambda_{1}(uu_{x} + vu_{y}) &amp;= -p_{x} + \lambda_{2}(u_{xx} + u_{yy}) \\
+u_{t} + \lambda_{1}(uu_{x} + vu_{y}) &amp;= -p_{x} + \lambda_{2}(u_{xx} + u_{yy}) \\ 
 v_{t} + \lambda_{1}(uv_{x} + vv_{y}) &amp;= -p_{y} + \lambda_{2}(v_{xx} + v_{yy})
 \end{aligned}
 \tag{15}
@@ -527,7 +527,7 @@ $$</p>
 <p>$$
 \begin{equation}
 \begin{aligned}
-f &amp;:= u_{t} + \lambda_{1}(uu_{x} + vu_{y}) + p_{x} - \lambda_{2}(u_{xx} + u_{yy}) \\
+f &amp;:= u_{t} + \lambda_{1}(uu_{x} + vu_{y}) + p_{x} - \lambda_{2}(u_{xx} + u_{yy}) \\ 
 g &amp;:= v_{t} + \lambda_{1}(uv_{x} + vv_{y}) + p_{y} - \lambda_{2}(v_{xx} + v_{yy})
 \end{aligned}\tag{18}
 \end{equation}
@@ -535,15 +535,15 @@ $$</p>
 <p>그러면 $f, g$의 값은 $\psi$로 다음과 같이 표현된다. ($p$도 신경망으로 근사할 것이다)</p>
 <p>$$
 \begin{align*}
-f &amp;= \phi_{yt} + \lambda_{1}(\psi_{y} \psi_{yx} - \psi_{x}\psi_{yy}) + p_{x} -\lambda_{2}(\psi_{yxx} + \psi_{yyy}) \\
-g &amp;= -\phi_{xt} + \lambda_{1}(-\psi_{y} \psi_{xx} + \psi_{x}\psi_{xy}) + p_{y} + \lambda_{2}(\psi_{xxx} + \psi_{xyy}) \\
+f &amp;= \phi_{yt} + \lambda_{1}(\psi_{y} \psi_{yx} - \psi_{x}\psi_{yy}) + p_{x} -\lambda_{2}(\psi_{yxx} + \psi_{yyy}) \\ 
+g &amp;= -\phi_{xt} + \lambda_{1}(-\psi_{y} \psi_{xx} + \psi_{x}\psi_{xy}) + p_{y} + \lambda_{2}(\psi_{xxx} + \psi_{xyy}) \\ 
 \end{align*}
 $$</p>
 <p>손실함수에 $f(t^{i}, x^{i}, y^{i}) = 0 = g(t^{i}, x^{i}, y^{i})$이라는 정보를 추가하여 최종적으로 다음과 같이 둔다.</p>
 <p>$$
 \begin{aligned}
-MSE &amp;:= \dfrac{1}{N} \sum\limits_{i=1}^{N} \left( \left| u(t^{i}, x^{i}, y^{i}) - u^{i} \right|^{2} + \left| v(t^{i}, x^{i}, y^{i}) - v^{i} \right|^{2} \right) \\
-&amp;\qquad + \dfrac{1}{N} \sum\limits_{i=1}^{N} \left( \left| f(t^{i}, x^{i}, y^{i}) \right|^{2} + \left| g(t^{i}, x^{i}, y^{i}) \right|^{2} \right)
+MSE &amp;:= \dfrac{1}{N} \sum\limits_{i=1}^{N} \left( \left| u(t^{i}, x^{i}, y^{i}) - u^{i} \right|^{2} + \left| v(t^{i}, x^{i}, y^{i}) - v^{i} \right|^{2} \right) \\ 
+&amp;\qquad + \dfrac{1}{N} \sum\limits_{i=1}^{N} \left( \left| f(t^{i}, x^{i}, y^{i}) \right|^{2} + \left| g(t^{i}, x^{i}, y^{i}) \right|^{2} \right) 
 \end{aligned} \tag{19}
 $$</p>
 <p>이제 입력 노드가 $3$개, 출력 노드가 $2$개인 인공신경망을 정의하자. 이의 출력을 $\begin{bmatrix} \psi(t, x, y) &amp; p(t, x, y) \end{bmatrix}$라고 가정한다. 그러면 위의 손실함수를 계산할 수 있다.</p>
@@ -557,7 +557,7 @@ $$</p>
 <aside style="text-align: right;">
     2022-10-19&emsp;
     전기현&emsp;
-    <a href="../1713">🎲 3313</a>
+    <a href="../1577">🎲 3313</a>
 </aside>
 
 <script>
