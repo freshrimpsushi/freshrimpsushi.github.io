@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/adaptive-learning-rates-in-gradient-descent\/",
-    "wordCount" : "2427",
+    "wordCount" : "2498",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -283,21 +283,74 @@ $$</p>
 \boldsymbol{\theta}_{i+1} &amp;= \boldsymbol{\theta}_{i} - \boldsymbol{\alpha}_{i} \odot \nabla L_{i} \nonumber
 \end{align}
 $$</p>
-<div style="width: 100%; overflow: auto;">
+<!-- <div style="width: 100%; overflow: auto;">
 <table class="algorithm-table">
     <thead>
         <tr> <td colspan=4>알고리즘: AdaGrad</td></tr>
     </thead>
     <tbody>
-        <tr> <td>0.</td> <td , colspan=2> 전역 학습률 $\epsilon$, 작은 양수 $\delta$, 에포크 $N$</td></tr>
-        <tr> <td>1.</td> <td colspan=2>파라매터 $\boldsymbol{\theta}$를 임의의 값으로 초기화한다.</td></tr>
-        <tr> <td>2.</td> <td colspan=2>학습률을 $\boldsymbol{\alpha} = \mathbf{0}$로 초기화한다.</td></tr>
-        <tr> <td>3.</td> <td colspan=2><b>for $i = 1, \dots, N$ do</b> </td></tr>
+        <tr> <td>0.</td> <td , colspan=2>전역 학습률 $\epsilon$, 작은 양수 $\delta$, 에포크 $N$
+        <tr> <td>1.</td> <td colspan=2>파라매터 $\boldsymbol{\theta}$를 임의의 값으로 초기화한다.
+        <tr> <td>2.</td> <td colspan=2>학습률을 $\boldsymbol{\alpha} = \mathbf{0}$로 초기화한다.
+        <tr> <td>3.</td> <td colspan=2>for $i = 1, \dots, N$ do
         <tr> <td>4.</td> <td></td> <td>$\mathbf{r} \leftarrow \nabla L(\boldsymbol{\theta}) \odot \nabla L(\boldsymbol{\theta})$</td> <td><font color=gray><i># 그래디언트를 계산하고 각 성분을 제곱함</i></font></td></tr>
         <tr> <td>5.</td> <td></td> <td>$\boldsymbol{\alpha} \leftarrow  \boldsymbol{\alpha} + \dfrac{\epsilon}{\delta + \sqrt{\mathbf{r}}}$</td> <td><font color=gray><i># 적응적 학습률 업데이트</i></font></td></tr>
         <tr> <td>6.</td> <td></td> <td>$\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} - \boldsymbol{\alpha} \odot \nabla L(\boldsymbol{\theta})$ </td> <td><font color=gray><i># 파라매터 업데이트</i></font></td></tr>
         <tr> <td>7.</td> <td colspan=2> <b>end for</b> </td></tr>
     </tbody>
+</table>
+</div> -->
+<div class="pseudocode-table">
+<table>
+<thead>
+<tr>
+<th>알고리즘: AdaGrad</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>In</td>
+<td>전역 학습률 $\epsilon$, 작은 양수 $\delta$, 에포크 $N$</td>
+<td></td>
+</tr>
+<tr>
+<td>1.</td>
+<td>파라매터 $\boldsymbol{\theta}$를 임의의 값으로 초기화한다.</td>
+<td></td>
+</tr>
+<tr>
+<td>2.</td>
+<td>학습률을 $\boldsymbol{\alpha} = \mathbf{0}$로 초기화한다.</td>
+<td></td>
+</tr>
+<tr>
+<td>3.</td>
+<td><strong>for $i = 1, \cdots, N$ do</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>4.</td>
+<td>　　 $\mathbf{r} \leftarrow \nabla L(\boldsymbol{\theta}) \odot \nabla L(\boldsymbol{\theta})$</td>
+<td># 그래디언트를 계산하고 각 성분을 제곱함</td>
+</tr>
+<tr>
+<td>5.</td>
+<td>　　 $\boldsymbol{\alpha} \leftarrow  \boldsymbol{\alpha} + \dfrac{\epsilon}{\delta + \sqrt{\mathbf{r}}}$</td>
+<td># 적응적 학습률 업데이트</td>
+</tr>
+<tr>
+<td>6.</td>
+<td>　　 $\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} - \boldsymbol{\alpha} \odot \nabla L(\boldsymbol{\theta})$</td>
+<td># 파라매터 업데이트</td>
+</tr>
+<tr>
+<td>7.</td>
+<td><strong>end for</strong></td>
+<td></td>
+</tr>
+</tbody>
 </table>
 </div>
 <h2 id="rmsprop">RMSProp</h2>
@@ -306,21 +359,74 @@ $$</p>
 \boldsymbol{\alpha}_{i} = \rho \boldsymbol{\alpha}_{i-1} + (1-\rho) \dfrac{\epsilon}{\delta + \sqrt{\mathbf{r}_{i}}} = (1-\rho) \sum_{j=1}^{i} \rho^{i-j}  \dfrac{\epsilon}{\delta + \sqrt{\mathbf{r}_{j}}}
 $$</p>
 <p>주로 $\rho = 0.9, 0.99$와 같은 큰 값이 사용된다.</p>
-<div style="width: 100%; overflow: auto;">
+<!-- <div style="width: 100%; overflow: auto;">
 <table class="algorithm-table">
     <thead>
         <tr> <td colspan=4>알고리즘: RMSProp</td></tr>
     </thead>
     <tbody>
-        <tr> <td>0.</td> <td , colspan=2> 전역 학습률 $\epsilon$, 작은 양수 $\delta$, 감쇠율 $\rho$, 에포크 $N$</td></tr>
-        <tr> <td>1.</td> <td colspan=2>파라매터 $\boldsymbol{\theta}$를 임의의 값으로 초기화한다.</td></tr>
-        <tr> <td>2.</td> <td colspan=2>학습률을 $\boldsymbol{\alpha} = \mathbf{0}$로 초기화한다.</td></tr>
-        <tr> <td>3.</td> <td colspan=2><b>for $i = 1, \dots, N$ do</b> </td></tr>
-        <tr> <td>4.</td> <td></td> <td>$\mathbf{r} \leftarrow \nabla L(\boldsymbol{\theta}) \odot \nabla L(\boldsymbol{\theta})$</td> <td><font color=gray><i># 그래디언트를 계산하고 각 성분을 제곱함</i></font></td></tr>
-        <tr> <td>5.</td> <td></td> <td>$\boldsymbol{\alpha} \leftarrow  \rho \boldsymbol{\alpha} + (1-\rho) \dfrac{\epsilon}{\delta + \sqrt{\mathbf{r}}}$</td> <td><font color=gray><i># 적응적 학습률 업데이트</i></font></td></tr>
-        <tr> <td>6.</td> <td></td> <td>$\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} - \boldsymbol{\alpha} \odot \nabla L(\boldsymbol{\theta})$ </td> <td><font color=gray><i># 파라매터 업데이트</i></font></td></tr>
-        <tr> <td>7.</td> <td colspan=2> <b>end for</b> </td></tr>
+        <tr> <td>0.</td> <td , colspan=2>전역 학습률 $\epsilon$, 작은 양수 $\delta$, 감쇠율 $\rho$, 에포크 $N$
+        <tr> <td>1.</td> <td colspan=2>파라매터 $\boldsymbol{\theta}$를 임의의 값으로 초기화한다.
+        <tr> <td>2.</td> <td colspan=2>학습률을 $\boldsymbol{\alpha} = \mathbf{0}$로 초기화한다.
+        <tr> <td>3.</td> <td colspan=2><b>for $i = 1, \dots, N$ do</b> 
+$\mathbf{r} \leftarrow \nabla L(\boldsymbol{\theta}) \odot \nabla L(\boldsymbol{\theta})$</td> <td><font color=gray><i># 그래디언트를 계산하고 각 성분을 제곱함</i></font>
+$\boldsymbol{\alpha} \leftarrow  \rho \boldsymbol{\alpha} + (1-\rho) \dfrac{\epsilon}{\delta + \sqrt{\mathbf{r}}}$</td> <td><font color=gray><i># 적응적 학습률 업데이트</i></font>
+$\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} - \boldsymbol{\alpha} \odot \nabla L(\boldsymbol{\theta})$ </td> <td><font color=gray><i># 파라매터 업데이트</i></font>
+        <tr> <td>7.</td> <td colspan=2> <b>end for</b> 
     </tbody>
+</table>
+</div> -->
+<div class="pseudocode-table">
+<table>
+<thead>
+<tr>
+<th>알고리즘: RMSProp</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>In</td>
+<td>전역 학습률 $\epsilon$, 작은 양수 $\delta$, 감쇠율 $\rho$, 에포크 $N$</td>
+<td></td>
+</tr>
+<tr>
+<td>1.</td>
+<td>파라매터 $\boldsymbol{\theta}$를 임의의 값으로 초기화한다.</td>
+<td></td>
+</tr>
+<tr>
+<td>2.</td>
+<td>학습률을 $\boldsymbol{\alpha} = \mathbf{0}$로 초기화한다.</td>
+<td></td>
+</tr>
+<tr>
+<td>3.</td>
+<td><strong>for $i = 1, \dots, N$ do</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>4.</td>
+<td>　　 $\mathbf{r} \leftarrow \nabla L(\boldsymbol{\theta}) \odot \nabla L(\boldsymbol{\theta})$</td>
+<td># 그래디언트를 계산하고 각 성분을 제곱함</td>
+</tr>
+<tr>
+<td>5.</td>
+<td>　　 $\boldsymbol{\alpha} \leftarrow  \rho \boldsymbol{\alpha} + (1-\rho) \dfrac{\epsilon}{\delta + \sqrt{\mathbf{r}}}$</td>
+<td># 적응적 학습률 업데이트</td>
+</tr>
+<tr>
+<td>6.</td>
+<td>　　 $\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} - \boldsymbol{\alpha} \odot \nabla L(\boldsymbol{\theta})$</td>
+<td># 파라매터 업데이트</td>
+</tr>
+<tr>
+<td>7.</td>
+<td><strong>end for</strong></td>
+<td></td>
+</tr>
+</tbody>
 </table>
 </div>
 <h2 id="adam">Adam</h2>
@@ -354,31 +460,30 @@ $$</p>
             </td>
         </tr>
 </table>
-<div style="width: 100%; overflow: auto;">
-<table class="algorithm-table">
-    <thead>
-        <tr> <td colspan=4>알고리즘: Adam</td></tr>
-    </thead>
-    <tbody>
-        <tr> <td>0.</td> <td , colspan=3> 전역 학습률 $\epsilon$ (권장되는 값은 $0.001$), 에포크 $N$</td></tr>
-        <tr> <td></td> <td , colspan=3> 작은 상수 $\delta$ (권장되는 값은 $10^{-8}$)</td></tr>
-        <tr> <td></td> <td , colspan=3> 감쇠율 $\beta_{1}, \beta_{2}$ (권장되는 값은 각각 $0.9$와 $0.999$)</td></tr>
-        <tr> <td>1.</td> <td colspan=2> 파라매터 $\boldsymbol{\theta}$를 임의의 값으로 초기화한다.</td></tr>
-        <tr> <td>2.</td> <td colspan=2> 학습률을 $\boldsymbol{\alpha} = \mathbf{0}$로 초기화한다.</td></tr>
-        <tr> <td>3.</td> <td colspan=2> 모멘텀을 $\mathbf{p} = \mathbf{0}$으로 초기화한다.</td></tr>
-        <tr> <td>4.</td> <td colspan=2> <b>for $i = 1, \dots, N$ do</b> </td></tr>
-        <tr> <td>5.</td> <td></td> <td width="400px">$\mathbf{p} \leftarrow \beta_{1}\mathbf{p} + (1-\beta_{1}) \nabla L$</td> <td><font color=gray><i># 가중합으로 모멘텀 업데이트</i></font></td></tr>
-        <tr> <td>6.</td> <td></td> <td width="400px">$\hat{\mathbf{p}} \leftarrow \dfrac{\mathbf{p}}{1-(\beta_{1})^{i}}$</td> <td><font color=gray><i># 합을 가중평균으로 보정</i></font></td></tr>
-        <tr> <td>7.</td> <td></td> <td>$\mathbf{r} \leftarrow \beta_{2} \mathbf{r} + (1-\beta_{2}) \nabla L \odot \nabla L$</td> <td><font color=gray><i># 가중합으로 그래디언트 제곱 벡터 업데이트</i></font></td></tr>
-        <tr> <td>8.</td> <td></td> <td>$\hat{\mathbf{r}} \leftarrow \dfrac{\mathbf{r}}{1-(\beta_{2})^{i}}$</td> <td><font color=gray><i># 합을 가중평균으로 보정</i></font></td></tr>
-        <tr> <td>9.</td> <td></td> <td>$\hat{\boldsymbol{\alpha}} \leftarrow \dfrac{\epsilon}{\delta + \sqrt{\hat{\mathbf{r}}}}$</td> <td><font color=gray><i># 적응적 학습률 업데이트</i></font></td></tr>
-        <tr> <td>10.</td> <td></td> <td>$\boldsymbol{\theta} = \boldsymbol{\theta} - \hat{\boldsymbol{\alpha}} \odot \hat{\mathbf{p}}$ </td> <td><font color=gray><i># 파라매터 업데이트</i></font></td></tr>
-        <tr> <td>11.</td> <td colspan=2> <b>end for</b> </td></tr>
-    </tbody>
+<p>$\hat{\mathbf{p}}_{i}$와 $\hat{\mathbf{r}}_{i}$를 계산할 때 $1 - \beta^{i}$를 나눠주는 이유는 $\mathbf{p}_{i}$와 $\mathbf{r}_{i}$은 <a href="../definition-of-weighted-mean/#%EC%A7%80%EC%88%98%EA%B0%80%EC%A4%91%ED%8F%89%EA%B7%A0">가중합</a>이기 때문에 이를 <a href="../definition-of-weighted-mean/#%EC%A7%80%EC%88%98%EA%B0%80%EC%A4%91%ED%8F%89%EA%B7%A0">가중평균</a>으로 만들어주기 위함이다.</p>
+<div class="pseudocode-table">
+<table>
+<th colspan=3, align=left>
+    알고리즘: Adam
+</th>
+<tbody>
+    <tr> <td>In </td> <td> 전역 학습률 $\epsilon$ (권장되는 값은 $0.001$), 에포크 $N$ </td></tr>
+    <tr> <td>   </td> <td> 작은 상수 $\delta$ (권장되는 값은 $10^{-8}$) </td></tr>
+    <tr> <td>   </td> <td> 감쇠율 $\beta_{1}, \beta_{2}$ (권장되는 값은 각각 $0.9$와 $0.999$) </td></tr>
+    <tr> <td>1. </td> <td> 파라매터 $\boldsymbol{\theta}$를 임의의 값으로 초기화한다. </td></tr>
+    <tr> <td>2. </td> <td> 학습률을 $\boldsymbol{\alpha} = \mathbf{0}$로 초기화한다. </td></tr>
+    <tr> <td>3. </td> <td> 모멘텀을 $\mathbf{p} = \mathbf{0}$으로 초기화한다. </td></tr>
+    <tr> <td>4. </td> <td> <b>for $i = 1, \dots, N$ do</b> </td></tr>
+    <tr> <td>5. </td> <td> 　　 $\mathbf{p} \leftarrow \beta_{1}\mathbf{p} + (1-\beta_{1}) \nabla L$ </td> <td> # 가중합으로 모멘텀 업데이트 </td></tr>
+    <tr> <td>6. </td> <td> 　　 $\hat{\mathbf{p}} \leftarrow \dfrac{\mathbf{p}}{1-(\beta_{1})^{i}}$ </td> <td> # 합을 가중평균으로 보정 </td></tr>
+    <tr> <td>7. </td> <td> 　　 $\mathbf{r} \leftarrow \beta_{2} \mathbf{r} + (1-\beta_{2}) \nabla L \odot \nabla L$ </td> <td> # 가중합으로 그래디언트 제곱벡터 업데이트 </td></tr>
+    <tr> <td>8. </td> <td> 　　 $\hat{\mathbf{r}} \leftarrow \dfrac{\mathbf{r}}{1-(\beta_{2})^{i}}$ </td> <td> # 합을 가중평균으로 보정 </td></tr>
+    <tr> <td>9. </td> <td> 　　 $\hat{\boldsymbol{\alpha}} \leftarrow \dfrac{\epsilon}{\delta + \sqrt{\hat{\mathbf{r}}}}$ </td> <td> # 적응적 학습률 업데이트 </td></tr>    
+    <tr> <td>10.</td> <td> 　　 $\boldsymbol{\theta} = \boldsymbol{\theta} - \hat{\boldsymbol{\alpha}} \odot \hat{\mathbf{p}}$ </td> <td> # 파라매터 업데이트 </td></tr>    
+    <tr> <td>11.</td> <td> <b>end for</b> </td></tr>
+</tbody>
 </table>
-</div>
-<p>6.과 8.에서 $1 - \beta^{i}$를 나눠주는 이유는 5.와 7.은 <a href="../definition-of-weighted-mean/#%EC%A7%80%EC%88%98%EA%B0%80%EC%A4%91%ED%8F%89%EA%B7%A0">가중합</a>이기 때문에 이를 <a href="../definition-of-weighted-mean/#%EC%A7%80%EC%88%98%EA%B0%80%EC%A4%91%ED%8F%89%EA%B7%A0">가중평균</a>으로 만들어주기 위함이다.</p>
-<div class="footnotes" role="doc-endnotes">
+</div><div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1">
@@ -394,7 +499,7 @@ $$</p>
 <aside style="text-align: right;">
     2013-12-29&emsp;
     전기현&emsp;
-    <a href="../1508">🎲 3529</a>
+    <a href="../1345">🎲 3529</a>
 </aside>
 
 <script>

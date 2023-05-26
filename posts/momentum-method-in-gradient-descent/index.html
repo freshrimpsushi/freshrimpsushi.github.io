@@ -259,7 +259,103 @@ $$</p>
 <p><strong>네스테로프 모멘텀</strong><sup>Nesterov momentum</sup> 혹은 <strong>네스테로프 가속 그래디언트</strong><sup>Nesterov accerlerated gradient, NAG</sup>라 불리는 기법은, &quot;현재의 파라매터에 이전의 그래디언트를 더한 값&quot;으로 그래디언트를 구해 이를 현재의 파라매터에 더하여 다음 파라매터를 구한다. 말로는 좀 복잡한데, 모멘텀 기법을 이해했다면 아래의 알고리즘을 보는 것이 네스테로프 모멘텀의 이해가 더 쉬울 수 있다.</p>
 <h2 id="알고리즘">알고리즘</h2>
 <p><a href="../1673">모멘텀</a>항을 $\mathbf{p}$로 표기한다.</p>
-<table class="algorithm-table">
+<div class="pseudocode-table">
+<table>
+<thead>
+<tr>
+<th>알고리즘: 모멘텀 기법</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>In</td>
+<td>학습률 $\alpha$, 모멘텀 파라매터 $\beta$, 에포크 $N$</td>
+<td></td>
+</tr>
+<tr>
+<td>1.</td>
+<td>파라매터 $\boldsymbol{\theta}$를 임의의 값으로 초기화한다.</td>
+<td></td>
+</tr>
+<tr>
+<td>2.</td>
+<td>모멘텀을 $\mathbf{p} = \mathbf{0}$로 초기화한다.</td>
+<td></td>
+</tr>
+<tr>
+<td>3.</td>
+<td><strong>for $k = 1, \cdots, N$ do</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>4.</td>
+<td>　　 $\mathbf{p} \leftarrow \beta \mathbf{p} - \alpha \nabla L(\boldsymbol{\theta})$</td>
+<td># 그래디언트를 계산하여 모멘텀 업데이트</td>
+</tr>
+<tr>
+<td>5.</td>
+<td>　　 $\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} + \mathbf{p}$</td>
+<td># 파라매터 업데이트</td>
+</tr>
+<tr>
+<td>6.</td>
+<td><strong>end for</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pseudocode-table">
+<table>
+<thead>
+<tr>
+<th>알고리즘: 네스테로프 모멘텀</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>In</td>
+<td>학습률 $\alpha$, 모멘텀 파라매터 $\beta$, 에포크 $N$</td>
+<td></td>
+</tr>
+<tr>
+<td>1.</td>
+<td>파라매터 $\boldsymbol{\theta}$를 임의의 값으로 초기화한다.</td>
+<td></td>
+</tr>
+<tr>
+<td>2.</td>
+<td>모멘텀을 $\mathbf{p} = \mathbf{0}$로 초기화한다.</td>
+<td></td>
+</tr>
+<tr>
+<td>3.</td>
+<td><strong>for $k = 1, \cdots, N$ do</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>4.</td>
+<td>　　 $\mathbf{p} \leftarrow \beta \mathbf{p} - \alpha \nabla L(\boldsymbol{\theta} + \beta \mathbf{p})$</td>
+<td># 그래디언트를 계산하여 모멘텀 업데이트</td>
+</tr>
+<tr>
+<td>5.</td>
+<td>　　 $\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} + \mathbf{p}$</td>
+<td># 파라매터 업데이트</td>
+</tr>
+<tr>
+<td>6.</td>
+<td><strong>end for</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- <table class="algorithm-table">
     <thead>
         <tr> <td colspan=4><b><font size=5>알고리즘: 모멘텀 기법</font></b></td> </tr>
     </thead>
@@ -273,6 +369,8 @@ $$</p>
         <tr> <td>6.</td> <td colspan=2> <b>end for</b> </td></tr>
     </tbody>
 </table>
+
+
 <table class="algorithm-table">
     <thead>
         <tr><td colspan=4><b><font size=5>알고리즘: 네스테로프 모멘텀</font></b></td></tr>
@@ -286,7 +384,7 @@ $$</p>
         <tr> <td>5.</td> <td></td> <td> $\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} + \mathbf{p}$ </td> <td><font color=gray><i># 파라매터 업데이트</i></font></td></tr>
         <tr> <td>6.</td> <td colspan=2> <b>end for</b> </td></tr>
     </tbody>
-</table>
+</table> -->
 <p>두 방법에 대해서 처음 몇 번의 계산을 살펴보면 다음과 같다. 간단히 $\mathbf{p}_{i} = \alpha \nabla L_{i}$, 그리고 $\mathbf{p}^{i} = \alpha \nabla L(\boldsymbol{\theta}_{i} - \beta^{1}\mathbf{p}^{i-1} - \beta^{2}\mathbf{p}^{i-2} - \cdots - \beta^{i}\mathbf{p}^{0})$ (이때 $\mathbf{p}^{0} = \mathbf{p}_{0}$)이라 표기하면,</p>
 <table>
     <tr>
@@ -334,7 +432,7 @@ $$</p>
 <aside style="text-align: right;">
     2013-12-27&emsp;
     전기현&emsp;
-    <a href="../1040">🎲 3528</a>
+    <a href="../1121">🎲 3528</a>
 </aside>
 
 <script>
