@@ -6,7 +6,52 @@
     <description>Recent content in 줄리아 on 생새우초밥집</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko</language>
-    <lastBuildDate>Mon, 24 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 28 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://freshrimpsushi.github.io/categories/%EC%A4%84%EB%A6%AC%EC%95%84/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>줄리아의 숏 서킷</title>
+      <link>https://freshrimpsushi.github.io/posts/short-circuit-in-julia/</link>
+      <pubDate>Sun, 28 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://freshrimpsushi.github.io/posts/short-circuit-in-julia/</guid>
+      <description>개요 줄리아에서 &amp;amp;&amp;amp;과 ||는 논리곱, 논리합일 뿐만 아니라 숏-서킷 평가Short-circuit Evaluation을 수행한다.1 가령 A &amp;amp;&amp;amp; B는 A와 B가 모두 참일 때 참을 리턴하는데, 사실 A가 거짓이라면 B가 참인지 거짓인지 볼 것도 없이 A &amp;amp;&amp;amp; B는 거짓이다. 숏-서킷 평가는 그 볼 것도 없는 B를 실제로 안 보는 것이다.</description>
+    </item>
+    
+    <item>
+      <title>줄리아의 find 함수들</title>
+      <link>https://freshrimpsushi.github.io/posts/find-functions-in-julia/</link>
+      <pubDate>Wed, 24 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://freshrimpsushi.github.io/posts/find-functions-in-julia/</guid>
+      <description>개요 줄리아의 기본 내장 함수들로써 알면 알수록 유용하다. 거두절미하고 예시를 보며 익히자. 코드 x = [3, 7, 4, 5, 10, 3, 12, 3, 2, 4] argmin(x) argmax(x) findmin(x) findmax(x) extrema(x) findfirst(x .== 3) findlast(x .== 3) findall(x .== 3) findnext(x .== 3, 5) findprev(x .== 3, 5) 최적해 argmin(),argmax(),findmin(),findmax(),extrema() 최적해를 찾는다. x = [3, 7, 4, 5, 10, 3, 12, 3, 2, 4] julia&amp;gt; argmin(x) 9 julia&amp;gt; argmax(x) 7 y = [7, 8, 9, 9, 7, 9] julia&amp;gt; argmax(y) 3 julia&amp;gt; findall(y.==maximum(y)) 3-element Vector{Int64}: 3 4 6 argmin(),argmax() 는 그냥 정확히 최적해, 즉 값이 가장 크고 작은 곳의 인덱스를</description>
+    </item>
+    
+    <item>
+      <title>줄리아의 느낌표 컨벤션</title>
+      <link>https://freshrimpsushi.github.io/posts/bang-convention-in-julia/</link>
+      <pubDate>Sat, 20 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://freshrimpsushi.github.io/posts/bang-convention-in-julia/</guid>
+      <description>개요 1 줄리아에서 함수 이름의 가장 마지막에 느낌표Bang !을 넣는 것을 뱅 컨벤션이라 한다. 이러한 함수들은 입력받은 인수를 수정하는 특징을 가진다. 코드 function add_1!(x) x .+= 1 return x end foo = [2,5,-1] add_1!(foo) foo 예를 들어 위의 코드를 실행하면 다음과 같은 결과를 얻는다. julia&amp;gt; foo = [2,5,-1] 3-element Vector{Int64}: 2 5 -1 julia&amp;gt; add_1!(foo) 3-element Vector{Int64}: 3 6 0 julia&amp;gt; foo 3-element Vector{Int64}: 3 6 0 배열 foo는 함수 밖에서 정의되었고 add_1</description>
+    </item>
+    
+    <item>
+      <title>줄리아에서 부분배열 빠르게 참조하는 법</title>
+      <link>https://freshrimpsushi.github.io/posts/how-to-view-subarray-in-julia/</link>
+      <pubDate>Fri, 12 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://freshrimpsushi.github.io/posts/how-to-view-subarray-in-julia/</guid>
+      <description>개요 줄리아에서 view는 배열Array의 부분배열Subarray를 빠르게 참조하게끔 해주는 데이터 구조다. 1 실제로 쓰는 입장에서는 번거롭기만하고 차이가 없어보이지만 게으르게Lazily 참조되면서 더 가볍운 배열을 리턴한다. 따라서 아주 베이직한 수준에서까지 최적화된 줄리아 코드에서는 @views라는 매크로를 쉽게 찾아볼 수</description>
+    </item>
+    
+    <item>
+      <title>줄리아의 브로드캐스팅 문법</title>
+      <link>https://freshrimpsushi.github.io/posts/syntax-for-broadcasting-in-julia/</link>
+      <pubDate>Mon, 08 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://freshrimpsushi.github.io/posts/syntax-for-broadcasting-in-julia/</guid>
+      <description>개요 브로드캐스팅Broadcasting은 줄리아에서 가장 중요한 개념으로, 벡터화된 코드를 작성함에 있어서 아주 편리한 문법이다.1 이항연산 앞에 .을 찍거나 함수 뒤에 .을 찍는 식으로 사용한다. 이는 점별Pointwise하게 함수를 적용시킨다는 의미에서 찰떡같은 표현이다. 프로그래밍적으로 브로드캐스팅은 맵과 리듀스에서 맵Ma</description>
+    </item>
+    
     <item>
       <title>줄리아에서 배열로 딕셔너리 만드는 법</title>
       <link>https://freshrimpsushi.github.io/posts/how-to-make-dictionary-by-arrays-in-julia/</link>
@@ -1269,10 +1314,10 @@
     
     <item>
       <title>줄리아 StatsPlots에서 데이터프레임 이름을 생략하는 매크로 @df</title>
-      <link>https://freshrimpsushi.github.io/posts/how-to-use-df-of-statsplots-in-julia/</link>
+      <link>https://freshrimpsushi.github.io/posts/how-to-use-@df-of-statsplots-in-julia/</link>
       <pubDate>Fri, 04 Apr 1924 00:00:00 +0000</pubDate>
       
-      <guid>https://freshrimpsushi.github.io/posts/how-to-use-df-of-statsplots-in-julia/</guid>
+      <guid>https://freshrimpsushi.github.io/posts/how-to-use-@df-of-statsplots-in-julia/</guid>
       <description>개요 줄리아의 StatsPlots 패키지에서는 그림을 그릴 때 @df 매크로를 통해 여러번 반복되는 데이터프레임의 이름을 생략할 수 있다. 1 매크로를 사용하는 문법은 데이터프레임 X의 a 칼럼을 사용한다고 할 때, @df X 와 같이 어떤 데이터프레임을 사용할 지 명시한 뒤 바로 이어지는 스코프에서 a를 심볼인 :a로 인자를 전달해 plot (:a)와 같이 쓰는 것이다. 코드로 요약하면</description>
     </item>
     
@@ -1427,51 +1472,6 @@
       
       <guid>https://freshrimpsushi.github.io/posts/multidimensional-index-in-julia/</guid>
       <description>개요 줄리아에서는 다차원 배열에 참조할 수 있는 인덱스의 타입인 CatesianIndex를 제공한다. 1 당연히 카티션Catesian이라는 명명은 집합의 곱인 데카르트 곱에서 온 것이다. 코드 julia&amp;gt; M = rand(0:9, 4,4) 4×4 Matrix{Int64}: 9 3 7 0 8 6 2 1 3 8 4 9 5 6 8 2 가령 위와 같은 행렬 M의 3행 4열 원소인 9에 접근하고 싶다고 가정해보자. julia&amp;gt; pt = (3,4) (3, 4) julia&amp;gt;</description>
-    </item>
-    
-    <item>
-      <title>줄리아의 숏 서킷</title>
-      <link>https://freshrimpsushi.github.io/posts/short-circuit-in-julia/</link>
-      <pubDate>Mon, 28 May 1923 00:00:00 +0000</pubDate>
-      
-      <guid>https://freshrimpsushi.github.io/posts/short-circuit-in-julia/</guid>
-      <description>개요 줄리아에서 &amp;amp;&amp;amp;과 ||는 논리곱, 논리합일 뿐만 아니라 숏-서킷 평가Short-circuit Evaluation을 수행한다.1 가령 A &amp;amp;&amp;amp; B는 A와 B가 모두 참일 때 참을 리턴하는데, 사실 A가 거짓이라면 B가 참인지 거짓인지 볼 것도 없이 A &amp;amp;&amp;amp; B는 거짓이다. 숏-서킷 평가는 그 볼 것도 없는 B를 실제로 안 보는 것이다.</description>
-    </item>
-    
-    <item>
-      <title>줄리아의 find 함수들</title>
-      <link>https://freshrimpsushi.github.io/posts/find-functions-in-julia/</link>
-      <pubDate>Thu, 24 May 1923 00:00:00 +0000</pubDate>
-      
-      <guid>https://freshrimpsushi.github.io/posts/find-functions-in-julia/</guid>
-      <description>개요 줄리아의 기본 내장 함수들로써 알면 알수록 유용하다. 거두절미하고 예시를 보며 익히자. 코드 x = [3, 7, 4, 5, 10, 3, 12, 3, 2, 4] argmin(x) argmax(x) findmin(x) findmax(x) extrema(x) findfirst(x .== 3) findlast(x .== 3) findall(x .== 3) findnext(x .== 3, 5) findprev(x .== 3, 5) 최적해 argmin(),argmax(),findmin(),findmax(),extrema() 최적해를 찾는다. x = [3, 7, 4, 5, 10, 3, 12, 3, 2, 4] julia&amp;gt; argmin(x) 9 julia&amp;gt; argmax(x) 7 y = [7, 8, 9, 9, 7, 9] julia&amp;gt; argmax(y) 3 julia&amp;gt; findall(y.==maximum(y)) 3-element Vector{Int64}: 3 4 6 argmin(),argmax() 는 그냥 정확히 최적해, 즉 값이 가장 크고 작은 곳의 인덱스를</description>
-    </item>
-    
-    <item>
-      <title>줄리아의 느낌표 컨벤션</title>
-      <link>https://freshrimpsushi.github.io/posts/bang-convention-in-julia/</link>
-      <pubDate>Sun, 20 May 1923 00:00:00 +0000</pubDate>
-      
-      <guid>https://freshrimpsushi.github.io/posts/bang-convention-in-julia/</guid>
-      <description>개요 1 줄리아에서 함수 이름의 가장 마지막에 느낌표Bang !을 넣는 것을 뱅 컨벤션이라 한다. 이러한 함수들은 입력받은 인수를 수정하는 특징을 가진다. 코드 function add_1!(x) x .+= 1 return x end foo = [2,5,-1] add_1!(foo) foo 예를 들어 위의 코드를 실행하면 다음과 같은 결과를 얻는다. julia&amp;gt; foo = [2,5,-1] 3-element Vector{Int64}: 2 5 -1 julia&amp;gt; add_1!(foo) 3-element Vector{Int64}: 3 6 0 julia&amp;gt; foo 3-element Vector{Int64}: 3 6 0 배열 foo는 함수 밖에서 정의되었고 add_1</description>
-    </item>
-    
-    <item>
-      <title>줄리아에서 부분배열 빠르게 참조하는 법</title>
-      <link>https://freshrimpsushi.github.io/posts/how-to-view-subarray-in-julia/</link>
-      <pubDate>Sat, 12 May 1923 00:00:00 +0000</pubDate>
-      
-      <guid>https://freshrimpsushi.github.io/posts/how-to-view-subarray-in-julia/</guid>
-      <description>개요 줄리아에서 view는 배열Array의 부분배열Subarray를 빠르게 참조하게끔 해주는 데이터 구조다. 1 실제로 쓰는 입장에서는 번거롭기만하고 차이가 없어보이지만 게으르게Lazily 참조되면서 더 가볍운 배열을 리턴한다. 따라서 아주 베이직한 수준에서까지 최적화된 줄리아 코드에서는 @views라는 매크로를 쉽게 찾아볼 수</description>
-    </item>
-    
-    <item>
-      <title>줄리아의 브로드캐스팅 문법</title>
-      <link>https://freshrimpsushi.github.io/posts/syntax-for-broadcasting-in-julia/</link>
-      <pubDate>Tue, 08 May 1923 00:00:00 +0000</pubDate>
-      
-      <guid>https://freshrimpsushi.github.io/posts/syntax-for-broadcasting-in-julia/</guid>
-      <description>개요 브로드캐스팅Broadcasting은 줄리아에서 가장 중요한 개념으로, 벡터화된 코드를 작성함에 있어서 아주 편리한 문법이다.1 이항연산 앞에 .을 찍거나 함수 뒤에 .을 찍는 식으로 사용한다. 이는 점별Pointwise하게 함수를 적용시킨다는 의미에서 찰떡같은 표현이다. 프로그래밍적으로 브로드캐스팅은 맵과 리듀스에서 맵Ma</description>
     </item>
     
   </channel>
