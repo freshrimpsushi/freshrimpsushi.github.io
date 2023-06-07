@@ -67,9 +67,9 @@
     </script>
 
     
-<meta name="title" content="정칙행렬의 LU 분해">
+<meta name="title" content="가역행렬의 LU 분해">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="정칙행렬의 LU 분해"/>
+<meta property="og:title" content="가역행렬의 LU 분해"/>
 <meta property="og:description" content="LU Decomposition of nonsingular matrix"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
@@ -82,8 +82,8 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "r_",
-    "name": "정칙행렬의 LU 분해",
-    "headline": "정칙행렬의 LU 분해",
+    "name": "가역행렬의 LU 분해",
+    "headline": "가역행렬의 LU 분해",
     "alternativeHeadline": "",
     "description": "LU Decomposition of nonsingular matrix",
     "inLanguage": "ko",
@@ -129,7 +129,7 @@
 </script>
 
 
-    <title>정칙행렬의 LU 분해</title>
+    <title>가역행렬의 LU 분해</title>
 </head>
 
 <body class="main">
@@ -188,7 +188,7 @@
     <div class="content">
       <div class="content-box">
         
-<title>정칙행렬의 LU 분해</title>
+<title>가역행렬의 LU 분해</title>
 
 
 
@@ -200,7 +200,7 @@
         
 
 
-<h1>정칙행렬의 LU 분해</h1>
+<h1>가역행렬의 LU 분해</h1>
 <p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px; margin-left: 0px;">
   LU Decomposition of nonsingular matrix
 </p>
@@ -229,7 +229,7 @@
 <h2 id="빌드업">빌드업</h2>
 <p>행렬 $A \in \mathbb{R}^{m \times m}$ 의 왼쪽에 곱해졌을 때 $(i, j)$ 성분을 $0$ 이 되도록 하는 행렬 $E_{ij}$ 를 <strong>$A$ 에 대한 $ij$-소거연산자</strong>라고 정의해보자.</p>
 <p>구체적으로 정방행렬 $(a_{ij}) \in \mathbb{R}^{m \times m}$ 에 대한 $E_{ij}$ 는 대각성분이 $1$ 이고 $(i,j)$ 성분이
-$\displaystyle -m_{ij} = -{{a_{ij}} \over {a_{jj}}}$, 나머지 성분이 $0$으로 구해진다. 이는 연립 방정식의 풀이에서 같은 변수끼리 계수를 맞춰서 소거하는 연산을 행렬로 나타낸 것이다. 이러한 소거는 연립 방정식의 해가 단 하나만 존재할 때 의미가 있으므로, 우리가 다룰 $A$ 는 정칙행렬로 가정한다.</p>
+$\displaystyle -m_{ij} = -{{a_{ij}} \over {a_{jj}}}$, 나머지 성분이 $0$으로 구해진다. 이는 연립 방정식의 풀이에서 같은 변수끼리 계수를 맞춰서 소거하는 연산을 행렬로 나타낸 것이다. 이러한 소거는 연립 방정식의 해가 단 하나만 존재할 때 의미가 있으므로, 우리가 다룰 $A$ 는 가역행렬로 가정한다.</p>
 <h2 id="예시">예시</h2>
 <p>간단한 예로써</p>
 <p>$$
@@ -262,7 +262,7 @@ U_{B} : = E_{32} E_{31} E_{21} B = \begin{bmatrix}
 $$</p>
 <p>는 상삼각행렬이고, $E_{21} , E_{31} , E_{32}$ 은 모두 하삼각행렬이다. 하삼각행렬끼리의 곱은 하삼각행렬이므로 $L_{B} : = E_{21} E_{31} E_{32}$ 도 하삼각행렬이고 $L^{-1} B = U$ 으로 나타낼 수 있다. 다시 $B$ 에 대해 정리하면 $B = L_{B} U_{B}$ 즉 하<sup>Lower</sup>삼각행렬과 상<sup>Upper</sup>삼각행렬의 곱으로 분해한 꼴이 된다.</p>
 <p>이러한 분해법은 너무나 단순하기 때문에 $A \in \mathbb{R}^{n \times n}$ 인 경우에 대해서도 별다른 문제 없이 일반화가 가능하다. 이를 이용한 연립방정식 $A \mathbb{x} = \mathbb{b}$ 의 풀이법을 생각해보면 $A = LU$ 로 분해되므로 $LU \mathbb{x} = \mathbb{b}\mathbb{y} := U \mathbb{x}$ 라 하면 $U$ 가 상삼각행렬이므로 $\mathbb{y}$ 는 후진대입법을 통해 쉽게 구할 수 있다.</p>
-<p>한편 $L (U \mathbb{x} ) = L \mathbb{y} = \mathbb{b}$에서 $L$ 이 하삼각행렬이므로 $\mathbb{b}$ 는 전진대입법을 통해 쉽게 구할 수 있다. 따라서 LU 분해를 실제로 구할 수 있다는 것은 상당히 많은 문제를 상당히 쉽고 빠르게 풀 수 있다는 뜻이 된다. 직접적으로 $L$ 과 $U$ 를 찾아내기 위해, $A := L U$ 를 만족하는 하삼각행렬 $L$ 과 상삼각행렬 $U$ 를 다음과 같이 정의하자.</p>
+<p>한편 $L (U \mathbb{x} ) = L \mathbb{y} = \mathbb{b}$에서 $L$ 이 하삼각행렬이므로 $\mathbb{b}$ 는 전진대입법을 통해 쉽게 구할 수 있다. 따라서 LU 분해를 실제로 구할 수 있다는 것은 상당히 많은 문제를 상당히 쉽고 빠르게 풀 수 있다는 뜻이 된다. 직접적으로 $L$ 과 $U$ 를 찾아내기 위해, $A := L U$ 를 만족하는 하삼각행렬 $L$ 과 <a href="../3305">상삼각행렬</a> $U$ 를 다음과 같이 정의하자.</p>
 <p>$$
 L : = \begin{bmatrix}
 1 &amp; 0 &amp; 0 &amp; \cdots &amp; 0
@@ -307,7 +307,7 @@ u_{kj} = a_{kj} - \sum_{s = 1}^{k-1} l_{ks} u_{sj}
 \\ l_{ik} = {{ 1 } \over {u_{kk} }} \left\{ a_{ik} - \sum_{s = 1}^{k-1} l_{is} u_{sk} \right\}
 $$</p>
 <h2 id="알고리즘">알고리즘</h2>
-<p>$(a_{ij}) \in \mathbb{R}^{n \times n}$ 가 정칙행렬이라고 하자.</p>
+<p>$(a_{ij}) \in \mathbb{R}^{n \times n}$ 가 가역행렬이라고 하자.</p>
 <p>**Step 1. $k = 1$</p>
 <p>$u_{1j} = a_{1j}$ 을 대입하고 $\displaystyle l_{i1} = {{1} \over {u_{11}}} a_{i1}$ 을 계산한다.</p>
 <hr>
@@ -382,7 +382,7 @@ expand(lu(B))
 <aside style="text-align: right;">
     2017-12-28&emsp;
     류대식&emsp;
-    <a href="../573">🎲 345</a>
+    <a href="../1098">🎲 345</a>
 </aside>
 
 <script>
@@ -397,7 +397,7 @@ expand(lu(B))
       renderKaTex(tex);
     }
 
-    var title = '정칙행렬의 LU 분해';
+    var title = '가역행렬의 LU 분해';
     var link = 'https:\/\/freshrimpsushi.github.io\/posts\/lu-decomposition-of-nonsingular-matrix\/';
     var arr = new Array();
     var obj = {
@@ -601,7 +601,7 @@ expand(lu(B))
     }
     const idx = '345';
     const board_slug = 'LU Decomposition of nonsingular matrix';
-    const board_title = '정칙행렬의 LU 분해';
+    const board_title = '가역행렬의 LU 분해';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -842,7 +842,7 @@ expand(lu(B))
 
     const board_idx = '345';
     const board_slug = 'LU Decomposition of nonsingular matrix';
-    const board_title = '정칙행렬의 LU 분해';
+    const board_title = '가역행렬의 LU 분해';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -931,9 +931,9 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       { idx: 3, name: '집합론', size: '47', color: color.green },
       { idx: 4, name: '정수론', size: '89', color: color.green },
       { idx: 5, name: '기하학', size: '132++', color: color.yellow },
-      { idx: 6, name: '행렬대수', size: '89', color: color.green },
+      { idx: 6, name: '행렬대수', size: '91', color: color.green },
       { idx: 7, name: '선형대수', size: '83', color: color.green },
-      { idx: 8, name: '추상대수', size: '77', color: color.green },
+      { idx: 8, name: '추상대수', size: '96', color: color.green },
       { idx: 9, name: '위상수학', size: '63', color: color.green },
       { idx: 10, name: '그래프이론', size: '50', color: color.green }
     ],
