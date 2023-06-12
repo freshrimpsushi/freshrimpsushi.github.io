@@ -233,10 +233,10 @@
 </aside>
 
 <h2 id="메소드-1">메소드 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p>$D \subset \mathbb{R}^2$ 에서 정의된 연속함수 $f$ 에 대해 초기값 문제 $\begin{cases} y ' = f(x,y)
+<p>$D \subset \mathbb{R}^2$ 에서 정의된 연속함수 $f$ 에 대해 초기값 문제 $\begin{cases} y ' = f(x,y) 
 \\  y( x_{0} ) = Y_{0} \end{cases}$ 가 주어져 있다. 구간 $(a,b)$ 을 $a \le x_{0} &lt; x_{1} &lt; \cdots &lt; x_{n} &lt; \cdots x_{N} \le b$ 와 같은 노드 포인트들로 쪼갰다고 하자. 특히 충분히 작은 $h &gt; 0$ 에 대해 $x_{j} = x_{0} + j h$ 이라고 하면 초기값 $y_{0} = Y_{0}$ 에 대해
 $$
-y_{n+1} = y_{n-1} + h \sum_{j=1}^{p} \gamma_{j} V_{j}
+y_{n+1} = y_{n-1} + h \sum_{j=1}^{p} \gamma_{j} V_{j} 
 $$</p>
 <h2 id="설명">설명</h2>
 <p><a href="../3317">룽게-쿠타 메소드</a>는 <a href="../724">아담스 메소드</a>처럼 여러가지 형태를 가지며 복잡한 대수적 조작을 통해 $\gamma_{j}$ 와 $V_{j}$ 를 결정한다. 그 중에서도 가장 인기 있게 쓰이는 것이 <strong>4차 룽게-쿠타 메소드</strong> 로써, 흔히 <strong>RK4</strong>라 줄여서 부른다.</p>
@@ -244,11 +244,11 @@ $$</p>
 <p>4차 룽게-쿠타 메소드:
 $$
 \begin{align*}
-y_{n+1} =&amp; y_{n} + {{h} \over {6}} \left[ V_{1} + 2 V_{2} + 2 V_{3} + V_{4} \right]
-\\  V_{1} =&amp; f(x_{n} , y_{n})
-\\  V_{2} =&amp; f \left( x_{n} + {{h} \over {2}} , y_{n} + {{h} \over {2}} V_{1} \right)
-\\  V_{3} =&amp; f \left( x_{n} + {{h} \over {2}} , y_{n} + {{h} \over {2}} V_{2} \right)
-\\  V_{4} =&amp; f \left( x_{n} + h , y_{n} + h V_{3} \right)
+y_{n+1} =&amp; y_{n} + {{h} \over {6}} \left[ V_{1} + 2 V_{2} + 2 V_{3} + V_{4} \right] 
+\\  V_{1} =&amp; f(x_{n} , y_{n}) 
+\\  V_{2} =&amp; f \left( x_{n} + {{h} \over {2}} , y_{n} + {{h} \over {2}} V_{1} \right) 
+\\  V_{3} =&amp; f \left( x_{n} + {{h} \over {2}} , y_{n} + {{h} \over {2}} V_{2} \right) 
+\\  V_{4} =&amp; f \left( x_{n} + h , y_{n} + h V_{3} \right) 
 \end{align*}
 $$</p>
 </blockquote>
@@ -256,25 +256,25 @@ $$</p>
 <h2 id="직관적인-유도">직관적인 유도</h2>
 <p>위의 항들을 하나씩 풀어서 가장 간단한 <a href="../687">오일러 메소드</a> $y_{n+1} = y_{n} + h f ( x_{n} , y_{n} ) $ 를 통해 생각해보자. (편의상 $\displaystyle x_{n+ {{1} \over {2}} } : = x_{n} + {{h} \over {2}}$, $y_{n+ {{1} \over {2}} } \approx Y(x_{n + {{h} \over {2}} } )$ 이라고 하자.)
 $$
-V_{1} = f(x_{n} , y_{n} )
+V_{1} = f(x_{n} , y_{n} ) 
 $$
 은 $x_{n}$ 지점에서의 미분계수 $y_{n} ' $ 가 된다.
 $$
 \begin{align*}
-V_{2} =&amp; f \left( x_{n} + {{h} \over {2}} , y_{n} + {{h} \over {2}} f \left( x_{n} , y_{n} \right) \right)
-\\ =&amp; f \left( x_{n + {{1} \over {2}} } , y_{n + {{1} \over {2}} } \right)
+V_{2} =&amp; f \left( x_{n} + {{h} \over {2}} , y_{n} + {{h} \over {2}} f \left( x_{n} , y_{n} \right) \right) 
+\\ =&amp; f \left( x_{n + {{1} \over {2}} } , y_{n + {{1} \over {2}} } \right) 
 \end{align*}
 $$
 은 $x_{n+{{1} \over {2}} }$ 지점에서의 미분계수 $\displaystyle y_{n + {{1} \over {2}} } ' $ 가 된다.
 $$
-V_{3} =  f \left( x_{n} + {{h} \over {2}} , y_{n} + {{h} \over {2}} f \left( x_{n + {{1} \over {2}} } , y_{n + {{1} \over {2}} } \right) \right)
+V_{3} =  f \left( x_{n} + {{h} \over {2}} , y_{n} + {{h} \over {2}} f \left( x_{n + {{1} \over {2}} } , y_{n + {{1} \over {2}} } \right) \right) 
 $$
 역시 백워드 <a href="../687">오일러 메소드</a> $y_{n+1} = y_{n} + h f ( x_{n+1} , y_{n+1} )$ 에 의해 $\displaystyle V_{3} =  f \left( x_{n + {{1} \over {2}} } , y_{n + {{1} \over {2}} } \right) $ 으로, $x_{n+{{1} \over {2}} }$ 지점에서의 미분계수 $\displaystyle y_{n + {{1} \over {2}} } ' $ 가 된다.
 $$
 \begin{align*}
-V_{4} =&amp; f \left( x_{n} + h , y_{n} + h V_{3} \right)
-\\ =&amp; f \left( x_{n} + {{h} \over {2}} + {{h} \over {2}} , y_{n} + {{h} \over {2}} V_{3} + {{h} \over {2}} V_{3} \right)
-\\ =&amp; f \left( x_{n + {{h} \over {2}}} + {{h} \over {2}} , y_{n + {{h} \over {2}}} + {{h} \over {2}} V_{3} \right)
+V_{4} =&amp; f \left( x_{n} + h , y_{n} + h V_{3} \right) 
+\\ =&amp; f \left( x_{n} + {{h} \over {2}} + {{h} \over {2}} , y_{n} + {{h} \over {2}} V_{3} + {{h} \over {2}} V_{3} \right) 
+\\ =&amp; f \left( x_{n + {{h} \over {2}}} + {{h} \over {2}} , y_{n + {{h} \over {2}}} + {{h} \over {2}} V_{3} \right) 
 \end{align*}
 $$
 또한 백워드 <a href="../687">오일러 메소드</a>에 의해 $x_{n+ 1 }$ 지점에서의 미분계수 $\displaystyle y_{n + 1} ' $ 가 된다.
@@ -363,7 +363,7 @@ plot(result)
 <aside style="text-align: right;">
     2019-08-16&emsp;
     류대식&emsp;
-    <a href="../1483">🎲 796</a>
+    <a href="../1787">🎲 796</a>
 </aside>
 
 <script>

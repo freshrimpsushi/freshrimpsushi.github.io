@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/fourier-inversion-theorem\/",
-    "wordCount" : "1473",
+    "wordCount" : "1267",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -217,12 +217,13 @@
   <ul>
     <li><a href="#빌드업">빌드업</a></li>
     <li><a href="#푸리에-역변환-정리">푸리에 역변환 정리</a></li>
-    <li><a href="#증명">증명</a></li>
     <li><a href="#따름정리">따름정리</a>
       <ul>
-        <li><a href="#증명-1">증명</a></li>
+        <li><a href="#증명">증명</a></li>
       </ul>
     </li>
+    <li><a href="#설명">설명</a></li>
+    <li><a href="#증명-1">증명</a></li>
   </ul>
 </nav>
     </div>
@@ -235,19 +236,17 @@
 <p>$$
 \begin{equation}
 f(x) =\dfrac{1}{2\pi} \int \hat{f}(\xi) e^{i\xi x}d\xi
-\label{eq1}
 \end{equation}
 $$</p>
 <p>위 식에는 $f$로부터 얻은 $\hat{f}$로부터 $f$를 다시 얻을 수 있다는 의미가 있다. 이게 소린지, 당연한 말이 아닌가 싶을 수도 있지만 전혀 당연하지 않다. 가령 미분과 적분을 생각해보자. 어떤 다항식을 미분했을 때 상수항이라는 정보를 잃어버리고 이는 적분을 통해서 다시 얻을 수 없다. 허나 푸리에 변환은 정보를 그대로 보존한다. $f$로부터 푸리에 변환 $\hat{f}$를 얻고, 다시 이 $\hat{f}$에 역변환을 취하면 $f$를 그대로 얻을 수 있다.</p>
 <p>$$
 \begin{equation}
 \hat{f} (\xi) := \int f(x) e^{-i\xi x}dx
-\label{eq2}
 \end{equation}
 $$</p>
-<p>푸리에 변환을 위와 같이 정의했을 때 $\eqref{eq1}$이 그 역변환이 됨은 다음과 같이 보일 수 있다.</p>
+<p>푸리에 변환을 위와 같이 정의했을 때 $(1)$이 그 역변환이 됨은 다음과 같이 보일 수 있다.</p>
 <h2 id="푸리에-역변환-정리">푸리에 역변환 정리</h2>
-<p>$f$의 푸리에 변환 $\hat{f}$를 $\eqref{eq2}$와 같이 정의하자. $f$를 적분가능하고 <a href="../972">조각마다 연속</a> 이라고 가정하자. $f$는 불연속인 점에서는 아래와 같이 정의되어있다.</p>
+<p>$f$의 푸리에 변환 $\hat{f}$를 $(2)$와 같이 정의하자. $f$를 적분가능하고 <a href="../972">조각마다 연속</a> 이라고 가정하자. $f$는 불연속인 점에서는 아래와 같이 정의되어있다.</p>
 <p>$$
 f(x)=\dfrac{1}{2} \big[ f(x-)+f(x+)\big]
 $$</p>
@@ -255,15 +254,28 @@ $$</p>
 <p>$$
 f(x)=\lim \limits_{\epsilon \rightarrow 0}\dfrac{1}{2\pi}\int\hat{f}(\xi)e^{i\xi x}e^{-\epsilon^2\xi^2/2}d\xi
 $$</p>
-<p>더욱이, 만약 $\hat{f} \in L^1$이라고 하자. 그러면 $f$는 연속이고</p>
+<p>더욱이, 만약 $\hat{f} \in$ <a href="../592">$L^1$</a>이라고 하자. 그러면 $f$는 연속이고</p>
 <p>$$
-f(x) =\dfrac{1}{2\pi}\int\hat{f}(\xi) e^{i\xi x}d\xi
+f(x) =\dfrac{1}{2\pi}\int\hat{f}(\xi) e^{i\xi x}d\xi = \mathcal{F}^{-1}[\hat{f}] (x)
 $$</p>
-<p>아래의 증명에 대해 설명하자면 어떤 가정으로부터 출발하여 어떤 과정들을 통해 푸리에 역변환식을 도출해내는 것은 아니다. 정확히는 $\eqref{eq1}$의 식이 타당한지를 확인하는 작업이다.</p>
-<h2 id="증명">증명</h2>
-<p>문제를 쉽게 풀기 위해서 절단 함수$(\mathrm{cutoff\ function})$를 사용할 것이다. 절단 함수란 곱해서 극한을 취했을 때 이름 그대로 어떤 범위 밖을 잘라내는 듯한 효과가 나타나는 것을 말한다. 원점 근처에서는 원래의 값을 유지하고 원점에서 멀어질수록 $0$으로 수렴하게 만들기 위해서 쓰는 것이다. <a href="../1109">몰리파이어</a>와 비슷한 개념이다. 이 부분의 설명을 잘 이해하지 못하겠다면 그냥 넘어가도 무방하다. 어쨌든 아래와 같은 절단함수를 역변환으로 유도하고자 하는 식에 곱해줄 것이다.</p>
+<h2 id="따름정리">따름정리</h2>
+<p>만약 $\hat{f}=\hat{g}$라고 하자. 그러면 $f=g$이다.</p>
+<h3 id="증명">증명</h3>
 <p>$$
-\eta(\xi)=\dfrac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}, \quad \eta_\epsilon (\xi)=\dfrac{1}{\epsilon}\eta \left( \frac{\xi}{\epsilon} \right)=\dfrac{1}{\epsilon\sqrt{2\pi}}e^{-\frac{x^2}{2\epsilon^2}}
+f=\mathcal{F}^{-1}[\hat{f}]=\mathcal{F}^{-1}[\hat{g}]
+$$</p>
+<p>따라서</p>
+<p>$$
+f=\mathcal{F}^{-1}[\hat{g}]=\mathcal{F}^{-1}\mathcal{F}[g]=g
+$$</p>
+<p style="text-align: right; margin: 0px; margin-top: -2em;">■</p>
+<h2 id="설명">설명</h2>
+<p>따름 정리를 보았을 때 &lsquo;뭐지? 당연한거 아닌가?&lsquo;라는 생각이 들 수도 있겠지만 전혀 당연하지 않다. 미분이라는 연산을 생각해보자. $f(x)=x^2+1$, $g(x)=x^2+4$라고 하자. 이때 $f^{\prime}(x)=2x=g^{\prime}(x)$라는 사실이 $f(x)=g(x)$를 보장하지 않는다.</p>
+<h2 id="증명-1">증명</h2>
+<p><strong>전략:</strong></p>
+<p>문제를 쉽게 풀기 위해서 절단 함수<sup>cutoff function</sup>를 사용할 것이다. 절단 함수란 곱해서 극한을 취했을 때 이름 그대로 어떤 범위 밖을 잘라내는 듯한 효과가 나타나는 것을 말한다. 원점 근처에서는 원래의 값을 유지하고 원점에서 멀어질수록 $0$으로 수렴하게 만들기 위해서 쓰는 것이다. <a href="../1109">몰리파이어</a>와 비슷한 개념이다. 이 부분의 설명을 잘 이해하지 못하겠다면 그냥 넘어가도 무방하다. 어쨌든 아래와 같은 절단함수를 역변환으로 유도하고자 하는 식에 곱해줄 것이다.</p>
+<p>$$
+\eta(\xi)=\dfrac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}, \quad \eta_\epsilon (\xi)=\dfrac{1}{\epsilon}\eta \left( \frac{\xi}{\epsilon} \right)=\dfrac{1}{\epsilon\sqrt{2\pi}}e^{-\frac{x^2}{2\epsilon^2}} 
 $$</p>
 <p>위의 절단 함수를 곱하면</p>
 <p>$$
@@ -271,7 +283,7 @@ $$</p>
 $$</p>
 <p>위 식은 푸리에 변환의 정의에 의해 아래와 같다.</p>
 <p>$$
-\dfrac{1}{2\pi}\int \int f(y) e^{-i\xi y}dy e^{i\xi x}e^{-\epsilon^2\xi^2/2}d\xi
+\dfrac{1}{2\pi}\int \int f(y) e^{-i\xi y}dy e^{i\xi x}e^{-\epsilon^2\xi^2/2}d\xi 
 $$</p>
 <p>여기에서 푸리에 변환의 정의와 합성곱 등을 사용하여 수식을 바꿔주면</p>
 <p>$$
@@ -282,7 +294,7 @@ $$</p>
 \\  &amp;= \int \dfrac{1}{\epsilon \sqrt{2\pi}} e^{-\frac{(x-y)^2}{2\epsilon^2}} f(y) dy
 \\  &amp;= \int \eta_\epsilon(x-y)f(y) dy
 \\  &amp;= f \ast \eta_\epsilon(x)
-\end{align*}
+\end{align*} 
 $$</p>
 <p>세번째 등호에서 아래의 공식을 사용했다.</p>
 <blockquote>
@@ -298,11 +310,11 @@ $$</p>
 \lim \limits_{\epsilon \rightarrow 0} \dfrac{1}{2\pi}\int\hat{f} (\xi) e^{i\xi x}e^{-\epsilon^2\xi^2/2}d\xi &amp;=   \lim \limits_{\epsilon \rightarrow 0} f \ast \eta_\epsilon(x)
 \\  &amp;= \dfrac{1}{2} \big[ f(x-)+f(x+)\big]
 \\  &amp;= f(x)
-\end{align*}
+\end{align*} 
 $$</p>
 <p>또한 $\hat{f} \in L^1$라고 가정하면</p>
 <p>$$
-\left| e^{i\xi x}e^{-\epsilon^2|\xi|^2 /2} \hat{f}(\xi) \right| \le \left| \hat{f}(\xi) \right|
+\left| e^{i\xi x}e^{-\epsilon^2|\xi|^2 /2} \hat{f}(\xi) \right| \le \left| \hat{f}(\xi) \right| 
 $$</p>
 <p>이므로 <a href="../557">지배수렴정리</a>에 의해</p>
 <p>$$
@@ -310,36 +322,28 @@ $$</p>
 f(x) &amp;= \lim \limits_{\epsilon \rightarrow 0} \dfrac{1}{2\pi}\int\hat{f} (\xi) e^{i\xi x}e^{-\epsilon^2\xi^2/2}d\xi
 \\  &amp;= \dfrac{1}{2\pi}\int \lim \limits_{\epsilon \rightarrow 0} \hat{f} (\xi) e^{i\xi x}e^{-\epsilon^2\xi^2/2}d\xi
 \\  &amp;= \dfrac{1}{2\pi}\int \hat{f} (\xi) e^{i\xi x}d\xi
-\end{align*}
+\end{align*} 
 $$</p>
 <p>따라서</p>
 <p>$$
-f(x)=\dfrac{1}{2\pi}\int \hat{f} (\xi) e^{i\xi x}d\xi
+f(x)=\dfrac{1}{2\pi}\int \hat{f} (\xi) e^{i\xi x}d\xi 
 $$</p>
 <p style="text-align: right; margin: 0px; margin-top: -2em;">■</p>
-<p>$f$의 푸리에 변환을 $\mathcal{F}[f]=\phi$라고 하자. 그러면 $\phi$를 $f$의 푸리에 역변환이라 하고 아래와 같은 기호로 나타낸다.</p>
-<p>$$
-\mathcal{F}^{-1}f=\phi
-$$</p>
-<h2 id="따름정리">따름정리</h2>
-<p>만약 $\hat{f}=\hat{g}$라고 하자. 그러면 $f=g$이다.</p>
-<hr>
-<p>&lsquo;뭐지? 당연한거 아닌가?&rsquo; 라는 생각이 들 수도 있겠지만 전혀 당연하지 않다. 미분이라는 연산을 생각해보자. $f(x)=x^2+1$, $g(x)=x^2+4$라고 하자. 이때 $f^{\prime}(x)=2x=g^{\prime}(x)$라는 사실이 $f(x)=g(x)$를 보장하지 않는다. 따라서 따름정리와 같은 사실이 보장된다는 것은 매우 중요한 성질이다.</p>
-<h3 id="증명-1">증명</h3>
-<p>$$
-f=\mathcal{F}^{-1}[\hat{f}]=\mathcal{F}^{-1}[\hat{g}]
-$$</p>
-<p>따라서</p>
-<p>$$
-f=\mathcal{F}^{-1}[\hat{g}]=\mathcal{F}^{-1}\mathcal{F}[g]=g
-$$</p>
-<p style="text-align: right; margin: 0px; margin-top: -2em;">■</p>
+<!-- 
+$f$의 푸리에 변환을 $\mathcal{F}[f]=\phi$라고 하자. 그러면 $\phi$를 $f$의 푸리에 역변환이라 하고 아래와 같은 기호로 나타낸다.
 
+$$
+\mathcal{F}^{-1}f=\phi
+$$
+
+
+
+<p style="text-align: right; margin: 0px; margin-top: -2em;">■</p> -->
 
 <aside style="text-align: right;">
     2019-05-30&emsp;
     전기현&emsp;
-    <a href="../1562">🎲 1112</a>
+    <a href="../659">🎲 1112</a>
 </aside>
 
 <script>
