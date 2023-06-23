@@ -67,10 +67,10 @@
     </script>
 
     
-<meta name="title" content="파이썬 matplotlib.pyplot에서 축 없내는 방법">
+<meta name="title" content="파이썬 matplotlib에서 서브플랏 그리는 법">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="파이썬 matplotlib.pyplot에서 축 없내는 방법"/>
-<meta property="og:description" content="How to Eliminate Axis in Python Matplotlib.pyplot"/>
+<meta property="og:title" content="파이썬 matplotlib에서 서브플랏 그리는 법"/>
+<meta property="og:description" content="How to Create Subplots in Python matplotlib"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -82,15 +82,15 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "j_",
-    "name": "파이썬 matplotlib.pyplot에서 축 없내는 방법",
-    "headline": "파이썬 matplotlib.pyplot에서 축 없내는 방법",
+    "name": "파이썬 matplotlib에서 서브플랏 그리는 법",
+    "headline": "파이썬 matplotlib에서 서브플랏 그리는 법",
     "alternativeHeadline": "",
-    "description": "How to Eliminate Axis in Python Matplotlib.pyplot",
+    "description": "How to Create Subplots in Python matplotlib",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/how-to-eliminate-axis-in-python-matplotlib.pyplot\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/how-to-create-subplots-in-python-matplotlib\/"
     },
     "author" : {
         "@type": "Person",
@@ -105,10 +105,10 @@
         "name": "전기현"
     },
     "copyrightHolder" : "생새우초밥집",
-    "copyrightYear" : "2022",
-    "dateCreated": "2022-03-01T00:00:00.00Z",
-    "datePublished": "2022-03-01T00:00:00.00Z",
-    "dateModified": "2022-03-01T00:00:00.00Z",
+    "copyrightYear" : "2014",
+    "dateCreated": "2014-02-07T00:00:00.00Z",
+    "datePublished": "2014-02-07T00:00:00.00Z",
+    "dateModified": "2014-02-07T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -121,15 +121,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-eliminate-axis-in-python-matplotlib.pyplot\/",
-    "wordCount" : "193",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-create-subplots-in-python-matplotlib\/",
+    "wordCount" : "569",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>파이썬 matplotlib.pyplot에서 축 없내는 방법</title>
+    <title>파이썬 matplotlib에서 서브플랏 그리는 법</title>
 </head>
 
 <body class="main">
@@ -188,7 +188,7 @@
     <div class="content">
       <div class="content-box">
         
-<title>파이썬 matplotlib.pyplot에서 축 없내는 방법</title>
+<title>파이썬 matplotlib에서 서브플랏 그리는 법</title>
 
 
 
@@ -200,9 +200,9 @@
         
 
 
-<h1>파이썬 matplotlib.pyplot에서 축 없내는 방법</h1>
+<h1>파이썬 matplotlib에서 서브플랏 그리는 법</h1>
 <p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px; margin-left: 0px;">
-  How to Eliminate Axis in Python Matplotlib.pyplot
+  How to Create Subplots in Python matplotlib
 </p>
 
 <aside>
@@ -215,9 +215,15 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#코드1">코드</a></li>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#코드">코드</a>
+      <ul>
+        <li><a href="#pltsubplotnrows-ncols-index"><code>plt.subplot(nrows, ncols, index)</code></a></li>
+        <li><a href="#pltsubplotsnrows-ncols"><code>plt.subplots(nrows, ncols)</code></a></li>
+        <li><a href="#add_subplotnrows-ncols-index"><code>.add_subplot(nrows, ncols, index)</code></a></li>
+      </ul>
+    </li>
     <li><a href="#환경">환경</a></li>
-    <li><a href="#다른-언어에서">다른 언어에서</a></li>
   </ul>
 </nav>
     </div>
@@ -225,50 +231,76 @@
   </div>
 </aside>
 
-<h2 id="코드1">코드<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p>그래프에 축을 표시하고 싶지 않으면 <code>plt.axis('off')</code> (혹은 &lsquo;off&rsquo; 대신 False)를 사용하면 된다. 이렇게하면 x축과 y축 둘 다 나타나지 않는다.</p>
-<p>만약 하나의 축만 제거하고 싶다면, 현재 그림의 축 객체인 <code>plt.gca()</code>에 아래 예제와 같은 메서드를 적용하면 된다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>subplots(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">15</span>,<span style="color:#ae81ff">3</span>))
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x,y)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">2</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x,y)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>gca()<span style="color:#f92672">.</span>axes<span style="color:#f92672">.</span>xaxis<span style="color:#f92672">.</span>set_visible(<span style="color:#66d9ef">False</span>) <span style="color:#75715e">#x축만 없애기</span>
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">3</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x,y)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>gca()<span style="color:#f92672">.</span>axes<span style="color:#f92672">.</span>yaxis<span style="color:#f92672">.</span>set_visible(<span style="color:#66d9ef">False</span>) <span style="color:#75715e">#y축만 없애기</span>
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>subplot(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">4</span>)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x,y)
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#39;off&#39;</span>) <span style="color:#75715e">#x,y축 모두 없애기</span>
-</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
-</span></span></code></pre></div><p><img src="1.PNG#center" alt="1.PNG"></p>
-<h2 id="환경">환경</h2>
+<h2 id="개요">개요</h2>
+<p>하나의 figure에 여러 그림을 그리는 방법을 몇 가지 소개한다. 아래 방법들은 단순한 레이아웃을 그리는 법이고, 더 복잡한 레이아웃으로 그리는 법은 다음을 참고하라.</p>
 <ul>
-<li>OS: Windows10</li>
-<li>Version: Python 3.7.12, matplotlib 3.2.2</li>
+<li><a href="../3550">복잡한 레이아웃 만들기</a></li>
+<li><a href="../3551">임의의 위치에 서브플랏을 그리거나 겹쳐서 그리는 방법</a></li>
 </ul>
-<h2 id="다른-언어에서">다른 언어에서</h2>
+<h2 id="코드">코드</h2>
+<h3 id="pltsubplotnrows-ncols-index"><code>plt.subplot(nrows, ncols, index)</code></h3>
+<p><code>plt.subplot(r, c, n)</code>를 입력하면 전체 figure를 $r$행, $c$열의 그리드로 나누고 그 중에서 $n$번째 서브플랏에 그림을 그릴 수 있다. 열받는 점은 여기서 <code>index</code>가 인덱싱이 아니라는 점이다. 따라서 (파이썬 인덱싱이 아니므로) 인덱스는 $0$이 아닌 $1$부터 시작한다.</p>
+<pre tabindex="0"><code>import matplotlib.pyplot as plt
+import numpy as np
+
+plt.subplot(2,2,1)                                              # 좌상단에 히트맵 그리기
+plt.imshow(np.random.randn(10,10))
+
+plt.subplot(2,2,2)                                              # 우상단에 선그래프 그리기
+plt.plot(np.random.randn(10))
+
+plt.subplot(2,2,3)                                              # 좌하단에 점도표 그리기
+plt.scatter(np.random.randn(10), np.random.randn(10))           
+
+plt.subplot(2,2,4)
+plt.boxplot(np.random.randn(10,10), positions=np.arange(10))    # 우하단에 상자그림 그리기
+
+plt.show()
+</code></pre><p><img src="Figure_1.png#center" alt=""></p>
+<h3 id="pltsubplotsnrows-ncols"><code>plt.subplots(nrows, ncols)</code></h3>
+<p><code>fig, axs = plt.subplost(m, n)</code>은 $m \times n$ 배열의 서브플랏을 만든다. 이때 <code>fig</code>는 전체 figure, <code>axs</code>는 서브플랏들의 배열을 의미한다. 아래의 코드는 위와 정확히 같은 그림을 그려준다.</p>
+<pre tabindex="0"><code>import matplotlib.pyplot as plt
+import numpy as np
+
+fig, axs = plt.subplots(2,2)
+
+axs[0,0].imshow(np.random.randn(10,10))                              # 좌상단에 히트맵 그리기
+axs[0,1].plot(np.random.randn(10))                                   # 우상단에 선그래프 그리기
+axs[1,0].scatter(np.random.randn(10), np.random.randn(10))           # 좌하단에 점도표 그리기
+axs[1,1].boxplot(np.random.randn(10,10), positions=np.arange(10))    # 우하단에 상자그림 그리기
+
+plt.show()
+</code></pre><h3 id="add_subplotnrows-ncols-index"><code>.add_subplot(nrows, ncols, index)</code></h3>
+<p>이는 figure라는 객체에 서브플랏을 만드는 메서드이다. 위와 같은 그림을 그리는 코드는 다음과 같다.</p>
+<pre tabindex="0"><code>import matplotlib.pyplot as plt
+import numpy as np
+
+fig = plt.figure()
+
+ax1 = fig.add_subplot(2,2,1)
+ax1.imshow(np.random.randn(10,10))                              # 좌상단에 히트맵 그리기
+
+ax2 = fig.add_subplot(2,2,2)
+ax2.plot(np.random.randn(10))                                   # 우상단에 선그래프 그리기
+
+ax3 = fig.add_subplot(2,2,3)
+ax3.scatter(np.random.randn(10), np.random.randn(10))           # 좌하단에 점도표 그리기
+
+ax4 = fig.add_subplot(2,2,4)
+ax4.boxplot(np.random.randn(10,10), positions=np.arange(10))    # 우하단에 상자그림 그리기
+
+plt.show()
+</code></pre><h2 id="환경">환경</h2>
 <ul>
-<li><a href="../3031">줄리아, 매트랩, 파이썬, R에서 동등한 코드들</a></li>
+<li>OS: Windows11</li>
+<li>Version: Python 3.9.13, matplotlib==3.6.2, numpy==1.23.5</li>
 </ul>
-<div class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1">
-<p><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.axis.html">https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.axis.html</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-</ol>
-</div>
 
 
 <aside style="text-align: right;">
-    2022-03-01&emsp;
+    2014-02-07&emsp;
     전기현&emsp;
-    <a href="../1382">🎲 3197</a>
+    <a href="../686">🎲 3549</a>
 </aside>
 
 <script>
@@ -283,8 +315,8 @@
       renderKaTex(tex);
     }
 
-    var title = '파이썬 matplotlib.pyplot에서 축 없내는 방법';
-    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/how-to-eliminate-axis-in-python-matplotlib.pyplot\/';
+    var title = '파이썬 matplotlib에서 서브플랏 그리는 법';
+    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/how-to-create-subplots-in-python-matplotlib\/';
     var arr = new Array();
     var obj = {
       "title": title,
@@ -352,7 +384,7 @@
       .then(ip => {
         const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
         return postFetch(url, {
-                board_idx: '3197',
+                board_idx: '3549',
                 user_ip: ip
               });
       })
@@ -485,9 +517,9 @@
       alert('빈칸을 채워주세요');
       return;
     }
-    const idx = '3197';
-    const board_slug = 'how-to-eliminate-axis-in-python-matplotlib.pyplot';
-    const board_title = '파이썬 matplotlib.pyplot에서 축 없내는 방법';
+    const idx = '3549';
+    const board_slug = 'how-to-create-subplots-in-python-matplotlib';
+    const board_title = '파이썬 matplotlib에서 서브플랏 그리는 법';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -726,9 +758,9 @@
       return;
     }
 
-    const board_idx = '3197';
-    const board_slug = 'how-to-eliminate-axis-in-python-matplotlib.pyplot';
-    const board_title = '파이썬 matplotlib.pyplot에서 축 없내는 방법';
+    const board_idx = '3549';
+    const board_slug = 'how-to-create-subplots-in-python-matplotlib';
+    const board_title = '파이썬 matplotlib에서 서브플랏 그리는 법';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
