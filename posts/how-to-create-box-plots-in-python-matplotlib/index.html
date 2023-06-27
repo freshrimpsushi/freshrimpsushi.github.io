@@ -67,10 +67,10 @@
     </script>
 
     
-<meta name="title" content="양자 얽힘">
+<meta name="title" content="파이썬 matplotlib에서 박스 플랏 그리는 법">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="양자 얽힘"/>
-<meta property="og:description" content="Quantum Entanglement"/>
+<meta property="og:title" content="파이썬 matplotlib에서 박스 플랏 그리는 법"/>
+<meta property="og:description" content="How to Create Box Plots in Python matplotlib"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -82,15 +82,15 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "j_",
-    "name": "양자 얽힘",
-    "headline": "양자 얽힘",
+    "name": "파이썬 matplotlib에서 박스 플랏 그리는 법",
+    "headline": "파이썬 matplotlib에서 박스 플랏 그리는 법",
     "alternativeHeadline": "",
-    "description": "Quantum Entanglement",
+    "description": "How to Create Box Plots in Python matplotlib",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/quantum-entanglement\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/how-to-create-box-plots-in-python-matplotlib\/"
     },
     "author" : {
         "@type": "Person",
@@ -105,10 +105,10 @@
         "name": "전기현"
     },
     "copyrightHolder" : "생새우초밥집",
-    "copyrightYear" : "2013",
-    "dateCreated": "2013-08-01T00:00:00.00Z",
-    "datePublished": "2013-08-01T00:00:00.00Z",
-    "dateModified": "2013-08-01T00:00:00.00Z",
+    "copyrightYear" : "2014",
+    "dateCreated": "2014-02-17T00:00:00.00Z",
+    "datePublished": "2014-02-17T00:00:00.00Z",
+    "dateModified": "2014-02-17T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -121,15 +121,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/quantum-entanglement\/",
-    "wordCount" : "337",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-create-box-plots-in-python-matplotlib\/",
+    "wordCount" : "387",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>양자 얽힘</title>
+    <title>파이썬 matplotlib에서 박스 플랏 그리는 법</title>
 </head>
 
 <body class="main">
@@ -137,7 +137,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/basic.png style="height: auto; max-width: 16%;">
+                <img src=https://freshrimpsushi.github.io/logo/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D.png style="height: auto; max-width: 16%;">
             
             
             
@@ -188,21 +188,21 @@
     <div class="content">
       <div class="content-box">
         
-<title>양자 얽힘</title>
+<title>파이썬 matplotlib에서 박스 플랏 그리는 법</title>
 
 
 
 
-        <a href="https://freshrimpsushi.github.io/categories/%EC%96%91%EC%9E%90%EC%A0%95%EB%B3%B4%EC%9D%B4%EB%A1%A0/"
+        <a href="https://freshrimpsushi.github.io/categories/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/"
             style="background-color: rgba(0, 0, 0, 0.8); color: orange;
             border-radius:10px; padding: 5px;">
-            📂양자정보이론</a>
+            📂프로그래밍</a>
         
 
 
-<h1>양자 얽힘</h1>
+<h1>파이썬 matplotlib에서 박스 플랏 그리는 법</h1>
 <p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px; margin-left: 0px;">
-  Quantum Entanglement
+  How to Create Box Plots in Python matplotlib
 </p>
 
 <aside>
@@ -215,8 +215,16 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#정의1-2">정의 </a></li>
     <li><a href="#설명">설명</a></li>
+    <li><a href="#코드">코드</a>
+      <ul>
+        <li><a href="#기본">기본</a></li>
+        <li><a href="#범례">범례</a></li>
+        <li><a href="#색깔">색깔</a></li>
+      </ul>
+    </li>
+    <li><a href="#환경">환경</a></li>
+    <li><a href="#같이보기">같이보기</a></li>
   </ul>
 </nav>
     </div>
@@ -224,38 +232,91 @@
   </div>
 </aside>
 
-<h2 id="정의1-2">정의<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h2>
-<p><a href="../3423">$2$큐비트</a> $\ket{\psi} \in (\mathbb{C}^{2})^{\otimes 2}$가 <strong>분리 가능</strong><sup>separable</sup>하다는 것은, 아래와 같이 어떤 두 큐비트 $\ket{a}, \ket{b} \in \mathbb{C}^{2}$의 <a href="../3415">곱벡터</a>의 꼴로 나타낼 수 있음을 말한다.</p>
-<p>$$
-\ket{\psi} = \ket{a} \otimes \ket{b} \in \mathbb{C}^{2} \otimes \mathbb{C}^{2}
-$$</p>
-<p>위와 같은 꼴로 나타낼 수 없는, 분리 가능하지 않은 큐비트를 <strong>얽힌</strong><sup>entangled</sup> 큐비트라 한다.</p>
 <h2 id="설명">설명</h2>
-<p>$\ket{00} = \ket{0} \otimes \ket{0}$, $\ket{11} = \ket{1} \otimes \ket{1}$은 자명하게도 분리가능하다. 복잡해보여도 다음의 큐비트 또한 분리가능하다.</p>
-<p>$$
-\dfrac{1}{2}\left( \ket{00} - \ket{01} + \ket{10} - \ket{11} \right) = \dfrac{1}{\sqrt{2}}(\ket{0} + \ket{1}) \otimes \dfrac{1}{\sqrt{2}}(\ket{0} - \ket{1})
-$$</p>
-<p>하지만 $\dfrac{1}{\sqrt{2}}\left( \ket{00} + \ket{11} \right)$과 같은 큐비트는 얽혀있다. 이 큐비트가 분리가능하지 않다는 것을 확인하려면 어떻게 해야할까? 가능한 모든 $\ket{a}, \ket{b} \in \mathbb{C}^{2}$에 대해서 확인해봐야 알 수 있는걸까? 다행히도 그렇진 않다.</p>
-<!-- ## 정리
+<p><code>plt.boxplot()</code>으로 박스 플랏을 그릴 수 있다. 기본 설정대로 그리면 아무 색깔도 없는 흰 박스에 검은선만 나오므로, 예쁘게 그리려면 귀찮더라도 직접 설정해야한다.</p>
+<h2 id="코드">코드</h2>
+<h3 id="기본">기본</h3>
+<pre tabindex="0"><code>import numpy as np
+import matplotlib.pyplot as plt
 
-2큐비트 $\ket{psi} \in (\mathbb{C}^{2})^{\otimes 2}$가 분리가능할 필요충분조건은 $\ket{\psi}$ -->
-<div class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1">
-<p>김영훈·허재성, <em>양자 정보 이론</em> (2020), p101~103&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+x = 100*np.random.random_sample(100)
+y = 50*np.random.random_sample(100) + 50
+z = np.concatenate((x,y))
+
+plt.boxplot([x,y,z])
+plt.show()
+</code></pre><p><img src="3554_1.png#center" alt=""></p>
+<h3 id="범례">범례</h3>
+<pre tabindex="0"><code>fig, ax = plt.subplots()
+
+bp1 = ax.boxplot(x, positions=[1])
+bp2 = ax.boxplot(y, positions=[2])
+bp3 = ax.boxplot(z, positions=[3])
+
+ax.legend([bp1[&#34;boxes&#34;][0], bp2[&#34;boxes&#34;][0], bp3[&#34;boxes&#34;][0]], [&#39;x&#39;, &#39;y&#39;, &#39;z&#39;], loc=&#39;upper right&#39;)
+plt.show()
+</code></pre><p><img src="3554_2.png#center" alt=""></p>
+<h3 id="색깔">색깔</h3>
+<p>아래의 설정을 적용하기 위해선 <code>boxplot</code> 옵션에서 <code>patch_artist=True</code>를 설정해야한다. 옵션은 다음과 같다.</p>
+<ul>
+<li><code>boxprops=dict(facecolor='',color='')</code>: 박스 스타일
+<ul>
+<li><code>facecolor</code>: 박스 내부 색깔</li>
+<li><code>color</code>: 박스 테두리 색깔</li>
+</ul>
 </li>
-<li id="fn:2">
-<p>Stephen M. Barnett, <em>Quantum Information</em> (2009), p41&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li><code>capprops = dict(color='')</code>: 최상(하)단 가로선 색깔</li>
+<li><code>whiskerprops = dict(color='')</code>: 수염(상자 상하의 선) 색깔</li>
+<li><code>medianprops = dict(color='')</code>: 중앙값을 나타내는 가로선 색깔</li>
+<li><code>meanprops = dict(marker='o', markerfacecolor='', markeredgecolor='')</code>: 평균 스타일
+<ul>
+<li><code>marker</code>: 마커 모양</li>
+<li><code>markerfacecolor</code>: 마커 내부 색깔</li>
+<li><code>markeredgecolor</code>: 마커 테두리 색깔</li>
+</ul>
 </li>
-</ol>
-</div>
+</ul>
+<pre tabindex="0"><code>fig, ax = plt.subplots()
+
+bp1 = ax.boxplot(x, positions=[1], showmean=True, patch_artist = True,
+                                                  boxprops     = dict(facecolor=&#39;pink&#39;,color=&#39;red&#39;),
+                                                  capprops     = dict(color=&#39;red&#39;),
+                                                  whiskerprops = dict(color=&#39;red&#39;),
+                                                  medianprops  = dict(color=&#39;red&#39;),
+                                                  meanprops    = dict(marker=&#39;o&#39;,markerfacecolor=&#39;red&#39;, markeredgecolor=&#39;red&#39;))
+
+bp2 = ax.boxplot(y, positions=[2], showmean=True, patch_artist = True, 
+                                                  boxprops     = dict(facecolor=&#39;lightblue&#39;,color=&#39;blue&#39;),
+                                                  capprops     = dict(color=&#39;blue&#39;),
+                                                  whiskerprops = dict(color=&#39;blue&#39;),
+                                                  medianprops  = dict(color=&#39;blue&#39;),
+                                                  meanprops    = dict(marker=&#39;o&#39;,markerfacecolor=&#39;blue&#39;, markeredgecolor=&#39;blue&#39;))
+                                   
+bp3 = ax.boxplot(z, positions=[3], showmean=True, patch_artist = True,
+                                                  boxprops     = dict(facecolor=&#39;lightgreen&#39;,color=&#39;green&#39;),
+                                                  capprops     = dict(color=&#39;green&#39;),
+                                                  whiskerprops = dict(color=&#39;green&#39;),
+                                                  medianprops  = dict(color=&#39;green&#39;),
+                                                  meanprops    = dict(marker=&#39;o&#39;,markerfacecolor=&#39;green&#39;, markeredgecolor=&#39;green&#39;))
+
+ax.legend([bp1[&#34;boxes&#34;][0], bp2[&#34;boxes&#34;][0], bp3[&#34;boxes&#34;][0]], [&#39;x&#39;, &#39;y&#39;, &#39;z&#39;], loc=&#39;upper right&#39;)
+plt.show()
+</code></pre><p><img src="3554_3.png#center" alt=""></p>
+<h2 id="환경">환경</h2>
+<ul>
+<li>OS: Windows11</li>
+<li>Version: Python 3.9.13, matplotlib==3.6.2, numpy==1.23.5</li>
+</ul>
+<h2 id="같이보기">같이보기</h2>
+<ul>
+<li><a href="../3553">줄리아에서 그리는 법</a></li>
+</ul>
 
 
 <aside style="text-align: right;">
-    2013-08-01&emsp;
+    2014-02-17&emsp;
     전기현&emsp;
-    <a href="../646">🎲 3455</a>
+    <a href="../2010">🎲 3554</a>
 </aside>
 
 <script>
@@ -270,8 +331,8 @@ $$</p>
       renderKaTex(tex);
     }
 
-    var title = '양자 얽힘';
-    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/quantum-entanglement\/';
+    var title = '파이썬 matplotlib에서 박스 플랏 그리는 법';
+    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/how-to-create-box-plots-in-python-matplotlib\/';
     var arr = new Array();
     var obj = {
       "title": title,
@@ -339,7 +400,7 @@ $$</p>
       .then(ip => {
         const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
         return postFetch(url, {
-                board_idx: '3455',
+                board_idx: '3554',
                 user_ip: ip
               });
       })
@@ -472,9 +533,9 @@ $$</p>
       alert('빈칸을 채워주세요');
       return;
     }
-    const idx = '3455';
-    const board_slug = 'quantum-entanglement';
-    const board_title = '양자 얽힘';
+    const idx = '3554';
+    const board_slug = 'how-to-create-box-plots-in-python-matplotlib';
+    const board_title = '파이썬 matplotlib에서 박스 플랏 그리는 법';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -713,9 +774,9 @@ $$</p>
       return;
     }
 
-    const board_idx = '3455';
-    const board_slug = 'quantum-entanglement';
-    const board_title = '양자 얽힘';
+    const board_idx = '3554';
+    const board_slug = 'how-to-create-box-plots-in-python-matplotlib';
+    const board_title = '파이썬 matplotlib에서 박스 플랏 그리는 법';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -1066,6 +1127,11 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
 
     
     
+    
+    <link rel="stylesheet" href=https://freshrimpsushi.github.io/css/codefence.css>
+    <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    
 
     <script src=https://freshrimpsushi.github.io/js/fuse.js></script> 
 <script src=https://freshrimpsushi.github.io/js/fastsearch.js></script>
@@ -1107,6 +1173,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\Im": "\\operatorname{Im}",
         "\\Var": "\\operatorname{Var}",
         "\\Poi": "\\operatorname{Poi}",
+        "\\Cov": "\\operatorname{Cov}",
         "\\span": "\\operatorname{span}",
         "\\supp": "\\operatorname{supp}",
         "\\rank": "\\operatorname{rank}",

@@ -67,16 +67,69 @@
     </script>
 
     
-<meta name="title" content="웨이블릿해석">
+<meta name="title" content="대수위상에서의 오일러 지표">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="웨이블릿해석"/>
-<meta property="og:description" content=""/>
+<meta property="og:title" content="대수위상에서의 오일러 지표"/>
+<meta property="og:description" content="Euler Characteristic in Algebraic Topology"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
 
 
-    <title>웨이블릿해석</title>
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "articleSection": "r_",
+    "name": "대수위상에서의 오일러 지표",
+    "headline": "대수위상에서의 오일러 지표",
+    "alternativeHeadline": "",
+    "description": "Euler Characteristic in Algebraic Topology",
+    "inLanguage": "ko",
+    "isFamilyFriendly": "true",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/euler-characteristic-in-algebraic-topology\/"
+    },
+    "author" : {
+        "@type": "Person",
+        "name": "류대식"
+    },
+    "creator" : {
+        "@type": "Person",
+        "name": "류대식"
+    },
+    "accountablePerson" : {
+        "@type": "Person",
+        "name": "류대식"
+    },
+    "copyrightHolder" : "생새우초밥집",
+    "copyrightYear" : "2023",
+    "dateCreated": "2023-06-27T00:00:00.00Z",
+    "datePublished": "2023-06-27T00:00:00.00Z",
+    "dateModified": "2023-06-27T00:00:00.00Z",
+    "publisher":{
+        "@type":"Organization",
+        "name": "생새우초밥집",
+        "url": "https://freshrimpsushi.github.io/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https:\/\/freshrimpsushi.github.io\/logo\/basic.png",
+            "width":"32",
+            "height":"32"
+        }
+    },
+    "image": "https://freshrimpsushi.github.io/logo/basic.png",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/euler-characteristic-in-algebraic-topology\/",
+    "wordCount" : "1327",
+    "genre" : [ ],
+    "keywords" : [ ]
+}
+</script>
+
+
+    <title>대수위상에서의 오일러 지표</title>
 </head>
 
 <body class="main">
@@ -84,7 +137,8 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/basic.png style="height: auto; max-width: 16%;">
+                <img src=https://freshrimpsushi.github.io/logo/%EC%9C%84%EC%83%81%EB%8D%B0%EC%9D%B4%ED%84%B0.png style="height: auto; max-width: 16%;">
+
             
             
             
@@ -135,25 +189,121 @@
     <div class="content">
       <div class="content-box">
         
-<h1>웨이블릿해석</h1>
+<title>대수위상에서의 오일러 지표</title>
+
+
+
+
+        <a href="https://freshrimpsushi.github.io/categories/%EC%9C%84%EC%83%81%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B6%84%EC%84%9D/"
+            style="background-color: rgba(0, 0, 0, 0.8); color: orange;
+            border-radius:10px; padding: 5px;">
+            📂위상데이터분석</a>
+        
+
+
+<h1>대수위상에서의 오일러 지표</h1>
+<p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px; margin-left: 0px;">
+  Euler Characteristic in Algebraic Topology
+</p>
 
 <aside>
-  <b>목차</b>
-  
+  <div class="innerheader">
+    
+    <div class="innertoc">
+       
+        
+      
+      <b>목차</b>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#정의-1">정의 </a></li>
+    <li><a href="#정리">정리</a>
+      <ul>
+        <li><a href="#오일러-푸앙카레-정리supeuler-poincaré-theoremsup">오일러-푸앙카레 정리<sup>Euler-Poincaré Theorem</sup></a></li>
+        <li><a href="#오일러-푸앙카레-공식supeuler-poincaré-formulasup">오일러-푸앙카레 공식<sup>Euler-Poincaré Formula</sup></a></li>
+        <li><a href="#유도">유도</a></li>
+      </ul>
+    </li>
+    <li><a href="#설명">설명</a>
+      <ul>
+        <li><a href="#베티-수와의-관계">베티 수와의 관계</a></li>
+        <li><a href="#그래프이론에서의-오일러-표수82"><a href="../82">그래프이론에서의 오일러 표수</a></a></li>
+        <li><a href="#기하학에서의-오일러-지표3242"><a href="../3242">기하학에서의 오일러 지표</a></a></li>
+        <li><a href="#대수위상에서의-오일러-지표2407"><a href="../2407">대수위상에서의 오일러 지표</a></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+    
+  </div>
 </aside>
 
+<h2 id="정의-1">정의 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p><a href="../2317">심플렉스</a> $\Delta$ 가 주어져 있다고 하자. $\Delta$ 의 버텍스의 수를 $n$, 에지의 수를 $m$, 페이스의 수를 $f$ 라고 할 때, $\Delta$ 의 <strong>오일러 지표</strong><sup>Euler Characteristic</sup> $\chi$ 를 다음과 같이 정의한다.
+$$
+\chi := n - m + f
+$$</p>
+<h2 id="정리">정리</h2>
+<p><a href="../398">위상공간 $X$</a>에 대해 <a href="../2379">심플리셜 컴플렉스</a> $K$ 로 만들어지는 <a href="../2383">심플리셜 호몰로지 그룹</a>이 주어져 있다고 할 때, 오일러 지표는 다음과 같이 일반화되며 계산될 수 있다.</p>
+<h3 id="오일러-푸앙카레-정리supeuler-poincaré-theoremsup">오일러-푸앙카레 정리<sup>Euler-Poincaré Theorem</sup></h3>
+<p><a href="../2399">호몰로지 그룹의 $p$번째 베티 수</a> $\beta_{p}$ 의 교대합을 $X$ 의 <strong>오일러 지표</strong>라 한다.
+$$
+\chi = \sum_{p \ge 0} \left( -1 \right)^{p} \beta_{p}
+$$
+이에 따라, 오일러 지표는 위상적 불변량<sup>Topological Invariant</sup>이다.<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
+<h3 id="오일러-푸앙카레-공식supeuler-poincaré-formulasup">오일러-푸앙카레 공식<sup>Euler-Poincaré Formula</sup></h3>
+<p><a href="../2389">스미스 노멀 폼</a>인 <a href="../2405">바운더리 행렬 $\partial_{p}$ 과 $\partial_{p-1}$</a>의 이 주어져 있을 때, $\partial_{p}$ 의 영칼럼<sup>Zero Column</sup>의 수 $z_{p}$ 와 $\partial_{p-1}$ 의 대각성분 중 $1$ 의 수인 $b_{p-1}$ 에 대해 다음과 같이 구할 수 있다.
+$$
+\begin{align*}
+\chi =&amp; \sum_{p \ge 0} \left( -1 \right)^{p} \left( z_{p} + b_{p-1} \right)
+\\ =&amp; \sum_{p \ge 0} \left( -1 \right)^{p} \left( z_{p} - b_{p} \right)
+\end{align*}
+$$</p>
+<h3 id="유도">유도</h3>
+<p>오일러-푸앙카레 정리의 자세한 증명은 생략한다. 멍크레스<sup id="fnref1:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>를 참고하라.</p>
+<blockquote>
+<p><a href="../2399">호몰로지 그룹의 효율적 계산 가능성</a>: $H_{p} \left( \mathcal{C} \right)$ 의 <a href="../2397">베티 수</a>를 $\mathcal{C}$ 의 $p$번째 <strong>베티 수</strong><sup>Betti Number</sup>라 한다. 유한 <a href="../2374">컴플렉스</a> $K$ 의 $\beta_{p}$ 는 다음과 같다.
+$$
+\beta_{p} = \rank Z_{p} - \rank B_{p}
+$$</p>
+</blockquote>
+<p>호몰로지 그룹의 <a href="../2399">베티 수</a>는 <a href="../2405">바운더리 행렬</a>의 <a href="../2389">스미스 노멀 폼</a>을 통해 효율적으로 계산할 수 있으므로, 오일러-푸앙카레 정리에서 오일러-푸앙카레 공식을 얻는다.</p>
+<h2 id="설명">설명</h2>
+<p><a href="../398">위상공간</a>의 <strong>오일러 지표</strong>는 캐릭터리스틱<sup>Characteristic</sup>이라는 표현에서 알 수 있듯 위상적으로 변하지 않는<sup>Invariant</sup>, 즉 위상공간의 본질과 맞닿아 있는 수다. 이는 대중에게 알려진 위상수학의 컨셉에서 봤을 때 꽤 그럴싸하고 직관적인 설명인데, 예를 들어 정육면체가 되었든 <a href="../2042">구</a>가 되었든 찰흙반죽처럼 주무르고 만져서 서로를 만들 수 있다면―<a href="../438">호메오멀픽</a>하다면 $\chi$ 는 같다.</p>
+<ul>
+<li>정육면체는 $8$ 개의 버텍스, $12$ 개의 에지, $6$ 개의 페이스를 가지므로
+$$\chi = 8 - 12 + 6 = 2$$</li>
+<li>구는 적도를 이루기 위해 시점과 끝점이 같은 고리 하나가 필요해서 $1$ 개의 버텍스, $1$ 개의 에지를 가지고, 그 적도를 기준으로 북반구와 남반구를 가져서 $2$ 개의 페이스를 가지므로
+$$\chi = 1 - 1 + 2 = 2$$</li>
+</ul>
+<h3 id="베티-수와의-관계">베티 수와의 관계</h3>
+<p>오일러-푸앙카레 정리에 따라 심플렉스에서 정의된 오일러 지표의 개념은 일반적인 위상공간으로 확장되며, 오일러-푸앙카레 공식에 따라 구체적으로 계산할 수 있다.</p>
+<p>오일러 지표가 베티 수의 교대합으로 나타난다는 사실은 그 자체로 흥미로운 문장인데, <a href="../2399">베티 수</a>가 오일러 지표만으로는 파악할 수 없는 위상공간의 특성을 설명하는 동시에 오일러 지표의 직관적인 이해를 커버하기 때문이다. 어떻게 보면 오일러 지표를 각 $p$차원의 베티 수로 분해한 것인데, 학자들은 당연히 오일러 지표가 같으면서 베티 수가 다를 때의 현상에 관심을 가질수밖에 없다.</p>
+<h3 id="그래프이론에서의-오일러-표수82"><a href="../82">그래프이론에서의 오일러 표수</a></h3>
+<p>원래 오일러 표수는 그래프 이론에서 가장 유명한데, <strong>오일러의 다면체 정리</strong> 혹은 <strong>오일러 공식</strong>은 <a href="../1565">연결 평면 그래프</a>에 대해서 $\chi = 2$ 이라는 <a href="../../categories/%EA%B7%B8%EB%9E%98%ED%94%84%EC%9D%B4%EB%A1%A0">그래프이론</a>의 정리다. 다면체가 그냥 우리가 생각하기 쉬운 <a href="../2228">컨벡스</a>한 다면체도 아니고 심플렉스처럼 복잡해지면 이 포스트에 소개한 일반화된 정의가 필요해진다.</p>
+<h3 id="기하학에서의-오일러-지표3242"><a href="../3242">기하학에서의 오일러 지표</a></h3>
+<p><a href="../3240">가우스-보네 정리</a>의 방정식을 만족시키는 정수로써 정의된다.</p>
+<h3 id="대수위상에서의-오일러-지표2407"><a href="../2407">대수위상에서의 오일러 지표</a></h3>
+<p>각 차원의 <a href="../2399">베티 수</a>의 교대합으로써 정의된다.</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Edelsbrunner, Harer. (2010). Computational Topology An Introduction: p36, 101.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>Munkres. (1984). Elements of Algebraic Topology: p124.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
 
 
-
-<details open>
-  
-  <summary>전체 포스트</summary>
-  <ul>
-    
-    <li><a href="https://freshrimpsushi.github.io/posts/cross-correlation-function-of-deterministic-signal/">신호의 교차상관함수</a></li>
-    
-  </ul>
-</details>
+<aside style="text-align: right;">
+    2023-06-27&emsp;
+    류대식&emsp;
+    <a href="../495">🎲 2407</a>
+</aside>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
@@ -167,8 +317,8 @@
       renderKaTex(tex);
     }
 
-    var title = '웨이블릿해석';
-    var link = 'https:\/\/freshrimpsushi.github.io\/categories\/%EC%9B%A8%EC%9D%B4%EB%B8%94%EB%A6%BF%ED%95%B4%EC%84%9D\/';
+    var title = '대수위상에서의 오일러 지표';
+    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/euler-characteristic-in-algebraic-topology\/';
     var arr = new Array();
     var obj = {
       "title": title,
@@ -195,7 +345,6 @@
     }
   });
 </script>
-
 
       </div>
       <div style="margin-bottom: 10px;">댓글</div>
@@ -237,7 +386,7 @@
       .then(ip => {
         const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
         return postFetch(url, {
-                board_idx: '',
+                board_idx: '2407',
                 user_ip: ip
               });
       })
@@ -370,9 +519,9 @@
       alert('빈칸을 채워주세요');
       return;
     }
-    const idx = '';
-    const board_slug = '';
-    const board_title = '웨이블릿해석';
+    const idx = '2407';
+    const board_slug = 'euler-characteristic-in-algebraic-topology';
+    const board_title = '대수위상에서의 오일러 지표';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -611,9 +760,9 @@
       return;
     }
 
-    const board_idx = '';
-    const board_slug = '';
-    const board_title = '웨이블릿해석';
+    const board_idx = '2407';
+    const board_slug = 'euler-characteristic-in-algebraic-topology';
+    const board_title = '대수위상에서의 오일러 지표';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -1005,6 +1154,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
         "\\Im": "\\operatorname{Im}",
         "\\Var": "\\operatorname{Var}",
         "\\Poi": "\\operatorname{Poi}",
+        "\\Cov": "\\operatorname{Cov}",
         "\\span": "\\operatorname{span}",
         "\\supp": "\\operatorname{supp}",
         "\\rank": "\\operatorname{rank}",
