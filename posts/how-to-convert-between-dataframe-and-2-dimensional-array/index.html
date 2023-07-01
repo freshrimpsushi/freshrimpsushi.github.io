@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-convert-between-dataframe-and-2-dimensional-array\/",
-    "wordCount" : "91",
+    "wordCount" : "251",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -216,6 +216,7 @@
       <nav id="TableOfContents">
   <ul>
     <li><a href="#코드">코드</a></li>
+    <li><a href="#환경">환경</a></li>
   </ul>
 </nav>
     </div>
@@ -224,18 +225,69 @@
 </aside>
 
 <h2 id="코드">코드</h2>
-<p>줄리아에서는 다음과 같이 convert() 함수를 통해 간단하게 데이터프레임과 2차원배열 사이를 오갈 수 있다. 이 함수는 물론 다른 자료형에 대해서도 유용하게 사용된다.</p>
-<pre tabindex="0"><code>data1 = rand(4,3)
+<p><code>Matrix(df)</code> 혹은 <code>Array(df)</code> 함수를 통해 데이터프레임을 같은 크기의 배열로 변환할 수 있다. 배열을 데이터프레임으로 만들 땐 <code>DataFrmae(array, :auto)</code>를 사용한다. 예전에는 <code>convert</code> 함수를 사용했지만 최근엔 바뀌어 적용되지 않으니 주의.</p>
+<pre tabindex="0"><code>using DataFrames
+
+julia&gt; A = rand(5,3)
+5×3 Matrix{Float64}:
+ 0.678876  0.10431    0.827079
+ 0.621647  0.372007   0.29346
+ 0.756844  0.171237   0.0732631
+ 0.922519  0.0535938  0.121689
+ 0.164058  0.0684278  0.68446
+
+julia&gt; df = DataFrame(A, :auto)
+5×3 DataFrame
+ Row │ x1        x2         x3        
+     │ Float64   Float64    Float64
+─────┼────────────────────────────────
+   1 │ 0.678876  0.10431    0.827079
+   2 │ 0.621647  0.372007   0.29346
+   3 │ 0.756844  0.171237   0.0732631
+   4 │ 0.922519  0.0535938  0.121689
+   5 │ 0.164058  0.0684278  0.68446
+
+julia&gt; Matrix(df)
+5×3 Matrix{Float64}:
+ 0.678876  0.10431    0.827079
+ 0.621647  0.372007   0.29346
+ 0.756844  0.171237   0.0732631
+ 0.922519  0.0535938  0.121689
+ 0.164058  0.0684278  0.68446
+
+julia&gt; Array(df)
+5×3 Matrix{Float64}:
+ 0.678876  0.10431    0.827079
+ 0.621647  0.372007   0.29346
+ 0.756844  0.171237   0.0732631
+ 0.922519  0.0535938  0.121689
+ 0.164058  0.0684278  0.68446
+
+julia&gt; Array(df) == Matrix(df)
+true
+</code></pre><!-- 230630 J 이제 안먹혀서 수정함 -->
+<!-- 줄리아에서는 다음과 같이 convert() 함수를 통해 간단하게 데이터프레임과 2차원배열 사이를 오갈 수 있다. 이 함수는 물론 다른 자료형에 대해서도 유용하게 사용된다.
+
+```
+data1 = rand(4,3)
 data2 = convert(DataFrame, data1)
 data3 = convert(Array, data2)
-</code></pre><p>실행결과는 다음과 같다.</p>
-<p><img src="20201217_103230.png#center" alt="20201217\_103230.png"></p>
+```
+
+실행결과는 다음과 같다.
+
+![20201217\_103230.png](20201217\_103230.png#center) -->
+<h2 id="환경">환경</h2>
+<ul>
+<li>OS: Windows11</li>
+<li>Version: Julia 1.9.0, DataFrames v1.5.0</li>
+</ul>
 
 
 <aside style="text-align: right;">
     2021-01-25&emsp;
     류대식&emsp;
-    <a href="../1430">🎲 1930</a>
+    <a href="../671">🎲 1930</a>
 </aside>
 
 <script>

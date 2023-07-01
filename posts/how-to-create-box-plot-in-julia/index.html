@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-create-box-plot-in-julia\/",
-    "wordCount" : "218",
+    "wordCount" : "489",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -218,6 +218,9 @@
     <li><a href="#설명">설명</a></li>
     <li><a href="#코드">코드</a>
       <ul>
+        <li><a href="#x축-tick">x축 tick</a></li>
+        <li><a href="#2차원-배열로-그리기">2차원 배열로 그리기</a></li>
+        <li><a href="#데이터-프레임으로-그리기">데이터 프레임으로 그리기</a></li>
         <li><a href="#평균">평균</a></li>
       </ul>
     </li>
@@ -231,7 +234,7 @@
 </aside>
 
 <h2 id="설명">설명</h2>
-<p>박스 플랏을 그리기 위해서는 통계 시각화 패키지인 <code>StatsPlots.jl</code>을 사용해야한다.</p>
+<p><a href="../3557">박스 플랏</a>을 그리기 위해서는 통계 시각화 패키지인 <code>StatsPlots.jl</code>을 사용해야한다.</p>
 <ul>
 <li><code>boxplot([data], labels=[label])</code></li>
 </ul>
@@ -242,34 +245,48 @@ x = rand(0:100, 100)
 y = rand(50:100, 100)
 z = cat(x,y, dims=1)
 
-boxplot(x, labels=&#34;x&#34;)
-boxplot!(y, labels=&#34;y&#34;)
-boxplot!(z, labels=&#34;z&#34;)
-</code></pre><p><img src="3533_1.png#center" alt=""></p>
-<p><code> boxplot([x,y,z], labels=[&quot;x&quot;, &quot;y&quot;, &quot;z&quot;])</code>로도 같은 그림을 그릴 순 있는데, 아래와 같이 레이블이 이상하게 나온다.</p>
-<p><img src="3533_2.png#center" alt=""></p>
+boxplot(x, label=&#34;x&#34;)
+boxplot!(y, label=&#34;y&#34;)
+boxplot!(z, label=&#34;z&#34;)
+</code></pre><p><img src="3553_1.png#center" alt=""></p>
+<p>혹은 <code>boxplot([x,y,z], label=[&quot;x&quot; &quot;y&quot; &quot;z&quot;])</code>도 같은 그림을 그린다. <code>lable</code>에는 쉼표가 없어야함에 주의하자. 즉 $3 \times 1$ 벡터가 아니라 $1 \times 3$ 배열이여야한다.</p>
+<h3 id="x축-tick">x축 tick</h3>
+<p>문자열로 x축의 tick을 표현하고 싶다면,</p>
+<pre tabindex="0"><code>boxplot([x, y, z], xticks=(1:3, [&#34;x&#34;, &#34;y&#34;, &#34;z&#34;]), label=[&#34;x&#34; &#34;y&#34; &#34;z&#34;])
+</code></pre><p><img src="3553_2.png#center" alt=""></p>
+<p>혹은 아래의 코드도 같은 그림을 그린다. 차이점이라면 실제 좌표가 어떻게 되느냐 하는 것이다. 위의 코드는 실제론 각 박스들이 그려지는 x좌표가 1, 2, 3 인데 그래프의 tick 값만 x, y, z로 <strong>보여지게</strong> 바꾼 것이다. 아래의 코드는 실제로 &ldquo;x&rdquo;, &ldquo;y&rdquo;, &ldquo;z&rdquo; 좌표 위에 박스를 그린다.</p>
+<pre tabindex="0"><code>boxplot(fill(&#34;x&#34;, length(x)), x, label=&#34;x&#34;)
+boxplot!(fill(&#34;y&#34;, length(y)), y, label=&#34;y&#34;)
+boxplot!(fill(&#34;z&#34;, length(z)), y, label=&#34;z&#34;)
+</code></pre><h3 id="2차원-배열로-그리기">2차원 배열로 그리기</h3>
+<pre tabindex="0"><code>a = rand(100, 3)
+boxplot(a, xticks=(1:3, [&#34;x&#34;, &#34;y&#34;, &#34;z&#34;]), label=[&#34;x&#34; &#34;y&#34; &#34;z&#34;])
+</code></pre><p><img src="3553_3.png#center" alt=""></p>
+<h3 id="데이터-프레임으로-그리기">데이터 프레임으로 그리기</h3>
+<p>데이터 프레임 그 자체로는 그릴 수 없고, <a href="../1930">배열로 변환</a>해야한다.</p>
+<pre tabindex="0"><code>using MLDatasets
+using DataFrames
+
+df = Iris().features
+boxplot(Array(df), xticks=(1:4, names(df)), label=reshape(names(df), (1,4)))
+</code></pre><p><img src="3553_4.png#center" alt=""></p>
 <h3 id="평균">평균</h3>
 <p>평균을 표시하는 옵션은 따로 없다. <code>scatter</code>로 찍어주자.</p>
-<pre tabindex="0"><code>using StatsPlots
-using Statistics
+<pre tabindex="0"><code>using Statistics
 
-x = rand(0:100, 100)
-y = rand(50:100, 100)
-z = cat(x,y, dims=1)
+boxplot(fill(&#34;x&#34;, length(x)), x, labels=&#34;x&#34;)
+boxplot!(fill(&#34;y&#34;, length(y)), y, labels=&#34;y&#34;)
+boxplot!(fill(&#34;z&#34;, length(z)), z, labels=&#34;z&#34;)
 
-boxplot(repeat([&#39;x&#39;], outer=100), x, color=palette(:default)[1], labels=&#34;x&#34;)
-scatter!((&#39;x&#39;,mean(x)), color=palette(:default)[1], label=&#34;&#34;)
-
-boxplot!(repeat([&#39;y&#39;], outer=100), y, color=palette(:default)[2], labels=&#34;y&#34;)
-scatter!((&#39;y&#39;,mean(y)), color=palette(:default)[2], label=&#34;&#34;)
-
-boxplot!(repeat([&#39;z&#39;], outer=200), z, color=palette(:default)[3], labels=&#34;z&#34;)
-scatter!((&#39;z&#39;,mean(z)), color=palette(:default)[3], label=&#34;&#34;)
-</code></pre><p><img src="3553_3.png#center" alt=""></p>
-<h2 id="환경">환경</h2>
+scatter!([&#34;x&#34;, &#34;y&#34;, &#34;z&#34;], [mean(x), mean(y), mean(z)], color=palette(:default)[1:3], label=&#34;&#34;)
+</code></pre><p><img src="3553_5.png#center" alt=""></p>
+<p>혹은 다음의 코드도 같은 그림을 그린다.</p>
+<pre tabindex="0"><code>boxplot([x, y, z], xticks=(1:3, [&#34;x&#34;, &#34;y&#34;, &#34;z&#34;]), label=[&#34;x&#34; &#34;y&#34; &#34;z&#34;])
+scatter!([1, 2, 3], [mean(x), mean(y), mean(z)], color=palette(:default)[1:3], label=&#34;&#34;)
+</code></pre><h2 id="환경">환경</h2>
 <ul>
 <li>OS: Windows11</li>
-<li>Version: Julia 1.9.0, StatsPlots v0.15.5</li>
+<li>Version: Julia 1.9.0, Plots v1.38.12, StatsPlots v0.15.5, DataFrames v1.5.0, MLDatasets v0.7.11</li>
 </ul>
 <h2 id="같이보기">같이보기</h2>
 <ul>
@@ -280,7 +297,7 @@ scatter!((&#39;z&#39;,mean(z)), color=palette(:default)[3], label=&#34;&#34;)
 <aside style="text-align: right;">
     2014-02-15&emsp;
     전기현&emsp;
-    <a href="../785">🎲 3553</a>
+    <a href="../1080">🎲 3553</a>
 </aside>
 
 <script>

@@ -913,7 +913,7 @@
       <pubDate>Mon, 25 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>https://freshrimpsushi.github.io/posts/how-to-convert-between-dataframe-and-2-dimensional-array/</guid>
-      <description>코드 줄리아에서는 다음과 같이 convert() 함수를 통해 간단하게 데이터프레임과 2차원배열 사이를 오갈 수 있다. 이 함수는 물론 다른 자료형에 대해서도 유용하게 사용된다. data1 = rand(4,3) data2 = convert(DataFrame, data1) data3 = convert(Array, data2) 실행결과는 다음과 같다.</description>
+      <description>코드 Matrix(df) 혹은 Array(df) 함수를 통해 데이터프레임을 같은 크기의 배열로 변환할 수 있다. 배열을 데이터프레임으로 만들 땐 DataFrmae(array, :auto)를 사용한다. 예전에는 convert 함수를 사용했지만 최근엔 바뀌어 적용되지 않으니 주의. using DataFrames julia&amp;gt; A = rand(5,3) 5×3 Matrix{Float64}: 0.678876 0.10431 0.827079 0.621647 0.372007 0.29346 0.756844 0.171237 0.0732631 0.922519 0.0535938 0.121689 0.164058 0.0684278 0.68446 julia&amp;gt; df = DataFrame(A, :auto) 5×3 DataFrame Row │ x1 x2 x3 │ Float64 Float64 Float64 ─────┼────────────</description>
     </item>
     
     <item>
@@ -1142,12 +1142,39 @@
     </item>
     
     <item>
+      <title>줄리아에서 그림의 크기와 해상도 조절하는 법</title>
+      <link>https://freshrimpsushi.github.io/posts/how-to-set-size-and-resolution-of-figure-in-julia/</link>
+      <pubDate>Thu, 27 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://freshrimpsushi.github.io/posts/how-to-set-size-and-resolution-of-figure-in-julia/</guid>
+      <description>코드 크기 plot(x, y, size=(600,400)) 줄리아에서 그림의 크기는 size 옵션으로 설정한다. Tuple{Integer, Integer} 타입으로 입력해야하며, 각각의 정수는 가로 픽셀과 세로 픽셀을 의미한다. 기본 값은 (600,400)이다. using Plots x = rand(10) plot(x) savefig(&amp;#34;size_default.png&amp;#34;) plot(x, size=(1200,800)) savefig(&amp;#34;size_(1200,800).png&amp;#34;) 1800x1200 이미지 (좌), 600x400 이미지 (우) 해상도 plot(x, y, dpi=100) 이미지의 해상도는 dpi 옵션으로 설정하며, 기본 값은 100이다. 논문, 보고서, 파워포인트 등</description>
+    </item>
+    
+    <item>
+      <title>줄리아에서 그림에 화살표 그리는 법</title>
+      <link>https://freshrimpsushi.github.io/posts/how-to-draw-arrows-in-plot-in-julia/</link>
+      <pubDate>Tue, 25 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://freshrimpsushi.github.io/posts/how-to-draw-arrows-in-plot-in-julia/</guid>
+      <description>코드 plot!([x1, x2], [y1, y2], arrow=:true) 위의 코드는 플랏 위에 점 $(x1, y1)$부터 점 $(x2, y2)$까지 화살표를 그린다. 촉의 위치는 당연히 $(x2, y2)$이다. 사인함수의 최댓값을 다음과 같이 표시할 수 있다. using plots x = range(0, 2π, 100) plot(x, sin.(x), label=&amp;#34;&amp;#34;, ylims=(-1.3,1.3)) plot!([π/2, 3], [1, 1.1], arrow=:true, color=:black, label=&amp;#34;&amp;#34;) annotate!(3.7, 1.1, &amp;#34;maximum&amp;#34;) 촉을 칠하는 옵션은 :closed이다. plot!([3π/2, 3], [-1, -1.1], arrow=:closed, color=:red, label=&amp;#34;&amp;#34;) annotate!(2.3, -1.1, &amp;#34;minimum&amp;#34;) :</description>
+    </item>
+    
+    <item>
+      <title>줄리아에서 랜덤 시드 고정하는 법</title>
+      <link>https://freshrimpsushi.github.io/posts/how-to-set-random-seed-number-in-julia/</link>
+      <pubDate>Wed, 19 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://freshrimpsushi.github.io/posts/how-to-set-random-seed-number-in-julia/</guid>
+      <description>설명1 줄리아에서 랜덤 시드는 다음과 같이 고정한다. seed!([rng=default_rng()], seed) -&amp;gt; rng seed!([rng=default_rng()]) -&amp;gt; rng 입력 변수rng는 Random Number Generator난수생성기의 약자로 난수를 추출하는 알고리즘을 말한다. Random 패키지에서는 다음과 같은 옵션을 제공한다. TaskLocalRNG: 기본 설정 값이다. Xoshiro RandomDevice MersenneTwister 코드 시드를 0으로 고정하고 세번을 뽑은 뒤, 다시 0으로 고정하고 세번을 뽑으면 같은 값이 나옴을 확인할</description>
+    </item>
+    
+    <item>
       <title>줄리아에서 박스 플랏 그리는 법</title>
       <link>https://freshrimpsushi.github.io/posts/how-to-create-box-plot-in-julia/</link>
       <pubDate>Sat, 15 Feb 2014 00:00:00 +0000</pubDate>
       
       <guid>https://freshrimpsushi.github.io/posts/how-to-create-box-plot-in-julia/</guid>
-      <description>설명 박스 플랏을 그리기 위해서는 통계 시각화 패키지인 StatsPlots.jl을 사용해야한다. boxplot([data], labels=[label]) 코드 using StatsPlots x = rand(0:100, 100) y = rand(50:100, 100) z = cat(x,y, dims=1) boxplot(x, labels=&amp;#34;x&amp;#34;) boxplot!(y, labels=&amp;#34;y&amp;#34;) boxplot!(z, labels=&amp;#34;z&amp;#34;) boxplot([x,y,z], labels=[&amp;quot;x&amp;quot;, &amp;quot;y&amp;quot;, &amp;quot;z&amp;quot;])로도 같은 그림을 그릴 순 있는데, 아래와 같이 레이블이 이상하게 나온다. 평균 평균을 표시하는 옵션은 따로 없다. scatter로 찍어주자. using StatsPlots using</description>
+      <description>설명 박스 플랏을 그리기 위해서는 통계 시각화 패키지인 StatsPlots.jl을 사용해야한다. boxplot([data], labels=[label]) 코드 using StatsPlots x = rand(0:100, 100) y = rand(50:100, 100) z = cat(x,y, dims=1) boxplot(x, label=&amp;#34;x&amp;#34;) boxplot!(y, label=&amp;#34;y&amp;#34;) boxplot!(z, label=&amp;#34;z&amp;#34;) 혹은 boxplot([x,y,z], label=[&amp;quot;x&amp;quot; &amp;quot;y&amp;quot; &amp;quot;z&amp;quot;])도 같은 그림을 그린다. lable에는 쉼표가 없어야함에 주의하자. 즉 $3 \times 1$ 벡터가 아니라 $1 \times 3$ 배열이여야한다. x축 tick 문자열로 x축의 t</description>
     </item>
     
     <item>
@@ -1201,7 +1228,7 @@
       <pubDate>Sat, 17 Aug 2013 00:00:00 +0000</pubDate>
       
       <guid>https://freshrimpsushi.github.io/posts/how-to-random-sampling-in-julia/</guid>
-      <description>설명 줄리아에서 무작위 추출하는 방법을 정리한다. 가중치 주고 무작위 추출하는 법 분포 주고 무작위 추출하는 법 코드 기본 rand(n,m,l,...)는 각 원소가 $0$부터 $1$사의의 무작위 실수인 $(n,m,l&amp;hellip;)$ 크기의 배열을 반환한다. 단 rand((n,m,l,..))와 같이 $k$개의 인자가 아니라 $k$-튜플을 인자로 입력하면, 튜플의 원</description>
+      <description>설명1 줄리아에서 무작위 추출을 하는 함수는 다음과 같다. rand([rng=default_rng()], [S], [dims...]) rng는 Random Number Generator의 약자로, 난수 추출 알고리즘을 지정한다. 무슨 말인지 모르겠으면 건드리지 않아도 된다. S는 (아마도) Set의 약자로 무작위 추출을 할 집합을 명시하는 변수이다. S의 변수로 입력가능한 것으로는 다음의 것들이 있다. 인덱스가 있는 객체 AbstractDict 혹은 AbstractSet</description>
     </item>
     
     <item>

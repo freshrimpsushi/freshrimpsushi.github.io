@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-random-sampling-in-julia\/",
-    "wordCount" : "459",
+    "wordCount" : "756",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -215,14 +215,16 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#설명">설명</a></li>
+    <li><a href="#설명1">설명</a></li>
     <li><a href="#코드">코드</a>
       <ul>
-        <li><a href="#기본">기본</a></li>
-        <li><a href="#타입-지정">타입 지정</a></li>
-        <li><a href="#범위-지정">범위 지정</a></li>
+        <li><a href="#인덱스가-있는-객체">인덱스가 있는 객체</a></li>
+        <li><a href="#딕셔너리">딕셔너리</a></li>
+        <li><a href="#문자열">문자열</a></li>
+        <li><a href="#타입">타입</a></li>
       </ul>
     </li>
+    <li><a href="#환경">환경</a></li>
   </ul>
 </nav>
     </div>
@@ -230,95 +232,134 @@
   </div>
 </aside>
 
-<h2 id="설명">설명</h2>
-<p>줄리아에서 무작위 추출하는 방법을 정리한다.</p>
+<h2 id="설명1">설명<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>줄리아에서 무작위 추출을 하는 함수는 다음과 같다.</p>
 <ul>
+<li><code>rand([rng=default_rng()], [S], [dims...])</code></li>
+</ul>
+<p><code>rng</code>는 Random Number Generator의 약자로, 난수 추출 알고리즘을 지정한다. 무슨 말인지 모르겠으면 건드리지 않아도 된다.</p>
+<p><code>S</code>는 (아마도) Set의 약자로 무작위 추출을 할 집합을 명시하는 변수이다. <code>S</code>의 변수로 입력가능한 것으로는 다음의 것들이 있다.</p>
+<ul>
+<li>인덱스가 있는 객체</li>
+<li><code>AbstractDict</code> 혹은 <code>AbstractSet</code></li>
+<li>문자열</li>
+<li>타입 (정수, 소수만 가능하다. 유리수, 무리수는 불가능.)</li>
+</ul>
+<p>추출 집합을 타입으로 지정하였을 경우, 정수형이라면 <code>typemin(S):type(S)</code>의 범위에서 추출한다 (<code>BigInt</code>는 지원하지 않는다).</p>
+<pre tabindex="0"><code>julia&gt; typemin(Int16), typemax(Int16)
+(-32768, 32767)
+
+julia&gt; typemin(Int32), typemax(Int32)
+(-2147483648, 2147483647)
+
+julia&gt; typemin(Int64), typemax(Int64)
+(-9223372036854775808, 9223372036854775807)
+</code></pre><p>소수라면 $[0, 1)$ 범위에서 추출한다.</p>
+<pre tabindex="0"><code>julia&gt; rand(Float64)
+0.4949745522302659
+
+julia&gt; rand(ComplexF64)
+0.8560168003603014 + 0.16478582700545064im
+</code></pre><p><code>[dims...]</code>는 추출할 배열의 차원을 나타낸다. <code>rand(S, m, n)</code>이라면 집합 S의 원소에서 (중복을 포함하여) $m \times n$개를 뽑아 $m \times n$ 모양의 배열을 반환한다. 차원을 입력하지 않으면 실수가 반환된다. 실수와 1차원 벡터가 명백히 구분되니 주의하자. 또한 $2\times 3$ 배열을 얻고 싶어 차원을 <code>(2,3)</code>과 같이 튜플로 입력하면 <code>S</code>의 변수로 받아들이므로 전혀 다른 결과가 나오니 주의하자.</p>
+<pre tabindex="0"><code>julia&gt; rand(Float64)               # 실수 추출
+0.42226201756172266
+
+julia&gt; rand(Float64, 1)            # 성분이 실수인 1x1 배열로 추출
+1-element Vector{Float64}:
+ 0.7361136057571305
+
+julia&gt; rand(2,3)                   # 성분이 실수인 2x3 배열로 추출 
+2×3 Matrix{Float64}:
+ 0.648742   0.364548  0.0550352
+ 0.0350098  0.56055   0.83297
+
+julia&gt; rand((2,3))                 # 2와 3중에서 추출
+3
+</code></pre><p>더 심화적인 내용은 다음을 참고하자.</p>
+<ul>
+<li><a href="../3555">랜덤 시드 고정하는 법</a></li>
 <li><a href="../2018">가중치 주고 무작위 추출하는 법</a></li>
 <li><a href="../3463">분포 주고 무작위 추출하는 법</a></li>
 </ul>
 <h2 id="코드">코드</h2>
-<h3 id="기본">기본</h3>
-<!-- `Random.seed!(seed)`로 시드를 고정할 수 있다.
+<h3 id="인덱스가-있는-객체">인덱스가 있는 객체</h3>
+<pre tabindex="0"><code>julia&gt; rand((2,5))
+5
 
-```
+julia&gt; rand(2:5)
+3
 
-``` -->
-<p><code>rand(n,m,l,...)</code>는  각 원소가 $0$부터 $1$사의의 무작위 실수인 $(n,m,l&hellip;)$ 크기의 배열을 반환한다. 단 <code>rand((n,m,l,..))</code>와 같이 $k$개의 인자가 아니라 $k$-튜플을 인자로 입력하면, 튜플의 원소 중 하나를 임의로 뽑는다. 전혀 다른 결과가 나오므로 주의하자.</p>
-<pre tabindex="0"><code>julia&gt; rand(3)
-3-element Vector{Float64}:
- 0.3690326652578393
- 0.20252400922469116
- 0.8272382067218313
-
-julia&gt; rand(3,3)
-3×3 Matrix{Float64}:
- 0.918771  0.172173  0.117402
- 0.387634  0.836207  0.0323341
- 0.304328  0.816601  0.885162
-
-julia&gt; rand(2,3,4)
-2×3×4 Array{Float64, 3}:
-[:, :, 1] =
- 0.265133  0.238331  0.732378
- 0.290003  0.567281  0.536599
-
-[:, :, 2] =
- 0.954018  0.879038  0.290317
- 0.319847  0.763513  0.703101
-
-[:, :, 3] =
- 0.766999  0.504227   0.675441
- 0.490083  0.0791747  0.425424
-
-[:, :, 4] =
- 0.0457705  0.405896  0.157734
- 0.218637   0.79505   0.181471
-
-julia&gt; rand((2,3,4))
+julia&gt; rand([2,3,4,5])
 4
-</code></pre><p><code>rand()</code>는 실수를, <code>rand(1)</code>은 성분이 1개 있는 벡터(1차원 배열)를 반환한다.</p>
-<pre tabindex="0"><code>julia&gt; rand()
-0.42226201756172266
 
-julia&gt; rand(1)
-1-element Vector{Float64}:
- 0.7361136057571305
-</code></pre><h3 id="타입-지정">타입 지정</h3>
-<p><code>rand(type, n,m,l,...)</code>는 지정한 타입으로 $(n,m,l,&hellip;)$ 크기의 배열을 반한다.</p>
-<pre tabindex="0"><code>julia&gt; rand(Int, 3)
-3-element Vector{Int64}:
-  6596411227740380758
- -6320180803571983431
- -9181276118589871599
+julia&gt; rand([&#34;x&#34;, &#34;y&#34;, 4])
+&#34;x&#34;
+</code></pre><h3 id="딕셔너리">딕셔너리</h3>
+<p>추출집합을 딕셔너리로 설정하면 키-값 <a href="../2201">페어</a><sup>Pair</sup> 그 자체가 추출된다.</p>
+<pre tabindex="0"><code>julia&gt; d = Dict(2=&gt;4, 3=&gt;5, 4=&gt;&#34;6&#34;)
+Dict{Int64, Any} with 3 entries:
+  4 =&gt; &#34;6&#34;
+  2 =&gt; 4
+  3 =&gt; 5
 
-julia&gt;
+julia&gt; rand(d)
+4 =&gt; &#34;6&#34;
 
-julia&gt; rand(Float32, 2,2)
-2×2 Matrix{Float32}:
- 0.626549   0.615353
- 0.0303282  0.255745
-</code></pre><h3 id="범위-지정">범위 지정</h3>
-<p><code>rand(range, n,m,l,...)</code>는 주어진 범위 안에서 무작위로 추출한다. 가령 1:10으로 두면 1부터 10까지의 정수 중에서 뽑고, 리스트로 줄 수도 있다.</p>
-<pre tabindex="0"><code>julia&gt; rand(1:10, 2,2)
-2×2 Matrix{Int64}:
- 6  5
- 9  2
+julia&gt; rand(d)
+2 =&gt; 4
+</code></pre><h3 id="문자열">문자열</h3>
+<p>추출집합을 문자열로 두면 문자열 내의 문자 중 임의의 것을 추출한다.</p>
+<pre tabindex="0"><code>julia&gt; str = &#34;freshrimpsushi&#34;
+&#34;freshrimpsushi&#34;
 
-julia&gt; rand([1,10,100], 2,2)
-2×2 Matrix{Int64}:
-  10  1
- 100  1
+julia&gt; rand(str)
+&#39;e&#39;: ASCII/Unicode U+0065 (category Ll: Letter, lowercase)
 
-julia&gt; rand([&#34;a&#34;, 1, 9], 2,2)
-2×2 Matrix{Any}:
- 1      &#34;a&#34;
-  &#34;a&#34;  1
-</code></pre>
+julia&gt; rand(str)
+&#39;h&#39;: ASCII/Unicode U+0068 (category Ll: Letter, lowercase)
+</code></pre><h3 id="타입">타입</h3>
+<pre tabindex="0"><code>julia&gt; rand(Int32, 3)
+3-element Vector{Int32}:
+  1552806175
+  -384901411
+ -1580189675
+
+julia&gt; rand(UInt32, 3)
+3-element Vector{UInt32}:
+ 0xd2f44f99
+ 0x166a8b9e
+ 0x92fe22dc
+
+julia&gt; rand(Float32, 3)
+3-element Vector{Float32}:
+ 0.59852564
+ 0.6247238
+ 0.23303497
+
+julia&gt; rand(ComplexF32, 3)
+3-element Vector{ComplexF32}:
+ 0.10872495f0 + 0.6622572f0im
+  0.6408408f0 + 0.46815878f0im
+  0.7766515f0 + 0.73314756f0im
+</code></pre><h2 id="환경">환경</h2>
+<ul>
+<li>OS: Windows11</li>
+<li>Version: Julia 1.9.0</li>
+</ul>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://docs.julialang.org/en/v1/stdlib/Random/#Base.rand">https://docs.julialang.org/en/v1/stdlib/Random/#Base.rand</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
 
 <aside style="text-align: right;">
     2013-08-17&emsp;
     전기현&emsp;
-    <a href="../1659">🎲 3462</a>
+    <a href="../1499">🎲 3462</a>
 </aside>
 
 <script>
