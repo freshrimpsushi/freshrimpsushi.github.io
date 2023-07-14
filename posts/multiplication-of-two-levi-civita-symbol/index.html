@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/multiplication-of-two-levi-civita-symbol\/",
-    "wordCount" : "1445",
+    "wordCount" : "1205",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -215,7 +215,7 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#공식">공식</a></li>
+    <li><a href="#정리">정리</a></li>
     <li><a href="#설명">설명</a></li>
     <li><a href="#증명">증명</a>
       <ul>
@@ -231,127 +231,261 @@
   </div>
 </aside>
 
-<h2 id="공식">공식</h2>
-<p><strong>(a) 한 개의 인덱스가 같은 경우:</strong> $\epsilon_{ijk}\epsilon_{lmk}=\delta_{il}\delta_{jm}-\delta_{im}\delta_{jl}$</p>
-<p><strong>(b) 두 개의 인덱스가 같은 경우:</strong> $\epsilon_{ijk}\epsilon_{ljk}=2\delta_{il}$</p>
+<h2 id="정리">정리</h2>
+<p>다음과 같이 정의되는 $\epsilon_{ijk}$를 <a href="../83">레비-치비타 심볼</a>이라고 한다.</p>
+<p>$$
+\epsilon_{ijk} = \begin{cases} +1 &amp; \text{if} \ \epsilon_{123}, \epsilon_{231}, \epsilon_{312}
+\\ -1 &amp; \text{if} \ \epsilon_{132}, \epsilon_{213}, \epsilon_{321}
+\\ 0 &amp; \text{if} \ i=j \ \text{or} \ j=k \ \text{or} \ k=i \end{cases}
+$$</p>
+<p>다음과 같이 정의되는 $\delta_{ij}$를 <a href="../84">크로네커 델타</a>라고 한다.</p>
+<p>$$
+\delta_{ij} := \begin{cases} 1,&amp;i=j
+\\  0, &amp; i\ne j \end{cases}
+$$</p>
+<p>두 레비-치비타 심볼의 곱과 크로네커 델타 사이에는 다음의 관계가 성립한다.</p>
+<p><strong>(a) 한 개의 인덱스가 같은 경우:</strong> $\epsilon_{ijk}\epsilon_{ilm} = \delta_{jl}\delta_{km} - \delta_{jm}\delta_{kl}$</p>
+<p><strong>(b) 두 개의 인덱스가 같은 경우:</strong> $\epsilon_{ijk}\epsilon_{ijm}=2\delta_{km}$</p>
 <p><strong>(c) 세 개의 인덱스가 같은 경우:</strong> $\epsilon_{ijk}\epsilon_{ijk}=6$</p>
 <h2 id="설명">설명</h2>
-<p>글 전반에서 <a href="../90">아인슈타인 표기법</a>을 사용하고 있으니 헷갈리지 말자.</p>
+<p>글 전반에서 $\sum$을 생략하는 <a href="../90">아인슈타인 표기법</a>을 사용하고 있음에 유의하라. 이는 위의 공식에서도 마찬가지이다. <b>(a)</b>는 쓸 일이 많아서 외워두면 유용하다. 쉽게 외우는 방법은 다음과 같다.</p>
+<p><img src="1.PNG#center" alt="1.PNG"></p>
 <h2 id="증명">증명</h2>
 <h3 id="a">(a)</h3>
-<p>레비-치비타 심볼은 아래와 같이 나타낼 수 있다.</p>
+<p>$\mathbf{e}_{i}$ $(i=1,2,3)$ 를 3차원에서의 <a href="../3017">표준단위벡터</a> 라고 하자.</p>
+<p>$$
+\mathbf{e}_{1} = (1, 0, 0),\quad \mathbf{e}_{2} = (0, 1, 0),\quad \mathbf{e}_{3} = (0, 0, 1)
+$$</p>
+<p>$P_{ijk}$를 $i$-행이 $\mathbf{e}_{i}$인 $3 \times 3$ <a href="../1955">행렬</a>이라고 하자.</p>
+<p>$$
+P_{ijk} = \begin{bmatrix}
+\text{&mdash; } \mathbf{e}_{i} \text{ &mdash;} \\ 
+\text{&mdash; } \mathbf{e}_{j} \text{ &mdash;} \\ 
+\text{&mdash; } \mathbf{e}_{k} \text{ &mdash;}
+\end{bmatrix}
+$$</p>
+<p>그러면 행렬식의 성질에 의해 $\det P_{ijk} = \epsilon_{ijk}$임을 쉽게 알 수 있다. 우선 $P_{123}$은 <a href="../3001">항등행렬</a>이므로 행렬식이 $1$이다. 또한 서로 다른 행의 순서를 짝수번 바꿨을 때 행렬식은 변하지 않으므로,</p>
+<p>$$
+\det P_{123} = \det P_{231} = \det P_{312} = 1
+$$</p>
+<p>서로 다른 행의 순서를 홀수번 바꾸면 부호가 반대가 되므로,</p>
+<p>$$
+\det P_{132} = \det P_{213} = \det P_{321} = -1
+$$</p>
+<p>같은 행이 두 개 이상 있는 행렬의 행렬식은 $0$이므로 나머지의 경우 전부 $0$이다. 따라서 $\det P_{ijk} = \epsilon_{ijk}$가 성립한다. 따라서 하나의 인덱스가 같은 두 레비-치비타 심볼의 곱은, <a href="../3015">행렬식의 성질</a>을 잘 사용하면, 다음과 같다.</p>
 <p>$$
 \begin{align*}
-\epsilon _{ ijk } &amp;= \left| \begin{matrix}
-\delta _{ i1 } &amp; \delta _{ i2 } &amp; \delta _{ i3 }
-\\  \delta _{ j1 } &amp; \delta _{ j2 } &amp; \delta _{ j3 }
-\\  \delta _{ k1 } &amp; \delta _{ k2 } &amp; \delta _{ k3 }
-\end{matrix} \right|
-\\  &amp;= \delta _{ i1 }\delta _{ j2 }\delta _{ k3 }-\delta _{ i1 }\delta _{ j3 }\delta _{ k2 }+\delta _{ i2 }\delta _{ j3 }\delta _{ k1 }-\delta _{ i2 }\delta _{ j1 }\delta _{ k3 }+\delta _{ i3 }\delta _{ j1 }\delta _{ k2 }-\delta _{ i3 }\delta _{ j2 }\delta _{ k1 }
+\epsilon_{ijk}\epsilon_{ilm}
+&amp;= \det \begin{bmatrix}
+\text{&mdash; } \mathbf{e}_{i} \text{ &mdash;} \\ 
+\text{&mdash; } \mathbf{e}_{j} \text{ &mdash;} \\ 
+\text{&mdash; } \mathbf{e}_{k} \text{ &mdash;}
+\end{bmatrix} \det \begin{bmatrix}
+\text{&mdash; } \mathbf{e}_{i} \text{ &mdash;} \\ 
+\text{&mdash; } \mathbf{e}_{l} \text{ &mdash;} \\ 
+\text{&mdash; } \mathbf{e}_{m} \text{ &mdash;}
+\end{bmatrix} \\ 
+&amp;= \det \begin{bmatrix}
+\text{&mdash; } \mathbf{e}_{i} \text{ &mdash;} \\ 
+\text{&mdash; } \mathbf{e}_{j} \text{ &mdash;} \\ 
+\text{&mdash; } \mathbf{e}_{k} \text{ &mdash;}
+\end{bmatrix} \det \begin{bmatrix}
+\vert &amp; \vert &amp; \vert \\ 
+\mathbf{e}_{i} &amp; \mathbf{e}_{l} &amp; \mathbf{e}_{m} \\ 
+\vert &amp; \vert &amp; \vert
+\end{bmatrix} &amp; (\because \det A = \det A^{T}) \\ 
+&amp;= \det \left( \begin{bmatrix}
+\text{&mdash; } \mathbf{e}_{i} \text{ &mdash;} \\ 
+\text{&mdash; } \mathbf{e}_{j} \text{ &mdash;} \\ 
+\text{&mdash; } \mathbf{e}_{k} \text{ &mdash;}
+\end{bmatrix} \begin{bmatrix}
+\vert &amp; \vert &amp; \vert \\ 
+\mathbf{e}_{i} &amp; \mathbf{e}_{l} &amp; \mathbf{e}_{m} \\ 
+\vert &amp; \vert &amp; \vert
+\end{bmatrix} \right) &amp; \Big(\because (\det A) \det B \det (AB) \Big) \\ 
+&amp;= \det \begin{bmatrix}
+\mathbf{e}_{i} \cdot \mathbf{e}_{i} &amp; \mathbf{e}_{i} \cdot \mathbf{e}_{l} &amp; \mathbf{e}_{i} \cdot \mathbf{e}_{m} \\ 
+\mathbf{e}_{j} \cdot \mathbf{e}_{i} &amp; \mathbf{e}_{j} \cdot \mathbf{e}_{l} &amp; \mathbf{e}_{j} \cdot \mathbf{e}_{m} \\ 
+\mathbf{e}_{k} \cdot \mathbf{e}_{i} &amp; \mathbf{e}_{k} \cdot \mathbf{e}_{l} &amp; \mathbf{e}_{k} \cdot \mathbf{e}_{m}
+\end{bmatrix}
 \end{align*}
 $$</p>
-<p>그러면 행렬 $A$에 대해서 <a href="../3015">$\det A=\det A^{T}$</a>가 성립하므로 다음과 같다.</p>
+<p>$\mathbf{e}_{i}$는 표준단위벡터이므로, $\mathbf{e}_{i} \cdot \mathbf{e}_{j} = \delta_{ij}$가 성립한다.</p>
 <p>$$
-\epsilon_{ijk}\epsilon_{klm} =
+\epsilon_{ijk}\epsilon_{ilm} = \det \begin{bmatrix}
+\delta_{ii} &amp; \delta_{il} &amp; \delta_{im} \\ 
+\delta_{ji} &amp; \delta_{jl} &amp; \delta_{jm} \\ 
+\delta_{ki} &amp; \delta_{kl} &amp; \delta_{km}
+\end{bmatrix}
+$$</p>
+<p>이때 우리는 $i$는 $j, k, l, m$과 모두 다른 경우에 대해서만 생각하고 있음에 유의하자. 왜냐하면 $i$가 저 네 인덱스 중 하나라도 같다면 $\epsilon_{ijk}\epsilon_{ilm} = 0$이므로 의미 없는 결과이기 때문이다. 따라서,</p>
+<p>$$
+\epsilon_{ijk}\epsilon_{ilm} = \det \begin{bmatrix}
+1 &amp; 0 &amp; 0 \\ 
+0 &amp; \delta_{jl} &amp; \delta_{jm} \\ 
+0 &amp; \delta_{kl} &amp; \delta_{km}
+\end{bmatrix} = \delta_{jl}\delta_{km} - \delta_{jm}\delta_{kl}
+$$</p>
+<!-- 
+> [행렬식과 레비-치비타 심볼](../83)
+> 
+> $$
+> \begin{vmatrix}
+> a\_{11} & a\_{12} & a\_{13} \\\ 
+> a\_{21} & a\_{22} & a\_{23} \\\ 
+> a\_{31} & a\_{32} & a\_{33} \\\ 
+> \end{vmatrix} = \sum\limits\_{i,j,k=1}^{3} \epsilon\_{ijk}a\_{1i}a\_{2j}a\_{3k}
+> $$
+
+위 공식에 의해 다음을 얻는다.
+
+$$
+\begin{vmatrix}
+\delta\_{il} & \delta\_{im} & \delta\_{in} \\\ 
+\delta\_{jl} & \delta\_{jm} & \delta\_{jn} \\\ 
+\delta\_{kl} & \delta\_{km} & \delta\_{kn}
+\end{vmatrix} = \sum\limits\_{l,m,n=1}^{3} \epsilon\_{lmn}\delta\_{il}\delta\_{jm}\delta\_{kn}
+$$
+
+$l=i$, $m=j$, $n=k$를 대입하면 아래와 같다.
+
+$$
+\begin{vmatrix}
+\delta\_{il} & \delta\_{im} & \delta\_{in} \\\ 
+\delta\_{jl} & \delta\_{jm} & \delta\_{jn} \\\ 
+\delta\_{kl} & \delta\_{km} & \delta\_{kn}
+\end{vmatrix} = \sum\limits\_{i,j,k=1}^{3} \epsilon\_{ijk}\delta\_{il}\delta\_{jm}\delta\_{kn}
+$$
+
+레비-치비타 심볼은 아래와 같이 나타낼 수 있다.
+
+$$
+\begin{align*}
+\epsilon \_{ ijk } &= \begin{vmatrix}
+\delta \_{ i1 } & \delta \_{ i2 } & \delta \_{ i3 }
+\\\  \delta \_{ j1 } & \delta \_{ j2 } & \delta \_{ j3 }
+\\\  \delta \_{ k1 } & \delta \_{ k2 } & \delta \_{ k3 }
+\end{vmatrix} 
+\\\  &= \delta \_{ i1 }\delta \_{ j2 }\delta \_{ k3 }-\delta \_{ i1 }\delta \_{ j3 }\delta \_{ k2 }+\delta \_{ i2 }\delta \_{ j3 }\delta \_{ k1 }-\delta \_{ i2 }\delta \_{ j1 }\delta \_{ k3 }+\delta \_{ i3 }\delta \_{ j1 }\delta \_{ k2 }-\delta \_{ i3 }\delta \_{ j2 }\delta \_{ k1 }
+\end{align*} 
+$$
+
+그러면 행렬 $A$에 대해서 [$\det A=\det A^{T}$](../3015)가 성립하므로 다음과 같다.
+
+$$
+\epsilon\_{ijk}\epsilon\_{klm} =
 \left| \begin{matrix}
-\delta_{i1} &amp; \delta_{i2} &amp; \delta_{i3}
-\\  \delta_{j1} &amp; \delta_{j2} &amp; \delta_{j3}
-\\  \delta_{k1} &amp; \delta_{k2} &amp; \delta_{k3}
+\delta\_{i1} & \delta\_{i2} & \delta\_{i3}
+\\\  \delta\_{j1} & \delta\_{j2} & \delta\_{j3}
+\\\  \delta\_{k1} & \delta\_{k2} & \delta\_{k3}
 \end{matrix} \right|
 \left| \begin{matrix}
-\delta_{k1 } &amp; \delta_{k2} &amp; \delta_{k3}
-\\  \delta_{l1} &amp; \delta_{l2} &amp; \delta _{l3}
-\\  \delta_{m1} &amp; \delta_{m2} &amp; \delta_{m3}
+\delta\_{k1 } & \delta\_{k2} & \delta\_{k3}
+\\\  \delta\_{l1} & \delta\_{l2} & \delta \_{l3}
+\\\  \delta\_{m1} & \delta\_{m2} & \delta\_{m3}
 \end{matrix} \right| =
 \left| \begin{matrix}
-{ \delta_{ i1 } }&amp;{ \delta_{ i2 } }&amp;{ \delta_{ i3 } }
-\\ { \delta_{ j1 } }&amp;{ \delta_{ j2 } }&amp;{ \delta_{ j3 } }
-\\ { \delta_{ k1 } }&amp;{ \delta _{ k2 } }&amp;{ \delta_{ k3 } }
+{ \delta\_{ i1 } }&{ \delta\_{ i2 } }&{ \delta\_{ i3 } }
+\\\ { \delta\_{ j1 } }&{ \delta\_{ j2 } }&{ \delta\_{ j3 } }
+\\\ { \delta\_{ k1 } }&{ \delta \_{ k2 } }&{ \delta\_{ k3 } }
 \end{matrix} \right|
 \left| \begin{matrix}
-\delta_{k1} &amp; \delta_{l1} &amp; \delta_{m1}
-\\   \delta_{k2} &amp; \delta_{l2} &amp; \delta_{m2}
-\\  \delta_{k3} &amp; \delta_{l3} &amp; \delta_{m3}
-\end{matrix} \right|
-$$</p>
-<p>또한 행렬 $A, B$에 대해서 <a href="../3015">$(\det A)(\det B)=\det (AB)$</a>이므로 다음이 성립한다.</p>
-<p>$$
+ \delta\_{k1} & \delta\_{l1} & \delta\_{m1}
+\\\   \delta\_{k2} & \delta\_{l2} & \delta\_{m2}
+\\\  \delta\_{k3} & \delta\_{l3} & \delta\_{m3}
+\end{matrix} \right| 
+$$
+
+또한 행렬 $A, B$에 대해서 [$(\det A)(\det B)=\det (AB)$](../3015)이므로 다음이 성립한다.
+
+$$
 \begin{align*}
-\epsilon_{ijk}\epsilon_{klm} &amp;= \left| \begin{matrix}
-{ \delta_{ i1 } }&amp;{ \delta_{ i2 } }&amp;{ \delta_{ i3 } }
-\\ { \delta_{ j1 } }&amp;{ \delta_{ j2 } }&amp;{ \delta_{ j3 } }
-\\ { \delta_{ k1 } }&amp;{ \delta _{ k2 } }&amp;{ \delta_{ k3 } }
+\epsilon\_{ijk}\epsilon\_{klm} &= \left| \begin{matrix}
+{ \delta\_{ i1 } }&{ \delta\_{ i2 } }&{ \delta\_{ i3 } }
+\\\ { \delta\_{ j1 } }&{ \delta\_{ j2 } }&{ \delta\_{ j3 } }
+\\\ { \delta\_{ k1 } }&{ \delta \_{ k2 } }&{ \delta\_{ k3 } }
 \end{matrix} \right|  \left| \begin{matrix}
-\delta_{k1} &amp; \delta_{l1} &amp; \delta_{m1}
-\\   \delta_{k2} &amp; \delta_{l2} &amp; \delta_{m2}
-\\  \delta_{k3} &amp; \delta_{l3} &amp; \delta_{m3}
+ \delta\_{k1} & \delta\_{l1} & \delta\_{m1}
+\\\   \delta\_{k2} & \delta\_{l2} & \delta\_{m2}
+\\\  \delta\_{k3} & \delta\_{l3} & \delta\_{m3}
 \end{matrix} \right|
-\\  &amp;= \left| \begin{matrix}
-{ \delta _{ i1 }\delta _{ k1 }+\delta _{ i2 }\delta _{ k2 }+\delta _{ i3 }\delta _{ k3 } }&amp;{\delta _{ i1 }\delta _{ l1 }+\delta _{ i2 }\delta _{ l2 }+\delta _{ i3 }\delta _{ l3 }}&amp;{ \delta _{ i1 }\delta _{ m1 }+\delta _{ i2 }\delta _{ m2 }+\delta _{ i3 }\delta _{ m3 } }
-\\ { \delta _{ j1 }\delta _{ k1 }+\delta _{ j2 }\delta _{ k2 }+\delta _{ j3 }\delta _{ k3 } }&amp;{ \delta _{ j1 }\delta _{ l1 }+\delta _{ j2 }\delta _{ l2 }+\delta _{ j3 }\delta _{ l3 } }&amp;{ \delta _{ j1 }\delta _{ m1 }+\delta _{ j2 }\delta _{ m2 }+\delta _{ j3 }\delta _{ m3 } }
-\\ { \delta _{ k1 }\delta _{ k1 }+\delta _{ k2 }\delta _{ k2 }+\delta _{ k3 }\delta _{ k3 } }&amp;{ \delta _{ k1 }\delta _{ l1 }+\delta _{ k2 }\delta _{ l2 }+\delta _{ k3 }\delta _{ l3 } }&amp;{ \delta _{ k1 }\delta _{ m1 }+\delta _{ k2 }\delta _{ m2 }+\delta _{ k3 }\delta _{ m3 } }
+\\\  &= \left| \begin{matrix}
+{ \delta \_{ i1 }\delta \_{ k1 }+\delta \_{ i2 }\delta \_{ k2 }+\delta \_{ i3 }\delta \_{ k3 } }&{\delta \_{ i1 }\delta \_{ l1 }+\delta \_{ i2 }\delta \_{ l2 }+\delta \_{ i3 }\delta \_{ l3 }}&{ \delta \_{ i1 }\delta \_{ m1 }+\delta \_{ i2 }\delta \_{ m2 }+\delta \_{ i3 }\delta \_{ m3 } }
+\\\ { \delta \_{ j1 }\delta \_{ k1 }+\delta \_{ j2 }\delta \_{ k2 }+\delta \_{ j3 }\delta \_{ k3 } }&{ \delta \_{ j1 }\delta \_{ l1 }+\delta \_{ j2 }\delta \_{ l2 }+\delta \_{ j3 }\delta \_{ l3 } }&{ \delta \_{ j1 }\delta \_{ m1 }+\delta \_{ j2 }\delta \_{ m2 }+\delta \_{ j3 }\delta \_{ m3 } }
+\\\ { \delta \_{ k1 }\delta \_{ k1 }+\delta \_{ k2 }\delta \_{ k2 }+\delta \_{ k3 }\delta \_{ k3 } }&{ \delta \_{ k1 }\delta \_{ l1 }+\delta \_{ k2 }\delta \_{ l2 }+\delta \_{ k3 }\delta \_{ l3 } }&{ \delta \_{ k1 }\delta \_{ m1 }+\delta \_{ k2 }\delta \_{ m2 }+\delta \_{ k3 }\delta \_{ m3 } }
 \end{matrix} \right|
 \end{align*}
-$$</p>
-<p>위 행렬의 $1$행 $1$열 성분을 보자. <a href="../90">아인슈타인 노테이션</a>에 의해 다음이 성립한다.</p>
-<p>$$
-{ \delta _{ i1 }\delta _{ k1 }+\delta _{ i2 }\delta _{ k2 }+\delta _{ i3 }\delta _{ k3 } } = \sum_{j=1}^{3} \delta_{ij}\delta_{jk} = \delta_{ij}\delta_{jk} = \delta_{ik}
-$$</p>
-<p>마지막 등호는 <a href="../84">$\delta_{ij}\delta_{jl} = \delta_{il}$</a>이므로 성립한다. 따라서 다음을 얻는다.</p>
-<p>$$
-\epsilon_{ijk}\epsilon_{klm} =
-\left| \begin{matrix}
-\delta_{ik} &amp; \delta_{il} &amp; \delta_{im}
-\\  \delta_{jk} &amp; \delta_{jl} &amp; \delta_{jm}
-\\  \delta_{kk} &amp; \delta_{kl} &amp; \delta_{km}
-\end{matrix} \right|
-$$</p>
-<p>이 때 $k$는 $i, j, l, m$ 모두와 다른 값이어야 한다. $i, j$ 중에서 하나라도 $k$와 같은 값이 있으면 $\epsilon_{ijk}=0$이므로 $\epsilon_{ijk} \epsilon_{klm}=0$이라서 아무 의미가 없다. $l,\ m$에 대해서도 마찬가지이다. 따라서 다음을 얻는다.</p>
-<p>$$
-\epsilon_{ijk}\epsilon_{klm} =
-\left| \begin{matrix}
-\delta_{ik} &amp; \delta_{il} &amp; \delta_{im}
-\\  \delta_{jk} &amp; \delta_{jl} &amp; \delta_{jm}
-\\  \delta_{kk} &amp; \delta_{kl} &amp; \delta_{km}
-\end{matrix} \right|=
-\left| \begin{matrix}
-0 &amp; \delta_{il} &amp; \delta_{im}
-\\  0 &amp; \delta_{jl} &amp; \delta_{jm}
-\\  1 &amp; 0 &amp; 0
-\end{matrix} \right| = \delta_{il}\delta_{jm}-\delta_{im}\delta_{jl}
-$$</p>
-<p style="text-align: right; margin: 0px; margin-top: -2em;">■</p>
-<hr>
-<p>이때 $\epsilon_{ijk}=\epsilon_{jki}=\epsilon_{kij}$이므로 $\epsilon_{ijk}\epsilon_{klm}=\epsilon_{kij}\epsilon_{klm}=\delta_{il}\delta_{jm}-\delta_{im}\delta_{jl}$이다. 따라서 다음의 식도 같은 표현이다.
 $$
-\epsilon_{ijk}\epsilon_{ilm}=\delta_{jl}\delta_{km}-\delta_{jm}\delta_{kl}
-$$</p>
-<p>이를 이용하면 아래의 방법으로 공식을 쉽게 외울 수 있다.</p>
-<p><img src="1.PNG#center" alt="1.PNG"></p>
+
+위 행렬의 $1$행 $1$열 성분을 보자. [아인슈타인 노테이션](../90)에 의해 다음이 성립한다.
+
+$$
+{ \delta \_{ i1 }\delta \_{ k1 }+\delta \_{ i2 }\delta \_{ k2 }+\delta \_{ i3 }\delta \_{ k3 } } = \sum\_{j=1}^{3} \delta\_{ij}\delta\_{jk} = \delta\_{ij}\delta\_{jk} = \delta\_{ik}
+$$
+
+마지막 등호는 [$\delta_{ij}\delta_{jl} = \delta_{il}$](../84)이므로 성립한다. 따라서 다음을 얻는다.
+
+$$
+\epsilon\_{ijk}\epsilon\_{klm} =
+\left| \begin{matrix}
+\delta\_{ik} & \delta\_{il} & \delta\_{im}
+\\\  \delta\_{jk} & \delta\_{jl} & \delta\_{jm}
+\\\  \delta\_{kk} & \delta\_{kl} & \delta\_{km}
+\end{matrix} \right|
+$$
+
+이 때 $k$는 $i, j, l, m$ 모두와 다른 값이어야 한다. $i, j$ 중에서 하나라도 $k$와 같은 값이 있으면 $\epsilon\_{ijk}=0$이므로 $\epsilon\_{ijk} \epsilon\_{klm}=0$이라서 아무 의미가 없다. $l,\ m$에 대해서도 마찬가지이다. 따라서 다음을 얻는다.
+
+$$
+\epsilon\_{ijk}\epsilon\_{klm} =
+\left| \begin{matrix}
+\delta\_{ik} & \delta\_{il} & \delta\_{im}
+\\\  \delta\_{jk} & \delta\_{jl} & \delta\_{jm}
+\\\  \delta\_{kk} & \delta\_{kl} & \delta\_{km}
+\end{matrix} \right|= 
+\left| \begin{matrix}
+0 & \delta\_{il} & \delta\_{im}
+\\\  0 & \delta\_{jl} & \delta\_{jm}
+\\\  1 & 0 & 0
+\end{matrix} \right| = \delta\_{il}\delta\_{jm}-\delta\_{im}\delta\_{jl} 
+$$ -->
 <p style="text-align: right; margin: 0px; margin-top: -2em;">■</p>
 <h3 id="b">(b)</h3>
-<p><strong>(a)</strong> 에서 $j=m$인 경우이다. 따라서 다음과 같다.</p>
+<p><strong>(a)</strong> 에서 $l=j$인 경우이다. 따라서 다음과 같다.</p>
+<p>$\epsilon_{ijk}\epsilon_{ijm} = \delta_{jj}\delta_{km} - \delta_{jm}\delta_{kj}$</p>
+<!-- $$
+\epsilon\_{ijk}\epsilon\_{ljk} = \delta\_{il}\delta\_{jj} - \delta\_{ij}\delta\_{jl}
+$$ -->
+<p>이때 <a href="../84">$\delta_{jj}=3$</a>, 그리고 <a href="../84">$\delta_{jm}\delta_{kj}=\delta_{mk}$</a>가 성립하므로 다음과 같다.</p>
 <p>$$
-\epsilon_{ijk}\epsilon_{ljk} = \delta_{il}\delta_{jj} - \delta_{ij}\delta_{jl}
+\epsilon_{ijk}\epsilon_{ijm} = \delta_{jj}\delta_{km} - \delta_{jm}\delta_{kj} = 3\delta_{km} - \delta_{mk} = 2\delta_{km}
 $$</p>
-<p>이때 <a href="../84">$\delta_{jj}=3$</a>, <a href="../84">$\delta_{ij}\delta_{jl}=\delta_{il}$</a>가 성립하므로 다음과 같다.</p>
-<p>$$
-\epsilon_{ijk}\epsilon_{ljk} = \delta_{il}\delta_{jj} - \delta_{ij}\delta_{jl} = 3\delta_{il} - \delta_{il} = 2\delta_{il}
-$$</p>
+<!-- $$
+\epsilon\_{ijk}\epsilon\_{ljk} = \delta\_{il}\delta\_{jj} - \delta\_{ij}\delta\_{jl} = 3\delta\_{il} - \delta\_{il} = 2\delta\_{il}
+$$ -->
 <p style="text-align: right; margin: 0px; margin-top: -2em;">■</p>
 <h3 id="c">(c)</h3>
-<p><strong>(b)</strong> 와 같은 방법으로 증명한다. <strong>(a)</strong> 에서 $i$=$l$, $j$=$m$인 경우이므로 다음과 같다.</p>
-<p>$$
-\epsilon_{ijk}\epsilon_{ijk}=\delta_{ii}\delta_{jj}-\delta_{ij}\delta_{ji}
-$$</p>
-<p>이 때 $\epsilon_{ijk}$가 0이 아닌 값을 가지려면 $i \ne j$ 여야하므로 다음이 성립한다.
-<a href="../84">
+<!-- **(b)** 와 같은 방법으로 증명한다. **(a)** 에서 $i$=$l$, $j$=$m$인 경우이므로 다음과 같다.
+
 $$
-\delta_{ii}\delta_{jj} = 6 \quad (i \ne j)
-$$</a></p>
-<p>또한 $i \ne j$이어야 하므로 $\delta_{ij}=\delta_{ji}=0$이다. 따라서 다음을 얻는다.</p>
+\epsilon\_{ijk}\epsilon\_{ijk}=\delta\_{ii}\delta\_{jj}-\delta\_{ij}\delta\_{ji}
+$$
+
+이 때 $\epsilon\_{ijk}$가 0이 아닌 값을 가지려면 $i \ne j$ 여야하므로 다음이 성립한다.
+[
+$$
+\delta\_{ii}\delta\_{jj} = 6 \quad (i \ne j)
+$$](../84)
+
+또한 $i \ne j$이어야 하므로 $\delta\_{ij}=\delta\_{ji}=0$이다. 따라서 다음을 얻는다.
+
+
+$$
+\epsilon\_{ijk}\epsilon\_{ijk}=6
+$$ -->
+<p><strong>(b)</strong> 에서 $m=k$인 경우이므로,</p>
 <p>$$
-\epsilon_{ijk}\epsilon_{ijk}=6
+\epsilon_{ijk}\epsilon_{ijk} = \sum_{k=1}^{3}2\delta_{kk} = 2\delta_{11} + 2\delta_{22} + 2\delta_{33} = 2 + 2 + 2 = 6 
 $$</p>
 <p>혹은 단순하게 $0$이 아닌 모든 항을 풀어서 쓰면 다음을 얻는다.</p>
 <p>$$
@@ -367,7 +501,7 @@ $$</p>
 <aside style="text-align: right;">
     2017-04-29&emsp;
     전기현&emsp;
-    <a href="../1610">🎲 88</a>
+    <a href="../707">🎲 88</a>
 </aside>
 
 <script>

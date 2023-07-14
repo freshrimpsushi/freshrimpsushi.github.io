@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-draw-arrows-in-plot-in-julia\/",
-    "wordCount" : "222",
+    "wordCount" : "330",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -215,7 +215,12 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#코드">코드</a></li>
+    <li><a href="#코드">코드</a>
+      <ul>
+        <li><a href="#촉-모양">촉 모양</a></li>
+        <li><a href="#촉-방향">촉 방향</a></li>
+      </ul>
+    </li>
     <li><a href="#환경">환경</a></li>
   </ul>
 </nav>
@@ -228,33 +233,53 @@
 <ul>
 <li><code>plot!([x1, x2], [y1, y2], arrow=:true)</code></li>
 </ul>
-<p>위의 코드는 플랏 위에 점 $(x1, y1)$부터 점 $(x2, y2)$까지 화살표를 그린다. 촉의 위치는 당연히 $(x2, y2)$이다. 사인함수의 최댓값을 다음과 같이 표시할 수 있다.</p>
-<pre tabindex="0"><code>using plots
+<p>위의 코드는 플랏 위에 점 $(x1, y1)$부터 점 $(x2, y2)$까지 화살표를 그린다. 촉의 위치는 당연히 종점 $(x2, y2)$이다. 사인함수의 최댓값을 다음과 같이 표시할 수 있다.</p>
+<pre tabindex="0"><code>using Plots
 
 x = range(0, 2π, 100)
 plot(x, sin.(x), label=&#34;&#34;, ylims=(-1.3,1.3))
 plot!([π/2, 3], [1, 1.1], arrow=:true, color=:black, label=&#34;&#34;)
 annotate!(3.7, 1.1, &#34;maximum&#34;)
 </code></pre><p><img src="3558_1.png#center" alt=""></p>
-<p>촉을 칠하는 옵션은 <code>:closed</code>이다.</p>
-<pre tabindex="0"><code>plot!([3π/2, 3], [-1, -1.1], arrow=:closed, color=:red, label=&#34;&#34;)
+<h3 id="촉-모양">촉 모양</h3>
+<p>촉의 스타일은 <code>:open</code> 혹은 <code>:closed</code>로 선택할 수 있다.</p>
+<ul>
+<li>지정하지 않거나 <code>:true</code>: 꺽은선 $\to$</li>
+</ul>
+<!-- - `:open`: 내부가 빈 삼각형 $-\\!\\!\\!\vartriangleright$ -->
+<ul>
+<li><code>:open</code>: 내부가 빈 삼각형 $-\!\!\!\triangleright$</li>
+<li><code>:close</code>: 내부가 칠해진 삼각형 $-\!\!\!\blacktriangleright$</li>
+</ul>
+ <!-- 참고로 `arrow=:true`와 `arrow=:open`은 같은 기능을 한다. `:closed`를 선택하면 촉이 내부가 칠해진다. -->
+<pre tabindex="0"><code>plot!([3π/2, 3], [-1, -1.1], arrow=:open, color=:red, label=&#34;&#34;)
 annotate!(2.3, -1.1, &#34;minimum&#34;)
 </code></pre><p><img src="3558_2.png#center" alt=""></p>
-<p><code>:both</code>는 화살표 양쪽에 촉을 표시해주는 옵션이다.</p>
+<h3 id="촉-방향">촉 방향</h3>
+<p>촉의 방향은 <code>:head</code>, <code>:tail</code>, <code>:both</code>로 설정할 수 있고, <code>:head</code>가 기본값이다.</p>
 <pre tabindex="0"><code>plot!([π/2, π/2], [0, 1], arrow=(:closed, :both), color=:purple, label=&#34;&#34;)
 annotate!(0.75π, 0.5, &#34;amplitude&#34;)
 </code></pre><p><img src="3558_3.png#center" alt=""></p>
+<p>공식 문서에서<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> <code>headlength</code>와 <code>headwidth</code> 옵션에 대한 설명이 있는데, 넣어보면 오류만 나고 어떻게 쓰는지는 잘 모르겠다.</p>
 <h2 id="환경">환경</h2>
 <ul>
 <li>OS: Windows11</li>
 <li>Version: Julia 1.9.0, Plots v1.38.12</li>
 </ul>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://docs.juliaplots.org/v1.38/api/#Plots.arrow-Tuple">https://docs.juliaplots.org/v1.38/api/#Plots.arrow-Tuple</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
 
 
 <aside style="text-align: right;">
     2014-02-25&emsp;
     전기현&emsp;
-    <a href="../1705">🎲 3558</a>
+    <a href="../1022">🎲 3558</a>
 </aside>
 
 <script>
