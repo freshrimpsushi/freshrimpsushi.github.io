@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/laplace-prior\/",
-    "wordCount" : "992",
+    "wordCount" : "1005",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -232,21 +232,25 @@
 </aside>
 
 <h2 id="빌드업">빌드업</h2>
-<p><a href="../2440">모수</a>에 대한 정보가 거의 없다면 구태여 복잡한 사전분포를 생각할 이유는 없다. 내년 모 대학의 통계학과 신입생의 성비를 추측해보라고 했을 때, 통계학과를 어느정도 아는 사람이라면 예년의 성비를 보고 어느정도 짐작을 하겠지만 전혀 관계도 없고 관심도 없는 사람이 이 질문을 들었을 땐 특별한 이유가 없는 한 50:50이라고 추측할 것이다. 어떤 주머니 안에 빨강, 파랑, 초록, 노랑색 구슬이 있다고만 할 때, 그 외에 아무 정보가 없다면 구슬 하나를 뽑았을 때 각 색깔의 구슬이 나올 확률은 그냥 25:25:25:25이라고 추측할 것이다.</p>
+<p><a href="../2440">모수</a>에 대한 정보가 거의 없다면 구태여 복잡한 <a href="../29">사전분포</a>를 생각할 이유는 없다:</p>
+<ul>
+<li>예시1: 내년 모 대학의 통계학과 신입생의 성비를 추측해보라고 했을 때, 통계학과를 어느정도 아는 사람이라면 예년의 성비를 보고 어느정도 짐작을 할 수 있다. 그러나 전혀 관계도 없고 관심도 없는 사람이 이 질문을 들었을 땐, 특별한 이유가 없는 한 50:50이라고 추측할 것이다.</li>
+<li>예시2: 어떤 주머니 안에 빨강, 파랑, 초록, 노랑색 구슬이 있다고만 할 때, 그 외에 아무 정보가 없다면 구슬 하나를 뽑았을 때 각 색깔의 구슬이 나올 확률은 그냥 25:25:25:25이라고 추측할 것이다.</li>
+</ul>
 <h2 id="정의-1">정의 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
 <p>이렇듯 극도로 정보가 부족한 상황에서 사용하는 사전분포를 <strong>무정보적 사전분포</strong><sup>Noniniformative Prior</sup>라고 한다. 그 중에서도 특히 어떤 분포를 따른다고 상정하지 않고 일단은 공평하게 모든 가능성을 열어둔 사전분포를 <strong>라플라스 사전분포</strong><sup>Laplace Prior</sup>라고 한다.</p>
 <h2 id="설명">설명</h2>
 <h3 id="부적절-사전분포">부적절 사전분포</h3>
 <p>만약 <a href="../2440">모수</a> $\theta$ 가 어떤 구간 $(a,b)$ 에 속한다면 그 사전분포는 $\displaystyle \pi (\theta) = {{1} \over {b-a}} , a &lt; \theta &lt; b$ 과 같이 <a href="../443">일양 분포</a>로 나타날 것이다. 문제는 $ -\infty \le \theta \le \infty$ 와 같이 모수가 바운드 되어있지 않은 경우다. 이 경우 $\pi (\theta) $ 를 <a href="../443">일양 분포</a>로 두면 $\displaystyle \int_{-\infty}^{\infty} \pi ( \theta ) d \theta  = \infty$ 과 같이 계산되므로 분포함수로써 쓸 게 못 된다. 이런 경우의 사전분포를 <strong>부적절 사전분포</strong><sup>Improper Prior</sup>라 부른다. 이러한 부적절 사전분포는 부적절 사후분포를 초래할 수 있으므로 라플라스 사전분포를 사용할 땐 세심한 주의가 필요하다.</p>
 <h3 id="부적절-사전분포의-문제점">부적절 사전분포의 문제점</h3>
-<p>예를 들어 자료가 지수분포 $\displaystyle \exp \left( {{1} \over {\theta}} \right)$ 를 따른다고 할 때, 라플라스 사전분포로써 $\displaystyle \pi ( \theta ) \propto c$ 를 생각해볼 수 있다.</p>
+<p>예를 들어 자료가 <a href="../1510">지수분포</a> $\displaystyle \exp \left( {{1} \over {\theta}} \right)$ 를 따른다고 할 때, 라플라스 사전분포로써 $\displaystyle \pi ( \theta ) \propto c$ 를 생각해볼 수 있다.</p>
 <p>이 경우 $\theta$ 의 사후분포는
 $$
 p ( \theta | y ) \propto {{1} \over {\theta }} \exp \left( - {{y} \over {\theta }} \right)
 $$
 다. 이 사후분포가 적절한지 확인하기 위해 $\displaystyle \theta = {{1} \over {z}}$ 라 두고 정적분을 구해보면
 $$
-\int_{0 }^{\infty} p ( \theta | y ) d \theta \propto \int_{0}^{\infty} z \exp ( - y z ) {{1} \over {z^2}} dx = \infty
+\int_{0 }^{\infty} p ( \theta | y ) d \theta \propto \int_{0}^{\infty} z \exp ( - y z ) {{1} \over {z^2}} dz = \infty
 $$
 따라서 사후분포는 확률분포함수로써 적절치 않으므로, <a href="../716">다른 사전분포</a>를 고려해봐야한다.</p>
 <h3 id="언제나-부적절-사전분포가-문제가-되지는-않는다">언제나 부적절 사전분포가 문제가 되지는 않는다</h3>
@@ -272,7 +276,7 @@ $$
 <aside style="text-align: right;">
     2018-11-06&emsp;
     류대식&emsp;
-    <a href="../1896">🎲 714</a>
+    <a href="../947">🎲 714</a>
 </aside>
 
 <script>
