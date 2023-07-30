@@ -16,7 +16,6 @@ df = Iris().features
 X = Array(df)
 
 label = Array(Iris().targets)
-label[101]
 
 p₃ = plot(layout=(4,4), size=(728, 600))
 for i in 0:15
@@ -29,4 +28,3 @@ for i in 0:15
 end
 display(p₃)
 savefig(p₃, "C:/Users/rydbr/Desktop/바탕화면/admin/content/j_/0_recent/3563_차원축소/3563_2.png", )
-p₃[1]
