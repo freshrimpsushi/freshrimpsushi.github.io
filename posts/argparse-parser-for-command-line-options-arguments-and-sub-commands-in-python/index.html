@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/argparse-parser-for-command-line-options-arguments-and-sub-commands-in-python\/",
-    "wordCount" : "643",
+    "wordCount" : "648",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -216,7 +216,15 @@
       <nav id="TableOfContents">
   <ul>
     <li><a href="#설명">설명</a></li>
-    <li><a href="#코드">코드</a></li>
+    <li><a href="#코드">코드</a>
+      <ul>
+        <li><a href="#이름-및-타입-지정">이름 및 타입 지정</a></li>
+        <li><a href="#인자의-수">인자의 수</a></li>
+        <li><a href="#기본-값">기본 값</a></li>
+        <li><a href="#그-외">그 외</a></li>
+      </ul>
+    </li>
+    <li><a href="#환경">환경</a></li>
   </ul>
 </nav>
     </div>
@@ -255,54 +263,56 @@ print(&#34;activ_fn:&#34;, args.activ_fn)
 <li><code>python test.py -epo=10 -s=2 -a=relu</code></li>
 <li></li>
 </ul>
-<p>&lt;class &lsquo;argparse.Namespace&rsquo;&gt;
-&lt;class &lsquo;argparse.Namespace&rsquo;&gt;
-args: Namespace(epoch=10, seed=2, activ_fn=&lsquo;relu&rsquo;)
+<pre tabindex="0"><code># 콘솔창에서 실행
+&gt;python test.py -epo 10 -s 2 -a relu
+
+&lt;class &#39;argparse.Namespace&#39;&gt;
+&lt;class &#39;argparse.Namespace&#39;&gt;
+args: Namespace(epoch=10, seed=2, activ_fn=&#39;relu&#39;)
 epoch: 10
 seed: 2
-activ_fn: relu</p>
-<pre tabindex="0"><code>
-### 이름 및 타입 지정
+activ_fn: relu
+</code></pre><h3 id="이름-및-타입-지정">이름 및 타입 지정</h3>
+<p>인자의 이름은 <code>&quot;-f&quot;</code> 혹은 <code>&quot;--foo&quot;</code>와 같은 형식으로 입력한다. 관습적으로 약어의 경우 하나의 대시 <code>-</code>, 전체 이름의 경우 두 개의 대시 <code>--</code>를 쓰지만 <code>-foo</code>처럼 작성해도 코드는 돌아간다. <code>type</code> 옵션으로 타입을 지정할 수 있다. 이를 <code>int</code>로 두면, 입력인자가 1일 때 문자열 &lsquo;1&rsquo;이 아니라 숫자 1을 값으로 전달받는다.</p>
+<h3 id="인자의-수">인자의 수</h3>
+<p><code>nargs</code> 옵션으로 몇 개의 인자를 받을지 정할 수 있다.</p>
+<pre tabindex="0"><code># test.py 코드
+parser.add_argument(&#34;--dx&#34;, type=float, nargs=3)
+parser.add_argument(&#34;--dy&#34;, type=float, nargs=2)
+args = parser.parse_args()
 
-인자의 이름은 `&#34;-f&#34;` 혹은 `&#34;--foo&#34;`와 같은 형식으로 입력한다. 관습적으로 약어의 경우 하나의 대시 `-`, 전체 이름의 경우 두 개의 대시 `--`를 쓰지만 `-foo`처럼 작성해도 코드는 돌아간다. `type` 옵션으로 타입을 지정할 수 있다. 이를 `int`로 두면, 입력인자가 1일 때 문자열 &#39;1&#39;이 아니라 숫자 1을 값으로 전달받는다.
+print(&#34;dx:&#34;, args.dx, &#34;, type of dx:&#34;, type(args.dx))
+print(&#34;dy:&#34;, args.dy, &#34;, type of dy:&#34;, type(args.dy))
 
-### 인자의 수
+# 콘솔창에서 실행
+&gt;python test.py --dx 0.1 0.01 0.001 --dy 0.2 0.02
 
-`nargs` 옵션으로 몇 개의 인자를 받을지 정할 수 있다.
-</code></pre><h1 id="testpy-코드">test.py 코드</h1>
-<p>parser.add_argument(&quot;&ndash;dx&quot;, type=float, nargs=3)
-parser.add_argument(&quot;&ndash;dy&quot;, type=float, nargs=2)
-args = parser.parse_args()</p>
-<p>print(&ldquo;dx:&rdquo;, args.dx, &ldquo;, type of dx:&rdquo;, type(args.dx))
-print(&ldquo;dy:&rdquo;, args.dy, &ldquo;, type of dy:&rdquo;, type(args.dy))</p>
-<h1 id="콘솔창에서-실행">콘솔창에서 실행</h1>
-<blockquote>
-<p>python test.py &ndash;dx 0.1 0.01 0.001 &ndash;dy 0.2 0.02</p>
-</blockquote>
-<p>dx: [0.1, 0.01, 0.001] , type of dx: &lt;class &rsquo;list&rsquo;&gt;
-dy: [0.2, 0.02] , type of dy: &lt;class &rsquo;list&rsquo;&gt;</p>
-<pre tabindex="0"><code>
-### 기본 값
+dx: [0.1, 0.01, 0.001] , type of dx: &lt;class &#39;list&#39;&gt;
+dy: [0.2, 0.02] , type of dy: &lt;class &#39;list&#39;&gt;
+</code></pre><h3 id="기본-값">기본 값</h3>
+<p><code>default</code> 옵션으로 기본 값을 설정할 수 있다.</p>
+<pre tabindex="0"><code>parser.add_argument(&#34;-e&#34;, &#34;--epoch&#34;, type=int, defalut=100000)
+</code></pre><h3 id="그-외">그 외</h3>
+<p>외에 <code>action</code>, <code>required</code>, <code>help</code>, <code>metavar</code> 등의 옵션이 있다.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<h2 id="환경">환경</h2>
+<ul>
+<li>OS: Windows11</li>
+<li>Version: Python 3.9.13</li>
+</ul>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://docs.python.org/3/library/argparse.html#the-add-argument-method">https://docs.python.org/3/library/argparse.html#the-add-argument-method</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
 
-`default` 옵션으로 기본 값을 설정할 수 있다.
-</code></pre><p>parser.add_argument(&quot;-e&quot;, &ldquo;&ndash;epoch&rdquo;, type=int, defalut=100000)</p>
-<pre tabindex="0"><code>
-### 그 외
-
-외에 `action`, `required`, `help`, `metavar` 등의 옵션이 있다.[^1]
-
-[^1]: https://docs.python.org/3/library/argparse.html#the-add-argument-method
-
-## 환경
-
-- OS: Windows11
-- Version: Python 3.9.13
-</code></pre>
 
 <aside style="text-align: right;">
     2014-03-02&emsp;
     전기현&emsp;
-    <a href="../1829">🎲 3561</a>
+    <a href="../576">🎲 3561</a>
 </aside>
 
 <script>
