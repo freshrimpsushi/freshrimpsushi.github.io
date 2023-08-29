@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/laplace-expansion\/",
-    "wordCount" : "387",
+    "wordCount" : "561",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -216,8 +216,12 @@
       <nav id="TableOfContents">
   <ul>
     <li><a href="#정리">정리</a></li>
-    <li><a href="#설명">설명</a></li>
-    <li><a href="#예시">예시</a></li>
+    <li><a href="#설명">설명</a>
+      <ul>
+        <li><a href="#예시">예시</a></li>
+      </ul>
+    </li>
+    <li><a href="#코드">코드</a></li>
   </ul>
 </nav>
     </div>
@@ -243,7 +247,7 @@ $$</li>
 </ul>
 <h2 id="설명">설명</h2>
 <p><strong>라플라스 전개</strong>는 <strong>여인자 전개</strong> 로도 불리는 정리로써, 그 유용함이 이루 말할 수가 없다. 당장 <a href="../252">행렬식</a>을 정의만 가지고 계산하는 것보단 훨씬 쉽다. 특수한 조건이 갖춰진 행렬의 <a href="../252">행렬식</a>을 구할 땐 그 장점이 더더욱 배가되므로 팩트만큼은 반드시 알아야만 한다.</p>
-<h2 id="예시">예시</h2>
+<h3 id="예시">예시</h3>
 <p>당장 어떤 행렬이 가역행렬인지 판단할 때 써먹을만한 예로써 다음 라플라스 전개를 보자.</p>
 <p>$$
 \begin{align*}
@@ -260,12 +264,39 @@ $$</li>
 \end{align*}
 $$</p>
 <p>따라서 $\displaystyle \det \begin{bmatrix} 1 &amp; 2 &amp; 3 \\  4 &amp; 5 &amp; 6 \\  7 &amp; 8 &amp; 9 \end{bmatrix}$ 는 역행렬이 존재하지 않음을 쉽게 확인할 수 있다.</p>
+<h2 id="코드">코드</h2>
+<p>다음은 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서 라플라스 전개를 구현하고 검증하는 내용의 코드다. 사실상 수식을 거의 그대로 옮겨놓은 수준이고, 실제로는 매우 비효율적으로 구현되어 있는 상태다. 이에 대해서는 다음의 포스트를 참고하면 좋다:</p>
+<ul>
+<li><a href="../1254">재귀함수를 쓸 때 주의해야하는 이유</a></li>
+</ul>
+<pre tabindex="0"><code>function laplace(A::AbstractMatrix)
+    n = size(A, 1)
+    @assert n == size(A, 2) &#34;matrix $A is not square&#34;
 
+    if n |&gt; isone
+        aijCij = A
+    else
+        aijCij = [A[1,j] * (-(-1)^j) * laplace(A[2:end, setdiff(1:n, j)]) for j in 1:n]
+    end
+    return sum(aijCij)
+end
+B = [2 3; 4 6]
+laplace(B)
+C = [7 1; 9 3]
+laplace(C)
+
+M = rand(3,3)
+laplace(M)
+
+using LinearAlgebra
+det(M)
+abs(det(M) - laplace(M))
+</code></pre>
 
 <aside style="text-align: right;">
     2018-11-28&emsp;
     류대식&emsp;
-    <a href="../634">🎲 781</a>
+    <a href="../1972">🎲 781</a>
 </aside>
 
 <script>
@@ -1075,6 +1106,11 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     </div>
 
     
+    
+    
+    <link rel="stylesheet" href=https://freshrimpsushi.github.io/css/codefence.css>
+    <script src=https://freshrimpsushi.github.io/js/highlight.min.js></script>
+    <script>hljs.initHighlightingOnLoad();</script>
     
 
     <script src=https://freshrimpsushi.github.io/js/fuse.js></script> 

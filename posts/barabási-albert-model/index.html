@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/barab%C3%A1si-albert-model\/",
-    "wordCount" : "704",
+    "wordCount" : "979",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -218,7 +218,12 @@
   <ul>
     <li><a href="#알고리즘-1">알고리즘 </a></li>
     <li><a href="#설명">설명</a></li>
-    <li><a href="#시각화">시각화</a></li>
+    <li><a href="#코드">코드</a>
+      <ul>
+        <li><a href="#시각화">시각화</a></li>
+        <li><a href="#구현">구현</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
     </div>
@@ -252,7 +257,8 @@ $$
 p_{k} = {{ \deg k } \over { \sum_{k=1}^{n} \deg k }}
 $$
 이 확률이 의미하는 바는 바로 새로운 링크가 연결되는 이유 자체를 기존의 링크에서 찾는 것이다. 후발주자보다는 선발주자가 유리하며, 유리한 노드는 갈수록 유리해진다. 인기라는 개념이 네트워크로 태어난다면 그게 바로 바라바시 알버트 네트워크다. 이러한 이유로 가끔은 <strong>프리퍼런셜 어태치</strong><sup>Preferential Attachment</sup>라 불리기도 한다.</p>
-<h2 id="시각화">시각화</h2>
+<h2 id="코드">코드</h2>
+<h3 id="시각화">시각화</h3>
 <p>다음은 BA 네트워크을 생성하고 그 발달<sup>Evolving</sup> 과정을 시각화하는 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a> 코드다.</p>
 <pre tabindex="0"><code>@time using Graphs
 @time using Plots, GraphRecipes
@@ -269,6 +275,55 @@ graph_evolution = @animate for n ∈ 4:N
   xlims!(-n/N,n/N); ylims!(-n/N,n/N)
 end
 gif(graph_evolution, &#34;zoomout.gif&#34;, fps = 16)
+</code></pre><h3 id="구현">구현</h3>
+<p>가중치를 주고 샘플링하는 함수 <code>randw()</code>을 포함해서 패키지에 의존하지 않고 <a href="../2187">바라바시-알버트 모델</a>을 만드는 함수 <code>barabasi_albert()</code>를 구현했다.</p>
+<pre tabindex="0"><code>function randw(item, weight)
+    @assert length(item) == length(weight) &#34;length mismatch&#34;
+    @assert any(weight .&gt; 0) &#34;all weights are zero&#34;
+    @assert all(weight .≥ 0) &#34;there is a negative weight&#34;
+    
+    Σ = sum(weight)
+    if !isone(Σ)
+        weight = weight ./ Σ
+    end
+    return item[findfirst(rand() .≤ cumsum(weight))]
+end
+randw([&#39;a&#39;, &#39;b&#39;, &#39;c&#39;], [1,2])
+randw([&#39;a&#39;, &#39;b&#39;, &#39;c&#39;], [0,0,0])
+randw([&#39;a&#39;, &#39;b&#39;, &#39;c&#39;], [1,2,-1])
+randw([&#39;a&#39;, &#39;b&#39;, &#39;c&#39;], [1,2,3])
+abc = [randw([&#39;a&#39;, &#39;b&#39;, &#39;c&#39;], [1,2,3]) for _ in 1:6000]
+count.([abc .== &#39;a&#39;, abc .== &#39;b&#39;, abc .== &#39;c&#39;])
+
+function randw(item, weight, n; replace = true)
+    @assert n ≤ length(item) &#34;n = $n is larger than the length of item = $(length(item))&#34;
+
+    while true
+        sample = [randw(item, weight) for _ in 1:n]
+        if (length(unique(sample)) == n) || replace
+            return sample
+        end
+    end
+end
+randw(-10:-1, 1:10, 5)
+randw(-10:-1, 1:10, 5, replace = false)
+
+function barabasi_albert(N, m = 1)
+    G = [setdiff(1:m, k) for k in 1:m]
+    for new in (m+1):N
+        idxs = randw(1:(new-1), length.(G), m, replace = false)
+        push!(G, idxs)
+        push!.(G[idxs], new)
+    end
+    return G
+end
+
+ba = barabasi_albert(1000, 3)
+degree = length.(ba)
+
+using Plots
+histogram(degree)
+histogram(degree, xscale = :log10, yscale = :log10, xticks = 10.0 .^(-0:0.5:2), xlims = extrema(degree))
 </code></pre><div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -285,7 +340,7 @@ gif(graph_evolution, &#34;zoomout.gif&#34;, fps = 16)
 <aside style="text-align: right;">
     2022-04-13&emsp;
     류대식&emsp;
-    <a href="../1987">🎲 2187</a>
+    <a href="../682">🎲 2187</a>
 </aside>
 
 <script>
