@@ -67,10 +67,10 @@
     </script>
 
     
-<meta name="title" content="1/x^p의 적분 가능성">
+<meta name="title" content="백분위수와 이상치">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="1/x^p의 적분 가능성"/>
-<meta property="og:description" content="Integrability of 1/x^p"/>
+<meta property="og:title" content="백분위수와 이상치"/>
+<meta property="og:description" content="Percentile and Outlier"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -81,34 +81,34 @@
 {
     "@context": "http://schema.org",
     "@type": "BlogPosting",
-    "articleSection": "j_",
-    "name": "1\/x^p의 적분 가능성",
-    "headline": "1\/x^p의 적분 가능성",
+    "articleSection": "r_",
+    "name": "백분위수와 이상치",
+    "headline": "백분위수와 이상치",
     "alternativeHeadline": "",
-    "description": "Integrability of 1\/x^p",
+    "description": "Percentile and Outlier",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/integrability-of-1-of-xp\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/percentile-and-outlier\/"
     },
     "author" : {
         "@type": "Person",
-        "name": "전기현"
+        "name": "류대식"
     },
     "creator" : {
         "@type": "Person",
-        "name": "전기현"
+        "name": "류대식"
     },
     "accountablePerson" : {
         "@type": "Person",
-        "name": "전기현"
+        "name": "류대식"
     },
     "copyrightHolder" : "생새우초밥집",
-    "copyrightYear" : "2014",
-    "dateCreated": "2014-03-08T00:00:00.00Z",
-    "datePublished": "2014-03-08T00:00:00.00Z",
-    "dateModified": "2014-03-08T00:00:00.00Z",
+    "copyrightYear" : "2023",
+    "dateCreated": "2023-09-25T00:00:00.00Z",
+    "datePublished": "2023-09-25T00:00:00.00Z",
+    "dateModified": "2023-09-25T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -121,15 +121,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/integrability-of-1-of-xp\/",
-    "wordCount" : "451",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/percentile-and-outlier\/",
+    "wordCount" : "674",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>1/x^p의 적분 가능성</title>
+    <title>백분위수와 이상치</title>
 </head>
 
 <body class="main">
@@ -137,7 +137,7 @@
     <a href="../../" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC.png style="height: auto; max-width: 16%;">
+                <img src=https://freshrimpsushi.github.io/logo/%EB%8D%B0%EC%9D%B4%ED%84%B0%EA%B3%BC%ED%95%99.png style="height: auto; max-width: 16%;">
             
             
             
@@ -188,21 +188,21 @@
     <div class="content">
       <div class="content-box">
         
-<title>1/x^p의 적분 가능성</title>
+<title>백분위수와 이상치</title>
 
 
 
 
-        <a href="https://freshrimpsushi.github.io/categories/%EB%B3%B4%EC%A1%B0%EC%A0%95%EB%A6%AC/"
+        <a href="https://freshrimpsushi.github.io/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%EA%B3%BC%ED%95%99/"
             style="background-color: rgba(0, 0, 0, 0.8); color: orange;
             border-radius:10px; padding: 5px;">
-            📂보조정리</a>
+            📂데이터과학</a>
         
 
 
-<h1>1/x^p의 적분 가능성</h1>
+<h1>백분위수와 이상치</h1>
 <p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px; margin-left: 0px;">
-  Integrability of 1/x^p
+  Percentile and Outlier
 </p>
 
 <aside>
@@ -215,12 +215,11 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#정리">정리</a></li>
-    <li><a href="#설명">설명</a></li>
-    <li><a href="#증명">증명</a>
+    <li><a href="#정의-1">정의 </a></li>
+    <li><a href="#설명">설명</a>
       <ul>
-        <li><a href="#x-in-01인-경우">$x \in (0,1]$인 경우</a></li>
-        <li><a href="#x-in-1-infty">$x \in [1, \infty)$</a></li>
+        <li><a href="#2사분위수">2사분위수</a></li>
+        <li><a href="#아웃라이어">아웃라이어</a></li>
       </ul>
     </li>
   </ul>
@@ -230,80 +229,49 @@
   </div>
 </aside>
 
-<h2 id="정리">정리</h2>
-<p>함수 $f(x) = \dfrac{1}{x^{p}}$의 적분가능성은 다음과 같다.</p>
+<h2 id="정의-1">정의 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p><a href="../2420">양적 데이터</a>가 주어져 있다고 하자.</p>
 <ol>
-<li>
-<p>$x \in (0,1]$일 때, $p \gt 1$이면 $f$는 적분가능하다.</p>
+<li>전체에서 $p \%$ 만큼보다 크고 $(100-p) \%$ 만큼보다 작은 값을 <strong>$p$-퍼센타일</strong><sup>$p$th Percentile</sup>이라 한다.</li>
+<li>$100$-퍼센타일과 $0$-퍼센타일(데이터에서 가장 큰 값과 작은 값)을 각각 <a href="../2027">최대값, 최소값</a>이라 한다.
+<ul>
+<li>최대값과 최소값의 차를 데이터의 <strong>범위</strong><sup>Range</sup> $R$ 라 한다.</li>
+</ul>
 </li>
-<li>
-<p>$x \in [1, \infty)$일 때, $p \lt 1$이면 $f$는 적분가능하다.</p>
+<li>$25$-퍼센타일을 1사분위수 $Q_{1}$ 이라 하고 $75$-퍼센타일을 3사분위수 $Q_{3}$ 라 한다.
+<ul>
+<li>$\left( Q_{3} - Q_{1} \right)$ 을 <strong>사분범위</strong><sup>Interqurtile Range</sup> $\text{IQR}$ 이라 한다.</li>
+</ul>
 </li>
+<li>최소값, 1사분위수, <a href="../2444">중위수</a>, 3사분위수, 최대값의 다섯가지 <a href="../2440">통계량</a>을 <strong>다섯 수 요약</strong><sup>Five</sup>이라 한다.
+$$
+\min \qquad Q_{1} \qquad \text{median} \qquad Q_{3} \qquad \max
+$$</li>
+<li>경험적으로, 다음의 범위를 벗어난 데이터를 <strong>이상치</strong><sup>Outlier</sup>라 부르기도 한다.
+$$
+\left[ Q_{1} - 1.5 \text{IQR} , Q_{3} + 1.5 \text{IQR} \right]
+$$
+이 구간의 하한을 <strong>로워 펜스</strong><sup>Lower Fence</sup>, 상한을 <strong>어퍼 펜스</strong><sup>Upper Fence</sup>라 한다.</li>
 </ol>
 <h2 id="설명">설명</h2>
-<p>$x$가 $1$보다 작으면 $p$도 $1$보다 작아야하고, $x$가 $1$보다 크면 $p$도 $1$보다 커야한다고 외우면 된다.</p>
-<h2 id="증명">증명</h2>
-<h3 id="x-in-01인-경우">$x \in (0,1]$인 경우</h3>
-<p><strong>$p \lt 1$인 경우</strong></p>
-<p>$1 - p \gt 0$이므로, 아래와 같이 수렴한다.</p>
-<p>$$
-\begin{align*}
-\int_{0}^{1} \dfrac{1}{x^p} dx
-&amp;= \left. \dfrac{1}{-p+1} x^{1-p} \right|_{0}^{1} \\
-&amp;= \dfrac{1}{-p+1} \left( 1 - 0 \right) \\
-&amp;= \dfrac{1}{-p+1} \lt \infty
-\end{align*}
-$$</p>
-<p><strong>$p \gt 1$인 경우</strong></p>
-<p>$p - 1 \gt 0$이므로, 아래와 같이 수렴한다.</p>
-<p>$$
-\begin{align*}
-\int_{0}^{1} \dfrac{1}{x^p} dx
-&amp;= \left. \dfrac{1}{-p+1} \dfrac{1}{x^{p-1}} \right|_{0}^{1} \\
-&amp;= \dfrac{1}{-p+1} \left( 1 - \infty \right) \\
-&amp;=  \infty
-\end{align*}
-$$</p>
-<p><strong>$p = 1$인 경우</strong></p>
-<p>아래와 같이 적분이 발산한다.</p>
-<p>$$
-\int_{0}^{1} \dfrac{1}{x} dx = \left. \log x \right|_{0}^{1} = \log 1 - (-\infty) = \infty
-$$</p>
-<p style="text-align: right; margin: 0px; margin-top: -2em;">■</p>
+<h3 id="2사분위수">2사분위수</h3>
+<p>$50$-퍼센타일, 즉 2사분위수는 다름 아닌 <a href="../2444">중위수</a>기 때문에 다섯 수 요약을 말하기 위해 굳이 따로 정의하지 않는다. 이러한 다섯 수 요약은 충분히 많은 데이터가 있을 때 그 숫자들만 보고도 데이터의 분포를 대략적으로 짐작할 수 있도록 도움을 주며, 어떤 <a href="../2418">데이터</a>를 보더라도 가장 먼저 확인해야한다.</p>
+<h3 id="아웃라이어">아웃라이어</h3>
+<p><strong>아웃라이어</strong><sup>Outlier</sup>란 말 그대로 밖<sup>Out</sup>에 놓인 것<sup>Lier</sup>이라는 의미로, 보편적인 데이터에서 $Q_{1} - 1.5 \text{IQR}$ 는 꽤 작은값이며 $Q_{3} + 1.5 \text{IQR}$ 는 꽤 큰 값인데도 불구하고 그 범위를 벗어났기 때문에 아웃라이어라 불릴만하다. &lsquo;경험적&rsquo;이라거나 &lsquo;보편적 데이터&rsquo;라는 표현을 사용하는만큼 이는 수학적으로 엄밀한 정의가 아님에 주의하자.</p>
+<div class="footnotes" role="doc-endnotes">
 <hr>
-<h3 id="x-in-1-infty">$x \in [1, \infty)$</h3>
-<p><strong>$p \gt 1$인 경우</strong></p>
-<p>$p - 1 \gt 0$이므로, 아래와 같이 수렴한다.</p>
-<p>$$
-\begin{align*}
-\int_{1}^{\infty} \dfrac{1}{x^p} dx
-&amp;= \left. \dfrac{1}{-p+1} \dfrac{1}{x^{p-1}} \right|_{1}^{\infty} \\
-&amp;= \dfrac{1}{-p+1} \left(  \dfrac{1}{\infty^{p-1}} - 1 \right) \\
-&amp;= \dfrac{1}{p-1} \lt \infty
-\end{align*}
-$$</p>
-<p><strong>$p \lt 1$인 경우</strong></p>
-<p>$ 1-p \gt 0$이므로, 아래와 같이 발산한다.</p>
-<p>$$
-\begin{align*}
-\int_{1}^{\infty} \dfrac{1}{x^p} dx
-&amp;= \left. \dfrac{1}{-p+1} x^{1-p} \right|_{1}^{\infty} \\
-&amp;= \dfrac{1}{-p+1} \left(  \infty^{1-p} - 1 \right) \\
-&amp;= \infty
-\end{align*}
-$$</p>
-<p><strong>$p = 1$인 경우</strong></p>
-<p>아래와 같이 적분이 발산한다.</p>
-<p>$$
-\int_{1}^{\infty} \dfrac{1}{x} dx = \left. \log x \right|_{1}^{\infty} = \log(\infty) - \log 1 = \infty
-$$</p>
-<p style="text-align: right; margin: 0px; margin-top: -2em;">■</p>
+<ol>
+<li id="fn:1">
+<p>Mendenhall. (2012). Introduction to Probability and Statistics (13th Edition): p76, 60, 78~80.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
 
 
 <aside style="text-align: right;">
-    2014-03-08&emsp;
-    전기현&emsp;
-    <a href="../706">🎲 3564</a>
+    2023-09-25&emsp;
+    류대식&emsp;
+    <a href="../741">🎲 2452</a>
 </aside>
 
 <script>
@@ -318,8 +286,8 @@ $$</p>
       renderKaTex(tex);
     }
 
-    var title = '1\/x^p의 적분 가능성';
-    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/integrability-of-1-of-xp\/';
+    var title = '백분위수와 이상치';
+    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/percentile-and-outlier\/';
     var arr = new Array();
     var obj = {
       "title": title,
@@ -387,7 +355,7 @@ $$</p>
       .then(ip => {
         const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
         return postFetch(url, {
-                board_idx: '3564',
+                board_idx: '2452',
                 user_ip: ip
               });
       })
@@ -520,9 +488,9 @@ $$</p>
       alert('빈칸을 채워주세요');
       return;
     }
-    const idx = '3564';
-    const board_slug = 'integrability-of-1-of-x^p';
-    const board_title = '1\/x^p의 적분 가능성';
+    const idx = '2452';
+    const board_slug = 'percentile-and-outlier';
+    const board_title = '백분위수와 이상치';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -761,9 +729,9 @@ $$</p>
       return;
     }
 
-    const board_idx = '3564';
-    const board_slug = 'integrability-of-1-of-x^p';
-    const board_title = '1\/x^p의 적분 가능성';
+    const board_idx = '2452';
+    const board_slug = 'percentile-and-outlier';
+    const board_title = '백분위수와 이상치';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
