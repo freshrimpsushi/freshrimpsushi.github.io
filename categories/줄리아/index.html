@@ -347,6 +347,7 @@
 <li><a href="../../posts/2303">네임드 튜플 <code>(; x, y)</code></a></li>
 <li><a href="../../posts/3439">기본 자료형 변경하는 방법 <code>@changeprecision</code></a></li>
 <li><a href="../../posts/2276">문자열 숫자로 바꾸는 법 <code>parse(type, str)</code></a> <img src="julia.svg" alt="줄리아" style="height: 1em;vertical-align:middle;"></li>
+<li><a href="../../posts/2616">컬렉션의 중복을 없애는 법 <code>unique()</code>, <code>allunique()</code></a> <img src="python.svg" alt="파이썬" style="height: 1em;vertical-align:middle;"></li>
 </ul>
 <h3 id="배열">배열</h3>
 <ul>
@@ -437,7 +438,7 @@
 </ul>
 </li>
 <li><a href="../../posts/2254">데이터프레임 그룹별로 나누고 계산하는 법 <code>groupby()</code>, <code>combine()</code></a> <img src="julia.svg" alt="줄리아" style="height: 1em;vertical-align:middle;"></li>
-<li><a href="../../posts/2619">vscode에서 데이터프레임 깔끔하게 보는 법 <code>Main.VSCodeServer.vscodedisplay(df)</code></a></li>
+<li><a href="../../posts/2620">vscode에서 데이터프레임 깔끔하게 보는 법 <code>Main.VSCodeServer.vscodedisplay(df)</code></a></li>
 </ul>
 <h3 id="이미지-imagesjl">이미지 <code>Images.jl</code></h3>
 <ul>
@@ -561,6 +562,7 @@
 <li><a href="../../posts/2566">수치해석적 인터폴레이션 하는 법 <code>Interpolations.jl</code></a></li>
 <li><a href="../../posts/2568">유한차분 사용하는 법 <code>FiniteDifferences.jl</code></a></li>
 <li><a href="../../posts/2613">클러스터링 패키지 <code>Clustering.jl</code></a></li>
+<li><a href="../../posts/2618">의사결정나무 사용하는 법 <code>DecisionTree.jl</code></a></li>
 </ul>
 <!-- - 토모그래피 패키지 `Tomography.jl` -->
 <h3 id="코드-최적화-기법">코드 최적화 기법</h3>
@@ -617,10 +619,6 @@
 
   <summary>전체 포스트</summary>
   <ul>
-    
-    <li><a href="https://freshrimpsushi.github.io/posts/how-to-send-mail-in-julia/">줄리아로 네이버에서 메일 보내는 법</a></li>
-    
-    <li><a href="https://freshrimpsushi.github.io/posts/how-to-convert-between-2d-array-and-matrix-in-julia/">줄리아에서 2차원 배열과 행렬 간 전환하는 법</a></li>
     
     <li><a href="https://freshrimpsushi.github.io/posts/how-to-compute-difference-between-two-times-in-seconds/">줄리아에서 두 시각의 차를 초 단위로 계산하는 법</a></li>
     
@@ -681,6 +679,12 @@
     <li><a href="https://freshrimpsushi.github.io/posts/how-to-refer-property-of-structure-by-function-in-julia/">줄리아에서 함수로 구조체의 프로퍼티 참조하는 법</a></li>
     
     <li><a href="https://freshrimpsushi.github.io/posts/zygote.jl-how-to-use-automatic-differentiation-in-julia/">줄리아의 자동미분 패키지 Zygote.jl</a></li>
+    
+    <li><a href="https://freshrimpsushi.github.io/posts/how-to-use-clustring-package-in-julia/">줄리아에서 클러스터링 패키지 사용하는 법</a></li>
+    
+    <li><a href="https://freshrimpsushi.github.io/posts/how-to-remove-duplicates-from-collection-in-julia/">줄리아에서 컬렉션의 중복을 없애는 법</a></li>
+    
+    <li><a href="https://freshrimpsushi.github.io/posts/how-to-use-decision-tree-in-julia/">줄리아에서 의사결정나무 사용하는 법</a></li>
     
     <li><a href="https://freshrimpsushi.github.io/posts/how-to-set-the-color-of-axis-border-ticks-name/">줄리아에서 그림 축의 테두리, 값, 눈금, 이름 색 지정하는 법</a></li>
     
@@ -965,6 +969,10 @@
     <li><a href="https://freshrimpsushi.github.io/posts/how-to-random-sampling-in-julia/">줄리아에서 랜덤 추출하는 방법</a></li>
     
     <li><a href="https://freshrimpsushi.github.io/posts/how-to-random-sampling-by-given-distribution-in-julia/">줄리아에서 주어진 분포로 무작위 추출하는 방법</a></li>
+    
+    <li><a href="https://freshrimpsushi.github.io/posts/how-to-send-mail-in-julia/">줄리아로 네이버에서 메일 보내는 법</a></li>
+    
+    <li><a href="https://freshrimpsushi.github.io/posts/how-to-convert-between-2d-array-and-matrix-in-julia/">줄리아에서 2차원 배열과 행렬 간 전환하는 법</a></li>
     
   </ul>
 </details>
@@ -1511,8 +1519,8 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
   const color = {green: '#33cc33', yellow: '#ffcc00', red: '#ff3333', black: '#000000'};
   const categoryRows = [
     [
-      { idx: 1, name: '함수', size: '90', color: color.green },
-      { idx: 2, name: '보조정리', size: '24', color: color.green },
+      { idx: 1, name: '함수', size: '99', color: color.green },
+      { idx: 2, name: '보조정리', size: '29', color: color.green },
       { idx: 3, name: '집합론', size: '47', color: color.green },
       { idx: 4, name: '정수론', size: '89', color: color.green },
       { idx: 5, name: '기하학', size: '145', color: color.green },
@@ -1520,7 +1528,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       { idx: 7, name: '선형대수', size: '83', color: color.green },
       { idx: 8, name: '추상대수', size: '96', color: color.green },
       { idx: 9, name: '위상수학', size: '63', color: color.green },
-      { idx: 10, name: '그래프이론', size: '50', color: color.green }
+      { idx: 10, name: '그래프이론', size: '60', color: color.green }
     ],
     [
       { idx: 1, name: '해석개론', size: '96', color: color.green },
@@ -1557,7 +1565,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     [
       { idx: 1, name: 'R', size: '53', color: color.green },
       { idx: 2, name: '데이터확보', size: '22', color: color.green },
-      { idx: 3, name: '데이터과학', size: '30++', color: color.red },
+      { idx: 3, name: '데이터과학', size: '30++', color: color.green },
       { idx: 4, name: '통계적검정', size: '20++', color: color.red },
       { idx: 5, name: '통계적분석', size: '67', color: color.green },
       { idx: 6, name: '수리통계학', size: '110', color: color.green },
@@ -1566,7 +1574,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       { idx: 9, name: '위상데이터분석', size: '40', color: color.green }
     ],
     [
-      { idx: 1, name: '줄리아', size: '150++', color: color.green },
+      { idx: 1, name: '줄리아', size: '150', color: color.green },
       { idx: 2, name: '프로그래밍', size: '47', color: color.green },
       { idx: 3, name: '알고리즘', size: '28', color: color.green },
       { idx: 4, name: '머신러닝', size: '61', color: color.green },
