@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/proof-that-p-norm-is-maximum-norm-when-p-is-infinity\/",
-    "wordCount" : "670",
+    "wordCount" : "1076",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -216,7 +216,12 @@
       <nav id="TableOfContents">
   <ul>
     <li><a href="#정리">정리</a></li>
-    <li><a href="#설명">설명</a></li>
+    <li><a href="#설명">설명</a>
+      <ul>
+        <li><a href="#시각화-1">시각화 </a></li>
+        <li><a href="#직관적-수식-전개">직관적 수식 전개</a></li>
+      </ul>
+    </li>
     <li><a href="#증명">증명</a></li>
   </ul>
 </nav>
@@ -226,12 +231,32 @@
 </aside>
 
 <h2 id="정리">정리</h2>
-<p>$1 &lt; p_{0} &lt; \infty$ 에 대해 $\left\{ x_{n} \right\}_{n \in \mathbb{N} } \in \mathcal{l}^{p_{0}}$ 라고 하면</p>
-<p>$$
+<p><a href="../695">수열 공간</a> $l^{p}$ 와 $1 &lt; p_{0} &lt; \infty$ 에 대해 $\left\{ x_{n} \right\}_{n \in \mathbb{N} } \in \mathcal{l}^{p_{0}}$ 라 두자.
+$$
 \lim_{p \to \infty} \left( \sum_{n \in \mathbb{N} } | x_{n} |^{p} \right)^{ {{1} \over {p}} } = \sup_{n \in \mathbb{N}} | x_{ n } |
 $$</p>
 <h2 id="설명">설명</h2>
-<p>맥시멈 놈은 해석학이나 <a href="../257">선형대수학 등에서 꽤 일찍 접함</a>에도 불구하고 왜 하필 $\infty$ 와 관계가 있는지 그 설명을 찾기가 어렵다. 다행스러운 점은 그냥 증명이 가능하는 것이다.</p>
+<p>맥시멈 놈은 해석학이나 <a href="../257">선형대수학 등에서 꽤 일찍 접함</a>에도 불구하고 왜 하필 $\infty$ 와 관계가 있는지 제대로 설명을 안 해주는 경우가 많다. 특히 교수님들은 너무 당연하게 생각하기 때문에 그냥 넘어가는데, 와닿지 않는다면 반드시 짚고 넘어가도록 하자.</p>
+<h3 id="시각화-1">시각화 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h3>
+<p><img src="pnorm.svg#center" alt="pnorm.svg"></p>
+<p>백마디 말이 필요 없다. 위의 그림은 <a href="../205">유클리드 공간</a> $\mathbb{R}^{2}$ 에 주어진 $p$-놈의 <a href="../382">유닛 볼</a>을 그려보면 위와 같은 모양으로 수렴해간다.</p>
+<h3 id="직관적-수식-전개">직관적 수식 전개</h3>
+<p>개념을 잡는데에는 수식적으로 접근하는 게 더 도움이 된다. $\mathbf{x} \in \mathbb{R}^{n}$ 이라고 할 때, $\left\| \mathbf{x} \right\|_{p}$ 은
+$$
+\left\| \mathbf{x} \right\|_{p} = \sqrt[p]{\left| x_{1} \right|^{p} + \cdots + \left| x_{n} \right|^{p}}
+$$
+과 같이 적을 수 있다. 이 때, $\left| x_{1} \right|, \cdots , \left| x_{n} \right|$ 중 가장 큰 값을 $\bar{x} = \max_{k = 1 , \cdots , n} \left| x_{k} \right|$ 라 하면 다음과 같은 수식 전개가 될 것처럼도 보인다.
+$$
+\begin{align*}
+\lim_{p \to \infty} \left\| x \right\|_{p} =&amp; \lim_{p \to \infty} \sqrt[p]{\left| x_{1} \right|^{p} + \cdots + \left| x_{n} \right|^{p}}
+\\ =&amp; \lim_{p \to \infty} \sqrt[p]{ \bar{x}^{p} \left( \left| {\frac{ x_{1} }{ \bar{x} }} \right|^{p} + \cdots + \left| {\frac{ x_{n} }{ \bar{x} }} \right|^{p} \right) }
+\\ =&amp; \lim_{p \to \infty} \sqrt[p]{\bar{x}^{p}} \cdot \sqrt[p]{ \left( \left| {\frac{ x_{1} }{ \bar{x} }} \right|^{p} + \cdots + \left| {\frac{ x_{n} }{ \bar{x} }} \right|^{p} \right) }
+\\ \overset{?}{=} &amp; \bar{x} \lim_{p \to \infty} \sqrt[p]{ 0 + \cdots + 1 + \cdots + 0 }
+\\ =&amp; \bar{x} \lim_{p \to \infty} m^{{\frac{ 1 }{ p }}}
+\\ =&amp; \max_{k = 1 , \cdots , n} \left| x_{k} \right| \cdot 1
+\end{align*}
+$$
+엄밀한 증명이 이런 식으로 이루어지지는 않지만, 이러한 직관을 가지고 있냐 없냐는 맥시멈 놈을 체득하는 부분에 있어서 큰 차이가 난다.</p>
 <h2 id="증명">증명</h2>
 <p>$\displaystyle M := \sup_{n \in \mathbb{N}} | x_{ n } |$ 이라 하자. 만약 $M=0$ 이면 $\displaystyle 0 = \lim_{p \to \infty} \left( \sum_{n \in \mathbb{N} } | x_{n} |^{p} \right)^{ {{1} \over {p}} } = \sup_{n \in \mathbb{N}} | x_{ n } | = 0$ 이므로 $M &gt; 0$ 을 가정하자. 새로운 수열을 $\displaystyle y_{n} : = {{x_{n}} \over {M}}$ 이라고 정의하면 $\displaystyle \sup_{n \in \mathbb{N}} | y_{ n } | = 1$ 이고 $\left\{ y_{n} \right\}_{ n \in \mathbb{N} } \in \mathcal{l}^{p_{0}}$ 이므로 $\displaystyle \lim_{p \to \infty} \left( \sum_{n \in \mathbb{N} } | x_{n} |^{p} \right)^{ {{1} \over {p}} } = M $ 임을 보이려면 $\displaystyle \lim_{p \to \infty} \left( \sum_{n \in \mathbb{N} } \left| {{x_{n} } \over {M}} \right|^{p} \right)^{ {{1} \over {p}} } = 1$ 을 보이는 것으로 충분하다.</p>
 <ul>
@@ -254,24 +279,32 @@ $$</p>
 $$</p>
 </li>
 <li>
-<p><strong>Part 3.</strong></p>
-<p>위의 <strong>Part 1.</strong> 과 <strong>Part 2.</strong> 에 따라</p>
-<p>$$
+<p><strong>Part 3.</strong><br>
+위의 <strong>Part 1.</strong> 과 <strong>Part 2.</strong> 에 따라
+$$
 \limsup_{p \to \infty} \left( \sum_{ n \in \mathbb{N} } | y_{n} |^{p} \right)^{ {{1} \over {p}} } \le  1 \le \liminf_{p \to \infty } \left( \sum_{n \in \mathbb{N} } | y_{n} |^{p} \right)^{ {{1} \over {p}} }
-$$</p>
-<p>결과적으로</p>
-<p>$$
+$$
+이고, 결과적으로 다음을 얻는다.
+$$
 \lim_{p \to \infty} \left( \sum_{ n \in \mathbb{N} } | y_{n} |^{p} \right)^{ {{1} \over {p}} } =1
 $$</p>
 </li>
 </ul>
 <p style="text-align: right; margin: 0px; margin-top: -2em;">■</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://medium.com/@umerhasan17/norms-essential-for-optimisation-machine-learning-deep-learning-d6d1aa67d973">https://medium.com/@umerhasan17/norms-essential-for-optimisation-machine-learning-deep-learning-d6d1aa67d973</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
 
 
 <aside style="text-align: right;">
     2018-10-21&emsp;
     류대식&emsp;
-    <a href="../1941">🎲 699</a>
+    <a href="../752">🎲 699</a>
 </aside>
 
 <script>
