@@ -1,0 +1,61 @@
+using Plots
+cd = @__DIR__
+begin
+    p = plot([-5,5], [0,0], color=:black, arrow=:true)
+    plot!([0,0], [-5,5], color=:black, arrow=:true)
+    plot!(legend=false, framestyle=:none)
+    plot!(size=(600,400), dpi=300, ylims=(-5,5), xlims=(-5,5))
+    begin
+        plot!([-4, -4], [-0.2, 0.2], color=:black)
+        plot!([-3, -3], [-0.2, 0.2], color=:black)
+        plot!([-2, -2], [-0.2, 0.2], color=:black)
+        plot!([-1, -1], [-0.2, 0.2], color=:black)
+        plot!([0, 0], [-0.2, 0.2], color=:black)
+        plot!([1, 1], [-0.2, 0.2], color=:black)
+        plot!([2, 2], [-0.2, 0.2], color=:black)
+        plot!([3, 3], [-0.2, 0.2], color=:black)
+        plot!([4, 4], [-0.2, 0.2], color=:black)
+        annotate!([(-4, -0.25, text("-4", :center, :top, 10))])
+        annotate!([(-3, -0.25, text("-3", :center, :top, 10))])
+        annotate!([(-2, -0.25, text("-2", :center, :top, 10))])
+        annotate!([(-1, -0.25, text("-1", :center, :top, 10))])
+        annotate!([(-0.2, -0.1, text("0", :center, :top, 10))])
+        annotate!([(1, -0.25, text("1", :center, :top, 10))])
+        annotate!([(2, -0.25, text("2", :center, :top, 10))])
+        annotate!([(3, -0.25, text("3", :center, :top, 10))])
+        annotate!([(4, -0.25, text("4", :center, :top, 10))])
+    end
+    begin
+        plot!([-0.2, 0.2], [-4, -4], color=:black)
+        plot!([-0.2, 0.2], [-3, -3], color=:black)
+        plot!([-0.2, 0.2], [-2, -2], color=:black)
+        plot!([-0.2, 0.2], [-1, -1], color=:black)
+        plot!([-0.2, 0.2], [0, 0], color=:black)
+        plot!([-0.2, 0.2], [1, 1], color=:black)
+        plot!([-0.2, 0.2], [2, 2], color=:black)
+        plot!([-0.2, 0.2], [3, 3], color=:black)
+        plot!([-0.2, 0.2], [4, 4], color=:black)
+        annotate!([(0.375, -4, text("-4", :center, 10))])
+        annotate!([(0.375, -3, text("-3", :center, 10))])
+        annotate!([(0.375, -2, text("-2", :center, 10))])
+        annotate!([(0.375, -1, text("-1", :center, 10))])
+        annotate!([(0.375, 1, text("1", :center, 10))])
+        annotate!([(0.375, 2, text("2", :center, 10))])
+        annotate!([(0.375, 3, text("3", :center, 10))])
+        annotate!([(0.375, 4, text("4", :center, 10))])
+    end
+    plot!([2.4,2.4],[-10,10], ls=:dash, color=:black, lw=0.5)
+    plot!([-10,10],[3.3,3.3], ls=:dash, color=:black, lw=0.5)
+    annotate!([(3.4, 2.9, text(L"p=(2.4, 3.3)", 12))])
+    scatter!([2.4], [3.3], color=:black, ms=3.5)
+    annotate!((4.8, -0.2, text("x", :center, :top, 10)))
+    annotate!((0.3, 5, text("y", :center, :top, 10)))
+end
+
+annotate!(4.9, 4.3, text(L"\textbf{I}", :right, 40))
+annotate!(-5.4, 4.3, text(L"\textbf{II}", :left, 40))
+annotate!(-5.4, -4.3, text(L"\textbf{III}", :left, 40))
+annotate!(4.9, -4.3, text(L"\textbf{IV}", :right, 40))
+
+savefig(p, cd*"/3576_1.png")
+using LaTeXStrings
