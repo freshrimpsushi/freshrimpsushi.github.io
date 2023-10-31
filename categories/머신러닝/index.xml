@@ -6,7 +6,43 @@
     <description>Recent content in 머신러닝 on 생새우초밥집</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko</language>
-    <lastBuildDate>Wed, 12 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 10 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://freshrimpsushi.github.io/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>플럭스-파이토치-텐서플로우 치트 시트</title>
+      <link>https://freshrimpsushi.github.io/posts/flux-pytorch-tensorflow-cheat-sheet/</link>
+      <pubDate>Tue, 10 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://freshrimpsushi.github.io/posts/flux-pytorch-tensorflow-cheat-sheet/</guid>
+      <description>개요 플럭스, 파이토치, 텐서플로우에서 같은 기능을 하는 코드를 정리한다. 줄리아-매트랩-파이썬-R 치트시트 플럭스에 대해서 다음과 같은 환경이라고 하자. using Flux 파이토치에 대해서 다음과 같은 환경이라고 하자. import torch import torch.nn as nn import torch.nn.functional as F 텐서플로우에 대해서 다음과 같은 환경이라고 하자. import tensorflow as tf from tensorflow import keras 1차원 텐서 줄리아Julia 파이토치</description>
+    </item>
+    
+    <item>
+      <title>파이토치에서 텐서 정렬에 관한 함수</title>
+      <link>https://freshrimpsushi.github.io/posts/the-functions-for-sorting-tensors-in-pytorch/</link>
+      <pubDate>Fri, 06 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://freshrimpsushi.github.io/posts/the-functions-for-sorting-tensors-in-pytorch/</guid>
+      <description>torch.sort() torch.sort()에 텐서를 입력하면, 정렬된 값과 인덱스를 반환한다. 1차원 텐서 &amp;gt;&amp;gt;&amp;gt; x = torch.tensor([1, 3, -2, 5, -1, 7, 0]) &amp;gt;&amp;gt;&amp;gt; values, indices = torch.sort(x) &amp;gt;&amp;gt;&amp;gt; values tensor([-2, -1, 0, 1, 3, 5, 7]) &amp;gt;&amp;gt;&amp;gt; indices tensor([2, 4, 6, 0, 1, 3, 5]) 다차원 텐서 텐서만 입력하면, 각각의 행마다 정렬한다. 즉, torch.sort(x)=torch.sort(x, dim=1)이다. 차원을 입력하면 해당 차원마다 정렬한다. &amp;gt;&amp;gt;&amp;gt; x = torch.tensor([[1, 0, 4], [-1, 5, 2], [0, 4, 3]]) &amp;gt;&amp;gt;&amp;gt; value, indices = torch.sort(x) &amp;gt;&amp;gt;&amp;gt; value tensor([[ 0, 1,</description>
+    </item>
+    
+    <item>
+      <title>파이토치에서 &#39;RuntimeError: Boolean value of Tensor with more than one value is ambiguous&#39; 에러 해결 방법</title>
+      <link>https://freshrimpsushi.github.io/posts/boolean-value-of-tensor-with-more-than-one-value-is-ambiguous/</link>
+      <pubDate>Wed, 04 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://freshrimpsushi.github.io/posts/boolean-value-of-tensor-with-more-than-one-value-is-ambiguous/</guid>
+      <description>에러 손실함수인 nn.MESLoss()를 사용했을 때 다음과 같은 에러가 발생했다. RuntimeError Traceback (most recent call last) &amp;lt;ipython-input-75-8c6e9ea829d4&amp;gt; in &amp;lt;module&amp;gt; ----&amp;gt; 1 nn.MSELoss(y_pred, y) 2 frames /usr/local/lib/python3.8/dist-packages/torch/nn/_reduction.py in legacy_get_string(size_average, reduce, emit_warning) 33 reduce = True 34 ---&amp;gt; 35 if size_average and reduce: 36 ret = &amp;#39;mean&amp;#39; 37 elif reduce: RuntimeError: Boolean value of Tensor with more than one value is ambiguous 해결1 코드를 다음과 같이 수정하면 해결된다. nn.MSELoss(y_pred, y) $\to$ nn.MSELoss()(y_pred, y) 환경 Colab Version: Python 3.8.10, PyTorch1.13.1+cu116 https://discuss.pytorch.org/t/bool-value-of-tensor-with-more-than-one-value-is-ambiguous/48049/6&amp;#160;&amp;#x21a9;&amp;#xfe0e;</description>
+    </item>
+    
+    <item>
+      <title>파이토치에서 주어진 분포로 랜덤 샘플링하는 법</title>
+      <link>https://freshrimpsushi.github.io/posts/how-to-do-random-sampling-with-a-given-distribution-in-pytorch/</link>
+      <pubDate>Mon, 02 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://freshrimpsushi.github.io/posts/how-to-do-random-sampling-with-a-given-distribution-in-pytorch/</guid>
+      <description>개요 파이토치에서 주어진 분포로 랜덤 샘플링하는 방법을 소개한다. 베타, 베르누이, 코시, 감마, 파레토, 푸아송 등 여러 분포가 구현되어있다. 본 글에서는 균등분포를 예로 설명한다. 코드1 파이토치에서 $0$부터 $5$까지 균등 분포로 랜덤 샘플링하는 코드는 다음과 같다. &amp;gt;&amp;gt;&amp;gt; m = torch.distributions.Uniform(0.0, 5) &amp;gt;&amp;gt;&amp;gt; m.sample() tensor(1.6371) $2 \times 4$ 크기의 텐서로 샘플링하려면, &amp;gt;&amp;gt;&amp;gt; torch.distributions.Uniform(0.0, 5).sample((2,4)) tensor([[0.8507, 4.6457, 3.2871,</description>
+    </item>
+    
     <item>
       <title>Iris 데이터 셋</title>
       <link>https://freshrimpsushi.github.io/posts/iris-folwer-data-set/</link>
@@ -653,42 +689,6 @@
       
       <guid>https://freshrimpsushi.github.io/posts/how-to-resolve-runtimeerror-parent-directory-does-not-exists-when-saving-a-model-in-pytorch/</guid>
       <description>오류 파이토치에서 모델이나 가중치를 저장할 때, 분명 존재하는 경로임에도 불구하고 다음과 같은 오류를 마주할 수 있다. &amp;gt;&amp;gt;&amp;gt; print(&amp;#34;Is exists path?: &amp;#34;, os.path.exists(directory)) Is exists path?: True &amp;gt;&amp;gt;&amp;gt; torch.save(model.state_dict(), directory + &amp;#39;weights.pt&amp;#39;) RuntimeError: Parent directory _____ does not exist. 해결 방법 나의 경우에는 파일 경로에 특수문자 델타Δ가 포함되어있었는데, 이것을 제거하니 오류가 발생하지 않았다. 하지만 이것이 무조건 오류를 발생시키는 것은 아니다. 3대의 컴</description>
-    </item>
-    
-    <item>
-      <title>플럭스-파이토치-텐서플로우 치트 시트</title>
-      <link>https://freshrimpsushi.github.io/posts/flux-pytorch-tensorflow-cheat-sheet/</link>
-      <pubDate>Thu, 10 Oct 2013 00:00:00 +0000</pubDate>
-      
-      <guid>https://freshrimpsushi.github.io/posts/flux-pytorch-tensorflow-cheat-sheet/</guid>
-      <description>개요 플럭스, 파이토치, 텐서플로우에서 같은 기능을 하는 코드를 정리한다. 줄리아-매트랩-파이썬-R 치트시트 플럭스에 대해서 다음과 같은 환경이라고 하자. using Flux 파이토치에 대해서 다음과 같은 환경이라고 하자. import torch import torch.nn as nn import torch.nn.functional as F 텐서플로우에 대해서 다음과 같은 환경이라고 하자. import tensorflow as tf from tensorflow import keras 1차원 텐서 줄리아Julia 파이토치</description>
-    </item>
-    
-    <item>
-      <title>파이토치에서 텐서 정렬에 관한 함수</title>
-      <link>https://freshrimpsushi.github.io/posts/the-functions-for-sorting-tensors-in-pytorch/</link>
-      <pubDate>Sun, 06 Oct 2013 00:00:00 +0000</pubDate>
-      
-      <guid>https://freshrimpsushi.github.io/posts/the-functions-for-sorting-tensors-in-pytorch/</guid>
-      <description>torch.sort() torch.sort()에 텐서를 입력하면, 정렬된 값과 인덱스를 반환한다. 1차원 텐서 &amp;gt;&amp;gt;&amp;gt; x = torch.tensor([1, 3, -2, 5, -1, 7, 0]) &amp;gt;&amp;gt;&amp;gt; values, indices = torch.sort(x) &amp;gt;&amp;gt;&amp;gt; values tensor([-2, -1, 0, 1, 3, 5, 7]) &amp;gt;&amp;gt;&amp;gt; indices tensor([2, 4, 6, 0, 1, 3, 5]) 다차원 텐서 텐서만 입력하면, 각각의 행마다 정렬한다. 즉, torch.sort(x)=torch.sort(x, dim=1)이다. 차원을 입력하면 해당 차원마다 정렬한다. &amp;gt;&amp;gt;&amp;gt; x = torch.tensor([[1, 0, 4], [-1, 5, 2], [0, 4, 3]]) &amp;gt;&amp;gt;&amp;gt; value, indices = torch.sort(x) &amp;gt;&amp;gt;&amp;gt; value tensor([[ 0, 1,</description>
-    </item>
-    
-    <item>
-      <title>파이토치에서 &#39;RuntimeError: Boolean value of Tensor with more than one value is ambiguous&#39; 에러 해결 방법</title>
-      <link>https://freshrimpsushi.github.io/posts/boolean-value-of-tensor-with-more-than-one-value-is-ambiguous/</link>
-      <pubDate>Fri, 04 Oct 2013 00:00:00 +0000</pubDate>
-      
-      <guid>https://freshrimpsushi.github.io/posts/boolean-value-of-tensor-with-more-than-one-value-is-ambiguous/</guid>
-      <description>에러 손실함수인 nn.MESLoss()를 사용했을 때 다음과 같은 에러가 발생했다. RuntimeError Traceback (most recent call last) &amp;lt;ipython-input-75-8c6e9ea829d4&amp;gt; in &amp;lt;module&amp;gt; ----&amp;gt; 1 nn.MSELoss(y_pred, y) 2 frames /usr/local/lib/python3.8/dist-packages/torch/nn/_reduction.py in legacy_get_string(size_average, reduce, emit_warning) 33 reduce = True 34 ---&amp;gt; 35 if size_average and reduce: 36 ret = &amp;#39;mean&amp;#39; 37 elif reduce: RuntimeError: Boolean value of Tensor with more than one value is ambiguous 해결1 코드를 다음과 같이 수정하면 해결된다. nn.MSELoss(y_pred, y) $\to$ nn.MSELoss()(y_pred, y) 환경 Colab Version: Python 3.8.10, PyTorch1.13.1+cu116 https://discuss.pytorch.org/t/bool-value-of-tensor-with-more-than-one-value-is-ambiguous/48049/6&amp;#160;&amp;#x21a9;&amp;#xfe0e;</description>
-    </item>
-    
-    <item>
-      <title>파이토치에서 주어진 분포로 랜덤 샘플링하는 법</title>
-      <link>https://freshrimpsushi.github.io/posts/how-to-do-random-sampling-with-a-given-distribution-in-pytorch/</link>
-      <pubDate>Wed, 02 Oct 2013 00:00:00 +0000</pubDate>
-      
-      <guid>https://freshrimpsushi.github.io/posts/how-to-do-random-sampling-with-a-given-distribution-in-pytorch/</guid>
-      <description>개요 파이토치에서 주어진 분포로 랜덤 샘플링하는 방법을 소개한다. 베타, 베르누이, 코시, 감마, 파레토, 푸아송 등 여러 분포가 구현되어있다. 본 글에서는 균등분포를 예로 설명한다. 코드1 파이토치에서 $0$부터 $5$까지 균등 분포로 랜덤 샘플링하는 코드는 다음과 같다. &amp;gt;&amp;gt;&amp;gt; m = torch.distributions.Uniform(0.0, 5) &amp;gt;&amp;gt;&amp;gt; m.sample() tensor(1.6371) $2 \times 4$ 크기의 텐서로 샘플링하려면, &amp;gt;&amp;gt;&amp;gt; torch.distributions.Uniform(0.0, 5).sample((2,4)) tensor([[0.8507, 4.6457, 3.2871,</description>
     </item>
     
     <item>
