@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/proximal-operator\/",
-    "wordCount" : "1125",
+    "wordCount" : "1187",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -289,22 +289,27 @@
 <h2 id="정의1">정의<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
 <p><a href="../282">벡터공간</a> $X$의 <a href="../1225">놈</a>을 $\left\| \cdot \right\|_{X}$라 하자. 함수 $f : X \to \mathbb{R}$에 대한 <strong>프락시멀 오퍼레이터</strong><sup>proximal operator</sup> $\operatorname{prox}_{\lambda f} : X \to 2^{X}$를 다음과 같이 정의한다. $\lambda &gt; 0$에 대해서,</p>
 <p>$$
-\operatorname{prox}_{\lambda f} (\mathbf{x}) := \argmin\limits_{\mathbf{v}} \left\{ \dfrac{1}{2}\left\| \mathbf{v} - \mathbf{x}  \right\|_{X}^{2} + \lambda f(\mathbf{v}) : \mathbf{v} \in X \right\} \tag{1}
+\begin{align*}
+\operatorname{prox}_{\lambda f} (\mathbf{x}) &amp;:= \argmin\limits_{\mathbf{v}} \left\{ \lambda f(\mathbf{v}) + \dfrac{1}{2}\left\| \mathbf{v} - \mathbf{x}  \right\|_{X}^{2} : \mathbf{v} \in X \right\} \\
+&amp;= \argmin\limits_{\mathbf{v}} \left\{ f(\mathbf{v}) + \dfrac{1}{2\lambda}\left\| \mathbf{v} - \mathbf{x}  \right\|_{X}^{2} : \mathbf{v} \in X \right\} \nonumber
+\end{align*}
 $$</p>
 <p>$\argmin$은 <a href="../2031">최적해</a>를 의미한다.</p>
 <h3 id="쉬운-정의">쉬운 정의</h3>
 <p>위 정의가 어렵다면 다음과 같이 받아들여도 무관하다. 함수 $f : \mathbb{R}^{n} \to \mathbb{R}$에 대한 프락시멀 오퍼레이터 $\operatorname{prox}_{\lambda f} : \mathbb{R}^{n} \to \mathbb{R}^{n}$를 다음과 같이 정의한다.</p>
 <p>$$
-\operatorname{prox}_{\lambda f} (\mathbf{x}) := \argmin\limits_{\mathbf{v}} \left\{ \dfrac{1}{2}\left\| \mathbf{v} - \mathbf{x}  \right\|_{2}^{2} + \lambda f(\mathbf{v}) : \mathbf{v} \in \mathbb{R}^{n} \right\}
+\operatorname{prox}_{\lambda f} (\mathbf{x}) := \argmin\limits_{\mathbf{v}} \left\{ \lambda f(\mathbf{v}) + \dfrac{1}{2}\left\| \mathbf{v} - \mathbf{x}  \right\|_{2}^{2} : \mathbf{v} \in \mathbb{R}^{n} \right\}
 $$</p>
 <h2 id="설명-2">설명 <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h2>
-<p>정의 $(1)$에 따라 $\operatorname{prox}_{\lambda f} (\mathbf{x})$는 $f$의 함숫값을 최소화하는 것과 $\mathbf{x}$와 가까워지는 것 사이에서 타협하는 점을 의미한다. 즉 $\mathbf{x}$의 근방에서 $f$의 값이 가장 작도록하는 점이라고 말할 수 있다. $\lambda$의 값에 따라서 어느 항을 줄이는데에 더 큰 가치를 둘지가 결정된다. $\operatorname{prox}_{\lambda f} (\mathbf{x})$를 $f$에 대한 $\mathbf{x}$의 <strong>프락시멀 포인트</strong><sup>proximal point</sup>라고 한다.</p>
+<p>정의 $(1)$에 따라 $\operatorname{prox}_{\lambda f} (\mathbf{x})$는 $f$의 함숫값을 최소화하는 것과 $\mathbf{x}$와 가까워지는 것 사이에서 타협하는 점을 의미한다. 즉 $\mathbf{x}$의 근방에서 $f$의 값이 가장 작도록하는 점이라고 말할 수 있다. 일종의 <a href="../1807">레귤러라이제이션</a>을 추가한 것으로 볼 수 있다. $\lambda$의 값에 따라서 어느 항을 줄이는데에 더 큰 가치를 둘지가 결정된다. 점 $\operatorname{prox}_{\lambda f} (\mathbf{x})$를 $f$에 대한 $\mathbf{x}$의 <strong>프락시멀 포인트</strong><sup>proximal point</sup>라고 한다.</p>
 <p>proximal은 한국어로 &ldquo;근접의&rdquo;, &ldquo;가까운&quot;이라는 뜻인데, $\operatorname{prox}_{\lambda f} (\mathbf{x})$는 $\mathbf{x}$와 가까운 점 중에서 $f$의 최적해를 찾는다는 의미에서 proximal이라 명명된 것 같다.</p>
 <p>$\operatorname{prox}_{\lambda f} (\cdot)$를 계산하기 쉬운 함수 $f$를 <strong>prox friendly</strong>라고 한다.</p>
 <p>$X = \mathbb{R}^{n}$인 경우에는 $f$가 <a href="../2400">컨벡스 함수</a>이면 $\operatorname{prox}_{\lambda f} (\mathbf{x})$는 유일<sup>unique</sup>하다.</p>
 <p>프락시멀 오퍼레이터를 사용하여 최적화문제를 푸는 알고리즘을 <strong>프락시멀 알고리즘</strong><sup>proximal algorithm</sup>이라 한다. 다음의 것들이 있다.</p>
 <ul>
 <li><a href="../3591">프락시멀 최소화 알고리즘</a></li>
+<li><a href="../3595">프락시멀 그래디언트 메서드</a></li>
+<li><a href="../3596">Proximal Alternating Linearized Minimization(PALM) 알고리즘</a></li>
 </ul>
 <h2 id="성질3">성질<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></h2>
 <ul>
@@ -357,7 +362,7 @@ $$
 <aside style="text-align: right;">
     2014-04-29&emsp;
     전기현&emsp;
-    <a href="../2098">🎲 3590</a>
+    <a href="../1500">🎲 3590</a>
 </aside>
 
 <script>
@@ -1033,7 +1038,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       { idx: 3, name: '복소해석', size: '71', color: color.green },
       { idx: 4, name: '측도론', size: '53', color: color.green },
       { idx: 5, name: '푸리에해석', size: '52', color: color.green },
-      { idx: 6, name: '초함수론', size: '24', color: color.green },
+      { idx: 6, name: '초함수론', size: '23', color: color.green },
       { idx: 7, name: '단층촬영', size: '20', color: color.green },
     ],
     [
@@ -1050,7 +1055,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     [
       { idx: 1, name: '매트랩', size: '16', color: color.green },
       { idx: 2, name: '수치해석', size: '55', color: color.green },
-      { idx: 3, name: '최적화이론', size: '32', color: color.green }
+      { idx: 3, name: '최적화이론', size: '37', color: color.green }
     ],
     [
       { idx: 1, name: '물리학', size: '17', color: color.green },
