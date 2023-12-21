@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/home\/",
-    "wordCount" : "56",
+    "wordCount" : "489",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -273,6 +273,58 @@
   </div>
 </aside>
 
+<p>더블 펜듀럼</p>
+<pre tabindex="0"><code>h = 0.0001
+
+function P(f, y)
+    V1 = f(y)
+    V2 = f(y + h*V1/2)
+    V3 = f(y + h*V2/2)
+    V4 = f(y + h*V3)
+    return y + h/6*(V1 + 2V2 + 2V3 + V4)
+end
+
+
+g = 9.80665
+l1 = 2
+l2 = 1
+m1 = 1
+m2 = 1
+λ = l1 / l2
+μ = m2 / (m1 + m2)
+g1 = g / l1
+g2 = g / l2
+function f(pppp)
+    ϕ, ψ, Φ, Ψ = pppp
+
+    ϕ̇ = Φ
+    ψ̇ = Ψ
+    Φ̇ = (μ*g1*sin(ψ)*cos(ψ-ϕ) + μ*(Φ^2)*sin(ψ-ϕ)*cos(ψ-ϕ) - g1*sin(ϕ) + (μ/λ)*(Ψ^2)*sin(ψ-ϕ)) / (1-μ*(cos(ψ-ϕ)^2))
+    Ψ̇ = (g2*sin(ϕ)*cos(ψ-ϕ) - μ*(Ψ^2)*sin(ψ-ϕ)*cos(ψ-ϕ) - g2*sin(ψ) - λ*(Φ^2)*sin(ψ-ϕ)) / (1-μ*(cos(ψ-ϕ)^2))
+
+    return [ϕ̇ , ψ̇ , Φ̇ , Ψ̇ ]
+end
+
+x_ = [[1.0,1,2,2]]
+for t in 1:10000
+    push!(x_, P(f, x_[end]))
+end
+_x_ = stack(x_)&#39;
+ϕ = _x_[:, 1]
+ψ = _x_[:, 2]
+
+using Plots
+plot(_x_[:,1])
+x1 = +l1*sin.(ϕ)
+y1 = -l1*cos.(ϕ)
+x2 = +l1*sin.(ϕ) + l2*sin.(ψ)
+y2 = -l1*cos.(ϕ) - l2*cos.(ψ)
+
+using CSV, DataFrames
+df = DataFrame(; ϕ, ψ, x1, x2, y1, y2)
+# df = DataFrame(_x_, [&#34;phi&#34;, &#34;psi&#34;, &#34;Phi&#34;, &#34;Psi&#34;])
+CSV.write(&#34;traj1.csv&#34;, df, bom = true)
+</code></pre><hr>
 <p>피치포크 바이퍼케이션</p>
 <hr>
 <p>트랜스크리티컬 바이퍼케이션</p>
@@ -291,7 +343,7 @@
 <aside style="text-align: right;">
     2021-01-01&emsp;
     류대식&emsp;
-    <a href="../1837">🎲 1999</a>
+    <a href="../1842">🎲 1999</a>
 </aside>
 
 <script>

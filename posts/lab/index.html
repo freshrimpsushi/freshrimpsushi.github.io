@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/lab\/",
-    "wordCount" : "383",
+    "wordCount" : "877",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -269,6 +269,14 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
+    <li><a href="#코드">코드</a></li>
+    <li><a href="#트릭">트릭</a>
+      <ul>
+        <li><a href="#ranking"><code>ranking</code></a></li>
+        <li><a href="#argnth"><code>argnth</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#환경">환경</a></li>
     <li><a href="#정의-1-2">정의  </a></li>
     <li><a href="#설명">설명</a></li>
   </ul>
@@ -278,20 +286,62 @@
   </div>
 </aside>
 
+<h1 id="줄리아의-정렬순열-함수과-그-응용-sortperm">줄리아의 정렬순열 함수과 그 응용 sortperm</h1>
+<p>Application for sortperm in julia</p>
+<h2 id="코드">코드</h2>
+<p><code>sortperm</code>은 주어진 배열을 정렬이 되도록 하는 인덱스의 배열을 리턴한다<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. 말만 보면 어려워 보이지만 예시를 보면 한 번에 이해가 된다.</p>
+<pre tabindex="0"><code>julia&gt; foo = [&#39;다&#39;, &#39;나&#39;, &#39;라&#39;, &#39;가&#39;]
+4-element Vector{Char}:
+ &#39;다&#39;: Unicode U+B2E4 (category Lo: Letter, other)
+ &#39;나&#39;: Unicode U+B098 (category Lo: Letter, other)
+ &#39;라&#39;: Unicode U+B77C (category Lo: Letter, other)
+ &#39;가&#39;: Unicode U+AC00 (category Lo: Letter, other)
+
+julia&gt; sortperm(foo)
+4-element Vector{Int64}:
+ 4
+ 2
+ 1
+ 3
+
+julia&gt; foo[sortperm(foo)]
+4-element Vector{Char}:
+ &#39;가&#39;: Unicode U+AC00 (category Lo: Letter, other)
+ &#39;나&#39;: Unicode U+B098 (category Lo: Letter, other)
+ &#39;다&#39;: Unicode U+B2E4 (category Lo: Letter, other)
+ &#39;라&#39;: Unicode U+B77C (category Lo: Letter, other)
+</code></pre><h2 id="트릭">트릭</h2>
+<p>내장함수까지는 아니지만 <code>sortperm</code>으로 자주 쓰는 트릭을 소개한다.</p>
+<h3 id="ranking"><code>ranking</code></h3>
+<p><code>ranking(x) = sortperm(sortperm(x, rev = true))</code></p>
+<p>배열의 랭킹을 리턴한다. 랭킹 함수는 통계 관련 패키지인 <code>StatBase.jl</code>에도 있기는 하다<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>. 그러나 <code>sortperm</code>만으로도 쉽게 구현할 수 있어서 딱 랭킹만 필요한 경우엔 패키지를 로드하지 않고 이렇게 쓰기도 한다.</p>
+<h3 id="argnth"><code>argnth</code></h3>
+<p><code>argnth(n, A) = sortperm(A, rev = true)[n]</code></p>
+<p><code>n</code>번째로 큰 원소의 인덱스를 리턴한다. 막상 <code>sortperm</code> 없이 짜보려면 구현하기가 까다롭다.</p>
+<h2 id="환경">환경</h2>
+<ul>
+<li>OS: Windows</li>
+<li>julia: v1.9.0</li>
+</ul>
+<hr>
+<p>해밍 거리
+Hamming Distance</p>
+<hr>
 <p>그래프와 그래프 사이의 스펙트럴 거리
 Spectral Distance between Graph and Graph</p>
-<h2 id="정의-1-2">정의 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h2>
+<h2 id="정의-1-2">정의 <sup id="fnref1:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> <sup id="fnref1:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h2>
 <p>버텍스의 수가 $n$ 인 두 <a href="../966">그래프</a> $G_{1}$, $G_{2}$ 의 <a href="../1499">인접행렬</a>을 $A_{1}$, $A_{2}$ 라 하자. 이들이 내림차순으로 정렬된 <a href="../319">고유값</a>, 즉 스펙트라<sup>Spectra</sup>를 각각 다음과 같이 나타내자.
 $$
-A_{1} \cdots \lambda_{1}^{(1)} \ge \cdots \ge \lambda_{1}^{(1)} \\
-A_{2} \cdots \lambda_{1}^{(2)} \ge \cdots \ge \lambda_{1}^{(2)}
+A_{1} \mapsto \lambda_{1}^{(1)} \ge \cdots \ge \lambda_{1}^{(1)} \\
+A_{2} \mapsto \lambda_{1}^{(2)} \ge \cdots \ge \lambda_{1}^{(2)}
 $$
 두 그래프 사이의 <strong>스펙트럴 거리</strong><sup>Spectral Distance</sup>를 다음과 같이 정의한다.
 $$
 d \left( G_{1} , G_{2} \right) := \sqrt{ \sum_{k=1}^{n} \left( \lambda_{k}^{(1)} - \lambda_{k}^{(2)} \right)^{2} }
 $$</p>
 <h2 id="설명">설명</h2>
-<p>라벨링</p>
+<p>언뜻 생각하기에 그래프의 인접 행렬은 그 자체의
+스펙트럴 거리는 그 정의 상 라벨링과 무관하게 정의된다는 장점이 있다.</p>
 <hr>
 <p>그래프와 그래프 사이의 수정 거리</p>
 <p><a href="https://en.wikipedia.org/wiki/Graph_edit_distance">https://en.wikipedia.org/wiki/Graph_edit_distance</a></p>
@@ -329,10 +379,10 @@ Codimension: Kuznetsov p63, strogatz p70</p>
 <hr>
 <ol>
 <li id="fn:1">
-<p>Richard. (2008). A study of graph spectra for comparing graphs and trees: <a href="https://doi.org/10.1016/j.patcog.2008.03.011">https://doi.org/10.1016/j.patcog.2008.03.011</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://docs.julialang.org/en/v1/base/sort/#Base.sortperm">https://docs.julialang.org/en/v1/base/sort/#Base.sortperm</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2">
-<p>Wills P, Meyer FG (2020) Metrics for graph comparison: A practitioner’s guide. PLoS ONE 15(2): e0228728. <a href="https://doi.org/10.1371/journal.pone.0228728">https://doi.org/10.1371/journal.pone.0228728</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://juliastats.org/StatsBase.jl/stable/ranking/">https://juliastats.org/StatsBase.jl/stable/ranking/</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </div>
@@ -341,7 +391,7 @@ Codimension: Kuznetsov p63, strogatz p70</p>
 <aside style="text-align: right;">
     2021-01-01&emsp;
     류대식&emsp;
-    <a href="../1784">🎲 1998</a>
+    <a href="../948">🎲 1998</a>
 </aside>
 
 <script>
