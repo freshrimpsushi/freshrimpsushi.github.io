@@ -11,20 +11,24 @@ savefig("C:/Users/rydbr/Desktop/바탕화면/admin/content/j_/0_recent/3563_차�
 
 using MLDatasets
 using DataFrames
+using Plots 
 
 df = Iris().features
+names(df)
 X = Array(df)
 
-label = Array(Iris().targets)
-
-p₃ = plot(layout=(4,4), size=(728, 600))
+# label = Array(Iris().targets)
+px = Plots.px
+p₃ = plot(layout=(4,4), size=(1000, 800), dpi = 300, left_margin = [10px 25px 25px 25px])
 for i in 0:15
     x_ax = i÷4+1
     y_ax = i%4+1
 
-    scatter!(p₃[i+1], X[1:50,x_ax], X[1:50,y_ax], legend=false, ratio=1, markersize=2.5)
-    scatter!(p₃[i+1], X[51:100,x_ax], X[51:100,y_ax], legend=false, ratio=1, markersize=2.5)
-    scatter!(p₃[i+1], X[101:150,x_ax], X[101:150,y_ax], legend=false, ratio=1, markersize=2.5)
+    scatter!(p₃[i+1], X[1:50,x_ax], X[1:50,y_ax], legend=false, ratio=1, markersize=6)
+    scatter!(p₃[i+1], X[51:100,x_ax], X[51:100,y_ax], legend=false, ratio=1, markersize=6, m = :diamond)
+    scatter!(p₃[i+1], X[101:150,x_ax], X[101:150,y_ax], legend=false, ratio=1, markersize=6, m = :utriangle)
+    plot!(p₃[i+1], xlabel=names(df)[x_ax], ylabel=names(df)[y_ax], formatter = (_...) -> "")
 end
 display(p₃)
+
 savefig(p₃, "C:/Users/rydbr/Desktop/바탕화면/admin/content/j_/0_recent/3563_차원축소/3563_2.png", )
