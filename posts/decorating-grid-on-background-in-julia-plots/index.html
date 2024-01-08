@@ -67,10 +67,10 @@
     </script>
 
     
-<meta name="title" content="줄리아에서 그림 축의 테두리, 값, 눈금, 이름 색 지정하는 법">
+<meta name="title" content="줄리아 Plots에서 그림 배경의 격자 꾸미는 법">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="줄리아에서 그림 축의 테두리, 값, 눈금, 이름 색 지정하는 법"/>
-<meta property="og:description" content="How to Set the Color of Axis Border, Ticks, Name"/>
+<meta property="og:title" content="줄리아 Plots에서 그림 배경의 격자 꾸미는 법"/>
+<meta property="og:description" content="Decorating Grid on Background in Julia Plots"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
 
 
@@ -82,15 +82,15 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "j_",
-    "name": "줄리아에서 그림 축의 테두리, 값, 눈금, 이름 색 지정하는 법",
-    "headline": "줄리아에서 그림 축의 테두리, 값, 눈금, 이름 색 지정하는 법",
+    "name": "줄리아 Plots에서 그림 배경의 격자 꾸미는 법",
+    "headline": "줄리아 Plots에서 그림 배경의 격자 꾸미는 법",
     "alternativeHeadline": "",
-    "description": "How to Set the Color of Axis Border, Ticks, Name",
+    "description": "Decorating Grid on Background in Julia Plots",
     "inLanguage": "ko",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/how-to-set-the-color-of-axis-border-ticks-name\/"
+        "@id": "https:\/\/freshrimpsushi.github.io\/posts\/decorating-grid-on-background-in-julia-plots\/"
     },
     "author" : {
         "@type": "Person",
@@ -105,10 +105,10 @@
         "name": "전기현"
     },
     "copyrightHolder" : "생새우초밥집",
-    "copyrightYear" : "2023",
-    "dateCreated": "2023-10-12T00:00:00.00Z",
-    "datePublished": "2023-10-12T00:00:00.00Z",
-    "dateModified": "2023-10-12T00:00:00.00Z",
+    "copyrightYear" : "2014",
+    "dateCreated": "2014-05-27T00:00:00.00Z",
+    "datePublished": "2014-05-27T00:00:00.00Z",
+    "dateModified": "2014-05-27T00:00:00.00Z",
     "publisher":{
         "@type":"Organization",
         "name": "생새우초밥집",
@@ -121,15 +121,15 @@
         }
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
-    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/how-to-set-the-color-of-axis-border-ticks-name\/",
-    "wordCount" : "54",
+    "url" : "https:\/\/freshrimpsushi.github.io\/posts\/decorating-grid-on-background-in-julia-plots\/",
+    "wordCount" : "615",
     "genre" : [ ],
     "keywords" : [ ]
 }
 </script>
 
 
-    <title>줄리아에서 그림 축의 테두리, 값, 눈금, 이름 색 지정하는 법</title>
+    <title>줄리아 Plots에서 그림 배경의 격자 꾸미는 법</title>
 </head>
 
 <body class="main">
@@ -188,7 +188,7 @@
     <div class="content">
       <div class="content-box">
         
-<title>줄리아에서 그림 축의 테두리, 값, 눈금, 이름 색 지정하는 법</title>
+<title>줄리아 Plots에서 그림 배경의 격자 꾸미는 법</title>
 
 
 
@@ -254,9 +254,9 @@
         
 
 
-<h1>줄리아에서 그림 축의 테두리, 값, 눈금, 이름 색 지정하는 법</h1>
+<h1>줄리아 Plots에서 그림 배경의 격자 꾸미는 법</h1>
 <p style="font-family: Georgia; margin-top: -20px; margin-bottom: 0px; margin-left: 0px;">
-  How to Set the Color of Axis Border, Ticks, Name
+  Decorating Grid on Background in Julia Plots
 </p>
 
 <aside>
@@ -269,7 +269,18 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#코드1">코드</a></li>
+    <li><a href="#요약">요약</a></li>
+    <li><a href="#코드">코드</a>
+      <ul>
+        <li><a href="#격자-표시">격자 표시</a></li>
+        <li><a href="#투명도">투명도</a></li>
+        <li><a href="#색">색</a></li>
+        <li><a href="#두께">두께</a></li>
+        <li><a href="#격자-스타일">격자 스타일</a></li>
+        <li><a href="#보조격자">보조격자</a></li>
+      </ul>
+    </li>
+    <li><a href="#환경">환경</a></li>
   </ul>
 </nav>
     </div>
@@ -277,36 +288,104 @@
   </div>
 </aside>
 
-<h2 id="코드1">코드<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
-<p><img src="3490.png#center" alt="3490.png"></p>
+<h2 id="요약">요약</h2>
+<p><code>Plots.jl</code>에서 그림 배경의 격자와 관련된 키워드들은 다음과 같다.</p>
+<table>
+<thead>
+<tr>
+<th>키워드 이름</th>
+<th style="text-align:center">기능</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>grid</code></td>
+<td style="text-align:center">격자 표시</td>
+</tr>
+<tr>
+<td><code>gridalpha</code>, <code>ga</code>, <code>gα</code></td>
+<td style="text-align:center">격자의 투명도 지정</td>
+</tr>
+<tr>
+<td><code>foreground_color_grid</code>, <code>fgcolor_grid</code></td>
+<td style="text-align:center">격자의 색 지정</td>
+</tr>
+<tr>
+<td><code>gridlinewidth</code>, <code>grid_lw</code></td>
+<td style="text-align:center">격자의 두께 지정</td>
+</tr>
+<tr>
+<td><code>gridstyle</code>, <code>grid_ls</code></td>
+<td style="text-align:center">격자의 선 스타일</td>
+</tr>
+<tr>
+<td><code>minorgrid</code></td>
+<td style="text-align:center">보조 격자 표시</td>
+</tr>
+<tr>
+<td><code>minorgridalpha</code></td>
+<td style="text-align:center">보조 격자의 투명도 지정</td>
+</tr>
+<tr>
+<td><code>foreground_color_minor_grid</code>, <code>fgcolor_minorgrid</code></td>
+<td style="text-align:center">보조 격자의 색 지정</td>
+</tr>
+<tr>
+<td><code>minorgridlinewidth</code>, <code>minorgrid_lw</code></td>
+<td style="text-align:center">보조 격자의 두께 지정</td>
+</tr>
+<tr>
+<td><code>minorgridstyle</code>, <code>minorgrid_ls</code></td>
+<td style="text-align:center">보조 격자의 선 스타일</td>
+</tr>
+</tbody>
+</table>
+<h2 id="코드">코드</h2>
+<h3 id="격자-표시">격자 표시</h3>
+<p>격자를 표시하는 키워드는 <code>grid</code>이다. <code>:x</code>나 <code>:y</code>를 입력하면 각각 $x$축의 눈금 보조하는 선, $y$축의 눈굼을 보조하는 선만을 표시한다. <code>false</code>를 입력하면 격자를 표시하지 않는다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>plot(plot(rand(<span style="color:#ae81ff">10</span>)),
+</span></span><span style="display:flex;"><span>     plot(rand(<span style="color:#ae81ff">10</span>), grid <span style="color:#f92672">=</span> <span style="color:#e6db74">:x</span>),
+</span></span><span style="display:flex;"><span>     plot(rand(<span style="color:#ae81ff">10</span>), grid <span style="color:#f92672">=</span> <span style="color:#e6db74">:y</span>),
+</span></span><span style="display:flex;"><span>     plot(rand(<span style="color:#ae81ff">10</span>), grid <span style="color:#f92672">=</span> false))
+</span></span></code></pre></div><p><img src="3604_5.png#center" alt=""></p>
+<h3 id="투명도">투명도</h3>
+<p>배경의 격자는 기본적으로 0.1 투명도로 그려진다. 격자의 투명도를 조절하는 키워드는 <code>gridalpha(=ga)(=gα)</code>이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>plot(rand(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>), layout <span style="color:#f92672">=</span> (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>),
+</span></span><span style="display:flex;"><span>     gridalpha <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0.1</span> <span style="color:#ae81ff">0.5</span> <span style="color:#ae81ff">1</span>])
+</span></span></code></pre></div><p><img src="3604_1.png#center" alt=""></p>
+<h3 id="색">색</h3>
+<p>격자의 기본색은 검정이며 키워드 <code>foreground_color_grid(=fgcolor_grid)</code>로 다른 색을 지정할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>plot(rand(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>), layout <span style="color:#f92672">=</span> (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>), gridalpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>     fgcolor_grid <span style="color:#f92672">=</span> [<span style="color:#e6db74">:red</span> <span style="color:#e6db74">:green</span> <span style="color:#e6db74">:orange</span>])
+</span></span></code></pre></div><p><img src="3604_2.png#center" alt=""></p>
+<h3 id="두께">두께</h3>
+<p>격자의 두께를 지정하는 키워드는 <code>gridlinewidth(=grid_lw)</code>이며, 기본값은 0.5이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>plot(rand(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>), layout <span style="color:#f92672">=</span> (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>), 
+</span></span><span style="display:flex;"><span>     grid_lw <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0.5</span> <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">10</span>])
+</span></span></code></pre></div><p><img src="3604_3.png#center" alt=""></p>
+<h3 id="격자-스타일">격자 스타일</h3>
+<p>키워드 <code>gridstyle(=grid_ls)</code>로 격자의 선 스타일을 지정할 수 있다. 가능한 심볼은 <code>:auto</code>, <code>:solid</code>, <code>:dash</code>, <code>:dot</code>, <code>:dashdot</code>, <code>:dashdotdot</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>plot(rand(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">2</span>), layout <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, ga <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>     gridstyle <span style="color:#f92672">=</span> [<span style="color:#e6db74">:solid</span> <span style="color:#e6db74">:dash</span>])
+</span></span></code></pre></div><p><img src="3604_4.png#center" alt=""></p>
+<h3 id="보조격자">보조격자</h3>
+<p>키워드 인수로 <code>minorgrid = true</code>를 입력하면 보조 격자를 그린다. 보조 격자의 투명도, 색상, 선 두께, 선 스타일을 지정하는 키워드는 각각 <code>minorgridalpha</code>, <code>foreground_color_minor_grid</code> <code>minorgrid_lw</code>, <code>minorgrid_ls</code>이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>plot(plot(rand(<span style="color:#ae81ff">10</span>)),
+</span></span><span style="display:flex;"><span>     plot(rand(<span style="color:#ae81ff">10</span>), minorgrid <span style="color:#f92672">=</span> true),
+</span></span><span style="display:flex;"><span>     gridalpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.8</span>,
+</span></span><span style="display:flex;"><span>     minorgridalpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.2</span>)
+</span></span></code></pre></div><p><img src="3604_6.png#center" alt=""></p>
+<h2 id="환경">환경</h2>
 <ul>
-<li><code>x_guidefontcolor</code>: 이름</li>
-<li><code>x_foreground_color_axis</code>: 눈금</li>
-<li><code>x_foreground_color_text</code>: 값</li>
-<li><code>x_foreground_color_border</code>: 테두리</li>
+<li>OS: Windows11</li>
+<li>Version: Julia 1.9.4, Plots v1.39.0</li>
 </ul>
-<pre tabindex="0"><code>x = randn(10)
-p = plot(x, xlabel=&#34;x-axis&#34;, ylabel=&#34;y-axis&#34;, label=&#34;&#34;, color=:black)
-p1 = plot(p, x_guidefontcolor=:red, y_guidefontcolor=:green, title=&#34;guidefontcolor&#34;, bottom_margin=10*Plots.mm) 
-p2 = plot(p, x_foreground_color_axis=:red, y_foreground_color_axis=:green, title=&#34;foreground_color_axis&#34;, left_margin=10*Plots.mm)
-p3 = plot(p, x_foreground_color_text=:red, y_foreground_color_text=:green, title=&#34;foreground_color_text&#34;)
-p4 = plot(p, x_foreground_color_border=:red, y_foreground_color_border=:green, title=&#34;foreground_color_border&#34;)
-
-plot(p1,p2,p3,p4, size=(728,500))
-</code></pre><div class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1">
-<p><a href="https://discourse.julialang.org/t/plots-how-to-set-color-of-y-axis-border-and-ticks/58730">https://discourse.julialang.org/t/plots-how-to-set-color-of-y-axis-border-and-ticks/58730</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-</ol>
-</div>
 
 
 <aside style="text-align: right;">
-    2023-10-12&emsp;
+    2014-05-27&emsp;
     전기현&emsp;
-    <a href="../1354">🎲 3490</a>
+    <a href="../416">🎲 3604</a>
 </aside>
 
 <script>
@@ -321,8 +400,8 @@ plot(p1,p2,p3,p4, size=(728,500))
       renderKaTex(tex);
     }
 
-    var title = '줄리아에서 그림 축의 테두리, 값, 눈금, 이름 색 지정하는 법';
-    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/how-to-set-the-color-of-axis-border-ticks-name\/';
+    var title = '줄리아 Plots에서 그림 배경의 격자 꾸미는 법';
+    var link = 'https:\/\/freshrimpsushi.github.io\/posts\/decorating-grid-on-background-in-julia-plots\/';
     var arr = new Array();
     var obj = {
       "title": title,
@@ -392,7 +471,7 @@ plot(p1,p2,p3,p4, size=(728,500))
       .then(ip => {
         const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
         return postFetch(url, {
-                board_idx: '3490',
+                board_idx: '3604',
                 user_ip: ip
               });
       })
@@ -525,9 +604,9 @@ plot(p1,p2,p3,p4, size=(728,500))
       alert('빈칸을 채워주세요');
       return;
     }
-    const idx = '3490';
-    const board_slug = 'how-to-set-the-color-of-axis-border,-ticks,-name';
-    const board_title = '줄리아에서 그림 축의 테두리, 값, 눈금, 이름 색 지정하는 법';
+    const idx = '3604';
+    const board_slug = 'decorating-grid-on-background-in-julia-plots';
+    const board_title = '줄리아 Plots에서 그림 배경의 격자 꾸미는 법';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -766,9 +845,9 @@ plot(p1,p2,p3,p4, size=(728,500))
       return;
     }
 
-    const board_idx = '3490';
-    const board_slug = 'how-to-set-the-color-of-axis-border,-ticks,-name';
-    const board_title = '줄리아에서 그림 축의 테두리, 값, 눈금, 이름 색 지정하는 법';
+    const board_idx = '3604';
+    const board_slug = 'decorating-grid-on-background-in-julia-plots';
+    const board_title = '줄리아 Plots에서 그림 배경의 격자 꾸미는 법';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -1015,12 +1094,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       { idx: 4, name: '통계적검정', size: '22', color: color.red },
       { idx: 5, name: '통계적분석', size: '71', color: color.green },
       { idx: 6, name: '수리통계학', size: '110', color: color.green },
-      { idx: 7, name: '분포이론', size: '65', color: color.green },
+      { idx: 7, name: '분포이론', size: '66', color: color.green },
       { idx: 8, name: '확률론', size: '74', color: color.green },
       { idx: 9, name: '위상데이터분석', size: '40', color: color.green }
     ],
     [
-      { idx: 1, name: '줄리아', size: '180', color: color.green },
+      { idx: 1, name: '줄리아', size: '189', color: color.green },
       { idx: 2, name: '프로그래밍', size: '57', color: color.green },
       { idx: 3, name: '알고리즘', size: '28', color: color.green },
       { idx: 4, name: '머신러닝', size: '77', color: color.green },

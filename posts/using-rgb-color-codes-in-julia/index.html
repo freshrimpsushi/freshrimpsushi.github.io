@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/using-rgb-color-codes-in-julia\/",
-    "wordCount" : "952",
+    "wordCount" : "1120",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -280,6 +280,7 @@
     </li>
     <li><a href="#같이보기">같이보기</a></li>
     <li><a href="#환경">환경</a></li>
+    <li><a href="#같이-보기">같이 보기</a></li>
   </ul>
 </nav>
     </div>
@@ -311,9 +312,12 @@ r = &#34;rgb(255, 0, 0)&#34;          # 정수로 표현된 RGB 빨간색
 g = &#34;rgba(0, 255, 0, 0.2)&#34;    # 투명도가 0.2인 RGB 초록색
 p = &#34;rgb(50%, 0%, 100%)&#34;      # 퍼센테이지로 표현된 RGB 보라색
 
-plot([1 2 3; 2 3 4], ones(2, 3), fillrange = 2,
-        fillcolor = [r g p],
-        label = [r g p])
+plot(
+    plot(rand(15), lc = r),
+    bar(rand(15), fc = g),
+    scatter(rand(15), mc = p),
+    layout = (3, 1)
+)
 </code></pre><p><img src="3600_1.png#center" alt=""></p>
 <h3 id="파싱">파싱</h3>
 <p><code>colorant&quot;rgb(0, 0, 0)&quot;</code>과 같은 식으로 RGB 색상 코드를 파싱할 수 있다.</p>
@@ -326,8 +330,11 @@ RGBA{N0f8}(0.0,1.0,0.0,0.502)
 julia&gt; p = colorant&#34;rgb(50%, 0%, 100%)&#34;      # 퍼센테이지로 표현된 RGB 보라색
 RGB{N0f8}(0.502,0.0,1.0)
 
-julia&gt; plot([1 2 3; 2 3 4], ones(2, 3), fillrange = 2,
-            fillcolor = [r g p])
+julia&gt; plot(
+            plot(rand(15), lc = r),
+            bar(rand(15), fc = g),
+            scatter(rand(15), mc = p),
+            layout = (3, 1))
 </code></pre><p><img src="3600_2.png#center" alt=""></p>
 <p><code>parse(RGB, &quot;rgb(0, 255, 255)&quot;)</code>와 같이 파싱할 수도 있다.</p>
 <pre tabindex="0"><code>julia&gt; parse(RGB, &#34;rgb(0, 255, 255)&#34;)
@@ -336,12 +343,24 @@ RGB{N0f8}(0.0,1.0,1.0)
 julia&gt; parse(RGBA, &#34;rgba(0, 255, 0, 0.5)&#34;)
 RGBA{N0f8}(0.0,1.0,0.0,0.502)
 </code></pre><h3 id="직접-정의">직접 정의</h3>
-<p>함수 <code>RGB()</code>, <code>RGBA()</code> 등을 사용하면 색상을 직접 정의할 수 있다. 이 때 입력으로는 <code>N0f8</code>타입의 수를 입력해야하는데, 이를 사용하기위해서는 <code>FixedPointNumbers.jl</code>이 필요하다. <code>UInt8</code> 타입의 0에서 255사이의 숫자를 reinterpret하여 사용하거나, 직접 <code>1.0N0f8</code>과 같이 정의하면 된다. 아래는 빨간색인 <code>colorant&quot;rgb(255, 0, 0)&quot;</code>과 같은 색상을 반환하는 코드이다.</p>
+<p>함수 <code>RGB()</code>, <code>RGBA()</code> 등을 사용하면 색상을 직접 정의할 수 있다.</p>
+<pre tabindex="0"><code>julia&gt; RGB(1, 0, 0)
+RGB{N0f8}(1.0,0.0,0.0)
+
+julia&gt; RGB(1.0, 0.0, 0.0)
+RGB{Float64}(1.0,0.0,0.0)
+
+julia&gt; RGBA(1, 0, 0.5, 0.5)
+RGBA{Float64}(1.0,0.0,0.5,0.5)
+</code></pre><p><code>colorant</code>로 파싱된 색상과 정확히 같은 타입을 얻으려면 입력으로 <code>N0f8</code>타입의 수를 입력해야한다. 이를 사용하기위해서는 <code>FixedPointNumbers.jl</code>이 필요하다. <code>UInt8</code> 타입의 0에서 255사이의 숫자를 reinterpret하여 사용하거나, 직접 <code>1.0N0f8</code>과 같이 정의하면 된다. 아래는 빨간색인 <code>colorant&quot;rgb(255, 0, 0)&quot;</code>과 같은 색상을 반환하는 코드이다.</p>
 <pre tabindex="0"><code>julia&gt; using FixedPointNumbers
 
 # RGB 빨간색 RGB
 julia&gt; colorant&#34;rgb(255, 0, 0)&#34;
 RGB{N0f8}(1.0,0.0,0.0)
+
+julia&gt; RGB(1.0, 0.0, 0.0)
+RGB{Float64}(1.0,0.0,0.0)
 
 julia&gt; RGB(1.0N0f8, 0N0f8, 0N0f8)
 RGB{N0f8}(1.0,0.0,0.0)
@@ -386,12 +405,31 @@ julia&gt; rgb_string(colorant&#34;#00FF00&#34;)
 <li>OS: Windows11</li>
 <li>Version: Julia 1.9.4, Plots v1.39.0, Colors v0.12.10, FixedPointNumbers v0.8.4</li>
 </ul>
+<h2 id="같이-보기">같이 보기</h2>
+<ul>
+<li><a href="../3598">색깔 사용하는 법</a></li>
+<li><a href="../3607">팔레트 사용하는 법</a></li>
+<li><a href="../3608">컬러 그래디언트(그라데이션) 사용하는 법</a></li>
+<li><a href="../3599">색상 처리를 위한 패키지 <code>Colors.jl</code></a>
+<ul>
+<li><a href="../3600">RGB 코드 사용하는 법 <code>RGB(1, 0, 0)</code></a></li>
+<li><a href="../1921">HEX 코드 사용하는 법 <code>&quot;#000000&quot;</code></a></li>
+</ul>
+</li>
+<li><a href="../3601">그래프 요소의 색상 지정하는 법</a>
+<ul>
+<li><a href="../3602">서브 플랏마다 그래프 색상 지정하는 법</a></li>
+</ul>
+</li>
+<li><a href="../3490">축, 축 이름, 눈금, 눈금 값의 색상 지정하는 법</a></li>
+<li><a href="../3603">배경색 지정하는 법</a></li>
+</ul>
 
 
 <aside style="text-align: right;">
     2014-05-19&emsp;
     전기현&emsp;
-    <a href="../801">🎲 3600</a>
+    <a href="../1277">🎲 3600</a>
 </aside>
 
 <script>
@@ -1100,12 +1138,12 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       { idx: 4, name: '통계적검정', size: '22', color: color.red },
       { idx: 5, name: '통계적분석', size: '71', color: color.green },
       { idx: 6, name: '수리통계학', size: '110', color: color.green },
-      { idx: 7, name: '분포이론', size: '65', color: color.green },
+      { idx: 7, name: '분포이론', size: '66', color: color.green },
       { idx: 8, name: '확률론', size: '74', color: color.green },
       { idx: 9, name: '위상데이터분석', size: '40', color: color.green }
     ],
     [
-      { idx: 1, name: '줄리아', size: '180', color: color.green },
+      { idx: 1, name: '줄리아', size: '189', color: color.green },
       { idx: 2, name: '프로그래밍', size: '57', color: color.green },
       { idx: 3, name: '알고리즘', size: '28', color: color.green },
       { idx: 4, name: '머신러닝', size: '77', color: color.green },

@@ -16,15 +16,15 @@ cd = @__DIR__
 p2 = plot(rand(50, 2),
         seriescolor = [colorant"#FF0000" colorant"#00f"],
         label = [" colorant\"#FF0000\"" " colorant\"#00f\""],
-        layout = 2, lw = 4, dpi = 300
+        layout = 2, lw = 4, dpi = 300, size = (600, 200)
 )
 
 savefig(p2, cd*"/3598_2.png")
 
 
-# p3 = plot(rand(20, 2),
-#     seriescolor = [colorant"rgb(255, 0, 0)" colorant"rgba(0, 0, 255, 0.5)"],
-#     label = [" colorant\"rgb(255, 0, 0)\"" " colorant\"rgba(0, 0, 255, 0.5)\""],
-#     layout = 2, lw = 4, dpi = 300)
+p3 = plot(rand(20, 2),
+    seriescolor = [colorant"rgb(255, 0, 0)" colorant"rgba(0, 0, 255, 0.5)"],
+    label = [" colorant\"rgb(255, 0, 0)\"" " colorant\"rgba(0, 0, 255, 0.5)\""],
+    layout = 2, lw = 4, dpi = 300, size = (600,200))
 
-# savefig(p3, cd*"/3598_3.png")
+savefig(p3, cd*"/3598_3.png")
