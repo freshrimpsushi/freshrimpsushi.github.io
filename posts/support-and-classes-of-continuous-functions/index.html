@@ -86,7 +86,7 @@
     "headline": "함수의 서포트와 연속함수 공간의 클래스",
     "alternativeHeadline": "",
     "description": "Support and classes of Continuous Functions",
-    "inLanguage": "ko",
+    "inLanguage": "en-us",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/support-and-classes-of-continuous-functions\/",
-    "wordCount" : "923",
+    "wordCount" : "1576",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -134,7 +134,7 @@
 
 <body class="main">
   <header>
-    <a href="../../" rel="home">
+    <a href="/" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
                 <img src=https://freshrimpsushi.github.io/logo/%ED%9E%90%EB%B2%A0%EB%A5%B4%ED%8A%B8%EA%B3%B5%EA%B0%84.png style="height: auto; max-width: 16%;">
@@ -159,7 +159,7 @@
         return data.ip
       })
       .then(ip => {
-        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/ip_checker.php';
+        const url = '/ip_checker.php';
         return postFetch(url, { user_ip: ip });
       })
       .then(res => res.json())
@@ -271,6 +271,8 @@
   <ul>
     <li><a href="#정의">정의</a></li>
     <li><a href="#설명">설명</a></li>
+    <li><a href="#거리공간으로서1">거리공간으로서</a></li>
+    <li><a href="#놈공간으로서2">놈공간으로서</a></li>
   </ul>
 </nav>
     </div>
@@ -340,12 +342,46 @@ $$</p>
 \text{sinc} x = \begin{cases} {{ \sin x } \over { x }}  &amp; , x \ne 0
 \\  1 &amp; , x = 0  \end{cases}
 $$</p>
+<h2 id="거리공간으로서1">거리공간으로서<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>$X = C[0, 1]$를 구간 $[0, 1]$위에서 연속인 실함수<sup>real-valued function</sup>들의 집합이라고 하자. 그리고 <a href="../381">메트릭</a> $d$를 다음과 같이 정의하자.</p>
+<p>$$
+d(x, y) := \int\limits_{0}^{1} \left| x(t) - y(t)  \right| dt \qquad \forall x, y \in X
+$$</p>
+<p>그러면 <a href="../381">거리공간</a> $(X, d)$는 <a href="../1718">완비 공간</a>이 아니다. 함수 $x_{m}$을 아래의 그림 (a)와 같은 함수라고 하자.</p>
+<p><img src="1594_1.png#center" alt=""></p>
+<p>$n \gt m$이라고 하면, 임의의 $\varepsilon \gt 0$에 대해서 $m \gt 1/\varepsilon$일 때마다 $1 \cdot \frac{1}{m} \lt \varepsilon$이므로 두 그래프가 만드는 면적에 대해 $d(x_{m}, x_{n}) \lt \varepsilon$이 성립하고 $\left\{ x_{m} \right\}$은 <a href="../1718">코시수열</a>이다.</p>
+<p>그런데 $x_{m}(t) = 0$ $(t \in [0, 1/2])$이고, $x_{m}(t) = 1$ $(t \in [a_{m}, 1])$이므로, 다음이 성립한다.</p>
+<p>$$
+\begin{align*}
+d(x_{m}, x)
+&amp;= \int\limits_{0}^{1} \left| x_{m(t)} - x(t) \right| dt \\
+&amp;= \int\limits_{0}^{\frac{1}{2}} \left| 0 - x(t) \right| dt  + \int\limits_{\frac{1}{2}}^{a_{m}} \left| x_{m(t)} - x(t) \right| dt + \int\limits_{a_{m}}^{1} \left| 1 - x(t) \right| dt \\
+&amp;= \int\limits_{0}^{\frac{1}{2}} \left| x(t) \right| dt  + \int\limits_{\frac{1}{2}}^{a_{m}} \left| x_{m(t)} - x(t) \right| dt + \int\limits_{a_{m}}^{1} \left| 1 - x(t) \right| dt \\
+\end{align*}
+$$</p>
+<p>이때 각각의 피적분 함수들이 $0$보다 크거나 같기 때문에 $d(x_{m}, x)$가 $0$으로 수렴하려면 각각의 피적분 함수들이 $0$이 되어야한다. 즉 $x_{m} \to x$인 $x$는 $t\in[0, \frac{1}{2})$에서는 $x(t) = 0$이고, $t\in (\frac{1}{2}, 1]$에서는 $x(t) = 1$이다. 이는 명백하게 연속함수가 아니므로, $x \notin X$이고 $\left\{ x_{m} \right\}$은 $X$로 수렴하지 않는다.</p>
+<h2 id="놈공간으로서2">놈공간으로서<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h2>
+<p>연속함수공간 $C[0, 1]$은 위의 예와 같이 적분이 아니라, 최댓값을 놈으로 주면 <a href="../1718">완비 공간</a>이 된다. 즉 다음과 같이 정의된 $\left\| \cdot \right\|$에 대해서 $(C[0, 1], \left\| \cdot \right\|)$은 <a href="../703">완비 놈 공간(바나흐 공간)</a>이다.</p>
+<p>$$
+\left\| f \right\| := \max\limits_{t \in [0, 1]} \left| f(t) \right|,\qquad f \in C[0, 1]
+$$</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Erwin Kreyszig, <em>Introductory Functional Analysis with Applications</em> (1978), p38&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>Erwin Kreyszig, <em>Introductory Functional Analysis with Applications</em> (1978), p61-62&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
 
 
 <aside style="text-align: right;">
     2020-07-24&emsp;
     류대식&emsp;
-    <a href="../1177">🎲 1594</a>
+    <a href="../2164">🎲 1594</a>
 </aside>
 
 <script>
@@ -429,7 +465,7 @@ $$</p>
       .then(res => res.json())
       .then(data => {return data.ip})
       .then(ip => {
-        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
+        const url = '/comment.php?action=getAllComment';
         return postFetch(url, {
                 board_idx: '1594',
                 user_ip: ip
@@ -572,7 +608,7 @@ $$</p>
       .then(res => res.json())
       .then(data => {return data.ip})
       .then(ip => {
-        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeComment';
+        const url = '/comment.php?action=writeComment';
         return postFetch(url, {
                 board_idx: idx,
                 board_slug: board_slug,
@@ -620,7 +656,7 @@ $$</p>
     });
 
     if (password) {
-      const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=checkPassword';
+      const url = '/comment.php?action=checkPassword';
       postFetch(url, {
         cmt_idx: cmt_idx,
         password: password
@@ -629,7 +665,7 @@ $$</p>
         .then(data => {
           if (data.ok) {
             const commnetHtml = document.querySelector(`#comment${cmt_idx}`);
-            const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getComment';
+            const url = '/comment.php?action=getComment';
             postFetch(url, {
               cmt_idx: cmt_idx
             })
@@ -678,7 +714,7 @@ $$</p>
     });
 
     if (password) {
-      const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=checkPassword';
+      const url = '/comment.php?action=checkPassword';
       postFetch(url, {
         cmt_idx: cmt_idx,
         password: password
@@ -686,7 +722,7 @@ $$</p>
         .then(res => res.json())
         .then(data => {
           if (data.ok) {
-            const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=deleteComment';
+            const url = '/comment.php?action=deleteComment';
             postFetch(url, {
               cmt_idx: cmt_idx
             })
@@ -726,7 +762,7 @@ $$</p>
       alert('빈칸을 채워주세요');
     }
 
-    const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=updateComment';
+    const url = '/comment.php?action=updateComment';
     postFetch(url, {
       cmt_idx: cmt_idx,
       author: author.replace(/\+/g, "%2B"),
@@ -813,7 +849,7 @@ $$</p>
       .then(res => res.json())
       .then(data => {return data.ip})
       .then(ip => {
-        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeReComment';
+        const url = '/comment.php?action=writeReComment';
         return postFetch(url, {
                 board_idx: board_idx,
                 board_slug: board_slug,
@@ -856,7 +892,7 @@ $$</p>
       
 
 <aside>
-<form method="get" action="../../search" style="border: 1px;">
+<form method="get" action="/search" style="border: 1px;">
 <div class="field">
 
 <input type="text" id="searchtext" placeholder = "통합검색" class="input_text" name="s"
@@ -1024,8 +1060,8 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       { idx: 7, name: '단층촬영', size: '20', color: color.green },
     ],
     [
-      { idx: 1, name: '거리공간', size: '38', color: color.green },
-      { idx: 2, name: '바나흐공간', size: '36', color: color.green },
+      { idx: 1, name: '거리공간', size: '39', color: color.green },
+      { idx: 2, name: '바나흐공간', size: '39', color: color.green },
       { idx: 3, name: '힐베르트공간', size: '31', color: color.green },
       { idx: 4, name: '르벡공간', size: '31', color: color.green }
     ],
@@ -1054,7 +1090,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       { idx: 4, name: '통계적검정', size: '22', color: color.red },
       { idx: 5, name: '통계적분석', size: '71', color: color.green },
       { idx: 6, name: '수리통계학', size: '110', color: color.green },
-      { idx: 7, name: '분포이론', size: '66', color: color.green },
+      { idx: 7, name: '분포이론', size: '67', color: color.green },
       { idx: 8, name: '확률론', size: '74', color: color.green },
       { idx: 9, name: '위상데이터분석', size: '40', color: color.green }
     ],
@@ -1213,7 +1249,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
 </aside>
 
 <script>
-  const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/recent_comment.php?action=getCurrentComment';
+  const url = '/recent_comment.php?action=getCurrentComment';
   let recentRows = []; 
   fetch(url)
     .then(res => res.json())
@@ -1277,15 +1313,9 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
 
     <script src=https://freshrimpsushi.github.io/js/fuse.js></script> 
 
-<script>
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-      
-      document.write('<script src="https:\/\/freshrimpsushi.github.io\/js\/localfastsearch.js"><\/script>');
-    } else {
-      
-      document.write('<script src="https:\/\/freshrimpsushi.github.io\/js\/fastsearch.js"><\/script>');
-    }
-</script>
+<script src="https://freshrimpsushi.github.io/js/fastsearch.js"></script>
+
+
 
 
 

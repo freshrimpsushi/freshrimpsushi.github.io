@@ -113,6 +113,7 @@ function loadSearch() {
         'title',
         'permalink',
         'contents',
+        'id',
         // 'summary'
         ]
     };
@@ -136,7 +137,7 @@ function executeSearch(term) {
   } else { // build our html 
     for (let item in results.slice(0,30)) { // only show first 30 results
 		searchitems = searchitems + '<li><a href="' + results[item].item.permalink + '" tabindex="0">' +
-     '<span class="title">' + results[item].item.title + '</span></a></li>';
+     '<span class="title" style="display:block;">' + results[item].item.id + ': ' + results[item].item.title + '</span></a></li>';
     }
     resultsAvailable = true;
   }

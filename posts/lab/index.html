@@ -86,7 +86,7 @@
     "headline": "랩",
     "alternativeHeadline": "",
     "description": "Lab",
-    "inLanguage": "ko",
+    "inLanguage": "en-us",
     "isFamilyFriendly": "true",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -122,7 +122,7 @@
     },
     "image": "https://freshrimpsushi.github.io/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/posts\/lab\/",
-    "wordCount" : "877",
+    "wordCount" : "912",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -134,7 +134,7 @@
 
 <body class="main">
   <header>
-    <a href="../../" rel="home">
+    <a href="/" rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
                 <img src=https://freshrimpsushi.github.io/logo/%EB%8F%99%EC%97%AD%ED%95%99.png style="height: auto; max-width: 16%;">
@@ -159,7 +159,7 @@
         return data.ip
       })
       .then(ip => {
-        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/ip_checker.php';
+        const url = '/ip_checker.php';
         return postFetch(url, { user_ip: ip });
       })
       .then(res => res.json())
@@ -315,13 +315,38 @@ julia&gt; foo[sortperm(foo)]
 <h3 id="ranking"><code>ranking</code></h3>
 <p><code>ranking(x) = sortperm(sortperm(x, rev = true))</code></p>
 <p>배열의 랭킹을 리턴한다. 랭킹 함수는 통계 관련 패키지인 <code>StatBase.jl</code>에도 있기는 하다<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>. 그러나 <code>sortperm</code>만으로도 쉽게 구현할 수 있어서 딱 랭킹만 필요한 경우엔 패키지를 로드하지 않고 이렇게 쓰기도 한다.</p>
-<h3 id="argnth"><code>argnth</code></h3>
+<pre tabindex="0"><code>julia&gt; a = randn(5)
+5-element Vector{Float64}:
+  0.7795283609374186
+  0.6230493124556412
+  1.7323736283590032
+ -2.0790567409341945
+ -0.05984808360056012
+
+julia&gt; ranking(a)
+5-element Vector{Int64}:
+ 2
+ 3
+ 1
+ 5
+ 4
+</code></pre><h3 id="argnth"><code>argnth</code></h3>
 <p><code>argnth(n, A) = sortperm(A, rev = true)[n]</code></p>
 <p><code>n</code>번째로 큰 원소의 인덱스를 리턴한다. 막상 <code>sortperm</code> 없이 짜보려면 구현하기가 까다롭다.</p>
-<h2 id="환경">환경</h2>
+<pre tabindex="0"><code>julia&gt; b = randn(5)
+5-element Vector{Float64}:
+ -0.45523175238444824
+  0.2671034422090365
+ -1.0703159524443844
+ -0.4218688982647255
+ -0.27806227968448743
+
+julia&gt; argnth(3, b)
+4
+</code></pre><h2 id="환경">환경</h2>
 <ul>
 <li>OS: Windows</li>
-<li>julia: v1.9.0</li>
+<li>julia: v1.10.0</li>
 </ul>
 <hr>
 <p>해밍 거리
@@ -332,8 +357,8 @@ Spectral Distance between Graph and Graph</p>
 <h2 id="정의-1-2">정의 <sup id="fnref1:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> <sup id="fnref1:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h2>
 <p>버텍스의 수가 $n$ 인 두 <a href="../966">그래프</a> $G_{1}$, $G_{2}$ 의 <a href="../1499">인접행렬</a>을 $A_{1}$, $A_{2}$ 라 하자. 이들이 내림차순으로 정렬된 <a href="../319">고유값</a>, 즉 스펙트라<sup>Spectra</sup>를 각각 다음과 같이 나타내자.
 $$
-A_{1} \mapsto \lambda_{1}^{(1)} \ge \cdots \ge \lambda_{1}^{(1)} \\
-A_{2} \mapsto \lambda_{1}^{(2)} \ge \cdots \ge \lambda_{1}^{(2)}
+A_{1} \mapsto \lambda_{1}^{(1)} \ge \cdots \ge \lambda_{n}^{(1)} \\
+A_{2} \mapsto \lambda_{1}^{(2)} \ge \cdots \ge \lambda_{n}^{(2)}
 $$
 두 그래프 사이의 <strong>스펙트럴 거리</strong><sup>Spectral Distance</sup>를 다음과 같이 정의한다.
 $$
@@ -358,14 +383,14 @@ $$</p>
 <p><a href="https://kosis.kr/index/index.do">https://kosis.kr/index/index.do</a></p>
 <hr>
 <p><a href="https://github.com/JuliaCI/BenchmarkTools.jl">https://github.com/JuliaCI/BenchmarkTools.jl</a></p>
-<p>using BenchmarkTools
+<pre tabindex="0"><code>using BenchmarkTools
 x = rand()
 @btime SC = sincospi($x);
 @btime S = sinpi($x);
 @btime SC = [sinpi($x) cospi($x)];
 @benchmark SC = sincospi($x)
-@benchmark SC = [sinpi($x) cospi($x)]</p>
-<hr>
+@benchmark SC = [sinpi($x) cospi($x)]
+</code></pre><hr>
 <p>strogatz 260~</p>
 <p>새들-노드 바이퍼케이션(blue sky bifurcation, allen)
 인피니트-피리어드 바이퍼케이션
@@ -391,7 +416,7 @@ Codimension: Kuznetsov p63, strogatz p70</p>
 <aside style="text-align: right;">
     2021-01-01&emsp;
     류대식&emsp;
-    <a href="../1805">🎲 1998</a>
+    <a href="../1031">🎲 1998</a>
 </aside>
 
 <script>
@@ -475,7 +500,7 @@ Codimension: Kuznetsov p63, strogatz p70</p>
       .then(res => res.json())
       .then(data => {return data.ip})
       .then(ip => {
-        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
+        const url = '/comment.php?action=getAllComment';
         return postFetch(url, {
                 board_idx: '1998',
                 user_ip: ip
@@ -618,7 +643,7 @@ Codimension: Kuznetsov p63, strogatz p70</p>
       .then(res => res.json())
       .then(data => {return data.ip})
       .then(ip => {
-        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeComment';
+        const url = '/comment.php?action=writeComment';
         return postFetch(url, {
                 board_idx: idx,
                 board_slug: board_slug,
@@ -666,7 +691,7 @@ Codimension: Kuznetsov p63, strogatz p70</p>
     });
 
     if (password) {
-      const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=checkPassword';
+      const url = '/comment.php?action=checkPassword';
       postFetch(url, {
         cmt_idx: cmt_idx,
         password: password
@@ -675,7 +700,7 @@ Codimension: Kuznetsov p63, strogatz p70</p>
         .then(data => {
           if (data.ok) {
             const commnetHtml = document.querySelector(`#comment${cmt_idx}`);
-            const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getComment';
+            const url = '/comment.php?action=getComment';
             postFetch(url, {
               cmt_idx: cmt_idx
             })
@@ -724,7 +749,7 @@ Codimension: Kuznetsov p63, strogatz p70</p>
     });
 
     if (password) {
-      const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=checkPassword';
+      const url = '/comment.php?action=checkPassword';
       postFetch(url, {
         cmt_idx: cmt_idx,
         password: password
@@ -732,7 +757,7 @@ Codimension: Kuznetsov p63, strogatz p70</p>
         .then(res => res.json())
         .then(data => {
           if (data.ok) {
-            const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=deleteComment';
+            const url = '/comment.php?action=deleteComment';
             postFetch(url, {
               cmt_idx: cmt_idx
             })
@@ -772,7 +797,7 @@ Codimension: Kuznetsov p63, strogatz p70</p>
       alert('빈칸을 채워주세요');
     }
 
-    const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=updateComment';
+    const url = '/comment.php?action=updateComment';
     postFetch(url, {
       cmt_idx: cmt_idx,
       author: author.replace(/\+/g, "%2B"),
@@ -859,7 +884,7 @@ Codimension: Kuznetsov p63, strogatz p70</p>
       .then(res => res.json())
       .then(data => {return data.ip})
       .then(ip => {
-        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeReComment';
+        const url = '/comment.php?action=writeReComment';
         return postFetch(url, {
                 board_idx: board_idx,
                 board_slug: board_slug,
@@ -902,7 +927,7 @@ Codimension: Kuznetsov p63, strogatz p70</p>
       
 
 <aside>
-<form method="get" action="../../search" style="border: 1px;">
+<form method="get" action="/search" style="border: 1px;">
 <div class="field">
 
 <input type="text" id="searchtext" placeholder = "통합검색" class="input_text" name="s"
@@ -1070,8 +1095,8 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       { idx: 7, name: '단층촬영', size: '20', color: color.green },
     ],
     [
-      { idx: 1, name: '거리공간', size: '38', color: color.green },
-      { idx: 2, name: '바나흐공간', size: '36', color: color.green },
+      { idx: 1, name: '거리공간', size: '39', color: color.green },
+      { idx: 2, name: '바나흐공간', size: '39', color: color.green },
       { idx: 3, name: '힐베르트공간', size: '31', color: color.green },
       { idx: 4, name: '르벡공간', size: '31', color: color.green }
     ],
@@ -1100,7 +1125,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       { idx: 4, name: '통계적검정', size: '22', color: color.red },
       { idx: 5, name: '통계적분석', size: '71', color: color.green },
       { idx: 6, name: '수리통계학', size: '110', color: color.green },
-      { idx: 7, name: '분포이론', size: '66', color: color.green },
+      { idx: 7, name: '분포이론', size: '67', color: color.green },
       { idx: 8, name: '확률론', size: '74', color: color.green },
       { idx: 9, name: '위상데이터분석', size: '40', color: color.green }
     ],
@@ -1259,7 +1284,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
 </aside>
 
 <script>
-  const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/recent_comment.php?action=getCurrentComment';
+  const url = '/recent_comment.php?action=getCurrentComment';
   let recentRows = []; 
   fetch(url)
     .then(res => res.json())
@@ -1328,15 +1353,9 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
 
     <script src=https://freshrimpsushi.github.io/js/fuse.js></script> 
 
-<script>
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-      
-      document.write('<script src="https:\/\/freshrimpsushi.github.io\/js\/localfastsearch.js"><\/script>');
-    } else {
-      
-      document.write('<script src="https:\/\/freshrimpsushi.github.io\/js\/fastsearch.js"><\/script>');
-    }
-</script>
+<script src="https://freshrimpsushi.github.io/js/fastsearch.js"></script>
+
+
 
 
 
