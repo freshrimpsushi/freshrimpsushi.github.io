@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" class="blog">
+<html class="blog">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,14 +21,14 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     
     
-    <link href=https://freshrimpsushi.github.io/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
-    <link href=https://freshrimpsushi.github.io/css/comment.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <link href=https://freshrimpsushi.github.io/en/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <link href=https://freshrimpsushi.github.io/en/css/comment.css rel="preload" as="style" onload="this.rel='stylesheet'">
     <noscript>
-        <link rel='stylesheet' href=https://freshrimpsushi.github.io/css/custum.css>
+        <link rel='stylesheet' href=https://freshrimpsushi.github.io/en/css/custum.css>
     </noscript>
 
     
-    <link rel="canonical" href="https://freshrimpsushi.github.io/">
+    <link rel="canonical" href=https://freshrimpsushi.github.io/en/>
 
     
     <link rel="icon" href="https://freshrimpsushi.github.io/logo/favicon.ico">
@@ -54,37 +54,37 @@
     <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
 
     
-    
-
-    
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NLV8Y9PRK1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-
         gtag('config', 'G-NLV8Y9PRK1');
     </script>
 
+    <title>R_s</title>
+
     
+</head>
+
 <meta name="title" content="R_s">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
 <meta property="og:title" content="R_s"/>
 <meta property="og:description" content=""/>
-<meta property="og:image" content=https://freshrimpsushi.github.io/logo/basic.png/>
+<meta property="og:image" content=https://freshrimpsushi.github.io/en/logo/basic.png/>
 
 
 
 
-    <title>R_s</title>
-</head>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src=https://freshrimpsushi.github.io/en/js/common.js></script>
 
 <body class="main">
   <header>
-    <a href="/" rel="home">
+    <a href= https://freshrimpsushi.github.io/en/ rel="home">
         <p style="text-align:center; font-size: 1rem; color: black;">
             
-                <img src=https://freshrimpsushi.github.io/logo/basic.png style="height: auto; max-width: 16%;">
+                <img src=https://freshrimpsushi.github.io/en/logo/basic.png style="height: auto; max-width: 16%;">
             
             
             
@@ -92,11 +92,17 @@
     </a>
 </header>
 
-  <div id="fastSearch">
-  <input id="searchInput" tabindex="0">
-  <ul id="searchResults">
-  </ul>
-</div>
+   
+<script type="text/javascript">
+    var goIndex = function(){
+        var idx = document.getElementsByName("idx")[0].value;
+        
+        var local_idx = "../" + idx;
+        location.replace(local_idx)
+    }
+</script>
+
+
 
   <script>
   document.addEventListener("DOMContentLoaded", () => {
@@ -119,18 +125,54 @@
       .catch(err => console.error(err));
   });
 </script>
-
-  
-     
-    <script type="text/javascript">
-      var goIndex = function(){
-          var idx = document.getElementsByName("idx")[0].value;
-          var local_idx = "http://localhost:1313/posts/" + idx;
-          location.replace(local_idx)
-      }
-    </script>
-    </p>
+  <form method="get" action="/ko/search" style="border: 1px; text-align: center;">
+    <div class="field">
+    <input type="text" id="searchtext" placeholder = "통합검색" class="input_text" name="s"
+    style="background-color: #EEEEEE; text-align: center; width: 200px; font-size: 1.5rem;
+    border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
+    </div>
+</form>
+  <div style="text-align: center;">
     
+    <a href="javascript:void(0);" onclick="changeLanguage('ko')">한국어</a> |
+    <a href="javascript:void(0);" onclick="changeLanguage('en')">English</a> |
+    <a href="javascript:void(0);" onclick="changeLanguage('jp')">日本語</a>
+</div>
+
+<script>
+    function changeLanguage(languageCode) {
+        
+        var currentUrl = window.location.href;
+
+        var newUrl = currentUrl.replace(/\/(ko|en|jp)\//i, '/' + languageCode + '/');
+        
+        if (currentUrl.includes('localhost')) {
+            
+            var port;
+            switch (languageCode) {
+                case 'ko':
+                    port = 1313;
+                    break;
+                case 'en':
+                    port = 1314;
+                    break;
+                case 'jp':
+                    port = 1315;
+                    break;
+                default:
+                    port = 1313; 
+            }
+
+            
+
+            
+            newUrl = 'http://localhost:' + port + '/' + languageCode + '/' + newUrl.split('/' + languageCode + '/')[1];
+        }
+        window.location.href = newUrl;
+    }
+</script>
+  
+  
   <div class="wrapper">
     <div class="content">
       <div class="content-box">
@@ -150,7 +192,11 @@
   <summary>전체 포스트</summary>
   <ul>
     
-    <li><a href="https://freshrimpsushi.github.io/en/posts/en-derivation-of-formula-for-distance-of-two-parallel-lines/">en평행한 두 직선 사이의 거리를 구하는 공식 유도</a></li>
+    <li><a href="https://freshrimpsushi.github.io/en/posts/derivation-of-formula-for-distance-of-two-parallel-lines/">Deriving the formula for finding the distance between two parallel lines</a></li>
+    
+    <li><a href="https://freshrimpsushi.github.io/en/posts/statement-connective-truth-table/">Propositions and Connectives, Truth Tables</a></li>
+    
+    <li><a href="https://freshrimpsushi.github.io/en/posts/definition-of-set-and-propositional-function/">The Definitions of Sets and Propositional Functions</a></li>
     
   </ul>
 </details>
@@ -296,8 +342,8 @@
       html += `<div class="list-button">`;
       html += `<div class="list-update-button" onclick="update_comment('${row.cmt_idx}', 'parents');">수정</div>`;
       html += `<div class="list-delete-button" onclick="delete_comment('${row.cmt_idx}', 'parents');">삭제</div>`;
-      html += `</div>`; // list-button
-      html += `</div>`; // content-info
+      html += `</div>`; 
+      html += `</div>`; 
       let content = row.content;
       content = content.replace(/\n/g, '<br />');
       html += `<div class="content-text">${content}</div>`;
@@ -342,8 +388,8 @@
         html += `<div class="list-button">`;
         html += `<div class="list-update-button" onclick="update_comment('${child.cmt_idx}', 'child');">수정</div>`;
         html += `<div class="list-delete-button" onclick="delete_comment('${child.cmt_idx}', 'child');">삭제</div>`;
-        html += `</div>`; // list-button
-        html += `</div>`; // content-info
+        html += `</div>`; 
+        html += `</div>`; 
         let content = child.content;
         content = content.replace(/\n/g, '<br />');
         html += `<div class="content-text">${content}</div>`;
@@ -659,20 +705,13 @@
 
 </script>
     </div>
-
     <div class="sidebar">
-      
 
-<aside>
-<form method="get" action="/search" style="border: 1px;">
-<div class="field">
+  <aside>
+    <p>
+      현재 테스트 중인 기능이 있어 블로그가 정상적으로 작동되지 않을 수 있습니다. 댓글이나 메일로 불편사항 남겨주시면 확인토록 하겠습니다.
+    </p>
 
-<input type="text" id="searchtext" placeholder = "통합검색" class="input_text" name="s"
-style="background-color: #EEEEEE; text-align: center; width: 100%; font-size: 1.5rem;
-border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
-</div>
-</form>
-<a href="https://docs.google.com/forms/d/1f8xEWRLbh6jDLpFVYRHF1VLzsuPOoB4uDAR2KHxgoXQ/edit?pli=1"><p align="center">📋설문조사</p></a>
 
   
 
@@ -682,7 +721,6 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
 
 
 <div class="category">
-
 </div>
 
 <aside style="display:flex;">
@@ -700,6 +738,8 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
 
   
 
+  
+
 
 <script>
   const color = {green: '#33cc33', yellow: '#ffcc00', red: '#ff3333', black: '#000000'};
@@ -707,7 +747,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     [
       { idx: 1, name: '함수', size: '', color: color.green },
       { idx: 2, name: '보조정리', size: '', color: color.green },
-      { idx: 3, name: '집합론', size: '', color: color.green },
+      { idx: 3, name: '집합론', size: '2', color: color.green },
       { idx: 4, name: '정수론', size: '', color: color.green },
       { idx: 5, name: '기하학', size: '', color: color.green },
       { idx: 6, name: '행렬대수', size: '', color: color.green },
@@ -810,7 +850,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
       rows[i].map(row => {
         html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
         html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
-        html += `<a href="https:\/\/freshrimpsushi\.github\.io\/categories/${row.name.toLowerCase()}/">`; // R카테고리 같은 경우 소문자로 바꿀 필요가 있음
+        html += `<a href="https:\/\/freshrimpsushi.github.io\/en\/categories/${row.name.toLowerCase()}/">`; 
         html += ` ${row.name} (${row.size})</a>`;
         html += '</span>';
         if(screen.width > 954) {html += '<br>'} else {html += ' '}
@@ -821,7 +861,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     category.innerHTML = html;
   }
 
-  /* 좌측 버튼 클릭시 블라인드 되는 함수 */
+   
   function check_blind(mainIdx, subIdx)
   {
     const cateDiv = document.querySelector(`#cate${mainIdx}-${subIdx}`);
@@ -853,7 +893,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     }
   }
 
-  /* blind되도록 랜더링하는 함수 */
+   
   function blind_category(blindList)
   {
     const cateDiv = document.querySelectorAll('.cate');
@@ -873,6 +913,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
 
 <aside>
 <p><b>최근에 본 포스트</b></p>
+
 <aside>
   <div class="lately-viewed-list" style="padding-left: 4px;">
   </div>
@@ -932,7 +973,7 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     const currentReply = document.querySelector('.current-reply');
     let html = '';
     rows.map(row => {
-      let link = 'https:\/\/freshrimpsushi.github.io\/';
+      let link = 'https:\/\/freshrimpsushi.github.io\/en\/';
       if (row.board_idx > -1) {
         link += `/posts/${row.board_slug}#comment${row.cmt_idx}`;
       } else if (row.board_idx == -1) {
@@ -962,13 +1003,15 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
 
 
 
-    </div>
+
+</div> 
   </div>
+  
   <footer>
   <aside>
     <div>
       <p style="text-align: center">© FreshrimpRestaurant / Powered by 류대식, 전기현</p>
-      <p style="text-align: center"><img src=https://freshrimpsushi.github.io/logo/gmail.png width=16px> Contact:
+      <p style="text-align: center"><img src=https://freshrimpsushi.github.io/en/logo/gmail.png width=16px> Contact:
         freshrimpsushi@gmail.com<br>
         
       </p>
@@ -976,15 +1019,11 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
 
     
     
+    
+  </aside>
+</footer>
 
-    <script src=https://freshrimpsushi.github.io/js/fuse.js></script> 
-
-<script src="https://freshrimpsushi.github.io/js/fastsearch.js"></script>
-
-
-
-
-
+  
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.1/katex.min.js"
   integrity="sha512-5ufNcHqOYgilGEHPfuRIQ5B/vDS1M8+UC+DESZ5CwVgGTg+b2Ol/15rYL/GiCWJ/Sx8oVo0FPFok1dPk8U9INQ=="
@@ -1039,14 +1078,6 @@ border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bot
     });
   }
 </script>
-
-
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<script src=https://freshrimpsushi.github.io/js/common.js></script>
-  </aside>
-</footer>
-en
 </body>
 
 </html>

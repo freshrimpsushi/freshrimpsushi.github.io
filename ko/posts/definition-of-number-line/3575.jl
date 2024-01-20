@@ -1,0 +1,26 @@
+using Plots
+cd = @__DIR__
+p = plot([-5,5], [0,0], color=:black, arrow=:true, ylims=(-1,1))
+plot!(legend=false, framestyle=:none)
+plot!(size=(600,100), dpi=300)
+begin
+    plot!([-4, -4], [-0.2, 0.2], color=:black)
+    plot!([-3, -3], [-0.2, 0.2], color=:black)
+    plot!([-2, -2], [-0.2, 0.2], color=:black)
+    plot!([-1, -1], [-0.2, 0.2], color=:black)
+    plot!([0, 0], [-0.2, 0.2], color=:black)
+    plot!([1, 1], [-0.2, 0.2], color=:black)
+    plot!([2, 2], [-0.2, 0.2], color=:black)
+    plot!([3, 3], [-0.2, 0.2], color=:black)
+    plot!([4, 4], [-0.2, 0.2], color=:black)
+    annotate!([(-4, -0.25, text("-4", :center, :top, 10))])
+    annotate!([(-3, -0.25, text("-3", :center, :top, 10))])
+    annotate!([(-2, -0.25, text("-2", :center, :top, 10))])
+    annotate!([(-1, -0.25, text("-1", :center, :top, 10))])
+    annotate!([(0, -0.25, text("0", :center, :top, 10))])
+    annotate!([(1, -0.25, text("1", :center, :top, 10))])
+    annotate!([(2, -0.25, text("2", :center, :top, 10))])
+    annotate!([(3, -0.25, text("3", :center, :top, 10))])
+    annotate!([(4, -0.25, text("4", :center, :top, 10))])
+end
+savefig(p, cd*"/3575_1.png")
