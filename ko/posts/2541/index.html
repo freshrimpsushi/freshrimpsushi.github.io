@@ -1,10 +1,1515 @@
 <!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <title>https://freshrimpsushi.github.io/ko/posts/introduction-to-proj-in-geostatistics/</title>
-    <link rel="canonical" href="https://freshrimpsushi.github.io/ko/posts/introduction-to-proj-in-geostatistics/">
-    <meta name="robots" content="noindex">
-    <meta charset="utf-8">
-    <meta http-equiv="refresh" content="0; url=https://freshrimpsushi.github.io/ko/posts/introduction-to-proj-in-geostatistics/">
-  </head>
+<html class="blog">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    
+    
+
+    
+    <meta name="NaverBot" content="All" />
+    <meta name="NaverBot" content="index,follow" />
+    <meta name="Yeti" content="All" />
+    <meta name="Yeti" content="index,follow" />
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.1/katex.min.css"
+        integrity="sha512-vJqxkZ+Sugf/6WRlpcxN01qVfX/29hF6qc33eHF1va3NgoV+U+wCi+uTAsQ10sDoGyBxHLdaHvGwDlV3yVYboA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    <link href=https://freshrimpsushi.github.io/ko/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <link href=https://freshrimpsushi.github.io/ko/css/comment.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <noscript>
+        <link rel='stylesheet' href=https://freshrimpsushi.github.io/ko/css/custum.css>
+    </noscript>
+
+    
+    <link rel="canonical" href=https://freshrimpsushi.github.io/ko/>
+
+    
+    <link rel="icon" href="https://freshrimpsushi.github.io/ko/logo/favicon.ico">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta name="msapplication-TileImage" content="logo/basic.png">
+
+    
+    <style type="text/css">
+        .thmbox {
+            background: rgb(245, 245, 245);
+             
+            border-radius: 20px;
+            padding: 20px;
+        }
+    </style>
+
+    
+    <script data-ad-client="ca-pub-4751085325232621" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
+    <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NLV8Y9PRK1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-NLV8Y9PRK1');
+    </script>
+
+    <title>지구통계학에서의 PROJ 소개</title>
+
+    
+</head>
+
+<meta name="title" content="지구통계학에서의 PROJ 소개">
+<meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
+<meta property="og:title" content="지구통계학에서의 PROJ 소개"/>
+<meta property="og:description" content="Introduction to PROJ in Geostatistics"/>
+<meta property="og:image" content=https://freshrimpsushi.github.io/ko/logo/basic.png/>
+
+
+<link rel="canonical" href="https://freshrimpsushi.github.io/ko/"/>
+<link rel="alternate" hreflang="en" href="https://freshrimpsushi.github.io/en/"/>
+<link rel="alternate" hreflang="jp" href="https://freshrimpsushi.github.io/jp/"/>
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "articleSection": "r_",
+    "name": "지구통계학에서의 PROJ 소개",
+    "headline": "지구통계학에서의 PROJ 소개",
+    "alternativeHeadline": "",
+    "description": "Introduction to PROJ in Geostatistics",
+    "inLanguage": "ko",
+    "isFamilyFriendly": "true",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https:\/\/freshrimpsushi.github.io\/ko\/posts\/2541\/"
+    },
+    "author" : {
+        "@type": "Person",
+        "name": "류대식"
+    },
+    "creator" : {
+        "@type": "Person",
+        "name": "류대식"
+    },
+    "accountablePerson" : {
+        "@type": "Person",
+        "name": "류대식"
+    },
+    "copyrightHolder" : "생새우초밥집",
+    "copyrightYear" : "1924",
+    "dateCreated": "1924-03-21T00:00:00.00Z",
+    "datePublished": "1924-03-21T00:00:00.00Z",
+    "dateModified": "1924-03-21T00:00:00.00Z",
+    "publisher":{
+        "@type":"Organization",
+        "name": "생새우초밥집",
+        "url": "https://freshrimpsushi.github.io/ko/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https:\/\/freshrimpsushi.github.io\/ko\/logo\/basic.png",
+            "width":"32",
+            "height":"32"
+        }
+    },
+    "image": "https://freshrimpsushi.github.io/ko/logo/basic.png",
+    "url" : "https:\/\/freshrimpsushi.github.io\/ko\/posts\/2541\/",
+    "wordCount" : "2302",
+    "genre" : [ ],
+    "keywords" : [ ]
+}
+</script>
+
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src=https://freshrimpsushi.github.io/ko/js/common.js></script>
+
+<body class="main">
+  <header>
+    <a href= https://freshrimpsushi.github.io/ko/ rel="home">
+        <p style="text-align:center; font-size: 1rem; color: black;">
+            
+                <img src=https://freshrimpsushi.github.io/ko/logo/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D.png style="height: auto; max-width: 16%;">
+            
+            
+            
+        </p>
+    </a>
+</header>
+
+   
+<script type="text/javascript">
+    var goIndex = function(){
+        var idx = document.getElementsByName("idx")[0].value;
+        
+        var local_idx = "../" + idx;
+        location.replace(local_idx)
+    }
+</script>
+
+
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    fetch('https://api64.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => {
+        return data.ip
+      })
+      .then(ip => {
+        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/ip_checker.php';
+        return postFetch(url, { user_ip: ip });
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (!data.ok) {
+          alert('차단된 IP입니다.\nContact:\nfreshrimpsushi@gmail.com')
+          window.location.href = 'https://google.com';
+        }
+      })
+      .catch(err => console.error(err));
+  });
+</script>
+  <form method="get" action="/ko/search" style="border: 1px; text-align: center;">
+    <div class="field">
+    <input type="text" id="searchtext" placeholder = "통합검색" class="input_text" name="s"
+    style="background-color: #EEEEEE; text-align: center; width: 200px; font-size: 1.5rem;
+    border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
+    </div>
+</form>
+  <div style="text-align: center;">
+    
+    <a href="javascript:void(0);" onclick="changeLanguage('ko')">한국어</a> |
+    <a href="javascript:void(0);" onclick="changeLanguage('en')">English</a> |
+    <a href="javascript:void(0);" onclick="changeLanguage('jp')">日本語</a>
+</div>
+
+<script>
+    function changeLanguage(languageCode) {
+        
+        var currentUrl = window.location.href;
+
+        var newUrl = currentUrl.replace(/\/(ko|en|jp)\//i, '/' + languageCode + '/');
+        
+        if (currentUrl.includes('localhost')) {
+            
+            var port;
+            switch (languageCode) {
+                case 'ko':
+                    port = 1313;
+                    break;
+                case 'en':
+                    port = 1314;
+                    break;
+                case 'jp':
+                    port = 1315;
+                    break;
+                default:
+                    port = 1313; 
+            }
+
+            
+
+            
+            newUrl = 'http://localhost:' + port + '/' + languageCode + '/' + newUrl.split('/' + languageCode + '/')[1];
+        }
+        window.location.href = newUrl;
+    }
+</script>
+  
+  
+  <div class="wrapper">
+    <div class="content">
+      <div class="content-box">
+        
+<title>지구통계학에서의 PROJ 소개</title>
+
+
+
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <a href="https://freshrimpsushi.github.io/ko/categories/%ED%86%B5%EA%B3%84%EC%A0%81%EB%B6%84%EC%84%9D/"
+            style="background-color: rgba(0, 0, 0, 0.8); color: orange;
+            border-radius:10px; padding: 5px;">
+            📂통계적분석</a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+<h1>지구통계학에서의 PROJ 소개</h1>
+
+
+<aside>
+  <div class="innerheader">
+    <div class="innertoc">
+      <b>목차</b>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#빌드업">빌드업</a></li>
+    <li><a href="#소개">소개</a>
+      <ul>
+        <li><a href="#예시">예시</a></li>
+        <li><a href="#한국-주요-좌표계">한국 주요 좌표계</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>    
+  </div>
+</aside>
+
+<h2 id="빌드업">빌드업</h2>
+<p>지구는 둥글며, 더 자세하게는 <a href="../1471">타원구</a>로 보고 있다. 지구를 단순히 축소시켜놓은 &lsquo;지구본&rsquo;은 정확한 모형일 뿐 쓰임새가 그다지 많지 못한데, 아무래도 인류는 아직 평면에 놓인 그림이 편하다. 이에 따라 다양한 <a href="../1404">좌표계</a>가 고안되었는데, 그 종류가 좀&hellip; 심하게 다양하다.</p>
+<p><img src="proj.jpg#center" alt="proj.jpg"> <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<p>예를 들어 우리가 흔히 보는 세계지도는 면적이 왜곡되는 대신 <strong>경도</strong><sup>Longitude</sup>와 <strong>위도</strong><sup>Latitude</sup>가 정확한 <strong>머케이터 프로젝션</strong><sup>Mercator Projection</sup>을 사용하고 있고,<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> 다른 여러 방식이 나름의 장점과 이유를 가지고 고안되었다.</p>
+<p><img src="2023-01-27-17-23-09.png#center" alt=""></p>
+<p>이러한 프로젝션들이 &lsquo;곡면을 평면 속에 가두는 일&rsquo;인 이상 어떤 부분에선, 어느 정도는 왜곡과 손실이 있을 수밖에 없다. 혹은 정확하지만 도저히 쓸 수 없을 정도로 복잡할 수도 있고, 전세계적으로는 잘 맞는 편이지만 아주 작은 특정 지역에선 그 정교함이 무뎌지는 상황도 상정할 수 있다.</p>
+<p>이는 지구만의 문제도 아니고, 우리가 행성<sup>Planet</sup>이라 부를 수 있는 천체에 관심을 가지는 이상 어떻게 하나로 통일하고 표준화 시킬 수가 없는 문제다. 대세와 주류는 있겠지만, 결국 다양한 좌표계가 난립하게 된다. 이제 관건은 그 좌표계들 사이를 어떻게 왔다갔다 하는 것이냐다.</p>
+<h2 id="소개">소개</h2>
+<p align="center">
+<a href=https://proj.org/index.html>공식 다큐멘테이션 링크</a>
+</p>
+<p><strong>PROJ</strong>는 어떤 <strong>CRS</strong><sup>Coordinate Reference System</sup>에서 다른 CRS로 바꿔주는 작업을 수행하며 <a href="../2492">공간통계학</a>을 한다면 모르기가 어려운, 못해도 한 번은 접할 수 밖에 없는 지리공간 좌표변환 소프트웨어다. 그 구현이나 래핑<sup>Wrapping</sup> 자체는 프로그래밍 언어나 워크프레임에 상관 없이 쉽게 찾아볼 수 있다:</p>
+<ul>
+<li><a href="../../categories/r">R</a>에서의 <a href="https://cran.r-project.org/web/packages/PROJ/index.html">PROJ</a> 패키지</li>
+<li><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서의 <a href="https://github.com/JuliaGeo/Proj.jl">Proj.jl</a> 패키지</li>
+</ul>
+<h3 id="예시">예시</h3>
+<p>PROJ를 구체적으로 어떻게 쓰는지는 그 구현마다 달라서 하나하나 설명하는 의미도 없고 애초에 가능하지도 않다. 언어에 괘념치 말고 <a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서는 어떻게 쓰이는지 살펴보자.</p>
+<pre tabindex="0"><code>using Proj
+
+trans = Proj.Transformation(&#34;EPSG:4326&#34;, &#34;+proj=utm +zone=32 +datum=WGS84&#34;)
+trans(55, 12)
+# -&gt; (691875.632137542, 6.098907825129169e6)
+</code></pre><p>줄리아에서는 <code>Proj.Transformation</code> 함수를 통해</p>
+<ul>
+<li>EPSG:4326 좌표계의 좌표를</li>
+<li>UTM 도법을 사용하고, zone 32에 datum이 WGS84인 좌표계의 좌표로</li>
+<li>매핑해주는 변환(함수 자체)을 리턴해서</li>
+<li>EPSG:4326의 좌표 (55, 12)를 넣으니 (691875.632137542, 6.098907825129169e6)로 변환된 결과를 얻었다.</li>
+</ul>
+<p>여기서 +proj나 +zone, +datum이 실제로 무엇을 의미하는지는 공식 다큐멘테이션에서 찾으며 알아가야한다. 이러한 좌표계의 정의는 문자열을 통해 이루어지며, 지리통계학이라는 분야에서 통용되는 고유의 문법으로 보아야한다.</p>
+<h3 id="한국-주요-좌표계">한국 주요 좌표계</h3>
+<p><a href="https://www.osgeo.kr/17">OSGeo 한국어지부 공식사이트</a>에서 주요 좌표계 목록을 확인할 수 있다.</p>
+<details>
+    <summary>23년 01월 27일 아카이브</summary>
+<h4 id="전지구-좌표계">전지구 좌표계</h4>
+<p>전세계를 한번에 나타내야 할 때 많이 쓰이는 좌표계들입니다.</p>
+<ul>
+<li>WGS84 경위도: GPS가 사용하는 좌표계</li>
+</ul>
+<pre tabindex="0"><code>EPSG:4326, EPSG:4166 (Korean 1995)
++proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs 
+</code></pre><ul>
+<li>Bessel 1841 경위도: 한국과 일본에 잘 맞는 지역타원체를 사용한 좌표계</li>
+</ul>
+<pre tabindex="0"><code>EPSG:4004, EPSG:4162 (Korean 1985)
++proj=longlat +ellps=bessel +no_defs +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43
+</code></pre><ul>
+<li>GRS80 경위도: WGS84와 거의 유사</li>
+</ul>
+<pre tabindex="0"><code>EPSG:4019, EPSG:4737 (Korean 2000)
++proj=longlat +ellps=GRS80 +no_defs
+</code></pre><ul>
+<li>Google Mercator: 구글지도/빙지도/야후지도/OSM 등 에서 사용중인 좌표계</li>
+</ul>
+<pre tabindex="0"><code>EPSG:3857(공식), EPSG:900913(통칭)
++proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs
+</code></pre><h4 id="utm">UTM</h4>
+<p>전세계를 6도 단위로 나누는 표준적인 TM으로 군사지도에서 많이 사용합니다.</p>
+<ul>
+<li>UTM52N (WGS84): 경도 120~126도 사이에서 사용</li>
+</ul>
+<pre tabindex="0"><code>EPSG:32652
++proj=utm +zone=52 +ellps=WGS84 +datum=WGS84 +units=m +no_defs 
+</code></pre><ul>
+<li>UTM51N (WGS84): 경도 126~132도 사이에서 사용</li>
+</ul>
+<pre tabindex="0"><code>EPSG:32651
++proj=utm +zone=51 +ellps=WGS84 +datum=WGS84 +units=m +no_defs 
+</code></pre><h4 id="보정안된-오래된-지리원-표준">보정안된 오래된 지리원 표준</h4>
+<p>이 좌표계들은 EPSG에 등록되어 있지만, lon_0값의 문제로 실제로는 거의 사용되지 않습니다. <strong>오래된 지리원 표준</strong>이 현업에서 실제 사용된 좌표계입니다</p>
+<ul>
+<li>동부원점(Bessel): 강원도 등 동부지역</li>
+</ul>
+<pre tabindex="0"><code>EPSG:2096
++projtmerc +lat_0=38 +lon_0=129 +k=1 +x_0=200000 +y_0=500000 +ellps=bessel +units=m +no_defs +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43
+</code></pre><ul>
+<li>중부원점(Bessel): 서울 등 중부지역</li>
+</ul>
+<pre tabindex="0"><code>EPSG:2097
++proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=500000 +ellps=bessel +units=m +no_defs +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43
+</code></pre><ul>
+<li>서부원점(Bessel): 서해5도 등 서부지역</li>
+</ul>
+<pre tabindex="0"><code>EPSG:2098
++proj=tmerc +lat_0=38 +lon_0=125 +k=1 +x_0=200000 +y_0=500000 +ellps=bessel +units=m +no_defs +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43
+</code></pre><h4 id="오래된-지리원-표준">오래된 지리원 표준</h4>
+<p>2002년 이전에 지리원의 지형도와 KLIS 등 국가 시스템에서 사용되었던 좌표계입니다.</p>
+<ul>
+<li>보정된 서부원점(Bessel) - KLIS에서 서부지역에 사용중</li>
+</ul>
+<pre tabindex="0"><code>EPSG:5173
++projtmerc +lat_0=38 +lon_0=125.0028902777778 +k=1 +x_0=200000 +y_0=500000 +ellps=bessel +units=m +no_defs +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43
+</code></pre><ul>
+<li>보정된 중부원점(Bessel): KLIS에서 중부지역에 사용중</li>
+</ul>
+<pre tabindex="0"><code>EPSG:5174
++proj=tmerc +lat_0=38 +lon_0=127.0028902777778 +k=1 +x_0=200000 +y_0=500000 +ellps=bessel +units=m +no_defs +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43
+</code></pre><ul>
+<li>보정된 제주원점(Bessel): KLIS에서 제주지역에 사용중</li>
+</ul>
+<pre tabindex="0"><code>EPSG:5175
++proj=tmerc +lat_0=38 +lon_0=127.0028902777778 +k=1 +x_0=200000 +y_0=550000 +ellps=bessel +units=m +no_defs  +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43
+</code></pre><ul>
+<li>보정된 동부원점(Bessel): KLIS에서 동부지역에 사용중</li>
+</ul>
+<pre tabindex="0"><code>EPSG:5176
++proj=tmerc +lat_0=38 +lon_0=129.0028902777778 +k=1 +x_0=200000 +y_0=500000 +ellps=bessel +units=m +no_defs +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43
+</code></pre><ul>
+<li>보정된 동해(울릉)원점(Bessel): KLIS에서 울릉지역에 사용중</li>
+</ul>
+<pre tabindex="0"><code>EPSG:5177
++proj=tmerc +lat_0=38 +lon_0=131.0028902777778 +k=1 +x_0=200000 +y_0=500000 +ellps=bessel +units=m +no_defs  +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43
+</code></pre><h4 id="katec-계열">KATEC 계열</h4>
+<p>한반도 전체를 하나의 좌표계로 나타낼 때 많이 사용하는 좌표계입니다.</p>
+<ul>
+<li>UTM-K (Bessel): 새주소지도에서 사용 중</li>
+</ul>
+<pre tabindex="0"><code>EPSG:5178
++proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=bessel +units=m +no_defs +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43
+</code></pre><ul>
+<li>UTM-K (GRS80): 네이버지도에서 사용중인 좌표계</li>
+</ul>
+<pre tabindex="0"><code>EPSG:5179
++proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=GRS80 +units=m +no_defs 
+</code></pre><p>// 2014년 1월 21일 신상희 추가</p>
+<ul>
+<li>네비게이션용 KATEC 좌표계(KOTI-KATEC)</li>
+</ul>
+<pre tabindex="0"><code>EPSG 없음. 비공식 좌표계임. 
++proj=tmerc +lat_0=38 +lon_0=128 +k=0.9999 +x_0=400000 +y_0=600000 +ellps=bessel +units=m +no_defs +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43
+</code></pre><h4 id="타원체-바꾼-지리원-표준">타원체 바꾼 지리원 표준</h4>
+<p>과거 지리원 좌표계에서 타원체와 lon_0 문제를 수정한 좌표계로 2000년대 초반에 잠시 많이 사용되었습니다.</p>
+<ul>
+<li>서부원점(GRS80)-falseY:50000</li>
+</ul>
+<pre tabindex="0"><code>EPSG:5180
++projtmerc +lat_0=38 +lon_0=125 +k=1 +x_0=200000 +y_0=500000 +ellps=GRS80 +units=m +no_defs
+</code></pre><ul>
+<li>중부원점(GRS80)-falseY:50000: 다음지도에서 사용중인 좌표계</li>
+</ul>
+<pre tabindex="0"><code>EPSG:5181
++proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=500000 +ellps=GRS80 +units=m +no_defs
+</code></pre><ul>
+<li>제주원점(GRS80)-falseY:55000</li>
+</ul>
+<pre tabindex="0"><code>EPSG:5182
++proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=550000 +ellps=GRS80 +units=m +no_defs
+</code></pre><ul>
+<li>동부원점(GRS80)-falseY:50000</li>
+</ul>
+<pre tabindex="0"><code>EPSG:5183
++proj=tmerc +lat_0=38 +lon_0=129 +k=1 +x_0=200000 +y_0=500000 +ellps=GRS80 +units=m +no_defs
+</code></pre><ul>
+<li>동해(울릉)원점(GRS80)-falseY:50000</li>
+</ul>
+<pre tabindex="0"><code>EPSG:5184
++proj=tmerc +lat_0=38 +lon_0=131 +k=1 +x_0=200000 +y_0=500000 +ellps=GRS80 +units=m +no_defs
+</code></pre><h4 id="현재-국토지리정보원-표준">현재 국토지리정보원 표준</h4>
+<p>2002년 이후에 국토지리정보원 지형도에서 사용중인 좌표계입니다.</p>
+<ul>
+<li>서부원점(GRS80)-falseY:60000</li>
+</ul>
+<pre tabindex="0"><code>EPSG:5185
++proj=tmerc +lat_0=38 +lon_0=125 +k=1 +x_0=200000 +y_0=600000 +ellps=GRS80 +units=m +no_defs
+</code></pre><ul>
+<li>중부원점(GRS80)-falseY:60000</li>
+</ul>
+<pre tabindex="0"><code>EPSG:5186
++proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=600000 +ellps=GRS80 +units=m +no_defs
+</code></pre><ul>
+<li>동부원점(GRS80)-falseY:60000</li>
+</ul>
+<pre tabindex="0"><code>EPSG:5187
++proj=tmerc +lat_0=38 +lon_0=129 +k=1 +x_0=200000 +y_0=600000 +ellps=GRS80 +units=m +no_defs
+</code></pre><ul>
+<li>동해(울릉)원점(GRS80)-falseY:60000</li>
+</ul>
+<pre tabindex="0"><code>EPSG:5188
++proj=tmerc +lat_0=38 +lon_0=131 +k=1 +x_0=200000 +y_0=600000 +ellps=GRS80 +units=m +no_defs
+</code></pre></details><div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>흥미롭게도 이 근사한 짤은 지구 평평론자가 만들었다: <a href="https://flatearth.ws/map-projection">https://flatearth.ws/map-projection</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p><a href="https://www.britannica.com/science/Mercator-projection">https://www.britannica.com/science/Mercator-projection</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+
+<aside style="text-align: right;">
+    1924-03-21&emsp;
+    류대식&emsp;
+    <a href="../1894">🎲 2541</a>
+</aside>
+
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    
+    const contentBox = document.querySelector('.content-box');
+    if (contentBox) {
+      renderKaTex(contentBox);
+    }
+    const tex = document.querySelector('.tex');
+    if (tex) {
+      renderKaTex(tex);
+    }
+
+    var title = '지구통계학에서의 PROJ 소개';
+    var link = 'https:\/\/freshrimpsushi.github.io\/ko\/posts\/2541\/';
+    var arr = new Array();
+    var obj = {
+      "title": title,
+      "link": link
+    };
+    var postList = JSON.parse(localStorage.getItem('latelyViewPostList'));
+    if (postList == '' || postList == null || postList == undefined || postList == 0 || postList == NaN) {
+      arr.push(obj);
+      localStorage.setItem('latelyViewPostList', JSON.stringify(arr));
+    } else {
+      var listSize = postList.length;
+      for (var i = 0; i < listSize; i++) {
+        if (title == postList[i].title) {
+          postList.splice(i, 1);
+          break;
+        }
+      }
+      arr = postList;
+      arr.push(obj);
+      if (arr.length > 5) {
+        arr.shift();
+      }
+      localStorage.setItem('latelyViewPostList', JSON.stringify(arr));
+    }
+  });
+</script>
+
+      </div>
+      <div style="margin-bottom: 10px;">댓글</div>
+<div class="area-reply">
+  <div class="list-reply">
+  </div>
+</div>
+
+<hr />
+
+
+<div class="write-box">
+  <div class="write-author-info box-account">
+    <input type="hidden" name="cmt_idx" />
+    <input class="ai-author" type="text" value="" placeholder="이름" />
+    <input class="ai-password" type="password" value="" maxlength="20" placeholder="20자 이내 비밀번호를 입력하세요" />
+  </div>
+  <div class="write-content">
+    <textarea class="ai-content" value="" placeholder="내용
+    
+ - 웨일 브라우저 기준 V3.23.214.10 이후 버전에서 덧글 노출이 안되는 현상이 확인 되었습니다. 설정 → 기본 → 클린 웹 → 추적 방지(사용안함)으로 설정하면 댓글이 정상출력됩니다." style="IME-MODE:active;"></textarea>
+  </div>
+  <div class="write-button">
+    <input class="write_comment" type="submit" value="등록" onclick="write_comment();" />
+  </div>
+  <aside class="tex" style="text-align: center;">댓글에도 $\TeX$이 적용됩니다.</aside>
+</div>
+
+<script>
+  let commentRows = [];
+  const listReply = document.querySelector('.list-reply');
+
+  document.addEventListener('DOMContentLoaded', () => {
+    get_all_comment();
+  });
+
+  function get_all_comment() {
+    fetch('https://api64.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => {return data.ip})
+      .then(ip => {
+        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
+        return postFetch(url, {
+                board_idx: '2541',
+                user_ip: ip
+              });
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.ok) {
+          commentRows = data.rows;
+          render_comment(commentRows);
+        }
+      })
+      .catch(err => console.error(err));
+  }
+
+  function render_comment(rows) {
+    const badgeExceptionArr = ['류대식', '전기현', 'ㅇㅇ', '질문'];
+    const adminExceptionArr = ['류대식', '전기현'];
+    render_blank();
+    let html = '';
+    rows.map(row => {
+      html += `<div id="comment${row.cmt_idx}" class="parents">`;
+      html += `<div class="content-info">`;
+      
+      let badge = '';
+      if (row.cmt_cnt > 125) {
+        badge = '🥇';
+      } else if (row.cmt_cnt > 25) {
+        badge = '🥈';
+      } else if (row.cmt_cnt > 5) {
+        badge = '🥉';
+      } else { }
+
+      if (badgeExceptionArr.includes(row.author)) {
+        badge = '';
+      }
+
+      let ipAddress = '';
+      if (row.ip_address == null) {
+        ipAddress = '(-)';
+      } else {
+        ipAddress = `(${row.ip_address})`;
+      }
+
+      if(adminExceptionArr.includes(row.author)) {
+        ipAddress = '';
+      }
+      
+      html += `<div class="list-author">${badge} ${row.author} ${ipAddress}</div>`;
+      html += `<div class="list-bridge">▶</div>`;
+      if(row.approve) {
+        html += `<div class="list-date">${row.datetime}</div>`;
+      } else {
+        html += `<div class="list-date">${row.datetime} - 관리자의 승인을 기다리고 있습니다</div>`;
+      }
+      html += `<div class="list-button">`;
+      html += `<div class="list-update-button" onclick="update_comment('${row.cmt_idx}', 'parents');">수정</div>`;
+      html += `<div class="list-delete-button" onclick="delete_comment('${row.cmt_idx}', 'parents');">삭제</div>`;
+      html += `</div>`; 
+      html += `</div>`; 
+      let content = row.content;
+      content = content.replace(/\n/g, '<br />');
+      html += `<div class="content-text">${content}</div>`;
+      html += `<div class="re-comment"><span class="re-comment-button" onclick="re_comment('${row.cmt_idx}');">답글</span></div>`;
+      html += `</div>`;
+
+      row.child.map(child => {
+        html += `<div id="comment${child.cmt_idx}" class="child">`;
+        html += `<div class="content-info">`;
+        
+        let badge = '';
+        if (child.cmt_cnt > 5) {
+          badge = '🥉';
+        } else if (child.cmt_cnt > 25) {
+          badge = '🥈';
+        } else if (child.cmt_cnt > 125) {
+          badge = '🥇';
+        } else { }
+
+        if (badgeExceptionArr.includes(child.author)) {
+          badge = '';
+        }
+
+        let ipAddress = '';
+        if (child.ip_address == null) {
+          ipAddress = '(-)';
+        } else {
+          ipAddress = `(${child.ip_address})`;
+        }
+
+        if(adminExceptionArr.includes(child.author)) {
+          ipAddress = '';
+        }
+
+        html += `<div class="list-author">${badge} ${child.author} ${ipAddress}</div>`;
+        html += `<div class="list-bridge">▶</div>`;
+        if(child.approve) {
+          html += `<div class="list-date">${child.datetime}</div>`;
+        } else {
+          html += `<div class="list-date">${child.datetime} - 관리자의 승인을 기다리고 있습니다</div>`;
+        }
+        html += `<div class="list-button">`;
+        html += `<div class="list-update-button" onclick="update_comment('${child.cmt_idx}', 'child');">수정</div>`;
+        html += `<div class="list-delete-button" onclick="delete_comment('${child.cmt_idx}', 'child');">삭제</div>`;
+        html += `</div>`; 
+        html += `</div>`; 
+        let content = child.content;
+        content = content.replace(/\n/g, '<br />');
+        html += `<div class="content-text">${content}</div>`;
+        html += `</div>`;
+      });
+    });
+    listReply.innerHTML = html;
+    renderKaTex(listReply);
+  }
+
+  function render_blank() {
+    listReply.innerHTML = '';
+  }
+
+  
+  function write_comment() {
+    const inputAuthor = document.querySelector('.ai-author');
+    const inputPassword = document.querySelector('.ai-password');
+    const inputContent = document.querySelector('.ai-content');
+
+    const author = inputAuthor.value;
+    const password = inputPassword.value;
+    const content = inputContent.value;
+
+    if (author === '' || password === '' || content === '') {
+      alert('빈칸을 채워주세요');
+      return;
+    }
+    const idx = '2541';
+    const board_slug = 'introduction-to-proj-in-geostatistics';
+    const board_title = '지구통계학에서의 PROJ 소개';
+
+    fetch('https://api64.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => {return data.ip})
+      .then(ip => {
+        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeComment';
+        return postFetch(url, {
+                board_idx: idx,
+                board_slug: board_slug,
+                board_title: board_title,
+                author: author.replace(/\+/g, "%2B"),
+                password: password,
+                content: content.replace(/\+/g, "%2B"),
+                user_ip: ip
+              });
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.ok) {
+          commentRows.push(data.row);
+          render_comment(commentRows);
+          inputAuthor.value = '';
+          inputPassword.value = '';
+          inputContent.value = '';
+        } else {
+          if (data.status === 606) {
+            Swal.fire('Warning!\n지속적인 도배 시도시\nIP가 차단될 수 있습니다.');
+            inputAuthor.value = '';
+            inputPassword.value = '';
+            inputContent.value = '';
+          } else if (data.status === 607) {
+            alert('지나친 댓글 도배를 확인하여\n접근을 차단합니다.');
+            window.location.href = 'https://google.com';
+          } else {}
+        }
+      })
+      .catch(err => console.error(err));
+  }
+
+  
+  async function update_comment(cmt_idx, type) {
+    const { value: password } = await Swal.fire({
+      title: '댓글 수정',
+      input: 'password',
+      inputPlaceholder: '글 작성 시 입력했던 패스워드를 입력하세요',
+      inputAttributes: {
+        maxlength: 20,
+        autocapitalize: 'off',
+        autocorrect: 'off'
+      }
+    });
+
+    if (password) {
+      const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=checkPassword';
+      postFetch(url, {
+        cmt_idx: cmt_idx,
+        password: password
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.ok) {
+            const commnetHtml = document.querySelector(`#comment${cmt_idx}`);
+            const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getComment';
+            postFetch(url, {
+              cmt_idx: cmt_idx
+            })
+              .then(res => res.json())
+              .then(data => {
+                if (data.ok) {
+                  const row = data.row;
+                  const author = row.author;
+                  const content = row.content;
+                  let html = '';
+                  html += `<div class="update-author-info">`;
+                  html += `<input class="update-author" type="text" value="${author}" placeholder="이름" />`;
+                  html += `<input class="update-password" type="password" value="${password}" placeholder="비밀번호" disabled />`;
+                  html += '</div>';
+                  html += `<textarea class="update-content" value="" style="IME-MODE:active;">${content}</textarea>`;
+                  html += `<input class="update_comment-button" type="submit" value="수정" onclick="update_comment_click(${cmt_idx}, '${type}')" />`;
+                  html += `<input class="update_comment-button" type="submit" value="취소" onclick="cancel_click(${cmt_idx})" />`;
+                  commnetHtml.innerHTML = html;
+                }
+              })
+              .catch(err => console.error(err));
+          } else {
+            Swal.fire('패스워드 일치 오류');
+          }
+        })
+        .catch(err => console.error(err));
+    }
+  }
+
+  
+  async function delete_comment(cmt_idx, type) {
+    const { value: password } = await Swal.fire({
+      title: '댓글 삭제',
+      text: "삭제하면 되돌릴 수 없습니다.",
+      input: 'password',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      inputPlaceholder: '글 작성 시 입력했던 패스워드를 입력하세요',
+      inputAttributes: {
+        maxlength: 20,
+        autocapitalize: 'off',
+        autocorrect: 'off'
+      }
+    });
+
+    if (password) {
+      const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=checkPassword';
+      postFetch(url, {
+        cmt_idx: cmt_idx,
+        password: password
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.ok) {
+            const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=deleteComment';
+            postFetch(url, {
+              cmt_idx: cmt_idx
+            })
+              .then(res => res.json())
+              .then(data => {
+                Swal.fire('삭제되었습니다.');
+                if (type === 'parents') {
+                  commentRows = commentRows.filter((row) => row.cmt_idx !== cmt_idx);
+                } else if (type === 'child') {
+                  commentRows.map((row) => {
+                    row.child = row.child.filter((childRow) => childRow.cmt_idx !== cmt_idx);
+                    row.child_cnt = row.child.length;
+                  });
+                } else { }
+                render_comment(commentRows);
+              })
+              .catch(err => console.error(err));
+          } else {
+            Swal.fire('패스워드 일치 오류');
+          }
+        })
+        .catch(err => console.error(err));
+    }
+  }
+
+  
+  function update_comment_click(cmt_idx, type) {
+    const inputAuthor = document.querySelector(`#comment${cmt_idx} .update-author`);
+    const inputPassword = document.querySelector(`#comment${cmt_idx} .update-password`);
+    const inputContent = document.querySelector(`#comment${cmt_idx} .update-content`);
+
+    const author = inputAuthor.value;
+    const password = inputPassword.value;
+    const content = inputContent.value;
+
+    if (author === '' || password === '' || content === '') {
+      alert('빈칸을 채워주세요');
+    }
+
+    const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=updateComment';
+    postFetch(url, {
+      cmt_idx: cmt_idx,
+      author: author.replace(/\+/g, "%2B"),
+      password: password,
+      content: content.replace(/\+/g, "%2B")
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.ok) {
+          Swal.fire('수정되었습니다.');
+          if (type === 'parents') {
+            commentRows.map((row) => {
+              if (row.cmt_idx == cmt_idx) {
+                row.author = data.author;
+                row.content = data.content;
+              }
+            });
+          } else if (type === 'child') {
+            commentRows.map((row) => {
+              if (row.cmt_idx == data.parent_cmt_idx) {
+                row.child.map((child) => {
+                  if (child.cmt_idx == cmt_idx) {
+                    child.author = data.author;
+                    child.content = data.content;
+                  }
+                });
+              }
+            });
+          } else { }
+          render_comment(commentRows);
+          recentRows.map((row) => {
+            if (row.cmt_idx == cmt_idx) {
+              row.author = data.author;
+              row.content = data.content;
+            }
+          });
+          render_recent_comment(recentRows);
+        }
+      })
+      .catch(err => console.error(err));
+  }
+
+  
+  function cancel_click() {
+    render_comment(commentRows);
+  }
+
+  
+  function re_comment(cmt_idx) {
+    const reComment = document.querySelector(`#comment${cmt_idx} .re-comment`);
+    let html = '';
+    html += '<div class="re-comment-box">';
+    html += '<div class="re-comment-author-info">';
+    html += '<input class="re-comment-author" type="text" value="" placeholder="이름" />';
+    html += '<input class="re-comment-password" type="password" value="" placeholder="비밀번호" />';
+    html += '</div>';
+    html += '<textarea class="re-comment-content" placeholder="내용" value="" style="IME-MODE:active;"></textarea>';
+    html += `<input class="re-comment-btn" type="submit" value="등록" onclick="re_comment_click(${cmt_idx})" />`;
+    html += `<input class="re-comment-btn" type="submit" value="취소" onclick="cancel_click(${cmt_idx})" />`;
+    html += '</div>';
+
+    reComment.innerHTML = html;
+  }
+
+  function re_comment_click(cmt_idx) {
+    const inputAuthor = document.querySelector(`#comment${cmt_idx} .re-comment-author`);
+    const inputPassword = document.querySelector(`#comment${cmt_idx} .re-comment-password`);
+    const inputContent = document.querySelector(`#comment${cmt_idx} .re-comment-content`);
+
+    const author = inputAuthor.value;
+    const password = inputPassword.value;
+    const content = inputContent.value;
+
+    if (author === '' || password === '' || content === '') {
+      alert('빈칸을 채워주세요');
+      return;
+    }
+
+    const board_idx = '2541';
+    const board_slug = 'introduction-to-proj-in-geostatistics';
+    const board_title = '지구통계학에서의 PROJ 소개';
+
+    fetch('https://api64.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => {return data.ip})
+      .then(ip => {
+        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeReComment';
+        return postFetch(url, {
+                board_idx: board_idx,
+                board_slug: board_slug,
+                board_title: board_title,
+                cmt_idx: cmt_idx,
+                author: author.replace(/\+/g, "%2B"),
+                password: password,
+                content: content.replace(/\+/g, "%2B"),
+                user_ip: ip
+              });
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.ok) {
+          commentRows.map((row) => {
+            if (row.cmt_idx == cmt_idx) {
+              row.child.push(data.row);
+            }
+          });
+          render_comment(commentRows);
+        } else {
+          if (data.status == 606) {
+            Swal.fire('Warning!\n지속적인 도배 시도시\nIP가 차단될 수 있습니다.');
+            inputAuthor.value = '';
+            inputPassword.value = '';
+            inputContent.value = '';
+          } else if (data.status === 607) {
+            alert('지나친 댓글 도배를 확인하여\n접근을 차단합니다.');
+            window.location.href = 'https://google.com';
+          } else {}
+        }
+      })
+      .catch(err => console.error(err));
+  }
+
+</script>
+    </div>
+    <div class="sidebar">
+
+  <aside>
+    <p>
+      현재 테스트 중인 기능이 있어 블로그가 정상적으로 작동되지 않을 수 있습니다. 댓글이나 메일로 불편사항 남겨주시면 확인토록 하겠습니다.
+    </p>
+
+
+  
+
+
+
+
+
+
+<div class="category">
+</div>
+
+<aside style="display:flex;">
+  ● 를 클릭해서 관심있는 분야만 강조해보세요.
+      <div class="resetmute">
+        <button class="sb-btn btnReset"
+          style = "border-radius:5px; border:0px">reset</button>
+        <button class="sb-btn btnMute"
+          style = "border-radius:5px; border:0px">mute</button>
+      </div>
+  </aside>
+
+
+ 
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+  const color = {green: '#33cc33', yellow: '#ffcc00', red: '#ff3333', black: '#000000'};
+  const categoryRows = [
+    [
+      { idx: 1, name: '함수', size: '94', color: color.green },
+      { idx: 2, name: '보조정리', size: '29', color: color.green },
+      { idx: 3, name: '집합론', size: '47', color: color.green },
+      { idx: 4, name: '정수론', size: '89', color: color.green },
+      { idx: 5, name: '기하학', size: '147', color: color.green },
+      { idx: 6, name: '행렬대수', size: '88', color: color.green },
+      { idx: 7, name: '선형대수', size: '93', color: color.green },
+      { idx: 8, name: '추상대수', size: '92', color: color.green },
+      { idx: 9, name: '위상수학', size: '64', color: color.green },
+      { idx: 10, name: '그래프이론', size: '54', color: color.green }
+    ],
+    [
+      { idx: 1, name: '해석개론', size: '97', color: color.green },
+      { idx: 2, name: '다변수벡터해석', size: '22', color: color.green },
+      { idx: 3, name: '복소해석', size: '71', color: color.green },
+      { idx: 4, name: '측도론', size: '53', color: color.green },
+      { idx: 5, name: '푸리에해석', size: '52', color: color.green },
+      { idx: 6, name: '초함수론', size: '23', color: color.green },
+      { idx: 7, name: '단층촬영', size: '20', color: color.green },
+    ],
+    [
+      { idx: 1, name: '거리공간', size: '39', color: color.green },
+      { idx: 2, name: '바나흐공간', size: '39', color: color.green },
+      { idx: 3, name: '힐베르트공간', size: '31', color: color.green },
+      { idx: 4, name: '르벡공간', size: '31', color: color.green }
+    ],
+    [
+      { idx: 1, name: '상미분방정식', size: '57', color: color.green },
+      { idx: 2, name: '편미분방정식', size: '58', color: color.green },
+      { idx: 3, name: '확률미분방정식', size: '26', color: color.green }
+    ],
+    [
+      { idx: 1, name: '매트랩', size: '16', color: color.green },
+      { idx: 2, name: '수치해석', size: '55', color: color.green },
+      { idx: 3, name: '최적화이론', size: '37', color: color.green }
+    ],
+    [
+      { idx: 1, name: '물리학', size: '17', color: color.green },
+      { idx: 2, name: '수리물리', size: '96', color: color.red },
+      { idx: 3, name: '고전역학', size: '47', color: color.green },
+      { idx: 4, name: '전자기학', size: '51', color: color.green },
+      { idx: 5, name: '양자역학', size: '52', color: color.yellow },
+      { idx: 6, name: '열물리학', size: '29', color: color.green }
+    ],
+    [
+      { idx: 1, name: 'R', size: '53', color: color.green },
+      { idx: 2, name: '데이터확보', size: '22', color: color.green },
+      { idx: 3, name: '데이터과학', size: '24', color: color.green },
+      { idx: 4, name: '통계적검정', size: '22', color: color.red },
+      { idx: 5, name: '통계적분석', size: '71', color: color.green },
+      { idx: 6, name: '수리통계학', size: '110', color: color.green },
+      { idx: 7, name: '분포이론', size: '68', color: color.green },
+      { idx: 8, name: '확률론', size: '74', color: color.green },
+      { idx: 9, name: '위상데이터분석', size: '40', color: color.green }
+    ],
+    [
+      { idx: 1, name: '줄리아', size: '190', color: color.green },
+      { idx: 2, name: '프로그래밍', size: '57', color: color.green },
+      { idx: 3, name: '알고리즘', size: '28', color: color.green },
+      { idx: 4, name: '머신러닝', size: '77', color: color.green },
+      { idx: 5, name: '세이버메트릭스', size: '12', color: color.green },
+      { idx: 6, name: '논문작성', size: '19', color: color.green },
+      { idx: 7, name: '교과과정', size: '54', color: color.green },
+      { idx: 8, name: '생새우초밥지', size: '3', color: color.black }
+    ]
+  ];
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const blindList = JSON.parse(localStorage.getItem('blindList'));
+    if (blindList == '' || blindList == null || blindList == undefined || blindList == 0 || blindList == NaN) {
+      localStorage.setItem('blindList', null);
+    }
+    render_category(categoryRows);
+
+    blind_category(blindList);
+
+    const btnReset = document.querySelector('.btnReset');
+    btnReset.addEventListener('click', () => {
+      let arr = new Array();
+      localStorage.setItem('blindList', JSON.stringify(arr));
+      blind_category(arr);
+    });
+
+    const btnMute = document.querySelector('.btnMute');
+    btnMute.addEventListener('click', () => {
+      let arr = new Array();
+      for(let i = 0; i < categoryRows.length; i++) {
+        categoryRows[i].map(row => {
+          const data = {mainIdx: i, subIdx: row.idx};
+          arr.push(data);
+        });
+      }
+      localStorage.setItem('blindList', JSON.stringify(arr));
+      blind_category(arr);
+    });
+  });
+
+  function render_category(rows)
+  {
+    const category = document.querySelector('.category');
+    let html = '';
+    for(let i = 0; i < rows.length; i++) {
+      rows[i].map(row => {
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
+        html += `<a href="https:\/\/freshrimpsushi.github.io\/ko\/categories/${row.name.toLowerCase()}/">`; 
+        html += ` ${row.name} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
+      });
+      html += '<hr>';
+    }
+
+    category.innerHTML = html;
+  }
+
+   
+  function check_blind(mainIdx, subIdx)
+  {
+    const cateDiv = document.querySelector(`#cate${mainIdx}-${subIdx}`);
+    let arr = new Array();
+    const data = {mainIdx, subIdx};
+    let blindList = JSON.parse(localStorage.getItem('blindList'));
+    if (blindList == '' || blindList == null || blindList == undefined || blindList == 0 || blindList == NaN) {
+      arr.push(data);
+      localStorage.setItem('blindList', JSON.stringify(arr));
+      cateDiv.className += ' blind';
+    } else {
+      arr = blindList;
+      let tempArr = null;
+      for(let i = 0; i < arr.length; i++) {
+        if(arr[i].mainIdx == mainIdx && arr[i].subIdx == subIdx) {
+          tempArr = arr.filter(a => a.mainIdx != mainIdx || a.subIdx != subIdx);
+          break;
+        }
+      }
+      
+      if(tempArr === null) {
+        arr.push(data);
+        localStorage.setItem('blindList', JSON.stringify(arr));
+        cateDiv.className += ' blind';
+      } else {
+        localStorage.setItem('blindList', JSON.stringify(tempArr));
+        cateDiv.className = 'cate';
+      }
+    }
+  }
+
+   
+  function blind_category(blindList)
+  {
+    const cateDiv = document.querySelectorAll('.cate');
+    cateDiv.forEach(div => {
+      div.className = 'cate';
+    });
+    if(blindList !== null) {
+      blindList.map(list => {
+        const blindDiv = document.querySelector(`#cate${list.mainIdx}-${list.subIdx}`);
+        blindDiv.className += ' blind';
+      });
+    }
+  }
+</script>
+
+</aside>
+
+<aside>
+<p><b>최근에 본 포스트</b></p>
+
+<aside>
+  <div class="lately-viewed-list" style="padding-left: 4px;">
+  </div>
+</aside>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const postList = JSON.parse(localStorage.getItem('latelyViewPostList'));
+
+    const list = document.querySelector('.lately-viewed-list');
+    let html = '';
+    if (postList == '' || postList == null || postList == undefined || postList == 0 || postList == NaN) {
+      localStorage.setItem('latelyViewPostList', null);
+      html += '<div class="lv-list">';
+      html += ' · 열람한 포스트가 없습니다.';
+      html += '</div>';
+      list.innerHTML = html;
+    } else {
+      for (let i = (postList.length - 1); i >= 0; i--) {
+        html += '<div class="lv-list">';
+        html += `<a href="${postList[i].link}"> · ${postList[i].title}</a>`;
+        html += '</div>';
+      }
+      list.innerHTML = html;
+    }
+  });
+</script>
+</aside>
+
+<aside>
+    <h2></h2>
+    <ul>
+    </ul>
+</aside>
+
+<aside>
+  <p><b>최근 댓글</b></p>
+  <div class="current-reply">
+  </div>
+</aside>
+
+<script>
+  const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/recent_comment.php?action=getCurrentComment';
+  let recentRows = []; 
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      if (data.ok) {
+        recentRows = data.rows;
+        render_recent_comment(recentRows);
+      }
+    })
+    .catch(err => console.error(err));
+
+  
+  function render_recent_comment(rows) {
+    const currentReply = document.querySelector('.current-reply');
+    let html = '';
+    rows.map(row => {
+      let link = 'https:\/\/freshrimpsushi.github.io\/ko\/';
+      if (row.board_idx > -1) {
+        link += `/posts/${row.board_slug}#comment${row.cmt_idx}`;
+      } else if (row.board_idx == -1) {
+        link += `#comment${row.cmt_idx}`;
+      } else {
+        link += `/categories/${row.board_title}#comment${row.cmt_idx}`;
+      }
+      html += `<div class="current-reply-list">`;
+      html += `<a href="${link}">`;
+      html += `<b> - ${row.author}</b>: `;
+      html += `${row.content}`;
+      html += `</a>`;
+      html += `</div>`;
+    });
+    currentReply.innerHTML = html;
+    renderKaTex(currentReply);
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+</div> 
+  </div>
+  
+  <footer>
+  <aside>
+    <div>
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
+      <p style="text-align: center"><img src=https://freshrimpsushi.github.io/ko/logo/gmail.png width=16px> Contact:
+        freshrimpsushi@gmail.com<br>
+        
+      </p>
+    </div>
+
+    
+    
+    
+    <link rel="stylesheet" href=https://freshrimpsushi.github.io/ko/css/codefence.css>
+    <script src=https://freshrimpsushi.github.io/ko/js/highlight.min.js></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+    
+  </aside>
+</footer>
+
+  
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.1/katex.min.js"
+  integrity="sha512-5ufNcHqOYgilGEHPfuRIQ5B/vDS1M8+UC+DESZ5CwVgGTg+b2Ol/15rYL/GiCWJ/Sx8oVo0FPFok1dPk8U9INQ=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.1/contrib/auto-render.min.js"
+  integrity="sha512-ZA/RPrAo88DlwRnnoNVqKINnQNcWERzRK03PDaA4GIJiVZvGFIWQbdWCsUebMZfkWohnfngsDjXzU6PokO4jGw=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+  
+  function renderKaTex(target) {
+    renderMathInElement(target, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+      ],
+      trust: true,
+      trust: (context) =>
+        ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
+      macros: {
+        "\\eqref": "(\\text{#1})",
+        "\\ref": "\\href{###1}{\\text{#1}}",
+        "\\label": "\\htmlId{#1}{}",
+        "\\sech": "\\operatorname{sech}",
+        "\\sgn": "\\operatorname{sgn}",
+        "\\sign": "\\operatorname{sign}",
+        "\\sinc": "\\operatorname{sinc}",
+        "\\diag": "\\operatorname{diag}",
+        "\\diam": "\\operatorname{diam}",
+        "\\Tr": "\\operatorname{Tr}",
+        "\\tr": "\\operatorname{tr}",
+        "\\Re": "\\operatorname{Re}",
+        "\\Im": "\\operatorname{Im}",
+        "\\Var": "\\operatorname{Var}",
+        "\\Poi": "\\operatorname{Poi}",
+        "\\Cov": "\\operatorname{Cov}",
+        "\\span": "\\operatorname{span}",
+        "\\supp": "\\operatorname{supp}",
+        "\\rank": "\\operatorname{rank}",
+        "\\nullity": "\\operatorname{nullity}",
+        "\\Ric": "\\operatorname{Ric}",
+        "\\cR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2202/2615581243_1645770096.5863.png}",
+        "\\acR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680634690.4371.png}",
+        "\\bcR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2202/2615581243_1645770096.5899.png}",
+        "\\abcR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680634690.0596.png}",
+        "\\crH": "\\includegraphics[height=0.8em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680622958.7632.png}",
+        "\\smallcrH": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680622958.7632.png}",
+        "\\acrH": "\\includegraphics[height=0.8em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680634690.8386.png}",
+        "\\smallacrH": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680634690.8386.png}",
+      },
+      throwOnError: false,
+    });
+  }
+</script>
+</body>
+
 </html>
