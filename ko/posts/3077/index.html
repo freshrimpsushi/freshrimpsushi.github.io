@@ -16,24 +16,16 @@
 
     
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.1/katex.min.css"
-        integrity="sha512-vJqxkZ+Sugf/6WRlpcxN01qVfX/29hF6qc33eHF1va3NgoV+U+wCi+uTAsQ10sDoGyBxHLdaHvGwDlV3yVYboA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-    
-    <link href=https://freshrimpsushi.github.io/ko/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
-    <link href=https://freshrimpsushi.github.io/ko/css/comment.css rel="preload" as="style" onload="this.rel='stylesheet'">
-    <noscript>
-        <link rel='stylesheet' href=https://freshrimpsushi.github.io/ko/css/custum.css>
-    </noscript>
-
-    
-    <link rel="canonical" href=https://freshrimpsushi.github.io/ko/>
-
-    
     <link rel="icon" href="https://freshrimpsushi.github.io/ko/logo/favicon.ico">
     <meta name="msapplication-TileColor" content="#FFFFFF">
     <meta name="msapplication-TileImage" content="logo/basic.png">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.1/katex.min.css"
+        integrity="sha512-vJqxkZ+Sugf/6WRlpcxN01qVfX/29hF6qc33eHF1va3NgoV+U+wCi+uTAsQ10sDoGyBxHLdaHvGwDlV3yVYboA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href=https://freshrimpsushi.github.io/ko/css/style.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <link href=https://freshrimpsushi.github.io/ko/css/comment.css rel="preload" as="style" onload="this.rel='stylesheet'">
 
     
     <style type="text/css">
@@ -128,7 +120,7 @@
     },
     "image": "https://freshrimpsushi.github.io/ko/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/ko\/posts\/3077\/",
-    "wordCount" : "2618",
+    "wordCount" : "2547",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -395,7 +387,7 @@ $$</p>
 \delta_{j}^{l} = \phi ^{\prime} (v_{j}^{l}) \sum_{i=1}^{n_{l}} \delta_{i}^{l+1} w_{i j}^{l+1}
 $$</p>
 <h2 id="설명">설명</h2>
-<p>$\eqref{thm}$을 살펴보자. $l$번째 층과 $l+1$번째 층 사이의 가중치를 업데이트할 때 $l$번째 노드들 $y_{j}^{l}$에 의존한다는 말인데, 각 층의 출력에 따라 최종적으로 출력 $\hat{\mathbf{y}}$이 결정되므로 당연하다고 볼 수 있다. 또한 $y_{j}^{l}$들은 $l$번째에서 $l+1$번째 층으로 전파될 때의 입력으로 볼 수 있는데, 이는 선형회귀모델에서 LMS<sup>Least Mean Squares</sup>로 학습하는 방법과 비슷한 꼴이다.</p>
+<p>$(1)$을 살펴보자. $l$번째 층과 $l+1$번째 층 사이의 가중치를 업데이트할 때 $l$번째 노드들 $y_{j}^{l}$에 의존한다는 말인데, 각 층의 출력에 따라 최종적으로 출력 $\hat{\mathbf{y}}$이 결정되므로 당연하다고 볼 수 있다. 또한 $y_{j}^{l}$들은 $l$번째에서 $l+1$번째 층으로 전파될 때의 입력으로 볼 수 있는데, 이는 선형회귀모델에서 LMS<sup>Least Mean Squares</sup>로 학습하는 방법과 비슷한 꼴이다.</p>
 <p>$$
 \mathbf{w} \leftarrow \mathbf{w} - \alpha (\mathbf{w}^{T}\mathbf{x} - \mathbf{y}) \mathbf{x}
 $$</p>
@@ -422,13 +414,13 @@ $$</p>
 <p>각각의 $y_{i}^{l}$들은 주어진 값이므로, 편미분 부분을 계산할 수 있는 꼴로 풀어내면 된다. 우변의 편미분은 연쇄법칙에 의해 다음과 같다.</p>
 <p>$$
 \begin{equation}
-\dfrac{\partial E(\hat{\mathbf{y}})}{\partial w_{ji}^{l}} = \dfrac{\partial E(\hat{\mathbf{y}}) }{\partial v_{j}^{l}} \dfrac{\partial v_{j}^{l}}{\partial w_{ji}^{l}} =  \dfrac{\partial E(\hat{\mathbf{y}})}{\partial v_{j}^{l}} y_{i}^{l}
+\dfrac{\partial E(\hat{\mathbf{y}})}{\partial w_{ji}^{l}} = \dfrac{\partial E(\hat{\mathbf{y}}) }{\partial v_{j}^{l}} \dfrac{\partial v_{j}^{l}}{\partial w_{ji}^{l}} = \dfrac{\partial E(\hat{\mathbf{y}})}{\partial v_{j}^{l}} y_{i}^{l}
 \label{chainrule}
 \end{equation}
 $$</p>
-<p>$\eqref{chainrule}$의 우변의 편미분을 $-\delta_{j}^{l}$로 두면, $\eqref{gradesent}$로부터 $\eqref{thm}$을 얻는다.</p>
+<p>$(3)$의 우변의 편미분을 $-\delta_{j}^{l}$로 두면, $(2)$로부터 $(1)$을 얻는다.</p>
 <p>$$
-w_{ji}^{l}  \leftarrow w_{ji}^{l}  + \alpha \delta^{l}_{j} y_{i}^{l}
+w_{ji}^{l} \leftarrow w_{ji}^{l} + \alpha \delta^{l}_{j} y_{i}^{l}
 $$</p>
 <p>각 층에서 $\delta_{j}^{l}$를 다음과 같이 구한다.</p>
 <ul>
@@ -437,7 +429,7 @@ $$</p>
 <p>$j \in \left\{ 1, \dots, \hat{n} \right\}$에 대해서 다음이 성립한다.</p>
 <p>$$
 \begin{equation}
--\delta_{j}^{L} = \dfrac{\partial E (\hat{\mathbf{y}})}{\partial v_{j}^{L}} =  \dfrac{\partial E ( \hat{\mathbf{y}} ) } {\partial \hat{y}_{j}} \dfrac{d \hat{y}_{j}}{d v_{j}^{L}}
+-\delta_{j}^{L} = \dfrac{\partial E (\hat{\mathbf{y}})}{\partial v_{j}^{L}} = \dfrac{\partial E ( \hat{\mathbf{y}} ) } {\partial \hat{y}_{j}} \dfrac{d \hat{y}_{j}}{d v_{j}^{L}}
 \label{deltamL}
 \end{equation}
 $$</p>
@@ -482,13 +474,13 @@ $$</p>
 \\ &amp;= \phi ^{\prime} (v_{j}^{L-1}) \sum _{i} \dfrac{\partial E(\hat{\mathbf{y}})}{\partial \hat{y}_{i}} \dfrac{d \hat{y}_{i}}{d v_{i}^{L}} \dfrac{\partial v_{i}^{L}}{\partial y_{j}^{L}}
 \end{align*}
 $$</p>
-<p>여기서 $\eqref{deltamL}$와 ${\color{green}v_{i}^{L}=\sum_{j}w_{ij}^{L}y_{j}^{L}}$에 의해 다음을 얻는다.</p>
+<p>여기서 $(4)$와 ${\color{green}v_{i}^{L}=\sum_{j}w_{ij}^{L}y_{j}^{L}}$에 의해 다음을 얻는다.</p>
 <p>$$
 \begin{align}
 &amp;&amp; -\delta_{j}^{L-1} &amp;= \phi ^{\prime} (v_{j}^{L-1}) \sum _{i=1} {\color{blue}\dfrac{\partial E(\hat{\mathbf{y}})}{\partial \hat{y}_{i}} \dfrac{\partial \hat{y}_{i}}{\partial v_{i}^{L}}} {\color{green} \dfrac{d v_{i}^{L}}{d y_{j^{L}}} } \nonumber
 \\ &amp;&amp; &amp;= \phi ^{\prime} (v_{j}^{L-1}) \sum _{i} {\color{blue} -\delta_{i}^{L}} {\color{green} w_{ij}^{L} }\nonumber
 \\ {}\nonumber
-\\ \implies &amp;&amp; \delta_{j}^{L-1} &amp;= \phi ^{\prime} (v_{j}^{L-1}) \sum _{i} \delta_{i}^{L}  w_{ij}^{L} \label{deltajL-1}
+\\ \implies &amp;&amp; \delta_{j}^{L-1} &amp;= \phi ^{\prime} (v_{j}^{L-1}) \sum _{i} \delta_{i}^{L} w_{ij}^{L} \label{deltajL-1}
 \end{align}
 $$</p>
 </li>
@@ -530,11 +522,11 @@ $$</p>
 $$</p>
 <p>따라서 다음을 얻는다.</p>
 <p>$$
-\delta_{j}^{L-2} = -\phi ^{\prime} (v_{j}^{L-2}) \sum _{k} \sum _{i} \delta_{i}^{L} w_{ik}^{L} \phi^{\prime}(v_{k}^{L-1})  w_{kj}^{L-1}
+\delta_{j}^{L-2} = -\phi ^{\prime} (v_{j}^{L-2}) \sum _{k} \sum _{i} \delta_{i}^{L} w_{ik}^{L} \phi^{\prime}(v_{k}^{L-1}) w_{kj}^{L-1}
 $$</p>
-<p>이때 $\eqref{deltajL-1}$에 의해 다음이 성립한다.</p>
+<p>이때 $(5)$에 의해 다음이 성립한다.</p>
 <p>$$
-\sum _{i} \delta_{i}^{L} w_{ik}^{L} \phi^{\prime}(v_{k}^{L-1}) = \phi^{\prime}(v_{k}^{L-1})  \sum _{i} \delta_{i}^{L} w_{ik}^{L} = \delta_{k}^{L-1}
+\sum _{i} \delta_{i}^{L} w_{ik}^{L} \phi^{\prime}(v_{k}^{L-1}) = \phi^{\prime}(v_{k}^{L-1}) \sum _{i} \delta_{i}^{L} w_{ik}^{L} = \delta_{k}^{L-1}
 $$</p>
 <p>따라서 다음을 얻는다.</p>
 <p>$$
@@ -559,7 +551,7 @@ $$</p>
 &amp;\quad \delta_{j}^{l}
 \\ &amp;= -\phi ^{\prime} (v_{j}^{l}) \dfrac{\partial E(\hat{\mathbf{y}})}{\partial y_{j}^{l}}
 \\ &amp;= -\phi ^{\prime} (v_{j}^{l}) \sum_{i_{(1)}} \frac{\partial E(\hat{\mathbf{y}})}{\partial \hat{y}_{i_{(1)}}} \frac{\partial \hat{y}_{i_{(1)}}}{\partial y_{j}^{l}}
-\\ &amp;= -\phi ^{\prime} (v_{j}^{l}) \sum_{i_{(1)}} \frac{\partial E(\hat{\mathbf{y}})}{\partial \hat{y}_{i_{(1)}}} \frac{d \hat{y}_{i_{(1)}}}{d v_{i_{(1)}}^{L}} \frac{\partial v_{i_{(1)}}^{L}}{\partial   y_{j}^{l}}
+\\ &amp;= -\phi ^{\prime} (v_{j}^{l}) \sum_{i_{(1)}} \frac{\partial E(\hat{\mathbf{y}})}{\partial \hat{y}_{i_{(1)}}} \frac{d \hat{y}_{i_{(1)}}}{d v_{i_{(1)}}^{L}} \frac{\partial v_{i_{(1)}}^{L}}{\partial y_{j}^{l}}
 \\ &amp;= -\phi ^{\prime} (v_{j}^{l}) \sum_{i_{(2)}} \sum_{i_{(1)}} \frac{\partial E(\hat{\mathbf{y}})}{\partial \hat{y}_{i_{(1)}}} \frac{d \hat{y}_{i_{(1)}}}{d v_{i_{(1)}}^{L}}
 \frac{\partial v_{i_{(1)}}^{L}}{\partial y_{i_{(2)}}^{L}} \frac{\partial y_{i_{(2)}}^{L}}{\partial y_{j}^{l}}
 \\ &amp;= -\phi ^{\prime} (v_{j}^{l}) \sum_{i_{(2)}} \sum_{i_{(1)}} \frac{\partial E(\hat{\mathbf{y}})}{\partial \hat{y}_{i_{(1)}}} \frac{d \hat{y}_{i_{(1)}}}{d v_{i_{(1)}}^{L}}
@@ -571,12 +563,12 @@ $$</p>
 \frac{\partial v_{i_{(1)}}^{L}}{\partial y_{i_{(2)}}^{L}} \frac{d y_{i_{(2)}}^{L}}{d v_{i_{(2)}}^{L-1}}
 \frac{\partial v_{i_{(2)}}^{L-1}}{\partial y_{i_{(3)}}^{L-1} } \frac{d y_{i_{(3)}}^{L-1} }{d v_{i_{(3)}}^{L-2} } \frac{\partial v_{i_{(3)}}^{L-2} }{ \partial y_{j}^{l}}
 \\ &amp; \quad \vdots
-\\ &amp;= -\phi ^{\prime} (v_{j}^{l}) \sum_{i_{(L-l)}} \cdots \sum_{i_{(3)}} \sum_{i_{(2)}} \sum_{i_{(1)}} \frac{\partial E(\hat{\mathbf{y}})}{\partial \hat{y}_{i_{(1)}}} \frac{d \hat{y}_{i_{(1)}}}{d   v_{i_{(1)}}^{L}}
+\\ &amp;= -\phi ^{\prime} (v_{j}^{l}) \sum_{i_{(L-l)}} \cdots \sum_{i_{(3)}} \sum_{i_{(2)}} \sum_{i_{(1)}} \frac{\partial E(\hat{\mathbf{y}})}{\partial \hat{y}_{i_{(1)}}} \frac{d \hat{y}_{i_{(1)}}}{d v_{i_{(1)}}^{L}}
 \frac{\partial v_{i_{(1)}}^{L}}{\partial y_{i_{(2)}}^{L}} \frac{d y_{i_{(2)}}^{L}}{d v_{i_{(2)}}^{L-1}}
-\frac{\partial v_{i_{(2)}}^{L-1}}{\partial y_{i_{(3)}}^{L-1} } \frac{d y_{i_{(3)}}^{L-1} }{d v_{i_{(3)}}^{L-2} } \frac{\partial v_{i_{(3)}}^{L-2} }{ \partial y_{i_{(4)}}^{L-2}} \cdots \frac{d y_{i_{(L-l+1)}}^{l+1} }{d v_{i_{(L-l+1)}}^{l} } \frac{\partial v_  {i_{(L-l+1)}}^{l} }{ \partial y_{j}^{l}}
-\\ &amp;= \phi ^{\prime} (v_{j}^{l}) \sum_{i_{(L-l)}} \cdots \sum_{i_{(3)}} \sum_{i_{(2)}} \sum_{i_{(1)}} -\delta_{i_{(1)}}^{L} w_{i_{(1)}i_{(2)}}^{L} \phi^{\prime}(v_{i_{(2)}}^{L-1}) w_{i_{(2)}   i_{(3)}}^{L-1} \phi^{\prime}( v_{i_{(3)}}^{L-2} ) w_{i_{(3)} i_{(4)}}^{L-2} \cdots \phi^{\prime}(v_{L-l+1}^{l})w_{i_{(L-l+1)} j}^{L}
-\\ &amp;= \phi ^{\prime} (v_{j}^{l}) \sum_{i_{(L-l)}} \cdots \sum_{i_{(3)}} \sum_{i_{(2)}} \delta_{i_{(2)}}^{L-1}w_{i_{(2)}   i_{(3)}}^{L-1} \phi^{\prime}( v_{i_{(3)}}^{L-2} ) w_{i_{(3)} i_{(4)}}^{L-2} \cdots \phi^{\prime}(v_{L-l+1}^{l})w_{i_{(L-l+1)} j}^{L}
-\\ &amp;= \phi ^{\prime} (v_{j}^{l}) \sum_{i_{(L-l)}} \cdots \sum_{i_{(3)}} \delta_{i_{(3)}}^{L-2} w_{i_{(3)} i_{(4)}}^{L-2}  \cdots w_{i_{(L-l)} j}^{L}
+\frac{\partial v_{i_{(2)}}^{L-1}}{\partial y_{i_{(3)}}^{L-1} } \frac{d y_{i_{(3)}}^{L-1} }{d v_{i_{(3)}}^{L-2} } \frac{\partial v_{i_{(3)}}^{L-2} }{ \partial y_{i_{(4)}}^{L-2}} \cdots \frac{d y_{i_{(L-l+1)}}^{l+1} }{d v_{i_{(L-l+1)}}^{l} } \frac{\partial v_{i_{(L-l+1)}}^{l} }{ \partial y_{j}^{l}}
+\\ &amp;= \phi ^{\prime} (v_{j}^{l}) \sum_{i_{(L-l)}} \cdots \sum_{i_{(3)}} \sum_{i_{(2)}} \sum_{i_{(1)}} -\delta_{i_{(1)}}^{L} w_{i_{(1)}i_{(2)}}^{L} \phi^{\prime}(v_{i_{(2)}}^{L-1}) w_{i_{(2)} i_{(3)}}^{L-1} \phi^{\prime}( v_{i_{(3)}}^{L-2} ) w_{i_{(3)} i_{(4)}}^{L-2} \cdots \phi^{\prime}(v_{L-l+1}^{l})w_{i_{(L-l+1)} j}^{L}
+\\ &amp;= \phi ^{\prime} (v_{j}^{l}) \sum_{i_{(L-l)}} \cdots \sum_{i_{(3)}} \sum_{i_{(2)}} \delta_{i_{(2)}}^{L-1}w_{i_{(2)} i_{(3)}}^{L-1} \phi^{\prime}( v_{i_{(3)}}^{L-2} ) w_{i_{(3)} i_{(4)}}^{L-2} \cdots \phi^{\prime}(v_{L-l+1}^{l})w_{i_{(L-l+1)} j}^{L}
+\\ &amp;= \phi ^{\prime} (v_{j}^{l}) \sum_{i_{(L-l)}} \cdots \sum_{i_{(3)}} \delta_{i_{(3)}}^{L-2} w_{i_{(3)} i_{(4)}}^{L-2} \cdots w_{i_{(L-l)} j}^{L}
 \\ &amp;\quad \vdots
 \\ &amp;= \phi ^{\prime} (v_{j}^{l}) \sum_{i_{(L-l)}} \delta_{i_{(L-l)}}^{l+1} w_{i_{(l-l)} j}^{l}
 \end{align*}
@@ -593,7 +585,7 @@ $$</p>
 <aside style="text-align: right;">
     2021-07-02&emsp;
     전기현&emsp;
-    <a href="../1009">🎲 3077</a>
+    <a href="../792">🎲 3077</a>
 </aside>
 
 
@@ -1248,12 +1240,12 @@ $$</p>
   const color = {green: '#33cc33', yellow: '#ffcc00', red: '#ff3333', black: '#000000'};
   const categoryRows = [
     [
-      { idx: 1, name: '함수', size: '94', color: color.green },
+      { idx: 1, name: '함수', size: '118', color: color.green },
       { idx: 2, name: '보조정리', size: '29', color: color.green },
       { idx: 3, name: '집합론', size: '47', color: color.green },
       { idx: 4, name: '정수론', size: '89', color: color.green },
       { idx: 5, name: '기하학', size: '147', color: color.green },
-      { idx: 6, name: '행렬대수', size: '88', color: color.green },
+      { idx: 6, name: '행렬대수', size: '90', color: color.green },
       { idx: 7, name: '선형대수', size: '93', color: color.green },
       { idx: 8, name: '추상대수', size: '92', color: color.green },
       { idx: 9, name: '위상수학', size: '64', color: color.green },
@@ -1263,7 +1255,7 @@ $$</p>
       { idx: 1, name: '해석개론', size: '97', color: color.green },
       { idx: 2, name: '다변수벡터해석', size: '22', color: color.green },
       { idx: 3, name: '복소해석', size: '71', color: color.green },
-      { idx: 4, name: '측도론', size: '52', color: color.green },
+      { idx: 4, name: '측도론', size: '53', color: color.green },
       { idx: 5, name: '푸리에해석', size: '52', color: color.green },
       { idx: 6, name: '초함수론', size: '23', color: color.green },
       { idx: 7, name: '단층촬영', size: '20', color: color.green },
@@ -1275,7 +1267,7 @@ $$</p>
       { idx: 4, name: '르벡공간', size: '31', color: color.green }
     ],
     [
-      { idx: 1, name: '상미분방정식', size: '57', color: color.green },
+      { idx: 1, name: '상미분방정식', size: '58', color: color.green },
       { idx: 2, name: '편미분방정식', size: '58', color: color.green },
       { idx: 3, name: '확률미분방정식', size: '26', color: color.green }
     ],
@@ -1286,7 +1278,7 @@ $$</p>
     ],
     [
       { idx: 1, name: '물리학', size: '17', color: color.green },
-      { idx: 2, name: '수리물리', size: '96', color: color.red },
+      { idx: 2, name: '수리물리', size: '73', color: color.green },
       { idx: 3, name: '고전역학', size: '47', color: color.green },
       { idx: 4, name: '전자기학', size: '51', color: color.green },
       { idx: 5, name: '양자역학', size: '52', color: color.yellow },
@@ -1299,7 +1291,7 @@ $$</p>
       { idx: 4, name: '통계적검정', size: '22', color: color.red },
       { idx: 5, name: '통계적분석', size: '71', color: color.green },
       { idx: 6, name: '수리통계학', size: '110', color: color.green },
-      { idx: 7, name: '분포이론', size: '69', color: color.green },
+      { idx: 7, name: '분포이론', size: '70', color: color.green },
       { idx: 8, name: '확률론', size: '74', color: color.green },
       { idx: 9, name: '위상데이터분석', size: '40', color: color.green }
     ],
@@ -1307,7 +1299,7 @@ $$</p>
       { idx: 1, name: '줄리아', size: '190', color: color.green },
       { idx: 2, name: '프로그래밍', size: '57', color: color.green },
       { idx: 3, name: '알고리즘', size: '28', color: color.green },
-      { idx: 4, name: '머신러닝', size: '77', color: color.green },
+      { idx: 4, name: '머신러닝', size: '79', color: color.green },
       { idx: 5, name: '세이버메트릭스', size: '12', color: color.green },
       { idx: 6, name: '논문작성', size: '19', color: color.green },
       { idx: 7, name: '교과과정', size: '54', color: color.green },
@@ -1451,8 +1443,6 @@ $$</p>
     <ul>
     </ul>
 </aside>
-
-<iframe width="100%" src="https://www.youtube.com/embed/FlkKtnxGQBY?si=GzzY5BTyQeZlg26_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 <aside>
   <p><b>최근 댓글</b></p>

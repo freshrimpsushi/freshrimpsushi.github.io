@@ -16,24 +16,16 @@
 
     
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.1/katex.min.css"
-        integrity="sha512-vJqxkZ+Sugf/6WRlpcxN01qVfX/29hF6qc33eHF1va3NgoV+U+wCi+uTAsQ10sDoGyBxHLdaHvGwDlV3yVYboA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-    
-    <link href=https://freshrimpsushi.github.io/ko/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
-    <link href=https://freshrimpsushi.github.io/ko/css/comment.css rel="preload" as="style" onload="this.rel='stylesheet'">
-    <noscript>
-        <link rel='stylesheet' href=https://freshrimpsushi.github.io/ko/css/custum.css>
-    </noscript>
-
-    
-    <link rel="canonical" href=https://freshrimpsushi.github.io/ko/>
-
-    
     <link rel="icon" href="https://freshrimpsushi.github.io/ko/logo/favicon.ico">
     <meta name="msapplication-TileColor" content="#FFFFFF">
     <meta name="msapplication-TileImage" content="logo/basic.png">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.1/katex.min.css"
+        integrity="sha512-vJqxkZ+Sugf/6WRlpcxN01qVfX/29hF6qc33eHF1va3NgoV+U+wCi+uTAsQ10sDoGyBxHLdaHvGwDlV3yVYboA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href=https://freshrimpsushi.github.io/ko/css/style.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <link href=https://freshrimpsushi.github.io/ko/css/comment.css rel="preload" as="style" onload="this.rel='stylesheet'">
 
     
     <style type="text/css">
@@ -128,7 +120,7 @@
     },
     "image": "https://freshrimpsushi.github.io/ko/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/ko\/posts\/3313\/",
-    "wordCount" : "8325",
+    "wordCount" : "8319",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -355,7 +347,7 @@
 <p>이 논문의 목표는 수리물리학에서의 딥러닝을 발전시킬 새로운 패러다임의 모델링과 계산 패러다임을 제시하는 것이다. 이를 위해서, 앞서 말했듯이, 이 논문에서는 크게 두가지의 문제를 다룬다. 하나는 편미분 방정식의 <strong>데이터 기반 솔루션</strong><sup>data-driven solution</sup>이고 다른 하나는 편미분 방정식의 <strong>데이터 기반 발견</strong><sup>data-driven discovery</sup>이다. 사용된 모든 코드와 데이터 셋은 <a href="https://github.com/maziarraissi/PINNs">https://github.com/maziarraissi/PINNs</a>에서 확인할 수 있다. 이 논문에서는, $L1$, $L2$, <a href="../1004">드롭아웃</a> 등의 <a href="../1807">정규화</a>없이, 하이퍼볼릭 탄젠트를 <a href="../991">활성화 함수</a>로 쓴 간단한 MLP가 사용되었다. 각 예제에서는 신경망의 구조, 옵티마이저, <a href="../987">러닝 레이트</a> 등이 구체적으로 소개된다.</p>
 <p>이 논문에서는 아래와 같은 매개변수화된 비선형 편미분방정식의 일반적인 형태<sup>parameterized and nonlinear partial differential equations of the general form</sup>를 다룬다.</p>
 <p>$$
-\begin{equation}\label{1}
+\begin{equation}
 u_{t} + \mathcal{N}[u; \lambda] = 0,\quad x \in \Omega,\quad t \in [0,T]
 \end{equation}
 $$</p>
@@ -412,7 +404,7 @@ class network(nn.Module):
 u = network()
 </code></pre><p>이제 $u$는 우리가 정의한 입력 노드가 $2$개, 출력 노드가 $1$개인 인공신경망이다. $(2)$의 좌변을 다음과 같은 함수 $f = f(t,x; u)$라고 정의하자.</p>
 <p>$$
-\begin{equation}\label{3}
+\begin{equation}
 f := u_{t} + \mathcal{N}[u]
 \end{equation}
 $$</p>
@@ -588,11 +580,11 @@ $$</p>
 <p>$$
 f = u_{t} + \mathcal{N}[u; \lambda]
 $$</p>
-<p>Section 3.의 $\eqref{3}$과 다른 점은, $\lambda$가 고정된 상수가 아니라 학습해야할 unknown parameter가 되었다는 것이다.</p>
+<p>Section 3.의 $(3)$과 다른 점은, $\lambda$가 고정된 상수가 아니라 학습해야할 unknown parameter가 되었다는 것이다.</p>
 <h4 id="411-example-navierstokes-equation">4.1.1. Example (Navier–Stokes equation)</h4>
 <p>Section 4.1.1에서는 나비에-스토크스 방정식으로 묘사되는 비압축성<sup>incompressible</sup> 유체의 실제 데이터에 관한 예를 소개한다. 다음과 같은 2차원 나비에-스토크스 방정식을 생각하자.</p>
 <p>$$
-\begin{equation}\label{15}
+\begin{equation}
 \begin{aligned}
 u_{t} + \lambda_{1}(uu_{x} + vu_{y}) &amp;= -p_{x} + \lambda_{2}(u_{xx} + u_{yy}) \\
 v_{t} + \lambda_{1}(uv_{x} + vv_{y}) &amp;= -p_{y} + \lambda_{2}(v_{xx} + v_{yy})
@@ -602,7 +594,7 @@ v_{t} + \lambda_{1}(uv_{x} + vv_{y}) &amp;= -p_{y} + \lambda_{2}(v_{xx} + v_{yy}
 $$</p>
 <p>여기서 $u(t,x,y)$는 유체의 속도 벡터의 $x$성분, $v(t,x,y)$는 $y$성분이다. 그리고 $p(t,x,y)$는 압력, $\lambda = (\lambda_{1}, \lambda_{2})$는 unknown parameter이다. 나비에-스토크스 방정식의 솔루션은 <a href="../1777">다이벌전스</a>가 $0$이라는 조건을 만족하므로, 다음이 성립한다.</p>
 <p>$$
-\begin{equation}\label{17}
+\begin{equation}
 u_{x} + v_{y} = 0 \tag{17}
 \end{equation}
 $$</p>
@@ -652,7 +644,7 @@ $$</p>
 <aside style="text-align: right;">
     2022-10-19&emsp;
     전기현&emsp;
-    <a href="../2257">🎲 3313</a>
+    <a href="../987">🎲 3313</a>
 </aside>
 
 
@@ -1307,12 +1299,12 @@ $$</p>
   const color = {green: '#33cc33', yellow: '#ffcc00', red: '#ff3333', black: '#000000'};
   const categoryRows = [
     [
-      { idx: 1, name: '함수', size: '94', color: color.green },
+      { idx: 1, name: '함수', size: '118', color: color.green },
       { idx: 2, name: '보조정리', size: '29', color: color.green },
       { idx: 3, name: '집합론', size: '47', color: color.green },
       { idx: 4, name: '정수론', size: '89', color: color.green },
       { idx: 5, name: '기하학', size: '147', color: color.green },
-      { idx: 6, name: '행렬대수', size: '88', color: color.green },
+      { idx: 6, name: '행렬대수', size: '90', color: color.green },
       { idx: 7, name: '선형대수', size: '93', color: color.green },
       { idx: 8, name: '추상대수', size: '92', color: color.green },
       { idx: 9, name: '위상수학', size: '64', color: color.green },
@@ -1322,7 +1314,7 @@ $$</p>
       { idx: 1, name: '해석개론', size: '97', color: color.green },
       { idx: 2, name: '다변수벡터해석', size: '22', color: color.green },
       { idx: 3, name: '복소해석', size: '71', color: color.green },
-      { idx: 4, name: '측도론', size: '52', color: color.green },
+      { idx: 4, name: '측도론', size: '53', color: color.green },
       { idx: 5, name: '푸리에해석', size: '52', color: color.green },
       { idx: 6, name: '초함수론', size: '23', color: color.green },
       { idx: 7, name: '단층촬영', size: '20', color: color.green },
@@ -1334,7 +1326,7 @@ $$</p>
       { idx: 4, name: '르벡공간', size: '31', color: color.green }
     ],
     [
-      { idx: 1, name: '상미분방정식', size: '57', color: color.green },
+      { idx: 1, name: '상미분방정식', size: '58', color: color.green },
       { idx: 2, name: '편미분방정식', size: '58', color: color.green },
       { idx: 3, name: '확률미분방정식', size: '26', color: color.green }
     ],
@@ -1345,7 +1337,7 @@ $$</p>
     ],
     [
       { idx: 1, name: '물리학', size: '17', color: color.green },
-      { idx: 2, name: '수리물리', size: '96', color: color.red },
+      { idx: 2, name: '수리물리', size: '73', color: color.green },
       { idx: 3, name: '고전역학', size: '47', color: color.green },
       { idx: 4, name: '전자기학', size: '51', color: color.green },
       { idx: 5, name: '양자역학', size: '52', color: color.yellow },
@@ -1358,7 +1350,7 @@ $$</p>
       { idx: 4, name: '통계적검정', size: '22', color: color.red },
       { idx: 5, name: '통계적분석', size: '71', color: color.green },
       { idx: 6, name: '수리통계학', size: '110', color: color.green },
-      { idx: 7, name: '분포이론', size: '69', color: color.green },
+      { idx: 7, name: '분포이론', size: '70', color: color.green },
       { idx: 8, name: '확률론', size: '74', color: color.green },
       { idx: 9, name: '위상데이터분석', size: '40', color: color.green }
     ],
@@ -1366,7 +1358,7 @@ $$</p>
       { idx: 1, name: '줄리아', size: '190', color: color.green },
       { idx: 2, name: '프로그래밍', size: '57', color: color.green },
       { idx: 3, name: '알고리즘', size: '28', color: color.green },
-      { idx: 4, name: '머신러닝', size: '77', color: color.green },
+      { idx: 4, name: '머신러닝', size: '79', color: color.green },
       { idx: 5, name: '세이버메트릭스', size: '12', color: color.green },
       { idx: 6, name: '논문작성', size: '19', color: color.green },
       { idx: 7, name: '교과과정', size: '54', color: color.green },
@@ -1510,8 +1502,6 @@ $$</p>
     <ul>
     </ul>
 </aside>
-
-<iframe width="100%" src="https://www.youtube.com/embed/FlkKtnxGQBY?si=GzzY5BTyQeZlg26_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 <aside>
   <p><b>최근 댓글</b></p>

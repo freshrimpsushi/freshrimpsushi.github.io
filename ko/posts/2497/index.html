@@ -16,24 +16,16 @@
 
     
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.1/katex.min.css"
-        integrity="sha512-vJqxkZ+Sugf/6WRlpcxN01qVfX/29hF6qc33eHF1va3NgoV+U+wCi+uTAsQ10sDoGyBxHLdaHvGwDlV3yVYboA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-    
-    <link href=https://freshrimpsushi.github.io/ko/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
-    <link href=https://freshrimpsushi.github.io/ko/css/comment.css rel="preload" as="style" onload="this.rel='stylesheet'">
-    <noscript>
-        <link rel='stylesheet' href=https://freshrimpsushi.github.io/ko/css/custum.css>
-    </noscript>
-
-    
-    <link rel="canonical" href=https://freshrimpsushi.github.io/ko/>
-
-    
     <link rel="icon" href="https://freshrimpsushi.github.io/ko/logo/favicon.ico">
     <meta name="msapplication-TileColor" content="#FFFFFF">
     <meta name="msapplication-TileImage" content="logo/basic.png">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.1/katex.min.css"
+        integrity="sha512-vJqxkZ+Sugf/6WRlpcxN01qVfX/29hF6qc33eHF1va3NgoV+U+wCi+uTAsQ10sDoGyBxHLdaHvGwDlV3yVYboA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href=https://freshrimpsushi.github.io/ko/css/style.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <link href=https://freshrimpsushi.github.io/ko/css/comment.css rel="preload" as="style" onload="this.rel='stylesheet'">
 
     
     <style type="text/css">
@@ -128,7 +120,7 @@
     },
     "image": "https://freshrimpsushi.github.io/ko/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/ko\/posts\/2497\/",
-    "wordCount" : "198",
+    "wordCount" : "278",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -312,7 +304,12 @@
       <nav id="TableOfContents">
   <ul>
     <li><a href="#개요">개요</a></li>
-    <li><a href="#코드">코드</a></li>
+    <li><a href="#코드">코드</a>
+      <ul>
+        <li><a href="#progressmeterjl"><code>ProgressMeter.jl</code></a></li>
+        <li><a href="#progressbarsjl"><code>ProgressBars.jl</code></a></li>
+      </ul>
+    </li>
     <li><a href="#환경">환경</a></li>
   </ul>
 </nav>
@@ -321,8 +318,20 @@
 </aside>
 
 <h2 id="개요">개요</h2>
-<p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서도 프로그램의 진행 상황을 알려주는 <strong>프로그래스바</strong>를 손쉽게 사용할 수 있다. <code>ProgressBars.jl</code> 패키지의 <code>ProgressBar()</code> 함수로 <code>for</code> 루프의 반복자<sup>Iterator</sup>를 감싸면 된다.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<p><a href="../../categories/%EC%A4%84%EB%A6%AC%EC%95%84">줄리아</a>에서도 프로그램의 진행 상황을 알려주는 <strong>프로그래스바</strong>를 손쉽게 사용할 수 있다.</p>
 <h2 id="코드">코드</h2>
+<h3 id="progressmeterjl"><code>ProgressMeter.jl</code></h3>
+<p><code>ProgressMeter.jl</code> 패키지의 <code>@showprogress</code> 매크로를 <code>for</code> 루프에 두면 된다<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.</p>
+<pre tabindex="0"><code>using ProgressMeter
+
+chi2 = []
+@showprogress for n in 1:20000
+    push!(chi2, sum(randn(n) .^ 2))
+end
+</code></pre><p>아래의 <code>ProgressBars.jl</code>에 비교하자면 매크로를 사용하므로 코드가 더 간결하다.</p>
+<p><img src="showprogress.gif#center" alt="showprogress.gif"></p>
+<h3 id="progressbarsjl"><code>ProgressBars.jl</code></h3>
+<p><code>ProgressBars.jl</code> 패키지의 <code>ProgressBar()</code> 함수로 <code>for</code> 루프의 반복자<sup>Iterator</sup>를 감싸면 된다<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>.</p>
 <pre tabindex="0"><code>using ProgressBars
 
 chi2 = []
@@ -340,7 +349,10 @@ end
 <hr>
 <ol>
 <li id="fn:1">
-<p><a href="https://github.com/cloud-oak/ProgressBars.jl">https://github.com/cloud-oak/ProgressBars.jl</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://github.com/timholy/ProgressMeter.jl">https://github.com/timholy/ProgressMeter.jl</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p><a href="https://github.com/cloud-oak/ProgressBars.jl">https://github.com/cloud-oak/ProgressBars.jl</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </div>
@@ -349,7 +361,7 @@ end
 <aside style="text-align: right;">
     2023-12-24&emsp;
     류대식&emsp;
-    <a href="../1341">🎲 2497</a>
+    <a href="../2153">🎲 2497</a>
 </aside>
 
 
@@ -1004,12 +1016,12 @@ end
   const color = {green: '#33cc33', yellow: '#ffcc00', red: '#ff3333', black: '#000000'};
   const categoryRows = [
     [
-      { idx: 1, name: '함수', size: '94', color: color.green },
+      { idx: 1, name: '함수', size: '118', color: color.green },
       { idx: 2, name: '보조정리', size: '29', color: color.green },
       { idx: 3, name: '집합론', size: '47', color: color.green },
       { idx: 4, name: '정수론', size: '89', color: color.green },
       { idx: 5, name: '기하학', size: '147', color: color.green },
-      { idx: 6, name: '행렬대수', size: '88', color: color.green },
+      { idx: 6, name: '행렬대수', size: '90', color: color.green },
       { idx: 7, name: '선형대수', size: '93', color: color.green },
       { idx: 8, name: '추상대수', size: '92', color: color.green },
       { idx: 9, name: '위상수학', size: '64', color: color.green },
@@ -1019,7 +1031,7 @@ end
       { idx: 1, name: '해석개론', size: '97', color: color.green },
       { idx: 2, name: '다변수벡터해석', size: '22', color: color.green },
       { idx: 3, name: '복소해석', size: '71', color: color.green },
-      { idx: 4, name: '측도론', size: '52', color: color.green },
+      { idx: 4, name: '측도론', size: '53', color: color.green },
       { idx: 5, name: '푸리에해석', size: '52', color: color.green },
       { idx: 6, name: '초함수론', size: '23', color: color.green },
       { idx: 7, name: '단층촬영', size: '20', color: color.green },
@@ -1031,7 +1043,7 @@ end
       { idx: 4, name: '르벡공간', size: '31', color: color.green }
     ],
     [
-      { idx: 1, name: '상미분방정식', size: '57', color: color.green },
+      { idx: 1, name: '상미분방정식', size: '58', color: color.green },
       { idx: 2, name: '편미분방정식', size: '58', color: color.green },
       { idx: 3, name: '확률미분방정식', size: '26', color: color.green }
     ],
@@ -1042,7 +1054,7 @@ end
     ],
     [
       { idx: 1, name: '물리학', size: '17', color: color.green },
-      { idx: 2, name: '수리물리', size: '96', color: color.red },
+      { idx: 2, name: '수리물리', size: '73', color: color.green },
       { idx: 3, name: '고전역학', size: '47', color: color.green },
       { idx: 4, name: '전자기학', size: '51', color: color.green },
       { idx: 5, name: '양자역학', size: '52', color: color.yellow },
@@ -1055,7 +1067,7 @@ end
       { idx: 4, name: '통계적검정', size: '22', color: color.red },
       { idx: 5, name: '통계적분석', size: '71', color: color.green },
       { idx: 6, name: '수리통계학', size: '110', color: color.green },
-      { idx: 7, name: '분포이론', size: '69', color: color.green },
+      { idx: 7, name: '분포이론', size: '70', color: color.green },
       { idx: 8, name: '확률론', size: '74', color: color.green },
       { idx: 9, name: '위상데이터분석', size: '40', color: color.green }
     ],
@@ -1063,7 +1075,7 @@ end
       { idx: 1, name: '줄리아', size: '190', color: color.green },
       { idx: 2, name: '프로그래밍', size: '57', color: color.green },
       { idx: 3, name: '알고리즘', size: '28', color: color.green },
-      { idx: 4, name: '머신러닝', size: '77', color: color.green },
+      { idx: 4, name: '머신러닝', size: '79', color: color.green },
       { idx: 5, name: '세이버메트릭스', size: '12', color: color.green },
       { idx: 6, name: '논문작성', size: '19', color: color.green },
       { idx: 7, name: '교과과정', size: '54', color: color.green },
@@ -1207,8 +1219,6 @@ end
     <ul>
     </ul>
 </aside>
-
-<iframe width="100%" src="https://www.youtube.com/embed/FlkKtnxGQBY?si=GzzY5BTyQeZlg26_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 <aside>
   <p><b>최근 댓글</b></p>

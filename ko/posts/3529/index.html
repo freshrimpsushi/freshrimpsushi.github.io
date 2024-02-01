@@ -16,24 +16,16 @@
 
     
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.1/katex.min.css"
-        integrity="sha512-vJqxkZ+Sugf/6WRlpcxN01qVfX/29hF6qc33eHF1va3NgoV+U+wCi+uTAsQ10sDoGyBxHLdaHvGwDlV3yVYboA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-    
-    <link href=https://freshrimpsushi.github.io/ko/css/custum.css rel="preload" as="style" onload="this.rel='stylesheet'">
-    <link href=https://freshrimpsushi.github.io/ko/css/comment.css rel="preload" as="style" onload="this.rel='stylesheet'">
-    <noscript>
-        <link rel='stylesheet' href=https://freshrimpsushi.github.io/ko/css/custum.css>
-    </noscript>
-
-    
-    <link rel="canonical" href=https://freshrimpsushi.github.io/ko/>
-
-    
     <link rel="icon" href="https://freshrimpsushi.github.io/ko/logo/favicon.ico">
     <meta name="msapplication-TileColor" content="#FFFFFF">
     <meta name="msapplication-TileImage" content="logo/basic.png">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.1/katex.min.css"
+        integrity="sha512-vJqxkZ+Sugf/6WRlpcxN01qVfX/29hF6qc33eHF1va3NgoV+U+wCi+uTAsQ10sDoGyBxHLdaHvGwDlV3yVYboA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href=https://freshrimpsushi.github.io/ko/css/style.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <link href=https://freshrimpsushi.github.io/ko/css/comment.css rel="preload" as="style" onload="this.rel='stylesheet'">
 
     
     <style type="text/css">
@@ -128,7 +120,7 @@
     },
     "image": "https://freshrimpsushi.github.io/ko/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/ko\/posts\/3529\/",
-    "wordCount" : "2498",
+    "wordCount" : "2528",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -396,60 +388,19 @@ $$</p>
 </table>
 </div> -->
 <div class="pseudocode-table">
-<table>
-<thead>
-<tr>
-<th>알고리즘: AdaGrad</th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>In</td>
-<td>전역 학습률 $\epsilon$, 작은 양수 $\delta$, 에포크 $N$</td>
-<td></td>
-</tr>
-<tr>
-<td>1.</td>
-<td>파라매터 $\boldsymbol{\theta}$를 임의의 값으로 초기화한다.</td>
-<td></td>
-</tr>
-<tr>
-<td>2.</td>
-<td>학습률을 $\boldsymbol{\alpha} = \mathbf{0}$로 초기화한다.</td>
-<td></td>
-</tr>
-<tr>
-<td>3.</td>
-<td><strong>for $i = 1, \cdots, N$ do</strong></td>
-<td></td>
-</tr>
-<tr>
-<td>4.</td>
-<td>　　 $\mathbf{r} \leftarrow \nabla L(\boldsymbol{\theta}) \odot \nabla L(\boldsymbol{\theta})$</td>
-<td># 그래디언트를 계산하고 각 성분을 제곱함</td>
-</tr>
-<tr>
-<td>5.</td>
-<td>　　 $\boldsymbol{\alpha} \leftarrow  \boldsymbol{\alpha} + \dfrac{\epsilon}{\delta + \sqrt{\mathbf{r}}}$</td>
-<td># 적응적 학습률 업데이트</td>
-</tr>
-<tr>
-<td>6.</td>
-<td>　　 $\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} - \boldsymbol{\alpha} \odot \nabla L(\boldsymbol{\theta})$</td>
-<td># 파라매터 업데이트</td>
-</tr>
-<tr>
-<td>7.</td>
-<td><strong>end for</strong></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| 알고리즘: AdaGrad |||
+|-|-|-|
+| In | 전역 학습률 $\epsilon$, 작은 양수 $\delta$, 에포크 $N$ ||
+| 1. | 파라매터 $\boldsymbol{\theta}$를 임의의 값으로 초기화한다. ||
+| 2. | 학습률을 $\boldsymbol{\alpha} = \mathbf{0}$로 초기화한다. ||
+| 3. | **for $i = 1, \cdots, N$ do**  ||
+| 4. | 　　 $\mathbf{r} \leftarrow \nabla L(\boldsymbol{\theta}) \odot \nabla L(\boldsymbol{\theta})$ | # 그래디언트를 계산하고 각 성분을 제곱함 |
+| 5. | 　　 $\boldsymbol{\alpha} \leftarrow  \boldsymbol{\alpha} + \dfrac{\epsilon}{\delta + \sqrt{\mathbf{r}}}$ | # 적응적 학습률 업데이트 |
+| 6. | 　　 $\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} - \boldsymbol{\alpha} \odot \nabla L(\boldsymbol{\theta})$ | # 파라매터 업데이트 |
+| 7. | **end for** ||
 </div>
 <h2 id="rmsprop">RMSProp</h2>
-<p>RMSProp는 <strong>R</strong>oot <strong>M</strong>ean <strong>S</strong>quare <strong>Prop</strong>agation의 줄임말로, 제프리 힌튼<sup>Geoffrey Hinton</sup>의 강의 <a href="https://www.cs.toronto.edu/~tijmen/csc321/slides/lecture_slides_lec6.pdf">Neural networks for machine learning</a>에서 제안된 적응적 학습률 기법이다. 기본적으로 AdaGrad의 변형이며, 더해지는 항이 지수적으로 감소하도록 $(1)$의 덧셈을 <a href="../definition-of-weighted-mean/#%EC%A7%80%EC%88%98%EA%B0%80%EC%A4%91%ED%8F%89%EA%B7%A0">가중합</a>으로 바꾼 것 밖에 없다. $\rho \in (0,1)$에 대해,</p>
+<p>RMSProp는 <strong>R</strong>oot <strong>M</strong>ean <strong>S</strong>quare <strong>Prop</strong>agation의 줄임말로, 제프리 힌튼<sup>Geoffrey Hinton</sup>의 강의 <a href="https://www.cs.toronto.edu/~tijmen/csc321/slides/lecture_slides_lec6.pdf">Neural networks for machine learning</a>에서 제안된 적응적 학습률 기법이다. 기본적으로 AdaGrad의 변형이며, 더해지는 항이 지수적으로 감소하도록 $(1)$의 덧셈을 <a href="../2470/#%EC%A7%80%EC%88%98%EA%B0%80%EC%A4%91%ED%8F%89%EA%B7%A0">가중합</a>으로 바꾼 것 밖에 없다. $\rho \in (0,1)$에 대해,</p>
 <p>$$
 \boldsymbol{\alpha}_{i} = \rho \boldsymbol{\alpha}_{i-1} + (1-\rho) \dfrac{\epsilon}{\delta + \sqrt{\mathbf{r}_{i}}} = (1-\rho) \sum_{j=1}^{i} \rho^{i-j}  \dfrac{\epsilon}{\delta + \sqrt{\mathbf{r}_{j}}}
 $$</p>
@@ -555,7 +506,7 @@ $\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} - \boldsymbol{\alpha} \odot 
             </td>
         </tr>
 </table>
-<p>$\hat{\mathbf{p}}_{i}$와 $\hat{\mathbf{r}}_{i}$를 계산할 때 $1 - \beta^{i}$를 나눠주는 이유는 $\mathbf{p}_{i}$와 $\mathbf{r}_{i}$은 <a href="../definition-of-weighted-mean/#%EC%A7%80%EC%88%98%EA%B0%80%EC%A4%91%ED%8F%89%EA%B7%A0">가중합</a>이기 때문에 이를 <a href="../definition-of-weighted-mean/#%EC%A7%80%EC%88%98%EA%B0%80%EC%A4%91%ED%8F%89%EA%B7%A0">가중평균</a>으로 만들어주기 위함이다.</p>
+<p>$\hat{\mathbf{p}}_{i}$와 $\hat{\mathbf{r}}_{i}$를 계산할 때 $1 - \beta^{i}$를 나눠주는 이유는 $\mathbf{p}_{i}$와 $\mathbf{r}_{i}$은 <a href="../2470/#%EC%A7%80%EC%88%98%EA%B0%80%EC%A4%91%ED%8F%89%EA%B7%A0">가중합</a>이기 때문에 이를 <a href="../2470/#%EC%A7%80%EC%88%98%EA%B0%80%EC%A4%91%ED%8F%89%EA%B7%A0">가중평균</a>으로 만들어주기 위함이다.</p>
 <div class="pseudocode-table">
 <table>
 <th colspan=3, align=left>
@@ -594,7 +545,7 @@ $\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} - \boldsymbol{\alpha} \odot 
 <aside style="text-align: right;">
     2023-12-29&emsp;
     전기현&emsp;
-    <a href="../1657">🎲 3529</a>
+    <a href="../486">🎲 3529</a>
 </aside>
 
 
@@ -1249,12 +1200,12 @@ $\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} - \boldsymbol{\alpha} \odot 
   const color = {green: '#33cc33', yellow: '#ffcc00', red: '#ff3333', black: '#000000'};
   const categoryRows = [
     [
-      { idx: 1, name: '함수', size: '94', color: color.green },
+      { idx: 1, name: '함수', size: '118', color: color.green },
       { idx: 2, name: '보조정리', size: '29', color: color.green },
       { idx: 3, name: '집합론', size: '47', color: color.green },
       { idx: 4, name: '정수론', size: '89', color: color.green },
       { idx: 5, name: '기하학', size: '147', color: color.green },
-      { idx: 6, name: '행렬대수', size: '88', color: color.green },
+      { idx: 6, name: '행렬대수', size: '90', color: color.green },
       { idx: 7, name: '선형대수', size: '93', color: color.green },
       { idx: 8, name: '추상대수', size: '92', color: color.green },
       { idx: 9, name: '위상수학', size: '64', color: color.green },
@@ -1264,7 +1215,7 @@ $\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} - \boldsymbol{\alpha} \odot 
       { idx: 1, name: '해석개론', size: '97', color: color.green },
       { idx: 2, name: '다변수벡터해석', size: '22', color: color.green },
       { idx: 3, name: '복소해석', size: '71', color: color.green },
-      { idx: 4, name: '측도론', size: '52', color: color.green },
+      { idx: 4, name: '측도론', size: '53', color: color.green },
       { idx: 5, name: '푸리에해석', size: '52', color: color.green },
       { idx: 6, name: '초함수론', size: '23', color: color.green },
       { idx: 7, name: '단층촬영', size: '20', color: color.green },
@@ -1276,7 +1227,7 @@ $\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} - \boldsymbol{\alpha} \odot 
       { idx: 4, name: '르벡공간', size: '31', color: color.green }
     ],
     [
-      { idx: 1, name: '상미분방정식', size: '57', color: color.green },
+      { idx: 1, name: '상미분방정식', size: '58', color: color.green },
       { idx: 2, name: '편미분방정식', size: '58', color: color.green },
       { idx: 3, name: '확률미분방정식', size: '26', color: color.green }
     ],
@@ -1287,7 +1238,7 @@ $\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} - \boldsymbol{\alpha} \odot 
     ],
     [
       { idx: 1, name: '물리학', size: '17', color: color.green },
-      { idx: 2, name: '수리물리', size: '96', color: color.red },
+      { idx: 2, name: '수리물리', size: '73', color: color.green },
       { idx: 3, name: '고전역학', size: '47', color: color.green },
       { idx: 4, name: '전자기학', size: '51', color: color.green },
       { idx: 5, name: '양자역학', size: '52', color: color.yellow },
@@ -1300,7 +1251,7 @@ $\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} - \boldsymbol{\alpha} \odot 
       { idx: 4, name: '통계적검정', size: '22', color: color.red },
       { idx: 5, name: '통계적분석', size: '71', color: color.green },
       { idx: 6, name: '수리통계학', size: '110', color: color.green },
-      { idx: 7, name: '분포이론', size: '69', color: color.green },
+      { idx: 7, name: '분포이론', size: '70', color: color.green },
       { idx: 8, name: '확률론', size: '74', color: color.green },
       { idx: 9, name: '위상데이터분석', size: '40', color: color.green }
     ],
@@ -1308,7 +1259,7 @@ $\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} - \boldsymbol{\alpha} \odot 
       { idx: 1, name: '줄리아', size: '190', color: color.green },
       { idx: 2, name: '프로그래밍', size: '57', color: color.green },
       { idx: 3, name: '알고리즘', size: '28', color: color.green },
-      { idx: 4, name: '머신러닝', size: '77', color: color.green },
+      { idx: 4, name: '머신러닝', size: '79', color: color.green },
       { idx: 5, name: '세이버메트릭스', size: '12', color: color.green },
       { idx: 6, name: '논문작성', size: '19', color: color.green },
       { idx: 7, name: '교과과정', size: '54', color: color.green },
@@ -1452,8 +1403,6 @@ $\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} - \boldsymbol{\alpha} \odot 
     <ul>
     </ul>
 </aside>
-
-<iframe width="100%" src="https://www.youtube.com/embed/FlkKtnxGQBY?si=GzzY5BTyQeZlg26_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 <aside>
   <p><b>최근 댓글</b></p>
