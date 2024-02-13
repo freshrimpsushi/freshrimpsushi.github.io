@@ -54,14 +54,14 @@
         gtag('config', 'G-NLV8Y9PRK1');
     </script>
 
-    <title>How to Quickly Calculate Distances in Julia Using NearstNeighbors.jl</title>
+    <title>How to Calculate Distance using NearstNeibors.jl in julia</title>
 
     
 </head>
 
-<meta name="title" content="How to Quickly Calculate Distances in Julia Using NearstNeighbors.jl">
+<meta name="title" content="How to Calculate Distance using NearstNeibors.jl in julia">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="How to Quickly Calculate Distances in Julia Using NearstNeighbors.jl"/>
+<meta property="og:title" content="How to Calculate Distance using NearstNeibors.jl in julia"/>
 <meta property="og:description" content="How to Calculate Distance using NearstNeibors.jl in julia"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/en/logo/basic.png/>
 
@@ -80,8 +80,8 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "r_",
-    "name": "How to Quickly Calculate Distances in Julia Using NearstNeighbors.jl",
-    "headline": "How to Quickly Calculate Distances in Julia Using NearstNeighbors.jl",
+    "name": "How to Calculate Distance using NearstNeibors.jl in julia",
+    "headline": "How to Calculate Distance using NearstNeibors.jl in julia",
     "alternativeHeadline": "",
     "description": "How to Calculate Distance using NearstNeibors.jl in julia",
     "inLanguage": "en",
@@ -120,7 +120,7 @@
     },
     "image": "https://freshrimpsushi.github.io/en/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/en\/posts\/2088\/",
-    "wordCount" : "146",
+    "wordCount" : "271",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -228,11 +228,64 @@
     <div class="content">
       <div class="content-box">
         
-<title>How to Quickly Calculate Distances in Julia Using NearstNeighbors.jl</title>
+<title>How to Calculate Distance using NearstNeibors.jl in julia</title>
 
 
 
 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -258,7 +311,37 @@
         <a href="https://freshrimpsushi.github.io/en/categories/%EC%A4%84%EB%A6%AC%EC%95%84/"
             style="background-color: rgba(0, 0, 0, 0.8); color: orange;
             border-radius:10px; padding: 5px;">
-            📂줄리아</a>
+            📂Julia</a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -274,7 +357,7 @@
         
 
 
-<h1>How to Quickly Calculate Distances in Julia Using NearstNeighbors.jl</h1>
+<h1>How to Calculate Distance using NearstNeibors.jl in julia</h1>
 
 
 <aside>
@@ -285,6 +368,7 @@
   <ul>
     <li><a href="#overview">Overview</a></li>
     <li><a href="#speed-comparison">Speed Comparison</a></li>
+    <li><a href="#environment">Environment</a></li>
   </ul>
 </nav>
     </div>    
@@ -292,26 +376,62 @@
 </aside>
 
 <h2 id="overview">Overview</h2>
-<p>Using a k-d tree, a data structure favorable for multi-dimensional search, can increase speed when calculating distances between points without the need for creating a matrix; it&rsquo;s sufficient just to calculate the distance. All related algorithms are implemented in <code>NearestNeighbors.jl</code>, so it&rsquo;s recommended to check the <a href="https://github.com/KristofferC/NearestNeighbors.jl">official GitHub page</a>.</p>
+<p>To calculate the distance between $n$ points, if there&rsquo;s no need to create a matrix but just to compute the distance, using a k-d tree<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>, a data structure advantageous for multi-dimensional search, can enhance speed. All related algorithms are implemented in <code>NearestNeighbors.jl</code>, so refer to the <a href="https://github.com/KristofferC/NearestNeighbors.jl">official GitHub page</a>.</p>
 <h2 id="speed-comparison">Speed Comparison</h2>
-<p>Let&rsquo;s compare with a technique optimized for <a href="../2020">calculating distance matrices</a> using the <code>pairwise()</code> function.</p>
-<pre tabindex="0"><code class="language-code1" data-lang="code1">
-The result of running the above code is as follows. The last two command lines perform the same task, but the speed difference is about 500 times. In fact, the [time complexity](../1283) of searching in a k-d tree is very efficient, being $\log n$.
+<p>Let&rsquo;s compare with the technique optimized for <a href="../2020">calculating distance matrices</a> using the <code>pairwise()</code> function.</p>
+<pre tabindex="0"><code>using Distances
+using StatsBase
+using Random
+using NearestNeighbors
 
-```code2
+Random.seed!(0);
+ε = 0.01
+N = 10^4
+coordinate = rand(2, N);
+state = sample([&#39;S&#39;, &#39;I&#39;], Weights([0.1, 0.9]), N);
+S = coordinate[:, state .== &#39;S&#39;]
+I = coordinate[:, state .== &#39;I&#39;]
 
-Aside from just the issue of speed, the method using the k-d tree is also more convenient from the user&#39;s perspective as it returns a 1-dimensional array.
+@time sum(pairwise(Euclidean(),S,I) .&lt; ε, dims = 1)
+@time kdtree = KDTree(S); contact = length.(inrange(kdtree, I, ε, true))
+</code></pre><p>The result of running the above code is as follows. The last two command lines perform the same task, but the speed difference is about 500 times. In fact, the <a href="../1283">time complexity</a> when searching in a k-d tree is $\log n$, which is very efficient.</p>
+<pre tabindex="0"><code>julia&gt; @time sum(pairwise(Euclidean(),S,I) .&lt; ε, dims = 1)
+  0.098394 seconds (14 allocations: 69.639 MiB, 8.23% gc Time)
+1×9004 Array{Int64,2}:
+ 0  0  1  0  0  0  0  …  1  0  0  0  0  0
 
-## Environment
+julia&gt; @time kdtree = KDTree(S); contact = length.(inrange(kdtree, I, ε, true))
+  0.000213 seconds (22 allocations: 51.609 KiB)
+9004-element Array{Int64,1}:
+ 0
+ 0
+ 1
+ 0
+ ⋮
+ 0
+ 0
+ 0
+</code></pre><p>Even setting aside the simple issue of speed, the approach using the k-d tree is more convenient from the perspective of using the results, as it returns a 1-dimensional array.</p>
+<h2 id="environment">Environment</h2>
+<ul>
+<li>OS: Windows</li>
+<li>julia: v1.6.2</li>
+</ul>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://en.wikipedia.org/wiki/K-d_tree">https://en.wikipedia.org/wiki/K-d_tree</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
 
- - OS: Windows
- - julia: v1.6.2
-</code></pre>
 
 <aside style="text-align: right;">
     2021-09-27&emsp;
     류대식&emsp;
-    <a href="../972">🎲 2088</a>
+    
+    <a href="../761">🎲 2088</a>
 </aside>
 
 
@@ -328,7 +448,7 @@ Aside from just the issue of speed, the method using the k-d tree is also more c
       renderKaTex(tex);
     }
 
-    var title = 'How to Quickly Calculate Distances in Julia Using NearstNeighbors.jl';
+    var title = 'How to Calculate Distance using NearstNeibors.jl in julia';
     var link = 'https:\/\/freshrimpsushi.github.io\/en\/posts\/2088\/';
     var arr = new Array();
     var obj = {
@@ -540,7 +660,7 @@ Aside from just the issue of speed, the method using the k-d tree is also more c
     }
     const idx = '2088';
     const board_slug = 'how-to-calculate-distance-using-nearstneibors.jl-in-julia';
-    const board_title = 'How to Quickly Calculate Distances in Julia Using NearstNeighbors.jl';
+    const board_title = 'How to Calculate Distance using NearstNeibors.jl in julia';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -781,7 +901,7 @@ Aside from just the issue of speed, the method using the k-d tree is also more c
 
     const board_idx = '2088';
     const board_slug = 'how-to-calculate-distance-using-nearstneibors.jl-in-julia';
-    const board_title = 'How to Quickly Calculate Distances in Julia Using NearstNeighbors.jl';
+    const board_title = 'How to Calculate Distance using NearstNeibors.jl in julia';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -924,6 +1044,16 @@ Aside from just the issue of speed, the method using the k-d tree is also more c
 
   
 
+  
+
+  
+
+  
+
+  
+
+  
+
 
 <script>
   const color = {green: '#33cc33', yellow: '#ffcc00', red: '#ff3333', black: '#000000'};
@@ -931,28 +1061,28 @@ Aside from just the issue of speed, the method using the k-d tree is also more c
     [
       { idx: 1, name: '함수', size: '1', color: color.green },
       { idx: 2, name: '보조정리', size: '1', color: color.green },
-      { idx: 3, name: '집합론', size: '2', color: color.green },
-      { idx: 4, name: '정수론', size: '1', color: color.green },
-      { idx: 5, name: '기하학', size: '5', color: color.green },
-      { idx: 6, name: '행렬대수', size: '2', color: color.green },
-      { idx: 7, name: '선형대수', size: '2', color: color.green },
-      { idx: 8, name: '추상대수', size: '3', color: color.green },
-      { idx: 9, name: '위상수학', size: '3', color: color.green },
-      { idx: 10, name: '그래프이론', size: '', color: color.green }
+      { idx: 3, name: '집합론', size: '5', color: color.green },
+      { idx: 4, name: '정수론', size: '2', color: color.green },
+      { idx: 5, name: '기하학', size: '7', color: color.green },
+      { idx: 6, name: '행렬대수', size: '5', color: color.green },
+      { idx: 7, name: '선형대수', size: '6', color: color.green },
+      { idx: 8, name: '추상대수', size: '6', color: color.green },
+      { idx: 9, name: '위상수학', size: '5', color: color.green },
+      { idx: 10, name: '그래프이론', size: '1', color: color.green }
     ],
     [
-      { idx: 1, name: '해석개론', size: '1', color: color.green },
-      { idx: 2, name: '다변수벡터해석', size: '1', color: color.green },
-      { idx: 3, name: '복소해석', size: '1', color: color.green },
-      { idx: 4, name: '측도론', size: '2', color: color.green },
+      { idx: 1, name: '해석개론', size: '4', color: color.green },
+      { idx: 2, name: '다변수벡터해석', size: '2', color: color.green },
+      { idx: 3, name: '복소해석', size: '2', color: color.green },
+      { idx: 4, name: '측도론', size: '4', color: color.green },
       { idx: 5, name: '푸리에해석', size: '2', color: color.green },
       { idx: 6, name: '초함수론', size: '', color: color.green },
       { idx: 7, name: '단층촬영', size: '', color: color.green },
     ],
     [
-      { idx: 1, name: '거리공간', size: '3', color: color.green },
-      { idx: 2, name: '바나흐공간', size: '2', color: color.green },
-      { idx: 3, name: '힐베르트공간', size: '', color: color.green },
+      { idx: 1, name: '거리공간', size: '7', color: color.green },
+      { idx: 2, name: '바나흐공간', size: '4', color: color.green },
+      { idx: 3, name: '힐베르트공간', size: '3', color: color.green },
       { idx: 4, name: '르벡공간', size: '', color: color.green }
     ],
     [
@@ -963,11 +1093,11 @@ Aside from just the issue of speed, the method using the k-d tree is also more c
     [
       { idx: 1, name: '매트랩', size: '', color: color.green },
       { idx: 2, name: '수치해석', size: '', color: color.green },
-      { idx: 3, name: '최적화이론', size: '', color: color.green }
+      { idx: 3, name: '최적화이론', size: '1', color: color.green }
     ],
     [
       { idx: 1, name: '물리학', size: '', color: color.green },
-      { idx: 2, name: '수리물리', size: '4', color: color.green },
+      { idx: 2, name: '수리물리', size: '5', color: color.green },
       { idx: 3, name: '고전역학', size: '1', color: color.green },
       { idx: 4, name: '전자기학', size: '1', color: color.green },
       { idx: 5, name: '양자역학', size: '2', color: color.yellow },
@@ -976,19 +1106,19 @@ Aside from just the issue of speed, the method using the k-d tree is also more c
     [
       { idx: 1, name: 'R', size: '', color: color.green },
       { idx: 2, name: '데이터확보', size: '', color: color.green },
-      { idx: 3, name: '데이터과학', size: '2', color: color.green },
+      { idx: 3, name: '데이터과학', size: '4', color: color.green },
       { idx: 4, name: '통계적검정', size: '', color: color.red },
       { idx: 5, name: '통계적분석', size: '1', color: color.green },
-      { idx: 6, name: '수리통계학', size: '', color: color.green },
-      { idx: 7, name: '분포이론', size: '', color: color.green },
-      { idx: 8, name: '확률론', size: '2', color: color.green },
+      { idx: 6, name: '수리통계학', size: '6', color: color.green },
+      { idx: 7, name: '분포이론', size: '1', color: color.green },
+      { idx: 8, name: '확률론', size: '4', color: color.green },
       { idx: 9, name: '위상데이터분석', size: '6', color: color.green }
     ],
     [
       { idx: 1, name: '줄리아', size: '190', color: color.green },
       { idx: 2, name: '프로그래밍', size: '4', color: color.green },
       { idx: 3, name: '알고리즘', size: '', color: color.green },
-      { idx: 4, name: '머신러닝', size: '12', color: color.green },
+      { idx: 4, name: '머신러닝', size: '14', color: color.green },
       { idx: 5, name: '세이버메트릭스', size: '', color: color.green },
       { idx: 6, name: '논문작성', size: '1', color: color.green },
       { idx: 7, name: '교과과정', size: '1', color: color.green },

@@ -54,14 +54,14 @@
         gtag('config', 'G-NLV8Y9PRK1');
     </script>
 
-    <title>Sorting DataFrames in Julia</title>
+    <title>How to Sort Dataframe in julia</title>
 
     
 </head>
 
-<meta name="title" content="Sorting DataFrames in Julia">
+<meta name="title" content="How to Sort Dataframe in julia">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="Sorting DataFrames in Julia"/>
+<meta property="og:title" content="How to Sort Dataframe in julia"/>
 <meta property="og:description" content="How to Sort Dataframe in julia"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/en/logo/basic.png/>
 
@@ -80,8 +80,8 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "r_",
-    "name": "Sorting DataFrames in Julia",
-    "headline": "Sorting DataFrames in Julia",
+    "name": "How to Sort Dataframe in julia",
+    "headline": "How to Sort Dataframe in julia",
     "alternativeHeadline": "",
     "description": "How to Sort Dataframe in julia",
     "inLanguage": "en",
@@ -120,7 +120,7 @@
     },
     "image": "https://freshrimpsushi.github.io/en/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/en\/posts\/2238\/",
-    "wordCount" : "136",
+    "wordCount" : "864",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -228,11 +228,64 @@
     <div class="content">
       <div class="content-box">
         
-<title>Sorting DataFrames in Julia</title>
+<title>How to Sort Dataframe in julia</title>
 
 
 
 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -258,7 +311,37 @@
         <a href="https://freshrimpsushi.github.io/en/categories/%EC%A4%84%EB%A6%AC%EC%95%84/"
             style="background-color: rgba(0, 0, 0, 0.8); color: orange;
             border-radius:10px; padding: 5px;">
-            📂줄리아</a>
+            📂Julia</a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -274,7 +357,7 @@
         
 
 
-<h1>Sorting DataFrames in Julia</h1>
+<h1>How to Sort Dataframe in julia</h1>
 
 
 <aside>
@@ -283,7 +366,15 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#code">Code</a></li>
+    <li><a href="#code">Code</a>
+      <ul>
+        <li><a href="#sort-by-column-number-sortdf-colsinteger">Sort by Column Number <code>sort(df, cols::integer)</code></a></li>
+        <li><a href="#sort-by-column-name-sortdf-colssymbol">Sort by Column Name <code>sort(df, cols::Symbol)</code></a></li>
+        <li><a href="#sorting-priority-sortdf-colsarray">Sorting Priority <code>sort(df, cols::Array)</code></a></li>
+        <li><a href="#sort-in-reverse-order-sortdf-revboolfalse">Sort in Reverse Order <code>sort(df, rev::Bool=false)</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#environment">Environment</a></li>
   </ul>
 </nav>
     </div>    
@@ -291,53 +382,128 @@
 </aside>
 
 <h2 id="code">Code</h2>
-<pre tabindex="0"><code class="language-code1" data-lang="code1">
-Let&#39;s run the example code above and check the results.
+<pre tabindex="0"><code>using DataFrames
 
-```code2
+Unit1 = DataFrame(
+    member = [&#34;다영&#34;,&#34;루다&#34;,&#34;수빈&#34;,&#34;진숙&#34;],
+    birth = [99,97,96,99],
+    height = [161,157,159,162]
+)
 
-The `WJSN` dataframe is as shown above.
+Unit2 = DataFrame(
+    member = [&#34;소정&#34;,&#34;주연&#34;,&#34;지연&#34;,&#34;현정&#34;],
+    birth = [95,98,95,94],
+    height = [166,172,163,165]
+)
+WJSN = vcat(Unit1, Unit2)
 
-### Sort by Column Number `sort(df, cols::integer)`
+push!(WJSN, [&#34;다원&#34;,97,167])
+push!(WJSN, [&#34;연정&#34;,99,165])
 
-Sorts based on the column numbered `cols`.
+sort(WJSN, 3)
+sort(WJSN, :birth)
+sort(WJSN, [:birth, :height])
+sort(WJSN, :birth, rev = true)
+</code></pre><p>Let&rsquo;s run the example code above and check the results.</p>
+<pre tabindex="0"><code>julia&gt; WJSN
+10×3 DataFrame
+ Row │ member  birth  height 
+     │ String  Int64  Int64  
+─────┼───────────────────────
+   1 │ 다영       99     161
+   2 │ 루다       97     157
+   3 │ 수빈       96     159
+   4 │ 진숙       99     162
+   5 │ 소정       95     166
+   6 │ 주연       98     172
+   7 │ 지연       95     163
+   8 │ 현정       94     165
+   9 │ 다원       97     167
+  10 │ 연정       99     165
+</code></pre><p>The <code>WJSN</code> dataframe looks like the above.</p>
+<h3 id="sort-by-column-number-sortdf-colsinteger">Sort by Column Number <code>sort(df, cols::integer)</code></h3>
+<p>Sorts based on the <code>cols</code>th column.</p>
+<pre tabindex="0"><code>julia&gt; sort(WJSN, 3)
+10×3 DataFrame
+ Row │ member  birth  height 
+     │ String  Int64  Int64  
+─────┼───────────────────────
+   1 │ 루다       97     157
+   2 │ 수빈       96     159
+   3 │ 다영       99     161
+   4 │ 진숙       99     162
+   5 │ 지연       95     163
+   6 │ 현정       94     165
+   7 │ 연정       99     165
+   8 │ 소정       95     166
+   9 │ 다원       97     167
+  10 │ 주연       98     172
+</code></pre><p>You can see that it is sorted based on the <code>3rd</code> column, which is <code>height</code>.</p>
+<h3 id="sort-by-column-name-sortdf-colssymbol">Sort by Column Name <code>sort(df, cols::Symbol)</code></h3>
+<p>Sorts based on the column named by the symbol <code>cols</code>.</p>
+<pre tabindex="0"><code>julia&gt; sort(WJSN, :birth)
+10×3 DataFrame
+ Row │ member  birth  height 
+     │ String  Int64  Int64  
+─────┼───────────────────────
+   1 │ 현정       94     165
+   2 │ 소정       95     166
+   3 │ 지연       95     163
+   4 │ 수빈       96     159
+   5 │ 루다       97     157
+   6 │ 다원       97     167
+   7 │ 주연       98     172
+   8 │ 다영       99     161
+   9 │ 진숙       99     162
+  10 │ 연정       99     165
+</code></pre><p>It is sorted based on <code>:birth</code>, which means the sorting criterion was <code>birth</code>.</p>
+<h3 id="sorting-priority-sortdf-colsarray">Sorting Priority <code>sort(df, cols::Array)</code></h3>
+<p>Sorts according to the order of <code>cols</code>, assigning priority.</p>
+<pre tabindex="0"><code>julia&gt; sort(WJSN, [:birth, :height])
+10×3 DataFrame
+ Row │ member  birth  height 
+     │ String  Int64  Int64  
+─────┼───────────────────────
+   1 │ 현정       94     165
+   2 │ 지연       95     163
+   3 │ 소정       95     166
+   4 │ 수빈       96     159
+   5 │ 루다       97     157
+   6 │ 다원       97     167
+   7 │ 주연       98     172
+   8 │ 다영       99     161
+   9 │ 진숙       99     162
+  10 │ 연정       99     165
+</code></pre><p>It is sorted by <code>birth</code>, but <code>height</code> is also considered. Compared to just sorting by <code>birth</code>, rows <code>2</code> and <code>3</code> have been reversed.</p>
+<h3 id="sort-in-reverse-order-sortdf-revboolfalse">Sort in Reverse Order <code>sort(df, rev::Bool=false)</code></h3>
+<p>Set <code>rev = true</code> to sort in reverse order. The default value is <code>false</code>.</p>
+<pre tabindex="0"><code>julia&gt; sort(WJSN, :birth, rev = true)
+10×3 DataFrame
+ Row │ member  birth  height 
+     │ String  Int64  Int64  
+─────┼───────────────────────
+   1 │ 다영       99     161
+   2 │ 진숙       99     162
+   3 │ 연정       99     165
+   4 │ 주연       98     172
+   5 │ 루다       97     157
+   6 │ 다원       97     167
+   7 │ 수빈       96     159
+   8 │ 소정       95     166
+   9 │ 지연       95     163
+  10 │ 현정       94     165
+</code></pre><h2 id="environment">Environment</h2>
+<ul>
+<li>OS: Windows</li>
+<li>julia: v1.6.3</li>
+</ul>
 
-```code3
-
-It can be seen that it is sorted based on the `height` which is the 3rd column.
-
-### Sort by Column Name `sort(df, cols::Symbol)`
-
-Sorts based on the column named by the symbol `cols`.
-
-```code4
-
-Sorted based on `:birth`, hence, on `birth`.
-
-### Sorting Priority `sort(df, cols::Array)`
-
-Sorts based on the order of `cols`.
-
-```code5
-
-Sorted by `birth` but `height` is also sorted. Compared to sorting just by `birth`, rows `2` and `3` have been reversed.
-
-### Reverse Sorting `sort(df, rev::Bool=false)`
-
-Set `rev = true` to sort in reverse. The default is `false`.
-
-```code6
-
-## Environment
-
- - OS: Windows
- - julia: v1.6.3
-</code></pre>
 
 <aside style="text-align: right;">
     2022-07-24&emsp;
     류대식&emsp;
-    <a href="../1940">🎲 2238</a>
+    
+    <a href="../2217">🎲 2238</a>
 </aside>
 
 
@@ -354,7 +520,7 @@ Set `rev = true` to sort in reverse. The default is `false`.
       renderKaTex(tex);
     }
 
-    var title = 'Sorting DataFrames in Julia';
+    var title = 'How to Sort Dataframe in julia';
     var link = 'https:\/\/freshrimpsushi.github.io\/en\/posts\/2238\/';
     var arr = new Array();
     var obj = {
@@ -566,7 +732,7 @@ Set `rev = true` to sort in reverse. The default is `false`.
     }
     const idx = '2238';
     const board_slug = 'how-to-sort-dataframe-in-julia';
-    const board_title = 'Sorting DataFrames in Julia';
+    const board_title = 'How to Sort Dataframe in julia';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -807,7 +973,7 @@ Set `rev = true` to sort in reverse. The default is `false`.
 
     const board_idx = '2238';
     const board_slug = 'how-to-sort-dataframe-in-julia';
-    const board_title = 'Sorting DataFrames in Julia';
+    const board_title = 'How to Sort Dataframe in julia';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -950,6 +1116,16 @@ Set `rev = true` to sort in reverse. The default is `false`.
 
   
 
+  
+
+  
+
+  
+
+  
+
+  
+
 
 <script>
   const color = {green: '#33cc33', yellow: '#ffcc00', red: '#ff3333', black: '#000000'};
@@ -957,28 +1133,28 @@ Set `rev = true` to sort in reverse. The default is `false`.
     [
       { idx: 1, name: '함수', size: '1', color: color.green },
       { idx: 2, name: '보조정리', size: '1', color: color.green },
-      { idx: 3, name: '집합론', size: '2', color: color.green },
-      { idx: 4, name: '정수론', size: '1', color: color.green },
-      { idx: 5, name: '기하학', size: '5', color: color.green },
-      { idx: 6, name: '행렬대수', size: '2', color: color.green },
-      { idx: 7, name: '선형대수', size: '2', color: color.green },
-      { idx: 8, name: '추상대수', size: '3', color: color.green },
-      { idx: 9, name: '위상수학', size: '3', color: color.green },
-      { idx: 10, name: '그래프이론', size: '', color: color.green }
+      { idx: 3, name: '집합론', size: '5', color: color.green },
+      { idx: 4, name: '정수론', size: '2', color: color.green },
+      { idx: 5, name: '기하학', size: '7', color: color.green },
+      { idx: 6, name: '행렬대수', size: '5', color: color.green },
+      { idx: 7, name: '선형대수', size: '6', color: color.green },
+      { idx: 8, name: '추상대수', size: '6', color: color.green },
+      { idx: 9, name: '위상수학', size: '5', color: color.green },
+      { idx: 10, name: '그래프이론', size: '1', color: color.green }
     ],
     [
-      { idx: 1, name: '해석개론', size: '1', color: color.green },
-      { idx: 2, name: '다변수벡터해석', size: '1', color: color.green },
-      { idx: 3, name: '복소해석', size: '1', color: color.green },
-      { idx: 4, name: '측도론', size: '2', color: color.green },
+      { idx: 1, name: '해석개론', size: '4', color: color.green },
+      { idx: 2, name: '다변수벡터해석', size: '2', color: color.green },
+      { idx: 3, name: '복소해석', size: '2', color: color.green },
+      { idx: 4, name: '측도론', size: '4', color: color.green },
       { idx: 5, name: '푸리에해석', size: '2', color: color.green },
       { idx: 6, name: '초함수론', size: '', color: color.green },
       { idx: 7, name: '단층촬영', size: '', color: color.green },
     ],
     [
-      { idx: 1, name: '거리공간', size: '3', color: color.green },
-      { idx: 2, name: '바나흐공간', size: '2', color: color.green },
-      { idx: 3, name: '힐베르트공간', size: '', color: color.green },
+      { idx: 1, name: '거리공간', size: '7', color: color.green },
+      { idx: 2, name: '바나흐공간', size: '4', color: color.green },
+      { idx: 3, name: '힐베르트공간', size: '3', color: color.green },
       { idx: 4, name: '르벡공간', size: '', color: color.green }
     ],
     [
@@ -989,11 +1165,11 @@ Set `rev = true` to sort in reverse. The default is `false`.
     [
       { idx: 1, name: '매트랩', size: '', color: color.green },
       { idx: 2, name: '수치해석', size: '', color: color.green },
-      { idx: 3, name: '최적화이론', size: '', color: color.green }
+      { idx: 3, name: '최적화이론', size: '1', color: color.green }
     ],
     [
       { idx: 1, name: '물리학', size: '', color: color.green },
-      { idx: 2, name: '수리물리', size: '4', color: color.green },
+      { idx: 2, name: '수리물리', size: '5', color: color.green },
       { idx: 3, name: '고전역학', size: '1', color: color.green },
       { idx: 4, name: '전자기학', size: '1', color: color.green },
       { idx: 5, name: '양자역학', size: '2', color: color.yellow },
@@ -1002,19 +1178,19 @@ Set `rev = true` to sort in reverse. The default is `false`.
     [
       { idx: 1, name: 'R', size: '', color: color.green },
       { idx: 2, name: '데이터확보', size: '', color: color.green },
-      { idx: 3, name: '데이터과학', size: '2', color: color.green },
+      { idx: 3, name: '데이터과학', size: '4', color: color.green },
       { idx: 4, name: '통계적검정', size: '', color: color.red },
       { idx: 5, name: '통계적분석', size: '1', color: color.green },
-      { idx: 6, name: '수리통계학', size: '', color: color.green },
-      { idx: 7, name: '분포이론', size: '', color: color.green },
-      { idx: 8, name: '확률론', size: '2', color: color.green },
+      { idx: 6, name: '수리통계학', size: '6', color: color.green },
+      { idx: 7, name: '분포이론', size: '1', color: color.green },
+      { idx: 8, name: '확률론', size: '4', color: color.green },
       { idx: 9, name: '위상데이터분석', size: '6', color: color.green }
     ],
     [
       { idx: 1, name: '줄리아', size: '190', color: color.green },
       { idx: 2, name: '프로그래밍', size: '4', color: color.green },
       { idx: 3, name: '알고리즘', size: '', color: color.green },
-      { idx: 4, name: '머신러닝', size: '12', color: color.green },
+      { idx: 4, name: '머신러닝', size: '14', color: color.green },
       { idx: 5, name: '세이버메트릭스', size: '', color: color.green },
       { idx: 6, name: '논문작성', size: '1', color: color.green },
       { idx: 7, name: '교과과정', size: '1', color: color.green },

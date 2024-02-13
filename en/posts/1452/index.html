@@ -120,7 +120,7 @@
     },
     "image": "https://freshrimpsushi.github.io/en/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/en\/posts\/1452\/",
-    "wordCount" : "378",
+    "wordCount" : "440",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -255,10 +255,93 @@
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         <a href="https://freshrimpsushi.github.io/en/categories/%EC%A4%84%EB%A6%AC%EC%95%84/"
             style="background-color: rgba(0, 0, 0, 0.8); color: orange;
             border-radius:10px; padding: 5px;">
-            📂줄리아</a>
+            📂Julia</a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -284,6 +367,8 @@
       <nav id="TableOfContents">
   <ul>
     <li><a href="#코드">코드</a></li>
+    <li><a href="#타언어">타언어</a></li>
+    <li><a href="#환경">환경</a></li>
   </ul>
 </nav>
     </div>    
@@ -291,40 +376,87 @@
 </aside>
 
 <h2 id="코드">코드</h2>
-<pre tabindex="0"><code class="language-code1" data-lang="code1">`x1` is a 2-dimensional array. Since it looks like a row vector, if you input only one coordinate component, it is recognized as a row vector. `x2`, `x3`, `x4`, `x5` are 1-dimensional arrays.
+<pre tabindex="0"><code>julia&gt; x1=[1 2 3]
+1×3 Array{Int64,2}:
+ 1  2  3
 
-- `x=[i for i in n:m]` returns an array with elements ranging from $n$ to $m$ with an interval of $1$.
-- `x=[i for i in n:k:m]` returns an array with elements ranging from $n$ to $m$ with an interval of $k$.
+julia&gt; x2=[1, 2, 3]
+3-element Array{Int64,1}:
+ 1
+ 2
+ 3
 
-The last element is the largest number that is less than or equal to $m$. This method of including a `for` loop inside a list to create a list is called **List Comprehension** in languages such as [Python](../../categories/programming#python).
+julia&gt; x3=[i for i in 1:3]
+3-element Array{Int64,1}:
+ 1
+ 2
+ 3
 
-```code2
-Although it doesn&#39;t actually happen, you can think of arrays like `x3`, `x4`, `x5` as being created as described above. As shown in the photo below, although the data types are different, they can be used in the same way as what was created above.
+julia&gt; x4=[i for i in 1:3:10]
+4-element Array{Int64,1}:
+  1
+  4
+  7
+ 10
 
-- `range(n,stop=m,length=k)`: This is exactly the same as lispace(n,m,k) in [MATLAB](../1376). Let&#39;s find out the specific differences through the example code and results below.
+julia&gt; x5=[i for i in 1:3:11]
+4-element Array{Int64,1}:
+  1
+  4
+  7
+ 10
+</code></pre><p><code>x1</code> is a 2-dimensional array. Since it looks like a row vector, if you input only one coordinate component, it is recognized as a row vector. <code>x2</code>, <code>x3</code>, <code>x4</code>, <code>x5</code> are 1-dimensional arrays.</p>
+<ul>
+<li><code>x=[i for i in n:m]</code> returns an array with elements ranging from $n$ to $m$ with an interval of $1$.</li>
+<li><code>x=[i for i in n:k:m]</code> returns an array with elements ranging from $n$ to $m$ with an interval of $k$.</li>
+</ul>
+<p>The last element is the largest number that is less than or equal to $m$. This method of including a <code>for</code> loop inside a list to create a list is called <strong>List Comprehension</strong> in languages such as <a href="../../categories/programming#python">Python</a>.</p>
+<pre tabindex="0"><code>julia&gt; x6=1:3
+1:3
 
-```code3
-Similarly, you can think of the same vector being created, even though the actual data type is different. Unlike MATLAB, you can input only one of the second or third variables, and changing the order of input doesn&#39;t matter.
+julia&gt; x7=1:3:10
+1:3:10
 
-1. **First line** returns a vector with the first element being $1$ and the last element $10$. Since nothing else is input, the interval between elements is $1$.
-2. **Second line** returns a vector with the first element being $1$ and a total of $15$ elements. The interval automatically becomes $1$, similar to a vector created with `x=range(1,stop=15)` or `x=1:15`.
-3. **Third line** returns a vector with the first element being $1$, the last element $10$, and a total of $15$ elements. Therefore, the interval automatically becomes $9/14=0.6428571428571429$. Since it is not an integer, it naturally returns a vector with real number elements. Also, it is the same as one created with `x=1.0:0.6428571428571429:10.0`.
-4. **Fourth line** returns a vector exactly the same as the one returned in the third line.
+julia&gt; x9=1:3:11
+1:3:10
+</code></pre><p>Although it doesn&rsquo;t actually happen, you can think of arrays like <code>x3</code>, <code>x4</code>, <code>x5</code> as being created as described above. As shown in the photo below, although the data types are different, they can be used in the same way as what was created above.</p>
+<ul>
+<li><code>range(n,stop=m,length=k)</code>: This is exactly the same as lispace(n,m,k) in <a href="../1376">MATLAB</a>. Let&rsquo;s find out the specific differences through the example code and results below.</li>
+</ul>
+<pre tabindex="0"><code>julia&gt; x9=range(1,stop=10)
+1:10
 
-## 타언어
+julia&gt; x10=range(1,length=15)
+1:15
 
-- [How to create equally spaced row vectors in MATLAB](../1376)
+julia&gt; x11=range(1,stop=10,length=15)
+1.0:0.6428571428571429:10.0
 
-## 환경
+julia&gt; x12=range(1,length=15,stop=10)
+1.0:0.6428571428571429:10.0
+</code></pre><p>Similarly, you can think of the same vector being created, even though the actual data type is different. Unlike MATLAB, you can input only one of the second or third variables, and changing the order of input doesn&rsquo;t matter.</p>
+<ol>
+<li><strong>First line</strong> returns a vector with the first element being $1$ and the last element $10$. Since nothing else is input, the interval between elements is $1$.</li>
+<li><strong>Second line</strong> returns a vector with the first element being $1$ and a total of $15$ elements. The interval automatically becomes $1$, similar to a vector created with <code>x=range(1,stop=15)</code> or <code>x=1:15</code>.</li>
+<li><strong>Third line</strong> returns a vector with the first element being $1$, the last element $10$, and a total of $15$ elements. Therefore, the interval automatically becomes $9/14=0.6428571428571429$. Since it is not an integer, it naturally returns a vector with real number elements. Also, it is the same as one created with <code>x=1.0:0.6428571428571429:10.0</code>.</li>
+<li><strong>Fourth line</strong> returns a vector exactly the same as the one returned in the third line.</li>
+</ol>
+<h2 id="타언어">타언어</h2>
+<ul>
+<li><a href="../1376">How to create equally spaced row vectors in MATLAB</a></li>
+</ul>
+<h2 id="환경">환경</h2>
+<ul>
+<li>OS: Windows10</li>
+<li>Version: 1.5.0</li>
+</ul>
 
-- OS: Windows10
-- Version: 1.5.0
-</code></pre>
 
 <aside style="text-align: right;">
     2019-12-16&emsp;
     전기현&emsp;
-    <a href="../1130">🎲 1452</a>
+    
+    <a href="../1451">🎲 1452</a>
 </aside>
 
 
@@ -937,6 +1069,16 @@ Similarly, you can think of the same vector being created, even though the actua
 
   
 
+  
+
+  
+
+  
+
+  
+
+  
+
 
 <script>
   const color = {green: '#33cc33', yellow: '#ffcc00', red: '#ff3333', black: '#000000'};
@@ -944,28 +1086,28 @@ Similarly, you can think of the same vector being created, even though the actua
     [
       { idx: 1, name: '함수', size: '1', color: color.green },
       { idx: 2, name: '보조정리', size: '1', color: color.green },
-      { idx: 3, name: '집합론', size: '2', color: color.green },
-      { idx: 4, name: '정수론', size: '1', color: color.green },
-      { idx: 5, name: '기하학', size: '5', color: color.green },
-      { idx: 6, name: '행렬대수', size: '2', color: color.green },
-      { idx: 7, name: '선형대수', size: '2', color: color.green },
-      { idx: 8, name: '추상대수', size: '3', color: color.green },
-      { idx: 9, name: '위상수학', size: '3', color: color.green },
-      { idx: 10, name: '그래프이론', size: '', color: color.green }
+      { idx: 3, name: '집합론', size: '5', color: color.green },
+      { idx: 4, name: '정수론', size: '2', color: color.green },
+      { idx: 5, name: '기하학', size: '7', color: color.green },
+      { idx: 6, name: '행렬대수', size: '5', color: color.green },
+      { idx: 7, name: '선형대수', size: '6', color: color.green },
+      { idx: 8, name: '추상대수', size: '6', color: color.green },
+      { idx: 9, name: '위상수학', size: '5', color: color.green },
+      { idx: 10, name: '그래프이론', size: '1', color: color.green }
     ],
     [
-      { idx: 1, name: '해석개론', size: '1', color: color.green },
-      { idx: 2, name: '다변수벡터해석', size: '1', color: color.green },
-      { idx: 3, name: '복소해석', size: '1', color: color.green },
-      { idx: 4, name: '측도론', size: '2', color: color.green },
+      { idx: 1, name: '해석개론', size: '4', color: color.green },
+      { idx: 2, name: '다변수벡터해석', size: '2', color: color.green },
+      { idx: 3, name: '복소해석', size: '2', color: color.green },
+      { idx: 4, name: '측도론', size: '4', color: color.green },
       { idx: 5, name: '푸리에해석', size: '2', color: color.green },
       { idx: 6, name: '초함수론', size: '', color: color.green },
       { idx: 7, name: '단층촬영', size: '', color: color.green },
     ],
     [
-      { idx: 1, name: '거리공간', size: '3', color: color.green },
-      { idx: 2, name: '바나흐공간', size: '2', color: color.green },
-      { idx: 3, name: '힐베르트공간', size: '', color: color.green },
+      { idx: 1, name: '거리공간', size: '7', color: color.green },
+      { idx: 2, name: '바나흐공간', size: '4', color: color.green },
+      { idx: 3, name: '힐베르트공간', size: '3', color: color.green },
       { idx: 4, name: '르벡공간', size: '', color: color.green }
     ],
     [
@@ -976,11 +1118,11 @@ Similarly, you can think of the same vector being created, even though the actua
     [
       { idx: 1, name: '매트랩', size: '', color: color.green },
       { idx: 2, name: '수치해석', size: '', color: color.green },
-      { idx: 3, name: '최적화이론', size: '', color: color.green }
+      { idx: 3, name: '최적화이론', size: '1', color: color.green }
     ],
     [
       { idx: 1, name: '물리학', size: '', color: color.green },
-      { idx: 2, name: '수리물리', size: '4', color: color.green },
+      { idx: 2, name: '수리물리', size: '5', color: color.green },
       { idx: 3, name: '고전역학', size: '1', color: color.green },
       { idx: 4, name: '전자기학', size: '1', color: color.green },
       { idx: 5, name: '양자역학', size: '2', color: color.yellow },
@@ -989,19 +1131,19 @@ Similarly, you can think of the same vector being created, even though the actua
     [
       { idx: 1, name: 'R', size: '', color: color.green },
       { idx: 2, name: '데이터확보', size: '', color: color.green },
-      { idx: 3, name: '데이터과학', size: '2', color: color.green },
+      { idx: 3, name: '데이터과학', size: '4', color: color.green },
       { idx: 4, name: '통계적검정', size: '', color: color.red },
       { idx: 5, name: '통계적분석', size: '1', color: color.green },
-      { idx: 6, name: '수리통계학', size: '', color: color.green },
-      { idx: 7, name: '분포이론', size: '', color: color.green },
-      { idx: 8, name: '확률론', size: '2', color: color.green },
+      { idx: 6, name: '수리통계학', size: '6', color: color.green },
+      { idx: 7, name: '분포이론', size: '1', color: color.green },
+      { idx: 8, name: '확률론', size: '4', color: color.green },
       { idx: 9, name: '위상데이터분석', size: '6', color: color.green }
     ],
     [
       { idx: 1, name: '줄리아', size: '190', color: color.green },
       { idx: 2, name: '프로그래밍', size: '4', color: color.green },
       { idx: 3, name: '알고리즘', size: '', color: color.green },
-      { idx: 4, name: '머신러닝', size: '12', color: color.green },
+      { idx: 4, name: '머신러닝', size: '14', color: color.green },
       { idx: 5, name: '세이버메트릭스', size: '', color: color.green },
       { idx: 6, name: '논문작성', size: '1', color: color.green },
       { idx: 7, name: '교과과정', size: '1', color: color.green },

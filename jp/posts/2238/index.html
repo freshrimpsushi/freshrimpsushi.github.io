@@ -54,14 +54,14 @@
         gtag('config', 'G-NLV8Y9PRK1');
     </script>
 
-    <title>ジュリアでのデータフレームの並べ替え方</title>
+    <title>Juliaでデータフレームを並べ替える方法</title>
 
     
 </head>
 
-<meta name="title" content="ジュリアでのデータフレームの並べ替え方">
+<meta name="title" content="Juliaでデータフレームを並べ替える方法">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="ジュリアでのデータフレームの並べ替え方"/>
+<meta property="og:title" content="Juliaでデータフレームを並べ替える方法"/>
 <meta property="og:description" content="How to Sort Dataframe in julia"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/jp/logo/basic.png/>
 
@@ -80,8 +80,8 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "r_",
-    "name": "ジュリアでのデータフレームの並べ替え方",
-    "headline": "ジュリアでのデータフレームの並べ替え方",
+    "name": "Juliaでデータフレームを並べ替える方法",
+    "headline": "Juliaでデータフレームを並べ替える方法",
     "alternativeHeadline": "",
     "description": "How to Sort Dataframe in julia",
     "inLanguage": "jp",
@@ -120,7 +120,7 @@
     },
     "image": "https://freshrimpsushi.github.io/jp/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/jp\/posts\/2238\/",
-    "wordCount" : "353",
+    "wordCount" : "1061",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -228,11 +228,64 @@
     <div class="content">
       <div class="content-box">
         
-<title>ジュリアでのデータフレームの並べ替え方</title>
+<title>Juliaでデータフレームを並べ替える方法</title>
 
 
 
 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -258,7 +311,37 @@
         <a href="https://freshrimpsushi.github.io/jp/categories/%EC%A4%84%EB%A6%AC%EC%95%84/"
             style="background-color: rgba(0, 0, 0, 0.8); color: orange;
             border-radius:10px; padding: 5px;">
-            📂줄리아</a>
+            📂ジュリア</a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -274,7 +357,7 @@
         
 
 
-<h1>ジュリアでのデータフレームの並べ替え方</h1>
+<h1>Juliaでデータフレームを並べ替える方法</h1>
 
 
 <aside>
@@ -283,7 +366,15 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#コード">コード</a></li>
+    <li><a href="#コード">コード</a>
+      <ul>
+        <li><a href="#列番号でソート-sortdf-colsinteger">列番号でソート <code>sort(df, cols::integer)</code></a></li>
+        <li><a href="#列名でソート-sortdf-colssymbol">列名でソート <code>sort(df, cols::Symbol)</code></a></li>
+        <li><a href="#ソートの優先順位-sortdf-colsarray">ソートの優先順位 <code>sort(df, cols::Array)</code></a></li>
+        <li><a href="#逆順でソート-sortdf-revboolfalse">逆順でソート <code>sort(df, rev::Bool=false)</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#環境">環境</a></li>
   </ul>
 </nav>
     </div>    
@@ -291,53 +382,128 @@
 </aside>
 
 <h2 id="コード">コード</h2>
-<pre tabindex="0"><code class="language-code1" data-lang="code1">
-上の例のコードを実行してみて、その結果を確認しよう。
+<pre tabindex="0"><code>using DataFrames
 
-```code2
+Unit1 = DataFrame(
+    member = [&#34;다영&#34;,&#34;루다&#34;,&#34;수빈&#34;,&#34;진숙&#34;],
+    birth = [99,97,96,99],
+    height = [161,157,159,162]
+)
 
-`WJSN` のデータフレームは上のようだ。
+Unit2 = DataFrame(
+    member = [&#34;소정&#34;,&#34;주연&#34;,&#34;지연&#34;,&#34;현정&#34;],
+    birth = [95,98,95,94],
+    height = [166,172,163,165]
+)
+WJSN = vcat(Unit1, Unit2)
 
-### 列番号で並び替え `sort(df, cols::integer)`
+push!(WJSN, [&#34;다원&#34;,97,167])
+push!(WJSN, [&#34;연정&#34;,99,165])
 
-`cols`番目の列を基準に並び替える。
+sort(WJSN, 3)
+sort(WJSN, :birth)
+sort(WJSN, [:birth, :height])
+sort(WJSN, :birth, rev = true)
+</code></pre><p>上の例のコードを実行して、その結果を確認してみましょう。</p>
+<pre tabindex="0"><code>julia&gt; WJSN
+10×3 DataFrame
+ Row │ member  birth  height 
+     │ String  Int64  Int64  
+─────┼───────────────────────
+   1 │ 다영       99     161
+   2 │ 루다       97     157
+   3 │ 수빈       96     159
+   4 │ 진숙       99     162
+   5 │ 소정       95     166
+   6 │ 주연       98     172
+   7 │ 지연       95     163
+   8 │ 현정       94     165
+   9 │ 다원       97     167
+  10 │ 연정       99     165
+</code></pre><p><code>WJSN</code>のデータフレームは上記の通りです。</p>
+<h3 id="列番号でソート-sortdf-colsinteger">列番号でソート <code>sort(df, cols::integer)</code></h3>
+<p><code>cols</code>番目の列を基準にソートします。</p>
+<pre tabindex="0"><code>julia&gt; sort(WJSN, 3)
+10×3 DataFrame
+ Row │ member  birth  height 
+     │ String  Int64  Int64  
+─────┼───────────────────────
+   1 │ 루다       97     157
+   2 │ 수빈       96     159
+   3 │ 다영       99     161
+   4 │ 진숙       99     162
+   5 │ 지연       95     163
+   6 │ 현정       94     165
+   7 │ 연정       99     165
+   8 │ 소정       95     166
+   9 │ 다원       97     167
+  10 │ 주연       98     172
+</code></pre><p><code>3</code>番目の列である<code>height</code>を基準にソートされたことが確認できます。</p>
+<h3 id="列名でソート-sortdf-colssymbol">列名でソート <code>sort(df, cols::Symbol)</code></h3>
+<p>名前のシンボル<code>cols</code>の列を基準にソートします。</p>
+<pre tabindex="0"><code>julia&gt; sort(WJSN, :birth)
+10×3 DataFrame
+ Row │ member  birth  height 
+     │ String  Int64  Int64  
+─────┼───────────────────────
+   1 │ 현정       94     165
+   2 │ 소정       95     166
+   3 │ 지연       95     163
+   4 │ 수빈       96     159
+   5 │ 루다       97     157
+   6 │ 다원       97     167
+   7 │ 주연       98     172
+   8 │ 다영       99     161
+   9 │ 진숙       99     162
+  10 │ 연정       99     165
+</code></pre><p><code>:birth</code>が入って<code>birth</code>を基準にソートされたことが確認できます。</p>
+<h3 id="ソートの優先順位-sortdf-colsarray">ソートの優先順位 <code>sort(df, cols::Array)</code></h3>
+<p><code>cols</code>の順番に従って優先順位をつけてソートします。</p>
+<pre tabindex="0"><code>julia&gt; sort(WJSN, [:birth, :height])
+10×3 DataFrame
+ Row │ member  birth  height 
+     │ String  Int64  Int64  
+─────┼───────────────────────
+   1 │ 현정       94     165
+   2 │ 지연       95     163
+   3 │ 소정       95     166
+   4 │ 수빈       96     159
+   5 │ 루다       97     157
+   6 │ 다원       97     167
+   7 │ 주연       98     172
+   8 │ 다영       99     161
+   9 │ 진숙       99     162
+  10 │ 연정       99     165
+</code></pre><p><code>birth</code>でソートしつつ、<code>height</code>もソートされました。ただ<code>birth</code>を基準にソートしただけと比較すると、<code>2</code>行目と<code>3</code>行目が逆転しています。</p>
+<h3 id="逆順でソート-sortdf-revboolfalse">逆順でソート <code>sort(df, rev::Bool=false)</code></h3>
+<p><code>rev = true</code>を指定すればOKです。デフォルトは<code>false</code>です。</p>
+<pre tabindex="0"><code>julia&gt; sort(WJSN, :birth, rev = true)
+10×3 DataFrame
+ Row │ member  birth  height 
+     │ String  Int64  Int64  
+─────┼───────────────────────
+   1 │ 다영       99     161
+   2 │ 진숙       99     162
+   3 │ 연정       99     165
+   4 │ 주연       98     172
+   5 │ 루다       97     157
+   6 │ 다원       97     167
+   7 │ 수빈       96     159
+   8 │ 소정       95     166
+   9 │ 지연       95     163
+  10 │ 현정       94     165
+</code></pre><h2 id="環境">環境</h2>
+<ul>
+<li>OS: Windows</li>
+<li>julia: v1.6.3</li>
+</ul>
 
-```code3
-
-`3`番目の列である `height`を基準に並び替えられたことがわかる。
-
-### 列名で並び替え `sort(df, cols::Symbol)`
-
-名前がシンボルの `cols`の列を基準に並び替える。
-
-```code4
-
-`:birth`が入って `birth`を基準に並び替えられたことがわかる。
-
-### 並び替えの優先度 `sort(df, cols::Array)`
-
-`cols`の順番に従って優先度を定めて並び替える。
-
-```code5
-
-`birth`で並び替えるが`height`も並び替えられた。ただ`birth`を基準に並び替えた場合と比べてみると、`2`行目と`3`行目が逆転している。
-
-### 逆順で並び替え `sort(df, rev::Bool=false)`
-
-`rev = true`をすればいい。デフォルトは`false`だ。
-
-```code6
-
-## 環境
-
- - OS: Windows
- - julia: v1.6.3
-</code></pre>
 
 <aside style="text-align: right;">
     2022-07-24&emsp;
     류대식&emsp;
-    <a href="../1693">🎲 2238</a>
+    
+    <a href="../659">🎲 2238</a>
 </aside>
 
 
@@ -354,7 +520,7 @@
       renderKaTex(tex);
     }
 
-    var title = 'ジュリアでのデータフレームの並べ替え方';
+    var title = 'Juliaでデータフレームを並べ替える方法';
     var link = 'https:\/\/freshrimpsushi.github.io\/jp\/posts\/2238\/';
     var arr = new Array();
     var obj = {
@@ -566,7 +732,7 @@
     }
     const idx = '2238';
     const board_slug = 'how-to-sort-dataframe-in-julia';
-    const board_title = 'ジュリアでのデータフレームの並べ替え方';
+    const board_title = 'Juliaでデータフレームを並べ替える方法';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -807,7 +973,7 @@
 
     const board_idx = '2238';
     const board_slug = 'how-to-sort-dataframe-in-julia';
-    const board_title = 'ジュリアでのデータフレームの並べ替え方';
+    const board_title = 'Juliaでデータフレームを並べ替える方法';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -950,6 +1116,16 @@
 
   
 
+  
+
+  
+
+  
+
+  
+
+  
+
 
 <script>
   const color = {green: '#33cc33', yellow: '#ffcc00', red: '#ff3333', black: '#000000'};
@@ -957,28 +1133,28 @@
     [
       { idx: 1, name: '함수', size: '1', color: color.green },
       { idx: 2, name: '보조정리', size: '1', color: color.green },
-      { idx: 3, name: '집합론', size: '', color: color.green },
-      { idx: 4, name: '정수론', size: '1', color: color.green },
-      { idx: 5, name: '기하학', size: '5', color: color.green },
-      { idx: 6, name: '행렬대수', size: '2', color: color.green },
-      { idx: 7, name: '선형대수', size: '2', color: color.green },
-      { idx: 8, name: '추상대수', size: '3', color: color.green },
-      { idx: 9, name: '위상수학', size: '2', color: color.green },
-      { idx: 10, name: '그래프이론', size: '', color: color.green }
+      { idx: 3, name: '집합론', size: '4', color: color.green },
+      { idx: 4, name: '정수론', size: '2', color: color.green },
+      { idx: 5, name: '기하학', size: '7', color: color.green },
+      { idx: 6, name: '행렬대수', size: '5', color: color.green },
+      { idx: 7, name: '선형대수', size: '6', color: color.green },
+      { idx: 8, name: '추상대수', size: '6', color: color.green },
+      { idx: 9, name: '위상수학', size: '4', color: color.green },
+      { idx: 10, name: '그래프이론', size: '1', color: color.green }
     ],
     [
-      { idx: 1, name: '해석개론', size: '1', color: color.green },
-      { idx: 2, name: '다변수벡터해석', size: '1', color: color.green },
-      { idx: 3, name: '복소해석', size: '1', color: color.green },
-      { idx: 4, name: '측도론', size: '2', color: color.green },
+      { idx: 1, name: '해석개론', size: '4', color: color.green },
+      { idx: 2, name: '다변수벡터해석', size: '2', color: color.green },
+      { idx: 3, name: '복소해석', size: '2', color: color.green },
+      { idx: 4, name: '측도론', size: '4', color: color.green },
       { idx: 5, name: '푸리에해석', size: '2', color: color.green },
       { idx: 6, name: '초함수론', size: '', color: color.green },
       { idx: 7, name: '단층촬영', size: '', color: color.green },
     ],
     [
-      { idx: 1, name: '거리공간', size: '3', color: color.green },
-      { idx: 2, name: '바나흐공간', size: '2', color: color.green },
-      { idx: 3, name: '힐베르트공간', size: '1', color: color.green },
+      { idx: 1, name: '거리공간', size: '7', color: color.green },
+      { idx: 2, name: '바나흐공간', size: '4', color: color.green },
+      { idx: 3, name: '힐베르트공간', size: '3', color: color.green },
       { idx: 4, name: '르벡공간', size: '', color: color.green }
     ],
     [
@@ -989,11 +1165,11 @@
     [
       { idx: 1, name: '매트랩', size: '', color: color.green },
       { idx: 2, name: '수치해석', size: '', color: color.green },
-      { idx: 3, name: '최적화이론', size: '', color: color.green }
+      { idx: 3, name: '최적화이론', size: '1', color: color.green }
     ],
     [
       { idx: 1, name: '물리학', size: '', color: color.green },
-      { idx: 2, name: '수리물리', size: '4', color: color.green },
+      { idx: 2, name: '수리물리', size: '5', color: color.green },
       { idx: 3, name: '고전역학', size: '1', color: color.green },
       { idx: 4, name: '전자기학', size: '1', color: color.green },
       { idx: 5, name: '양자역학', size: '1', color: color.yellow },
@@ -1002,19 +1178,19 @@
     [
       { idx: 1, name: 'R', size: '', color: color.green },
       { idx: 2, name: '데이터확보', size: '', color: color.green },
-      { idx: 3, name: '데이터과학', size: '2', color: color.green },
+      { idx: 3, name: '데이터과학', size: '4', color: color.green },
       { idx: 4, name: '통계적검정', size: '', color: color.red },
       { idx: 5, name: '통계적분석', size: '1', color: color.green },
-      { idx: 6, name: '수리통계학', size: '', color: color.green },
-      { idx: 7, name: '분포이론', size: '', color: color.green },
-      { idx: 8, name: '확률론', size: '2', color: color.green },
+      { idx: 6, name: '수리통계학', size: '6', color: color.green },
+      { idx: 7, name: '분포이론', size: '1', color: color.green },
+      { idx: 8, name: '확률론', size: '4', color: color.green },
       { idx: 9, name: '위상데이터분석', size: '6', color: color.green }
     ],
     [
       { idx: 1, name: '줄리아', size: '190', color: color.green },
       { idx: 2, name: '프로그래밍', size: '3', color: color.green },
       { idx: 3, name: '알고리즘', size: '', color: color.green },
-      { idx: 4, name: '머신러닝', size: '12', color: color.green },
+      { idx: 4, name: '머신러닝', size: '14', color: color.green },
       { idx: 5, name: '세이버메트릭스', size: '', color: color.green },
       { idx: 6, name: '논문작성', size: '1', color: color.green },
       { idx: 7, name: '교과과정', size: '1', color: color.green },

@@ -54,14 +54,14 @@
         gtag('config', 'G-NLV8Y9PRK1');
     </script>
 
-    <title>Creating an Empty DataFrame in Julia</title>
+    <title>How to Make Empty DataFrame in julia</title>
 
     
 </head>
 
-<meta name="title" content="Creating an Empty DataFrame in Julia">
+<meta name="title" content="How to Make Empty DataFrame in julia">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="Creating an Empty DataFrame in Julia"/>
+<meta property="og:title" content="How to Make Empty DataFrame in julia"/>
 <meta property="og:description" content="How to Make Empty DataFrame in julia"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/en/logo/basic.png/>
 
@@ -80,8 +80,8 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "r_",
-    "name": "Creating an Empty DataFrame in Julia",
-    "headline": "Creating an Empty DataFrame in Julia",
+    "name": "How to Make Empty DataFrame in julia",
+    "headline": "How to Make Empty DataFrame in julia",
     "alternativeHeadline": "",
     "description": "How to Make Empty DataFrame in julia",
     "inLanguage": "en",
@@ -120,7 +120,7 @@
     },
     "image": "https://freshrimpsushi.github.io/en/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/en\/posts\/2230\/",
-    "wordCount" : "131",
+    "wordCount" : "331",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -228,11 +228,64 @@
     <div class="content">
       <div class="content-box">
         
-<title>Creating an Empty DataFrame in Julia</title>
+<title>How to Make Empty DataFrame in julia</title>
 
 
 
 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -258,7 +311,37 @@
         <a href="https://freshrimpsushi.github.io/en/categories/%EC%A4%84%EB%A6%AC%EC%95%84/"
             style="background-color: rgba(0, 0, 0, 0.8); color: orange;
             border-radius:10px; padding: 5px;">
-            📂줄리아</a>
+            📂Julia</a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -274,7 +357,7 @@
         
 
 
-<h1>Creating an Empty DataFrame in Julia</h1>
+<h1>How to Make Empty DataFrame in julia</h1>
 
 
 <aside>
@@ -286,9 +369,11 @@
     <li><a href="#overview">Overview</a></li>
     <li><a href="#code">Code</a>
       <ul>
-        <li><a href="#specifying-types">Specifying Types</a></li>
+        <li><a href="#type-specification">Type Specification</a></li>
+        <li><a href="#without-type-specification">Without Type Specification</a></li>
       </ul>
     </li>
+    <li><a href="#environment">Environment</a></li>
   </ul>
 </nav>
     </div>    
@@ -296,32 +381,57 @@
 </aside>
 
 <h2 id="overview">Overview</h2>
-<p>Despite many languages supporting data frames, surprisingly creating empty arrays is always a new and annoying task.</p>
+<p>Despite many languages supporting dataframes, surprisingly, creating empty arrays can be a new and annoying task each time.</p>
 <h2 id="code">Code</h2>
-<h3 id="specifying-types">Specifying Types</h3>
-<pre tabindex="0"><code class="language-code1" data-lang="code1">
-In fact, you just have to put an empty array as data. At this time, the type is specified, but if there is no data at all, neither column names nor types are shown.
+<h3 id="type-specification">Type Specification</h3>
+<pre tabindex="0"><code>julia&gt; using DataFrames
 
-```code2
+julia&gt; df1 = DataFrame(x = Int64[], y = String[])
+0×2 DataFrame
+</code></pre><p>You actually just need to insert an empty array as data. At this point, a type is specified, but when there&rsquo;s absolutely no data, neither column names nor types are visible.</p>
+<pre tabindex="0"><code>julia&gt; push!(df1, [3, &#34;three&#34;])
+1×2 DataFrame
+│ Row │ x     │ y      │
+│     │ Int64 │ String │
+├─────┼───────┼────────┤
+│ 1   │ 3     │ three  │
 
-If you insert data, the column names and types are displayed correctly. Be careful as data will not be added if the types do not match.
+julia&gt; push!(df1, [3.14, &#34;pi&#34;])
+┌ Error: Error adding value to column :x.
+└ @ DataFrames C:\Users\rmsms\.julia\packages\DataFrames\GtZ1l\src\dataframe\dataframe.jl:1606
+ERROR: InexactError: Int64(3.14)
+</code></pre><p>Once data is inserted, column names and types are displayed correctly. Be careful, as data will not be added if the type does not match.</p>
+<h3 id="without-type-specification">Without Type Specification</h3>
+<pre tabindex="0"><code>julia&gt; df2 = DataFrame(x = [], y = String[])
+0×2 DataFrame
 
-### Without Specifying Types
+julia&gt; push!(df2, [3, &#34;three&#34;])
+1×2 DataFrame
+│ Row │ x   │ y      │
+│     │ Any │ String │
+├─────┼─────┼────────┤
+│ 1   │ 3   │ three  │
 
-```code3
+julia&gt; push!(df2, [3.14, &#34;pi&#34;])
+2×2 DataFrame
+│ Row │ x    │ y      │
+│     │ Any  │ String │
+├─────┼──────┼────────┤
+│ 1   │ 3    │ three  │
+│ 2   │ 3.14 │ pi     │
+</code></pre><p>If you don&rsquo;t want to stress about the type of the dataframe, you can simply create an empty array of <code>Any</code> as shown above. Unlike when specifying types, you can see that the data is well inserted.</p>
+<h2 id="environment">Environment</h2>
+<ul>
+<li>OS: Windows</li>
+<li>julia: v1.6.2</li>
+</ul>
 
-If you don&#39;t want to stress about the type of the data frame, simply create an empty array of `Any` like the above. Unlike specifying types, you can confirm that the data has been properly added.
-
-## Environment
-
- - OS: Windows
- - julia: v1.6.2
-</code></pre>
 
 <aside style="text-align: right;">
     2022-07-08&emsp;
     류대식&emsp;
-    <a href="../1257">🎲 2230</a>
+    
+    <a href="../970">🎲 2230</a>
 </aside>
 
 
@@ -338,7 +448,7 @@ If you don&#39;t want to stress about the type of the data frame, simply create 
       renderKaTex(tex);
     }
 
-    var title = 'Creating an Empty DataFrame in Julia';
+    var title = 'How to Make Empty DataFrame in julia';
     var link = 'https:\/\/freshrimpsushi.github.io\/en\/posts\/2230\/';
     var arr = new Array();
     var obj = {
@@ -550,7 +660,7 @@ If you don&#39;t want to stress about the type of the data frame, simply create 
     }
     const idx = '2230';
     const board_slug = 'how-to-make-empty-dataframe-in-julia';
-    const board_title = 'Creating an Empty DataFrame in Julia';
+    const board_title = 'How to Make Empty DataFrame in julia';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -791,7 +901,7 @@ If you don&#39;t want to stress about the type of the data frame, simply create 
 
     const board_idx = '2230';
     const board_slug = 'how-to-make-empty-dataframe-in-julia';
-    const board_title = 'Creating an Empty DataFrame in Julia';
+    const board_title = 'How to Make Empty DataFrame in julia';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -934,6 +1044,16 @@ If you don&#39;t want to stress about the type of the data frame, simply create 
 
   
 
+  
+
+  
+
+  
+
+  
+
+  
+
 
 <script>
   const color = {green: '#33cc33', yellow: '#ffcc00', red: '#ff3333', black: '#000000'};
@@ -941,28 +1061,28 @@ If you don&#39;t want to stress about the type of the data frame, simply create 
     [
       { idx: 1, name: '함수', size: '1', color: color.green },
       { idx: 2, name: '보조정리', size: '1', color: color.green },
-      { idx: 3, name: '집합론', size: '2', color: color.green },
-      { idx: 4, name: '정수론', size: '1', color: color.green },
-      { idx: 5, name: '기하학', size: '5', color: color.green },
-      { idx: 6, name: '행렬대수', size: '2', color: color.green },
-      { idx: 7, name: '선형대수', size: '2', color: color.green },
-      { idx: 8, name: '추상대수', size: '3', color: color.green },
-      { idx: 9, name: '위상수학', size: '3', color: color.green },
-      { idx: 10, name: '그래프이론', size: '', color: color.green }
+      { idx: 3, name: '집합론', size: '5', color: color.green },
+      { idx: 4, name: '정수론', size: '2', color: color.green },
+      { idx: 5, name: '기하학', size: '7', color: color.green },
+      { idx: 6, name: '행렬대수', size: '5', color: color.green },
+      { idx: 7, name: '선형대수', size: '6', color: color.green },
+      { idx: 8, name: '추상대수', size: '6', color: color.green },
+      { idx: 9, name: '위상수학', size: '5', color: color.green },
+      { idx: 10, name: '그래프이론', size: '1', color: color.green }
     ],
     [
-      { idx: 1, name: '해석개론', size: '1', color: color.green },
-      { idx: 2, name: '다변수벡터해석', size: '1', color: color.green },
-      { idx: 3, name: '복소해석', size: '1', color: color.green },
-      { idx: 4, name: '측도론', size: '2', color: color.green },
+      { idx: 1, name: '해석개론', size: '4', color: color.green },
+      { idx: 2, name: '다변수벡터해석', size: '2', color: color.green },
+      { idx: 3, name: '복소해석', size: '2', color: color.green },
+      { idx: 4, name: '측도론', size: '4', color: color.green },
       { idx: 5, name: '푸리에해석', size: '2', color: color.green },
       { idx: 6, name: '초함수론', size: '', color: color.green },
       { idx: 7, name: '단층촬영', size: '', color: color.green },
     ],
     [
-      { idx: 1, name: '거리공간', size: '3', color: color.green },
-      { idx: 2, name: '바나흐공간', size: '2', color: color.green },
-      { idx: 3, name: '힐베르트공간', size: '', color: color.green },
+      { idx: 1, name: '거리공간', size: '7', color: color.green },
+      { idx: 2, name: '바나흐공간', size: '4', color: color.green },
+      { idx: 3, name: '힐베르트공간', size: '3', color: color.green },
       { idx: 4, name: '르벡공간', size: '', color: color.green }
     ],
     [
@@ -973,11 +1093,11 @@ If you don&#39;t want to stress about the type of the data frame, simply create 
     [
       { idx: 1, name: '매트랩', size: '', color: color.green },
       { idx: 2, name: '수치해석', size: '', color: color.green },
-      { idx: 3, name: '최적화이론', size: '', color: color.green }
+      { idx: 3, name: '최적화이론', size: '1', color: color.green }
     ],
     [
       { idx: 1, name: '물리학', size: '', color: color.green },
-      { idx: 2, name: '수리물리', size: '4', color: color.green },
+      { idx: 2, name: '수리물리', size: '5', color: color.green },
       { idx: 3, name: '고전역학', size: '1', color: color.green },
       { idx: 4, name: '전자기학', size: '1', color: color.green },
       { idx: 5, name: '양자역학', size: '2', color: color.yellow },
@@ -986,19 +1106,19 @@ If you don&#39;t want to stress about the type of the data frame, simply create 
     [
       { idx: 1, name: 'R', size: '', color: color.green },
       { idx: 2, name: '데이터확보', size: '', color: color.green },
-      { idx: 3, name: '데이터과학', size: '2', color: color.green },
+      { idx: 3, name: '데이터과학', size: '4', color: color.green },
       { idx: 4, name: '통계적검정', size: '', color: color.red },
       { idx: 5, name: '통계적분석', size: '1', color: color.green },
-      { idx: 6, name: '수리통계학', size: '', color: color.green },
-      { idx: 7, name: '분포이론', size: '', color: color.green },
-      { idx: 8, name: '확률론', size: '2', color: color.green },
+      { idx: 6, name: '수리통계학', size: '6', color: color.green },
+      { idx: 7, name: '분포이론', size: '1', color: color.green },
+      { idx: 8, name: '확률론', size: '4', color: color.green },
       { idx: 9, name: '위상데이터분석', size: '6', color: color.green }
     ],
     [
       { idx: 1, name: '줄리아', size: '190', color: color.green },
       { idx: 2, name: '프로그래밍', size: '4', color: color.green },
       { idx: 3, name: '알고리즘', size: '', color: color.green },
-      { idx: 4, name: '머신러닝', size: '12', color: color.green },
+      { idx: 4, name: '머신러닝', size: '14', color: color.green },
       { idx: 5, name: '세이버메트릭스', size: '', color: color.green },
       { idx: 6, name: '논문작성', size: '1', color: color.green },
       { idx: 7, name: '교과과정', size: '1', color: color.green },

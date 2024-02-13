@@ -120,7 +120,7 @@
     },
     "image": "https://freshrimpsushi.github.io/jp/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/jp\/posts\/1452\/",
-    "wordCount" : "1055",
+    "wordCount" : "993",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -255,10 +255,93 @@
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         <a href="https://freshrimpsushi.github.io/jp/categories/%EC%A4%84%EB%A6%AC%EC%95%84/"
             style="background-color: rgba(0, 0, 0, 0.8); color: orange;
             border-radius:10px; padding: 5px;">
-            📂줄리아</a>
+            📂ジュリア</a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -284,6 +367,8 @@
       <nav id="TableOfContents">
   <ul>
     <li><a href="#코드">코드</a></li>
+    <li><a href="#타언어">타언어</a></li>
+    <li><a href="#환경">환경</a></li>
   </ul>
 </nav>
     </div>    
@@ -291,40 +376,87 @@
 </aside>
 
 <h2 id="코드">코드</h2>
-<pre tabindex="0"><code class="language-code1" data-lang="code1">`x1`は2次元配列です。行ベクトルと同じように見えるため、成分座標を1つだけ入力すると、行ベクトルのように認識されます。`x2`, `x3`, `x4`, `x5`は1次元配列です。
+<pre tabindex="0"><code>julia&gt; x1=[1 2 3]
+1×3 Array{Int64,2}:
+ 1  2  3
 
-- `x=[i for i in n:m]`と入力すると、$n$から$m$までの間隔が$1$の配列を返します。
-- `x=[i for i in n:k:m]`と入力すると、$n$から$m$までの間隔が$k$の配列を返します。
+julia&gt; x2=[1, 2, 3]
+3-element Array{Int64,1}:
+ 1
+ 2
+ 3
 
-最後の要素は$m$以下で最も大きい数です。このようにリスト内に`for`文を含めてリストを作ることを、[Python](../../categories/programming#python)などで**リスト内包**&lt;sup&gt;List Comprehension&lt;/sup&gt;と言います。
+julia&gt; x3=[i for i in 1:3]
+3-element Array{Int64,1}:
+ 1
+ 2
+ 3
 
-```code2
-上記のように書くと実際にはそうではないが、事実上`x3`, `x4`, `x5`のような配列が作成されたと考えても良いです。下の写真に示されるように、データタイプは異なるが上で作成されたものと同様に使用できます。
+julia&gt; x4=[i for i in 1:3:10]
+4-element Array{Int64,1}:
+  1
+  4
+  7
+ 10
 
-- `range(n,stop=m,length=k)`: これは[マットラボ](../1376)でのlispace(n,m,k)と全く同じです。具体的な違いは以下の例のコードと結果を通じて確認しましょう。
+julia&gt; x5=[i for i in 1:3:11]
+4-element Array{Int64,1}:
+  1
+  4
+  7
+ 10
+</code></pre><p><code>x1</code>は2次元配列です。行ベクトルと同じように見えるため、成分座標を1つだけ入力すると、行ベクトルのように認識されます。<code>x2</code>, <code>x3</code>, <code>x4</code>, <code>x5</code>は1次元配列です。</p>
+<ul>
+<li><code>x=[i for i in n:m]</code>と入力すると、$n$から$m$までの間隔が$1$の配列を返します。</li>
+<li><code>x=[i for i in n:k:m]</code>と入力すると、$n$から$m$までの間隔が$k$の配列を返します。</li>
+</ul>
+<p>最後の要素は$m$以下で最も大きい数です。このようにリスト内に<code>for</code>文を含めてリストを作ることを、<a href="../../categories/programming#python">Python</a>などで<strong>リスト内包</strong><sup>List Comprehension</sup>と言います。</p>
+<pre tabindex="0"><code>julia&gt; x6=1:3
+1:3
 
-```code3
-このコードも同様に、実際のデータタイプは異なるが事実上同じベクトルを生成すると考えても良いです。マットラボとは異なり、2番目、3番目の変数のうちの1つだけを入力することもでき、入力する順序を変えても構いません。
+julia&gt; x7=1:3:10
+1:3:10
 
-1. **最初の行** は、最初の要素が$1$、最後の要素が$10$のベクトルを返します。他に入力されたものがないので、要素間の間隔は$1$です。
-2. **二番目の行** は、最初の要素が$1$で、合計$15$個の要素を持つベクトルを返します。間隔は自動的に$1$となり、`x=range(1,stop=15)`あるいは`x=1:15`で作成されたベクトルと同じです。
-3. **三番目の行** は、最初の要素が$1$、最後の要素が$10$で、合計$15$個の要素を持つベクトルを返します。したがって、間隔は自動的に$9/14=0.6428571428571429$となります。これは整数ではないので、自然と実数要素を持つベクトルを返します。また、`x=1.0:0.6428571428571429:10.0`で作成されたものと同じです。
-4. **四番目の行** は、三番目の行で返されたベクトルと正確に同じベクトルを返します。
+julia&gt; x9=1:3:11
+1:3:10
+</code></pre><p>上記のように書くと実際にはそうではないが、事実上<code>x3</code>, <code>x4</code>, <code>x5</code>のような配列が作成されたと考えても良いです。下の写真に示されるように、データタイプは異なるが上で作成されたものと同様に使用できます。</p>
+<ul>
+<li><code>range(n,stop=m,length=k)</code>: これは<a href="../1376">マットラボ</a>でのlispace(n,m,k)と全く同じです。具体的な違いは以下の例のコードと結果を通じて確認しましょう。</li>
+</ul>
+<pre tabindex="0"><code>julia&gt; x9=range(1,stop=10)
+1:10
 
-## 타언어
+julia&gt; x10=range(1,length=15)
+1:15
 
-- [マットラボで等間隔の行ベクトルを生成する方法](../1376)
+julia&gt; x11=range(1,stop=10,length=15)
+1.0:0.6428571428571429:10.0
 
-## 환경
+julia&gt; x12=range(1,length=15,stop=10)
+1.0:0.6428571428571429:10.0
+</code></pre><p>このコードも同様に、実際のデータタイプは異なるが事実上同じベクトルを生成すると考えても良いです。マットラボとは異なり、2番目、3番目の変数のうちの1つだけを入力することもでき、入力する順序を変えても構いません。</p>
+<ol>
+<li><strong>最初の行</strong> は、最初の要素が$1$、最後の要素が$10$のベクトルを返します。他に入力されたものがないので、要素間の間隔は$1$です。</li>
+<li><strong>二番目の行</strong> は、最初の要素が$1$で、合計$15$個の要素を持つベクトルを返します。間隔は自動的に$1$となり、<code>x=range(1,stop=15)</code>あるいは<code>x=1:15</code>で作成されたベクトルと同じです。</li>
+<li><strong>三番目の行</strong> は、最初の要素が$1$、最後の要素が$10$で、合計$15$個の要素を持つベクトルを返します。したがって、間隔は自動的に$9/14=0.6428571428571429$となります。これは整数ではないので、自然と実数要素を持つベクトルを返します。また、<code>x=1.0:0.6428571428571429:10.0</code>で作成されたものと同じです。</li>
+<li><strong>四番目の行</strong> は、三番目の行で返されたベクトルと正確に同じベクトルを返します。</li>
+</ol>
+<h2 id="타언어">타언어</h2>
+<ul>
+<li><a href="../1376">マットラボで等間隔の行ベクトルを生成する方法</a></li>
+</ul>
+<h2 id="환경">환경</h2>
+<ul>
+<li>OS: Windows10</li>
+<li>Version: 1.5.0</li>
+</ul>
 
-- OS: Windows10
-- Version: 1.5.0
-</code></pre>
 
 <aside style="text-align: right;">
     2019-12-16&emsp;
     전기현&emsp;
-    <a href="../2176">🎲 1452</a>
+    
+    <a href="../1044">🎲 1452</a>
 </aside>
 
 
@@ -937,6 +1069,16 @@
 
   
 
+  
+
+  
+
+  
+
+  
+
+  
+
 
 <script>
   const color = {green: '#33cc33', yellow: '#ffcc00', red: '#ff3333', black: '#000000'};
@@ -944,28 +1086,28 @@
     [
       { idx: 1, name: '함수', size: '1', color: color.green },
       { idx: 2, name: '보조정리', size: '1', color: color.green },
-      { idx: 3, name: '집합론', size: '', color: color.green },
-      { idx: 4, name: '정수론', size: '1', color: color.green },
-      { idx: 5, name: '기하학', size: '5', color: color.green },
-      { idx: 6, name: '행렬대수', size: '2', color: color.green },
-      { idx: 7, name: '선형대수', size: '2', color: color.green },
-      { idx: 8, name: '추상대수', size: '3', color: color.green },
-      { idx: 9, name: '위상수학', size: '2', color: color.green },
-      { idx: 10, name: '그래프이론', size: '', color: color.green }
+      { idx: 3, name: '집합론', size: '4', color: color.green },
+      { idx: 4, name: '정수론', size: '2', color: color.green },
+      { idx: 5, name: '기하학', size: '7', color: color.green },
+      { idx: 6, name: '행렬대수', size: '5', color: color.green },
+      { idx: 7, name: '선형대수', size: '6', color: color.green },
+      { idx: 8, name: '추상대수', size: '6', color: color.green },
+      { idx: 9, name: '위상수학', size: '4', color: color.green },
+      { idx: 10, name: '그래프이론', size: '1', color: color.green }
     ],
     [
-      { idx: 1, name: '해석개론', size: '1', color: color.green },
-      { idx: 2, name: '다변수벡터해석', size: '1', color: color.green },
-      { idx: 3, name: '복소해석', size: '1', color: color.green },
-      { idx: 4, name: '측도론', size: '2', color: color.green },
+      { idx: 1, name: '해석개론', size: '4', color: color.green },
+      { idx: 2, name: '다변수벡터해석', size: '2', color: color.green },
+      { idx: 3, name: '복소해석', size: '2', color: color.green },
+      { idx: 4, name: '측도론', size: '4', color: color.green },
       { idx: 5, name: '푸리에해석', size: '2', color: color.green },
       { idx: 6, name: '초함수론', size: '', color: color.green },
       { idx: 7, name: '단층촬영', size: '', color: color.green },
     ],
     [
-      { idx: 1, name: '거리공간', size: '3', color: color.green },
-      { idx: 2, name: '바나흐공간', size: '2', color: color.green },
-      { idx: 3, name: '힐베르트공간', size: '1', color: color.green },
+      { idx: 1, name: '거리공간', size: '7', color: color.green },
+      { idx: 2, name: '바나흐공간', size: '4', color: color.green },
+      { idx: 3, name: '힐베르트공간', size: '3', color: color.green },
       { idx: 4, name: '르벡공간', size: '', color: color.green }
     ],
     [
@@ -976,11 +1118,11 @@
     [
       { idx: 1, name: '매트랩', size: '', color: color.green },
       { idx: 2, name: '수치해석', size: '', color: color.green },
-      { idx: 3, name: '최적화이론', size: '', color: color.green }
+      { idx: 3, name: '최적화이론', size: '1', color: color.green }
     ],
     [
       { idx: 1, name: '물리학', size: '', color: color.green },
-      { idx: 2, name: '수리물리', size: '4', color: color.green },
+      { idx: 2, name: '수리물리', size: '5', color: color.green },
       { idx: 3, name: '고전역학', size: '1', color: color.green },
       { idx: 4, name: '전자기학', size: '1', color: color.green },
       { idx: 5, name: '양자역학', size: '1', color: color.yellow },
@@ -989,19 +1131,19 @@
     [
       { idx: 1, name: 'R', size: '', color: color.green },
       { idx: 2, name: '데이터확보', size: '', color: color.green },
-      { idx: 3, name: '데이터과학', size: '2', color: color.green },
+      { idx: 3, name: '데이터과학', size: '4', color: color.green },
       { idx: 4, name: '통계적검정', size: '', color: color.red },
       { idx: 5, name: '통계적분석', size: '1', color: color.green },
-      { idx: 6, name: '수리통계학', size: '', color: color.green },
-      { idx: 7, name: '분포이론', size: '', color: color.green },
-      { idx: 8, name: '확률론', size: '2', color: color.green },
+      { idx: 6, name: '수리통계학', size: '6', color: color.green },
+      { idx: 7, name: '분포이론', size: '1', color: color.green },
+      { idx: 8, name: '확률론', size: '4', color: color.green },
       { idx: 9, name: '위상데이터분석', size: '6', color: color.green }
     ],
     [
       { idx: 1, name: '줄리아', size: '190', color: color.green },
       { idx: 2, name: '프로그래밍', size: '3', color: color.green },
       { idx: 3, name: '알고리즘', size: '', color: color.green },
-      { idx: 4, name: '머신러닝', size: '12', color: color.green },
+      { idx: 4, name: '머신러닝', size: '14', color: color.green },
       { idx: 5, name: '세이버메트릭스', size: '', color: color.green },
       { idx: 6, name: '논문작성', size: '1', color: color.green },
       { idx: 7, name: '교과과정', size: '1', color: color.green },

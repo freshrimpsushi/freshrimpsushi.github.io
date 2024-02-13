@@ -54,14 +54,14 @@
         gtag('config', 'G-NLV8Y9PRK1');
     </script>
 
-    <title>ジュリアでNearstNeighbors.jlを使用して距離を素早く計算する方法</title>
+    <title>JuliaでNearstNeighbors.jlを使用して距離を素早く計算する方法</title>
 
     
 </head>
 
-<meta name="title" content="ジュリアでNearstNeighbors.jlを使用して距離を素早く計算する方法">
+<meta name="title" content="JuliaでNearstNeighbors.jlを使用して距離を素早く計算する方法">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="ジュリアでNearstNeighbors.jlを使用して距離を素早く計算する方法"/>
+<meta property="og:title" content="JuliaでNearstNeighbors.jlを使用して距離を素早く計算する方法"/>
 <meta property="og:description" content="How to Calculate Distance using NearstNeibors.jl in julia"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/jp/logo/basic.png/>
 
@@ -80,8 +80,8 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "r_",
-    "name": "ジュリアでNearstNeighbors.jlを使用して距離を素早く計算する方法",
-    "headline": "ジュリアでNearstNeighbors.jlを使用して距離を素早く計算する方法",
+    "name": "JuliaでNearstNeighbors.jlを使用して距離を素早く計算する方法",
+    "headline": "JuliaでNearstNeighbors.jlを使用して距離を素早く計算する方法",
     "alternativeHeadline": "",
     "description": "How to Calculate Distance using NearstNeibors.jl in julia",
     "inLanguage": "jp",
@@ -120,7 +120,7 @@
     },
     "image": "https://freshrimpsushi.github.io/jp/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/jp\/posts\/2088\/",
-    "wordCount" : "375",
+    "wordCount" : "496",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -228,11 +228,64 @@
     <div class="content">
       <div class="content-box">
         
-<title>ジュリアでNearstNeighbors.jlを使用して距離を素早く計算する方法</title>
+<title>JuliaでNearstNeighbors.jlを使用して距離を素早く計算する方法</title>
 
 
 
 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -258,7 +311,37 @@
         <a href="https://freshrimpsushi.github.io/jp/categories/%EC%A4%84%EB%A6%AC%EC%95%84/"
             style="background-color: rgba(0, 0, 0, 0.8); color: orange;
             border-radius:10px; padding: 5px;">
-            📂줄리아</a>
+            📂ジュリア</a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -274,7 +357,7 @@
         
 
 
-<h1>ジュリアでNearstNeighbors.jlを使用して距離を素早く計算する方法</h1>
+<h1>JuliaでNearstNeighbors.jlを使用して距離を素早く計算する方法</h1>
 
 
 <aside>
@@ -285,6 +368,7 @@
   <ul>
     <li><a href="#概要">概要</a></li>
     <li><a href="#速度比較">速度比較</a></li>
+    <li><a href="#環境">環境</a></li>
   </ul>
 </nav>
     </div>    
@@ -292,21 +376,48 @@
 </aside>
 
 <h2 id="概要">概要</h2>
-<p>$n$の座標間の距離を計算する際、行列を作る必要はなく、単に距離を計算するだけで済む場合、多次元検索に有利なデータ構造のk-d ツリー<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>を使用すると、速度を上げることができる。<code>NearestNeighbors.jl</code>には、関連するアルゴリズムが全て実装されているので、<a href="https://github.com/KristofferC/NearestNeighbors.jl">公式GitHubページ</a>を参照しよう。</p>
+<p>$n$個の座標同士の距離を計算するにあたり、行列を作る必要はなく、単に距離を計算する場合、多次元検索に有利なデータ構造であるk-dツリー<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>を使用して速度を上げることができます。<code>NearestNeighbors.jl</code>に関連するアルゴリズムがすべて実装されているので、<a href="https://github.com/KristofferC/NearestNeighbors.jl">公式GitHubページ</a>を参照してください。</p>
 <h2 id="速度比較">速度比較</h2>
-<p><code>pairwise()</code>関数で<a href="../2020">距離行列計算に最適化された技術</a>と比較してみよう。</p>
-<pre tabindex="0"><code class="language-code1" data-lang="code1">
-上記のコードを実行した結果は次の通りである。最後の2つのコマンドラインは同じ作業を行うが、速度差は約500倍にもなる。実際、k-d ツリーで検索する際の[時間複雑度](../1283)は$\log n$で非常に効率的である。
+<p><code>pairwise()</code>関数で<a href="../2020">距離行列の計算に最適化された技術</a>と比較してみましょう。</p>
+<pre tabindex="0"><code>using Distances
+using StatsBase
+using Random
+using NearestNeighbors
 
-```code2
+Random.seed!(0);
+ε = 0.01
+N = 10^4
+coordinate = rand(2, N);
+state = sample([&#39;S&#39;, &#39;I&#39;], Weights([0.1, 0.9]), N);
+S = coordinate[:, state .== &#39;S&#39;]
+I = coordinate[:, state .== &#39;I&#39;]
 
-単純な速度問題を置いておいても、k-d ツリーを利用した方法は、1次元配列を返すため、結果物を使う側面でもさらに便利である。
+@time sum(pairwise(Euclidean(),S,I) .&lt; ε, dims = 1)
+@time kdtree = KDTree(S); contact = length.(inrange(kdtree, I, ε, true))
+</code></pre><p>上記のコードを実行した結果は以下の通りです。一番下の二つのコマンドラインは同じ作業を行いますが、速度差は約500倍になります。実際、k-dツリーで検索する際の<a href="../1283">時間複雑度</a>は$\log n$で非常に効率的です。</p>
+<pre tabindex="0"><code>julia&gt; @time sum(pairwise(Euclidean(),S,I) .&lt; ε, dims = 1)
+  0.098394 seconds (14 allocations: 69.639 MiB, 8.23% gc Time)
+1×9004 Array{Int64,2}:
+ 0  0  1  0  0  0  0  …  1  0  0  0  0  0
 
-## 環境
-
- - OS: Windows
- - julia: v1.6.2
-</code></pre><div class="footnotes" role="doc-endnotes">
+julia&gt; @time kdtree = KDTree(S); contact = length.(inrange(kdtree, I, ε, true))
+  0.000213 seconds (22 allocations: 51.609 KiB)
+9004-element Array{Int64,1}:
+ 0
+ 0
+ 1
+ 0
+ ⋮
+ 0
+ 0
+ 0
+</code></pre><p>単純な速度の問題を置いておいても、k-dツリーを使用した方法では1次元の配列を返すため、結果物を使用する側面でもさらに便利です。</p>
+<h2 id="環境">環境</h2>
+<ul>
+<li>OS: Windows</li>
+<li>julia: v1.6.2</li>
+</ul>
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1">
@@ -319,7 +430,8 @@
 <aside style="text-align: right;">
     2021-09-27&emsp;
     류대식&emsp;
-    <a href="../1613">🎲 2088</a>
+    
+    <a href="../2267">🎲 2088</a>
 </aside>
 
 
@@ -336,7 +448,7 @@
       renderKaTex(tex);
     }
 
-    var title = 'ジュリアでNearstNeighbors.jlを使用して距離を素早く計算する方法';
+    var title = 'JuliaでNearstNeighbors.jlを使用して距離を素早く計算する方法';
     var link = 'https:\/\/freshrimpsushi.github.io\/jp\/posts\/2088\/';
     var arr = new Array();
     var obj = {
@@ -548,7 +660,7 @@
     }
     const idx = '2088';
     const board_slug = 'how-to-calculate-distance-using-nearstneibors.jl-in-julia';
-    const board_title = 'ジュリアでNearstNeighbors.jlを使用して距離を素早く計算する方法';
+    const board_title = 'JuliaでNearstNeighbors.jlを使用して距離を素早く計算する方法';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -789,7 +901,7 @@
 
     const board_idx = '2088';
     const board_slug = 'how-to-calculate-distance-using-nearstneibors.jl-in-julia';
-    const board_title = 'ジュリアでNearstNeighbors.jlを使用して距離を素早く計算する方法';
+    const board_title = 'JuliaでNearstNeighbors.jlを使用して距離を素早く計算する方法';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -932,6 +1044,16 @@
 
   
 
+  
+
+  
+
+  
+
+  
+
+  
+
 
 <script>
   const color = {green: '#33cc33', yellow: '#ffcc00', red: '#ff3333', black: '#000000'};
@@ -939,28 +1061,28 @@
     [
       { idx: 1, name: '함수', size: '1', color: color.green },
       { idx: 2, name: '보조정리', size: '1', color: color.green },
-      { idx: 3, name: '집합론', size: '', color: color.green },
-      { idx: 4, name: '정수론', size: '1', color: color.green },
-      { idx: 5, name: '기하학', size: '5', color: color.green },
-      { idx: 6, name: '행렬대수', size: '2', color: color.green },
-      { idx: 7, name: '선형대수', size: '2', color: color.green },
-      { idx: 8, name: '추상대수', size: '3', color: color.green },
-      { idx: 9, name: '위상수학', size: '2', color: color.green },
-      { idx: 10, name: '그래프이론', size: '', color: color.green }
+      { idx: 3, name: '집합론', size: '4', color: color.green },
+      { idx: 4, name: '정수론', size: '2', color: color.green },
+      { idx: 5, name: '기하학', size: '7', color: color.green },
+      { idx: 6, name: '행렬대수', size: '5', color: color.green },
+      { idx: 7, name: '선형대수', size: '6', color: color.green },
+      { idx: 8, name: '추상대수', size: '6', color: color.green },
+      { idx: 9, name: '위상수학', size: '4', color: color.green },
+      { idx: 10, name: '그래프이론', size: '1', color: color.green }
     ],
     [
-      { idx: 1, name: '해석개론', size: '1', color: color.green },
-      { idx: 2, name: '다변수벡터해석', size: '1', color: color.green },
-      { idx: 3, name: '복소해석', size: '1', color: color.green },
-      { idx: 4, name: '측도론', size: '2', color: color.green },
+      { idx: 1, name: '해석개론', size: '4', color: color.green },
+      { idx: 2, name: '다변수벡터해석', size: '2', color: color.green },
+      { idx: 3, name: '복소해석', size: '2', color: color.green },
+      { idx: 4, name: '측도론', size: '4', color: color.green },
       { idx: 5, name: '푸리에해석', size: '2', color: color.green },
       { idx: 6, name: '초함수론', size: '', color: color.green },
       { idx: 7, name: '단층촬영', size: '', color: color.green },
     ],
     [
-      { idx: 1, name: '거리공간', size: '3', color: color.green },
-      { idx: 2, name: '바나흐공간', size: '2', color: color.green },
-      { idx: 3, name: '힐베르트공간', size: '1', color: color.green },
+      { idx: 1, name: '거리공간', size: '7', color: color.green },
+      { idx: 2, name: '바나흐공간', size: '4', color: color.green },
+      { idx: 3, name: '힐베르트공간', size: '3', color: color.green },
       { idx: 4, name: '르벡공간', size: '', color: color.green }
     ],
     [
@@ -971,11 +1093,11 @@
     [
       { idx: 1, name: '매트랩', size: '', color: color.green },
       { idx: 2, name: '수치해석', size: '', color: color.green },
-      { idx: 3, name: '최적화이론', size: '', color: color.green }
+      { idx: 3, name: '최적화이론', size: '1', color: color.green }
     ],
     [
       { idx: 1, name: '물리학', size: '', color: color.green },
-      { idx: 2, name: '수리물리', size: '4', color: color.green },
+      { idx: 2, name: '수리물리', size: '5', color: color.green },
       { idx: 3, name: '고전역학', size: '1', color: color.green },
       { idx: 4, name: '전자기학', size: '1', color: color.green },
       { idx: 5, name: '양자역학', size: '1', color: color.yellow },
@@ -984,19 +1106,19 @@
     [
       { idx: 1, name: 'R', size: '', color: color.green },
       { idx: 2, name: '데이터확보', size: '', color: color.green },
-      { idx: 3, name: '데이터과학', size: '2', color: color.green },
+      { idx: 3, name: '데이터과학', size: '4', color: color.green },
       { idx: 4, name: '통계적검정', size: '', color: color.red },
       { idx: 5, name: '통계적분석', size: '1', color: color.green },
-      { idx: 6, name: '수리통계학', size: '', color: color.green },
-      { idx: 7, name: '분포이론', size: '', color: color.green },
-      { idx: 8, name: '확률론', size: '2', color: color.green },
+      { idx: 6, name: '수리통계학', size: '6', color: color.green },
+      { idx: 7, name: '분포이론', size: '1', color: color.green },
+      { idx: 8, name: '확률론', size: '4', color: color.green },
       { idx: 9, name: '위상데이터분석', size: '6', color: color.green }
     ],
     [
       { idx: 1, name: '줄리아', size: '190', color: color.green },
       { idx: 2, name: '프로그래밍', size: '3', color: color.green },
       { idx: 3, name: '알고리즘', size: '', color: color.green },
-      { idx: 4, name: '머신러닝', size: '12', color: color.green },
+      { idx: 4, name: '머신러닝', size: '14', color: color.green },
       { idx: 5, name: '세이버메트릭스', size: '', color: color.green },
       { idx: 6, name: '논문작성', size: '1', color: color.green },
       { idx: 7, name: '교과과정', size: '1', color: color.green },
