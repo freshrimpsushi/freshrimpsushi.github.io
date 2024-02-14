@@ -120,7 +120,7 @@
     },
     "image": "https://freshrimpsushi.github.io/ko/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/ko\/posts\/1609\/",
-    "wordCount" : "598",
+    "wordCount" : "843",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -408,7 +408,7 @@
 <aside>
   <div class="innerheader">
     <div class="innertoc">
-      <b>목차</b>
+      <b> 목차 </b>
       <nav id="TableOfContents">
   <ul>
     <li><a href="#정리">정리</a></li>
@@ -440,17 +440,6 @@ $$</p>
 xP^{\prime}_{l}(x)-P^{\prime}_{l-1}(x)=lP_{l}(x)\tag{c}
 $$</p>
 <h2 id="증명">증명</h2>
-<blockquote>
-<p><a href="../1610">르장드르 다항식의 생성함수</a></p>
-<p>아래의 함수 $\Phi (x,h)$를 르장드르 다항식의 <a href="../232">생성함수</a>라 한다.</p>
-<p>$$
-\Phi (x,h)=\frac{1}{\sqrt{1-2xh+h^{2}}},\quad |h|&lt;1
-$$</p>
-<p>생성함수는 아래의 식을 만족한다.</p>
-<p>$$
-\Phi (x,h)=P_{0}(x)+hP_{1}(x)+h^{2}P_{2}(x)+\cdots =\sum \limits_{l=0}^{\infty}h^{l}P_{l}(x)
-$$</p>
-</blockquote>
 <h3 id="a">$(a)$</h3>
 <p>우선 $P_{l}(x)$의 도함수를 계산해보면,</p>
 <p>$$
@@ -492,7 +481,54 @@ P^{\prime}_{l+1}(x)-P^{\prime}_{l-1}(x)=(2l+1)P_{l}(x)
 $$</p>
 <p style="text-align: right; margin: 0px; margin-top: -2em;">■</p>
 <h3 id="b">$(b)$</h3>
-<p><a href="../1610">링크 참고</a></p>
+<blockquote>
+<p><a href="../1610">르장드르 다항식의 생성함수</a></p>
+<p>아래의 함수 $\Phi (x,h)$를 르장드르 다항식의 <a href="../232">생성함수</a>라 한다.</p>
+<p>$$
+\Phi (x,h)=\frac{1}{\sqrt{1-2xh+h^{2}}},\quad |h|&lt;1
+$$</p>
+<p>생성함수는 아래의 식을 만족한다.</p>
+<p>$$
+\Phi (x,h)=P_{0}(x)+hP_{1}(x)+h^{2}P_{2}(x)+\cdots =\sum \limits_{l=0}^{\infty}h^{l}P_{l}(x)
+$$</p>
+</blockquote>
+<ul>
+<li></li>
+</ul>
+<p><strong>Part 2. 재귀관계 증명</strong></p>
+<p>우선 $\Phi (x,t)$를 $t$에 대해서 미분하면
+$$
+\begin{align*}
+&amp;&amp; \frac{ \partial \Phi}{ \partial t } &amp;= -\frac{1}{2}(-2x+2t)(1-2xt+t^{2})^{-\frac{3}{2}} \\  \implies &amp;&amp; (1-2xt+t^{2})\frac{ \partial \Phi}{ \partial  t} &amp;= (x-t)\Phi
+\end{align*}
+$$</p>
+<p>이제 $\Phi (x,t)=\sum \limits_{l=0}^{\infty}t^{l}P_{l}(x)$를 위 식에 대입하면</p>
+<p>$$
+(1-2xt+t^{2})\sum \limits _{l=1}^{\infty}lt^{l-1}P_{l}(x)=(x-t)\sum\limits_{l=0}^{\infty}t^{l}P_{l}(x)
+$$</p>
+<p>인덱스를 맞춰주면</p>
+<p>$$
+(1-2xt+t^{2})\sum \limits _{l=0}^{\infty}(l+1)t^{l}P_{l+1}(x)=(x-t)\sum\limits_{l=0}^{\infty}t^{l}P_{l}(x)
+$$</p>
+<p>위 식은 $t$에 대한 항등식이므로 각각의 $l$에 대해서 좌우변의 $t^{l}$의 계수는 같아야한다. 따라서 $t^{l}$의 계수를 비교해보면</p>
+<p>$$
+1 [(l+1)t^{l}P_{l+1}(x)] -2xt[(l)t^{l-1}P_{l}(x)]+t^{2}[(l-1)t^{l-2}P_{l-1}(x)]=x [t^{l}P_{l}(x)]-t[t^{l-1}P_{l-1}(x)]
+$$</p>
+<p>$$
+\implies (l+1)t^{l}P_{l+1}(x) -2xlt^{l}P_{l}(x)+(l-1)t^{l}P_{l-1}(x)=x t^{l}P_{l}(x)-t^{l}P_{l-1}(x)
+$$</p>
+<p>$$
+\implies (l+1)P_{l+1}(x) -2xlP_{l}(x)+(l-1)P_{l-1}(x)=x P_{l}(x)-P_{l-1}(x)
+$$</p>
+<p>여기서 $l$ 대신 $l-1$을 대입하면</p>
+<p>$$
+lP_{l}(x) -2x(l-1)P_{l-1}(x)+(l-2)P_{l-2}(x)=x P_{l-1}(x)-P_{l-2}(x)
+$$</p>
+<p>좌변을 $P_{l}(x)$에 대해서 정리하면</p>
+<p>$$
+lP_{l}(x) =(2l-1)x P_{l-1}(x)-(l-1)P_{l-2}(x)
+$$</p>
+<p style="text-align: right; margin: 0px; margin-top: -2em;">■</p>
 <p style="text-align: right; margin: 0px; margin-top: -2em;">■</p>
 <h3 id="c">$(c)$</h3>
 <p>생성함수가 다음을 만족하는 것은 쉽게 확인할 수 있다.</p>
@@ -518,7 +554,7 @@ $$</p>
     2020-05-06&emsp;
     전기현&emsp;
     
-    <a href="../1636">🎲 1609</a>
+    <a href="../2207">🎲 1609</a>
 </aside>
 
 
@@ -1032,33 +1068,28 @@ $$</p>
 
 </script>
     </div>
-    <div class="sidebar">
-
-  <aside>
-    <p>
-      현재 테스트 중인 기능이 있어 블로그가 정상적으로 작동되지 않을 수 있습니다. 댓글이나 메일로 불편사항 남겨주시면 확인토록 하겠습니다.
-    </p>
-
-
+    <aside>
+<div class="sidebar">
+<p>
   
-
-
-
-
-
+  24년 2월 15일 기준 번역진행도 21.05%입니다. 댓글이나 메일로 불편사항 남겨주시면 확인토록 하겠습니다.
+    
+</p>
 
 <div class="category">
 </div>
 
 <aside style="display:flex;">
-  ● 를 클릭해서 관심있는 분야만 강조해보세요.
+
+● 를 클릭해서 관심있는 분야만 강조해보세요.
+
       <div class="resetmute">
         <button class="sb-btn btnReset"
           style = "border-radius:5px; border:0px">reset</button>
         <button class="sb-btn btnMute"
           style = "border-radius:5px; border:0px">mute</button>
       </div>
-  </aside>
+</aside>
 
 
  
@@ -1176,69 +1207,69 @@ $$</p>
   const color = {green: '#33cc33', yellow: '#ffcc00', red: '#ff3333', black: '#000000'};
   const categoryRows = [
     [
-      { idx: 1, name: '함수', size: '118', color: color.green },
-      { idx: 2, name: '보조정리', size: '29', color: color.green },
-      { idx: 3, name: '집합론', size: '47', color: color.green },
-      { idx: 4, name: '정수론', size: '89', color: color.green },
-      { idx: 5, name: '기하학', size: '147', color: color.green },
-      { idx: 6, name: '행렬대수', size: '91', color: color.green },
-      { idx: 7, name: '선형대수', size: '93', color: color.green },
-      { idx: 8, name: '추상대수', size: '92', color: color.green },
-      { idx: 9, name: '위상수학', size: '64', color: color.green },
-      { idx: 10, name: '그래프이론', size: '56', color: color.green }
+      { idx: 1, name: '함수', size: '118', color: color.red },
+      { idx: 2, name: '보조정리', size: '29', color: color.red },
+      { idx: 3, name: '집합론', size: '47', color: color.red },
+      { idx: 4, name: '정수론', size: '89', color: color.red },
+      { idx: 5, name: '기하학', size: '147', color: color.red },
+      { idx: 6, name: '행렬대수', size: '91', color: color.red },
+      { idx: 7, name: '선형대수', size: '93', color: color.red },
+      { idx: 8, name: '추상대수', size: '92', color: color.red },
+      { idx: 9, name: '위상수학', size: '64', color: color.red },
+      { idx: 10, name: '그래프이론', size: '56', color: color.red }
     ],
     [
-      { idx: 1, name: '해석개론', size: '97', color: color.green },
-      { idx: 2, name: '다변수벡터해석', size: '22', color: color.green },
-      { idx: 3, name: '복소해석', size: '71', color: color.green },
-      { idx: 4, name: '측도론', size: '53', color: color.green },
-      { idx: 5, name: '푸리에해석', size: '52', color: color.green },
-      { idx: 6, name: '초함수론', size: '23', color: color.green },
-      { idx: 7, name: '단층촬영', size: '20', color: color.green },
+      { idx: 1, name: '해석개론', size: '97', color: color.red },
+      { idx: 2, name: '다변수벡터해석', size: '22', color: color.red },
+      { idx: 3, name: '복소해석', size: '71', color: color.red },
+      { idx: 4, name: '측도론', size: '53', color: color.red },
+      { idx: 5, name: '푸리에해석', size: '52', color: color.red },
+      { idx: 6, name: '초함수론', size: '23', color: color.red },
+      { idx: 7, name: '단층촬영', size: '20', color: color.red },
     ],
     [
-      { idx: 1, name: '거리공간', size: '39', color: color.green },
-      { idx: 2, name: '바나흐공간', size: '39', color: color.green },
-      { idx: 3, name: '힐베르트공간', size: '31', color: color.green },
-      { idx: 4, name: '르벡공간', size: '32', color: color.green }
+      { idx: 1, name: '거리공간', size: '38', color: color.red },
+      { idx: 2, name: '바나흐공간', size: '39', color: color.red },
+      { idx: 3, name: '힐베르트공간', size: '31', color: color.red },
+      { idx: 4, name: '르벡공간', size: '32', color: color.red }
     ],
     [
-      { idx: 1, name: '상미분방정식', size: '58', color: color.green },
-      { idx: 2, name: '편미분방정식', size: '59', color: color.green },
-      { idx: 3, name: '확률미분방정식', size: '26', color: color.green }
+      { idx: 1, name: '상미분방정식', size: '58', color: color.red },
+      { idx: 2, name: '편미분방정식', size: '59', color: color.red },
+      { idx: 3, name: '확률미분방정식', size: '26', color: color.red }
     ],
     [
-      { idx: 1, name: '매트랩', size: '16', color: color.green },
-      { idx: 2, name: '수치해석', size: '55', color: color.green },
-      { idx: 3, name: '최적화이론', size: '37', color: color.green }
+      { idx: 1, name: '매트랩', size: '16', color: color.red },
+      { idx: 2, name: '수치해석', size: '55', color: color.red },
+      { idx: 3, name: '최적화이론', size: '37', color: color.red }
     ],
     [
-      { idx: 1, name: '물리학', size: '17', color: color.green },
-      { idx: 2, name: '수리물리', size: '73', color: color.green },
-      { idx: 3, name: '고전역학', size: '47', color: color.green },
-      { idx: 4, name: '전자기학', size: '51', color: color.green },
-      { idx: 5, name: '양자역학', size: '52', color: color.yellow },
-      { idx: 6, name: '열물리학', size: '29', color: color.green }
+      { idx: 1, name: '물리학', size: '17', color: color.red },
+      { idx: 2, name: '수리물리', size: '73', color: color.red },
+      { idx: 3, name: '고전역학', size: '47', color: color.red },
+      { idx: 4, name: '전자기학', size: '51', color: color.red },
+      { idx: 5, name: '양자역학', size: '52', color: color.red },
+      { idx: 6, name: '열물리학', size: '29', color: color.red }
     ],
     [
-      { idx: 1, name: 'R', size: '53', color: color.green },
-      { idx: 2, name: '데이터확보', size: '22', color: color.green },
-      { idx: 3, name: '데이터과학', size: '24', color: color.green },
+      { idx: 1, name: 'R', size: '53', color: color.red },
+      { idx: 2, name: '데이터확보', size: '22', color: color.red },
+      { idx: 3, name: '데이터과학', size: '24', color: color.red },
       { idx: 4, name: '통계적검정', size: '22', color: color.red },
-      { idx: 5, name: '통계적분석', size: '71', color: color.green },
-      { idx: 6, name: '수리통계학', size: '110', color: color.green },
-      { idx: 7, name: '분포이론', size: '71', color: color.green },
-      { idx: 8, name: '확률론', size: '74', color: color.green },
-      { idx: 9, name: '위상데이터분석', size: '40', color: color.green }
+      { idx: 5, name: '통계적분석', size: '71', color: color.red },
+      { idx: 6, name: '수리통계학', size: '110', color: color.red },
+      { idx: 7, name: '분포이론', size: '71', color: color.red },
+      { idx: 8, name: '확률론', size: '74', color: color.red },
+      { idx: 9, name: '위상데이터분석', size: '40', color: color.red }
     ],
     [
-      { idx: 1, name: '줄리아', size: '190', color: color.green },
-      { idx: 2, name: '프로그래밍', size: '57', color: color.green },
-      { idx: 3, name: '알고리즘', size: '28', color: color.green },
-      { idx: 4, name: '머신러닝', size: '83', color: color.green },
-      { idx: 5, name: '세이버메트릭스', size: '12', color: color.green },
-      { idx: 6, name: '논문작성', size: '19', color: color.green },
-      { idx: 7, name: '교과과정', size: '54', color: color.green },
+      { idx: 1, name: ' 줄리아 ', size: '190', color: color.green },
+      { idx: 2, name: '프로그래밍', size: '56', color: color.red },
+      { idx: 3, name: '알고리즘', size: '28', color: color.red },
+      { idx: 4, name: '머신러닝', size: '83', color: color.red },
+      { idx: 5, name: '세이버메트릭스', size: '12', color: color.red },
+      { idx: 6, name: '논문작성', size: '20', color: color.red },
+      { idx: 7, name: '교과과정', size: '54', color: color.red },
       { idx: 8, name: '생새우초밥지', size: '3', color: color.black }
     ]
   ];
@@ -1339,11 +1370,7 @@ $$</p>
     }
   }
 </script>
-
-</aside>
-
-<aside>
-<p><b>Recently viewed posts</b></p>
+<p><b> 최근 본 포스트 </b></p>
 
 <aside>
   <div class="lately-viewed-list" style="padding-left: 4px;">
@@ -1372,16 +1399,8 @@ $$</p>
     }
   });
 </script>
-</aside>
-
 <aside>
-    <h2></h2>
-    <ul>
-    </ul>
-</aside>
-
-<aside>
-  <p><b>Recent comment</b></p>
+  <p><b> 최신 댓글 </b></p>
   <div class="current-reply">
   </div>
 </aside>
@@ -1425,19 +1444,8 @@ $$</p>
     renderKaTex(currentReply);
   }
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-</div> 
+</div>
+</aside>
   </div>
   
   <footer>
@@ -1498,6 +1506,8 @@ $$</p>
         "\\rank": "\\operatorname{rank}",
         "\\nullity": "\\operatorname{nullity}",
         "\\Ric": "\\operatorname{Ric}",
+        "\\i": "\\mathrm{i}",
+        "\\d": "\\mathrm{d}",
         "\\cR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2202/2615581243_1645770096.5863.png}",
         "\\acR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680634690.4371.png}",
         "\\bcR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2202/2615581243_1645770096.5899.png}",
