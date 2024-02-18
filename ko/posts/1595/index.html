@@ -128,6 +128,10 @@
 
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<script src="https://use.fontawesome.com/releases/v6.5.1/js/all.js"></script>
+
 <script src=https://freshrimpsushi.github.io/ko/js/common.js></script>
 
 <body class="main">
@@ -449,7 +453,7 @@ $$</li>
     2020-07-26&emsp;
     류대식&emsp;
     
-    <a href="../775">🎲 1595</a>
+    <a href="../1852">🎲 1595</a>
 </aside>
 
 
@@ -496,7 +500,8 @@ $$</li>
 </script>
 
       </div>
-      <h2>댓글</h2>
+      <aside>
+<h2>댓글</h2>
 <div class="area-reply">
   <div class="list-reply">
   </div>
@@ -510,19 +515,19 @@ $$</li>
     <input class="ai-password" type="password" value="" maxlength="20" placeholder="Password" />
   </div>
   <div class="write-content">
-    <textarea class="ai-content" value="" placeholder="Comment
-
- - Feel free to ask in english
- - 日本語でも構いませんが、できれば英語でお願いします
- - 웨일 브라우저 기준 V3.23.214.10 이후 버전에서 덧글 노출이 안되는 현상이 확인 되었습니다.
-   - 설정 → 기본 → 클린 웹 → 추적 방지(사용안함)으로 설정하면 댓글이 정상출력됩니다." style="IME-MODE:active;"></textarea>
+    <textarea class="ai-content" value="" placeholder='내용' style="IME-MODE:active;"></textarea>
+ 
   </div>
-  <div class="write-button">
-    <input class="write_comment" type="submit" value="등록" onclick="write_comment();" />
-  </div>
-  <aside class="tex" style="text-align: center;">
+  
+  <a href="javascript:void(0);" onclick="write_comment();">
+    <div class="write-button">
+      <i class='fa-solid fa-paper-plane'></i>
+    </div>
+  </a>
+  <aside class="tex"> 
     댓글에도 $\TeX$이 적용됩니다.</aside>
 </div>
+</aside>
 
 <script>
   let commentRows = [];
@@ -587,21 +592,18 @@ $$</li>
       }
       
       html += `<div class="list-author">${badge} ${row.author} ${ipAddress}</div>`;
-      html += `<div class="list-bridge">▶</div>`;
-      if(row.approve) {
-        html += `<div class="list-date">${row.datetime}</div>`;
-      } else {
-        html += `<div class="list-date">${row.datetime} - 관리자의 승인을 기다리고 있습니다</div>`;
-      }
+      
+      html += `<sup class="list-date">${row.datetime.slice(2, -3)}</sup>`;
       html += `<div class="list-button">`;
-      html += `<div class="list-update-button" onclick="update_comment('${row.cmt_idx}', 'parents');">수정</div>`;
-      html += `<div class="list-delete-button" onclick="delete_comment('${row.cmt_idx}', 'parents');">삭제</div>`;
+      html += `<div class="list-update-button" onclick="update_comment('${row.cmt_idx}', 'parents');"><i class="fa-solid fa-pen-to-square"></i></div>`; 
+      html += `<div class="list-delete-button" onclick="delete_comment('${row.cmt_idx}', 'parents');"><i class="fa-solid fa-trash"></i></div>`; 
       html += `</div>`; 
       html += `</div>`; 
+      if(!row.approve) {html += `<div style="text-align: right;"><i class="fa-solid fa-hourglass-start"></i> 관리자의 승인을 기다리고 있습니다</div>`;}
       let content = row.content;
       content = content.replace(/\n/g, '<br />');
-      html += `<div class="content-text">${content}</div>`;
-      html += `<div class="re-comment"><span class="re-comment-button" onclick="re_comment('${row.cmt_idx}');">답글</span></div>`;
+      html += `<div class="content-text">${content} <span class="re-comment-button" onclick="re_comment('${row.cmt_idx}');"><i class="fa-solid fa-reply"></i></span></div>`;
+      html += `<div class="re-comment"></div>`; 
       html += `</div>`;
 
       row.child.map(child => {
@@ -633,17 +635,14 @@ $$</li>
         }
 
         html += `<div class="list-author">${badge} ${child.author} ${ipAddress}</div>`;
-        html += `<div class="list-bridge">▶</div>`;
-        if(child.approve) {
-          html += `<div class="list-date">${child.datetime}</div>`;
-        } else {
-          html += `<div class="list-date">${child.datetime} - 관리자의 승인을 기다리고 있습니다</div>`;
-        }
+        
+        html += `<sup class="list-date">${row.datetime.slice(2, -3)}</sup>`;
         html += `<div class="list-button">`;
-        html += `<div class="list-update-button" onclick="update_comment('${child.cmt_idx}', 'child');">수정</div>`;
-        html += `<div class="list-delete-button" onclick="delete_comment('${child.cmt_idx}', 'child');">삭제</div>`;
+        html += `<div class="list-update-button" onclick="update_comment('${child.cmt_idx}', 'child');"><i class="fa-solid fa-pen-to-square"></i></div>`; 
+        html += `<div class="list-delete-button" onclick="delete_comment('${child.cmt_idx}', 'child');"><i class="fa-solid fa-trash"></i></div>`; 
         html += `</div>`; 
         html += `</div>`; 
+        if(!child.approve) {html += `<div style="text-align: right;"><i class="fa-solid fa-hourglass-start"></i> 관리자의 승인을 기다리고 있습니다</div>`;}
         let content = child.content;
         content = content.replace(/\n/g, '<br />');
         html += `<div class="content-text">${content}</div>`;
@@ -895,10 +894,12 @@ $$</li>
     html += '<input class="re-comment-password" type="password" value="" placeholder="비밀번호" />';
     html += '</div>';
     html += '<textarea class="re-comment-content" placeholder="내용" value="" style="IME-MODE:active;"></textarea>';
-    html += `<input class="re-comment-btn" type="submit" value="등록" onclick="re_comment_click(${cmt_idx})" />`;
-    html += `<input class="re-comment-btn" type="submit" value="취소" onclick="cancel_click(${cmt_idx})" />`;
+    
+    
+    html += `<a href="javascript:void(0);" onclick="cancel_click(${cmt_idx});"><div class="write-button"><i class="fa-solid fa-ban"></i></i></div></a>`; 
+    html += `<a href="javascript:void(0);" onclick="re_comment_click(${cmt_idx});"><div class="write-button"><i class='fa-solid fa-paper-plane'></i></div></a>`; 
     html += '</div>';
-
+   
     reComment.innerHTML = html;
   }
 
@@ -965,11 +966,10 @@ $$</li>
     <aside>
 <div class="sidebar">
 
-
 <div class="category">
 </div>
 
-<aside style="display:flex;">
+<div style="display:flex;">
 
 ● 를 클릭해서 관심있는 분야만 강조해보세요.
 
@@ -979,7 +979,7 @@ $$</li>
         <button class="sb-btn btnMute"
           style = "border-radius:5px; border:0px">mute</button>
       </div>
-</aside>
+</div>
 
 
  
@@ -1101,38 +1101,38 @@ $$</li>
       { idx: 1, name: '함수', color: color.red, show: '함수', size: '117'},
       { idx: 2, name: '보조정리', color: color.red, show: '보조정리', size: '29'},
       { idx: 3, name: '집합론', color: color.green, show: '집합론', size: '47'},
-      { idx: 4, name: '정수론', color: color.red, show: '정수론', size: '89'},
+      { idx: 4, name: '정수론', color: color.green, show: '정수론', size: '89'},
       { idx: 5, name: '기하학', color: color.red, show: '기하학', size: '147'},
       { idx: 6, name: '행렬대수', color: color.red, show: '행렬대수', size: '91'},
       { idx: 7, name: '선형대수', color: color.red, show: '선형대수', size: '93'},
-      { idx: 8, name: '추상대수', color: color.red, show: '추상대수', size: '92'},
-      { idx: 9, name: '위상수학', color: color.red, show: '위상수학', size: '64'},
-      { idx: 10, name: '그래프이론', color: color.red, show: '그래프이론', size: '57'}
+      { idx: 8, name: '추상대수', color: color.green, show: '추상대수', size: '92'},
+      { idx: 9, name: '위상수학', color: color.green, show: '위상수학', size: '64'},
+      { idx: 10, name: '그래프이론', color: color.green, show: '그래프이론', size: '57'}
     ],
     [
       { idx: 1, name: '해석개론', color: color.red, show: '해석개론', size: '97'},
       { idx: 2, name: '다변수벡터해석', color: color.red, show: '다변수벡터해석', size: '22'},
-      { idx: 3, name: '복소해석', color: color.red, show: '복소해석', size: '71'},
-      { idx: 4, name: '측도론', color: color.red, show: '측도론', size: '53'},
+      { idx: 3, name: '복소해석', color: color.green, show: '복소해석', size: '71'},
+      { idx: 4, name: '측도론', color: color.green, show: '측도론', size: '53'},
       { idx: 5, name: '푸리에해석', color: color.red, show: '푸리에해석', size: '52'},
       { idx: 6, name: '초함수론', color: color.red, show: '초함수론', size: '23'},
       { idx: 7, name: '단층촬영', color: color.red, show: '단층촬영', size: '20'},
     ],
     [
-      { idx: 1, name: '거리공간', color: color.red, show: '거리공간', size: '38'},
-      { idx: 2, name: '바나흐공간', color: color.red, show: '바나흐공간', size: '39'},
+      { idx: 1, name: '거리공간', color: color.green, show: '거리공간', size: '38'},
+      { idx: 2, name: '바나흐공간', color: color.green, show: '바나흐공간', size: '39'},
       { idx: 3, name: '힐베르트공간', color: color.red, show: '힐베르트공간', size: '31'},
       { idx: 4, name: '르벡공간', color: color.red, show: '르벡공간', size: '33'}
     ],
     [
       { idx: 1, name: '상미분방정식', color: color.red, show: '상미분방정식', size: '58'},
       { idx: 2, name: '편미분방정식', color: color.red, show: '편미분방정식', size: '59'},
-      { idx: 3, name: '확률미분방정식', color: color.red, show: '확률미분방정식', size: '26'}
+      { idx: 3, name: '확률미분방정식', color: color.green, show: '확률미분방정식', size: '26'}
     ],
     [
       { idx: 1, name: '매트랩', color: color.green, show: '매트랩', size: '16'},
-      { idx: 2, name: '수치해석', color: color.red, show: '수치해석', size: '55'},
-      { idx: 3, name: '최적화이론', color: color.red, show: '최적화이론', size: '37'}
+      { idx: 2, name: '수치해석', color: color.green, show: '수치해석', size: '55'},
+      { idx: 3, name: '최적화이론', color: color.green, show: '최적화이론', size: '37'}
     ],
     [
       { idx: 1, name: '물리학', color: color.red, show: '물리학', size: '17'},
@@ -1144,23 +1144,23 @@ $$</li>
     ],
     [
       { idx: 1, name: 'R', color: color.green, show: 'R', size: '53'},
-      { idx: 2, name: '데이터확보', color: color.red, show: '데이터확보', size: '22'},
-      { idx: 3, name: '데이터과학', color: color.red, show: '데이터과학', size: '24'},
-      { idx: 4, name: '통계적검정', color: color.red, show: '통계적검정', size: '22'},
-      { idx: 5, name: '통계적분석', color: color.red, show: '통계적분석', size: '71'},
-      { idx: 6, name: '수리통계학', color: color.red, show: '수리통계학', size: '110'},
-      { idx: 7, name: '확률분포론', color: color.red, show: '확률분포론', size: '71'},
-      { idx: 8, name: '확률론', color: color.red, show: '확률론', size: '74'},
-      { idx: 9, name: '위상데이터분석', color: color.red, show: '위상데이터분석', size: '40'}
+      { idx: 2, name: '데이터확보', color: color.green, show: '데이터확보', size: '22'},
+      { idx: 3, name: '데이터과학', color: color.green, show: '데이터과학', size: '24'},
+      { idx: 4, name: '통계적검정', color: color.green, show: '통계적검정', size: '22'},
+      { idx: 5, name: '통계적분석', color: color.green, show: '통계적분석', size: '71'},
+      { idx: 6, name: '수리통계학', color: color.green, show: '수리통계학', size: '110'},
+      { idx: 7, name: '확률분포론', color: color.green, show: '확률분포론', size: '72'},
+      { idx: 8, name: '확률론', color: color.green, show: '확률론', size: '74'},
+      { idx: 9, name: '위상데이터분석', color: color.green, show: '위상데이터분석', size: '40'}
     ],
     [
       { idx: 1, name: '줄리아', color: color.green, show: '줄리아', size: '191'},
       { idx: 2, name: '프로그래밍', color: color.red, show: '프로그래밍', size: '56'},
-      { idx: 3, name: '알고리즘', color: color.red, show: '알고리즘', size: '28'},
-      { idx: 4, name: '머신러닝', color: color.red, show: '머신러닝', size: '83'},
-      { idx: 5, name: '세이버메트릭스', color: color.red, show: '세이버메트릭스', size: '191', size: '12'},
-      { idx: 6, name: '논문작성', color: color.red, show: '논문작성', size: '20'},
-      { idx: 7, name: '교과과정', color: color.red, show: '교과과정', size: '54'},
+      { idx: 3, name: '알고리즘', color: color.green, show: '알고리즘', size: '28'},
+      { idx: 4, name: '머신러닝', color: color.green, show: '머신러닝', size: '83'},
+      { idx: 5, name: '세이버메트릭스', color: color.green, show: '세이버메트릭스', size: '191', size: '12'},
+      { idx: 6, name: '논문작성', color: color.green, show: '논문작성', size: '20'},
+      { idx: 7, name: '교과과정', color: color.green, show: '교과과정', size: '54'},
       { idx: 8, name: '생새우초밥지', color: color.black , show: '생새우초밥지', size: '3'}
     ]
   ];
@@ -1261,12 +1261,11 @@ $$</li>
     }
   }
 </script>
-<p><b> 최근 본 포스트 </b></p>
+<br>
+<b>최근 본 포스트</b>
 
-<aside>
-  <div class="lately-viewed-list" style="padding-left: 4px;">
-  </div>
-</aside>
+<div class="lately-viewed-list" style="padding-left: 4px;">
+</div>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
@@ -1290,11 +1289,52 @@ $$</li>
     }
   });
 </script>
-<aside>
-  <p><b> 최신 댓글 </b></p>
-  <div class="current-reply">
-  </div>
-</aside>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    
+    const contentBox = document.querySelector('.content-box');
+    if (contentBox) {
+      renderKaTex(contentBox);
+    }
+    const tex = document.querySelector('.tex');
+    if (tex) {
+      renderKaTex(tex);
+    }
+
+    var title = '힐베르트 공간의 프레임';
+    var link = 'https:\/\/freshrimpsushi.github.io\/ko\/posts\/1595\/';
+    var arr = new Array();
+    var obj = {
+      "title": title,
+      "link": link
+    };
+    var postList = JSON.parse(localStorage.getItem('latelyViewPostList'));
+    if (postList == '' || postList == null || postList == undefined || postList == 0 || postList == NaN) {
+      arr.push(obj);
+      localStorage.setItem('latelyViewPostList', JSON.stringify(arr));
+    } else {
+      var listSize = postList.length;
+      for (var i = 0; i < listSize; i++) {
+        if (title == postList[i].title) {
+          postList.splice(i, 1);
+          break;
+        }
+      }
+      arr = postList;
+      arr.push(obj);
+      if (arr.length > 5) {
+        arr.shift();
+      }
+      localStorage.setItem('latelyViewPostList', JSON.stringify(arr));
+    }
+  });
+</script>
+
+<br>
+<b>최신 댓글</b>
+<div class="current-reply">
+</div>
 
 <script>
   const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/recent_comment.php?action=getCurrentComment';
@@ -1342,10 +1382,9 @@ $$</li>
   <footer>
   <aside>
     <div>
-      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현</p>
-      <p style="text-align: center"><img src=https://freshrimpsushi.github.io/ko/logo/gmail.png width=16px> Contact:
-        freshrimpsushi@gmail.com<br>
-        
+      <p style="text-align: center">© 생새우초밥집 / Powered by 류대식, 전기현
+      <br><img src=https://freshrimpsushi.github.io/ko/logo/gmail.png width=16px> Contact:
+        freshrimpsushi@gmail.com
       </p>
     </div>
 
