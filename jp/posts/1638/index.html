@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="blog">
+<html class="blog" lang="jp">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -483,7 +483,7 @@ $$</p>
     2020-05-31&emsp;
     전기현&emsp;
     
-    <a href="../1333">🎲 1638</a>
+    <a href="../2204">🎲 1638</a>
 </aside>
 
 
@@ -538,6 +538,12 @@ $$</p>
 </div>
 
 
+<script>
+  function doAction() {
+    alert("Hello World");
+  }  
+</script>
+
 <div class="write-box">
   <div class="write-author-info box-account">
     <input type="hidden" name="cmt_idx" />
@@ -549,11 +555,7 @@ $$</p>
  
   </div>
   
-  <a href="javascript:void(0);" onclick="write_comment();">
-    <div class="write-button">
-      <i class='fa-solid fa-paper-plane'></i>
-    </div>
-  </a>
+  <button class="write-button" onclick="write_comment()"><i class='fa-solid fa-paper-plane'></i></button>
   <aside class="tex"> 
     コメントにも $\TeX$ が適用されます。
     </aside>
@@ -630,7 +632,7 @@ $$</p>
       html += `<div class="list-delete-button" onclick="delete_comment('${row.cmt_idx}', 'parents');"><i class="fa-solid fa-trash"></i></div>`; 
       html += `</div>`; 
       html += `</div>`; 
-      if(!row.approve) {html += `<div style="text-align: right;"><i class="fa-solid fa-hourglass-start"></i> 管理者の承認を待っています</div>`;}
+      if(!row.approve) {html += `<div style="text-align: right;"><i class="fa-solid fa-hourglass"></i> 管理者の承認を待っています</div>`;}
       let content = row.content;
       content = content.replace(/\n/g, '<br />');
       html += `<div class="content-text">${content} <span class="re-comment-button" onclick="re_comment('${row.cmt_idx}');"><i class="fa-solid fa-reply" style="cursor: pointer;"></i></span></div>`;
@@ -677,7 +679,7 @@ $$</p>
         html += `<div class="list-delete-button" onclick="delete_comment('${child.cmt_idx}', 'child');"><i class="fa-solid fa-trash"></i></div>`; 
         html += `</div>`; 
         html += `</div>`; 
-        if(!child.approve) {html += `<div style="text-align: right;"><i class="fa-solid fa-hourglass-start"></i> 管理者の承認を待っています</div>`;}
+        if(!child.approve) {html += `<div style="text-align: right;"><i class="fa-solid fa-hourglass"></i> 管理者の承認を待っています</div>`;}
         let content = child.content;
         content = content.replace(/\n/g, '<br />');
         html += `<div class="content-text">${content} <span class="re-comment-button" onclick="re_comment('${row.cmt_idx}');"><i class="fa-solid fa-reply" style="cursor: pointer;"></i></span></div>`;
@@ -930,12 +932,9 @@ $$</p>
     html += '<input class="re-comment-password" type="password" value="" placeholder="비밀번호" />';
     html += '</div>';
     html += '<textarea class="re-comment-content" placeholder="내용" value="" style="IME-MODE:active;"></textarea>';
-    
-    
-    html += `<a href="javascript:void(0);" onclick="cancel_click(${cmt_idx});"><div class="write-button"><i class="fa-solid fa-ban"></i></i></div></a>`; 
-    html += `<a href="javascript:void(0);" onclick="re_comment_click(${cmt_idx});"><div class="write-button"><i class='fa-solid fa-paper-plane'></i></div></a>`; 
+    html += `<button class="write-button" onclick="re_comment_click(${cmt_idx})"><i class='fa-solid fa-paper-plane'></i></button>`
+    html += `<button class="write-button" onclick="cancel_click(${cmt_idx})"><i class='fa-solid fa-solid fa-ban'></i></button>`
     html += '</div>';
-   
     reComment.innerHTML = html;
   }
 
