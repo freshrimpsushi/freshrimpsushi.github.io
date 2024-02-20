@@ -484,7 +484,7 @@ and this is the same for $A^c$ and $B$.</p>
     2017-03-23&emsp;
     류대식&emsp;
     
-    <a href="../2002">🎲 28</a>
+    <a href="../1700">🎲 28</a>
 </aside>
 
 
@@ -639,7 +639,11 @@ and this is the same for $A^c$ and $B$.</p>
       html += `</div>`;
 
       row.child.map(child => {
-        html += `<div id="comment${child.cmt_idx}" class="child">`;
+        let commentClass = 'child';
+        if (row.ip_address && child.ip_address === row.ip_address) {
+        commentClass = 'parentself'; 
+        }
+        html += `<div id="comment${child.cmt_idx}" class="${commentClass}">`;
         html += `<div class="content-info">`;
         
         let badge = '';
@@ -677,7 +681,8 @@ and this is the same for $A^c$ and $B$.</p>
         if(!child.approve) {html += `<div style="text-align: right;"><i class="fa-solid fa-hourglass-start"></i> Waiting for approvement</div>`;}
         let content = child.content;
         content = content.replace(/\n/g, '<br />');
-        html += `<div class="content-text">${content}</div>`;
+        html += `<div class="content-text">${content} <span class="re-comment-button" onclick="re_comment('${row.cmt_idx}');"><i class="fa-solid fa-reply"></i></span></div>`;
+        html += `<div class="re-comment"></div>`; 
         html += `</div>`;
       });
     });

@@ -447,7 +447,7 @@ $$</p>
     2017-11-14&emsp;
     전기현&emsp;
     
-    <a href="../2298">🎲 321</a>
+    <a href="../1094">🎲 321</a>
 </aside>
 
 
@@ -602,7 +602,11 @@ $$</p>
       html += `</div>`;
 
       row.child.map(child => {
-        html += `<div id="comment${child.cmt_idx}" class="child">`;
+        let commentClass = 'child';
+        if (row.ip_address && child.ip_address === row.ip_address) {
+        commentClass = 'parentself'; 
+        }
+        html += `<div id="comment${child.cmt_idx}" class="${commentClass}">`;
         html += `<div class="content-info">`;
         
         let badge = '';
@@ -640,7 +644,8 @@ $$</p>
         if(!child.approve) {html += `<div style="text-align: right;"><i class="fa-solid fa-hourglass-start"></i> Waiting for approvement</div>`;}
         let content = child.content;
         content = content.replace(/\n/g, '<br />');
-        html += `<div class="content-text">${content}</div>`;
+        html += `<div class="content-text">${content} <span class="re-comment-button" onclick="re_comment('${row.cmt_idx}');"><i class="fa-solid fa-reply"></i></span></div>`;
+        html += `<div class="re-comment"></div>`; 
         html += `</div>`;
       });
     });
@@ -1435,21 +1440,6 @@ Click ● to highlight only you interested.
         "\\i": "\\mathrm{i}",
         "\\d": "\\mathrm{d}",
         "\\cR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2202/2615581243_1645770096.5863.png}",
-        "\\acR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680634690.4371.png}",
-        "\\bcR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2202/2615581243_1645770096.5899.png}",
-        "\\abcR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680634690.0596.png}",
-        "\\crH": "\\includegraphics[height=0.8em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680622958.7632.png}",
-        "\\smallcrH": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680622958.7632.png}",
-        "\\acrH": "\\includegraphics[height=0.8em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680634690.8386.png}",
-        "\\smallacrH": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680634690.8386.png}",
-      },
-      throwOnError: false,
-    });
-  }
-</script>
-</body>
-
-</html>community/data/editor/2202/2615581243_1645770096.5863.png}",
         "\\acR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680634690.4371.png}",
         "\\bcR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2202/2615581243_1645770096.5899.png}",
         "\\abcR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680634690.0596.png}",

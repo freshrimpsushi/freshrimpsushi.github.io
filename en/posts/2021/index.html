@@ -535,7 +535,7 @@ and $S_{n}^{2}$ is a consistent estimator for the <a href="../246">population va
     2021-05-16&emsp;
     류대식&emsp;
     
-    <a href="../1837">🎲 2021</a>
+    <a href="../2081">🎲 2021</a>
 </aside>
 
 
@@ -690,7 +690,11 @@ and $S_{n}^{2}$ is a consistent estimator for the <a href="../246">population va
       html += `</div>`;
 
       row.child.map(child => {
-        html += `<div id="comment${child.cmt_idx}" class="child">`;
+        let commentClass = 'child';
+        if (row.ip_address && child.ip_address === row.ip_address) {
+        commentClass = 'parentself'; 
+        }
+        html += `<div id="comment${child.cmt_idx}" class="${commentClass}">`;
         html += `<div class="content-info">`;
         
         let badge = '';
@@ -728,7 +732,8 @@ and $S_{n}^{2}$ is a consistent estimator for the <a href="../246">population va
         if(!child.approve) {html += `<div style="text-align: right;"><i class="fa-solid fa-hourglass-start"></i> Waiting for approvement</div>`;}
         let content = child.content;
         content = content.replace(/\n/g, '<br />');
-        html += `<div class="content-text">${content}</div>`;
+        html += `<div class="content-text">${content} <span class="re-comment-button" onclick="re_comment('${row.cmt_idx}');"><i class="fa-solid fa-reply"></i></span></div>`;
+        html += `<div class="re-comment"></div>`; 
         html += `</div>`;
       });
     });

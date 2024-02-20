@@ -140,7 +140,7 @@
         <p style="text-align:center; font-size: 1rem; color: black;">
             
                 
-                    <img src=https://freshrimpsushi.github.io/ko/logo/basic.png style="height: auto; max-width: 16%;">
+                    <img src=https://freshrimpsushi.github.io/ko/logo/%EC%96%91%EC%9E%90%EC%97%AD%ED%95%99.png style="height: auto; max-width: 16%;">
                 
             
             
@@ -478,7 +478,7 @@ $$
     2017-12-11&emsp;
     전기현&emsp;
     
-    <a href="../820">🎲 307</a>
+    <a href="../2092">🎲 307</a>
 </aside>
 
 
@@ -632,7 +632,11 @@ $$
       html += `</div>`;
 
       row.child.map(child => {
-        html += `<div id="comment${child.cmt_idx}" class="child">`;
+        let commentClass = 'child';
+        if (row.ip_address && child.ip_address === row.ip_address) {
+        commentClass = 'parentself'; 
+        }
+        html += `<div id="comment${child.cmt_idx}" class="${commentClass}">`;
         html += `<div class="content-info">`;
         
         let badge = '';
@@ -670,7 +674,8 @@ $$
         if(!child.approve) {html += `<div style="text-align: right;"><i class="fa-solid fa-hourglass-start"></i> 관리자의 승인을 기다리고 있습니다</div>`;}
         let content = child.content;
         content = content.replace(/\n/g, '<br />');
-        html += `<div class="content-text">${content}</div>`;
+        html += `<div class="content-text">${content} <span class="re-comment-button" onclick="re_comment('${row.cmt_idx}');"><i class="fa-solid fa-reply"></i></span></div>`;
+        html += `<div class="re-comment"></div>`; 
         html += `</div>`;
       });
     });

@@ -486,7 +486,7 @@ $$</li>
     2023-05-02&emsp;
     류대식&emsp;
     
-    <a href="../2276">🎲 2379</a>
+    <a href="../1172">🎲 2379</a>
 </aside>
 
 
@@ -640,7 +640,11 @@ $$</li>
       html += `</div>`;
 
       row.child.map(child => {
-        html += `<div id="comment${child.cmt_idx}" class="child">`;
+        let commentClass = 'child';
+        if (row.ip_address && child.ip_address === row.ip_address) {
+        commentClass = 'parentself'; 
+        }
+        html += `<div id="comment${child.cmt_idx}" class="${commentClass}">`;
         html += `<div class="content-info">`;
         
         let badge = '';
@@ -678,7 +682,8 @@ $$</li>
         if(!child.approve) {html += `<div style="text-align: right;"><i class="fa-solid fa-hourglass-start"></i> 관리자의 승인을 기다리고 있습니다</div>`;}
         let content = child.content;
         content = content.replace(/\n/g, '<br />');
-        html += `<div class="content-text">${content}</div>`;
+        html += `<div class="content-text">${content} <span class="re-comment-button" onclick="re_comment('${row.cmt_idx}');"><i class="fa-solid fa-reply"></i></span></div>`;
+        html += `<div class="re-comment"></div>`; 
         html += `</div>`;
       });
     });

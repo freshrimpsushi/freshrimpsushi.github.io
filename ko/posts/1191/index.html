@@ -797,7 +797,7 @@ xlabel(&#39;진폭{\bf Volt}&#39;), ylabel(&#39;시간{\it sec}{\sl sec}{\rm sec
     2019-07-17&emsp;
     전기현&emsp;
     
-    <a href="../660">🎲 1191</a>
+    <a href="../694">🎲 1191</a>
 </aside>
 
 
@@ -951,7 +951,11 @@ xlabel(&#39;진폭{\bf Volt}&#39;), ylabel(&#39;시간{\it sec}{\sl sec}{\rm sec
       html += `</div>`;
 
       row.child.map(child => {
-        html += `<div id="comment${child.cmt_idx}" class="child">`;
+        let commentClass = 'child';
+        if (row.ip_address && child.ip_address === row.ip_address) {
+        commentClass = 'parentself'; 
+        }
+        html += `<div id="comment${child.cmt_idx}" class="${commentClass}">`;
         html += `<div class="content-info">`;
         
         let badge = '';
@@ -989,7 +993,8 @@ xlabel(&#39;진폭{\bf Volt}&#39;), ylabel(&#39;시간{\it sec}{\sl sec}{\rm sec
         if(!child.approve) {html += `<div style="text-align: right;"><i class="fa-solid fa-hourglass-start"></i> 관리자의 승인을 기다리고 있습니다</div>`;}
         let content = child.content;
         content = content.replace(/\n/g, '<br />');
-        html += `<div class="content-text">${content}</div>`;
+        html += `<div class="content-text">${content} <span class="re-comment-button" onclick="re_comment('${row.cmt_idx}');"><i class="fa-solid fa-reply"></i></span></div>`;
+        html += `<div class="re-comment"></div>`; 
         html += `</div>`;
       });
     });
