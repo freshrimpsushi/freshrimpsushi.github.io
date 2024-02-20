@@ -38,8 +38,8 @@
     </style>
 
     
-    <script data-ad-client="ca-pub-4751085325232621" async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+    
 
     
     <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
@@ -120,7 +120,7 @@
     },
     "image": "https://freshrimpsushi.github.io/en/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/en\/posts\/2095\/",
-    "wordCount" : "144",
+    "wordCount" : "139",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -412,40 +412,43 @@
   <div class="innerheader">
     <div class="innertoc">
       <b>Table of Contents</b>
-      <nav id="TableOfContents"></nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#code">Code</a></li>
+    <li><a href="#environment">Environment</a></li>
+  </ul>
+</nav>
     </div>    
   </div>
 </aside>
 
-<pre tabindex="0"><code>## Summary
+<h2 id="overview">Overview</h2>
+<p>To use the <code>trunc</code> function, simply pass <code>Int</code> as the first argument.</p>
+<h2 id="code">Code</h2>
+<pre tabindex="0"><code>julia&gt; @time for t in 1:10^8
+           Int64(ceil(t/1000))
+       end
+  0.189653 seconds
 
-To use the `trunc` function, simply pass `Int` as the first argument.
+julia&gt; @time for t in 1:10^8
+           trunc(Int64, ceil(t/1000))
+       end
+  0.128472 seconds
+</code></pre><p>The two loops perform the identical task but with about a 1.5 times speed difference. The former drops the decimal points using <code>ceil</code> and type casts to <code>Int64</code>, whereas the latter returns an integer natively using the built-in capability of the <code>trunc</code> function, which is faster.</p>
+<p>People who are used to programming in other languages might find the straightforward commands like the upper loop more intuitive, but in Julia, there are many built-in functions that take a data type as the first argument to return a result, so the usage like in the lower loop will become more familiar.</p>
+<h2 id="environment">Environment</h2>
+<ul>
+<li>OS: Windows</li>
+<li>julia: v1.5.0</li>
+</ul>
 
-## Code
-</code></pre><p>julia&gt; @time for t in 1:10^8
-Int64(ceil(t/1000))
-end
-0.189653 seconds</p>
-<p>julia&gt; @time for t in 1:10^8
-trunc(Int64, ceil(t/1000))
-end
-0.128472 seconds</p>
-<pre tabindex="0"><code>
-The two loops perform the identical task but with about a 1.5 times speed difference. The former drops the decimal points using `ceil` and type casts to `Int64`, whereas the latter returns an integer natively using the built-in capability of the `trunc` function, which is faster.
-
-People who are used to programming in other languages might find the straightforward commands like the upper loop more intuitive, but in Julia, there are many built-in functions that take a data type as the first argument to return a result, so the usage like in the lower loop will become more familiar.
-
-## Environment
-
- - OS: Windows
- - julia: v1.5.0
-</code></pre>
 
 <aside style="text-align: right;">
     2021-10-11&emsp;
     류대식&emsp;
     
-    <a href="../1342">🎲 2095</a>
+    <a href="../1395">🎲 2095</a>
 </aside>
 
 
@@ -1100,7 +1103,7 @@ Click ● to highlight only you interested.
       { idx: 7, name: '선형대수', color: color.red, show: '선형대수', size: '92'},
       { idx: 8, name: '추상대수', color: color.green, show: 'AbstractAlgebra', size: '92'},
       { idx: 9, name: '위상수학', color: color.green, show: 'Topology', size: '64'},
-      { idx: 10, name: '그래프이론', color: color.green, show: 'GraphTheory', size: '57'}
+      { idx: 10, name: '그래프이론', color: color.green, show: 'GraphTheory', size: '58'}
     ],
     [
       { idx: 1, name: '해석개론', color: color.red, show: '해석개론', size: '97'},
@@ -1147,12 +1150,12 @@ Click ● to highlight only you interested.
       { idx: 9, name: '위상데이터분석', color: color.green, show: 'TDA', size: '40'}
     ],
     [
-      { idx: 1, name: '줄리아', color: color.green, show: 'Julia', size: '191'},
+      { idx: 1, name: '줄리아', color: color.green, show: 'Julia', size: '192'},
       { idx: 2, name: '프로그래밍', color: color.red, show: 'Programming', size: '55'},
       { idx: 3, name: '알고리즘', color: color.green, show: 'Algorithm', size: '28'},
       { idx: 4, name: '머신러닝', color: color.green, show: 'MachineLearning', size: '79'},
-      { idx: 5, name: '세이버메트릭스', color: color.green, show: 'Sabermetrics', size: '191', size: '12'},
-      { idx: 6, name: '논문작성', color: color.green, show: 'Writing', size: '20'},
+      { idx: 5, name: '세이버메트릭스', color: color.green, show: 'Sabermetrics', size: '192', size: '12'},
+      { idx: 6, name: '논문작성', color: color.green, show: 'Writing', size: '21'},
       { idx: 7, name: '교과과정', color: color.green, show: 'HighschoolMath', size: '54'},
       { idx: 8, name: '생새우초밥지', color: color.black , show: 'JOF', size: '3'}
     ]
@@ -1326,6 +1329,7 @@ Click ● to highlight only you interested.
 
 <br>
 <b>Recent comment</b>
+
 <div class="current-reply">
 </div>
 

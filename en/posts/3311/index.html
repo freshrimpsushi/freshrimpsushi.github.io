@@ -38,8 +38,8 @@
     </style>
 
     
-    <script data-ad-client="ca-pub-4751085325232621" async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+    
 
     
     <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
@@ -120,7 +120,7 @@
     },
     "image": "https://freshrimpsushi.github.io/en/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/en\/posts\/3311\/",
-    "wordCount" : "224",
+    "wordCount" : "211",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -412,69 +412,88 @@
   <div class="innerheader">
     <div class="innertoc">
       <b>Table of Contents</b>
-      <nav id="TableOfContents"></nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#code">Code</a>
+      <ul>
+        <li><a href="#defining-symbols">Defining Symbols</a></li>
+        <li><a href="#vectors-and-matrices">Vectors and Matrices</a></li>
+        <li><a href="#differentiation">Differentiation</a></li>
+      </ul>
+    </li>
+    <li><a href="#environment">Environment</a></li>
+  </ul>
+</nav>
     </div>    
   </div>
 </aside>
 
-<pre tabindex="0"><code>## Overview
+<h2 id="overview">Overview</h2>
+<p>Symbolic operations in Julia can be used through the <code>SymEngine.jl</code><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> package.</p>
+<h2 id="code">Code</h2>
+<h3 id="defining-symbols">Defining Symbols</h3>
+<p>Symbols can be defined in the following way.</p>
+<pre tabindex="0"><code>julia&gt; using SymEngine
 
-Symbolic operations in Julia can be used through the `SymEngine.jl`[^1] package.
+julia&gt; x = symbols(:x)
+x
 
-[^1]: https://symengine.org/SymEngine.jl/
+julia&gt; x, y = symbols(&#34;x y&#34;)
+(x, y)
 
-## Code
+julia&gt; @vars x, y
+(x, y)
+</code></pre><pre tabindex="0"><code>julia&gt; x = symbols(:x)
+x
 
-### Defining Symbols
-
-Symbols can be defined in the following way.
-</code></pre><p>julia&gt; using SymEngine</p>
-<p>julia&gt; x = symbols(:x)
-x</p>
-<p>julia&gt; x, y = symbols(&ldquo;x y&rdquo;)
-(x, y)</p>
-<p>julia&gt; @vars x, y
-(x, y)</p>
-<pre tabindex="0"><code></code></pre><p>julia&gt; x = symbols(:x)
-x</p>
-<p>julia&gt; f = 2x + x^2 + cos(x)
-2*x + x^2 + cos(x)</p>
-<pre tabindex="0"><code>
-### Vectors and Matrices
-</code></pre><p>julia&gt; v = [symbols(&ldquo;v_▷eq1◁i$j&rdquo;) for i in 1:2, j in 1:3]
+julia&gt; f = 2x + x^2 + cos(x)
+2*x + x^2 + cos(x)
+</code></pre><h3 id="vectors-and-matrices">Vectors and Matrices</h3>
+<pre tabindex="0"><code>julia&gt; v = [symbols(&#34;v_▷eq1◁i$j&#34;) for i in 1:2, j in 1:3]
 2×3 Matrix{Basic}:
-a_11  a_12  a_13
-a_21  a_22  a_23</p>
-<p>julia&gt; A<em>v
+ a_11  a_12  a_13
+ a_21  a_22  a_23
+
+julia&gt; A*v
 2-element Vector{Basic}:
-v_1</em>a_11 + v_2<em>a_12 + v_3</em>a_13
-v_1<em>a_21 + v_2</em>a_22 + v_3*a_23</p>
-<p>julia&gt; @vars a, b, c, d, x, y
-(a, b, c, d, x, y)</p>
-<p>julia&gt; [a b; c d] * [a x; b y]
+ v_1*a_11 + v_2*a_12 + v_3*a_13
+ v_1*a_21 + v_2*a_22 + v_3*a_23
+
+julia&gt; @vars a, b, c, d, x, y
+(a, b, c, d, x, y)
+
+julia&gt; [a b; c d] * [a x; b y]
 2×2 Matrix{Basic}:
-a^2 + b^2  a<em>x + b</em>y
-a<em>c + b</em>d  c<em>x + d</em>y</p>
-<pre tabindex="0"><code>
-### Differentiation
+ a^2 + b^2  a*x + b*y
+ a*c + b*d  c*x + d*y
+</code></pre><h3 id="differentiation">Differentiation</h3>
+<p>Symbolic differentiation can also be used with the <a href="../3135"><code>Calculus.jl</code></a> package.</p>
+<pre tabindex="0"><code>julia&gt; f = 2x + x^2 + cos(x)
+2*x + x^2 + cos(x)
 
-Symbolic differentiation can also be used with the [`Calculus.jl`](../3135) package.
-</code></pre><p>julia&gt; f = 2x + x^2 + cos(x)
-2*x + x^2 + cos(x)</p>
-<p>julia&gt; diff(f, x)
-2 + 2*x - sin(x)</p>
-<pre tabindex="0"><code>
-## Environment
+julia&gt; diff(f, x)
+2 + 2*x - sin(x)
+</code></pre><h2 id="environment">Environment</h2>
+<ul>
+<li>OS: Windows10</li>
+<li>Version: Julia v1.7.1, SymEngine v0.8.7</li>
+</ul>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://symengine.org/SymEngine.jl/">https://symengine.org/SymEngine.jl/</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
 
-- OS: Windows10
-- Version: Julia v1.7.1, SymEngine v0.8.7
-</code></pre>
 
 <aside style="text-align: right;">
     2022-10-15&emsp;
     전기현&emsp;
     
-    <a href="../2096">🎲 3311</a>
+    <a href="../1475">🎲 3311</a>
 </aside>
 
 
@@ -1129,7 +1148,7 @@ Click ● to highlight only you interested.
       { idx: 7, name: '선형대수', color: color.red, show: '선형대수', size: '92'},
       { idx: 8, name: '추상대수', color: color.green, show: 'AbstractAlgebra', size: '92'},
       { idx: 9, name: '위상수학', color: color.green, show: 'Topology', size: '64'},
-      { idx: 10, name: '그래프이론', color: color.green, show: 'GraphTheory', size: '57'}
+      { idx: 10, name: '그래프이론', color: color.green, show: 'GraphTheory', size: '58'}
     ],
     [
       { idx: 1, name: '해석개론', color: color.red, show: '해석개론', size: '97'},
@@ -1176,12 +1195,12 @@ Click ● to highlight only you interested.
       { idx: 9, name: '위상데이터분석', color: color.green, show: 'TDA', size: '40'}
     ],
     [
-      { idx: 1, name: '줄리아', color: color.green, show: 'Julia', size: '191'},
+      { idx: 1, name: '줄리아', color: color.green, show: 'Julia', size: '192'},
       { idx: 2, name: '프로그래밍', color: color.red, show: 'Programming', size: '55'},
       { idx: 3, name: '알고리즘', color: color.green, show: 'Algorithm', size: '28'},
       { idx: 4, name: '머신러닝', color: color.green, show: 'MachineLearning', size: '79'},
-      { idx: 5, name: '세이버메트릭스', color: color.green, show: 'Sabermetrics', size: '191', size: '12'},
-      { idx: 6, name: '논문작성', color: color.green, show: 'Writing', size: '20'},
+      { idx: 5, name: '세이버메트릭스', color: color.green, show: 'Sabermetrics', size: '192', size: '12'},
+      { idx: 6, name: '논문작성', color: color.green, show: 'Writing', size: '21'},
       { idx: 7, name: '교과과정', color: color.green, show: 'HighschoolMath', size: '54'},
       { idx: 8, name: '생새우초밥지', color: color.black , show: 'JOF', size: '3'}
     ]
@@ -1355,6 +1374,7 @@ Click ● to highlight only you interested.
 
 <br>
 <b>Recent comment</b>
+
 <div class="current-reply">
 </div>
 

@@ -38,8 +38,8 @@
     </style>
 
     
-    <script data-ad-client="ca-pub-4751085325232621" async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+    
 
     
     <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
@@ -120,7 +120,7 @@
     },
     "image": "https://freshrimpsushi.github.io/jp/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/jp\/posts\/2024\/",
-    "wordCount" : "256",
+    "wordCount" : "184",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -412,40 +412,53 @@
   <div class="innerheader">
     <div class="innertoc">
       <b>目次</b>
-      <nav id="TableOfContents"></nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#コード-1">コード </a></li>
+    <li><a href="#環境">環境</a></li>
+  </ul>
+</nav>
     </div>    
   </div>
 </aside>
 
-<pre tabindex="0"><code>## コード [^1]
+<h2 id="コード-1">コード <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>Juliaでは<a href="../1457">メタプログラミング</a>を言語レベルでサポートしている。これは文字列をそのままのコードとして読み込んで実行した結果だ。</p>
+<pre tabindex="0"><code>julia&gt; text = &#34;f(x) = 2x + 1; f(2)&#34;
+&#34;f(x) = 2x + 1; f(2)&#34;
 
-[^1]: https://docs.julialang.org/en/v1/manual/metaprogramming/
-
-Juliaでは[メタプログラミング](../1457)を言語レベルでサポートしている。これは文字列をそのままのコードとして読み込んで実行した結果だ。
-</code></pre><p>julia&gt; text = &ldquo;f(x) = 2x + 1; f(2)&rdquo;
-&ldquo;f(x) = 2x + 1; f(2)&rdquo;</p>
-<p>julia&gt; code = Meta.parse(text)
+julia&gt; code = Meta.parse(text)
 :($(Expr(:toplevel, :(f(x) = begin
-#= none:1 =#
-2x + 1
-end), :(f(2)))))</p>
-<p>julia&gt; eval(code)
-5</p>
-<pre tabindex="0"><code>
- - `Meta.Parse()`: 이 함수를 통해 입력된 문자열을 **표현식**&lt;sup&gt;Expression&lt;/sup&gt;으로 바꿔 반환한다.
- - `eval()`: 표현식을 **평가**&lt;sup&gt;Evaluate&lt;/sup&gt;한다. 위 예제코드에서는 $f(2)$ 가 실제로 평가되어 함숫값인 $5)
+          #= none:1 =#
+          2x + 1
+      end), :(f(2)))))
 
-## 環境
+julia&gt; eval(code)
+5
+</code></pre><ul>
+<li><code>Meta.Parse()</code>: 이 함수를 통해 입력된 문자열을 <strong>표현식</strong><sup>Expression</sup>으로 바꿔 반환한다.</li>
+<li><code>eval()</code>: 표현식을 <strong>평가</strong><sup>Evaluate</sup>한다. 위 예제코드에서는 $f(2)$ 가 실제로 평가되어 함숫값인 $5)</li>
+</ul>
+<h2 id="環境">環境</h2>
+<ul>
+<li>OS: Windows</li>
+<li>julia: v1.5.0</li>
+</ul>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://docs.julialang.org/en/v1/manual/metaprogramming/">https://docs.julialang.org/en/v1/manual/metaprogramming/</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
 
- - OS: Windows
- - julia: v1.5.0
-</code></pre>
 
 <aside style="text-align: right;">
     2021-05-22&emsp;
     류대식&emsp;
     
-    <a href="../878">🎲 2024</a>
+    <a href="../1684">🎲 2024</a>
 </aside>
 
 
@@ -1100,7 +1113,7 @@ end), :(f(2)))))</p>
       { idx: 7, name: '선형대수', color: color.red, show: '선형대수', size: '92'},
       { idx: 8, name: '추상대수', color: color.green, show: '抽象代数', size: '92'},
       { idx: 9, name: '위상수학', color: color.green, show: '位相幾何学', size: '64'},
-      { idx: 10, name: '그래프이론', color: color.green, show: 'グラフ理論', size: '57'}
+      { idx: 10, name: '그래프이론', color: color.green, show: 'グラフ理論', size: '58'}
     ],
     [
       { idx: 1, name: '해석개론', color: color.red, show: '해석개론', size: '97'},
@@ -1147,12 +1160,12 @@ end), :(f(2)))))</p>
       { idx: 9, name: '위상데이터분석', color: color.green, show: '位相データ分析', size: '40'}
     ],
     [
-      { idx: 1, name: '줄리아', color: color.green, show: 'ジュリア', size: '191'},
+      { idx: 1, name: '줄리아', color: color.green, show: 'ジュリア', size: '192'},
       { idx: 2, name: '프로그래밍', color: color.red, show: 'プログラミング', size: '55'},
       { idx: 3, name: '알고리즘', color: color.green, show: 'アルゴリズム', size: '28'},
       { idx: 4, name: '머신러닝', color: color.green, show: '機械学習', size: '79'},
-      { idx: 5, name: '세이버메트릭스', color: color.green, show: 'セイバーメトリクス', size: '191', size: '12'},
-      { idx: 6, name: '논문작성', color: color.green, show: '論文作成', size: '20'},
+      { idx: 5, name: '세이버메트릭스', color: color.green, show: 'セイバーメトリクス', size: '192', size: '12'},
+      { idx: 6, name: '논문작성', color: color.green, show: '論文作成', size: '21'},
       { idx: 7, name: '교과과정', color: color.green, show: '高校数学', size: '54'},
       { idx: 8, name: '생새우초밥지', color: color.black , show: '生エビ寿司誌', size: '3'}
     ]
@@ -1326,6 +1339,7 @@ end), :(f(2)))))</p>
 
 <br>
 <b>最新コメント</b>
+
 <div class="current-reply">
 </div>
 

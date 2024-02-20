@@ -38,8 +38,8 @@
     </style>
 
     
-    <script data-ad-client="ca-pub-4751085325232621" async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+    
 
     
     <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
@@ -120,7 +120,7 @@
     },
     "image": "https://freshrimpsushi.github.io/jp/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/jp\/posts\/3311\/",
-    "wordCount" : "334",
+    "wordCount" : "303",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -412,69 +412,88 @@
   <div class="innerheader">
     <div class="innertoc">
       <b>目次</b>
-      <nav id="TableOfContents"></nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#概要">概要</a></li>
+    <li><a href="#コード">コード</a>
+      <ul>
+        <li><a href="#シンボルの定義">シンボルの定義</a></li>
+        <li><a href="#ベクトルと行列">ベクトルと行列</a></li>
+        <li><a href="#微分">微分</a></li>
+      </ul>
+    </li>
+    <li><a href="#環境">環境</a></li>
+  </ul>
+</nav>
     </div>    
   </div>
 </aside>
 
-<pre tabindex="0"><code>## 概要
+<h2 id="概要">概要</h2>
+<p>Juliaでの記号演算は、<code>SymEngine.jl</code><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>パッケージを通じて使うことができる。</p>
+<h2 id="コード">コード</h2>
+<h3 id="シンボルの定義">シンボルの定義</h3>
+<p>シンボルは、以下の方法で定義することができる。</p>
+<pre tabindex="0"><code>julia&gt; using SymEngine
 
-Juliaでの記号演算は、`SymEngine.jl`[^1]パッケージを通じて使うことができる。
+julia&gt; x = symbols(:x)
+x
 
-[^1]: https://symengine.org/SymEngine.jl/
+julia&gt; x, y = symbols(&#34;x y&#34;)
+(x, y)
 
-## コード
+julia&gt; @vars x, y
+(x, y)
+</code></pre><pre tabindex="0"><code>julia&gt; x = symbols(:x)
+x
 
-### シンボルの定義
-
-シンボルは、以下の方法で定義することができる。
-</code></pre><p>julia&gt; using SymEngine</p>
-<p>julia&gt; x = symbols(:x)
-x</p>
-<p>julia&gt; x, y = symbols(&ldquo;x y&rdquo;)
-(x, y)</p>
-<p>julia&gt; @vars x, y
-(x, y)</p>
-<pre tabindex="0"><code></code></pre><p>julia&gt; x = symbols(:x)
-x</p>
-<p>julia&gt; f = 2x + x^2 + cos(x)
-2*x + x^2 + cos(x)</p>
-<pre tabindex="0"><code>
-### ベクトルと行列
-</code></pre><p>julia&gt; v = [symbols(&ldquo;v_▷eq1◁i$j&rdquo;) for i in 1:2, j in 1:3]
+julia&gt; f = 2x + x^2 + cos(x)
+2*x + x^2 + cos(x)
+</code></pre><h3 id="ベクトルと行列">ベクトルと行列</h3>
+<pre tabindex="0"><code>julia&gt; v = [symbols(&#34;v_▷eq1◁i$j&#34;) for i in 1:2, j in 1:3]
 2×3 Matrix{Basic}:
-a_11  a_12  a_13
-a_21  a_22  a_23</p>
-<p>julia&gt; A<em>v
+ a_11  a_12  a_13
+ a_21  a_22  a_23
+
+julia&gt; A*v
 2-element Vector{Basic}:
-v_1</em>a_11 + v_2<em>a_12 + v_3</em>a_13
-v_1<em>a_21 + v_2</em>a_22 + v_3*a_23</p>
-<p>julia&gt; @vars a, b, c, d, x, y
-(a, b, c, d, x, y)</p>
-<p>julia&gt; [a b; c d] * [a x; b y]
+ v_1*a_11 + v_2*a_12 + v_3*a_13
+ v_1*a_21 + v_2*a_22 + v_3*a_23
+
+julia&gt; @vars a, b, c, d, x, y
+(a, b, c, d, x, y)
+
+julia&gt; [a b; c d] * [a x; b y]
 2×2 Matrix{Basic}:
-a^2 + b^2  a<em>x + b</em>y
-a<em>c + b</em>d  c<em>x + d</em>y</p>
-<pre tabindex="0"><code>
-### 微分
+ a^2 + b^2  a*x + b*y
+ a*c + b*d  c*x + d*y
+</code></pre><h3 id="微分">微分</h3>
+<p>記号微分は、<a href="../3135"><code>Calculus.jl</code></a>パッケージでも使用することができる。</p>
+<pre tabindex="0"><code>julia&gt; f = 2x + x^2 + cos(x)
+2*x + x^2 + cos(x)
 
-記号微分は、[`Calculus.jl`](../3135)パッケージでも使用することができる。
-</code></pre><p>julia&gt; f = 2x + x^2 + cos(x)
-2*x + x^2 + cos(x)</p>
-<p>julia&gt; diff(f, x)
-2 + 2*x - sin(x)</p>
-<pre tabindex="0"><code>
-## 環境
+julia&gt; diff(f, x)
+2 + 2*x - sin(x)
+</code></pre><h2 id="環境">環境</h2>
+<ul>
+<li>OS: Windows10</li>
+<li>バージョン: Julia v1.7.1, SymEngine v0.8.7</li>
+</ul>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://symengine.org/SymEngine.jl/">https://symengine.org/SymEngine.jl/</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
 
-- OS: Windows10
-- バージョン: Julia v1.7.1, SymEngine v0.8.7
-</code></pre>
 
 <aside style="text-align: right;">
     2022-10-15&emsp;
     전기현&emsp;
     
-    <a href="../1946">🎲 3311</a>
+    <a href="../866">🎲 3311</a>
 </aside>
 
 
@@ -1129,7 +1148,7 @@ a<em>c + b</em>d  c<em>x + d</em>y</p>
       { idx: 7, name: '선형대수', color: color.red, show: '선형대수', size: '92'},
       { idx: 8, name: '추상대수', color: color.green, show: '抽象代数', size: '92'},
       { idx: 9, name: '위상수학', color: color.green, show: '位相幾何学', size: '64'},
-      { idx: 10, name: '그래프이론', color: color.green, show: 'グラフ理論', size: '57'}
+      { idx: 10, name: '그래프이론', color: color.green, show: 'グラフ理論', size: '58'}
     ],
     [
       { idx: 1, name: '해석개론', color: color.red, show: '해석개론', size: '97'},
@@ -1176,12 +1195,12 @@ a<em>c + b</em>d  c<em>x + d</em>y</p>
       { idx: 9, name: '위상데이터분석', color: color.green, show: '位相データ分析', size: '40'}
     ],
     [
-      { idx: 1, name: '줄리아', color: color.green, show: 'ジュリア', size: '191'},
+      { idx: 1, name: '줄리아', color: color.green, show: 'ジュリア', size: '192'},
       { idx: 2, name: '프로그래밍', color: color.red, show: 'プログラミング', size: '55'},
       { idx: 3, name: '알고리즘', color: color.green, show: 'アルゴリズム', size: '28'},
       { idx: 4, name: '머신러닝', color: color.green, show: '機械学習', size: '79'},
-      { idx: 5, name: '세이버메트릭스', color: color.green, show: 'セイバーメトリクス', size: '191', size: '12'},
-      { idx: 6, name: '논문작성', color: color.green, show: '論文作成', size: '20'},
+      { idx: 5, name: '세이버메트릭스', color: color.green, show: 'セイバーメトリクス', size: '192', size: '12'},
+      { idx: 6, name: '논문작성', color: color.green, show: '論文作成', size: '21'},
       { idx: 7, name: '교과과정', color: color.green, show: '高校数学', size: '54'},
       { idx: 8, name: '생새우초밥지', color: color.black , show: '生エビ寿司誌', size: '3'}
     ]
@@ -1355,6 +1374,7 @@ a<em>c + b</em>d  c<em>x + d</em>y</p>
 
 <br>
 <b>最新コメント</b>
+
 <div class="current-reply">
 </div>
 

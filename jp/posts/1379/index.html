@@ -38,8 +38,8 @@
     </style>
 
     
-    <script data-ad-client="ca-pub-4751085325232621" async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+    
 
     
     <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
@@ -54,14 +54,14 @@
         gtag('config', 'G-NLV8Y9PRK1');
     </script>
 
-    <title>ジュリアのタイプとアノテーション</title>
+    <title>줄리아의 타입과 애노테이션</title>
 
     
 </head>
 
-<meta name="title" content="ジュリアのタイプとアノテーション">
+<meta name="title" content="줄리아의 타입과 애노테이션">
 <meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
-<meta property="og:title" content="ジュリアのタイプとアノテーション"/>
+<meta property="og:title" content="줄리아의 타입과 애노테이션"/>
 <meta property="og:description" content="Type and annotation in julia"/>
 <meta property="og:image" content=https://freshrimpsushi.github.io/jp/logo/basic.png/>
 
@@ -80,8 +80,8 @@
     "@context": "http://schema.org",
     "@type": "BlogPosting",
     "articleSection": "r_",
-    "name": "ジュリアのタイプとアノテーション",
-    "headline": "ジュリアのタイプとアノテーション",
+    "name": "줄리아의 타입과 애노테이션",
+    "headline": "줄리아의 타입과 애노테이션",
     "alternativeHeadline": "",
     "description": "Type and annotation in julia",
     "inLanguage": "jp",
@@ -120,7 +120,7 @@
     },
     "image": "https://freshrimpsushi.github.io/jp/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/jp\/posts\/1379\/",
-    "wordCount" : "171",
+    "wordCount" : "726",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -231,7 +231,7 @@
     <div class="content">
       <div class="content-box">
         
-<title>ジュリアのタイプとアノテーション</title>
+<title>줄리아의 타입과 애노테이션</title>
 
 
 
@@ -405,7 +405,7 @@
         
 
 
-<h1>ジュリアのタイプとアノテーション</h1>
+<h1>줄리아의 타입과 애노테이션</h1>
 
 
 <aside>
@@ -414,13 +414,96 @@
       <b>目次</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#environment">Environment</a></li>
+    <li><a href="#コード">コード</a></li>
+    <li><a href="#環境">環境</a></li>
   </ul>
 </nav>
     </div>    
   </div>
 </aside>
 
+<h2 id="コード">コード</h2>
+<pre tabindex="0"><code>julia&gt; typeof(0)
+Int64
+
+julia&gt; typeof(0.0)
+Float64
+
+julia&gt; typeof(0 == 0.0)
+Bool
+
+julia&gt; typeof(Bool)
+DataType
+
+julia&gt; typeof(NaN)
+Float64
+
+julia&gt; typeof(Inf)
+Float64
+
+julia&gt; typeof(&#39;O&#39;)
+Char
+
+julia&gt; typeof(&#34;Ohmygirl&#34;)
+String
+
+julia&gt; typeof(&#34;O&#34;)
+String
+</code></pre><p>Juliaには様々なタイプが実装されている。$0$と$0.0$は同じ$0$だが、異なるタイプを持っており、見ての通り、<code>Bool</code>でさえ<code>DataType</code>というタイプを持っている。C言語のように、<code>String</code>は<code>Char</code>の配列であり、上のようにダブルクォートかシングルクォートで区別される。</p>
+<pre tabindex="0"><code>julia&gt; supertype(Int64)
+Signed
+
+julia&gt; supertype(Signed)
+Integer
+
+julia&gt; supertype(Integer)
+Real
+
+julia&gt; supertype(Real)
+Number
+
+julia&gt; supertype(Number)
+Any
+
+julia&gt; supertype(Any)
+Any
+</code></pre><p>上のように<code>supertype()</code>関数を使えば、タイプの上位タイプを確認できる。すべてのタイプは<code>Any</code>タイプのサブタイプである。<code>Any</code>は文字通りすべてを包含するため、便利で生産性が高い。</p>
+<pre tabindex="0"><code>julia&gt; x = [&#34;o&#34;, -1, [7,&#39;m&#39;],3.0]
+4-element Array{Any,1}:
+   &#34;o&#34;
+ -1
+   Any[7, &#39;m&#39;]
+  3.0
+
+julia&gt; typeof(x)
+Array{Any,1}
+
+julia&gt; x[2] = 1.2
+1.2
+
+julia&gt; typeof(x)
+Array{Any,1}
+
+julia&gt; y = [0,1,1]
+3-element Array{Int64,1}:
+ 0
+ 1
+ 1
+
+julia&gt; typeof(y)
+Array{Int64,1}
+
+julia&gt; y[2] = 1.2
+ERROR: InexactError: Int64(1.2)
+Stacktrace:
+ [1] Int64 at .\float.jl:710 [inlined]
+ [2] convert at .\number.jl:7 [inlined]
+ [3] setindex!(::Array{Int64,1}, ::Float64, ::Int64) at .\array.jl:847
+ [4] top-level scope at REPL[39]:1
+
+julia&gt; typeof(y)
+Array{Int64,1}
+</code></pre><p><code>Any</code>で作られた配列は値の代入や操作がシンプルに行われるが、整数の配列に限定される場合は不可能である。Juliaは<a href="../1364">強いタイプ</a>の言語で、このように推論されるタイプを与えることで、パフォーマンスを向上させ、バグの発生を根本的に防ぐことができる。タイプを制限することを<strong>アノテーション</strong>といい、まずプログラムが実装されているか確認した後、必ず最適化することが望ましい。通常、<a href="../1374">Juliaを使う最大の理由</a>は速さである。</p>
 <pre tabindex="0"><code>julia&gt; function add1(a,b)
            return a+b
        end
@@ -448,19 +531,19 @@ Stacktrace:
 
 julia&gt; add2(1,2.0)
 3.0
-</code></pre><p>上のように <code>::</code> を使って変数が具体的に何であるかを知らせると、タイプが合わない時にエラーが出る。こうしてアノテーションがされていれば、タイプをチェックする必要がなくなるから、当然パフォーマンスが向上する。</p>
-<h2 id="environment">Environment</h2>
+</code></pre><p>上のように<code>::</code>を使って変数が具体的に何であるかを指定すると、タイプが合わない場合にエラーを出す。このようにアノテーションがされていると、タイプをチェックする必要がなくなり、当然パフォーマンスが向上する。</p>
+<h2 id="環境">環境</h2>
 <ul>
 <li>OS: Windows</li>
 <li>julia: v1.5.0</li>
 </ul>
-<pre tabindex="0"><code></code></pre>
+
 
 <aside style="text-align: right;">
     2019-11-13&emsp;
     류대식&emsp;
     
-    <a href="../678">🎲 1379</a>
+    <a href="../491">🎲 1379</a>
 </aside>
 
 
@@ -477,7 +560,7 @@ julia&gt; add2(1,2.0)
       renderKaTex(tex);
     }
 
-    var title = 'ジュリアのタイプとアノテーション';
+    var title = '줄리아의 타입과 애노테이션';
     var link = 'https:\/\/freshrimpsushi.github.io\/jp\/posts\/1379\/';
     var arr = new Array();
     var obj = {
@@ -684,7 +767,7 @@ julia&gt; add2(1,2.0)
     }
     const idx = '1379';
     const board_slug = 'type-and-annotation-in-julia';
-    const board_title = 'ジュリアのタイプとアノテーション';
+    const board_title = '줄리아의 타입과 애노테이션';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -927,7 +1010,7 @@ julia&gt; add2(1,2.0)
 
     const board_idx = '1379';
     const board_slug = 'type-and-annotation-in-julia';
-    const board_title = 'ジュリアのタイプとアノテーション';
+    const board_title = '줄리아의 타입과 애노테이션';
 
     fetch('https://api64.ipify.org?format=json')
       .then(res => res.json())
@@ -1115,7 +1198,7 @@ julia&gt; add2(1,2.0)
       { idx: 7, name: '선형대수', color: color.red, show: '선형대수', size: '92'},
       { idx: 8, name: '추상대수', color: color.green, show: '抽象代数', size: '92'},
       { idx: 9, name: '위상수학', color: color.green, show: '位相幾何学', size: '64'},
-      { idx: 10, name: '그래프이론', color: color.green, show: 'グラフ理論', size: '57'}
+      { idx: 10, name: '그래프이론', color: color.green, show: 'グラフ理論', size: '58'}
     ],
     [
       { idx: 1, name: '해석개론', color: color.red, show: '해석개론', size: '97'},
@@ -1162,12 +1245,12 @@ julia&gt; add2(1,2.0)
       { idx: 9, name: '위상데이터분석', color: color.green, show: '位相データ分析', size: '40'}
     ],
     [
-      { idx: 1, name: '줄리아', color: color.green, show: 'ジュリア', size: '191'},
+      { idx: 1, name: '줄리아', color: color.green, show: 'ジュリア', size: '192'},
       { idx: 2, name: '프로그래밍', color: color.red, show: 'プログラミング', size: '55'},
       { idx: 3, name: '알고리즘', color: color.green, show: 'アルゴリズム', size: '28'},
       { idx: 4, name: '머신러닝', color: color.green, show: '機械学習', size: '79'},
-      { idx: 5, name: '세이버메트릭스', color: color.green, show: 'セイバーメトリクス', size: '191', size: '12'},
-      { idx: 6, name: '논문작성', color: color.green, show: '論文作成', size: '20'},
+      { idx: 5, name: '세이버메트릭스', color: color.green, show: 'セイバーメトリクス', size: '192', size: '12'},
+      { idx: 6, name: '논문작성', color: color.green, show: '論文作成', size: '21'},
       { idx: 7, name: '교과과정', color: color.green, show: '高校数学', size: '54'},
       { idx: 8, name: '생새우초밥지', color: color.black , show: '生エビ寿司誌', size: '3'}
     ]
@@ -1310,7 +1393,7 @@ julia&gt; add2(1,2.0)
       renderKaTex(tex);
     }
 
-    var title = 'ジュリアのタイプとアノテーション';
+    var title = '줄리아의 타입과 애노테이션';
     var link = 'https:\/\/freshrimpsushi.github.io\/jp\/posts\/1379\/';
     var arr = new Array();
     var obj = {
@@ -1341,6 +1424,7 @@ julia&gt; add2(1,2.0)
 
 <br>
 <b>最新コメント</b>
+
 <div class="current-reply">
 </div>
 

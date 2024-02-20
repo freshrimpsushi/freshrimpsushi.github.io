@@ -38,8 +38,8 @@
     </style>
 
     
-    <script data-ad-client="ca-pub-4751085325232621" async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+    
 
     
     <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
@@ -120,7 +120,7 @@
     },
     "image": "https://freshrimpsushi.github.io/ko/logo/basic.png",
     "url" : "https:\/\/freshrimpsushi.github.io\/ko\/posts\/1998\/",
-    "wordCount" : "923",
+    "wordCount" : "408",
     "genre" : [ ],
     "keywords" : [ ]
 }
@@ -414,14 +414,6 @@
       <b>목차</b>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#코드">코드</a></li>
-    <li><a href="#트릭">트릭</a>
-      <ul>
-        <li><a href="#ranking"><code>ranking</code></a></li>
-        <li><a href="#argnth"><code>argnth</code></a></li>
-      </ul>
-    </li>
-    <li><a href="#환경">환경</a></li>
     <li><a href="#정의-1-2">정의  </a></li>
     <li><a href="#설명">설명</a></li>
   </ul>
@@ -430,75 +422,12 @@
   </div>
 </aside>
 
-<h1 id="줄리아의-정렬순열-함수과-그-응용-sortperm">줄리아의 정렬순열 함수과 그 응용 sortperm</h1>
-<p>Application for sortperm in julia</p>
-<h2 id="코드">코드</h2>
-<p><code>sortperm</code>은 주어진 배열을 정렬이 되도록 하는 인덱스의 배열을 리턴한다<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. 말만 보면 어려워 보이지만 예시를 보면 한 번에 이해가 된다.</p>
-<pre tabindex="0"><code>julia&gt; foo = [&#39;다&#39;, &#39;나&#39;, &#39;라&#39;, &#39;가&#39;]
-4-element Vector{Char}:
- &#39;다&#39;: Unicode U+B2E4 (category Lo: Letter, other)
- &#39;나&#39;: Unicode U+B098 (category Lo: Letter, other)
- &#39;라&#39;: Unicode U+B77C (category Lo: Letter, other)
- &#39;가&#39;: Unicode U+AC00 (category Lo: Letter, other)
-
-julia&gt; sortperm(foo)
-4-element Vector{Int64}:
- 4
- 2
- 1
- 3
-
-julia&gt; foo[sortperm(foo)]
-4-element Vector{Char}:
- &#39;가&#39;: Unicode U+AC00 (category Lo: Letter, other)
- &#39;나&#39;: Unicode U+B098 (category Lo: Letter, other)
- &#39;다&#39;: Unicode U+B2E4 (category Lo: Letter, other)
- &#39;라&#39;: Unicode U+B77C (category Lo: Letter, other)
-</code></pre><h2 id="트릭">트릭</h2>
-<p>내장함수까지는 아니지만 <code>sortperm</code>으로 자주 쓰는 트릭을 소개한다.</p>
-<h3 id="ranking"><code>ranking</code></h3>
-<p><code>ranking(x) = sortperm(sortperm(x, rev = true))</code></p>
-<p>배열의 랭킹을 리턴한다. 랭킹 함수는 통계 관련 패키지인 <code>StatBase.jl</code>에도 있기는 하다<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>. 그러나 <code>sortperm</code>만으로도 쉽게 구현할 수 있어서 딱 랭킹만 필요한 경우엔 패키지를 로드하지 않고 이렇게 쓰기도 한다.</p>
-<pre tabindex="0"><code>julia&gt; a = randn(5)
-5-element Vector{Float64}:
-  0.7795283609374186
-  0.6230493124556412
-  1.7323736283590032
- -2.0790567409341945
- -0.05984808360056012
-
-julia&gt; ranking(a)
-5-element Vector{Int64}:
- 2
- 3
- 1
- 5
- 4
-</code></pre><h3 id="argnth"><code>argnth</code></h3>
-<p><code>argnth(n, A) = sortperm(A, rev = true)[n]</code></p>
-<p><code>n</code>번째로 큰 원소의 인덱스를 리턴한다. 막상 <code>sortperm</code> 없이 짜보려면 구현하기가 까다롭다.</p>
-<pre tabindex="0"><code>julia&gt; b = randn(5)
-5-element Vector{Float64}:
- -0.45523175238444824
-  0.2671034422090365
- -1.0703159524443844
- -0.4218688982647255
- -0.27806227968448743
-
-julia&gt; argnth(3, b)
-4
-</code></pre><h2 id="환경">환경</h2>
-<ul>
-<li>OS: Windows</li>
-<li>julia: v1.10.0</li>
-</ul>
-<hr>
 <p>해밍 거리
 Hamming Distance</p>
 <hr>
 <p>그래프와 그래프 사이의 스펙트럴 거리
 Spectral Distance between Graph and Graph</p>
-<h2 id="정의-1-2">정의 <sup id="fnref1:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> <sup id="fnref1:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h2>
+<h2 id="정의-1-2">정의 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h2>
 <p>버텍스의 수가 $n$ 인 두 <a href="../966">그래프</a> $G_{1}$, $G_{2}$ 의 <a href="../1499">인접행렬</a>을 $A_{1}$, $A_{2}$ 라 하자. 이들이 내림차순으로 정렬된 <a href="../319">고유값</a>, 즉 스펙트라<sup>Spectra</sup>를 각각 다음과 같이 나타내자.
 $$
 A_{1} \mapsto \lambda_{1}^{(1)} \ge \cdots \ge \lambda_{n}^{(1)} \\
@@ -526,17 +455,7 @@ $$</p>
 <h1 id="kosis-국가데이터포털-소개-introduction-to-kosis">KOSIS 국가데이터포털 소개 Introduction to KOSIS</h1>
 <p><a href="https://kosis.kr/index/index.do">https://kosis.kr/index/index.do</a></p>
 <hr>
-<h1 id="줄리아-벤치마크-하는-법">줄리아 벤치마크 하는 법</h1>
-<p><a href="https://github.com/JuliaCI/BenchmarkTools.jl">https://github.com/JuliaCI/BenchmarkTools.jl</a>
-<a href="https://discourse.julialang.org/t/time-vs-btime/9879/6">https://discourse.julialang.org/t/time-vs-btime/9879/6</a></p>
-<pre tabindex="0"><code>using BenchmarkTools
-x = rand()
-@btime SC = sincospi($x);
-@btime S = sinpi($x);
-@btime SC = [sinpi($x) cospi($x)];
-@benchmark SC = sincospi($x)
-@benchmark SC = [sinpi($x) cospi($x)]
-</code></pre><hr>
+<hr>
 <p>strogatz 260~</p>
 <p>새들-노드 바이퍼케이션(blue sky bifurcation, allen)
 인피니트-피리어드 바이퍼케이션
@@ -550,10 +469,10 @@ Codimension: Kuznetsov p63, strogatz p70</p>
 <hr>
 <ol>
 <li id="fn:1">
-<p><a href="https://docs.julialang.org/en/v1/base/sort/#Base.sortperm">https://docs.julialang.org/en/v1/base/sort/#Base.sortperm</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Richard. (2008). A study of graph spectra for comparing graphs and trees: <a href="https://doi.org/10.1016/j.patcog.2008.03.011">https://doi.org/10.1016/j.patcog.2008.03.011</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2">
-<p><a href="https://juliastats.org/StatsBase.jl/stable/ranking/">https://juliastats.org/StatsBase.jl/stable/ranking/</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Wills P, Meyer FG (2020) Metrics for graph comparison: A practitioner’s guide. PLoS ONE 15(2): e0228728. <a href="https://doi.org/10.1371/journal.pone.0228728">https://doi.org/10.1371/journal.pone.0228728</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </div>
@@ -563,7 +482,7 @@ Codimension: Kuznetsov p63, strogatz p70</p>
     2021-01-01&emsp;
     류대식&emsp;
     
-    <a href="../1844">🎲 1998</a>
+    <a href="../1552">🎲 1998</a>
 </aside>
 
 
@@ -1217,7 +1136,7 @@ Codimension: Kuznetsov p63, strogatz p70</p>
       { idx: 7, name: '선형대수', color: color.red, show: '선형대수', size: '93'},
       { idx: 8, name: '추상대수', color: color.green, show: '추상대수', size: '92'},
       { idx: 9, name: '위상수학', color: color.green, show: '위상수학', size: '64'},
-      { idx: 10, name: '그래프이론', color: color.green, show: '그래프이론', size: '57'}
+      { idx: 10, name: '그래프이론', color: color.green, show: '그래프이론', size: '58'}
     ],
     [
       { idx: 1, name: '해석개론', color: color.red, show: '해석개론', size: '97'},
@@ -1264,12 +1183,12 @@ Codimension: Kuznetsov p63, strogatz p70</p>
       { idx: 9, name: '위상데이터분석', color: color.green, show: '위상데이터분석', size: '40'}
     ],
     [
-      { idx: 1, name: '줄리아', color: color.green, show: '줄리아', size: '191'},
+      { idx: 1, name: '줄리아', color: color.green, show: '줄리아', size: '192'},
       { idx: 2, name: '프로그래밍', color: color.red, show: '프로그래밍', size: '56'},
       { idx: 3, name: '알고리즘', color: color.green, show: '알고리즘', size: '28'},
       { idx: 4, name: '머신러닝', color: color.green, show: '머신러닝', size: '83'},
-      { idx: 5, name: '세이버메트릭스', color: color.green, show: '세이버메트릭스', size: '191', size: '12'},
-      { idx: 6, name: '논문작성', color: color.green, show: '논문작성', size: '20'},
+      { idx: 5, name: '세이버메트릭스', color: color.green, show: '세이버메트릭스', size: '192', size: '12'},
+      { idx: 6, name: '논문작성', color: color.green, show: '논문작성', size: '21'},
       { idx: 7, name: '교과과정', color: color.green, show: '교과과정', size: '54'},
       { idx: 8, name: '생새우초밥지', color: color.black , show: '생새우초밥지', size: '3'}
     ]
@@ -1443,6 +1362,7 @@ Codimension: Kuznetsov p63, strogatz p70</p>
 
 <br>
 <b>최신 댓글</b>
+
 <div class="current-reply">
 </div>
 
