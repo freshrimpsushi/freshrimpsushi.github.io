@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
     
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
     
+    <link rel="preload" href=https://freshrimpsushi.github.io/en/css/style.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <link rel="preload" href=https://freshrimpsushi.github.io/en/css/comment.css rel="preload" as="style" onload="this.rel='stylesheet'">
 
     
     <meta name="NaverBot" content="All" />
@@ -19,13 +21,6 @@
     <link rel="icon" href="https://freshrimpsushi.github.io/ko/logo/favicon.ico">
     <meta name="msapplication-TileColor" content="#FFFFFF">
     <meta name="msapplication-TileImage" content="logo/basic.png">
-
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.1/katex.min.css"
-        integrity="sha512-vJqxkZ+Sugf/6WRlpcxN01qVfX/29hF6qc33eHF1va3NgoV+U+wCi+uTAsQ10sDoGyBxHLdaHvGwDlV3yVYboA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href=https://freshrimpsushi.github.io/en/css/style.css rel="preload" as="style" onload="this.rel='stylesheet'">
-    <link href=https://freshrimpsushi.github.io/en/css/comment.css rel="preload" as="style" onload="this.rel='stylesheet'">
 
     
     <style type="text/css">
@@ -142,7 +137,10 @@
     </a>
 </header>
 
-   
+  
+
+
+ 
 <script type="text/javascript">
     var goIndex = function(){
         var idx = document.getElementsByName("idx")[0].value;
@@ -151,29 +149,6 @@
     }
 </script>
 
-
-
-  <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    fetch('https://api64.ipify.org?format=json')
-      .then(res => res.json())
-      .then(data => {
-        return data.ip
-      })
-      .then(ip => {
-        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/ip_checker.php';
-        return postFetch(url, { user_ip: ip });
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (!data.ok) {
-          alert('차단된 IP입니다.\nContact:\nfreshrimpsushi@gmail.com')
-          window.location.href = 'https://google.com';
-        }
-      })
-      .catch(err => console.error(err));
-  });
-</script>
   <form method="get" action="/en/search" style="border: 1px; text-align: center;">
     <div class="field">
     <input type="text" id="searchtext" placeholder = "🔍︎" class="input_text" name="s"
@@ -506,7 +481,7 @@ histogram(degree, xscale = :log10, yscale = :log10, xticks = 10.0 .^(-0:0.5:2), 
     2022-04-13&emsp;
     류대식&emsp;
     
-    <a href="../2099">🎲 2187</a>
+    <a href="../1100">🎲 2187</a>
 </aside>
 
 
@@ -578,7 +553,7 @@ histogram(degree, xscale = :log10, yscale = :log10, xticks = 10.0 .^(-0:0.5:2), 
  
   </div>
   
-  <button class="write-button" onclick="write_comment()"><i class='fa-solid fa-paper-plane'></i></button>
+  <button class="write-button" onclick="write_comment()" aria-label="send"><i class='fa-solid fa-paper-plane'></i></button>
   <aside class="tex"> 
     $\TeX$ is also applied to comments.
     </aside>
@@ -955,8 +930,8 @@ histogram(degree, xscale = :log10, yscale = :log10, xticks = 10.0 .^(-0:0.5:2), 
     html += '<input class="re-comment-password" type="password" value="" placeholder="비밀번호" />';
     html += '</div>';
     html += '<textarea class="re-comment-content" placeholder="내용" value="" style="IME-MODE:active;"></textarea>';
-    html += `<button class="write-button" onclick="re_comment_click(${cmt_idx})"><i class='fa-solid fa-paper-plane'></i></button>`
-    html += `<button class="write-button" onclick="cancel_click(${cmt_idx})"><i class='fa-solid fa-solid fa-ban'></i></button>`
+    html += `<button class="write-button" onclick="re_comment_click(${cmt_idx})" value="send"><i class='fa-solid fa-paper-plane'></i></button>`
+    html += `<button class="write-button" onclick="cancel_click(${cmt_idx})" value="close"><i class='fa-solid fa-solid fa-ban'></i></button>`
     html += '</div>';
     reComment.innerHTML = html;
   }
@@ -1021,8 +996,7 @@ histogram(degree, xscale = :log10, yscale = :log10, xticks = 10.0 .^(-0:0.5:2), 
 
 </script>
     </div>
-    <aside>
-<div class="sidebar">
+    <aside class="sidebar">
 
 <div class="category">
 </div>
@@ -1152,7 +1126,7 @@ Click ● to highlight only you interested.
 
 
 
-<script>
+<script defer>
   const color = {green: '#33cc33', yellow: '#ffcc00', red: '#ff3333', black: '#000000'};
   const categoryRows = [
     [
@@ -1326,7 +1300,7 @@ Click ● to highlight only you interested.
 <div class="lately-viewed-list" style="padding-left: 4px;">
 </div>
 
-<script>
+<script defer>
   document.addEventListener('DOMContentLoaded', () => {
     const postList = JSON.parse(localStorage.getItem('latelyViewPostList'));
 
@@ -1349,7 +1323,7 @@ Click ● to highlight only you interested.
   });
 </script>
 
-<script>
+<script defer>
   document.addEventListener('DOMContentLoaded', () => {
     
     const contentBox = document.querySelector('.content-box');
@@ -1396,7 +1370,8 @@ Click ● to highlight only you interested.
 <div class="current-reply">
 </div>
 
-<script>
+
+<script defer>
   const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/recent_comment.php?action=getCurrentComment';
   let recentRows = []; 
   fetch(url)
@@ -1435,7 +1410,6 @@ Click ● to highlight only you interested.
     renderKaTex(currentReply);
   }
 </script>
-</div>
 </aside>
   </div>
   
@@ -1458,14 +1432,45 @@ Click ● to highlight only you interested.
   </aside>
 </footer>
 
-  
+</body>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    fetch('https://api64.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => {
+        return data.ip
+      })
+      .then(ip => {
+        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/ip_checker.php';
+        return postFetch(url, { user_ip: ip });
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (!data.ok) {
+          alert('차단된 IP입니다.\nContact:\nfreshrimpsushi@gmail.com')
+          window.location.href = 'https://google.com';
+        }
+      })
+      .catch(err => console.error(err));
+  });
+</script>
 
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.1/katex.min.js"
-  integrity="sha512-5ufNcHqOYgilGEHPfuRIQ5B/vDS1M8+UC+DESZ5CwVgGTg+b2Ol/15rYL/GiCWJ/Sx8oVo0FPFok1dPk8U9INQ=="
-  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.1/contrib/auto-render.min.js"
-  integrity="sha512-ZA/RPrAo88DlwRnnoNVqKINnQNcWERzRK03PDaA4GIJiVZvGFIWQbdWCsUebMZfkWohnfngsDjXzU6PokO4jGw=="
-  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+
+<script src=https://freshrimpsushi.github.io/en/js/fontawsome.min.js></script>
+
+<script src=https://freshrimpsushi.github.io/en/js/common.js></script>
+
+
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
 
 <script>
   
@@ -1515,15 +1520,4 @@ Click ● to highlight only you interested.
     });
   }
 </script>
-  
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11" async></script>
-
-
-
-
-<script src=https://freshrimpsushi.github.io/en/js/fontawsome.js></script>
-
-<script src=https://freshrimpsushi.github.io/en/js/common.js></script>
-</body>
-
 </html>

@@ -1,29 +1,30 @@
 /*폰트 지정*/
  /* 240215 류대식: LaTeX 폰트로 해보니까 가독성이 너무 떨어짐 https://github.com/vsalvino/computer-modern */ /* @import url("https://cdn.jsdelivr.net/gh/vsalvino/computer-modern@main/fonts/concrete.css"); */
  /* 240215 류대식: Noto Sans가 한국어 일본어 다 포함하는거였음 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
-html {
-    font-family: "Roboto", 'Noto Sans KR', sans-serif;
-    /* font-family: "Computer Modern Concrete", "Noto Sans KR", serif; */
-    /* font-family: Consolas; */
-}
+ @font-face {
+    font-display: fallback; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Noto Sans';
+    src: url('../fonts/NotoSans-Regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+html {font-family: 'Noto Sans';}
 
 /* 반응형 웹페이지 */
-@media screen and ( max-width: 954px ) {
-    .wrapper {
+@media screen and ( max-width: 964px ) {
+    /* .wrapper {
         min-height: 10vh;
-    }
+    } */
     .content {
-        float: left;
+        /* float: left; */
         width: 100%;
     }
     .sidebar {
         width: 100%;
     }
+    /* 24/02/21 류대식: 공백을 미리 두어서 LCS 최적화 */
+    .category {min-height: 100%;}
 }
 /* 데스크탑 */
-@media screen and ( min-width: 954px ) {
+@media screen and ( min-width: 964px ) {
     html {
         display: flex;
         justify-content: center;
@@ -31,7 +32,7 @@ html {
     .wrapper {
         display: flex;
         justify-content: center;
-        min-height: 10vh;
+        /* min-height: 10vh; */
     }
     .content {
         width: 728px;
@@ -40,8 +41,11 @@ html {
         margin-left: 8px;
         width: 228px;
     }
+    /* 24/02/21 류대식: 공백을 미리 두어서 LCS 최적화 */
+    .category {min-height: 80rem;}
 
-    .innerheader {
+    /* (24/02/21) 류대식: Table of contents가 LCS를 크게 유발해서 일시 중단 */
+    /* .innerheader {
         display: flex;
         justify-content: right;
         align-items: center;
@@ -56,6 +60,10 @@ html {
     .innertoc:hover {
         border-radius: 1em;
         background-color: rgb(255,204,000);
+    } */
+    .innertoc {
+        margin-left: 50%;
+        max-width: 500px;
     }
 }
 
@@ -319,6 +327,7 @@ textarea {
 /** sidebar 최근 댓글 START **/
 .current-reply {
     list-style-type: none;
+    margin-bottom: 0%;
     padding-left: 4px;
 }
 .current-reply .current-reply-list {

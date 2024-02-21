@@ -1,3 +1,6 @@
+// 변경이 잦아 삭제하면 안 되고 fontawsome.min.js만 별도로 만들어서 로드
+// minifier 링크: https://www.toptal.com/developers/javascript-minifier
+
 /*!
  * Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
