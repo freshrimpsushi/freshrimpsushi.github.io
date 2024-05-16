@@ -34,23 +34,4 @@ anim = @animate for tk in 1:1000:460001
 end
 mp4(anim, "saddle_orbit.mp4", fps = 30)
 
-using Plots, LinearAlgebra
-μ = -1.755
-h = 0.1
 
-f(v) = [v[1] + v[2], μ*v[2] + v[1]^2 - v[1]*v[2]]
-
-pos = collect(Base.product(-1.5:0.001:.5, -.5:0.001:2))
-dir = f.(pos)
-x_ = first.(dir)
-y_ = last.(dir)
-null_x = .!iszero.([diff(x_ .> 0, dims = 1); zeros(Int64, 1, size(x_, 2))] +
-[diff(x_ .> 0, dims = 2) zeros(Int64, size(x_, 1), 1)])
-null_y = .!iszero.([diff(y_ .> 0, dims = 1); zeros(Int64, 1, size(y_, 2))] +
-[diff(y_ .> 0, dims = 2) zeros(Int64, size(y_, 1), 1)])
-plot(xlims = [-1.5,.5], ylims = [-.5,2], xlabel = "x", ylabel = "y", size = [600, 600])
-scatter!(first.(pos[null_x]), last.(pos[null_x]), label = "dx/dt = 0", color =  :red, msw = 0, alpha = .5, ms = 0.5)
-scatter!(first.(pos[null_y]), last.(pos[null_y]), label = "dy/dt = 0", color = :blue, msw = 0, alpha = .5, ms = 0.5)
-png("null_clines.png")
-
-using Optim
