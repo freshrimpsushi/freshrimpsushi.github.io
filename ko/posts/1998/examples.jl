@@ -1,9 +1,4 @@
-using Plots
 
-name = ["Gaeul", "Yujin", "Rei", "Wonyoung", "Liz", "Leeseo"]
-height = [164, 173, 170, 173, 171, 165]
-bar(name, height)
-bar(name, height, permute = (:y, :x))
 
 # --------------
 
