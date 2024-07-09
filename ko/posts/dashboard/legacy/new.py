@@ -92,9 +92,7 @@ except:
 md = open(newfolder + "index.md", 'w', encoding='utf-8')
 md.write('---')
 md.write('\ntitle: "' + title + '"')
-md.write('\nslug: "' + slug + '"')
-md.write('\ndescription: "' + descreiption + '"')
-if author == "류대식":
+md.write('\nmd.write('\nif author == "류대식":
     md.write('\npublishdate: "' + publishdate + '"')    
 elif author == "전기현":
     md.write('\npublishdate: "' + publishdate + '" #early')
