@@ -103,6 +103,13 @@ valid_U = torch.kron(inputs_u[N_train:], torch.ones(len(inputs_y), 1)).to(device
 valid_Y = torch.kron(torch.ones(Num_u-N_train, 1), torch.as_tensor(inputs_y, dtype=torch.float32).reshape(-1, 1)).to(device)
 valid_S = target_s[N_train:,:].reshape(-1, 1).to(device)
 
+np.save('inputs_U.npy', inputs_U)
+np.save('inputs_Y.npy', inputs_Y)
+np.save('target_S.npy', target_S)
+np.save('valid_U.npy', valid_U)
+np.save('valid_Y.npy', valid_Y)
+np.save('valid_S.npy', valid_S)
+
 #17 data loader
 batch_size    = 1000
 training_data = TensorDataset(inputs_U, inputs_Y, target_S)
