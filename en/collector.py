@@ -19,7 +19,7 @@ with open(csv_file, mode='w', newline='', encoding='utf-8') as file:
     # 폴더 내 모든 파일을 순회
     for root, dirs, files in os.walk(root_dir):
         for file_name in files:
-            if file_name.endswith(".md"):  # 마크다운 파일만 처리
+            if file_name.endswith("index.md"):  # 마크다운 파일만 처리
                 file_path = os.path.join(root, file_name)
                 
                 # 마크다운 파일을 열어서 메타데이터 추출
