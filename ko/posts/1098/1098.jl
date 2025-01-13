@@ -1,5 +1,16 @@
 using DifferentialEquations, Plots
 
+f(u, p, t) = u + p(t)
+u0 = 0.0
+tspan = (0.0, 1.0)
+p(t) = sin(t)
+prob = ODEProblem(f, u0, tspan, p)
+sol = solve(prob)
+plot(sol, dpi=300)
+
+u(t) = -(1/2)*( sin(t) + cos(t) - exp(t) )
+plot!(LinRange(0, 1, 100), t->u(t), lw=3, ls=:dash, lc=:red, label="exact", dpi=300)
+
 f(u, p, t) =  4u
 u0 = 0.5
 tspan = (0.0, 1.0)

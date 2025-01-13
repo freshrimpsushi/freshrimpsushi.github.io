@@ -36,4 +36,3 @@ plot!(x, y5, label="n=5", linewidth=2, ls=:dash)
 plot!(x, y7, label="s_6", linewidth=3, ls=:dash, lc=:red)
 cd = @__DIR__
 savefig(p1, joinpath(cd, "1861_2.png"))
-₆
