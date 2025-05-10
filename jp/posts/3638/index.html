@@ -1,334 +1,1948 @@
-<!doctype html><html class=blog lang=jp><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=X-UA-Compatible content="IE=edge"><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css integrity=sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV crossorigin=anonymous><link rel=preload href=https://freshrimpsushi.github.io/jp/css/style.css rel=preload as=style onload='this.rel="stylesheet"'><link rel=preload href=https://freshrimpsushi.github.io/jp/css/comment.css rel=preload as=style onload='this.rel="stylesheet"'><link rel=icon href=https://freshrimpsushi.github.io/ko/logo/favicon.ico><meta name=msapplication-TileColor content="#FFFFFF"><meta name=msapplication-TileImage content="logo/basic.png"><meta name=NaverBot content="All"><meta name=NaverBot content="index,follow"><meta name=Yeti content="All"><meta name=Yeti content="index,follow"><meta name=google-site-verification content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI"><meta name=naver-site-verification content="e5651d6f97899061897203413efc84994f04bbba"><link rel=alternate type=application/rss+xml title=生エビ寿司屋 href=https://freshrimpsushi.github.io/jp/index.xml><title>論文レビュー：デノイジング拡散確率モデル (DDPM)</title></head><meta name=title content="論文レビュー：デノイジング拡散確率モデル (DDPM)"><meta name=description content="국내 최대의 수학, 물리학, 통계학 블로그"><meta property="og:title" content="論文レビュー：デノイジング拡散確率モデル (DDPM)"><meta property="og:description" content><meta property="og:image" content="https://freshrimpsushi.github.io/jp/logo/basic.png/"><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","articleSection":"j_","name":"論文レビュー：デノイジング拡散確率モデル (DDPM)","headline":"論文レビュー：デノイジング拡散確率モデル (DDPM)","alternativeHeadline":"","description":"概要と要約 生成モデルとは、与えられたランダムサンプル $\\left\\{ y_{i} \\right\\}$が従う確率分布 $Y$またはそれを見つける方法を指す。何もないところ","inLanguage":"jp","isFamilyFriendly":"true","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/freshrimpsushi.github.io\/jp\/posts\/3638\/"},"author":{"@type":"Person","name":"전기현","url":"https://math.stackexchange.com/users/459895/ryu-dae-sick"},"creator":{"@type":"Person","name":"전기현"},"accountablePerson":{"@type":"Person","name":"전기현"},"copyrightHolder":"生エビ寿司屋","copyrightYear":"2024","dateCreated":"2024-05-04T00:00:00.00Z","datePublished":"2024-05-04T00:00:00.00Z","dateModified":"2024-05-04T00:00:00.00Z","publisher":{"@type":"Organization","name":"生エビ寿司屋","url":"https://freshrimpsushi.github.io/jp/","logo":{"@type":"ImageObject","url":"https:\/\/freshrimpsushi.github.io\/jp\/logo\/basic.png","width":"32","height":"32"}},"image":"https://freshrimpsushi.github.io/jp/logo/basic.png","url":"https:\/\/freshrimpsushi.github.io\/jp\/posts\/3638\/","wordCount":"12151","genre":[],"keywords":[]}</script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js integrity=sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8 crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js integrity=sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05 crossorigin=anonymous onload=renderMathInElement(document.body)></script><script>function renderKaTex(e){renderMathInElement(e,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],trust:!0,trust:e=>["\\htmlId","\\href","\\includegraphics"].includes(e.command),macros:{"\\eqref":"(\\text{#1})","\\ref":"\\href{###1}{\\text{#1}}","\\label":"\\htmlId{#1}{}","\\sech":"\\operatorname{sech}","\\csch":"\\operatorname{csch}","\\sgn":"\\operatorname{sgn}","\\sign":"\\operatorname{sign}","\\sinc":"\\operatorname{sinc}","\\diag":"\\operatorname{diag}","\\diam":"\\operatorname{diam}","\\Tr":"\\operatorname{Tr}","\\tr":"\\operatorname{tr}","\\re":"\\operatorname{Re}","\\im":"\\operatorname{Im}","\\Var":"\\operatorname{Var}","\\Poi":"\\operatorname{Poi}","\\Cov":"\\operatorname{Cov}","\\span":"\\operatorname{span}","\\supp":"\\operatorname{supp}","\\rank":"\\operatorname{rank}","\\nullity":"\\operatorname{nullity}","\\Ric":"\\operatorname{Ric}","\\i":"\\mathrm{i}","\\d":"\\mathrm{d}","\\cR":"\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2202/2615581243_1645770096.5863.png}","\\acR":"\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680634690.4371.png}","\\bcR":"\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2202/2615581243_1645770096.5899.png}","\\abcR":"\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680634690.0596.png}","\\crH":"\\includegraphics[height=0.8em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680622958.7632.png}","\\smallcrH":"\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680622958.7632.png}","\\acrH":"\\includegraphics[height=0.8em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680634690.8386.png}","\\smallacrH":"\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680634690.8386.png}"},throwOnError:!1})}</script><body class=main><header><a href=https://freshrimpsushi.github.io/jp/ rel=home><p style=text-align:center;font-size:1rem;color:#000><img src=https://freshrimpsushi.github.io/jp/logo/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D.png style=height:80px alt=logo></p></a></header><form method=get action=/jp/search style=border:1px;text-align:center><div class=field><input type=text id=searchtext placeholder=🔍︎ class=input_text name=s style=background-color:#eee;text-align:center;width:200px;font-size:1.5rem;border:1px;border-radius:5px;padding-top:5px;padding-bottom:5px;margin-bottom:1.5rem></div></form><aside style=text-align:center;margin-bottom:1rem><a href=https://freshrimpsushi.github.io/ko//posts/3638/>한국어</a> |
-<a href=https://freshrimpsushi.github.io/en//posts/3638/>English</a> |
-<a href=https://freshrimpsushi.github.io/jp//posts/3638/>日本語</a></aside><div class=wrapper><div class=content><div class=content-box><title>論文レビュー：デノイジング拡散確率モデル (DDPM)</title>
-<a href=https://freshrimpsushi.github.io/jp/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/ style=background-color:rgba(0,0,0,.8);color:orange;border-radius:10px;padding:5px>📂機械学習</a><h1>論文レビュー：デノイジング拡散確率モデル (DDPM)</h1><aside><div class=innerheader><div class=innertoc><b>目次</b><nav id=TableOfContents><ul><li><a href=#概要と要約>概要と要約</a></li><li><a href=#基礎preliminaries>基礎(preliminaries)</a></li><li><a href=#2-背景>2 背景</a></li><li><a href=#3-拡散モデルとノイズ除去オートエンコーダー>3 拡散モデルとノイズ除去オートエンコーダー</a><ul><li><a href=#31-順方向過程とl_t>3.1 順方向過程と$L_{T}$</a></li><li><a href=#32-逆方向過程とl_1t-1>3.2 逆方向過程と$L_{1:T-1}$</a></li><li><a href=#33-データスケーリング逆方向過程デコーダーそしてl_0>3.3 データスケーリング、逆方向過程デコーダー、そして$L_{0}$</a></li><li><a href=#34-簡略化された訓練の目的>3.4 簡略化された訓練の目的</a></li></ul></li></ul></nav></div></div></aside><h2 id=概要と要約>概要と要約</h2><p><a href=../3637>生成モデル</a>とは、与えられた<a href=../1715>ランダムサンプル</a> $\left\{ y_{i} \right\}$が従う<a href=../1433>確率分布</a> $Y$またはそれを見つける方法を指す。何もないところからこれを見つけるのは非常に難しいので、通常は既によく知られた分布から目的の分布を近似する方法を見つける。それで、よく知られた分布$X$ に従うデータセット$\left\{ x_{i} \right\}$が与えられたとき、生成モデルとは次のような関数 $f$ であり、生成モデルを開発するということは$f$をうまく近似する関数を見つけることを指す。</p><p>$$
+<!DOCTYPE html>
+<html class="blog" lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    
+    
+    <link rel="preload" href=https://freshrimpsushi.github.io/jp/css/style.css rel="preload" as="style" onload="this.rel='stylesheet'">
+    <link rel="preload" href=https://freshrimpsushi.github.io/jp/css/comment.css rel="preload" as="style" onload="this.rel='stylesheet'">
+
+    
+    <link rel="icon" href="https://freshrimpsushi.github.io/ko/logo/favicon.ico">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta name="msapplication-TileImage" content="logo/basic.png">
+
+    
+    <meta name="NaverBot" content="All" />
+    <meta name="NaverBot" content="index,follow" />
+    <meta name="Yeti" content="All" />
+    <meta name="Yeti" content="index,follow" />
+
+    
+    <meta name="google-site-verification" content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI" />
+    <meta name="naver-site-verification" content="e5651d6f97899061897203413efc84994f04bbba" />
+
+    
+    
+    <link rel="alternate" type="application/rss+xml" title="生エビ寿司屋" href="https://freshrimpsushi.github.io/jp/index.xml">
+
+    <title>論文レビュー：デノイジング拡散確率モデル (DDPM)</title>
+    
+</head>
+
+<meta name="title" content="論文レビュー：デノイジング拡散確率モデル (DDPM)">
+<meta name="description"Content="국내 최대의 수학, 물리학, 통계학 블로그">
+<meta property="og:title" content="論文レビュー：デノイジング拡散確率モデル (DDPM)"/>
+<meta property="og:description" content=""/>
+<meta property="og:image" content=https://freshrimpsushi.github.io/jp/logo/basic.png/>
+
+
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "articleSection": "j_",
+    "name": "論文レビュー：デノイジング拡散確率モデル (DDPM)",
+    "headline": "論文レビュー：デノイジング拡散確率モデル (DDPM)",
+    "alternativeHeadline": "",
+    "description": "概要と要約 生成モデルとは、与えられたランダムサンプル $\\left\\{ y_{i} \\right\\}$が従う確率分布 $Y$またはそれを見つける方法を指す。何もないところ",
+    "inLanguage": "jp",
+    "isFamilyFriendly": "true",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https:\/\/freshrimpsushi.github.io\/jp\/posts\/3638\/"
+    },
+    "author" : {
+        "@type": "Person",
+        "name": "전기현",
+        "url": "https://math.stackexchange.com/users/459895/ryu-dae-sick"
+    },
+    "creator" : {
+        "@type": "Person",
+        "name": "전기현"
+    },
+    "accountablePerson" : {
+        "@type": "Person",
+        "name": "전기현"
+    },
+    "copyrightHolder" : "生エビ寿司屋",
+    "copyrightYear" : "2024",
+    "dateCreated": "2024-05-04T00:00:00.00Z",
+    "datePublished": "2024-05-04T00:00:00.00Z",
+    "dateModified": "2024-05-04T00:00:00.00Z",
+    "publisher":{
+        "@type":"Organization",
+        "name": "生エビ寿司屋",
+        "url": "https://freshrimpsushi.github.io/jp/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https:\/\/freshrimpsushi.github.io\/jp\/logo\/basic.png",
+            "width":"32",
+            "height":"32"
+        }
+    },
+    "image": "https://freshrimpsushi.github.io/jp/logo/basic.png",
+    "url" : "https:\/\/freshrimpsushi.github.io\/jp\/posts\/3638\/",
+    "wordCount" : "12151",
+    "genre" : [ ],
+    "keywords" : [ ]
+}
+</script>
+
+
+
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+<script>
+  
+  function renderKaTex(target) {
+    renderMathInElement(target, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+      ],
+      trust: true,
+      trust: (context) =>
+        ["\\htmlId", "\\href", "\\includegraphics"].includes(context.command),
+      macros: {
+        "\\eqref": "(\\text{#1})",
+        "\\ref": "\\href{###1}{\\text{#1}}",
+        "\\label": "\\htmlId{#1}{}",
+        "\\sech": "\\operatorname{sech}",
+        "\\csch": "\\operatorname{csch}",
+        "\\sgn": "\\operatorname{sgn}",
+        "\\sign": "\\operatorname{sign}",
+        "\\sinc": "\\operatorname{sinc}",
+        "\\diag": "\\operatorname{diag}",
+        "\\diam": "\\operatorname{diam}",
+        "\\Tr": "\\operatorname{Tr}",
+        "\\tr": "\\operatorname{tr}",
+        "\\re": "\\operatorname{Re}",
+        "\\im": "\\operatorname{Im}",
+        "\\Var": "\\operatorname{Var}",
+        "\\Poi": "\\operatorname{Poi}",
+        "\\Cov": "\\operatorname{Cov}",
+        "\\span": "\\operatorname{span}",
+        "\\supp": "\\operatorname{supp}",
+        "\\rank": "\\operatorname{rank}",
+        "\\nullity": "\\operatorname{nullity}",
+        "\\Ric": "\\operatorname{Ric}",
+        "\\i": "\\mathrm{i}",
+        "\\d": "\\mathrm{d}",
+        "\\cR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2202/2615581243_1645770096.5863.png}",
+        "\\acR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680634690.4371.png}",
+        "\\bcR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2202/2615581243_1645770096.5899.png}",
+        "\\abcR": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680634690.0596.png}",
+        "\\crH": "\\includegraphics[height=0.8em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680622958.7632.png}",
+        "\\smallcrH": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680622958.7632.png}",
+        "\\acrH": "\\includegraphics[height=0.8em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680634690.8386.png}",
+        "\\smallacrH": "\\includegraphics[height=0.6em]{https://freshrimpsushi.com/community/data/editor/2304/2175452104_1680634690.8386.png}",
+      },
+      throwOnError: false,
+    });
+  }
+</script> 
+
+
+<body class="main">
+  <header>
+    <a href= https://freshrimpsushi.github.io/jp/ rel="home">
+        <p style="text-align:center; font-size: 1rem; color: black;">
+            
+                <img src=https://freshrimpsushi.github.io/jp/logo/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D.png style="height: 80px;" alt="logo">
+            
+            
+            
+        </p>
+    </a>
+</header>
+
+  
+  <form method="get" action="/jp/search" style="border: 1px; text-align: center;">
+    <div class="field">
+    <input type="text" id="searchtext" placeholder = "🔍︎" class="input_text" name="s"
+    style="background-color: #EEEEEE; text-align: center; width: 200px; font-size: 1.5rem;
+    border: 1px; border-radius: 5px; padding-top:5px; padding-bottom:5px; margin-bottom: 1.5rem">
+    </div>
+</form>
+  
+
+<aside style="text-align: center; margin-bottom: 1rem;">
+    <a href="https://freshrimpsushi.github.io/ko//posts/3638/">한국어</a> |
+    <a href="https://freshrimpsushi.github.io/en//posts/3638/">English</a> |
+    <a href="https://freshrimpsushi.github.io/jp//posts/3638/">日本語</a>
+</aside>
+
+
+
+
+
+  
+  
+  <div class="wrapper">
+    <div class="content">
+      <div class="content-box">
+        
+<title>論文レビュー：デノイジング拡散確率モデル (DDPM)</title>
+
+
+
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <a href="https://freshrimpsushi.github.io/jp/categories/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/"
+            style="background-color: rgba(0, 0, 0, 0.8); color: orange;
+            border-radius:10px; padding: 5px;">
+            📂機械学習</a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+<h1>論文レビュー：デノイジング拡散確率モデル (DDPM)</h1>
+
+
+<aside>
+  <div class="innerheader">
+    <div class="innertoc">
+      <b>目次</b>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#概要と要約">概要と要約</a></li>
+    <li><a href="#基礎preliminaries">基礎(preliminaries)</a></li>
+    <li><a href="#2-背景">2 背景</a></li>
+    <li><a href="#3-拡散モデルとノイズ除去オートエンコーダー">3 拡散モデルとノイズ除去オートエンコーダー</a>
+      <ul>
+        <li><a href="#31-順方向過程とl_t">3.1 順方向過程と$L_{T}$</a></li>
+        <li><a href="#32-逆方向過程とl_1t-1">3.2 逆方向過程と$L_{1:T-1}$</a></li>
+        <li><a href="#33-データスケーリング逆方向過程デコーダーそしてl_0">3.3 データスケーリング、逆方向過程デコーダー、そして$L_{0}$</a></li>
+        <li><a href="#34-簡略化された訓練の目的">3.4 簡略化された訓練の目的</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>    
+  </div>
+</aside>
+
+<h2 id="概要と要約">概要と要約</h2>
+<p><a href="../3637">生成モデル</a>とは、与えられた<a href="../1715">ランダムサンプル</a> $\left\{ y_{i} \right\}$が従う<a href="../1433">確率分布</a> $Y$またはそれを見つける方法を指す。何もないところからこれを見つけるのは非常に難しいので、通常は既によく知られた分布から目的の分布を近似する方法を見つける。それで、よく知られた分布$X$ に従うデータセット$\left\{ x_{i} \right\}$が与えられたとき、生成モデルとは次のような関数 $f$ であり、生成モデルを開発するということは$f$をうまく近似する関数を見つけることを指す。</p>
+<p>$$
 f : \left\{ x_{i} \right\} \to \left\{ y_{j} \right\}
-$$</p><p>よく知られた分布$X$で最も多く使用されるのは<a href=../1645>正規分布</a>である。したがって、生成モデルを簡単に理解したい場合は、正規分布から未知の分布に従うサンプルを抽出する方法を見つけるというふうに受け取っても差し支えない。</p><p><a href=https://proceedings.neurips.cc/paper/2020/file/4c5bcfec8584af0d967f1ab10179ca4b-Paper.pdf><em>Denoising Diffusion Probabilistic Models</em> (DDPM)</a><sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup>でも同様に、正規分布から他の未知の分布に従うデータを抽出する方法を紹介する。正規分布$N(0, I)$から抽出されたある<a href=../1192>ノイズ</a>$\mathbf{z}$とある未知の分布$X$から抽出されたと仮定される画像$\mathbf{x}_{0}$があるとしよう。ノイズ$\mathbf{z}$から$\mathbf{x}_{0}$を作り出す関数$\mathbf{x}_{0} = p(\mathbf{z})$を見つけるのは当然難しいが、よく考えてみると$\mathbf{x}_{0}$を損傷して$\mathbf{z}$を作る逆関数$\mathbf{z} = q(\mathbf{x}_{0})$を見つけることも容易ではないだろう。(写真出典<sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup>)</p><p><img src=3638_1.png#center alt></p><p>ところが、画像$\mathbf{x}_{0}$に正規分布から抽出された非常に小さいノイズ$\boldsymbol{\epsilon}_{1}$が加えられ、少しだけ損傷<sup>curruption</sup>された画像$\mathbf{x}_{1} = \mathbf{x}_{0} + \boldsymbol{\epsilon}_{1}$を得るのは簡単なことだ。ここに再び小さいガウシアンノイズ$\boldsymbol{\epsilon}_{2}$を抽出して加えて$\mathbf{x}_{2} = \mathbf{x}_{1} + \boldsymbol{\epsilon}_{2}$を得るのも容易だ。このような過程を非常に多く繰り返して得た、$\mathbf{x}_{T}$はまるで正規分布から抽出されたノイズのようになるだろう。言い換えれば、画像$\mathbf{x}_{0}$にガウシアンノイズを繰り返し加えて損傷させると、結局正規分布から抽出されたノイズと同じ画像が得られることになる。この過程を<strong>拡散</strong><sup>diffusion</sup>と呼ぶ。この理由は、実際に微細な粒子が不規則かつランダムに<strong>拡散していく</strong>現象である<a href=../957>ブラウン運動</a>が数学的にはガウス分布から抽出された値を連続的に加えていくこととして説明され、ブラウン運動が実際に拡散方程式（熱方程式）と関連しているからである。</p><p><img src=3638_2.png#center alt></p><p>拡散過程がノイズを加え続けることなので、その逆過程はノイズを取り除くプロセスになる。したがってこの逆過程は自然に<a href=../1192>ディノイジング</a><sup>denoising</sup>になる。この論文ではよく知られた拡散という過程の情報を利用して、未知のディノイジングという逆過程を行う方法を紹介する。これらのアイデアは、2015年の論文<sup id=fnref:3><a href=#fn:3 class=footnote-ref role=doc-noteref>3</a></sup> <a href=https://proceedings.mlr.press/v37/sohl-dickstein15.html><em>Deep Unsupervised Learning using Nonequilibrium Thermodynamics</em></a>でdiffusion probabilistic models (DPM)という名前で初めて紹介され、DDPMはそれを補完しディープラーニングとよく結合した論文である。</p><p>DDPM論文と<a href=https://proceedings.neurips.cc/paper_files/paper/2020/file/4c5bcfec8584af0d967f1ab10179ca4b-Supplemental.pdf>補遺</a>は数式展開にそれほど親切ではない。これをレビューした多くの記事も数式がどのように展開され導出されるかを明確に説明していない。本記事ではDDPMの性能や成果物については扱わず、DDPMが数学的にどのように技術されるかを詳しく扱う。それで記事が少し長くなってしまうが、少なくとも数式展開でつまずく部分はないはずだ。</p><p>1行の数式もおおざっぱに超えていない。断言するが、世界でDDPM論文の数式を最も数学的に正確かつ詳細に説明した記事である。</p><h2 id=基礎preliminaries>基礎(preliminaries)</h2><p>本論文では<a href=../1433>確率変数</a> $\mathbf{x} \in \mathbb{R}^{D}$とその<a href=../1715>実現</a>をすべて$\mathbf{x} \in \mathbb{R}^{D}$で表記する。つまり一般的に確率変数$X$に対する確率密度関数が$p_{X}(x)$のように表現されるなら、本論文では$p(\mathbf{x}) = p_{\mathbf{x}}(\mathbf{x})$のように記述する。<a href=../3589>特徴抽出</a></p><p>確率変数の数列$(\mathbf{x}_{0}, \mathbf{x}_{1}, \dots, \mathbf{x}_{T}) = \left\{ \mathbf{x}_{t} \right\}_{t=0}^{T}$を<a href=../857>確率過程</a>と呼ぶ。本論文では確率過程を$\mathbf{x}_{0:T} = (\mathbf{x}_{0}, \mathbf{x}_{1}, \dots, \mathbf{x}_{T})$のように表記する。$\mathbf{x}_{0:T}$の<a href=../1449>結合確率密度関数</a>を次のように表記する。</p><p>$$
+$$</p>
+<p>よく知られた分布$X$で最も多く使用されるのは<a href="../1645">正規分布</a>である。したがって、生成モデルを簡単に理解したい場合は、正規分布から未知の分布に従うサンプルを抽出する方法を見つけるというふうに受け取っても差し支えない。</p>
+<p><a href="https://proceedings.neurips.cc/paper/2020/file/4c5bcfec8584af0d967f1ab10179ca4b-Paper.pdf"><em>Denoising Diffusion Probabilistic Models</em> (DDPM)</a><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>でも同様に、正規分布から他の未知の分布に従うデータを抽出する方法を紹介する。正規分布$N(0, I)$から抽出されたある<a href="../1192">ノイズ</a>$\mathbf{z}$とある未知の分布$X$から抽出されたと仮定される画像$\mathbf{x}_{0}$があるとしよう。ノイズ$\mathbf{z}$から$\mathbf{x}_{0}$を作り出す関数$\mathbf{x}_{0} = p(\mathbf{z})$を見つけるのは当然難しいが、よく考えてみると$\mathbf{x}_{0}$を損傷して$\mathbf{z}$を作る逆関数$\mathbf{z} = q(\mathbf{x}_{0})$を見つけることも容易ではないだろう。(写真出典<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>)</p>
+<p><img src="3638_1.png#center" alt=""></p>
+<p>ところが、画像$\mathbf{x}_{0}$に正規分布から抽出された非常に小さいノイズ$\boldsymbol{\epsilon}_{1}$が加えられ、少しだけ損傷<sup>curruption</sup>された画像$\mathbf{x}_{1} = \mathbf{x}_{0} + \boldsymbol{\epsilon}_{1}$を得るのは簡単なことだ。ここに再び小さいガウシアンノイズ$\boldsymbol{\epsilon}_{2}$を抽出して加えて$\mathbf{x}_{2} = \mathbf{x}_{1} + \boldsymbol{\epsilon}_{2}$を得るのも容易だ。このような過程を非常に多く繰り返して得た、$\mathbf{x}_{T}$はまるで正規分布から抽出されたノイズのようになるだろう。言い換えれば、画像$\mathbf{x}_{0}$にガウシアンノイズを繰り返し加えて損傷させると、結局正規分布から抽出されたノイズと同じ画像が得られることになる。この過程を<strong>拡散</strong><sup>diffusion</sup>と呼ぶ。この理由は、実際に微細な粒子が不規則かつランダムに<strong>拡散していく</strong>現象である<a href="../957">ブラウン運動</a>が数学的にはガウス分布から抽出された値を連続的に加えていくこととして説明され、ブラウン運動が実際に拡散方程式（熱方程式）と関連しているからである。</p>
+<p><img src="3638_2.png#center" alt=""></p>
+<p>拡散過程がノイズを加え続けることなので、その逆過程はノイズを取り除くプロセスになる。したがってこの逆過程は自然に<a href="../1192">ディノイジング</a><sup>denoising</sup>になる。この論文ではよく知られた拡散という過程の情報を利用して、未知のディノイジングという逆過程を行う方法を紹介する。これらのアイデアは、2015年の論文<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> <a href="https://proceedings.mlr.press/v37/sohl-dickstein15.html"><em>Deep Unsupervised Learning using Nonequilibrium Thermodynamics</em></a>でdiffusion probabilistic models (DPM)という名前で初めて紹介され、DDPMはそれを補完しディープラーニングとよく結合した論文である。</p>
+<p>DDPM論文と<a href="https://proceedings.neurips.cc/paper_files/paper/2020/file/4c5bcfec8584af0d967f1ab10179ca4b-Supplemental.pdf">補遺</a>は数式展開にそれほど親切ではない。これをレビューした多くの記事も数式がどのように展開され導出されるかを明確に説明していない。本記事ではDDPMの性能や成果物については扱わず、DDPMが数学的にどのように技術されるかを詳しく扱う。それで記事が少し長くなってしまうが、少なくとも数式展開でつまずく部分はないはずだ。</p>
+<p>1行の数式もおおざっぱに超えていない。断言するが、世界でDDPM論文の数式を最も数学的に正確かつ詳細に説明した記事である。</p>
+<h2 id="基礎preliminaries">基礎(preliminaries)</h2>
+<p>本論文では<a href="../1433">確率変数</a> $\mathbf{x} \in \mathbb{R}^{D}$とその<a href="../1715">実現</a>をすべて$\mathbf{x} \in \mathbb{R}^{D}$で表記する。つまり一般的に確率変数$X$に対する確率密度関数が$p_{X}(x)$のように表現されるなら、本論文では$p(\mathbf{x}) = p_{\mathbf{x}}(\mathbf{x})$のように記述する。<a href="../3589">特徴抽出</a></p>
+<p>確率変数の数列$(\mathbf{x}_{0}, \mathbf{x}_{1}, \dots, \mathbf{x}_{T}) = \left\{ \mathbf{x}_{t} \right\}_{t=0}^{T}$を<a href="../857">確率過程</a>と呼ぶ。本論文では確率過程を$\mathbf{x}_{0:T} = (\mathbf{x}_{0}, \mathbf{x}_{1}, \dots, \mathbf{x}_{T})$のように表記する。$\mathbf{x}_{0:T}$の<a href="../1449">結合確率密度関数</a>を次のように表記する。</p>
+<p>$$
 p(\mathbf{x}_{0:T}) = p_{\mathbf{x}_{0:T}}(\mathbf{x}_{0:T})
-$$</p><p>$\mathbf{x}_{0:T-1}$に対する$\mathbf{x}_{T}$の<a href=../1458>条件付き確率密度関数</a>とは、次を満たす$p(\mathbf{x}_{T} | \mathbf{x}_{0:T-1})$を指す。</p><p>$$
+$$</p>
+<p>$\mathbf{x}_{0:T-1}$に対する$\mathbf{x}_{T}$の<a href="../1458">条件付き確率密度関数</a>とは、次を満たす$p(\mathbf{x}_{T} | \mathbf{x}_{0:T-1})$を指す。</p>
+<p>$$
 p(\mathbf{x}_{T} | \mathbf{x}_{0:T-1}) = \dfrac{p(\mathbf{x}_{0:T})}{p(\mathbf{x}_{0:T-1})}
-$$</p><p>上記定義を繰り返すと<a href=../1458>次が得られる。</a></p><p>$$
+$$</p>
+<p>上記定義を繰り返すと<a href="../1458">次が得られる。</a></p>
+<p>$$
 p(\mathbf{x}_{0:T})
 = p(\mathbf{x}_{0}) p(\mathbf{x}_{1} | \mathbf{x}_{0}) p(\mathbf{x}_{2} | \mathbf{x}_{0:1}) \cdots p(\mathbf{x}_{T-1} | \mathbf{x}_{0:T-2}) p(\mathbf{x}_{T} | \mathbf{x}_{0:T-1})
 \tag{1}
-$$</p><p>$\mathbf{x}_{0:T}$が次を満たすと<a href=../859>マルコフ連鎖</a>と呼ぶ。</p><p>$$
+$$</p>
+<p>$\mathbf{x}_{0:T}$が次を満たすと<a href="../859">マルコフ連鎖</a>と呼ぶ。</p>
+<p>$$
 p(\mathbf{x}_{T} | \mathbf{x}_{0:T-1}) = p(\mathbf{x}_{T} | \mathbf{x}_{T-1})
-$$</p><p>$\mathbf{x}_{0:T}$がマルコフ連鎖なら、$(1)$は次のように簡略化される。</p><p>$$
+$$</p>
+<p>$\mathbf{x}_{0:T}$がマルコフ連鎖なら、$(1)$は次のように簡略化される。</p>
+<p>$$
 \begin{align*}
 p(\mathbf{x}_{0:T})
-&= p(\mathbf{x}_{0}) p(\mathbf{x}_{1} | \mathbf{x}_{0}) p(\mathbf{x}_{2} | \mathbf{x}_{0:1}) \cdots p(\mathbf{x}_{T-1} | \mathbf{x}_{0:T-2}) p(\mathbf{x}_{T} | \mathbf{x}_{0:T-1}) \\
-&= p(\mathbf{x}_{0}) p(\mathbf{x}_{1} | \mathbf{x}_{0}) p(\mathbf{x}_{2} | \mathbf{x}_{1}) \cdots p(\mathbf{x}_{T-1} | \mathbf{x}_{T-2}) p(\mathbf{x}_{T} | \mathbf{x}_{T-1}) \\
-&= p(\mathbf{x}_{0}) \prod\limits_{t=1}^{T} p(\mathbf{x}_{t} | \mathbf{x}_{t-1})
+&amp;= p(\mathbf{x}_{0}) p(\mathbf{x}_{1} | \mathbf{x}_{0}) p(\mathbf{x}_{2} | \mathbf{x}_{0:1}) \cdots p(\mathbf{x}_{T-1} | \mathbf{x}_{0:T-2}) p(\mathbf{x}_{T} | \mathbf{x}_{0:T-1}) \\
+&amp;= p(\mathbf{x}_{0}) p(\mathbf{x}_{1} | \mathbf{x}_{0}) p(\mathbf{x}_{2} | \mathbf{x}_{1}) \cdots p(\mathbf{x}_{T-1} | \mathbf{x}_{T-2}) p(\mathbf{x}_{T} | \mathbf{x}_{T-1}) \\
+&amp;= p(\mathbf{x}_{0}) \prod\limits_{t=1}^{T} p(\mathbf{x}_{t} | \mathbf{x}_{t-1})
 \end{align*}
 \tag{2}
-$$</p><h2 id=2-背景>2 背景</h2><p>第2節では拡散モデルのアイデアをどうやって数学的に表現できるかを簡単に紹介する。基本となるアイデアが他の論文で出ているため詳しく説明はされていない。初心者が見るには略された部分が多くて理解しにくいだろう。以下でできるだけ詳しく解き明かそう。</p><ul><li><strong>拡散過程</strong><sup>diffusion process</sup>(<strong>順方向過程</strong><sup>forward process</sup>)</li></ul><p>拡散過程を数学的に整理しよう。$t$段階での画像$\mathbf{x}_{t} \in \mathbb{R}^{D}$は$t-1$段階での画像$\mathbf{x}_{t-1} \in \mathbb{R}^{D}$にガウシアンノイズ$\sqrt{\beta_{t}}\boldsymbol{\epsilon}_{t} \sim \mathcal{N}(\mathbf{0}, \beta_{t}\mathbf{I})$を加えたものだ。$\beta_{t}$はノイズが拡散される程度を決定する係数である。だから次のように表現できる。</p><p>$$
+$$</p>
+<h2 id="2-背景">2 背景</h2>
+<p>第2節では拡散モデルのアイデアをどうやって数学的に表現できるかを簡単に紹介する。基本となるアイデアが他の論文で出ているため詳しく説明はされていない。初心者が見るには略された部分が多くて理解しにくいだろう。以下でできるだけ詳しく解き明かそう。</p>
+<ul>
+<li><strong>拡散過程</strong><sup>diffusion process</sup>(<strong>順方向過程</strong><sup>forward process</sup>)</li>
+</ul>
+<p>拡散過程を数学的に整理しよう。$t$段階での画像$\mathbf{x}_{t} \in \mathbb{R}^{D}$は$t-1$段階での画像$\mathbf{x}_{t-1} \in \mathbb{R}^{D}$にガウシアンノイズ$\sqrt{\beta_{t}}\boldsymbol{\epsilon}_{t} \sim \mathcal{N}(\mathbf{0}, \beta_{t}\mathbf{I})$を加えたものだ。$\beta_{t}$はノイズが拡散される程度を決定する係数である。だから次のように表現できる。</p>
+<p>$$
 \mathbf{x}_{t} = \sqrt{1 - \beta_{t}}\mathbf{x}_{t-1} + \sqrt{\beta_{t}}\boldsymbol{\epsilon}_{t}, \qquad \boldsymbol{\epsilon}_{t} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})
-$$</p><p>ここで係数が$(1-\beta_{t}, \beta_{t})$ではなく$(\sqrt{1-\beta_{t}}, \sqrt{\beta_{t}})$である理由は、<a href=../424>分散の性質</a>$\Var(aX) = a^{2}\Var(X)$による。係数に$\sqrt{}$が付いているほうが$t$が十分大きいときすべての$n \ge 1$に対して$\mathbf{x}_{t+n}$が依然として標準正規分布を従うようになる。$t$が十分大きいと仮定すれば、$\mathbf{x}_{t}$は標準正規分布を従うだろう。その際$\mathbf{x}_{t+1}$の<a href=../1950>共分散行列</a>が維持されること（依然として標準正規分布を従う）が以下のように確認できる。$\mathbf{x}_{t-1}$と$\boldsymbol{\epsilon}_{t}$は互いに独立なので次が成り立つ。</p><p>$$
+$$</p>
+<p>ここで係数が$(1-\beta_{t}, \beta_{t})$ではなく$(\sqrt{1-\beta_{t}}, \sqrt{\beta_{t}})$である理由は、<a href="../424">分散の性質</a>$\Var(aX) = a^{2}\Var(X)$による。係数に$\sqrt{}$が付いているほうが$t$が十分大きいときすべての$n \ge 1$に対して$\mathbf{x}_{t+n}$が依然として標準正規分布を従うようになる。$t$が十分大きいと仮定すれば、$\mathbf{x}_{t}$は標準正規分布を従うだろう。その際$\mathbf{x}_{t+1}$の<a href="../1950">共分散行列</a>が維持されること（依然として標準正規分布を従う）が以下のように確認できる。$\mathbf{x}_{t-1}$と$\boldsymbol{\epsilon}_{t}$は互いに独立なので次が成り立つ。</p>
+<p>$$
 \begin{align*}
 \Cov(\mathbf{x}_{t})
-&= \Cov(\sqrt{1-\beta_{t}}\mathbf{x}_{t-1} + \sqrt{\beta_{t}}\boldsymbol{\epsilon}_{t}) \\
-&= (1-\beta_{t})\Cov(\mathbf{x}_{t-1}) + \beta_{t}\Cov(\boldsymbol{\epsilon}_{t}) \\
-&= (1-\beta_{t})\mathbf{I} + \beta_{t}\mathbf{I} \\
-&= \mathbf{I}
+&amp;= \Cov(\sqrt{1-\beta_{t}}\mathbf{x}_{t-1} + \sqrt{\beta_{t}}\boldsymbol{\epsilon}_{t}) \\
+&amp;= (1-\beta_{t})\Cov(\mathbf{x}_{t-1}) + \beta_{t}\Cov(\boldsymbol{\epsilon}_{t}) \\
+&amp;= (1-\beta_{t})\mathbf{I} + \beta_{t}\mathbf{I} \\
+&amp;= \mathbf{I}
 \end{align*}
-$$</p><p>$\mathbf{x}_{t-1}$が決定された時（定数であるとき）$\mathbf{x}_{t}$に対する条件付き確率密度関数は次のようになる。</p><p>$$
+$$</p>
+<p>$\mathbf{x}_{t-1}$が決定された時（定数であるとき）$\mathbf{x}_{t}$に対する条件付き確率密度関数は次のようになる。</p>
+<p>$$
 q(\mathbf{x}_{t} | \mathbf{x}_{t-1}) = \mathcal{N}(\sqrt{1 - \beta_{t}}\mathbf{x}_{t-1}, \beta_{t}\mathbf{I}) \tag{3}
-$$</p><p>（論文では$\mathbf{x}_{t}$に対する分布であることを確実に明示するために$\mathcal{N}(\mathbf{x}_{t}; \sqrt{1 - \beta_{t}}\mathbf{x}_{t-1}, \beta_{t}\mathbf{I})$と表記した。）平均ベクトルと共分散行列が上記のようなのはそれぞれ以下のように確認できる。$\mathbf{x}_{t-1}$が決定されたとしよう（つまり定数である）。</p><p>$$
+$$</p>
+<p>（論文では$\mathbf{x}_{t}$に対する分布であることを確実に明示するために$\mathcal{N}(\mathbf{x}_{t}; \sqrt{1 - \beta_{t}}\mathbf{x}_{t-1}, \beta_{t}\mathbf{I})$と表記した。）平均ベクトルと共分散行列が上記のようなのはそれぞれ以下のように確認できる。$\mathbf{x}_{t-1}$が決定されたとしよう（つまり定数である）。</p>
+<p>$$
 \begin{align*}
 \mathbb{E} [\mathbf{x}_{t} | \mathbf{x}_{t-1}]
-&= \mathbb{E} \left[ \sqrt{1 - \beta_{t}}\mathbf{x}_{t-1} + \sqrt{\beta_{t}}\boldsymbol{\epsilon}_{t} \right] \qquad (\mathbf{x}_{t-1} \text{ is constant vector})\\
-&= \mathbb{E} \left[ \sqrt{1 - \beta_{t}}\mathbf{x}_{t-1} \right] + \mathbb{E} \left[ \sqrt{\beta_{t}}\boldsymbol{\epsilon}_{t} \right] \\
-&= \sqrt{1 - \beta_{t}}\mathbf{x}_{t-1} + \sqrt{\beta_{t}}\mathbb{E} \left[ \boldsymbol{\epsilon}_{t} \right] \\
-&= \sqrt{1 - \beta_{t}}\mathbf{x}_{t-1}
+&amp;= \mathbb{E} \left[ \sqrt{1 - \beta_{t}}\mathbf{x}_{t-1} + \sqrt{\beta_{t}}\boldsymbol{\epsilon}_{t} \right] \qquad (\mathbf{x}_{t-1} \text{ is constant vector})\\
+&amp;= \mathbb{E} \left[ \sqrt{1 - \beta_{t}}\mathbf{x}_{t-1} \right] + \mathbb{E} \left[ \sqrt{\beta_{t}}\boldsymbol{\epsilon}_{t} \right] \\
+&amp;= \sqrt{1 - \beta_{t}}\mathbf{x}_{t-1} + \sqrt{\beta_{t}}\mathbb{E} \left[ \boldsymbol{\epsilon}_{t} \right] \\
+&amp;= \sqrt{1 - \beta_{t}}\mathbf{x}_{t-1}
 \end{align*}
-$$</p><p>$$
+$$</p>
+<p>$$
 \begin{align*}
 \Cov (\mathbf{x}_{t} | \mathbf{x}_{t-1})
-&= \Cov \left( \sqrt{1 - \beta_{t}}\mathbf{x}_{t-1} + \sqrt{\beta_{t}}\boldsymbol{\epsilon}_{t} \right) \qquad (\mathbf{x}_{t-1} \text{ is constant vector})\\
-&= \Cov \left( \sqrt{\beta_{t}}\boldsymbol{\epsilon}_{t} \right) \\
-&= \beta_{t}\Cov \left( \boldsymbol{\epsilon}_{t} \right) \\
-&= \beta_{t} \mathbf{I}
+&amp;= \Cov \left( \sqrt{1 - \beta_{t}}\mathbf{x}_{t-1} + \sqrt{\beta_{t}}\boldsymbol{\epsilon}_{t} \right) \qquad (\mathbf{x}_{t-1} \text{ is constant vector})\\
+&amp;= \Cov \left( \sqrt{\beta_{t}}\boldsymbol{\epsilon}_{t} \right) \\
+&amp;= \beta_{t}\Cov \left( \boldsymbol{\epsilon}_{t} \right) \\
+&amp;= \beta_{t} \mathbf{I}
 \end{align*}
-$$</p><p>画像$\mathbf{x}_{0}$が与えられたとき、ガウシアンノイズを反復的に加え損傷させた画像を$\mathbf{x}_{1}, \mathbf{x}_{2}, \dots, \mathbf{x}_{T}$としたら（その確率変数と表記法を一緒に使用することに注意しろ）、この全過程に対する確率密度関数は<a href=../1458>結合条件付き確率密度関数</a>$q(\mathbf{x}_{1:T} | \mathbf{x}_{0})$として与えられ、これを<strong>順方向過程</strong><sup>forward process</sup>または<strong>拡散過程</strong><sup>diffusion process</sup>と呼ぶ。$\mathbf{x}_{0:T}$がマルコフであるため、$\eqref{2}$により、拡散過程は次のようにモデル化される。</p><p>$$
+$$</p>
+<p>画像$\mathbf{x}_{0}$が与えられたとき、ガウシアンノイズを反復的に加え損傷させた画像を$\mathbf{x}_{1}, \mathbf{x}_{2}, \dots, \mathbf{x}_{T}$としたら（その確率変数と表記法を一緒に使用することに注意しろ）、この全過程に対する確率密度関数は<a href="../1458">結合条件付き確率密度関数</a>$q(\mathbf{x}_{1:T} | \mathbf{x}_{0})$として与えられ、これを<strong>順方向過程</strong><sup>forward process</sup>または<strong>拡散過程</strong><sup>diffusion process</sup>と呼ぶ。$\mathbf{x}_{0:T}$がマルコフであるため、$\eqref{2}$により、拡散過程は次のようにモデル化される。</p>
+<p>$$
 q(\mathbf{x}_{1:T} | \mathbf{x}_{0}) = \prod\limits_{t=1}^{T} q(\mathbf{x}_{t} | \mathbf{x}_{t-1})
 \tag{4}
-$$</p><p>一方、$\mathbf{x}_{0}$から任意の$t$に対して$\mathbf{x}_{t}$が決定される条件付き確率密度関数も明示的に表すことができる。$\alpha_{t} = 1 - \beta_{t}$とすれば、</p><p>$$
+$$</p>
+<p>一方、$\mathbf{x}_{0}$から任意の$t$に対して$\mathbf{x}_{t}$が決定される条件付き確率密度関数も明示的に表すことができる。$\alpha_{t} = 1 - \beta_{t}$とすれば、</p>
+<p>$$
 \begin{align*}
 \mathbf{x}_{t}
-&= \sqrt{\alpha_{t}}\mathbf{x}_{t-1} + \sqrt{1 - \alpha_{t}}\boldsymbol{\epsilon}_{t} \\
-&= \sqrt{\alpha_{t}}\left( \sqrt{\alpha_{t-1}}\mathbf{x}_{t-2} + \sqrt{1 - \alpha_{t-1}}\boldsymbol{\epsilon}_{t-1} \right) + \sqrt{1 - \alpha_{t}}\boldsymbol{\epsilon}_{t} \\
-&= \sqrt{\alpha_{t}}\sqrt{\alpha_{t-1}}\mathbf{x}_{t-2} + \sqrt{\alpha_{t}}\sqrt{1 - \alpha_{t-1}}\boldsymbol{\epsilon}_{t-1} + \sqrt{1 - \alpha_{t}}\boldsymbol{\epsilon}_{t} \\
+&amp;= \sqrt{\alpha_{t}}\mathbf{x}_{t-1} + \sqrt{1 - \alpha_{t}}\boldsymbol{\epsilon}_{t} \\
+&amp;= \sqrt{\alpha_{t}}\left( \sqrt{\alpha_{t-1}}\mathbf{x}_{t-2} + \sqrt{1 - \alpha_{t-1}}\boldsymbol{\epsilon}_{t-1} \right) + \sqrt{1 - \alpha_{t}}\boldsymbol{\epsilon}_{t} \\
+&amp;= \sqrt{\alpha_{t}}\sqrt{\alpha_{t-1}}\mathbf{x}_{t-2} + \sqrt{\alpha_{t}}\sqrt{1 - \alpha_{t-1}}\boldsymbol{\epsilon}_{t-1} + \sqrt{1 - \alpha_{t}}\boldsymbol{\epsilon}_{t} \\
 \end{align*}
-$$</p><p>この時<a href=../202>2つの正規分布の和は再び1つの正規分布として表すことができる。</a></p><blockquote><p>$X_{1} \sim \mathcal{N}(\mu_{1}, \sigma_{1}^{2})$と$X_{2} \sim \mathcal{N}(\mu_{2}, \sigma_{2}^{2})$が独立であれば、
+$$</p>
+<p>この時<a href="../202">2つの正規分布の和は再び1つの正規分布として表すことができる。</a></p>
+<blockquote>
+<p>$X_{1} \sim \mathcal{N}(\mu_{1}, \sigma_{1}^{2})$と$X_{2} \sim \mathcal{N}(\mu_{2}, \sigma_{2}^{2})$が独立であれば、
 $$
 X_{1} + X_{2} \sim \mathcal{N}(\mu_{1} + \mu_{2}, \sigma_{1}^{2} + \sigma_{2}^{2})
 $$
-ランダムベクトルに対しても同じ方法で成り立つ。</p></blockquote><p>したがって次が成り立つ。</p><p>$$
+ランダムベクトルに対しても同じ方法で成り立つ。</p>
+</blockquote>
+<p>したがって次が成り立つ。</p>
+<p>$$
 \begin{align*}
 \sqrt{\alpha_{t}}\sqrt{1 - \alpha_{t-1}}\boldsymbol{\epsilon}_{t-1} + \sqrt{1 - \alpha_{t}}\boldsymbol{\epsilon}_{t}
-&\sim \mathcal{N}(\mathbf{0}, \alpha_{t}(1-\alpha_{t-1})\mathbf{I} + (1 - \alpha_{t})\mathbf{I}) \\
-&\quad= \mathcal{N}(\mathbf{0}, (1 - \alpha_{t}\alpha_{t-1})\mathbf{I})
+&amp;\sim \mathcal{N}(\mathbf{0}, \alpha_{t}(1-\alpha_{t-1})\mathbf{I} + (1 - \alpha_{t})\mathbf{I}) \\
+&amp;\quad= \mathcal{N}(\mathbf{0}, (1 - \alpha_{t}\alpha_{t-1})\mathbf{I})
 \end{align*}
-$$</p><p>したがって、$\mathbf{x}_{t}$は以下のようである。</p><p>$$
+$$</p>
+<p>したがって、$\mathbf{x}_{t}$は以下のようである。</p>
+<p>$$
 \mathbf{x}_{t} = \sqrt{\alpha_{t}\alpha_{t-1}}\mathbf{x}_{t-2} + \sqrt{1 - \alpha_{t}\alpha_{t-1}}\boldsymbol{\epsilon}, \qquad \boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})
-$$</p><p>この過程を繰り返すと次が得られる。</p><p>$$
+$$</p>
+<p>この過程を繰り返すと次が得られる。</p>
+<p>$$
 \begin{align*}
 \mathbf{x}_{t}
-&= \sqrt{\alpha_{t}\alpha_{t-1}}\mathbf{x}_{t-2} + \sqrt{1 - \alpha_{t}\alpha_{t-1}}\boldsymbol{\epsilon} \\
-&= \sqrt{\alpha_{t}\alpha_{t-1}}(\sqrt{\alpha_{t-2}}\mathbf{x}_{t-3} + \sqrt{1 - \alpha_{t-2}}\boldsymbol{\epsilon}_{t-2}) + \sqrt{1 - \alpha_{t}\alpha_{t-1}}\boldsymbol{\epsilon} \\
-&= \sqrt{\alpha_{t}\alpha_{t-1}\alpha_{t-2}}\mathbf{x}_{t-3} + \sqrt{\alpha_{t}\alpha_{t-1}(1 - \alpha_{t-2})}\boldsymbol{\epsilon}_{t-2} + \sqrt{1 - \alpha_{t}\alpha_{t-1}}\boldsymbol{\epsilon} \\
-&= \sqrt{\alpha_{t}\alpha_{t-1}\alpha_{t-2}}\mathbf{x}_{t-3} + \sqrt{1 - \alpha_{t}\alpha_{t-1}\alpha_{t-2}}\boldsymbol{\epsilon} \\
-&\vdots \\
-&= \sqrt{\prod\limits_{s=1}^{t} \alpha_{s}}\mathbf{x}_{0} + \sqrt{1 - \prod\limits_{s=1}^{t} \alpha_{s}}\boldsymbol{\epsilon} \\
-&= \sqrt{\overline{\alpha}_{t}}\mathbf{x}_{0} + \sqrt{1 - \overline{\alpha}_{t}}\boldsymbol{\epsilon}, \qquad \boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I}), \quad \overline{\alpha}_{t} = \prod\limits_{s=1}^{t} \alpha_{s} \tag{5}
+&amp;= \sqrt{\alpha_{t}\alpha_{t-1}}\mathbf{x}_{t-2} + \sqrt{1 - \alpha_{t}\alpha_{t-1}}\boldsymbol{\epsilon} \\
+&amp;= \sqrt{\alpha_{t}\alpha_{t-1}}(\sqrt{\alpha_{t-2}}\mathbf{x}_{t-3} + \sqrt{1 - \alpha_{t-2}}\boldsymbol{\epsilon}_{t-2}) + \sqrt{1 - \alpha_{t}\alpha_{t-1}}\boldsymbol{\epsilon} \\
+&amp;= \sqrt{\alpha_{t}\alpha_{t-1}\alpha_{t-2}}\mathbf{x}_{t-3} + \sqrt{\alpha_{t}\alpha_{t-1}(1 - \alpha_{t-2})}\boldsymbol{\epsilon}_{t-2} + \sqrt{1 - \alpha_{t}\alpha_{t-1}}\boldsymbol{\epsilon} \\
+&amp;= \sqrt{\alpha_{t}\alpha_{t-1}\alpha_{t-2}}\mathbf{x}_{t-3} + \sqrt{1 - \alpha_{t}\alpha_{t-1}\alpha_{t-2}}\boldsymbol{\epsilon} \\
+&amp;\vdots \\
+&amp;= \sqrt{\prod\limits_{s=1}^{t} \alpha_{s}}\mathbf{x}_{0} + \sqrt{1 - \prod\limits_{s=1}^{t} \alpha_{s}}\boldsymbol{\epsilon} \\
+&amp;= \sqrt{\overline{\alpha}_{t}}\mathbf{x}_{0} + \sqrt{1 - \overline{\alpha}_{t}}\boldsymbol{\epsilon}, \qquad \boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I}), \quad \overline{\alpha}_{t} = \prod\limits_{s=1}^{t} \alpha_{s} \tag{5}
 \end{align*}
-$$</p><p>したがって、$\mathbf{x}_{0}$が決定されたとき、$\mathbf{x}_{t}$に対する条件付き結合密度関数は次のようになる。</p><p>$$
+$$</p>
+<p>したがって、$\mathbf{x}_{0}$が決定されたとき、$\mathbf{x}_{t}$に対する条件付き結合密度関数は次のようになる。</p>
+<p>$$
 q(\mathbf{x}_{t} | \mathbf{x}_{0}) = \mathcal{N}(\sqrt{\overline{\alpha}_{t}}\mathbf{x}_{0}, (1 - \overline{\alpha}_{t})\mathbf{I}) \tag{6}
-$$</p><p>$\alpha_{t}$が十分小さく（＝$\beta_{t}$が$1$に近ければ）$T$が十分大きいと$\overline{\alpha}_{T} = \prod_{s=1}^{T} \alpha_{s}$は$0$に近くなり、次が成り立つだろう。</p><p>$$
+$$</p>
+<p>$\alpha_{t}$が十分小さく（＝$\beta_{t}$が$1$に近ければ）$T$が十分大きいと$\overline{\alpha}_{T} = \prod_{s=1}^{T} \alpha_{s}$は$0$に近くなり、次が成り立つだろう。</p>
+<p>$$
 q(\mathbf{x}_{T} | \mathbf{x}_{0}) \to \mathcal{N}(\mathbf{0}, \mathbf{I}) \quad \text{as } T \to \infty
-$$</p><p>これは$\mathbf{x}_{0}$にガウシアンノイズを絶えず加えて作られた$\mathbf{x}_{T}$が標準正規分布を従うというアイデアを裏付ける数式である。</p><ul><li><strong>ノイズ除去過程</strong><sup>denoising process</sup>(<strong>逆方向過程</strong><sup>reverse process</sup>)</li></ul><p>今度は、ガウシアンノイズ$\mathbf{x}_{T} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$からノイズを徐々に除去して$\mathbf{x}_{0}$にする逆過程（<a href=../1192>ディノイジング</a>）を考えてみよう。Feller<sup id=fnref:4><a href=#fn:4 class=footnote-ref role=doc-noteref>4</a></sup>によれば、前方過程が<a href=../1645>正規分布</a>または<a href=../1480>二項分布</a>の場合、十分に小さい拡散係数$\beta$に対して、その逆過程が前方過程と同じ分布を従うという。</p><blockquote><p>&ldquo;For both Gaussian and binomial diffusion, for continuous diffusion (limit of small step size $\beta$) the reversal of the diffusion process has the identical functional form as the forward process.&rdquo;</p><p>&ndash; Sohl-Dickstein, Jascha, et al. <em>Deep unsupervised learning using nonequilibrium thermodynamics.</em> International conference on machine learning. pmlr, 2015.</p></blockquote><p>すなわち、ディノイジングに関する確率密度関数を$p$と表記すれば、次が成り立つという意味である。$q(\mathbf{x}_{t} | \mathbf{x}_{t-1})$が正規分布を従うので、その逆過程は以下の通りである。</p><p>$$
+$$</p>
+<p>これは$\mathbf{x}_{0}$にガウシアンノイズを絶えず加えて作られた$\mathbf{x}_{T}$が標準正規分布を従うというアイデアを裏付ける数式である。</p>
+<ul>
+<li><strong>ノイズ除去過程</strong><sup>denoising process</sup>(<strong>逆方向過程</strong><sup>reverse process</sup>)</li>
+</ul>
+<p>今度は、ガウシアンノイズ$\mathbf{x}_{T} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$からノイズを徐々に除去して$\mathbf{x}_{0}$にする逆過程（<a href="../1192">ディノイジング</a>）を考えてみよう。Feller<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>によれば、前方過程が<a href="../1645">正規分布</a>または<a href="../1480">二項分布</a>の場合、十分に小さい拡散係数$\beta$に対して、その逆過程が前方過程と同じ分布を従うという。</p>
+<blockquote>
+<p>&ldquo;For both Gaussian and binomial diffusion, for continuous diffusion (limit of small step size $\beta$) the reversal of the diffusion process has the identical functional form as the forward process.&rdquo;</p>
+<p>&ndash; Sohl-Dickstein, Jascha, et al. <em>Deep unsupervised learning using nonequilibrium thermodynamics.</em> International conference on machine learning. pmlr, 2015.</p>
+</blockquote>
+<p>すなわち、ディノイジングに関する確率密度関数を$p$と表記すれば、次が成り立つという意味である。$q(\mathbf{x}_{t} | \mathbf{x}_{t-1})$が正規分布を従うので、その逆過程は以下の通りである。</p>
+<p>$$
 p(\mathbf{x}_{t-1} | \mathbf{x}_{t}) = \mathcal{N}(\mathbf{\mu}(\mathbf{x}_{t}, t), \boldsymbol{\Sigma}(\mathbf{x}_{t}, t))
-$$</p><p>逆方向過程もまたマルコフ連鎖であるため、標準正規分布から抽出されたランダムガウシアンノイズ$\mathbf{x}_{T}$から徐々にノイズを削減し、特定の画像$\mathbf{x}_{0}$となる全過程に対する結合確率密度関数は次のように表現される。</p><p>$$
+$$</p>
+<p>逆方向過程もまたマルコフ連鎖であるため、標準正規分布から抽出されたランダムガウシアンノイズ$\mathbf{x}_{T}$から徐々にノイズを削減し、特定の画像$\mathbf{x}_{0}$となる全過程に対する結合確率密度関数は次のように表現される。</p>
+<p>$$
 p(\mathbf{x}_{0:T}) = p(\mathbf{x}_{T}) \prod\limits_{t=1}^{T} p(\mathbf{x}_{t-1} | \mathbf{x}_{t})
-$$</p><p>拡散過程$q(\mathbf{x}_{0:T})$と異なり、ディノイジング過程$p(\mathbf{x}_{0:T})$は我々が知らないため推定すべき対象である。パラメータ$\theta$を持ち、$p$を近似する関数を$p_{\theta}$と表記しよう。$\mathbf{x}_{T}$に対する確率密度関数は$p(\mathbf{x}_{T}) = \mathcal{N}(\mathbf{0}, \mathbf{I})$であることを知っているので、</p><p>$$
+$$</p>
+<p>拡散過程$q(\mathbf{x}_{0:T})$と異なり、ディノイジング過程$p(\mathbf{x}_{0:T})$は我々が知らないため推定すべき対象である。パラメータ$\theta$を持ち、$p$を近似する関数を$p_{\theta}$と表記しよう。$\mathbf{x}_{T}$に対する確率密度関数は$p(\mathbf{x}_{T}) = \mathcal{N}(\mathbf{0}, \mathbf{I})$であることを知っているので、</p>
+<p>$$
 p_{\theta} (\mathbf{x}_{0:T}) = p(\mathbf{x}_{T}) \prod\limits_{t=1}^{T} p_{\theta} (\mathbf{x}_{t-1} | \mathbf{x}_{t}) \tag{7}
-$$</p><p>各々の$p(\mathbf{x}_{t-1} | \mathbf{x}_{t})$が正規分布を従うことは知っているが、平均ベクトルと共分散行列は知らない。したがって、これらも近似すべき対象であり、$p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})$を次のように表すことができる。</p><p>$$
+$$</p>
+<p>各々の$p(\mathbf{x}_{t-1} | \mathbf{x}_{t})$が正規分布を従うことは知っているが、平均ベクトルと共分散行列は知らない。したがって、これらも近似すべき対象であり、$p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})$を次のように表すことができる。</p>
+<p>$$
 p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t}) = \mathcal{N}(\mu_{\theta}(\mathbf{x}_{t}, t), \Sigma_{\theta}(\mathbf{x}_{t}, t))
-$$</p><ul><li><strong>損失関数</strong></li></ul><p>新しいデータを生成するために求めるべきものは、データ$\mathbf{x}_{0}$に対する確率密度関数$p(\mathbf{x}_{0})$である。これを知っていれば、ランダムに抽出し既存のデータと同じ分布を従う新しいデータを生成することができる。$p(\mathbf{x}_{0})$を近似する関数は$p_{\theta}(\mathbf{x}_{0})$であり、パラメータ$\theta$を持つ。$p_{\theta}(\mathbf{x}_{0})$を$p(\mathbf{x}_{0})$と似せる方法は、$p_{\theta}(\mathbf{x}_{0})$を<a href=../3642>尤度</a>と見て、最大尤度推定法を使用することである。$p$が正規分布なので対数尤度を使用するのが数学的により簡単であり、<a href=../3466>相対的エントロピー（クルバック・ライブラー発散）</a>にも自然に結びつく。$\log p_{\theta}(\mathbf{x}_{0})$を最大化することは$-\log p_{\theta}(\mathbf{x}_{0})$を最小化することと等しいので、ここから始めよう（<a href=../987>勾配降下法</a>を使用するから）。したがって、$\mathbb{E}_{q(\mathbf{x}_{0})}[-\log p_{\theta}(\mathbf{x}_{0})]$を最小化する$\theta$を見つけることが目標である。まず、周辺／条件付き確率密度関数の定義に依って、$p(\mathbf{x})$を次のように表現できる。</p><p>$$
+$$</p>
+<ul>
+<li><strong>損失関数</strong></li>
+</ul>
+<p>新しいデータを生成するために求めるべきものは、データ$\mathbf{x}_{0}$に対する確率密度関数$p(\mathbf{x}_{0})$である。これを知っていれば、ランダムに抽出し既存のデータと同じ分布を従う新しいデータを生成することができる。$p(\mathbf{x}_{0})$を近似する関数は$p_{\theta}(\mathbf{x}_{0})$であり、パラメータ$\theta$を持つ。$p_{\theta}(\mathbf{x}_{0})$を$p(\mathbf{x}_{0})$と似せる方法は、$p_{\theta}(\mathbf{x}_{0})$を<a href="../3642">尤度</a>と見て、最大尤度推定法を使用することである。$p$が正規分布なので対数尤度を使用するのが数学的により簡単であり、<a href="../3466">相対的エントロピー（クルバック・ライブラー発散）</a>にも自然に結びつく。$\log p_{\theta}(\mathbf{x}_{0})$を最大化することは$-\log p_{\theta}(\mathbf{x}_{0})$を最小化することと等しいので、ここから始めよう（<a href="../987">勾配降下法</a>を使用するから）。したがって、$\mathbb{E}_{q(\mathbf{x}_{0})}[-\log p_{\theta}(\mathbf{x}_{0})]$を最小化する$\theta$を見つけることが目標である。まず、周辺／条件付き確率密度関数の定義に依って、$p(\mathbf{x})$を次のように表現できる。</p>
+<p>$$
 \begin{align*}
 p_{\theta}(\mathbf{x}_{0})
-&= \int p_{\theta}(\mathbf{x}_{0:T}) d\mathbf{x}_{1:T} \\
-&= \int p(\mathbf{x}_{0:T}) \dfrac{q(\mathbf{x}_{1:T} | \mathbf{x}_{0})}{q(\mathbf{x}_{1:T} | \mathbf{x}_{0})} d\mathbf{x}_{1:T} \\
-&= \int q(\mathbf{x}_{1:T} | \mathbf{x}_{0}) \dfrac{ p(\mathbf{x}_{0:T})}{q(\mathbf{x}_{1:T} | \mathbf{x}_{0})} d\mathbf{x}_{1:T} \\
-&= \mathbb{E}_{q(\mathbf{x}_{1:T} | \mathbf{x}_{0})} \left[ \dfrac{ p(\mathbf{x}_{0:T})}{q(\mathbf{x}_{1:T} | \mathbf{x}_{0})} \right]
+&amp;= \int p_{\theta}(\mathbf{x}_{0:T}) d\mathbf{x}_{1:T} \\
+&amp;= \int p(\mathbf{x}_{0:T}) \dfrac{q(\mathbf{x}_{1:T} | \mathbf{x}_{0})}{q(\mathbf{x}_{1:T} | \mathbf{x}_{0})} d\mathbf{x}_{1:T} \\
+&amp;= \int q(\mathbf{x}_{1:T} | \mathbf{x}_{0}) \dfrac{ p(\mathbf{x}_{0:T})}{q(\mathbf{x}_{1:T} | \mathbf{x}_{0})} d\mathbf{x}_{1:T} \\
+&amp;= \mathbb{E}_{q(\mathbf{x}_{1:T} | \mathbf{x}_{0})} \left[ \dfrac{ p(\mathbf{x}_{0:T})}{q(\mathbf{x}_{1:T} | \mathbf{x}_{0})} \right]
 \end{align*}
-$$</p><p>すると、我々が最小化したい期待値を以下のように整理することができる。<a href=../266>イェンセンの不等式</a>により、$-\log (\mathbb{E}[X]) \le \mathbb{E}[-\log X]$だから、</p><p>$$
+$$</p>
+<p>すると、我々が最小化したい期待値を以下のように整理することができる。<a href="../266">イェンセンの不等式</a>により、$-\log (\mathbb{E}[X]) \le \mathbb{E}[-\log X]$だから、</p>
+<p>$$
 \begin{align*}
 \mathbb{E}_{q(\mathbf{x}_{0})}[-\log p_{\theta}(\mathbf{x}_{0})]
-&= \mathbb{E}_{q(\mathbf{x}_{0})} \left[ -\log \left( \mathbb{E}_{q(\mathbf{x}_{1:T} | \mathbf{x}_{0})} \left[ \dfrac{ p_{\theta}(\mathbf{x}_{0:T})}{q(\mathbf{x}_{1:T} | \mathbf{x}_{0})} \right] \right) \right] \\
-&\le \mathbb{E}_{q(\mathbf{x}_{0})} \left[ \mathbb{E}_{q(\mathbf{x}_{1:T} | \mathbf{x}_{0})}\left( -\log \dfrac{ p_{\theta}(\mathbf{x}_{0:T})}{q(\mathbf{x}_{1:T} | \mathbf{x}_{0})} \right) \right] \\
-&= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ -\log \dfrac{ p_{\theta}(\mathbf{x}_{0:T})}{q(\mathbf{x}_{1:T} | \mathbf{x}_{0})} \right] \\
+&amp;= \mathbb{E}_{q(\mathbf{x}_{0})} \left[ -\log \left( \mathbb{E}_{q(\mathbf{x}_{1:T} | \mathbf{x}_{0})} \left[ \dfrac{ p_{\theta}(\mathbf{x}_{0:T})}{q(\mathbf{x}_{1:T} | \mathbf{x}_{0})} \right] \right) \right] \\
+&amp;\le \mathbb{E}_{q(\mathbf{x}_{0})} \left[ \mathbb{E}_{q(\mathbf{x}_{1:T} | \mathbf{x}_{0})}\left( -\log   \dfrac{ p_{\theta}(\mathbf{x}_{0:T})}{q(\mathbf{x}_{1:T} | \mathbf{x}_{0})} \right) \right] \\
+&amp;= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ -\log   \dfrac{ p_{\theta}(\mathbf{x}_{0:T})}{q(\mathbf{x}_{1:T} | \mathbf{x}_{0})} \right] \\
 \end{align*}
-$$</p><p>最後の等号は<a href=../1458>条件付き確率密度関数の定義</a>$q(X,Y) = q(X)q(Y|X)$によって成立する。二つの期待値の形を積分形に直すとわかりやすいだろう。上の式に$(4)$と$(7)$を代入すると次のようになる。</p><p>$$
+$$</p>
+<p>最後の等号は<a href="../1458">条件付き確率密度関数の定義</a>$q(X,Y) = q(X)q(Y|X)$によって成立する。二つの期待値の形を積分形に直すとわかりやすいだろう。上の式に$(4)$と$(7)$を代入すると次のようになる。</p>
+<p>$$
 \begin{align*}
 \mathbb{E}_{q(\mathbf{x}_{0})}[-\log p_{\theta}(\mathbf{x}_{0})]
-&\le \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ -\log \dfrac{ p_{\theta}(\mathbf{x}_{0:T})}{q(\mathbf{x}_{1:T} | \mathbf{x}_{0})} \right] \\
-&= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ -\log \dfrac{ p(\mathbf{x}_{T}) \prod\limits_{t=1}^{T} p_{\theta} (\mathbf{x}_{t-1} | \mathbf{x}_{t})}{\prod\limits_{t=1}^{T} q(\mathbf{x}_{t} | \mathbf{x}_{t-1})} \right] \\
-&= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ -\log p(\mathbf{x}_{T}) - \sum\limits_{t=1}^{T} \log \dfrac{ p_{\theta} (\mathbf{x}_{t-1} | \mathbf{x}_{t})}{ q(\mathbf{x}_{t} | \mathbf{x}_{t-1})} \right] =: L
+&amp;\le \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ -\log \dfrac{ p_{\theta}(\mathbf{x}_{0:T})}{q(\mathbf{x}_{1:T} | \mathbf{x}_{0})} \right] \\
+&amp;= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ -\log \dfrac{ p(\mathbf{x}_{T}) \prod\limits_{t=1}^{T} p_{\theta} (\mathbf{x}_{t-1} | \mathbf{x}_{t})}{\prod\limits_{t=1}^{T} q(\mathbf{x}_{t} | \mathbf{x}_{t-1})} \right] \\
+&amp;= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ -\log p(\mathbf{x}_{T}) - \sum\limits_{t=1}^{T} \log \dfrac{ p_{\theta} (\mathbf{x}_{t-1} | \mathbf{x}_{t})}{ q(\mathbf{x}_{t} | \mathbf{x}_{t-1})} \right] =: L
 \end{align*}
-$$</p><p>最後の等号は<a href=../2063>対数の性質</a>によって成立する。上の式の左辺は実際に減らしたいものだが計算が不可能である。実際のデータの分布$q(\mathbf{x}_{0})$を知らないからだ。だが、右辺を見ると、計算すべきものは$p(\mathbf{x}_{T})$と$q(\mathbf{x}_{t} | \mathbf{x}_{t-1})$で、最初のものは正規分布を仮定したので知っている。第二のものは拡散過程を実際に行うのでその値を得ることができる。したがって、右辺の$L$はすべて実際に計算可能な値で構成されているので、この値を計算して最小化すれば、不等式により左辺も最小化することができる。</p><p>ここで数式を操作して損失関数を計算に効率的に改善することができる。今$L$では$\log \dfrac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t} | \mathbf{x}_{t-1})}$が含まれているが、これを計算するためには$p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})$についてサンプリングする過程が必要だ。これは実際の値に対して分散が存在し、学習過程が不安定であることを意味する。それで、上の式を<a href=../3466>クルバック・ライブラー発散(KLD)</a>が含まれた数式に書き直そう。今$p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})$と$q(\mathbf{x}_{t} | \mathbf{x}_{t-1})$は全て正規分布を従うと仮定したから、以下の公式にしたがってKLDの<a href=../2576>閉じた形</a>を得ることができ、分散なしに正確な損失関数を計算することができ、学習を安定的かつ効率的に行うことができる。</p><blockquote><p><a href=../3681>正規分布の相対的エントロピー</a>:</p><p>2つの<a href=../1954>多変量正規分布</a> $N(\boldsymbol{\mu}, \Sigma)$と$N(\boldsymbol{\mu_{1}}, \Sigma_{1})$間の相対的エントロピーは次の通り。$\boldsymbol{\mu}, \boldsymbol{\mu}_{1} \in \mathbb{R}^{D}$の時、</p><p>$$
+$$</p>
+<p>最後の等号は<a href="../2063">対数の性質</a>によって成立する。上の式の左辺は実際に減らしたいものだが計算が不可能である。実際のデータの分布$q(\mathbf{x}_{0})$を知らないからだ。だが、右辺を見ると、計算すべきものは$p(\mathbf{x}_{T})$と$q(\mathbf{x}_{t} | \mathbf{x}_{t-1})$で、最初のものは正規分布を仮定したので知っている。第二のものは拡散過程を実際に行うのでその値を得ることができる。したがって、右辺の$L$はすべて実際に計算可能な値で構成されているので、この値を計算して最小化すれば、不等式により左辺も最小化することができる。</p>
+<p>ここで数式を操作して損失関数を計算に効率的に改善することができる。今$L$では$\log \dfrac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t} | \mathbf{x}_{t-1})}$が含まれているが、これを計算するためには$p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})$についてサンプリングする過程が必要だ。これは実際の値に対して分散が存在し、学習過程が不安定であることを意味する。それで、上の式を<a href="../3466">クルバック・ライブラー発散(KLD)</a>が含まれた数式に書き直そう。今$p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})$と$q(\mathbf{x}_{t} | \mathbf{x}_{t-1})$は全て正規分布を従うと仮定したから、以下の公式にしたがってKLDの<a href="../2576">閉じた形</a>を得ることができ、分散なしに正確な損失関数を計算することができ、学習を安定的かつ効率的に行うことができる。</p>
+<blockquote>
+<p><a href="../3681">正規分布の相対的エントロピー</a>:</p>
+<p>2つの<a href="../1954">多変量正規分布</a> $N(\boldsymbol{\mu}, \Sigma)$と$N(\boldsymbol{\mu_{1}}, \Sigma_{1})$間の相対的エントロピーは次の通り。$\boldsymbol{\mu}, \boldsymbol{\mu}_{1} \in \mathbb{R}^{D}$の時、</p>
+<p>$$
 \begin{array}{l}
 D_{\text{KL}}\big( N(\boldsymbol{\mu}, \Sigma) \| N(\boldsymbol{\mu_{1}}, \Sigma_{1}) \big) \\[1em]
 = \dfrac{1}{2} \left[ \log \left( \dfrac{|\Sigma|}{|\Sigma_{1}|} \right) + \Tr(\Sigma_{1}^{-1}\Sigma) + (\boldsymbol{\mu} - \boldsymbol{\mu_{1}})^{\mathsf{T}} \Sigma_{1}^{-1} (\boldsymbol{\mu} - \boldsymbol{\mu_{1}}) - D \right]
 \end{array}
-$$</p></blockquote><p>$$
+$$</p>
+</blockquote>
+<p>$$
 \begin{align*}
 L
-&= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ - \log p(\mathbf{x}_{T}) - \sum\limits_{t=1}^{T} \log \dfrac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t} | \mathbf{x}_{t-1})} \right] \\
-&= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ - \log p(\mathbf{x}_{T}) - \sum\limits_{t=2}^{T} \log \dfrac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t} | \mathbf{x}_{t-1})} - \log \dfrac{p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1})}{q(\mathbf{x}_{1} | \mathbf{x}_{0})} \right]
+&amp;= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ - \log p(\mathbf{x}_{T}) - \sum\limits_{t=1}^{T} \log \dfrac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t} | \mathbf{x}_{t-1})} \right] \\
+&amp;= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ - \log p(\mathbf{x}_{T}) - \sum\limits_{t=2}^{T} \log \dfrac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t} | \mathbf{x}_{t-1})} - \log \dfrac{p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1})}{q(\mathbf{x}_{1} | \mathbf{x}_{0})} \right]
 \end{align*}
-$$</p><p>この時、第二項の分子をよく見ると、次のように書き換えられる。</p><p>$$
+$$</p>
+<p>この時、第二項の分子をよく見ると、次のように書き換えられる。</p>
+<p>$$
 \begin{align*}
-q(\mathbf{x}_{t} | \mathbf{x}_{t-1}) &= q(\mathbf{x}_{t} | \mathbf{x}_{t-1}, \mathbf{x}_{0}) &\text{by Markov property} \\
-&= \dfrac{q(\mathbf{x}_{t}, \mathbf{x}_{t-1}, \mathbf{x}_{0})}{q(\mathbf{x}_{t-1}, \mathbf{x}_{0})} &\text{by def. of conditional pdf} \\
-&= \dfrac{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0}) q(\mathbf{x}_{t}, \mathbf{x}_{0})}{q(\mathbf{x}_{t-1}, \mathbf{x}_{0})} &\text{by def. of conditional pdf} \\
-&= q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0}) \dfrac{q(\mathbf{x}_{t}, \mathbf{x}_{0})}{q(\mathbf{x}_{t-1}, \mathbf{x}_{0})} & \\
-&= q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0}) \dfrac{q(\mathbf{x}_{t}, \mathbf{x}_{0}) p(\mathbf{x}_{0})}{q(\mathbf{x}_{t-1}, \mathbf{x}_{0}) p(\mathbf{x}_{0})} & \\
-&= q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0}) \dfrac{q(\mathbf{x}_{t}, \mathbf{x}_{0}) }{ p(\mathbf{x}_{0})} \dfrac{p(\mathbf{x}_{0})}{q(\mathbf{x}_{t-1}, \mathbf{x}_{0})} & \\
-&= q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0}) \dfrac{q(\mathbf{x}_{t}| \mathbf{x}_{0})}{q(\mathbf{x}_{t-1}| \mathbf{x}_{0})} &\text{by def. of conditional pdf}
+q(\mathbf{x}_{t} | \mathbf{x}_{t-1}) &amp;= q(\mathbf{x}_{t} | \mathbf{x}_{t-1}, \mathbf{x}_{0}) &amp;\text{by Markov property} \\
+&amp;= \dfrac{q(\mathbf{x}_{t}, \mathbf{x}_{t-1}, \mathbf{x}_{0})}{q(\mathbf{x}_{t-1}, \mathbf{x}_{0})} &amp;\text{by def. of conditional pdf} \\
+&amp;= \dfrac{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0}) q(\mathbf{x}_{t}, \mathbf{x}_{0})}{q(\mathbf{x}_{t-1}, \mathbf{x}_{0})} &amp;\text{by def. of conditional pdf} \\
+&amp;= q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0}) \dfrac{q(\mathbf{x}_{t}, \mathbf{x}_{0})}{q(\mathbf{x}_{t-1}, \mathbf{x}_{0})} &amp; \\
+&amp;= q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0}) \dfrac{q(\mathbf{x}_{t}, \mathbf{x}_{0}) p(\mathbf{x}_{0})}{q(\mathbf{x}_{t-1}, \mathbf{x}_{0}) p(\mathbf{x}_{0})} &amp; \\
+&amp;= q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0}) \dfrac{q(\mathbf{x}_{t}, \mathbf{x}_{0}) }{ p(\mathbf{x}_{0})} \dfrac{p(\mathbf{x}_{0})}{q(\mathbf{x}_{t-1}, \mathbf{x}_{0})} &amp; \\
+&amp;= q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0}) \dfrac{q(\mathbf{x}_{t}| \mathbf{x}_{0})}{q(\mathbf{x}_{t-1}| \mathbf{x}_{0})} &amp;\text{by def. of conditional pdf}
 \end{align*}
-$$</p><p>これを代入して次のように整理しよう。</p><p>$$
+$$</p>
+<p>これを代入して次のように整理しよう。</p>
+<p>$$
 \begin{align*}
 L
-&= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ - \log p(\mathbf{x}_{T}) - \sum\limits_{t=2}^{T} \log \left( \dfrac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})}\dfrac{q(\mathbf{x}_{t-1} | \mathbf{x}_{0})}{q(\mathbf{x}_{t} | \mathbf{x}_{0})} \right) - \log \dfrac{p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1})}{q(\mathbf{x}_{1} | \mathbf{x}_{0})} \right] \\
-&= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ - \log p(\mathbf{x}_{T}) - \sum\limits_{t=2}^{T} \log \dfrac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})} - \sum\limits_{t=2}^{T} \log \dfrac{q(\mathbf{x}_{t-1} | \mathbf{x}_{0})}{q(\mathbf{x}_{t} | \mathbf{x}_{0})} - \log \dfrac{p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1})}{q(\mathbf{x}_{1} | \mathbf{x}_{0})} \right] \\
-&= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ - \log p(\mathbf{x}_{T}) - \sum\limits_{t=2}^{T} \log \dfrac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})} \right. \\
-&\qquad\qquad\qquad \left. -\log \left( \dfrac{q(\mathbf{x}_{T-1} | \mathbf{x}_{0})}{q(\mathbf{x}_{T} | \mathbf{x}_{0})} \cdot \dfrac{q(\mathbf{x}_{T-2} | \mathbf{x}_{0})}{q(\mathbf{x}_{T-1} | \mathbf{x}_{0})} \cdots \dfrac{q(\mathbf{x}_{1} | \mathbf{x}_{0})}{q(\mathbf{x}_{2} | \mathbf{x}_{0})} \right) - \log \dfrac{p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1})}{q(\mathbf{x}_{1} | \mathbf{x}_{0})} \right] \\
-&= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ - \log p(\mathbf{x}_{T}) - \sum\limits_{t=2}^{T} \log \dfrac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})} \right. \\
-&\qquad\qquad\qquad \left. - \log \left( \dfrac{q(\mathbf{x}_{T-1} | \mathbf{x}_{0})}{q(\mathbf{x}_{T} | \mathbf{x}_{0})} \cdot \dfrac{q(\mathbf{x}_{T-2} | \mathbf{x}_{0})}{q(\mathbf{x}_{T-1} | \mathbf{x}_{0})} \cdots \dfrac{q(\mathbf{x}_{1} | \mathbf{x}_{0})}{q(\mathbf{x}_{2} | \mathbf{x}_{0})} \cdot \dfrac{p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1})}{q(\mathbf{x}_{1} | \mathbf{x}_{0})} \right) \right] \\
-&= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ - \log p(\mathbf{x}_{T}) - \sum\limits_{t=2}^{T} \log \dfrac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})} \right. \\
-&\qquad\qquad\qquad \left. - \log \left( \dfrac{\color{red}{\cancel{\color{black}q(\mathbf{x}_{T-1} | \mathbf{x}_{0})}}}{q(\mathbf{x}_{T} | \mathbf{x}_{0})} \cdot \dfrac{\color{green}{\bcancel{\color{black}q(\mathbf{x}_{T-1} | \mathbf{x}_{0})}}}{\color{red}{\cancel{\color{black}q(\mathbf{x}_{T-1} | \mathbf{x}_{0})}}} \cdots \dfrac{\color{purple}{\cancel{\color{black}q(\mathbf{x}_{1} | \mathbf{x}_{0})}}}{\color{green}{\bcancel{\color{black}q(\mathbf{x}_{2} | \mathbf{x}_{0})}}} \cdot \dfrac{p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1})}{\color{purple}{\cancel{\color{black}q(\mathbf{x}_{1} | \mathbf{x}_{0})}}} \right) \right] \\
-&= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ - \log p(\mathbf{x}_{T}) - \sum\limits_{t=2}^{T} \log \dfrac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})} - \log \dfrac{p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1})}{q(\mathbf{x}_{T} | \mathbf{x}_{0})} \right] \\
-&= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ - \log \dfrac{p(\mathbf{x}_{T})}{q(\mathbf{x}_{T} | \mathbf{x}_{0})} - \sum\limits_{t=2}^{T} \log \dfrac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})} - \log p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1}) \right] \\
-&= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ \log \dfrac{q(\mathbf{x}_{T} | \mathbf{x}_{0})}{p(\mathbf{x}_{T})} + \sum\limits_{t=2}^{T} \log \dfrac{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})}{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})} - \log p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1}) \right] \\
-(8) &= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ \log \dfrac{q(\mathbf{x}_{T} | \mathbf{x}_{0})}{p(\mathbf{x}_{T})} \right] + \sum\limits_{t=2}^{T} \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ \log \dfrac{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})}{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})} \right] - \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ \log p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1}) \right] \tag{8}
+&amp;= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ - \log p(\mathbf{x}_{T}) - \sum\limits_{t=2}^{T} \log \left( \dfrac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})}\dfrac{q(\mathbf{x}_{t-1} | \mathbf{x}_{0})}{q(\mathbf{x}_{t} | \mathbf{x}_{0})} \right) - \log \dfrac{p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1})}{q(\mathbf{x}_{1} | \mathbf{x}_{0})} \right] \\
+&amp;= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ - \log p(\mathbf{x}_{T}) - \sum\limits_{t=2}^{T} \log \dfrac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})} - \sum\limits_{t=2}^{T} \log \dfrac{q(\mathbf{x}_{t-1} | \mathbf{x}_{0})}{q(\mathbf{x}_{t} | \mathbf{x}_{0})} - \log \dfrac{p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1})}{q(\mathbf{x}_{1} | \mathbf{x}_{0})} \right] \\
+&amp;= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ - \log p(\mathbf{x}_{T}) - \sum\limits_{t=2}^{T} \log \dfrac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})}  \right. \\
+&amp;\qquad\qquad\qquad \left. -\log \left( \dfrac{q(\mathbf{x}_{T-1} | \mathbf{x}_{0})}{q(\mathbf{x}_{T} | \mathbf{x}_{0})} \cdot \dfrac{q(\mathbf{x}_{T-2} | \mathbf{x}_{0})}{q(\mathbf{x}_{T-1} | \mathbf{x}_{0})} \cdots \dfrac{q(\mathbf{x}_{1} | \mathbf{x}_{0})}{q(\mathbf{x}_{2} | \mathbf{x}_{0})} \right) - \log \dfrac{p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1})}{q(\mathbf{x}_{1} | \mathbf{x}_{0})} \right] \\
+&amp;= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ - \log p(\mathbf{x}_{T}) - \sum\limits_{t=2}^{T} \log \dfrac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})} \right. \\
+&amp;\qquad\qquad\qquad \left. - \log \left( \dfrac{q(\mathbf{x}_{T-1} | \mathbf{x}_{0})}{q(\mathbf{x}_{T} | \mathbf{x}_{0})} \cdot \dfrac{q(\mathbf{x}_{T-2} | \mathbf{x}_{0})}{q(\mathbf{x}_{T-1} | \mathbf{x}_{0})} \cdots \dfrac{q(\mathbf{x}_{1} | \mathbf{x}_{0})}{q(\mathbf{x}_{2} | \mathbf{x}_{0})} \cdot \dfrac{p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1})}{q(\mathbf{x}_{1} | \mathbf{x}_{0})} \right) \right] \\
+&amp;= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ - \log p(\mathbf{x}_{T}) - \sum\limits_{t=2}^{T} \log \dfrac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})} \right. \\
+&amp;\qquad\qquad\qquad \left. - \log \left( \dfrac{\color{red}{\cancel{\color{black}q(\mathbf{x}_{T-1} | \mathbf{x}_{0})}}}{q(\mathbf{x}_{T} | \mathbf{x}_{0})} \cdot \dfrac{\color{green}{\bcancel{\color{black}q(\mathbf{x}_{T-1} | \mathbf{x}_{0})}}}{\color{red}{\cancel{\color{black}q(\mathbf{x}_{T-1} | \mathbf{x}_{0})}}} \cdots \dfrac{\color{purple}{\cancel{\color{black}q(\mathbf{x}_{1} | \mathbf{x}_{0})}}}{\color{green}{\bcancel{\color{black}q(\mathbf{x}_{2} | \mathbf{x}_{0})}}} \cdot \dfrac{p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1})}{\color{purple}{\cancel{\color{black}q(\mathbf{x}_{1} | \mathbf{x}_{0})}}} \right) \right] \\
+&amp;= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ - \log p(\mathbf{x}_{T}) - \sum\limits_{t=2}^{T} \log \dfrac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})} - \log \dfrac{p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1})}{q(\mathbf{x}_{T} | \mathbf{x}_{0})} \right] \\
+&amp;= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ - \log \dfrac{p(\mathbf{x}_{T})}{q(\mathbf{x}_{T} | \mathbf{x}_{0})} - \sum\limits_{t=2}^{T} \log \dfrac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})} - \log p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1}) \right] \\
+&amp;= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ \log \dfrac{q(\mathbf{x}_{T} | \mathbf{x}_{0})}{p(\mathbf{x}_{T})} + \sum\limits_{t=2}^{T} \log \dfrac{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})}{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})} - \log p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1}) \right] \\
+(8) &amp;= \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ \log \dfrac{q(\mathbf{x}_{T} | \mathbf{x}_{0})}{p(\mathbf{x}_{T})} \right] + \sum\limits_{t=2}^{T} \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ \log \dfrac{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})}{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})} \right] - \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ \log p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1}) \right] \tag{8}
 \end{align*}
-$$</p><p>$(8)$の第一項は以下のような過程でKLDに関する式に書き換えることができる。</p><p>$$
+$$</p>
+<p>$(8)$の第一項は以下のような過程でKLDに関する式に書き換えることができる。</p>
+<p>$$
 \begin{align*}
-&\mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ \log \dfrac{q(\mathbf{x}_{T} | \mathbf{x}_{0})}{p(\mathbf{x}_{T})} \right] \\
-&= \int q(\mathbf{x}_{0:T}) \log \dfrac{q(\mathbf{x}_{T} | \mathbf{x}_{0})}{p(\mathbf{x}_{T})} d\mathbf{x}_{0:T} \\
-&= \int q(\mathbf{x}_{0}) q(\mathbf{x}_{1:T} | \mathbf{x}_{0}) \log \dfrac{q(\mathbf{x}_{T} | \mathbf{x}_{0})}{p(\mathbf{x}_{T})} d\mathbf{x}_{0:T} &\text{by def. of conditional pdf} \\
-&= \int\int\int q(\mathbf{x}_{0}) q(\mathbf{x}_{1:T} | \mathbf{x}_{0}) \log \dfrac{q(\mathbf{x}_{T} | \mathbf{x}_{0})}{p(\mathbf{x}_{T})} d\mathbf{x}_{1:T-1} d\mathbf{x}_{T} d\mathbf{x}_{0} \\
-&= \int\int q(\mathbf{x}_{0}) q(\mathbf{x}_{T} | \mathbf{x}_{0}) \log \dfrac{q(\mathbf{x}_{T} | \mathbf{x}_{0})}{p(\mathbf{x}_{T})} d\mathbf{x}_{T} d\mathbf{x}_{0} &\text{by def. of marginal pdf} \\
-&= \mathbb{E}_{q(\mathbf{x}_{0})}\left[ \int q(\mathbf{x}_{T} | \mathbf{x}_{0}) \log \dfrac{q(\mathbf{x}_{T} | \mathbf{x}_{0})}{p(\mathbf{x}_{T})} d\mathbf{x}_{T} \right] \\
-&= \mathbb{E}_{q(\mathbf{x}_{0})} \Big[ D_{\text{KL}} \left( q(\mathbf{x}_{T} | \mathbf{x}_{0}) \| p(\mathbf{x}_{T}) \right) \Big]
+&amp;\mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ \log \dfrac{q(\mathbf{x}_{T} | \mathbf{x}_{0})}{p(\mathbf{x}_{T})} \right] \\
+&amp;= \int q(\mathbf{x}_{0:T}) \log \dfrac{q(\mathbf{x}_{T} | \mathbf{x}_{0})}{p(\mathbf{x}_{T})} d\mathbf{x}_{0:T} \\
+&amp;= \int q(\mathbf{x}_{0}) q(\mathbf{x}_{1:T} | \mathbf{x}_{0}) \log \dfrac{q(\mathbf{x}_{T} | \mathbf{x}_{0})}{p(\mathbf{x}_{T})} d\mathbf{x}_{0:T} &amp;\text{by def. of conditional pdf} \\
+&amp;= \int\int\int q(\mathbf{x}_{0}) q(\mathbf{x}_{1:T} | \mathbf{x}_{0}) \log \dfrac{q(\mathbf{x}_{T} | \mathbf{x}_{0})}{p(\mathbf{x}_{T})} d\mathbf{x}_{1:T-1} d\mathbf{x}_{T} d\mathbf{x}_{0} \\
+&amp;= \int\int q(\mathbf{x}_{0}) q(\mathbf{x}_{T} | \mathbf{x}_{0}) \log \dfrac{q(\mathbf{x}_{T} | \mathbf{x}_{0})}{p(\mathbf{x}_{T})} d\mathbf{x}_{T} d\mathbf{x}_{0} &amp;\text{by def. of marginal pdf} \\
+&amp;= \mathbb{E}_{q(\mathbf{x}_{0})}\left[ \int q(\mathbf{x}_{T} | \mathbf{x}_{0}) \log \dfrac{q(\mathbf{x}_{T} | \mathbf{x}_{0})}{p(\mathbf{x}_{T})} d\mathbf{x}_{T} \right] \\
+&amp;= \mathbb{E}_{q(\mathbf{x}_{0})} \Big[ D_{\text{KL}} \left( q(\mathbf{x}_{T} | \mathbf{x}_{0}) \| p(\mathbf{x}_{T}) \right) \Big]
 \end{align*}
-$$</p><p>論文では$\mathbb{E}_{q(\mathbf{x}_{0:T})} = \mathbb{E}_{q} = \mathbb{E}_{q(\mathbf{x}_{0})}$で表記法を乱用しているので注意が必要である。もちろん、期待値の中の値は$\mathbf{x}_{0}$にのみ依存するので、他の確率変数に関して積分してもその値は$1$なので結果は同じである。しかし、論文ではこのような説明が全くないので、読者が自主的にうまく読まなければならない。</p><p>今度は$(8)$の第二項を見てみよう。第一項と同様に$q(\mathbf{x}_{0:T})$をうまく操作して$q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})$が出てくるようにKLDの形で書くことができる。</p><p>$$
+$$</p>
+<p>論文では$\mathbb{E}_{q(\mathbf{x}_{0:T})} = \mathbb{E}_{q} = \mathbb{E}_{q(\mathbf{x}_{0})}$で表記法を乱用しているので注意が必要である。もちろん、期待値の中の値は$\mathbf{x}_{0}$にのみ依存するので、他の確率変数に関して積分してもその値は$1$なので結果は同じである。しかし、論文ではこのような説明が全くないので、読者が自主的にうまく読まなければならない。</p>
+<p>今度は$(8)$の第二項を見てみよう。第一項と同様に$q(\mathbf{x}_{0:T})$をうまく操作して$q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})$が出てくるようにKLDの形で書くことができる。</p>
+<p>$$
 \begin{align*}
-&\sum\limits_{t=2}^{T} \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ \log \dfrac{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})}{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})} \right] \\
-&= \sum\limits_{t=2}^{T} \int q(\mathbf{x}_{0:T}) \log \dfrac{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})}{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})} d\mathbf{x}_{0:T} \\
-&= \sum\limits_{t=2}^{T} \int q(\mathbf{x}_{0}) q(\mathbf{x}_{1:T} | \mathbf{x}_{0}) \log \dfrac{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})}{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})} d\mathbf{x}_{0:T} \\
-&= \sum\limits_{t=2}^{T} \int q(\mathbf{x}_{0}) q(\mathbf{x}_{1:t-1}, \mathbf{x}_{t+1:T} | \mathbf{x}_{t}, \mathbf{x}_{0}) q(\mathbf{x}_{t} | \mathbf{x}_{0}) \log \dfrac{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})}{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})} d\mathbf{x}_{0:T} \\
-&= \sum\limits_{t=2}^{T} \int\int\int q(\mathbf{x}_{0}) q(\mathbf{x}_{1:t-1}, \mathbf{x}_{t+1:T} | \mathbf{x}_{t}, \mathbf{x}_{0}) q(\mathbf{x}_{t} | \mathbf{x}_{0}) \log \dfrac{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})}{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})} d\mathbf{x}_{(1:t-2,t+1:T)} d\mathbf{x}_{t-1:t} d\mathbf{x}_{0} \\
-&= \sum\limits_{t=2}^{T} \int\int q(\mathbf{x}_{0}) q(\mathbf{x}_{t-1}| \mathbf{x}_{t}, \mathbf{x}_{0}) q(\mathbf{x}_{t} | \mathbf{x}_{0}) \log \dfrac{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})}{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})} d\mathbf{x}_{t-1:t} d\mathbf{x}_{0} \\
-&= \sum\limits_{t=2}^{T} \int\int q(\mathbf{x}_{0}) q(\mathbf{x}_{t} | \mathbf{x}_{0}) D_{\text{KL}} \left( q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0}) \| p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t}) \right) d\mathbf{x}_{t} d\mathbf{x}_{0} \\
-&= \int q(\mathbf{x}_{0}) \left[ \sum\limits_{t=2}^{T} \int q(\mathbf{x}_{t} | \mathbf{x}_{0}) D_{\text{KL}} \left( q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0}) \| p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t}) \right) d\mathbf{x}_{t} \right] d\mathbf{x}_{0} \\
-&= \mathbb{E}_{q(\mathbf{x}_{0})} \left[ \sum\limits_{t=2}^{T} \mathbb{E}_{q(\mathbf{x}_{t} | \mathbf{x}_{0})} \Big[ D_{\text{KL}} \left( q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0}) \| p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t}) \right) \Big] \right] \\
+&amp;\sum\limits_{t=2}^{T} \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ \log \dfrac{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})}{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})} \right] \\
+&amp;= \sum\limits_{t=2}^{T} \int q(\mathbf{x}_{0:T}) \log \dfrac{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})}{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})} d\mathbf{x}_{0:T} \\
+&amp;= \sum\limits_{t=2}^{T} \int q(\mathbf{x}_{0}) q(\mathbf{x}_{1:T} | \mathbf{x}_{0}) \log \dfrac{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})}{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})} d\mathbf{x}_{0:T} \\
+&amp;= \sum\limits_{t=2}^{T} \int q(\mathbf{x}_{0}) q(\mathbf{x}_{1:t-1}, \mathbf{x}_{t+1:T} | \mathbf{x}_{t}, \mathbf{x}_{0}) q(\mathbf{x}_{t} | \mathbf{x}_{0}) \log \dfrac{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})}{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})} d\mathbf{x}_{0:T} \\
+&amp;= \sum\limits_{t=2}^{T} \int\int\int q(\mathbf{x}_{0}) q(\mathbf{x}_{1:t-1}, \mathbf{x}_{t+1:T} | \mathbf{x}_{t}, \mathbf{x}_{0}) q(\mathbf{x}_{t} | \mathbf{x}_{0}) \log \dfrac{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})}{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})} d\mathbf{x}_{(1:t-2,t+1:T)} d\mathbf{x}_{t-1:t} d\mathbf{x}_{0} \\
+&amp;= \sum\limits_{t=2}^{T} \int\int q(\mathbf{x}_{0}) q(\mathbf{x}_{t-1}| \mathbf{x}_{t}, \mathbf{x}_{0}) q(\mathbf{x}_{t} | \mathbf{x}_{0}) \log \dfrac{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})}{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})} d\mathbf{x}_{t-1:t} d\mathbf{x}_{0} \\
+&amp;= \sum\limits_{t=2}^{T} \int\int q(\mathbf{x}_{0}) q(\mathbf{x}_{t} | \mathbf{x}_{0}) D_{\text{KL}} \left( q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0}) \| p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t}) \right) d\mathbf{x}_{t} d\mathbf{x}_{0} \\
+&amp;= \int q(\mathbf{x}_{0}) \left[ \sum\limits_{t=2}^{T} \int q(\mathbf{x}_{t} | \mathbf{x}_{0}) D_{\text{KL}} \left( q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0}) \| p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t}) \right) d\mathbf{x}_{t} \right] d\mathbf{x}_{0} \\
+&amp;= \mathbb{E}_{q(\mathbf{x}_{0})} \left[ \sum\limits_{t=2}^{T} \mathbb{E}_{q(\mathbf{x}_{t} | \mathbf{x}_{0})} \Big[ D_{\text{KL}} \left( q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0}) \| p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t}) \right) \Big] \right] \\
 \end{align*}
-$$</p><p>論文ではこれを$\displaystyle \mathbb{E}_{q} \left[ \sum\limits_{t=2}^{T} D_{\text{KL}} \left( q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0}) \| p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t}) \right) \right]$と表記していることに注意しよう。第一項と同様に依存しない変数であえて積分し直せば、論文の表記と一致するようにも書き直すことができる。</p><p>今$(8)$は最終的に次のようにKLDを含む式に再び表すことができる。</p><p>$$
+$$</p>
+<p>論文ではこれを$\displaystyle \mathbb{E}_{q} \left[ \sum\limits_{t=2}^{T} D_{\text{KL}} \left( q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0}) \| p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t}) \right) \right]$と表記していることに注意しよう。第一項と同様に依存しない変数であえて積分し直せば、論文の表記と一致するようにも書き直すことができる。</p>
+<p>今$(8)$は最終的に次のようにKLDを含む式に再び表すことができる。</p>
+<p>$$
 \begin{align*}
 &amp;L = \mathbb{E}_{q(\mathbf{x}_{0})} \Big[ D_{\text{KL}} \left( q(\mathbf{x}_{T} | \mathbf{x}_{0}) \| p(\mathbf{x}_{T}) \right) \Big] \\
-&\qquad +\mathbb{E}_{q(\mathbf{x}_{0})} \left[ \sum\limits_{t=2}^{T} \mathbb{E}_{q(\mathbf{x}_{t} | \mathbf{x}_{0})} \Big[ D_{\text{KL}} \left( q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0}) \| p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t}) \right) \Big] \right] - \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ \log p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1}) \right]
+&amp;\qquad +\mathbb{E}_{q(\mathbf{x}_{0})} \left[ \sum\limits_{t=2}^{T} \mathbb{E}_{q(\mathbf{x}_{t} | \mathbf{x}_{0})} \Big[ D_{\text{KL}} \left( q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0}) \| p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t}) \right) \Big] \right] - \mathbb{E}_{q(\mathbf{x}_{0:T})} \left[ \log p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1}) \right]
 \end{align*}
-$$</p><p>もちろん、上記のように説明したように、$\int q(\mathbf{x}_{t^{\prime}}) f(\mathbf{x}_{t}) d\mathbf{x}_{t^{\prime}} = f(\mathbf{x}_{t})$である積分トリックを使うと次のように一つの項にまとめて表現することもできる。</p><p>$$
+$$</p>
+<p>もちろん、上記のように説明したように、$\int q(\mathbf{x}_{t^{\prime}}) f(\mathbf{x}_{t}) d\mathbf{x}_{t^{\prime}} = f(\mathbf{x}_{t})$である積分トリックを使うと次のように一つの項にまとめて表現することもできる。</p>
+<p>$$
 \mathbb{E}_{q(\mathbf{x}_{0:T})} \bigg[ \underbrace{D_{\text{KL}} \left( q(\mathbf{x}_{T} | \mathbf{x}_{0}) \| p(\mathbf{x}_{T}) \right)}_{L_{T}} + \sum\limits_{t=2}^{T} \underbrace{\Big[ D_{\text{KL}} \left( q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0}) \| p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t}) \right) \Big]}_{L_{t-1}} - \underbrace{\log p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1})}_{L_{0}} \bigg]
-$$</p><p>ここで$q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})$は次のように計算することができる。</p><blockquote><p><a href=../1458>条件付き確率の性質</a></p><p>$$
+$$</p>
+<p>ここで$q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})$は次のように計算することができる。</p>
+<blockquote>
+<p><a href="../1458">条件付き確率の性質</a></p>
+<p>$$
 p(\mathbf{x} | \mathbf{y}, \mathbf{z})
 = \dfrac{p(\mathbf{x}, \mathbf{y} | \mathbf{z}) }{p(\mathbf{y} | \mathbf{z})}
-$$</p></blockquote><p>$$
+$$</p>
+</blockquote>
+<p>$$
 \begin{align*}
 q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})
-&= \dfrac{q(\mathbf{x}_{t}, \mathbf{x}_{t-1} | \mathbf{x}_{0})}{q(\mathbf{x}_{t} | \mathbf{x}_{0})} \\
-&= \dfrac{q(\mathbf{x}_{t} | \mathbf{x}_{t-1}, \mathbf{x}_{0}) q(\mathbf{x}_{t-1} | \mathbf{x}_{0})}{q(\mathbf{x}_{t} | \mathbf{x}_{0})} \\
-&= \dfrac{q(\mathbf{x}_{t} | \mathbf{x}_{t-1}) q(\mathbf{x}_{t-1} | \mathbf{x}_{0})}{q(\mathbf{x}_{t} | \mathbf{x}_{0})}
+&amp;= \dfrac{q(\mathbf{x}_{t}, \mathbf{x}_{t-1} | \mathbf{x}_{0})}{q(\mathbf{x}_{t} | \mathbf{x}_{0})} \\
+&amp;= \dfrac{q(\mathbf{x}_{t} | \mathbf{x}_{t-1}, \mathbf{x}_{0}) q(\mathbf{x}_{t-1} | \mathbf{x}_{0})}{q(\mathbf{x}_{t} | \mathbf{x}_{0})} \\
+&amp;= \dfrac{q(\mathbf{x}_{t} | \mathbf{x}_{t-1}) q(\mathbf{x}_{t-1} | \mathbf{x}_{0})}{q(\mathbf{x}_{t} | \mathbf{x}_{0})}
 \end{align*}
-$$</p><p>最後の等号は$\left\{ \mathbf{x}_{t} \right\}$がマルコフであると仮定したために成り立つ。上の式の確率密度関数は$(3)$、$(6)$で求めたのでそのまま代入すれば良い。</p><p>$$
+$$</p>
+<p>最後の等号は$\left\{ \mathbf{x}_{t} \right\}$がマルコフであると仮定したために成り立つ。上の式の確率密度関数は$(3)$、$(6)$で求めたのでそのまま代入すれば良い。</p>
+<p>$$
 \begin{align*}
 &amp;q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0}) \\
-&= \dfrac{q(\mathbf{x}_{t} | \mathbf{x}_{t-1}) q(\mathbf{x}_{t-1} | \mathbf{x}_{0})}{q(\mathbf{x}_{t} | \mathbf{x}_{0})} \\
-&= C \dfrac{\exp\left( - \dfrac{1}{2} \dfrac{\left( \mathbf{x}_{t} - \sqrt{\alpha_{t}}\mathbf{x}_{t-1} \right)^{2}}{(1-\alpha_{t})} \right) \exp\left( - \dfrac{1}{2} \dfrac{\left( \mathbf{x}_{t-1} - \sqrt{\overline{\alpha}_{t-1}}\mathbf{x}_{0} \right)^{2}}{(1-\overline{\alpha}_{t-1})} \right)}{\exp\left( - \dfrac{1}{2} \dfrac{\left( \mathbf{x}_{t} - \sqrt{\overline{\alpha}_{t}}\mathbf{x}_{0} \right)^{2}}{(1-\overline{\alpha}_{t})} \right)} \\
-&= C \exp\left[ -\dfrac{1}{2} \left( \dfrac{1}{1-\alpha_{t}}\mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{t} - \dfrac{2\sqrt{\alpha_{t}}}{1-\alpha_{t}} \mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{t-1} + \dfrac{\alpha_{t}}{1-\alpha_{t}} \mathbf{x}_{t-1}^{\mathsf{T}}\mathbf{x}_{t-1} \right.\right.\\
-&\qquad\qquad\qquad \quad + \dfrac{1}{1-\overline{\alpha}_{t-1}}\mathbf{x}_{t-1}^{\mathsf{T}}\mathbf{x}_{t-1} - \dfrac{2\sqrt{\overline{\alpha}_{t-1}}}{1-\overline{\alpha}_{t-1}}\mathbf{x}_{0}^{\mathsf{T}}\mathbf{x}_{t-1} + \dfrac{\overline{\alpha_{t-1}}}{1-\overline{\alpha}_{t-1}}\mathbf{x}_{0}^{\mathsf{T}}\mathbf{x}_{0} \\
-&\qquad\qquad\qquad\quad \left.\left. - \dfrac{1}{1-\overline{\alpha}_{t}}\mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{t} + \dfrac{2\sqrt{\overline{\alpha}_{t}}}{1-\overline{\alpha}_{t}}\mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{0} - \dfrac{\overline{\alpha_{t}}}{1-\overline{\alpha}_{t}}\mathbf{x}_{0}^{\mathsf{T}}\mathbf{x}_{0} \right)\right] \tag{9}
+&amp;= \dfrac{q(\mathbf{x}_{t} | \mathbf{x}_{t-1}) q(\mathbf{x}_{t-1} | \mathbf{x}_{0})}{q(\mathbf{x}_{t} | \mathbf{x}_{0})} \\
+&amp;= C \dfrac{\exp\left( - \dfrac{1}{2} \dfrac{\left( \mathbf{x}_{t} - \sqrt{\alpha_{t}}\mathbf{x}_{t-1} \right)^{2}}{(1-\alpha_{t})} \right) \exp\left( - \dfrac{1}{2} \dfrac{\left( \mathbf{x}_{t-1} - \sqrt{\overline{\alpha}_{t-1}}\mathbf{x}_{0} \right)^{2}}{(1-\overline{\alpha}_{t-1})} \right)}{\exp\left( - \dfrac{1}{2} \dfrac{\left( \mathbf{x}_{t} - \sqrt{\overline{\alpha}_{t}}\mathbf{x}_{0} \right)^{2}}{(1-\overline{\alpha}_{t})} \right)} \\
+&amp;= C \exp\left[ -\dfrac{1}{2} \left( \dfrac{1}{1-\alpha_{t}}\mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{t} - \dfrac{2\sqrt{\alpha_{t}}}{1-\alpha_{t}} \mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{t-1} + \dfrac{\alpha_{t}}{1-\alpha_{t}} \mathbf{x}_{t-1}^{\mathsf{T}}\mathbf{x}_{t-1} \right.\right.\\
+&amp;\qquad\qquad\qquad \quad + \dfrac{1}{1-\overline{\alpha}_{t-1}}\mathbf{x}_{t-1}^{\mathsf{T}}\mathbf{x}_{t-1} - \dfrac{2\sqrt{\overline{\alpha}_{t-1}}}{1-\overline{\alpha}_{t-1}}\mathbf{x}_{0}^{\mathsf{T}}\mathbf{x}_{t-1} + \dfrac{\overline{\alpha_{t-1}}}{1-\overline{\alpha}_{t-1}}\mathbf{x}_{0}^{\mathsf{T}}\mathbf{x}_{0} \\
+&amp;\qquad\qquad\qquad\quad \left.\left. - \dfrac{1}{1-\overline{\alpha}_{t}}\mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{t} + \dfrac{2\sqrt{\overline{\alpha}_{t}}}{1-\overline{\alpha}_{t}}\mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{0} - \dfrac{\overline{\alpha_{t}}}{1-\overline{\alpha}_{t}}\mathbf{x}_{0}^{\mathsf{T}}\mathbf{x}_{0} \right)\right] \tag{9}
 \end{align*}
-$$</p><p>ここで$C = \dfrac{1}{\sqrt{ \left(2\pi \dfrac{(1-\alpha_{t})(1-\overline{\alpha_{t}})}{(1-\overline{\alpha_{t}})} \right)^{D} }}$である。求める分布が$q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})$であるから、指数部分を$\mathbf{x}_{t-1}$に関して整理しよう。</p><p>$$
+$$</p>
+<p>ここで$C = \dfrac{1}{\sqrt{ \left(2\pi \dfrac{(1-\alpha_{t})(1-\overline{\alpha_{t}})}{(1-\overline{\alpha_{t}})} \right)^{D} }}$である。求める分布が$q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})$であるから、指数部分を$\mathbf{x}_{t-1}$に関して整理しよう。</p>
+<p>$$
 \begin{align*}
-&\left( \dfrac{\alpha_{t}}{1-\alpha_{t}} + \dfrac{1}{1-\overline{\alpha}_{t-1}} \right) \mathbf{x}_{t-1}^{\mathsf{T}}\mathbf{x}_{t-1} - 2\left( \dfrac{\sqrt{\alpha_{t}}}{1-\alpha_{t}} \mathbf{x}_{t}^{\mathsf{T}} + \dfrac{\sqrt{\overline{\alpha}_{t-1}}}{1-\overline{\alpha}_{t-1}}\mathbf{x}_{0}^{\mathsf{T}} \right)\mathbf{x}_{t-1} \\
-&\qquad + \left[ \left( \dfrac{1}{1-\alpha_{t}} - \dfrac{1}{1-\overline{\alpha}_{t}} \right)\mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{t} + 2\dfrac{\sqrt{\overline{\alpha}_{t}}}{1-\overline{\alpha}_{t}}\mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{0} + \left( \dfrac{\overline{\alpha}_{t-1}}{1-\overline{\alpha}_{t-1}} - \dfrac{\overline{\alpha}_{t}}{1-\overline{\alpha}_{t}} \right)\mathbf{x}_{0}^{\mathsf{T}}\mathbf{x}_{0}\right]
+&amp;\left( \dfrac{\alpha_{t}}{1-\alpha_{t}} + \dfrac{1}{1-\overline{\alpha}_{t-1}} \right) \mathbf{x}_{t-1}^{\mathsf{T}}\mathbf{x}_{t-1} - 2\left( \dfrac{\sqrt{\alpha_{t}}}{1-\alpha_{t}} \mathbf{x}_{t}^{\mathsf{T}} + \dfrac{\sqrt{\overline{\alpha}_{t-1}}}{1-\overline{\alpha}_{t-1}}\mathbf{x}_{0}^{\mathsf{T}} \right)\mathbf{x}_{t-1} \\
+&amp;\qquad + \left[ \left( \dfrac{1}{1-\alpha_{t}} - \dfrac{1}{1-\overline{\alpha}_{t}} \right)\mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{t} + 2\dfrac{\sqrt{\overline{\alpha}_{t}}}{1-\overline{\alpha}_{t}}\mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{0} + \left( \dfrac{\overline{\alpha}_{t-1}}{1-\overline{\alpha}_{t-1}} - \dfrac{\overline{\alpha}_{t}}{1-\overline{\alpha}_{t}} \right)\mathbf{x}_{0}^{\mathsf{T}}\mathbf{x}_{0}\right]
 \end{align*}
-$$</p><p>加算された定数を次のように通分しよう。</p><blockquote><p>$$
+$$</p>
+<p>加算された定数を次のように通分しよう。</p>
+<blockquote>
+<p>$$
 \left( \dfrac{\alpha_{t}}{1-\alpha_{t}} + \dfrac{1}{1-\overline{\alpha}_{t-1}} \right)
 = \dfrac{\alpha_{t} - \alpha_{t}\overline{\alpha}_{t-1} + 1 - \alpha_{t}}{(1-\alpha_{t})(1-\overline{\alpha}_{t-1})}
 = \dfrac{1 - \overline{\alpha}_{t}}{(1-\alpha_{t})(1-\overline{\alpha}_{t-1})}
-$$</p><p>$$
+$$</p>
+<p>$$
 \left( \dfrac{1}{1-\alpha_{t}} - \dfrac{1}{1-\overline{\alpha}_{t}} \right)
 = \dfrac{\alpha_{t} - \overline{\alpha}_{t}}{(1-\alpha_{t})(1-\overline{\alpha}_{t})}
 = \dfrac{\alpha_{t}(1-\overline{\alpha}_{t-1})}{(1-\alpha_{t})(1-\overline{\alpha}_{t})}
-$$</p><p>$$
+$$</p>
+<p>$$
 \left( \dfrac{\overline{\alpha}_{t-1}}{1-\overline{\alpha}_{t-1}} - \dfrac{\overline{\alpha}_{t}}{1-\overline{\alpha}_{t}} \right)
 = \dfrac{\overline{\alpha}_{t-1} - \overline{\alpha}_{t}}{(1-\overline{\alpha}_{t-1})(1-\overline{\alpha}_{t})}
 = \dfrac{\overline{\alpha}_{t-1}(1 - \alpha_{t})}{(1-\overline{\alpha}_{t-1})(1-\overline{\alpha}_{t})}
-$$</p></blockquote><p>すると次のように整理される。</p><p>$$
+$$</p>
+</blockquote>
+<p>すると次のように整理される。</p>
+<p>$$
 \begin{align*}
-& \dfrac{1 - \overline{\alpha}_{t}}{(1-\alpha_{t})(1-\overline{\alpha}_{t-1})} \mathbf{x}_{t-1}^{\mathsf{T}}\mathbf{x}_{t-1} - 2\left( \dfrac{\sqrt{\alpha_{t}}}{1-\alpha_{t}} \mathbf{x}_{t}^{\mathsf{T}} + \dfrac{\sqrt{\overline{\alpha}_{t-1}}}{1-\overline{\alpha}_{t-1}}\mathbf{x}_{0}^{\mathsf{T}} \right)\mathbf{x}_{t-1} \\
-&\qquad + \left[ \dfrac{\alpha_{t}(1-\overline{\alpha}_{t-1})}{(1-\alpha_{t})(1-\overline{\alpha}_{t})}\mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{t} + 2\dfrac{\sqrt{\overline{\alpha}_{t}}}{1-\overline{\alpha}_{t}}\mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{0} + \dfrac{\overline{\alpha}_{t-1}(1 - \alpha_{t})}{(1-\overline{\alpha}_{t-1})(1-\overline{\alpha}_{t})}\mathbf{x}_{0}^{\mathsf{T}}\mathbf{x}_{0}\right]
+&amp; \dfrac{1 - \overline{\alpha}_{t}}{(1-\alpha_{t})(1-\overline{\alpha}_{t-1})} \mathbf{x}_{t-1}^{\mathsf{T}}\mathbf{x}_{t-1} - 2\left( \dfrac{\sqrt{\alpha_{t}}}{1-\alpha_{t}} \mathbf{x}_{t}^{\mathsf{T}} + \dfrac{\sqrt{\overline{\alpha}_{t-1}}}{1-\overline{\alpha}_{t-1}}\mathbf{x}_{0}^{\mathsf{T}} \right)\mathbf{x}_{t-1} \\
+&amp;\qquad + \left[ \dfrac{\alpha_{t}(1-\overline{\alpha}_{t-1})}{(1-\alpha_{t})(1-\overline{\alpha}_{t})}\mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{t} + 2\dfrac{\sqrt{\overline{\alpha}_{t}}}{1-\overline{\alpha}_{t}}\mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{0} + \dfrac{\overline{\alpha}_{t-1}(1 - \alpha_{t})}{(1-\overline{\alpha}_{t-1})(1-\overline{\alpha}_{t})}\mathbf{x}_{0}^{\mathsf{T}}\mathbf{x}_{0}\right]
 \end{align*}
-$$</p><p>$\mathbf{x}_{t-1}^{\mathsf{T}}\mathbf{x}_{t-1}$項の定数をまとめると、</p><p>$$
+$$</p>
+<p>$\mathbf{x}_{t-1}^{\mathsf{T}}\mathbf{x}_{t-1}$項の定数をまとめると、</p>
+<p>$$
 \begin{align*}
-& \frac{1 - \overline{\alpha}_{t}}{(1-\alpha_{t})(1-\overline{\alpha}_{t-1})}
+&amp; \frac{1 - \overline{\alpha}_{t}}{(1-\alpha_{t})(1-\overline{\alpha}_{t-1})}
 \left( \mathbf{x}_{t-1}^{\mathsf{T}}\mathbf{x}_{t-1} - 2 \left( \frac{(1-\overline{\alpha}_{t-1})\sqrt{\alpha_{t}}}{1 - \overline{\alpha}_{t}} \mathbf{x}_{t}^{\mathsf{T}} + \frac{(1-\alpha_{t})\overline{\alpha}_{t-1}}{1 - \overline{\alpha}_{t}}\mathbf{x}_{0}^{\mathsf{T}} \right)\mathbf{x}_{t-1} \right. \\
-&\qquad +\left. \left[ \frac{\alpha_{t}(1-\overline{\alpha}_{t-1})^{2}}{(1-\overline{\alpha}_{t})^{2}}\mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{t} + 2\frac{(1-\alpha_{t})(1-\overline{\alpha}_{t-1})\sqrt{\overline{\alpha}_{t}}}{(1 - \overline{\alpha}_{t})^{2}}\mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{0} + \frac{\overline{\alpha}_{t-1}(1 - \alpha_{t})^{2}}{(1-\overline{\alpha}_{t})^{2}}\mathbf{x}_{0}^{\mathsf{T}}\mathbf{x}_{0}\right] \right)
+&amp;\qquad +\left. \left[ \frac{\alpha_{t}(1-\overline{\alpha}_{t-1})^{2}}{(1-\overline{\alpha}_{t})^{2}}\mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{t} + 2\frac{(1-\alpha_{t})(1-\overline{\alpha}_{t-1})\sqrt{\overline{\alpha}_{t}}}{(1 - \overline{\alpha}_{t})^{2}}\mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{0} + \frac{\overline{\alpha}_{t-1}(1 - \alpha_{t})^{2}}{(1-\overline{\alpha}_{t})^{2}}\mathbf{x}_{0}^{\mathsf{T}}\mathbf{x}_{0}\right] \right)
 \end{align*} \tag{10}
-$$</p><p>上の式の定数項を再び次のように整理できる。</p><p>$$
+$$</p>
+<p>上の式の定数項を再び次のように整理できる。</p>
+<p>$$
 \begin{align*}
-&\left[ \dfrac{\alpha_{t}(1-\overline{\alpha}_{t-1})^{2}}{(1-\overline{\alpha}_{t})^{2}}\mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{t} + 2\dfrac{(1-\alpha_{t})(1-\overline{\alpha}_{t-1})\sqrt{\alpha_{t}\overline{\alpha}_{t-1}}}{(1 - \overline{\alpha}_{t})^{2}}\mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{0} + \dfrac{\overline{\alpha}_{t-1}(1 - \alpha_{t})^{2}}{(1-\overline{\alpha}_{t})^{2}}\mathbf{x}_{0}^{\mathsf{T}}\mathbf{x}_{0}\right] \\
-&=\left[ \dfrac{\sqrt{\alpha_{t}}^{2}(1-\overline{\alpha}_{t-1})^{2}}{(1-\overline{\alpha}_{t})^{2}}\mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{t} + 2\dfrac{(1-\alpha_{t})(1-\overline{\alpha}_{t-1})\sqrt{\alpha_{t}\overline{\alpha}_{t-1}}}{(1 - \overline{\alpha}_{t})^{2}}\mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{0} + \dfrac{\sqrt{\overline{\alpha}_{t-1}}^{2}(1 - \alpha_{t})^{2}}{(1-\overline{\alpha}_{t})^{2}}\mathbf{x}_{0}^{\mathsf{T}}\mathbf{x}_{0}\right] \\
-&=\left[ \dfrac{\sqrt{\alpha_{t}}(1-\overline{\alpha}_{t-1})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{t} + \dfrac{\sqrt{\overline{\alpha}_{t-1}}(1 - \alpha_{t})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{0}\right]^{2} \\
+&amp;\left[ \dfrac{\alpha_{t}(1-\overline{\alpha}_{t-1})^{2}}{(1-\overline{\alpha}_{t})^{2}}\mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{t} + 2\dfrac{(1-\alpha_{t})(1-\overline{\alpha}_{t-1})\sqrt{\alpha_{t}\overline{\alpha}_{t-1}}}{(1 - \overline{\alpha}_{t})^{2}}\mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{0} + \dfrac{\overline{\alpha}_{t-1}(1 - \alpha_{t})^{2}}{(1-\overline{\alpha}_{t})^{2}}\mathbf{x}_{0}^{\mathsf{T}}\mathbf{x}_{0}\right] \\
+&amp;=\left[ \dfrac{\sqrt{\alpha_{t}}^{2}(1-\overline{\alpha}_{t-1})^{2}}{(1-\overline{\alpha}_{t})^{2}}\mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{t} + 2\dfrac{(1-\alpha_{t})(1-\overline{\alpha}_{t-1})\sqrt{\alpha_{t}\overline{\alpha}_{t-1}}}{(1 - \overline{\alpha}_{t})^{2}}\mathbf{x}_{t}^{\mathsf{T}}\mathbf{x}_{0} + \dfrac{\sqrt{\overline{\alpha}_{t-1}}^{2}(1 - \alpha_{t})^{2}}{(1-\overline{\alpha}_{t})^{2}}\mathbf{x}_{0}^{\mathsf{T}}\mathbf{x}_{0}\right] \\
+&amp;=\left[ \dfrac{\sqrt{\alpha_{t}}(1-\overline{\alpha}_{t-1})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{t} + \dfrac{\sqrt{\overline{\alpha}_{t-1}}(1 - \alpha_{t})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{0}\right]^{2} \\
 \end{align*}
-$$</p><p>これを$(10)$に代入すると次が得られる。</p><p>$$
+$$</p>
+<p>これを$(10)$に代入すると次が得られる。</p>
+<p>$$
 \begin{align*}
-& \dfrac{1 - \overline{\alpha}_{t}}{(1-\alpha_{t})(1-\overline{\alpha}_{t-1})}
+&amp; \dfrac{1 - \overline{\alpha}_{t}}{(1-\alpha_{t})(1-\overline{\alpha}_{t-1})}
 \left( \mathbf{x}_{t-1}^{\mathsf{T}}\mathbf{x}_{t-1} - 2 \left( \dfrac{(1-\overline{\alpha}_{t-1})\sqrt{\alpha_{t}}}{1 - \overline{\alpha}_{t}} \mathbf{x}_{t}^{\mathsf{T}} + \dfrac{(1-\alpha_{t})\overline{\alpha}_{t-1}}{1 - \overline{\alpha}_{t}}\mathbf{x}_{0}^{\mathsf{T}} \right)\mathbf{x}_{t-1} \right. \\
-&\qquad \left. +\left[ \dfrac{\sqrt{\alpha_{t}}(1-\overline{\alpha}_{t-1})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{t} + \dfrac{\sqrt{\overline{\alpha}_{t-1}}(1 - \alpha_{t})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{0}\right]^{2} \right) \\
-&= \dfrac{1 - \overline{\alpha}_{t}}{(1-\alpha_{t})(1-\overline{\alpha}_{t-1})} \left( \mathbf{x}_{t} - \left[ \dfrac{\sqrt{\alpha_{t}}(1-\overline{\alpha}_{t-1})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{t} + \dfrac{\sqrt{\overline{\alpha}_{t-1}}(1 - \alpha_{t})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{0}\right] \right)^{2}
+&amp;\qquad \left. +\left[ \dfrac{\sqrt{\alpha_{t}}(1-\overline{\alpha}_{t-1})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{t} + \dfrac{\sqrt{\overline{\alpha}_{t-1}}(1 - \alpha_{t})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{0}\right]^{2} \right) \\
+&amp;= \dfrac{1 - \overline{\alpha}_{t}}{(1-\alpha_{t})(1-\overline{\alpha}_{t-1})} \left( \mathbf{x}_{t} - \left[ \dfrac{\sqrt{\alpha_{t}}(1-\overline{\alpha}_{t-1})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{t} + \dfrac{\sqrt{\overline{\alpha}_{t-1}}(1 - \alpha_{t})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{0}\right] \right)^{2}
 \end{align*}
-$$</p><p>最後にこの式を$(9)$に代入すると以下のようになる。</p><p>$$
+$$</p>
+<p>最後にこの式を$(9)$に代入すると以下のようになる。</p>
+<p>$$
 \begin{array}{l}
 q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0}) \\
-= \frac{1}{\sqrt{ \left(2\pi \frac{(1-\alpha_{t})(1-\overline{\alpha_{t}})}{(1-\overline{\alpha_{t}})} \right)^{D} }} \exp\left[ -\dfrac{1}{2} \dfrac{\left( \mathbf{x}_{t} - \left[ \frac{\sqrt{\alpha_{t}}(1-\overline{\alpha}_{t-1})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{t} + \frac{\sqrt{\overline{\alpha}_{t-1}}(1 - \alpha_{t})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{0}\right] \right)^{2}}{\frac{(1-\alpha_{t})(1-\overline{\alpha}_{t-1})}{(1 - \overline{\alpha}_{t})}} \right]
+= \frac{1}{\sqrt{ \left(2\pi \frac{(1-\alpha_{t})(1-\overline{\alpha_{t}})}{(1-\overline{\alpha_{t}})} \right)^{D} }} \exp\left[ -\dfrac{1}{2}  \dfrac{\left( \mathbf{x}_{t} - \left[ \frac{\sqrt{\alpha_{t}}(1-\overline{\alpha}_{t-1})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{t} + \frac{\sqrt{\overline{\alpha}_{t-1}}(1 - \alpha_{t})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{0}\right] \right)^{2}}{\frac{(1-\alpha_{t})(1-\overline{\alpha}_{t-1})}{(1 - \overline{\alpha}_{t})}} \right]
 \end{array}
-$$</p><p>これは次の多変量正規分布と同じである。</p><p>$$
+$$</p>
+<p>これは次の多変量正規分布と同じである。</p>
+<p>$$
 \begin{align*}
 q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0})
-&= \mathcal{N} \left( \dfrac{\sqrt{\alpha_{t}}(1-\overline{\alpha}_{t-1})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{t} + \dfrac{\sqrt{\overline{\alpha}_{t-1}}(1 - \alpha_{t})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{0}, \dfrac{(1-\alpha_{t})(1-\overline{\alpha}_{t-1})}{(1 - \overline{\alpha}_{t})}\mathbf{I} \right) \\
-&= \mathcal{N} ( \tilde{\boldsymbol{\mu}}_{t}(\mathbf{x}_{t}, \mathbf{x}_{0}), \tilde{\beta}_{t} \mathbf{I})
+&amp;= \mathcal{N} \left( \dfrac{\sqrt{\alpha_{t}}(1-\overline{\alpha}_{t-1})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{t} + \dfrac{\sqrt{\overline{\alpha}_{t-1}}(1 - \alpha_{t})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{0}, \dfrac{(1-\alpha_{t})(1-\overline{\alpha}_{t-1})}{(1 - \overline{\alpha}_{t})}\mathbf{I} \right) \\
+&amp;= \mathcal{N} ( \tilde{\boldsymbol{\mu}}_{t}(\mathbf{x}_{t}, \mathbf{x}_{0}), \tilde{\beta}_{t} \mathbf{I})
 \end{align*}
-$$</p><p>$$
+$$</p>
+<p>$$
 \text{where}\qquad \tilde{\boldsymbol{\mu}}_{t}(\mathbf{x}_{t}, \mathbf{x}_{0}) = \frac{\sqrt{\alpha_{t}}(1-\overline{\alpha}_{t-1})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{t} + \frac{\sqrt{\overline{\alpha}_{t-1}}(1 - \alpha_{t})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{0},
-$$</p><p>$$
+$$</p>
+<p>$$
 \tilde{\beta}_{t} = \frac{(1-\overline{\alpha}_{t-1}) \beta_{t}}{(1 - \overline{\alpha}_{t})}
-$$</p><h2 id=3-拡散モデルとノイズ除去オートエンコーダー>3 拡散モデルとノイズ除去オートエンコーダー</h2><h3 id=31-順方向過程とl_t>3.1 順方向過程と$L_{T}$</h3><p>論文では拡散係数$\beta_{t}$を学習するパラメータではなく定数として固定する。$L_{T}$は次のように表現されるが、$\beta_{t}$が定数であれば学習するパラメーターがないので実際に損失関数を実装するときこの項を無視しても良い。</p><p>$$
+$$</p>
+<h2 id="3-拡散モデルとノイズ除去オートエンコーダー">3 拡散モデルとノイズ除去オートエンコーダー</h2>
+<h3 id="31-順方向過程とl_t">3.1 順方向過程と$L_{T}$</h3>
+<p>論文では拡散係数$\beta_{t}$を学習するパラメータではなく定数として固定する。$L_{T}$は次のように表現されるが、$\beta_{t}$が定数であれば学習するパラメーターがないので実際に損失関数を実装するときこの項を無視しても良い。</p>
+<p>$$
 \begin{align*}
 L_{T}
-&= D_{\text{KL}} \left( q(\mathbf{x}_{T} | \mathbf{x}_{0}) \| p(\mathbf{x}_{T}) \right) \\
-&= D_{\text{KL}} \Big[ \mathcal{N} \left( \sqrt{\overline{\alpha}_{t}}\mathbf{x}_{0}, (1-\overline{\alpha}_{t}) \mathbf{I} \right) \| \mathcal{N} \left( 0, \mathbf{I} \right) \Big] \\
-&= \dfrac{1}{2} \left[ \log (1-\overline{\alpha}_{t})^{D} + D(1-\overline{\alpha}_{t}) + \overline{\alpha}_{t}\mathbf{x}_{0}^{2} - D \right]
+&amp;= D_{\text{KL}} \left( q(\mathbf{x}_{T} | \mathbf{x}_{0}) \| p(\mathbf{x}_{T}) \right) \\
+&amp;= D_{\text{KL}} \Big[ \mathcal{N} \left( \sqrt{\overline{\alpha}_{t}}\mathbf{x}_{0}, (1-\overline{\alpha}_{t}) \mathbf{I} \right) \| \mathcal{N} \left( 0, \mathbf{I} \right) \Big] \\
+&amp;= \dfrac{1}{2} \left[ \log (1-\overline{\alpha}_{t})^{D} + D(1-\overline{\alpha}_{t}) + \overline{\alpha}_{t}\mathbf{x}_{0}^{2} - D \right]
 \end{align*}
-$$</p><h3 id=32-逆方向過程とl_1t-1>3.2 逆方向過程と$L_{1:T-1}$</h3><p>著者は$p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t}) = \mathcal{N}(\boldsymbol{\mu}_{\theta}(\mathbf{x}_{t}, t), \boldsymbol{\Sigma}_{\theta} (\mathbf{x}_{t}, t))$で共分散行列は$\boldsymbol{\Sigma}_{\theta} (\mathbf{x}_{t}, t) = \sigma_{t}^{2} \mathbf{I}$とした。つまり、学習するパラメータを設定しなかった。実験的に以下の2つの環境に対して似た結果を得たという。</p><p>$$
+$$</p>
+<h3 id="32-逆方向過程とl_1t-1">3.2 逆方向過程と$L_{1:T-1}$</h3>
+<p>著者は$p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t}) = \mathcal{N}(\boldsymbol{\mu}_{\theta}(\mathbf{x}_{t}, t), \boldsymbol{\Sigma}_{\theta} (\mathbf{x}_{t}, t))$で共分散行列は$\boldsymbol{\Sigma}_{\theta} (\mathbf{x}_{t}, t) = \sigma_{t}^{2} \mathbf{I}$とした。つまり、学習するパラメータを設定しなかった。実験的に以下の2つの環境に対して似た結果を得たという。</p>
+<p>$$
 \sigma_{t}^{2} = \beta_{t} \qquad \text{or} \qquad \sigma_{t}^{2} = \tilde{\beta}_{t} = \dfrac{1 - \overline{\alpha}_{t-1}}{1 - \overline{\alpha}_{t}} \beta_{t}
-$$</p><p>左の設定は$\mathbf{x}_{0} \sim \mathcal{N} (\mathbf{0}, \mathbf{I})$で抽出してデータセットに対して学習するときに最適であり、右の設定は固定された1つの$\mathbf{x}_{0} \sim \mathcal{N} (\mathbf{x}_{0}, \mathbf{I})$で学習する時に最適だという。</p><p>今や損失関数$L_{t-1}$を見ると次のようだ。</p><p>$$
+$$</p>
+<p>左の設定は$\mathbf{x}_{0} \sim \mathcal{N} (\mathbf{0}, \mathbf{I})$で抽出してデータセットに対して学習するときに最適であり、右の設定は固定された1つの$\mathbf{x}_{0} \sim \mathcal{N} (\mathbf{x}_{0}, \mathbf{I})$で学習する時に最適だという。</p>
+<p>今や損失関数$L_{t-1}$を見ると次のようだ。</p>
+<p>$$
 \begin{align*}
 L_{t-1}
-&= \mathbb{E}_{q(\mathbf{x}_{t} | \mathbf{x}_{0})} \Big[ D_{\text{KL}} \left( q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0}) \| p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t}) \right) \Big] \\
-&= \mathbb{E}_{q(\mathbf{x}_{t} | \mathbf{x}_{0})} \Big[ D_{\text{KL}} \left( \mathcal{N}( \tilde{\boldsymbol{\mu}}_{t}(\mathbf{x}_{t}, \mathbf{x}_{0}), \tilde{\beta}_{t} \mathbf{I}) \| \mathcal{N}(\boldsymbol{\mu}_{\theta}(\mathbf{x}_{t}, t), \sigma_{t}^{2} \mathbf{I}) \right) \Big] \\
-&= \mathbb{E}_{q(\mathbf{x}_{t} | \mathbf{x}_{0})} \left[ \dfrac{1}{2} \left( \log \left( \dfrac{\tilde{\beta}_{t}}{\sigma_{t}^{2}} \right)^{D} + D\dfrac{\tilde{\beta}_{t}}{\sigma_{t}^{2}} + \dfrac{(\tilde{\boldsymbol{\mu}}_{t}(\mathbf{x}_{t}, \mathbf{x}_{0}) - \boldsymbol{\mu}_{\theta}(\mathbf{x}_{t}, t))^{2}}{\sigma_{t}^{2}} - D \right) \right] \\
-&= \mathbb{E}_{q(\mathbf{x}_{t} | \mathbf{x}_{0})} \left[ \dfrac{1}{2\sigma_{t}^{2}} (\tilde{\boldsymbol{\mu}}_{t}(\mathbf{x}_{t}, \mathbf{x}_{0}) - \boldsymbol{\mu}_{\theta}(\mathbf{x}_{t}, t))^{2}\right] + C_{2}
+&amp;= \mathbb{E}_{q(\mathbf{x}_{t} | \mathbf{x}_{0})} \Big[ D_{\text{KL}} \left( q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_{0}) \| p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t}) \right) \Big] \\
+&amp;= \mathbb{E}_{q(\mathbf{x}_{t} | \mathbf{x}_{0})} \Big[ D_{\text{KL}} \left( \mathcal{N}( \tilde{\boldsymbol{\mu}}_{t}(\mathbf{x}_{t}, \mathbf{x}_{0}), \tilde{\beta}_{t} \mathbf{I}) \| \mathcal{N}(\boldsymbol{\mu}_{\theta}(\mathbf{x}_{t}, t), \sigma_{t}^{2} \mathbf{I}) \right) \Big] \\
+&amp;= \mathbb{E}_{q(\mathbf{x}_{t} | \mathbf{x}_{0})} \left[ \dfrac{1}{2} \left( \log \left( \dfrac{\tilde{\beta}_{t}}{\sigma_{t}^{2}} \right)^{D} + D\dfrac{\tilde{\beta}_{t}}{\sigma_{t}^{2}} + \dfrac{(\tilde{\boldsymbol{\mu}}_{t}(\mathbf{x}_{t}, \mathbf{x}_{0}) - \boldsymbol{\mu}_{\theta}(\mathbf{x}_{t}, t))^{2}}{\sigma_{t}^{2}} - D \right) \right] \\
+&amp;= \mathbb{E}_{q(\mathbf{x}_{t} | \mathbf{x}_{0})} \left[ \dfrac{1}{2\sigma_{t}^{2}} (\tilde{\boldsymbol{\mu}}_{t}(\mathbf{x}_{t}, \mathbf{x}_{0}) - \boldsymbol{\mu}_{\theta}(\mathbf{x}_{t}, t))^{2}\right] + C_{2}
 \end{align*}
-$$</p><p>ここで$C_{2}$は$\theta$に依存しない定数である。それで$\boldsymbol{\mu}_{\theta}$は$\tilde{\boldsymbol{\mu}}_{t}$を予測するモデルである。ここで$\tilde{\boldsymbol{\mu}}_{t}$を明示的な形で解き出し、学習の対象をより明確にしよう。$(5)$で$\mathbf{x}_{t}$を見る$\mathbf{x}_{0}$と$\boldsymbol{\epsilon}$の関数として$\mathbf{x}_{t}(\mathbf{x}_{0}, \boldsymbol{\epsilon}) = \sqrt{\overline{\alpha}_{t}}\mathbf{x}_{0} + \sqrt{1-\overline{\alpha}_{t}}\boldsymbol{\epsilon}$に置き換えれば、$\tilde{\boldsymbol{\mu}}_{t}(\mathbf{x}_{t}, \mathbf{x}_{0})$は次の通り変わる。</p><p>$$
+$$</p>
+<p>ここで$C_{2}$は$\theta$に依存しない定数である。それで$\boldsymbol{\mu}_{\theta}$は$\tilde{\boldsymbol{\mu}}_{t}$を予測するモデルである。ここで$\tilde{\boldsymbol{\mu}}_{t}$を明示的な形で解き出し、学習の対象をより明確にしよう。$(5)$で$\mathbf{x}_{t}$を見る$\mathbf{x}_{0}$と$\boldsymbol{\epsilon}$の関数として$\mathbf{x}_{t}(\mathbf{x}_{0}, \boldsymbol{\epsilon}) = \sqrt{\overline{\alpha}_{t}}\mathbf{x}_{0} + \sqrt{1-\overline{\alpha}_{t}}\boldsymbol{\epsilon}$に置き換えれば、$\tilde{\boldsymbol{\mu}}_{t}(\mathbf{x}_{t}, \mathbf{x}_{0})$は次の通り変わる。</p>
+<p>$$
 \begin{align*}
 \tilde{\boldsymbol{\mu}}_{t}(\mathbf{x}_{t}, \mathbf{x}_{0})
-&= \frac{\sqrt{\alpha_{t}}(1-\overline{\alpha}_{t-1})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{t} + \frac{\sqrt{\overline{\alpha}_{t-1}}(1 - \alpha_{t})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{0} \\
-&= \frac{\sqrt{\alpha_{t}}(1-\overline{\alpha}_{t-1})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{t}(\mathbf{x}_{0}, \boldsymbol{\epsilon}) + \frac{\sqrt{\overline{\alpha}_{t-1}}(1 - \alpha_{t})}{(1-\overline{\alpha}_{t})} \left( \dfrac{1}{\sqrt{\overline{\alpha}_{t}}} \mathbf{x}_{t}(\mathbf{x}_{0}, \boldsymbol{\epsilon}) - \dfrac{\sqrt{1-\overline{\alpha}_{t}}}{\sqrt{\overline{\alpha}_{t}}}\boldsymbol{\epsilon} \right) \\
-&= \left( \frac{\sqrt{\alpha_{t}}(1-\overline{\alpha}_{t-1})}{(1-\overline{\alpha}_{t})} + \frac{\sqrt{\overline{\alpha}_{t-1}}(1 - \alpha_{t})}{(1-\overline{\alpha}_{t})\sqrt{\overline{\alpha}_{t}}} \right)\mathbf{x}_{t}(\mathbf{x}_{0}, \boldsymbol{\epsilon}) -
+&amp;= \frac{\sqrt{\alpha_{t}}(1-\overline{\alpha}_{t-1})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{t} + \frac{\sqrt{\overline{\alpha}_{t-1}}(1 - \alpha_{t})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{0} \\
+&amp;= \frac{\sqrt{\alpha_{t}}(1-\overline{\alpha}_{t-1})}{(1-\overline{\alpha}_{t})}\mathbf{x}_{t}(\mathbf{x}_{0}, \boldsymbol{\epsilon}) + \frac{\sqrt{\overline{\alpha}_{t-1}}(1 - \alpha_{t})}{(1-\overline{\alpha}_{t})} \left( \dfrac{1}{\sqrt{\overline{\alpha}_{t}}} \mathbf{x}_{t}(\mathbf{x}_{0}, \boldsymbol{\epsilon}) - \dfrac{\sqrt{1-\overline{\alpha}_{t}}}{\sqrt{\overline{\alpha}_{t}}}\boldsymbol{\epsilon} \right) \\
+&amp;= \left( \frac{\sqrt{\alpha_{t}}(1-\overline{\alpha}_{t-1})}{(1-\overline{\alpha}_{t})} + \frac{\sqrt{\overline{\alpha}_{t-1}}(1 - \alpha_{t})}{(1-\overline{\alpha}_{t})\sqrt{\overline{\alpha}_{t}}} \right)\mathbf{x}_{t}(\mathbf{x}_{0}, \boldsymbol{\epsilon}) -
 \frac{\sqrt{\overline{\alpha}_{t-1}}(1 - \alpha_{t})\sqrt{1-\overline{\alpha}_{t}}}{(1-\overline{\alpha}_{t})\sqrt{\overline{\alpha}_{t}}}\boldsymbol{\epsilon} \\
-&= \left( \frac{\alpha_{t}(1-\overline{\alpha}_{t-1})}{\sqrt{\alpha_{t}}(1-\overline{\alpha}_{t})} + \frac{(1 - \alpha_{t})}{(1-\overline{\alpha}_{t})\sqrt{\alpha_{t}}} \right)\mathbf{x}_{t}(\mathbf{x}_{0}, \boldsymbol{\epsilon}) -
+&amp;= \left( \frac{\alpha_{t}(1-\overline{\alpha}_{t-1})}{\sqrt{\alpha_{t}}(1-\overline{\alpha}_{t})} + \frac{(1 - \alpha_{t})}{(1-\overline{\alpha}_{t})\sqrt{\alpha_{t}}} \right)\mathbf{x}_{t}(\mathbf{x}_{0}, \boldsymbol{\epsilon}) -
 \frac{(1 - \alpha_{t})}{\sqrt{1-\overline{\alpha}_{t}}\sqrt{\alpha_{t}}}\boldsymbol{\epsilon} \\
-&= \dfrac{1}{\sqrt{\alpha_{t}}}\left( \frac{ (\alpha_{t} - \overline{\alpha}_{t}) + (1 - \alpha_{t})}{(1-\overline{\alpha}_{t})} \mathbf{x}_{t}(\mathbf{x}_{0}, \boldsymbol{\epsilon}) - \frac{\beta_{t}}{\sqrt{1-\overline{\alpha}_{t}}}\boldsymbol{\epsilon} \right) \\
-&= \dfrac{1}{\sqrt{\alpha_{t}}}\left( \mathbf{x}_{t}(\mathbf{x}_{0}, \boldsymbol{\epsilon}) - \frac{\beta_{t}}{\sqrt{1-\overline{\alpha}_{t}}}\boldsymbol{\epsilon} \right) \\
+&amp;= \dfrac{1}{\sqrt{\alpha_{t}}}\left( \frac{ (\alpha_{t} - \overline{\alpha}_{t}) + (1 - \alpha_{t})}{(1-\overline{\alpha}_{t})} \mathbf{x}_{t}(\mathbf{x}_{0}, \boldsymbol{\epsilon}) - \frac{\beta_{t}}{\sqrt{1-\overline{\alpha}_{t}}}\boldsymbol{\epsilon} \right) \\
+&amp;= \dfrac{1}{\sqrt{\alpha_{t}}}\left( \mathbf{x}_{t}(\mathbf{x}_{0}, \boldsymbol{\epsilon}) - \frac{\beta_{t}}{\sqrt{1-\overline{\alpha}_{t}}}\boldsymbol{\epsilon} \right) \\
 \end{align*}
-$$</p><p>したがって上記の$L_{t-1}$は再び次のように整理される。</p><p>$$
+$$</p>
+<p>したがって上記の$L_{t-1}$は再び次のように整理される。</p>
+<p>$$
 L_{t-1} = \mathbb{E}_{\mathbf{x}_{t}(\mathbf{x}_{0}, \boldsymbol{\epsilon})} \left[ \dfrac{1}{2\sigma_{t}^{2}} \left[ \dfrac{1}{\sqrt{\alpha_{t}}}\left( \mathbf{x}_{t}(\mathbf{x}_{0}, \boldsymbol{\epsilon}) - \frac{\beta_{t}}{\sqrt{1-\overline{\alpha}_{t}}}\boldsymbol{\epsilon} \right) - \boldsymbol{\mu}_{\theta}(\mathbf{x}_{t}(\mathbf{x}_{0}, \boldsymbol{\epsilon}), t) \right]^{2} \right] + C_{2} \tag{11}
-$$</p><p>すると結局、$\boldsymbol{\mu}_{\theta}(\mathbf{x}_{t}, t)$が学習すべき対象は$\dfrac{1}{\sqrt{\alpha_{t}}}\left( \mathbf{x}_{t}(\mathbf{x}_{0}, \boldsymbol{\epsilon}) - \frac{\beta_{t}}{\sqrt{1-\overline{\alpha}_{t}}}\boldsymbol{\epsilon} \right)$である。ここで$\mathbf{x}_{t}$は入力として与えられ、$\beta_{t}$は固定された定数だから実際に神経網$\boldsymbol{\mu}_{\theta}(\mathbf{x}_{t}, t)$が学習するべきは$\boldsymbol{\epsilon} = \boldsymbol{\epsilon}_{t}$である。したがってパラメータ$\theta$に依存する項は$\boldsymbol{\epsilon}$だけである。</p><p>$$
+$$</p>
+<p>すると結局、$\boldsymbol{\mu}_{\theta}(\mathbf{x}_{t}, t)$が学習すべき対象は$\dfrac{1}{\sqrt{\alpha_{t}}}\left( \mathbf{x}_{t}(\mathbf{x}_{0}, \boldsymbol{\epsilon}) - \frac{\beta_{t}}{\sqrt{1-\overline{\alpha}_{t}}}\boldsymbol{\epsilon} \right)$である。ここで$\mathbf{x}_{t}$は入力として与えられ、$\beta_{t}$は固定された定数だから実際に神経網$\boldsymbol{\mu}_{\theta}(\mathbf{x}_{t}, t)$が学習するべきは$\boldsymbol{\epsilon} = \boldsymbol{\epsilon}_{t}$である。したがってパラメータ$\theta$に依存する項は$\boldsymbol{\epsilon}$だけである。</p>
+<p>$$
 \boldsymbol{\mu}_{\theta}(\mathbf{x}_{t}, t)
 = \dfrac{1}{\sqrt{\alpha_{t}}}\left( \mathbf{x}_{t} - \frac{\beta_{t}}{\sqrt{1-\overline{\alpha}_{t}}}\boldsymbol{\epsilon}_{\theta}(\mathbf{x}_{t}, t) \right) \tag{12}
-$$</p><p>これはある意味で非常に当然であり直感的な結果である。なぜなら$\mathbf{x}_{T}$は$\mathbf{x}_{0}$からノイズ$\boldsymbol{\epsilon}_{t}$を常に加えて作られたので、そのノイズをすべて知ることができれば$\mathbf{x}_{0}$を復元できるからだ。もちろん、この説明自体は厳密ではなく直感的だが、上の論理展開によりそれが直感的であるだけでなく数学的にも妥当であることが分かる。</p><p>$\boldsymbol{\mu}_{\theta}$は$p(\mathbf{x}_{t-1} | \mathbf{x}_{t}) = \mathcal{N}( \boldsymbol{\mu}_{\theta}, \sigma_{t}^{2}\mathbf{I})$の平均ベクトルであった。したがって、$\mathbf{x}_{t}$が与えられたとき、$\mathbf{x}_{t-1} \sim p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})$は次のようにサンプリングされる（$(3)$がどのようにして出てきたのかをもう一度見ろ）。</p><p>$$
+$$</p>
+<p>これはある意味で非常に当然であり直感的な結果である。なぜなら$\mathbf{x}_{T}$は$\mathbf{x}_{0}$からノイズ$\boldsymbol{\epsilon}_{t}$を常に加えて作られたので、そのノイズをすべて知ることができれば$\mathbf{x}_{0}$を復元できるからだ。もちろん、この説明自体は厳密ではなく直感的だが、上の論理展開によりそれが直感的であるだけでなく数学的にも妥当であることが分かる。</p>
+<p>$\boldsymbol{\mu}_{\theta}$は$p(\mathbf{x}_{t-1} | \mathbf{x}_{t}) = \mathcal{N}( \boldsymbol{\mu}_{\theta}, \sigma_{t}^{2}\mathbf{I})$の平均ベクトルであった。したがって、$\mathbf{x}_{t}$が与えられたとき、$\mathbf{x}_{t-1} \sim p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})$は次のようにサンプリングされる（$(3)$がどのようにして出てきたのかをもう一度見ろ）。</p>
+<p>$$
 \mathbf{x}_{t-1} = \dfrac{1}{\sqrt{\alpha_{t}}}\left( \mathbf{x}_{t} - \frac{\beta_{t}}{\sqrt{1-\overline{\alpha}_{t}}}\boldsymbol{\epsilon}_{\theta}(\mathbf{x}_{t}, t) \right) + \sigma_{t} \mathbf{z},\qquad \mathbf{z} \sim \mathcal{N}(\mathbf{0}, \mathbf{I}) \\
-$$</p><p>最終的に$(12)$を$(11)$に代入すると次が得られる。</p><p>$$
+$$</p>
+<p>最終的に$(12)$を$(11)$に代入すると次が得られる。</p>
+<p>$$
 \begin{align*}
-& \mathbb{E}_{\mathbf{x}_{t}(\mathbf{x}_{0}, \boldsymbol{\epsilon})} \left[ \dfrac{1}{2\sigma_{t}^{2}} \left[ \dfrac{1}{\sqrt{\alpha_{t}}}\left( \mathbf{x}_{t}(\mathbf{x}_{0}, \boldsymbol{\epsilon}) - \frac{\beta_{t}}{\sqrt{1-\overline{\alpha}_{t}}}\boldsymbol{\epsilon} \right) - \boldsymbol{\mu}_{\theta}(\mathbf{x}_{t}(\mathbf{x}_{0}, \boldsymbol{\epsilon}), t) \right]^{2} \right] \\
-&= \mathbb{E}_{\mathbf{x}_{t}} \left[ \dfrac{1}{2\sigma_{t}^{2}} \left[ \dfrac{1}{\sqrt{\alpha_{t}}}\left( \mathbf{x}_{t} - \frac{\beta_{t}}{\sqrt{1-\overline{\alpha}_{t}}}\boldsymbol{\epsilon} \right) - \dfrac{1}{\sqrt{\alpha_{t}}}\left( \mathbf{x}_{t} - \frac{\beta_{t}}{\sqrt{1-\overline{\alpha}_{t}}}\boldsymbol{\epsilon}_{\theta}(\mathbf{x}_{t}, t) \right) \right]^{2} \right] \\
-&= \mathbb{E}_{\mathbf{x}_{t}} \left[ \dfrac{1}{2\sigma_{t}^{2}} \left[ \dfrac{1}{\sqrt{\alpha_{t}}}\frac{\beta_{t}}{\sqrt{1-\overline{\alpha}_{t}}}\boldsymbol{\epsilon} - \dfrac{1}{\sqrt{\alpha_{t}}}\frac{\beta_{t}}{\sqrt{1-\overline{\alpha}_{t}}}\boldsymbol{\epsilon}_{\theta}(\mathbf{x}_{t}, t) \right]^{2} \right] \\
-&= \mathbb{E}_{\mathbf{x}_{t}} \left[ \dfrac{\beta_{t}^{2}}{2\sigma_{t}^{2}\alpha_{t} (1 - \overline{\alpha}_{t})} \left[ \boldsymbol{\epsilon} - \boldsymbol{\epsilon}_{\theta}(\mathbf{x}_{t}, t) \right]^{2} \right] \\
-&= \mathbb{E}_{\mathbf{x}_{0}, \boldsymbol{\epsilon}} \left[ \dfrac{\beta_{t}^{2}}{2\sigma_{t}^{2}\alpha_{t} (1 - \overline{\alpha}_{t})} \left[ \boldsymbol{\epsilon} - \boldsymbol{\epsilon}_{\theta}(\sqrt{\overline{\alpha}_{t}}\mathbf{x}_{0} + \sqrt{1-\overline{\alpha}_{t}}\boldsymbol{\epsilon}, t) \right]^{2} \right] \\
+&amp; \mathbb{E}_{\mathbf{x}_{t}(\mathbf{x}_{0}, \boldsymbol{\epsilon})} \left[ \dfrac{1}{2\sigma_{t}^{2}} \left[ \dfrac{1}{\sqrt{\alpha_{t}}}\left( \mathbf{x}_{t}(\mathbf{x}_{0}, \boldsymbol{\epsilon}) - \frac{\beta_{t}}{\sqrt{1-\overline{\alpha}_{t}}}\boldsymbol{\epsilon} \right) - \boldsymbol{\mu}_{\theta}(\mathbf{x}_{t}(\mathbf{x}_{0}, \boldsymbol{\epsilon}), t) \right]^{2} \right] \\
+&amp;= \mathbb{E}_{\mathbf{x}_{t}} \left[ \dfrac{1}{2\sigma_{t}^{2}} \left[ \dfrac{1}{\sqrt{\alpha_{t}}}\left( \mathbf{x}_{t} - \frac{\beta_{t}}{\sqrt{1-\overline{\alpha}_{t}}}\boldsymbol{\epsilon} \right) - \dfrac{1}{\sqrt{\alpha_{t}}}\left( \mathbf{x}_{t} - \frac{\beta_{t}}{\sqrt{1-\overline{\alpha}_{t}}}\boldsymbol{\epsilon}_{\theta}(\mathbf{x}_{t}, t) \right) \right]^{2} \right] \\
+&amp;= \mathbb{E}_{\mathbf{x}_{t}} \left[ \dfrac{1}{2\sigma_{t}^{2}} \left[ \dfrac{1}{\sqrt{\alpha_{t}}}\frac{\beta_{t}}{\sqrt{1-\overline{\alpha}_{t}}}\boldsymbol{\epsilon} - \dfrac{1}{\sqrt{\alpha_{t}}}\frac{\beta_{t}}{\sqrt{1-\overline{\alpha}_{t}}}\boldsymbol{\epsilon}_{\theta}(\mathbf{x}_{t}, t)  \right]^{2} \right] \\
+&amp;= \mathbb{E}_{\mathbf{x}_{t}} \left[ \dfrac{\beta_{t}^{2}}{2\sigma_{t}^{2}\alpha_{t} (1 - \overline{\alpha}_{t})} \left[ \boldsymbol{\epsilon} - \boldsymbol{\epsilon}_{\theta}(\mathbf{x}_{t}, t)  \right]^{2} \right] \\
+&amp;= \mathbb{E}_{\mathbf{x}_{0}, \boldsymbol{\epsilon}} \left[ \dfrac{\beta_{t}^{2}}{2\sigma_{t}^{2}\alpha_{t} (1 - \overline{\alpha}_{t})} \left[ \boldsymbol{\epsilon} - \boldsymbol{\epsilon}_{\theta}(\sqrt{\overline{\alpha}_{t}}\mathbf{x}_{0} + \sqrt{1-\overline{\alpha}_{t}}\boldsymbol{\epsilon}, t)  \right]^{2} \right] \\
 \end{align*}
-$$</p><p>今までの説明を元に訓練とサンプリング過程を疑似コードで表すと次の通りである。</p><p><img src=3638_3.png#center alt></p><h3 id=33-データスケーリング逆方向過程デコーダーそしてl_0>3.3 データスケーリング、逆方向過程デコーダー、そして$L_{0}$</h3><p>今までの議論はすべて連続確率密度関数に関するものだった。画像データは$\left\{ 0, 1, \dots, 255 \right\}$の値を持つ離散変数であるため、適切なスケーリングが必要だ。まず$\left\{ 0, 1, \dots, 255 \right\}$の値は$[-1, 1]$で線形にスケーリングされる。そして作者たちは最終的にサンプリングの最後の過程$p_{\theta}(\mathbf{x}_{0}, \mathbf{x}_{1})$を次のように置いた。</p><p>$$
+$$</p>
+<p>今までの説明を元に訓練とサンプリング過程を疑似コードで表すと次の通りである。</p>
+<p><img src="3638_3.png#center" alt=""></p>
+<h3 id="33-データスケーリング逆方向過程デコーダーそしてl_0">3.3 データスケーリング、逆方向過程デコーダー、そして$L_{0}$</h3>
+<p>今までの議論はすべて連続確率密度関数に関するものだった。画像データは$\left\{ 0, 1, \dots, 255 \right\}$の値を持つ離散変数であるため、適切なスケーリングが必要だ。まず$\left\{ 0, 1, \dots, 255 \right\}$の値は$[-1, 1]$で線形にスケーリングされる。そして作者たちは最終的にサンプリングの最後の過程$p_{\theta}(\mathbf{x}_{0}, \mathbf{x}_{1})$を次のように置いた。</p>
+<p>$$
 p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1}) = \prod\limits_{i = 1}^{D} \int\limits_{\delta_{-}(x_{0}^{i})}^{\delta_{+}(x_{0}^{i})} \mathcal{N}(x; \mu_{\theta}^{i}(\mathbf{x}_{1}, 1), \sigma_{1}^{2}) dx
-$$</p><p>$$
+$$</p>
+<p>$$
 \delta_{+}(x) = \begin{cases}
-\infty & \text{if } x = 1 \\
-x + \frac{1}{255} & \text{if } x \lt 1
+\infty &amp; \text{if } x = 1 \\
+x + \frac{1}{255} &amp; \text{if } x \lt 1
 \end{cases},
 \qquad
 \delta_{-}(x) = \begin{cases}
-x - \frac{1}{255} & \text{if } x \gt -1 \\
--\infty & \text{if } x = -1
+x - \frac{1}{255} &amp; \text{if } x \gt -1 \\
+-\infty &amp; \text{if } x = -1
 \end{cases}
-$$</p><p>ここで$x_{0}^{i}$は$\mathbf{x}_{0}$の$i$番目のピクセルを意味する。すなわち、画像のピクセル値$x$を$[x - \frac{1}{255}, x + \frac{1}{255}]$の区間と見なすということだ。</p><h3 id=34-簡略化された訓練の目的>3.4 簡略化された訓練の目的</h3><p>3.2節で$\boldsymbol{\epsilon}$を予測できるように$L_{t-1}$を求めたが、実験的には性能および実装面でも先頭の定数を取り去って次のように使用する方が良かったという。</p><p>$$
+$$</p>
+<p>ここで$x_{0}^{i}$は$\mathbf{x}_{0}$の$i$番目のピクセルを意味する。すなわち、画像のピクセル値$x$を$[x - \frac{1}{255}, x + \frac{1}{255}]$の区間と見なすということだ。</p>
+<h3 id="34-簡略化された訓練の目的">3.4 簡略化された訓練の目的</h3>
+<p>3.2節で$\boldsymbol{\epsilon}$を予測できるように$L_{t-1}$を求めたが、実験的には性能および実装面でも先頭の定数を取り去って次のように使用する方が良かったという。</p>
+<p>$$
 L_{\text{simple}}(\theta) := \mathbb{E}_{t, \mathbf{x}_{0}, \boldsymbol{\epsilon}} \left[ \left( \boldsymbol{\epsilon} - \boldsymbol{\epsilon}_{\theta}(\sqrt{\overline{\alpha}_{t}}\mathbf{x}_{0} + \sqrt{1-\overline{\alpha}_{t}}\boldsymbol{\epsilon}, t) \right)^{2} \right]
-$$</p><p>上の疑似コードに示されている通り、$t$は$1$から$T$までの範囲で<a href=../443>一様分布</a>から抽出する。</p><div class=footnotes role=doc-endnotes><hr><ol><li id=fn:1><p>Ho, Jonathan, Ajay Jain, and Pieter Abbeel. &ldquo;Denoising diffusion probabilistic models.&rdquo; Advances in neural information processing systems 33 (2020): 6840-6851.&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:2><p><a href=https://x.com/cyxacxa>https://x.com/cyxacxa</a>
-<a href=https://x.com/cyxacxa/status/1903757493987389938/photo/1>https://x.com/cyxacxa/status/1903757493987389938/photo/1</a>&#160;<a href=#fnref:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:3><p>Sohl-Dickstein, Jascha, et al. &ldquo;Deep unsupervised learning using nonequilibrium thermodynamics.&rdquo; International conference on machine learning. pmlr, 2015.&#160;<a href=#fnref:3 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:4><p>Feller, William. &ldquo;Retracted chapter: On the theory of stochastic processes, with particular reference to applications.&rdquo; Selected Papers I. Springer, Cham, 2015. 769-798.&#160;<a href=#fnref:4 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></div><aside style=text-align:right>2024-05-04&emsp;
-전기현&emsp;
-<a href=../2015>🎲 3638</a></aside><script>document.addEventListener("DOMContentLoaded",()=>{const s=document.querySelector(".content-box");s&&renderKaTex(s);const o=document.querySelector(".tex");o&&renderKaTex(o);var n,r,i="論文レビュー：デノイジング拡散確率モデル (DDPM)",c="https://freshrimpsushi.github.io/jp/posts/3638/",t=new Array,a={title:i,link:c},e=JSON.parse(localStorage.getItem("latelyViewPostList"));if(e==""||e==null||e==null||e==0||e==NaN)t.push(a),localStorage.setItem("latelyViewPostList",JSON.stringify(t));else{for(r=e.length,n=0;n<r;n++)if(i==e[n].title){e.splice(n,1);break}t=e,t.push(a),t.length>5&&t.shift(),localStorage.setItem("latelyViewPostList",JSON.stringify(t))}})</script></div><aside><h2>コメント</h2><div class=area-reply><div class=list-reply></div></div><div class=write-box><div class="write-author-info box-account"><input type=hidden name=cmt_idx>
-<input class=ai-author type=text placeholder=Name>
-<input class=ai-password type=password maxlength=20 placeholder=Password></div><div class=write-content><textarea class=ai-content value placeholder=日本語でも構いませんが、できれば英語でお願いします style=ime-mode:active></textarea></div><button class=write-button onclick=write_comment() aria-label=send><i class='fa-solid fa-paper-plane'></i></button><aside class=tex>コメントにも $\TeX$ が適用されます。</aside></div></aside><script>let commentRows=[];const listReply=document.querySelector(".list-reply");document.addEventListener("DOMContentLoaded",()=>{get_all_comment()});function get_all_comment(){fetch("https://api64.ipify.org?format=json").then(e=>e.json()).then(e=>e.ip).then(e=>{const t="https://freshrimpsushi.com/blog/ajax/comment.php?action=getAllComment";return postFetch(t,{board_idx:"3638",user_ip:e})}).then(e=>e.json()).then(e=>{e.ok&&(commentRows=e.rows,render_comment(commentRows))}).catch(e=>console.error(e))}function render_comment(e){const n=["류대식","전기현","ㅇㅇ","질문"],s=["류대식","전기현"];render_blank();let t="";e.map(e=>{t+=`<div id="comment${e.cmt_idx}" class="parents">`,t+=`<div class="content-info">`;let o="";e.cmt_cnt>125?o="🥇":e.cmt_cnt>25?o="🥈":e.cmt_cnt>5&&(o="🥉"),n.includes(e.author)&&(o="");let i="";e.ip_address==null?i="(-)":i=`(${e.ip_address})`,s.includes(e.author)&&(i=""),t+=`<div class="list-author">${o} ${e.author} ${i}</div>`,t+=`<sup class="list-date">${e.datetime.slice(2,-3)}</sup>`,t+=`<div class="list-button">`,t+=`<div class="list-update-button" onclick="update_comment('${e.cmt_idx}', 'parents');"><i class="fa-solid fa-pen-to-square"></i></div>`,t+=`<div class="list-delete-button" onclick="delete_comment('${e.cmt_idx}', 'parents');"><i class="fa-solid fa-trash"></i></div>`,t+=`</div>`,t+=`</div>`,e.approve||(t+=`<div style="text-align: right;"><i class="fa-solid fa-hourglass"></i> 管理者の承認を待っています</div>`);let a=e.content;a=a.replace(/\n/g,"<br />"),t+=`<div class="content-text">${a} <span class="re-comment-button" onclick="re_comment('${e.cmt_idx}');"><i class="fa-solid fa-reply" style="cursor: pointer;"></i></span></div>`,t+=`<div class="re-comment"></div>`,t+=`</div>`,e.child.map(o=>{let c="child";e.ip_address&&o.ip_address===e.ip_address&&(c="parentself"),t+=`<div id="comment${o.cmt_idx}" class="${c}">`,t+=`<div class="content-info">`;let i="";o.cmt_cnt>5?i="🥉":o.cmt_cnt>25?i="🥈":o.cmt_cnt>125&&(i="🥇"),n.includes(o.author)&&(i="");let a="";o.ip_address==null?a="(-)":a=`(${o.ip_address})`,s.includes(o.author)&&(a=""),t+=`<div class="list-author">${i} ${o.author} ${a}</div>`,t+=`<sup class="list-date">${o.datetime.slice(2,-3)}</sup>`,t+=`<div class="list-button">`,t+=`<div class="list-update-button" onclick="update_comment('${o.cmt_idx}', 'child');"><i class="fa-solid fa-pen-to-square"></i></div>`,t+=`<div class="list-delete-button" onclick="delete_comment('${o.cmt_idx}', 'child');"><i class="fa-solid fa-trash"></i></div>`,t+=`</div>`,t+=`</div>`,o.approve||(t+=`<div style="text-align: right;"><i class="fa-solid fa-hourglass"></i> 管理者の承認を待っています</div>`);let r=o.content;r=r.replace(/\n/g,"<br />"),t+=`<div class="content-text">${r} <span class="re-comment-button" onclick="re_comment('${o.cmt_idx}', '${e.cmt_idx}');"><i class="fa-solid fa-reply" style="cursor: pointer;"></i></span></div>`,t+=`<div class="re-comment"></div>`,t+=`</div>`})}),listReply.innerHTML=t,renderKaTex(listReply),location.href.indexOf("#")!=-1&&(location.href=location.href.substr(location.href.indexOf("#")))}function render_blank(){listReply.innerHTML=""}function write_comment(){const e=document.querySelector(".ai-author"),t=document.querySelector(".ai-password"),n=document.querySelector(".ai-content"),s=e.value,o=t.value,i=n.value;if(s===""||o===""||i===""){alert("빈칸을 채워주세요");return}const a="3638",r="",c="論文レビュー：デノイジング拡散確率モデル (DDPM)";fetch("https://api64.ipify.org?format=json").then(e=>e.json()).then(e=>e.ip).then(e=>{const t="https://freshrimpsushi.com/blog/ajax/comment.php?action=writeComment";return postFetch(t,{board_idx:a,board_slug:r,board_title:c,author:s.replace(/\+/g,"%2B"),password:o,content:i.replace(/\+/g,"%2B"),user_ip:e})}).then(e=>e.json()).then(s=>{s.ok?(commentRows.push(s.row),render_comment(commentRows),e.value="",t.value="",n.value=""):s.status===606?(Swal.fire(`Warning!
-지속적인 도배 시도시
-IP가 차단될 수 있습니다.`),e.value="",t.value="",n.value=""):s.status===607&&(alert(`지나친 댓글 도배를 확인하여
-접근을 차단합니다.`),window.location.href="https://google.com")}).catch(e=>console.error(e))}async function update_comment(e,t){const{value:n}=await Swal.fire({title:"댓글 수정",input:"password",inputPlaceholder:"글 작성 시 입력했던 패스워드를 입력하세요",inputAttributes:{maxlength:20,autocapitalize:"off",autocorrect:"off"}});if(n){const s="https://freshrimpsushi.com/blog/ajax/comment.php?action=checkPassword";postFetch(s,{cmt_idx:e,password:n}).then(e=>e.json()).then(s=>{if(s.ok){const s=document.querySelector(`#comment${e}`),o="https://freshrimpsushi.com/blog/ajax/comment.php?action=getComment";postFetch(o,{cmt_idx:e}).then(e=>e.json()).then(o=>{if(o.ok){const a=o.row,r=a.author,c=a.content;let i="";i+=`<div class="update-author-info">`,i+=`<input class="update-author" type="text" value="${r}" placeholder="이름" />`,i+=`<input class="update-password" type="password" value="${n}" placeholder="비밀번호" disabled />`,i+="</div>",i+=`<textarea class="update-content" value="" style="IME-MODE:active;">${c}</textarea>`,i+=`<input class="update_comment-button" type="submit" value="수정" onclick="update_comment_click(${e}, '${t}')" />`,i+=`<input class="update_comment-button" type="submit" value="취소" onclick="cancel_click(${e})" />`,s.innerHTML=i}}).catch(e=>console.error(e))}else Swal.fire("패스워드 일치 오류")}).catch(e=>console.error(e))}}async function delete_comment(e,t){const{value:n}=await Swal.fire({title:"댓글 삭제",text:"삭제하면 되돌릴 수 없습니다.",input:"password",icon:"warning",showCancelButton:!0,confirmButtonColor:"#3085d6",cancelButtonColor:"#d33",inputPlaceholder:"글 작성 시 입력했던 패스워드를 입력하세요",inputAttributes:{maxlength:20,autocapitalize:"off",autocorrect:"off"}});if(n){const s="https://freshrimpsushi.com/blog/ajax/comment.php?action=checkPassword";postFetch(s,{cmt_idx:e,password:n}).then(e=>e.json()).then(n=>{if(n.ok){const n="https://freshrimpsushi.com/blog/ajax/comment.php?action=deleteComment";postFetch(n,{cmt_idx:e}).then(e=>e.json()).then(n=>{Swal.fire("삭제되었습니다."),t==="parents"?commentRows=commentRows.filter(t=>t.cmt_idx!==e):t==="child"&&commentRows.map(t=>{t.child=t.child.filter(t=>t.cmt_idx!==e),t.child_cnt=t.child.length}),render_comment(commentRows)}).catch(e=>console.error(e))}else Swal.fire("패스워드 일치 오류")}).catch(e=>console.error(e))}}function update_comment_click(e,t){const i=document.querySelector(`#comment${e} .update-author`),a=document.querySelector(`#comment${e} .update-password`),r=document.querySelector(`#comment${e} .update-content`),n=i.value,s=a.value,o=r.value;(n===""||s===""||o==="")&&alert("빈칸을 채워주세요");const c="https://freshrimpsushi.com/blog/ajax/comment.php?action=updateComment";postFetch(c,{cmt_idx:e,author:n.replace(/\+/g,"%2B"),password:s,content:o.replace(/\+/g,"%2B")}).then(e=>e.json()).then(n=>{n.ok&&(Swal.fire("수정되었습니다."),t==="parents"?commentRows.map(t=>{t.cmt_idx==e&&(t.author=n.author,t.content=n.content)}):t==="child"&&commentRows.map(t=>{t.cmt_idx==n.parent_cmt_idx&&t.child.map(t=>{t.cmt_idx==e&&(t.author=n.author,t.content=n.content)})}),render_comment(commentRows),recentRows.map(t=>{t.cmt_idx==e&&(t.author=n.author,t.content=n.content)}),render_recent_comment(recentRows))}).catch(e=>console.error(e))}function cancel_click(){render_comment(commentRows)}function re_comment(e,t){const s=document.querySelector(`#comment${e} .re-comment`);let n="";n+='<div class="re-comment-box">',n+='<div class="re-comment-author-info">',n+='<input class="re-comment-author" type="text" value="" placeholder="이름" />',n+='<input class="re-comment-password" type="password" value="" placeholder="비밀번호" />',n+="</div>",n+='<textarea class="re-comment-content" placeholder="내용" value="" style="IME-MODE:active;"></textarea>',t===void 0?n+=`<button class="write-button" onclick="re_comment_click(${e})" value="send"><i class='fa-solid fa-paper-plane'></i></button>`:n+=`<button class="write-button" onclick="re_comment_click(${e}, ${t})" value="send"><i class='fa-solid fa-paper-plane'></i></button>`,n+=`<button class="write-button" onclick="cancel_click(${e})" value="close"><i class='fa-solid fa-solid fa-ban'></i></button>`,n+="</div>",s.innerHTML=n}function re_comment_click(e,t){const n=document.querySelector(`#comment${e} .re-comment-author`),s=document.querySelector(`#comment${e} .re-comment-password`),o=document.querySelector(`#comment${e} .re-comment-content`),i=n.value,a=s.value,r=o.value;if(i===""||a===""||r===""){alert("빈칸을 채워주세요");return}const c="3638",l="",d="論文レビュー：デノイジング拡散確率モデル (DDPM)";fetch("https://api64.ipify.org?format=json").then(e=>e.json()).then(e=>e.ip).then(n=>{const s="https://freshrimpsushi.com/blog/ajax/comment.php?action=writeReComment";return postFetch(s,{board_idx:c,board_slug:l,board_title:d,cmt_idx:t===void 0?e:t,author:i.replace(/\+/g,"%2B"),password:a,content:r.replace(/\+/g,"%2B"),user_ip:n})}).then(e=>e.json()).then(i=>{i.ok?(commentRows.map(n=>{t===void 0?n.cmt_idx==e&&n.child.push(i.row):n.cmt_idx==t&&n.child.push(i.row)}),render_comment(commentRows)):i.status==606?(Swal.fire(`Warning!
-지속적인 도배 시도시
-IP가 차단될 수 있습니다.`),n.value="",s.value="",o.value=""):i.status===607&&(alert(`지나친 댓글 도배를 확인하여
-접근을 차단합니다.`),window.location.href="https://google.com")}).catch(e=>console.error(e))}</script></div><aside class=sidebar><aside><style>.reddot a:link{color:#ffc0c0;text-shadow:0 0 10px #d3d3d3;font-weight:700}.reddot a:visited{color:#f5f5f5}</style><p class=reddot style=text-align:center;margin:0><a href=https://freshrimpsushi.github.io/jp/posts/3378/>春の特選おまかせ<br>「君の名は」</a></p></aside><br><div class=category></div><div style=display:flex>● をクリックして、興味ある分野だけ強調。<div class=resetmute><button class="sb-btn btnReset" style=border-radius:5px;border:0>reset</button>
-<button class="sb-btn btnMute" style=border-radius:5px;border:0>mute</button></div></div><script defer>const color={green:"#33cc33",yellow:"#ffcc00",red:"#ff3333",black:"#000000"},categoryRows=[[{idx:1,name:"함수",color:color.green,show:"関数",size:"143"},{idx:2,name:"보조정리",color:color.red,show:"レンマ",size:"52"},{idx:3,name:"미분적분학",color:color.green,show:"微分積分学",size:"45"},{idx:4,name:"행렬대수",color:color.green,show:"行列代数",size:"111"}],[{idx:1,name:"정수론",color:color.green,show:"整数論",size:"90"},{idx:2,name:"집합론",color:color.green,show:"集合論",size:"49"},{idx:3,name:"그래프이론",color:color.green,show:"グラフ理論",size:"63"},{idx:4,name:"선형대수",color:color.green,show:"線形代数",size:"97"},{idx:5,name:"해석개론",color:color.green,show:"解析学",size:"84"},{idx:6,name:"추상대수",color:color.green,show:"抽象代数",size:"100"},{idx:7,name:"위상수학",color:color.green,show:"位相幾何学",size:"64"},{idx:8,name:"기하학",color:color.green,show:"幾何学",size:"160"}],[{idx:1,name:"다변수벡터해석",color:color.green,show:"ベクトル分析",size:"30"},{idx:2,name:"복소해석",color:color.green,show:"複素解析",size:"71"},{idx:3,name:"측도론",color:color.yellow,show:"測度論",size:"53"},{idx:4,name:"푸리에해석",color:color.green,show:"フーリエ解析",size:"54"},{idx:5,name:"초함수론",color:color.green,show:"シュワルツ超函数",size:"23"},{idx:6,name:"단층촬영",color:color.green,show:"トモグラフィ",size:"20"}],[{idx:1,name:"거리공간",color:color.green,show:"距離空間",size:"38"},{idx:2,name:"바나흐공간",color:color.green,show:"バナッハ空間",size:"39"},{idx:3,name:"힐베르트공간",color:color.green,show:"ヒルベルト空間",size:"30"},{idx:4,name:"르벡공간",color:color.green,show:"ルベーグ空間",size:"33"}],[{idx:1,name:"상미분방정식",color:color.green,show:"微分方程式",size:"58"},{idx:2,name:"편미분방정식",color:color.green,show:"偏微分方程式",size:"60"},{idx:3,name:"확률미분방정식",color:color.green,show:"確率微分方程式",size:"26"}],[{idx:1,name:"줄리아",color:color.green,show:"ジュリア",size:"223"},{idx:2,name:"알고리즘",color:color.green,show:"アルゴリズム",size:"28"},{idx:3,name:"수치해석",color:color.green,show:"数値解析",size:"61"},{idx:4,name:"최적화이론",color:color.green,show:"最適化理論",size:"37"},{idx:5,name:"머신러닝",color:color.green,show:"機械学習",size:"111"},{idx:6,name:"프로그래밍",color:color.green,show:"プログラミング",size:"98"},{idx:7,name:"세이버메트릭스",color:color.green,show:"セイバーメトリクス",size:"223",size:"13"}],[{idx:1,name:"물리학",color:color.green,show:"物理学",size:"27"},{idx:2,name:"수리물리",color:color.green,show:"数理物理学",size:"75"},{idx:3,name:"고전역학",color:color.green,show:"古典力学",size:"48"},{idx:4,name:"전자기학",color:color.green,show:"電磁気学",size:"51"},{idx:5,name:"양자역학",color:color.green,show:"量子力学",size:"56"},{idx:6,name:"열물리학",color:color.green,show:"熱物理学",size:"29"}],[{idx:1,name:"R",color:color.green,show:"R",size:"53"},{idx:2,name:"데이터확보",color:color.green,show:"データ確保",size:"29"},{idx:3,name:"데이터과학",color:color.green,show:"データサイエンス",size:"33"},{idx:4,name:"통계적검정",color:color.green,show:"統計的検定",size:"24"},{idx:5,name:"통계적분석",color:color.green,show:"統計的分析",size:"79"},{idx:6,name:"수리통계학",color:color.green,show:"数理統計学",size:"118"},{idx:7,name:"확률분포론",color:color.green,show:"確率分布論",size:"75"},{idx:8,name:"확률론",color:color.green,show:"確率論",size:"80"},{idx:9,name:"위상데이터분석",color:color.green,show:"位相データ分析",size:"40"}],[{idx:1,name:"논문작성",color:color.red,show:"論文作成",size:"52"},{idx:2,name:"생새우초밥지",color:color.black,show:"生エビ寿司誌",size:"6"}]];document.addEventListener("DOMContentLoaded",()=>{const e=JSON.parse(localStorage.getItem("blindList"));(e==""||e==null||e==null||e==0||e==NaN)&&localStorage.setItem("blindList",null),render_category(categoryRows),blind_category(e);const t=document.querySelector(".btnReset");t.addEventListener("click",()=>{let e=new Array;localStorage.setItem("blindList",JSON.stringify(e)),blind_category(e)});const n=document.querySelector(".btnMute");n.addEventListener("click",()=>{let e=new Array;for(let t=0;t<categoryRows.length;t++)categoryRows[t].map(n=>{const s={mainIdx:t,subIdx:n.idx};e.push(s)});localStorage.setItem("blindList",JSON.stringify(e)),blind_category(e)})});function render_category(e){const n=document.querySelector(".category");let t="";for(let n=0;n<e.length;n++)e[n].map(e=>{t+=`<span id="cate${n}-${e.idx}" class="cate etewsert">`,t+=`<span onclick="check_blind(${n}, ${e.idx});" style="cursor: pointer; color: ${e.color}">●</span>`,t+=`<a href="https://freshrimpsushi.github.io/jp/categories/${e.name.toLowerCase()}/">`,t+=` ${e.show} (${e.size})</a>`,t+="</span>",screen.width>954?t+="<br>":t+=" "}),t+="<hr>";n.innerHTML=t}function check_blind(e,t){const o=document.querySelector(`#cate${e}-${t}`);let n=new Array;const i={mainIdx:e,subIdx:t};let s=JSON.parse(localStorage.getItem("blindList"));if(s==""||s==null||s==null||s==0||s==NaN)n.push(i),localStorage.setItem("blindList",JSON.stringify(n)),o.className+=" blind";else{n=s;let a=null;for(let s=0;s<n.length;s++)if(n[s].mainIdx==e&&n[s].subIdx==t){a=n.filter(n=>n.mainIdx!=e||n.subIdx!=t);break}a===null?(n.push(i),localStorage.setItem("blindList",JSON.stringify(n)),o.className+=" blind"):(localStorage.setItem("blindList",JSON.stringify(a)),o.className="cate")}}function blind_category(e){const t=document.querySelectorAll(".cate");t.forEach(e=>{e.className="cate"}),e!==null&&e.map(e=>{const t=document.querySelector(`#cate${e.mainIdx}-${e.subIdx}`);t.className+=" blind"})}</script><br><br><b>最近見たポスト</b><div class=lately-viewed-list style=padding-left:4px></div><script defer>document.addEventListener("DOMContentLoaded",()=>{const e=JSON.parse(localStorage.getItem("latelyViewPostList")),n=document.querySelector(".lately-viewed-list");let t="";if(e==""||e==null||e==null||e==0||e==NaN)localStorage.setItem("latelyViewPostList",null),t+='<div class="lv-list">',t+=" · 열람한 포스트가 없습니다.",t+="</div>",n.innerHTML=t;else{for(let n=e.length-1;n>=0;n--)t+='<div class="lv-list">',t+=`<a href="${e[n].link}"> · ${e[n].title}</a>`,t+="</div>";n.innerHTML=t}})</script><script defer>document.addEventListener("DOMContentLoaded",()=>{const s=document.querySelector(".content-box");s&&renderKaTex(s);const o=document.querySelector(".tex");o&&renderKaTex(o);var n,r,i="論文レビュー：デノイジング拡散確率モデル (DDPM)",c="https://freshrimpsushi.github.io/jp/posts/3638/",t=new Array,a={title:i,link:c},e=JSON.parse(localStorage.getItem("latelyViewPostList"));if(e==""||e==null||e==null||e==0||e==NaN)t.push(a),localStorage.setItem("latelyViewPostList",JSON.stringify(t));else{for(r=e.length,n=0;n<r;n++)if(i==e[n].title){e.splice(n,1);break}t=e,t.push(a),t.length>5&&t.shift(),localStorage.setItem("latelyViewPostList",JSON.stringify(t))}})</script><br><b>最新コメント</b><div class=current-reply></div><script defer>const url="https://freshrimpsushi.com/blog/ajax/recent_comment.php?action=getCurrentComment";let recentRows=[];fetch(url).then(e=>e.json()).then(e=>{e.ok&&(recentRows=e.rows,render_recent_comment(recentRows))}).catch(e=>console.error(e));function render_recent_comment(e){const n=document.querySelector(".current-reply");let t="";e.map(e=>{let n="https://freshrimpsushi.github.io/jp/";e.board_idx>-1?n+=`posts/${e.board_idx}#comment${e.cmt_idx}`:e.board_idx==-1?n+=`#comment${e.cmt_idx}`:n+=`categories/${e.board_title}#comment${e.cmt_idx}`,t+='<div class="current-reply-list">',t+=`<a href="${n}">`,t+=`<b> - ${e.author}</b>: `,t+=`${e.content}`,t+=`</a>`,t+=`</div>`}),n.innerHTML=t,renderKaTex(n)}</script><br></aside></div><footer><aside><div><p style=text-align:center><a style=cursor:text href=http://localhost:1313//jp/posts/3638/>© 生エビ寿司屋 / Powered by 류대식, 전기현</a><br>Contact:
-<img src=https://freshrimpsushi.github.io/jp/logo/gmail.png width=12px alt=mail> freshrimpsushi@gmail.com
-<a href=https://freshrimpsushi.github.io/jp/index.xml><img src=https://freshrimpsushi.github.io/jp/logo/RSS.png width=12px alt=RSS> RSS</a></p></div></aside></footer></body><script async src="https://www.googletagmanager.com/gtag/js?id=G-NLV8Y9PRK1"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-NLV8Y9PRK1")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4751085325232621" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/sweetalert2@11></script><script src=https://freshrimpsushi.github.io/jp/js/fontawsome.min.js></script><script src=https://freshrimpsushi.github.io/jp/js/common.js></script><script>document.addEventListener("DOMContentLoaded",()=>{fetch("https://api64.ipify.org?format=json").then(e=>e.json()).then(e=>e.ip).then(e=>{const t="https://freshrimpsushi.com/blog/ajax/ip_checker.php";return postFetch(t,{user_ip:e})}).then(e=>e.json()).then(e=>{e.ok||(alert(`차단된 IP입니다.
-Contact:
-freshrimpsushi@gmail.com`),window.location.href="https://google.com")}).catch(e=>console.error(e))})</script></html>
+$$</p>
+<p>上の疑似コードに示されている通り、$t$は$1$から$T$までの範囲で<a href="../443">一様分布</a>から抽出する。</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Ho, Jonathan, Ajay Jain, and Pieter Abbeel. &ldquo;Denoising diffusion probabilistic models.&rdquo; Advances in neural information processing systems 33 (2020): 6840-6851.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p><a href="https://x.com/cyxacxa">https://x.com/cyxacxa</a>
+<a href="https://x.com/cyxacxa/status/1903757493987389938/photo/1">https://x.com/cyxacxa/status/1903757493987389938/photo/1</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3">
+<p>Sohl-Dickstein, Jascha, et al. &ldquo;Deep unsupervised learning using nonequilibrium thermodynamics.&rdquo; International conference on machine learning. pmlr, 2015.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4">
+<p>Feller, William. &ldquo;Retracted chapter: On the theory of stochastic processes, with particular reference to applications.&rdquo; Selected Papers I. Springer, Cham, 2015. 769-798.&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+
+<aside style="text-align: right;">
+    2024-05-04&emsp;
+    전기현&emsp;
+    
+    <a href="../1307">🎲 3638</a>
+</aside>
+
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    
+    const contentBox = document.querySelector('.content-box');
+    if (contentBox) {
+      renderKaTex(contentBox);
+    }
+    const tex = document.querySelector('.tex');
+    if (tex) {
+      renderKaTex(tex);
+    }
+
+    var title = '論文レビュー：デノイジング拡散確率モデル (DDPM)';
+    var link = 'https:\/\/freshrimpsushi.github.io\/jp\/posts\/3638\/';
+    var arr = new Array();
+    var obj = {
+      "title": title,
+      "link": link
+    };
+    var postList = JSON.parse(localStorage.getItem('latelyViewPostList'));
+    if (postList == '' || postList == null || postList == undefined || postList == 0 || postList == NaN) {
+      arr.push(obj);
+      localStorage.setItem('latelyViewPostList', JSON.stringify(arr));
+    } else {
+      var listSize = postList.length;
+      for (var i = 0; i < listSize; i++) {
+        if (title == postList[i].title) {
+          postList.splice(i, 1);
+          break;
+        }
+      }
+      arr = postList;
+      arr.push(obj);
+      if (arr.length > 5) {
+        arr.shift();
+      }
+      localStorage.setItem('latelyViewPostList', JSON.stringify(arr));
+    }
+  });
+</script>
+
+      </div>
+      <aside>
+<h2>コメント</h2>
+<div class="area-reply">
+  <div class="list-reply">
+  </div>
+</div>
+
+
+<div class="write-box">
+  <div class="write-author-info box-account">
+    <input type="hidden" name="cmt_idx" />
+    <input class="ai-author" type="text" value="" placeholder="Name" />
+    <input class="ai-password" type="password" value="" maxlength="20" placeholder="Password" />
+  </div>
+  <div class="write-content">
+    <textarea class="ai-content" value="" placeholder='日本語でも構いませんが、できれば英語でお願いします' style="IME-MODE:active;"></textarea>
+ 
+  </div>
+  
+  <button class="write-button" onclick="write_comment()" aria-label="send"><i class='fa-solid fa-paper-plane'></i></button>
+  <aside class="tex"> 
+    コメントにも $\TeX$ が適用されます。
+    </aside>
+</div>
+</aside>
+
+<script>
+  let commentRows = [];
+  const listReply = document.querySelector('.list-reply');
+
+  document.addEventListener('DOMContentLoaded', () => {
+    get_all_comment();
+  });
+
+  function get_all_comment() {
+    fetch('https://api64.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => {return data.ip})
+      .then(ip => {
+        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getAllComment';
+        return postFetch(url, {
+                board_idx: '3638',
+                user_ip: ip
+              });
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.ok) {
+          commentRows = data.rows;
+          render_comment(commentRows);
+        }
+      })
+      .catch(err => console.error(err));
+  }
+
+  function render_comment(rows) {
+    const badgeExceptionArr = ['류대식', '전기현', 'ㅇㅇ', '질문'];
+    const adminExceptionArr = ['류대식', '전기현'];
+    render_blank();
+    let html = '';
+    rows.map(row => {
+      html += `<div id="comment${row.cmt_idx}" class="parents">`;
+      html += `<div class="content-info">`;
+      
+      let badge = '';
+      if (row.cmt_cnt > 125) {
+        badge = '🥇';
+      } else if (row.cmt_cnt > 25) {
+        badge = '🥈';
+      } else if (row.cmt_cnt > 5) {
+        badge = '🥉';
+      } else { }
+
+      if (badgeExceptionArr.includes(row.author)) {
+        badge = '';
+      }
+
+      let ipAddress = '';
+      if (row.ip_address == null) {
+        ipAddress = '(-)';
+      } else {
+        ipAddress = `(${row.ip_address})`;
+      }
+
+      if(adminExceptionArr.includes(row.author)) {
+        ipAddress = '';
+      }
+      
+      html += `<div class="list-author">${badge} ${row.author} ${ipAddress}</div>`;
+      
+      html += `<sup class="list-date">${row.datetime.slice(2, -3)}</sup>`;
+      html += `<div class="list-button">`;
+      html += `<div class="list-update-button" onclick="update_comment('${row.cmt_idx}', 'parents');"><i class="fa-solid fa-pen-to-square"></i></div>`; 
+      html += `<div class="list-delete-button" onclick="delete_comment('${row.cmt_idx}', 'parents');"><i class="fa-solid fa-trash"></i></div>`; 
+      html += `</div>`; 
+      html += `</div>`; 
+      if(!row.approve) {html += `<div style="text-align: right;"><i class="fa-solid fa-hourglass"></i> 管理者の承認を待っています</div>`;}
+      let content = row.content;
+      content = content.replace(/\n/g, '<br />');
+      html += `<div class="content-text">${content} <span class="re-comment-button" onclick="re_comment('${row.cmt_idx}');"><i class="fa-solid fa-reply" style="cursor: pointer;"></i></span></div>`;
+      html += `<div class="re-comment"></div>`; 
+      html += `</div>`;
+
+      row.child.map(child => {
+        let commentClass = 'child';
+        if (row.ip_address && child.ip_address === row.ip_address) {
+        commentClass = 'parentself'; 
+        }
+        html += `<div id="comment${child.cmt_idx}" class="${commentClass}">`;
+        html += `<div class="content-info">`;
+        
+        let badge = '';
+        if (child.cmt_cnt > 5) {
+          badge = '🥉';
+        } else if (child.cmt_cnt > 25) {
+          badge = '🥈';
+        } else if (child.cmt_cnt > 125) {
+          badge = '🥇';
+        } else { }
+
+        if (badgeExceptionArr.includes(child.author)) {
+          badge = '';
+        }
+
+        let ipAddress = '';
+        if (child.ip_address == null) {
+          ipAddress = '(-)';
+        } else {
+          ipAddress = `(${child.ip_address})`;
+        }
+
+        if(adminExceptionArr.includes(child.author)) {
+          ipAddress = '';
+        }
+
+        html += `<div class="list-author">${badge} ${child.author} ${ipAddress}</div>`;
+        
+        html += `<sup class="list-date">${child.datetime.slice(2, -3)}</sup>`;
+        html += `<div class="list-button">`;
+        html += `<div class="list-update-button" onclick="update_comment('${child.cmt_idx}', 'child');"><i class="fa-solid fa-pen-to-square"></i></div>`; 
+        html += `<div class="list-delete-button" onclick="delete_comment('${child.cmt_idx}', 'child');"><i class="fa-solid fa-trash"></i></div>`; 
+        html += `</div>`; 
+        html += `</div>`; 
+        if(!child.approve) {html += `<div style="text-align: right;"><i class="fa-solid fa-hourglass"></i> 管理者の承認を待っています</div>`;}
+        let content = child.content;
+        content = content.replace(/\n/g, '<br />');
+        html += `<div class="content-text">${content} <span class="re-comment-button" onclick="re_comment('${child.cmt_idx}', '${row.cmt_idx}');"><i class="fa-solid fa-reply" style="cursor: pointer;"></i></span></div>`;
+        html += `<div class="re-comment"></div>`; 
+        html += `</div>`;
+      });
+    });
+    listReply.innerHTML = html;
+    renderKaTex(listReply);
+    if(location.href.indexOf('#') != -1) {
+      location.href=location.href.substr(location.href.indexOf('#'));
+  }
+  }
+
+  function render_blank() {
+    listReply.innerHTML = '';
+  }
+
+  
+  function write_comment() {
+    const inputAuthor = document.querySelector('.ai-author');
+    const inputPassword = document.querySelector('.ai-password');
+    const inputContent = document.querySelector('.ai-content');
+
+    const author = inputAuthor.value;
+    const password = inputPassword.value;
+    const content = inputContent.value;
+
+    if (author === '' || password === '' || content === '') {
+      alert('빈칸을 채워주세요');
+      return;
+    }
+    const idx = '3638';
+    const board_slug = '';
+    const board_title = '論文レビュー：デノイジング拡散確率モデル (DDPM)';
+
+    fetch('https://api64.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => {return data.ip})
+      .then(ip => {
+        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeComment';
+        return postFetch(url, {
+                board_idx: idx,
+                board_slug: board_slug,
+                board_title: board_title,
+                author: author.replace(/\+/g, "%2B"),
+                password: password,
+                content: content.replace(/\+/g, "%2B"),
+                user_ip: ip
+              });
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.ok) {
+          commentRows.push(data.row);
+          render_comment(commentRows);
+          inputAuthor.value = '';
+          inputPassword.value = '';
+          inputContent.value = '';
+        } else {
+          if (data.status === 606) {
+            Swal.fire('Warning!\n지속적인 도배 시도시\nIP가 차단될 수 있습니다.');
+            inputAuthor.value = '';
+            inputPassword.value = '';
+            inputContent.value = '';
+          } else if (data.status === 607) {
+            alert('지나친 댓글 도배를 확인하여\n접근을 차단합니다.');
+            window.location.href = 'https://google.com';
+          } else {}
+        }
+      })
+      .catch(err => console.error(err));
+  }
+
+  
+  async function update_comment(cmt_idx, type) {
+    const { value: password } = await Swal.fire({
+      title: '댓글 수정',
+      input: 'password',
+      inputPlaceholder: '글 작성 시 입력했던 패스워드를 입력하세요',
+      inputAttributes: {
+        maxlength: 20,
+        autocapitalize: 'off',
+        autocorrect: 'off'
+      }
+    });
+
+    if (password) {
+      const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=checkPassword';
+      postFetch(url, {
+        cmt_idx: cmt_idx,
+        password: password
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.ok) {
+            const commnetHtml = document.querySelector(`#comment${cmt_idx}`);
+            const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=getComment';
+            postFetch(url, {
+              cmt_idx: cmt_idx
+            })
+              .then(res => res.json())
+              .then(data => {
+                if (data.ok) {
+                  const row = data.row;
+                  const author = row.author;
+                  const content = row.content;
+                  let html = '';
+                  html += `<div class="update-author-info">`;
+                  html += `<input class="update-author" type="text" value="${author}" placeholder="이름" />`;
+                  html += `<input class="update-password" type="password" value="${password}" placeholder="비밀번호" disabled />`;
+                  html += '</div>';
+                  html += `<textarea class="update-content" value="" style="IME-MODE:active;">${content}</textarea>`;
+                  html += `<input class="update_comment-button" type="submit" value="수정" onclick="update_comment_click(${cmt_idx}, '${type}')" />`;
+                  html += `<input class="update_comment-button" type="submit" value="취소" onclick="cancel_click(${cmt_idx})" />`;
+                  commnetHtml.innerHTML = html;
+                }
+              })
+              .catch(err => console.error(err));
+          } else {
+            Swal.fire('패스워드 일치 오류');
+          }
+        })
+        .catch(err => console.error(err));
+    }
+  }
+
+  
+  async function delete_comment(cmt_idx, type) {
+    const { value: password } = await Swal.fire({
+      title: '댓글 삭제',
+      text: "삭제하면 되돌릴 수 없습니다.",
+      input: 'password',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      inputPlaceholder: '글 작성 시 입력했던 패스워드를 입력하세요',
+      inputAttributes: {
+        maxlength: 20,
+        autocapitalize: 'off',
+        autocorrect: 'off'
+      }
+    });
+
+    if (password) {
+      const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=checkPassword';
+      postFetch(url, {
+        cmt_idx: cmt_idx,
+        password: password
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.ok) {
+            const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=deleteComment';
+            postFetch(url, {
+              cmt_idx: cmt_idx
+            })
+              .then(res => res.json())
+              .then(data => {
+                Swal.fire('삭제되었습니다.');
+                if (type === 'parents') {
+                  commentRows = commentRows.filter((row) => row.cmt_idx !== cmt_idx);
+                } else if (type === 'child') {
+                  commentRows.map((row) => {
+                    row.child = row.child.filter((childRow) => childRow.cmt_idx !== cmt_idx);
+                    row.child_cnt = row.child.length;
+                  });
+                } else { }
+                render_comment(commentRows);
+              })
+              .catch(err => console.error(err));
+          } else {
+            Swal.fire('패스워드 일치 오류');
+          }
+        })
+        .catch(err => console.error(err));
+    }
+  }
+
+  
+  function update_comment_click(cmt_idx, type) {
+    const inputAuthor = document.querySelector(`#comment${cmt_idx} .update-author`);
+    const inputPassword = document.querySelector(`#comment${cmt_idx} .update-password`);
+    const inputContent = document.querySelector(`#comment${cmt_idx} .update-content`);
+
+    const author = inputAuthor.value;
+    const password = inputPassword.value;
+    const content = inputContent.value;
+
+    if (author === '' || password === '' || content === '') {
+      alert('빈칸을 채워주세요');
+    }
+
+    const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=updateComment';
+    postFetch(url, {
+      cmt_idx: cmt_idx,
+      author: author.replace(/\+/g, "%2B"),
+      password: password,
+      content: content.replace(/\+/g, "%2B")
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.ok) {
+          Swal.fire('수정되었습니다.');
+          if (type === 'parents') {
+            commentRows.map((row) => {
+              if (row.cmt_idx == cmt_idx) {
+                row.author = data.author;
+                row.content = data.content;
+              }
+            });
+          } else if (type === 'child') {
+            commentRows.map((row) => {
+              if (row.cmt_idx == data.parent_cmt_idx) {
+                row.child.map((child) => {
+                  if (child.cmt_idx == cmt_idx) {
+                    child.author = data.author;
+                    child.content = data.content;
+                  }
+                });
+              }
+            });
+          } else { }
+          render_comment(commentRows);
+          recentRows.map((row) => {
+            if (row.cmt_idx == cmt_idx) {
+              row.author = data.author;
+              row.content = data.content;
+            }
+          });
+          render_recent_comment(recentRows);
+        }
+      })
+      .catch(err => console.error(err));
+  }
+
+  
+  function cancel_click() {
+    render_comment(commentRows);
+  }
+
+  
+  function re_comment(cmt_idx, parent_cmt_idx) {
+    const reComment = document.querySelector(`#comment${cmt_idx} .re-comment`);
+    let html = '';
+    html += '<div class="re-comment-box">';
+    html += '<div class="re-comment-author-info">';
+    html += '<input class="re-comment-author" type="text" value="" placeholder="이름" />';
+    html += '<input class="re-comment-password" type="password" value="" placeholder="비밀번호" />';
+    html += '</div>';
+    html += '<textarea class="re-comment-content" placeholder="내용" value="" style="IME-MODE:active;"></textarea>';
+    if (parent_cmt_idx === undefined)
+    {
+      html += `<button class="write-button" onclick="re_comment_click(${cmt_idx})" value="send"><i class='fa-solid fa-paper-plane'></i></button>`
+    }
+    else
+    {
+      html += `<button class="write-button" onclick="re_comment_click(${cmt_idx}, ${parent_cmt_idx})" value="send"><i class='fa-solid fa-paper-plane'></i></button>`
+    }
+    html += `<button class="write-button" onclick="cancel_click(${cmt_idx})" value="close"><i class='fa-solid fa-solid fa-ban'></i></button>`
+    html += '</div>';
+    reComment.innerHTML = html;
+  }
+
+  function re_comment_click(cmt_idx, parent_cmt_idx) {
+    const inputAuthor = document.querySelector(`#comment${cmt_idx} .re-comment-author`);
+    const inputPassword = document.querySelector(`#comment${cmt_idx} .re-comment-password`);
+    const inputContent = document.querySelector(`#comment${cmt_idx} .re-comment-content`);
+
+    const author = inputAuthor.value;
+    const password = inputPassword.value;
+    const content = inputContent.value;
+
+    if (author === '' || password === '' || content === '') {
+      alert('빈칸을 채워주세요');
+      return;
+    }
+    
+    const board_idx = '3638';
+    const board_slug = '';
+    const board_title = '論文レビュー：デノイジング拡散確率モデル (DDPM)';
+
+    fetch('https://api64.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => {return data.ip})
+      .then(ip => {
+        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/comment.php?action=writeReComment';
+          return postFetch(url, {
+                  board_idx: board_idx,
+                  board_slug: board_slug,
+                  board_title: board_title,
+                  cmt_idx: (parent_cmt_idx === undefined) ? cmt_idx : parent_cmt_idx,
+                  author: author.replace(/\+/g, "%2B"),
+                  password: password,
+                  content: content.replace(/\+/g, "%2B"),
+                  user_ip: ip
+                });
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.ok) {
+          commentRows.map((row) => {
+            if (parent_cmt_idx === undefined)
+            {
+              if (row.cmt_idx == cmt_idx) {
+                row.child.push(data.row);
+              }
+            }
+            else
+            {
+              if (row.cmt_idx == parent_cmt_idx) {
+                row.child.push(data.row);
+              }
+            }
+          });
+          render_comment(commentRows);
+        } else {
+          if (data.status == 606) {
+            Swal.fire('Warning!\n지속적인 도배 시도시\nIP가 차단될 수 있습니다.');
+            inputAuthor.value = '';
+            inputPassword.value = '';
+            inputContent.value = '';
+          } else if (data.status === 607) {
+            alert('지나친 댓글 도배를 확인하여\n접근을 차단합니다.');
+            window.location.href = 'https://google.com';
+          } else {}
+        }
+      })
+      .catch(err => console.error(err));
+  }
+
+</script>
+    </div>
+    <aside class="sidebar">
+
+    
+        <aside>
+    
+    <style>
+        .reddot a:link {
+             
+            color: rgb(255, 192, 192);  
+            text-shadow: 0 0 10px lightgray;
+            font-weight: bold;
+        }
+        .reddot a:visited {
+            color: whitesmoke;
+        }
+	</style>
+    
+    
+
+    
+    <p class="reddot" style="text-align: center; margin: 0;">
+        
+            <a href="https://freshrimpsushi.github.io/jp/posts/3378/"> 春の特選おまかせ<br>「君の名は」 </a>
+        
+    </p>
+    
+</aside>
+ 
+     <br>
+    <div class="category">
+</div>
+
+<div style="display:flex;">
+
+● をクリックして、興味ある分野だけ強調。
+
+      <div class="resetmute">
+        <button class="sb-btn btnReset"
+          style = "border-radius:5px; border:0px">reset</button>
+        <button class="sb-btn btnMute"
+          style = "border-radius:5px; border:0px">mute</button>
+      </div>
+</div>
+
+
+ 
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+<script defer>
+  const color = {green: '#33cc33', yellow: '#ffcc00', red: '#ff3333', black: '#000000'};
+  const categoryRows = [
+    [
+      { idx: 1, name: '함수', color: color.green, show: '関数', size: '143'},
+      { idx: 2, name: '보조정리', color: color.red, show: 'レンマ', size: '52'},
+      { idx: 3, name: '미분적분학', color: color.green, show: '微分積分学', size: '45'},
+      { idx: 4, name: '행렬대수', color: color.green, show: '行列代数', size: '111'},
+    ],
+    [
+      { idx: 1, name: '정수론', color: color.green, show: '整数論', size: '90'},
+      { idx: 2, name: '집합론', color: color.green, show: '集合論', size: '49'},
+      { idx: 3, name: '그래프이론', color: color.green, show: 'グラフ理論', size: '63'},
+      { idx: 4, name: '선형대수', color: color.green, show: '線形代数', size: '97'},
+      { idx: 5, name: '해석개론', color: color.green, show: '解析学', size: '84'},
+      { idx: 6, name: '추상대수', color: color.green, show: '抽象代数', size: '100'},
+      { idx: 7, name: '위상수학', color: color.green, show: '位相幾何学', size: '64'},
+      { idx: 8, name: '기하학', color: color.green, show: '幾何学', size: '160'}, 
+    ],
+    [
+      { idx: 1, name: '다변수벡터해석', color: color.green, show: 'ベクトル分析', size: '30'},
+      { idx: 2, name: '복소해석', color: color.green, show: '複素解析', size: '71'},
+      { idx: 3, name: '측도론', color: color.yellow, show: '測度論', size: '53'},
+      { idx: 4, name: '푸리에해석', color: color.green, show: 'フーリエ解析', size: '54'},
+      { idx: 5, name: '초함수론', color: color.green, show: 'シュワルツ超函数', size: '23'},
+      { idx: 6, name: '단층촬영', color: color.green, show: 'トモグラフィ', size: '20'},
+    ],
+    [
+      { idx: 1, name: '거리공간', color: color.green, show: '距離空間', size: '38'},
+      { idx: 2, name: '바나흐공간', color: color.green, show: 'バナッハ空間', size: '39'},
+      { idx: 3, name: '힐베르트공간', color: color.green, show: 'ヒルベルト空間', size: '30'},
+      { idx: 4, name: '르벡공간', color: color.green, show: 'ルベーグ空間', size: '33'}
+    ],
+    [
+      { idx: 1, name: '상미분방정식', color: color.green, show: '微分方程式', size: '58'},
+      { idx: 2, name: '편미분방정식', color: color.green, show: '偏微分方程式', size: '60'},
+      { idx: 3, name: '확률미분방정식', color: color.green, show: '確率微分方程式', size: '26'}
+    ],
+    [
+      
+      { idx: 1, name: '줄리아', color: color.green, show: 'ジュリア', size: '223'},
+      { idx: 2, name: '알고리즘', color: color.green, show: 'アルゴリズム', size: '28'},
+      { idx: 3, name: '수치해석', color: color.green, show: '数値解析', size: '61'},
+      { idx: 4, name: '최적화이론', color: color.green, show: '最適化理論', size: '37'},
+      { idx: 5, name: '머신러닝', color: color.green, show: '機械学習', size: '112'},
+      { idx: 6, name: '프로그래밍', color: color.green, show: 'プログラミング', size: '98'},
+      { idx: 7, name: '세이버메트릭스', color: color.green, show: 'セイバーメトリクス', size: '223', size: '13'},
+    ],
+    [
+      { idx: 1, name: '물리학', color: color.green, show: '物理学', size: '27'},
+      { idx: 2, name: '수리물리', color: color.green, show: '数理物理学', size: '75'},
+      { idx: 3, name: '고전역학', color: color.green, show: '古典力学', size: '48'},
+      { idx: 4, name: '전자기학', color: color.green, show: '電磁気学', size: '51'},
+      { idx: 5, name: '양자역학', color: color.green, show: '量子力学', size: '56'},
+      { idx: 6, name: '열물리학', color: color.green, show: '熱物理学', size: '29'}
+    ],
+    [
+      { idx: 1, name: 'R', color: color.green, show: 'R', size: '53'},
+      { idx: 2, name: '데이터확보', color: color.green, show: 'データ確保', size: '29'},
+      { idx: 3, name: '데이터과학', color: color.green, show: 'データサイエンス', size: '33'},
+      { idx: 4, name: '통계적검정', color: color.green, show: '統計的検定', size: '24'},
+      { idx: 5, name: '통계적분석', color: color.green, show: '統計的分析', size: '79'},
+      { idx: 6, name: '수리통계학', color: color.green, show: '数理統計学', size: '118'},
+      { idx: 7, name: '확률분포론', color: color.green, show: '確率分布論', size: '75'},
+      { idx: 8, name: '확률론', color: color.green, show: '確率論', size: '80'},
+      { idx: 9, name: '위상데이터분석', color: color.green, show: '位相データ分析', size: '40'}
+    ],
+    [
+      { idx: 1, name: '논문작성', color: color.red, show: '論文作成', size: '52'},
+      { idx: 2, name: '생새우초밥지', color: color.black , show: '生エビ寿司誌', size: '6'},
+      
+    ]
+  ];
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const blindList = JSON.parse(localStorage.getItem('blindList'));
+    if (blindList == '' || blindList == null || blindList == undefined || blindList == 0 || blindList == NaN) {
+      localStorage.setItem('blindList', null);
+    }
+    render_category(categoryRows);
+
+    blind_category(blindList);
+
+    const btnReset = document.querySelector('.btnReset');
+    btnReset.addEventListener('click', () => {
+      let arr = new Array();
+      localStorage.setItem('blindList', JSON.stringify(arr));
+      blind_category(arr);
+    });
+
+    const btnMute = document.querySelector('.btnMute');
+    btnMute.addEventListener('click', () => {
+      let arr = new Array();
+      for(let i = 0; i < categoryRows.length; i++) {
+        categoryRows[i].map(row => {
+          const data = {mainIdx: i, subIdx: row.idx};
+          arr.push(data);
+        });
+      }
+      localStorage.setItem('blindList', JSON.stringify(arr));
+      blind_category(arr);
+    });
+  });
+
+  function render_category(rows)
+  {
+    const category = document.querySelector('.category');
+    let html = '';
+    for(let i = 0; i < rows.length; i++) {
+      rows[i].map(row => {
+        html += `<span id="cate${i}-${row.idx}" class="cate etewsert">`;
+        html += `<span onclick="check_blind(${i}, ${row.idx});" style="cursor: pointer; color: ${row.color}">●</span>`;
+        html += `<a href="https:\/\/freshrimpsushi.github.io\/jp\/categories/${row.name.toLowerCase()}/">`; 
+        html += ` ${row.show} (${row.size})</a>`;
+        html += '</span>';
+        if(screen.width > 954) {html += '<br>'} else {html += ' '}
+      });
+      html += '<hr>';
+    }
+
+    category.innerHTML = html;
+  }
+
+   
+  function check_blind(mainIdx, subIdx)
+  {
+    const cateDiv = document.querySelector(`#cate${mainIdx}-${subIdx}`);
+    let arr = new Array();
+    const data = {mainIdx, subIdx};
+    let blindList = JSON.parse(localStorage.getItem('blindList'));
+    if (blindList == '' || blindList == null || blindList == undefined || blindList == 0 || blindList == NaN) {
+      arr.push(data);
+      localStorage.setItem('blindList', JSON.stringify(arr));
+      cateDiv.className += ' blind';
+    } else {
+      arr = blindList;
+      let tempArr = null;
+      for(let i = 0; i < arr.length; i++) {
+        if(arr[i].mainIdx == mainIdx && arr[i].subIdx == subIdx) {
+          tempArr = arr.filter(a => a.mainIdx != mainIdx || a.subIdx != subIdx);
+          break;
+        }
+      }
+      
+      if(tempArr === null) {
+        arr.push(data);
+        localStorage.setItem('blindList', JSON.stringify(arr));
+        cateDiv.className += ' blind';
+      } else {
+        localStorage.setItem('blindList', JSON.stringify(tempArr));
+        cateDiv.className = 'cate';
+      }
+    }
+  }
+
+   
+  function blind_category(blindList)
+  {
+    const cateDiv = document.querySelectorAll('.cate');
+    cateDiv.forEach(div => {
+      div.className = 'cate';
+    });
+    if(blindList !== null) {
+      blindList.map(list => {
+        const blindDiv = document.querySelector(`#cate${list.mainIdx}-${list.subIdx}`);
+        blindDiv.className += ' blind';
+      });
+    }
+  }
+</script> <br>
+    
+ <br>
+    <b>最近見たポスト</b>
+
+
+<div class="lately-viewed-list" style="padding-left: 4px;">
+</div>
+
+<script defer>
+  document.addEventListener('DOMContentLoaded', () => {
+    const postList = JSON.parse(localStorage.getItem('latelyViewPostList'));
+
+    const list = document.querySelector('.lately-viewed-list');
+    let html = '';
+    if (postList == '' || postList == null || postList == undefined || postList == 0 || postList == NaN) {
+      localStorage.setItem('latelyViewPostList', null);
+      html += '<div class="lv-list">';
+      html += ' · 열람한 포스트가 없습니다.';
+      html += '</div>';
+      list.innerHTML = html;
+    } else {
+      for (let i = (postList.length - 1); i >= 0; i--) {
+        html += '<div class="lv-list">';
+        html += `<a href="${postList[i].link}"> · ${postList[i].title}</a>`;
+        html += '</div>';
+      }
+      list.innerHTML = html;
+    }
+  });
+</script>
+
+<script defer>
+  document.addEventListener('DOMContentLoaded', () => {
+    
+    const contentBox = document.querySelector('.content-box');
+    if (contentBox) {
+      renderKaTex(contentBox);
+    }
+    const tex = document.querySelector('.tex');
+    if (tex) {
+      renderKaTex(tex);
+    }
+
+    var title = '論文レビュー：デノイジング拡散確率モデル (DDPM)';
+    var link = 'https:\/\/freshrimpsushi.github.io\/jp\/posts\/3638\/';
+    var arr = new Array();
+    var obj = {
+      "title": title,
+      "link": link
+    };
+    var postList = JSON.parse(localStorage.getItem('latelyViewPostList'));
+    if (postList == '' || postList == null || postList == undefined || postList == 0 || postList == NaN) {
+      arr.push(obj);
+      localStorage.setItem('latelyViewPostList', JSON.stringify(arr));
+    } else {
+      var listSize = postList.length;
+      for (var i = 0; i < listSize; i++) {
+        if (title == postList[i].title) {
+          postList.splice(i, 1);
+          break;
+        }
+      }
+      arr = postList;
+      arr.push(obj);
+      if (arr.length > 5) {
+        arr.shift();
+      }
+      localStorage.setItem('latelyViewPostList', JSON.stringify(arr));
+    }
+  });
+</script>
+ <br>
+    <b>最新コメント</b>
+
+<div class="current-reply">
+</div>
+
+
+<script defer>
+  const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/recent_comment.php?action=getCurrentComment';
+  let recentRows = []; 
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      if (data.ok) {
+        recentRows = data.rows;
+        render_recent_comment(recentRows);
+      }
+    })
+    .catch(err => console.error(err));
+
+  
+  function render_recent_comment(rows) {
+    const currentReply = document.querySelector('.current-reply');
+    let html = '';
+    rows.map(row => {
+      let link = 'https:\/\/freshrimpsushi.github.io\/jp\/';
+      if (row.board_idx > -1) {
+        
+        
+        link += `posts/${row.board_idx}#comment${row.cmt_idx}`;
+      } else if (row.board_idx == -1) {
+        link += `#comment${row.cmt_idx}`;
+      } else {
+        link += `categories/${row.board_title}#comment${row.cmt_idx}`;
+      }
+      html += '<div class="current-reply-list">';
+      html += `<a href="${link}">`;
+      html += `<b> - ${row.author}</b>: `;
+      html += `${row.content}`;
+      html += `</a>`;
+      html += `</div>`;
+    });
+    currentReply.innerHTML = html;
+    renderKaTex(currentReply);
+  }
+</script> <br>
+    
+    
+    
+
+    
+</aside>
+  </div>
+  
+  <footer>
+  <aside>
+    <div>
+      <p style="text-align: center">
+        
+        
+          <a style="cursor: text" href="http://localhost:1313//jp/posts/3638/">© 生エビ寿司屋 / Powered by 류대식, 전기현</a>
+        
+      <br>Contact:
+        <img src=https://freshrimpsushi.github.io/jp/logo/gmail.png width=12px alt="mail"> freshrimpsushi@gmail.com
+        <a href="https://freshrimpsushi.github.io/jp/index.xml"><img src=https://freshrimpsushi.github.io/jp/logo/RSS.png width=12px alt="RSS"> RSS</a>
+      </p>
+    </div>
+
+    
+    
+    
+  </aside>
+</footer>
+
+</body>
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NLV8Y9PRK1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-NLV8Y9PRK1');
+</script>
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4751085325232621" crossorigin="anonymous"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+
+<script src=https://freshrimpsushi.github.io/jp/js/fontawsome.min.js></script>
+
+<script src=https://freshrimpsushi.github.io/jp/js/common.js></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    fetch('https://api64.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => {
+        return data.ip
+      })
+      .then(ip => {
+        const url = 'https:\/\/freshrimpsushi.com\/blog\/ajax/ip_checker.php';
+        return postFetch(url, { user_ip: ip });
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (!data.ok) {
+          alert('차단된 IP입니다.\nContact:\nfreshrimpsushi@gmail.com')
+          window.location.href = 'https://google.com';
+        }
+      })
+      .catch(err => console.error(err));
+  });
+</script>
+</html>
