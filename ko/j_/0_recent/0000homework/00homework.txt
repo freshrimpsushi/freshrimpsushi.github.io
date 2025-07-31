@@ -211,7 +211,189 @@ codeblock: false
 draft: true
 ---
 ##################################################################################################################################################################
+---
+title: "DeepONet 논문 구현 무작정 따라하기: 선형 상미분 방정식 풀이 (Julia)"
+publishdate: "2024-12-21"
+author: "전기현"
+categories: "머신러닝"
+idx: 1088
+url: 'posts/1088'
+codeblock: false
+draft: true
+---
+
+## 개요
+
+DeepONet은 비선형 [연산자](../728)를 학습하기위한 신경망구조로 논문이 공개된 이후 [편미분 방정식](../../categories/편미분방정식)의 풀이 등 많은 분야에서 응용되고 있다. 본 글에서는 [줄리아](../../categories/줄리아)로 DeepONet을 구현하는 방법을 소개하며, 논문에 나와있는 선형 문제를 풀어본다.
+
+- [논문 리뷰](../1180)
+
+## DeepONet 구현
+
+이론에 대한 설명은 [여기](../1153/#이론)를 참고하자.
+
+코파일럿을 
+- #1 
+```
+using Flux          # package for deeplearning
+using CUDA          # package for GPU 
+CUDA.functional()
+
+struct DeepONet
+    branch::Chain
+    trunk::Chain
+    bias::AbstractArray{Float32}
+end
+
+Flux.@functor DeepONet
+
+function (nn::DeepONet)(u, y)
+    b_k = nn.branch(u)
+    t_k = nn.trunk(y)
+    return sum(b_k .* t_k, dims=1) .+ nn.bias
+end
+
+function generate_mlp(layers)
+    return Chain(
+                [Dense(layers[i], layers[i+1], relu) for i in 1:length(layers)-2]...,
+                Dense(layers[end-1], layers[end])
+                )
+end
+```
 ##################################################################################################################################################################
+---
+title: "양자역학에서 조화진동자 슈뢰딩거방정식의 해석적 풀이"
+publishdate: "2025-03-01"
+author: "전기현"
+categories: "양자역학"
+idx: 3474
+url: 'posts/3474'
+codeblock: false
+draft: true
+---
+
+## 개요
+
+[조화진동자의 슈뢰딩거 방정식](../1964)은 다음과 같다.
+
+$$
+-\frac{\hbar^{2}}{2m} \frac{ d^{2}\psi }{ dx^{2}  } + \dfrac{1}{2} m \omega^{2} x^{2} \psi = E\psi \tag{1}
+$$
+
+본 글에서는 [미분 방정식의 급수해](../888)를 구하는 방법을 사용하여 슈뢰딩거 방정식의 해를 찾는다.
+<!-- 중 하나인 [프로베니우스 메서드](../1508)를  -->
+
+## 풀이[^1] [^2]
+[^1]:  David J. Griffiths, *양자역학*(Introduction to Quantum Mechanics, 권영준 역) (2nd Edition, 2006), p50-57
+[^2]:  Stephen Gasiorowicz, *양자물리학*(Quantum Physics, 서강대학교 물리학과 공역) (3rd Edition, 2005), p101-107
+
+방정식 $(1)$의 계수를 간단히 하기 위해 $\xi \equiv \sqrt{\dfrac{m \omega}{\hbar}}x$, $K \equiv \dfrac{2E}{\hbar \omega}$와 같이 치환하자. 그러면 [연쇄법칙](../1823)에 의해,
+
+$$
+\dfrac{d \psi}{dx} = \dfrac{d \psi}{d\xi} \dfrac{d\xi}{dx} = \sqrt{\dfrac{m \omega}{\hbar}} \dfrac{d \psi}{d\xi}
+$$
+$$
+\dfrac{d^{2} \psi}{dx^{2}} = \sqrt{\dfrac{m \omega}{\hbar}} \dfrac{d}{dx}\left(\dfrac{d \psi}{d\xi}\right) = \sqrt{\dfrac{m \omega}{\hbar}} \dfrac{d}{d \xi}\left(\dfrac{d \psi}{d\xi}\right) \dfrac{d \xi}{dx} = \dfrac{m \omega}{\hbar} \dfrac{d^{2} \psi}{d\xi^{2}}
+$$
+
+따라서 슈뢰딩거 방정식을 다음과 같이 다시 적을 수 있다.
+
+$$
+\begin{align*}
+         && -\frac{\hbar^{2}}{2m} \frac{ d^{2}\psi }{ dx^{2}  } + \dfrac{1}{2} m \omega^{2} x^{2} \psi &= E\psi \\\
+\implies && -\frac{\hbar^{2}}{2m} \dfrac{m \omega}{\hbar} \dfrac{ d^{2}\psi }{ d\xi^{2}  } + \dfrac{1}{2} m \omega^{2} x^{2} \psi &= E\psi \\\
+\implies && -\dfrac{\hbar \omega}{2} \dfrac{ d^{2}\psi }{ d\xi^{2}  } + \dfrac{1}{2} m \omega^{2} x^{2} \psi &= E\psi \\\
+\implies && \dfrac{ d^{2}\psi }{ d\xi^{2}  } - \dfrac{m \omega}{\hbar} x^{2}\psi &= - \dfrac{2E}{\hbar \omega} \psi \\\
+\implies && \dfrac{ d^{2}\psi }{ d\xi^{2}  } &= (\xi^{2} - K)\psi \tag{2} \\\
+\end{align*}
+$$
+
+여기서 $\xi$ 매우 큰 경우에는, $\xi^{2} \approx \xi^{2} - K$이므로 다음의 근사식을 얻는다.
+
+$$
+\dfrac{ d^{2}\psi }{ d\xi^{2}  } \approx \xi^{2}\psi
+$$
+
+$\xi$가 충분히 큰 경우에 $e^{\pm \xi^{2}/2}$가 위 미분 방정식의 근사해가 됨을 보일 수 있다.
+
+$$
+\begin{align*}
+    \dfrac{d^{2}}{d \xi^{2}} ( e^{\pm\xi^{2}/2} ) &= \dfrac{d}{d\xi} \left( \pm\xi e^{\pm\xi^{2}/2} \right) \\\
+                                                &= \xi^{2} e^{\pm\xi^{2}/2} \pm e^{\pm\xi^{2}/2} \\\
+                                                &= (\xi^{2} \pm 1) e^{\pm\xi^{2}/2}\\\
+                                                &\approx \xi^{2} e^{\pm\xi^{2}/2}\\\
+\end{align*}
+$$
+
+따라서 $\psi(\xi)$는 다음과 같다.
+
+$$
+\psi(\xi) \approx A e^{-\xi^{2}/2} + B e^{\xi^{2}/2}
+$$
+
+파동함수는 [제곱적분가능](../945)해야하므로, 뒤의 항은 물리적으로 불가능한 해이다. 따라서 $\xi$가 충분히 클 때 파동함수를 다음과 같이 근사할 수 있다.
+
+$$
+\psi(\xi) \approx A e^{-\xi^{2}/2} \quad \text{ for large }\xi
+$$
+
+그러므로 $\psi$가 (모든 범위에서) 어떤 함수 $h\(\xi)$에 대해서 다음과 같이 표현된다고 가정하자.
+
+$$
+\psi (\xi) = h(\xi) e^{-\xi^{2}/2}
+$$
+
+도함수와 이계도함수를 계산해보면 각각 다음과 같다.
+
+$$
+\dfrac{d \psi}{d \xi} = \left( \dfrac{d h}{d \xi} - \xi h \right) e^{-\xi^{2}/2}
+$$
+$$
+\dfrac{d^{2} \psi}{d \xi^{2}} = \left( \dfrac{d^{2} h}{d \xi^{2}} - 2\xi \dfrac{d h}{d \xi} + (\xi^{2} - 1)h \right) e^{-\xi^{2}/2} \tag{3}
+$$
+
+$(2)$와 $(3)$으로부터 다음을 얻는다.
+
+$$
+(\xi^{2} - K) h e^{-\xi^{2}/2} = \left( \dfrac{d^{2} h}{d \xi^{2}} - 2\xi \dfrac{d h}{d \xi} + (\xi^{2} - 1)h \right) e^{-\xi^{2}/2}
+$$
+$$
+\implies \left( \dfrac{d^{2} h}{d \xi^{2}} - 2\xi \dfrac{d h}{d \xi} + (K - 1)h \right) e^{-\xi^{2}/2} = 0
+$$
+$$
+\implies \dfrac{d^{2} h}{d \xi^{2}} - 2\xi \dfrac{d h}{d \xi} + (K - 1)h  = 0 \tag{4}
+$$
+
+위와 같이 계수에 독립변수가 포함된 미분방정식은 주로 [급수해](../888)를 가진다고 가정하고 풀이한다. 따라서 $h$를 다음과 같은 [급수](../886)라 표현하자.
+
+$$
+h(\xi) = a\_{0} + a\_{1}\xi + a\_{2}\xi^{2} + \cdots = \sum\limits\_{j=0}^{\infty} a\_{j} \xi^{j}
+$$
+
+$(4)$에 대입하기 위해 미분하면 다음과 같다.
+
+$$
+h^{\prime} = a\_{1} + 2a\_{2}\xi + 3a\_{3}\xi^{2} + \cdots 
+$$
+
+$$
+\implies 2\xi h^{\prime} = 2(a\_{1}\xi + 2a\_{2}\xi^{2} + 3a\_{3}\xi^{3} + \cdots) = \sum\limits\_{j=0}^{\infty} 2j a\_{j} \xi^{j}
+$$
+
+$$
+h^{\prime \prime} = 2a\_{2} + 2\cdot 3 a\_{3}\xi + 3\cdot 4 a\_{4}\xi^{2} + \cdots = \sum\limits\_{j=0}^{\infty} (j+1)(j+2) a\_{j+2} \xi^{j}
+$$
+
+대입하고 정리하면 다음을 얻는다.
+
+$$
+\sum\limits\_{j=0}^{\infty} (j+1)(j+2) a\_{j+2} \xi^{j} - \sum\limits\_{j=0}^{\infty} 2j a\_{j} \xi^{j} + (K - 1) \sum\limits\_{j=0}^{\infty} a\_{j} \xi^{j} = 0
+$$
+
+$$
+\implies 
+\sum\limits\_{j=0}^{\infty} \Big[ (j+1)(j+2) a\_{j+2} - 2j a\_{j} + (K - 1) a\_{j} \Big] \xi^{j} = 0
+$$
 ##################################################################################################################################################################
 ##################################################################################################################################################################
 ##################################################################################################################################################################
