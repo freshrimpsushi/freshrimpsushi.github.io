@@ -713,6 +713,53 @@ draft: true
 
 
 ##################################################################################################################################################################
+---
+title: "논문 리뷰: Normalizing Flow"
+en: "Paper Review: Normalizing Flow"
+jp: "論文レビュー:正規化流(Normalizing Flow)"
+publishdate: "2022-06-09"
+author: "전기현"
+categories: "머신러닝"
+idx: 3247
+codeblock: false
+url: '/posts/3247'
+draft: true
+---
+
+## 
+
+Flow 개념은 이전부터 있었으나, Normalizing Flow라는 명칭은 아래의 논문에서 최초 사용
+- [Variational Inference with Normalizing Flows](https://arxiv.org/pdf/1505.05770)
+- $\mathbf{z} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$, $\mathbf{x} \sim X$, $X$는 데이터 집합.
+- 목표: $f : \mathbf{z} \mapsto \mathbf{x}$인 함수 찾기.
+- 가역함수 $f\_{i}$ 가 주어졌다고 하자.
+- $\mathbf{x} = f\_{K} \circ f\_{K-1} \circ \cdots \circ f\_{1}(\mathbf{z})$. 라고 모델링함. 이 때 $f\_{K}\circ f\_{K-1} \circ \cdots \circ f\_{1}$를 (Normalizing) flow라고 함.
+
+$$
+\begin{align*}
+p_{X}(\mathbf{x})
+&= p_{\mathcal{N}}(\mathbf{z}) \left| \det \dfrac{\partial F^{-1}}{\partial x} \right| \\ 
+&= p_{\mathcal{N}}(\mathbf{z}) \left| \det \right|
+\end{align*}
+$$
+
+$$\ln q_{K}(\mathbf{z}_{K}) = \ln q_{0}(\mathbf{z}_{0}) - \sum\limits_{i=1}^{K} \ln \left| \det \dfrac{\partial f_{i}}{\partial z_{i-1}} \right|$$
+
+$$\mathcal{L}(\boldsymbol{\theta}) = - \mathbb{E}\_{p(\mathbf{x})} \left[ \ln p\_{0}(F^{-1}(\mathbf{x}; \boldsymbol{\theta})) + \ln \left| \det \dfrac{\partial F^{-1}}{\partial x} \right| \right]$$
+
+$$\ln q_{K}(\mathbf{z}_{K}) = \ln q_{0}(\mathbf{z}_{0}) - \sum\limits_{i=1}^{K} \ln \left| \det \dfrac{\partial f_{i}}{\partial z_{i-1}} \right|$$
+
+$$
+\begin{align*}
+\mathcal{L}(\boldsymbol{\theta})
+&= - \mathbb{E}_{p(\mathbf{x})} \left[ \ln p_{0}(F^{-1}(\mathbf{x}; \boldsymbol{\theta})) + \ln \left| \det \dfrac{\partial F^{-1}}{\partial x} \right| \right] \\
+&\approx - \dfrac{1}{N} \sum\limits_{n=1}^{N} \left[ \ln p_{0}(F^{-1}(\mathbf{x}_{n}; \boldsymbol{\theta})) + \ln \left| \det \dfrac{\partial F^{-1}}{\partial x_{n}} \right| \right]
+\end{align*}
+$$
+
+### 3.1. Finite Flows
+
+확률밀도의 변환을 여러 함수들의 합성으로 볼 것이고 연쇄법칙이 잘 작동해야하므로, [가역](../3679)이고 [매끄러운] 함수 $f: \mathbb{R}^{3} \to \mathbb{R}^{3}$를 고려한다.
 ##################################################################################################################################################################
 ##################################################################################################################################################################
 ##################################################################################################################################################################
