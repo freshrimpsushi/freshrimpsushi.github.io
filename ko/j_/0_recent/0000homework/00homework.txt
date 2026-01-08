@@ -812,6 +812,92 @@ draft: true
 ---
 
 ##################################################################################################################################################################
+---
+title: "Evidence Lower Bound (ELBO)"
+en: "Evidence Lower Bound (ELBO)"
+jp: "エビデンス下界 (ELBO)"
+publishdate: "2025-05-08"
+author: "전기현"
+categories: "머신러닝"
+idx: 3640
+url: 'posts/3640'
+codeblock: false
+draft: true
+---
+
+## 정의
+
+[확률밀도함수](../1433) $p$의 [로그 우도](../2026)의 [하계](../180)<sup>lower bound</sup>는 다음과 같으며, 이를 $p$의 **evidence lower bound (ELBO)** 라고 한다.
+
+$$
+\log p (x)  \ge \mathbb{E}\_{q(z)} \left[ \log \dfrac{p(x, z)}{q(z)} \right] =: \text{ELBO}
+$$
+
+## 설명
+
+이를 evidence의 [하계](../180)<sup>lower bound</sup>라 부르는 이유는, 베이지안 패러다임으로 봤을 때 $p(x)$가 evidence이기 때문이다.
+
+아래와 같은 꼴로도 많이 쓰인다.
+
+$$
+\log p (x)  \ge \mathbb{E}\_{q(z | x)} \left[ \log \dfrac{p(x, z)}{q(z | x)} \right] =: \text{ELBO}
+$$
+
+
+## 쿨백-라이블러 발산과의 관계
+
+
+### 증명
+
+$D(p||q)$를 $q$에 관한 $p$의 [쿨백-라이블러 발산(상대적 엔트로피)](../3466)이라 하자. 정의로부터 다음가 같이 정리할 수 있다.
+
+$$
+\begin{align*}
+D(q(z) || p(z|x))
+&= \int q(z) \log \dfrac{q(z)}{p(z|x)} dz \\\
+&= \int q(z) \log \left( \dfrac{q(z)}{p(z|x)} \dfrac{p(x)}{p(x)} \right) dz \\\
+&= \int q(z) \log \dfrac{q(z)}{p(z|x) p(x)} dz + \int q(z) \log p(x) dz \\\
+&= \int q(z) \log \dfrac{q(z)}{p(x, z)} dz + \log p(x) \int q(z) dz \\\
+&= - \int q(z) \log \dfrac{p(x, z)}{q(z)} dz + \log p(x) \\\
+&= - \mathbb{E}\_{q(z)} \left[ \log \dfrac{p(x, z)}{q(z)} \right] + \log p(x) \\\
+\end{align*}
+$$
+
+네번째 등호는 [조건부 확률밀도함수](../1449)의 정의에 의해 성립한다. 이제 $\log p$에 대해서 정리하면,
+
+$$
+\log p(x) = \underbrace{D(q(z) || p(z|x))}\_{\text{KL divergence}} + \underbrace{\mathbb{E}\_{q(z)} \left[ \log \dfrac{p(x, z)}{q(z)} \right]}\_{\text{ELBO}}
+$$
+
+## 정의 유도
+
+파라미터가 $\theta$인 [확률밀도함수](../1433) $p\_{\theta}(x)$의 [로그 우도](../2026)는 다음과 같다.
+
+$$
+\log p\_{\theta} (x)
+$$
+
+[주변 확률밀도함수](../1449)는 $p\_{\theta}(x) = \int p\_{\theta}(x, z) dz$를 만족하므로 다음을 얻는다.
+
+$$
+\begin{align*}
+\log p\_{\theta} (x)
+&= \log \int p\_{\theta}(x, z) dz \\\
+&= \log \int q(z)\dfrac{p\_{\theta}(x, z)}{q(z)} dz \\\
+&= \log \left( \mathbb{E}\_{q(z)} \left[ \dfrac{p\_{\theta}(x, z)}{q(z)} \right] \right)
+\end{align*}
+$$
+
+$\log$는 오목함수이므로 [옌센 부등식](../266)에 의해 다음이 성립한다.
+
+$$
+\log p\_{\theta} (x) = \log \left( \mathbb{E}\_{q(z)} \left[ \dfrac{p\_{\theta}(x, z)}{q(z)} \right] \right) \ge \mathbb{E}\_{q(z)} \left[ \log \dfrac{p\_{\theta}(x, z)}{q(z)} \right]
+$$
+
+따라서 우변의 $\mathbb{E}\_{q(z)} \left[ \log \dfrac{p\_{\theta}(x, z)}{q(z)} \right]$는 로그 우도의 [하계](../180)<sup>lower bound</sup>가 된다.
+
+{{<qed>}}
+
 ##################################################################################################################################################################
 ##################################################################################################################################################################
 ##################################################################################################################################################################
