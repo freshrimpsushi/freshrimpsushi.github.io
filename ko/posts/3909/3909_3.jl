@@ -48,14 +48,16 @@ function disc!(p, φ, showω)
     annotate!(p, 1.2cos(ψ[25]), 1.2sin(ψ[25]), text("ω", kfont(9, :gray30)))
 end
 
-function panel(φ, pts, now, title; showω=true)
+# pts: 실선으로 그릴 궤적, dpts: 점선으로 그릴 궤적(회전 좌표계 위에서의 궤적)
+function panel(φ, pts, dpts, now, title; showω=true)
     p = plot(aspect_ratio=:equal, framestyle=:none, legend=false,
              xlims=(-1.3, 1.3), ylims=(-1.05, 1.3))
     disc!(p, φ, showω)
     a, b = rot(φ) * r0, rot(φ) * rT
     scatter!(p, [a[1]], [a[2]], mc=:royalblue, msc=:white, ms=7, label="")
     scatter!(p, [b[1]], [b[2]], mc=:seagreen, msc=:white, ms=7, label="")
-    plot!(p, first.(pts), last.(pts), lc=:tomato, lw=2, label="")
+    isempty(pts) || plot!(p, first.(pts), last.(pts), lc=:tomato, lw=2, label="")
+    plot!(p, first.(dpts), last.(dpts), lc=:tomato, lw=2, ls=:dash, label="")
     scatter!(p, [now[1]], [now[2]], mc=:tomato, msc=:black, ms=5, label="")
     annotate!(p, 0.0, 1.27, text(title, kfont(9, :black)))
     return p
@@ -63,8 +65,9 @@ end
 
 anim = @animate for (i, t) in enumerate(ts)
     hist = ts[1:i]
-    p1 = panel(ω * t, [ball(s) for s in hist], ball(t), "관성계 관찰자")
-    p2 = panel(0.0, [ball′(s) for s in hist], ball′(t), "회전좌표계 관찰자"; showω=false)
+    # 원판에 새겨진 궤적은 원판과 함께 돌므로, 관성계에서는 rot(ωt) 만큼 돌려서 그린다
+    p1 = panel(ω * t, [ball(s) for s in hist], [rot(ω * t) * ball′(s) for s in hist], ball(t), "관성계 관찰자")
+    p2 = panel(0.0, [], [ball′(s) for s in hist], ball′(t), "회전좌표계 관찰자"; showω=false)
     plot(p1, p2, layout=(1, 2), size=(600, 280), dpi=300, margin=0Plots.mm)
 end
 
