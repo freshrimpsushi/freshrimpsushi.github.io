@@ -1,42 +1,42 @@
-<!doctype html><html class=blog lang=ko><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=X-UA-Compatible content="IE=edge"><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css integrity=sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV crossorigin=anonymous><link rel=preload href=https://freshrimpsushi.github.io/ko/css/style.css rel=preload as=style onload='this.rel="stylesheet"'><link rel=preload href=https://freshrimpsushi.github.io/ko/css/comment.css rel=preload as=style onload='this.rel="stylesheet"'><link rel=icon href=https://freshrimpsushi.github.io/ko/logo/favicon.ico><meta name=msapplication-TileColor content="#FFFFFF"><meta name=msapplication-TileImage content="logo/basic.png"><meta name=NaverBot content="All"><meta name=NaverBot content="index,follow"><meta name=Yeti content="All"><meta name=Yeti content="index,follow"><meta name=google-site-verification content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI"><meta name=naver-site-verification content="e5651d6f97899061897203413efc84994f04bbba"><link rel=alternate type=application/rss+xml title=생새우초밥집 href=https://freshrimpsushi.github.io/ko/index.xml><title>줄리아에서 HTTP 프로토콜을 통해 EARTHDATA 데이터 다운로드 받는 법</title></head><meta name=title content="줄리아에서 HTTP 프로토콜을 통해 EARTHDATA 데이터 다운로드 받는 법"><meta name=description content="국내 최대의 수학, 물리학, 통계학 블로그"><meta property="og:title" content="줄리아에서 HTTP 프로토콜을 통해 EARTHDATA 데이터 다운로드 받는 법"><meta property="og:description" content><meta property="og:image" content="https://freshrimpsushi.github.io/ko/logo/basic.png/"><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","articleSection":"r_","name":"줄리아에서 HTTP 프로토콜을 통해 EARTHDATA 데이터 다운로드 받는 법","headline":"줄리아에서 HTTP 프로토콜을 통해 EARTHDATA 데이터 다운로드 받는 법","alternativeHeadline":"","description":"개요 EARTHDATA에서 데이터를 일일이 손으로 클릭해서 받고 정리하는 것은 쉽지 않은 일이다. 줄리아에서 HTTP 프로토콜을 통해 데이터를 받고, 필요한 영역을 추","inLanguage":"ko","isFamilyFriendly":"true","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/freshrimpsushi.github.io\/ko\/posts\/2921\/"},"author":{"@type":"Person","name":"류대식","url":"https://math.stackexchange.com/users/459895/ryu-dae-sick"},"creator":{"@type":"Person","name":"류대식"},"accountablePerson":{"@type":"Person","name":"류대식"},"copyrightHolder":"생새우초밥집","copyrightYear":"2026","dateCreated":"2026-11-08T00:00:00.00Z","datePublished":"2026-11-08T00:00:00.00Z","dateModified":"2026-11-08T00:00:00.00Z","publisher":{"@type":"Organization","name":"생새우초밥집","url":"https://freshrimpsushi.github.io/ko/","logo":{"@type":"ImageObject","url":"https:\/\/freshrimpsushi.github.io\/ko\/logo\/basic.png","width":"32","height":"32"}},"image":"https://freshrimpsushi.github.io/ko/logo/basic.png","url":"https:\/\/freshrimpsushi.github.io\/ko\/posts\/2921\/","wordCount":"2209","genre":[],"keywords":[]}</script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js integrity=sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8 crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/mhchem.min.js integrity=sha384-F2ptQFZqNJuqfGGl28mIXyQ5kXH48spn7rcoS0Y9psqIKAcZPLd1NzwFlm/bl1mH crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js integrity=sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05 crossorigin=anonymous onload=renderMathInElement(document.body)></script><script>function renderKaTex(e){renderMathInElement(e,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],trust:!0,trust:e=>["\\htmlId","\\href","\\includegraphics"].includes(e.command),macros:{"\\eqref":"(\\text{#1})","\\ref":"\\href{###1}{\\text{#1}}","\\label":"\\htmlId{#1}{}","\\sech":"\\operatorname{sech}","\\csch":"\\operatorname{csch}","\\sgn":"\\operatorname{sgn}","\\sign":"\\operatorname{sign}","\\sinc":"\\operatorname{sinc}","\\diag":"\\operatorname{diag}","\\diam":"\\operatorname{diam}","\\trace":"\\operatorname{trace}","\\Tr":"\\operatorname{Tr}","\\tr":"\\operatorname{tr}","\\re":"\\operatorname{Re}","\\im":"\\operatorname{Im}","\\Var":"\\operatorname{Var}","\\Poi":"\\operatorname{Poi}","\\Cov":"\\operatorname{Cov}","\\span":"\\operatorname{span}","\\supp":"\\operatorname{supp}","\\rank":"\\operatorname{rank}","\\nullity":"\\operatorname{nullity}","\\ad":"\\operatorname{ad}","\\Ric":"\\operatorname{Ric}","\\i":"\\mathrm{i}","\\d":"\\mathrm{d}","\\cR":"\\includegraphics[height=0.6em]{https://freshrimpsushi.github.io/ko/katex/cR.png}","\\acR":"\\includegraphics[height=0.6em]{https://freshrimpsushi.github.io/ko/katex/acR.png}","\\bcR":"\\includegraphics[height=0.6em]{https://freshrimpsushi.github.io/ko/katex/bcR.png}","\\abcR":"\\includegraphics[height=0.6em]{https://freshrimpsushi.github.io/ko/katex/abcR.png}","\\crH":"\\includegraphics[height=0.8em]{https://freshrimpsushi.github.io/ko/katex/crH.png}","\\smallcrH":"\\includegraphics[height=0.6em]{https://freshrimpsushi.github.io/ko/katex/crH.png}","\\acrH":"\\includegraphics[height=0.8em]{https://freshrimpsushi.github.io/ko/katex/acrH.png}","\\smallacrH":"\\includegraphics[height=0.6em]{https://freshrimpsushi.github.io/ko/katex/acrH.png}"},throwOnError:!1})}</script><body class=main><header><a href=https://freshrimpsushi.github.io/ko/ rel=home><p style=text-align:center;font-size:1rem;color:#000><img src=https://freshrimpsushi.github.io/ko/logo/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4.png style=height:80px alt=logo></p></a></header><form method=get action=/ko/search style=border:1px;text-align:center><div class=field><input type=text id=searchtext placeholder=🔍︎ class=input_text name=s style=background-color:#eee;text-align:center;width:200px;font-size:1.5rem;border:1px;border-radius:5px;padding-top:5px;padding-bottom:5px;margin-bottom:1.5rem></div></form><aside style=text-align:center;margin-bottom:1rem><a href=https://freshrimpsushi.github.io/ko/posts/2921/>한국어</a> |
+<!doctype html><html class=blog lang=ko><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=X-UA-Compatible content="IE=edge"><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css integrity=sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV crossorigin=anonymous><link rel=preload href=https://freshrimpsushi.github.io/ko/css/style.css rel=preload as=style onload='this.rel="stylesheet"'><link rel=preload href=https://freshrimpsushi.github.io/ko/css/comment.css rel=preload as=style onload='this.rel="stylesheet"'><link rel=icon href=https://freshrimpsushi.github.io/ko/logo/favicon.ico><meta name=msapplication-TileColor content="#FFFFFF"><meta name=msapplication-TileImage content="logo/basic.png"><meta name=NaverBot content="All"><meta name=NaverBot content="index,follow"><meta name=Yeti content="All"><meta name=Yeti content="index,follow"><meta name=google-site-verification content="KYAokS7-6C5YuXOjatJQsiK1T0O8x4YncYFIF4tneYI"><meta name=naver-site-verification content="e5651d6f97899061897203413efc84994f04bbba"><link rel=alternate type=application/rss+xml title=생새우초밥집 href=https://freshrimpsushi.github.io/ko/index.xml><title>줄리아에서 HTTP 프로토콜을 통해 EARTHDATA 데이터 다운로드 받는 법</title>
+<meta name=title content="줄리아에서 HTTP 프로토콜을 통해 EARTHDATA 데이터 다운로드 받는 법"><meta name=description content="개요 EARTHDATA에서 데이터를 일일이 손으로 클릭해서 받고 정리하는 것은 쉽지 않은 일이다. 줄리아에서 HTTP 프로토콜을 통해 데이터를 받고, 필요한 영역을 추"><meta property="og:title" content="줄리아에서 HTTP 프로토콜을 통해 EARTHDATA 데이터 다운로드 받는 법"><meta property="og:description" content="개요 EARTHDATA에서 데이터를 일일이 손으로 클릭해서 받고 정리하는 것은 쉽지 않은 일이다. 줄리아에서 HTTP 프로토콜을 통해 데이터를 받고, 필요한 영역을 추"><meta property="og:image" content="https://freshrimpsushi.github.io/ko/logo/basic.png/"><link rel=canonical href=https://freshrimpsushi.github.io/ko/posts/2921/><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","articleSection":"r_","name":"줄리아에서 HTTP 프로토콜을 통해 EARTHDATA 데이터 다운로드 받는 법","headline":"줄리아에서 HTTP 프로토콜을 통해 EARTHDATA 데이터 다운로드 받는 법","alternativeHeadline":"","description":"개요 EARTHDATA에서 데이터를 일일이 손으로 클릭해서 받고 정리하는 것은 쉽지 않은 일이다. 줄리아에서 HTTP 프로토콜을 통해 데이터를 받고, 필요한 영역을 추","inLanguage":"ko","isFamilyFriendly":"true","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/freshrimpsushi.github.io\/ko\/posts\/2921\/"},"author":{"@type":"Person","name":"류대식","url":"https://math.stackexchange.com/users/459895/ryu-dae-sick"},"creator":{"@type":"Person","name":"류대식"},"accountablePerson":{"@type":"Person","name":"류대식"},"copyrightHolder":"생새우초밥집","copyrightYear":"2026","dateCreated":"2026-11-08T00:00:00.00Z","datePublished":"2026-11-08T00:00:00.00Z","dateModified":"2026-11-08T00:00:00.00Z","publisher":{"@type":"Organization","name":"생새우초밥집","url":"https://freshrimpsushi.github.io/ko/","logo":{"@type":"ImageObject","url":"https:\/\/freshrimpsushi.github.io\/ko\/logo\/basic.png","width":"32","height":"32"}},"image":"https://freshrimpsushi.github.io/ko/logo/basic.png","url":"https:\/\/freshrimpsushi.github.io\/ko\/posts\/2921\/","wordCount":"2213","genre":[],"keywords":[]}</script></head><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js integrity=sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8 crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/mhchem.min.js integrity=sha384-F2ptQFZqNJuqfGGl28mIXyQ5kXH48spn7rcoS0Y9psqIKAcZPLd1NzwFlm/bl1mH crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js integrity=sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05 crossorigin=anonymous onload=renderMathInElement(document.body)></script><script>function renderKaTex(e){renderMathInElement(e,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],trust:!0,trust:e=>["\\htmlId","\\href","\\includegraphics"].includes(e.command),macros:{"\\eqref":"(\\text{#1})","\\ref":"\\href{###1}{\\text{#1}}","\\label":"\\htmlId{#1}{}","\\sech":"\\operatorname{sech}","\\csch":"\\operatorname{csch}","\\sgn":"\\operatorname{sgn}","\\sign":"\\operatorname{sign}","\\sinc":"\\operatorname{sinc}","\\diag":"\\operatorname{diag}","\\diam":"\\operatorname{diam}","\\trace":"\\operatorname{trace}","\\Tr":"\\operatorname{Tr}","\\tr":"\\operatorname{tr}","\\re":"\\operatorname{Re}","\\im":"\\operatorname{Im}","\\Var":"\\operatorname{Var}","\\Poi":"\\operatorname{Poi}","\\Cov":"\\operatorname{Cov}","\\span":"\\operatorname{span}","\\supp":"\\operatorname{supp}","\\rank":"\\operatorname{rank}","\\nullity":"\\operatorname{nullity}","\\ad":"\\operatorname{ad}","\\Ric":"\\operatorname{Ric}","\\i":"\\mathrm{i}","\\d":"\\mathrm{d}","\\cR":"\\includegraphics[height=0.6em]{https://freshrimpsushi.github.io/ko/katex/cR.png}","\\acR":"\\includegraphics[height=0.6em]{https://freshrimpsushi.github.io/ko/katex/acR.png}","\\bcR":"\\includegraphics[height=0.6em]{https://freshrimpsushi.github.io/ko/katex/bcR.png}","\\abcR":"\\includegraphics[height=0.6em]{https://freshrimpsushi.github.io/ko/katex/abcR.png}","\\crH":"\\includegraphics[height=0.8em]{https://freshrimpsushi.github.io/ko/katex/crH.png}","\\smallcrH":"\\includegraphics[height=0.6em]{https://freshrimpsushi.github.io/ko/katex/crH.png}","\\acrH":"\\includegraphics[height=0.8em]{https://freshrimpsushi.github.io/ko/katex/acrH.png}","\\smallacrH":"\\includegraphics[height=0.6em]{https://freshrimpsushi.github.io/ko/katex/acrH.png}"},throwOnError:!1})}</script><body class=main><header><a href=https://freshrimpsushi.github.io/ko/ rel=home><p style=text-align:center;font-size:1rem;color:#000><img src=https://freshrimpsushi.github.io/ko/logo/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4.png style=height:80px alt=logo></p></a></header><form method=get action=/ko/search style=border:1px;text-align:center><div class=field><input type=text id=searchtext placeholder=🔍︎ class=input_text name=s style=background-color:#eee;text-align:center;width:200px;font-size:1.5rem;border:1px;border-radius:5px;padding-top:5px;padding-bottom:5px;margin-bottom:1.5rem></div></form><aside style=text-align:center;margin-bottom:1rem><a href=https://freshrimpsushi.github.io/ko/posts/2921/>한국어</a> |
 <a href=https://freshrimpsushi.github.io/en/posts/2921/>English</a> |
-<a href=https://freshrimpsushi.github.io/jp/posts/2921/>日本語</a></aside><div class=wrapper><div class=content><div class=content-box><title>줄리아에서 HTTP 프로토콜을 통해 EARTHDATA 데이터 다운로드 받는 법</title>
-<a href=https://freshrimpsushi.github.io/ko/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/ style=background-color:rgba(0,0,0,.8);color:orange;border-radius:10px;padding:5px>📂데이터확보</a><h1>줄리아에서 HTTP 프로토콜을 통해 EARTHDATA 데이터 다운로드 받는 법</h1><aside><div class=innerheader><div class=innertoc><b>목차</b><nav id=TableOfContents><ul><li><a href=#개요>개요</a></li><li><a href=#코드>코드</a><ul><li><a href=#httpjl><code>HTTP.jl</code></a></li><li><a href=#mur>MUR</a></li><li><a href=#oscar>OSCAR</a></li><li><a href=#ncdatasetsjl><code>NCDatasets.jl</code></a></li><li><a href=#저장>저장</a></li><li><a href=#전체-코드>전체 코드</a></li></ul></li></ul></nav></div></div></aside><h2 id=개요>개요</h2><p><a href=../2920>EARTHDATA</a>에서 데이터를 일일이 손으로 클릭해서 받고 정리하는 것은 쉽지 않은 일이다. <a href=../../categories/%EC%A4%84%EB%A6%AC%EC%95%84>줄리아</a>에서 HTTP 프로토콜을 통해 데이터를 받고, 필요한 영역을 추출해서 저장하는 방법을 소개한다.</p><h2 id=코드>코드</h2><h3 id=httpjl><code>HTTP.jl</code></h3><p>이 가이드에서는 니뇨 3.4 영역인 위도 5°S~5°N, 경도 170°W~120°W의 해수면온도와 해류 데이터를 받아보도록 하자. 먼저 EARTHDATA의 인증 토큰과 데이터를 지정한다.</p><p><img src=image.png#center alt="alt text"></p><p><a href=https://urs.earthdata.nasa.gov/profile>My Profile</a>에서 &lsquo;Generate Token&rsquo; 탭을 보면 위와 같이 내 토큰을 확인할 수 있다.</p><pre tabindex=0><code>using HTTP, JSON3, NCDatasets, DataFrames, Dates, CSV, JLD2, StatsBase, ProgressMeter
+<a href=https://freshrimpsushi.github.io/jp/posts/2921/>日本語</a></aside><div class=wrapper><div class=content><div class=content-box><a href=https://freshrimpsushi.github.io/ko/categories/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EB%B3%B4/ style=background-color:rgba(0,0,0,.8);color:orange;border-radius:10px;padding:5px>📂데이터확보</a><h1>줄리아에서 HTTP 프로토콜을 통해 EARTHDATA 데이터 다운로드 받는 법</h1><aside><div class=innerheader><div class=innertoc><b>목차</b><nav id=TableOfContents><ul><li><a href=#개요>개요</a></li><li><a href=#코드>코드</a><ul><li><a href=#httpjl><code>HTTP.jl</code></a></li><li><a href=#mur>MUR</a></li><li><a href=#oscar>OSCAR</a></li><li><a href=#ncdatasetsjl><code>NCDatasets.jl</code></a></li><li><a href=#저장>저장</a></li><li><a href=#전체-코드>전체 코드</a></li></ul></li></ul></nav></div></div></aside><h2 id=개요>개요</h2><p><a href=../2920>EARTHDATA</a>에서 데이터를 일일이 손으로 클릭해서 받고 정리하는 것은 쉽지 않은 일이다. <a href=../../categories/%EC%A4%84%EB%A6%AC%EC%95%84>줄리아</a>에서 HTTP 프로토콜을 통해 데이터를 받고, 필요한 영역을 추출해서 저장하는 방법을 소개한다.</p><h2 id=코드>코드</h2><h3 id=httpjl><code>HTTP.jl</code></h3><p>이 가이드에서는 니뇨 3.4 영역인 위도 5°S~5°N, 경도 170°W~120°W의 해수면온도와 해류 데이터를 받아보도록 하자. 먼저 EARTHDATA의 인증 토큰과 데이터를 지정한다.</p><p><img src=image.png#center alt="alt text"></p><p><a href=https://urs.earthdata.nasa.gov/profile>My Profile</a>에서 &lsquo;Generate Token&rsquo; 탭을 보면 위와 같이 내 토큰을 확인할 수 있다.</p><pre><code>using HTTP, JSON3, NCDatasets, DataFrames, Dates, CSV, JLD2, StatsBase, ProgressMeter
 using Base.Threads
-const EDL_TOKEN = &#34;여기에 EARTHDATA 인증 토큰을 입력&#34;
-const AUTH_HEADER = [&#34;Authorization&#34; =&gt; &#34;Bearer $EDL_TOKEN&#34;]
-const OSCAR25_CID = &#34;C2098858642-POCLOUD&#34;
-const MUR_CID = &#34;C1996881146-POCLOUD&#34;
-</code></pre><p>위의 <code>MUR_CID</code>와 <code>OSCAR25_CID</code>는 각각 받을 데이터를 지정하는 번호다. 아래 코드에서는 이 번호와 날짜로 파일의 주소를 검색한 뒤, 인증 헤더를 붙여 다운로드한다.</p><p><code>EDL_TOKEN</code>은 이를테면 다음과 같이 긴 문자열이다. 이미 만료되었으니 보여줄 수 있는건데, 실제 사용시에는 유출되지 않게 주의해야 한다.</p><pre tabindex=0><code>eyJ0eXAiOiJKV1QiLCJvcmlnaW4iOiJFYXJ0aGRhdGEgTG9naW4iLCJzaWciOiJlZGxqd3RwdWJrZXlfb3BzIiwiYWxnIjoiUlMyNTYifQ.eyJ0eXBlIjoiVXNlciIsInVpZCI6ImRzcnl1MDgyMiIsInN1YiI6ImRzcnl1MDgyMiIsImV4cCI6MTc5NzY0NjQ5NiwiaWF0IjoxNzkyNDYyNDk2LCJpc3MiOiJodHRwczovL3Vycy5lYXJ0aGRhdGEubmFzYS5nb3YiLCJpZGVudGl0eV9wcm92aWRlciI6ImVkbF9vcHMiLCJhY3IiOiJlZGwiLCJhc3N1cmFuY2VfbGV2ZWwiOjN9.3FJrUce5xVkMqrpPemlmEncWgFossHLgPN88NVjlvNJDrR0ecCKbdR4PsijS_Px8UVlwlc2oa37TnMpNP5u_sjgLoag8EME3lTUThnMsk4kO3JSOMKVmNRci6Ce-AofN6xBVWcGp_eFyoEA7xutATS1SaumnpKm_iR98-3X3s4cWJZQYcsA_xdRprji6SbBi0zErTNlrVM3X_Wn7XCNxS-21q0KGInztAKwswNGv00C9FAvPEMBpuGjiWTCKBRFmpIDWAsb_SCRwOCaGCtv628JI3PuqsZNBUOwJjJ39vTKg5OBmWHfG5JP60FbsKlmRJFtmKiUYaAsvBoqj7cdytA
-</code></pre><p>설마 싶겠지만 악의적인 사용자가 토큰을 탈취해서 서버에 요청을 폭격하듯 쏘아버리면 토큰을 빼앗긴 사람이 범인으로 지목된다.</p><h3 id=mur>MUR</h3><pre tabindex=0><code>function GHRSSTMUR(filename, day)
-    cmr = &#34;https://cmr.earthdata.nasa.gov/search/granules.umm_json&#34;
+const EDL_TOKEN = &quot;여기에 EARTHDATA 인증 토큰을 입력&quot;
+const AUTH_HEADER = [&quot;Authorization&quot; =&gt; &quot;Bearer $EDL_TOKEN&quot;]
+const OSCAR25_CID = &quot;C2098858642-POCLOUD&quot;
+const MUR_CID = &quot;C1996881146-POCLOUD&quot;
+</code></pre><p>위의 <code>MUR_CID</code>와 <code>OSCAR25_CID</code>는 각각 받을 데이터를 지정하는 번호다. 아래 코드에서는 이 번호와 날짜로 파일의 주소를 검색한 뒤, 인증 헤더를 붙여 다운로드한다.</p><p><code>EDL_TOKEN</code>은 이를테면 다음과 같이 긴 문자열이다. 이미 만료되었으니 보여줄 수 있는건데, 실제 사용시에는 유출되지 않게 주의해야 한다.</p><pre><code>eyJ0eXAiOiJKV1QiLCJvcmlnaW4iOiJFYXJ0aGRhdGEgTG9naW4iLCJzaWciOiJlZGxqd3RwdWJrZXlfb3BzIiwiYWxnIjoiUlMyNTYifQ.eyJ0eXBlIjoiVXNlciIsInVpZCI6ImRzcnl1MDgyMiIsInN1YiI6ImRzcnl1MDgyMiIsImV4cCI6MTc5NzY0NjQ5NiwiaWF0IjoxNzkyNDYyNDk2LCJpc3MiOiJodHRwczovL3Vycy5lYXJ0aGRhdGEubmFzYS5nb3YiLCJpZGVudGl0eV9wcm92aWRlciI6ImVkbF9vcHMiLCJhY3IiOiJlZGwiLCJhc3N1cmFuY2VfbGV2ZWwiOjN9.3FJrUce5xVkMqrpPemlmEncWgFossHLgPN88NVjlvNJDrR0ecCKbdR4PsijS_Px8UVlwlc2oa37TnMpNP5u_sjgLoag8EME3lTUThnMsk4kO3JSOMKVmNRci6Ce-AofN6xBVWcGp_eFyoEA7xutATS1SaumnpKm_iR98-3X3s4cWJZQYcsA_xdRprji6SbBi0zErTNlrVM3X_Wn7XCNxS-21q0KGInztAKwswNGv00C9FAvPEMBpuGjiWTCKBRFmpIDWAsb_SCRwOCaGCtv628JI3PuqsZNBUOwJjJ39vTKg5OBmWHfG5JP60FbsKlmRJFtmKiUYaAsvBoqj7cdytA
+</code></pre><p>설마 싶겠지만 악의적인 사용자가 토큰을 탈취해서 서버에 요청을 폭격하듯 쏘아버리면 토큰을 빼앗긴 사람이 범인으로 지목된다.</p><h3 id=mur>MUR</h3><pre><code>function GHRSSTMUR(filename, day)
+    cmr = &quot;https://cmr.earthdata.nasa.gov/search/granules.umm_json&quot;
     d1 = DateTime(day)
     d2 = d1 + Day(1)
 
-    q = [&#34;collection_concept_id&#34;=&gt;MUR_CID,
-         &#34;temporal&#34;=&gt;&#34;$(d1)Z,$(d2)Z&#34;,
-         &#34;page_size&#34;=&gt;&#34;10&#34;]
+    q = [&quot;collection_concept_id&quot;=&gt;MUR_CID,
+         &quot;temporal&quot;=&gt;&quot;$(d1)Z,$(d2)Z&quot;,
+         &quot;page_size&quot;=&gt;&quot;10&quot;]
 
     j = JSON3.read(HTTP.get(cmr; query=q, headers=AUTH_HEADER).body)
 
-    tag = Dates.format(day, &#34;yyyymmdd&#34;)
+    tag = Dates.format(day, &quot;yyyymmdd&quot;)
     urls = [u.URL for g in j.items for u in g.umm.RelatedUrls
-            if u.Type == &#34;GET DATA&#34; &amp;&amp; occursin(tag, u.URL)]
+            if u.Type == &quot;GET DATA&quot; &amp;&amp; occursin(tag, u.URL)]
 
-    isempty(urls) &amp;&amp; error(&#34;No MUR granule found for $day&#34;)
+    isempty(urls) &amp;&amp; error(&quot;No MUR granule found for $day&quot;)
 
     r = HTTP.get(urls[1]; headers=AUTH_HEADER)
-    tmp = tempname() * &#34;.nc&#34;
+    tmp = tempname() * &quot;.nc&quot;
 
-    open(tmp, &#34;w&#34;) do f
+    open(tmp, &quot;w&quot;) do f
         write(f, r.body)
     end
 
     ds = NCDataset(tmp)
 
-    lat = ds[&#34;lat&#34;][:]
-    lon = ds[&#34;lon&#34;][:]
-    sst0 = ds[&#34;analysed_sst&#34;][:, :, 1]
+    lat = ds[&quot;lat&quot;][:]
+    lon = ds[&quot;lon&quot;][:]
+    sst0 = ds[&quot;analysed_sst&quot;][:, :, 1]
 
     target_lon = collect(-170.0:0.25:-120.0)
     target_lat = collect(-5.0:0.25:5.0)
@@ -51,72 +51,72 @@ const MUR_CID = &#34;C1996881146-POCLOUD&#34;
 
     sst = reshape(sst, length(target_lon), length(target_lat), 1)
 
-    NCDataset(filename, &#34;c&#34;) do out
-        defDim(out, &#34;lon&#34;, length(target_lon))
-        defDim(out, &#34;lat&#34;, length(target_lat))
-        defDim(out, &#34;time&#34;, 1)
+    NCDataset(filename, &quot;c&quot;) do out
+        defDim(out, &quot;lon&quot;, length(target_lon))
+        defDim(out, &quot;lat&quot;, length(target_lat))
+        defDim(out, &quot;time&quot;, 1)
 
-        defVar(out, &#34;lon&#34;, target_lon, (&#34;lon&#34;,))
-        defVar(out, &#34;lat&#34;, target_lat, (&#34;lat&#34;,))
-        defVar(out, &#34;time&#34;, [d1], (&#34;time&#34;,))
+        defVar(out, &quot;lon&quot;, target_lon, (&quot;lon&quot;,))
+        defVar(out, &quot;lat&quot;, target_lat, (&quot;lat&quot;,))
+        defVar(out, &quot;time&quot;, [d1], (&quot;time&quot;,))
 
-        defVar(out, &#34;analysed_sst&#34;, sst,
-               (&#34;lon&#34;, &#34;lat&#34;, &#34;time&#34;))
+        defVar(out, &quot;analysed_sst&quot;, sst,
+               (&quot;lon&quot;, &quot;lat&quot;, &quot;time&quot;))
 
-        out[&#34;analysed_sst&#34;].attrib[&#34;units&#34;] = &#34;degree_Celsius&#34;
+        out[&quot;analysed_sst&quot;].attrib[&quot;units&quot;] = &quot;degree_Celsius&quot;
     end
 end
 
 
 day_ = setdiff((Date(2020, 1, 1):Date(2026, 1, 16)),
-       [Date(d[1:end-4]) for d in readdir(&#34;G:/seasurface/podaacT&#34;)])
+       [Date(d[1:end-4]) for d in readdir(&quot;G:/seasurface/podaacT&quot;)])
 @showprogress for day in day_
     try
-        if !isfile(&#34;G:/seasurface/podaacT/$day.nc4&#34;)
-            GHRSSTMUR(&#34;G:/seasurface/podaacT/$day.nc4&#34;, day)
+        if !isfile(&quot;G:/seasurface/podaacT/$day.nc4&quot;)
+            GHRSSTMUR(&quot;G:/seasurface/podaacT/$day.nc4&quot;, day)
         else
-            @info &#34;Skipping GHRSSTMUR for $day&#34;
+            @info &quot;Skipping GHRSSTMUR for $day&quot;
         end
     catch e
-        @warn &#34;GHRSSTMUR failed for $day: $e&#34;
+        @warn &quot;GHRSSTMUR failed for $day: $e&quot;
     end
 end
-</code></pre><p>가령 위의 코드는 2020년 1월 1일부터 2026년 1월 16일까지의 해수면온도를 받아내는 코드다. 이미 저장된 날짜는 제외하고, 다운로드한 파일에서 필요한 영역을 추출한다.</p><p><code>target_lon</code>과 <code>target_lat</code>은 각각 경도와 위도를 지정한다. 여기서는 0.25° 간격의 격자점에 가장 가까운 원본 격자점을 선택하고, 온도에서 273.15를 빼서 섭씨로 바꾸고 있다. 원본 파일 전체를 받은 다음 영역을 추출하는 방식이라는 점에 주의하자.</p><h3 id=oscar>OSCAR</h3><pre tabindex=0><code>function OSCAR25(filename, day)
-    cmr = &#34;https://cmr.earthdata.nasa.gov/search/granules.umm_json&#34;
+</code></pre><p>가령 위의 코드는 2020년 1월 1일부터 2026년 1월 16일까지의 해수면온도를 받아내는 코드다. 이미 저장된 날짜는 제외하고, 다운로드한 파일에서 필요한 영역을 추출한다.</p><p><code>target_lon</code>과 <code>target_lat</code>은 각각 경도와 위도를 지정한다. 여기서는 0.25° 간격의 격자점에 가장 가까운 원본 격자점을 선택하고, 온도에서 273.15를 빼서 섭씨로 바꾸고 있다. 원본 파일 전체를 받은 다음 영역을 추출하는 방식이라는 점에 주의하자.</p><h3 id=oscar>OSCAR</h3><pre><code>function OSCAR25(filename, day)
+    cmr = &quot;https://cmr.earthdata.nasa.gov/search/granules.umm_json&quot;
     cid = OSCAR25_CID
 
     t1 = DateTime(day)
     t2 = t1 + Day(1) - Second(1)
 
-    q = [&#34;collection_concept_id&#34;=&gt;cid,
-         &#34;temporal&#34;=&gt;&#34;$(t1)Z,$(t2)Z&#34;,
-         &#34;page_size&#34;=&gt;&#34;10&#34;]
+    q = [&quot;collection_concept_id&quot;=&gt;cid,
+         &quot;temporal&quot;=&gt;&quot;$(t1)Z,$(t2)Z&quot;,
+         &quot;page_size&quot;=&gt;&quot;10&quot;]
 
     j = JSON3.read(HTTP.get(cmr; query=q, headers=AUTH_HEADER).body)
 
-    tag = Dates.format(day, &#34;yyyymmdd&#34;)
+    tag = Dates.format(day, &quot;yyyymmdd&quot;)
     urls = [u.URL for g in j.items for u in g.umm.RelatedUrls
-            if u.Type == &#34;GET DATA&#34; &amp;&amp; occursin(tag, u.URL)]
+            if u.Type == &quot;GET DATA&quot; &amp;&amp; occursin(tag, u.URL)]
 
-    isempty(urls) &amp;&amp; error(&#34;No OSCAR granule found for $day&#34;)
+    isempty(urls) &amp;&amp; error(&quot;No OSCAR granule found for $day&quot;)
 
     r = HTTP.get(urls[1]; headers=AUTH_HEADER)
-    tmp = tempname() * &#34;.nc&#34;
+    tmp = tempname() * &quot;.nc&quot;
 
-    open(tmp, &#34;w&#34;) do f
+    open(tmp, &quot;w&quot;) do f
         write(f, r.body)
     end
 
     ds = NCDataset(tmp)
 
-    lat = ds[&#34;lat&#34;][:]
-    lon = ds[&#34;lon&#34;][:]
+    lat = ds[&quot;lat&quot;][:]
+    lon = ds[&quot;lon&quot;][:]
 
     ilat = findall((-5 .&lt;= lat) .&amp; (lat .&lt;= 5))
     ilon = findall((190 .&lt;= lon) .&amp; (lon .&lt;= 240))
 
-    u = Array(ds[&#34;ug&#34;][ilat, ilon, 1])
-    v = Array(ds[&#34;vg&#34;][ilat, ilon, 1])
+    u = Array(ds[&quot;ug&quot;][ilat, ilon, 1])
+    v = Array(ds[&quot;vg&quot;][ilat, ilon, 1])
 
     close(ds)
     rm(tmp)
@@ -126,101 +126,101 @@ end
 
     lon_out = lon[ilon] .- 360
 
-    NCDataset(filename, &#34;c&#34;) do out
-        defDim(out, &#34;lon&#34;, length(ilon))
-        defDim(out, &#34;lat&#34;, length(ilat))
-        defDim(out, &#34;time&#34;, 1)
+    NCDataset(filename, &quot;c&quot;) do out
+        defDim(out, &quot;lon&quot;, length(ilon))
+        defDim(out, &quot;lat&quot;, length(ilat))
+        defDim(out, &quot;time&quot;, 1)
 
-        defVar(out, &#34;lon&#34;, lon_out, (&#34;lon&#34;,))
-        defVar(out, &#34;lat&#34;, lat[ilat], (&#34;lat&#34;,))
-        defVar(out, &#34;time&#34;, [string(day)], (&#34;time&#34;,))
+        defVar(out, &quot;lon&quot;, lon_out, (&quot;lon&quot;,))
+        defVar(out, &quot;lat&quot;, lat[ilat], (&quot;lat&quot;,))
+        defVar(out, &quot;time&quot;, [string(day)], (&quot;time&quot;,))
 
-        defVar(out, &#34;u&#34;, u, (&#34;lon&#34;, &#34;lat&#34;, &#34;time&#34;))
-        defVar(out, &#34;v&#34;, v, (&#34;lon&#34;, &#34;lat&#34;, &#34;time&#34;))
+        defVar(out, &quot;u&quot;, u, (&quot;lon&quot;, &quot;lat&quot;, &quot;time&quot;))
+        defVar(out, &quot;v&quot;, v, (&quot;lon&quot;, &quot;lat&quot;, &quot;time&quot;))
 
-        out[&#34;u&#34;].attrib[&#34;units&#34;] = &#34;m s-1&#34;
-        out[&#34;v&#34;].attrib[&#34;units&#34;] = &#34;m s-1&#34;
+        out[&quot;u&quot;].attrib[&quot;units&quot;] = &quot;m s-1&quot;
+        out[&quot;v&quot;].attrib[&quot;units&quot;] = &quot;m s-1&quot;
     end
 end
 
 @showprogress for day in (Date(2020, 1, 1):Date(2026, 8, 1))
     try
-        if !isfile(&#34;G:/seasurface/podaacUV/$day.nc4&#34;)
-            OSCAR25(&#34;G:/seasurface/podaacUV/$day.nc4&#34;, day)
+        if !isfile(&quot;G:/seasurface/podaacUV/$day.nc4&quot;)
+            OSCAR25(&quot;G:/seasurface/podaacUV/$day.nc4&quot;, day)
         end
     catch e
-        @warn &#34;OSCAR25 failed for $day: $e&#34;
+        @warn &quot;OSCAR25 failed for $day: $e&quot;
     end
 end
-</code></pre><p>한편 해류는 <code>ug</code>와 <code>vg</code>를 가져온다. 위의 코드에서는 경도가 0~360°로 주어지는 것을 고려해서 190~240°를 선택하고, 저장할 때 360°를 빼서 -170~-120°로 맞추고 있다.</p><p>또한 원본의 위도 × 경도 순서를 바꾸어서, 앞서 저장한 해수면온도와 같이 경도 × 위도 × 시간 순서로 저장한다.</p><h3 id=ncdatasetsjl><code>NCDatasets.jl</code></h3><pre tabindex=0><code>days = Date.(first.(split.(readdir(&#34;G:/seasurface/podaacT&#34;), &#34;.&#34;)))
-temp = NCDataset(&#34;G:/seasurface/podaacT/2020-01-01.nc4&#34;)
+</code></pre><p>한편 해류는 <code>ug</code>와 <code>vg</code>를 가져온다. 위의 코드에서는 경도가 0~360°로 주어지는 것을 고려해서 190~240°를 선택하고, 저장할 때 360°를 빼서 -170~-120°로 맞추고 있다.</p><p>또한 원본의 위도 × 경도 순서를 바꾸어서, 앞서 저장한 해수면온도와 같이 경도 × 위도 × 시간 순서로 저장한다.</p><h3 id=ncdatasetsjl><code>NCDatasets.jl</code></h3><pre><code>days = Date.(first.(split.(readdir(&quot;G:/seasurface/podaacT&quot;), &quot;.&quot;)))
+temp = NCDataset(&quot;G:/seasurface/podaacT/2020-01-01.nc4&quot;)
 D = days
-X = temp[&#34;lon&#34;][:]
-Y = temp[&#34;lat&#34;][:]
+X = temp[&quot;lon&quot;][:]
+Y = temp[&quot;lat&quot;][:]
 nX = length(X)
 nY = length(Y)
 close(temp)
 
-nino34T = DataFrame(zeros(length(days), nX*nY), [&#34;k$k&#34; for k in 1:nX*nY])
+nino34T = DataFrame(zeros(length(days), nX*nY), [&quot;k$k&quot; for k in 1:nX*nY])
 nino34U, nino34V = deepcopy(nino34T), deepcopy(nino34T)
 T = zeros(nY, nX, length(days))
 U, V = deepcopy(T), deepcopy(T)
 @showprogress for t in eachindex(days)
     day = days[t]
-    filenameT = &#34;G:/seasurface/podaacT/$(string(day)).nc4&#34;
-    filenameUV = &#34;G:/seasurface/podaacUV/$(string(day)).nc4&#34;
+    filenameT = &quot;G:/seasurface/podaacT/$(string(day)).nc4&quot;
+    filenameUV = &quot;G:/seasurface/podaacUV/$(string(day)).nc4&quot;
 
     NCDataset(filenameT) do ds
-        T[:, :, t] = ds[&#34;analysed_sst&#34;][:, :, 1]&#39;
-        nino34T[t, :] = ds[&#34;analysed_sst&#34;][:, :, 1][:]&#39;
+        T[:, :, t] = ds[&quot;analysed_sst&quot;][:, :, 1]'
+        nino34T[t, :] = ds[&quot;analysed_sst&quot;][:, :, 1][:]'
     end
     NCDataset(filenameUV) do ds
-        U[:, :, t] = ds[&#34;u&#34;][:, :, 1]&#39;
-        V[:, :, t] = ds[&#34;v&#34;][:, :, 1]&#39;
+        U[:, :, t] = ds[&quot;u&quot;][:, :, 1]'
+        V[:, :, t] = ds[&quot;v&quot;][:, :, 1]'
         nino34U[t, :] = U[:, :, t]
         nino34V[t, :] = V[:, :, t]
     end
 end
-</code></pre><p>저장한 파일은 <code>NCDatasets.jl</code>로 다시 읽을 수 있다. 위의 코드에서는 해수면온도와 두 방향의 해류를 각각 <code>T</code>, <code>U</code>, <code>V</code>에 담고 있다. 이때 배열은 위도 × 경도 × 시간 순서로 바꾸고, CSV로 저장할 데이터프레임도 함께 만든다.</p><h3 id=저장>저장</h3><pre tabindex=0><code>time = DataFrame(date = D)
-CSV.write(&#34;G:/seasurface/nino34T.csv&#34;, [time nino34T])
-CSV.write(&#34;G:/seasurface/nino34U.csv&#34;, [time nino34U])
-CSV.write(&#34;G:/seasurface/nino34V.csv&#34;, [time nino34V])
-</code></pre><p><code>CSV.jl</code>을 통해 날짜와 격자별 값을 데이터프레임으로 저장할 수 있다.</p><h3 id=전체-코드>전체 코드</h3><pre tabindex=0><code>using HTTP, JSON3, NCDatasets, DataFrames, Dates, CSV, JLD2, StatsBase, ProgressMeter
+</code></pre><p>저장한 파일은 <code>NCDatasets.jl</code>로 다시 읽을 수 있다. 위의 코드에서는 해수면온도와 두 방향의 해류를 각각 <code>T</code>, <code>U</code>, <code>V</code>에 담고 있다. 이때 배열은 위도 × 경도 × 시간 순서로 바꾸고, CSV로 저장할 데이터프레임도 함께 만든다.</p><h3 id=저장>저장</h3><pre><code>time = DataFrame(date = D)
+CSV.write(&quot;G:/seasurface/nino34T.csv&quot;, [time nino34T])
+CSV.write(&quot;G:/seasurface/nino34U.csv&quot;, [time nino34U])
+CSV.write(&quot;G:/seasurface/nino34V.csv&quot;, [time nino34V])
+</code></pre><p><code>CSV.jl</code>을 통해 날짜와 격자별 값을 데이터프레임으로 저장할 수 있다.</p><h3 id=전체-코드>전체 코드</h3><pre><code>using HTTP, JSON3, NCDatasets, DataFrames, Dates, CSV, JLD2, StatsBase, ProgressMeter
 using Base.Threads
-const EDL_TOKEN = &#34;여기에 EARTHDATA 인증 토큰을 입력&#34;
-const AUTH_HEADER = [&#34;Authorization&#34; =&gt; &#34;Bearer $EDL_TOKEN&#34;]
-const OSCAR25_CID = &#34;C2098858642-POCLOUD&#34;
-const MUR_CID = &#34;C1996881146-POCLOUD&#34;
+const EDL_TOKEN = &quot;여기에 EARTHDATA 인증 토큰을 입력&quot;
+const AUTH_HEADER = [&quot;Authorization&quot; =&gt; &quot;Bearer $EDL_TOKEN&quot;]
+const OSCAR25_CID = &quot;C2098858642-POCLOUD&quot;
+const MUR_CID = &quot;C1996881146-POCLOUD&quot;
 
 function GHRSSTMUR(filename, day)
-    cmr = &#34;https://cmr.earthdata.nasa.gov/search/granules.umm_json&#34;
+    cmr = &quot;https://cmr.earthdata.nasa.gov/search/granules.umm_json&quot;
     d1 = DateTime(day)
     d2 = d1 + Day(1)
 
-    q = [&#34;collection_concept_id&#34;=&gt;MUR_CID,
-         &#34;temporal&#34;=&gt;&#34;$(d1)Z,$(d2)Z&#34;,
-         &#34;page_size&#34;=&gt;&#34;10&#34;]
+    q = [&quot;collection_concept_id&quot;=&gt;MUR_CID,
+         &quot;temporal&quot;=&gt;&quot;$(d1)Z,$(d2)Z&quot;,
+         &quot;page_size&quot;=&gt;&quot;10&quot;]
 
     j = JSON3.read(HTTP.get(cmr; query=q, headers=AUTH_HEADER).body)
 
-    tag = Dates.format(day, &#34;yyyymmdd&#34;)
+    tag = Dates.format(day, &quot;yyyymmdd&quot;)
     urls = [u.URL for g in j.items for u in g.umm.RelatedUrls
-            if u.Type == &#34;GET DATA&#34; &amp;&amp; occursin(tag, u.URL)]
+            if u.Type == &quot;GET DATA&quot; &amp;&amp; occursin(tag, u.URL)]
 
-    isempty(urls) &amp;&amp; error(&#34;No MUR granule found for $day&#34;)
+    isempty(urls) &amp;&amp; error(&quot;No MUR granule found for $day&quot;)
 
     r = HTTP.get(urls[1]; headers=AUTH_HEADER)
-    tmp = tempname() * &#34;.nc&#34;
+    tmp = tempname() * &quot;.nc&quot;
 
-    open(tmp, &#34;w&#34;) do f
+    open(tmp, &quot;w&quot;) do f
         write(f, r.body)
     end
 
     ds = NCDataset(tmp)
 
-    lat = ds[&#34;lat&#34;][:]
-    lon = ds[&#34;lon&#34;][:]
-    sst0 = ds[&#34;analysed_sst&#34;][:, :, 1]
+    lat = ds[&quot;lat&quot;][:]
+    lon = ds[&quot;lon&quot;][:]
+    sst0 = ds[&quot;analysed_sst&quot;][:, :, 1]
 
     target_lon = collect(-170.0:0.25:-120.0)
     target_lat = collect(-5.0:0.25:5.0)
@@ -235,74 +235,74 @@ function GHRSSTMUR(filename, day)
 
     sst = reshape(sst, length(target_lon), length(target_lat), 1)
 
-    NCDataset(filename, &#34;c&#34;) do out
-        defDim(out, &#34;lon&#34;, length(target_lon))
-        defDim(out, &#34;lat&#34;, length(target_lat))
-        defDim(out, &#34;time&#34;, 1)
+    NCDataset(filename, &quot;c&quot;) do out
+        defDim(out, &quot;lon&quot;, length(target_lon))
+        defDim(out, &quot;lat&quot;, length(target_lat))
+        defDim(out, &quot;time&quot;, 1)
 
-        defVar(out, &#34;lon&#34;, target_lon, (&#34;lon&#34;,))
-        defVar(out, &#34;lat&#34;, target_lat, (&#34;lat&#34;,))
-        defVar(out, &#34;time&#34;, [d1], (&#34;time&#34;,))
+        defVar(out, &quot;lon&quot;, target_lon, (&quot;lon&quot;,))
+        defVar(out, &quot;lat&quot;, target_lat, (&quot;lat&quot;,))
+        defVar(out, &quot;time&quot;, [d1], (&quot;time&quot;,))
 
-        defVar(out, &#34;analysed_sst&#34;, sst,
-               (&#34;lon&#34;, &#34;lat&#34;, &#34;time&#34;))
+        defVar(out, &quot;analysed_sst&quot;, sst,
+               (&quot;lon&quot;, &quot;lat&quot;, &quot;time&quot;))
 
-        out[&#34;analysed_sst&#34;].attrib[&#34;units&#34;] = &#34;degree_Celsius&#34;
+        out[&quot;analysed_sst&quot;].attrib[&quot;units&quot;] = &quot;degree_Celsius&quot;
     end
 end
 
 
 day_ = setdiff((Date(2020, 1, 1):Date(2026, 1, 16)),
-       [Date(d[1:end-4]) for d in readdir(&#34;G:/seasurface/podaacT&#34;)])
+       [Date(d[1:end-4]) for d in readdir(&quot;G:/seasurface/podaacT&quot;)])
 @showprogress for day in day_
     try
-        if !isfile(&#34;G:/seasurface/podaacT/$day.nc4&#34;)
-            GHRSSTMUR(&#34;G:/seasurface/podaacT/$day.nc4&#34;, day)
+        if !isfile(&quot;G:/seasurface/podaacT/$day.nc4&quot;)
+            GHRSSTMUR(&quot;G:/seasurface/podaacT/$day.nc4&quot;, day)
         else
-            @info &#34;Skipping GHRSSTMUR for $day&#34;
+            @info &quot;Skipping GHRSSTMUR for $day&quot;
         end
     catch e
-        @warn &#34;GHRSSTMUR failed for $day: $e&#34;
+        @warn &quot;GHRSSTMUR failed for $day: $e&quot;
     end
 end
 
 
 function OSCAR25(filename, day)
-    cmr = &#34;https://cmr.earthdata.nasa.gov/search/granules.umm_json&#34;
+    cmr = &quot;https://cmr.earthdata.nasa.gov/search/granules.umm_json&quot;
     cid = OSCAR25_CID
 
     t1 = DateTime(day)
     t2 = t1 + Day(1) - Second(1)
 
-    q = [&#34;collection_concept_id&#34;=&gt;cid,
-         &#34;temporal&#34;=&gt;&#34;$(t1)Z,$(t2)Z&#34;,
-         &#34;page_size&#34;=&gt;&#34;10&#34;]
+    q = [&quot;collection_concept_id&quot;=&gt;cid,
+         &quot;temporal&quot;=&gt;&quot;$(t1)Z,$(t2)Z&quot;,
+         &quot;page_size&quot;=&gt;&quot;10&quot;]
 
     j = JSON3.read(HTTP.get(cmr; query=q, headers=AUTH_HEADER).body)
 
-    tag = Dates.format(day, &#34;yyyymmdd&#34;)
+    tag = Dates.format(day, &quot;yyyymmdd&quot;)
     urls = [u.URL for g in j.items for u in g.umm.RelatedUrls
-            if u.Type == &#34;GET DATA&#34; &amp;&amp; occursin(tag, u.URL)]
+            if u.Type == &quot;GET DATA&quot; &amp;&amp; occursin(tag, u.URL)]
 
-    isempty(urls) &amp;&amp; error(&#34;No OSCAR granule found for $day&#34;)
+    isempty(urls) &amp;&amp; error(&quot;No OSCAR granule found for $day&quot;)
 
     r = HTTP.get(urls[1]; headers=AUTH_HEADER)
-    tmp = tempname() * &#34;.nc&#34;
+    tmp = tempname() * &quot;.nc&quot;
 
-    open(tmp, &#34;w&#34;) do f
+    open(tmp, &quot;w&quot;) do f
         write(f, r.body)
     end
 
     ds = NCDataset(tmp)
 
-    lat = ds[&#34;lat&#34;][:]
-    lon = ds[&#34;lon&#34;][:]
+    lat = ds[&quot;lat&quot;][:]
+    lon = ds[&quot;lon&quot;][:]
 
     ilat = findall((-5 .&lt;= lat) .&amp; (lat .&lt;= 5))
     ilon = findall((190 .&lt;= lon) .&amp; (lon .&lt;= 240))
 
-    u = Array(ds[&#34;ug&#34;][ilat, ilon, 1])
-    v = Array(ds[&#34;vg&#34;][ilat, ilon, 1])
+    u = Array(ds[&quot;ug&quot;][ilat, ilon, 1])
+    v = Array(ds[&quot;vg&quot;][ilat, ilon, 1])
 
     close(ds)
     rm(tmp)
@@ -312,68 +312,68 @@ function OSCAR25(filename, day)
 
     lon_out = lon[ilon] .- 360
 
-    NCDataset(filename, &#34;c&#34;) do out
-        defDim(out, &#34;lon&#34;, length(ilon))
-        defDim(out, &#34;lat&#34;, length(ilat))
-        defDim(out, &#34;time&#34;, 1)
+    NCDataset(filename, &quot;c&quot;) do out
+        defDim(out, &quot;lon&quot;, length(ilon))
+        defDim(out, &quot;lat&quot;, length(ilat))
+        defDim(out, &quot;time&quot;, 1)
 
-        defVar(out, &#34;lon&#34;, lon_out, (&#34;lon&#34;,))
-        defVar(out, &#34;lat&#34;, lat[ilat], (&#34;lat&#34;,))
-        defVar(out, &#34;time&#34;, [string(day)], (&#34;time&#34;,))
+        defVar(out, &quot;lon&quot;, lon_out, (&quot;lon&quot;,))
+        defVar(out, &quot;lat&quot;, lat[ilat], (&quot;lat&quot;,))
+        defVar(out, &quot;time&quot;, [string(day)], (&quot;time&quot;,))
 
-        defVar(out, &#34;u&#34;, u, (&#34;lon&#34;, &#34;lat&#34;, &#34;time&#34;))
-        defVar(out, &#34;v&#34;, v, (&#34;lon&#34;, &#34;lat&#34;, &#34;time&#34;))
+        defVar(out, &quot;u&quot;, u, (&quot;lon&quot;, &quot;lat&quot;, &quot;time&quot;))
+        defVar(out, &quot;v&quot;, v, (&quot;lon&quot;, &quot;lat&quot;, &quot;time&quot;))
 
-        out[&#34;u&#34;].attrib[&#34;units&#34;] = &#34;m s-1&#34;
-        out[&#34;v&#34;].attrib[&#34;units&#34;] = &#34;m s-1&#34;
+        out[&quot;u&quot;].attrib[&quot;units&quot;] = &quot;m s-1&quot;
+        out[&quot;v&quot;].attrib[&quot;units&quot;] = &quot;m s-1&quot;
     end
 end
 
 @showprogress for day in (Date(2020, 1, 1):Date(2026, 8, 1))
     try
-        if !isfile(&#34;G:/seasurface/podaacUV/$day.nc4&#34;)
-            OSCAR25(&#34;G:/seasurface/podaacUV/$day.nc4&#34;, day)
+        if !isfile(&quot;G:/seasurface/podaacUV/$day.nc4&quot;)
+            OSCAR25(&quot;G:/seasurface/podaacUV/$day.nc4&quot;, day)
         end
     catch e
-        @warn &#34;OSCAR25 failed for $day: $e&#34;
+        @warn &quot;OSCAR25 failed for $day: $e&quot;
     end
 end
 
 
-days = Date.(first.(split.(readdir(&#34;G:/seasurface/podaacT&#34;), &#34;.&#34;)))
-temp = NCDataset(&#34;G:/seasurface/podaacT/2020-01-01.nc4&#34;)
+days = Date.(first.(split.(readdir(&quot;G:/seasurface/podaacT&quot;), &quot;.&quot;)))
+temp = NCDataset(&quot;G:/seasurface/podaacT/2020-01-01.nc4&quot;)
 D = days
-X = temp[&#34;lon&#34;][:]
-Y = temp[&#34;lat&#34;][:]
+X = temp[&quot;lon&quot;][:]
+Y = temp[&quot;lat&quot;][:]
 nX = length(X)
 nY = length(Y)
 close(temp)
 
-nino34T = DataFrame(zeros(length(days), nX*nY), [&#34;k$k&#34; for k in 1:nX*nY])
+nino34T = DataFrame(zeros(length(days), nX*nY), [&quot;k$k&quot; for k in 1:nX*nY])
 nino34U, nino34V = deepcopy(nino34T), deepcopy(nino34T)
 T = zeros(nY, nX, length(days))
 U, V = deepcopy(T), deepcopy(T)
 @showprogress for t in eachindex(days)
     day = days[t]
-    filenameT = &#34;G:/seasurface/podaacT/$(string(day)).nc4&#34;
-    filenameUV = &#34;G:/seasurface/podaacUV/$(string(day)).nc4&#34;
+    filenameT = &quot;G:/seasurface/podaacT/$(string(day)).nc4&quot;
+    filenameUV = &quot;G:/seasurface/podaacUV/$(string(day)).nc4&quot;
 
     NCDataset(filenameT) do ds
-        T[:, :, t] = ds[&#34;analysed_sst&#34;][:, :, 1]&#39;
-        nino34T[t, :] = ds[&#34;analysed_sst&#34;][:, :, 1][:]&#39;
+        T[:, :, t] = ds[&quot;analysed_sst&quot;][:, :, 1]'
+        nino34T[t, :] = ds[&quot;analysed_sst&quot;][:, :, 1][:]'
     end
     NCDataset(filenameUV) do ds
-        U[:, :, t] = ds[&#34;u&#34;][:, :, 1]&#39;
-        V[:, :, t] = ds[&#34;v&#34;][:, :, 1]&#39;
+        U[:, :, t] = ds[&quot;u&quot;][:, :, 1]'
+        V[:, :, t] = ds[&quot;v&quot;][:, :, 1]'
         nino34U[t, :] = U[:, :, t]
         nino34V[t, :] = V[:, :, t]
     end
 end
 
 time = DataFrame(date = D)
-CSV.write(&#34;G:/seasurface/nino34T.csv&#34;, [time nino34T])
-CSV.write(&#34;G:/seasurface/nino34U.csv&#34;, [time nino34U])
-CSV.write(&#34;G:/seasurface/nino34V.csv&#34;, [time nino34V])
+CSV.write(&quot;G:/seasurface/nino34T.csv&quot;, [time nino34T])
+CSV.write(&quot;G:/seasurface/nino34U.csv&quot;, [time nino34U])
+CSV.write(&quot;G:/seasurface/nino34V.csv&quot;, [time nino34V])
 
 
 ∂x(M) = (circshift(M, (0, -1)) - circshift(M, (0, 1)))
@@ -382,8 +382,8 @@ CSV.write(&#34;G:/seasurface/nino34V.csv&#34;, [time nino34V])
 ∂yy(M) = (circshift(M, (-1, 0)) - 2M + circshift(M, (1, 0)))
 
 _T, _U, _V = deepcopy(T), deepcopy(U), deepcopy(V)
-@time for M = [&#34;T&#34;, &#34;U&#34;, &#34;V&#34;]
-&#34;&#34;&#34;
+@time for M = [&quot;T&quot;, &quot;U&quot;, &quot;V&quot;]
+&quot;&quot;&quot;
 begin
     _d$(M) = diff(_$(M), dims = 3)
     _$(M)x = ∂x(_$(M))[:, :, 1:end-1]
@@ -393,13 +393,13 @@ begin
 
     _$(M) = _$(M)[:, :, 1:end-1]
 end
-&#34;&#34;&#34; |&gt; Meta.parse |&gt; eval
+&quot;&quot;&quot; |&gt; Meta.parse |&gt; eval
 end
 
-JLD2.@save &#34;G:/seasurface/nino34TUV.jld2&#34; D X Y nX nY _dT _dU _dV _T _U _V _Tx _Ty _Txx _Tyy _Ux _Uy _Uxx _Uyy _Vx _Vy _Vxx _Vyy
+JLD2.@save &quot;G:/seasurface/nino34TUV.jld2&quot; D X Y nX nY _dT _dU _dV _T _U _V _Tx _Ty _Txx _Tyy _Ux _Uy _Uxx _Uyy _Vx _Vy _Vxx _Vyy
 </code></pre><aside style=text-align:right>2026-11-08&emsp;
 류대식&emsp;
-<a href=../621>🎲 2921</a></aside><script>document.addEventListener("DOMContentLoaded",()=>{const s=document.querySelector(".content-box");s&&renderKaTex(s);const o=document.querySelector(".tex");o&&renderKaTex(o);var n,r,i="줄리아에서 HTTP 프로토콜을 통해 EARTHDATA 데이터 다운로드 받는 법",c="https://freshrimpsushi.github.io/ko/posts/2921/",t=new Array,a={title:i,link:c},e=JSON.parse(localStorage.getItem("latelyViewPostList"));if(e==""||e==null||e==null||e==0||e==NaN)t.push(a),localStorage.setItem("latelyViewPostList",JSON.stringify(t));else{for(r=e.length,n=0;n<r;n++)if(i==e[n].title){e.splice(n,1);break}t=e,t.push(a),t.length>5&&t.shift(),localStorage.setItem("latelyViewPostList",JSON.stringify(t))}})</script></div><aside><h2>댓글</h2><div class=area-reply><div class=list-reply></div></div><div class=write-box><div class="write-author-info box-account"><input type=hidden name=cmt_idx>
+<a href=../1955>🎲 2921</a></aside><script>document.addEventListener("DOMContentLoaded",()=>{const s=document.querySelector(".content-box");s&&renderKaTex(s);const o=document.querySelector(".tex");o&&renderKaTex(o);var n,r,i="줄리아에서 HTTP 프로토콜을 통해 EARTHDATA 데이터 다운로드 받는 법",c="https://freshrimpsushi.github.io/ko/posts/2921/",t=new Array,a={title:i,link:c},e=JSON.parse(localStorage.getItem("latelyViewPostList"));if(e==""||e==null||e==null||e==0||e==NaN)t.push(a),localStorage.setItem("latelyViewPostList",JSON.stringify(t));else{for(r=e.length,n=0;n<r;n++)if(i==e[n].title){e.splice(n,1);break}t=e,t.push(a),t.length>5&&t.shift(),localStorage.setItem("latelyViewPostList",JSON.stringify(t))}})</script></div><aside><h2>댓글</h2><div class=area-reply><div class=list-reply></div></div><div class=write-box><div class="write-author-info box-account"><input type=hidden name=cmt_idx>
 <input class=ai-author type=text placeholder=Name>
 <input class=ai-password type=password maxlength=20 placeholder=Password></div><div class=write-content><textarea class=ai-content value placeholder=내용 style=ime-mode:active></textarea></div><button class=write-button onclick=write_comment() aria-label=send><i class='fa-solid fa-paper-plane'></i></button><aside class=tex>댓글에도 $\TeX$이 적용됩니다.</aside></div></aside><script>let commentRows=[];const listReply=document.querySelector(".list-reply");document.addEventListener("DOMContentLoaded",()=>{get_all_comment()});function get_all_comment(){fetch("https://api64.ipify.org?format=json").then(e=>e.json()).then(e=>e.ip).then(e=>{const t="https://freshrimpsushi.com/blog/ajax/comment.php?action=getAllComment";return postFetch(t,{board_idx:"2921",user_ip:e})}).then(e=>e.json()).then(e=>{e.ok&&(commentRows=e.rows,render_comment(commentRows))}).catch(e=>console.error(e))}function render_comment(e){const n=["류대식","전기현","ㅇㅇ","질문"],s=["류대식","전기현"];render_blank();let t="";e.map(e=>{t+=`<div id="comment${e.cmt_idx}" class="parents">`,t+=`<div class="content-info">`;let o="";e.cmt_cnt>125?o="🥇":e.cmt_cnt>25?o="🥈":e.cmt_cnt>5&&(o="🥉"),n.includes(e.author)&&(o="");let i="";e.ip_address==null?i="(-)":(ipParts=e.ip_address.split("."),i=`(${ipParts[0]}.${ipParts[1]})`),s.includes(e.author)&&(i=""),t+=`<div class="list-author">${o} ${e.author} ${i}</div>`,t+=`<sup class="list-date">${e.datetime.slice(2,-3)}</sup>`,t+=`<div class="list-button">`,t+=`<div class="list-update-button" onclick="update_comment('${e.cmt_idx}', 'parents');"><i class="fa-solid fa-pen-to-square"></i></div>`,t+=`<div class="list-delete-button" onclick="delete_comment('${e.cmt_idx}', 'parents');"><i class="fa-solid fa-trash"></i></div>`,t+=`</div>`,t+=`</div>`,e.approve||(t+=`<div style="text-align: right;"><i class="fa-solid fa-hourglass"></i> 관리자의 승인을 기다리고 있습니다</div>`);let a=e.content;a=a.replace(/\n/g,"<br />"),t+=`<div class="content-text">${a} <span class="re-comment-button" onclick="re_comment('${e.cmt_idx}');"><i class="fa-solid fa-reply" style="cursor: pointer;"></i></span></div>`,t+=`<div class="re-comment"></div>`,t+=`</div>`,e.child.map(o=>{let c="child";e.ip_address&&o.ip_address===e.ip_address&&(c="parentself"),t+=`<div id="comment${o.cmt_idx}" class="${c}">`,t+=`<div class="content-info">`;let i="";o.cmt_cnt>5?i="🥉":o.cmt_cnt>25?i="🥈":o.cmt_cnt>125&&(i="🥇"),n.includes(o.author)&&(i="");let a="";o.ip_address==null?a="(-)":a=`(${o.ip_address})`,s.includes(o.author)&&(a=""),t+=`<div class="list-author">${i} ${o.author} ${a}</div>`,t+=`<sup class="list-date">${o.datetime.slice(2,-3)}</sup>`,t+=`<div class="list-button">`,t+=`<div class="list-update-button" onclick="update_comment('${o.cmt_idx}', 'child');"><i class="fa-solid fa-pen-to-square"></i></div>`,t+=`<div class="list-delete-button" onclick="delete_comment('${o.cmt_idx}', 'child');"><i class="fa-solid fa-trash"></i></div>`,t+=`</div>`,t+=`</div>`,o.approve||(t+=`<div style="text-align: right;"><i class="fa-solid fa-hourglass"></i> 관리자의 승인을 기다리고 있습니다</div>`);let r=o.content;r=r.replace(/\n/g,"<br />"),t+=`<div class="content-text">${r} <span class="re-comment-button" onclick="re_comment('${o.cmt_idx}', '${e.cmt_idx}');"><i class="fa-solid fa-reply" style="cursor: pointer;"></i></span></div>`,t+=`<div class="re-comment"></div>`,t+=`</div>`})}),listReply.innerHTML=t,renderKaTex(listReply),location.href.indexOf("#")!=-1&&(location.href=location.href.substr(location.href.indexOf("#")))}function render_blank(){listReply.innerHTML=""}function write_comment(){const e=document.querySelector(".ai-author"),t=document.querySelector(".ai-password"),n=document.querySelector(".ai-content"),s=e.value,o=t.value,i=n.value;if(s===""||o===""||i===""){alert("빈칸을 채워주세요");return}const a="2921",r="",c="줄리아에서 HTTP 프로토콜을 통해 EARTHDATA 데이터 다운로드 받는 법";fetch("https://api64.ipify.org?format=json").then(e=>e.json()).then(e=>e.ip).then(e=>{const t="https://freshrimpsushi.com/blog/ajax/comment.php?action=writeComment";return postFetch(t,{board_idx:a,board_slug:r,board_title:c,author:s.replace(/\+/g,"%2B"),password:o,content:i.replace(/\+/g,"%2B"),user_ip:e})}).then(e=>e.json()).then(s=>{s.ok?(commentRows.push(s.row),render_comment(commentRows),e.value="",t.value="",n.value=""):s.status===606?(Swal.fire(`Warning!
 지속적인 도배 시도시
