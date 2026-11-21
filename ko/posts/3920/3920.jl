@@ -43,7 +43,7 @@ p2 = plot(R, fc.(R, Rc), lw = 2, c = RGB(0, 0, 0.6), label = L"f_{c}(R)",
           xlabel = L"R", framestyle = :box, gridalpha = 0.15,
           legend = :topright, legendfontsize = 10, tickfontsize = 7, guidefontsize = 8,
           size = (700, 300), margin = 2Plots.mm, dpi = 300)
-plot!(p2, R, dfc.(R, Rc), lw = 2, ls = :dash, c = RGB(0.75, 0, 0), label = L"f_{c}'(R)")
+plot!(p2, R, dfc.(R, Rc), lw = 2, ls = :dash, c = RGB(0.75, 0, 0), label = L"f′_{c}(R)")  # GR 은 ' 와 ^{\prime} 을 제대로 못 그려 유니코드 프라임(U+2032)을 쓴다
 vline!(p2, [Rc], ls = :dash, c = :gray, lw = 1, label = "")
 savefig(p2, joinpath(@__DIR__, "3920_2.png"))
 
